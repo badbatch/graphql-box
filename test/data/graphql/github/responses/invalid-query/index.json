@@ -1,0 +1,14 @@
+{
+  "data": null,
+  "errors": [
+    {
+      "message": "Field 'organisation' doesn't exist on type 'Query'",
+      "locations": [
+        {
+          "line": 1,
+          "column": 9
+        }
+      ]
+    }
+  ]
+}

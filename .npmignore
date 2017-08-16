@@ -1,0 +1,5 @@
+.nyc_output/
+.vscode/
+coverage/
+src/
+npm-debug.log

@@ -1,0 +1,49 @@
+{
+  "env": {
+    "browser": {
+      "comments": false,
+      "presets": [
+        ["env", {
+          "debug": true,
+          "targets": { "browsers": "last 4 versions" },
+          "useBuiltIns": true
+        }],
+        "stage-0"
+      ]
+    },
+    "main": {
+      "comments": false,
+      "presets": [
+        ["env", {
+          "debug": true,
+          "targets": { "node": "6" },
+          "useBuiltIns": true
+        }],
+        "stage-0"
+      ]
+    },
+    "module": {
+      "comments": false,
+      "presets": [
+        ["env", {
+          "debug": true,
+          "modules": false,
+          "targets": { "node": "6" },
+          "useBuiltIns": true
+        }],
+        "stage-0"
+      ]
+    },
+    "test": {
+      "plugins": ["istanbul"],
+      "presets": [
+        ["env", {
+          "debug": true,
+          "targets": { "node": "current" },
+          "useBuiltIns": true
+        }],
+        "stage-0"
+      ]
+    }
+  }
+}

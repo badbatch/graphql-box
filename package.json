@@ -1,0 +1,68 @@
+{
+  "name": "handl",
+  "version": "0.0.1",
+  "description": "An isomorphic graphql client and cache.",
+  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/dylanaubrey/handl",
+  "bugs": {
+    "url": "https://github.com/dylanaubrey/handl/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dylanaubrey/handl.git"
+  },
+  "main": "lib/main/index.js",
+  "module": "lib/module/index.js",
+  "browser": "lib/browser/index.js",
+  "keywords": [
+    "graphql",
+    "client",
+    "isomorphic"
+  ],
+  "scripts": {
+    "build": "npm run test && npm run transpile",
+    "clean": "rimraf lib/*",
+    "coverage": "cross-env BABEL_ENV=test ISO_LOG=false nyc mocha test/specs/index.js",
+    "lint": "eslint . --fix",
+    "publish:pkg": "npm run build && npm publish",
+    "test": "npm run lint && npm run coverage",
+    "transpile": "npm run clean && npm run transpile:browser && npm run transpile:main && npm run transpile:module",
+    "transpile:browser": "cross-env BABEL_ENV=browser babel src --out-dir lib/browser --copy-files",
+    "transpile:main": "cross-env BABEL_ENV=main babel src --out-dir lib/main --copy-files",
+    "transpile:module": " cross-env BABEL_ENV=module babel src --out-dir lib/module --copy-files"
+  },
+  "dependencies": {
+    "cachemap": "0.0.5",
+    "es6-promise": "^4.1.1",
+    "graphql": "^0.10.5",
+    "iso-logger": "0.0.8",
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.4",
+    "md5": "^2.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-istanbul": "^4.1.4",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "chai": "^4.0.2",
+    "codecov": "^2.2.0",
+    "cross-env": "^5.0.1",
+    "dirty-chai": "^2.0.0",
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0",
+    "fetch-mock": "^5.12.1",
+    "mocha": "^3.4.2",
+    "nyc": "^11.0.3",
+    "rimraf": "^2.6.1",
+    "sinon": "^2.3.5",
+    "sinon-chai": "^2.11.0"
+  }
+}

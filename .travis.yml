@@ -1,0 +1,19 @@
+dist: trusty
+sudo: required
+language: node_js
+node_js:
+  - "node"
+cache:
+  directories:
+    - "node_modules"
+addons:
+  sonarcloud:
+    organization: "dylanaubrey-github"
+    token:
+      secure: $SONAR_TOKEN
+    github_token:
+      secure: $SONAR_PR_ANALYSIS_TOKEN
+script:
+  - npm test
+  - sonar-scanner
+  - codecov

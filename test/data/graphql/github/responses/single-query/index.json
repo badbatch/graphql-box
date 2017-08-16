@@ -1,0 +1,46 @@
+{
+  "organization": {
+    "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+    "name": "Facebook",
+    "repositories": {
+      "edges": [
+        {
+          "node": {
+            "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+            "name": "codemod"
+          }
+        },
+        {
+          "node": {
+            "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+            "name": "hhvm"
+          }
+        },
+        {
+          "node": {
+            "id": "MDEwOlJlcG9zaXRvcnk0NjI4NTk=",
+            "name": "xhp-lib"
+          }
+        },
+        {
+          "node": {
+            "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+            "name": "pyre2"
+          }
+        },
+        {
+          "node": {
+            "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+            "name": "open-graph-protocol"
+          }
+        },
+        {
+          "node": {
+            "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+            "name": "facebook-android-sdk"
+          }
+        }
+      ]
+    }
+  }
+}
