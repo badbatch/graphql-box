@@ -1,28 +1,49 @@
-import { isArray } from 'lodash';
+import { isArray, isNumber, isString } from 'lodash';
 
 /**
  *
- * @param {string} name
- * @param {Object} args
- * @param {Array<string>} [cachePath]
+ * @param {string} key
+ * @param {any} path
  * @return {string}
  */
-export const buildCacheKey = function buildCacheKey(name, args, cachePath = []) {
-  let key = `${name}`;
-  if (args) key = `${key}(${JSON.stringify(args)})`;
-  cachePath.push(key);
-  return cachePath.join('.');
+const buildPath = function buildPath(key, path) {
+  const _path = isString(path) ? [path] : [];
+  _path.push(key);
+  return _path.join('.');
 };
 
 /**
  *
  * @param {string} name
- * @param {Array<string>} [dataPath]
+ * @param {number} index
+ * @param {Object} args
+ * @param {any} cachePath
  * @return {string}
  */
-export const buildDataKey = function buildDataKey(name, dataPath = []) {
-  dataPath.push(name);
-  return dataPath.join('.');
+export const buildCacheKey = function buildCacheKey(name, index, args, cachePath) {
+  let key = `${isNumber(index) ? index : name}`;
+  if (args) key = `${key}(${JSON.stringify(args)})`;
+  return buildPath(key, cachePath);
+};
+
+/**
+ *
+ * @param {string} name
+ * @param {any} dataPath
+ * @return {string}
+ */
+export const buildDataKey = function buildDataKey(name, dataPath) {
+  return buildPath(name, dataPath);
+};
+
+/**
+ *
+ * @param {string} name
+ * @param {any} queryPath
+ * @return {string}
+ */
+export const buildQueryKey = function buildQueryKey(name, queryPath) {
+  return buildPath(name, queryPath);
 };
 
 /**

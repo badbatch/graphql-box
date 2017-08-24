@@ -165,6 +165,19 @@ export default class Client {
   /**
    *
    * @private
+   * @param {Headers} headers
+   * @return {Map}
+   */
+  _createCacheMetadata(headers) {
+    const cacheability = this._parseCacheHeaders(headers);
+    const cacheMetadata = new Map();
+    cacheMetadata.set('query', cacheability);
+    return cacheMetadata;
+  }
+
+  /**
+   *
+   * @private
    * @param {Document} ast
    * @param {Object} context
    * @return {Promise}
@@ -231,6 +244,17 @@ export default class Client {
   /**
    *
    * @private
+   * @param {Headers} headers
+   * @return {Object}
+   */
+  _parseCacheHeaders(headers) {
+    const cacheHeaders = headers ? headers.get('cache-contro') : this._defaultCacheControl;
+    return this._cache.res.parseCacheHeaders(cacheHeaders);
+  }
+
+  /**
+   *
+   * @private
    * @param {string} query
    * @param {Object} variables
    * @return {Promise}
@@ -284,39 +308,44 @@ export default class Client {
 
     const {
       cachedData,
-      cacheHeaders,
+      cacheMetadata,
       filtered,
       updatedAST,
       updatedQuery,
     } = await this._cache.analyze(hash, ast);
 
     if (cachedData) {
-      this._cache.res.set(hash, cachedData, { cacheHeaders });
-      return this._resolve(hash, cachedData);
+      this._cache.res.set(hash, cachedData, { cacheHeaders: {
+        cacheControl: cacheMetadata.get('query').printCacheControl(),
+      } });
+
+      return this._resolve(hash, cachedData, cacheMetadata);
     }
 
     const res = await this._fetch(updatedQuery, updatedAST, context);
-    if (res.errors) return this._resolve(hash, { errors: res.errors });
-    const headers = this._setCacheHeaders(res.headers);
+    const _cacheMetadata = this._createCacheMetadata(res.headers);
+    if (res.errors) return this._resolve(hash, { errors: res.errors }, _cacheMetadata);
 
-    const resolvedData = await this._cache.resolve(
-      updatedQuery, updatedAST, hash, res.data, headers, { filtered },
+    const resolved = await this._cache.resolve(
+      updatedQuery, updatedAST, hash, res.data, _cacheMetadata, { filtered },
     );
 
-    return this._resolve(hash, resolvedData);
+    return this._resolve(hash, resolved.data, resolved.cacheMetadata);
   }
 
   /**
    *
    * @private
    * @param {string} hash
-   * @param {Object} output
+   * @param {Object} data
+   * @param {Object} cacheMetadata
    * @return {Promise}
    */
-  _resolve(hash, output) {
-    this._resolvePendingRequests(hash, output);
+  _resolve(hash, data) {
+    // TODO: Add cacheMetadata into response.
+    this._resolvePendingRequests(hash, data);
     this._requests.active.delete(hash);
-    return output;
+    return data;
   }
 
   /**
