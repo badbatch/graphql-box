@@ -147,19 +147,19 @@ export default class Client {
    * @return {Promise}
    */
   async _checkResponseCache(hash) {
-    let value;
+    let cacheability, data;
 
     try {
-      const cacheability = await this._cache.res.has(hash);
+      cacheability = await this._cache.res.has(hash);
 
       if (cacheability && !cacheability.noCache && cacheability.check()) {
-        value = await this._cache.res.get(hash);
+        data = await this._cache.res.get(hash);
       }
     } catch (err) {
       logger.error(err);
     }
 
-    return value;
+    return { cacheMetadata: cacheability, data };
   }
 
   /**
@@ -294,8 +294,8 @@ export default class Client {
     const hash = this._cache.hash(query);
 
     if (!opts.forceFetch) {
-      const value = await this._checkResponseCache(hash);
-      if (value) return value;
+      const res = await this._checkResponseCache(hash);
+      if (res.data) return this._resolve(res.data, res.cacheMetadata);
     }
 
     if (this._requests.active.has(hash)) {
@@ -319,33 +319,37 @@ export default class Client {
         cacheControl: cacheMetadata.get('query').printCacheControl(),
       } });
 
-      return this._resolve(hash, cachedData, cacheMetadata);
+      return this._resolve(cachedData, cacheMetadata, hash);
     }
 
     const res = await this._fetch(updatedQuery, updatedAST, context);
     const _cacheMetadata = this._createCacheMetadata(res.headers);
-    if (res.errors) return this._resolve(hash, { errors: res.errors }, _cacheMetadata);
+    if (res.errors) return this._resolve({ errors: res.errors }, _cacheMetadata, hash);
 
     const resolved = await this._cache.resolve(
       updatedQuery, updatedAST, hash, res.data, _cacheMetadata, { filtered },
     );
 
-    return this._resolve(hash, resolved.data, resolved.cacheMetadata);
+    return this._resolve(resolved.data, resolved.cacheMetadata, hash);
   }
 
   /**
    *
    * @private
-   * @param {string} hash
    * @param {Object} data
    * @param {Object} cacheMetadata
-   * @return {Promise}
+   * @param {string} [hash]
+   * @return {Object}
    */
-  _resolve(hash, data) {
-    // TODO: Add cacheMetadata into response.
-    this._resolvePendingRequests(hash, data);
-    this._requests.active.delete(hash);
-    return data;
+  _resolve(data, cacheMetadata, hash) {
+    const output = { data, cacheMetadata };
+
+    if (hash) {
+      this._resolvePendingRequests(hash, output);
+      this._requests.active.delete(hash);
+    }
+
+    return output;
   }
 
   /**
