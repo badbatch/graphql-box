@@ -149,19 +149,20 @@ export default class Cache {
    * @private
    * @param {Object} field
    * @param {Map} checkList
+   * @param {string} queryPath
    * @return {boolean}
    */
-  _filterField(field, checkList) {
+  _filterField(field, checkList, queryPath) {
     const childFields = getChildFields(field);
 
     for (let i = childFields.length - 1; i >= 0; i -= 1) {
       const child = childFields[i];
-      const { queryKey } = this._getKeys(child);
+      const { queryKey } = this._getKeys(child, { queryPath });
       const check = checkList.get(queryKey);
 
       if (!isParentField(child) && check) {
         deleteChildField(field, child);
-      } else if (check && this._filterField(child, checkList)) {
+      } else if (check && this._filterField(child, checkList, queryKey)) {
         deleteChildField(field, child);
       }
     }
@@ -182,7 +183,8 @@ export default class Cache {
     for (let i = rootFields.length - 1; i >= 0; i -= 1) {
       const field = rootFields[i];
       const queryField = getQuery(ast);
-      if (this._filterField(field, checkList)) deleteChildField(queryField, field);
+      const { queryKey } = this._getKeys(field);
+      if (this._filterField(field, checkList, queryKey)) deleteChildField(queryField, field);
     }
   }
 
@@ -489,12 +491,17 @@ export default class Cache {
    * @return {Map}
    */
   _updateCacheMetadata(ast, data, cacheMetadata, partialCacheMetadata) {
-    let metadata;
+    let metadata = cacheMetadata;
 
     if (partialCacheMetadata) {
-      metadata = new Map([...cacheMetadata, ...partialCacheMetadata]);
-    } else {
-      metadata = cacheMetadata;
+      const cacheQuery = cacheMetadata.get('query');
+      const partialQuery = partialCacheMetadata.get('query');
+
+      if (cacheQuery.ttl < partialQuery.ttl) {
+        metadata = new Map([...partialCacheMetadata, ...cacheMetadata]);
+      } else {
+        metadata = new Map([...cacheMetadata, ...partialCacheMetadata]);
+      }
     }
 
     getRootFields(ast, (field) => {
@@ -615,7 +622,7 @@ export default class Cache {
     let _data = data;
 
     if (partial.cachedData) {
-      _data = mergeObjects(partial.partialData, data, (key, val) => {
+      _data = mergeObjects(partial.cachedData, data, (key, val) => {
         if (isPlainObject(val) && val.id) return val.id;
         return false;
       });
