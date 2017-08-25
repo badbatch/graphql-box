@@ -248,8 +248,8 @@ export default class Client {
    * @return {Object}
    */
   _parseCacheHeaders(headers) {
-    const cacheHeaders = headers ? headers.get('cache-contro') : this._defaultCacheControl;
-    return this._cache.res.parseCacheHeaders(cacheHeaders);
+    const cacheControl = headers ? headers.get('cache-contro') : this._defaultCacheControl;
+    return this._cache.res.parseCacheHeaders({ cacheControl });
   }
 
   /**

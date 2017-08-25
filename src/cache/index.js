@@ -4,9 +4,7 @@ import { parse, print, TypeInfo, visit } from 'graphql';
 import {
   cloneDeep,
   get,
-  has,
   isArray,
-  isBoolean,
   isNumber,
   isObjectLike,
   isPlainObject,
@@ -206,7 +204,7 @@ export default class Cache {
     const hashKey = this.hash(cacheKey);
     const aliasKey = getFieldAlias(field);
     const nameKey = aliasKey || name;
-    const queryKey = buildQueryKey(nameKey, queryPath);
+    const queryKey = isNumber(index) ? queryPath : buildQueryKey(nameKey, queryPath);
     const propKey = isNumber(index) ? index : nameKey;
     const dataKey = buildDataKey(propKey, dataPath);
     return { cacheKey, dataKey, hashKey, name, propKey, queryKey };
@@ -436,7 +434,12 @@ export default class Cache {
       this._setObjectHashKey(fieldData, dataKey, cacheKey, childField, childIndex);
 
       this._setObject(
-        childField, data, cacheMetadata, _cacheControl, { cacheKey, dataKey, queryKey }, childIndex,
+        childField,
+        data,
+        cacheMetadata,
+        _cacheControl,
+        { cachePath: cacheKey, dataPath: dataKey, queryPath: queryKey },
+        childIndex,
       );
     });
 
@@ -482,11 +485,17 @@ export default class Cache {
    * @param {Document} ast
    * @param {Object} data
    * @param {Map} cacheMetadata
-   * @param {Map} partialCacheMetadata
+   * @param {Map} [partialCacheMetadata]
    * @return {Map}
    */
   _updateCacheMetadata(ast, data, cacheMetadata, partialCacheMetadata) {
-    const metadata = new Map([...cacheMetadata, ...partialCacheMetadata]);
+    let metadata;
+
+    if (partialCacheMetadata) {
+      metadata = new Map([...cacheMetadata, ...partialCacheMetadata]);
+    } else {
+      metadata = cacheMetadata;
+    }
 
     getRootFields(ast, (field) => {
       this._parseResponseMetadata(field, data, metadata);
