@@ -69,6 +69,16 @@ export const getChildFields = function getChildFields({ selectionSet }) {
  * @param {Object} node
  * @return {string}
  */
+export const getFieldAlias = function getFieldAlias({ alias }) {
+  if (!alias) return null;
+  return alias.value;
+};
+
+/**
+ *
+ * @param {Object} node
+ * @return {string}
+ */
 export const getKind = function getKind({ kind }) {
   return kind;
 };
@@ -160,6 +170,21 @@ export const isParentField = function isParentField({ selectionSet }) {
 
 /**
  *
+ * @param {Map} map
+ * @return {Object}
+ */
+export const mapToObject = function mapToObject(map) {
+  const obj = {};
+
+  map.forEach((value, key) => {
+    obj[key] = value;
+  });
+
+  return obj;
+};
+
+/**
+ *
  * @param {Object} node
  * @param {Object} field
  * @return {void}
@@ -203,16 +228,6 @@ export const getChildField = function getChildField(node, name) {
   }
 
   return field;
-};
-
-/**
- *
- * @param {Object} node
- * @return {string}
- */
-export const getFieldAlias = function getFieldAlias({ alias }) {
-  if (!alias) return null;
-  return alias.value;
 };
 
 /**

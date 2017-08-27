@@ -5,7 +5,7 @@ import { GraphQLSchema } from 'graphql';
 import { spy } from 'sinon';
 import sinonChai from 'sinon-chai';
 import { github, tesco } from '../data/graphql';
-import { createClient, githubURL, mockGQLRequest, mockRestRequest } from '../helpers';
+import { createClient, githubURL, mockGQLRequest, mockRestRequest, parseMap } from '../helpers';
 import Client from '../../src';
 
 chai.use(dirtyChai);
@@ -101,7 +101,9 @@ describe('when the client is in internal mode', () => {
       const cache = client._cache.res;
       expect(await cache.size()).to.eql(2);
       const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-      expect(await cache.get(singleQuery, { hash: true })).to.eql(res.data);
+      const cacheMetadata = parseMap(res.cacheMetadata);
+      const data = res.data;
+      expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
     });
 
     it('should cache each response object against its query path', async () => {
@@ -131,7 +133,9 @@ describe('when the client is in internal mode', () => {
         const cache = client._cache.res;
         expect(await cache.size()).to.eql(2);
         const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-        expect(await cache.get(singleQuery, { hash: true })).to.eql(res.data);
+        const cacheMetadata = parseMap(res.cacheMetadata);
+        const data = res.data;
+        expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
       });
 
       it('should not change the size of the object cache', async () => {
@@ -162,7 +166,9 @@ describe('when the client is in internal mode', () => {
         const cache = client._cache.res;
         expect(await cache.size()).to.eql(2);
         const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-        expect(await cache.get(singleQuery, { hash: true })).to.eql(res.data);
+        const cacheMetadata = parseMap(res.cacheMetadata);
+        const data = res.data;
+        expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
       });
 
       it('should not change the size of the object cache', async () => {
@@ -193,7 +199,9 @@ describe('when the client is in internal mode', () => {
         const cache = client._cache.res;
         expect(await cache.size()).to.eql(3);
         const aliasQuery = tesco.requests.aliasQuery.replace(/\s/g, '');
-        expect(await cache.get(aliasQuery, { hash: true })).to.eql(res.data);
+        const cacheMetadata = parseMap(res.cacheMetadata);
+        const data = res.data;
+        expect(await cache.get(aliasQuery, { hash: true })).to.eql({ cacheMetadata, data });
       });
 
       it('should not change the size of the object cache', async () => {
@@ -281,7 +289,9 @@ describe('when the client is in internal mode', () => {
       const cache = client._cache.res;
       expect(await cache.size()).to.eql(2);
       const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-      expect(await cache.get(singleQuery, { hash: true })).to.eql(res.data);
+      const cacheMetadata = parseMap(res.cacheMetadata);
+      const data = res.data;
+      expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
     });
 
     describe('when a subsequent query is made for the same data', () => {
@@ -306,7 +316,9 @@ describe('when the client is in internal mode', () => {
         const cache = client._cache.res;
         expect(await cache.size()).to.eql(2);
         const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-        expect(await cache.get(singleQuery, { hash: true })).to.eql(res.data);
+        const cacheMetadata = parseMap(res.cacheMetadata);
+        const data = res.data;
+        expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
       });
     });
   });
@@ -341,7 +353,9 @@ describe('when the client is in internal mode', () => {
       const cache = client._cache.res;
       expect(await cache.size()).to.eql(2);
       const aliasQuery = tesco.requests.aliasQuery.replace(/\s/g, '');
-      expect(await cache.get(aliasQuery, { hash: true })).to.eql(res.data);
+      const cacheMetadata = parseMap(res.cacheMetadata);
+      const data = res.data;
+      expect(await cache.get(aliasQuery, { hash: true })).to.eql({ cacheMetadata, data });
     });
 
     it('should cache each response object against its query path', async () => {
@@ -371,7 +385,9 @@ describe('when the client is in internal mode', () => {
         const cache = client._cache.res;
         expect(await cache.size()).to.eql(3);
         const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-        expect(await cache.get(singleQuery, { hash: true })).to.eql(res.data);
+        const cacheMetadata = parseMap(res.cacheMetadata);
+        const data = res.data;
+        expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
       });
 
       it('should not change the size of the object cache', async () => {
@@ -418,7 +434,9 @@ describe('when the client is in internal mode', () => {
       const cache = client._cache.res;
       expect(await cache.size()).to.eql(2);
       const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-      expect(await cache.get(singleQuery, { hash: true })).to.eql(res[0].data);
+      const cacheMetadata = parseMap(res[0].cacheMetadata);
+      const data = res[0].data;
+      expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
     });
 
     it('should not change the size of the object cache', async () => {

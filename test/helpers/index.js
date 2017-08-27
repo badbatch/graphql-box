@@ -1,4 +1,5 @@
 import fetchMock from 'fetch-mock';
+import { isFunction } from 'lodash';
 import md5 from 'md5';
 import { getGQLResponse } from '../data/graphql';
 import { buildRestPath, getRestResponse } from '../data/rest';
@@ -108,4 +109,26 @@ export const mockRestRequest = function mockRestRequest(key, resource) {
   const body = getRestResponse(key, resource);
   fetchMock.mock(matcher, { body: JSON.stringify(body) });
   return { body, path };
+};
+
+/**
+ *
+ * @param {Map} map
+ * @return {Object}
+ */
+export const parseMap = function parseMap(map) {
+  const obj = {};
+
+  map.forEach((value, key) => {
+    const cacheObj = {};
+
+    Object.keys(value).forEach((prop) => {
+      if (isFunction(value[prop])) return;
+      cacheObj[prop] = value[prop];
+    });
+
+    obj[key] = cacheObj;
+  });
+
+  return obj;
 };

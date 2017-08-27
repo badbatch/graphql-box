@@ -31,6 +31,7 @@ import {
   getType,
   hasChildField,
   isParentField,
+  mapToObject,
 } from '../helpers/parsing';
 
 import logger from '../logger';
@@ -608,9 +609,9 @@ export default class Cache {
     if (opts.filtered) {
       const filteredHash = this.hash(query);
 
-      this._res.set(filteredHash, data, { cacheHeaders: {
-        cacheControl: cacheMetadata.get('query').printCacheControl(),
-      } });
+      this._res.set(filteredHash, { cacheMetadata: mapToObject(cacheMetadata), data }, {
+        cacheHeaders: { cacheControl: cacheMetadata.get('query').printCacheControl() },
+      });
     }
 
     const partial = this._getPartial(hash);
@@ -628,9 +629,9 @@ export default class Cache {
       });
     }
 
-    this._res.set(hash, _data, { cacheHeaders: {
-      cacheControl: _cacheMetadata.get('query').printCacheControl(),
-    } });
+    this._res.set(hash, { cacheMetadata: mapToObject(_cacheMetadata), data: _data }, {
+      cacheHeaders: { cacheControl: _cacheMetadata.get('query').printCacheControl() },
+    });
 
     this._updateObjectCache(ast, _data, _cacheMetadata);
     return { cacheMetadata: _cacheMetadata, data: _data };

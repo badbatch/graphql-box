@@ -18,6 +18,7 @@ import {
   getVariableDefinitions,
   getVariableDefinitionType,
   hasVariableDefinitions,
+  mapToObject,
 } from './helpers/parsing';
 
 import logger from './logger';
@@ -147,33 +148,32 @@ export default class Client {
    * @return {Promise}
    */
   async _checkResponseCache(hash) {
-    let cacheability, data;
+    let cacheability, res;
 
     try {
       cacheability = await this._cache.res.has(hash);
 
       if (cacheability && !cacheability.noCache && cacheability.check()) {
-        data = await this._cache.res.get(hash);
+        res = await this._cache.res.get(hash);
       }
     } catch (err) {
       logger.error(err);
     }
 
-    return { cacheability, data };
+    if (!res) return null;
+    return { cacheMetadata: new Map(Object.entries(res.cacheMetadata)), data: res.data };
   }
 
   /**
    *
    * @private
-   * @param {Object} data
-   * @param {Object} data.cacheability
-   * @param {Headers} data.headers
+   * @param {Headers} headers
    * @return {Map}
    */
-  _createCacheMetadata({ cacheability, headers }) {
-    const _cacheability = cacheability || this._parseCacheHeaders(headers);
+  _createCacheMetadata(headers) {
+    const cacheability = this._parseCacheHeaders(headers);
     const cacheMetadata = new Map();
-    cacheMetadata.set('query', _cacheability);
+    cacheMetadata.set('query', cacheability);
     return cacheMetadata;
   }
 
@@ -297,8 +297,7 @@ export default class Client {
 
     if (!opts.forceFetch) {
       const res = await this._checkResponseCache(hash);
-      const _cacheMetadata = this._createCacheMetadata({ cacheability: res.cacheability });
-      if (res.data) return this._resolve(res.data, _cacheMetadata);
+      if (res) return this._resolve(res.data, res.cacheMetadata);
     }
 
     if (this._requests.active.has(hash)) {
@@ -318,15 +317,15 @@ export default class Client {
     } = await this._cache.analyze(hash, ast);
 
     if (cachedData) {
-      this._cache.res.set(hash, cachedData, { cacheHeaders: {
-        cacheControl: cacheMetadata.get('query').printCacheControl(),
-      } });
+      this._cache.res.set(hash, { cacheMetadata: mapToObject(cacheMetadata), data: cachedData }, {
+        cacheHeaders: { cacheControl: cacheMetadata.get('query').printCacheControl() },
+      });
 
       return this._resolve(cachedData, cacheMetadata, hash);
     }
 
     const res = await this._fetch(updatedQuery, updatedAST, context);
-    const _cacheMetadata = this._createCacheMetadata({ headers: res.headers });
+    const _cacheMetadata = this._createCacheMetadata(res.headers);
     if (res.errors) return this._resolve({ errors: res.errors }, _cacheMetadata, hash);
 
     const resolved = await this._cache.resolve(
