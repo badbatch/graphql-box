@@ -159,19 +159,21 @@ export default class Client {
       logger.error(err);
     }
 
-    return { cacheMetadata: cacheability, data };
+    return { cacheability, data };
   }
 
   /**
    *
    * @private
-   * @param {Headers} headers
+   * @param {Object} data
+   * @param {Object} data.cacheability
+   * @param {Headers} data.headers
    * @return {Map}
    */
-  _createCacheMetadata(headers) {
-    const cacheability = this._parseCacheHeaders(headers);
+  _createCacheMetadata({ cacheability, headers }) {
+    const _cacheability = cacheability || this._parseCacheHeaders(headers);
     const cacheMetadata = new Map();
-    cacheMetadata.set('query', cacheability);
+    cacheMetadata.set('query', _cacheability);
     return cacheMetadata;
   }
 
@@ -295,7 +297,8 @@ export default class Client {
 
     if (!opts.forceFetch) {
       const res = await this._checkResponseCache(hash);
-      if (res.data) return this._resolve(res.data, res.cacheMetadata);
+      const _cacheMetadata = this._createCacheMetadata({ cacheability: res.cacheability });
+      if (res.data) return this._resolve(res.data, _cacheMetadata);
     }
 
     if (this._requests.active.has(hash)) {
@@ -323,7 +326,7 @@ export default class Client {
     }
 
     const res = await this._fetch(updatedQuery, updatedAST, context);
-    const _cacheMetadata = this._createCacheMetadata(res.headers);
+    const _cacheMetadata = this._createCacheMetadata({ headers: res.headers });
     if (res.errors) return this._resolve({ errors: res.errors }, _cacheMetadata, hash);
 
     const resolved = await this._cache.resolve(

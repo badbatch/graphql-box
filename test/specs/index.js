@@ -448,7 +448,7 @@ describe('when the client is in external mode', () => {
     });
 
     it('should return the data requested in the mutation', () => {
-      expect(res.data).to.eql(github.responses.singleMutation);
+      expect(res.data).to.eql(github.responses.singleMutation.data);
     });
   });
 
@@ -468,7 +468,7 @@ describe('when the client is in external mode', () => {
     });
 
     it('should return the data requested in the mutation', () => {
-      expect(res.data).to.eql(github.responses.singleMutation);
+      expect(res.data).to.eql(github.responses.singleMutation.data);
     });
 
     it('should populate the variables in the mutation before sending the request', () => {
