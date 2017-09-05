@@ -1,3 +1,4 @@
+import Cacheability from 'cacheability';
 import Cachemap from 'cachemap';
 import { parse, print, TypeInfo, visit } from 'graphql';
 
@@ -95,16 +96,6 @@ export default class Cache {
   /**
    *
    * @private
-   * @param {Object} cacheability
-   * @return {boolean}
-   */
-  _cacheValid(cacheability) {
-    return cacheability && !cacheability.noCache && cacheability.check();
-  }
-
-  /**
-   *
-   * @private
    * @param {string} hashKey
    * @return {Promise}
    */
@@ -113,7 +104,7 @@ export default class Cache {
 
     try {
       cacheability = await this._obj.has(hashKey);
-      if (this._cacheValid(cacheability)) cachedData = await this._obj.get(hashKey);
+      if (this.cacheValid(cacheability)) cachedData = await this._obj.get(hashKey);
     } catch (err) {
       logger.error(err);
     }
@@ -320,11 +311,9 @@ export default class Cache {
     if (!isObjectLike(fieldData)) return;
 
     if (get(fieldData, ['_metadata', 'cacheControl'])) {
-      const metadata = this._cache.res.parseCacheHeaders({
-        cacheControl: fieldData._metadata.cacheControl,
-      });
-
-      this._setCacheData(cacheMetadata, metadata, { queryKey });
+      const cacheability = new Cacheability();
+      cacheability.parseCacheControl(fieldData._metadata.cacheControl);
+      this._setCacheData(cacheMetadata, cacheability, { queryKey });
       delete fieldData._metadata;
     }
 
@@ -382,10 +371,13 @@ export default class Cache {
    * @return {void}
    */
   _setCacheData(cache, cacheability, { queryKey }) {
-    if (cache.has(queryKey) || !this._cacheValid(cacheability)) return;
+    if (cache.has(queryKey) || !this.cacheValid(cacheability)) return;
     cache.set(queryKey, cacheability);
-    const queryCache = cache.get('query');
-    if (!queryCache || queryCache.ttl > cacheability.ttl) cache.set('query', cacheability);
+    const queryCacheability = cache.get('query');
+
+    if (!queryCacheability || queryCacheability.metadata.ttl > cacheability.metadata.ttl) {
+      cache.set('query', cacheability);
+    }
   }
 
   /**
@@ -495,10 +487,10 @@ export default class Cache {
     let metadata = cacheMetadata;
 
     if (partialCacheMetadata) {
-      const cacheQuery = cacheMetadata.get('query');
-      const partialQuery = partialCacheMetadata.get('query');
+      const cacheCacheability = cacheMetadata.get('query');
+      const partialCacheability = partialCacheMetadata.get('query');
 
-      if (cacheQuery.ttl < partialQuery.ttl) {
+      if (cacheCacheability.metadata.ttl < partialCacheability.metadata.ttl) {
         metadata = new Map([...partialCacheMetadata, ...cacheMetadata]);
       } else {
         metadata = new Map([...cacheMetadata, ...partialCacheMetadata]);
@@ -584,6 +576,16 @@ export default class Cache {
     await this._filterQuery(ast, checkList);
     const updatedAST = await this._updateQuery(ast);
     return { filtered: true, updatedAST, updatedQuery: print(updatedAST) };
+  }
+
+  /**
+   *
+   * @param {Object} cacheability
+   * @return {boolean}
+   */
+  cacheValid(cacheability) {
+    const noCache = get(cacheability, ['metadata', 'cacheControl', 'noCache'], false);
+    return cacheability && !noCache && cacheability.checkTTL();
   }
 
   /**
