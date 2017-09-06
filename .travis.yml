@@ -17,3 +17,11 @@ script:
   - npm test
   - sonar-scanner
   - codecov
+  - npm run transpile
+deploy:
+  provider: npm
+  email: "dylanaubrey@gmail.com"
+  api_key: $NPM_AUTH_TOKEN
+  skip_cleanup: true
+  on:
+    branch: master

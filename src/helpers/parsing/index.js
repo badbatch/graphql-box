@@ -176,8 +176,8 @@ export const isParentField = function isParentField({ selectionSet }) {
 export const mapToObject = function mapToObject(map) {
   const obj = {};
 
-  map.forEach((value, key) => {
-    obj[key] = value;
+  map.forEach((cacheability, key) => {
+    obj[key] = cacheability.metadata;
   });
 
   return obj;
