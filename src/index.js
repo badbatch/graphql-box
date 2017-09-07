@@ -128,7 +128,11 @@ export default class Client {
     if (instance && !newInstance) return instance;
     let _schema = schema;
     if (!_schema) _schema = buildClientSchema(introspection);
-    this._cache = new Cache({ cachemapOptions, resourceKey, schema: _schema });
+
+    this._cache = new Cache({
+      cachemapOptions, defaultCacheControls, resourceKey, schema: _schema,
+    });
+
     this._defaultCacheControls = defaultCacheControls;
     if (isFunction(executor)) this._execute = executor;
     this._headers = { ...this._headers, ...headers };
@@ -176,8 +180,9 @@ export default class Client {
    */
   _createCacheMetadata(cacheMetadata, headers) {
     if (cacheMetadata) return this._parseCacheMetadata(cacheMetadata);
+    const cacheControl = headers && headers.get('cache-control');
+    if (!cacheControl) return new Map();
     const cacheability = new Cacheability();
-    const cacheControl = headers ? headers.get('cache-control') : this._defaultCacheControls.query;
     cacheability.parseCacheControl(cacheControl);
     const _cacheMetadata = new Map();
     _cacheMetadata.set('query', cacheability);
@@ -245,9 +250,7 @@ export default class Client {
    * @return {Promise}
    */
   async _mutation(mutation, ast, context) {
-    const { data, errors } = await this._fetch(mutation, ast, context);
-    if (errors) return { errors };
-    return { data };
+    return this._fetch(mutation, ast, context);
   }
 
   /**
@@ -356,6 +359,12 @@ export default class Client {
    * @return {Object}
    */
   _resolve(data, cacheMetadata, hash) {
+    if (!cacheMetadata.has('query')) {
+      const cacheability = new Cacheability();
+      cacheability.parseCacheControl(this._defaultCacheControls.query);
+      cacheMetadata.set('query', cacheability);
+    }
+
     const output = { data, cacheMetadata };
 
     if (hash) {

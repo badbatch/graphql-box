@@ -57,6 +57,13 @@ export default class Cache {
      */
     cachemapOptions = { obj: {}, res: {} },
     /**
+     * Default cache control for queries
+     * and mutations.
+     *
+     * @type {Object}
+     */
+    defaultCacheControls,
+    /**
      * Identifier used as the key for each resource
      * requested from the server.
      *
@@ -70,10 +77,11 @@ export default class Cache {
      */
     schema,
   } = {}) {
+    this._defaultCacheControls = defaultCacheControls;
+    this._obj = new Cachemap(cachemapOptions.obj);
     this._partials = new Map();
     this._res = new Cachemap(cachemapOptions.res);
     this._resourceKey = resourceKey;
-    this._obj = new Cachemap(cachemapOptions.obj);
     this._schema = schema;
   }
 
@@ -490,7 +498,7 @@ export default class Cache {
       const cacheCacheability = cacheMetadata.get('query');
       const partialCacheability = partialCacheMetadata.get('query');
 
-      if (cacheCacheability.metadata.ttl < partialCacheability.metadata.ttl) {
+      if (cacheCacheability && cacheCacheability.metadata.ttl < partialCacheability.metadata.ttl) {
         _cacheMetadata = new Map([...partialCacheMetadata, ...cacheMetadata]);
       } else {
         _cacheMetadata = new Map([...cacheMetadata, ...partialCacheMetadata]);
@@ -500,6 +508,12 @@ export default class Cache {
     getRootFields(ast, (field) => {
       this._parseResponseMetadata(field, data, _cacheMetadata);
     });
+
+    if (!_cacheMetadata.has('query')) {
+      const cacheability = new Cacheability();
+      cacheability.parseCacheControl(this._defaultCacheControls.query);
+      _cacheMetadata.set('query', cacheability);
+    }
 
     return _cacheMetadata;
   }
@@ -613,7 +627,7 @@ export default class Cache {
       const _cacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata);
 
       this._res.set(filteredHash, { cacheMetadata: mapToObject(_cacheMetadata), data }, {
-        cacheHeaders: { cacheControl: cacheMetadata.get('query').printCacheControl() },
+        cacheHeaders: { cacheControl: _cacheMetadata.get('query').printCacheControl() },
       });
     }
 
