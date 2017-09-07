@@ -484,24 +484,24 @@ export default class Cache {
    * @return {Map}
    */
   _updateCacheMetadata(ast, data, cacheMetadata, partialCacheMetadata) {
-    let metadata = new Map([...cacheMetadata]);
+    let _cacheMetadata = new Map([...cacheMetadata]);
 
     if (partialCacheMetadata) {
-      const cacheCacheability = metadata.get('query');
+      const cacheCacheability = cacheMetadata.get('query');
       const partialCacheability = partialCacheMetadata.get('query');
 
       if (cacheCacheability.metadata.ttl < partialCacheability.metadata.ttl) {
-        metadata = new Map([...partialCacheMetadata, ...cacheMetadata]);
+        _cacheMetadata = new Map([...partialCacheMetadata, ...cacheMetadata]);
       } else {
-        metadata = new Map([...cacheMetadata, ...partialCacheMetadata]);
+        _cacheMetadata = new Map([...cacheMetadata, ...partialCacheMetadata]);
       }
     }
 
     getRootFields(ast, (field) => {
-      this._parseResponseMetadata(field, data, metadata);
+      this._parseResponseMetadata(field, data, _cacheMetadata);
     });
 
-    return metadata;
+    return _cacheMetadata;
   }
 
   /**

@@ -57,7 +57,7 @@ export default class Client {
      */
     defaultCacheControls = {
       mutation: 'max-age=0, s-maxage=0, no-cache, no-store',
-      query: 'public, max-age=300, s-maxage=300',
+      query: 'public, max-age=60, s-maxage=60',
     },
     /**
      * Optional override for client's execute method,
@@ -170,16 +170,18 @@ export default class Client {
   /**
    *
    * @private
+   * @param {Object} cacheMetadata
    * @param {Headers} headers
    * @return {Map}
    */
-  _createCacheMetadata(headers) {
+  _createCacheMetadata(cacheMetadata, headers) {
+    if (cacheMetadata) return this._parseCacheMetadata(cacheMetadata);
     const cacheability = new Cacheability();
     const cacheControl = headers ? headers.get('cache-control') : this._defaultCacheControls.query;
     cacheability.parseCacheControl(cacheControl);
-    const cacheMetadata = new Map();
-    cacheMetadata.set('query', cacheability);
-    return cacheMetadata;
+    const _cacheMetadata = new Map();
+    _cacheMetadata.set('query', cacheability);
+    return _cacheMetadata;
   }
 
   /**
@@ -230,8 +232,8 @@ export default class Client {
       res = { errors: err };
     }
 
-    const { data, errors } = await res.json();
-    return { data, errors, headers: res.headers };
+    const { cacheMetadata, data, errors } = await res.json();
+    return { cacheMetadata, data, errors, headers: res.headers };
   }
 
   /**
@@ -335,7 +337,7 @@ export default class Client {
     }
 
     const res = await this._fetch(updatedQuery, updatedAST, context);
-    const _cacheMetadata = this._createCacheMetadata(res.headers);
+    const _cacheMetadata = this._createCacheMetadata(res.cacheMetadata, res.headers);
     if (res.errors) return this._resolve({ errors: res.errors }, _cacheMetadata, hash);
 
     const resolved = await this._cache.resolve(
