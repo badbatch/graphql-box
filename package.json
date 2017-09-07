@@ -1,6 +1,6 @@
 {
   "name": "handl",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "An isomorphic graphql client and cache.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",

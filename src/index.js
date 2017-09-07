@@ -50,15 +50,11 @@ export default class Client {
      */
     cachemapOptions,
     /**
-     * Optional default cache control for queries
-     * and mutations.
+     * Optional default cache control for queries.
      *
-     * @type {Object}
+     * @type {string}
      */
-    defaultCacheControls = {
-      mutation: 'max-age=0, s-maxage=0, no-cache, no-store',
-      query: 'public, max-age=60, s-maxage=60',
-    },
+    defaultCacheControl = 'public, max-age=60, s-maxage=60',
     /**
      * Optional override for client's execute method,
      * which calls graphql's execute method.
@@ -130,10 +126,10 @@ export default class Client {
     if (!_schema) _schema = buildClientSchema(introspection);
 
     this._cache = new Cache({
-      cachemapOptions, defaultCacheControls, resourceKey, schema: _schema,
+      cachemapOptions, defaultCacheControl, resourceKey, schema: _schema,
     });
 
-    this._defaultCacheControls = defaultCacheControls;
+    this._defaultCacheControl = defaultCacheControl;
     if (isFunction(executor)) this._execute = executor;
     this._headers = { ...this._headers, ...headers };
     this._mode = mode;
@@ -361,7 +357,7 @@ export default class Client {
   _resolve(data, cacheMetadata, hash) {
     if (!cacheMetadata.has('query')) {
       const cacheability = new Cacheability();
-      cacheability.parseCacheControl(this._defaultCacheControls.query);
+      cacheability.parseCacheControl(this._defaultCacheControl);
       cacheMetadata.set('query', cacheability);
     }
 
