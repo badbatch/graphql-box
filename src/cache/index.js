@@ -364,19 +364,19 @@ export default class Cache {
   /**
    *
    * @private
-   * @param {Map} cache
+   * @param {Map} cacheMetadata
    * @param {Object} cacheability
    * @param {Object} keys
    * @param {string} keys.queryKey
    * @return {void}
    */
-  _setCacheData(cache, cacheability, { queryKey }) {
-    if (cache.has(queryKey) || !this.cacheValid(cacheability)) return;
-    cache.set(queryKey, cacheability);
-    const queryCacheability = cache.get('query');
+  _setCacheData(cacheMetadata, cacheability, { queryKey }) {
+    if (cacheMetadata.has(queryKey) || !this.cacheValid(cacheability)) return;
+    cacheMetadata.set(queryKey, cacheability);
+    const queryCacheability = cacheMetadata.get('query');
 
     if (!queryCacheability || queryCacheability.metadata.ttl > cacheability.metadata.ttl) {
-      cache.set('query', cacheability);
+      cacheMetadata.set('query', cacheability);
     }
   }
 
@@ -484,10 +484,10 @@ export default class Cache {
    * @return {Map}
    */
   _updateCacheMetadata(ast, data, cacheMetadata, partialCacheMetadata) {
-    let metadata = cacheMetadata;
+    let metadata = new Map([...cacheMetadata]);
 
     if (partialCacheMetadata) {
-      const cacheCacheability = cacheMetadata.get('query');
+      const cacheCacheability = metadata.get('query');
       const partialCacheability = partialCacheMetadata.get('query');
 
       if (cacheCacheability.metadata.ttl < partialCacheability.metadata.ttl) {
@@ -610,18 +610,14 @@ export default class Cache {
   async resolve(query, ast, hash, data, cacheMetadata, opts) {
     if (opts.filtered) {
       const filteredHash = this.hash(query);
+      const _cacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata);
 
-      this._res.set(filteredHash, { cacheMetadata: mapToObject(cacheMetadata), data }, {
+      this._res.set(filteredHash, { cacheMetadata: mapToObject(_cacheMetadata), data }, {
         cacheHeaders: { cacheControl: cacheMetadata.get('query').printCacheControl() },
       });
     }
 
     const partial = this._getPartial(hash);
-
-    const _cacheMetadata = this._updateCacheMetadata(
-      ast, data, cacheMetadata, partial.cacheMetadata,
-    );
-
     let _data = data;
 
     if (partial.cachedData) {
@@ -630,6 +626,10 @@ export default class Cache {
         return false;
       });
     }
+
+    const _cacheMetadata = this._updateCacheMetadata(
+      ast, data, cacheMetadata, partial.cacheMetadata,
+    );
 
     this._res.set(hash, { cacheMetadata: mapToObject(_cacheMetadata), data: _data }, {
       cacheHeaders: { cacheControl: _cacheMetadata.get('query').printCacheControl() },
