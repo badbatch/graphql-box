@@ -1,6 +1,6 @@
 {
   "name": "handl",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An isomorphic graphql client and cache.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -33,7 +33,8 @@
     "transpile:module": " cross-env BABEL_ENV=module babel src --out-dir lib/module --copy-files"
   },
   "dependencies": {
-    "cachemap": "0.0.5",
+    "cacheability": "0.0.1",
+    "cachemap": "0.0.9",
     "es6-promise": "^4.1.1",
     "graphql": "^0.10.5",
     "iso-logger": "0.0.8",

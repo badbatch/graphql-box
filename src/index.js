@@ -1,3 +1,5 @@
+import Cacheability from 'cacheability';
+
 import {
   buildClientSchema,
   execute,
@@ -18,6 +20,7 @@ import {
   getVariableDefinitions,
   getVariableDefinitionType,
   hasVariableDefinitions,
+  mapToObject,
 } from './helpers/parsing';
 
 import logger from './logger';
@@ -47,11 +50,15 @@ export default class Client {
      */
     cachemapOptions,
     /**
-     * Optional default cache control for grpahql queries.
+     * Optional default cache control for queries
+     * and mutations.
      *
-     * @type {string}
+     * @type {Object}
      */
-    defaultCacheControl = 'public, max-age=300, s-maxage=300',
+    defaultCacheControls = {
+      mutation: 'max-age=0, s-maxage=0, no-cache, no-store',
+      query: 'public, max-age=300, s-maxage=300',
+    },
     /**
      * Optional override for client's execute method,
      * which calls graphql's execute method.
@@ -122,7 +129,7 @@ export default class Client {
     let _schema = schema;
     if (!_schema) _schema = buildClientSchema(introspection);
     this._cache = new Cache({ cachemapOptions, resourceKey, schema: _schema });
-    this._defaultCacheControl = defaultCacheControl;
+    this._defaultCacheControls = defaultCacheControls;
     if (isFunction(executor)) this._execute = executor;
     this._headers = { ...this._headers, ...headers };
     this._mode = mode;
@@ -147,19 +154,32 @@ export default class Client {
    * @return {Promise}
    */
   async _checkResponseCache(hash) {
-    let value;
+    let cacheability, res;
 
     try {
-      const cacheability = await this._cache.res.has(hash);
-
-      if (cacheability && !cacheability.noCache && cacheability.check()) {
-        value = await this._cache.res.get(hash);
-      }
+      cacheability = await this._cache.res.has(hash);
+      if (this._cache.cacheValid(cacheability)) res = await this._cache.res.get(hash);
     } catch (err) {
       logger.error(err);
     }
 
-    return value;
+    if (!res) return null;
+    return { cacheMetadata: this._parseCacheMetadata(res.cacheMetadata), data: res.data };
+  }
+
+  /**
+   *
+   * @private
+   * @param {Headers} headers
+   * @return {Map}
+   */
+  _createCacheMetadata(headers) {
+    const cacheability = new Cacheability();
+    const cacheControl = headers ? headers.get('cache-control') : this._defaultCacheControls.query;
+    cacheability.parseCacheControl(cacheControl);
+    const cacheMetadata = new Map();
+    cacheMetadata.set('query', cacheability);
+    return cacheMetadata;
   }
 
   /**
@@ -231,6 +251,22 @@ export default class Client {
   /**
    *
    * @private
+   * @param {Object} cacheMetadata
+   * @return {Map}
+   */
+  _parseCacheMetadata(cacheMetadata) {
+    Object.keys(cacheMetadata).forEach((key) => {
+      const cacheability = new Cacheability();
+      cacheability.setMetadata(cacheMetadata[key]);
+      cacheMetadata[key] = cacheability;
+    });
+
+    return new Map(Object.entries(cacheMetadata));
+  }
+
+  /**
+   *
+   * @private
    * @param {string} query
    * @param {Object} variables
    * @return {Promise}
@@ -270,8 +306,8 @@ export default class Client {
     const hash = this._cache.hash(query);
 
     if (!opts.forceFetch) {
-      const value = await this._checkResponseCache(hash);
-      if (value) return value;
+      const res = await this._checkResponseCache(hash);
+      if (res) return this._resolve(res.data, res.cacheMetadata);
     }
 
     if (this._requests.active.has(hash)) {
@@ -284,38 +320,47 @@ export default class Client {
 
     const {
       cachedData,
-      cacheHeaders,
+      cacheMetadata,
       filtered,
       updatedAST,
       updatedQuery,
     } = await this._cache.analyze(hash, ast);
 
     if (cachedData) {
-      this._cache.res.set(hash, cachedData, { cacheHeaders });
-      return this._resolve(hash, cachedData);
+      this._cache.res.set(hash, { cacheMetadata: mapToObject(cacheMetadata), data: cachedData }, {
+        cacheHeaders: { cacheControl: cacheMetadata.get('query').printCacheControl() },
+      });
+
+      return this._resolve(cachedData, cacheMetadata, hash);
     }
 
     const res = await this._fetch(updatedQuery, updatedAST, context);
-    if (res.errors) return this._resolve(hash, { errors: res.errors });
-    const headers = this._setCacheHeaders(res.headers);
+    const _cacheMetadata = this._createCacheMetadata(res.headers);
+    if (res.errors) return this._resolve({ errors: res.errors }, _cacheMetadata, hash);
 
-    const resolvedData = await this._cache.resolve(
-      updatedQuery, updatedAST, hash, res.data, headers, { filtered },
+    const resolved = await this._cache.resolve(
+      updatedQuery, updatedAST, hash, res.data, _cacheMetadata, { filtered },
     );
 
-    return this._resolve(hash, resolvedData);
+    return this._resolve(resolved.data, resolved.cacheMetadata, hash);
   }
 
   /**
    *
    * @private
-   * @param {string} hash
-   * @param {Object} output
-   * @return {Promise}
+   * @param {Object} data
+   * @param {Object} cacheMetadata
+   * @param {string} [hash]
+   * @return {Object}
    */
-  _resolve(hash, output) {
-    this._resolvePendingRequests(hash, output);
-    this._requests.active.delete(hash);
+  _resolve(data, cacheMetadata, hash) {
+    const output = { data, cacheMetadata };
+
+    if (hash) {
+      this._resolvePendingRequests(hash, output);
+      this._requests.active.delete(hash);
+    }
+
     return output;
   }
 
@@ -334,17 +379,6 @@ export default class Client {
     });
 
     this._requests.pending.delete(hash);
-  }
-
-  /**
-   *
-   * @private
-   * @param {Headers} headers
-   * @return {Object}
-   */
-  _setCacheHeaders(headers) {
-    if (!headers) return { cacheControl: this._defaultCacheControl };
-    return { cacheControl: headers.get('cache-control') };
   }
 
   /**

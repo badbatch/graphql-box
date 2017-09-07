@@ -1,16 +1,14 @@
+import Cacheability from 'cacheability';
 import Cachemap from 'cachemap';
 import { parse, print, TypeInfo, visit } from 'graphql';
 
 import {
   cloneDeep,
   get,
-  has,
   isArray,
-  isBoolean,
   isNumber,
   isObjectLike,
   isPlainObject,
-  isString,
 } from 'lodash';
 
 import md5 from 'md5';
@@ -20,6 +18,7 @@ import {
   addChildField,
   buildCacheKey,
   buildDataKey,
+  buildQueryKey,
   deleteChildField,
   getChildField,
   getChildFields,
@@ -33,6 +32,7 @@ import {
   getType,
   hasChildField,
   isParentField,
+  mapToObject,
 } from '../helpers/parsing';
 
 import logger from '../logger';
@@ -96,16 +96,6 @@ export default class Cache {
   /**
    *
    * @private
-   * @param {Object} cacheability
-   * @return {boolean}
-   */
-  _cacheValid(cacheability) {
-    return cacheability && !cacheability.noCache && cacheability.check();
-  }
-
-  /**
-   *
-   * @private
    * @param {string} hashKey
    * @return {Promise}
    */
@@ -114,7 +104,7 @@ export default class Cache {
 
     try {
       cacheability = await this._obj.has(hashKey);
-      if (this._cacheValid(cacheability)) cachedData = await this._obj.get(hashKey);
+      if (this.cacheValid(cacheability)) cachedData = await this._obj.get(hashKey);
     } catch (err) {
       logger.error(err);
     }
@@ -129,45 +119,42 @@ export default class Cache {
    * @return {Promise}
    */
   async _checkObjectCache(ast) {
-    const checkList = {};
-    const metadata = { missing: 0, total: 0 };
-    const queriedData = {};
+    const metadata = {
+      cache: new Map(),
+      checkList: new Map(),
+      counter: { missing: 0, total: 0 },
+      queried: {},
+    };
+
     const promises = [];
 
     getRootFields(ast, (field) => {
-      promises.push(this._parseField(field, queriedData, checkList, metadata));
+      promises.push(this._parseField(field, metadata));
     });
 
     await Promise.all(promises);
-    return { checkList, metadata, queriedData };
+    return metadata;
   }
 
   /**
    *
    * @private
    * @param {Object} field
-   * @param {Object} checkList
+   * @param {Map} checkList
+   * @param {string} queryPath
    * @return {boolean}
    */
-  _filterField(field, checkList) {
-    let _checkList = checkList;
-
-    if (isArray(checkList)) {
-      if (!checkList.length) return true;
-      _checkList = checkList[0];
-    }
-
+  _filterField(field, checkList, queryPath) {
     const childFields = getChildFields(field);
 
     for (let i = childFields.length - 1; i >= 0; i -= 1) {
       const child = childFields[i];
-      const { propKey } = this._getKeys(child);
+      const { queryKey } = this._getKeys(child, { queryPath });
+      const check = checkList.get(queryKey);
 
-      if (!isParentField(child)) {
-        if (_checkList[propKey]) deleteChildField(field, child);
-      } else if (isBoolean(_checkList[propKey]) && _checkList[propKey]) {
+      if (!isParentField(child) && check) {
         deleteChildField(field, child);
-      } else if (_checkList[propKey] && this._filterField(child, _checkList[propKey])) {
+      } else if (check && this._filterField(child, checkList, queryKey)) {
         deleteChildField(field, child);
       }
     }
@@ -187,9 +174,9 @@ export default class Cache {
 
     for (let i = rootFields.length - 1; i >= 0; i -= 1) {
       const field = rootFields[i];
-      const { propKey } = this._getKeys(field);
       const queryField = getQuery(ast);
-      if (this._filterField(field, checkList[propKey])) deleteChildField(queryField, field);
+      const { queryKey } = this._getKeys(field);
+      if (this._filterField(field, checkList, queryKey)) deleteChildField(queryField, field);
     }
   }
 
@@ -200,31 +187,31 @@ export default class Cache {
    * @param {Object} [paths]
    * @param {string} [paths.cachePath]
    * @param {string} [paths.dataPath]
+   * @param {string} [paths.queryPath]
    * @param {number} [index]
    * @return {Object}
    */
-  _getKeys(field, { cachePath, dataPath } = {}, index) {
+  _getKeys(field, { cachePath, dataPath, queryPath } = {}, index) {
     const name = getName(field);
     const args = getFieldArguments(field);
-    const nameKey = isNumber(index) ? index : name;
-    const _cachePath = isString(cachePath) ? [cachePath] : [];
-    const cacheKey = buildCacheKey(nameKey, args, _cachePath);
+    const cacheKey = buildCacheKey(name, index, args, cachePath);
     const hashKey = this.hash(cacheKey);
     const aliasKey = getFieldAlias(field);
-    const propKey = isNumber(index) ? index : aliasKey || name;
-    const _dataPath = isString(dataPath) ? [dataPath] : [];
-    const dataKey = buildDataKey(propKey, _dataPath);
-    return { cacheKey, dataKey, hashKey, name, propKey };
+    const nameKey = aliasKey || name;
+    const queryKey = isNumber(index) ? queryPath : buildQueryKey(nameKey, queryPath);
+    const propKey = isNumber(index) ? index : nameKey;
+    const dataKey = buildDataKey(propKey, dataPath);
+    return { cacheKey, dataKey, hashKey, name, propKey, queryKey };
   }
 
   /**
    *
    * @private
    * @param {string} hash
-   * @return {any}
+   * @return {Object}
    */
   _getPartial(hash) {
-    if (!this._partials.has(hash)) return null;
+    if (!this._partials.has(hash)) return {};
     const partialData = this._partials.get(hash);
     this._partials.delete(hash);
     return partialData;
@@ -254,23 +241,18 @@ export default class Cache {
    *
    * @private
    * @param {Document} field
-   * @param {Object} queriedData
-   * @param {Object} checkList
    * @param {Object} metadata
    * @param {Object} [cachedData]
    * @param {string} [cachePath]
+   * @param {string} [queryPath]
    * @param {number} [index]
    * @return {Promise}
    */
-  async _parseField(field, queriedData, checkList, metadata, cachedData, cachePath, index) {
+  async _parseField(field, metadata, cachedData, cachePath, queryPath, index) {
     if (isParentField(field)) {
-      await this._parseParentField(
-        field, queriedData, checkList, metadata, cachePath, index,
-      );
+      await this._parseParentField(field, metadata, cachePath, queryPath, index);
     } else {
-      await this._parseSingleField(
-        field, queriedData, checkList, metadata, cachedData, cachePath, index,
-      );
+      await this._parseSingleField(field, metadata, cachedData, cachePath, queryPath, index);
     }
   }
 
@@ -278,32 +260,33 @@ export default class Cache {
    *
    * @private
    * @param {Document} field
-   * @param {Object} queriedData
-   * @param {Object} checkList
    * @param {Object} metadata
    * @param {string} [cachePath]
+   * @param {string} [queryPath]
    * @param {number} [index]
    * @return {Promise}
    */
-  async _parseParentField(field, queriedData, checkList, metadata, cachePath, index) {
-    const { cacheKey, hashKey, propKey } = this._getKeys(field, { cachePath }, index);
+  async _parseParentField(field, metadata, cachePath, queryPath, index) {
+    const {
+      cacheKey,
+      hashKey,
+      propKey,
+      queryKey,
+    } = this._getKeys(field, { cachePath, queryPath }, index);
+
     const { cacheability, cachedData } = await this._checkCacheEntry(hashKey);
-
-    this._setCacheEntryData(
-      queriedData, checkList, metadata, cachedData, cacheability, propKey,
-    );
-
+    this._setCacheEntryData(metadata, cachedData, cacheability, { propKey, queryKey });
     if (!isObjectLike(cachedData)) return;
+    const { cache, checkList, counter, queried } = metadata;
     const promises = [];
 
     this._iterateChildFields(field, cachedData, (childField, childIndex) => {
       promises.push(this._parseField(
         childField,
-        queriedData[propKey],
-        checkList[propKey],
-        metadata,
+        { cache, checkList, counter, queried: queried[propKey] },
         cachedData,
         cacheKey,
+        queryKey,
         childIndex,
       ));
     });
@@ -315,53 +298,48 @@ export default class Cache {
    *
    * @private
    * @param {Document} field
-   * @param {Object} queriedData
-   * @param {Object} checkList
+   * @param {Object} data
+   * @param {Map} cacheMetadata
+   * @param {string} [dataPath]
+   * @param {string} [queryPath]
+   * @param {number} [index]
+   * @return {void}
+   */
+  _parseResponseMetadata(field, data, cacheMetadata, dataPath, queryPath, index) {
+    const { dataKey, queryKey } = this._getKeys(field, { dataPath, queryPath }, index);
+    const fieldData = get(data, dataKey, null);
+    if (!isObjectLike(fieldData)) return;
+
+    if (get(fieldData, ['_metadata', 'cacheControl'])) {
+      const cacheability = new Cacheability();
+      cacheability.parseCacheControl(fieldData._metadata.cacheControl);
+      this._setCacheData(cacheMetadata, cacheability, { queryKey });
+      delete fieldData._metadata;
+    }
+
+    this._iterateChildFields(field, fieldData, (childField, childIndex) => {
+      this._parseResponseMetadata(childField, data, cacheMetadata, dataKey, queryKey, childIndex);
+    });
+  }
+
+  /**
+   *
+   * @private
+   * @param {Document} field
    * @param {Object} metadata
    * @param {any} cachedData
    * @param {string} cachePath
+   * @param {string} queryPath
    * @param {number} [index]
    * @return {Promise}
    */
-  async _parseSingleField(field, queriedData, checkList, metadata, cachedData, cachePath, index) {
-    const { name, propKey } = this._getKeys(field, { cachePath }, index);
+  async _parseSingleField(field, metadata, cachedData, cachePath, queryPath, index) {
+    const { name, propKey, queryKey } = this._getKeys(field, { cachePath, queryPath }, index);
     const _cachedData = cachedData[name];
-    this._setCheckList(checkList, _cachedData, propKey);
-    this._setMetadata(metadata, _cachedData);
-    this._setQueriedData(queriedData, _cachedData, propKey);
-  }
-
-  /**
-   *
-   * @private
-   * @param {Object} queriedData
-   * @param {Object} checkList
-   * @param {Object} metadata
-   * @param {any} cachedData
-   * @param {Object} cacheability
-   * @param {string} propKey
-   * @return {void}
-   */
-  _setCacheEntryData(queriedData, checkList, metadata, cachedData, cacheability, propKey) {
-    this._setCheckList(checkList, cachedData, propKey);
-    this._setMetadata(metadata, cachedData, cacheability);
-    this._setQueriedData(queriedData, cachedData, propKey, cacheability);
-  }
-
-  /**
-   *
-   * @private
-   * @param {Object} checkList
-   * @param {any} cachedData
-   * @param {string} propKey
-   * @return {void}
-   */
-  _setCheckList(checkList, cachedData, propKey) {
-    if (!isObjectLike(cachedData)) {
-      checkList[propKey] = cachedData !== undefined;
-    } else {
-      checkList[propKey] = isArray(cachedData) ? [] : {};
-    }
+    const { checkList, counter, queried } = metadata;
+    this._setCheckList(checkList, _cachedData, { queryKey });
+    this._setCounter(counter, _cachedData);
+    this._setQueriedData(queried, _cachedData, { propKey });
   }
 
   /**
@@ -370,21 +348,62 @@ export default class Cache {
    * @param {Object} metadata
    * @param {any} cachedData
    * @param {Object} cacheability
+   * @param {Object} keys
+   * @param {string} keys.propKey
+   * @param {string} keys.queryKey
    * @return {void}
    */
-  _setMetadata(metadata, cachedData, cacheability) {
-    metadata.total += 1;
-    if (cachedData === undefined) metadata.missing += 1;
-    const cacheValid = this._cacheValid(cacheability);
-    if (!cacheValid) return;
-    const cacheTTL = cacheability.ttl || 0;
-    const metaTTL = metadata.ttl || 0;
-    const metaCacheControl = metadata.cacheControl;
+  _setCacheEntryData(metadata, cachedData, cacheability, { propKey, queryKey }) {
+    const { cache, checkList, counter, queried } = metadata;
+    this._setCacheData(cache, cacheability, { queryKey });
+    this._setCheckList(checkList, cachedData, { queryKey });
+    this._setCounter(counter, cachedData);
+    this._setQueriedData(queried, cachedData, { propKey });
+  }
 
-    if (!metaCacheControl || cacheTTL > metaTTL) {
-      metadata.cacheControl = cacheability.printCacheControl();
-      metadata.ttl = cacheTTL;
+  /**
+   *
+   * @private
+   * @param {Map} cache
+   * @param {Object} cacheability
+   * @param {Object} keys
+   * @param {string} keys.queryKey
+   * @return {void}
+   */
+  _setCacheData(cache, cacheability, { queryKey }) {
+    if (cache.has(queryKey) || !this.cacheValid(cacheability)) return;
+    cache.set(queryKey, cacheability);
+    const queryCacheability = cache.get('query');
+
+    if (!queryCacheability || queryCacheability.metadata.ttl > cacheability.metadata.ttl) {
+      cache.set('query', cacheability);
     }
+  }
+
+  /**
+   *
+   * @private
+   * @param {Map} checkList
+   * @param {any} cachedData
+   * @param {Object} keys
+   * @param {string} keys.queryKey
+   * @return {void}
+   */
+  _setCheckList(checkList, cachedData, { queryKey }) {
+    if (checkList.has(queryKey)) return;
+    checkList.set(queryKey, cachedData !== undefined);
+  }
+
+  /**
+   *
+   * @private
+   * @param {Object} counter
+   * @param {any} cachedData
+   * @return {void}
+   */
+  _setCounter(counter, cachedData) {
+    counter.total += 1;
+    if (cachedData === undefined) counter.missing += 1;
   }
 
   /**
@@ -392,29 +411,34 @@ export default class Cache {
    * @private
    * @param {Object} field
    * @param {Object} data
-   * @param {Object} headers
-   * @param {string} [dataPath]
-   * @param {string} [cachePath]
+   * @param {Object} cacheMetadata
+   * @param {string} cacheControl
+   * @param {Object} [paths]
    * @param {number} [index]
    * @return {Promise}
    */
-  async _setObject(field, data, headers, dataPath, cachePath, index) {
-    const { cacheKey, dataKey, hashKey } = this._getKeys(field, { cachePath, dataPath }, index);
-    const fieldData = cloneDeep(get(data, dataKey));
+  async _setObject(field, data, cacheMetadata, cacheControl, paths, index) {
+    const { cacheKey, dataKey, hashKey, queryKey } = this._getKeys(field, paths, index);
+    const fieldData = cloneDeep(get(data, dataKey, null));
     if (!isObjectLike(fieldData)) return;
-    let fieldHeaders = headers;
-
-    if (has(fieldData, '_Headers')) {
-      fieldHeaders = fieldData._Headers;
-      delete fieldData._Headers;
-    }
+    let _cacheControl = cacheControl;
+    const metadata = cacheMetadata.get(queryKey);
+    if (metadata) _cacheControl = metadata.printCacheControl();
 
     this._iterateChildFields(field, fieldData, (childField, childIndex) => {
       this._setObjectHashKey(fieldData, dataKey, cacheKey, childField, childIndex);
-      this._setObject(childField, data, fieldHeaders, dataKey, cacheKey, childIndex);
+
+      this._setObject(
+        childField,
+        data,
+        cacheMetadata,
+        _cacheControl,
+        { cachePath: cacheKey, dataPath: dataKey, queryPath: queryKey },
+        childIndex,
+      );
     });
 
-    this._obj.set(hashKey, fieldData, { cacheHeaders: fieldHeaders });
+    this._obj.set(hashKey, fieldData, { cacheHeaders: { cacheControl: _cacheControl } });
   }
 
   /**
@@ -438,16 +462,15 @@ export default class Cache {
    * @private
    * @param {Object} queriedData
    * @param {any} cachedData
-   * @param {string} propKey
-   * @param {Object} cacheability
+   * @param {Object} keys
+   * @param {string} keys.propKey
    * @return {void}
    */
-  _setQueriedData(queriedData, cachedData, propKey, cacheability) {
-    if (!isObjectLike(cachedData) && cachedData !== undefined) queriedData[propKey] = cachedData;
-    if (isObjectLike(cachedData)) queriedData[propKey] = isArray(cachedData) ? [] : {};
-
-    if (isPlainObject(queriedData[propKey]) && this._cacheValid(cacheability)) {
-      queriedData[propKey]._Headers = { cacheControl: cacheability.printCacheControl() };
+  _setQueriedData(queriedData, cachedData, { propKey }) {
+    if (!isObjectLike(cachedData) && cachedData !== undefined) {
+      queriedData[propKey] = cachedData;
+    } else if (isObjectLike(cachedData)) {
+      queriedData[propKey] = isArray(cachedData) ? [] : {};
     }
   }
 
@@ -456,12 +479,44 @@ export default class Cache {
    * @private
    * @param {Document} ast
    * @param {Object} data
-   * @param {Object} headers
+   * @param {Map} cacheMetadata
+   * @param {Map} [partialCacheMetadata]
+   * @return {Map}
+   */
+  _updateCacheMetadata(ast, data, cacheMetadata, partialCacheMetadata) {
+    let metadata = cacheMetadata;
+
+    if (partialCacheMetadata) {
+      const cacheCacheability = cacheMetadata.get('query');
+      const partialCacheability = partialCacheMetadata.get('query');
+
+      if (cacheCacheability.metadata.ttl < partialCacheability.metadata.ttl) {
+        metadata = new Map([...partialCacheMetadata, ...cacheMetadata]);
+      } else {
+        metadata = new Map([...cacheMetadata, ...partialCacheMetadata]);
+      }
+    }
+
+    getRootFields(ast, (field) => {
+      this._parseResponseMetadata(field, data, metadata);
+    });
+
+    return metadata;
+  }
+
+  /**
+   *
+   * @private
+   * @param {Document} ast
+   * @param {Object} data
+   * @param {Map} cacheMetadata
    * @return {Promise}
    */
-  async _updateObjectCache(ast, data, headers) {
+  async _updateObjectCache(ast, data, cacheMetadata) {
+    const queryCache = cacheMetadata.get('query');
+
     getRootFields(ast, (field) => {
-      this._setObject(field, data, headers);
+      this._setObject(field, data, cacheMetadata, queryCache.printCacheControl());
     });
   }
 
@@ -490,9 +545,9 @@ export default class Cache {
           addChildField(node, fieldAST);
         }
 
-        if (fields._Headers && !hasChildField(node, '_Headers')) {
-          const mockAST = parse(`{ ${name} { _Headers } }`);
-          const fieldAST = getChildField(getRootField(mockAST, name), '_Headers');
+        if (fields._metadata && !hasChildField(node, '_metadata')) {
+          const mockAST = parse(`{ ${name} { _metadata } }`);
+          const fieldAST = getChildField(getRootField(mockAST, name), '_metadata');
           addChildField(node, fieldAST);
         }
       },
@@ -509,18 +564,28 @@ export default class Cache {
    * @return {Promise}
    */
   async analyze(hash, ast) {
-    const { checkList, metadata, queriedData } = await this._checkObjectCache(ast);
+    const { cache, checkList, counter, queried } = await this._checkObjectCache(ast);
 
-    if (metadata.missing === metadata.total) {
+    if (counter.missing === counter.total) {
       const updatedAST = await this._updateQuery(ast);
       return { updatedAST, updatedQuery: print(updatedAST) };
     }
 
-    if (!metadata.missing) return { cachedData: queriedData, cacheHeaders: metadata.headers };
-    this._partials.set(hash, queriedData);
+    if (!counter.missing) return { cachedData: queried, cacheMetadata: cache };
+    this._partials.set(hash, { cacheMetadata: cache, cachedData: queried });
     await this._filterQuery(ast, checkList);
     const updatedAST = await this._updateQuery(ast);
     return { filtered: true, updatedAST, updatedQuery: print(updatedAST) };
+  }
+
+  /**
+   *
+   * @param {Object} cacheability
+   * @return {boolean}
+   */
+  cacheValid(cacheability) {
+    const noCache = get(cacheability, ['metadata', 'cacheControl', 'noCache'], false);
+    return cacheability && !noCache && cacheability.checkTTL();
   }
 
   /**
@@ -538,28 +603,39 @@ export default class Cache {
    * @param {Document} ast
    * @param {string} hash
    * @param {Object} data
-   * @param {Object} cacheHeaders
+   * @param {Object} cacheMetadata
    * @param {Object} opts
    * @return {Promise}
    */
-  async resolve(query, ast, hash, data, cacheHeaders, opts) {
+  async resolve(query, ast, hash, data, cacheMetadata, opts) {
     if (opts.filtered) {
       const filteredHash = this.hash(query);
-      this._res.set(filteredHash, data, { cacheHeaders });
+
+      this._res.set(filteredHash, { cacheMetadata: mapToObject(cacheMetadata), data }, {
+        cacheHeaders: { cacheControl: cacheMetadata.get('query').printCacheControl() },
+      });
     }
 
-    const partialData = this._getPartial(hash);
+    const partial = this._getPartial(hash);
+
+    const _cacheMetadata = this._updateCacheMetadata(
+      ast, data, cacheMetadata, partial.cacheMetadata,
+    );
+
     let _data = data;
 
-    if (partialData) {
-      _data = mergeObjects(partialData, data, (key, val) => {
+    if (partial.cachedData) {
+      _data = mergeObjects(partial.cachedData, data, (key, val) => {
         if (isPlainObject(val) && val.id) return val.id;
         return false;
       });
     }
 
-    this._res.set(hash, _data, { cacheHeaders });
-    this._updateObjectCache(ast, _data, cacheHeaders);
-    return _data;
+    this._res.set(hash, { cacheMetadata: mapToObject(_cacheMetadata), data: _data }, {
+      cacheHeaders: { cacheControl: _cacheMetadata.get('query').printCacheControl() },
+    });
+
+    this._updateObjectCache(ast, _data, _cacheMetadata);
+    return { cacheMetadata: _cacheMetadata, data: _data };
   }
 }

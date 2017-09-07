@@ -5,7 +5,7 @@ import { GraphQLSchema } from 'graphql';
 import { spy } from 'sinon';
 import sinonChai from 'sinon-chai';
 import { github, tesco } from '../data/graphql';
-import { createClient, githubURL, mockGQLRequest, mockRestRequest } from '../helpers';
+import { createClient, githubURL, mockGQLRequest, mockRestRequest, parseMap } from '../helpers';
 import Client from '../../src';
 
 chai.use(dirtyChai);
@@ -72,11 +72,11 @@ describe('when the client is in internal mode', () => {
   });
 
   describe('when a single query is requested from the server', () => {
-    let data;
+    let res;
 
     beforeEach(async () => {
       mockRestRequest('product', '402-5806');
-      data = await client.request(tesco.requests.singleQuery);
+      res = await client.request(tesco.requests.singleQuery);
     });
 
     afterEach(() => {
@@ -85,7 +85,7 @@ describe('when the client is in internal mode', () => {
     });
 
     it('should return the requested data', async () => {
-      const { product } = data;
+      const { product } = res.data;
       expect(product.id).to.eql('402-5806');
       expect(product.optionsInfo[0].name).to.eql('Colour');
       expect(product.optionsInfo[1].name).to.eql('Size');
@@ -101,7 +101,9 @@ describe('when the client is in internal mode', () => {
       const cache = client._cache.res;
       expect(await cache.size()).to.eql(2);
       const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-      expect(await cache.get(singleQuery, { hash: true })).to.eql(data);
+      const cacheMetadata = parseMap(res.cacheMetadata);
+      const data = res.data;
+      expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
     });
 
     it('should cache each response object against its query path', async () => {
@@ -111,11 +113,11 @@ describe('when the client is in internal mode', () => {
 
     describe('when the same query is subsquently requested', () => {
       beforeEach(async () => {
-        data = await client.request(tesco.requests.singleQuery);
+        res = await client.request(tesco.requests.singleQuery);
       });
 
       it('should return the requested data from the response cache', () => {
-        const { product } = data;
+        const { product } = res.data;
         expect(product.id).to.eql('402-5806');
         expect(product.optionsInfo[0].name).to.eql('Colour');
         expect(product.optionsInfo[1].name).to.eql('Size');
@@ -131,7 +133,9 @@ describe('when the client is in internal mode', () => {
         const cache = client._cache.res;
         expect(await cache.size()).to.eql(2);
         const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-        expect(await cache.get(singleQuery, { hash: true })).to.eql(data);
+        const cacheMetadata = parseMap(res.cacheMetadata);
+        const data = res.data;
+        expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
       });
 
       it('should not change the size of the object cache', async () => {
@@ -142,11 +146,11 @@ describe('when the client is in internal mode', () => {
 
     describe('when the same query with variables is subsequently requested', () => {
       beforeEach(async () => {
-        data = await client.request(tesco.requests.variableQuery, { variables: { id: '402-5806' } });
+        res = await client.request(tesco.requests.variableQuery, { variables: { id: '402-5806' } });
       });
 
       it('should return the requested data from the response cache', () => {
-        const { product } = data;
+        const { product } = res.data;
         expect(product.id).to.eql('402-5806');
         expect(product.optionsInfo[0].name).to.eql('Colour');
         expect(product.optionsInfo[1].name).to.eql('Size');
@@ -162,7 +166,9 @@ describe('when the client is in internal mode', () => {
         const cache = client._cache.res;
         expect(await cache.size()).to.eql(2);
         const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-        expect(await cache.get(singleQuery, { hash: true })).to.eql(data);
+        const cacheMetadata = parseMap(res.cacheMetadata);
+        const data = res.data;
+        expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
       });
 
       it('should not change the size of the object cache', async () => {
@@ -173,11 +179,11 @@ describe('when the client is in internal mode', () => {
 
     describe('when the same query with aliases is subsequently requested', () => {
       beforeEach(async () => {
-        data = await client.request(tesco.requests.aliasQuery);
+        res = await client.request(tesco.requests.aliasQuery);
       });
 
       it('should return the data from the object cache', () => {
-        const { favourite } = data;
+        const { favourite } = res.data;
         expect(favourite.id).to.eql('402-5806');
         expect(favourite.optionsInfo[0].name).to.eql('Colour');
         expect(favourite.optionsInfo[1].name).to.eql('Size');
@@ -193,7 +199,9 @@ describe('when the client is in internal mode', () => {
         const cache = client._cache.res;
         expect(await cache.size()).to.eql(3);
         const aliasQuery = tesco.requests.aliasQuery.replace(/\s/g, '');
-        expect(await cache.get(aliasQuery, { hash: true })).to.eql(data);
+        const cacheMetadata = parseMap(res.cacheMetadata);
+        const data = res.data;
+        expect(await cache.get(aliasQuery, { hash: true })).to.eql({ cacheMetadata, data });
       });
 
       it('should not change the size of the object cache', async () => {
@@ -204,13 +212,13 @@ describe('when the client is in internal mode', () => {
   });
 
   describe('when part of a single query is in the object cache', () => {
-    let data;
+    let res;
 
     beforeEach(async () => {
       mockRestRequest('product', '402-5806');
       await client.request(tesco.requests.partOneQuery);
       spy(client, '_fetch');
-      data = await client.request(tesco.requests.singleQuery);
+      res = await client.request(tesco.requests.singleQuery);
     });
 
     afterEach(() => {
@@ -220,7 +228,7 @@ describe('when the client is in internal mode', () => {
     });
 
     it('should return the requested data', () => {
-      const { product } = data;
+      const { product } = res.data;
       expect(product.id).to.eql('402-5806');
       expect(product.optionsInfo[0].name).to.eql('Colour');
       expect(product.optionsInfo[1].name).to.eql('Size');
@@ -252,11 +260,11 @@ describe('when the client is in internal mode', () => {
   });
 
   describe('when a query with variables is requested from the server', () => {
-    let data;
+    let res;
 
     beforeEach(async () => {
       mockRestRequest('product', '402-5806');
-      data = await client.request(tesco.requests.variableQuery, { variables: { id: '402-5806' } });
+      res = await client.request(tesco.requests.variableQuery, { variables: { id: '402-5806' } });
     });
 
     afterEach(() => {
@@ -265,7 +273,7 @@ describe('when the client is in internal mode', () => {
     });
 
     it('should return the requested data', async () => {
-      const { product } = data;
+      const { product } = res.data;
       expect(product.id).to.eql('402-5806');
       expect(product.optionsInfo[0].name).to.eql('Colour');
       expect(product.optionsInfo[1].name).to.eql('Size');
@@ -281,16 +289,18 @@ describe('when the client is in internal mode', () => {
       const cache = client._cache.res;
       expect(await cache.size()).to.eql(2);
       const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-      expect(await cache.get(singleQuery, { hash: true })).to.eql(data);
+      const cacheMetadata = parseMap(res.cacheMetadata);
+      const data = res.data;
+      expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
     });
 
     describe('when a subsequent query is made for the same data', () => {
       beforeEach(async () => {
-        data = await client.request(tesco.requests.singleQuery);
+        res = await client.request(tesco.requests.singleQuery);
       });
 
       it('should return the data from the response cache', () => {
-        const { product } = data;
+        const { product } = res.data;
         expect(product.id).to.eql('402-5806');
         expect(product.optionsInfo[0].name).to.eql('Colour');
         expect(product.optionsInfo[1].name).to.eql('Size');
@@ -306,17 +316,19 @@ describe('when the client is in internal mode', () => {
         const cache = client._cache.res;
         expect(await cache.size()).to.eql(2);
         const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-        expect(await cache.get(singleQuery, { hash: true })).to.eql(data);
+        const cacheMetadata = parseMap(res.cacheMetadata);
+        const data = res.data;
+        expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
       });
     });
   });
 
   describe('when a query with aliases is requested from the server', () => {
-    let data;
+    let res;
 
     beforeEach(async () => {
       mockRestRequest('product', '402-5806');
-      data = await client.request(tesco.requests.aliasQuery);
+      res = await client.request(tesco.requests.aliasQuery);
     });
 
     afterEach(() => {
@@ -325,7 +337,7 @@ describe('when the client is in internal mode', () => {
     });
 
     it('should return the requested data', () => {
-      const { favourite } = data;
+      const { favourite } = res.data;
       expect(favourite.id).to.eql('402-5806');
       expect(favourite.optionsInfo[0].name).to.eql('Colour');
       expect(favourite.optionsInfo[1].name).to.eql('Size');
@@ -341,7 +353,9 @@ describe('when the client is in internal mode', () => {
       const cache = client._cache.res;
       expect(await cache.size()).to.eql(2);
       const aliasQuery = tesco.requests.aliasQuery.replace(/\s/g, '');
-      expect(await cache.get(aliasQuery, { hash: true })).to.eql(data);
+      const cacheMetadata = parseMap(res.cacheMetadata);
+      const data = res.data;
+      expect(await cache.get(aliasQuery, { hash: true })).to.eql({ cacheMetadata, data });
     });
 
     it('should cache each response object against its query path', async () => {
@@ -351,11 +365,11 @@ describe('when the client is in internal mode', () => {
 
     describe('when a subsequent query is made for the same data without the aliases', () => {
       beforeEach(async () => {
-        data = await client.request(tesco.requests.singleQuery);
+        res = await client.request(tesco.requests.singleQuery);
       });
 
       it('should return the data from the object cache', () => {
-        const { product } = data;
+        const { product } = res.data;
         expect(product.id).to.eql('402-5806');
         expect(product.optionsInfo[0].name).to.eql('Colour');
         expect(product.optionsInfo[1].name).to.eql('Size');
@@ -371,7 +385,9 @@ describe('when the client is in internal mode', () => {
         const cache = client._cache.res;
         expect(await cache.size()).to.eql(3);
         const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-        expect(await cache.get(singleQuery, { hash: true })).to.eql(data);
+        const cacheMetadata = parseMap(res.cacheMetadata);
+        const data = res.data;
+        expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
       });
 
       it('should not change the size of the object cache', async () => {
@@ -382,14 +398,14 @@ describe('when the client is in internal mode', () => {
   });
 
   describe('when the same query is requested in quick succession', () => {
-    let data;
+    let res;
 
     beforeEach(async () => {
       mockRestRequest('product', '402-5806');
       const promises = [];
       promises.push(client.request(tesco.requests.singleQuery));
       promises.push(client.request(tesco.requests.singleQuery));
-      data = await Promise.all(promises);
+      res = await Promise.all(promises);
     });
 
     afterEach(() => {
@@ -398,16 +414,16 @@ describe('when the client is in internal mode', () => {
     });
 
     it('should return the requested data for both requests', async () => {
-      expect(data[0].product.id).to.eql('402-5806');
-      expect(data[0].product.optionsInfo[0].name).to.eql('Colour');
-      expect(data[0].product.optionsInfo[1].name).to.eql('Size');
-      expect(data[0].product.prices.price).to.eql('19.00');
-      expect(data[0].product.userActionable).to.be.true();
-      expect(data[1].product.id).to.eql('402-5806');
-      expect(data[1].product.optionsInfo[0].name).to.eql('Colour');
-      expect(data[1].product.optionsInfo[1].name).to.eql('Size');
-      expect(data[1].product.prices.price).to.eql('19.00');
-      expect(data[1].product.userActionable).to.be.true();
+      expect(res[0].data.product.id).to.eql('402-5806');
+      expect(res[0].data.product.optionsInfo[0].name).to.eql('Colour');
+      expect(res[0].data.product.optionsInfo[1].name).to.eql('Size');
+      expect(res[0].data.product.prices.price).to.eql('19.00');
+      expect(res[0].data.product.userActionable).to.be.true();
+      expect(res[1].data.product.id).to.eql('402-5806');
+      expect(res[1].data.product.optionsInfo[0].name).to.eql('Colour');
+      expect(res[1].data.product.optionsInfo[1].name).to.eql('Size');
+      expect(res[1].data.product.prices.price).to.eql('19.00');
+      expect(res[1].data.product.userActionable).to.be.true();
     });
 
     it('should have make just one request to the server', () => {
@@ -418,7 +434,9 @@ describe('when the client is in internal mode', () => {
       const cache = client._cache.res;
       expect(await cache.size()).to.eql(2);
       const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
-      expect(await cache.get(singleQuery, { hash: true })).to.eql(data[0]);
+      const cacheMetadata = parseMap(res[0].cacheMetadata);
+      const data = res[0].data;
+      expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
     });
 
     it('should not change the size of the object cache', async () => {
@@ -436,11 +454,11 @@ describe('when the client is in external mode', () => {
   });
 
   describe('when a mutation is sent to the server', () => {
-    let data;
+    let res;
 
     beforeEach(async () => {
       mockGQLRequest(github.requests.singleMutation);
-      data = await client.request(github.requests.singleMutation);
+      res = await client.request(github.requests.singleMutation);
     });
 
     afterEach(() => {
@@ -448,17 +466,17 @@ describe('when the client is in external mode', () => {
     });
 
     it('should return the data requested in the mutation', () => {
-      expect(data).to.eql(github.responses.singleMutation);
+      expect(res.data).to.eql(github.responses.singleMutation.data);
     });
   });
 
   describe('when a mutation with variables is sent to the server', () => {
-    let data;
+    let res;
 
     beforeEach(async () => {
       mockGQLRequest(github.requests.singleMutation);
 
-      data = await client.request(github.requests.variableMutation, {
+      res = await client.request(github.requests.variableMutation, {
         variables: { ownerId: 'MDEwOlJlcG9zaXRvcnk5ODU4ODQxNg==', name: 'wip' },
       });
     });
@@ -468,7 +486,7 @@ describe('when the client is in external mode', () => {
     });
 
     it('should return the data requested in the mutation', () => {
-      expect(data).to.eql(github.responses.singleMutation);
+      expect(res.data).to.eql(github.responses.singleMutation.data);
     });
 
     it('should populate the variables in the mutation before sending the request', () => {

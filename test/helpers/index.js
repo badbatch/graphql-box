@@ -109,3 +109,18 @@ export const mockRestRequest = function mockRestRequest(key, resource) {
   fetchMock.mock(matcher, { body: JSON.stringify(body) });
   return { body, path };
 };
+
+/**
+ *
+ * @param {Map} map
+ * @return {Object}
+ */
+export const parseMap = function parseMap(map) {
+  const obj = {};
+
+  map.forEach((cacheability, key) => {
+    obj[key] = cacheability.metadata;
+  });
+
+  return obj;
+};
