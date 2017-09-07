@@ -546,7 +546,7 @@ export default class Cache {
         }
 
         if (fields._metadata && !hasChildField(node, '_metadata')) {
-          const mockAST = parse(`{ ${name} { _metadata } }`);
+          const mockAST = parse(`{ ${name} { _metadata { cacheControl } } }`);
           const fieldAST = getChildField(getRootField(mockAST, name), '_metadata');
           addChildField(node, fieldAST);
         }
