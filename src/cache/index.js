@@ -57,11 +57,15 @@ export default class Cache {
      */
     cachemapOptions = { obj: {}, res: {} },
     /**
-     * Default cache control for queries.
+     * Optional default cache control for queries
+     * and mutations.
      *
-     * @type {string}
+     * @type {Object}
      */
-    defaultCacheControl,
+    defaultCacheControls = {
+      mutation: 'max-age=0, s-maxage=0, no-cache, no-store',
+      query: 'public, max-age=60, s-maxage=60',
+    },
     /**
      * Identifier used as the key for each resource
      * requested from the server.
@@ -76,7 +80,7 @@ export default class Cache {
      */
     schema,
   } = {}) {
-    this._defaultCacheControl = defaultCacheControl;
+    this._defaultCacheControls = defaultCacheControls;
     this._obj = new Cachemap(cachemapOptions.obj);
     this._partials = new Map();
     this._res = new Cachemap(cachemapOptions.res);
@@ -510,7 +514,7 @@ export default class Cache {
 
     if (!_cacheMetadata.has('query')) {
       const cacheability = new Cacheability();
-      cacheability.parseCacheControl(this._defaultCacheControl);
+      cacheability.parseCacheControl(this._defaultCacheControls.query);
       _cacheMetadata.set('query', cacheability);
     }
 

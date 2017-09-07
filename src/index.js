@@ -50,11 +50,15 @@ export default class Client {
      */
     cachemapOptions,
     /**
-     * Optional default cache control for queries.
+     * Optional default cache control for queries
+     * and mutations.
      *
-     * @type {string}
+     * @type {Object}
      */
-    defaultCacheControl = 'public, max-age=60, s-maxage=60',
+    defaultCacheControls = {
+      mutation: 'max-age=0, s-maxage=0, no-cache, no-store',
+      query: 'public, max-age=60, s-maxage=60',
+    },
     /**
      * Optional override for client's execute method,
      * which calls graphql's execute method.
@@ -126,10 +130,10 @@ export default class Client {
     if (!_schema) _schema = buildClientSchema(introspection);
 
     this._cache = new Cache({
-      cachemapOptions, defaultCacheControl, resourceKey, schema: _schema,
+      cachemapOptions, defaultCacheControls, resourceKey, schema: _schema,
     });
 
-    this._defaultCacheControl = defaultCacheControl;
+    this._defaultCacheControls = defaultCacheControls;
     if (isFunction(executor)) this._execute = executor;
     this._headers = { ...this._headers, ...headers };
     this._mode = mode;
@@ -170,11 +174,11 @@ export default class Client {
   /**
    *
    * @private
-   * @param {Object} cacheMetadata
    * @param {Headers} headers
+   * @param {Object} cacheMetadata
    * @return {Map}
    */
-  _createCacheMetadata(cacheMetadata, headers) {
+  _createCacheMetadata(headers, cacheMetadata) {
     if (cacheMetadata) return this._parseCacheMetadata(cacheMetadata);
     const cacheControl = headers && headers.get('cache-control');
     if (!cacheControl) return new Map();
@@ -246,7 +250,10 @@ export default class Client {
    * @return {Promise}
    */
   async _mutation(mutation, ast, context) {
-    return this._fetch(mutation, ast, context);
+    const { data, errors, headers } = await this._fetch(mutation, ast, context);
+    const cacheMetadata = this._createCacheMetadata(headers);
+    if (errors) this._resolve('mutation', { errors }, cacheMetadata);
+    return this._resolve('mutation', data, cacheMetadata);
   }
 
   /**
@@ -308,7 +315,7 @@ export default class Client {
 
     if (!opts.forceFetch) {
       const res = await this._checkResponseCache(hash);
-      if (res) return this._resolve(res.data, res.cacheMetadata);
+      if (res) return this._resolve('query', res.data, res.cacheMetadata);
     }
 
     if (this._requests.active.has(hash)) {
@@ -332,32 +339,33 @@ export default class Client {
         cacheHeaders: { cacheControl: cacheMetadata.get('query').printCacheControl() },
       });
 
-      return this._resolve(cachedData, cacheMetadata, hash);
+      return this._resolve('query', cachedData, cacheMetadata, hash);
     }
 
     const res = await this._fetch(updatedQuery, updatedAST, context);
-    const _cacheMetadata = this._createCacheMetadata(res.cacheMetadata, res.headers);
-    if (res.errors) return this._resolve({ errors: res.errors }, _cacheMetadata, hash);
+    const _cacheMetadata = this._createCacheMetadata(res.headers, res.cacheMetadata);
+    if (res.errors) return this._resolve('query', { errors: res.errors }, _cacheMetadata, hash);
 
     const resolved = await this._cache.resolve(
       updatedQuery, updatedAST, hash, res.data, _cacheMetadata, { filtered },
     );
 
-    return this._resolve(resolved.data, resolved.cacheMetadata, hash);
+    return this._resolve('query', resolved.data, resolved.cacheMetadata, hash);
   }
 
   /**
    *
    * @private
+   * @param {string} operation
    * @param {Object} data
    * @param {Object} cacheMetadata
    * @param {string} [hash]
    * @return {Object}
    */
-  _resolve(data, cacheMetadata, hash) {
+  _resolve(operation, data, cacheMetadata, hash) {
     if (!cacheMetadata.has('query')) {
       const cacheability = new Cacheability();
-      cacheability.parseCacheControl(this._defaultCacheControl);
+      cacheability.parseCacheControl(this._defaultCacheControls[operation]);
       cacheMetadata.set('query', cacheability);
     }
 
