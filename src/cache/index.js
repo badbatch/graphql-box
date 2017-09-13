@@ -321,10 +321,13 @@ export default class Cache {
     const fieldData = get(data, dataKey, null);
     if (!isObjectLike(fieldData)) return;
 
-    if (get(fieldData, ['_metadata', 'cacheControl'])) {
-      const cacheability = new Cacheability();
-      cacheability.parseCacheControl(fieldData._metadata.cacheControl);
-      this._setCacheData(cacheMetadata, cacheability, { queryKey });
+    if (Object.prototype.hasOwnProperty.call(fieldData, '_metadata')) {
+      if (get(fieldData._metadata, ['cacheControl'])) {
+        const cacheability = new Cacheability();
+        cacheability.parseCacheControl(fieldData._metadata.cacheControl);
+        this._setCacheData(cacheMetadata, cacheability, { queryKey });
+      }
+
       delete fieldData._metadata;
     }
 
