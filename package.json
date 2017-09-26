@@ -1,6 +1,6 @@
 {
   "name": "handl",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "An isomorphic graphql client and cache.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -36,7 +36,7 @@
     "cacheability": "0.0.1",
     "cachemap": "0.0.9",
     "es6-promise": "^4.1.1",
-    "graphql": "^0.10.5",
+    "graphql": "^0.11.3",
     "iso-logger": "0.0.8",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",

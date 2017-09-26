@@ -1,6 +1,16 @@
 import md5 from 'md5';
 import { requests, responses } from './github';
-import { aliasQuery, partOneQuery, partTwoQuery, singleQuery, variableQuery } from './tesco';
+
+import {
+  aliasQuery,
+  partOneQuery,
+  partTwoQuery,
+  singleQuery,
+  variableQuery,
+  fragmentQuery,
+  optionsInfoFragment,
+  priceFragment,
+} from './tesco/requests';
 
 /**
  *
@@ -13,7 +23,14 @@ export const github = { requests, responses };
  * @type {Object}
  */
 export const tesco = { requests: {
-  aliasQuery, partOneQuery, partTwoQuery, singleQuery, variableQuery,
+  aliasQuery,
+  partOneQuery,
+  partTwoQuery,
+  singleQuery,
+  variableQuery,
+  fragmentQuery,
+  optionsInfoFragment,
+  priceFragment,
 } };
 
 /**

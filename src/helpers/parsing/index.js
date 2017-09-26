@@ -49,7 +49,7 @@ export const buildQueryKey = function buildQueryKey(name, queryPath) {
 /**
  *
  * @param {Object} opDef
- * @return {Array<Object>}
+ * @return {void}
  */
 export const deleteVariableDefinitions = function deleteVariableDefinitions(opDef) {
   opDef.variableDefinitions = null;
@@ -212,6 +212,19 @@ export const deleteChildField = function deleteChildField(parent, child) {
 
 /**
  *
+ * @param {Object} document
+ * @return {void}
+ */
+export const deleteFragmentDefinitions = function deleteFragmentDefinitions({ definitions }) {
+  for (let i = definitions.length - 1; i >= 0; i -= 1) {
+    if (getKind(definitions[i]) === 'FragmentDefinition') {
+      definitions.splice(i, 1);
+    }
+  }
+};
+
+/**
+ *
  * @param {Object} node
  * @param {string} name
  * @return {Object}
@@ -244,6 +257,23 @@ export const getFieldArguments = function getFieldArguments(node) {
   });
 
   return args;
+};
+
+/**
+ *
+ * @param {Object} document
+ * @return {Object}
+ */
+export const getFragmentDefinitions = function getFragmentDefinitions({ definitions }) {
+  const fragmentDefinitions = {};
+
+  definitions.forEach((value) => {
+    if (getKind(value) === 'FragmentDefinition') {
+      fragmentDefinitions[getName(value)] = value;
+    }
+  });
+
+  return fragmentDefinitions;
 };
 
 /**
@@ -336,10 +366,43 @@ export const hasChildField = function hasChildField(node, name) {
 
 /**
  *
+ * @param {Object} document
+ * @return {boolean}
+ */
+export const hasFragmentDefinitions = function hasFragmentDefinitions({ definitions }) {
+  return !!definitions.filter(value => getKind(value) === 'FragmentDefinition').length;
+};
+
+/**
+ *
+ * @param {Object} selectionSet
+ * @return {boolean}
+ */
+export const hasFragmentSpread = function hasFragmentSpread({ selections }) {
+  return !!selections.filter(value => getKind(value) === 'FragmentSpread').length;
+};
+
+/**
+ *
  * @param {Object} opDef
- * @return {Array<Object>}
+ * @return {boolean}
  */
 export const hasVariableDefinitions = function hasVariableDefinitions(opDef) {
   const variableDefinitions = getVariableDefinitions(opDef);
   return isArray(variableDefinitions) && variableDefinitions.length;
+};
+
+/**
+ *
+ * @param {Object} fragmentDefinitions
+ * @param {Object} selectionSet
+ * @return {void}
+ */
+export const setFragments = function setFragments(fragmentDefinitions, { selections }) {
+  for (let i = selections.length - 1; i >= 0; i -= 1) {
+    if (getKind(selections[i]) === 'FragmentSpread') {
+      const { selectionSet } = fragmentDefinitions[getName(selections[i])];
+      selections.splice(i, 1, ...selectionSet.selections);
+    }
+  }
 };

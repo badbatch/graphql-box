@@ -323,6 +323,44 @@ describe('when the client is in internal mode', () => {
     });
   });
 
+  describe('when a query with fragments is requested from the server', () => {
+    let res;
+
+    beforeEach(async () => {
+      mockRestRequest('product', '402-5806');
+      res = await client.request(tesco.requests.fragmentQuery, { fragments: [
+        tesco.requests.optionsInfoFragment, tesco.requests.priceFragment,
+      ] });
+    });
+
+    afterEach(() => {
+      client.clearCache();
+      fetchMock.restore();
+    });
+
+    it('should return the requested data', async () => {
+      const { product } = res.data;
+      expect(product.id).to.eql('402-5806');
+      expect(product.optionsInfo[0].name).to.eql('Colour');
+      expect(product.optionsInfo[1].name).to.eql('Size');
+      expect(product.prices.price).to.eql('19.00');
+      expect(product.userActionable).to.be.true();
+    });
+
+    it('should have make the request to the server', () => {
+      expect(fetchMock.calls().matched).to.have.lengthOf(1);
+    });
+
+    it('should cache the response against the query populated with the fragments', async () => {
+      const cache = client._cache.res;
+      expect(await cache.size()).to.eql(2);
+      const singleQuery = tesco.requests.singleQuery.replace(/\s/g, '');
+      const cacheMetadata = parseMap(res.cacheMetadata);
+      const data = res.data;
+      expect(await cache.get(singleQuery, { hash: true })).to.eql({ cacheMetadata, data });
+    });
+  });
+
   describe('when a query with aliases is requested from the server', () => {
     let res;
 

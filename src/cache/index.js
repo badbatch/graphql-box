@@ -35,8 +35,6 @@ import {
   mapToObject,
 } from '../helpers/parsing';
 
-import logger from '../logger';
-
 /**
  *
  * The cache
@@ -111,15 +109,9 @@ export default class Cache {
    * @return {Promise}
    */
   async _checkCacheEntry(hashKey) {
-    let cachedData, cacheability;
-
-    try {
-      cacheability = await this._obj.has(hashKey);
-      if (this.cacheValid(cacheability)) cachedData = await this._obj.get(hashKey);
-    } catch (err) {
-      logger.error(err);
-    }
-
+    const cacheability = await this._obj.has(hashKey);
+    let cachedData;
+    if (this.cacheValid(cacheability)) cachedData = await this._obj.get(hashKey);
     return { cacheability, cachedData };
   }
 

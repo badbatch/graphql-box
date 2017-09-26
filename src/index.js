@@ -14,13 +14,18 @@ import { isFunction, isString } from 'lodash';
 import Cache from './cache';
 
 import {
+  deleteFragmentDefinitions,
   deleteVariableDefinitions,
+  getFragmentDefinitions,
   getName,
   getOperationName,
   getVariableDefinitions,
   getVariableDefinitionType,
+  hasFragmentDefinitions,
+  hasFragmentSpread,
   hasVariableDefinitions,
   mapToObject,
+  setFragments,
 } from './helpers/parsing';
 
 import logger from './logger';
@@ -67,6 +72,12 @@ export default class Client {
      */
     executor,
     /**
+     * Optional Graphql default field resolver function.
+     *
+     * @type {Function}
+     */
+    fieldResolver,
+    /**
      * Any headers to be sent with requests, such as
      * authentication headers.
      *
@@ -101,10 +112,16 @@ export default class Client {
      */
     resourceKey = 'id',
     /**
+     * Optional Graphql root value.
+     *
+     * @type {any}
+     */
+    rootValue = null,
+    /**
      * Graphql schema required for clients
      * running in internal mode.
      *
-     * @type {Schema}
+     * @type {GraphQLSchema}
      */
     schema,
     /**
@@ -135,9 +152,11 @@ export default class Client {
 
     this._defaultCacheControls = defaultCacheControls;
     if (isFunction(executor)) this._execute = executor;
+    this._fieldResolver = fieldResolver;
     this._headers = { ...this._headers, ...headers };
     this._mode = mode;
     this._requests = { active: new Map(), pending: new Map() };
+    this._rootValue = rootValue;
     this._schema = _schema;
     if (url) this._url = url;
     instance = this;
@@ -158,17 +177,22 @@ export default class Client {
    * @return {Promise}
    */
   async _checkResponseCache(hash) {
-    let cacheability, res;
-
-    try {
-      cacheability = await this._cache.res.has(hash);
-      if (this._cache.cacheValid(cacheability)) res = await this._cache.res.get(hash);
-    } catch (err) {
-      logger.error(err);
-    }
-
+    const cacheability = await this._cache.res.has(hash);
+    let res;
+    if (this._cache.cacheValid(cacheability)) res = await this._cache.res.get(hash);
     if (!res) return null;
     return { cacheMetadata: this._parseCacheMetadata(res.cacheMetadata), data: res.data };
+  }
+
+  /**
+   *
+   * @private
+   * @param {string} query
+   * @param {Object} fragments
+   * @return {string}
+   */
+  _concatFragments(query, fragments) {
+    return [query, ...fragments].join('\n\n');
   }
 
   /**
@@ -192,12 +216,17 @@ export default class Client {
   /**
    *
    * @private
+   * @param {GraphQLSchema} schema
    * @param {Document} ast
+   * @param {any} rootValue
    * @param {Object} context
+   * @param {null} variableValues
+   * @param {string} operationName
+   * @param {Function} fieldResolver
    * @return {Promise}
    */
-  async _execute(ast, context) {
-    return execute(this._schema, ast, null, context);
+  async _execute(schema, ast, rootValue, context, variableValues, operationName, fieldResolver) {
+    return execute(schema, ast, rootValue, context, variableValues, operationName, fieldResolver);
   }
 
   /**
@@ -205,23 +234,30 @@ export default class Client {
    * @private
    * @param {string} request
    * @param {Document} ast
+   * @param {Object} opts
    * @param {Object} context
    * @return {Promise}
    */
-  async _fetch(request, ast, context) {
+  async _fetch(request, ast, opts, context) {
     let res;
 
     if (this._mode === 'internal') {
       logger.info(`Client executing: ${request}`);
 
       try {
-        res = await this._execute(ast, context);
+        return this._execute(
+          this._schema,
+          ast,
+          this._rootValue,
+          context,
+          null,
+          opts.operationName,
+          this._fieldResolver,
+        );
       } catch (err) {
         logger.error(err);
-        res = { errors: err };
+        return { errors: err };
       }
-
-      return res;
     }
 
     logger.info(`Client fetching: ${request}`);
@@ -232,13 +268,13 @@ export default class Client {
         headers: new Headers(this._headers),
         method: 'POST',
       });
+
+      const { cacheMetadata, data, errors } = await res.json();
+      return { cacheMetadata, data, errors, headers: res.headers };
     } catch (err) {
       logger.error(err);
-      res = { errors: err };
+      return { errors: err };
     }
-
-    const { cacheMetadata, data, errors } = await res.json();
-    return { cacheMetadata, data, errors, headers: res.headers };
   }
 
   /**
@@ -246,11 +282,12 @@ export default class Client {
    * @private
    * @param {string} mutation
    * @param {Document} ast
+   * @param {Object} opts
    * @param {Object} context
    * @return {Promise}
    */
-  async _mutation(mutation, ast, context) {
-    const { data, errors, headers } = await this._fetch(mutation, ast, context);
+  async _mutation(mutation, ast, opts, context) {
+    const { data, errors, headers } = await this._fetch(mutation, ast, opts, context);
     const cacheMetadata = this._createCacheMetadata(headers);
     if (errors) this._resolve('mutation', { errors }, cacheMetadata);
     return this._resolve('mutation', data, cacheMetadata);
@@ -279,15 +316,25 @@ export default class Client {
    * @param {Object} variables
    * @return {Promise}
    */
-  async _populateVariables(query, variables) {
-    if (!Object.keys(variables).length) return query;
-    let variableDefinitions;
+  async _populateVariablesAndFragments(query, variables) {
+    let fragmentDefinitions, variableDefinitions;
 
     return print(visit(parse(query), {
+      Document(node) {
+        if (!hasFragmentDefinitions(node)) return undefined;
+        fragmentDefinitions = getFragmentDefinitions(node);
+        deleteFragmentDefinitions(node);
+        return undefined;
+      },
       OperationDefinition(node) {
-        if (!hasVariableDefinitions(node)) return false;
+        if (!hasVariableDefinitions(node)) return undefined;
         variableDefinitions = getVariableDefinitions(node);
         deleteVariableDefinitions(node);
+        return undefined;
+      },
+      SelectionSet(node) {
+        if (!hasFragmentSpread(node)) return undefined;
+        setFragments(fragmentDefinitions, node);
         return undefined;
       },
       Variable(node) {
@@ -342,7 +389,7 @@ export default class Client {
       return this._resolve('query', cachedData, cacheMetadata, hash);
     }
 
-    const res = await this._fetch(updatedQuery, updatedAST, context);
+    const res = await this._fetch(updatedQuery, updatedAST, opts, context);
     const _cacheMetadata = this._createCacheMetadata(res.headers, res.cacheMetadata);
     if (res.errors) return this._resolve('query', { errors: res.errors }, _cacheMetadata, hash);
 
@@ -429,7 +476,12 @@ export default class Client {
   async request(query, opts = {}, context = {}) {
     if (!isString(query)) return { errors: 'The query is not a string.' };
     let _query = query;
-    if (opts.variables) _query = await this._populateVariables(_query, opts.variables);
+    if (opts.fragments) _query = this._concatFragments(_query, opts.fragments);
+
+    if (opts.variables || opts.fragments) {
+      _query = await this._populateVariablesAndFragments(_query, opts.variables);
+    }
+
     const ast = parse(_query);
     const errors = validate(this._schema, ast);
     if (errors.length) return { errors };
@@ -438,7 +490,7 @@ export default class Client {
     if (operation === 'query') {
       return this._query(_query, ast, opts, context);
     } else if (operation === 'mutation') {
-      return this._mutation(_query, ast, context);
+      return this._mutation(_query, ast, opts, context);
     }
 
     return { errors: 'The query was not a valid operation' };

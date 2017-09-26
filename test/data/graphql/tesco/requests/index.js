@@ -106,3 +106,34 @@ export const variableQuery = `
     }
   }
 `;
+
+export const fragmentQuery = `
+  {
+    product(id: "402-5806") {
+      id
+      optionsInfo {
+        ...OptionsInfoFragment
+      }
+      userActionable
+      prices {
+        ...PricesFragment
+      }
+    }
+  }
+`;
+
+export const optionsInfoFragment = `
+  fragment OptionsInfoFragment on ProductOptionsInfo {
+    type
+    name
+    internalName
+  }
+`;
+
+export const priceFragment = `
+  fragment PricesFragment on Prices {
+    id
+    price
+    clubcardPoints
+  }
+`;
