@@ -14,7 +14,9 @@ export const productData = {
  *
  * @type {Object}
  */
-export const skuData = {};
+export const skuData = {
+  '104-7702': require('./responses/sku/104-7702.json'),
+};
 
 /**
  *

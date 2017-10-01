@@ -2,6 +2,52 @@
  *
  * @type {string}
  */
+export const singleQuery = `
+  {
+    product(id: "402-5806") {
+      id
+      optionsInfo {
+        type
+        name
+        internalName
+      }
+      userActionable
+      prices {
+        id
+        price
+        clubcardPoints
+      }
+    }
+  }
+`;
+
+/**
+ *
+ * @type {string}
+ */
+export const namedQuery = `
+  query getProduct {
+    product(id: "402-5806") {
+      id
+      optionsInfo {
+        type
+        name
+        internalName
+      }
+      userActionable
+      prices {
+        id
+        price
+        clubcardPoints
+      }
+    }
+  }
+`;
+
+/**
+ *
+ * @type {string}
+ */
 export const aliasQuery = `
   {
     favourite: product(id: "402-5806") {
@@ -65,29 +111,6 @@ export const partTwoQuery = `
  *
  * @type {string}
  */
-export const singleQuery = `
-  {
-    product(id: "402-5806") {
-      id
-      optionsInfo {
-        type
-        name
-        internalName
-      }
-      userActionable
-      prices {
-        id
-        price
-        clubcardPoints
-      }
-    }
-  }
-`;
-
-/**
- *
- * @type {string}
- */
 export const variableQuery = `
   query ($id: String!) {
     product(id: $id) {
@@ -135,5 +158,51 @@ export const priceFragment = `
     id
     price
     clubcardPoints
+  }
+`;
+
+export const multiQuery = `
+  query getProduct {
+    product(id: "402-5806") {
+      id
+      optionsInfo {
+        type
+        name
+        internalName
+      }
+      userActionable
+      prices {
+        id
+        price
+        clubcardPoints
+      }
+    }
+  }
+  query getSku {
+    sku(id: "104-7702") {
+      id
+      displayName
+      publicLink
+      prices {
+        id
+        price
+        clubcardPoints
+      }
+    }
+  }
+`;
+
+export const skuQuery = `
+  query getSku {
+    sku(id: "104-7702") {
+      id
+      displayName
+      publicLink
+      prices {
+        id
+        price
+        clubcardPoints
+      }
+    }
   }
 `;

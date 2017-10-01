@@ -1,0 +1,156 @@
+{
+  "id" : "104-7702",
+  "prices" : {
+    "id" : "104-7702",
+    "price" : "18.00",
+    "clubcardPoints" : 18
+  },
+  "displayName" : "F&F Double Bell Sleeve Shift Dress 12 Navy",
+  "publicLink" : "/direct/ff-double-bell-sleeve-shift-dress/559-5302.prd?skuId=104-7702",
+  "specification" : {
+    "Key Information" : [ {
+      "title" : "Material Composition",
+      "description" : "Machine washable. 100% Polyester.",
+      "attr" : "material_composition"
+    } ]
+  },
+  "attributes" : {
+    "colour" : "Navy",
+    "mediaType" : "Dresses",
+    "size" : "12"
+  },
+  "longDescription" : "<p>This simple F&amp;F shift dress in navy is cut from lightweight crepe with a soft satin backing. Cut with a boat neckline and double bell cuffed sleeves, the dress can be dressed up with heels and costume jewellery.</p><p>Button-fastened keyhole cut-out</p><p>Knee length. Model height is 5 feet 7 inches.</p>",
+  "isDigitalSku" : false,
+  "ancestorCategories" : [ {
+    "id" : "cat3376045",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat3376045"
+  }, {
+    "id" : "cat3376557",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat3376557"
+  }, {
+    "id" : "cat3376685",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat3376685"
+  }, {
+    "id" : "cat38150150",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38150150"
+  }, {
+    "id" : "cat38150152",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38150152"
+  }, {
+    "id" : "cat38310015",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38310015"
+  }, {
+    "id" : "cat38670055",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38670055"
+  }, {
+    "id" : "cat38690064",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38690064"
+  }, {
+    "id" : "cat38710074",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38710074"
+  }, {
+    "id" : "cat38900036",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38900036"
+  } ],
+  "rangedInStore" : true,
+  "mediaAssets" : {
+    "defaultImage" : {
+      "mediaType" : "Large",
+      "src" : "https://tesco.scene7.com/is/image/tesco/104-7702_PI_66786MN?$[preset]$",
+      "renderSource" : "Scene 7",
+      "defaultImage" : true
+    },
+    "skuMedia" : [ {
+      "mediaType" : "Large",
+      "src" : "https://tesco.scene7.com/is/image/tesco/104-7702_PI_66786MN?$[preset]$",
+      "renderSource" : "Scene 7",
+      "defaultImage" : true
+    }, {
+      "mediaType" : "Large",
+      "src" : "https://tesco.scene7.com/is/image/tesco/104-7702_PI_66786AL2?$[preset]$",
+      "renderSource" : "Scene 7"
+    }, {
+      "mediaType" : "Large",
+      "src" : "https://tesco.scene7.com/is/image/tesco/104-7702_PI_66786AL3?$[preset]$",
+      "renderSource" : "Scene 7"
+    }, {
+      "mediaType" : "Large",
+      "src" : "https://tesco.scene7.com/is/image/tesco/104-7702_PI_66786AL4?$[preset]$",
+      "renderSource" : "Scene 7"
+    }, {
+      "mediaType" : "Large",
+      "src" : "https://tesco.scene7.com/is/image/tesco/104-7702_PI_66786AL5?$[preset]$",
+      "renderSource" : "Scene 7"
+    }, {
+      "mediaType" : "Large",
+      "src" : "https://tesco.scene7.com/is/image/tesco/104-7702_PI_66786AL6?$[preset]$",
+      "renderSource" : "Scene 7"
+    }, {
+      "mediaType" : "Video",
+      "src" : "//i1.adis.ws/v/tesco/bd722403_v/mp4_720p?protocol=https"
+    }, {
+      "mediaType" : "Swatches",
+      "src" : "//direct.tescoassets.com/directuiassets/ProductAssets/104/104-7702/Swatches/104-7702_SW_66786SWswatch_1.jpg",
+      "renderSource" : "CMS"
+    } ],
+    "pings" : [ {
+      "mediaType" : "NewPings",
+      "src" : "//direct.tescoassets.com/directuiassets/SiteAssets/NonSeasonal/en_GB/images/ping_new_$[preset]$.png"
+    } ]
+  },
+  "miniDescription" : {
+    "Bullet 2" : "13"
+  },
+  "links" : [ {
+    "id" : "104-7702",
+    "type" : "sku",
+    "rel" : "self",
+    "href" : "/direct/rest/content/catalog/sku/104-7702",
+    "options" : {
+      "primary" : "Navy",
+      "secondary" : "12",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/104/104-7702/Swatches/104-7702_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "559-5302",
+    "type" : "product",
+    "rel" : "parent",
+    "href" : "/direct/rest/content/catalog/product/559-5302",
+    "options" : {
+      "primary" : "Navy",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/104/104-7702/Swatches/104-7702_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "T00026dc55",
+    "type" : "listing",
+    "rel" : "listed",
+    "href" : "/direct/rest/content/listings/listing/T00026dc55"
+  }, {
+    "type" : "inventory",
+    "href" : "/direct/rest/inventory/{type}/{id,+}?format={brief|standard}",
+    "templated" : true
+  }, {
+    "type" : "price",
+    "href" : "/direct/rest/price/{type}/{id,+}?format={brief|standard}",
+    "templated" : true
+  }, {
+    "type" : "relationships",
+    "href" : "/direct/rest/content/relationships/{relationship}/{id}?sortBy={name|toprated|dailyrevenue|dailyunits|monthlyrevenue|monthlyunits|weeklyrevenue|weeklyunits}",
+    "templated" : true
+  }, {
+    "type" : "competitor:price",
+    "rel" : "competitorPrice",
+    "href" : "/direct/rest/competitor/price/{type}/{id,+}",
+    "templated" : true
+  } ]
+}

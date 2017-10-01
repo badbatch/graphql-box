@@ -19,6 +19,7 @@ import {
   getFragmentDefinitions,
   getName,
   getOperationName,
+  getOperations,
   getVariableDefinitions,
   getVariableDefinitionType,
   hasFragmentDefinitions,
@@ -242,10 +243,10 @@ export default class Client {
     let res;
 
     if (this._mode === 'internal') {
-      logger.info(`Client executing: ${request}`);
+      logger.info(`handl executing: ${request}`);
 
       try {
-        return this._execute(
+        res = await this._execute(
           this._schema,
           ast,
           this._rootValue,
@@ -258,9 +259,11 @@ export default class Client {
         logger.error(err);
         return { errors: err };
       }
+
+      return res;
     }
 
-    logger.info(`Client fetching: ${request}`);
+    logger.info(`handl fetching: ${request}`);
 
     try {
       res = await fetch(this._url, {
@@ -268,13 +271,13 @@ export default class Client {
         headers: new Headers(this._headers),
         method: 'POST',
       });
-
-      const { cacheMetadata, data, errors } = await res.json();
-      return { cacheMetadata, data, errors, headers: res.headers };
     } catch (err) {
       logger.error(err);
       return { errors: err };
     }
+
+    const { cacheMetadata, data, errors } = await res.json();
+    return { cacheMetadata, data, errors, headers: res.headers };
   }
 
   /**
@@ -446,6 +449,27 @@ export default class Client {
   /**
    *
    * @private
+   * @param {string} query
+   * @param {Document} ast
+   * @param {Object} opts
+   * @param {Object} context
+   * @return {Promise}
+   */
+  _resolveRequestOperation(query, ast, opts, context) {
+    const operation = getOperationName(ast);
+
+    if (operation === 'query') {
+      return this._query(query, ast, opts, context);
+    } else if (operation === 'mutation') {
+      return this._mutation(query, ast, opts, context);
+    }
+
+    return Promise.resolve({ errors: 'The query was not a valid operation' });
+  }
+
+  /**
+   *
+   * @private
    * @param {string} hash
    * @param {Funciton} resolve
    * @return {void}
@@ -485,14 +509,15 @@ export default class Client {
     const ast = parse(_query);
     const errors = validate(this._schema, ast);
     if (errors.length) return { errors };
-    const operation = getOperationName(ast);
+    const operations = getOperations(ast);
+    const multiQuery = operations.length > 1;
+    if (!multiQuery) return this._resolveRequestOperation(_query, ast, opts, context);
 
-    if (operation === 'query') {
-      return this._query(_query, ast, opts, context);
-    } else if (operation === 'mutation') {
-      return this._mutation(_query, ast, opts, context);
-    }
-
-    return { errors: 'The query was not a valid operation' };
+    return Promise.all(
+      operations.map((value) => {
+        const operationQuery = print(value);
+        return this._resolveRequestOperation(operationQuery, parse(operationQuery), opts, context);
+      }),
+    );
   }
 }

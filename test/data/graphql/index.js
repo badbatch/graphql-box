@@ -3,13 +3,16 @@ import { requests, responses } from './github';
 
 import {
   aliasQuery,
+  fragmentQuery,
+  multiQuery,
+  namedQuery,
+  optionsInfoFragment,
   partOneQuery,
   partTwoQuery,
-  singleQuery,
-  variableQuery,
-  fragmentQuery,
-  optionsInfoFragment,
   priceFragment,
+  singleQuery,
+  skuQuery,
+  variableQuery,
 } from './tesco/requests';
 
 /**
@@ -24,13 +27,16 @@ export const github = { requests, responses };
  */
 export const tesco = { requests: {
   aliasQuery,
+  fragmentQuery,
+  multiQuery,
+  namedQuery,
+  optionsInfoFragment,
   partOneQuery,
   partTwoQuery,
-  singleQuery,
-  variableQuery,
-  fragmentQuery,
-  optionsInfoFragment,
   priceFragment,
+  singleQuery,
+  skuQuery,
+  variableQuery,
 } };
 
 /**

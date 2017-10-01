@@ -99,9 +99,23 @@ export const getName = function getName({ name }) {
  */
 export const getOperationName = function getOperationName({ definitions }) {
   // TODO: This hardcodes the first element in the array.
-  // Need to look at how to handle multiple operations
-  // in the same request.
   return definitions[0].operation;
+};
+
+/**
+ *
+ * @param {Document} doc
+ * @return {Array<Object>}
+ */
+export const getOperations = function getOperations({ definitions }) {
+  const operations = [];
+
+  definitions.forEach((definition) => {
+    if (getKind(definition) !== 'OperationDefinition') return;
+    operations.push(definition);
+  });
+
+  return operations;
 };
 
 /**
