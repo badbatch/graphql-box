@@ -20,8 +20,6 @@ import {
   getName,
   getOperationName,
   getOperations,
-  getVariableDefinitions,
-  getVariableDefinitionType,
   hasFragmentDefinitions,
   hasFragmentSpread,
   hasVariableDefinitions,
@@ -320,7 +318,7 @@ export default class Client {
    * @return {Promise}
    */
   async _populateVariablesAndFragments(query, variables) {
-    let fragmentDefinitions, variableDefinitions;
+    let fragmentDefinitions;
 
     return print(visit(parse(query), {
       Document(node) {
@@ -331,7 +329,6 @@ export default class Client {
       },
       OperationDefinition(node) {
         if (!hasVariableDefinitions(node)) return undefined;
-        variableDefinitions = getVariableDefinitions(node);
         deleteVariableDefinitions(node);
         return undefined;
       },
@@ -344,9 +341,7 @@ export default class Client {
         const name = getName(node);
         const value = variables[name];
         if (!value) return false;
-        const type = getVariableDefinitionType(variableDefinitions, name);
-        if (!type) return false;
-        return parseValue(type === 'String' || type === 'ID' ? `"${value}"` : `${value}`);
+        return parseValue(typeof value === 'string' ? `"${value}"` : `${value}`);
       },
     }));
   }
