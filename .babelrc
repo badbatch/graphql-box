@@ -2,6 +2,7 @@
   "env": {
     "browser": {
       "comments": false,
+      "plugins": ["lodash"],
       "presets": [
         ["env", {
           "debug": true,
@@ -13,6 +14,7 @@
     },
     "main": {
       "comments": false,
+      "plugins": ["lodash"],
       "presets": [
         ["env", {
           "debug": true,
@@ -24,6 +26,7 @@
     },
     "module": {
       "comments": false,
+      "plugins": ["lodash"],
       "presets": [
         ["env", {
           "debug": true,
