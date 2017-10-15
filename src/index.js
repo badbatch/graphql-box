@@ -290,8 +290,8 @@ export default class Client {
   async _mutation(mutation, ast, opts, context) {
     const { data, errors, headers } = await this._fetch(mutation, ast, opts, context);
     const cacheMetadata = this._createCacheMetadata(headers);
-    if (errors) this._resolve('mutation', { errors }, cacheMetadata);
-    return this._resolve('mutation', data, cacheMetadata);
+    if (errors) this._resolve('mutation', null, errors, cacheMetadata);
+    return this._resolve('mutation', data, null, cacheMetadata);
   }
 
   /**
@@ -360,7 +360,7 @@ export default class Client {
 
     if (!opts.forceFetch) {
       const res = await this._checkResponseCache(hash);
-      if (res) return this._resolve('query', res.data, res.cacheMetadata);
+      if (res) return this._resolve('query', res.data, null, res.cacheMetadata);
     }
 
     if (this._requests.active.has(hash)) {
@@ -384,18 +384,18 @@ export default class Client {
         cacheHeaders: { cacheControl: cacheMetadata.get('query').printCacheControl() },
       });
 
-      return this._resolve('query', cachedData, cacheMetadata, hash);
+      return this._resolve('query', cachedData, null, cacheMetadata, hash);
     }
 
     const res = await this._fetch(updatedQuery, updatedAST, opts, context);
     const _cacheMetadata = this._createCacheMetadata(res.headers, res.cacheMetadata);
-    if (res.errors) return this._resolve('query', { errors: res.errors }, _cacheMetadata, hash);
+    if (res.errors) return this._resolve('query', null, res.errors, _cacheMetadata, hash);
 
     const resolved = await this._cache.resolve(
       updatedQuery, updatedAST, hash, res.data, _cacheMetadata, { filtered },
     );
 
-    return this._resolve('query', resolved.data, resolved.cacheMetadata, hash);
+    return this._resolve('query', resolved.data, null, resolved.cacheMetadata, hash);
   }
 
   /**
@@ -403,24 +403,26 @@ export default class Client {
    * @private
    * @param {string} operation
    * @param {Object} data
+   * @param {Object} errors
    * @param {Object} cacheMetadata
    * @param {string} [hash]
    * @return {Object}
    */
-  _resolve(operation, data, cacheMetadata, hash) {
+  _resolve(operation, data = null, errors = null, cacheMetadata, hash) {
     if (!cacheMetadata.has('query')) {
       const cacheability = new Cacheability();
       cacheability.parseCacheControl(this._defaultCacheControls[operation]);
       cacheMetadata.set('query', cacheability);
     }
 
-    const output = { data, cacheMetadata };
+    const output = { cacheMetadata, data, errors };
 
     if (hash) {
       this._resolvePendingRequests(hash, output);
       this._requests.active.delete(hash);
     }
 
+    if (errors) return Promise.reject(output);
     return output;
   }
 
@@ -459,7 +461,7 @@ export default class Client {
       return this._mutation(query, ast, opts, context);
     }
 
-    return Promise.resolve({ errors: 'The query was not a valid operation' });
+    return Promise.reject({ errors: 'The query was not a valid operation' });
   }
 
   /**
@@ -493,26 +495,40 @@ export default class Client {
    * @return {Promise}
    */
   async request(query, opts = {}, context = {}) {
-    if (!isString(query)) return { errors: 'The query is not a string.' };
-    let _query = query;
-    if (opts.fragments) _query = this._concatFragments(_query, opts.fragments);
-
-    if (opts.variables || opts.fragments) {
-      _query = await this._populateVariablesAndFragments(_query, opts.variables);
+    if (!isString(query)) {
+      return Promise.reject({ errors: 'The query is not a string.' });
     }
 
-    const ast = parse(_query);
-    const errors = validate(this._schema, ast);
-    if (errors.length) return { errors };
-    const operations = getOperations(ast);
-    const multiQuery = operations.length > 1;
-    if (!multiQuery) return this._resolveRequestOperation(_query, ast, opts, context);
+    try {
+      let _query = query;
+      if (opts.fragments) _query = this._concatFragments(_query, opts.fragments);
 
-    return Promise.all(
-      operations.map((value) => {
-        const operationQuery = print(value);
-        return this._resolveRequestOperation(operationQuery, parse(operationQuery), opts, context);
-      }),
-    );
+      if (opts.variables || opts.fragments) {
+        _query = await this._populateVariablesAndFragments(_query, opts.variables);
+      }
+
+      const ast = parse(_query);
+      const errors = validate(this._schema, ast);
+
+      if (errors.length) {
+        return Promise.reject({ errors });
+      }
+
+      const operations = getOperations(ast);
+      const multiQuery = operations.length > 1;
+      if (!multiQuery) return this._resolveRequestOperation(_query, ast, opts, context);
+
+      return Promise.all(
+        operations.map((value) => {
+          const operationQuery = print(value);
+
+          return this._resolveRequestOperation(
+            operationQuery, parse(operationQuery), opts, context,
+          );
+        }),
+      );
+    } catch (err) {
+      return Promise.reject(err);
+    }
   }
 }
