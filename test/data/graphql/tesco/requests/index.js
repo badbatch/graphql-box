@@ -130,6 +130,10 @@ export const variableQuery = `
   }
 `;
 
+/**
+ *
+ * @type {string}
+ */
 export const fragmentQuery = `
   {
     product(id: "402-5806") {
@@ -145,6 +149,10 @@ export const fragmentQuery = `
   }
 `;
 
+/**
+ *
+ * @type {string}
+ */
 export const optionsInfoFragment = `
   fragment OptionsInfoFragment on ProductOptionsInfo {
     type
@@ -153,6 +161,10 @@ export const optionsInfoFragment = `
   }
 `;
 
+/**
+ *
+ * @type {string}
+ */
 export const priceFragment = `
   fragment PricesFragment on Prices {
     id
@@ -161,6 +173,61 @@ export const priceFragment = `
   }
 `;
 
+/**
+ *
+ * @type {string}
+ */
+export const inlineFragmentQuery = `
+  {
+    product(id: "402-5806") {
+      id
+      optionsInfo {
+        ... on ProductOptionsInfo {
+          type
+          name
+        }
+      }
+      userActionable
+      prices {
+        ... on Prices {
+          price
+        }
+      }
+    }
+  }
+`;
+
+/**
+ *
+ * @type {string}
+ */
+export const inlineFragmentQueryExtra = `
+  {
+    product(id: "402-5806") {
+      brand
+      id
+      optionsInfo {
+        ... on ProductOptionsInfo {
+          type
+          name
+          internalName
+        }
+      }
+      prices {
+        ... on Prices {
+          price
+          clubcardPoints
+        }
+      }
+      userActionable
+    }
+  }
+`;
+
+/**
+ *
+ * @type {string}
+ */
 export const multiQuery = `
   query getProduct {
     product(id: "402-5806") {
@@ -192,6 +259,10 @@ export const multiQuery = `
   }
 `;
 
+/**
+ *
+ * @type {string}
+ */
 export const skuQuery = `
   query getSku {
     sku(id: "104-7702") {

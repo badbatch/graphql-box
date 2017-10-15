@@ -210,12 +210,23 @@ export const addChildField = function addChildField(node, field) {
 
 /**
  *
+ * @param {Array<Object>} fieldNodes
+ * @return {Array<Object>}
+ */
+export const passthroughInlineFragments = function passthroughInlineFragments(fieldNodes) {
+  if (fieldNodes.length > 1) return fieldNodes;
+  if (getKind(fieldNodes[0]) !== 'InlineFragment') return fieldNodes;
+  return getChildFields(fieldNodes[0]);
+};
+
+/**
+ *
  * @param {Object} parent
  * @param {Object} child
  * @return {void}
  */
 export const deleteChildField = function deleteChildField(parent, child) {
-  const childFields = getChildFields(parent);
+  const childFields = passthroughInlineFragments(getChildFields(parent));
 
   for (let i = childFields.length - 1; i >= 0; i -= 1) {
     if (childFields[i] === child) {
@@ -239,12 +250,33 @@ export const deleteFragmentDefinitions = function deleteFragmentDefinitions({ de
 
 /**
  *
+ * @param {Array<Object>} fieldNodes
+ * @return {Array<Object>}
+ */
+export const unwrapInlineFragments = function unwrapInlineFragments(fieldNodes) {
+  let unwrapped = [];
+
+  for (let i = 0; i < fieldNodes.length; i += 1) {
+    const kind = getKind(fieldNodes[i]);
+
+    if (kind === 'Field') {
+      unwrapped.push(fieldNodes[i]);
+    } else if (kind === 'InlineFragment') {
+      unwrapped = unwrapped.concat(unwrapInlineFragments(getChildFields(fieldNodes[i])));
+    }
+  }
+
+  return unwrapped;
+};
+
+/**
+ *
  * @param {Object} node
  * @param {string} name
  * @return {Object}
  */
 export const getChildField = function getChildField(node, name) {
-  const fields = getChildFields(node);
+  const fields = unwrapInlineFragments(getChildFields(node));
   let field = null;
 
   for (let i = 0; i < fields.length; i += 1) {
@@ -316,7 +348,7 @@ export const getNamedType = function getNamedType(type) {
  * @return {Array<Object>}
  */
 export const getRootFields = function getRootFields(ast, callback) {
-  const rootFields = getChildFields(getQuery(ast));
+  const rootFields = unwrapInlineFragments(getChildFields(getQuery(ast)));
 
   if (callback) {
     rootFields.forEach((field) => {
@@ -365,7 +397,7 @@ export const getVariableDefinitionType = function getVariableDefinitionType(defi
  * @return {boolean}
  */
 export const hasChildField = function hasChildField(node, name) {
-  const childFields = getChildFields(node);
+  const childFields = unwrapInlineFragments(getChildFields(node));
   let hasField = false;
 
   for (let i = 0; i < childFields.length; i += 1) {

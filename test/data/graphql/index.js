@@ -4,6 +4,8 @@ import { requests, responses } from './github';
 import {
   aliasQuery,
   fragmentQuery,
+  inlineFragmentQuery,
+  inlineFragmentQueryExtra,
   multiQuery,
   namedQuery,
   optionsInfoFragment,
@@ -28,6 +30,8 @@ export const github = { requests, responses };
 export const tesco = { requests: {
   aliasQuery,
   fragmentQuery,
+  inlineFragmentQuery,
+  inlineFragmentQueryExtra,
   multiQuery,
   namedQuery,
   optionsInfoFragment,

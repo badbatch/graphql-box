@@ -33,6 +33,7 @@ import {
   hasChildField,
   isParentField,
   mapToObject,
+  unwrapInlineFragments,
 } from '../helpers/parsing';
 
 /**
@@ -148,7 +149,7 @@ export default class Cache {
    * @return {boolean}
    */
   _filterField(field, checkList, queryPath) {
-    const childFields = getChildFields(field);
+    const childFields = unwrapInlineFragments(getChildFields(field));
 
     for (let i = childFields.length - 1; i >= 0; i -= 1) {
       const child = childFields[i];
@@ -230,7 +231,7 @@ export default class Cache {
    */
   _iterateChildFields(field, data, callback) {
     if (!isArray(data)) {
-      getChildFields(field).forEach((child) => {
+      unwrapInlineFragments(getChildFields(field)).forEach((child) => {
         callback(child);
       });
     } else {
@@ -458,7 +459,7 @@ export default class Cache {
    * @return {void}
    */
   _setObjectHashKey(data, dataPath, cachePath, field, index) {
-    if (!getChildFields(field).length) return;
+    if (!unwrapInlineFragments(getChildFields(field)).length) return;
     const { hashKey, propKey } = this._getKeys(field, { cachePath, dataPath }, index);
     data[propKey] = { _HashKey: hashKey };
   }

@@ -492,6 +492,108 @@ describe('when the client is in internal mode', () => {
     });
   });
 
+  describe('when a query with inline fragments is requested from the server', () => {
+    let res;
+
+    beforeEach(async () => {
+      mockRestRequest('product', '402-5806');
+      spy(client, '_fetch');
+      res = await client.request(tesco.requests.inlineFragmentQuery);
+    });
+
+    afterEach(() => {
+      client.clearCache();
+      client._fetch.restore();
+      fetchMock.restore();
+    });
+
+    it('should return the requested data', async () => {
+      const { product } = res.data;
+      expect(product.id).to.eql('402-5806');
+      expect(product.optionsInfo[0].name).to.eql('Colour');
+      expect(product.optionsInfo[1].name).to.eql('Size');
+      expect(product.prices.price).to.eql('19.00');
+      expect(product.userActionable).to.be.true();
+    });
+
+    it('should have made a call to the graphql server', () => {
+      expect(client._fetch.calledOnce).to.be.true();
+    });
+
+    it('should have made the request to the API', () => {
+      expect(fetchMock.calls().matched).to.have.lengthOf(1);
+    });
+
+    it('should cache the response against the query with inline fragments', async () => {
+      const cache = client._cache.res;
+      expect(await cache.size()).to.eql(2);
+      const inlineFragmentQuery = tesco.requests.inlineFragmentQuery.replace(/\s/g, '');
+      const cacheMetadata = parseMap(res.cacheMetadata);
+      const data = res.data;
+      expect(await cache.get(inlineFragmentQuery, { hash: true })).to.eql({ cacheMetadata, data });
+    });
+
+    it('should cache each response object against its query path', async () => {
+      const cache = client._cache.obj;
+      expect(await cache.size()).to.eql(6);
+    });
+  });
+
+  describe('when a similar query with inline fragments is requested from the server', () => {
+    let res;
+
+    beforeEach(async () => {
+      mockRestRequest('product', '402-5806');
+      await client.request(tesco.requests.inlineFragmentQuery);
+      fetchMock.reset();
+      spy(client, '_fetch');
+      res = await client.request(tesco.requests.inlineFragmentQueryExtra);
+    });
+
+    afterEach(() => {
+      client.clearCache();
+      client._fetch.restore();
+      fetchMock.restore();
+    });
+
+    it('should return the requested data', async () => {
+      const { product } = res.data;
+      expect(product.id).to.eql('402-5806');
+      expect(product.optionsInfo[0].name).to.eql('Colour');
+      expect(product.optionsInfo[0].internalName).to.eql('colour');
+      expect(product.optionsInfo[1].name).to.eql('Size');
+      expect(product.optionsInfo[1].internalName).to.eql('p_size');
+      expect(product.prices.price).to.eql('19.00');
+      expect(product.prices.clubcardPoints).to.eql('19');
+      expect(product.userActionable).to.be.true();
+    });
+
+    it('should have made a call to the graphql server', () => {
+      expect(client._fetch.calledOnce).to.be.true();
+    });
+
+    it('should not have make the request to the API', () => {
+      expect(fetchMock.calls().matched).to.have.lengthOf(1);
+    });
+
+    it('should cache the responses against the full query and filtered query', async () => {
+      const cache = client._cache.res;
+      expect(await cache.size()).to.eql(4);
+      const inlineFragmentQueryExtra = tesco.requests.inlineFragmentQueryExtra.replace(/\s/g, '');
+      const cacheMetadata = parseMap(res.cacheMetadata);
+      const data = res.data;
+
+      expect(await cache.get(
+        inlineFragmentQueryExtra, { hash: true }),
+      ).to.eql({ cacheMetadata, data });
+    });
+
+    it('should not change the size of the object cache', async () => {
+      const cache = client._cache.obj;
+      expect(await cache.size()).to.eql(6);
+    });
+  });
+
   describe('when a query with aliases is requested from the server', () => {
     let res;
 
