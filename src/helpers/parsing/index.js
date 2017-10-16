@@ -381,6 +381,15 @@ export const getRootField = function getRootField(ast, name) {
 
 /**
  *
+ * @param {Object} inlineFragmentNode
+ * @return {Object}
+ */
+export const getTypeCondition = function getTypeCondition({ typeCondition }) {
+  return typeCondition;
+};
+
+/**
+ *
  * @param {Array<Object>} definitions
  * @param {string} name
  * @return {string}

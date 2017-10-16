@@ -1,6 +1,6 @@
 import Cacheability from 'cacheability';
 import Cachemap from 'cachemap';
-import { GraphQLUnionType, parse, print, TypeInfo, visit } from 'graphql';
+import { parse, print, TypeInfo, visit } from 'graphql';
 
 import {
   cloneDeep,
@@ -30,6 +30,7 @@ import {
   getRootField,
   getRootFields,
   getType,
+  getTypeCondition,
   hasChildField,
   isParentField,
   mapToObject,
@@ -546,27 +547,32 @@ export default class Cache {
     return visit(ast, {
       enter(node) {
         typeInfo.enter(node);
-        if (getKind(node) !== 'Field') return;
-        const type = getType(typeInfo.getFieldDef());
-        const types = type instanceof GraphQLUnionType ? type.getTypes() : [type];
+        const kind = getKind(node);
+        if (kind !== 'Field' && kind !== 'InlineFragment') return;
+        let name, type;
 
-        types.forEach((_type) => {
-          if (!_type.getFields) return;
-          const fields = _type.getFields();
-          const name = getName(node);
+        if (kind === 'InlineFragment') {
+          name = getName(getTypeCondition(node));
+          type = _this._schema.getType(name);
+        } else {
+          name = getName(node);
+          type = getType(typeInfo.getFieldDef());
+        }
 
-          if (fields[_this._resourceKey] && !hasChildField(node, _this._resourceKey)) {
-            const mockAST = parse(`{ ${name} {${_this._resourceKey}} }`);
-            const fieldAST = getChildField(getRootField(mockAST, name), _this._resourceKey);
-            addChildField(node, fieldAST);
-          }
+        if (!type.getFields) return;
+        const fields = type.getFields();
 
-          if (fields._metadata && !hasChildField(node, '_metadata')) {
-            const mockAST = parse(`{ ${name} { _metadata { cacheControl } } }`);
-            const fieldAST = getChildField(getRootField(mockAST, name), '_metadata');
-            addChildField(node, fieldAST);
-          }
-        });
+        if (fields[_this._resourceKey] && !hasChildField(node, _this._resourceKey)) {
+          const mockAST = parse(`{ ${name} {${_this._resourceKey}} }`);
+          const fieldAST = getChildField(getRootField(mockAST, name), _this._resourceKey);
+          addChildField(node, fieldAST);
+        }
+
+        if (fields._metadata && !hasChildField(node, '_metadata')) {
+          const mockAST = parse(`{ ${name} { _metadata { cacheControl } } }`);
+          const fieldAST = getChildField(getRootField(mockAST, name), '_metadata');
+          addChildField(node, fieldAST);
+        }
       },
       leave(node) {
         typeInfo.leave(node);
