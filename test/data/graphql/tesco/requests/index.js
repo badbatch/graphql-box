@@ -100,9 +100,7 @@ export const partTwoQuery = `
       }
       prices {
         clubcardPoints
-        id
       }
-      id
     }
   }
 `;

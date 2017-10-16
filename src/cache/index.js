@@ -1,6 +1,6 @@
 import Cacheability from 'cacheability';
 import Cachemap from 'cachemap';
-import { parse, print, TypeInfo, visit } from 'graphql';
+import { GraphQLUnionType, parse, print, TypeInfo, visit } from 'graphql';
 
 import {
   cloneDeep,
@@ -548,21 +548,25 @@ export default class Cache {
         typeInfo.enter(node);
         if (getKind(node) !== 'Field') return;
         const type = getType(typeInfo.getFieldDef());
-        if (!type.getFields) return;
-        const fields = type.getFields();
-        const name = getName(node);
+        const types = type instanceof GraphQLUnionType ? type.getTypes() : [type];
 
-        if (fields[_this._resourceKey] && !hasChildField(node, _this._resourceKey)) {
-          const mockAST = parse(`{ ${name} {${_this._resourceKey}} }`);
-          const fieldAST = getChildField(getRootField(mockAST, name), _this._resourceKey);
-          addChildField(node, fieldAST);
-        }
+        types.forEach((_type) => {
+          if (!_type.getFields) return;
+          const fields = _type.getFields();
+          const name = getName(node);
 
-        if (fields._metadata && !hasChildField(node, '_metadata')) {
-          const mockAST = parse(`{ ${name} { _metadata { cacheControl } } }`);
-          const fieldAST = getChildField(getRootField(mockAST, name), '_metadata');
-          addChildField(node, fieldAST);
-        }
+          if (fields[_this._resourceKey] && !hasChildField(node, _this._resourceKey)) {
+            const mockAST = parse(`{ ${name} {${_this._resourceKey}} }`);
+            const fieldAST = getChildField(getRootField(mockAST, name), _this._resourceKey);
+            addChildField(node, fieldAST);
+          }
+
+          if (fields._metadata && !hasChildField(node, '_metadata')) {
+            const mockAST = parse(`{ ${name} { _metadata { cacheControl } } }`);
+            const fieldAST = getChildField(getRootField(mockAST, name), '_metadata');
+            addChildField(node, fieldAST);
+          }
+        });
       },
       leave(node) {
         typeInfo.leave(node);
@@ -577,17 +581,12 @@ export default class Cache {
    * @return {Promise}
    */
   async analyze(hash, ast) {
-    const { cache, checkList, counter, queried } = await this._checkObjectCache(ast);
-
-    if (counter.missing === counter.total) {
-      const updatedAST = await this._updateQuery(ast);
-      return { updatedAST, updatedQuery: print(updatedAST) };
-    }
-
+    const updatedAST = await this._updateQuery(ast);
+    const { cache, checkList, counter, queried } = await this._checkObjectCache(updatedAST);
+    if (counter.missing === counter.total) return { updatedAST, updatedQuery: print(updatedAST) };
     if (!counter.missing) return { cachedData: queried, cacheMetadata: cache };
     this._partials.set(hash, { cacheMetadata: cache, cachedData: queried });
-    await this._filterQuery(ast, checkList);
-    const updatedAST = await this._updateQuery(ast);
+    await this._filterQuery(updatedAST, checkList);
     return { filtered: true, updatedAST, updatedQuery: print(updatedAST) };
   }
 

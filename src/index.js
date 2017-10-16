@@ -528,7 +528,7 @@ export default class Client {
         }),
       );
     } catch (err) {
-      return Promise.reject(err);
+      return Promise.reject({ errors: err });
     }
   }
 }
