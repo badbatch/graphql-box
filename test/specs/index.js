@@ -572,8 +572,10 @@ describe('when the client is in internal mode', () => {
       expect(client._fetch.calledOnce).to.be.true();
     });
 
-    it('should not have make the request to the API', () => {
-      expect(fetchMock.calls().matched).to.have.lengthOf(1);
+    it('should have make the request to the API for the missing data', () => {
+      const spiedQuery = client._fetch.getCall(0).args[0].replace(/\s/g, '');
+      const inlineFragmentQuerySpied = tesco.requests.inlineFragmentQuerySpied.replace(/\s/g, '');
+      expect(spiedQuery).to.eql(inlineFragmentQuerySpied);
     });
 
     it('should cache the responses against the full query and filtered query', async () => {

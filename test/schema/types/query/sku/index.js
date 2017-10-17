@@ -9,6 +9,7 @@ import {
 
 import { get } from 'lodash';
 import Inventory from '../inventory';
+import Metadata from '../metadata';
 import SkuMediaAsseets from '../media-assets/sku';
 import Prices from '../prices';
 import { fetchData } from '../../../helpers';
@@ -62,6 +63,7 @@ const Sku = new GraphQLObjectType({
     },
     rangedInStore: { type: GraphQLBoolean },
     skuSynopsis: { type: GraphQLString },
+    _metadata: { type: Metadata },
   }),
 });
 

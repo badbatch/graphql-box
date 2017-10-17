@@ -8,6 +8,7 @@ import {
 } from 'graphql';
 
 import Inventory from '../inventory';
+import Metadata from '../metadata';
 import ProductMediaAsseets from '../media-assets/product';
 import Prices from '../prices';
 import Sku from '../sku';
@@ -65,6 +66,7 @@ const Product = new GraphQLObjectType({
     prices: { type: Prices },
     publicLink: { type: GraphQLString },
     userActionable: { type: GraphQLBoolean },
+    _metadata: { type: Metadata },
   }),
 });
 

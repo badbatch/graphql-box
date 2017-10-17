@@ -154,6 +154,7 @@ export default class Cache {
 
     for (let i = childFields.length - 1; i >= 0; i -= 1) {
       const child = childFields[i];
+      if (getName(child) === '_metadata') continue; // eslint-disable-line no-continue
       const { queryKey } = this._getKeys(child, { queryPath });
       const check = checkList.get(queryKey);
 
@@ -286,6 +287,8 @@ export default class Cache {
     const promises = [];
 
     this._iterateChildFields(field, cachedData, (childField, childIndex) => {
+      if (getName(childField) === '_metadata') return;
+
       promises.push(this._parseField(
         childField,
         { cache, checkList, counter, queried: queried[propKey] },

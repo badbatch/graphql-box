@@ -52,7 +52,8 @@ export const fetchData = async function fetchData(key, args, opts = {}) {
   });
 
   const data = flatten(await Promise.all(promises));
-  return !isArray(args.id) ? data[0] : data;
+  const _metdata = { cacheControl: 'public, max-age=28800' };
+  return !isArray(args.id) ? { ...data[0], _metdata } : { ...data, _metdata };
 };
 
 /**

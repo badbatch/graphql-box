@@ -101,6 +101,9 @@ export const partTwoQuery = `
       prices {
         clubcardPoints
       }
+      _metadata {
+        cacheControl
+      }
     }
   }
 `;
@@ -218,6 +221,31 @@ export const inlineFragmentQueryExtra = `
         }
       }
       userActionable
+    }
+  }
+`;
+
+/**
+ *
+ * @type {string}
+ */
+export const inlineFragmentQuerySpied = `
+  {
+    product(id: "402-5806") {
+      brand
+      optionsInfo {
+        ... on ProductOptionsInfo {
+          internalName
+        }
+      }
+      prices {
+        ... on Prices {
+          clubcardPoints
+        }
+      }
+      _metadata {
+        cacheControl
+      }
     }
   }
 `;
