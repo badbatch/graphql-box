@@ -299,6 +299,7 @@ export const getFieldArguments = function getFieldArguments(node) {
   const args = {};
 
   node.arguments.forEach((arg) => {
+    if (!arg.value) return;
     args[getName(arg)] = getValue(arg);
   });
 
