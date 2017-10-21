@@ -6,6 +6,7 @@ import {
   parse,
   parseValue,
   print,
+  TypeInfo,
   validate,
   visit,
 } from 'graphql';
@@ -14,12 +15,19 @@ import { isFunction, isString } from 'lodash';
 import Cache from './cache';
 
 import {
+  addChildField,
   deleteFragmentDefinitions,
   deleteVariableDefinitions,
+  getChildField,
   getFragmentDefinitions,
+  getKind,
   getName,
   getOperationName,
   getOperations,
+  getRootField,
+  getType,
+  getTypeCondition,
+  hasChildField,
   hasFragmentDefinitions,
   hasFragmentSpread,
   hasVariableDefinitions,
@@ -155,6 +163,7 @@ export default class Client {
     this._headers = { ...this._headers, ...headers };
     this._mode = mode;
     this._requests = { active: new Map(), pending: new Map() };
+    this._resourceKey = resourceKey;
     this._rootValue = rootValue;
     this._schema = _schema;
     if (url) this._url = url;
@@ -314,36 +323,78 @@ export default class Client {
    *
    * @private
    * @param {string} query
-   * @param {Object} variables
+   * @param {Object} opts
+   * @param {Object} opts.fragments
+   * @param {Object} opts.variables
    * @return {Promise}
    */
-  async _populateVariablesAndFragments(query, variables) {
+  async _updateQuery(query, opts) {
+    const _this = this;
+    const typeInfo = new TypeInfo(this._schema);
     let fragmentDefinitions;
 
-    return print(visit(parse(query), {
-      Document(node) {
-        if (!hasFragmentDefinitions(node)) return undefined;
-        fragmentDefinitions = getFragmentDefinitions(node);
-        deleteFragmentDefinitions(node);
+    const ast = visit(parse(query), {
+      enter(node) {
+        typeInfo.enter(node);
+        const kind = getKind(node);
+
+        if (kind === 'Document') {
+          if (!opts.fragments || !hasFragmentDefinitions(node)) return undefined;
+          fragmentDefinitions = getFragmentDefinitions(node);
+          deleteFragmentDefinitions(node);
+          return undefined;
+        }
+
+        if (kind === 'Field' || kind === 'InlineFragment') {
+          const isField = kind === 'Field';
+
+          if (isField && opts.fragments && hasFragmentSpread(node)) {
+            setFragments(fragmentDefinitions, node);
+          }
+
+          const name = isField ? getName(node) : getName(getTypeCondition(node));
+          const isInlineFragment = kind === 'InlineFragment';
+          if (isInlineFragment && name === typeInfo.getParentType().name) return undefined;
+          const type = isField ? getType(typeInfo.getFieldDef()) : _this._schema.getType(name);
+          if (!type.getFields) return undefined;
+          const fields = type.getFields();
+
+          if (fields[_this._resourceKey] && !hasChildField(node, _this._resourceKey)) {
+            const mockAST = parse(`{ ${name} {${_this._resourceKey}} }`);
+            const fieldAST = getChildField(getRootField(mockAST, name), _this._resourceKey);
+            addChildField(node, fieldAST);
+          }
+
+          if (fields._metadata && !hasChildField(node, '_metadata')) {
+            const mockAST = parse(`{ ${name} { _metadata { cacheControl } } }`);
+            const fieldAST = getChildField(getRootField(mockAST, name), '_metadata');
+            addChildField(node, fieldAST);
+          }
+
+          return undefined;
+        }
+
+        if (kind === 'OperationDefinition') {
+          if (!opts.variables || !hasVariableDefinitions(node)) return undefined;
+          deleteVariableDefinitions(node);
+          return undefined;
+        }
+
+        if (kind === 'Variable') {
+          const name = getName(node);
+          const value = opts.variables[name];
+          if (!value) return null;
+          return parseValue(isString(value) ? `"${value}"` : `${value}`);
+        }
+
         return undefined;
       },
-      OperationDefinition(node) {
-        if (!hasVariableDefinitions(node)) return undefined;
-        deleteVariableDefinitions(node);
-        return undefined;
+      leave(node) {
+        typeInfo.leave(node);
       },
-      SelectionSet(node) {
-        if (!hasFragmentSpread(node)) return undefined;
-        setFragments(fragmentDefinitions, node);
-        return undefined;
-      },
-      Variable(node) {
-        const name = getName(node);
-        const value = variables[name];
-        if (!value) return false;
-        return parseValue(typeof value === 'string' ? `"${value}"` : `${value}`);
-      },
-    }));
+    });
+
+    return { ast, query: print(ast) };
   }
 
   /**
@@ -502,21 +553,15 @@ export default class Client {
     try {
       let _query = query;
       if (opts.fragments) _query = this._concatFragments(_query, opts.fragments);
-
-      if (opts.variables || opts.fragments) {
-        _query = await this._populateVariablesAndFragments(_query, opts.variables);
-      }
-
-      const ast = parse(_query);
-      const errors = validate(this._schema, ast);
-
-      if (errors.length) {
-        return Promise.reject({ errors });
-      }
-
-      const operations = getOperations(ast);
+      const updated = await this._updateQuery(_query, opts);
+      const errors = validate(this._schema, updated.ast);
+      if (errors.length) return Promise.reject({ errors });
+      const operations = getOperations(updated.ast);
       const multiQuery = operations.length > 1;
-      if (!multiQuery) return this._resolveRequestOperation(_query, ast, opts, context);
+
+      if (!multiQuery) {
+        return this._resolveRequestOperation(updated.query, updated.ast, opts, context);
+      }
 
       return Promise.all(
         operations.map((value) => {

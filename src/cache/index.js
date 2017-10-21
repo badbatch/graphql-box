@@ -1,6 +1,6 @@
 import Cacheability from 'cacheability';
 import Cachemap from 'cachemap';
-import { parse, print, TypeInfo, visit } from 'graphql';
+import { print } from 'graphql';
 
 import {
   cloneDeep,
@@ -15,23 +15,16 @@ import md5 from 'md5';
 import mergeObjects from '../helpers/merging';
 
 import {
-  addChildField,
   buildCacheKey,
   buildDataKey,
   buildQueryKey,
   deleteChildField,
-  getChildField,
   getChildFields,
   getFieldAlias,
   getFieldArguments,
-  getKind,
   getName,
   getQuery,
-  getRootField,
   getRootFields,
-  getType,
-  getTypeCondition,
-  hasChildField,
   isParentField,
   mapToObject,
   unwrapInlineFragments,
@@ -67,13 +60,6 @@ export default class Cache {
       query: 'public, max-age=60, s-maxage=60',
     },
     /**
-     * Identifier used as the key for each resource
-     * requested from the server.
-     *
-     * @type {string}
-     */
-    resourceKey,
-    /**
      * Graphql schema.
      *
      * @type {Schema}
@@ -84,7 +70,6 @@ export default class Cache {
     this._obj = new Cachemap(cachemapOptions.obj);
     this._partials = new Map();
     this._res = new Cachemap(cachemapOptions.res);
-    this._resourceKey = resourceKey;
     this._schema = schema;
   }
 
@@ -539,64 +524,17 @@ export default class Cache {
 
   /**
    *
-   * @private
-   * @param {Document} ast
-   * @return {Promise}
-   */
-  async _updateQuery(ast) {
-    const _this = this;
-    const typeInfo = new TypeInfo(this._schema);
-
-    return visit(ast, {
-      enter(node) {
-        typeInfo.enter(node);
-        const kind = getKind(node);
-        if (kind !== 'Field' && kind !== 'InlineFragment') return;
-        let name, type;
-
-        if (kind === 'InlineFragment') {
-          name = getName(getTypeCondition(node));
-          type = _this._schema.getType(name);
-        } else {
-          name = getName(node);
-          type = getType(typeInfo.getFieldDef());
-        }
-
-        if (!type.getFields) return;
-        const fields = type.getFields();
-
-        if (fields[_this._resourceKey] && !hasChildField(node, _this._resourceKey)) {
-          const mockAST = parse(`{ ${name} {${_this._resourceKey}} }`);
-          const fieldAST = getChildField(getRootField(mockAST, name), _this._resourceKey);
-          addChildField(node, fieldAST);
-        }
-
-        if (fields._metadata && !hasChildField(node, '_metadata')) {
-          const mockAST = parse(`{ ${name} { _metadata { cacheControl } } }`);
-          const fieldAST = getChildField(getRootField(mockAST, name), '_metadata');
-          addChildField(node, fieldAST);
-        }
-      },
-      leave(node) {
-        typeInfo.leave(node);
-      },
-    });
-  }
-
-  /**
-   *
    * @param {string} hash
    * @param {Document} ast
    * @return {Promise}
    */
   async analyze(hash, ast) {
-    const updatedAST = await this._updateQuery(ast);
-    const { cache, checkList, counter, queried } = await this._checkObjectCache(updatedAST);
-    if (counter.missing === counter.total) return { updatedAST, updatedQuery: print(updatedAST) };
+    const { cache, checkList, counter, queried } = await this._checkObjectCache(ast);
+    if (counter.missing === counter.total) return { updatedAST: ast, updatedQuery: print(ast) };
     if (!counter.missing) return { cachedData: queried, cacheMetadata: cache };
     this._partials.set(hash, { cacheMetadata: cache, cachedData: queried });
-    await this._filterQuery(updatedAST, checkList);
-    return { filtered: true, updatedAST, updatedQuery: print(updatedAST) };
+    await this._filterQuery(ast, checkList);
+    return { filtered: true, updatedAST: ast, updatedQuery: print(ast) };
   }
 
   /**

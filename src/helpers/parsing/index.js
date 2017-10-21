@@ -407,16 +407,12 @@ export const getVariableDefinitionType = function getVariableDefinitionType(defi
  */
 export const hasChildField = function hasChildField(node, name) {
   const childFields = unwrapInlineFragments(getChildFields(node));
-  let hasField = false;
 
   for (let i = 0; i < childFields.length; i += 1) {
-    if (getName(childFields[i]) === name) {
-      hasField = true;
-      break;
-    }
+    if (getName(childFields[i]) === name || getKind(childFields[i]) === name) return true;
   }
 
-  return hasField;
+  return false;
 };
 
 /**
@@ -430,10 +426,12 @@ export const hasFragmentDefinitions = function hasFragmentDefinitions({ definiti
 
 /**
  *
- * @param {Object} selectionSet
+ * @param {Object} node
  * @return {boolean}
  */
-export const hasFragmentSpread = function hasFragmentSpread({ selections }) {
+export const hasFragmentSpread = function hasFragmentSpread({ selectionSet }) {
+  if (!selectionSet) return false;
+  const { selections } = selectionSet;
   return !!selections.filter(value => getKind(value) === 'FragmentSpread').length;
 };
 
@@ -450,10 +448,14 @@ export const hasVariableDefinitions = function hasVariableDefinitions(opDef) {
 /**
  *
  * @param {Object} fragmentDefinitions
- * @param {Object} selectionSet
+ * @param {Object} node
+ * @param {Object} node.selectionSet
+ * @param {Array<Object>} node.selectionSet.selections
  * @return {void}
  */
-export const setFragments = function setFragments(fragmentDefinitions, { selections }) {
+export const setFragments = function setFragments(
+  fragmentDefinitions, { selectionSet: { selections } },
+) {
   for (let i = selections.length - 1; i >= 0; i -= 1) {
     if (getKind(selections[i]) === 'FragmentSpread') {
       const { selectionSet } = fragmentDefinitions[getName(selections[i])];
