@@ -383,7 +383,7 @@ export default class Client {
         if (kind === 'Variable') {
           const name = getName(node);
           const value = opts.variables[name];
-          if (!value) return null;
+          if (!value) return parseValue(`${null}`);
           return parseValue(isString(value) ? `"${value}"` : `${value}`);
         }
 
