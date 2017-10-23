@@ -326,7 +326,7 @@ export default class Client {
    * @return {stirng}
    */
   _parseObjectToInputString(obj) {
-    let inputString = '';
+    let inputString = '{';
 
     (function iterateObject(_obj) {
       Object.keys(_obj).forEach((key, index, arr) => {
@@ -342,6 +342,8 @@ export default class Client {
 
         if (index < arr.length - 1) inputString += ',';
       });
+
+      inputString += '}';
     }(obj));
 
     return inputString;
