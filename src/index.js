@@ -412,7 +412,7 @@ export default class Client {
           const name = getName(node);
           const value = opts.variables[name];
           if (!value) return parseValue(`${null}`);
-          if (isPlainObject(value)) return parseValue(this._parseObjectToInputString(value));
+          if (isPlainObject(value)) return parseValue(_this._parseObjectToInputString(value));
           return parseValue(isString(value) ? `"${value}"` : `${value}`);
         }
 
