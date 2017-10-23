@@ -11,7 +11,7 @@ import {
   visit,
 } from 'graphql';
 
-import { isFunction, isString } from 'lodash';
+import { isFunction, isPlainObject, isString } from 'lodash';
 import Cache from './cache';
 
 import {
@@ -322,6 +322,34 @@ export default class Client {
   /**
    *
    * @private
+   * @param {Object} obj
+   * @return {stirng}
+   */
+  _parseObjectToInputString(obj) {
+    let inputString = '';
+
+    (function iterateObject(_obj) {
+      Object.keys(_obj).forEach((key, index, arr) => {
+        inputString += `${key}:`;
+
+        if (!isPlainObject(_obj[key])) {
+          inputString += isString(_obj[key]) ? `"${_obj[key]}"` : `${_obj[key]}`;
+        } else {
+          inputString += '{';
+          iterateObject(_obj[key]);
+          inputString += '}';
+        }
+
+        if (index < arr.length - 1) inputString += ',';
+      });
+    }(obj));
+
+    return inputString;
+  }
+
+  /**
+   *
+   * @private
    * @param {string} query
    * @param {Object} opts
    * @param {Object} opts.fragments
@@ -384,6 +412,7 @@ export default class Client {
           const name = getName(node);
           const value = opts.variables[name];
           if (!value) return parseValue(`${null}`);
+          if (isPlainObject(value)) return parseValue(this._parseObjectToInputString(value));
           return parseValue(isString(value) ? `"${value}"` : `${value}`);
         }
 
