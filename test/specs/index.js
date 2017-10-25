@@ -807,6 +807,58 @@ describe('when the client is in internal mode', () => {
       expect(await cache.size()).to.eql(8);
     });
   });
+
+  describe('when multiple items are requested in the same query', () => {
+    let res;
+
+    beforeEach(async () => {
+      mockRestRequest('product', '402-5806');
+      mockRestRequest('product', '522-7645');
+      spy(client, '_fetch');
+
+      res = await client.request(tesco.requests.multiItemQuery, {
+        variables: { id: ['402-5806', '522-7645'] },
+      });
+    });
+
+    afterEach(() => {
+      client.clearCache();
+      client._fetch.restore();
+      fetchMock.restore();
+    });
+
+    it('should return the requested data for both requests', async () => {
+      const { products } = res.data;
+      expect(products[0].id).to.eql('402-5806');
+      expect(products[0].optionsInfo[0].name).to.eql('Colour');
+      expect(products[0].optionsInfo[1].name).to.eql('Size');
+      expect(products[0].prices.price).to.eql('19.00');
+      expect(products[0].userActionable).to.be.true();
+      expect(products[1].id).to.eql('522-7645');
+      expect(products[1].optionsInfo[0].name).to.eql('Colour');
+      expect(products[1].optionsInfo[1].name).to.eql('Size');
+      expect(products[1].prices.price).to.eql('20.00');
+      expect(products[1].userActionable).to.be.true();
+    });
+
+    it('should have made one calls to the graphql server', () => {
+      expect(client._fetch.calledOnce).to.be.true();
+    });
+
+    it('should have made two requests to the API', () => {
+      expect(fetchMock.calls().matched).to.have.lengthOf(2);
+    });
+
+    it('should cache the responses against the query', async () => {
+      const cache = client._cache.res;
+      expect(await cache.size()).to.eql(2);
+    });
+
+    it('should cache each response object against its query path', async () => {
+      const cache = client._cache.obj;
+      expect(await cache.size()).to.eql(12);
+    });
+  });
 });
 
 describe('when the client is in external mode', () => {

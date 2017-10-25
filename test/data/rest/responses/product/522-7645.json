@@ -1,0 +1,346 @@
+{
+  "id" : "522-7645",
+  "optionsInfo" : [ {
+    "type" : "primary",
+    "name" : "Colour",
+    "internalName" : "colour"
+  }, {
+    "type" : "secondary",
+    "name" : "Size",
+    "internalName" : "p_size"
+  } ],
+  "userActionable" : true,
+  "prices" : {
+    "id" : "522-7645",
+    "price" : "20.00",
+    "clubcardPoints" : 20
+  },
+  "displayName" : "F&F Ripped Split Hem Mid Rise Skinny Jeans",
+  "publicLink" : "/direct/ff-ripped-split-hem-mid-rise-skinny-jeans/522-7645.prd",
+  "longDescription" : "<p>Refresh your denim collection for AW17 with these F&amp;F skinny ripped jeans in a light blue wash. Accented by split hems, the jeans are designed with classic five pocket placement and belt loops.</p><p>Button and zip fly fastening</p><p>Sits just below the waist, close fitting and skim from the hips through to the ankle</p>",
+  "giftMessagingEnabled" : false,
+  "ancestorCategories" : [ {
+    "id" : "cat3376557",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat3376557"
+  }, {
+    "id" : "cat3376685",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat3376685"
+  }, {
+    "id" : "cat38300005",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38300005"
+  }, {
+    "id" : "cat38310007",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38310007"
+  }, {
+    "id" : "cat38310015",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38310015"
+  }, {
+    "id" : "cat38670055",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38670055"
+  }, {
+    "id" : "cat38690064",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38690064"
+  }, {
+    "id" : "cat38710074",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38710074"
+  }, {
+    "id" : "cat38900036",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat38900036"
+  }, {
+    "id" : "cat45940009",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat45940009"
+  } ],
+  "brand" : "F&F",
+  "mediaAssets" : {
+    "defaultSku" : {
+      "defaultImage" : {
+        "mediaType" : "Large",
+        "src" : "https://tesco.scene7.com/is/image/tesco/320-5536_PI_66786MN?$[preset]$",
+        "renderSource" : "Scene 7",
+        "defaultImage" : true
+      }
+    }
+  },
+  "dynamicAttributes" : {
+    "ageSuitability" : "Adult",
+    "gender" : "Womens",
+    "styleRef" : "jl720460",
+    "supplier" : "FF"
+  },
+  "links" : [ {
+    "id" : "337-8828",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/337-8828",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "6 Regular leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/337/337-8828/Swatches/337-8828_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "378-2325",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/378-2325",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "8 Short leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/378/378-2325/Swatches/378-2325_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "121-6472",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/121-6472",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "8 Regular leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/121/121-6472/Swatches/121-6472_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "621-9397",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/621-9397",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "8 Long leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/621/621-9397/Swatches/621-9397_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "624-7315",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/624-7315",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "10 Short leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/624/624-7315/Swatches/624-7315_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "572-4843",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/572-4843",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "10 Regular leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/572/572-4843/Swatches/572-4843_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "320-5536",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/320-5536",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "10 Long leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/320/320-5536/Swatches/320-5536_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "466-1942",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/466-1942",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "12 Short leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/466/466-1942/Swatches/466-1942_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "637-5319",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/637-5319",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "12 Regular leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/637/637-5319/Swatches/637-5319_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "587-3788",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/587-3788",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "12 Long leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/587/587-3788/Swatches/587-3788_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "755-1557",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/755-1557",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "14 Short leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/755/755-1557/Swatches/755-1557_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "789-3277",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/789-3277",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "14 Regular leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/789/789-3277/Swatches/789-3277_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "165-2364",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/165-2364",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "14 Long leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/165/165-2364/Swatches/165-2364_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "585-9451",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/585-9451",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "16 Short leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/585/585-9451/Swatches/585-9451_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "228-8590",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/228-8590",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "16 Regular leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/228/228-8590/Swatches/228-8590_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "465-6104",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/465-6104",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "16 Long leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/465/465-6104/Swatches/465-6104_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "208-8213",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/208-8213",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "18 Short leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/208/208-8213/Swatches/208-8213_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "510-0758",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/510-0758",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "18 Regular leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/510/510-0758/Swatches/510-0758_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "682-1521",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/682-1521",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "18 Long leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/682/682-1521/Swatches/682-1521_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "500-6247",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/500-6247",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "20 Regular leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/500/500-6247/Swatches/500-6247_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "543-6364",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/543-6364",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "22 Regular leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/543/543-6364/Swatches/543-6364_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "349-4154",
+    "type" : "product",
+    "rel" : "completeTheLook",
+    "href" : "/direct/rest/content/catalog/product/349-4154",
+    "options" : {
+      "primary" : "Black",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/348/348-7651/Swatches/348-7651_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "428-2482",
+    "type" : "product",
+    "rel" : "completeTheLook",
+    "href" : "/direct/rest/content/catalog/product/428-2482",
+    "options" : {
+      "primary" : "Black",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/168/168-6183/Swatches/168-6183_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "522-7645",
+    "type" : "product",
+    "rel" : "self",
+    "href" : "/direct/rest/content/catalog/product/522-7645",
+    "options" : {
+      "primary" : "Light wash",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/121/121-6472/Swatches/121-6472_SW_66786SWswatch_1_pdp.jpg"
+    }
+  }, {
+    "id" : "200-3482",
+    "type" : "product",
+    "rel" : "completeTheLook",
+    "href" : "/direct/rest/content/catalog/product/200-3482"
+  }, {
+    "type" : "inventory",
+    "href" : "/direct/rest/inventory/{type}/{id,+}?format={brief|standard}",
+    "templated" : true
+  }, {
+    "type" : "price",
+    "href" : "/direct/rest/price/{type}/{id,+}?format={brief|standard}",
+    "templated" : true
+  }, {
+    "type" : "competitor:price",
+    "rel" : "competitorPrice",
+    "href" : "/direct/rest/competitor/price/{type}/{id,+}",
+    "templated" : true
+  }, {
+    "id" : "320-5536",
+    "type" : "sku",
+    "rel" : "defaultSku",
+    "href" : "/direct/rest/content/catalog/sku/320-5536",
+    "options" : {
+      "primary" : "Light wash",
+      "secondary" : "10 Long leg",
+      "swatch" : "//direct.tescoassets.com/directuiassets/ProductAssets/320/320-5536/Swatches/320-5536_SW_66786SWswatch_1_pdp.jpg"
+    }
+  } ]
+}

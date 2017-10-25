@@ -27,6 +27,7 @@ import {
   getRootFields,
   isParentField,
   mapToObject,
+  parseFieldArguments,
   unwrapInlineFragments,
 } from '../helpers/parsing';
 
@@ -184,7 +185,7 @@ export default class Cache {
    */
   _getKeys(field, { cachePath, dataPath, queryPath } = {}, index) {
     const name = getName(field);
-    const args = getFieldArguments(field);
+    const args = parseFieldArguments(getFieldArguments(field));
     const cacheKey = buildCacheKey(name, index, args, cachePath);
     const hashKey = this.hash(cacheKey);
     const aliasKey = getFieldAlias(field);

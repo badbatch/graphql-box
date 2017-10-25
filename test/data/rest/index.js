@@ -8,6 +8,7 @@ import { castArray, isArray } from 'lodash';
  */
 export const productData = {
   '402-5806': require('./responses/product/402-5806.json'),
+  '522-7645': require('./responses/product/522-7645.json'),
 };
 
 /**

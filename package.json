@@ -1,6 +1,6 @@
 {
   "name": "handl",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "description": "An isomorphic graphql client and cache.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -23,7 +23,7 @@
   "scripts": {
     "build": "npm run test && npm run transpile",
     "clean": "rimraf lib/*",
-    "coverage": "cross-env BABEL_ENV=test ISO_LOG=false nyc mocha test/specs/index.js",
+    "coverage": "cross-env BABEL_ENV=test ISO_LOG=false nyc mocha test/specs/**/*",
     "lint": "eslint . --fix",
     "publish:pkg": "npm run build && npm publish",
     "test": "npm run lint && npm run coverage",

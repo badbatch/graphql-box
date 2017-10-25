@@ -303,3 +303,26 @@ export const skuQuery = `
     }
   }
 `;
+
+/**
+ *
+ * @type {string}
+ */
+export const multiItemQuery = `
+  query getProducts($id: [String]) {
+    products(id: $id) {
+      id
+      optionsInfo {
+        type
+        name
+        internalName
+      }
+      userActionable
+      prices {
+        id
+        price
+        clubcardPoints
+      }
+    }
+  }
+`;

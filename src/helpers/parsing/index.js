@@ -292,15 +292,52 @@ export const getChildField = function getChildField(node, name) {
 /**
  *
  * @param {Object} node
- * @return {Object|null}
+ * @return {Array<Object>|null}
  */
 export const getFieldArguments = function getFieldArguments(node) {
-  if (!node.arguments.length) return null;
+  return node.arguments;
+};
+
+/**
+ *
+ * @param {Object} valueNode
+ * @return {any}
+ */
+export const parseArgumentValueTypes = function parseArgumentValueTypes(valueNode) {
+  let output;
+
+  if (valueNode.value) {
+    output = valueNode.value;
+  } else if (valueNode.kind === 'ObjectValue') {
+    output = {};
+
+    valueNode.fields.forEach(({ name, value }) => {
+      output[name.value] = parseArgumentValueTypes(value);
+    });
+  } else if (valueNode.kind === 'ListValue') {
+    output = [];
+
+    valueNode.values.forEach((value) => {
+      output.push(parseArgumentValueTypes(value));
+    });
+  } else {
+    output = null;
+  }
+
+  return output;
+};
+
+/**
+ *
+ * @param {Array<Object>} argumentNodes
+ * @return {Object}
+ */
+export const parseFieldArguments = function parseFieldArguments(argumentNodes) {
+  if (!argumentNodes.length) return null;
   const args = {};
 
-  node.arguments.forEach((arg) => {
-    if (!arg.value) return;
-    args[getName(arg)] = getValue(arg);
+  argumentNodes.forEach(({ name, value }) => {
+    args[name.value] = parseArgumentValueTypes(value);
   });
 
   return args;

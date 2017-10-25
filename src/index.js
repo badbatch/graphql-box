@@ -11,7 +11,7 @@ import {
   visit,
 } from 'graphql';
 
-import { isFunction, isPlainObject, isString } from 'lodash';
+import { isFunction, isObjectLike, isPlainObject, isString } from 'lodash';
 import Cache from './cache';
 
 import {
@@ -306,6 +306,29 @@ export default class Client {
   /**
    *
    * @private
+   * @param {Array<any>} values
+   * @return {string}
+   */
+  _parseArrayToInputString(values) {
+    let inputString = '[';
+
+    values.forEach((value, index, arr) => {
+      if (!isPlainObject(value)) {
+        inputString += isString(value) ? `"${value}"` : `${value}`;
+      } else {
+        inputString += this._parseToInputString(value);
+      }
+
+      if (index < arr.length - 1) inputString += ',';
+    });
+
+    inputString += ']';
+    return inputString;
+  }
+
+  /**
+   *
+   * @private
    * @param {Object} cacheMetadata
    * @return {Map}
    */
@@ -328,25 +351,31 @@ export default class Client {
   _parseObjectToInputString(obj) {
     let inputString = '{';
 
-    (function iterateObject(_obj) {
-      Object.keys(_obj).forEach((key, index, arr) => {
-        inputString += `${key}:`;
+    Object.keys(obj).forEach((key, index, arr) => {
+      inputString += `${key}:`;
 
-        if (!isPlainObject(_obj[key])) {
-          inputString += isString(_obj[key]) ? `"${_obj[key]}"` : `${_obj[key]}`;
-        } else {
-          inputString += '{';
-          iterateObject(_obj[key]);
-          inputString += '}';
-        }
+      if (!isPlainObject(obj[key])) {
+        inputString += isString(obj[key]) ? `"${obj[key]}"` : `${obj[key]}`;
+      } else {
+        inputString += this._parseToInputString(obj[key]);
+      }
 
-        if (index < arr.length - 1) inputString += ',';
-      });
+      if (index < arr.length - 1) inputString += ',';
+    });
 
-      inputString += '}';
-    }(obj));
-
+    inputString += '}';
     return inputString;
+  }
+
+  /**
+   *
+   * @private
+   * @param {Array<any>|Object} value
+   * @return {string}
+   */
+  _parseToInputString(value) {
+    if (isPlainObject(value)) return this._parseObjectToInputString(value);
+    return this._parseArrayToInputString(value);
   }
 
   /**
@@ -414,7 +443,7 @@ export default class Client {
           const name = getName(node);
           const value = opts.variables[name];
           if (!value) return parseValue(`${null}`);
-          if (isPlainObject(value)) return parseValue(_this._parseObjectToInputString(value));
+          if (isObjectLike(value)) return parseValue(_this._parseToInputString(value));
           return parseValue(isString(value) ? `"${value}"` : `${value}`);
         }
 
