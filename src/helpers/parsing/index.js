@@ -491,13 +491,11 @@ export const hasVariableDefinitions = function hasVariableDefinitions(opDef) {
  * @param {Array<Object>} node.selectionSet.selections
  * @return {void}
  */
-export const setFragments = function setFragments(
-  fragmentDefinitions, { selectionSet: { selections } },
-) {
+export function setFragments(fragmentDefinitions, { selectionSet: { selections } }) {
   for (let i = selections.length - 1; i >= 0; i -= 1) {
     if (getKind(selections[i]) === 'FragmentSpread') {
       const { selectionSet } = fragmentDefinitions[getName(selections[i])];
       selections.splice(i, 1, ...selectionSet.selections);
     }
   }
-};
+}

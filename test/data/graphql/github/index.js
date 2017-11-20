@@ -6,7 +6,9 @@ import { aliasQuery, singleMutation, singleQuery, variableMutation } from './req
  *
  * @type {Object}
  */
-export const requests = { aliasQuery, singleMutation, singleQuery, variableMutation };
+export const requests = {
+  aliasQuery, singleMutation, singleQuery, variableMutation,
+};
 
 /**
  *

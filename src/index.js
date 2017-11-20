@@ -144,9 +144,7 @@ export default class Client {
     }
 
     if (mode === 'external' && !introspection && !url) {
-      throw new Error(
-        'Introspection query and URL are mandatory arguments for a client in external mode.',
-      );
+      throw new Error('Introspection query and URL are mandatory arguments for a client in external mode.');
     }
 
     if (instance && !newInstance) return instance;
@@ -284,7 +282,9 @@ export default class Client {
     }
 
     const { cacheMetadata, data, errors } = await res.json();
-    return { cacheMetadata, data, errors, headers: res.headers };
+    return {
+      cacheMetadata, data, errors, headers: res.headers,
+    };
   }
 
   /**
@@ -503,7 +503,12 @@ export default class Client {
     if (res.errors) return this._resolve('query', null, res.errors, _cacheMetadata, hash);
 
     const resolved = await this._cache.resolve(
-      updatedQuery, updatedAST, hash, res.data, _cacheMetadata, { filtered },
+      updatedQuery,
+      updatedAST,
+      hash,
+      res.data,
+      _cacheMetadata,
+      { filtered },
     );
 
     return this._resolve('query', resolved.data, null, resolved.cacheMetadata, hash);
@@ -623,15 +628,11 @@ export default class Client {
         return this._resolveRequestOperation(updated.query, updated.ast, opts, context);
       }
 
-      return Promise.all(
-        operations.map((value) => {
-          const operationQuery = print(value);
+      return Promise.all(operations.map((value) => {
+        const operationQuery = print(value);
 
-          return this._resolveRequestOperation(
-            operationQuery, parse(operationQuery), opts, context,
-          );
-        }),
-      );
+        return this._resolveRequestOperation(operationQuery, parse(operationQuery), opts, context);
+      }));
     } catch (err) {
       return Promise.reject({ errors: err });
     }

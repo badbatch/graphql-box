@@ -193,7 +193,9 @@ export default class Cache {
     const queryKey = isNumber(index) ? queryPath : buildQueryKey(nameKey, queryPath);
     const propKey = isNumber(index) ? index : nameKey;
     const dataKey = buildDataKey(propKey, dataPath);
-    return { cacheKey, dataKey, hashKey, name, propKey, queryKey };
+    return {
+      cacheKey, dataKey, hashKey, name, propKey, queryKey,
+    };
   }
 
   /**
@@ -269,7 +271,9 @@ export default class Cache {
     const { cacheability, cachedData } = await this._checkCacheEntry(hashKey);
     this._setCacheEntryData(metadata, cachedData, cacheability, { propKey, queryKey });
     if (!isObjectLike(cachedData)) return;
-    const { cache, checkList, counter, queried } = metadata;
+    const {
+      cache, checkList, counter, queried,
+    } = metadata;
     const promises = [];
 
     this._iterateChildFields(field, cachedData, (childField, childIndex) => {
@@ -277,7 +281,9 @@ export default class Cache {
 
       promises.push(this._parseField(
         childField,
-        { cache, checkList, counter, queried: queried[propKey] },
+        {
+          cache, checkList, counter, queried: queried[propKey],
+        },
         cachedData,
         cacheKey,
         queryKey,
@@ -351,7 +357,9 @@ export default class Cache {
    * @return {void}
    */
   _setCacheEntryData(metadata, cachedData, cacheability, { propKey, queryKey }) {
-    const { cache, checkList, counter, queried } = metadata;
+    const {
+      cache, checkList, counter, queried,
+    } = metadata;
     this._setCacheData(cache, cacheability, { queryKey });
     this._setCheckList(checkList, cachedData, { queryKey });
     this._setCounter(counter, cachedData);
@@ -415,7 +423,9 @@ export default class Cache {
    * @return {Promise}
    */
   async _setObject(field, data, cacheMetadata, cacheControl, paths, index) {
-    const { cacheKey, dataKey, hashKey, queryKey } = this._getKeys(field, paths, index);
+    const {
+      cacheKey, dataKey, hashKey, queryKey,
+    } = this._getKeys(field, paths, index);
     const fieldData = cloneDeep(get(data, dataKey, null));
     if (!isObjectLike(fieldData)) return;
     let _cacheControl = cacheControl;
@@ -530,7 +540,9 @@ export default class Cache {
    * @return {Promise}
    */
   async analyze(hash, ast) {
-    const { cache, checkList, counter, queried } = await this._checkObjectCache(ast);
+    const {
+      cache, checkList, counter, queried,
+    } = await this._checkObjectCache(ast);
     if (counter.missing === counter.total) return { updatedAST: ast, updatedQuery: print(ast) };
     if (!counter.missing) return { cachedData: queried, cacheMetadata: cache };
     this._partials.set(hash, { cacheMetadata: cache, cachedData: queried });
@@ -588,7 +600,10 @@ export default class Cache {
     }
 
     const _cacheMetadata = this._updateCacheMetadata(
-      ast, data, cacheMetadata, partial.cacheMetadata,
+      ast,
+      data,
+      cacheMetadata,
+      partial.cacheMetadata,
     );
 
     this._res.set(hash, { cacheMetadata: mapToObject(_cacheMetadata), data: _data }, {

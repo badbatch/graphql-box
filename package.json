@@ -1,6 +1,6 @@
 {
   "name": "handl",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "An isomorphic graphql client and cache.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:dylanaubrey/handl.git"
+    "url": "https://github.com/dylanaubrey/handl"
   },
   "main": "lib/main/index.js",
   "module": "lib/module/index.js",
@@ -23,7 +23,7 @@
   "scripts": {
     "build": "npm run test && npm run transpile",
     "clean": "rimraf lib/*",
-    "coverage": "cross-env BABEL_ENV=test ISO_LOG=false nyc mocha 'test/specs/**/*'",
+    "coverage": "cross-env BABEL_ENV=test ISO_LOG=false nyc mocha --exit --recursive test/specs/",
     "lint": "eslint . --fix",
     "publish:pkg": "npm run build && npm publish",
     "test": "npm run lint && npm run coverage",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "cacheability": "0.0.1",
-    "cachemap": "0.0.11",
+    "cachemap": "0.0.12",
     "es6-promise": "^4.1.1",
     "graphql": "^0.11.3",
     "iso-logger": "0.0.8",
@@ -43,28 +43,30 @@
     "md5": "^2.2.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-eslint": "^7.2.3",
+    "@babel/cli": "^7.0.0-beta.32",
+    "@babel/core": "^7.0.0-beta.32",
+    "@babel/polyfill": "^7.0.0-beta.32",
+    "@babel/preset-env": "^7.0.0-beta.32",
+    "@babel/preset-stage-0": "^7.0.0-beta.32",
+    "@babel/register": "^7.0.0-beta.32",
+    "babel-eslint": "^8.0.2",
+    "babel-loader": "^8.0.0-beta.0",
     "babel-plugin-istanbul": "^4.1.4",
     "babel-plugin-lodash": "^3.2.11",
-    "babel-preset-env": "^1.5.2",
-    "babel-preset-stage-0": "^6.24.1",
-    "babel-register": "^6.24.1",
     "chai": "^4.0.2",
-    "codecov": "^2.2.0",
+    "codecov": "^3.0.0",
     "cross-env": "^5.0.1",
     "dirty-chai": "^2.0.0",
-    "eslint": "^4.3.0",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.1.0",
+    "eslint": "^4.11.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.5.1",
     "fetch-mock": "^5.12.1",
-    "mocha": "^3.4.2",
+    "mocha": "^4.0.1",
     "nyc": "^11.0.3",
     "rimraf": "^2.6.1",
-    "sinon": "^2.3.5",
+    "sinon": "^4.1.2",
     "sinon-chai": "^2.11.0"
   }
 }

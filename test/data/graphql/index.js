@@ -29,23 +29,25 @@ export const github = { requests, responses };
  *
  * @type {Object}
  */
-export const tesco = { requests: {
-  aliasQuery,
-  fragmentQuery,
-  inlineFragmentQuery,
-  inlineFragmentQueryExtra,
-  inlineFragmentQuerySpied,
-  multiItemQuery,
-  multiQuery,
-  namedQuery,
-  optionsInfoFragment,
-  partOneQuery,
-  partTwoQuery,
-  priceFragment,
-  singleQuery,
-  skuQuery,
-  variableQuery,
-} };
+export const tesco = {
+  requests: {
+    aliasQuery,
+    fragmentQuery,
+    inlineFragmentQuery,
+    inlineFragmentQueryExtra,
+    inlineFragmentQuerySpied,
+    multiItemQuery,
+    multiQuery,
+    namedQuery,
+    optionsInfoFragment,
+    partOneQuery,
+    partTwoQuery,
+    priceFragment,
+    singleQuery,
+    skuQuery,
+    variableQuery,
+  },
+};
 
 /**
  *

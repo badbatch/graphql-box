@@ -5,7 +5,7 @@
   "branches": 80,
   "include": ["src/**/*"],
   "reporter": ["lcov", "text-summary"],
-  "require": ["babel-register"],
+  "require": ["@babel/register"],
   "sourceMap": false,
   "instrument": false,
   "cache": true,

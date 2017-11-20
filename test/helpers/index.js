@@ -84,7 +84,9 @@ export const createExternalClient = function createExternalClient(newInstance) {
  * @return {Client}
  */
 export const createInternalClient = function createInternalClient(newInstance) {
-  return new Client({ cachemapOptions, mode: 'internal', newInstance, schema });
+  return new Client({
+    cachemapOptions, mode: 'internal', newInstance, schema,
+  });
 };
 
 /**
