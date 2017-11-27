@@ -1,0 +1,12 @@
+{
+  "extends": "tslint:latest",
+  "rules": {
+    "curly": [true, "ignore-same-line"],
+    "interface-name": [true, "never-prefix"],
+    "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
+    "no-this-assignment": [true, {"allowed-names": ["_this"] }],
+    "prefer-function-over-method": true,
+    "return-undefined": false,
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
+  }
+}

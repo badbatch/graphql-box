@@ -28,9 +28,9 @@
     "publish:pkg": "npm run build && npm publish",
     "test": "npm run lint && npm run coverage",
     "transpile": "npm run clean && npm run transpile:browser && npm run transpile:main && npm run transpile:module",
-    "transpile:browser": "cross-env BABEL_ENV=browser babel src --out-dir lib/browser --copy-files",
-    "transpile:main": "cross-env BABEL_ENV=main babel src --out-dir lib/main --copy-files",
-    "transpile:module": " cross-env BABEL_ENV=module babel src --out-dir lib/module --copy-files"
+    "transpile:browser": "cross-env BABEL_ENV=browser babel src --out-dir lib/browser --copy-files --extensions .ts",
+    "transpile:main": "cross-env BABEL_ENV=main babel src --out-dir lib/main --copy-files --extensions .ts",
+    "transpile:module": " cross-env BABEL_ENV=module babel src --out-dir lib/module --copy-files --extensions .ts"
   },
   "dependencies": {
     "cacheability": "0.0.1",
@@ -43,30 +43,24 @@
     "md5": "^2.2.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.32",
-    "@babel/core": "^7.0.0-beta.32",
-    "@babel/polyfill": "^7.0.0-beta.32",
-    "@babel/preset-env": "^7.0.0-beta.32",
-    "@babel/preset-stage-0": "^7.0.0-beta.32",
-    "@babel/register": "^7.0.0-beta.32",
-    "babel-eslint": "^8.0.2",
-    "babel-loader": "^8.0.0-beta.0",
-    "babel-plugin-istanbul": "^4.1.4",
-    "babel-plugin-lodash": "^3.3.2",
+    "@types/es6-promise": "0.0.33",
+    "@types/graphql": "^0.11.6",
+    "@types/isomorphic-fetch": "0.0.34",
+    "@types/lodash": "^4.14.85",
+    "@types/md5": "^2.1.32",
+    "@types/node": "^8.0.53",
     "chai": "^4.0.2",
     "codecov": "^3.0.0",
     "cross-env": "^5.0.1",
     "dirty-chai": "^2.0.0",
-    "eslint": "^4.11.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.5.1",
     "fetch-mock": "^5.12.1",
     "mocha": "^4.0.1",
     "nyc": "^11.0.3",
     "rimraf": "^2.6.1",
     "sinon": "^4.1.2",
-    "sinon-chai": "^2.11.0"
+    "sinon-chai": "^2.11.0",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1"
   }
 }
