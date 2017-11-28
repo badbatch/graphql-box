@@ -14,11 +14,13 @@ import {
   GraphQLOutputType,
   GraphQLSchema,
   InlineFragmentNode,
+  OperationDefinitionNode,
   parse,
   parseValue,
   print,
   TypeInfo,
   validate,
+  VariableNode,
   visit,
 } from "graphql";
 
@@ -38,6 +40,7 @@ import Cache from "../cache";
 import {
   addChildFields,
   deleteFragmentDefinitions,
+  deleteVariableDefinitions,
   getChildFields,
   getFragmentDefinitions,
   getKind,
@@ -47,6 +50,7 @@ import {
   hasChildFields,
   hasFragmentDefinitions,
   hasFragmentSpreads,
+  hasVariableDefinitions,
   setFragmentDefinitions,
 } from "../helpers/parsing";
 
@@ -273,29 +277,6 @@ export default class Client {
   /**
    *
    * @private
-   * @param {Array<any>} values
-   * @return {string}
-   */
-  public _parseArrayToInputString(values) {
-    let inputString = "[";
-
-    values.forEach((value, index, arr) => {
-      if (!isPlainObject(value)) {
-        inputString += isString(value) ? `"${value}"` : `${value}`;
-      } else {
-        inputString += this._parseToInputString(value);
-      }
-
-      if (index < arr.length - 1) { inputString += ","; }
-    });
-
-    inputString += "]";
-    return inputString;
-  }
-
-  /**
-   *
-   * @private
    * @param {Object} cacheMetadata
    * @return {Map}
    */
@@ -307,42 +288,6 @@ export default class Client {
     });
 
     return new Map(Object.entries(cacheMetadata));
-  }
-
-  /**
-   *
-   * @private
-   * @param {Object} obj
-   * @return {stirng}
-   */
-  public _parseObjectToInputString(obj) {
-    let inputString = "{";
-
-    Object.keys(obj).forEach((key, index, arr) => {
-      inputString += `${key}:`;
-
-      if (!isPlainObject(obj[key])) {
-        inputString += isString(obj[key]) ? `"${obj[key]}"` : `${obj[key]}`;
-      } else {
-        inputString += this._parseToInputString(obj[key]);
-      }
-
-      if (index < arr.length - 1) { inputString += ","; }
-    });
-
-    inputString += "}";
-    return inputString;
-  }
-
-  /**
-   *
-   * @private
-   * @param {Array<any>|Object} value
-   * @return {string}
-   */
-  public _parseToInputString(value) {
-    if (isPlainObject(value)) { return this._parseObjectToInputString(value); }
-    return this._parseArrayToInputString(value);
   }
 
   /**
@@ -522,6 +467,47 @@ export default class Client {
     }
   }
 
+  private _parseArrayToInputString(values: any[]): string {
+    let inputString = "[";
+
+    values.forEach((value, index, arr) => {
+      if (!isPlainObject(value)) {
+        inputString += isString(value) ? `"${value}"` : `${value}`;
+      } else {
+        inputString += this._parseToInputString(value);
+      }
+
+      if (index < arr.length - 1) { inputString += ","; }
+    });
+
+    inputString += "]";
+    return inputString;
+  }
+
+  private _parseObjectToInputString(obj: ObjectMap): string {
+    let inputString = "{";
+
+    Object.keys(obj).forEach((key, index, arr) => {
+      inputString += `${key}:`;
+
+      if (!isPlainObject(obj[key])) {
+        inputString += isString(obj[key]) ? `"${obj[key]}"` : `${obj[key]}`;
+      } else {
+        inputString += this._parseToInputString(obj[key]);
+      }
+
+      if (index < arr.length - 1) { inputString += ","; }
+    });
+
+    inputString += "}";
+    return inputString;
+  }
+
+  private _parseToInputString(value: ObjectMap | any[]): string {
+    if (isPlainObject(value)) return this._parseObjectToInputString(value as ObjectMap);
+    return this._parseArrayToInputString(value as any[]);
+  }
+
   private async _updateQuery(query: string, opts: RequestOptions): Promise<{ ast: DocumentNode, query: string }> {
     const _this = this;
     const typeInfo = new TypeInfo(this._schema);
@@ -588,16 +574,20 @@ export default class Client {
         }
 
         if (kind === "OperationDefinition") {
-          if (!opts.variables || !hasVariableDefinitions(node)) { return; }
-          deleteVariableDefinitions(node);
+          const operationDefinitionNode = node as OperationDefinitionNode;
+          if (!opts.variables || !hasVariableDefinitions(operationDefinitionNode)) return;
+          deleteVariableDefinitions(operationDefinitionNode);
           return;
         }
 
         if (kind === "Variable") {
-          const name = getName(node);
+          if (!opts.variables) return parseValue(`${null}`);
+          const variableNode = node as VariableNode;
+          const name = getName(variableNode);
+          if (!name) return parseValue(`${null}`);
           const value = opts.variables[name];
-          if (!value) { return parseValue(`${null}`); }
-          if (isObjectLike(value)) { return parseValue(_this._parseToInputString(value)); }
+          if (!value) return parseValue(`${null}`);
+          if (isObjectLike(value)) return parseValue(_this._parseToInputString(value));
           return parseValue(isString(value) ? `"${value}"` : `${value}`);
         }
 
