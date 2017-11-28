@@ -1,6 +1,7 @@
 import {
   ExecutionArgs,
   ExecutionResult,
+  GraphQLError,
   GraphQLFieldResolver,
   GraphQLSchema,
   IntrospectionQuery,
@@ -40,12 +41,14 @@ export interface ClientRequests {
   pending: Map<string, Array<{ resolve: (value: any) => void }>>;
 }
 
+export interface ClientResults {
+
+}
+
 export interface RequestOptions {
   forceFetch?: boolean;
   fragments?: string[];
   variables?: ObjectMap;
 }
 
-export interface RequestResults {
-
-}
+export type RequestResults = ClientResults | Error | GraphQLError[];

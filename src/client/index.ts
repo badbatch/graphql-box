@@ -30,6 +30,7 @@ import { isArray, isFunction, isObjectLike, isPlainObject, isString } from "loda
 import {
   ClientArgs,
   ClientRequests,
+  ClientResults,
   DefaultCacheControls,
   RequestOptions,
   RequestResults,
@@ -45,7 +46,7 @@ import {
   getFragmentDefinitions,
   getKind,
   getName,
-  getQuery,
+  getOperationDefinitions,
   getType,
   hasChildFields,
   hasFragmentDefinitions,
@@ -395,27 +396,6 @@ export default class Client {
   /**
    *
    * @private
-   * @param {string} query
-   * @param {Document} ast
-   * @param {Object} opts
-   * @param {Object} context
-   * @return {Promise}
-   */
-  public _resolveRequestOperation(query, ast, opts, context) {
-    const operation = getOperationName(ast);
-
-    if (operation === "query") {
-      return this._query(query, ast, opts, context);
-    } else if (operation === "mutation") {
-      return this._mutation(query, ast, opts, context);
-    }
-
-    return Promise.reject({ errors: "The query was not a valid operation" });
-  }
-
-  /**
-   *
-   * @private
    * @param {string} hash
    * @param {Funciton} resolve
    * @return {void}
@@ -427,16 +407,12 @@ export default class Client {
     this._requests.pending.set(hash, pending);
   }
 
-  /**
-   *
-   * @return {void}
-   */
-  public clearCache() {
-    this._cache.res.clear();
-    this._cache.obj.clear();
+  public clearCache(): void {
+    this._cache.responses.clear();
+    this._cache.dataObjects.clear();
   }
 
-  public async request(query: string, opts?: RequestOptions, context?: ObjectMap): Promise<RequestResults | Error> {
+  public async request(query: string, opts?: RequestOptions, context?: ObjectMap): Promise<RequestResults> {
     if (!isString(query)) {
       const message = "handl:client:request:The query is not a string";
       logger.error(message, { query });
@@ -448,22 +424,21 @@ export default class Client {
       const _query = _opts.fragments ? Client._concatFragments(query, _opts.fragments) : query;
       const updated = await this._updateQuery(_query, _opts);
       const errors = validate(this._schema, updated.ast);
-      if (errors.length) { return Promise.reject({ errors }); }
-      const operations = getOperations(updated.ast);
+      if (errors.length) return Promise.reject(errors);
+      const operations = getOperationDefinitions(updated.ast);
       const multiQuery = operations.length > 1;
       const _context = isPlainObject(context) ? context : {};
 
       if (!multiQuery) {
-        return this._resolveRequestOperation(updated.query, updated.ast, opts, _context);
+        return this._resolveRequestOperation(updated.query, updated.ast, _opts, _context);
       }
 
-      return Promise.all(operations.map((value) => {
-        const operationQuery = print(value);
-
-        return this._resolveRequestOperation(operationQuery, parse(operationQuery), opts, _context);
+      return Promise.all(operations.map((operation) => {
+        const operationQuery = print(operation);
+        return this._resolveRequestOperation(operationQuery, parse(operationQuery), _opts, _context);
       }));
     } catch (err) {
-      return Promise.reject({ errors: err });
+      return Promise.reject(err);
     }
   }
 
@@ -554,18 +529,18 @@ export default class Client {
 
           if (fields[_this._resourceKey] && !hasChildFields(fieldOrInlineFragmentNode, _this._resourceKey)) {
             const mockAST = parse(`{ ${name} {${_this._resourceKey}} }`);
-            const queryNode = getQuery(mockAST);
-            if (!queryNode) return;
-            const field = getChildFields(queryNode, _this._resourceKey);
+            const queryNode = getOperationDefinitions(mockAST, "query");
+            if (!queryNode.length) return;
+            const field = getChildFields(queryNode[0] as OperationDefinitionNode, _this._resourceKey);
             if (!field) return;
             addChildFields(fieldOrInlineFragmentNode, field as FieldNode);
           }
 
           if (fields._metadata && !hasChildFields(fieldOrInlineFragmentNode, "_metadata")) {
             const mockAST = parse(`{ ${name} { _metadata { cacheControl } } }`);
-            const queryNode = getQuery(mockAST);
-            if (!queryNode) return;
-            const field = getChildFields(queryNode, _this._resourceKey);
+            const queryNode = getOperationDefinitions(mockAST, "query");
+            if (!queryNode.length) return;
+            const field = getChildFields(queryNode[0] as OperationDefinitionNode, _this._resourceKey);
             if (!field) return;
             addChildFields(fieldOrInlineFragmentNode, field as FieldNode);
           }
@@ -599,5 +574,24 @@ export default class Client {
     });
 
     return { ast, query: print(ast) };
+  }
+
+  private _resolveRequestOperation(
+    query: string,
+    ast: DocumentNode,
+    opts: RequestOptions,
+    context: ObjectMap,
+  ): Promise<ClientResults | Error> {
+    const operationDefinition = getOperationDefinitions(ast)[0];
+
+    if (operationDefinition.operation === "query") {
+      return this._query(query, ast, opts, context);
+    } else if (operationDefinition.operation === "mutation") {
+      return this._mutation(query, ast, opts, context);
+    }
+
+    const message = "handl:client:_resolveRequestOperation:The query was not a supported operation";
+    logger.error(message, { query });
+    return Promise.reject(new Error(message));
   }
 }

@@ -15,7 +15,7 @@ export { hasFragmentSpreads } from "./fragment-spreads";
 export { unwrapInlineFragments } from "./inline-fragments";
 export { getKind } from "./kind";
 export { getName } from "./name";
-export { getQuery } from "./query";
+export { getOperationDefinitions } from "./operation-definitions";
 export { getTypeCondition } from "./type-condition";
 export { getType } from "./type";
 export { deleteVariableDefinitions, hasVariableDefinitions } from "./variable-definitions";
