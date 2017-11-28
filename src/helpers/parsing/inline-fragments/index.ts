@@ -1,7 +1,7 @@
 import { FieldNode, InlineFragmentNode, SelectionNode } from "graphql";
-import getKind from "../kind/get";
+import { getKind } from "../kind";
 
-export default function unwrapInlineFragments(selectionNodes: SelectionNode[]): FieldNode[] {
+export function unwrapInlineFragments(selectionNodes: SelectionNode[]): FieldNode[] {
   let fieldNodes: FieldNode[] = [];
 
   for (const selectionNode of selectionNodes) {
