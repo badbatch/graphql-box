@@ -8,6 +8,13 @@ import {
   FieldNode,
   FragmentDefinitionNode,
   FragmentSpreadNode,
+  GraphQLEnumType,
+  GraphQLInterfaceType,
+  GraphQLList,
+  GraphQLObjectType,
+  GraphQLScalarType,
+  GraphQLUnionType,
+  InlineFragmentNode,
   InputObjectTypeDefinitionNode,
   InputValueDefinitionNode,
   InterfaceTypeDefinitionNode,
@@ -19,6 +26,18 @@ import {
   UnionTypeDefinitionNode,
   VariableNode,
 } from "graphql";
+
+export interface FragmentDefinitionNodeMap {
+  [key: string]: FragmentDefinitionNode;
+}
+
+export type GraphQLNullableOutputType =
+  | GraphQLScalarType
+  | GraphQLObjectType
+  | GraphQLInterfaceType
+  | GraphQLUnionType
+  | GraphQLEnumType
+  | GraphQLList<any>;
 
 export type NamedASTNode =
   | OperationDefinitionNode
@@ -41,6 +60,8 @@ export type NamedASTNode =
   | InputObjectTypeDefinitionNode
   | DirectiveDefinitionNode;
 
-export interface FragmentDefinitionNodeMap {
-  [key: string]: FragmentDefinitionNode;
-}
+export type ParentNode =
+  | FieldNode
+  | InlineFragmentNode
+  | OperationDefinitionNode
+  | FragmentDefinitionNode;
