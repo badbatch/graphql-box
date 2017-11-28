@@ -7,9 +7,13 @@ import {
   DocumentNode,
   execute,
   FieldNode,
-  FragmentDefinitionNode,
   GraphQLFieldResolver,
+  GraphQLInterfaceType,
+  GraphQLNamedType,
+  GraphQLObjectType,
+  GraphQLOutputType,
   GraphQLSchema,
+  InlineFragmentNode,
   parse,
   parseValue,
   print,
@@ -32,15 +36,21 @@ import {
 import Cache from "../cache";
 
 import {
+  addChildFields,
   deleteFragmentDefinitions,
+  getChildFields,
   getFragmentDefinitions,
   getKind,
   getName,
+  getQuery,
+  getType,
+  hasChildFields,
   hasFragmentDefinitions,
   hasFragmentSpreads,
   setFragmentDefinitions,
 } from "../helpers/parsing";
 
+import { FragmentDefinitionNodeMap } from "../helpers/parsing/types";
 import logger from "../logger";
 import { ObjectMap } from "../types";
 
@@ -515,7 +525,7 @@ export default class Client {
   private async _updateQuery(query: string, opts: RequestOptions): Promise<{ ast: DocumentNode, query: string }> {
     const _this = this;
     const typeInfo = new TypeInfo(this._schema);
-    let fragmentDefinitions: { [key: string]: FragmentDefinitionNode };
+    let fragmentDefinitions: FragmentDefinitionNodeMap | void;
 
     const ast = visit(parse(query), {
       enter(node: ASTNode): any {
@@ -523,36 +533,55 @@ export default class Client {
         const kind = getKind(node);
 
         if (kind === "Document") {
-          if (!opts.fragments || !hasFragmentDefinitions(node as DocumentNode)) return;
-          fragmentDefinitions = getFragmentDefinitions(node as DocumentNode);
-          deleteFragmentDefinitions(node as DocumentNode);
+          const documentNode = node as DocumentNode;
+          if (!opts.fragments || !hasFragmentDefinitions(documentNode)) return;
+          fragmentDefinitions = getFragmentDefinitions(documentNode);
+          deleteFragmentDefinitions(documentNode);
           return;
         }
 
         if (kind === "Field" || kind === "InlineFragment") {
-          const isField = kind === "Field";
+          let type: GraphQLOutputType | GraphQLNamedType;
 
-          if (isField && opts.fragments && hasFragmentSpreads(node as FieldNode)) {
-            setFragmentDefinitions(fragmentDefinitions, node as FieldNode);
+          if (kind === "Field") {
+            const fieldNode = node as FieldNode;
+
+            if (fragmentDefinitions && hasFragmentSpreads(fieldNode)) {
+              setFragmentDefinitions(fragmentDefinitions, fieldNode);
+            }
+
+            type = getType(typeInfo.getFieldDef());
           }
 
-          const name = isField ? getName(node) : getName(getTypeCondition(node));
-          const isInlineFragment = kind === "InlineFragment";
-          if (isInlineFragment && name === typeInfo.getParentType().name) { return; }
-          const type = isField ? getType(typeInfo.getFieldDef()) : _this._schema.getType(name);
-          if (!type.getFields) { return; }
-          const fields = type.getFields();
+          if (kind  === "InlineFragment") {
+            const inlineFragmentNode = node as InlineFragmentNode;
+            if (!inlineFragmentNode.typeCondition) return;
+            const name = getName(inlineFragmentNode.typeCondition);
+            if (!name || name === typeInfo.getParentType().name) return;
+            type = _this._schema.getType(name);
+          }
 
-          if (fields[_this._resourceKey] && !hasChildField(node, _this._resourceKey)) {
+          if (!type.hasOwnProperty("getFields")) return;
+          const objectOrInterfaceType = type as GraphQLObjectType | GraphQLInterfaceType;
+          const fields = objectOrInterfaceType.getFields();
+          const fieldOrInlineFragmentNode = node as FieldNode | InlineFragmentNode;
+
+          if (fields[_this._resourceKey] && !hasChildFields(fieldOrInlineFragmentNode, _this._resourceKey)) {
             const mockAST = parse(`{ ${name} {${_this._resourceKey}} }`);
-            const fieldAST = getChildField(getRootField(mockAST, name), _this._resourceKey);
-            addChildField(node, fieldAST);
+            const queryNode = getQuery(mockAST);
+            if (!queryNode) return;
+            const field = getChildFields(queryNode, _this._resourceKey);
+            if (!field) return;
+            addChildFields(fieldOrInlineFragmentNode, field as FieldNode);
           }
 
-          if (fields._metadata && !hasChildField(node, "_metadata")) {
+          if (fields._metadata && !hasChildFields(fieldOrInlineFragmentNode, "_metadata")) {
             const mockAST = parse(`{ ${name} { _metadata { cacheControl } } }`);
-            const fieldAST = getChildField(getRootField(mockAST, name), "_metadata");
-            addChildField(node, fieldAST);
+            const queryNode = getQuery(mockAST);
+            if (!queryNode) return;
+            const field = getChildFields(queryNode, _this._resourceKey);
+            if (!field) return;
+            addChildFields(fieldOrInlineFragmentNode, field as FieldNode);
           }
 
           return;

@@ -1,5 +1,5 @@
 import { DocumentNode } from "graphql";
-import getKind from "../../get-kind";
+import getKind from "../kind/get";
 
 export default function deleteFragmentDefinitions({ definitions }: DocumentNode): void {
   for (let i = definitions.length - 1; i >= 0; i -= 1) {
