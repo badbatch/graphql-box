@@ -18,4 +18,8 @@ export { getName } from "./name";
 export { getOperationDefinitions } from "./operation-definitions";
 export { getTypeCondition } from "./type-condition";
 export { getType } from "./type";
-export { deleteVariableDefinitions, hasVariableDefinitions } from "./variable-definitions";
+
+export {
+  deleteVariableDefinitions,
+  hasVariableDefinitions,
+} from "./variable-definitions";
