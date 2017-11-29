@@ -99,7 +99,7 @@ export default class Cache {
   async _checkCacheEntry(hashKey) {
     const cacheability = await this._obj.has(hashKey);
     let cachedData;
-    if (this.cacheValid(cacheability)) cachedData = await this._obj.get(hashKey);
+    if (this.isValid(cacheability)) cachedData = await this._obj.get(hashKey);
     return { cacheability, cachedData };
   }
 
@@ -376,7 +376,7 @@ export default class Cache {
    * @return {void}
    */
   _setCacheData(cacheMetadata, cacheability, { queryKey }) {
-    if (cacheMetadata.has(queryKey) || !this.cacheValid(cacheability)) return;
+    if (cacheMetadata.has(queryKey) || !this.isValid(cacheability)) return;
     cacheMetadata.set(queryKey, cacheability);
     const queryCacheability = cacheMetadata.get('query');
 
@@ -555,7 +555,7 @@ export default class Cache {
    * @param {Object} cacheability
    * @return {boolean}
    */
-  cacheValid(cacheability) {
+  isValid(cacheability) {
     const noCache = get(cacheability, ['metadata', 'cacheControl', 'noCache'], false);
     return cacheability && !noCache && cacheability.checkTTL();
   }

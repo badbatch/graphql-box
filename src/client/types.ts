@@ -1,7 +1,8 @@
+import Cacheability from "cacheability";
+
 import {
   ExecutionArgs,
   ExecutionResult,
-  GraphQLError,
   GraphQLFieldResolver,
   GraphQLSchema,
   IntrospectionQuery,
@@ -13,13 +14,6 @@ export interface CachemapOptions {
   objects?: any; // TODO: Replace with CachemapArgs interface
   responses?: any; // TODO: Replace with CachemapArgs interface
 }
-
-export interface DefaultCacheControls {
-  mutation: string;
-  query: string;
-}
-
-export type GraphQLExecution = (args: ExecutionArgs) => Promise<ExecutionResult>;
 
 export interface ClientArgs {
   cachemapOptions?: CachemapOptions;
@@ -42,8 +36,16 @@ export interface ClientRequests {
 }
 
 export interface ClientResults {
-
+  cacheMetadata: Map<string, Cacheability>;
+  data: ObjectMap;
 }
+
+export interface DefaultCacheControls {
+  mutation: string;
+  query: string;
+}
+
+export type GraphQLExecution = (args: ExecutionArgs) => Promise<ExecutionResult>;
 
 export interface RequestOptions {
   forceFetch?: boolean;
@@ -51,4 +53,14 @@ export interface RequestOptions {
   variables?: ObjectMap;
 }
 
-export type RequestResults = ClientResults | Error | GraphQLError[];
+export type RequestResults = ClientResults | ClientResults[] | Error | Error[];
+
+export interface ResolveArgs {
+  cacheMetadata: Map<string, Cacheability>;
+  data?: ObjectMap;
+  error?: Error;
+  hash?: string;
+  operation: ValidOperation;
+}
+
+export type ValidOperation = "query" | "mutation";
