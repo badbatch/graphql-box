@@ -18,7 +18,6 @@ export interface CachemapOptions {
 export interface ClientArgs {
   cachemapOptions?: CachemapOptions;
   defaultCacheControls?: DefaultCacheControls;
-  executor?: GraphQLExecution;
   fieldResolver?: GraphQLFieldResolver<any, any>;
   headers?: ObjectMap;
   introspection?: IntrospectionQuery;
@@ -32,12 +31,17 @@ export interface ClientArgs {
 
 export interface ClientRequests {
   active: Map<string, string>;
-  pending: Map<string, Array<{ resolve: (value: any) => void }>>;
+  pending: Map<string, PendingRequestActions[]>;
 }
 
-export interface ClientResults {
+export interface ClientResult {
   cacheMetadata: Map<string, Cacheability>;
   data: ObjectMap;
+}
+
+export interface CreateCacheMetadataArgs {
+  cacheMetadata?: ObjectMap;
+  headers?: Headers;
 }
 
 export interface DefaultCacheControls {
@@ -45,20 +49,37 @@ export interface DefaultCacheControls {
   query: string;
 }
 
-export type GraphQLExecution = (args: ExecutionArgs) => Promise<ExecutionResult>;
+export interface FetchResult {
+  cacheMetadata?: ObjectMap;
+  data: ObjectMap;
+  headers?: Headers;
+}
+
+export interface PendingRequestActions {
+  reject: PendingRequestRejection;
+  resolve: PendingRequestResolver;
+}
+
+export type PendingRequestRejection = (value: Error | Error[]) => void;
+export type PendingRequestResolver = (value: ClientResult) => void;
 
 export interface RequestOptions {
+  context?: any;
+  fieldResolver?: GraphQLFieldResolver<any, any>;
   forceFetch?: boolean;
   fragments?: string[];
+  headers?: ObjectMap;
+  rootValue?: any;
+  operationName?: string;
   variables?: ObjectMap;
 }
 
-export type RequestResults = ClientResults | ClientResults[] | Error | Error[];
+export type RequestResult = ClientResult | ClientResult[] | Error | Error[];
 
 export interface ResolveArgs {
   cacheMetadata: Map<string, Cacheability>;
   data?: ObjectMap;
-  error?: Error;
+  error?: Error | Error[];
   hash?: string;
   operation: ValidOperation;
 }

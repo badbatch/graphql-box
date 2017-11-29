@@ -6,6 +6,7 @@ import {
   buildClientSchema,
   DocumentNode,
   execute,
+  ExecutionResult,
   FieldNode,
   GraphQLFieldResolver,
   GraphQLInterfaceType,
@@ -30,10 +31,15 @@ import { isArray, isFunction, isObjectLike, isPlainObject, isString } from "loda
 import {
   ClientArgs,
   ClientRequests,
-  ClientResults,
+  ClientResult,
+  CreateCacheMetadataArgs,
   DefaultCacheControls,
+  FetchResult,
+  PendingRequestActions,
+  PendingRequestRejection,
+  PendingRequestResolver,
   RequestOptions,
-  RequestResults,
+  RequestResult,
   ResolveArgs,
 } from "./types";
 
@@ -66,11 +72,23 @@ let instance: Client;
 export default class Client {
   private static _concatFragments(query: string, fragments: string[]): string {
     if (!isArray(fragments) || fragments.some((value) => !isString(value))) {
-      logger.info("handl:_concatFragments:The fragments were invalid", { fragments });
+      logger.info("handl:client:_concatFragments:The fragments were invalid", { fragments });
       return query;
     }
 
     return [query, ...fragments].join("\n\n");
+  }
+
+  private static _createCacheMetadata(args?: CreateCacheMetadataArgs): Map<any, any> {
+    const _args = args || {};
+    if (_args.cacheMetadata) return Client._parseCacheMetadata(_args.cacheMetadata);
+    const cacheControl = _args.headers && _args.headers.get("cache-control");
+    if (!cacheControl) return new Map();
+    const cacheability = new Cacheability();
+    cacheability.parseCacheControl(cacheControl);
+    const _cacheMetadata = new Map();
+    _cacheMetadata.set("query", cacheability);
+    return _cacheMetadata;
   }
 
   private static _parseCacheMetadata(cacheMetadata: ObjectMap): Map<string, Cacheability> {
@@ -109,7 +127,6 @@ export default class Client {
     const {
       cachemapOptions,
       defaultCacheControls,
-      executor,
       fieldResolver,
       headers,
       introspection,
@@ -159,7 +176,6 @@ export default class Client {
       this._defaultCacheControls = { ...this._defaultCacheControls, ...defaultCacheControls };
     }
 
-    if (isFunction(executor)) this._execute = executor;
     if (isFunction(fieldResolver)) this._fieldResolver = fieldResolver;
     if (isPlainObject(headers)) this._headers = { ...this._headers, ...headers };
     this._mode = mode;
@@ -170,149 +186,12 @@ export default class Client {
     return instance;
   }
 
-  /**
-   *
-   * @private
-   * @param {Headers} headers
-   * @param {Object} cacheMetadata
-   * @return {Map}
-   */
-  public _createCacheMetadata(headers, cacheMetadata) {
-    if (cacheMetadata) { return Client._parseCacheMetadata(cacheMetadata); }
-    const cacheControl = headers && headers.get("cache-control");
-    if (!cacheControl) { return new Map(); }
-    const cacheability = new Cacheability();
-    cacheability.parseCacheControl(cacheControl);
-    const _cacheMetadata = new Map();
-    _cacheMetadata.set("query", cacheability);
-    return _cacheMetadata;
-  }
-
-  /**
-   *
-   * @private
-   * @param {GraphQLSchema} schema
-   * @param {Document} ast
-   * @param {any} rootValue
-   * @param {Object} context
-   * @param {null} variableValues
-   * @param {string} operationName
-   * @param {Function} fieldResolver
-   * @return {Promise}
-   */
-  public async _execute(schema, ast, rootValue, context, variableValues, operationName, fieldResolver) {
-    return execute(schema, ast, rootValue, context, variableValues, operationName, fieldResolver);
-  }
-
-  /**
-   *
-   * @private
-   * @param {string} request
-   * @param {Document} ast
-   * @param {Object} opts
-   * @param {Object} context
-   * @return {Promise}
-   */
-  public async _fetch(request, ast, opts, context) {
-    let res;
-
-    if (this._mode === "internal") {
-      logger.info(`handl executing: ${request}`);
-
-      try {
-        res = await this._execute(
-          this._schema,
-          ast,
-          this._rootValue,
-          context,
-          null,
-          opts.operationName,
-          this._fieldResolver,
-        );
-      } catch (err) {
-        logger.error(err);
-        return { errors: err };
-      }
-
-      return res;
-    }
-
-    logger.info(`handl fetching: ${request}`);
-
-    try {
-      res = await fetch(this._url, {
-        body: JSON.stringify({ query: request }),
-        headers: new Headers(this._headers),
-        method: "POST",
-      });
-    } catch (err) {
-      logger.error(err);
-      return { errors: err };
-    }
-
-    const { cacheMetadata, data, errors } = await res.json();
-    return {
-      cacheMetadata, data, errors, headers: res.headers,
-    };
-  }
-
-  /**
-   *
-   * @private
-   * @param {string} mutation
-   * @param {Document} ast
-   * @param {Object} opts
-   * @param {Object} context
-   * @return {Promise}
-   */
-  public async _mutation(mutation, ast, opts, context) {
-    const { data, errors, headers } = await this._fetch(mutation, ast, opts, context);
-    const cacheMetadata = this._createCacheMetadata(headers);
-    if (errors) { this._resolve("mutation", null, errors, cacheMetadata); }
-    return this._resolve("mutation", data, null, cacheMetadata);
-  }
-
-  /**
-   *
-   * @private
-   * @param {string} hash
-   * @param {Object} data
-   * @return {void}
-   */
-  public _resolvePendingRequests(hash, data) {
-    if (!this._requests.pending.has(hash)) { return; }
-
-    this._requests.pending.get(hash).forEach(({ resolve }) => {
-      resolve(data);
-    });
-
-    this._requests.pending.delete(hash);
-  }
-
-  /**
-   *
-   * @private
-   * @param {string} hash
-   * @param {Funciton} resolve
-   * @return {void}
-   */
-  public _setPendingRequest(hash, resolve) {
-    let pending = this._requests.pending.get(hash);
-    if (!pending) { pending = []; }
-    pending.push({ resolve });
-    this._requests.pending.set(hash, pending);
-  }
-
   public clearCache(): void {
     this._cache.responses.clear();
     this._cache.dataObjects.clear();
   }
 
-  public async request(
-    query: string,
-    opts?: RequestOptions,
-    context?: ObjectMap,
-  ): Promise<RequestResults | RequestResults[]> {
+  public async request(query: string, opts?: RequestOptions): Promise<RequestResult | RequestResult[]> {
     if (!isString(query)) {
       const message = "handl:client:request:The query is not a string";
       logger.error(message, { query });
@@ -327,26 +206,105 @@ export default class Client {
       if (errors.length) return Promise.reject(errors);
       const operations = getOperationDefinitions(updated.ast);
       const multiQuery = operations.length > 1;
-      const _context = isPlainObject(context) ? context : {};
 
       if (!multiQuery) {
-        return this._resolveRequestOperation(updated.query, updated.ast, _opts, _context);
+        return this._resolveRequestOperation(updated.query, updated.ast, _opts);
       }
 
       return Promise.all(operations.map((operation) => {
         const operationQuery = print(operation);
-        return this._resolveRequestOperation(operationQuery, parse(operationQuery), _opts, _context);
+        return this._resolveRequestOperation(operationQuery, parse(operationQuery), _opts);
       }));
-    } catch (err) {
-      return Promise.reject(err);
+    } catch (error) {
+      return Promise.reject(error);
     }
   }
 
-  private async _checkResponseCache(hash: string): Promise<ClientResults | void> {
+  private async _checkResponseCache(hash: string): Promise<ClientResult | void> {
     const cacheability = await this._cache.responses.has(hash);
     const res = this._cache.isValid(cacheability) ? await this._cache.responses.get(hash) : null;
     if (!res) return;
     return { cacheMetadata: Client._parseCacheMetadata(res.cacheMetadata), data: res.data };
+  }
+
+  private async _fetch(
+    request: string,
+    ast: DocumentNode,
+    opts: RequestOptions,
+  ): Promise<FetchResult | Error | Error[]> {
+    if (this._mode === "internal") {
+      logger.info("handl:client:_fetch:Executing internal request", { request });
+      let executeResult: ExecutionResult;
+
+      try {
+        executeResult = await execute({
+          schema: this._schema,
+          document: ast,
+          rootValue: opts.rootValue || this._rootValue,
+          contextValue: opts.context,
+          operationName: opts.operationName,
+          fieldResolver: opts.fieldResolver || this._fieldResolver,
+        });
+      } catch (error) {
+        const message = "handl:client:_fetch:The graphql execution failed.";
+        logger.error(message, { error });
+        return Promise.reject(error);
+      }
+
+      if (executeResult.errors) return Promise.reject(executeResult.errors);
+      return { data: executeResult.data };
+    }
+
+    const url = `${this._url}?requestId=${this._cache.hash(request)}`;
+    logger.info("handl:client:_fetch:Executing external request", { request, url });
+    const headers = opts.headers ? { ...this._headers, ...opts.headers } : this._headers;
+    let fetchResult: Response;
+
+    try {
+      fetchResult = await fetch(url, {
+        body: JSON.stringify({ query: request }),
+        headers: new Headers(headers),
+        method: "POST",
+      });
+    } catch (error) {
+      const message = "handl:client:_fetch:The fetch http request failed.";
+      logger.error(message, { error });
+      return Promise.reject(error);
+    }
+
+    const jsonResult = await fetchResult.json();
+
+    if (isArray(jsonResult.errors) && jsonResult.errors[0] instanceof Error) {
+      return Promise.reject(jsonResult.errors);
+    }
+
+    return {
+      cacheMetadata: jsonResult.cacheMetadata,
+      data: jsonResult.data,
+      headers: fetchResult.headers,
+    };
+  }
+
+  private async _mutation(
+    mutation: string,
+    ast: DocumentNode,
+    opts: RequestOptions,
+  ): Promise<ClientResult | Error | Error[]> {
+    try {
+      const fetchResult = await this._fetch(mutation, ast, opts) as FetchResult;
+
+      return this._resolve({
+        cacheMetadata: Client._createCacheMetadata({ headers: fetchResult.headers }),
+        data: fetchResult.data,
+        operation: "mutation",
+      });
+    } catch (error) {
+      return this._resolve({
+        cacheMetadata: Client._createCacheMetadata(),
+        error,
+        operation: "mutation",
+      });
+    }
   }
 
   private _parseArrayToInputString(values: any[]): string {
@@ -394,8 +352,7 @@ export default class Client {
     query: string,
     ast: DocumentNode,
     opts: RequestOptions,
-    context: ObjectMap,
-  ): Promise<ClientResults | Error> {
+  ): Promise<ClientResult | Error | Error[]> {
     const hash = this._cache.hash(query);
 
     if (!opts.forceFetch) {
@@ -411,8 +368,8 @@ export default class Client {
     }
 
     if (this._requests.active.has(hash)) {
-      return new Promise((resolve) => {
-        this._setPendingRequest(hash, resolve);
+      return new Promise((resolve: PendingRequestResolver, reject: PendingRequestRejection) => {
+        this._setPendingRequest(hash, { reject, resolve });
       });
     }
 
@@ -434,7 +391,7 @@ export default class Client {
       return this._resolve("query", cachedData, null, cacheMetadata, hash);
     }
 
-    const res = await this._fetch(updatedQuery, updatedAST, opts, context);
+    const res = await this._fetch(updatedQuery, updatedAST, opts);
     const _cacheMetadata = this._createCacheMetadata(res.headers, res.cacheMetadata);
     if (res.errors) { return this._resolve("query", null, res.errors, _cacheMetadata, hash); }
 
@@ -450,7 +407,7 @@ export default class Client {
     return this._resolve("query", resolved.data, null, resolved.cacheMetadata, hash);
   }
 
-  private async _resolve(args: ResolveArgs): Promise<ClientResults | Error> {
+  private async _resolve(args: ResolveArgs): Promise<ClientResult | Error | Error[]> {
     const { cacheMetadata, data, hash, error, operation } = args;
     if (!cacheMetadata.has("query")) {
       const cacheability = new Cacheability();
@@ -459,7 +416,7 @@ export default class Client {
     }
 
     if (hash) {
-      this._resolvePendingRequests(hash, { cacheMetadata, data, error });
+      this._resolvePendingRequests(hash, cacheMetadata, data, error);
       this._requests.active.delete(hash);
     }
 
@@ -467,23 +424,48 @@ export default class Client {
     return { cacheMetadata, data };
   }
 
+  private _resolvePendingRequests(
+    hash: string,
+    cacheMetadata: Map<string, Cacheability>,
+    data?: ObjectMap,
+    error?: Error | Error[],
+  ): void {
+    if (!this._requests.pending.has(hash)) return;
+
+    this._requests.pending.get(hash).forEach(({ reject, resolve }) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve({ cacheMetadata, data });
+      }
+    });
+
+    this._requests.pending.delete(hash);
+  }
+
   private _resolveRequestOperation(
     query: string,
     ast: DocumentNode,
     opts: RequestOptions,
-    context: ObjectMap,
-  ): Promise<ClientResults | Error> {
+  ): Promise<ClientResult | Error | Error[]> {
     const operationDefinition = getOperationDefinitions(ast)[0];
 
     if (operationDefinition.operation === "query") {
-      return this._query(query, ast, opts, context);
+      return this._query(query, ast, opts);
     } else if (operationDefinition.operation === "mutation") {
-      return this._mutation(query, ast, opts, context);
+      return this._mutation(query, ast, opts);
     }
 
     const message = "handl:client:_resolveRequestOperation:The query was not a supported operation";
     logger.error(message, { query });
     return Promise.reject(new Error(message));
+  }
+
+  private _setPendingRequest(hash: string, { reject, resolve }: PendingRequestActions): void {
+    let pending = this._requests.pending.get(hash);
+    if (!pending) pending = [];
+    pending.push({ reject, resolve });
+    this._requests.pending.set(hash, pending);
   }
 
   private async _updateQuery(query: string, opts: RequestOptions): Promise<{ ast: DocumentNode, query: string }> {
