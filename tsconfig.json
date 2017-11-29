@@ -5,6 +5,7 @@
     "lib": [
       "dom",
       "es6",
+      "es2017.object",
       "dom.iterable",
       "scripthost"
     ],

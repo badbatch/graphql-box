@@ -34,6 +34,7 @@ import {
   DefaultCacheControls,
   RequestOptions,
   RequestResults,
+  ResolveArgs,
 } from "./types";
 
 import Cache from "../cache";
@@ -70,6 +71,16 @@ export default class Client {
     }
 
     return [query, ...fragments].join("\n\n");
+  }
+
+  private static _parseCacheMetadata(cacheMetadata: ObjectMap): Map<string, Cacheability> {
+    Object.keys(cacheMetadata).forEach((key) => {
+      const cacheability = new Cacheability();
+      cacheability.setMetadata(cacheMetadata[key]);
+      cacheMetadata[key] = cacheability;
+    });
+
+    return new Map(Object.entries(cacheMetadata));
   }
 
   private _cache: Cache;
@@ -162,26 +173,12 @@ export default class Client {
   /**
    *
    * @private
-   * @param {string} hash
-   * @return {Promise}
-   */
-  public async _checkResponseCache(hash) {
-    const cacheability = await this._cache.res.has(hash);
-    let res;
-    if (this._cache.cacheValid(cacheability)) { res = await this._cache.res.get(hash); }
-    if (!res) { return null; }
-    return { cacheMetadata: this._parseCacheMetadata(res.cacheMetadata), data: res.data };
-  }
-
-  /**
-   *
-   * @private
    * @param {Headers} headers
    * @param {Object} cacheMetadata
    * @return {Map}
    */
   public _createCacheMetadata(headers, cacheMetadata) {
-    if (cacheMetadata) { return this._parseCacheMetadata(cacheMetadata); }
+    if (cacheMetadata) { return Client._parseCacheMetadata(cacheMetadata); }
     const cacheControl = headers && headers.get("cache-control");
     if (!cacheControl) { return new Map(); }
     const cacheability = new Cacheability();
@@ -278,34 +275,139 @@ export default class Client {
   /**
    *
    * @private
-   * @param {Object} cacheMetadata
-   * @return {Map}
+   * @param {string} hash
+   * @param {Object} data
+   * @return {void}
    */
-  public _parseCacheMetadata(cacheMetadata) {
-    Object.keys(cacheMetadata).forEach((key) => {
-      const cacheability = new Cacheability();
-      cacheability.setMetadata(cacheMetadata[key]);
-      cacheMetadata[key] = cacheability;
+  public _resolvePendingRequests(hash, data) {
+    if (!this._requests.pending.has(hash)) { return; }
+
+    this._requests.pending.get(hash).forEach(({ resolve }) => {
+      resolve(data);
     });
 
-    return new Map(Object.entries(cacheMetadata));
+    this._requests.pending.delete(hash);
   }
 
   /**
    *
    * @private
-   * @param {string} query
-   * @param {Document} ast
-   * @param {Object} opts
-   * @param {Object} context
-   * @return {Promise}
+   * @param {string} hash
+   * @param {Funciton} resolve
+   * @return {void}
    */
-  public async _query(query, ast, opts, context) {
+  public _setPendingRequest(hash, resolve) {
+    let pending = this._requests.pending.get(hash);
+    if (!pending) { pending = []; }
+    pending.push({ resolve });
+    this._requests.pending.set(hash, pending);
+  }
+
+  public clearCache(): void {
+    this._cache.responses.clear();
+    this._cache.dataObjects.clear();
+  }
+
+  public async request(
+    query: string,
+    opts?: RequestOptions,
+    context?: ObjectMap,
+  ): Promise<RequestResults | RequestResults[]> {
+    if (!isString(query)) {
+      const message = "handl:client:request:The query is not a string";
+      logger.error(message, { query });
+      return Promise.reject(new Error(message));
+    }
+
+    try {
+      const _opts = isPlainObject(opts) ? opts : {};
+      const _query = _opts.fragments ? Client._concatFragments(query, _opts.fragments) : query;
+      const updated = await this._updateQuery(_query, _opts);
+      const errors = validate(this._schema, updated.ast);
+      if (errors.length) return Promise.reject(errors);
+      const operations = getOperationDefinitions(updated.ast);
+      const multiQuery = operations.length > 1;
+      const _context = isPlainObject(context) ? context : {};
+
+      if (!multiQuery) {
+        return this._resolveRequestOperation(updated.query, updated.ast, _opts, _context);
+      }
+
+      return Promise.all(operations.map((operation) => {
+        const operationQuery = print(operation);
+        return this._resolveRequestOperation(operationQuery, parse(operationQuery), _opts, _context);
+      }));
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  }
+
+  private async _checkResponseCache(hash: string): Promise<ClientResults | void> {
+    const cacheability = await this._cache.responses.has(hash);
+    const res = this._cache.isValid(cacheability) ? await this._cache.responses.get(hash) : null;
+    if (!res) return;
+    return { cacheMetadata: Client._parseCacheMetadata(res.cacheMetadata), data: res.data };
+  }
+
+  private _parseArrayToInputString(values: any[]): string {
+    let inputString = "[";
+
+    values.forEach((value, index, arr) => {
+      if (!isPlainObject(value)) {
+        inputString += isString(value) ? `"${value}"` : `${value}`;
+      } else {
+        inputString += this._parseToInputString(value);
+      }
+
+      if (index < arr.length - 1) { inputString += ","; }
+    });
+
+    inputString += "]";
+    return inputString;
+  }
+
+  private _parseObjectToInputString(obj: ObjectMap): string {
+    let inputString = "{";
+
+    Object.keys(obj).forEach((key, index, arr) => {
+      inputString += `${key}:`;
+
+      if (!isPlainObject(obj[key])) {
+        inputString += isString(obj[key]) ? `"${obj[key]}"` : `${obj[key]}`;
+      } else {
+        inputString += this._parseToInputString(obj[key]);
+      }
+
+      if (index < arr.length - 1) { inputString += ","; }
+    });
+
+    inputString += "}";
+    return inputString;
+  }
+
+  private _parseToInputString(value: ObjectMap | any[]): string {
+    if (isPlainObject(value)) return this._parseObjectToInputString(value as ObjectMap);
+    return this._parseArrayToInputString(value as any[]);
+  }
+
+  private async _query(
+    query: string,
+    ast: DocumentNode,
+    opts: RequestOptions,
+    context: ObjectMap,
+  ): Promise<ClientResults | Error> {
     const hash = this._cache.hash(query);
 
     if (!opts.forceFetch) {
-      const res = await this._checkResponseCache(hash);
-      if (res) { return this._resolve("query", res.data, null, res.cacheMetadata); }
+      const cachedResponse = await this._checkResponseCache(hash);
+
+      if (cachedResponse) {
+        return this._resolve({
+          cacheMetadata: cachedResponse.cacheMetadata,
+          data: cachedResponse.data,
+          operation: "query",
+        });
+      }
     }
 
     if (this._requests.active.has(hash)) {
@@ -348,139 +450,40 @@ export default class Client {
     return this._resolve("query", resolved.data, null, resolved.cacheMetadata, hash);
   }
 
-  /**
-   *
-   * @private
-   * @param {string} operation
-   * @param {Object} data
-   * @param {Object} errors
-   * @param {Object} cacheMetadata
-   * @param {string} [hash]
-   * @return {Object}
-   */
-  public _resolve(operation, data = null, errors = null, cacheMetadata, hash) {
+  private async _resolve(args: ResolveArgs): Promise<ClientResults | Error> {
+    const { cacheMetadata, data, hash, error, operation } = args;
     if (!cacheMetadata.has("query")) {
       const cacheability = new Cacheability();
       cacheability.parseCacheControl(this._defaultCacheControls[operation]);
       cacheMetadata.set("query", cacheability);
     }
 
-    const output = { cacheMetadata, data, errors };
-
     if (hash) {
-      this._resolvePendingRequests(hash, output);
+      this._resolvePendingRequests(hash, { cacheMetadata, data, error });
       this._requests.active.delete(hash);
     }
 
-    if (errors) { return Promise.reject(output); }
-    return output;
+    if (error) return Promise.reject(error);
+    return { cacheMetadata, data };
   }
 
-  /**
-   *
-   * @private
-   * @param {string} hash
-   * @param {Object} data
-   * @return {void}
-   */
-  public _resolvePendingRequests(hash, data) {
-    if (!this._requests.pending.has(hash)) { return; }
+  private _resolveRequestOperation(
+    query: string,
+    ast: DocumentNode,
+    opts: RequestOptions,
+    context: ObjectMap,
+  ): Promise<ClientResults | Error> {
+    const operationDefinition = getOperationDefinitions(ast)[0];
 
-    this._requests.pending.get(hash).forEach(({ resolve }) => {
-      resolve(data);
-    });
-
-    this._requests.pending.delete(hash);
-  }
-
-  /**
-   *
-   * @private
-   * @param {string} hash
-   * @param {Funciton} resolve
-   * @return {void}
-   */
-  public _setPendingRequest(hash, resolve) {
-    let pending = this._requests.pending.get(hash);
-    if (!pending) { pending = []; }
-    pending.push({ resolve });
-    this._requests.pending.set(hash, pending);
-  }
-
-  public clearCache(): void {
-    this._cache.responses.clear();
-    this._cache.dataObjects.clear();
-  }
-
-  public async request(query: string, opts?: RequestOptions, context?: ObjectMap): Promise<RequestResults> {
-    if (!isString(query)) {
-      const message = "handl:client:request:The query is not a string";
-      logger.error(message, { query });
-      return Promise.reject(new Error(message));
+    if (operationDefinition.operation === "query") {
+      return this._query(query, ast, opts, context);
+    } else if (operationDefinition.operation === "mutation") {
+      return this._mutation(query, ast, opts, context);
     }
 
-    try {
-      const _opts = isPlainObject(opts) ? opts : {};
-      const _query = _opts.fragments ? Client._concatFragments(query, _opts.fragments) : query;
-      const updated = await this._updateQuery(_query, _opts);
-      const errors = validate(this._schema, updated.ast);
-      if (errors.length) return Promise.reject(errors);
-      const operations = getOperationDefinitions(updated.ast);
-      const multiQuery = operations.length > 1;
-      const _context = isPlainObject(context) ? context : {};
-
-      if (!multiQuery) {
-        return this._resolveRequestOperation(updated.query, updated.ast, _opts, _context);
-      }
-
-      return Promise.all(operations.map((operation) => {
-        const operationQuery = print(operation);
-        return this._resolveRequestOperation(operationQuery, parse(operationQuery), _opts, _context);
-      }));
-    } catch (err) {
-      return Promise.reject(err);
-    }
-  }
-
-  private _parseArrayToInputString(values: any[]): string {
-    let inputString = "[";
-
-    values.forEach((value, index, arr) => {
-      if (!isPlainObject(value)) {
-        inputString += isString(value) ? `"${value}"` : `${value}`;
-      } else {
-        inputString += this._parseToInputString(value);
-      }
-
-      if (index < arr.length - 1) { inputString += ","; }
-    });
-
-    inputString += "]";
-    return inputString;
-  }
-
-  private _parseObjectToInputString(obj: ObjectMap): string {
-    let inputString = "{";
-
-    Object.keys(obj).forEach((key, index, arr) => {
-      inputString += `${key}:`;
-
-      if (!isPlainObject(obj[key])) {
-        inputString += isString(obj[key]) ? `"${obj[key]}"` : `${obj[key]}`;
-      } else {
-        inputString += this._parseToInputString(obj[key]);
-      }
-
-      if (index < arr.length - 1) { inputString += ","; }
-    });
-
-    inputString += "}";
-    return inputString;
-  }
-
-  private _parseToInputString(value: ObjectMap | any[]): string {
-    if (isPlainObject(value)) return this._parseObjectToInputString(value as ObjectMap);
-    return this._parseArrayToInputString(value as any[]);
+    const message = "handl:client:_resolveRequestOperation:The query was not a supported operation";
+    logger.error(message, { query });
+    return Promise.reject(new Error(message));
   }
 
   private async _updateQuery(query: string, opts: RequestOptions): Promise<{ ast: DocumentNode, query: string }> {
@@ -574,24 +577,5 @@ export default class Client {
     });
 
     return { ast, query: print(ast) };
-  }
-
-  private _resolveRequestOperation(
-    query: string,
-    ast: DocumentNode,
-    opts: RequestOptions,
-    context: ObjectMap,
-  ): Promise<ClientResults | Error> {
-    const operationDefinition = getOperationDefinitions(ast)[0];
-
-    if (operationDefinition.operation === "query") {
-      return this._query(query, ast, opts, context);
-    } else if (operationDefinition.operation === "mutation") {
-      return this._mutation(query, ast, opts, context);
-    }
-
-    const message = "handl:client:_resolveRequestOperation:The query was not a supported operation";
-    logger.error(message, { query });
-    return Promise.reject(new Error(message));
   }
 }
