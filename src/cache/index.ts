@@ -1,6 +1,6 @@
-import Cacheability from 'cacheability';
-import Cachemap from 'cachemap';
-import { print } from 'graphql';
+import Cacheability from "cacheability";
+import Cachemap from "cachemap";
+import { DocumentNode, print } from "graphql";
 
 import {
   cloneDeep,
@@ -9,85 +9,45 @@ import {
   isNumber,
   isObjectLike,
   isPlainObject,
-} from 'lodash';
+} from "lodash";
 
-import md5 from 'md5';
-import mergeObjects from '../helpers/merging';
+import * as md5 from "md5";
 
 import {
-  buildCacheKey,
-  buildDataKey,
-  buildQueryKey,
-  deleteChildField,
+  AnalyzeResult,
+  CacheArgs,
+  PartialData,
+  CheckObjectCacheMetadata,
+} from "./types";
+
+import { DefaultCacheControls } from "../client/types";
+import mergeObjects from "../helpers/merging";
+
+import {
   getChildFields,
-  getFieldAlias,
-  getFieldArguments,
   getName,
-  getQuery,
-  getRootFields,
-  isParentField,
-  mapToObject,
-  parseFieldArguments,
   unwrapInlineFragments,
-} from '../helpers/parsing';
+} from "../helpers/parsing";
 
-/**
- *
- * The cache
- */
 export default class Cache {
-  /**
-   *
-   * @constructor
-   * @param {Object} config
-   * @return {void}
-   */
-  constructor({
-    /**
-     * Optional configuration to be passed to the
-     * cachemap modules.
-     *
-     * @type {Object}
-     */
-    cachemapOptions = { obj: {}, res: {} },
-    /**
-     * Optional default cache control for queries
-     * and mutations.
-     *
-     * @type {Object}
-     */
-    defaultCacheControls = {
-      mutation: 'max-age=0, s-maxage=0, no-cache, no-store',
-      query: 'public, max-age=60, s-maxage=60',
-    },
-    /**
-     * Graphql schema.
-     *
-     * @type {Schema}
-     */
-    schema,
-  } = {}) {
+  private _dataObjects: Cachemap;
+  private _defaultCacheControls: DefaultCacheControls;
+  private _partials: Map<string, PartialData>;
+  private _responses: Cachemap;
+
+  constructor({ cachemapOptions = {}, defaultCacheControls }: CacheArgs) {
+    this._dataObjects = new Cachemap(cachemapOptions.dataObjects);
     this._defaultCacheControls = defaultCacheControls;
-    this._obj = new Cachemap(cachemapOptions.obj);
     this._partials = new Map();
-    this._res = new Cachemap(cachemapOptions.res);
-    this._schema = schema;
+    this._responses = new Cachemap(cachemapOptions.responses);
   }
 
-  /**
-   *
-   * @return {Object}
-   */
-  get res() {
-    return this._res;
+  get responses(): Cachemap {
+    return this._responses;
   }
 
-  /**
-   *
-   * @return {Object}
-   */
-  get obj() {
-    return this._obj;
+  get dataObjects(): Cachemap {
+    return this._dataObjects;
   }
 
   /**
@@ -101,30 +61,6 @@ export default class Cache {
     let cachedData;
     if (this.isValid(cacheability)) cachedData = await this._obj.get(hashKey);
     return { cacheability, cachedData };
-  }
-
-  /**
-   *
-   * @private
-   * @param {Document} ast
-   * @return {Promise}
-   */
-  async _checkObjectCache(ast) {
-    const metadata = {
-      cache: new Map(),
-      checkList: new Map(),
-      counter: { missing: 0, total: 0 },
-      queried: {},
-    };
-
-    const promises = [];
-
-    getRootFields(ast, (field) => {
-      promises.push(this._parseField(field, metadata));
-    });
-
-    await Promise.all(promises);
-    return metadata;
   }
 
   /**
@@ -533,21 +469,40 @@ export default class Cache {
     });
   }
 
-  /**
-   *
-   * @param {string} hash
-   * @param {Document} ast
-   * @return {Promise}
-   */
-  async analyze(hash, ast) {
+  public async analyze(hash: string, ast: DocumentNode): Promise<AnalyzeResult> {
     const {
-      cache, checkList, counter, queried,
+      cachedData,
+      cacheMetadata,
+      checkList,
+      counter,
     } = await this._checkObjectCache(ast);
-    if (counter.missing === counter.total) return { updatedAST: ast, updatedQuery: print(ast) };
-    if (!counter.missing) return { cachedData: queried, cacheMetadata: cache };
-    this._partials.set(hash, { cacheMetadata: cache, cachedData: queried });
+
+    if (counter.missing === counter.total) {
+      return { updatedAST: ast, updatedQuery: print(ast) };
+    }
+
+    if (!counter.missing) return { cachedData, cacheMetadata };
+    this._partials.set(hash, { cacheMetadata, cachedData });
     await this._filterQuery(ast, checkList);
     return { filtered: true, updatedAST: ast, updatedQuery: print(ast) };
+  }
+
+  private async _checkObjectCache(ast: DocumentNode): Promise<CheckObjectCacheMetadata> {
+    const metadata: CheckObjectCacheMetadata = {
+      cachedData: {},
+      cacheMetadata: new Map(),
+      checkList: new Map(),
+      counter: { missing: 0, total: 0 },
+    };
+
+    const promises = [];
+
+    getRootFields(ast, (field) => {
+      promises.push(this._parseField(field, metadata));
+    });
+
+    await Promise.all(promises);
+    return metadata;
   }
 
   /**

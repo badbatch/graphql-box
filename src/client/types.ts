@@ -1,8 +1,6 @@
 import Cacheability from "cacheability";
 
 import {
-  ExecutionArgs,
-  ExecutionResult,
   GraphQLFieldResolver,
   GraphQLSchema,
   IntrospectionQuery,
@@ -11,7 +9,7 @@ import {
 import { ObjectMap } from "../types";
 
 export interface CachemapOptions {
-  objects?: any; // TODO: Replace with CachemapArgs interface
+  dataObjects?: any; // TODO: Replace with CachemapArgs interface
   responses?: any; // TODO: Replace with CachemapArgs interface
 }
 
