@@ -256,7 +256,7 @@ export default class Client {
       return { data: executeResult.data };
     }
 
-    const url = `${this._url}?requestId=${this._cache.hash(request)}`;
+    const url = `${this._url}?requestId=${Cache.hash(request)}`;
     logger.info("handl:client:_fetch:Executing external request", { request, url });
     const headers = opts.headers ? { ...this._headers, ...opts.headers } : this._headers;
     let fetchResult: Response;
@@ -359,7 +359,7 @@ export default class Client {
     ast: DocumentNode,
     opts: RequestOptions,
   ): Promise<ClientResult | Error | Error[]> {
-    const hash = this._cache.hash(query);
+    const hash = Cache.hash(query);
 
     if (!opts.forceFetch) {
       const cachedResponse = await this._checkResponseCache(hash);
@@ -531,8 +531,8 @@ export default class Client {
           if (kind  === "InlineFragment") {
             const inlineFragmentNode = node as InlineFragmentNode;
             if (!inlineFragmentNode.typeCondition) return;
-            const name = getName(inlineFragmentNode.typeCondition);
-            if (!name || name === typeInfo.getParentType().name) return;
+            const name = getName(inlineFragmentNode.typeCondition) as string;
+            if (name === typeInfo.getParentType().name) return;
             type = _this._schema.getType(name);
           }
 
@@ -543,20 +543,16 @@ export default class Client {
 
           if (fields[_this._resourceKey] && !hasChildFields(fieldOrInlineFragmentNode, _this._resourceKey)) {
             const mockAST = parse(`{ ${name} {${_this._resourceKey}} }`);
-            const queryNode = getOperationDefinitions(mockAST, "query");
-            if (!queryNode.length) return;
-            const field = getChildFields(queryNode[0] as OperationDefinitionNode, _this._resourceKey);
-            if (!field) return;
-            addChildFields(fieldOrInlineFragmentNode, field as FieldNode);
+            const queryNode = getOperationDefinitions(mockAST, "query")[0] as OperationDefinitionNode;
+            const field = getChildFields(queryNode, _this._resourceKey) as FieldNode;
+            addChildFields(fieldOrInlineFragmentNode, field);
           }
 
           if (fields._metadata && !hasChildFields(fieldOrInlineFragmentNode, "_metadata")) {
             const mockAST = parse(`{ ${name} { _metadata { cacheControl } } }`);
-            const queryNode = getOperationDefinitions(mockAST, "query");
-            if (!queryNode.length) return;
-            const field = getChildFields(queryNode[0] as OperationDefinitionNode, _this._resourceKey);
-            if (!field) return;
-            addChildFields(fieldOrInlineFragmentNode, field as FieldNode);
+            const queryNode = getOperationDefinitions(mockAST, "query")[0] as OperationDefinitionNode;
+            const field = getChildFields(queryNode, "_metadata") as FieldNode;
+            addChildFields(fieldOrInlineFragmentNode, field);
           }
 
           return;
@@ -572,8 +568,7 @@ export default class Client {
         if (kind === "Variable") {
           if (!opts.variables) return parseValue(`${null}`);
           const variableNode = node as VariableNode;
-          const name = getName(variableNode);
-          if (!name) return parseValue(`${null}`);
+          const name = getName(variableNode) as string;
           const value = opts.variables[name];
           if (!value) return parseValue(`${null}`);
           if (isObjectLike(value)) return parseValue(_this._parseToInputString(value));

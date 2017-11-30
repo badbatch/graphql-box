@@ -1,11 +1,14 @@
 import {
   ArgumentNode,
+  BooleanValueNode,
   DirectiveDefinitionNode,
   DirectiveNode,
   EnumTypeDefinitionNode,
   EnumValueDefinitionNode,
+  EnumValueNode,
   FieldDefinitionNode,
   FieldNode,
+  FloatValueNode,
   FragmentDefinitionNode,
   FragmentSpreadNode,
   GraphQLEnumType,
@@ -18,11 +21,13 @@ import {
   InputObjectTypeDefinitionNode,
   InputValueDefinitionNode,
   InterfaceTypeDefinitionNode,
+  IntValueNode,
   NamedTypeNode,
   ObjectFieldNode,
   ObjectTypeDefinitionNode,
   OperationDefinitionNode,
   ScalarTypeDefinitionNode,
+  StringValueNode,
   UnionTypeDefinitionNode,
   VariableNode,
 } from "graphql";
@@ -65,3 +70,10 @@ export type ParentNode =
   | InlineFragmentNode
   | OperationDefinitionNode
   | FragmentDefinitionNode;
+
+export type ScalarValueNode =
+  | IntValueNode
+  | FloatValueNode
+  | StringValueNode
+  | BooleanValueNode
+  | EnumValueNode;
