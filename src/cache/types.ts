@@ -23,6 +23,21 @@ export interface CheckObjectCacheMetadata {
   counter: { missing: number, total: number };
 }
 
+export interface GetKeysResult {
+  cacheKey: string;
+  dataKey: string;
+  hashKey: string;
+  name: string;
+  propKey: string;
+  queryKey: string;
+}
+
+export interface KeyPaths {
+  cachePath?: string;
+  dataPath?: string;
+  queryPath?: string;
+}
+
 export interface PartialData {
   cachedData: ObjectMap;
   cacheMetadata: Map<string, Cacheability>;
