@@ -62,6 +62,7 @@ import {
   setFragmentDefinitions,
 } from "../helpers/parsing";
 
+import mapToObject from "../helpers/map-to-object";
 import { FragmentDefinitionNodeMap } from "../helpers/parsing/types";
 import logger from "../logger";
 import { ObjectMap } from "../types";
@@ -146,6 +147,21 @@ export default class Client {
       throw new Error(message);
     }
 
+    this._cache = new Cache({
+      cachemapOptions,
+      defaultCacheControls,
+    });
+
+    if (isPlainObject(defaultCacheControls)) {
+      this._defaultCacheControls = { ...this._defaultCacheControls, ...defaultCacheControls };
+    }
+
+    if (isFunction(fieldResolver)) this._fieldResolver = fieldResolver;
+    if (isPlainObject(headers)) this._headers = { ...this._headers, ...headers };
+    this._mode = mode;
+    if (isString(resourceKey)) this._resourceKey = resourceKey;
+    this._rootValue = rootValue;
+
     if (mode === "internal") {
       if (schema instanceof GraphQLSchema) {
         this._schema = schema;
@@ -166,21 +182,6 @@ export default class Client {
       }
     }
 
-    this._cache = new Cache({
-      cachemapOptions,
-      defaultCacheControls,
-      schema: this._schema,
-    });
-
-    if (isPlainObject(defaultCacheControls)) {
-      this._defaultCacheControls = { ...this._defaultCacheControls, ...defaultCacheControls };
-    }
-
-    if (isFunction(fieldResolver)) this._fieldResolver = fieldResolver;
-    if (isPlainObject(headers)) this._headers = { ...this._headers, ...headers };
-    this._mode = mode;
-    if (isString(resourceKey)) this._resourceKey = resourceKey;
-    this._rootValue = rootValue;
     if (isString(url)) this._url = url;
     instance = this;
     return instance;
@@ -290,14 +291,10 @@ export default class Client {
     ast: DocumentNode,
     opts: RequestOptions,
   ): Promise<ClientResult | Error | Error[]> {
-    try {
-      const fetchResult = await this._fetch(mutation, ast, opts) as FetchResult;
+    let fetchResult: FetchResult;
 
-      return this._resolve({
-        cacheMetadata: Client._createCacheMetadata({ headers: fetchResult.headers }),
-        data: fetchResult.data,
-        operation: "mutation",
-      });
+    try {
+      fetchResult = await this._fetch(mutation, ast, opts) as FetchResult;
     } catch (error) {
       return this._resolve({
         cacheMetadata: Client._createCacheMetadata(),
@@ -305,6 +302,15 @@ export default class Client {
         operation: "mutation",
       });
     }
+
+    return this._resolve({
+      cacheMetadata: Client._createCacheMetadata({
+        cacheMetadata: fetchResult.cacheMetadata,
+        headers: fetchResult.headers,
+      }),
+      data: fetchResult.data,
+      operation: "mutation",
+    });
   }
 
   private _parseArrayToInputString(values: any[]): string {
@@ -384,27 +390,50 @@ export default class Client {
     } = await this._cache.analyze(hash, ast);
 
     if (cachedData) {
-      this._cache.res.set(hash, { cacheMetadata: mapToObject(cacheMetadata), data: cachedData }, {
+      this._cache.responses.set(hash, { cacheMetadata: mapToObject(cacheMetadata), data: cachedData }, {
         cacheHeaders: { cacheControl: cacheMetadata.get("query").printCacheControl() },
       });
 
-      return this._resolve("query", cachedData, null, cacheMetadata, hash);
+      return this._resolve({
+        cacheMetadata,
+        data: cachedData,
+        hash,
+        operation: "query",
+      });
     }
 
-    const res = await this._fetch(updatedQuery, updatedAST, opts);
-    const _cacheMetadata = this._createCacheMetadata(res.headers, res.cacheMetadata);
-    if (res.errors) { return this._resolve("query", null, res.errors, _cacheMetadata, hash); }
+    let fetchResult: FetchResult;
 
-    const resolved = await this._cache.resolve(
+    try {
+      fetchResult = await this._fetch(updatedQuery, updatedAST, opts) as FetchResult;
+    } catch (error) {
+      return this._resolve({
+        cacheMetadata: Client._createCacheMetadata(),
+        error,
+        operation: "query",
+      });
+    }
+
+    const _cacheMetadata = Client._createCacheMetadata({
+      cacheMetadata: fetchResult.cacheMetadata,
+      headers: fetchResult.headers,
+    });
+
+    const resolveResult = await this._cache.resolve(
       updatedQuery,
       updatedAST,
       hash,
-      res.data,
+      fetchResult.data,
       _cacheMetadata,
       { filtered },
     );
 
-    return this._resolve("query", resolved.data, null, resolved.cacheMetadata, hash);
+    return this._resolve({
+      cacheMetadata: resolveResult.cacheMetadata,
+      data: resolveResult.data,
+      hash,
+      operation: "query",
+    });
   }
 
   private async _resolve(args: ResolveArgs): Promise<ClientResult | Error | Error[]> {
