@@ -16,26 +16,31 @@ export interface CacheArgs {
   defaultCacheControls: DefaultCacheControls;
 }
 
+export interface CheckDataObjectCacheEntryResult {
+  cacheability: Cacheability;
+  cacheData: ObjectMap | void;
+}
+
 export interface CheckObjectCacheMetadata {
-  cachedData: ObjectMap;
   cacheMetadata: Map<string, Cacheability>;
   checkList: Map<string, string>;
   counter: { missing: number, total: number };
-}
-
-export interface GetKeysResult {
-  cacheKey: string;
-  dataKey: string;
-  hashKey: string;
-  name: string;
-  propKey: string;
-  queryKey: string;
+  queriedData: ObjectMap;
 }
 
 export interface KeyPaths {
   cachePath?: string;
   dataPath?: string;
   queryPath?: string;
+}
+
+export interface Keys {
+  cacheKey?: string;
+  dataKey?: string;
+  hashKey?: string;
+  name?: string;
+  propKey?: string | number;
+  queryKey?: string;
 }
 
 export interface PartialData {

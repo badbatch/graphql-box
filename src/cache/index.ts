@@ -15,7 +15,6 @@ import {
   isNumber,
   isObjectLike,
   isPlainObject,
-  isString,
 } from "lodash";
 
 import * as md5 from "md5";
@@ -23,9 +22,10 @@ import * as md5 from "md5";
 import {
   AnalyzeResult,
   CacheArgs,
+  CheckDataObjectCacheEntryResult,
   CheckObjectCacheMetadata,
-  GetKeysResult,
   KeyPaths,
+  Keys,
   PartialData,
 } from "./types";
 
@@ -48,34 +48,35 @@ export default class Cache {
     return md5(value.replace(/\s/g, ""));
   }
 
-  private static _buildCacheKey(
-    name: string,
-    args: ObjectMap | void,
-    index?: number,
-    cachePath?: string,
-  ): string {
+  public static isValid(cacheability: Cacheability): boolean {
+    const noCache = get(cacheability, ["metadata", "cacheControl", "noCache"], false);
+    return cacheability && !noCache && cacheability.checkTTL();
+  }
+
+  private static _buildCacheKey(name: string, args: ObjectMap | void, cachePath: string, index?: number): string {
     let key = `${isNumber(index) ? index : name}`;
     if (args) key = `${key}(${JSON.stringify(args)})`;
-    return Cache._buildPath(key, cachePath);
+    return Cache._buildKey(key, cachePath);
   }
 
-  private static _buildPath(key: string, cachePath?: string): string {
-    const path = isString(cachePath) ? [cachePath] : [];
-    path.push(key);
-    return path.join(".");
+  private static _buildKey(key: string | number, path: string): string {
+    const paths: Array<string | number> = [];
+    if (path.length) paths.push(path);
+    paths.push(key);
+    return paths.join(".");
   }
 
-  private static _getKeys(field: FieldNode, paths?: KeyPaths, index?: number): GetKeysResult {
+  private static _getKeys(field: FieldNode, paths?: KeyPaths, index?: number): Keys {
     const _paths = paths || {};
-    const { cachePath, dataPath, queryPath } = _paths;
+    const { cachePath = "", dataPath = "", queryPath = "" } = _paths;
     const name = getName(field) as string;
     const args = getArguments(field);
-    const cacheKey = Cache._buildCacheKey(name, args, index, cachePath);
+    const cacheKey = Cache._buildCacheKey(name, args, cachePath, index);
     const hashKey = Cache.hash(cacheKey);
     const nameKey = getAlias(field) || name;
-    const queryKey = isNumber(index) ? queryPath : Cache._buildQueryKey(nameKey, queryPath);
+    const queryKey = isNumber(index) ? queryPath : Cache._buildKey(nameKey, queryPath);
     const propKey = isNumber(index) ? index : nameKey;
-    const dataKey = Cache._buildDataKey(propKey, dataPath);
+    const dataKey = Cache._buildKey(propKey, dataPath);
     return { cacheKey, dataKey, hashKey, name, propKey, queryKey };
   }
 
@@ -97,19 +98,6 @@ export default class Cache {
 
   get dataObjects(): Cachemap {
     return this._dataObjects;
-  }
-
-  /**
-   *
-   * @private
-   * @param {string} hashKey
-   * @return {Promise}
-   */
-  public async _checkCacheEntry(hashKey) {
-    const cacheability = await this._obj.has(hashKey);
-    let cachedData;
-    if (this.isValid(cacheability)) cachedData = await this._obj.get(hashKey);
-    return { cacheability, cachedData };
   }
 
   /**
@@ -239,27 +227,6 @@ export default class Cache {
     this._setCheckList(checkList, _cachedData, { queryKey });
     this._setCounter(counter, _cachedData);
     this._setQueriedData(queried, _cachedData, { propKey });
-  }
-
-  /**
-   *
-   * @private
-   * @param {Object} metadata
-   * @param {any} cachedData
-   * @param {Object} cacheability
-   * @param {Object} keys
-   * @param {string} keys.propKey
-   * @param {string} keys.queryKey
-   * @return {void}
-   */
-  public _setCacheEntryData(metadata, cachedData, cacheability, { propKey, queryKey }) {
-    const {
-      cache, checkList, counter, queried,
-    } = metadata;
-    this._setCacheData(cache, cacheability, { queryKey });
-    this._setCheckList(checkList, cachedData, { queryKey });
-    this._setCounter(counter, cachedData);
-    this._setQueriedData(queried, cachedData, { propKey });
   }
 
   /**
@@ -431,28 +398,28 @@ export default class Cache {
 
   public async analyze(hash: string, ast: DocumentNode): Promise<AnalyzeResult> {
     const {
-      cachedData,
       cacheMetadata,
       checkList,
       counter,
-    } = await this._checkObjectCache(ast);
+      queriedData,
+    } = await this._checkDataObjectCache(ast);
 
     if (counter.missing === counter.total) {
       return { updatedAST: ast, updatedQuery: print(ast) };
     }
 
-    if (!counter.missing) return { cachedData, cacheMetadata };
-    this._partials.set(hash, { cacheMetadata, cachedData });
+    if (!counter.missing) return { cachedData: queriedData, cacheMetadata };
+    this._partials.set(hash, { cacheMetadata, cachedData: queriedData });
     await this._filterQuery(ast, checkList);
     return { filtered: true, updatedAST: ast, updatedQuery: print(ast) };
   }
 
-  private async _checkObjectCache(ast: DocumentNode): Promise<CheckObjectCacheMetadata> {
+  private async _checkDataObjectCache(ast: DocumentNode): Promise<CheckObjectCacheMetadata> {
     const metadata: CheckObjectCacheMetadata = {
-      cachedData: {},
       cacheMetadata: new Map(),
       checkList: new Map(),
       counter: { missing: 0, total: 0 },
+      queriedData: {},
     };
 
     const queryNode = getOperationDefinitions(ast, "query")[0] as OperationDefinitionNode;
@@ -466,10 +433,17 @@ export default class Cache {
     return metadata;
   }
 
+  private async _checkDataObjectCacheEntry(hashKey: string): Promise<CheckDataObjectCacheEntryResult> {
+    const cacheability = await this._dataObjects.has(hashKey);
+    let cacheData;
+    if (Cache.isValid(cacheability)) cacheData = await this._dataObjects.get(hashKey);
+    return { cacheability, cacheData };
+  }
+
   private async _parseField(
     field: FieldNode,
     metadata: CheckObjectCacheMetadata,
-    cachedData?: ObjectMap,
+    cacheData?: ObjectMap,
     cachePath?: string,
     queryPath?: string,
     index?: number,
@@ -477,7 +451,7 @@ export default class Cache {
     if (hasChildFields(field)) {
       await this._parseParentField(field, metadata, cachePath, queryPath, index);
     } else {
-      await this._parseSingleField(field, metadata, cachedData, cachePath, queryPath, index);
+      await this._parseSingleField(field, metadata, cacheData, cachePath, queryPath, index);
     }
   }
 
@@ -487,11 +461,11 @@ export default class Cache {
     cachePath?: string,
     queryPath?: string,
     index?: number,
-  ) {
+  ): Promise<void> {
     const { cacheKey, hashKey, propKey, queryKey } = Cache._getKeys(field, { cachePath, queryPath }, index);
-    const { cacheability, cachedData } = await this._checkCacheEntry(hashKey);
-    this._setCacheEntryData(metadata, cachedData, cacheability, { propKey, queryKey });
-    if (!isObjectLike(cachedData)) return;
+    const { cacheability, cacheData } = await this._checkDataObjectCacheEntry(hashKey);
+    this._setCacheEntryMetadata(metadata, cacheData, cacheability, { propKey, queryKey });
+    if (!isObjectLike(cacheData)) return;
 
     const {
       cache, checkList, counter, queried,
@@ -516,14 +490,17 @@ export default class Cache {
     await Promise.all(promises);
   }
 
-  /**
-   *
-   * @param {Object} cacheability
-   * @return {boolean}
-   */
-  public isValid(cacheability) {
-    const noCache = get(cacheability, ["metadata", "cacheControl", "noCache"], false);
-    return cacheability && !noCache && cacheability.checkTTL();
+  private _setCacheEntryMetadata(
+    metadata: CheckObjectCacheMetadata,
+    cacheData: ObjectMap | void,
+    cacheability: Cacheability | boolean,
+    { propKey, queryKey }: Keys,
+  ) {
+    const { cacheMetadata, checkList, counter, queriedData } = metadata;
+    this._setCacheMetadata(cacheMetadata, cacheability, { queryKey });
+    this._setCheckList(checkList, cacheData, { queryKey });
+    this._setCounter(counter, cacheData);
+    this._setQueriedData(queriedData, cacheData, { propKey });
   }
 
   /**
