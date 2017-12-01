@@ -223,7 +223,7 @@ export default class Client {
 
   private async _checkResponseCache(hash: string): Promise<ClientResult | void> {
     const cacheability = await this._cache.responses.has(hash);
-    const res = this._cache.isValid(cacheability) ? await this._cache.responses.get(hash) : null;
+    const res = Cache.isValid(cacheability) ? await this._cache.responses.get(hash) : null;
     if (!res) return;
     return { cacheMetadata: Client._parseCacheMetadata(res.cacheMetadata), data: res.data };
   }
