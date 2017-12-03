@@ -3,6 +3,7 @@ export { getArguments } from "./arguments";
 
 export {
   addChildFields,
+  deleteChildFields,
   getChildFields,
   hasChildFields,
 } from "./child-fields";

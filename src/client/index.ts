@@ -543,14 +543,14 @@ export default class Client {
 
           if (fields[_this._resourceKey] && !hasChildFields(fieldOrInlineFragmentNode, _this._resourceKey)) {
             const mockAST = parse(`{ ${name} {${_this._resourceKey}} }`);
-            const queryNode = getOperationDefinitions(mockAST, "query")[0] as OperationDefinitionNode;
+            const queryNode = getOperationDefinitions(mockAST, "query")[0];
             const field = getChildFields(queryNode, _this._resourceKey) as FieldNode;
             addChildFields(fieldOrInlineFragmentNode, field);
           }
 
           if (fields._metadata && !hasChildFields(fieldOrInlineFragmentNode, "_metadata")) {
             const mockAST = parse(`{ ${name} { _metadata { cacheControl } } }`);
-            const queryNode = getOperationDefinitions(mockAST, "query")[0] as OperationDefinitionNode;
+            const queryNode = getOperationDefinitions(mockAST, "query")[0];
             const field = getChildFields(queryNode, "_metadata") as FieldNode;
             addChildFields(fieldOrInlineFragmentNode, field);
           }
