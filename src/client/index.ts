@@ -65,7 +65,7 @@ import {
 import mapToObject from "../helpers/map-to-object";
 import { FragmentDefinitionNodeMap } from "../helpers/parsing/types";
 import logger from "../logger";
-import { ObjectMap } from "../types";
+import { CacheMetadata, ObjectMap } from "../types";
 
 polyfill();
 let instance: Client;
@@ -92,7 +92,7 @@ export default class Client {
     return _cacheMetadata;
   }
 
-  private static _parseCacheMetadata(cacheMetadata: ObjectMap): Map<string, Cacheability> {
+  private static _parseCacheMetadata(cacheMetadata: ObjectMap): CacheMetadata {
     Object.keys(cacheMetadata).forEach((key) => {
       const cacheability = new Cacheability();
       cacheability.setMetadata(cacheMetadata[key]);
@@ -455,7 +455,7 @@ export default class Client {
 
   private _resolvePendingRequests(
     hash: string,
-    cacheMetadata: Map<string, Cacheability>,
+    cacheMetadata: CacheMetadata,
     data?: ObjectMap,
     error?: Error | Error[],
   ): void {
