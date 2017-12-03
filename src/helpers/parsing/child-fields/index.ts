@@ -1,5 +1,5 @@
-import { FieldNode } from "graphql";
-import { isArray } from "lodash";
+import { FieldNode, InlineFragmentNode } from "graphql";
+import { castArray, isArray } from "lodash";
 import { unwrapInlineFragments } from "../inline-fragments";
 import { getKind } from "../kind";
 import { getName } from "../name";
@@ -13,6 +13,25 @@ export function addChildFields(node: ParentNode, fields: FieldNode[] | FieldNode
     selections = [...selections, ...fields];
   } else {
     selections.push(fields);
+  }
+}
+
+export function deleteChildFields(node: ParentNode, fields: FieldNode[] | FieldNode): void {
+  if (!node.selectionSet) return;
+  const _fields = castArray(fields);
+  const childFields = node.selectionSet.selections;
+
+  for (let i = childFields.length - 1; i >= 0; i -= 1) {
+    if (getKind(childFields[i]) === "InlineFragment") {
+      const inlineFragmentNode = childFields[i] as InlineFragmentNode;
+      deleteChildFields(inlineFragmentNode, _fields);
+    } else if (getKind(childFields[i]) === "Field") {
+      const fieldNode = childFields[i] as FieldNode;
+
+      if (_fields.some((field) => field === fieldNode)) {
+        childFields.splice(i, 1);
+      }
+    }
   }
 }
 

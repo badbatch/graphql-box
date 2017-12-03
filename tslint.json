@@ -10,6 +10,7 @@
     "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
     "no-this-assignment": [true, {"allowed-names": ["_this"] }],
     "object-literal-sort-keys": [true, "ignore-case"],
+    "prefer-conditional-expression": false,
     "prefer-function-over-method": true,
     "return-undefined": false,
     "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
