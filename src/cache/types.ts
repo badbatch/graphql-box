@@ -1,11 +1,11 @@
 import Cacheability from "cacheability";
-import { DocumentNode } from "graphql";
+import { DocumentNode, FieldNode } from "graphql";
 import { CachemapOptions, DefaultCacheControls } from "../client/types";
-import { ObjectMap } from "../types";
+import { CacheMetadata, ObjectMap } from "../types";
 
 export interface AnalyzeResult {
   cachedData?: ObjectMap;
-  cacheMetadata?: Map<string, Cacheability>;
+  cacheMetadata?: CacheMetadata;
   filtered?: boolean;
   updatedAST?: DocumentNode;
   updatedQuery?: string;
@@ -16,17 +16,16 @@ export interface CacheArgs {
   defaultCacheControls: DefaultCacheControls;
 }
 
+export type CacheData = ObjectMap | any[] | string | number | boolean | null;
+
 export interface CheckDataObjectCacheEntryResult {
-  cacheability: Cacheability;
-  cacheData: ObjectMap | void;
+  cacheability: Cacheability | boolean;
+  cacheData: CacheData | void;
 }
 
-export interface CheckObjectCacheMetadata {
-  cacheMetadata: Map<string, Cacheability>;
-  checkList: Map<string, string>;
-  counter: { missing: number, total: number };
-  queriedData: ObjectMap;
-}
+export type CheckList = Map<string, boolean>;
+
+export type IterateChildFieldsCallback = (childField: FieldNode, childIndex?: number) => void;
 
 export interface KeyPaths {
   cachePath?: string;
@@ -43,7 +42,14 @@ export interface Keys {
   queryKey?: string;
 }
 
+export interface ObjectCacheCheckMetadata {
+  cacheMetadata: CacheMetadata;
+  checkList: CheckList;
+  counter: { missing: number, total: number };
+  queriedData: ObjectMap;
+}
+
 export interface PartialData {
   cachedData: ObjectMap;
-  cacheMetadata: Map<string, Cacheability>;
+  cacheMetadata: CacheMetadata;
 }

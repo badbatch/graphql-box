@@ -22,10 +22,13 @@ import * as md5 from "md5";
 import {
   AnalyzeResult,
   CacheArgs,
+  CacheData,
   CheckDataObjectCacheEntryResult,
-  CheckObjectCacheMetadata,
+  CheckList,
+  IterateChildFieldsCallback,
   KeyPaths,
   Keys,
+  ObjectCacheCheckMetadata,
   PartialData,
 } from "./types";
 
@@ -41,7 +44,7 @@ import {
   hasChildFields,
 } from "../helpers/parsing";
 
-import { ObjectMap } from "../types";
+import { CacheMetadata, ObjectMap } from "../types";
 
 export default class Cache {
   public static hash(value: string): string {
@@ -78,6 +81,87 @@ export default class Cache {
     const propKey = isNumber(index) ? index : nameKey;
     const dataKey = Cache._buildKey(propKey, dataPath);
     return { cacheKey, dataKey, hashKey, name, propKey, queryKey };
+  }
+
+  private static _iterateChildFields(
+    field: FieldNode,
+    data: ObjectMap | any[],
+    callback: IterateChildFieldsCallback,
+  ): void {
+    if (!isArray(data)) {
+      const childFields = getChildFields(field) as FieldNode[] | void;
+      if (!childFields) return;
+
+      childFields.forEach((child) => {
+        callback(child);
+      });
+    } else {
+      data.forEach((value, index) => {
+        callback(field, index);
+      });
+    }
+  }
+
+  private static async _parseSingleField(
+    field: FieldNode,
+    metadata: ObjectCacheCheckMetadata,
+    cacheData: ObjectMap,
+    cachePath?: string,
+    queryPath?: string,
+    index?: number,
+  ) {
+    const { name, propKey, queryKey } = Cache._getKeys(field, { cachePath, queryPath }, index);
+    const cacheDataValue = cacheData[name];
+    const { checkList, counter, queriedData } = metadata;
+    Cache._setCheckList(checkList, cacheDataValue, queryKey);
+    Cache._setCounter(counter, cacheDataValue);
+    Cache._setQueriedData(queriedData, cacheDataValue, propKey);
+  }
+
+  private static _setCacheEntryMetadata(
+    metadata: ObjectCacheCheckMetadata,
+    cacheData: CacheData | void,
+    cacheability: Cacheability | boolean,
+    { propKey, queryKey }: Keys,
+  ): void {
+    const { cacheMetadata, checkList, counter, queriedData } = metadata;
+    Cache._setCacheMetadata(cacheMetadata, cacheability, queryKey);
+    Cache._setCheckList(checkList, cacheData, queryKey);
+    Cache._setCounter(counter, cacheData);
+    Cache._setQueriedData(queriedData, cacheData, propKey);
+  }
+
+  private static _setCacheMetadata(
+    cacheMetadata: CacheMetadata,
+    cacheability: Cacheability | boolean,
+    queryKey: string,
+  ): void {
+    if (cacheMetadata.has(queryKey) || !Cache.isValid(cacheability)) return;
+    cacheMetadata.set(queryKey, cacheability);
+    const queryCacheability = cacheMetadata.get("query");
+
+    if (!queryCacheability || queryCacheability.metadata.ttl > cacheability.metadata.ttl) {
+      cacheMetadata.set("query", cacheability);
+    }
+  }
+
+  private static _setCheckList(checkList: CheckList, cacheData: CacheData | void, queryKey: string): void {
+    if (checkList.has(queryKey)) return;
+    checkList.set(queryKey, cacheData !== undefined);
+  }
+
+  private static _setCounter(counter: { missing: number, total: number }, cacheData: CacheData | void): void {
+    counter.total += 1;
+    if (cacheData === undefined) counter.missing += 1;
+  }
+
+  private static _setQueriedData(queriedData: ObjectMap, cacheData: CacheData | void, propKey: string | number): void {
+    if (!isObjectLike(cacheData) && cacheData !== undefined) {
+      queriedData[propKey] = cacheData as string | number | boolean | null;
+    } else if (isObjectLike(cacheData)) {
+      const objectLikeCacheData = cacheData as ObjectMap | any[];
+      queriedData[propKey] = isArray(objectLikeCacheData) ? [] : {};
+    }
   }
 
   private _dataObjects: Cachemap;
@@ -163,26 +247,6 @@ export default class Cache {
    * @private
    * @param {Document} field
    * @param {Object} data
-   * @param {Function} callback
-   * @return {void}
-   */
-  public _iterateChildFields(field, data, callback) {
-    if (!isArray(data)) {
-      unwrapInlineFragments(getChildFields(field)).forEach((child) => {
-        callback(child);
-      });
-    } else {
-      data.forEach((value, index) => {
-        callback(field, index);
-      });
-    }
-  }
-
-  /**
-   *
-   * @private
-   * @param {Document} field
-   * @param {Object} data
    * @param {Map} cacheMetadata
    * @param {string} [dataPath]
    * @param {string} [queryPath]
@@ -207,71 +271,6 @@ export default class Cache {
     this._iterateChildFields(field, fieldData, (childField, childIndex) => {
       this._parseResponseMetadata(childField, data, cacheMetadata, dataKey, queryKey, childIndex);
     });
-  }
-
-  /**
-   *
-   * @private
-   * @param {Document} field
-   * @param {Object} metadata
-   * @param {any} cachedData
-   * @param {string} cachePath
-   * @param {string} queryPath
-   * @param {number} [index]
-   * @return {Promise}
-   */
-  public async _parseSingleField(field, metadata, cachedData, cachePath, queryPath, index) {
-    const { name, propKey, queryKey } = this._getKeys(field, { cachePath, queryPath }, index);
-    const _cachedData = cachedData[name];
-    const { checkList, counter, queried } = metadata;
-    this._setCheckList(checkList, _cachedData, { queryKey });
-    this._setCounter(counter, _cachedData);
-    this._setQueriedData(queried, _cachedData, { propKey });
-  }
-
-  /**
-   *
-   * @private
-   * @param {Map} cacheMetadata
-   * @param {Object} cacheability
-   * @param {Object} keys
-   * @param {string} keys.queryKey
-   * @return {void}
-   */
-  public _setCacheData(cacheMetadata, cacheability, { queryKey }) {
-    if (cacheMetadata.has(queryKey) || !this.isValid(cacheability)) return;
-    cacheMetadata.set(queryKey, cacheability);
-    const queryCacheability = cacheMetadata.get("query");
-
-    if (!queryCacheability || queryCacheability.metadata.ttl > cacheability.metadata.ttl) {
-      cacheMetadata.set("query", cacheability);
-    }
-  }
-
-  /**
-   *
-   * @private
-   * @param {Map} checkList
-   * @param {any} cachedData
-   * @param {Object} keys
-   * @param {string} keys.queryKey
-   * @return {void}
-   */
-  public _setCheckList(checkList, cachedData, { queryKey }) {
-    if (checkList.has(queryKey)) return;
-    checkList.set(queryKey, cachedData !== undefined);
-  }
-
-  /**
-   *
-   * @private
-   * @param {Object} counter
-   * @param {any} cachedData
-   * @return {void}
-   */
-  public _setCounter(counter, cachedData) {
-    counter.total += 1;
-    if (cachedData === undefined) counter.missing += 1;
   }
 
   /**
@@ -325,23 +324,6 @@ export default class Cache {
     if (!unwrapInlineFragments(getChildFields(field)).length) return;
     const { hashKey, propKey } = this._getKeys(field, { cachePath, dataPath }, index);
     data[propKey] = { _HashKey: hashKey };
-  }
-
-  /**
-   *
-   * @private
-   * @param {Object} queriedData
-   * @param {any} cachedData
-   * @param {Object} keys
-   * @param {string} keys.propKey
-   * @return {void}
-   */
-  public _setQueriedData(queriedData, cachedData, { propKey }) {
-    if (!isObjectLike(cachedData) && cachedData !== undefined) {
-      queriedData[propKey] = cachedData;
-    } else if (isObjectLike(cachedData)) {
-      queriedData[propKey] = isArray(cachedData) ? [] : {};
-    }
   }
 
   /**
@@ -414,8 +396,8 @@ export default class Cache {
     return { filtered: true, updatedAST: ast, updatedQuery: print(ast) };
   }
 
-  private async _checkDataObjectCache(ast: DocumentNode): Promise<CheckObjectCacheMetadata> {
-    const metadata: CheckObjectCacheMetadata = {
+  private async _checkDataObjectCache(ast: DocumentNode): Promise<ObjectCacheCheckMetadata> {
+    const metadata: ObjectCacheCheckMetadata = {
       cacheMetadata: new Map(),
       checkList: new Map(),
       counter: { missing: 0, total: 0 },
@@ -442,8 +424,8 @@ export default class Cache {
 
   private async _parseField(
     field: FieldNode,
-    metadata: CheckObjectCacheMetadata,
-    cacheData?: ObjectMap,
+    metadata: ObjectCacheCheckMetadata,
+    cacheData?: CacheData,
     cachePath?: string,
     queryPath?: string,
     index?: number,
@@ -451,36 +433,33 @@ export default class Cache {
     if (hasChildFields(field)) {
       await this._parseParentField(field, metadata, cachePath, queryPath, index);
     } else {
-      await this._parseSingleField(field, metadata, cacheData, cachePath, queryPath, index);
+      const objectMapCacheData = cacheData as ObjectMap;
+      await Cache._parseSingleField(field, metadata, objectMapCacheData, cachePath, queryPath, index);
     }
   }
 
   private async _parseParentField(
     field: FieldNode,
-    metadata: CheckObjectCacheMetadata,
+    metadata: ObjectCacheCheckMetadata,
     cachePath?: string,
     queryPath?: string,
     index?: number,
   ): Promise<void> {
     const { cacheKey, hashKey, propKey, queryKey } = Cache._getKeys(field, { cachePath, queryPath }, index);
     const { cacheability, cacheData } = await this._checkDataObjectCacheEntry(hashKey);
-    this._setCacheEntryMetadata(metadata, cacheData, cacheability, { propKey, queryKey });
+    Cache._setCacheEntryMetadata(metadata, cacheData, cacheability, { propKey, queryKey });
     if (!isObjectLike(cacheData)) return;
+    const objectLikeCacheData = cacheData as ObjectMap | any[];
+    const { cacheMetadata, checkList, counter, queriedData } = metadata;
+    const promises: Array<Promise<void>> = [];
 
-    const {
-      cache, checkList, counter, queried,
-    } = metadata;
-    const promises = [];
-
-    this._iterateChildFields(field, cachedData, (childField, childIndex) => {
+    Cache._iterateChildFields(field, objectLikeCacheData, (childField, childIndex) => {
       if (getName(childField) === "_metadata") return;
 
       promises.push(this._parseField(
         childField,
-        {
-          cache, checkList, counter, queried: queried[propKey],
-        },
-        cachedData,
+        { cacheMetadata, checkList, counter, queriedData: queriedData[propKey] },
+        objectLikeCacheData,
         cacheKey,
         queryKey,
         childIndex,
@@ -488,19 +467,6 @@ export default class Cache {
     });
 
     await Promise.all(promises);
-  }
-
-  private _setCacheEntryMetadata(
-    metadata: CheckObjectCacheMetadata,
-    cacheData: ObjectMap | void,
-    cacheability: Cacheability | boolean,
-    { propKey, queryKey }: Keys,
-  ) {
-    const { cacheMetadata, checkList, counter, queriedData } = metadata;
-    this._setCacheMetadata(cacheMetadata, cacheability, { queryKey });
-    this._setCheckList(checkList, cacheData, { queryKey });
-    this._setCounter(counter, cacheData);
-    this._setQueriedData(queriedData, cacheData, { propKey });
   }
 
   /**
