@@ -4,7 +4,6 @@ import Cachemap from "cachemap";
 import {
   DocumentNode,
   FieldNode,
-  OperationDefinitionNode,
   print,
 } from "graphql";
 
@@ -15,6 +14,7 @@ import {
   isNumber,
   isObjectLike,
   isPlainObject,
+  isString,
 } from "lodash";
 
 import * as md5 from "md5";
@@ -34,7 +34,7 @@ import {
 
 import { ClientResult, DefaultCacheControls } from "../client/types";
 import mapToObject from "../helpers/map-to-object";
-import mergeObjects from "../helpers/merging";
+import mergeObjects from "../helpers/merge-objects";
 
 import {
   deleteChildFields,
@@ -218,6 +218,24 @@ export default class Cache {
     if (cacheData === undefined) counter.missing += 1;
   }
 
+  private static _setObjectHashKey(
+    field: FieldNode,
+    data: ObjectMap | any[],
+    cachePath: string,
+    dataPath: string,
+    index?: number,
+  ): void {
+    if (!hasChildFields(field)) return;
+    const { hashKey, propKey } = this._getKeys(field, { cachePath, dataPath }, index);
+
+    if (isArray(data) && isNumber(propKey)) {
+      data[propKey] = { _HashKey: hashKey };
+    } else if (isPlainObject(data) && isString(propKey)) {
+      const objData = data as ObjectMap;
+      objData[propKey] = { _HashKey: hashKey };
+    }
+  }
+
   private static _setQueriedData(queriedData: ObjectMap, cacheData: CacheData | void, propKey: string | number): void {
     if (!isObjectLike(cacheData) && cacheData !== undefined) {
       queriedData[propKey] = cacheData as string | number | boolean | null;
@@ -245,75 +263,6 @@ export default class Cache {
 
   get dataObjects(): Cachemap {
     return this._dataObjects;
-  }
-
-  /**
-   *
-   * @private
-   * @param {Object} field
-   * @param {Object} data
-   * @param {Object} cacheMetadata
-   * @param {string} cacheControl
-   * @param {Object} [paths]
-   * @param {number} [index]
-   * @return {Promise}
-   */
-  public async _setObject(field, data, cacheMetadata, cacheControl, paths, index) {
-    const {
-      cacheKey, dataKey, hashKey, queryKey,
-    } = this._getKeys(field, paths, index);
-    const fieldData = cloneDeep(get(data, dataKey, null));
-    if (!isObjectLike(fieldData)) return;
-    let _cacheControl = cacheControl;
-    const metadata = cacheMetadata.get(queryKey);
-    if (metadata) _cacheControl = metadata.printCacheControl();
-
-    this._iterateChildFields(field, fieldData, (childField, childIndex) => {
-      this._setObjectHashKey(fieldData, dataKey, cacheKey, childField, childIndex);
-
-      this._setObject(
-        childField,
-        data,
-        cacheMetadata,
-        _cacheControl,
-        { cachePath: cacheKey, dataPath: dataKey, queryPath: queryKey },
-        childIndex,
-      );
-    });
-
-    this._obj.set(hashKey, fieldData, { cacheHeaders: { cacheControl: _cacheControl } });
-  }
-
-  /**
-   *
-   * @private
-   * @param {Object} data
-   * @param {string} dataPath
-   * @param {string} cachePath
-   * @param {Object} field
-   * @param {number} index
-   * @return {void}
-   */
-  public _setObjectHashKey(data, dataPath, cachePath, field, index) {
-    if (!unwrapInlineFragments(getChildFields(field)).length) return;
-    const { hashKey, propKey } = this._getKeys(field, { cachePath, dataPath }, index);
-    data[propKey] = { _HashKey: hashKey };
-  }
-
-  /**
-   *
-   * @private
-   * @param {Document} ast
-   * @param {Object} data
-   * @param {Map} cacheMetadata
-   * @return {Promise}
-   */
-  public async _updateObjectCache(ast, data, cacheMetadata) {
-    const queryCache = cacheMetadata.get("query");
-
-    getRootFields(ast, (field) => {
-      this._setObject(field, data, cacheMetadata, queryCache.printCacheControl());
-    });
   }
 
   public async analyze(hash: string, ast: DocumentNode): Promise<AnalyzeResult> {
@@ -352,27 +301,27 @@ export default class Cache {
     }
 
     const partial = this._getPartial(hash);
-    let _data = data;
+    let updatedData = data;
 
     if (partial) {
-      _data = mergeObjects(partial.cachedData, data, (key, val) => {
-        return isPlainObject(val) && val.id ? val.id : false;
+      updatedData = mergeObjects(partial.cachedData, data, (key: string, val: any): string | void => {
+        if (isPlainObject(val) && val.id) return val.id;
       });
     }
 
-    const _cacheMetadata = this._updateCacheMetadata(
+    const updatedCacheMetadata = this._updateCacheMetadata(
       ast,
-      _data,
+      updatedData,
       cacheMetadata,
       partial && partial.cacheMetadata,
     );
 
-    this._responses.set(hash, { cacheMetadata: mapToObject(_cacheMetadata), data: _data }, {
-      cacheHeaders: { cacheControl: _cacheMetadata.get("query").printCacheControl() },
+    this._responses.set(hash, { cacheMetadata: mapToObject(updatedCacheMetadata), data: updatedData }, {
+      cacheHeaders: { cacheControl: updatedCacheMetadata.get("query").printCacheControl() },
     });
 
-    this._updateObjectCache(ast, _data, _cacheMetadata);
-    return { cacheMetadata: _cacheMetadata, data: _data };
+    this._updateObjectCache(ast, updatedData, updatedCacheMetadata);
+    return { cacheMetadata: updatedCacheMetadata, data: updatedData };
   }
 
   private async _checkDataObjectCache(ast: DocumentNode): Promise<ObjectCacheCheckMetadata> {
@@ -455,6 +404,37 @@ export default class Cache {
     await Promise.all(promises);
   }
 
+  private async _setObject(
+    field: FieldNode,
+    data: ObjectMap | any[],
+    cacheMetadata: CacheMetadata,
+    cacheControl: string,
+    paths?: KeyPaths,
+    index?: number,
+  ): Promise<void> {
+    const { cacheKey, dataKey, hashKey, queryKey } = Cache._getKeys(field, paths, index);
+    const fieldData = cloneDeep(get(data, dataKey, null));
+    if (!isObjectLike(fieldData)) return;
+    const objectLikeFieldData = fieldData as ObjectMap | any[];
+    const metadata = cacheMetadata.get(queryKey);
+    const _cacheControl = metadata ? metadata.printCacheControl() : cacheControl;
+
+    Cache._iterateChildFields(field, objectLikeFieldData, (childField, childIndex) => {
+      Cache._setObjectHashKey(childField, objectLikeFieldData, dataKey, cacheKey, childIndex);
+
+      this._setObject(
+        childField,
+        data,
+        cacheMetadata,
+        _cacheControl,
+        { cachePath: cacheKey, dataPath: dataKey, queryPath: queryKey },
+        childIndex,
+      );
+    });
+
+    this._dataObjects.set(hashKey, fieldData, { cacheHeaders: { cacheControl: _cacheControl } });
+  }
+
   private _updateCacheMetadata(
     ast: DocumentNode,
     data: ObjectMap,
@@ -488,5 +468,15 @@ export default class Cache {
     }
 
     return _cacheMetadata;
+  }
+
+  private async _updateObjectCache(ast: DocumentNode, data: ObjectMap, cacheMetadata: CacheMetadata): Promise<void> {
+    const queryNode = getOperationDefinitions(ast, "query")[0];
+    const fields = getChildFields(queryNode) as FieldNode[];
+    const queryCacheMetadata = cacheMetadata.get("query");
+
+    fields.forEach((field) => {
+      this._setObject(field, data, cacheMetadata, queryCacheMetadata.printCacheControl());
+    });
   }
 }
