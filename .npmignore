@@ -7,7 +7,7 @@ test/
 *.log
 .*
 gulpfile.js
-karma.config.js
+karma.conf.js
 mocha.opts
 package-lock.json
 sonar-project.properties
