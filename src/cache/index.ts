@@ -22,12 +22,11 @@ import * as md5 from "md5";
 import {
   AnalyzeResult,
   CacheArgs,
-  CacheData,
   CheckDataObjectCacheEntryResult,
   CheckList,
+  GetKeysResult,
   IterateChildFieldsCallback,
   KeyPaths,
-  Keys,
   ObjectCacheCheckMetadata,
   PartialData,
 } from "./types";
@@ -58,7 +57,7 @@ export default class Cache {
     return cacheability && !noCache && cacheability.checkTTL();
   }
 
-  private static _buildCacheKey(name: string, args: ObjectMap | void, cachePath: string, index?: number): string {
+  private static _buildCacheKey(name: string, cachePath: string, args?: ObjectMap, index?: number): string {
     let key = `${isNumber(index) ? index : name}`;
     if (args) key = `${key}(${JSON.stringify(args)})`;
     return Cache._buildKey(key, cachePath);
@@ -77,7 +76,7 @@ export default class Cache {
 
     for (let i = childFields.length - 1; i >= 0; i -= 1) {
       const childField = childFields[i];
-      if (getName(childField) === "_metadata") continue; // eslint-disable-line no-continue
+      if (getName(childField) === "_metadata") continue;
       const { queryKey } = this._getKeys(childField, { queryPath });
       const check = checkList.get(queryKey);
 
@@ -102,12 +101,11 @@ export default class Cache {
     }
   }
 
-  private static _getKeys(field: FieldNode, paths?: KeyPaths, index?: number): Keys {
-    const _paths = paths || {};
-    const { cachePath = "", dataPath = "", queryPath = "" } = _paths;
+  private static _getKeys(field: FieldNode, paths: KeyPaths = {}, index?: number): GetKeysResult {
+    const { cachePath = "", dataPath = "", queryPath = "" } = paths;
     const name = getName(field) as string;
     const args = getArguments(field);
-    const cacheKey = Cache._buildCacheKey(name, args, cachePath, index);
+    const cacheKey = Cache._buildCacheKey(name, cachePath, args, index);
     const hashKey = Cache.hash(cacheKey);
     const nameKey = getAlias(field) || name;
     const queryKey = isNumber(index) ? queryPath : Cache._buildKey(nameKey, queryPath);
@@ -183,9 +181,9 @@ export default class Cache {
 
   private static _setCacheEntryMetadata(
     metadata: ObjectCacheCheckMetadata,
-    cacheData: CacheData | void,
-    cacheability: Cacheability | boolean,
-    { propKey, queryKey }: Keys,
+    cacheData: any,
+    cacheability: Cacheability | false,
+    { propKey, queryKey }: { propKey: string, queryKey: string },
   ): void {
     const { cacheMetadata, checkList, counter, queriedData } = metadata;
     Cache._setCacheMetadata(cacheMetadata, cacheability, queryKey);
@@ -196,10 +194,10 @@ export default class Cache {
 
   private static _setCacheMetadata(
     cacheMetadata: CacheMetadata,
-    cacheability: Cacheability | boolean,
+    cacheability: Cacheability | false,
     queryKey: string,
   ): void {
-    if (cacheMetadata.has(queryKey) || !Cache.isValid(cacheability)) return;
+    if (cacheMetadata.has(queryKey) || !cacheability || !Cache.isValid(cacheability)) return;
     cacheMetadata.set(queryKey, cacheability);
     const queryCacheability = cacheMetadata.get("query");
 
@@ -208,12 +206,12 @@ export default class Cache {
     }
   }
 
-  private static _setCheckList(checkList: CheckList, cacheData: CacheData | void, queryKey: string): void {
+  private static _setCheckList(checkList: CheckList, cacheData: any, queryKey: string): void {
     if (checkList.has(queryKey)) return;
     checkList.set(queryKey, cacheData !== undefined);
   }
 
-  private static _setCounter(counter: { missing: number, total: number }, cacheData: CacheData | void): void {
+  private static _setCounter(counter: { missing: number, total: number }, cacheData: any): void {
     counter.total += 1;
     if (cacheData === undefined) counter.missing += 1;
   }
@@ -236,7 +234,7 @@ export default class Cache {
     }
   }
 
-  private static _setQueriedData(queriedData: ObjectMap, cacheData: CacheData | void, propKey: string | number): void {
+  private static _setQueriedData(queriedData: ObjectMap, cacheData: any, propKey: string | number): void {
     if (!isObjectLike(cacheData) && cacheData !== undefined) {
       queriedData[propKey] = cacheData as string | number | boolean | null;
     } else if (isObjectLike(cacheData)) {
@@ -360,7 +358,7 @@ export default class Cache {
   private async _parseField(
     field: FieldNode,
     metadata: ObjectCacheCheckMetadata,
-    cacheData?: CacheData,
+    cacheData?: any,
     cachePath?: string,
     queryPath?: string,
     index?: number,

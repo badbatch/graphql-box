@@ -15,6 +15,7 @@
   "main": "lib/main/index.js",
   "module": "lib/module/index.js",
   "browser": "lib/browser/index.js",
+  "types": "lib/main/index.d.ts",
   "keywords": [
     "graphql",
     "client",
@@ -36,7 +37,7 @@
     "type-check": "gulp type-check"
   },
   "dependencies": {
-    "cacheability": "0.0.2",
+    "cacheability": "0.0.6",
     "cachemap": "0.0.12",
     "es6-promise": "^4.1.1",
     "graphql": "^0.11.3",

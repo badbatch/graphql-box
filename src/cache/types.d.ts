@@ -16,11 +16,9 @@ export interface CacheArgs {
   defaultCacheControls: DefaultCacheControls;
 }
 
-export type CacheData = ObjectMap | any[] | string | number | boolean | null;
-
 export interface CheckDataObjectCacheEntryResult {
-  cacheability: Cacheability | boolean;
-  cacheData: CacheData | void;
+  cacheability: Cacheability | false;
+  cacheData: any;
 }
 
 export type CheckList = Map<string, boolean>;
@@ -33,13 +31,13 @@ export interface KeyPaths {
   queryPath?: string;
 }
 
-export interface Keys {
-  cacheKey?: string;
-  dataKey?: string;
-  hashKey?: string;
-  name?: string;
-  propKey?: string | number;
-  queryKey?: string;
+export interface GetKeysResult {
+  cacheKey: string;
+  dataKey: string;
+  hashKey: string;
+  name: string;
+  propKey: string | number;
+  queryKey: string;
 }
 
 export interface ObjectCacheCheckMetadata {

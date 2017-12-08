@@ -41,8 +41,8 @@ function parseValue(valueNode: ValueNode): ParseValueResult {
   return output;
 }
 
-export function getArguments(field: FieldNode): ObjectMap | void {
-  if (!field.arguments || field.arguments.length) return;
+export function getArguments(field: FieldNode): ObjectMap | undefined {
+  if (!field.arguments || field.arguments.length) return undefined;
   const args: ObjectMap = {};
 
   field.arguments.forEach(({ name, value }) => {
