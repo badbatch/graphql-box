@@ -7,6 +7,7 @@
       "named-imports-order": "case-insensitive"
     }],
     "interface-name": [true, "never-prefix"],
+    "no-implicit-dependencies": [true, "dev"],
     "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
     "no-this-assignment": [true, {"allowed-names": ["_this"] }],
     "object-literal-sort-keys": [true, "ignore-case"],

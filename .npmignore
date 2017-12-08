@@ -3,4 +3,14 @@
 .vscode/
 coverage/
 src/
-npm-debug.log
+test/
+*.log
+.*
+gulpfile.js
+karma.config.js
+mocha.opts
+package-lock.json
+sonar-project.properties
+tsconfig.*
+tslint.json
+webpack.*
