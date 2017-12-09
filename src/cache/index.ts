@@ -10,6 +10,7 @@ import {
 import {
   cloneDeep,
   get,
+  has,
   isArray,
   isNumber,
   isObjectLike,
@@ -17,7 +18,7 @@ import {
   isString,
 } from "lodash";
 
-import * as md5 from "md5";
+import md5 from "md5";
 
 import {
   AnalyzeResult,
@@ -149,9 +150,10 @@ export default class Cache {
     if (Object.prototype.hasOwnProperty.call(objectLikeFieldData, "_metadata")) {
       const objectFieldData = objectLikeFieldData as ObjectMap;
 
-      if (get(objectFieldData._metadata, ["cacheControl"])) {
+      if (has(objectFieldData, ["_metadata", "cacheControl"]) && isString(objectFieldData._metadata.cacheControl)) {
+        const cacheControl: string = objectFieldData._metadata.cacheControl;
         const cacheability = new Cacheability();
-        cacheability.parseCacheControl(objectFieldData._metadata.cacheControl);
+        cacheability.parseCacheControl(cacheControl);
         Cache._setCacheMetadata(cacheMetadata, cacheability, queryKey);
       }
 
@@ -183,7 +185,7 @@ export default class Cache {
     metadata: ObjectCacheCheckMetadata,
     cacheData: any,
     cacheability: Cacheability | false,
-    { propKey, queryKey }: { propKey: string, queryKey: string },
+    { propKey, queryKey }: { propKey: string | number, queryKey: string },
   ): void {
     const { cacheMetadata, checkList, counter, queriedData } = metadata;
     Cache._setCacheMetadata(cacheMetadata, cacheability, queryKey);
@@ -201,7 +203,14 @@ export default class Cache {
     cacheMetadata.set(queryKey, cacheability);
     const queryCacheability = cacheMetadata.get("query");
 
-    if (!queryCacheability || queryCacheability.metadata.ttl > cacheability.metadata.ttl) {
+    if (!queryCacheability) {
+      cacheMetadata.set("query", cacheability);
+      return;
+    }
+
+    if (!isNumber(queryCacheability.metadata.ttl) || !isNumber(cacheability.metadata.ttl)) return;
+
+    if (queryCacheability.metadata.ttl > cacheability.metadata.ttl) {
       cacheMetadata.set("query", cacheability);
     }
   }
@@ -289,37 +298,49 @@ export default class Cache {
     cacheMetadata: CacheMetadata,
     opts: { filtered: boolean },
   ): Promise<ClientResult> {
-    if (opts.filtered) {
-      const filteredHash = Cache.hash(query);
-      const filteredCacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata);
+    let _cacheMetadata: CacheMetadata;
+    let queryCacheability: Cacheability | undefined;
+    let cacheControl: string;
 
-      this._responses.set(filteredHash, { cacheMetadata: mapToObject(filteredCacheMetadata), data }, {
-        cacheHeaders: { cacheControl: filteredCacheMetadata.get("query").printCacheControl() },
+    if (opts.filtered) {
+      _cacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata);
+      queryCacheability = _cacheMetadata.get("query");
+      cacheControl = queryCacheability && queryCacheability.printCacheControl() || this._defaultCacheControls.query;
+
+      this._responses.set(
+        Cache.hash(query),
+        { cacheMetadata: mapToObject(_cacheMetadata), data },
+        { cacheHeaders: { cacheControl },
       });
     }
 
     const partial = this._getPartial(hash);
-    let updatedData = data;
+    let _data = data;
 
     if (partial) {
-      updatedData = mergeObjects(partial.cachedData, data, (key: string, val: any): string | void => {
+      _data = mergeObjects(partial.cachedData, data, (key: string, val: any): string | void => {
         if (isPlainObject(val) && val.id) return val.id;
       });
     }
 
-    const updatedCacheMetadata = this._updateCacheMetadata(
+    _cacheMetadata = this._updateCacheMetadata(
       ast,
-      updatedData,
+      _data,
       cacheMetadata,
       partial && partial.cacheMetadata,
     );
 
-    this._responses.set(hash, { cacheMetadata: mapToObject(updatedCacheMetadata), data: updatedData }, {
-      cacheHeaders: { cacheControl: updatedCacheMetadata.get("query").printCacheControl() },
+    queryCacheability = _cacheMetadata.get("query");
+    cacheControl = queryCacheability && queryCacheability.printCacheControl() || this._defaultCacheControls.query;
+
+    this._responses.set(
+      hash,
+      { cacheMetadata: mapToObject(_cacheMetadata), data: _data },
+      { cacheHeaders: { cacheControl },
     });
 
-    this._updateObjectCache(ast, updatedData, updatedCacheMetadata);
-    return { cacheMetadata: updatedCacheMetadata, data: updatedData };
+    this._updateObjectCache(ast, _data, _cacheMetadata);
+    return { cacheMetadata: _cacheMetadata, data: _data };
   }
 
   private async _checkDataObjectCache(ast: DocumentNode): Promise<ObjectCacheCheckMetadata> {
@@ -342,14 +363,14 @@ export default class Cache {
   }
 
   private async _checkDataObjectCacheEntry(hashKey: string): Promise<CheckDataObjectCacheEntryResult> {
-    const cacheability = await this._dataObjects.has(hashKey);
+    const cacheability: Cacheability | false = await this._dataObjects.has(hashKey);
     let cacheData;
-    if (Cache.isValid(cacheability)) cacheData = await this._dataObjects.get(hashKey);
+    if (cacheability && Cache.isValid(cacheability)) cacheData = await this._dataObjects.get(hashKey);
     return { cacheability, cacheData };
   }
 
-  private _getPartial(hash: string): PartialData | void {
-    if (!this._partials.has(hash)) return;
+  private _getPartial(hash: string): PartialData | undefined {
+    if (!this._partials.has(hash)) return undefined;
     const partialData = this._partials.get(hash);
     this._partials.delete(hash);
     return partialData;
@@ -415,7 +436,7 @@ export default class Cache {
     if (!isObjectLike(fieldData)) return;
     const objectLikeFieldData = fieldData as ObjectMap | any[];
     const metadata = cacheMetadata.get(queryKey);
-    const _cacheControl = metadata ? metadata.printCacheControl() : cacheControl;
+    const _cacheControl = metadata && metadata.printCacheControl() || cacheControl;
 
     Cache._iterateChildFields(field, objectLikeFieldData, (childField, childIndex) => {
       Cache._setObjectHashKey(childField, objectLikeFieldData, dataKey, cacheKey, childIndex);
@@ -445,7 +466,10 @@ export default class Cache {
       const queryCacheability = cacheMetadata.get("query");
       const partialCacheability = partialCacheMetadata.get("query");
 
-      if (queryCacheability && queryCacheability.metadata.ttl < partialCacheability.metadata.ttl) {
+      if (queryCacheability && partialCacheability
+        && isNumber(queryCacheability.metadata.ttl)
+        && isNumber(partialCacheability.metadata.ttl)
+        && queryCacheability.metadata.ttl < partialCacheability.metadata.ttl) {
         _cacheMetadata = new Map([...partialCacheMetadata, ...cacheMetadata]);
       } else {
         _cacheMetadata = new Map([...cacheMetadata, ...partialCacheMetadata]);
@@ -471,10 +495,13 @@ export default class Cache {
   private async _updateObjectCache(ast: DocumentNode, data: ObjectMap, cacheMetadata: CacheMetadata): Promise<void> {
     const queryNode = getOperationDefinitions(ast, "query")[0];
     const fields = getChildFields(queryNode) as FieldNode[];
-    const queryCacheMetadata = cacheMetadata.get("query");
+    const queryCacheability = cacheMetadata.get("query");
 
     fields.forEach((field) => {
-      this._setObject(field, data, cacheMetadata, queryCacheMetadata.printCacheControl());
+      const cacheControl = queryCacheability && queryCacheability.printCacheControl()
+        || this._defaultCacheControls.query;
+
+      this._setObject(field, data, cacheMetadata, cacheControl);
     });
   }
 }
