@@ -193,7 +193,7 @@ export default class Client {
     }
 
     if (opts.fragments && (!isArray(opts.fragments) || opts.fragments.some((value) => !isString(value)))) {
-      return Promise.reject(new TypeError("request expected fragments to be an array of strings."));
+      return Promise.reject(new TypeError("request expected opts.fragments to be an array of strings."));
     }
 
     try {
