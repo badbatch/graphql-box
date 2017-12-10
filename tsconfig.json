@@ -1,8 +1,4 @@
 {
   "extends": "./tsconfig.base",
-  "compilerOptions": {
-    "module": "es6",
-    "strictNullChecks": true
-  },
-  "include": ["src/**/*"]
+  "compilerOptions": { "module": "es6" }
 }

@@ -6,7 +6,7 @@ import {
   IntrospectionQuery,
 } from "graphql";
 
-import { CacheMetadata, ObjectMap } from "../types";
+import { CacheabilityObjectMap, CacheMetadata, ObjectMap } from "../types";
 
 export interface CachemapOptions {
   dataObjects?: any; // TODO: Replace with CachemapArgs interface
@@ -38,7 +38,7 @@ export interface ClientResult {
 }
 
 export interface CreateCacheMetadataArgs {
-  cacheMetadata?: ObjectMap;
+  cacheMetadata?: CacheabilityObjectMap;
   headers?: Headers;
 }
 

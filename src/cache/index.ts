@@ -72,7 +72,7 @@ export default class Cache {
   }
 
   private static _filterField(field: FieldNode, checkList: CheckList, queryPath: string): boolean {
-    const childFields = getChildFields(field) as FieldNode[] | void;
+    const childFields = getChildFields(field) as FieldNode[] | undefined;
     if (!childFields) return false;
 
     for (let i = childFields.length - 1; i >= 0; i -= 1) {
@@ -121,7 +121,7 @@ export default class Cache {
     callback: IterateChildFieldsCallback,
   ): void {
     if (!isArray(data)) {
-      const childFields = getChildFields(field) as FieldNode[] | void;
+      const childFields = getChildFields(field) as FieldNode[] | undefined;
       if (!childFields) return;
 
       childFields.forEach((child) => {
@@ -208,8 +208,6 @@ export default class Cache {
       return;
     }
 
-    if (!isNumber(queryCacheability.metadata.ttl) || !isNumber(cacheability.metadata.ttl)) return;
-
     if (queryCacheability.metadata.ttl > cacheability.metadata.ttl) {
       cacheMetadata.set("query", cacheability);
     }
@@ -281,7 +279,7 @@ export default class Cache {
     } = await this._checkDataObjectCache(ast);
 
     if (counter.missing === counter.total) {
-      return { updatedAST: ast, updatedQuery: print(ast) };
+      return { filtered: false, updatedAST: ast, updatedQuery: print(ast) };
     }
 
     if (!counter.missing) return { cachedData: queriedData, cacheMetadata };
@@ -318,8 +316,9 @@ export default class Cache {
     let _data = data;
 
     if (partial) {
-      _data = mergeObjects(partial.cachedData, data, (key: string, val: any): string | void => {
+      _data = mergeObjects(partial.cachedData, data, (key: string, val: any): string | undefined => {
         if (isPlainObject(val) && val.id) return val.id;
+        return undefined;
       });
     }
 
@@ -467,8 +466,6 @@ export default class Cache {
       const partialCacheability = partialCacheMetadata.get("query");
 
       if (queryCacheability && partialCacheability
-        && isNumber(queryCacheability.metadata.ttl)
-        && isNumber(partialCacheability.metadata.ttl)
         && queryCacheability.metadata.ttl < partialCacheability.metadata.ttl) {
         _cacheMetadata = new Map([...partialCacheMetadata, ...cacheMetadata]);
       } else {

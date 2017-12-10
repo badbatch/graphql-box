@@ -35,10 +35,10 @@ export function deleteChildFields(node: ParentNode, fields: FieldNode[] | FieldN
   }
 }
 
-export type GetChildFieldsResults = FieldNode[] | FieldNode | void;
+export type GetChildFieldsResults = FieldNode[] | FieldNode | undefined;
 
 export function getChildFields(node: ParentNode, name?: string): GetChildFieldsResults {
-  if (!node.selectionSet) return;
+  if (!node.selectionSet) return undefined;
   const childFields = unwrapInlineFragments(node.selectionSet.selections);
   if (!name) return childFields;
   return childFields.find((field) => getName(field) === name || getKind(field) === name);
