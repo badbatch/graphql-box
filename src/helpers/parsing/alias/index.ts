@@ -1,6 +1,6 @@
 import { FieldNode } from "graphql";
 
-export function getAlias({ alias }: FieldNode): string | void {
-  if (!alias) return;
+export function getAlias({ alias }: FieldNode): string | undefined {
+  if (!alias) return undefined;
   return alias.value;
 }

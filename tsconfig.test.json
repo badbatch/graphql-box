@@ -1,5 +1,4 @@
 {
   "extends": "./tsconfig.base",
-  "compilerOptions": { "module": "commonjs" },
-  "include": ["src/**/*", "test/**/*"]
+  "compilerOptions": { "module": "commonjs" }
 }

@@ -8,7 +8,7 @@ import {
 import { ScalarValueNode } from "../types";
 import { ObjectMap } from "../../../types";
 
-type ParseValueResult = string | boolean | ObjectMap | any[];
+type ParseValueResult = string | boolean | null | ObjectMap | any[];
 
 function parseValue(valueNode: ValueNode): ParseValueResult {
   let output: ParseValueResult;

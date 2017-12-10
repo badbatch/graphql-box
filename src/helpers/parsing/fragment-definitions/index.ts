@@ -11,7 +11,7 @@ export function deleteFragmentDefinitions({ definitions }: DocumentNode): void {
   }
 }
 
-export  function getFragmentDefinitions({ definitions }: DocumentNode): FragmentDefinitionNodeMap | void {
+export  function getFragmentDefinitions({ definitions }: DocumentNode): FragmentDefinitionNodeMap | undefined {
   const fragmentDefinitions: FragmentDefinitionNodeMap = {};
 
   definitions.forEach((value) => {
@@ -23,9 +23,8 @@ export  function getFragmentDefinitions({ definitions }: DocumentNode): Fragment
     }
   });
 
-  if (Object.keys(fragmentDefinitions).length) {
-    return fragmentDefinitions;
-  }
+  if (!Object.keys(fragmentDefinitions).length) return undefined;
+  return fragmentDefinitions;
 }
 
 export function hasFragmentDefinitions({ definitions }: DocumentNode): boolean {

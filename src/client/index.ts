@@ -15,12 +15,14 @@ import {
   GraphQLOutputType,
   GraphQLSchema,
   InlineFragmentNode,
+  IntrospectionQuery,
   OperationDefinitionNode,
   parse,
   parseValue,
   print,
   TypeInfo,
   validate,
+  ValueNode,
   VariableNode,
   visit,
 } from "graphql";
@@ -64,25 +66,19 @@ import {
 
 import mapToObject from "../helpers/map-to-object";
 import { FragmentDefinitionNodeMap } from "../helpers/parsing/types";
-import logger from "../logger";
-import { CacheMetadata, ObjectMap } from "../types";
+import { CacheabilityObjectMap, CacheMetadata, ObjectMap } from "../types";
 
 polyfill();
 let instance: Client;
 
 export default class Client {
   private static _concatFragments(query: string, fragments: string[]): string {
-    if (!isArray(fragments) || fragments.some((value) => !isString(value))) {
-      logger.info("handl:client:_concatFragments:The fragments were invalid", { fragments });
-      return query;
-    }
-
     return [query, ...fragments].join("\n\n");
   }
 
-  private static _createCacheMetadata(args?: CreateCacheMetadataArgs): Map<any, any> {
+  private static _createCacheMetadata(args?: CreateCacheMetadataArgs): CacheMetadata {
     const _args = args || {};
-    if (_args.cacheMetadata) return Client._parseCacheMetadata(_args.cacheMetadata);
+    if (_args.cacheMetadata) return Client._parseCacheabilityObjectMap(_args.cacheMetadata);
     const cacheControl = _args.headers && _args.headers.get("cache-control");
     if (!cacheControl) return new Map();
     const cacheability = new Cacheability();
@@ -92,14 +88,16 @@ export default class Client {
     return _cacheMetadata;
   }
 
-  private static _parseCacheMetadata(cacheMetadata: ObjectMap): CacheMetadata {
-    Object.keys(cacheMetadata).forEach((key) => {
+  private static _parseCacheabilityObjectMap(cacheabilityObjectMap: CacheabilityObjectMap): CacheMetadata {
+    const cacheMetadata: CacheMetadata = new Map();
+
+    Object.keys(cacheabilityObjectMap).forEach((key) => {
       const cacheability = new Cacheability();
-      cacheability.setMetadata(cacheMetadata[key]);
-      cacheMetadata[key] = cacheability;
+      cacheability.metadata = cacheabilityObjectMap[key];
+      cacheMetadata.set(key, cacheability);
     });
 
-    return new Map(Object.entries(cacheMetadata));
+    return cacheMetadata;
   }
 
   private _cache: Cache;
@@ -120,9 +118,7 @@ export default class Client {
 
   constructor(args: ClientArgs) {
     if (!isPlainObject(args)) {
-      const message = "handl:client:constructor:The args were not a plain object.";
-      logger.error(message, { args });
-      throw new Error(message);
+      throw new TypeError("constructor expected argument to be a plain object.");
     }
 
     const {
@@ -142,19 +138,17 @@ export default class Client {
     if (instance && !newInstance) return instance;
 
     if (mode !== "internal" && mode !== "external") {
-      const message = 'handl:client:constructor:The mode argument was not "internal" or "external".';
-      logger.error(message, { mode });
-      throw new Error(message);
+      throw new TypeError("constructor expected mode to be 'internal' or 'external'");
     }
-
-    this._cache = new Cache({
-      cachemapOptions,
-      defaultCacheControls,
-    });
 
     if (isPlainObject(defaultCacheControls)) {
       this._defaultCacheControls = { ...this._defaultCacheControls, ...defaultCacheControls };
     }
+
+    this._cache = new Cache({
+      cachemapOptions,
+      defaultCacheControls: this._defaultCacheControls,
+    });
 
     if (isFunction(fieldResolver)) this._fieldResolver = fieldResolver;
     if (isPlainObject(headers)) this._headers = { ...this._headers, ...headers };
@@ -166,19 +160,16 @@ export default class Client {
       if (schema instanceof GraphQLSchema) {
         this._schema = schema;
       } else {
-        const message = 'handl:client:constructor:The schema was not an instance of "GraphQLSchema".';
-        logger.error(message, { schema });
-        throw new Error(message);
+        throw new TypeError("constructor expected schema to be an instance of GraphQLSchema.");
       }
     }
 
     if (mode === "external") {
       if (isPlainObject(introspection) && isString(url)) {
-        this._schema = buildClientSchema(introspection);
+        const introspectionQuery = introspection as IntrospectionQuery;
+        this._schema = buildClientSchema(introspectionQuery);
       } else {
-        const message = "handl:client:constructor:The introspection query and url was not strings.";
-        logger.error(message, { introspection, url });
-        throw new Error(message);
+        throw new TypeError("constructor expected introspection to be a plain object and url to be a string.");
       }
     }
 
@@ -192,40 +183,45 @@ export default class Client {
     this._cache.dataObjects.clear();
   }
 
-  public async request(query: string, opts?: RequestOptions): Promise<RequestResult | RequestResult[]> {
+  public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult | RequestResult[]> {
     if (!isString(query)) {
-      const message = "handl:client:request:The query is not a string";
-      logger.error(message, { query });
-      return Promise.reject(new Error(message));
+      return Promise.reject(new TypeError("Request expected query to be a string."));
+    }
+
+    if (!isPlainObject(opts)) {
+      return Promise.reject(new TypeError("Request expected opts to be a plain object."));
+    }
+
+    if (opts.fragments && (!isArray(opts.fragments) || opts.fragments.some((value) => !isString(value)))) {
+      return Promise.reject(new TypeError("request expected fragments to be an array of strings."));
     }
 
     try {
-      const _opts = isPlainObject(opts) ? opts : {};
-      const _query = _opts.fragments ? Client._concatFragments(query, _opts.fragments) : query;
-      const updated = await this._updateQuery(_query, _opts);
+      const _query = opts.fragments ? Client._concatFragments(query, opts.fragments) : query;
+      const updated = await this._updateQuery(_query, opts);
       const errors = validate(this._schema, updated.ast);
       if (errors.length) return Promise.reject(errors);
       const operations = getOperationDefinitions(updated.ast);
       const multiQuery = operations.length > 1;
 
       if (!multiQuery) {
-        return this._resolveRequestOperation(updated.query, updated.ast, _opts);
+        return this._resolveRequestOperation(updated.query, updated.ast, opts);
       }
 
       return Promise.all(operations.map((operation) => {
         const operationQuery = print(operation);
-        return this._resolveRequestOperation(operationQuery, parse(operationQuery), _opts);
+        return this._resolveRequestOperation(operationQuery, parse(operationQuery), opts);
       }));
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  private async _checkResponseCache(hash: string): Promise<ClientResult | void> {
-    const cacheability = await this._cache.responses.has(hash);
-    const res = Cache.isValid(cacheability) ? await this._cache.responses.get(hash) : null;
-    if (!res) return;
-    return { cacheMetadata: Client._parseCacheMetadata(res.cacheMetadata), data: res.data };
+  private async _checkResponseCache(hash: string): Promise<ClientResult | undefined> {
+    const cacheability: Cacheability | false = await this._cache.responses.has(hash);
+    if (!cacheability || !Cache.isValid(cacheability)) return;
+    const res = await this._cache.responses.get(hash);
+    return { cacheMetadata: Client._parseCacheabilityObjectMap(res.cacheMetadata), data: res.data };
   }
 
   private async _fetch(
@@ -234,7 +230,6 @@ export default class Client {
     opts: RequestOptions,
   ): Promise<FetchResult | Error | Error[]> {
     if (this._mode === "internal") {
-      logger.info("handl:client:_fetch:Executing internal request", { request });
       let executeResult: ExecutionResult;
 
       try {
@@ -247,17 +242,15 @@ export default class Client {
           fieldResolver: opts.fieldResolver || this._fieldResolver,
         });
       } catch (error) {
-        const message = "handl:client:_fetch:The graphql execution failed.";
-        logger.error(message, { error });
         return Promise.reject(error);
       }
 
       if (executeResult.errors) return Promise.reject(executeResult.errors);
-      return { data: executeResult.data };
+      const data = executeResult.data as ObjectMap;
+      return { data };
     }
 
     const url = `${this._url}?requestId=${Cache.hash(request)}`;
-    logger.info("handl:client:_fetch:Executing external request", { request, url });
     const headers = opts.headers ? { ...this._headers, ...opts.headers } : this._headers;
     let fetchResult: Response;
 
@@ -268,8 +261,6 @@ export default class Client {
         method: "POST",
       });
     } catch (error) {
-      const message = "handl:client:_fetch:The fetch http request failed.";
-      logger.error(message, { error });
       return Promise.reject(error);
     }
 
@@ -284,6 +275,26 @@ export default class Client {
       data: jsonResult.data,
       headers: fetchResult.headers,
     };
+  }
+
+  private _getFieldOrInlineFragmentType(
+    kind: "Field" | "InlineFragment",
+    node: FieldNode | InlineFragmentNode,
+    typeInfo: TypeInfo,
+  ): GraphQLOutputType | GraphQLNamedType | undefined {
+    if (kind === "Field") {
+      return getType(typeInfo.getFieldDef());
+    }
+
+    if (kind  === "InlineFragment") {
+      const inlineFragmentNode = node as InlineFragmentNode;
+      if (!inlineFragmentNode.typeCondition) return undefined;
+      const name = getName(inlineFragmentNode.typeCondition) as string;
+      if (name === typeInfo.getParentType().name) return undefined;
+      return this._schema.getType(name);
+    }
+
+    return undefined;
   }
 
   private async _mutation(
@@ -389,9 +400,16 @@ export default class Client {
       updatedQuery,
     } = await this._cache.analyze(hash, ast);
 
-    if (cachedData) {
-      this._cache.responses.set(hash, { cacheMetadata: mapToObject(cacheMetadata), data: cachedData }, {
-        cacheHeaders: { cacheControl: cacheMetadata.get("query").printCacheControl() },
+    if (cachedData && cacheMetadata) {
+      const queryCacheability = cacheMetadata.get("query");
+
+      const cacheControl = queryCacheability && queryCacheability.printCacheControl()
+        || this._defaultCacheControls.query;
+
+      this._cache.responses.set(
+        hash,
+        { cacheMetadata: mapToObject(cacheMetadata), data: cachedData },
+        { cacheHeaders: { cacheControl },
       });
 
       return this._resolve({
@@ -403,9 +421,12 @@ export default class Client {
     }
 
     let fetchResult: FetchResult;
+    const _updateQuery = updatedQuery as string;
+    const _updateAST = updatedAST as DocumentNode;
+    const _filterd = filtered as boolean;
 
     try {
-      fetchResult = await this._fetch(updatedQuery, updatedAST, opts) as FetchResult;
+      fetchResult = await this._fetch(_updateQuery, _updateAST, opts) as FetchResult;
     } catch (error) {
       return this._resolve({
         cacheMetadata: Client._createCacheMetadata(),
@@ -420,12 +441,12 @@ export default class Client {
     });
 
     const resolveResult = await this._cache.resolve(
-      updatedQuery,
-      updatedAST,
+      _updateQuery,
+      _updateAST,
       hash,
       fetchResult.data,
       _cacheMetadata,
-      { filtered },
+      { filtered: _filterd },
     );
 
     return this._resolve({
@@ -438,6 +459,7 @@ export default class Client {
 
   private async _resolve(args: ResolveArgs): Promise<ClientResult | Error | Error[]> {
     const { cacheMetadata, data, hash, error, operation } = args;
+
     if (!cacheMetadata.has("query")) {
       const cacheability = new Cacheability();
       cacheability.parseCacheControl(this._defaultCacheControls[operation]);
@@ -450,7 +472,8 @@ export default class Client {
     }
 
     if (error) return Promise.reject(error);
-    return { cacheMetadata, data };
+    const _data = data as ObjectMap;
+    return { cacheMetadata, data: _data };
   }
 
   private _resolvePendingRequests(
@@ -459,13 +482,15 @@ export default class Client {
     data?: ObjectMap,
     error?: Error | Error[],
   ): void {
-    if (!this._requests.pending.has(hash)) return;
+    const pendingRequests = this._requests.pending.get(hash);
+    if (!pendingRequests) return;
 
-    this._requests.pending.get(hash).forEach(({ reject, resolve }) => {
+    pendingRequests.forEach(({ reject, resolve }) => {
       if (error) {
         reject(error);
       } else {
-        resolve({ cacheMetadata, data });
+        const _data = data as ObjectMap;
+        resolve({ cacheMetadata, data: _data });
       }
     });
 
@@ -485,9 +510,7 @@ export default class Client {
       return this._mutation(query, ast, opts);
     }
 
-    const message = "handl:client:_resolveRequestOperation:The query was not a supported operation";
-    logger.error(message, { query });
-    return Promise.reject(new Error(message));
+    return Promise.reject(new Error("request expected the operation to be 'query' or 'mutation'."));
   }
 
   private _setPendingRequest(hash: string, { reject, resolve }: PendingRequestActions): void {
@@ -500,23 +523,25 @@ export default class Client {
   private async _updateQuery(query: string, opts: RequestOptions): Promise<{ ast: DocumentNode, query: string }> {
     const _this = this;
     const typeInfo = new TypeInfo(this._schema);
-    let fragmentDefinitions: FragmentDefinitionNodeMap | void;
+    let fragmentDefinitions: FragmentDefinitionNodeMap | undefined;
 
     const ast = visit(parse(query), {
-      enter(node: ASTNode): any {
+      enter(node: ASTNode): ValueNode | undefined {
         typeInfo.enter(node);
         const kind = getKind(node);
 
         if (kind === "Document") {
           const documentNode = node as DocumentNode;
-          if (!opts.fragments || !hasFragmentDefinitions(documentNode)) return;
+          if (!opts.fragments || !hasFragmentDefinitions(documentNode)) return undefined;
           fragmentDefinitions = getFragmentDefinitions(documentNode);
           deleteFragmentDefinitions(documentNode);
-          return;
+          return undefined;
         }
 
         if (kind === "Field" || kind === "InlineFragment") {
-          let type: GraphQLOutputType | GraphQLNamedType;
+          const fieldOrInlineFragmentNode = node as FieldNode | InlineFragmentNode;
+          const type = _this._getFieldOrInlineFragmentType(kind, fieldOrInlineFragmentNode, typeInfo);
+          if (!type) return undefined;
 
           if (kind === "Field") {
             const fieldNode = node as FieldNode;
@@ -524,22 +549,11 @@ export default class Client {
             if (fragmentDefinitions && hasFragmentSpreads(fieldNode)) {
               setFragmentDefinitions(fragmentDefinitions, fieldNode);
             }
-
-            type = getType(typeInfo.getFieldDef());
           }
 
-          if (kind  === "InlineFragment") {
-            const inlineFragmentNode = node as InlineFragmentNode;
-            if (!inlineFragmentNode.typeCondition) return;
-            const name = getName(inlineFragmentNode.typeCondition) as string;
-            if (name === typeInfo.getParentType().name) return;
-            type = _this._schema.getType(name);
-          }
-
-          if (!type.hasOwnProperty("getFields")) return;
+          if (!type.hasOwnProperty("getFields")) return undefined;
           const objectOrInterfaceType = type as GraphQLObjectType | GraphQLInterfaceType;
           const fields = objectOrInterfaceType.getFields();
-          const fieldOrInlineFragmentNode = node as FieldNode | InlineFragmentNode;
 
           if (fields[_this._resourceKey] && !hasChildFields(fieldOrInlineFragmentNode, _this._resourceKey)) {
             const mockAST = parse(`{ ${name} {${_this._resourceKey}} }`);
@@ -555,14 +569,14 @@ export default class Client {
             addChildFields(fieldOrInlineFragmentNode, field);
           }
 
-          return;
+          return undefined;
         }
 
         if (kind === "OperationDefinition") {
           const operationDefinitionNode = node as OperationDefinitionNode;
-          if (!opts.variables || !hasVariableDefinitions(operationDefinitionNode)) return;
+          if (!opts.variables || !hasVariableDefinitions(operationDefinitionNode)) return undefined;
           deleteVariableDefinitions(operationDefinitionNode);
-          return;
+          return undefined;
         }
 
         if (kind === "Variable") {
@@ -575,7 +589,7 @@ export default class Client {
           return parseValue(isString(value) ? `"${value}"` : `${value}`);
         }
 
-        return;
+        return undefined;
       },
       leave(node: ASTNode): any {
         typeInfo.leave(node);

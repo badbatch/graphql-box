@@ -1,8 +1,8 @@
 import Cacheability from "cacheability";
-import { ObjectMap } from "../../types";
+import { CacheabilityObjectMap } from "../../types";
 
-export default function mapToObject(map: Map<any, Cacheability>): ObjectMap {
-  const obj: ObjectMap = {};
+export default function mapToObject(map: Map<any, Cacheability>): CacheabilityObjectMap {
+  const obj: CacheabilityObjectMap = {};
 
   map.forEach((cacheability, key) => {
     obj[key] = cacheability.metadata;

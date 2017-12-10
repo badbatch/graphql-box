@@ -10,9 +10,9 @@ import { ObjectMap } from "../../types";
 
 export type MergeObjectsMatcher = (key: string, value: any) => any;
 
-export default function mergeObjects(obj: ObjectMap, src: ObjectMap, matcher: MergeObjectsMatcher) {
-  function mergeCustomizer(objValue: any, srcValue: any, key: string): any[] | void {
-    if (!isArray(objValue) || !isArray(srcValue)) return;
+export default function mergeObjects(obj: ObjectMap, src: ObjectMap, matcher: MergeObjectsMatcher): ObjectMap {
+  function mergeCustomizer(objValue: any, srcValue: any, key: string): any[] | undefined {
+    if (!isArray(objValue) || !isArray(srcValue)) return undefined;
     const objValues = objValue as any[];
     const srcValues = srcValue as any[];
 
