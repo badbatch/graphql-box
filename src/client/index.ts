@@ -30,18 +30,12 @@ import "isomorphic-fetch";
 import { isArray, isFunction, isObjectLike, isPlainObject, isString } from "lodash";
 
 import {
-  CachemapOptions,
-  ClientArgs,
   ClientRequests,
-  ClientResult,
   CreateCacheMetadataArgs,
-  DefaultCacheControls,
   FetchResult,
   PendingRequestActions,
   PendingRequestRejection,
   PendingRequestResolver,
-  RequestOptions,
-  RequestResult,
   ResolveArgs,
 } from "./types";
 
@@ -66,7 +60,18 @@ import {
 
 import mapToObject from "../helpers/map-to-object";
 import { FragmentDefinitionNodeMap } from "../helpers/parsing/types";
-import { CacheabilityObjectMap, CacheMetadata, ObjectMap } from "../types";
+
+import {
+  CacheabilityObjectMap,
+  CachemapOptions,
+  CacheMetadata,
+  ClientArgs,
+  ClientResult,
+  DefaultCacheControls,
+  ObjectMap,
+  RequestOptions,
+  RequestResult,
+} from "../types";
 
 let instance: Client;
 
@@ -187,9 +192,11 @@ export default class Client {
     return instance;
   }
 
-  public clearCache(): void {
-    this._cache.responses.clear();
-    this._cache.dataObjects.clear();
+  public async clearCache(): Promise<void> {
+    await Promise.all([
+      this._cache.responses.clear(),
+      this._cache.dataObjects.clear(),
+    ]);
   }
 
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult | RequestResult[]> {
