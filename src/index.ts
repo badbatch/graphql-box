@@ -1,6 +1,6 @@
 import { isPlainObject } from "lodash";
 import Client from "./client";
-import { ClientArgs, RequestOptions } from "./client/types";
+import { ClientArgs, RequestOptions, RequestResult } from "./types";
 import WorkerClient from "./worker-client";
 
 declare global {
@@ -12,6 +12,7 @@ declare global {
 export type Handl = Client | WorkerClient;
 export type HandlArgs = ClientArgs;
 export type HandleRequestOptions = RequestOptions;
+export type HandleRequestResult = RequestResult;
 
 export default async function createHandl(args: HandlArgs): Promise<Handl> {
   if (!isPlainObject(args)) {
