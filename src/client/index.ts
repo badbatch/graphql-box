@@ -1,5 +1,4 @@
 import Cacheability from "cacheability";
-import { polyfill } from "es6-promise";
 
 import {
   ASTNode,
@@ -31,6 +30,7 @@ import "isomorphic-fetch";
 import { isArray, isFunction, isObjectLike, isPlainObject, isString } from "lodash";
 
 import {
+  CachemapOptions,
   ClientArgs,
   ClientRequests,
   ClientResult,
@@ -68,10 +68,15 @@ import mapToObject from "../helpers/map-to-object";
 import { FragmentDefinitionNodeMap } from "../helpers/parsing/types";
 import { CacheabilityObjectMap, CacheMetadata, ObjectMap } from "../types";
 
-polyfill();
 let instance: Client;
 
 export default class Client {
+  public static async create(args: ClientArgs): Promise<Client> {
+    const client = new Client(args);
+    await client._createCache();
+    return client;
+  }
+
   private static _concatFragments(query: string, fragments: string[]): string {
     return [query, ...fragments].join("\n\n");
   }
@@ -102,6 +107,11 @@ export default class Client {
 
   private _cache: Cache;
 
+  private _cachemapOptions: CachemapOptions = {
+    dataObjects: { redisOptions: { db: 0 } },
+    responses: { redisOptions: { db: 1 } },
+  };
+
   private _defaultCacheControls: DefaultCacheControls = {
     mutation: "max-age=0, s-maxage=0, no-cache, no-store",
     query: "public, max-age=60, s-maxage=60",
@@ -118,7 +128,7 @@ export default class Client {
 
   constructor(args: ClientArgs) {
     if (!isPlainObject(args)) {
-      throw new TypeError("constructor expected argument to be a plain object.");
+      throw new TypeError("constructor expected args to be a plain object.");
     }
 
     const {
@@ -141,17 +151,16 @@ export default class Client {
       throw new TypeError("constructor expected mode to be 'internal' or 'external'");
     }
 
-    if (isPlainObject(defaultCacheControls)) {
+    if (cachemapOptions && isPlainObject(cachemapOptions)) {
+      this._cachemapOptions = { ...this._cachemapOptions, ...cachemapOptions };
+    }
+
+    if (defaultCacheControls && isPlainObject(defaultCacheControls)) {
       this._defaultCacheControls = { ...this._defaultCacheControls, ...defaultCacheControls };
     }
 
-    this._cache = new Cache({
-      cachemapOptions,
-      defaultCacheControls: this._defaultCacheControls,
-    });
-
     if (isFunction(fieldResolver)) this._fieldResolver = fieldResolver;
-    if (isPlainObject(headers)) this._headers = { ...this._headers, ...headers };
+    if (headers && isPlainObject(headers)) this._headers = { ...this._headers, ...headers };
     this._mode = mode;
     if (isString(resourceKey)) this._resourceKey = resourceKey;
     this._rootValue = rootValue;
@@ -222,6 +231,13 @@ export default class Client {
     if (!cacheability || !Cache.isValid(cacheability)) return;
     const res = await this._cache.responses.get(hash);
     return { cacheMetadata: Client._parseCacheabilityObjectMap(res.cacheMetadata), data: res.data };
+  }
+
+  private async _createCache(): Promise<void> {
+    this._cache = await Cache.create({
+      cachemapOptions: this._cachemapOptions,
+      defaultCacheControls: this._defaultCacheControls,
+    });
   }
 
   private async _fetch(

@@ -1,5 +1,5 @@
 import Cacheability from "cacheability";
-import Cachemap from "cachemap";
+import createCachemap, { Cachemap } from "cachemap";
 
 import {
   DocumentNode,
@@ -18,7 +18,7 @@ import {
   isString,
 } from "lodash";
 
-import md5 from "md5";
+import * as md5 from "md5";
 
 import {
   AnalyzeResult,
@@ -32,7 +32,7 @@ import {
   PartialData,
 } from "./types";
 
-import { ClientResult, DefaultCacheControls } from "../client/types";
+import { CachemapOptions, ClientResult, DefaultCacheControls } from "../client/types";
 import mapToObject from "../helpers/map-to-object";
 import mergeObjects from "../helpers/merge-objects";
 
@@ -49,6 +49,12 @@ import {
 import { CacheMetadata, ObjectMap } from "../types";
 
 export default class Cache {
+  public static async create(args: CacheArgs): Promise<Cache> {
+    const cache = new Cache(args);
+    await cache._createCachemaps();
+    return cache;
+  }
+
   public static hash(value: string): string {
     return md5(value.replace(/\s/g, ""));
   }
@@ -250,16 +256,16 @@ export default class Cache {
     }
   }
 
+  private _cachemapOptions: CachemapOptions;
   private _dataObjects: Cachemap;
   private _defaultCacheControls: DefaultCacheControls;
   private _partials: Map<string, PartialData>;
   private _responses: Cachemap;
 
   constructor({ cachemapOptions = {}, defaultCacheControls }: CacheArgs) {
-    this._dataObjects = new Cachemap(cachemapOptions.dataObjects);
+    this._cachemapOptions = cachemapOptions;
     this._defaultCacheControls = defaultCacheControls;
     this._partials = new Map();
-    this._responses = new Cachemap(cachemapOptions.responses);
   }
 
   get responses(): Cachemap {
@@ -366,6 +372,11 @@ export default class Cache {
     let cacheData;
     if (cacheability && Cache.isValid(cacheability)) cacheData = await this._dataObjects.get(hashKey);
     return { cacheability, cacheData };
+  }
+
+  private async _createCachemaps(): Promise<void> {
+    this._dataObjects = await createCachemap(this._cachemapOptions.dataObjects);
+    this._responses = await createCachemap(this._cachemapOptions.responses);
   }
 
   private _getPartial(hash: string): PartialData | undefined {

@@ -1,4 +1,5 @@
 import Cacheability from "cacheability";
+import { CachemapArgs } from "cachemap";
 
 import {
   GraphQLFieldResolver,
@@ -9,8 +10,8 @@ import {
 import { CacheabilityObjectMap, CacheMetadata, ObjectMap } from "../types";
 
 export interface CachemapOptions {
-  dataObjects?: any; // TODO: Replace with CachemapArgs interface
-  responses?: any; // TODO: Replace with CachemapArgs interface
+  dataObjects?: CachemapArgs;
+  responses?: CachemapArgs;
 }
 
 export interface ClientArgs {
