@@ -200,13 +200,17 @@ export default class Client {
   }
 
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult | RequestResult[]> {
+    const errors: TypeError[] = [];
+
     if (!isString(query)) {
-      return Promise.reject(new TypeError("Request expected query to be a string."));
+      errors.push(new TypeError("Request expected query to be a string."));
     }
 
     if (!isPlainObject(opts)) {
-      return Promise.reject(new TypeError("Request expected opts to be a plain object."));
+      errors.push(new TypeError("Request expected opts to be a plain object."))
     }
+
+    if (errors.length) return Promise.reject(errors);
 
     if (opts.fragments && (!isArray(opts.fragments) || opts.fragments.some((value) => !isString(value)))) {
       return Promise.reject(new TypeError("request expected opts.fragments to be an array of strings."));
