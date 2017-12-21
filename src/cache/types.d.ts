@@ -23,14 +23,6 @@ export interface CheckDataObjectCacheEntryResult {
 
 export type CheckList = Map<string, boolean>;
 
-export type IterateChildFieldsCallback = (childField: FieldNode, childIndex?: number) => void;
-
-export interface KeyPaths {
-  cachePath?: string;
-  dataPath?: string;
-  queryPath?: string;
-}
-
 export interface GetKeysResult {
   cacheKey: string;
   dataKey: string;
@@ -38,6 +30,14 @@ export interface GetKeysResult {
   name: string;
   propKey: string | number;
   queryKey: string;
+}
+
+export type IterateChildFieldsCallback = (childField: FieldNode, childIndex?: number) => void;
+
+export interface KeyPaths {
+  cachePath?: string;
+  dataPath?: string;
+  queryPath?: string;
 }
 
 export interface ObjectCacheCheckMetadata {

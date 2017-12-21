@@ -4,41 +4,50 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    handl: './src/index.ts',
-    'handl.min': './src/index.ts',
+    index: './src/index.ts',
   },
   output: {
     filename: '[name].js',
-    libraryTarget: 'umd',
     library: 'Handl',
-    path: resolve(__dirname, 'lib', 'browser'),
-    umdNamedDefine: true,
+    libraryTarget: 'umd',
   },
   module: {
     rules: [{
       test: /\.tsx?$/,
       use: [{
-        loader: 'babel-loader',
+        loader: 'awesome-typescript-loader',
         options: {
-          babelrc: false,
-          plugins: ['lodash'],
-          presets: [
-            ['@babel/preset-env', {
-              targets: { browsers: 'last 4 versions' },
-              useBuiltIns: 'usage',
-            }],
-            '@babel/preset-stage-0',
-          ],
-        },
-      }, {
-        loader: 'ts-loader',
-        options: {
-          transpileOnly: true,
-          compilerOptions: {
-            declaration: false,
-            target: 'es5',
+          babelCore: '@babel/core',
+          babelOptions: {
+            babelrc: false,
+            plugins: ['lodash'],
+            presets: [
+              ['@babel/preset-env', {
+                debug: true,
+                modules: false,
+                targets: { browsers: 'last 4 versions' },
+                useBuiltIns: 'usage',
+              }],
+              '@babel/preset-stage-0',
+            ],
           },
+          transpileOnly: true,
+          useBabel: true,
         },
+      }],
+    }, {
+      test: /.worker\.js$/,
+      use: {
+        loader: 'worker-loader',
+      },
+    }, {
+      enforce: 'post',
+      exclude: ['**/*.d.ts'],
+      include: resolve(__dirname, 'src'),
+      test: /\.tsx?$/,
+      use: [{
+        loader: 'istanbul-instrumenter-loader',
+        options: { esModules: true },
       }],
     }],
   },
@@ -46,9 +55,11 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      include: /\.min\.js$/,
-      sourceMap: true,
+    new webpack.EnvironmentPlugin({
+      WEB_ENV: true,
+    }),
+    new webpack.LoaderOptionsPlugin({
+      debug: true,
     }),
     new LodashModuleReplacementPlugin(),
   ],

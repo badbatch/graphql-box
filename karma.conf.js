@@ -1,5 +1,4 @@
 const { resolve } = require('path');
-const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
 
 module.exports = (config) => {
@@ -18,9 +17,17 @@ module.exports = (config) => {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     concurrency: Infinity,
-    client: { captureConsole: true },
+    client: {
+      captureConsole: true,
+      mocha: { timeout: 0 },
+    },
     mime: {
-      'text/x-typescript': ['ts','tsx'],
+      'text/x-typescript': ['ts', 'tsx'],
+    },
+    coverageIstanbulReporter: {
+      dir: resolve(__dirname, 'coverage', 'web'),
+      fixWebpackSourcePaths: true,
+      reports: ['json', 'lcov', 'text-summary'],
     },
   });
 };

@@ -5,18 +5,17 @@ const sourcemaps = require('gulp-sourcemaps');
 const tslint = require('gulp-tslint');
 const ts = require('gulp-typescript');
 const merge = require('merge-stream');
-const { Linter } = require('tslint')
-const { getPreEmitDiagnostics } = require('typescript');
+const { Linter } = require('tslint');
 const webpack = require('webpack-stream');
 
 gulp.task('clean', () => {
-  return del('lib/*', { force: true });
+  del('lib/*', { force: true });
+  del('coverage/*', { force: true });
 });
 
 gulp.task('main', () => {
-  const tsProject = ts.createProject('tsconfig.base.json', {
+  const tsProject = ts.createProject('tsconfig.json', {
     declaration: true,
-    module: 'es6',
   });
 
   const babelrc = {
@@ -24,11 +23,12 @@ gulp.task('main', () => {
     plugins: ['lodash'],
     presets: [
       ['@babel/preset-env', {
+        debug: true,
         targets: { node: '6' },
-        useBuiltIns: 'usage'
+        useBuiltIns: 'usage',
       }],
-      '@babel/preset-stage-0'
-    ]
+      '@babel/preset-stage-0',
+    ],
   };
 
   const transpiled = gulp.src(['src/**/*.ts'])
@@ -41,45 +41,39 @@ gulp.task('main', () => {
   const copied = gulp.src(['src/**/*.d.ts'])
     .pipe(gulp.dest('lib/main'));
 
-  return merge(transpiled, copied);
+  return merge(transpiled, copied)
+    .on('error', () => process.exit(1));
 });
 
 gulp.task('module', () => {
-  const tsProject = ts.createProject('tsconfig.base.json', {
-    declaration: true,
-    module: 'es6',
-  });
+  const tsProject = ts.createProject('tsconfig.json');
 
   const babelrc = {
     ignore: ['**/*.d.ts'],
     plugins: ['lodash'],
     presets: [
       ['@babel/preset-env', {
-        "modules": false,
+        debug: true,
+        modules: false,
         targets: { node: '6' },
-        useBuiltIns: 'usage'
+        useBuiltIns: 'usage',
       }],
-      '@babel/preset-stage-0'
-    ]
+      '@babel/preset-stage-0',
+    ],
   };
 
-  const transpiled = gulp.src(['src/**/*.ts'])
+  return gulp.src(['src/**/*.ts'])
     .pipe(sourcemaps.init())
     .pipe(tsProject())
     .pipe(babel(babelrc))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('lib/module'));
-
-  const copied = gulp.src(['src/**/*.d.ts'])
-    .pipe(gulp.dest('lib/module'));
-
-  return merge(transpiled, copied);
+    .pipe(gulp.dest('lib/module'))
+    .on('error', () => process.exit(1));
 });
 
-gulp.task('browser', () => {
-  return webpack(require('./webpack.config'))
-    .pipe(gulp.dest('lib/browser'));
-});
+gulp.task('browser', () => webpack(require('./webpack.config')) // eslint-disable-line global-require
+  .pipe(gulp.dest('lib/browser')))
+  .on('error', () => process.exit(1));
 
 gulp.task('type-check', () => {
   const tsProject = ts.createProject('tsconfig.json', {
@@ -87,7 +81,8 @@ gulp.task('type-check', () => {
   });
 
   gulp.src(['src/**/*.ts'])
-    .pipe(tsProject());
+    .pipe(tsProject())
+    .on('error', () => process.exit(1));
 });
 
 gulp.task('lint', () => {
@@ -98,5 +93,6 @@ gulp.task('lint', () => {
       formatter: 'stylish',
       program: Linter.createProgram('tsconfig.json'),
     }))
-    .pipe(tslint.report());
+    .pipe(tslint.report())
+    .on('error', () => process.exit(1));
 });
