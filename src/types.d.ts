@@ -7,7 +7,7 @@ import {
   IntrospectionQuery,
 } from "graphql";
 
-export interface CacheabilityObjectMap { [key: string]: CacheabilityMetadata };
+export interface CacheabilityObjectMap { [key: string]: CacheabilityMetadata; }
 export type CacheMetadata = Map<string, Cacheability>;
 
 export interface CachemapOptions {

@@ -9,7 +9,7 @@ module.exports = (config) => {
       'test/**/*',
     ],
     preprocessors: {
-      'test/**/*': ['webpack', 'sourcemap'],
+      'test/specs/**/*': ['webpack', 'sourcemap'],
     },
     webpack: { ...webpackConfig, devtool: 'cheap-module-eval-source-map' },
     port: 9876,
