@@ -9,11 +9,17 @@
     "interface-name": [true, "never-prefix"],
     "no-implicit-dependencies": [true, "dev"],
     "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
+    "no-submodule-imports": [true, "promise-worker/register"],
     "no-this-assignment": [true, {"allowed-names": ["_this"] }],
     "object-literal-sort-keys": [true, "ignore-case"],
     "prefer-conditional-expression": false,
     "prefer-function-over-method": true,
     "return-undefined": false,
+    "space-before-function-paren": [true, {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }],
     "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
   }
 }
