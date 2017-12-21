@@ -7,6 +7,7 @@ import {
   execute,
   ExecutionResult,
   FieldNode,
+  GraphQLError,
   GraphQLFieldResolver,
   GraphQLInterfaceType,
   GraphQLNamedType,
@@ -153,7 +154,11 @@ export default class Client {
     if (instance && !newInstance) return instance;
 
     if (mode !== "internal" && mode !== "external") {
-      throw new TypeError("constructor expected mode to be 'internal' or 'external'");
+      throw new TypeError("constructor expected mode to be 'internal' or 'external'.");
+    }
+
+    if (mode === "internal" && process.env.WEB_ENV) {
+      throw new TypeError("constructor expected mode to be 'external' for browser client.");
     }
 
     if (cachemapOptions && isPlainObject(cachemapOptions)) {
@@ -200,14 +205,14 @@ export default class Client {
   }
 
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult | RequestResult[]> {
-    const errors: TypeError[] = [];
+    let errors: Error[] = [];
 
     if (!isString(query)) {
       errors.push(new TypeError("Request expected query to be a string."));
     }
 
     if (!isPlainObject(opts)) {
-      errors.push(new TypeError("Request expected opts to be a plain object."))
+      errors.push(new TypeError("Request expected opts to be a plain object."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -219,7 +224,7 @@ export default class Client {
     try {
       const _query = opts.fragments ? Client._concatFragments(query, opts.fragments) : query;
       const updated = await this._updateQuery(_query, opts);
-      const errors = validate(this._schema, updated.ast);
+      errors = validate(this._schema, updated.ast) as GraphQLError[];
       if (errors.length) return Promise.reject(errors);
       const operations = getOperationDefinitions(updated.ast);
       const multiQuery = operations.length > 1;
