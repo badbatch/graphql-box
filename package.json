@@ -37,18 +37,18 @@
     "type-check": "gulp type-check"
   },
   "dependencies": {
-    "cacheability": "0.0.36",
-    "cachemap": "0.0.12",
-    "graphql": "^0.11.3",
+    "cacheability": "0.0.37",
+    "cachemap": "0.0.14",
+    "graphql": "^0.12.3",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
     "promise-worker": "^1.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.35",
-    "@babel/preset-env": "^7.0.0-beta.35",
-    "@babel/preset-stage-0": "^7.0.0-beta.35",
+    "@babel/core": "7.0.0-beta.34",
+    "@babel/preset-env": "7.0.0-beta.34",
+    "@babel/preset-stage-0": "7.0.0-beta.34",
     "@types/chai": "^4.0.8",
     "@types/graphql": "^0.11.6",
     "@types/isomorphic-fetch": "0.0.34",
@@ -78,7 +78,7 @@
     "gulp-tslint": "^8.1.2",
     "gulp-typescript": "^3.2.3",
     "istanbul-instrumenter-loader": "^3.0.0",
-    "karma": "^1.7.1",
+    "karma": "^2.0.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage-istanbul-reporter": "^1.3.0",
