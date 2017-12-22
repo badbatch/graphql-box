@@ -15,10 +15,14 @@ const browserArgs: ClientArgs = {
 let graphqlSchema: GraphQLSchema | undefined;
 
 if (!process.env.WEB_ENV) {
-  graphqlSchema = require("../schema"); // tslint:disable-line
+  graphqlSchema = require("../schema").default; // tslint:disable-line
 }
 
 const serverArgs: ClientArgs = {
+  cachemapOptions: {
+    dataObjects: { mockRedis: true },
+    responses: { mockRedis: true },
+  },
   mode: "internal",
   schema: graphqlSchema,
 };
