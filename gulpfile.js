@@ -14,27 +14,12 @@ gulp.task('clean', () => {
 });
 
 gulp.task('main', () => {
-  const tsProject = ts.createProject('tsconfig.json', {
-    declaration: true,
-  });
-
-  const babelrc = {
-    ignore: ['**/*.d.ts'],
-    plugins: ['lodash'],
-    presets: [
-      ['@babel/preset-env', {
-        debug: true,
-        targets: { node: '6' },
-        useBuiltIns: 'usage',
-      }],
-      '@babel/preset-stage-0',
-    ],
-  };
+  const tsProject = ts.createProject('tsconfig.json', { declaration: true });
 
   const transpiled = gulp.src(['src/**/*.ts'])
     .pipe(sourcemaps.init())
     .pipe(tsProject())
-    .pipe(babel(babelrc))
+    .pipe(babel())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('lib/main'));
 
@@ -48,37 +33,21 @@ gulp.task('main', () => {
 gulp.task('module', () => {
   const tsProject = ts.createProject('tsconfig.json');
 
-  const babelrc = {
-    ignore: ['**/*.d.ts'],
-    plugins: ['lodash'],
-    presets: [
-      ['@babel/preset-env', {
-        debug: true,
-        modules: false,
-        targets: { node: '6' },
-        useBuiltIns: 'usage',
-      }],
-      '@babel/preset-stage-0',
-    ],
-  };
-
   return gulp.src(['src/**/*.ts'])
     .pipe(sourcemaps.init())
     .pipe(tsProject())
-    .pipe(babel(babelrc))
+    .pipe(babel())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('lib/module'))
     .on('error', () => process.exit(1));
 });
 
 gulp.task('browser', () => webpack(require('./webpack.config')) // eslint-disable-line global-require
-  .pipe(gulp.dest('lib/browser')))
-  .on('error', () => process.exit(1));
+  .pipe(gulp.dest('lib/browser'))
+  .on('error', () => process.exit(1)));
 
 gulp.task('type-check', () => {
-  const tsProject = ts.createProject('tsconfig.json', {
-    noEmit: true,
-  });
+  const tsProject = ts.createProject('tsconfig.json', { noEmit: true });
 
   gulp.src(['src/**/*.ts'])
     .pipe(tsProject())

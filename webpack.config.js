@@ -13,24 +13,15 @@ module.exports = {
   },
   module: {
     rules: [{
+      include: [
+        resolve(__dirname, 'src'),
+        resolve(__dirname, 'test'),
+      ],
       test: /\.tsx?$/,
       use: [{
         loader: 'awesome-typescript-loader',
         options: {
           babelCore: '@babel/core',
-          babelOptions: {
-            babelrc: false,
-            plugins: ['lodash'],
-            presets: [
-              ['@babel/preset-env', {
-                debug: true,
-                modules: false,
-                targets: { browsers: 'last 4 versions' },
-                useBuiltIns: 'usage',
-              }],
-              '@babel/preset-stage-0',
-            ],
-          },
           transpileOnly: true,
           useBabel: true,
         },
