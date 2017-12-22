@@ -7,6 +7,9 @@ declare global {
   interface Window {
       Worker: Worker;
   }
+  interface WorkerGlobalScope {
+    Worker: Worker;
+  }
 }
 
 export type Handl = Client | WorkerClient;
@@ -22,7 +25,7 @@ export default async function createHandl(args: HandlArgs): Promise<Handl> {
   let client: Handl;
 
   if (process.env.WEB_ENV) {
-    if (window.Worker && window.indexedDB) {
+    if (self.Worker && self.indexedDB) {
       client = await WorkerClient.create(args);
     } else {
       client = await Client.create(args);

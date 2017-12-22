@@ -39,6 +39,16 @@ describe("the createHandl method", () => {
       });
 
       context("when the browser does not support web workers", () => {
+        const worker: Worker = self.Worker;
+
+        before(() => {
+          delete self.Worker;
+        });
+
+        after(() => {
+          self.Worker = worker;
+        });
+
         it("the method should return an instance of the Client class", async () => {
           const client = await createHandl(browserArgs);
           expect(client).to.be.instanceof(Client);

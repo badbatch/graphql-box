@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "cacheability": "0.0.37",
-    "cachemap": "0.0.14",
+    "cachemap": "0.0.16",
     "graphql": "^0.12.3",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",

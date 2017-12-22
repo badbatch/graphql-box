@@ -1,10 +1,10 @@
-import Cacheability, {
-  CachemapClientStoreTypes,
-  CacheabilityMetadata,
-  CachemapServerStoreTypes,
-} from "cacheability";
+import Cacheability, { CacheabilityMetadata } from "cacheability";
 
-import { CachemapArgs } from "cachemap";
+import {
+  CachemapArgs,
+  CachemapClientStoreTypes,
+  CachemapServerStoreTypes,
+} from "cachemap";
 
 import {
   GraphQLFieldResolver,
