@@ -32,7 +32,14 @@ import {
   PartialData,
 } from "./types";
 
-import { CachemapOptions, ClientResult, DefaultCacheControls } from "../client/types";
+import {
+  CachemapArgsGroup,
+  CacheMetadata,
+  ClientResult,
+  DefaultCacheControls,
+  ObjectMap,
+} from "../types";
+
 import mapToObject from "../helpers/map-to-object";
 import mergeObjects from "../helpers/merge-objects";
 
@@ -45,8 +52,6 @@ import {
   getOperationDefinitions,
   hasChildFields,
 } from "../helpers/parsing";
-
-import { CacheMetadata, ObjectMap } from "../types";
 
 export default class Cache {
   public static async create(args: CacheArgs): Promise<Cache> {
@@ -256,13 +261,13 @@ export default class Cache {
     }
   }
 
-  private _cachemapOptions: CachemapOptions;
+  private _cachemapOptions: CachemapArgsGroup;
   private _dataObjects: Cachemap;
   private _defaultCacheControls: DefaultCacheControls;
   private _partials: Map<string, PartialData>;
   private _responses: Cachemap;
 
-  constructor({ cachemapOptions = {}, defaultCacheControls }: CacheArgs) {
+  constructor({ cachemapOptions, defaultCacheControls }: CacheArgs) {
     this._cachemapOptions = cachemapOptions;
     this._defaultCacheControls = defaultCacheControls;
     this._partials = new Map();

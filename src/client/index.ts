@@ -28,7 +28,15 @@ import {
 } from "graphql";
 
 import "isomorphic-fetch";
-import { isArray, isFunction, isObjectLike, isPlainObject, isString } from "lodash";
+
+import {
+  isArray,
+  isFunction,
+  isObjectLike,
+  isPlainObject,
+  isString,
+  merge,
+} from "lodash";
 
 import {
   ClientRequests,
@@ -64,7 +72,7 @@ import { FragmentDefinitionNodeMap } from "../helpers/parsing/types";
 
 import {
   CacheabilityObjectMap,
-  CachemapOptions,
+  CachemapArgsGroup,
   CacheMetadata,
   ClientArgs,
   ClientResult,
@@ -113,9 +121,17 @@ export default class Client {
 
   private _cache: Cache;
 
-  private _cachemapOptions: CachemapOptions = {
-    dataObjects: { redisOptions: { db: 0 } },
-    responses: { redisOptions: { db: 1 } },
+  private _cachemapOptions: CachemapArgsGroup = {
+    dataObjects: {
+      name: "handl-dataObjects",
+      redisOptions: { db: 0 },
+      use: { client: "indexedDB", server: "redis" },
+    },
+    responses: {
+      name: "handl-responses",
+      redisOptions: { db: 1 },
+      use: { client: "indexedDB", server: "redis" },
+    },
   };
 
   private _defaultCacheControls: DefaultCacheControls = {
@@ -162,7 +178,7 @@ export default class Client {
     }
 
     if (cachemapOptions && isPlainObject(cachemapOptions)) {
-      this._cachemapOptions = { ...this._cachemapOptions, ...cachemapOptions };
+      this._cachemapOptions = merge(this._cachemapOptions, cachemapOptions);
     }
 
     if (defaultCacheControls && isPlainObject(defaultCacheControls)) {
