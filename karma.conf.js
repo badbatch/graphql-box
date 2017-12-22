@@ -6,10 +6,10 @@ module.exports = (config) => {
     basePath: '',
     frameworks: ['mocha', 'chai', 'sinon'],
     files: [
-      'test/**/*',
+      'test/specs/index.ts',
     ],
     preprocessors: {
-      'test/specs/**/*': ['webpack', 'sourcemap'],
+      'test/specs/index.ts': ['webpack', 'sourcemap'],
     },
     webpack: { ...webpackConfig, devtool: 'cheap-module-eval-source-map' },
     port: 9876,
