@@ -1,4 +1,9 @@
-import Cacheability, { CacheabilityMetadata } from "cacheability";
+import Cacheability, {
+  CachemapClientStoreTypes,
+  CacheabilityMetadata,
+  CachemapServerStoreTypes,
+} from "cacheability";
+
 import { CachemapArgs } from "cachemap";
 
 import {
@@ -10,13 +15,23 @@ import {
 export interface CacheabilityObjectMap { [key: string]: CacheabilityMetadata; }
 export type CacheMetadata = Map<string, Cacheability>;
 
-export interface CachemapOptions {
-  dataObjects?: CachemapArgs;
-  responses?: CachemapArgs;
+export interface CachemapArgsGroup {
+  dataObjects: CachemapArgs;
+  responses: CachemapArgs;
+}
+
+export interface CachemapOptions extends CachemapArgs {
+  name?: string;
+  use?: { client?: CachemapClientStoreTypes, server?: CachemapServerStoreTypes };
+}
+
+export interface CachemapOptionsGroup {
+  dataObjects?: CachemapOptions;
+  responses?: CachemapOptions;
 }
 
 export interface ClientArgs {
-  cachemapOptions?: CachemapOptions;
+  cachemapOptions?: CachemapOptionsGroup;
   defaultCacheControls?: DefaultCacheControls;
   fieldResolver?: GraphQLFieldResolver<any, any>;
   headers?: ObjectMap;

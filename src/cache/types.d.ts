@@ -12,7 +12,7 @@ export interface AnalyzeResult {
 }
 
 export interface CacheArgs {
-  cachemapOptions?: CachemapOptions;
+  cachemapOptions: CachemapArgsGroup;
   defaultCacheControls: DefaultCacheControls;
 }
 
