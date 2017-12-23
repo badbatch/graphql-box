@@ -11,6 +11,7 @@
     "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
     "no-submodule-imports": [true, "promise-worker/register"],
     "no-this-assignment": [true, {"allowed-names": ["_this"] }],
+    "no-var-requires": false,
     "object-literal-sort-keys": [true, "ignore-case"],
     "prefer-conditional-expression": false,
     "prefer-function-over-method": true,
