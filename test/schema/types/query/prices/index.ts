@@ -1,8 +1,8 @@
-import { GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLInt, GraphQLObjectType, GraphQLString } from "graphql";
 
 export default new GraphQLObjectType({
   fields: () => ({
-    clubcardPoints: { type: GraphQLString },
+    clubcardPoints: { type: GraphQLInt },
     fromPrice: { type: GraphQLString },
     id: { type: GraphQLString },
     price: { type: GraphQLString },

@@ -16,7 +16,7 @@ describe("the createHandl method", () => {
       });
 
       context("when the browser does not support web workers", () => {
-        const worker: Worker = self.Worker;
+        const worker = self.Worker;
 
         before(() => {
           delete self.Worker;

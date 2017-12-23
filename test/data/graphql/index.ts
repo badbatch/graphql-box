@@ -1,41 +1,29 @@
-import * as md5 from "md5";
 import * as githubRequests from "./github/requests";
 import * as tescoRequests from "./tesco/requests";
 import { ObjectMap } from "../../../src/types";
 
 const githubResponses = {
-  aliasQuery: require("./responses/alias-query/index.json"),
-  singleMutation: require("./responses/single-mutation/index.json"),
-  singleQuery: require("./responses/single-query/index.json"),
-  variableMutation: require("./responses/single-mutation/index.json"),
+  aliasQuery: require("./github/responses/alias-query.json"),
+  singleMutation: require("./github/responses/single-mutation.json"),
+  singleQuery: require("./github/responses/single-query.json"),
+  variableMutation: require("./github/responses/single-mutation.json"),
 };
 
-export const github: {
-  requests: { [key: string]: string },
-  responses: { [key: string]: ObjectMap },
-} = {
+export interface RequestResponseGroup {
+  requests: { [key: string]: string };
+  responses: { [key: string]: ObjectMap };
+}
+
+export const github: RequestResponseGroup = {
   requests: githubRequests,
   responses: githubResponses,
 };
 
-export const tesco: {
-  requests: { [key: string]: string },
-} = {
-  requests: tescoRequests,
+const tescoResponses = {
+  singleQuery: require("./tesco/respones/single-query.json"),
 };
 
-export function getGQLResponse(hash: string): ObjectMap | undefined {
-  const keys = Object.keys(github.requests);
-
-  for (const key of keys) {
-    const request = github.requests[key];
-    if (!request) continue;
-    const requestHash = md5(request.replace(/\s/g, ""));
-
-    if (requestHash === hash) {
-      return github.responses[key];
-    }
-  }
-
-  return undefined;
-}
+export const tesco: RequestResponseGroup = {
+  requests: tescoRequests,
+  responses: tescoResponses,
+};

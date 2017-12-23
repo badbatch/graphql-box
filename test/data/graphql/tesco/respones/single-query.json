@@ -1,0 +1,20 @@
+{
+  "product":  {
+    "id" : "402-5806",
+    "optionsInfo" : [ {
+      "type" : "primary",
+      "name" : "Colour",
+      "internalName" : "colour"
+    }, {
+      "type" : "secondary",
+      "name" : "Size",
+      "internalName" : "p_size"
+    } ],
+    "userActionable" : true,
+    "prices" : {
+      "id" : "402-5806",
+      "price" : "19.00",
+      "clubcardPoints" : 19
+    }
+  }
+}
