@@ -213,6 +213,10 @@ export default class Client {
     return instance;
   }
 
+  get cache(): Cache {
+    return this._cache;
+  }
+
   public async clearCache(): Promise<void> {
     await Promise.all([
       this._cache.responses.clear(),

@@ -1,4 +1,3 @@
-import { castArray, isArray } from "lodash";
 import { ObjectMap } from "../../../src/types";
 
 export interface DataType {
@@ -37,22 +36,3 @@ export const dataEndpoints: { [key: string]: string } = {
   range: "content/relationships/range",
   sku: "content/catalog/sku",
 };
-
-export function buildRestPath(key: string, resource: string | string[]): string {
-  const castResource = castArray(resource);
-  const path = dataEndpoints[key];
-  return isArray(resource) ? `${path}/${castResource.join()}` : `${path}/${resource}`;
-}
-
-export function getRestResponse(key: string, resource: string | string[]): ObjectMap | ObjectMap[] {
-  const castResource = castArray(resource);
-  const data = endpointData[`${key}Data`];
-  const response: ObjectMap[] = [];
-
-  castResource.forEach((value) => {
-    if (!data[value]) return;
-    response.push(data[value]);
-  });
-
-  return isArray(resource) ? response : response[0];
-}
