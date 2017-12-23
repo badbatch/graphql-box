@@ -1,31 +1,8 @@
 import { expect } from "chai";
-import { GraphQLSchema, IntrospectionQuery } from "graphql";
-import * as introspectionQuery from "../introspection/index.json";
+import { browserArgs, serverArgs } from "../helpers";
 import createHandl from "../../src";
 import Client from "../../src/client";
 import WorkerClient from "../../src/worker-client";
-import { ClientArgs } from "../../src/types";
-
-const browserArgs: ClientArgs = {
-  introspection: introspectionQuery as IntrospectionQuery,
-  mode: "external",
-  url: "https://api.github.com/graphql",
-};
-
-let graphqlSchema: GraphQLSchema | undefined;
-
-if (!process.env.WEB_ENV) {
-  graphqlSchema = require("../schema").default; // tslint:disable-line
-}
-
-const serverArgs: ClientArgs = {
-  cachemapOptions: {
-    dataObjects: { mockRedis: true },
-    responses: { mockRedis: true },
-  },
-  mode: "internal",
-  schema: graphqlSchema,
-};
 
 describe("the createHandl method", () => {
   if (process.env.WEB_ENV) {
@@ -64,3 +41,9 @@ describe("the createHandl method", () => {
     });
   }
 });
+
+if (process.env.WEB_ENV) {
+  require("./browser");
+} else {
+  require("./server");
+}
