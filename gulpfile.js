@@ -14,7 +14,7 @@ gulp.task('clean', () => {
 });
 
 gulp.task('main', () => {
-  const tsProject = ts.createProject('tsconfig.json', { declaration: true });
+  const tsProject = ts.createProject('tsconfig.json', { declaration: true, module: 'commonjs' });
 
   const transpiled = gulp.src(['src/**/*.ts'])
     .pipe(sourcemaps.init())
