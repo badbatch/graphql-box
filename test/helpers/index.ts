@@ -21,8 +21,14 @@ if (!process.env.WEB_ENV) {
 
 export const serverArgs: ClientArgs = {
   cachemapOptions: {
-    dataObjects: { mockRedis: true },
-    responses: { mockRedis: true },
+    dataObjects: {
+      mockRedis: true,
+      redisOptions: { fast: true },
+    },
+    responses: {
+      mockRedis: true,
+      redisOptions: { fast: true },
+    },
   },
   mode: "internal",
   schema: graphqlSchema,

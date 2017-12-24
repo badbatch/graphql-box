@@ -23,7 +23,7 @@ describe("the handl class in 'internal' mode", () => {
         try {
           result = await client.request(tesco.requests.singleQuery);
         } catch (error) {
-          // no catch
+          console.log(error); // tslint:disable-line
         }
       });
 
@@ -43,12 +43,14 @@ describe("the handl class in 'internal' mode", () => {
 
       it("then the client should have cached the response against the query", async () => {
         const responseCache = client.cache.responses;
-        expect(await responseCache.size()).to.equal(2);
+        const cacheSize = await responseCache.size();
+        expect(cacheSize).to.equal(2);
       });
 
       it("then the client should cache each data object in the response against its query path", async () => {
         const dataObjectCache = client.cache.dataObjects;
-        expect(await dataObjectCache.size()).to.eql(6);
+        const cacheSize = await dataObjectCache.size();
+        expect(cacheSize).to.eql(6);
       });
     });
   });
