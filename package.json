@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "cacheability": "0.0.40",
-    "cachemap": "0.0.22",
+    "cachemap": "0.0.23",
     "defer-promise": "^1.0.1",
     "graphql": "^0.12.3",
     "isomorphic-fetch": "^2.2.1",
@@ -59,6 +59,7 @@
     "@types/md5": "^2.1.32",
     "@types/mocha": "^2.2.44",
     "@types/node": "^8.0.53",
+    "@types/redis": "^2.8.3",
     "@types/sinon": "^4.0.0",
     "@types/sinon-chai": "^2.7.29",
     "awesome-typescript-loader": "^3.4.1",

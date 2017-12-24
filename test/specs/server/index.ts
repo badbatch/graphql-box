@@ -45,6 +45,8 @@ describe("the handl class in 'internal' mode", () => {
         const responseCache = client.cache.responses;
         const cacheSize = await responseCache.size();
         expect(cacheSize).to.equal(2);
+        const cacheEntry = await responseCache.get(result.queryHash as string);
+        expect(result.data).to.deep.equal(cacheEntry.data);
       });
 
       it("then the client should cache each data object in the response against its query path", async () => {
