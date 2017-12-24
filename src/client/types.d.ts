@@ -1,5 +1,12 @@
 import Cacheability from "cacheability";
-import { CacheabilityObjectMap, CacheMetadata, ObjectMap } from "../types";
+
+import {
+  CacheabilityObjectMap,
+  CacheMetadata,
+  ClientResult,
+  DataCachedResolver,
+  ObjectMap
+} from "../types";
 
 export interface ClientRequests {
   active: Map<string, string>;
@@ -27,10 +34,12 @@ export type PendingRequestResolver = (value: ClientResult) => void;
 
 export interface ResolveArgs {
   cacheMetadata: CacheMetadata;
+  cachePromise?: Promise<void>;
   data?: ObjectMap;
   error?: Error | Error[];
-  hash?: string;
   operation: ValidOperation;
+  queryHash?: string;
+  resolvePending?: boolean;
 }
 
 export type ValidOperation = "query" | "mutation";

@@ -82,6 +82,8 @@ import {
   RequestResult,
 } from "../types";
 
+const deferredPromise = require("defer-promise");
+
 let instance: Client;
 
 export default class Client {
@@ -262,10 +264,10 @@ export default class Client {
     }
   }
 
-  private async _checkResponseCache(hash: string): Promise<ClientResult | undefined> {
-    const cacheability: Cacheability | false = await this._cache.responses.has(hash);
+  private async _checkResponseCache(queryHash: string): Promise<ClientResult | undefined> {
+    const cacheability: Cacheability | false = await this._cache.responses.has(queryHash);
     if (!cacheability || !Cache.isValid(cacheability)) return;
-    const res = await this._cache.responses.get(hash);
+    const res = await this._cache.responses.get(queryHash);
     return { cacheMetadata: Client._parseCacheabilityObjectMap(res.cacheMetadata), data: res.data };
   }
 
@@ -422,27 +424,29 @@ export default class Client {
     ast: DocumentNode,
     opts: RequestOptions,
   ): Promise<ClientResult | Error | Error[]> {
-    const hash = Cache.hash(query);
+    const queryHash = Cache.hash(query);
 
     if (!opts.forceFetch) {
-      const cachedResponse = await this._checkResponseCache(hash);
+      const cachedResponse = await this._checkResponseCache(queryHash);
 
       if (cachedResponse) {
         return this._resolve({
           cacheMetadata: cachedResponse.cacheMetadata,
           data: cachedResponse.data,
           operation: "query",
+          queryHash,
+          resolvePending: false,
         });
       }
     }
 
-    if (this._requests.active.has(hash)) {
+    if (this._requests.active.has(queryHash)) {
       return new Promise((resolve: PendingRequestResolver, reject: PendingRequestRejection) => {
-        this._setPendingRequest(hash, { reject, resolve });
+        this._setPendingRequest(queryHash, { reject, resolve });
       });
     }
 
-    this._requests.active.set(hash, query);
+    this._requests.active.set(queryHash, query);
 
     const {
       cachedData,
@@ -450,25 +454,31 @@ export default class Client {
       filtered,
       updatedAST,
       updatedQuery,
-    } = await this._cache.analyze(hash, ast);
+    } = await this._cache.analyze(queryHash, ast);
+
+    const deferred: DeferPromise.Deferred<void> = deferredPromise();
 
     if (cachedData && cacheMetadata) {
+      const defaultCacheControl = this._defaultCacheControls.query;
       const queryCacheability = cacheMetadata.get("query");
+      const cacheControl = queryCacheability && queryCacheability.printCacheControl() || defaultCacheControl;
 
-      const cacheControl = queryCacheability && queryCacheability.printCacheControl()
-        || this._defaultCacheControls.query;
+      (async () => {
+        await this._cache.responses.set(
+          queryHash,
+          { cacheMetadata: mapToObject(cacheMetadata), data: cachedData },
+          { cacheHeaders: { cacheControl },
+        });
 
-      this._cache.responses.set(
-        hash,
-        { cacheMetadata: mapToObject(cacheMetadata), data: cachedData },
-        { cacheHeaders: { cacheControl },
-      });
+        deferred.resolve();
+      })();
 
       return this._resolve({
         cacheMetadata,
+        cachePromise: deferred.promise,
         data: cachedData,
-        hash,
         operation: "query",
+        queryHash,
       });
     }
 
@@ -484,6 +494,7 @@ export default class Client {
         cacheMetadata: Client._createCacheMetadata(),
         error,
         operation: "query",
+        queryHash,
       });
     }
 
@@ -495,22 +506,23 @@ export default class Client {
     const resolveResult = await this._cache.resolve(
       _updateQuery,
       _updateAST,
-      hash,
+      queryHash,
       fetchResult.data,
       _cacheMetadata,
-      { filtered: _filterd },
+      { cacheResolve: deferred.resolve, filtered: _filterd },
     );
 
     return this._resolve({
       cacheMetadata: resolveResult.cacheMetadata,
+      cachePromise: deferred.promise,
       data: resolveResult.data,
-      hash,
       operation: "query",
+      queryHash,
     });
   }
 
   private async _resolve(args: ResolveArgs): Promise<ClientResult | Error | Error[]> {
-    const { cacheMetadata, data, hash, error, operation } = args;
+    const { cacheMetadata, cachePromise, data, error, operation, queryHash, resolvePending = true } = args;
 
     if (!cacheMetadata.has("query")) {
       const cacheability = new Cacheability();
@@ -518,35 +530,45 @@ export default class Client {
       cacheMetadata.set("query", cacheability);
     }
 
-    if (hash) {
-      this._resolvePendingRequests(hash, cacheMetadata, data, error);
-      this._requests.active.delete(hash);
+    if (resolvePending && queryHash) {
+      this._resolvePendingRequests(queryHash, cacheMetadata, data, error);
+      this._requests.active.delete(queryHash);
     }
 
     if (error) return Promise.reject(error);
-    const _data = data as ObjectMap;
-    return { cacheMetadata, data: _data };
+
+    const output: ClientResult = {
+      cacheMetadata,
+      data: data as ObjectMap,
+    };
+
+    if (cachePromise) output.cachePromise = cachePromise;
+    if (queryHash) output.queryHash = queryHash as string;
+    return output;
   }
 
   private _resolvePendingRequests(
-    hash: string,
+    queryHash: string,
     cacheMetadata: CacheMetadata,
     data?: ObjectMap,
     error?: Error | Error[],
   ): void {
-    const pendingRequests = this._requests.pending.get(hash);
+    const pendingRequests = this._requests.pending.get(queryHash);
     if (!pendingRequests) return;
 
     pendingRequests.forEach(({ reject, resolve }) => {
       if (error) {
         reject(error);
       } else {
-        const _data = data as ObjectMap;
-        resolve({ cacheMetadata, data: _data });
+        resolve({
+          cacheMetadata,
+          data: data as ObjectMap,
+          queryHash,
+        });
       }
     });
 
-    this._requests.pending.delete(hash);
+    this._requests.pending.delete(queryHash);
   }
 
   private _resolveRequestOperation(
@@ -565,11 +587,11 @@ export default class Client {
     return Promise.reject(new Error("request expected the operation to be 'query' or 'mutation'."));
   }
 
-  private _setPendingRequest(hash: string, { reject, resolve }: PendingRequestActions): void {
-    let pending = this._requests.pending.get(hash);
+  private _setPendingRequest(queryHash: string, { reject, resolve }: PendingRequestActions): void {
+    let pending = this._requests.pending.get(queryHash);
     if (!pending) pending = [];
     pending.push({ reject, resolve });
-    this._requests.pending.set(hash, pending);
+    this._requests.pending.set(queryHash, pending);
   }
 
   private async _updateQuery(query: string, opts: RequestOptions): Promise<{ ast: DocumentNode, query: string }> {
