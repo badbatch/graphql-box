@@ -36,6 +36,7 @@ import {
   CachemapArgsGroup,
   CacheMetadata,
   ClientResult,
+  DataCachedResolver,
   DefaultCacheControls,
   ObjectMap,
 } from "../types";
@@ -281,7 +282,7 @@ export default class Cache {
     return this._dataObjects;
   }
 
-  public async analyze(hash: string, ast: DocumentNode): Promise<AnalyzeResult> {
+  public async analyze(queryHash: string, ast: DocumentNode): Promise<AnalyzeResult> {
     const {
       cacheMetadata,
       checkList,
@@ -294,7 +295,7 @@ export default class Cache {
     }
 
     if (!counter.missing) return { cachedData: queriedData, cacheMetadata };
-    this._partials.set(hash, { cacheMetadata, cachedData: queriedData });
+    this._partials.set(queryHash, { cacheMetadata, cachedData: queriedData });
     await Cache._filterQuery(ast, checkList);
     return { filtered: true, updatedAST: ast, updatedQuery: print(ast) };
   }
@@ -302,55 +303,61 @@ export default class Cache {
   public async resolve(
     query: string,
     ast: DocumentNode,
-    hash: string,
+    queryHash: string,
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
-    opts: { filtered: boolean },
+    opts: { cacheResolve: DataCachedResolver, filtered: boolean },
   ): Promise<ClientResult> {
-    let _cacheMetadata: CacheMetadata;
-    let queryCacheability: Cacheability | undefined;
-    let cacheControl: string;
-
-    if (opts.filtered) {
-      _cacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata);
-      queryCacheability = _cacheMetadata.get("query");
-      cacheControl = queryCacheability && queryCacheability.printCacheControl() || this._defaultCacheControls.query;
-
-      this._responses.set(
-        Cache.hash(query),
-        { cacheMetadata: mapToObject(_cacheMetadata), data },
-        { cacheHeaders: { cacheControl },
-      });
-    }
-
-    const partial = this._getPartial(hash);
-    let _data = data;
+    const partial = this._getPartial(queryHash);
+    let updatedData = data;
 
     if (partial) {
-      _data = mergeObjects(partial.cachedData, data, (key: string, val: any): string | undefined => {
+      updatedData = mergeObjects(partial.cachedData, data, (key: string, val: any): string | undefined => {
         if (isPlainObject(val) && val.id) return val.id;
         return undefined;
       });
     }
 
-    _cacheMetadata = this._updateCacheMetadata(
+    const defaultCacheControl = this._defaultCacheControls.query;
+
+    const updatedCacheMetadata = this._updateCacheMetadata(
       ast,
-      _data,
+      updatedData,
       cacheMetadata,
       partial && partial.cacheMetadata,
     );
 
-    queryCacheability = _cacheMetadata.get("query");
-    cacheControl = queryCacheability && queryCacheability.printCacheControl() || this._defaultCacheControls.query;
+    const updatedCacheability = updatedCacheMetadata.get("query");
+    const updatedCacheControl = updatedCacheability && updatedCacheability.printCacheControl() || defaultCacheControl;
 
-    this._responses.set(
-      hash,
-      { cacheMetadata: mapToObject(_cacheMetadata), data: _data },
-      { cacheHeaders: { cacheControl },
-    });
+    const filterCacheMetadata = opts.filtered && this._updateCacheMetadata(ast, data, cacheMetadata);
+    const filterCacheability = filterCacheMetadata && filterCacheMetadata.get("query");
+    const filterCacheControl = filterCacheability && filterCacheability.printCacheControl() || defaultCacheControl;
 
-    this._updateObjectCache(ast, _data, _cacheMetadata);
-    return { cacheMetadata: _cacheMetadata, data: _data };
+    (async () => {
+      const promises: Array<Promise<void>> = [];
+
+      promises.push(this._responses.set(
+        queryHash,
+        { cacheMetadata: mapToObject(updatedCacheMetadata), data: updatedData },
+        { cacheHeaders: { cacheControl: updatedCacheControl },
+      }));
+
+      promises.push(this._updateObjectCache(ast, updatedData, updatedCacheMetadata));
+
+      if (filterCacheMetadata) {
+        promises.push(this._responses.set(
+          Cache.hash(query),
+          { cacheMetadata: mapToObject(filterCacheMetadata), data },
+          { cacheHeaders: { cacheControl: filterCacheControl },
+        }));
+      }
+
+      await Promise.all(promises);
+      opts.cacheResolve();
+    })();
+
+    return { cacheMetadata: updatedCacheMetadata, data: updatedData };
   }
 
   private async _checkDataObjectCache(ast: DocumentNode): Promise<ObjectCacheCheckMetadata> {
@@ -384,10 +391,10 @@ export default class Cache {
     this._responses = await createCachemap(this._cachemapOptions.responses);
   }
 
-  private _getPartial(hash: string): PartialData | undefined {
-    if (!this._partials.has(hash)) return undefined;
-    const partialData = this._partials.get(hash);
-    this._partials.delete(hash);
+  private _getPartial(queryHash: string): PartialData | undefined {
+    if (!this._partials.has(queryHash)) return undefined;
+    const partialData = this._partials.get(queryHash);
+    this._partials.delete(queryHash);
     return partialData;
   }
 
@@ -452,21 +459,23 @@ export default class Cache {
     const objectLikeFieldData = fieldData as ObjectMap | any[];
     const metadata = cacheMetadata.get(queryKey);
     const _cacheControl = metadata && metadata.printCacheControl() || cacheControl;
+    const promises: Array<Promise<void>> = [];
 
     Cache._iterateChildFields(field, objectLikeFieldData, (childField, childIndex) => {
       Cache._setObjectHashKey(childField, objectLikeFieldData, dataKey, cacheKey, childIndex);
 
-      this._setObject(
+      promises.push(this._setObject(
         childField,
         data,
         cacheMetadata,
         _cacheControl,
         { cachePath: cacheKey, dataPath: dataKey, queryPath: queryKey },
         childIndex,
-      );
+      ));
     });
 
-    this._dataObjects.set(hashKey, fieldData, { cacheHeaders: { cacheControl: _cacheControl } });
+    await Promise.all(promises);
+    await this._dataObjects.set(hashKey, fieldData, { cacheHeaders: { cacheControl: _cacheControl } });
   }
 
   private _updateCacheMetadata(
@@ -510,11 +519,13 @@ export default class Cache {
     const fields = getChildFields(queryNode) as FieldNode[];
     const queryCacheability = cacheMetadata.get("query");
 
-    fields.forEach((field) => {
-      const cacheControl = queryCacheability && queryCacheability.printCacheControl()
-        || this._defaultCacheControls.query;
+    await Promise.all(
+      fields.map((field) => {
+        const cacheControl = queryCacheability && queryCacheability.printCacheControl()
+          || this._defaultCacheControls.query;
 
-      this._setObject(field, data, cacheMetadata, cacheControl);
-    });
+        return this._setObject(field, data, cacheMetadata, cacheControl);
+      }),
+    );
   }
 }

@@ -46,8 +46,12 @@ export interface ClientArgs {
 
 export interface ClientResult {
   cacheMetadata: CacheMetadata;
+  cachePromise?: Promise<void>;
   data: ObjectMap;
+  queryHash?: string;
 }
+
+export type DataCachedResolver = () => void;
 
 export interface DefaultCacheControls {
   mutation: string;

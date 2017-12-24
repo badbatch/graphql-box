@@ -39,6 +39,7 @@
   "dependencies": {
     "cacheability": "0.0.40",
     "cachemap": "0.0.22",
+    "defer-promise": "^1.0.1",
     "graphql": "^0.12.3",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
@@ -50,6 +51,7 @@
     "@babel/preset-env": "7.0.0-beta.34",
     "@babel/preset-stage-0": "7.0.0-beta.34",
     "@types/chai": "^4.0.8",
+    "@types/defer-promise": "^1.0.0",
     "@types/fetch-mock": "^5.12.2",
     "@types/graphql": "^0.11.6",
     "@types/isomorphic-fetch": "0.0.34",
