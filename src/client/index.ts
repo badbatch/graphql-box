@@ -625,19 +625,19 @@ export default class Client {
             }
           }
 
-          if (!type.hasOwnProperty("getFields")) return undefined;
+          if (!(type instanceof GraphQLObjectType) && !(type instanceof GraphQLInterfaceType)) return undefined;
           const objectOrInterfaceType = type as GraphQLObjectType | GraphQLInterfaceType;
           const fields = objectOrInterfaceType.getFields();
 
           if (fields[_this._resourceKey] && !hasChildFields(fieldOrInlineFragmentNode, _this._resourceKey)) {
-            const mockAST = parse(`{ ${name} {${_this._resourceKey}} }`);
+            const mockAST = parse(`{${_this._resourceKey}}`);
             const queryNode = getOperationDefinitions(mockAST, "query")[0];
             const field = getChildFields(queryNode, _this._resourceKey) as FieldNode;
             addChildFields(fieldOrInlineFragmentNode, field);
           }
 
           if (fields._metadata && !hasChildFields(fieldOrInlineFragmentNode, "_metadata")) {
-            const mockAST = parse(`{ ${name} { _metadata { cacheControl } } }`);
+            const mockAST = parse(`{ _metadata { cacheControl } }`);
             const queryNode = getOperationDefinitions(mockAST, "query")[0];
             const field = getChildFields(queryNode, "_metadata") as FieldNode;
             addChildFields(fieldOrInlineFragmentNode, field);
