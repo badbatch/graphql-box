@@ -5,7 +5,7 @@ import { tesco } from "../../data/graphql";
 import { mockRestRequest, serverArgs } from "../../helpers";
 import createHandl from "../../../src";
 import Client from "../../../src/client";
-import { ClientResult } from "../../../src/types";
+import { RequestResult } from "../../../src/types";
 
 describe("the handl class in 'internal' mode", () => {
   let client: Client;
@@ -16,14 +16,16 @@ describe("the handl class in 'internal' mode", () => {
 
   describe("the request method", () => {
     context("when a single query is requested", () => {
-      let result: ClientResult;
+      let result: RequestResult;
 
       beforeEach(async () => {
         mockRestRequest("product", "402-5806");
 
         try {
-          result = await client.request(tesco.requests.singleQuery) as ClientResult;
-          await result.cachePromise;
+          result = await client.request(
+            tesco.requests.singleQuery,
+            { awaitDataCached: true },
+          ) as RequestResult;
         } catch (error) {
           console.log(error); // tslint:disable-line
         }
@@ -35,7 +37,6 @@ describe("the handl class in 'internal' mode", () => {
       });
 
       it("then the method should return the requested data", () => {
-        expect(result.cachePromise).to.be.instanceof(Promise);
         expect(result.data).to.deep.equal(tesco.responses.singleQuery);
         expect(result.queryHash).to.be.a("string");
         expect(result.cacheMetadata.size).to.equal(2);

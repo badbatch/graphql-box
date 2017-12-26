@@ -3,7 +3,6 @@ import PromiseWorker from "promise-worker";
 import {
   ClientArgs,
   PostMessageArgs,
-  PostMessageResult,
   RequestOptions,
   RequestResult,
 } from "../types";
@@ -26,7 +25,14 @@ export default class WorkerClient {
   }
 
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult | RequestResult[]> {
-    const result = await this._postMessage({ query, opts, type: "request" }) as RequestResult | RequestResult[];
+    let result: RequestResult | RequestResult[];
+
+    try {
+      result = await this._postMessage({ query, opts, type: "request" });
+    } catch (error) {
+      return Promise.reject(error);
+    }
+
     return result;
   }
 
@@ -34,13 +40,13 @@ export default class WorkerClient {
     this._worker.terminate();
   }
 
-  private async _postMessage(args: PostMessageArgs): Promise<PostMessageResult> {
-    let message: PostMessageResult;
+  private async _postMessage(args: PostMessageArgs): Promise<any> {
+    let message;
 
     try {
       message = await this._promiseWorker.postMessage(args);
     } catch (error) {
-      throw error;
+      return Promise.reject(error);
     }
 
     return message;

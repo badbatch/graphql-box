@@ -3,7 +3,7 @@ import Cacheability from "cacheability";
 import {
   CacheabilityObjectMap,
   CacheMetadata,
-  ClientResult,
+  ResolveResult,
   DataCachedResolver,
   ObjectMap
 } from "../types";
@@ -30,7 +30,7 @@ export interface PendingRequestActions {
 }
 
 export type PendingRequestRejection = (value: Error | Error[]) => void;
-export type PendingRequestResolver = (value: ClientResult) => void;
+export type PendingRequestResolver = (value: ResolveResult) => void;
 
 export interface ResolveArgs {
   cacheMetadata: CacheMetadata;

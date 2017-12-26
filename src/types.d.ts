@@ -44,13 +44,6 @@ export interface ClientArgs {
   url?: string;
 }
 
-export interface ClientResult {
-  cacheMetadata: CacheMetadata;
-  cachePromise?: Promise<void>;
-  data: ObjectMap;
-  queryHash?: string;
-}
-
 export type DataCachedResolver = () => void;
 
 export interface DefaultCacheControls {
@@ -67,9 +60,8 @@ export interface PostMessageArgs {
   type: string;
 }
 
-export type  PostMessageResult = RequestResult | RequestResult[] | undefined;
-
 export interface RequestOptions {
+  awaitDataCached?: boolean;
   context?: any;
   fieldResolver?: GraphQLFieldResolver<any, any>;
   forceFetch?: boolean;
@@ -80,4 +72,15 @@ export interface RequestOptions {
   variables?: ObjectMap;
 }
 
-export type RequestResult = ClientResult | ClientResult[] | Error | Error[];
+export interface RequestResult {
+  cacheMetadata: CacheMetadata;
+  data: ObjectMap;
+  queryHash?: string;
+}
+
+export interface ResolveResult {
+  cacheMetadata: CacheMetadata;
+  cachePromise?: Promise<void>;
+  data: ObjectMap;
+  queryHash?: string;
+}

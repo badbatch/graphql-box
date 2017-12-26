@@ -35,10 +35,10 @@ import {
 import {
   CachemapArgsGroup,
   CacheMetadata,
-  ClientResult,
   DataCachedResolver,
   DefaultCacheControls,
   ObjectMap,
+  ResolveResult,
 } from "../types";
 
 import mapToObject from "../helpers/map-to-object";
@@ -307,7 +307,7 @@ export default class Cache {
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
     opts: { cacheResolve: DataCachedResolver, filtered: boolean },
-  ): Promise<ClientResult> {
+  ): Promise<ResolveResult> {
     const partial = this._getPartial(queryHash);
     let updatedData = data;
 
