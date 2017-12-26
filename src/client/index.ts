@@ -75,11 +75,11 @@ import {
   CachemapArgsGroup,
   CacheMetadata,
   ClientArgs,
-  ClientResult,
   DefaultCacheControls,
   ObjectMap,
   RequestOptions,
   RequestResult,
+  ResolveResult,
 } from "../types";
 
 const deferredPromise = require("defer-promise");
@@ -252,19 +252,33 @@ export default class Client {
       const multiQuery = operations.length > 1;
 
       if (!multiQuery) {
-        return this._resolveRequestOperation(updated.query, updated.ast, opts);
+        const result = await this._resolveRequestOperation(updated.query, updated.ast, opts);
+
+        if (opts.awaitDataCached && result.cachePromise) {
+          await result.cachePromise;
+          delete result.cachePromise;
+        }
+
+        return result;
       }
 
-      return Promise.all(operations.map((operation) => {
+      return Promise.all(operations.map(async (operation) => {
         const operationQuery = print(operation);
-        return this._resolveRequestOperation(operationQuery, parse(operationQuery), opts);
+        const result = await this._resolveRequestOperation(operationQuery, parse(operationQuery), opts);
+
+        if (opts.awaitDataCached && result.cachePromise) {
+          await result.cachePromise;
+          delete result.cachePromise;
+        }
+
+        return result;
       }));
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  private async _checkResponseCache(queryHash: string): Promise<ClientResult | undefined> {
+  private async _checkResponseCache(queryHash: string): Promise<ResolveResult | undefined> {
     const cacheability: Cacheability | false = await this._cache.responses.has(queryHash);
     if (!cacheability || !Cache.isValid(cacheability)) return;
     const res = await this._cache.responses.get(queryHash);
@@ -282,7 +296,7 @@ export default class Client {
     request: string,
     ast: DocumentNode,
     opts: RequestOptions,
-  ): Promise<FetchResult | Error | Error[]> {
+  ): Promise<FetchResult> {
     if (this._mode === "internal") {
       let executeResult: ExecutionResult;
 
@@ -307,6 +321,7 @@ export default class Client {
     const url = `${this._url}?requestId=${Cache.hash(request)}`;
     const headers = opts.headers ? { ...this._headers, ...opts.headers } : this._headers;
     let fetchResult: Response;
+    debugger;
 
     try {
       fetchResult = await fetch(url, {
@@ -355,11 +370,11 @@ export default class Client {
     mutation: string,
     ast: DocumentNode,
     opts: RequestOptions,
-  ): Promise<ClientResult | Error | Error[]> {
+  ): Promise<ResolveResult> {
     let fetchResult: FetchResult;
 
     try {
-      fetchResult = await this._fetch(mutation, ast, opts) as FetchResult;
+      fetchResult = await this._fetch(mutation, ast, opts);
     } catch (error) {
       return this._resolve({
         cacheMetadata: Client._createCacheMetadata(),
@@ -423,7 +438,7 @@ export default class Client {
     query: string,
     ast: DocumentNode,
     opts: RequestOptions,
-  ): Promise<ClientResult | Error | Error[]> {
+  ): Promise<ResolveResult> {
     const queryHash = Cache.hash(query);
 
     if (!opts.forceFetch) {
@@ -488,7 +503,7 @@ export default class Client {
     const _filterd = filtered as boolean;
 
     try {
-      fetchResult = await this._fetch(_updateQuery, _updateAST, opts) as FetchResult;
+      fetchResult = await this._fetch(_updateQuery, _updateAST, opts);
     } catch (error) {
       return this._resolve({
         cacheMetadata: Client._createCacheMetadata(),
@@ -521,7 +536,7 @@ export default class Client {
     });
   }
 
-  private async _resolve(args: ResolveArgs): Promise<ClientResult | Error | Error[]> {
+  private async _resolve(args: ResolveArgs): Promise<ResolveResult> {
     const { cacheMetadata, cachePromise, data, error, operation, queryHash, resolvePending = true } = args;
 
     if (!cacheMetadata.has("query")) {
@@ -537,7 +552,7 @@ export default class Client {
 
     if (error) return Promise.reject(error);
 
-    const output: ClientResult = {
+    const output: ResolveResult = {
       cacheMetadata,
       data: data as ObjectMap,
     };
@@ -575,7 +590,7 @@ export default class Client {
     query: string,
     ast: DocumentNode,
     opts: RequestOptions,
-  ): Promise<ClientResult | Error | Error[]> {
+  ): Promise<ResolveResult> {
     const operationDefinition = getOperationDefinitions(ast)[0];
 
     if (operationDefinition.operation === "query") {

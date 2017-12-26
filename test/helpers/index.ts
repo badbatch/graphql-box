@@ -21,14 +21,8 @@ if (!process.env.WEB_ENV) {
 
 export const serverArgs: ClientArgs = {
   cachemapOptions: {
-    dataObjects: {
-      mockRedis: true,
-      redisOptions: { fast: true },
-    },
-    responses: {
-      mockRedis: true,
-      redisOptions: { fast: true },
-    },
+    dataObjects: { mockRedis: true },
+    responses: { mockRedis: true },
   },
   mode: "internal",
   schema: graphqlSchema,
@@ -61,18 +55,31 @@ export function mockRestRequest(key: string, resource: string | string[]): { bod
   return { body, path };
 }
 
-export function getGraphqlResponse(hash: string): ObjectMap | undefined {
+export function getGraphqlResponse(requestHash: string): ObjectMap | undefined {
   const keys = Object.keys(github.requests);
 
   for (const key of keys) {
     const request = github.requests[key];
     if (!request) continue;
-    const requestHash = md5(request.replace(/\s/g, ""));
 
-    if (requestHash === hash) {
+    if (md5(request.replace(/\s/g, "")) === requestHash) {
       return github.responses[key];
     }
   }
 
   return undefined;
+}
+
+export function mockGraphqlRequest(request: string): { body: ObjectMap } {
+  const requestHash = md5(request.replace(/\s/g, ""));
+
+  const matcher = (url: string, opts: fetchMock.MockRequest): boolean => {
+    const _opts = opts as RequestInit;
+    const parsedBody = JSON.parse(_opts.body);
+    return md5(parsedBody.query.replace(/\s/g, "")) === requestHash;
+  };
+
+  const body = getGraphqlResponse(requestHash) as ObjectMap;
+  fetchMock.mock(matcher, { body });
+  return { body };
 }
