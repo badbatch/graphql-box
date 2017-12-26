@@ -5,7 +5,6 @@ import { PostMessageArgs, RequestResult } from "./types";
 let client: Client;
 
 registerPromiseWorker(async (message: PostMessageArgs): Promise<RequestResult | RequestResult[] | undefined> => {
-  debugger;
   const { args, opts, query, type } = message;
 
   let result: RequestResult | RequestResult[] | undefined;
@@ -23,7 +22,6 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<RequestResult | 
       if (query) {
         try {
           result = await client.request(query, opts);
-          debugger;
         } catch (error) {
           return Promise.reject(error);
         }
