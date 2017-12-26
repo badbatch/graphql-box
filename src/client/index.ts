@@ -321,7 +321,6 @@ export default class Client {
     const url = `${this._url}?requestId=${Cache.hash(request)}`;
     const headers = opts.headers ? { ...this._headers, ...opts.headers } : this._headers;
     let fetchResult: Response;
-    debugger;
 
     try {
       fetchResult = await fetch(url, {
