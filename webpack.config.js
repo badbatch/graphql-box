@@ -48,6 +48,7 @@ module.exports = {
   plugins: [
     new webpack.EnvironmentPlugin({
       WEB_ENV: true,
+      TEST_ENV: !!process.env.TEST_ENV,
     }),
     new webpack.LoaderOptionsPlugin({
       debug: true,

@@ -2,6 +2,10 @@ import registerPromiseWorker from "promise-worker/register";
 import Client from "./client";
 import { PostMessageArgs, RequestResult } from "./types";
 
+if (process.env.TEST_ENV) {
+  require("../test/mocks");
+}
+
 let client: Client;
 
 registerPromiseWorker(async (message: PostMessageArgs): Promise<RequestResult | RequestResult[] | undefined> => {

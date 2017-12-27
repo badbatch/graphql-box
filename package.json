@@ -29,12 +29,12 @@
     "compile:browser": "cross-env BABEL_ENV=browser gulp browser",
     "compile:main": "cross-env BABEL_ENV=main gulp main",
     "compile:module": "cross-env BABEL_ENV=module gulp module",
-    "debug:web": "karma start --no-single-run --browsers Chrome",
+    "debug:web": "cross-env BABEL_ENV=browser TEST_ENV=true karma start --no-single-run --browsers Chrome",
     "lint": "gulp lint",
     "publish:pkg": "npm run build && npm publish",
     "test": "npm run lint && npm run type-check && npm run test:web && npm run test:node",
     "test:node": "cross-env TS_NODE_PROJECT=\"./tsconfig.test.json\" nyc mocha --opts \"./mocha.opts\"",
-    "test:web": "cross-env BABEL_ENV=browser karma start --single-run --browsers ChromeHeadless --reporters mocha,coverage-istanbul",
+    "test:web": "cross-env BABEL_ENV=browser TEST_ENV=true karma start --single-run --browsers ChromeHeadless --reporters mocha,coverage-istanbul",
     "type-check": "gulp type-check"
   },
   "dependencies": {

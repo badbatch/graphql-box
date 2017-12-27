@@ -46,10 +46,6 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
           // TODO
         });
 
-        it("then the graphql schema should have made a fetch request", () => {
-          expect(fetchMock.calls().matched).to.have.lengthOf(1);
-        });
-
         it("then the client should have cached the response against the query", async () => {
           const responseCache = client.cache.responses;
           const cacheSize = await responseCache.size();
