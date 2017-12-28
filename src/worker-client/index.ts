@@ -50,16 +50,11 @@ export default class WorkerClient {
   }
 
   public async getResponseCacheEntry(key: string): Promise<ResponseCacheEntryResult | undefined> {
+    const entry = await this._postMessage({ key, type: "getResponseCacheEntry" });
     let result: ResponseCacheEntryResult | undefined;
 
-    try {
-      const entry = await this._postMessage({ key, type: "getResponseCacheEntry" });
-
-      if (entry) {
-        result = { cacheMetadata: createCacheMetadata(entry.cacheMetadata), data: entry.data };
-      }
-    } catch (error) {
-      return Promise.reject(error);
+    if (entry) {
+      result = { cacheMetadata: createCacheMetadata(entry.cacheMetadata), data: entry.data };
     }
 
     return result;
@@ -70,17 +65,9 @@ export default class WorkerClient {
   }
 
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult | RequestResult[]> {
-    let result: RequestResult | RequestResult[];
-
-    try {
-      const args = { query, opts, type: "request" };
-      const postMessageResult = await this._postMessage(args) as PostMessageResult | PostMessageResult[];
-      result = WorkerClient._convertCacheabilityObjectMap(postMessageResult);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-
-    return result;
+    const args = { query, opts, type: "request" };
+    const postMessageResult = await this._postMessage(args) as PostMessageResult | PostMessageResult[];
+    return WorkerClient._convertCacheabilityObjectMap(postMessageResult);
   }
 
   public terminate(): void {

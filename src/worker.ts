@@ -33,58 +33,34 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
 
   switch (message.type) {
     case "clearCache":
-      try {
-        await client.clearCache();
-      } catch (error) {
-        return Promise.reject(error);
-      }
+      await client.clearCache();
       break;
     case "getDataObjectCacheEntry":
       if (key) {
-        try {
-          result = await client.getDataObjectCacheEntry(key);
-        } catch (error) {
-          return Promise.reject(error);
-        }
+        result = await client.getDataObjectCacheEntry(key);
       }
       break;
     case "getDataObjectCacheSize":
-      try {
-        result = await client.getDataObjectCacheSize();
-      } catch (error) {
-        return Promise.reject(error);
-      }
+      result = await client.getDataObjectCacheSize();
       break;
     case "getResponseCacheEntry":
       if (key) {
-        try {
-          const entry = await client.getResponseCacheEntry(key);
+        const entry = await client.getResponseCacheEntry(key);
 
-          if (entry) {
-            result = { cacheMetadata: mapToObject(entry.cacheMetadata), data: entry.data };
-          }
-        } catch (error) {
-          Promise.reject(error);
+        if (entry) {
+          result = { cacheMetadata: mapToObject(entry.cacheMetadata), data: entry.data };
         }
       }
       break;
     case "getResponseCacheSize":
-      try {
-        result = await client.getResponseCacheSize();
-      } catch (error) {
-        return Promise.reject(error);
-      }
+      result = await client.getResponseCacheSize();
       break;
     case "request":
       if (query) {
-        try {
-          const requestResult = await client.request(query, opts);
+        const requestResult = await client.request(query, opts);
 
-          if (requestResult) {
-            result = convertCacheMetadata(requestResult);
-          }
-        } catch (error) {
-          return Promise.reject(error);
+        if (requestResult) {
+          result = convertCacheMetadata(requestResult);
         }
       }
       break;
