@@ -38,12 +38,11 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
         });
 
         it("then the method should return the requested data", () => {
-          expect(result.data).to.deep.equal(github.responses.singleQuery);
+          expect(result.data).to.deep.equal(github.responses.singleQuery.data);
           expect(result.queryHash).to.be.a("string");
-          expect(result.cacheMetadata.size).to.equal(2);
+          expect(result.cacheMetadata.size).to.equal(1);
           const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
-          expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(28800);
-          // TODO
+          expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
         });
 
         it("then the client should have cached the response against the query", async () => {

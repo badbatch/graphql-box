@@ -80,6 +80,7 @@ export function mockGraphqlRequest(request: string): { body: ObjectMap } {
   };
 
   const body = getGraphqlResponse(requestHash) as ObjectMap;
-  fetchMock.mock(matcher, { body });
+  const headers = { "cache-control": "public, max-age=300000, s-maxage=300000" };
+  fetchMock.mock(matcher, { body, headers });
   return { body };
 }
