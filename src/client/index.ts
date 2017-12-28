@@ -40,7 +40,6 @@ import {
 
 import {
   ClientRequests,
-  CreateCacheMetadataArgs,
   FetchResult,
   PendingRequestActions,
   PendingRequestRejection,
@@ -67,11 +66,12 @@ import {
   setFragmentDefinitions,
 } from "../helpers/parsing";
 
+import createCacheMetadata from "../helpers/create-cache-metadata";
 import mapToObject from "../helpers/map-to-object";
+import parseCacheabilityObjectMap from "../helpers/parse-cacheability-object-map";
 import { FragmentDefinitionNodeMap } from "../helpers/parsing/types";
 
 import {
-  CacheabilityObjectMap,
   CachemapArgsGroup,
   CacheMetadata,
   ClientArgs,
@@ -95,30 +95,6 @@ export default class Client {
 
   private static _concatFragments(query: string, fragments: string[]): string {
     return [query, ...fragments].join("\n\n");
-  }
-
-  private static _createCacheMetadata(args?: CreateCacheMetadataArgs): CacheMetadata {
-    const _args = args || {};
-    if (_args.cacheMetadata) return Client._parseCacheabilityObjectMap(_args.cacheMetadata);
-    const cacheControl = _args.headers && _args.headers.get("cache-control");
-    if (!cacheControl) return new Map();
-    const cacheability = new Cacheability();
-    cacheability.parseCacheControl(cacheControl);
-    const _cacheMetadata = new Map();
-    _cacheMetadata.set("query", cacheability);
-    return _cacheMetadata;
-  }
-
-  private static _parseCacheabilityObjectMap(cacheabilityObjectMap: CacheabilityObjectMap): CacheMetadata {
-    const cacheMetadata: CacheMetadata = new Map();
-
-    Object.keys(cacheabilityObjectMap).forEach((key) => {
-      const cacheability = new Cacheability();
-      cacheability.metadata = cacheabilityObjectMap[key];
-      cacheMetadata.set(key, cacheability);
-    });
-
-    return cacheMetadata;
   }
 
   private _cache: Cache;
@@ -282,7 +258,7 @@ export default class Client {
     const cacheability: Cacheability | false = await this._cache.responses.has(queryHash);
     if (!cacheability || !Cache.isValid(cacheability)) return;
     const res = await this._cache.responses.get(queryHash);
-    return { cacheMetadata: Client._parseCacheabilityObjectMap(res.cacheMetadata), data: res.data };
+    return { cacheMetadata: parseCacheabilityObjectMap(res.cacheMetadata), data: res.data };
   }
 
   private async _createCache(): Promise<void> {
@@ -376,14 +352,14 @@ export default class Client {
       fetchResult = await this._fetch(mutation, ast, opts);
     } catch (error) {
       return this._resolve({
-        cacheMetadata: Client._createCacheMetadata(),
+        cacheMetadata: createCacheMetadata(),
         error,
         operation: "mutation",
       });
     }
 
     return this._resolve({
-      cacheMetadata: Client._createCacheMetadata({
+      cacheMetadata: createCacheMetadata({
         cacheMetadata: fetchResult.cacheMetadata,
         headers: fetchResult.headers,
       }),
@@ -505,14 +481,14 @@ export default class Client {
       fetchResult = await this._fetch(_updateQuery, _updateAST, opts);
     } catch (error) {
       return this._resolve({
-        cacheMetadata: Client._createCacheMetadata(),
+        cacheMetadata: createCacheMetadata(),
         error,
         operation: "query",
         queryHash,
       });
     }
 
-    const _cacheMetadata = Client._createCacheMetadata({
+    const _cacheMetadata = createCacheMetadata({
       cacheMetadata: fetchResult.cacheMetadata,
       headers: fetchResult.headers,
     });

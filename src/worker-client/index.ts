@@ -1,8 +1,11 @@
+import { castArray, isArray } from "lodash";
 import PromiseWorker from "promise-worker";
+import createCacheMetadata from "../helpers/create-cache-metadata";
 
 import {
   ClientArgs,
   PostMessageArgs,
+  PostMessageResult,
   RequestOptions,
   RequestResult,
 } from "../types";
@@ -17,6 +20,19 @@ export default class WorkerClient {
     return workerCachemap;
   }
 
+  private static _convertCacheabilityObjectMap(
+    result: PostMessageResult | PostMessageResult[],
+  ): RequestResult | RequestResult[] {
+    const postMessageResults = castArray(result);
+    const requestResults: RequestResult[] = [];
+
+    postMessageResults.forEach(({ cacheMetadata, ...otherProps }) => {
+      requestResults.push({ cacheMetadata: createCacheMetadata({ cacheMetadata }), ...otherProps });
+    });
+
+    return isArray(result) ? requestResults : requestResults[0];
+  }
+
   private _promiseWorker: PromiseWorker;
   private _worker: Worker;
 
@@ -28,7 +44,9 @@ export default class WorkerClient {
     let result: RequestResult | RequestResult[];
 
     try {
-      result = await this._postMessage({ query, opts, type: "request" });
+      const args = { query, opts, type: "request" };
+      const postMessageResult = await this._postMessage(args) as PostMessageResult | PostMessageResult[];
+      result = WorkerClient._convertCacheabilityObjectMap(postMessageResult);
     } catch (error) {
       return Promise.reject(error);
     }

@@ -1,21 +1,9 @@
 import Cacheability from "cacheability";
-
-import {
-  CacheabilityObjectMap,
-  CacheMetadata,
-  ResolveResult,
-  DataCachedResolver,
-  ObjectMap
-} from "../types";
+import { CacheMetadata, ResolveResult, ObjectMap } from "../types";
 
 export interface ClientRequests {
   active: Map<string, string>;
   pending: Map<string, PendingRequestActions[]>;
-}
-
-export interface CreateCacheMetadataArgs {
-  cacheMetadata?: CacheabilityObjectMap;
-  headers?: Headers;
 }
 
 export interface FetchResult {
