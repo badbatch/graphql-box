@@ -60,6 +60,7 @@ export interface ObjectMap { [key: string]: any; }
 
 export interface PostMessageArgs {
   args?: ClientArgs;
+  key?: string;
   opts?: RequestOptions;
   query?: string;
   type: string;
@@ -94,4 +95,9 @@ export interface ResolveResult {
   cachePromise?: Promise<void>;
   data: ObjectMap;
   queryHash?: string;
+}
+
+export interface ResponseCacheEntryResult {
+  cacheMetadata: CacheMetadata;
+  data: ObjectMap;
 }

@@ -5,7 +5,7 @@ import { tesco } from "../../data/graphql";
 import { mockRestRequest, serverArgs } from "../../helpers";
 import createHandl from "../../../src";
 import Client from "../../../src/client";
-import { RequestResult } from "../../../src/types";
+import { RequestResult, ResponseCacheEntryResult } from "../../../src/types";
 
 describe("the handl class in 'internal' mode", () => {
   let client: Client;
@@ -51,21 +51,19 @@ describe("the handl class in 'internal' mode", () => {
       });
 
       it("then the client should have cached the response against the query", async () => {
-        const responseCache = client.cache.responses;
-        const cacheSize = await responseCache.size();
+        const cacheSize = await client.getResponseCacheSize();
         expect(cacheSize).to.equal(2);
-        const cacheEntry = await responseCache.get(result.queryHash as string);
-        expect(result.data).to.deep.equal(cacheEntry.data);
-        expect(Object.keys(cacheEntry.cacheMetadata).length).to.equal(2);
-        const queryCacheMetadata = cacheEntry.cacheMetadata.query;
-        expect(queryCacheMetadata.cacheControl.maxAge).to.equal(28800);
-        const productCacheMetadata = cacheEntry.cacheMetadata.product;
-        expect(productCacheMetadata.cacheControl.maxAge).to.equal(28800);
+        const cacheEntry = await client.getResponseCacheEntry(result.queryHash as string) as ResponseCacheEntryResult;
+        expect(cacheEntry.data).to.deep.equal(tesco.responses.singleQuery);
+        expect(cacheEntry.cacheMetadata.size).to.equal(2);
+        const queryCacheMetadata = cacheEntry.cacheMetadata.get("query") as Cacheability;
+        expect(queryCacheMetadata.metadata.cacheControl.maxAge).to.equal(28800);
+        const productCacheMetadata = cacheEntry.cacheMetadata.get("product") as Cacheability;
+        expect(productCacheMetadata.metadata.cacheControl.maxAge).to.equal(28800);
       });
 
       it("then the client should cache each data object in the response against its query path", async () => {
-        const dataObjectCache = client.cache.dataObjects;
-        const cacheSize = await dataObjectCache.size();
+        const cacheSize = await client.getDataObjectCacheSize();
         expect(cacheSize).to.eql(6);
       });
     });

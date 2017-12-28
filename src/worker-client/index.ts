@@ -8,6 +8,7 @@ import {
   PostMessageResult,
   RequestOptions,
   RequestResult,
+  ResponseCacheEntryResult,
 } from "../types";
 
 export default class WorkerClient {
@@ -38,6 +39,34 @@ export default class WorkerClient {
 
   public async clearCache(): Promise<void> {
     await this._postMessage({ type: "clearCache" });
+  }
+
+  public async getDataObjectCacheEntry(key: string): Promise<any> {
+    return this._postMessage({ key, type: "getDataObjectCacheEntry" });
+  }
+
+  public async getDataObjectCacheSize(): Promise<number> {
+    return this._postMessage({ type: "getDataObjectCacheSize" });
+  }
+
+  public async getResponseCacheEntry(key: string): Promise<ResponseCacheEntryResult | undefined> {
+    let result: ResponseCacheEntryResult | undefined;
+
+    try {
+      const entry = await this._postMessage({ key, type: "getResponseCacheEntry" });
+
+      if (entry) {
+        result = { cacheMetadata: createCacheMetadata(entry.cacheMetadata), data: entry.data };
+      }
+    } catch (error) {
+      return Promise.reject(error);
+    }
+
+    return result;
+  }
+
+  public async getResponseCacheSize(): Promise<number> {
+    return this._postMessage({ type: "getResponseCacheSize" });
   }
 
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult | RequestResult[]> {

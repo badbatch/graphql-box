@@ -80,6 +80,7 @@ import {
   RequestOptions,
   RequestResult,
   ResolveResult,
+  ResponseCacheEntryResult,
 } from "../types";
 
 const deferredPromise = require("defer-promise");
@@ -191,15 +192,30 @@ export default class Client {
     return instance;
   }
 
-  get cache(): Cache {
-    return this._cache;
-  }
-
   public async clearCache(): Promise<void> {
     await Promise.all([
       this._cache.responses.clear(),
       this._cache.dataObjects.clear(),
     ]);
+  }
+
+  public async getDataObjectCacheEntry(key: string): Promise<any> {
+    return this._cache.dataObjects.get(key);
+  }
+
+  public async getDataObjectCacheSize(): Promise<number> {
+    return this._cache.dataObjects.size();
+  }
+
+  public async getResponseCacheEntry(key: string): Promise<ResponseCacheEntryResult | undefined> {
+    const entry = await this._cache.responses.get(key);
+    if (!entry) return undefined;
+    const { cacheMetadata, data } = entry;
+    return { cacheMetadata: createCacheMetadata({ cacheMetadata }), data };
+  }
+
+  public async getResponseCacheSize(): Promise<number> {
+    return this._cache.responses.size();
   }
 
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult | RequestResult[]> {
