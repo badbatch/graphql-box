@@ -44,6 +44,11 @@ export interface ClientArgs {
   url?: string;
 }
 
+export interface CreateCacheMetadataArgs {
+  cacheMetadata?: CacheabilityObjectMap;
+  headers?: Headers;
+}
+
 export type DataCachedResolver = () => void;
 
 export interface DefaultCacheControls {
@@ -58,6 +63,12 @@ export interface PostMessageArgs {
   opts?: RequestOptions;
   query?: string;
   type: string;
+}
+
+export interface PostMessageResult {
+  cacheMetadata: CacheabilityObjectMap;
+  data: ObjectMap;
+  queryHash?: string;
 }
 
 export interface RequestOptions {
