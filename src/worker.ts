@@ -24,12 +24,12 @@ let client: Client;
 registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
   const { args, key, opts, query, type } = message;
 
-  let result: any;
-
   if (type === "create" && args) {
     client = await Client.create(args);
     return undefined;
   }
+
+  let result: any;
 
   switch (message.type) {
     case "clearCache":
