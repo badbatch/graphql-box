@@ -102,11 +102,19 @@ export default class Client {
 
   private _cachemapOptions: CachemapArgsGroup = {
     dataObjects: {
+      indexedDBOptions: {
+        databaseName: "handl-store",
+        objectStoreName: "dataObjects",
+      },
       name: "handl-dataObjects",
       redisOptions: { db: 0 },
       use: { client: "indexedDB", server: "redis" },
     },
     responses: {
+      indexedDBOptions: {
+        databaseName: "handl-store",
+        objectStoreName: "responses",
+      },
       name: "handl-responses",
       redisOptions: { db: 1 },
       use: { client: "indexedDB", server: "redis" },
