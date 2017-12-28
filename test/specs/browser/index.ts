@@ -5,7 +5,7 @@ import { github } from "../../data/graphql";
 import { browserArgs, mockGraphqlRequest } from "../../helpers";
 import createHandl from "../../../src";
 import Client from "../../../src/client";
-import { ClientArgs, RequestResult } from "../../../src/types";
+import { ClientArgs, RequestResult, ResponseCacheEntryResult } from "../../../src/types";
 
 function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): void {
   describe("the handl class in 'external' mode", () => {
@@ -46,20 +46,17 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
         });
 
         it("then the client should have cached the response against the query", async () => {
-          const responseCache = client.cache.responses;
-          const cacheSize = await responseCache.size();
-          expect(cacheSize).to.equal(2);
-          const cacheEntry = await responseCache.get(result.queryHash as string);
-          expect(result.data).to.deep.equal(cacheEntry.data);
-          expect(Object.keys(cacheEntry.cacheMetadata).length).to.equal(1);
-          const queryCacheMetadata = cacheEntry.cacheMetadata.query;
-          expect(queryCacheMetadata.cacheControl.maxAge).to.equal(28800);
-          // TODO
+          const cacheSize = await client.getResponseCacheSize();
+          expect(cacheSize).to.equal(1);
+          const cacheEntry = await client.getResponseCacheEntry(result.queryHash as string) as ResponseCacheEntryResult;
+          expect(cacheEntry.data).to.deep.equal(github.responses.singleQuery.data);
+          expect(cacheEntry.cacheMetadata.size).to.equal(2);
+          const queryCacheMetadata = cacheEntry.cacheMetadata.get("query") as Cacheability;
+          expect(queryCacheMetadata.metadata.cacheControl.maxAge).to.equal(300000);
         });
 
         it("then the client should cache each data object in the response against its query path", async () => {
-          const dataObjectCache = client.cache.dataObjects;
-          const cacheSize = await dataObjectCache.size();
+          const cacheSize = await client.getDataObjectCacheSize();
           expect(cacheSize).to.eql(6);
         });
       });
