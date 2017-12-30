@@ -56,6 +56,7 @@ export interface DefaultCacheControls {
   query: string;
 }
 
+export type FieldTypeMap = Map<string, { resourceKey: string, resourceValue?: string, typeName: string }>;
 export interface ObjectMap { [key: string]: any; }
 
 export interface PostMessageArgs {
@@ -70,6 +71,10 @@ export interface PostMessageResult {
   cacheMetadata: CacheabilityObjectMap;
   data: ObjectMap;
   queryHash?: string;
+}
+
+export interface RequestContext {
+  fieldTypeMaps: FieldTypeMap[];
 }
 
 export interface RequestOptions {
