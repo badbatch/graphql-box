@@ -29,7 +29,7 @@
     "compile:browser": "cross-env BABEL_ENV=browser gulp browser",
     "compile:main": "cross-env BABEL_ENV=main gulp main",
     "compile:module": "cross-env BABEL_ENV=module gulp module",
-    "debug:web": "cross-env BABEL_ENV=browser TEST_ENV=true karma start --no-single-run --browsers Chrome",
+    "debug:web": "cross-env BABEL_ENV=debug TEST_ENV=true karma start --no-single-run --browsers Chrome",
     "lint": "gulp lint",
     "publish:pkg": "npm run build && npm publish",
     "test": "npm run lint && npm run type-check && npm run test:web && npm run test:node",
@@ -38,8 +38,8 @@
     "type-check": "gulp type-check"
   },
   "dependencies": {
-    "cacheability": "0.0.42",
-    "cachemap": "0.0.26",
+    "cacheability": "0.0.44",
+    "cachemap": "0.0.34",
     "defer-promise": "^1.0.1",
     "graphql": "^0.12.3",
     "isomorphic-fetch": "^2.2.1",
