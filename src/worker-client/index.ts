@@ -54,7 +54,7 @@ export default class WorkerClient {
     let result: ResponseCacheEntryResult | undefined;
 
     if (entry) {
-      result = { cacheMetadata: createCacheMetadata(entry.cacheMetadata), data: entry.data };
+      result = { cacheMetadata: createCacheMetadata({ cacheMetadata: entry.cacheMetadata }), data: entry.data };
     }
 
     return result;

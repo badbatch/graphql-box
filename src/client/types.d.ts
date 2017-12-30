@@ -1,5 +1,5 @@
 import Cacheability from "cacheability";
-import { CacheMetadata, ResolveResult, ObjectMap } from "../types";
+import { CacheMetadata, ObjectMap, ResolveResult } from "../types";
 
 export interface ClientRequests {
   active: Map<string, string>;
