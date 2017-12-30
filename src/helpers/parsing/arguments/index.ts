@@ -42,7 +42,7 @@ function parseValue(valueNode: ValueNode): ParseValueResult {
 }
 
 export function getArguments(field: FieldNode): ObjectMap | undefined {
-  if (!field.arguments || field.arguments.length) return undefined;
+  if (!field.arguments || !field.arguments.length) return undefined;
   const args: ObjectMap = {};
 
   field.arguments.forEach(({ name, value }) => {

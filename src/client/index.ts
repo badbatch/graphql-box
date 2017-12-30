@@ -41,6 +41,7 @@ import {
 import {
   ClientRequests,
   FetchResult,
+  MapFieldToTypeArgs,
   PendingRequestActions,
   PendingRequestRejection,
   PendingRequestResolver,
@@ -53,6 +54,8 @@ import {
   addChildFields,
   deleteFragmentDefinitions,
   deleteVariableDefinitions,
+  getAlias,
+  getArguments,
   getChildFields,
   getFragmentDefinitions,
   getKind,
@@ -77,6 +80,7 @@ import {
   ClientArgs,
   DefaultCacheControls,
   ObjectMap,
+  RequestContext,
   RequestOptions,
   RequestResult,
   ResolveResult,
@@ -94,8 +98,26 @@ export default class Client {
     return client;
   }
 
+  private static _addFieldTypeMap(context: RequestContext): void {
+    context.fieldTypeMaps.push(new Map());
+  }
+
   private static _concatFragments(query: string, fragments: string[]): string {
     return [query, ...fragments].join("\n\n");
+  }
+
+  private static _mapFieldToType(args: MapFieldToTypeArgs): void {
+    const { argsObjectMap, context, fieldName, resourceKey, typeName } = args;
+    if (!fieldName) return;
+    const { fieldTypeMaps } = context;
+    const fieldTypeMap = fieldTypeMaps[fieldTypeMaps.length - 1];
+    let resourceValue: string | undefined;
+
+    if (argsObjectMap && argsObjectMap[resourceKey]) {
+      resourceValue = argsObjectMap[resourceKey];
+    }
+
+    fieldTypeMap.set(fieldName, { resourceKey, resourceValue, typeName });
   }
 
   private _cache: Cache;
@@ -245,14 +267,15 @@ export default class Client {
 
     try {
       const _query = opts.fragments ? Client._concatFragments(query, opts.fragments) : query;
-      const updated = await this._updateQuery(_query, opts);
+      const context: RequestContext = { fieldTypeMaps: [] };
+      const updated = await this._updateQuery(_query, opts, context);
       errors = validate(this._schema, updated.ast) as GraphQLError[];
       if (errors.length) return Promise.reject(errors);
       const operations = getOperationDefinitions(updated.ast);
       const multiQuery = operations.length > 1;
 
       if (!multiQuery) {
-        const result = await this._resolveRequestOperation(updated.query, updated.ast, opts);
+        const result = await this._resolveRequestOperation(updated.query, updated.ast, opts, context);
 
         if (opts.awaitDataCached && result.cachePromise) {
           await result.cachePromise;
@@ -262,9 +285,10 @@ export default class Client {
         return result;
       }
 
-      return Promise.all(operations.map(async (operation) => {
+      return Promise.all(operations.map(async (operation, index) => {
         const operationQuery = print(operation);
-        const result = await this._resolveRequestOperation(operationQuery, parse(operationQuery), opts);
+        const _context: RequestContext = { fieldTypeMaps: [context.fieldTypeMaps[index]] };
+        const result = await this._resolveRequestOperation(operationQuery, parse(operationQuery), opts, _context);
 
         if (opts.awaitDataCached && result.cachePromise) {
           await result.cachePromise;
@@ -437,6 +461,7 @@ export default class Client {
     query: string,
     ast: DocumentNode,
     opts: RequestOptions,
+    context: RequestContext,
   ): Promise<ResolveResult> {
     const queryHash = Cache.hash(query);
 
@@ -468,7 +493,7 @@ export default class Client {
       filtered,
       updatedAST,
       updatedQuery,
-    } = await this._cache.analyze(queryHash, ast);
+    } = await this._cache.analyze(queryHash, ast, context);
 
     const deferred: DeferPromise.Deferred<void> = deferredPromise();
 
@@ -589,11 +614,12 @@ export default class Client {
     query: string,
     ast: DocumentNode,
     opts: RequestOptions,
+    context: RequestContext,
   ): Promise<ResolveResult> {
     const operationDefinition = getOperationDefinitions(ast)[0];
 
     if (operationDefinition.operation === "query") {
-      return this._query(query, ast, opts);
+      return this._query(query, ast, opts, context);
     } else if (operationDefinition.operation === "mutation") {
       return this._mutation(query, ast, opts);
     }
@@ -608,7 +634,11 @@ export default class Client {
     this._requests.pending.set(queryHash, pending);
   }
 
-  private async _updateQuery(query: string, opts: RequestOptions): Promise<{ ast: DocumentNode, query: string }> {
+  private async _updateQuery(
+    query: string,
+    opts: RequestOptions,
+    context: RequestContext,
+  ): Promise<{ ast: DocumentNode, query: string }> {
     const _this = this;
     const typeInfo = new TypeInfo(this._schema);
     let fragmentDefinitions: FragmentDefinitionNodeMap | undefined;
@@ -643,11 +673,25 @@ export default class Client {
           const objectOrInterfaceType = type as GraphQLObjectType | GraphQLInterfaceType;
           const fields = objectOrInterfaceType.getFields();
 
-          if (fields[_this._resourceKey] && !hasChildFields(fieldOrInlineFragmentNode, _this._resourceKey)) {
-            const mockAST = parse(`{${_this._resourceKey}}`);
-            const queryNode = getOperationDefinitions(mockAST, "query")[0];
-            const field = getChildFields(queryNode, _this._resourceKey) as FieldNode;
-            addChildFields(fieldOrInlineFragmentNode, field);
+          if (fields[_this._resourceKey]) {
+            if (!hasChildFields(fieldOrInlineFragmentNode, _this._resourceKey)) {
+              const mockAST = parse(`{${_this._resourceKey}}`);
+              const queryNode = getOperationDefinitions(mockAST, "query")[0];
+              const field = getChildFields(queryNode, _this._resourceKey) as FieldNode;
+              addChildFields(fieldOrInlineFragmentNode, field);
+            }
+
+            if (kind === "Field") {
+              const fieldNode = node as FieldNode;
+
+              Client._mapFieldToType({
+                argsObjectMap: getArguments(fieldNode),
+                context,
+                fieldName: getAlias(fieldNode) || getName(fieldNode),
+                resourceKey: _this._resourceKey,
+                typeName: objectOrInterfaceType.name,
+              });
+            }
           }
 
           if (fields._metadata && !hasChildFields(fieldOrInlineFragmentNode, "_metadata")) {
@@ -661,6 +705,7 @@ export default class Client {
         }
 
         if (kind === "OperationDefinition") {
+          Client._addFieldTypeMap(context);
           const operationDefinitionNode = node as OperationDefinitionNode;
           if (!opts.variables || !hasVariableDefinitions(operationDefinitionNode)) return undefined;
           deleteVariableDefinitions(operationDefinitionNode);
