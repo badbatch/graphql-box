@@ -38,6 +38,7 @@ import {
   DataCachedResolver,
   DefaultCacheControls,
   ObjectMap,
+  RequestContext,
   ResolveResult,
 } from "../types";
 
@@ -282,7 +283,11 @@ export default class Cache {
     return this._dataObjects;
   }
 
-  public async analyze(queryHash: string, ast: DocumentNode): Promise<AnalyzeResult> {
+  public async analyze(
+    queryHash: string,
+    ast: DocumentNode,
+    context: RequestContext,
+  ): Promise<AnalyzeResult> {
     const {
       cacheMetadata,
       checkList,
@@ -380,7 +385,7 @@ export default class Cache {
   }
 
   private async _checkDataObjectCacheEntry(hashKey: string): Promise<CheckDataObjectCacheEntryResult> {
-    const cacheability: Cacheability | false = await this._dataObjects.has(hashKey);
+    const cacheability = await this._dataObjects.has(hashKey);
     let cacheData;
     if (cacheability && Cache.isValid(cacheability)) cacheData = await this._dataObjects.get(hashKey);
     return { cacheability, cacheData };
@@ -409,8 +414,7 @@ export default class Cache {
     if (hasChildFields(field)) {
       await this._parseParentField(field, metadata, cachePath, queryPath, index);
     } else {
-      const objectMapCacheData = cacheData as ObjectMap;
-      await Cache._parseSingleField(field, metadata, objectMapCacheData, cachePath, queryPath, index);
+      await Cache._parseSingleField(field, metadata, cacheData as ObjectMap, cachePath, queryPath, index);
     }
   }
 

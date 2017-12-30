@@ -1,5 +1,5 @@
 import Cacheability from "cacheability";
-import { CacheMetadata, ObjectMap, ResolveResult } from "../types";
+import { CacheMetadata, ObjectMap, ResolveResult, RequestContext } from "../types";
 
 export interface ClientRequests {
   active: Map<string, string>;
@@ -10,6 +10,14 @@ export interface FetchResult {
   cacheMetadata?: ObjectMap;
   data: ObjectMap;
   headers?: Headers;
+}
+
+export interface MapFieldToTypeArgs {
+  argsObjectMap?: ObjectMap;
+  context: RequestContext;
+  fieldName?: string;
+  resourceKey: string;
+  typeName: string;
 }
 
 export interface PendingRequestActions {
