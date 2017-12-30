@@ -12,6 +12,17 @@
         "@babel/preset-stage-0"
       ]
     },
+    "debug": {
+      "presets": [
+        ["@babel/preset-env", {
+          "debug": true,
+          "modules": false,
+          "targets": { "browsers": "chrome >= 60" },
+          "useBuiltIns": "usage"
+        }],
+        "@babel/preset-stage-0"
+      ]
+    },
     "main": {
       "presets": [
         ["@babel/preset-env", {

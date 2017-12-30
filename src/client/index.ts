@@ -103,7 +103,7 @@ export default class Client {
   private _cachemapOptions: CachemapArgsGroup = {
     dataObjects: {
       indexedDBOptions: {
-        databaseName: "handl-store",
+        databaseName: "handl-dataObjects-store",
         objectStoreName: "dataObjects",
       },
       name: "handl-dataObjects",
@@ -112,7 +112,7 @@ export default class Client {
     },
     responses: {
       indexedDBOptions: {
-        databaseName: "handl-store",
+        databaseName: "handl-responses-store",
         objectStoreName: "responses",
       },
       name: "handl-responses",

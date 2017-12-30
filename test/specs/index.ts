@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { browserArgs, serverArgs } from "../helpers";
+import { serverArgs, workerArgs } from "../helpers";
 import createHandl from "../../src";
 import Client from "../../src/client";
 import WorkerClient from "../../src/worker-client";
@@ -9,7 +9,7 @@ describe("the createHandl method", () => {
     context("when the environment is a browser", () => {
       context("when the browser supports web workers", () => {
         it("the method should return an instance of the WorkerClient class", async () => {
-          const workerClient = await createHandl(browserArgs) as WorkerClient;
+          const workerClient = await createHandl(workerArgs) as WorkerClient;
           expect(workerClient).to.be.instanceof(WorkerClient);
           workerClient.terminate();
         });
@@ -27,7 +27,7 @@ describe("the createHandl method", () => {
         });
 
         it("the method should return an instance of the Client class", async () => {
-          const client = await createHandl(browserArgs);
+          const client = await createHandl(workerArgs);
           expect(client).to.be.instanceof(Client);
         });
       });

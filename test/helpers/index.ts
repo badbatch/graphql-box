@@ -8,8 +8,20 @@ import * as introspectionQuery from "../introspection/index.json";
 import { ClientArgs, ObjectMap } from "../../src/types";
 
 export const browserArgs: ClientArgs = {
+  cachemapOptions: {
+    dataObjects: { use: { client: "localStorage" } },
+    responses: { use: { client: "localStorage" } },
+  },
   introspection: introspectionQuery as IntrospectionQuery,
   mode: "external",
+  newInstance: true,
+  url: "https://api.github.com/graphql",
+};
+
+export const workerArgs: ClientArgs = {
+  introspection: introspectionQuery as IntrospectionQuery,
+  mode: "external",
+  newInstance: true,
   url: "https://api.github.com/graphql",
 };
 
@@ -25,6 +37,7 @@ export const serverArgs: ClientArgs = {
     responses: { mockRedis: true },
   },
   mode: "internal",
+  newInstance: true,
   schema: graphqlSchema,
 };
 

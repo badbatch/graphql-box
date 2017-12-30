@@ -1,5 +1,10 @@
 const { resolve } = require('path');
+const webpack = require('webpack'); // eslint-disable-line
 const webpackConfig = require('./webpack.config');
+
+webpackConfig.plugins.splice(2, 1, new webpack.SourceMapDevToolPlugin({
+  test: /\.tsx?$/,
+}));
 
 module.exports = (config) => {
   config.set({
@@ -11,7 +16,7 @@ module.exports = (config) => {
     preprocessors: {
       'test/specs/index.ts': ['webpack', 'sourcemap'],
     },
-    webpack: { ...webpackConfig, devtool: 'inline-source-map' },
+    webpack: webpackConfig,
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
