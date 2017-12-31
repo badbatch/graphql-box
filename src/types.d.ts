@@ -16,7 +16,8 @@ export interface CacheabilityObjectMap { [key: string]: CacheabilityMetadata; }
 export type CacheMetadata = Map<string, Cacheability>;
 
 export interface CachemapArgsGroup {
-  dataObjects: CachemapArgs;
+  dataEntities: CachemapArgs;
+  dataPaths: CachemapArgs;
   responses: CachemapArgs;
 }
 
@@ -26,7 +27,8 @@ export interface CachemapOptions extends CachemapArgs {
 }
 
 export interface CachemapOptionsGroup {
-  dataObjects?: CachemapOptions;
+  dataEntities?: CachemapOptions;
+  dataPaths?: CachemapOptions;
   responses?: CachemapOptions;
 }
 
@@ -56,7 +58,13 @@ export interface DefaultCacheControls {
   query: string;
 }
 
-export type FieldTypeMap = Map<string, { resourceKey: string, resourceValue?: string, typeName: string }>;
+export interface FieldTypeInfo {
+  resourceKey: string;
+  resourceValue?: string | number;
+  typeName: string;
+}
+
+export type FieldTypeMap = Map<string, FieldTypeInfo>;
 export interface ObjectMap { [key: string]: any; }
 
 export interface PostMessageArgs {

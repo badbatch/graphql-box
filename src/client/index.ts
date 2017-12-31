@@ -107,29 +107,51 @@ export default class Client {
   }
 
   private static _mapFieldToType(args: MapFieldToTypeArgs): void {
-    const { argsObjectMap, context, fieldName, resourceKey, typeName } = args;
-    if (!fieldName) return;
-    const { fieldTypeMaps } = context;
-    const fieldTypeMap = fieldTypeMaps[fieldTypeMaps.length - 1];
+    const { ancestors, context, fieldNode, resourceKey, typeName } = args;
+    const ancestorFieldPath: string[] = [];
+
+    ancestors.forEach((ancestor) => {
+      if (isPlainObject(ancestor) && getKind(ancestor as ASTNode) === "Field") {
+        const ancestorFieldNode = ancestor as FieldNode;
+        ancestorFieldPath.push(getAlias(ancestorFieldNode) || getName(ancestorFieldNode) as string);
+      }
+    });
+
+    const fieldName = getAlias(fieldNode) || getName(fieldNode) as string;
+    ancestorFieldPath.push(fieldName);
+    const fieldPath = ancestorFieldPath.join(".");
+
+    const argumentsObjectMap = getArguments(fieldNode);
     let resourceValue: string | undefined;
 
-    if (argsObjectMap && argsObjectMap[resourceKey]) {
-      resourceValue = argsObjectMap[resourceKey];
+    if (argumentsObjectMap && argumentsObjectMap[resourceKey]) {
+      resourceValue = argumentsObjectMap[resourceKey];
     }
 
-    fieldTypeMap.set(fieldName, { resourceKey, resourceValue, typeName });
+    const { fieldTypeMaps } = context;
+    const fieldTypeMap = fieldTypeMaps[fieldTypeMaps.length - 1];
+    fieldTypeMap.set(fieldPath, { resourceKey, resourceValue, typeName });
   }
 
   private _cache: Cache;
 
   private _cachemapOptions: CachemapArgsGroup = {
-    dataObjects: {
+    dataEntities: {
       indexedDBOptions: {
-        databaseName: "handl-dataObjects-store",
-        objectStoreName: "dataObjects",
+        databaseName: "handl-dataEntities-store",
+        objectStoreName: "dataEntities",
       },
-      name: "handl-dataObjects",
+      name: "handl-dataEntities",
       redisOptions: { db: 0 },
+      use: { client: "indexedDB", server: "redis" },
+    },
+    dataPaths: {
+      indexedDBOptions: {
+        databaseName: "handl-dataPaths-store",
+        objectStoreName: "dataPaths",
+      },
+      name: "handl-dataPaths",
+      redisOptions: { db: 1 },
       use: { client: "indexedDB", server: "redis" },
     },
     responses: {
@@ -138,7 +160,7 @@ export default class Client {
         objectStoreName: "responses",
       },
       name: "handl-responses",
-      redisOptions: { db: 1 },
+      redisOptions: { db: 2 },
       use: { client: "indexedDB", server: "redis" },
     },
   };
@@ -224,17 +246,26 @@ export default class Client {
 
   public async clearCache(): Promise<void> {
     await Promise.all([
+      this._cache.dataPaths.clear(),
+      this._cache.dataEntities.clear(),
       this._cache.responses.clear(),
-      this._cache.dataObjects.clear(),
     ]);
   }
 
-  public async getDataObjectCacheEntry(key: string): Promise<any> {
-    return this._cache.dataObjects.get(key);
+  public async getDataEntityCacheEntry(key: string): Promise<ObjectMap | undefined> {
+    return this._cache.dataEntities.get(key);
   }
 
-  public async getDataObjectCacheSize(): Promise<number> {
-    return this._cache.dataObjects.size();
+  public async getDataEntityCacheSize(): Promise<number> {
+    return this._cache.dataEntities.size();
+  }
+
+  public async getDataPathCacheEntry(key: string): Promise<any> {
+    return this._cache.dataPaths.get(key);
+  }
+
+  public async getDataPathCacheSize(): Promise<number> {
+    return this._cache.dataPaths.size();
   }
 
   public async getResponseCacheEntry(key: string): Promise<ResponseCacheEntryResult | undefined> {
@@ -303,7 +334,7 @@ export default class Client {
   }
 
   private async _checkResponseCache(queryHash: string): Promise<ResolveResult | undefined> {
-    const cacheability: Cacheability | false = await this._cache.responses.has(queryHash);
+    const cacheability = await this._cache.responses.has(queryHash);
     if (!cacheability || !Cache.isValid(cacheability)) return;
     const res = await this._cache.responses.get(queryHash);
     return { cacheMetadata: parseCacheabilityObjectMap(res.cacheMetadata), data: res.data };
@@ -644,7 +675,13 @@ export default class Client {
     let fragmentDefinitions: FragmentDefinitionNodeMap | undefined;
 
     const ast = visit(parse(query), {
-      enter(node: ASTNode): ValueNode | undefined {
+      enter(
+        node: ASTNode,
+        key: string | number,
+        parent: any,
+        path: Array<string | number>,
+        ancestors: any[],
+      ): ValueNode | undefined {
         typeInfo.enter(node);
         const kind = getKind(node);
 
@@ -685,9 +722,9 @@ export default class Client {
               const fieldNode = node as FieldNode;
 
               Client._mapFieldToType({
-                argsObjectMap: getArguments(fieldNode),
+                ancestors,
                 context,
-                fieldName: getAlias(fieldNode) || getName(fieldNode),
+                fieldNode,
                 resourceKey: _this._resourceKey,
                 typeName: objectOrInterfaceType.name,
               });

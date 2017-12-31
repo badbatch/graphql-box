@@ -35,13 +35,21 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
     case "clearCache":
       await client.clearCache();
       break;
-    case "getDataObjectCacheEntry":
+    case "getDataEntityCacheEntry":
       if (key) {
-        result = await client.getDataObjectCacheEntry(key);
+        result = await client.getDataEntityCacheEntry(key);
       }
       break;
-    case "getDataObjectCacheSize":
-      result = await client.getDataObjectCacheSize();
+    case "getDataEntityCacheSize":
+      result = await client.getDataEntityCacheSize();
+      break;
+    case "getDataPathCacheEntry":
+      if (key) {
+        result = await client.getDataPathCacheEntry(key);
+      }
+      break;
+    case "getDataPathCacheSize":
+      result = await client.getDataPathCacheSize();
       break;
     case "getResponseCacheEntry":
       if (key) {
