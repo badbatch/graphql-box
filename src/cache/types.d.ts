@@ -23,14 +23,9 @@ export interface CachesCheckMetadata {
   queriedData: ObjectMap;
 }
 
-export interface CacheEntryCacheability {
-  dataPath: Cacheability | false;
-  dataEntity?: Cacheability | false;
-}
-
 export interface CacheEntryData {
-  dataPath: any;
-  dataEntity?: any;
+  primary: any;
+  secondary?: any;
 }
 
 export interface CacheEntryResult {
