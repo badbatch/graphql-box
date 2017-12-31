@@ -577,6 +577,7 @@ export default class Client {
       _updateQuery,
       _updateAST,
       queryHash,
+      context.fieldTypeMaps[0],
       fetchResult.data,
       _cacheMetadata,
       { cacheResolve: deferred.resolve, filtered: _filterd },
