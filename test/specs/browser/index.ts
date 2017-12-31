@@ -66,7 +66,7 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
         });
 
         it("then the client should cache each data object in the response against its query path", async () => {
-          const cacheSize = await client.getDataObjectCacheSize();
+          const cacheSize = await client.getDataPathCacheSize();
           expect(cacheSize).to.eql(16);
         });
       });

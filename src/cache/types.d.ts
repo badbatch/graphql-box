@@ -23,9 +23,19 @@ export interface CachesCheckMetadata {
   queriedData: ObjectMap;
 }
 
-export interface CheckDataObjectCacheEntryResult {
+export interface CacheEntryCacheability {
+  dataPath: Cacheability | false;
+  dataEntity?: Cacheability | false;
+}
+
+export interface CacheEntryData {
+  dataPath: any;
+  dataEntity?: any;
+}
+
+export interface CacheEntryResult {
+  cachedData: any;
   cacheability: Cacheability | false;
-  cacheData: any;
 }
 
 export type CheckList = Map<string, boolean>;
