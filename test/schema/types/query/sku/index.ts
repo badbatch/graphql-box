@@ -12,7 +12,8 @@ import Inventory from "../inventory";
 import metadataType from "../metadata";
 import SkuMediaAsseets from "../media-assets/sku";
 import pricesType from "../prices";
-import { fetchData } from "../../../helpers";
+import productType from "../product";
+import { fetchData, getLinks } from "../../../helpers";
 import { ObjectMap } from "../../../../../src/types";
 
 const skuAttributeType = new GraphQLObjectType({
@@ -51,6 +52,14 @@ const skuType: GraphQLObjectType = new GraphQLObjectType({
     longDescription: { type: GraphQLString },
     mediaAssets: { type: SkuMediaAsseets },
     noofRatingsProduced: { type: GraphQLInt },
+    parentProduct: {
+      resolve: async (obj: { links: ObjectMap[] }) => {
+        const links: ObjectMap[] = getLinks(obj, "parent");
+        if (!links || !links.length) return [];
+        return fetchData("product", { id: links[0].id });
+      },
+      type: productType,
+    },
     prices: { type: pricesType },
     publicLink: { type: GraphQLString },
     range: {
