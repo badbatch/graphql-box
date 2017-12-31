@@ -16,6 +16,13 @@ export interface CacheArgs {
   defaultCacheControls: DefaultCacheControls;
 }
 
+export interface CachesCheckMetadata {
+  cacheMetadata: CacheMetadata;
+  checkList: CheckList;
+  counter: { missing: number, total: number };
+  queriedData: ObjectMap;
+}
+
 export interface CheckDataObjectCacheEntryResult {
   cacheability: Cacheability | false;
   cacheData: any;
@@ -38,13 +45,6 @@ export interface KeyPaths {
   cachePath?: string;
   dataPath?: string;
   queryPath?: string;
-}
-
-export interface ObjectCacheCheckMetadata {
-  cacheMetadata: CacheMetadata;
-  checkList: CheckList;
-  counter: { missing: number, total: number };
-  queriedData: ObjectMap;
 }
 
 export interface PartialData {
