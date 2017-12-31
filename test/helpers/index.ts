@@ -9,7 +9,8 @@ import { ClientArgs, ObjectMap } from "../../src/types";
 
 export const browserArgs: ClientArgs = {
   cachemapOptions: {
-    dataObjects: { use: { client: "localStorage" } },
+    dataEntities: { use: { client: "localStorage" } },
+    dataPaths: { use: { client: "localStorage" } },
     responses: { use: { client: "localStorage" } },
   },
   introspection: introspectionQuery as IntrospectionQuery,
@@ -33,7 +34,8 @@ if (!process.env.WEB_ENV) {
 
 export const serverArgs: ClientArgs = {
   cachemapOptions: {
-    dataObjects: { mockRedis: true },
+    dataEntities: { mockRedis: true },
+    dataPaths: { mockRedis: true },
     responses: { mockRedis: true },
   },
   mode: "internal",

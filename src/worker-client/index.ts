@@ -4,6 +4,7 @@ import createCacheMetadata from "../helpers/create-cache-metadata";
 
 import {
   ClientArgs,
+  ObjectMap,
   PostMessageArgs,
   PostMessageResult,
   RequestOptions,
@@ -41,12 +42,20 @@ export default class WorkerClient {
     await this._postMessage({ type: "clearCache" });
   }
 
-  public async getDataObjectCacheEntry(key: string): Promise<any> {
-    return this._postMessage({ key, type: "getDataObjectCacheEntry" });
+  public async getDataEntityCacheEntry(key: string): Promise<ObjectMap | undefined> {
+    return this._postMessage({ key, type: "getDataPathCacheEntry" });
   }
 
-  public async getDataObjectCacheSize(): Promise<number> {
-    return this._postMessage({ type: "getDataObjectCacheSize" });
+  public async getDataEntityCacheSize(): Promise<number> {
+    return this._postMessage({ type: "getDataEntityCacheSize" });
+  }
+
+  public async getDataPathCacheEntry(key: string): Promise<any> {
+    return this._postMessage({ key, type: "getDataPathCacheEntry" });
+  }
+
+  public async getDataPathCacheSize(): Promise<number> {
+    return this._postMessage({ type: "getDataPathCacheSize" });
   }
 
   public async getResponseCacheEntry(key: string): Promise<ResponseCacheEntryResult | undefined> {

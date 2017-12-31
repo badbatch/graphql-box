@@ -1,5 +1,6 @@
 import Cacheability from "cacheability";
 import { CacheMetadata, ObjectMap, ResolveResult, RequestContext } from "../types";
+import { FieldNode } from "graphql";
 
 export interface ClientRequests {
   active: Map<string, string>;
@@ -13,9 +14,9 @@ export interface FetchResult {
 }
 
 export interface MapFieldToTypeArgs {
-  argsObjectMap?: ObjectMap;
+  ancestors: any[];
   context: RequestContext;
-  fieldName?: string;
+  fieldNode: FieldNode;
   resourceKey: string;
   typeName: string;
 }
