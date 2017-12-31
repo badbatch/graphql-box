@@ -42,7 +42,8 @@ export async function fetchData(
   });
 
   const data: ObjectMap[] = flatten(await Promise.all(promises));
-  const _metadata = { cacheControl: "public, max-age=28800" };
+  const maxAge = key === "product" ? 28800 : 14400;
+  const _metadata = { cacheControl: `public, max-age=${maxAge}` };
   if (!isArray(args.id)) return { ...data[0], _metadata };
   return [{ ...data[0], _metadata }, { ...data[1], _metadata }];
 }

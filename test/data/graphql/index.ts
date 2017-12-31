@@ -20,6 +20,7 @@ export const github: RequestResponseGroup = {
 };
 
 const tescoResponses = {
+  editedSingleQuery: require("./tesco/respones/edited-single-query.json"),
   singleQuery: require("./tesco/respones/single-query.json"),
 };
 

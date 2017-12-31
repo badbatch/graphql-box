@@ -45,6 +45,14 @@ const productType: GraphQLObjectType = new GraphQLObjectType({
       },
       type: new GraphQLList(productType),
     },
+    defaultSku: {
+      resolve: async (obj: { links: ObjectMap[] }) => {
+        const links: ObjectMap[] = getLinks(obj, "defaultSku");
+        if (!links || !links.length) return [];
+        return fetchData("sku", { id: links[0].id });
+      },
+      type: skuType,
+    },
     displayName: { type: GraphQLString },
     giftMessagingEnabled: { type: GraphQLBoolean },
     id: { type: GraphQLString },

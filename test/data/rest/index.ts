@@ -17,6 +17,7 @@ export const rangeData: DataType = {};
 
 export const skuData: DataType = {
   "104-7702": require("./responses/sku/104-7702.json"),
+  "134-5203": require("./responses/sku/134-5203.json"),
 };
 
 export const endpointData: { [key: string]: DataType } = {

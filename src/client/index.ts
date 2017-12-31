@@ -493,7 +493,7 @@ export default class Client {
       filtered,
       updatedAST,
       updatedQuery,
-    } = await this._cache.analyze(queryHash, ast, context);
+    } = await this._cache.analyze(queryHash, ast, context.fieldTypeMaps[0]);
 
     const deferred: DeferPromise.Deferred<void> = deferredPromise();
 

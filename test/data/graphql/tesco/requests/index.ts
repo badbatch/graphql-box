@@ -1,17 +1,63 @@
 export const singleQuery = `
   {
     product(id: "402-5806") {
-      id
+      defaultSku {
+        displayName
+        parentProduct {
+          optionsInfo {
+            internalName
+            name
+            type
+          }
+          prices {
+            clubcardPoints
+            price
+          }
+          userActionable
+        }
+        publicLink
+      }
       optionsInfo {
-        type
-        name
         internalName
+        name
+        type
+      }
+      prices {
+        clubcardPoints
+        price
       }
       userActionable
+    }
+  }
+`;
+
+export const editedSingleQuery = `
+  {
+    product(id: "402-5806") {
+      defaultSku {
+        displayName
+        parentProduct {
+          optionsInfo {
+            internalName
+            name
+            type
+          }
+          prices {
+            clubcardPoints
+            price
+          }
+          userActionable
+        }
+        publicLink
+      }
+      optionsInfo {
+        internalName
+        name
+        type
+      }
       prices {
-        id
-        price
         clubcardPoints
+        price
       }
     }
   }
