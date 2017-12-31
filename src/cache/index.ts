@@ -331,6 +331,7 @@ export default class Cache {
     query: string,
     ast: DocumentNode,
     queryHash: string,
+    fieldTypeMap: FieldTypeMap,
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
     opts: { cacheResolve: DataCachedResolver, filtered: boolean },
