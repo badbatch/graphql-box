@@ -107,7 +107,10 @@ export default class Client {
   }
 
   private static _mapFieldToType(args: MapFieldToTypeArgs): void {
-    const { ancestors, context, fieldNode, resourceKey, typeName } = args;
+    const { ancestors, context, fieldNode, isEntity, resourceKey, typeName } = args;
+    const argumentsObjectMap = getArguments(fieldNode);
+    if (!argumentsObjectMap) return;
+
     const ancestorFieldPath: string[] = [];
 
     ancestors.forEach((ancestor) => {
@@ -120,8 +123,6 @@ export default class Client {
     const fieldName = getAlias(fieldNode) || getName(fieldNode) as string;
     ancestorFieldPath.push(fieldName);
     const fieldPath = ancestorFieldPath.join(".");
-
-    const argumentsObjectMap = getArguments(fieldNode);
     let resourceValue: string | undefined;
 
     if (argumentsObjectMap && argumentsObjectMap[resourceKey]) {
@@ -130,7 +131,7 @@ export default class Client {
 
     const { fieldTypeMaps } = context;
     const fieldTypeMap = fieldTypeMaps[fieldTypeMaps.length - 1];
-    fieldTypeMap.set(fieldPath, { resourceKey, resourceValue, typeName });
+    fieldTypeMap.set(fieldPath, { isEntity, resourceValue, typeName });
   }
 
   private _cache: Cache;
@@ -344,6 +345,7 @@ export default class Client {
     this._cache = await Cache.create({
       cachemapOptions: this._cachemapOptions,
       defaultCacheControls: this._defaultCacheControls,
+      resourceKey: this._resourceKey,
     });
   }
 
@@ -711,24 +713,25 @@ export default class Client {
           const objectOrInterfaceType = type as GraphQLObjectType | GraphQLInterfaceType;
           const fields = objectOrInterfaceType.getFields();
 
+          if (kind === "Field") {
+            const fieldNode = node as FieldNode;
+
+            Client._mapFieldToType({
+              ancestors,
+              context,
+              fieldNode,
+              isEntity: !!fields[_this._resourceKey],
+              resourceKey: _this._resourceKey,
+              typeName: objectOrInterfaceType.name,
+            });
+          }
+
           if (fields[_this._resourceKey]) {
             if (!hasChildFields(fieldOrInlineFragmentNode, _this._resourceKey)) {
               const mockAST = parse(`{${_this._resourceKey}}`);
               const queryNode = getOperationDefinitions(mockAST, "query")[0];
               const field = getChildFields(queryNode, _this._resourceKey) as FieldNode;
               addChildFields(fieldOrInlineFragmentNode, field);
-            }
-
-            if (kind === "Field") {
-              const fieldNode = node as FieldNode;
-
-              Client._mapFieldToType({
-                ancestors,
-                context,
-                fieldNode,
-                resourceKey: _this._resourceKey,
-                typeName: objectOrInterfaceType.name,
-              });
             }
           }
 

@@ -16,6 +16,7 @@ import {
   isObjectLike,
   isPlainObject,
   isString,
+  set,
 } from "lodash";
 
 import * as md5 from "md5";
@@ -247,24 +248,6 @@ export default class Cache {
     if (data === undefined) counter.missing += 1;
   }
 
-  private static _setObjectHashKey(
-    field: FieldNode,
-    data: ObjectMap | any[],
-    cachePath: string,
-    dataPath: string,
-    index?: number,
-  ): void {
-    if (!hasChildFields(field)) return;
-    const { hashKey, propKey } = this._getKeys(field, { cachePath, dataPath }, index);
-
-    if (isArray(data) && isNumber(propKey)) {
-      data[propKey] = { _HashKey: hashKey };
-    } else if (isPlainObject(data) && isString(propKey)) {
-      const objData = data as ObjectMap;
-      objData[propKey] = { _HashKey: hashKey };
-    }
-  }
-
   private static _setQueriedData(
     queriedData: ObjectMap,
     cacheEntryData: CacheEntryData,
@@ -285,12 +268,14 @@ export default class Cache {
   private _dataPaths: Cachemap;
   private _defaultCacheControls: DefaultCacheControls;
   private _partials: Map<string, PartialData>;
+  private _resourceKey: string;
   private _responses: Cachemap;
 
-  constructor({ cachemapOptions, defaultCacheControls }: CacheArgs) {
+  constructor({ cachemapOptions, defaultCacheControls, resourceKey }: CacheArgs) {
     this._cachemapOptions = cachemapOptions;
     this._defaultCacheControls = defaultCacheControls;
     this._partials = new Map();
+    this._resourceKey = resourceKey;
   }
 
   get responses(): Cachemap {
@@ -340,10 +325,17 @@ export default class Cache {
     let updatedData = data;
 
     if (partial) {
-      updatedData = mergeObjects(partial.cachedData, data, (key: string, val: any): string | undefined => {
-        if (isPlainObject(val) && val.id) return val.id;
-        return undefined;
-      });
+      updatedData = mergeObjects(
+        partial.cachedData,
+        data,
+        (key: string, val: any): string | number | undefined => {
+          if (isPlainObject(val) && val[this._resourceKey]) {
+            return val[this._resourceKey];
+          }
+
+          return undefined;
+        },
+      );
     }
 
     const defaultCacheControl = this._defaultCacheControls.query;
@@ -356,11 +348,17 @@ export default class Cache {
     );
 
     const updatedCacheability = updatedCacheMetadata.get("query");
-    const updatedCacheControl = updatedCacheability && updatedCacheability.printCacheControl() || defaultCacheControl;
+
+    const updatedCacheControl = updatedCacheability
+      && updatedCacheability.printCacheControl()
+      || defaultCacheControl;
 
     const filterCacheMetadata = opts.filtered && this._updateCacheMetadata(ast, data, cacheMetadata);
     const filterCacheability = filterCacheMetadata && filterCacheMetadata.get("query");
-    const filterCacheControl = filterCacheability && filterCacheability.printCacheControl() || defaultCacheControl;
+
+    const filterCacheControl = filterCacheability
+      && filterCacheability.printCacheControl()
+      || defaultCacheControl;
 
     (async () => {
       const promises: Array<Promise<void>> = [];
@@ -371,7 +369,7 @@ export default class Cache {
         { cacheHeaders: { cacheControl: updatedCacheControl },
       }));
 
-      promises.push(this._updateObjectCache(ast, updatedData, updatedCacheMetadata));
+      promises.push(this._updateDataCaches(ast, updatedData, updatedCacheMetadata, fieldTypeMap));
 
       if (filterCacheMetadata) {
         promises.push(this._responses.set(
@@ -416,11 +414,11 @@ export default class Cache {
     fieldTypeInfo: FieldTypeInfo,
     cachedPathData?: ObjectMap,
   ): Promise<CacheEntryResult | undefined> {
-    const { resourceKey, resourceValue, typeName } = fieldTypeInfo;
+    const { resourceValue, typeName } = fieldTypeInfo;
     let pathDataResourceValue: string | number | undefined;
 
     if (cachedPathData && isPlainObject(cachedPathData)) {
-      pathDataResourceValue = cachedPathData[resourceKey];
+      pathDataResourceValue = cachedPathData[this._resourceKey];
     }
 
     if (!resourceValue && !pathDataResourceValue) return undefined;
@@ -494,17 +492,18 @@ export default class Cache {
 
     const dataPathResult = await this._checkDataPathCacheEntry(hashKey);
     const _cacheEntryData: CacheEntryData = { primary: dataPathResult.cachedData };
+    const fieldTypeInfo = fieldTypeMap.get(queryKey);
 
-    if (fieldTypeMap.has(queryKey)) {
+    if (fieldTypeInfo && fieldTypeInfo.isEntity) {
       const dataEntityResult = await this._checkDataEntityCacheEntry(
-        fieldTypeMap.get(queryKey) as FieldTypeInfo,
+        fieldTypeInfo,
         get(dataPathResult.cachedData, dataKey),
       );
 
       if (dataEntityResult) {
         _cacheEntryData.secondary = dataEntityResult.cachedData;
       }
-    } else if (cacheEntryData && isPlainObject(cacheEntryData.secondary)) {
+    } else if (cacheEntryData && isObjectLike(cacheEntryData.secondary)) {
       _cacheEntryData.secondary = cacheEntryData.secondary[propKey];
     }
 
@@ -539,14 +538,21 @@ export default class Cache {
 
   private async _setObject(
     field: FieldNode,
+    fieldTypeMap: FieldTypeMap,
     data: ObjectMap | any[],
     cacheMetadata: CacheMetadata,
     cacheControl: string,
     paths?: KeyPaths,
     index?: number,
   ): Promise<void> {
-    const { cacheKey, dataKey, hashKey, queryKey } = Cache._getKeys(field, paths, index);
-    const fieldData = cloneDeep(get(data, dataKey, null));
+    const {
+      cacheKey,
+      dataKey,
+      hashKey,
+      queryKey,
+    } = Cache._getKeys(field, paths, index);
+
+    const fieldData = get(data, dataKey, null);
     if (!isObjectLike(fieldData)) return;
     const objectLikeFieldData = fieldData as ObjectMap | any[];
     const metadata = cacheMetadata.get(queryKey);
@@ -554,10 +560,9 @@ export default class Cache {
     const promises: Array<Promise<void>> = [];
 
     Cache._iterateChildFields(field, objectLikeFieldData, (childField, childIndex) => {
-      Cache._setObjectHashKey(childField, objectLikeFieldData, dataKey, cacheKey, childIndex);
-
       promises.push(this._setObject(
         childField,
+        fieldTypeMap,
         data,
         cacheMetadata,
         _cacheControl,
@@ -567,7 +572,25 @@ export default class Cache {
     });
 
     await Promise.all(promises);
-    await this._dataPaths.set(hashKey, fieldData, { cacheHeaders: { cacheControl: _cacheControl } });
+    const fieldTypeInfo = fieldTypeMap.get(queryKey);
+    if (!fieldTypeInfo || !fieldTypeInfo.isEntity) return;
+    const objectMapFieldData = objectLikeFieldData as ObjectMap;
+
+    await Promise.all([
+      this._dataEntities.set(
+        `${fieldTypeInfo.typeName}:${objectMapFieldData[this._resourceKey]}`,
+        cloneDeep(objectMapFieldData),
+        { cacheHeaders: {cacheControl: _cacheControl } },
+      ),
+      this._dataPaths.set(
+        hashKey,
+        cloneDeep(objectMapFieldData),
+        { cacheHeaders: {cacheControl: _cacheControl } },
+      ),
+    ]);
+
+    if (!hasChildFields(field)) return;
+    set(data, dataKey, { _HashKey: hashKey });
   }
 
   private _updateCacheMetadata(
@@ -606,17 +629,23 @@ export default class Cache {
     return _cacheMetadata;
   }
 
-  private async _updateObjectCache(ast: DocumentNode, data: ObjectMap, cacheMetadata: CacheMetadata): Promise<void> {
+  private async _updateDataCaches(
+    ast: DocumentNode,
+    data: ObjectMap,
+    cacheMetadata: CacheMetadata,
+    fieldTypeMap: FieldTypeMap,
+  ): Promise<void> {
     const queryNode = getOperationDefinitions(ast, "query")[0];
     const fields = getChildFields(queryNode) as FieldNode[];
     const queryCacheability = cacheMetadata.get("query");
 
     await Promise.all(
       fields.map((field) => {
-        const cacheControl = queryCacheability && queryCacheability.printCacheControl()
+        const cacheControl = queryCacheability
+          && queryCacheability.printCacheControl()
           || this._defaultCacheControls.query;
 
-        return this._setObject(field, data, cacheMetadata, cacheControl);
+        return this._setObject(field, fieldTypeMap, cloneDeep(data), cacheMetadata, cacheControl);
       }),
     );
   }
