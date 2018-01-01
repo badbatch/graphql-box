@@ -14,6 +14,7 @@ export interface AnalyzeResult {
 export interface CacheArgs {
   cachemapOptions: CachemapArgsGroup;
   defaultCacheControls: DefaultCacheControls;
+  resourceKey: string;
 }
 
 export interface CachesCheckMetadata {
