@@ -216,6 +216,80 @@ describe("the handl class in 'internal' mode", () => {
           expect(spy.notCalled).to.equal(true);
         });
       });
+
+      context("when a query response can be constructed from the data entity cache", () => {
+        let result: RequestResult;
+        let spy: sinon.SinonSpy;
+
+        beforeEach(async () => {
+          try {
+            result = await client.request(
+              tesco.requests.singleQuery,
+              { awaitDataCached: true },
+            ) as RequestResult;
+          } catch (error) {
+            console.log(error); // tslint:disable-line
+          }
+
+          fetchMock.reset();
+          const cache: Cache = get(client, "_cache");
+          cache.dataPaths.clear();
+          spy = sinon.spy(cache, "resolve");
+
+          try {
+            result = await client.request(
+              tesco.requests.editedSingleQuery,
+              { awaitDataCached: true },
+            ) as RequestResult;
+          } catch (error) {
+            console.log(error); // tslint:disable-line
+          }
+        });
+
+        afterEach(async () => {
+          await client.clearCache();
+          fetchMock.reset();
+          spy.restore();
+        });
+
+        it("then the method should return the requested data", () => {
+          expect(result.data).to.deep.equal(tesco.responses.editedSingleQuery);
+          expect(result.queryHash).to.be.a("string");
+          expect(result.cacheMetadata.size).to.equal(6);
+          const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
+          expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
+          const productCacheability = result.cacheMetadata.get("product") as Cacheability;
+          expect(productCacheability.metadata.cacheControl.maxAge).to.equal(28800);
+          const defaultSkuCacheability = result.cacheMetadata.get("product.defaultSku") as Cacheability;
+          expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(14400);
+          const parentCacheability = result.cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
+          expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
+        });
+
+        it("then the graphql schema should not have made a fetch request", () => {
+          expect(fetchMock.calls().matched).to.have.lengthOf(0);
+        });
+
+        it("then the client should have cached the response against the query", async () => {
+          const cacheSize = await client.getResponseCacheSize();
+          expect(cacheSize).to.equal(3);
+          const cacheEntry = await client.getResponseCacheEntry(result.queryHash as string) as ResponseCacheEntryResult;
+          expect(cacheEntry.data).to.deep.equal(tesco.responses.editedSingleQuery);
+          expect(cacheEntry.cacheMetadata.size).to.equal(6);
+          const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+          expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
+          const productCacheability = cacheEntry.cacheMetadata.get("product") as Cacheability;
+          expect(productCacheability.metadata.cacheControl.maxAge).to.equal(28800);
+          const defaultSkuCacheability = cacheEntry.cacheMetadata.get("product.defaultSku") as Cacheability;
+          expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(14400);
+          const parentCacheability = cacheEntry.cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
+          expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
+        });
+
+        it("then the client should not have called the cache's resolve method", () => {
+          expect(spy.notCalled).to.equal(true);
+        });
+      });
     });
   });
 });
