@@ -17,6 +17,7 @@ import {
   isPlainObject,
   isString,
   set,
+  unset,
 } from "lodash";
 
 import * as md5 from "md5";
@@ -442,6 +443,54 @@ export default class Cache {
     return partialData;
   }
 
+  private async _parseData(
+    field: FieldNode,
+    fieldTypeMap: FieldTypeMap,
+    data: { entities: ObjectMap | any[], paths: ObjectMap | any[] },
+    cacheMetadata: CacheMetadata,
+    cacheControl: string,
+    paths?: KeyPaths,
+    index?: number,
+  ): Promise<void> {
+    const {
+      cacheKey,
+      dataKey,
+      hashKey,
+      queryKey,
+    } = Cache._getKeys(field, paths, index);
+
+    const entityfieldData = get(data.entities, dataKey, null);
+    const pathfieldData = get(data.paths, dataKey, null);
+    if (!isObjectLike(entityfieldData) && !isObjectLike(pathfieldData)) return;
+    const metadata = cacheMetadata.get(queryKey);
+    const _cacheControl = metadata && metadata.printCacheControl() || cacheControl;
+    const promises: Array<Promise<void>> = [];
+
+    Cache._iterateChildFields(field, pathfieldData, (childField, childIndex) => {
+      promises.push(this._parseData(
+        childField,
+        fieldTypeMap,
+        data,
+        cacheMetadata,
+        _cacheControl,
+        { cachePath: cacheKey, dataPath: dataKey, queryPath: queryKey },
+        childIndex,
+      ));
+    });
+
+    await Promise.all(promises);
+
+    await this._setData(
+      field,
+      fieldTypeMap,
+      data,
+      entityfieldData,
+      pathfieldData,
+      _cacheControl,
+      { dataKey, hashKey, queryKey },
+    );
+  }
+
   private async _parseField(
     field: FieldNode,
     metadata: CachesCheckMetadata,
@@ -536,61 +585,54 @@ export default class Cache {
     await Promise.all(promises);
   }
 
-  private async _setObject(
+  private async _setData(
     field: FieldNode,
     fieldTypeMap: FieldTypeMap,
-    data: ObjectMap | any[],
-    cacheMetadata: CacheMetadata,
+    data: { entities: ObjectMap | any[], paths: ObjectMap | any[] },
+    entityfieldData: ObjectMap | any[],
+    pathfieldData: ObjectMap | any[],
     cacheControl: string,
-    paths?: KeyPaths,
-    index?: number,
+    { dataKey, hashKey, queryKey }: { dataKey: string, hashKey: string, queryKey: string },
   ): Promise<void> {
-    const {
-      cacheKey,
-      dataKey,
-      hashKey,
-      queryKey,
-    } = Cache._getKeys(field, paths, index);
+    const fieldTypeInfo = fieldTypeMap.get(queryKey);
+    if (!fieldTypeInfo) return;
 
-    const fieldData = get(data, dataKey, null);
-    if (!isObjectLike(fieldData)) return;
-    const objectLikeFieldData = fieldData as ObjectMap | any[];
-    const metadata = cacheMetadata.get(queryKey);
-    const _cacheControl = metadata && metadata.printCacheControl() || cacheControl;
+    if (!fieldTypeInfo.isEntity && fieldTypeInfo.hasArguments) {
+      unset(data.entities, dataKey);
+    }
+
     const promises: Array<Promise<void>> = [];
 
-    Cache._iterateChildFields(field, objectLikeFieldData, (childField, childIndex) => {
-      promises.push(this._setObject(
-        childField,
-        fieldTypeMap,
-        data,
-        cacheMetadata,
-        _cacheControl,
-        { cachePath: cacheKey, dataPath: dataKey, queryPath: queryKey },
-        childIndex,
+    if (fieldTypeInfo.isEntity) {
+      const objectMapEntityfieldData = entityfieldData as ObjectMap;
+      const entityDataKey = `${fieldTypeInfo.typeName}:${objectMapEntityfieldData[this._resourceKey]}`;
+
+      promises.push(this._dataEntities.set(
+        entityDataKey,
+        cloneDeep(objectMapEntityfieldData),
+        { cacheHeaders: { cacheControl } },
       ));
-    });
+
+      set(data.entities, dataKey, { _dataKey: entityDataKey });
+    }
+
+    if (fieldTypeInfo.isEntity || fieldTypeInfo.hasArguments) {
+      promises.push(this._dataPaths.set(
+        hashKey,
+        cloneDeep(pathfieldData),
+        { cacheHeaders: { cacheControl } },
+      ));
+
+      if (hasChildFields(field)) {
+        if (fieldTypeInfo.isEntity) {
+          set(data.paths, dataKey, { _HashKey: hashKey });
+        } else {
+          unset(data.paths, dataKey);
+        }
+      }
+    }
 
     await Promise.all(promises);
-    const fieldTypeInfo = fieldTypeMap.get(queryKey);
-    if (!fieldTypeInfo || !fieldTypeInfo.isEntity) return;
-    const objectMapFieldData = objectLikeFieldData as ObjectMap;
-
-    await Promise.all([
-      this._dataEntities.set(
-        `${fieldTypeInfo.typeName}:${objectMapFieldData[this._resourceKey]}`,
-        cloneDeep(objectMapFieldData),
-        { cacheHeaders: {cacheControl: _cacheControl } },
-      ),
-      this._dataPaths.set(
-        hashKey,
-        cloneDeep(objectMapFieldData),
-        { cacheHeaders: {cacheControl: _cacheControl } },
-      ),
-    ]);
-
-    if (!hasChildFields(field)) return;
-    set(data, dataKey, { _HashKey: hashKey });
   }
 
   private _updateCacheMetadata(
@@ -645,7 +687,13 @@ export default class Cache {
           && queryCacheability.printCacheControl()
           || this._defaultCacheControls.query;
 
-        return this._setObject(field, fieldTypeMap, cloneDeep(data), cacheMetadata, cacheControl);
+        return this._parseData(
+          field,
+          fieldTypeMap,
+          { entities: cloneDeep(data), paths: cloneDeep(data) },
+          cacheMetadata,
+          cacheControl,
+        );
       }),
     );
   }
