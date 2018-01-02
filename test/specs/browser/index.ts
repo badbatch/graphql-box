@@ -27,52 +27,115 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
 
     describe("the request method", () => {
       context("when a single query is requested", () => {
-        let result: RequestResult;
+        before(() => {
+          if (suppressWorkers) mockGraphqlRequest(github.requests.singleQuery);
+        });
 
-        beforeEach(async () => {
-          mockGraphqlRequest(github.requests.singleQuery);
+        after(() => {
+          if (suppressWorkers) fetchMock.restore();
+        });
 
-          try {
-            result = await client.request(
-              github.requests.singleQuery,
-              { awaitDataCached: true },
-            ) as RequestResult;
-          } catch (error) {
-            console.log(error); // tslint:disable-line
+        context("when there is no matching query in any cache", () => {
+          let result: RequestResult;
+
+          beforeEach(async () => {
+            try {
+              result = await client.request(
+                github.requests.singleQuery,
+                { awaitDataCached: true },
+              ) as RequestResult;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+          });
+
+          afterEach(async () => {
+            await client.clearCache();
+            if (suppressWorkers) fetchMock.reset();
+          });
+
+          it("then the method should return the requested data", () => {
+            expect(result.data).to.deep.equal(github.responses.singleQuery.data);
+            expect(result.queryHash).to.be.a("string");
+            expect(result.cacheMetadata.size).to.equal(1);
+            const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+          });
+
+          if (suppressWorkers) {
+            it("then the client should have made a fetch request", () => {
+              expect(fetchMock.calls().matched).to.have.lengthOf(1);
+            });
           }
+
+          it("then the client should have cached the response against the query", async () => {
+            const cacheSize = await client.getResponseCacheSize();
+            expect(cacheSize).to.equal(2);
+
+            const cacheEntry = await client.getResponseCacheEntry(
+              result.queryHash as string,
+            ) as ResponseCacheEntryResult;
+
+            expect(cacheEntry.data).to.deep.equal(github.responses.singleQuery.data);
+            expect(cacheEntry.cacheMetadata.size).to.equal(1);
+            const queryCacheMetadata = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheMetadata.metadata.cacheControl.maxAge).to.equal(300000);
+          });
+
+          it("then the client should cache each data object in the response against its query path", async () => {
+            const cacheSize = await client.getDataPathCacheSize();
+            expect(cacheSize).to.eql(9);
+          });
+
+          it("then the client should cache each data entity in the response against its identifier", async () => {
+            const cacheSize = await client.getDataEntityCacheSize();
+            expect(cacheSize).to.eql(8);
+          });
         });
 
-        afterEach(async () => {
-          await client.clearCache();
-          fetchMock.restore();
-        });
+        context("when there is a matching query in the response cache", () => {
+          let result: RequestResult;
 
-        it("then the method should return the requested data", () => {
-          expect(result.data).to.deep.equal(github.responses.singleQuery.data);
-          expect(result.queryHash).to.be.a("string");
-          expect(result.cacheMetadata.size).to.equal(1);
-          const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
-          expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
-        });
+          beforeEach(async () => {
+            try {
+              result = await client.request(
+                github.requests.singleQuery,
+                { awaitDataCached: true },
+              ) as RequestResult;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
 
-        it("then the client should have cached the response against the query", async () => {
-          const cacheSize = await client.getResponseCacheSize();
-          expect(cacheSize).to.equal(2);
-          const cacheEntry = await client.getResponseCacheEntry(result.queryHash as string) as ResponseCacheEntryResult;
-          expect(cacheEntry.data).to.deep.equal(github.responses.singleQuery.data);
-          expect(cacheEntry.cacheMetadata.size).to.equal(1);
-          const queryCacheMetadata = cacheEntry.cacheMetadata.get("query") as Cacheability;
-          expect(queryCacheMetadata.metadata.cacheControl.maxAge).to.equal(300000);
-        });
+            fetchMock.reset();
 
-        it("then the client should cache each data object in the response against its query path", async () => {
-          const cacheSize = await client.getDataPathCacheSize();
-          expect(cacheSize).to.eql(9);
-        });
+            try {
+              result = await client.request(
+                github.requests.singleQuery,
+                { awaitDataCached: true },
+              ) as RequestResult;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+          });
 
-        it("then the client should cache each data entity in the response against its identifier", async () => {
-          const cacheSize = await client.getDataEntityCacheSize();
-          expect(cacheSize).to.eql(8);
+          afterEach(async () => {
+            await client.clearCache();
+            fetchMock.reset();
+          });
+
+          it("then the method should return the requested data", () => {
+            expect(result.data).to.deep.equal(github.responses.singleQuery.data);
+            expect(result.queryHash).to.be.a("string");
+            expect(result.cacheMetadata.size).to.equal(1);
+            const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+          });
+
+          if (suppressWorkers) {
+            it("then the client should have made a fetch request", () => {
+              expect(fetchMock.calls().matched).to.have.lengthOf(0);
+            });
+          }
         });
       });
     });
