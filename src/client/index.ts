@@ -108,9 +108,6 @@ export default class Client {
 
   private static _mapFieldToType(args: MapFieldToTypeArgs): void {
     const { ancestors, context, fieldNode, isEntity, resourceKey, typeName } = args;
-    const argumentsObjectMap = getArguments(fieldNode);
-    if (!argumentsObjectMap) return;
-
     const ancestorFieldPath: string[] = [];
 
     ancestors.forEach((ancestor) => {
@@ -123,6 +120,7 @@ export default class Client {
     const fieldName = getAlias(fieldNode) || getName(fieldNode) as string;
     ancestorFieldPath.push(fieldName);
     const fieldPath = ancestorFieldPath.join(".");
+    const argumentsObjectMap = getArguments(fieldNode);
     let resourceValue: string | undefined;
 
     if (argumentsObjectMap && argumentsObjectMap[resourceKey]) {
@@ -131,7 +129,13 @@ export default class Client {
 
     const { fieldTypeMaps } = context;
     const fieldTypeMap = fieldTypeMaps[fieldTypeMaps.length - 1];
-    fieldTypeMap.set(fieldPath, { isEntity, resourceValue, typeName });
+
+    fieldTypeMap.set(fieldPath, {
+      hasArguments: !!argumentsObjectMap,
+      isEntity,
+      resourceValue,
+      typeName,
+    });
   }
 
   private _cache: Cache;
