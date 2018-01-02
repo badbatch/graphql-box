@@ -144,7 +144,7 @@ describe("the handl class in 'internal' mode", () => {
         });
       });
 
-      context("when a query response can be constructed from the data object cache", () => {
+      context("when a query response can be constructed from the data path cache", () => {
         let result: RequestResult;
         let spy: sinon.SinonSpy;
 
@@ -181,7 +181,7 @@ describe("the handl class in 'internal' mode", () => {
         it("then the method should return the requested data", () => {
           expect(result.data).to.deep.equal(tesco.responses.editedSingleQuery);
           expect(result.queryHash).to.be.a("string");
-          expect(result.cacheMetadata.size).to.equal(8);
+          expect(result.cacheMetadata.size).to.equal(6);
           const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
           expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
           const productCacheability = result.cacheMetadata.get("product") as Cacheability;
@@ -201,7 +201,7 @@ describe("the handl class in 'internal' mode", () => {
           expect(cacheSize).to.equal(3);
           const cacheEntry = await client.getResponseCacheEntry(result.queryHash as string) as ResponseCacheEntryResult;
           expect(cacheEntry.data).to.deep.equal(tesco.responses.editedSingleQuery);
-          expect(cacheEntry.cacheMetadata.size).to.equal(8);
+          expect(cacheEntry.cacheMetadata.size).to.equal(6);
           const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
           expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
           const productCacheability = cacheEntry.cacheMetadata.get("product") as Cacheability;

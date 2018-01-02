@@ -25,7 +25,8 @@ export interface CachesCheckMetadata {
 }
 
 export interface CacheEntryData {
-  primary: any;
+  cacheability?: Cacheability;
+  primary?: any;
   secondary?: any;
 }
 
