@@ -325,17 +325,13 @@ export default class Cache {
     let updatedData = data;
 
     if (partial) {
-      updatedData = mergeObjects(
-        partial.cachedData,
-        data,
-        (key: string, val: any): string | number | undefined => {
-          if (isPlainObject(val) && val[this._resourceKey]) {
-            return val[this._resourceKey];
-          }
+      updatedData = mergeObjects(partial.cachedData, data, (key: string, val: any): string | number | undefined => {
+        if (isPlainObject(val) && val[this._resourceKey]) {
+          return val[this._resourceKey];
+        }
 
-          return undefined;
-        },
-      );
+        return undefined;
+      });
     }
 
     const defaultCacheControl = this._defaultCacheControls.query;
@@ -403,29 +399,37 @@ export default class Cache {
     return metadata;
   }
 
+  private async _checkDataEntityCacheEntry(
+    fieldTypeInfo: FieldTypeInfo,
+    cachedPathData?: ObjectMap,
+    entityKey?: string,
+  ): Promise<CacheEntryResult | undefined> {
+    let key: string;
+
+    if (!entityKey) {
+      const { resourceValue, typeName } = fieldTypeInfo;
+      let pathDataResourceValue: string | number | undefined;
+
+      if (cachedPathData && isPlainObject(cachedPathData)) {
+        pathDataResourceValue = cachedPathData[this._resourceKey];
+      }
+
+      if (!resourceValue && !pathDataResourceValue) return undefined;
+      key = `${typeName}:${resourceValue || pathDataResourceValue}`;
+    } else {
+      key = entityKey;
+    }
+
+    const cacheability = await this._dataEntities.has(key);
+    let cachedData: ObjectMap | undefined;
+    if (cacheability && Cache.isValid(cacheability)) cachedData = await this._dataEntities.get(key);
+    return { cacheability, cachedData };
+  }
+
   private async _checkDataPathCacheEntry(hashKey: string): Promise<CacheEntryResult> {
     const cacheability = await this._dataPaths.has(hashKey);
     let cachedData;
     if (cacheability && Cache.isValid(cacheability)) cachedData = await this._dataPaths.get(hashKey);
-    return { cacheability, cachedData };
-  }
-
-  private async _checkDataEntityCacheEntry(
-    fieldTypeInfo: FieldTypeInfo,
-    cachedPathData?: ObjectMap,
-  ): Promise<CacheEntryResult | undefined> {
-    const { resourceValue, typeName } = fieldTypeInfo;
-    let pathDataResourceValue: string | number | undefined;
-
-    if (cachedPathData && isPlainObject(cachedPathData)) {
-      pathDataResourceValue = cachedPathData[this._resourceKey];
-    }
-
-    if (!resourceValue && !pathDataResourceValue) return undefined;
-    const key = `${typeName}:${resourceValue || pathDataResourceValue}`;
-    const cacheability = await this._dataEntities.has(key);
-    let cachedData: ObjectMap | undefined;
-    if (cacheability && Cache.isValid(cacheability)) cachedData = await this._dataEntities.get(key);
     return { cacheability, cachedData };
   }
 
@@ -557,10 +561,12 @@ export default class Cache {
       const dataEntityResult = await this._checkDataEntityCacheEntry(
         fieldTypeInfo,
         cacheEntryData.primary,
+        isPlainObject(cacheEntryData.secondary) && cacheEntryData.secondary._EntityKey,
       );
 
-      if (dataEntityResult) {
+      if (dataEntityResult && dataEntityResult.cacheability && dataEntityResult.cachedData) {
         cacheEntryData.secondary = dataEntityResult.cachedData;
+        if (!cacheEntryData.cacheability) cacheEntryData.cacheability = dataEntityResult.cacheability;
       }
     }
 

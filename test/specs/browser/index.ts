@@ -79,5 +79,5 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
   });
 }
 
-// testExternalMode(workerArgs);
+testExternalMode(workerArgs);
 testExternalMode(browserArgs, true);
