@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "cacheability": "0.0.45",
-    "cachemap": "0.0.35",
+    "cachemap": "0.0.36",
     "defer-promise": "^1.0.1",
     "graphql": "^0.12.3",
     "isomorphic-fetch": "^2.2.1",

@@ -59,6 +59,7 @@ export interface DefaultCacheControls {
 }
 
 export interface FieldTypeInfo {
+  hasArguments: boolean;
   isEntity: boolean;
   resourceValue?: string | number;
   typeName: string;
