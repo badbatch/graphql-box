@@ -4,6 +4,7 @@ import { ObjectMap } from "../../../src/types";
 
 const githubResponses = {
   aliasQuery: require("./github/responses/alias-query.json"),
+  editedSingleQuery: require("./github/responses/edited-single-query.json"),
   singleMutation: require("./github/responses/single-mutation.json"),
   singleQuery: require("./github/responses/single-query.json"),
   variableMutation: require("./github/responses/single-mutation.json"),
@@ -20,8 +21,8 @@ export const github: RequestResponseGroup = {
 };
 
 const tescoResponses = {
-  editedSingleQuery: require("./tesco/respones/edited-single-query.json"),
-  singleQuery: require("./tesco/respones/single-query.json"),
+  editedSingleQuery: require("./tesco/responses/edited-single-query.json"),
+  singleQuery: require("./tesco/responses/single-query.json"),
 };
 
 export const tesco: RequestResponseGroup = {
