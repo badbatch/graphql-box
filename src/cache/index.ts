@@ -16,6 +16,7 @@ import {
   isObjectLike,
   isPlainObject,
   isString,
+  isUndefined,
   set,
   unset,
 } from "lodash";
@@ -193,9 +194,9 @@ export default class Cache {
     const { name, propKey, queryKey } = Cache._getKeys(field, { cachePath, queryPath }, index);
     let cacheDataValue: string | number | boolean | null | undefined;
 
-    if (isPlainObject(cacheEntryData.primary) && cacheEntryData.primary[name]) {
+    if (isPlainObject(cacheEntryData.primary) && !isUndefined(cacheEntryData.primary[name])) {
       cacheDataValue = cacheEntryData.primary[name];
-    } else if (isPlainObject(cacheEntryData.secondary) && cacheEntryData.secondary[name]) {
+    } else if (isPlainObject(cacheEntryData.secondary) && !isUndefined(cacheEntryData.secondary[name])) {
       cacheDataValue = cacheEntryData.secondary[name];
     }
 
@@ -238,14 +239,14 @@ export default class Cache {
 
   private static _setCheckList(checkList: CheckList, cacheEntryData: CacheEntryData, queryKey: string): void {
     if (checkList.has(queryKey)) return;
-    const data = cacheEntryData.primary || cacheEntryData.secondary;
-    checkList.set(queryKey, data !== undefined);
+    const data = !isUndefined(cacheEntryData.primary) ? cacheEntryData.primary : cacheEntryData.secondary;
+    checkList.set(queryKey, !isUndefined(data));
   }
 
   private static _setCounter(counter: { missing: number, total: number }, cacheEntryData: CacheEntryData): void {
-    const data = cacheEntryData.primary || cacheEntryData.secondary;
+    const data = !isUndefined(cacheEntryData.primary) ? cacheEntryData.primary : cacheEntryData.secondary;
     counter.total += 1;
-    if (data === undefined) counter.missing += 1;
+    if (isUndefined(data)) counter.missing += 1;
   }
 
   private static _setQueriedData(
@@ -253,9 +254,9 @@ export default class Cache {
     cacheEntryData: CacheEntryData,
     propKey: string | number,
   ): void {
-    const data = cacheEntryData.primary || cacheEntryData.secondary;
+    const data = !isUndefined(cacheEntryData.primary) ? cacheEntryData.primary : cacheEntryData.secondary;
 
-    if (!isObjectLike(data) && data !== undefined) {
+    if (!isObjectLike(data) && !isUndefined(data)) {
       queriedData[propKey] = data as string | number | boolean | null;
     } else if (isObjectLike(data)) {
       const objectLikeData = data as ObjectMap | any[];

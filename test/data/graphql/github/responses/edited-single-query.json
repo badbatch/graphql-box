@@ -3,55 +3,48 @@
     "organization": {
       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       "name": "Facebook",
-      "email": "",
       "repositories": {
         "edges": [
           {
             "node": {
               "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
               "description": "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
-              "name": "codemod",
-              "resourcePath": "/facebook/codemod"
+              "name": "codemod"
             }
           },
           {
             "node": {
               "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
               "description": "A virtual machine designed for executing programs written in Hack and PHP. ",
-              "name": "hhvm",
-              "resourcePath": "/facebook/hhvm"
+              "name": "hhvm"
             }
           },
           {
             "node": {
               "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
               "description": "Python wrapper for RE2",
-              "name": "pyre2",
-              "resourcePath": "/facebook/pyre2"
+              "name": "pyre2"
             }
           },
           {
             "node": {
               "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
               "description": null,
-              "name": "open-graph-protocol",
-              "resourcePath": "/facebook/open-graph-protocol"
+              "name": "open-graph-protocol"
             }
           },
           {
             "node": {
               "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
               "description": "Used to integrate Android apps with Facebook Platform.",
-              "name": "facebook-android-sdk",
-              "resourcePath": "/facebook/facebook-android-sdk"
+              "name": "facebook-android-sdk"
             }
           },
           {
             "node": {
               "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
               "description": "Used to integrate iOS apps with Facebook Platform.",
-              "name": "facebook-ios-sdk",
-              "resourcePath": "/facebook/facebook-ios-sdk"
+              "name": "facebook-ios-sdk"
             }
           }
         ]
