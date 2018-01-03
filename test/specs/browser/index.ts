@@ -227,10 +227,6 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
             expect(ownerCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
         });
-
-        context("when a query response can be constructed from the data entity cache", () => {
-          // TODO
-        });
       });
     });
   });
