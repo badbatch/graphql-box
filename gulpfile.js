@@ -10,6 +10,7 @@ const webpack = require('webpack-stream');
 
 gulp.task('clean', () => {
   del('lib/*', { force: true });
+  del('bundle/*', { force: true });
   del('coverage/*', { force: true });
 });
 
