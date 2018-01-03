@@ -31,7 +31,7 @@ export const singleQuery = `
   }
 `;
 
-export const editedSingleQuery = `
+export const reducedSingleQuery = `
   {
     product(id: "402-5806") {
       defaultSku {
