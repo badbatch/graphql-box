@@ -164,7 +164,7 @@ describe("the handl class in 'internal' mode", () => {
 
           try {
             result = await client.request(
-              tesco.requests.editedSingleQuery,
+              tesco.requests.reducedSingleQuery,
               { awaitDataCached: true },
             ) as RequestResult;
           } catch (error) {
@@ -179,7 +179,7 @@ describe("the handl class in 'internal' mode", () => {
         });
 
         it("then the method should return the requested data", () => {
-          expect(result.data).to.deep.equal(tesco.responses.editedSingleQuery);
+          expect(result.data).to.deep.equal(tesco.responses.reducedSingleQuery);
           expect(result.queryHash).to.be.a("string");
           expect(result.cacheMetadata.size).to.equal(6);
           const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
@@ -200,7 +200,7 @@ describe("the handl class in 'internal' mode", () => {
           const cacheSize = await client.getResponseCacheSize();
           expect(cacheSize).to.equal(3);
           const cacheEntry = await client.getResponseCacheEntry(result.queryHash as string) as ResponseCacheEntryResult;
-          expect(cacheEntry.data).to.deep.equal(tesco.responses.editedSingleQuery);
+          expect(cacheEntry.data).to.deep.equal(tesco.responses.reducedSingleQuery);
           expect(cacheEntry.cacheMetadata.size).to.equal(6);
           const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
           expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
@@ -238,7 +238,7 @@ describe("the handl class in 'internal' mode", () => {
 
           try {
             result = await client.request(
-              tesco.requests.editedSingleQuery,
+              tesco.requests.reducedSingleQuery,
               { awaitDataCached: true },
             ) as RequestResult;
           } catch (error) {
@@ -253,7 +253,7 @@ describe("the handl class in 'internal' mode", () => {
         });
 
         it("then the method should return the requested data", () => {
-          expect(result.data).to.deep.equal(tesco.responses.editedSingleQuery);
+          expect(result.data).to.deep.equal(tesco.responses.reducedSingleQuery);
           expect(result.queryHash).to.be.a("string");
           expect(result.cacheMetadata.size).to.equal(6);
           const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
@@ -274,7 +274,7 @@ describe("the handl class in 'internal' mode", () => {
           const cacheSize = await client.getResponseCacheSize();
           expect(cacheSize).to.equal(3);
           const cacheEntry = await client.getResponseCacheEntry(result.queryHash as string) as ResponseCacheEntryResult;
-          expect(cacheEntry.data).to.deep.equal(tesco.responses.editedSingleQuery);
+          expect(cacheEntry.data).to.deep.equal(tesco.responses.reducedSingleQuery);
           expect(cacheEntry.cacheMetadata.size).to.equal(6);
           const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
           expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);

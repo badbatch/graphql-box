@@ -1,34 +1,57 @@
 export const singleQuery = `
   {
     organization(login: "facebook") {
+      description
       email
       id
+      login
       name
       repositories(first: 6) {
         edges {
           node {
-            description
             id
+            description
             name
-            resourcePath
+            owner {
+              ... on Organization {
+                description
+                email
+                id
+                login
+                name
+              }
+            }
           }
         }
       }
+      url
     }
   }
 `;
 
-export const editedSingleQuery = `
+export const reducedSingleQuery = `
   {
     organization(login: "facebook") {
+      description
+      email
       id
+      login
       name
       repositories(first: 6) {
         edges {
           node {
-            description
             id
+            description
             name
+            owner {
+              ... on Organization {
+                description
+                email
+                id
+                login
+                name
+              }
+            }
           }
         }
       }

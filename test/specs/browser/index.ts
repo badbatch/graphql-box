@@ -30,7 +30,7 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
         before(() => {
           if (suppressWorkers) {
             mockGraphqlRequest(github.requests.singleQuery);
-            mockGraphqlRequest(github.requests.editedSingleQuery);
+            mockGraphqlRequest(github.requests.reducedSingleQuery);
           }
         });
 
@@ -87,12 +87,12 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
 
           it("then the client should cache each data object in the response against its query path", async () => {
             const cacheSize = await client.getDataPathCacheSize();
-            expect(cacheSize).to.eql(9);
+            expect(cacheSize).to.eql(15);
           });
 
           it("then the client should cache each data entity in the response against its identifier", async () => {
             const cacheSize = await client.getDataEntityCacheSize();
-            expect(cacheSize).to.eql(8);
+            expect(cacheSize).to.eql(9);
           });
         });
 
@@ -158,7 +158,7 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
 
             try {
               result = await client.request(
-                github.requests.editedSingleQuery,
+                github.requests.reducedSingleQuery,
                 { awaitDataCached: true },
               ) as RequestResult;
             } catch (error) {
@@ -172,17 +172,23 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
           });
 
           it("then the method should return the requested data", () => {
-            expect(result.data).to.deep.equal(github.responses.editedSingleQuery.data);
+            expect(result.data).to.deep.equal(github.responses.reducedSingleQuery.data);
             expect(result.queryHash).to.be.a("string");
-            expect(result.cacheMetadata.size).to.equal(4);
+            expect(result.cacheMetadata.size).to.equal(5);
             const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
-            const productCacheability = result.cacheMetadata.get("organization") as Cacheability;
-            expect(productCacheability.metadata.cacheControl.maxAge).to.equal(300000);
-            const defaultSkuCacheability = result.cacheMetadata.get("organization.repositories") as Cacheability;
-            expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(300000);
-            const parentCacheability = result.cacheMetadata.get("organization.repositories.edges.node") as Cacheability;
-            expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const organizationCacheability = result.cacheMetadata.get("organization") as Cacheability;
+            expect(organizationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const repositoriesCacheability = result.cacheMetadata.get("organization.repositories") as Cacheability;
+            expect(repositoriesCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const nodeCacheability = result.cacheMetadata.get("organization.repositories.edges.node") as Cacheability;
+            expect(nodeCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+
+            const ownerCacheability = result.cacheMetadata.get(
+              "organization.repositories.edges.node.owner",
+            ) as Cacheability;
+
+            expect(ownerCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
           if (suppressWorkers) {
@@ -199,21 +205,31 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
               result.queryHash as string,
             ) as ResponseCacheEntryResult;
 
-            expect(cacheEntry.data).to.deep.equal(github.responses.editedSingleQuery.data);
-            expect(cacheEntry.cacheMetadata.size).to.equal(4);
+            expect(cacheEntry.data).to.deep.equal(github.responses.reducedSingleQuery.data);
+            expect(cacheEntry.cacheMetadata.size).to.equal(5);
             const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
-            const productCacheability = cacheEntry.cacheMetadata.get("organization") as Cacheability;
-            expect(productCacheability.metadata.cacheControl.maxAge).to.equal(300000);
-            const defaultSkuCacheability = cacheEntry.cacheMetadata.get("organization.repositories") as Cacheability;
-            expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const organizationCacheability = cacheEntry.cacheMetadata.get("organization") as Cacheability;
+            expect(organizationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const repositoriesCacheability = cacheEntry.cacheMetadata.get("organization.repositories") as Cacheability;
+            expect(repositoriesCacheability.metadata.cacheControl.maxAge).to.equal(300000);
 
-            const parentCacheability = cacheEntry.cacheMetadata.get(
+            const nodeCacheability = cacheEntry.cacheMetadata.get(
               "organization.repositories.edges.node",
             ) as Cacheability;
 
-            expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            expect(nodeCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+
+            const ownerCacheability = cacheEntry.cacheMetadata.get(
+              "organization.repositories.edges.node.owner",
+            ) as Cacheability;
+
+            expect(ownerCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
+        });
+
+        context("when a query response can be constructed from the data entity cache", () => {
+          // TODO
         });
       });
     });
