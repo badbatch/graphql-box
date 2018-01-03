@@ -48,6 +48,7 @@
   "ignore": [
     ".nyc_output",
     ".vscode",
+    "bundle",
     "coverage",
     "lib",
     "node_modules",

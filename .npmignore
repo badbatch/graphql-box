@@ -1,6 +1,7 @@
 .nyc_output/
 .sonar/
 .vscode/
+bundle/
 coverage/
 src/
 test/
