@@ -1,3 +1,41 @@
+export const singleQuery = `
+  {
+    organization(login: "facebook") {
+      email
+      id
+      name
+      repositories(first: 6) {
+        edges {
+          node {
+            description
+            id
+            name
+            resourcePath
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const editedSingleQuery = `
+  {
+    organization(login: "facebook") {
+      id
+      name
+      repositories(first: 6) {
+        edges {
+          node {
+            description
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const aliasQuery = `
   {
     facebook: organization(login: "facebook") {
@@ -36,23 +74,6 @@ export const variableMutation = `
         databaseId
         id
         name
-      }
-    }
-  }
-`;
-
-export const singleQuery = `
-  {
-    organization(login: "facebook") {
-      id
-      name
-      repositories(first: 6) {
-        edges {
-          node {
-            id
-            name
-          }
-        }
       }
     }
   }

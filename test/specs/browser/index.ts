@@ -28,7 +28,10 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
     describe("the request method", () => {
       context("when a single query is requested", () => {
         before(() => {
-          if (suppressWorkers) mockGraphqlRequest(github.requests.singleQuery);
+          if (suppressWorkers) {
+            mockGraphqlRequest(github.requests.singleQuery);
+            mockGraphqlRequest(github.requests.editedSingleQuery);
+          }
         });
 
         after(() => {
@@ -132,10 +135,85 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
           });
 
           if (suppressWorkers) {
-            it("then the client should have made a fetch request", () => {
+            it("then the client should not have made a fetch request", () => {
               expect(fetchMock.calls().matched).to.have.lengthOf(0);
             });
           }
+        });
+
+        context("when a query response can be constructed from the data path cache", () => {
+          let result: RequestResult;
+
+          beforeEach(async () => {
+            try {
+              result = await client.request(
+                github.requests.singleQuery,
+                { awaitDataCached: true },
+              ) as RequestResult;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+
+            fetchMock.reset();
+
+            try {
+              result = await client.request(
+                github.requests.editedSingleQuery,
+                { awaitDataCached: true },
+              ) as RequestResult;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+          });
+
+          afterEach(async () => {
+            await client.clearCache();
+            fetchMock.reset();
+          });
+
+          it("then the method should return the requested data", () => {
+            expect(result.data).to.deep.equal(github.responses.editedSingleQuery.data);
+            expect(result.queryHash).to.be.a("string");
+            expect(result.cacheMetadata.size).to.equal(4);
+            const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const productCacheability = result.cacheMetadata.get("organization") as Cacheability;
+            expect(productCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const defaultSkuCacheability = result.cacheMetadata.get("organization.repositories") as Cacheability;
+            expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const parentCacheability = result.cacheMetadata.get("organization.repositories.edges.node") as Cacheability;
+            expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+          });
+
+          if (suppressWorkers) {
+            it("then the client should not have made a fetch request", () => {
+              expect(fetchMock.calls().matched).to.have.lengthOf(0);
+            });
+          }
+
+          it("then the client should have cached the response against the query", async () => {
+            const cacheSize = await client.getResponseCacheSize();
+            expect(cacheSize).to.equal(3);
+
+            const cacheEntry = await client.getResponseCacheEntry(
+              result.queryHash as string,
+            ) as ResponseCacheEntryResult;
+
+            expect(cacheEntry.data).to.deep.equal(github.responses.editedSingleQuery.data);
+            expect(cacheEntry.cacheMetadata.size).to.equal(4);
+            const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const productCacheability = cacheEntry.cacheMetadata.get("organization") as Cacheability;
+            expect(productCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const defaultSkuCacheability = cacheEntry.cacheMetadata.get("organization.repositories") as Cacheability;
+            expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+
+            const parentCacheability = cacheEntry.cacheMetadata.get(
+              "organization.repositories.edges.node",
+            ) as Cacheability;
+
+            expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+          });
         });
       });
     });
