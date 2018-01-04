@@ -1,6 +1,6 @@
 import { castArray, isArray } from "lodash";
 import registerPromiseWorker from "promise-worker/register";
-import Client from "./client";
+import { DefaultClient } from "./default-client";
 import mapToObject from "./helpers/map-to-object";
 import { PostMessageArgs, PostMessageResult, RequestResult } from "./types";
 
@@ -19,13 +19,13 @@ function convertCacheMetadata(result: RequestResult | RequestResult[]): PostMess
   return isArray(result) ? postMessageResults : postMessageResults[0];
 }
 
-let client: Client;
+let client: DefaultClient;
 
 registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
   const { args, key, opts, query, type } = message;
 
   if (type === "create" && args) {
-    client = await Client.create(args);
+    client = await DefaultClient.create(args);
     return undefined;
   }
 

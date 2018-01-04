@@ -1,5 +1,5 @@
 import Cacheability from "cacheability";
-import createCachemap, { Cachemap } from "cachemap";
+import { DefaultCachemap } from "cachemap";
 
 import {
   DocumentNode,
@@ -265,12 +265,12 @@ export default class Cache {
   }
 
   private _cachemapOptions: CachemapArgsGroup;
-  private _dataEntities: Cachemap;
-  private _dataPaths: Cachemap;
+  private _dataEntities: DefaultCachemap;
+  private _dataPaths: DefaultCachemap;
   private _defaultCacheControls: DefaultCacheControls;
   private _partials: Map<string, PartialData>;
   private _resourceKey: string;
-  private _responses: Cachemap;
+  private _responses: DefaultCachemap;
 
   constructor({ cachemapOptions, defaultCacheControls, resourceKey }: CacheArgs) {
     this._cachemapOptions = cachemapOptions;
@@ -279,15 +279,15 @@ export default class Cache {
     this._resourceKey = resourceKey;
   }
 
-  get responses(): Cachemap {
+  get responses(): DefaultCachemap {
     return this._responses;
   }
 
-  get dataEntities(): Cachemap {
+  get dataEntities(): DefaultCachemap {
     return this._dataEntities;
   }
 
-  get dataPaths(): Cachemap {
+  get dataPaths(): DefaultCachemap {
     return this._dataPaths;
   }
 
@@ -435,9 +435,9 @@ export default class Cache {
   }
 
   private async _createCachemaps(): Promise<void> {
-    this._dataEntities = await createCachemap(this._cachemapOptions.dataEntities);
-    this._dataPaths = await createCachemap(this._cachemapOptions.dataPaths);
-    this._responses = await createCachemap(this._cachemapOptions.responses);
+    this._dataEntities = await DefaultCachemap.create(this._cachemapOptions.dataEntities);
+    this._dataPaths = await DefaultCachemap.create(this._cachemapOptions.dataPaths);
+    this._responses = await DefaultCachemap.create(this._cachemapOptions.responses);
   }
 
   private _getPartial(queryHash: string): PartialData | undefined {

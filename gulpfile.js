@@ -43,8 +43,20 @@ gulp.task('module', () => {
     .on('error', () => process.exit(1));
 });
 
-gulp.task('browser', () => webpack(require('./webpack.config')) // eslint-disable-line global-require
-  .pipe(gulp.dest('lib/browser'))
+gulp.task('browser', () => {
+  const tsProject = ts.createProject('tsconfig.json');
+
+  return gulp.src(['src/**/*.ts'])
+    .pipe(sourcemaps.init())
+    .pipe(tsProject())
+    .pipe(babel())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('lib/browser'))
+    .on('error', () => process.exit(1));
+});
+
+gulp.task('umd', () => webpack(require('./webpack.config')) // eslint-disable-line global-require
+  .pipe(gulp.dest('lib/umd'))
   .on('error', () => process.exit(1)));
 
 gulp.task('type-check', () => {

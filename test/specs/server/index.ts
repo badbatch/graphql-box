@@ -5,16 +5,15 @@ import { get } from "lodash";
 import * as sinon from "sinon";
 import { tesco } from "../../data/graphql";
 import { mockRestRequest, serverArgs } from "../../helpers";
-import createHandl from "../../../src";
+import { DefaultHandl, Handl } from "../../../src";
 import Cache from "../../../src/cache";
-import Client from "../../../src/client";
 import { RequestResult, ResponseCacheEntryResult } from "../../../src/types";
 
 describe("the handl class in 'internal' mode", () => {
-  let client: Client;
+  let client: DefaultHandl;
 
   before(async () => {
-    client = await createHandl(serverArgs) as Client;
+    client = await Handl.create(serverArgs) as DefaultHandl;
   });
 
   describe("the request method", () => {
