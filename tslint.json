@@ -21,6 +21,6 @@
       "named": "never",
       "asyncArrow": "always"
     }],
-    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"]
   }
 }
