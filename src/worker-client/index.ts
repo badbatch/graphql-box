@@ -1,4 +1,4 @@
-import { castArray, isArray } from "lodash";
+import { castArray, isArray, isPlainObject } from "lodash";
 import PromiseWorker from "promise-worker";
 import createCacheMetadata from "../helpers/create-cache-metadata";
 
@@ -12,14 +12,18 @@ import {
   ResponseCacheEntryResult,
 } from "../types";
 
-export default class WorkerClient {
+let instance: WorkerClient;
+
+export class WorkerClient {
   public static async create(args: ClientArgs): Promise<WorkerClient> {
+    if (instance && isPlainObject(args) && !args.newInstance) return instance;
     const webpackWorker = require("worker-loader?inline=true&fallback=false!../worker"); // tslint:disable-line
     const workerCachemap = new WorkerClient();
     workerCachemap._worker = new webpackWorker();
     workerCachemap._promiseWorker = new PromiseWorker(workerCachemap._worker);
     await workerCachemap._postMessage({ args, type: "create" });
-    return workerCachemap;
+    instance = workerCachemap;
+    return instance;
   }
 
   private static _convertCacheabilityObjectMap(

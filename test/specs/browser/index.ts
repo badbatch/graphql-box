@@ -3,14 +3,13 @@ import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
 import { github } from "../../data/graphql";
 import { browserArgs, mockGraphqlRequest, workerArgs } from "../../helpers";
-import createHandl from "../../../src";
-import Client from "../../../src/client";
+import { DefaultHandl, Handl, WorkerHandl } from "../../../src";
 import { ClientArgs, RequestResult, ResponseCacheEntryResult } from "../../../src/types";
 
 function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): void {
   describe(`the handl class in 'external' mode ${!suppressWorkers && "with web workers"}`, () => {
     let worker: Worker;
-    let client: Client;
+    let client: DefaultHandl | WorkerHandl;
 
     before(async () => {
       if (suppressWorkers) {
@@ -18,7 +17,7 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
         delete self.Worker;
       }
 
-      client = await createHandl(args) as Client;
+      client = await Handl.create(args) as DefaultHandl | WorkerHandl;
     });
 
     after(() => {

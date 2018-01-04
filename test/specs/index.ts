@@ -1,16 +1,14 @@
 import { expect } from "chai";
 import { serverArgs, workerArgs } from "../helpers";
-import createHandl from "../../src";
-import Client from "../../src/client";
-import WorkerClient from "../../src/worker-client";
+import { DefaultHandl, Handl, WorkerHandl } from "../../src";
 
-describe("the createHandl method", () => {
+describe("the Client.create method", () => {
   if (process.env.WEB_ENV) {
     context("when the environment is a browser", () => {
       context("when the browser supports web workers", () => {
         it("the method should return an instance of the WorkerClient class", async () => {
-          const workerClient = await createHandl(workerArgs) as WorkerClient;
-          expect(workerClient).to.be.instanceof(WorkerClient);
+          const workerClient = await Handl.create(workerArgs) as WorkerHandl;
+          expect(workerClient).to.be.instanceof(WorkerHandl);
           workerClient.terminate();
         });
       });
@@ -27,16 +25,16 @@ describe("the createHandl method", () => {
         });
 
         it("the method should return an instance of the Client class", async () => {
-          const client = await createHandl(workerArgs);
-          expect(client).to.be.instanceof(Client);
+          const client = await Handl.create(workerArgs);
+          expect(client).to.be.instanceof(DefaultHandl);
         });
       });
     });
   } else {
     context("when the environment is a server", () => {
       it("the method should return an instance of the Client class", async () => {
-        const client = await createHandl(serverArgs);
-        expect(client).to.be.instanceof(Client);
+        const client = await Handl.create(serverArgs);
+        expect(client).to.be.instanceof(DefaultHandl);
       });
     });
   }
