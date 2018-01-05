@@ -1,27 +1,5 @@
 const { resolve } = require('path');
-const webpack = require('webpack'); // eslint-disable-line
-const webpackConfig = require('./webpack.config');
-
-webpackConfig.module.rules.push({
-  enforce: 'pre',
-  test: /\.(tsx?|jsx?)$/,
-  use: {
-    loader: 'source-map-loader',
-  },
-}, {
-  enforce: 'post',
-  exclude: ['**/*.d.ts'],
-  include: resolve(__dirname, 'src'),
-  test: /\.tsx?$/,
-  use: [{
-    loader: 'istanbul-instrumenter-loader',
-    options: { esModules: true },
-  }],
-});
-
-webpackConfig.plugins.splice(2, 1, new webpack.SourceMapDevToolPlugin({
-  test: /\.(tsx?|jsx?)$/,
-}));
+const webpackConfig = require('./webpack.config.test');
 
 module.exports = (config) => {
   config.set({

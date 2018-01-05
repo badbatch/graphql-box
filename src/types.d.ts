@@ -1,4 +1,4 @@
-import Cacheability, { CacheabilityMetadata } from "cacheability";
+import { Cacheability, CacheabilityMetadata } from "cacheability";
 
 import {
   CachemapArgs,

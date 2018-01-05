@@ -1,4 +1,4 @@
-import Cacheability from "cacheability";
+import { Cacheability } from "cacheability";
 import { CacheMetadata, ObjectMap, RequestContext, ResolveResult } from "../types";
 import { FieldNode } from "graphql";
 

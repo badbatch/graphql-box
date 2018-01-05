@@ -1,4 +1,4 @@
-import Cacheability from "cacheability";
+import { Cacheability } from "cacheability";
 import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
 import { get } from "lodash";

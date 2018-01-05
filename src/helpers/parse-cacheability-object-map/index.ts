@@ -1,4 +1,4 @@
-import Cacheability from "cacheability";
+import { Cacheability } from "cacheability";
 import { CacheabilityObjectMap, CacheMetadata } from "../../types";
 
 export default function parseCacheabilityObjectMap(cacheabilityObjectMap: CacheabilityObjectMap): CacheMetadata {
