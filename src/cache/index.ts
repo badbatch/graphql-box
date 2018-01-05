@@ -1,4 +1,4 @@
-import Cacheability from "cacheability";
+import { Cacheability } from "cacheability";
 import { DefaultCachemap } from "cachemap";
 
 import {
