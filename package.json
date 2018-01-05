@@ -40,8 +40,8 @@
     "type-check": "gulp type-check"
   },
   "dependencies": {
-    "cacheability": "0.0.47",
-    "cachemap": "0.0.38",
+    "cacheability": "0.0.49",
+    "cachemap": "0.0.41",
     "defer-promise": "^1.0.1",
     "graphql": "^0.12.3",
     "isomorphic-fetch": "^2.2.1",

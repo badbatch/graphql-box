@@ -1,4 +1,4 @@
-import Cacheability from "cacheability";
+import { Cacheability } from "cacheability";
 import { CacheabilityObjectMap } from "../../types";
 
 export default function mapToObject(map: Map<string, Cacheability>): CacheabilityObjectMap {

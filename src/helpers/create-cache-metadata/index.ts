@@ -1,4 +1,4 @@
-import Cacheability from "cacheability";
+import { Cacheability } from "cacheability";
 import parseCacheabilityObjectMap from "../parse-cacheability-object-map";
 import { CacheMetadata, CreateCacheMetadataArgs } from "../../types";
 

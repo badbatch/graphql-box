@@ -1,4 +1,4 @@
-import Cacheability from "cacheability";
+import { Cacheability } from "cacheability";
 import { DocumentNode, FieldNode } from "graphql";
 import { CachemapOptions, DefaultCacheControls } from "../client/types";
 import { CacheMetadata, ObjectMap } from "../types";
