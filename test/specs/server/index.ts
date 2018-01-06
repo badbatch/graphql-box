@@ -60,7 +60,7 @@ describe("the handl class in 'internal' mode", () => {
           expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
         });
 
-        it("then the graphql schema should have made a fetch request", () => {
+        it("then the graphql schema should have made fetch requests", () => {
           expect(fetchMock.calls().matched).to.have.lengthOf(3);
         });
 
@@ -140,6 +140,57 @@ describe("the handl class in 'internal' mode", () => {
 
         it("then the client should not have called the cache's analyze method", () => {
           expect(spy.notCalled).to.equal(true);
+        });
+      });
+
+      context("when there is a matching query in the active request map", () => {
+        let result: Array<RequestResult | RequestResult[]>;
+        let spy: sinon.SinonSpy;
+
+        beforeEach(async () => {
+          const cache: Cache = get(client, "_cache");
+          spy = sinon.spy(cache, "analyze");
+
+          try {
+            result = await Promise.all([
+              client.request(
+                tesco.requests.singleQuery,
+                { awaitDataCached: true },
+              ),
+              client.request(
+                tesco.requests.singleQuery,
+                { awaitDataCached: true },
+              ),
+            ]);
+          } catch (error) {
+            console.log(error); // tslint:disable-line
+          }
+        });
+
+        afterEach(async () => {
+          await client.clearCache();
+          fetchMock.reset();
+          spy.restore();
+        });
+
+        it("then the method should return the requested data", () => {
+          const [resultOne, resultTwo] = result as RequestResult[];
+          expect(resultOne).to.deep.equal(resultTwo);
+          expect(resultTwo.data).to.deep.equal(tesco.responses.singleQuery);
+          expect(resultTwo.queryHash).to.be.a("string");
+          expect(resultTwo.cacheMetadata.size).to.equal(4);
+          const queryCacheability = resultTwo.cacheMetadata.get("query") as Cacheability;
+          expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
+          const productCacheability = resultTwo.cacheMetadata.get("product") as Cacheability;
+          expect(productCacheability.metadata.cacheControl.maxAge).to.equal(28800);
+          const defaultSkuCacheability = resultTwo.cacheMetadata.get("product.defaultSku") as Cacheability;
+          expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(14400);
+          const parentCacheability = resultTwo.cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
+          expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
+        });
+
+        it("then the client should have called the cache's analyze method once", () => {
+          expect(spy.calledOnce).to.equal(true);
         });
       });
 
