@@ -39,12 +39,8 @@ import {
 } from "lodash";
 
 import {
-  ClientRequests,
   FetchResult,
   MapFieldToTypeArgs,
-  PendingRequestActions,
-  PendingRequestRejection,
-  PendingRequestResolver,
   ResolveArgs,
 } from "./types";
 
@@ -80,6 +76,9 @@ import {
   ClientArgs,
   DefaultCacheControls,
   ObjectMap,
+  PendingRequestActions,
+  PendingRequestRejection,
+  PendingRequestResolver,
   RequestContext,
   RequestOptions,
   RequestResult,
@@ -180,7 +179,6 @@ export class DefaultClient {
   private _fieldResolver?: GraphQLFieldResolver<any, any>;
   private _headers: ObjectMap = { "content-type": "application/json" };
   private _mode: "internal" | "external";
-  private _requests: ClientRequests = { active: new Map(), pending: new Map() };
   private _resourceKey: string = "id";
   private _rootValue: any;
   private _schema: GraphQLSchema;
@@ -513,13 +511,13 @@ export class DefaultClient {
       }
     }
 
-    if (this._requests.active.has(queryHash)) {
+    if (this._cache.requests.active.has(queryHash)) {
       return new Promise((resolve: PendingRequestResolver, reject: PendingRequestRejection) => {
         this._setPendingRequest(queryHash, { reject, resolve });
       });
     }
 
-    this._requests.active.set(queryHash, query);
+    this._cache.requests.active.set(queryHash, query);
 
     const {
       cachedData,
@@ -606,7 +604,7 @@ export class DefaultClient {
 
     if (resolvePending && queryHash) {
       this._resolvePendingRequests(queryHash, cacheMetadata, data, error);
-      this._requests.active.delete(queryHash);
+      this._cache.requests.active.delete(queryHash);
     }
 
     if (error) return Promise.reject(error);
@@ -627,7 +625,7 @@ export class DefaultClient {
     data?: ObjectMap,
     error?: Error | Error[],
   ): void {
-    const pendingRequests = this._requests.pending.get(queryHash);
+    const pendingRequests = this._cache.requests.pending.get(queryHash);
     if (!pendingRequests) return;
 
     pendingRequests.forEach(({ reject, resolve }) => {
@@ -642,7 +640,7 @@ export class DefaultClient {
       }
     });
 
-    this._requests.pending.delete(queryHash);
+    this._cache.requests.pending.delete(queryHash);
   }
 
   private _resolveRequestOperation(
@@ -663,10 +661,10 @@ export class DefaultClient {
   }
 
   private _setPendingRequest(queryHash: string, { reject, resolve }: PendingRequestActions): void {
-    let pending = this._requests.pending.get(queryHash);
+    let pending = this._cache.requests.pending.get(queryHash);
     if (!pending) pending = [];
     pending.push({ reject, resolve });
-    this._requests.pending.set(queryHash, pending);
+    this._cache.requests.pending.set(queryHash, pending);
   }
 
   private async _updateQuery(

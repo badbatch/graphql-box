@@ -46,6 +46,11 @@ export interface ClientArgs {
   url?: string;
 }
 
+export interface ClientRequests {
+  active: Map<string, string>;
+  pending: Map<string, PendingRequestActions[]>;
+}
+
 export interface CreateCacheMetadataArgs {
   cacheMetadata?: CacheabilityObjectMap;
   headers?: Headers;
@@ -67,6 +72,14 @@ export interface FieldTypeInfo {
 
 export type FieldTypeMap = Map<string, FieldTypeInfo>;
 export interface ObjectMap { [key: string]: any; }
+
+export interface PendingRequestActions {
+  reject: PendingRequestRejection;
+  resolve: PendingRequestResolver;
+}
+
+export type PendingRequestRejection = (value: Error | Error[]) => void;
+export type PendingRequestResolver = (value: ResolveResult) => void;
 
 export interface PostMessageArgs {
   args?: ClientArgs;

@@ -39,6 +39,7 @@ import {
 import {
   CachemapArgsGroup,
   CacheMetadata,
+  ClientRequests,
   DataCachedResolver,
   DefaultCacheControls,
   FieldTypeInfo,
@@ -269,6 +270,7 @@ export default class Cache {
   private _dataPaths: DefaultCachemap;
   private _defaultCacheControls: DefaultCacheControls;
   private _partials: Map<string, PartialData>;
+  private _requests: ClientRequests = { active: new Map(), pending: new Map() };
   private _resourceKey: string;
   private _responses: DefaultCachemap;
 
@@ -279,16 +281,20 @@ export default class Cache {
     this._resourceKey = resourceKey;
   }
 
-  get responses(): DefaultCachemap {
-    return this._responses;
-  }
-
   get dataEntities(): DefaultCachemap {
     return this._dataEntities;
   }
 
   get dataPaths(): DefaultCachemap {
     return this._dataPaths;
+  }
+
+  get requests(): ClientRequests {
+    return this._requests;
+  }
+
+  get responses(): DefaultCachemap {
+    return this._responses;
   }
 
   public async analyze(
