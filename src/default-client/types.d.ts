@@ -1,11 +1,5 @@
-import { Cacheability } from "cacheability";
-import { CacheMetadata, ObjectMap, RequestContext, ResolveResult } from "../types";
+import { CacheMetadata, ObjectMap, RequestContext } from "../types";
 import { FieldNode } from "graphql";
-
-export interface ClientRequests {
-  active: Map<string, string>;
-  pending: Map<string, PendingRequestActions[]>;
-}
 
 export interface FetchResult {
   cacheMetadata?: ObjectMap;
@@ -21,14 +15,6 @@ export interface MapFieldToTypeArgs {
   resourceKey: string;
   typeName: string;
 }
-
-export interface PendingRequestActions {
-  reject: PendingRequestRejection;
-  resolve: PendingRequestResolver;
-}
-
-export type PendingRequestRejection = (value: Error | Error[]) => void;
-export type PendingRequestResolver = (value: ResolveResult) => void;
 
 export interface ResolveArgs {
   cacheMetadata: CacheMetadata;
