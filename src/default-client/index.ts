@@ -358,12 +358,12 @@ export class DefaultClient {
 
       try {
         executeResult = await execute({
-          schema: this._schema,
-          document: ast,
-          rootValue: opts.rootValue || this._rootValue,
           contextValue: opts.context,
-          operationName: opts.operationName,
+          document: ast,
           fieldResolver: opts.fieldResolver || this._fieldResolver,
+          operationName: opts.operationName,
+          rootValue: opts.rootValue || this._rootValue,
+          schema: this._schema,
         });
       } catch (error) {
         return Promise.reject(error);
@@ -574,7 +574,7 @@ export class DefaultClient {
       headers: fetchResult.headers,
     });
 
-    const resolveResult = await this._cache.resolve(
+    const resolveResult = await this._cache.update(
       _updateQuery,
       _updateAST,
       queryHash,

@@ -319,7 +319,7 @@ export default class Cache {
     return { filtered: true, updatedAST: ast, updatedQuery: print(ast) };
   }
 
-  public async resolve(
+  public async update(
     query: string,
     ast: DocumentNode,
     queryHash: string,
