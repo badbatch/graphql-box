@@ -51,3 +51,40 @@ export async function fetchData(
 export function getLinks({ links }: { links: ObjectMap[] }, relation: string): ObjectMap[] {
   return links.filter(({ rel }) => rel === relation);
 }
+
+export interface QueryDatabaseArgs {
+  cmd: string;
+  key?: string;
+  type: string;
+  value?: any;
+  callback?: (dataType: ObjectMap, value: any, key?: any) => any;
+}
+
+const database: ObjectMap = {};
+
+export function queryDatabase({ callback, cmd, key, type, value }: QueryDatabaseArgs): any {
+  if (!database[type]) database[type] = {};
+  let dataType = database[type];
+  let result: any;
+
+  switch (cmd) {
+    case "get":
+      result = key ? dataType[key] : dataType;
+      break;
+    case "set":
+      if (value && !callback) {
+        if (key) {
+          dataType[key] = value;
+        } else {
+          dataType = value;
+        }
+      } else if (value && callback) {
+        callback(dataType, value, key);
+      }
+      break;
+    default:
+      // no default
+  }
+
+  return result;
+}

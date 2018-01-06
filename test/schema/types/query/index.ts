@@ -1,10 +1,15 @@
 import { GraphQLList, GraphQLObjectType, GraphQLString } from "graphql";
+import favouritesType from "./favourites";
 import productType from "./product";
 import skuType from "./sku";
-import { fetchData } from "../../helpers";
+import { fetchData, queryDatabase } from "../../helpers";
 
 export default new GraphQLObjectType({
   fields: () => ({
+    favourites: {
+      resolve: async (obj) => queryDatabase({ cmd: "get", type: "favourites" }),
+      type: favouritesType,
+    },
     product: {
       args: { id: { type: GraphQLString } },
       resolve: async (obj, args) => fetchData("product", args),
