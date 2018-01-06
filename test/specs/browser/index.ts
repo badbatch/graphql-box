@@ -140,6 +140,48 @@ function testExternalMode(args: ClientArgs, suppressWorkers: boolean = false): v
           }
         });
 
+        context("when there is a matching query in the active request map", () => {
+          let result: Array<RequestResult | RequestResult[]>;
+
+          beforeEach(async () => {
+            try {
+              result = await Promise.all([
+                client.request(
+                  github.requests.singleQuery,
+                  { awaitDataCached: true },
+                ),
+                client.request(
+                  github.requests.singleQuery,
+                  { awaitDataCached: true },
+                ),
+              ]);
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+          });
+
+          afterEach(async () => {
+            await client.clearCache();
+            fetchMock.reset();
+          });
+
+          it("then the method should return the requested data", () => {
+            const [resultOne, resultTwo] = result as RequestResult[];
+            expect(resultOne).to.deep.equal(resultTwo);
+            expect(resultTwo.data).to.deep.equal(github.responses.singleQuery.data);
+            expect(resultTwo.queryHash).to.be.a("string");
+            expect(resultTwo.cacheMetadata.size).to.equal(1);
+            const queryCacheability = resultTwo.cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+          });
+
+          if (suppressWorkers) {
+            it("then the client should not have made a fetch request", () => {
+              expect(fetchMock.calls().matched).to.have.lengthOf(1);
+            });
+          }
+        });
+
         context("when a query response can be constructed from the data path cache", () => {
           let result: RequestResult;
 
