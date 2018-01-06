@@ -215,7 +215,7 @@ export default function testQueryOperation(args: ClientArgs): void {
 
             fetchMock.reset();
             const cache: Cache = get(client, "_cache");
-            spy = sinon.spy(cache, "resolve");
+            spy = sinon.spy(cache, "update");
 
             try {
               result = await client.request(
@@ -293,7 +293,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             fetchMock.reset();
             const cache: Cache = get(client, "_cache");
             cache.dataPaths.clear();
-            spy = sinon.spy(cache, "resolve");
+            spy = sinon.spy(cache, "update");
 
             try {
               result = await client.request(
