@@ -35,7 +35,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             try {
               result = await client.request(
                 tesco.requests.singleQuery,
-                { awaitDataCached: true },
+                { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResult;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -104,7 +104,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             try {
               result = await client.request(
                 tesco.requests.singleQuery,
-                { awaitDataCached: true },
+                { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResult;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -116,7 +116,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             try {
               result = await client.request(
                 tesco.requests.singleQuery,
-                { awaitDataCached: true },
+                { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResult;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -160,11 +160,11 @@ export default function testQueryOperation(args: ClientArgs): void {
               result = await Promise.all([
                 client.request(
                   tesco.requests.singleQuery,
-                  { awaitDataCached: true },
+                  { awaitDataCached: true, variables: { id: "402-5806" } },
                 ),
                 client.request(
                   tesco.requests.singleQuery,
-                  { awaitDataCached: true },
+                  { awaitDataCached: true, variables: { id: "402-5806" } },
                 ),
               ]);
             } catch (error) {
@@ -207,7 +207,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             try {
               result = await client.request(
                 tesco.requests.singleQuery,
-                { awaitDataCached: true },
+                { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResult;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -220,7 +220,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             try {
               result = await client.request(
                 tesco.requests.reducedSingleQuery,
-                { awaitDataCached: true },
+                { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResult;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -284,7 +284,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             try {
               result = await client.request(
                 tesco.requests.singleQuery,
-                { awaitDataCached: true },
+                { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResult;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -298,7 +298,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             try {
               result = await client.request(
                 tesco.requests.reducedSingleQuery,
-                { awaitDataCached: true },
+                { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResult;
             } catch (error) {
               console.log(error); // tslint:disable-line

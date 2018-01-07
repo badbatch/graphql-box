@@ -28,8 +28,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
       context("when a single query is requested", () => {
         before(() => {
           if (opts.suppressWorkers) {
-            mockGraphqlRequest(github.requests.singleQuery);
-            mockGraphqlRequest(github.requests.reducedSingleQuery);
+            mockGraphqlRequest(github.requests.updatedSingleQuery);
           }
         });
 
@@ -44,7 +43,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             try {
               result = await client.request(
                 github.requests.singleQuery,
-                { awaitDataCached: true },
+                { awaitDataCached: true, variables: { login: "facebook" } },
               ) as RequestResult;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -102,7 +101,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             try {
               result = await client.request(
                 github.requests.singleQuery,
-                { awaitDataCached: true },
+                { awaitDataCached: true, variables: { login: "facebook" } },
               ) as RequestResult;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -113,7 +112,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             try {
               result = await client.request(
                 github.requests.singleQuery,
-                { awaitDataCached: true },
+                { awaitDataCached: true, variables: { login: "facebook" } },
               ) as RequestResult;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -148,11 +147,11 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               result = await Promise.all([
                 client.request(
                   github.requests.singleQuery,
-                  { awaitDataCached: true },
+                  { awaitDataCached: true, variables: { login: "facebook" } },
                 ),
                 client.request(
                   github.requests.singleQuery,
-                  { awaitDataCached: true },
+                  { awaitDataCached: true, variables: { login: "facebook" } },
                 ),
               ]);
             } catch (error) {
@@ -189,7 +188,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             try {
               result = await client.request(
                 github.requests.singleQuery,
-                { awaitDataCached: true },
+                { awaitDataCached: true, variables: { login: "facebook" } },
               ) as RequestResult;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -200,7 +199,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             try {
               result = await client.request(
                 github.requests.reducedSingleQuery,
-                { awaitDataCached: true },
+                { awaitDataCached: true, variables: { login: "facebook" } },
               ) as RequestResult;
             } catch (error) {
               console.log(error); // tslint:disable-line
