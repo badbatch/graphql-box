@@ -12,6 +12,7 @@ export default new GraphQLObjectType({
             if (!dataType.products) dataType.products = [];
             dataType.products.push(value);
             dataType.count = dataType.products.length;
+            dataType.id = 1;
           },
           cmd: "set",
           type: "favourites",
