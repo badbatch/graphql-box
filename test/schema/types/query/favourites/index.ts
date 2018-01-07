@@ -6,9 +6,9 @@ export default new GraphQLObjectType({
   fields: () => ({
     count: { type: GraphQLInt },
     products: {
-      resolve: async (obj: { items: string[] }) => {
-        if (!obj.items || !obj.items.length) return [];
-        return fetchData("product", { id: obj.items });
+      resolve: async (obj: { products: string[] }) => {
+        if (!obj.products || !obj.products.length) return [];
+        return fetchData("product", { id: obj.products });
       },
       type: new GraphQLList(productType),
     },

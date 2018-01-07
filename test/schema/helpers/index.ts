@@ -45,7 +45,13 @@ export async function fetchData(
   const maxAge = key === "product" ? 28800 : 14400;
   const _metadata = { cacheControl: `public, max-age=${maxAge}` };
   if (!isArray(args.id)) return { ...data[0], _metadata };
-  return [{ ...data[0], _metadata }, { ...data[1], _metadata }];
+  const output: ObjectMap[] = [];
+
+  data.forEach((value) => {
+    output.push({ ...value, _metadata });
+  });
+
+  return data;
 }
 
 export function getLinks({ links }: { links: ObjectMap[] }, relation: string): ObjectMap[] {

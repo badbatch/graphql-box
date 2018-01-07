@@ -63,6 +63,26 @@ export const reducedSingleQuery = `
   }
 `;
 
+export const singleMutation = `
+  mutation ($productID: String!) {
+    addFavourite(productID: $productID) {
+      count
+      products {
+        optionsInfo {
+          internalName
+          name
+          type
+        }
+        prices {
+          clubcardPoints
+          price
+        }
+        userActionable
+      }
+    }
+  }
+`;
+
 export const namedQuery = `
   query getProduct {
     product(id: "402-5806") {
