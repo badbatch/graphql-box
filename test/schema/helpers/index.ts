@@ -1,4 +1,4 @@
-import { castArray, flatten, isArray } from "lodash";
+import { castArray, flatten, isArray, isPlainObject } from "lodash";
 import { dataEndpoints } from "../../data/rest";
 import { ObjectMap } from "../../../src/types";
 
@@ -66,16 +66,22 @@ export interface QueryDatabaseArgs {
   callback?: (dataType: ObjectMap, value: any, key?: any) => any;
 }
 
-const database: ObjectMap = {};
+let database: ObjectMap = {};
+
+export function clearDatabase(): void {
+  database = {};
+}
 
 export function queryDatabase({ callback, cmd, key, type, value }: QueryDatabaseArgs): any {
   if (!database[type]) database[type] = {};
   let dataType = database[type];
   let result: any;
+  const _metadata = { cacheControl: `public, max-age=60` };
 
   switch (cmd) {
     case "get":
       result = key ? dataType[key] : dataType;
+      if (isPlainObject(result)) result = { ...result, _metadata };
       break;
     case "set":
       if (value && !callback) {
