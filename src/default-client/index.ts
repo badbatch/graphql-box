@@ -407,7 +407,8 @@ export class DefaultClient {
     typeInfo: TypeInfo,
   ): GraphQLOutputType | GraphQLNamedType | undefined {
     if (kind === "Field") {
-      return getType(typeInfo.getFieldDef());
+      const typeDef = typeInfo.getFieldDef();
+      return typeDef ? getType(typeDef) : undefined;
     }
 
     if (kind  === "InlineFragment") {
