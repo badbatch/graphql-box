@@ -4,7 +4,7 @@ import { queryDatabase } from "../../helpers";
 
 export default new GraphQLObjectType({
   fields: () => ({
-    addFavorite: {
+    addFavourite: {
       args: { productID: { type: new GraphQLNonNull(GraphQLString) } },
       resolve: async (obj, { productID }) => {
         queryDatabase({

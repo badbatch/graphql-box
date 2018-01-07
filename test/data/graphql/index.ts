@@ -22,6 +22,7 @@ export const github: RequestResponseGroup = {
 
 const tescoResponses = {
   reducedSingleQuery: require("./tesco/responses/reduced-single-query.json"),
+  singleMutation: require("./tesco/responses/single-mutation.json"),
   singleQuery: require("./tesco/responses/single-query.json"),
 };
 
