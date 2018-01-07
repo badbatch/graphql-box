@@ -1,6 +1,6 @@
 export const singleQuery = `
-  {
-    product(id: "402-5806") {
+  query ($id: String!) {
+    product(id: $id) {
       defaultSku {
         displayName
         parentProduct {
@@ -32,8 +32,8 @@ export const singleQuery = `
 `;
 
 export const reducedSingleQuery = `
-  {
-    product(id: "402-5806") {
+  query ($id: String!) {
+    product(id: $id) {
       defaultSku {
         displayName
         parentProduct {

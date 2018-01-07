@@ -14,6 +14,7 @@ export interface MapFieldToTypeArgs {
   isEntity: boolean;
   resourceKey: string;
   typeName: string;
+  variables?: ObjectMap;
 }
 
 export interface ResolveArgs {

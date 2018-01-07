@@ -7,6 +7,7 @@ const githubResponses = {
   reducedSingleQuery: require("./github/responses/reduced-single-query.json"),
   singleMutation: require("./github/responses/single-mutation.json"),
   singleQuery: require("./github/responses/single-query.json"),
+  updatedSingleQuery: require("./github/responses/single-query.json"),
   variableMutation: require("./github/responses/single-mutation.json"),
 };
 

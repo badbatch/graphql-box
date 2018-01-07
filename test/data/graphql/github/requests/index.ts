@@ -1,4 +1,35 @@
 export const singleQuery = `
+  query ($login: String!) {
+    organization(login: $login) {
+      description
+      email
+      id
+      login
+      name
+      repositories(first: 6) {
+        edges {
+          node {
+            description
+            id
+            name
+            owner {
+              ... on Organization {
+                description
+                email
+                id
+                login
+                name
+              }
+            }
+          }
+        }
+      }
+      url
+    }
+  }
+`;
+
+export const updatedSingleQuery = `
   {
     organization(login: "facebook") {
       description
@@ -9,8 +40,8 @@ export const singleQuery = `
       repositories(first: 6) {
         edges {
           node {
-            id
             description
+            id
             name
             owner {
               ... on Organization {
@@ -30,8 +61,8 @@ export const singleQuery = `
 `;
 
 export const reducedSingleQuery = `
-  {
-    organization(login: "facebook") {
+  query ($login: String!) {
+    organization(login: $login) {
       description
       email
       id
@@ -40,8 +71,8 @@ export const reducedSingleQuery = `
       repositories(first: 6) {
         edges {
           node {
-            id
             description
+            id
             name
             owner {
               ... on Organization {
