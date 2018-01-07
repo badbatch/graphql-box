@@ -35,6 +35,11 @@ export interface CacheEntryResult {
   cacheability: Cacheability | false;
 }
 
+export interface CacheUpdateDataTypes {
+  entities: ObjectMap | any[];
+  paths: ObjectMap | any[];
+}
+
 export type CheckList = Map<string, boolean>;
 
 export interface GetKeysResult {
@@ -57,4 +62,9 @@ export interface KeyPaths {
 export interface PartialData {
   cachedData: ObjectMap;
   cacheMetadata: CacheMetadata;
+}
+
+export interface UpdateDataCachesOptions {
+  setEntities?: boolean;
+  setPaths?: boolean;
 }

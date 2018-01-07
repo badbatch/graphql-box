@@ -29,11 +29,13 @@ import {
   CacheEntryData,
   CacheEntryResult,
   CachesCheckMetadata,
+  CacheUpdateDataTypes,
   CheckList,
   GetKeysResult,
   IterateChildFieldsCallback,
   KeyPaths,
   PartialData,
+  UpdateDataCachesOptions,
 } from "./types";
 
 import {
@@ -319,7 +321,32 @@ export default class Cache {
     return { filtered: true, updatedAST: ast, updatedQuery: print(ast) };
   }
 
-  public async update(
+  public async resolveMutation(
+    ast: DocumentNode,
+    fieldTypeMap: FieldTypeMap,
+    data: ObjectMap,
+    cacheMetadata: CacheMetadata,
+    opts: { cacheResolve: DataCachedResolver },
+  ): Promise<ResolveResult> {
+    const updatedCacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata, "mutation");
+
+    (async () => {
+      await this._updateDataCaches(
+        ast,
+        data,
+        updatedCacheMetadata,
+        fieldTypeMap,
+        "mutation",
+        { setPaths: false },
+      );
+
+      opts.cacheResolve();
+    })();
+
+    return { cacheMetadata: updatedCacheMetadata, data };
+  }
+
+  public async resolveQuery(
     query: string,
     ast: DocumentNode,
     queryHash: string,
@@ -347,6 +374,7 @@ export default class Cache {
       ast,
       updatedData,
       cacheMetadata,
+      "query",
       partial && partial.cacheMetadata,
     );
 
@@ -356,7 +384,7 @@ export default class Cache {
       && updatedCacheability.printCacheControl()
       || defaultCacheControl;
 
-    const filterCacheMetadata = opts.filtered && this._updateCacheMetadata(ast, data, cacheMetadata);
+    const filterCacheMetadata = opts.filtered && this._updateCacheMetadata(ast, data, cacheMetadata, "query");
     const filterCacheability = filterCacheMetadata && filterCacheMetadata.get("query");
 
     const filterCacheControl = filterCacheability
@@ -372,8 +400,6 @@ export default class Cache {
         { cacheHeaders: { cacheControl: updatedCacheControl },
       }));
 
-      promises.push(this._updateDataCaches(ast, updatedData, updatedCacheMetadata, fieldTypeMap));
-
       if (filterCacheMetadata) {
         promises.push(this._responses.set(
           Cache.hash(query),
@@ -381,6 +407,14 @@ export default class Cache {
           { cacheHeaders: { cacheControl: filterCacheControl },
         }));
       }
+
+      promises.push(this._updateDataCaches(
+        ast,
+        updatedData,
+        updatedCacheMetadata,
+        fieldTypeMap,
+        "query",
+      ));
 
       await Promise.all(promises);
       opts.cacheResolve();
@@ -456,35 +490,36 @@ export default class Cache {
   private async _parseData(
     field: FieldNode,
     fieldTypeMap: FieldTypeMap,
-    data: { entities: ObjectMap | any[], paths: ObjectMap | any[] },
+    dataTypes: CacheUpdateDataTypes,
     cacheMetadata: CacheMetadata,
     cacheControl: string,
-    paths?: KeyPaths,
-    index?: number,
+    { keyPaths, index }: { keyPaths?: KeyPaths, index?: number } = {},
+    opts: UpdateDataCachesOptions,
   ): Promise<void> {
     const {
       cacheKey,
       dataKey,
       hashKey,
       queryKey,
-    } = Cache._getKeys(field, paths, index);
+    } = Cache._getKeys(field, keyPaths, index);
 
-    const entityfieldData = get(data.entities, dataKey, null);
-    const pathfieldData = get(data.paths, dataKey, null);
+    const entityfieldData = get(dataTypes.entities, dataKey, null);
+    const pathfieldData = get(dataTypes.paths, dataKey, null);
     if (!isObjectLike(entityfieldData) && !isObjectLike(pathfieldData)) return;
     const metadata = cacheMetadata.get(queryKey);
     const _cacheControl = metadata && metadata.printCacheControl() || cacheControl;
     const promises: Array<Promise<void>> = [];
+    const _keyPaths: KeyPaths = { cachePath: cacheKey, dataPath: dataKey, queryPath: queryKey };
 
     Cache._iterateChildFields(field, pathfieldData, (childField, childIndex) => {
       promises.push(this._parseData(
         childField,
         fieldTypeMap,
-        data,
+        dataTypes,
         cacheMetadata,
         _cacheControl,
-        { cachePath: cacheKey, dataPath: dataKey, queryPath: queryKey },
-        childIndex,
+        { keyPaths: _keyPaths, index: childIndex },
+        opts,
       ));
     });
 
@@ -493,11 +528,11 @@ export default class Cache {
     await this._setData(
       field,
       fieldTypeMap,
-      data,
-      entityfieldData,
-      pathfieldData,
+      { entityfieldData, pathfieldData },
+      dataTypes,
       _cacheControl,
       { dataKey, hashKey, queryKey },
+      opts,
     );
   }
 
@@ -608,22 +643,22 @@ export default class Cache {
   private async _setData(
     field: FieldNode,
     fieldTypeMap: FieldTypeMap,
-    data: { entities: ObjectMap | any[], paths: ObjectMap | any[] },
-    entityfieldData: ObjectMap | any[],
-    pathfieldData: ObjectMap | any[],
+    { entityfieldData, pathfieldData }: { entityfieldData: ObjectMap | any[], pathfieldData: ObjectMap | any[] },
+    dataTypes: CacheUpdateDataTypes,
     cacheControl: string,
     { dataKey, hashKey, queryKey }: { dataKey: string, hashKey: string, queryKey: string },
+    { setEntities, setPaths }: UpdateDataCachesOptions,
   ): Promise<void> {
     const fieldTypeInfo = fieldTypeMap.get(queryKey);
     if (!fieldTypeInfo) return;
 
     if (!fieldTypeInfo.isEntity && fieldTypeInfo.hasArguments) {
-      unset(data.entities, dataKey);
+      unset(dataTypes.entities, dataKey);
     }
 
     const promises: Array<Promise<void>> = [];
 
-    if (fieldTypeInfo.isEntity) {
+    if (setEntities && fieldTypeInfo.isEntity && isPlainObject(entityfieldData)) {
       const objectMapEntityfieldData = entityfieldData as ObjectMap;
       const entityDataKey = `${fieldTypeInfo.typeName}:${objectMapEntityfieldData[this._resourceKey]}`;
 
@@ -633,10 +668,10 @@ export default class Cache {
         { cacheHeaders: { cacheControl } },
       ));
 
-      set(data.entities, dataKey, { _EntityKey: entityDataKey });
+      set(dataTypes.entities, dataKey, { _EntityKey: entityDataKey });
     }
 
-    if (fieldTypeInfo.isEntity || fieldTypeInfo.hasArguments) {
+    if (setPaths && ((fieldTypeInfo.isEntity && isPlainObject(pathfieldData)) || fieldTypeInfo.hasArguments)) {
       promises.push(this._dataPaths.set(
         hashKey,
         cloneDeep(pathfieldData),
@@ -645,9 +680,9 @@ export default class Cache {
 
       if (hasChildFields(field)) {
         if (fieldTypeInfo.isEntity) {
-          set(data.paths, dataKey, { _HashKey: hashKey });
+          set(dataTypes.paths, dataKey, { _HashKey: hashKey });
         } else {
-          unset(data.paths, dataKey);
+          unset(dataTypes.paths, dataKey);
         }
       }
     }
@@ -659,6 +694,7 @@ export default class Cache {
     ast: DocumentNode,
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
+    operationName: string,
     partialCacheMetadata?: CacheMetadata,
   ): CacheMetadata {
     let _cacheMetadata: CacheMetadata = new Map([...cacheMetadata]);
@@ -675,8 +711,8 @@ export default class Cache {
       }
     }
 
-    const queryNode = getOperationDefinitions(ast, "query")[0];
-    const fields = getChildFields(queryNode) as FieldNode[];
+    const operationNode = getOperationDefinitions(ast, operationName)[0];
+    const fields = getChildFields(operationNode) as FieldNode[];
 
     fields.forEach((field) => {
       Cache._parseResponseMetadata(field, data, _cacheMetadata);
@@ -696,8 +732,10 @@ export default class Cache {
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
     fieldTypeMap: FieldTypeMap,
+    operationName: string,
+    { setEntities = true, setPaths = true }: UpdateDataCachesOptions = {},
   ): Promise<void> {
-    const queryNode = getOperationDefinitions(ast, "query")[0];
+    const queryNode = getOperationDefinitions(ast, operationName)[0];
     const fields = getChildFields(queryNode) as FieldNode[];
     const queryCacheability = cacheMetadata.get("query");
 
@@ -713,6 +751,8 @@ export default class Cache {
           { entities: cloneDeep(data), paths: cloneDeep(data) },
           cacheMetadata,
           cacheControl,
+          undefined,
+          { setEntities, setPaths },
         );
       }),
     );

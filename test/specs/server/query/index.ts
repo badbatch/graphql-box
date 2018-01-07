@@ -215,7 +215,7 @@ export default function testQueryOperation(args: ClientArgs): void {
 
             fetchMock.reset();
             const cache: Cache = get(client, "_cache");
-            spy = sinon.spy(cache, "update");
+            spy = sinon.spy(cache, "resolveQuery");
 
             try {
               result = await client.request(
@@ -271,7 +271,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
-          it("then the client should not have called the cache's resolve method", () => {
+          it("then the client should not have called the cache's resolveQuery method", () => {
             expect(spy.notCalled).to.equal(true);
           });
         });
@@ -293,7 +293,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             fetchMock.reset();
             const cache: Cache = get(client, "_cache");
             cache.dataPaths.clear();
-            spy = sinon.spy(cache, "update");
+            spy = sinon.spy(cache, "resolveQuery");
 
             try {
               result = await client.request(
@@ -349,7 +349,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
-          it("then the client should not have called the cache's resolve method", () => {
+          it("then the client should not have called the cache's resolveQuery method", () => {
             expect(spy.notCalled).to.equal(true);
           });
         });

@@ -430,6 +430,7 @@ export class DefaultClient {
     mutation: string,
     ast: DocumentNode,
     opts: RequestOptions,
+    context: RequestContext,
   ): Promise<ResolveResult> {
     let fetchResult: FetchResult;
 
@@ -443,12 +444,25 @@ export class DefaultClient {
       });
     }
 
+    const cacheMetadata = createCacheMetadata({
+      cacheMetadata: fetchResult.cacheMetadata,
+      headers: fetchResult.headers,
+    });
+
+    const deferred: DeferPromise.Deferred<void> = deferredPromise();
+
+    const resolveResult = await this._cache.resolveMutation(
+      ast,
+      context.fieldTypeMaps[0],
+      fetchResult.data,
+      cacheMetadata,
+      { cacheResolve: deferred.resolve },
+    );
+
     return this._resolve({
-      cacheMetadata: createCacheMetadata({
-        cacheMetadata: fetchResult.cacheMetadata,
-        headers: fetchResult.headers,
-      }),
-      data: fetchResult.data,
+      cacheMetadata: resolveResult.cacheMetadata,
+      cachePromise: deferred.promise,
+      data: resolveResult.data,
       operation: "mutation",
     });
   }
@@ -579,7 +593,7 @@ export class DefaultClient {
       headers: fetchResult.headers,
     });
 
-    const resolveResult = await this._cache.update(
+    const resolveResult = await this._cache.resolveQuery(
       _updateQuery,
       _updateAST,
       queryHash,
@@ -659,7 +673,7 @@ export class DefaultClient {
     if (operationDefinition.operation === "query") {
       return this._query(query, ast, opts, context);
     } else if (operationDefinition.operation === "mutation") {
-      return this._mutation(query, ast, opts);
+      return this._mutation(query, ast, opts, context);
     }
 
     return Promise.reject(new Error("request expected the operation to be 'query' or 'mutation'."));
