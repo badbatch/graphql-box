@@ -43,6 +43,7 @@ export interface ClientArgs {
   resourceKey?: string;
   rootValue?: any;
   schema?: GraphQLSchema;
+  subscriptionOptions: SubscriptionsOptions;
   url?: string;
 }
 
@@ -127,4 +128,8 @@ export interface ResolveResult {
 export interface ResponseCacheEntryResult {
   cacheMetadata: CacheMetadata;
   data: ObjectMap;
+}
+
+export interface SubscriptionsOptions {
+
 }

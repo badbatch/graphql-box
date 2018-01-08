@@ -84,6 +84,7 @@ import {
   RequestResult,
   ResolveResult,
   ResponseCacheEntryResult,
+  SubscriptionsOptions,
 } from "../types";
 
 const deferredPromise = require("defer-promise");
@@ -186,6 +187,7 @@ export class DefaultClient {
   private _resourceKey: string = "id";
   private _rootValue: any;
   private _schema: GraphQLSchema;
+  private _subscriptionOptions: SubscriptionsOptions;
   private _url?: string;
 
   constructor(args: ClientArgs) {
@@ -203,6 +205,7 @@ export class DefaultClient {
       resourceKey,
       rootValue,
       schema,
+      subscriptionOptions,
       url,
     } = args;
 
@@ -245,6 +248,7 @@ export class DefaultClient {
       }
     }
 
+    if (isPlainObject(subscriptionOptions)) this._subscriptionOptions = subscriptionOptions;
     if (isString(url)) this._url = url;
   }
 
@@ -674,6 +678,8 @@ export class DefaultClient {
       return this._query(query, ast, opts, context);
     } else if (operationDefinition.operation === "mutation") {
       return this._mutation(query, ast, opts, context);
+    } else if (operationDefinition.operation === "subscription") {
+      return this._subscription(query, ast, opts, context);
     }
 
     return Promise.reject(new Error("request expected the operation to be 'query' or 'mutation'."));
@@ -684,6 +690,16 @@ export class DefaultClient {
     if (!pending) pending = [];
     pending.push({ reject, resolve });
     this._cache.requests.pending.set(queryHash, pending);
+  }
+
+  private async _subscription(
+    subscription: string,
+    ast: DocumentNode,
+    opts: RequestOptions,
+    context: RequestContext,
+  ): Promise<> {
+    const subscriptionHash = Cache.hash(subscription);
+    // TODO
   }
 
   private async _updateQuery(
