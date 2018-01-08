@@ -3,12 +3,11 @@ import * as tescoRequests from "./tesco/requests";
 import { ObjectMap } from "../../../src/types";
 
 const githubResponses = {
-  aliasQuery: require("./github/responses/alias-query.json"),
   reducedSingleQuery: require("./github/responses/reduced-single-query.json"),
   singleMutation: require("./github/responses/single-mutation.json"),
   singleQuery: require("./github/responses/single-query.json"),
+  updatedSingleMutation: require("./github/responses/single-mutation.json"),
   updatedSingleQuery: require("./github/responses/single-query.json"),
-  variableMutation: require("./github/responses/single-mutation.json"),
 };
 
 export interface RequestResponseGroup {
