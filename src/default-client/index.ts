@@ -148,6 +148,11 @@ export class DefaultClient {
     });
   }
 
+  private static _socketsSupported(): boolean {
+    if (!process.env.WEB_ENV) return true;
+    return self instanceof Window && "WebSocket" in self;
+  }
+
   private _cache: Cache;
 
   private _cachemapOptions: CachemapArgsGroup = {
@@ -254,7 +259,7 @@ export class DefaultClient {
       }
     }
 
-    if (isPlainObject(subscriptions)) {
+    if (DefaultClient._socketsSupported() && isPlainObject(subscriptions)) {
       this._subscriptionsEnabled = true;
       this._subscriptionSocket = new WebSocketProxy(subscriptions.address);
     }
