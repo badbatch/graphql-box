@@ -18,7 +18,7 @@ export interface MapFieldToTypeArgs {
 }
 
 export interface ResolveArgs {
-  cacheMetadata: CacheMetadata;
+  cacheMetadata?: CacheMetadata;
   cachePromise?: Promise<void>;
   data?: ObjectMap;
   error?: Error | Error[];
@@ -27,4 +27,4 @@ export interface ResolveArgs {
   resolvePending?: boolean;
 }
 
-export type ValidOperation = "query" | "mutation";
+export type ValidOperation = "mutation" | "query" | "subscription";

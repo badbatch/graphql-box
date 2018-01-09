@@ -423,6 +423,26 @@ export default class Cache {
     return { cacheMetadata: updatedCacheMetadata, data: updatedData };
   }
 
+  public async resolveSubscription(
+    ast: DocumentNode,
+    fieldTypeMap: FieldTypeMap,
+    data: ObjectMap,
+    cacheMetadata: CacheMetadata,
+  ): Promise<ResolveResult> {
+    const updatedCacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata, "mutation");
+
+    this._updateDataCaches(
+      ast,
+      data,
+      updatedCacheMetadata,
+      fieldTypeMap,
+      "subscription",
+      { setPaths: false },
+    );
+
+    return { cacheMetadata: updatedCacheMetadata, data };
+  }
+
   private async _checkDataCaches(
     ast: DocumentNode,
     fieldTypeMap: FieldTypeMap,

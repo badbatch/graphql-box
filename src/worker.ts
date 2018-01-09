@@ -13,7 +13,9 @@ function convertCacheMetadata(result: RequestResult | RequestResult[]): PostMess
   const postMessageResults: PostMessageResult[] = [];
 
   requestResults.forEach(({ cacheMetadata, ...otherProps }) => {
-    postMessageResults.push({ cacheMetadata: mapToObject(cacheMetadata), ...otherProps });
+    const postMessageResult: PostMessageResult = { ...otherProps };
+    if (cacheMetadata) postMessageResult.cacheMetadata = mapToObject(cacheMetadata);
+    postMessageResults.push(postMessageResult);
   });
 
   return isArray(result) ? postMessageResults : postMessageResults[0];

@@ -12,6 +12,8 @@ import {
   IntrospectionQuery,
 } from "graphql";
 
+import * as WebSocket from "ws";
+
 export interface CacheabilityObjectMap { [key: string]: CacheabilityMetadata; }
 export type CacheMetadata = Map<string, Cacheability>;
 
@@ -43,7 +45,7 @@ export interface ClientArgs {
   resourceKey?: string;
   rootValue?: any;
   schema?: GraphQLSchema;
-  subscriptionOptions: SubscriptionsOptions;
+  subscriptions: SubscriptionsOptions;
   url?: string;
 }
 
@@ -62,6 +64,7 @@ export type DataCachedResolver = () => void;
 export interface DefaultCacheControls {
   mutation: string;
   query: string;
+  subscription: string;
 }
 
 export interface FieldTypeInfo {
@@ -91,7 +94,7 @@ export interface PostMessageArgs {
 }
 
 export interface PostMessageResult {
-  cacheMetadata: CacheabilityObjectMap;
+  cacheMetadata?: CacheabilityObjectMap;
   data: ObjectMap;
   queryHash?: string;
 }
@@ -110,16 +113,17 @@ export interface RequestOptions {
   rootValue?: any;
   operationName?: string;
   variables?: ObjectMap;
+  subscriber?: ExternalSubscriber;
 }
 
 export interface RequestResult {
-  cacheMetadata: CacheMetadata;
+  cacheMetadata?: CacheMetadata;
   data: ObjectMap;
   queryHash?: string;
 }
 
 export interface ResolveResult {
-  cacheMetadata: CacheMetadata;
+  cacheMetadata?: CacheMetadata;
   cachePromise?: Promise<void>;
   data: ObjectMap;
   queryHash?: string;
@@ -130,6 +134,10 @@ export interface ResponseCacheEntryResult {
   data: ObjectMap;
 }
 
-export interface SubscriptionsOptions {
+export type ExternalSubscriber = (result: ResolveResult) => void;
+export type InternalSubscriber = (data: any) => void;
 
+export interface SubscriptionsOptions {
+  address: string;
+  opts?: WebSocket.ClientOptions;
 }

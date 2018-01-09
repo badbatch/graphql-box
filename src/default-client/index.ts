@@ -75,6 +75,9 @@ import {
   CacheMetadata,
   ClientArgs,
   DefaultCacheControls,
+  ExternalSubscriber,
+  FieldTypeMap,
+  InternalSubscriber,
   ObjectMap,
   PendingRequestActions,
   PendingRequestRejection,
@@ -84,8 +87,9 @@ import {
   RequestResult,
   ResolveResult,
   ResponseCacheEntryResult,
-  SubscriptionsOptions,
 } from "../types";
+
+import WebSocketProxy from "../web-socket-proxy";
 
 const deferredPromise = require("defer-promise");
 
@@ -179,6 +183,7 @@ export class DefaultClient {
   private _defaultCacheControls: DefaultCacheControls = {
     mutation: "max-age=0, s-maxage=0, no-cache, no-store",
     query: "public, max-age=60, s-maxage=60",
+    subscription: "max-age=0, s-maxage=0, no-cache, no-store",
   };
 
   private _fieldResolver?: GraphQLFieldResolver<any, any>;
@@ -187,7 +192,8 @@ export class DefaultClient {
   private _resourceKey: string = "id";
   private _rootValue: any;
   private _schema: GraphQLSchema;
-  private _subscriptionOptions: SubscriptionsOptions;
+  private _subscriptionsEnabled: boolean = false;
+  private _subscriptionSocket: WebSocketProxy;
   private _url?: string;
 
   constructor(args: ClientArgs) {
@@ -205,7 +211,7 @@ export class DefaultClient {
       resourceKey,
       rootValue,
       schema,
-      subscriptionOptions,
+      subscriptions,
       url,
     } = args;
 
@@ -248,7 +254,11 @@ export class DefaultClient {
       }
     }
 
-    if (isPlainObject(subscriptionOptions)) this._subscriptionOptions = subscriptionOptions;
+    if (isPlainObject(subscriptions)) {
+      this._subscriptionsEnabled = true;
+      this._subscriptionSocket = new WebSocketProxy(subscriptions.address, subscriptions.opts);
+    }
+
     if (isString(url)) this._url = url;
   }
 
@@ -442,7 +452,6 @@ export class DefaultClient {
       fetchResult = await this._fetch(mutation, ast, opts);
     } catch (error) {
       return this._resolve({
-        cacheMetadata: createCacheMetadata(),
         error,
         operation: "mutation",
       });
@@ -585,7 +594,6 @@ export class DefaultClient {
       fetchResult = await this._fetch(_updateQuery, _updateAST, opts);
     } catch (error) {
       return this._resolve({
-        cacheMetadata: createCacheMetadata(),
         error,
         operation: "query",
         queryHash,
@@ -619,7 +627,7 @@ export class DefaultClient {
   private async _resolve(args: ResolveArgs): Promise<ResolveResult> {
     const { cacheMetadata, cachePromise, data, error, operation, queryHash, resolvePending = true } = args;
 
-    if (!cacheMetadata.has("query")) {
+    if (cacheMetadata && !cacheMetadata.has("query")) {
       const cacheability = new Cacheability();
       cacheability.parseCacheControl(this._defaultCacheControls[operation]);
       cacheMetadata.set("query", cacheability);
@@ -644,7 +652,7 @@ export class DefaultClient {
 
   private _resolvePendingRequests(
     queryHash: string,
-    cacheMetadata: CacheMetadata,
+    cacheMetadata?: CacheMetadata,
     data?: ObjectMap,
     error?: Error | Error[],
   ): void {
@@ -678,11 +686,37 @@ export class DefaultClient {
       return this._query(query, ast, opts, context);
     } else if (operationDefinition.operation === "mutation") {
       return this._mutation(query, ast, opts, context);
-    } else if (operationDefinition.operation === "subscription") {
+    } else if (operationDefinition.operation === "subscription" && this._subscriptionsEnabled) {
+
+      if (!isFunction(opts.subscriber)) {
+        Promise.reject(new TypeError("request expected opts.subscriber to be a function"));
+      }
+
       return this._subscription(query, ast, opts, context);
     }
 
     return Promise.reject(new Error("request expected the operation to be 'query' or 'mutation'."));
+  }
+
+  private _resolveSubscriber(
+    ast: DocumentNode,
+    fieldTypeMap: FieldTypeMap,
+    subscriber: ExternalSubscriber,
+  ): InternalSubscriber {
+    return async (data: any): Promise<void>  => {
+      const resolveResult = await this._cache.resolveSubscription(
+        ast,
+        fieldTypeMap,
+        data,
+        createCacheMetadata(),
+      );
+
+      subscriber(await this._resolve({
+        cacheMetadata: resolveResult.cacheMetadata,
+        data: resolveResult.data,
+        operation: "subscription",
+      }));
+    };
   }
 
   private _setPendingRequest(queryHash: string, { reject, resolve }: PendingRequestActions): void {
@@ -697,9 +731,27 @@ export class DefaultClient {
     ast: DocumentNode,
     opts: RequestOptions,
     context: RequestContext,
-  ): Promise<> {
-    const subscriptionHash = Cache.hash(subscription);
-    // TODO
+  ): Promise<ResolveResult> {
+    const hash = Cache.hash(subscription);
+    const subscriber = opts.subscriber as ExternalSubscriber;
+
+    try {
+      const sendResult = this._subscriptionSocket.send(
+        subscription,
+        hash,
+        this._resolveSubscriber(ast, context.fieldTypeMaps[0], subscriber),
+      );
+
+      return this._resolve({
+        data: sendResult,
+        operation: "subscription",
+      });
+    } catch (error) {
+      return this._resolve({
+        error,
+        operation: "subscription",
+      });
+    }
   }
 
   private async _updateQuery(
