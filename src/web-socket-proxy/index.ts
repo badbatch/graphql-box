@@ -1,11 +1,12 @@
 import { isPlainObject, isString } from "lodash";
 import * as WebSocket from "ws";
+import { InternalSubscriber } from "../types";
 
 export default class WebSocketProxy {
   private _address: string;
   private _options: WebSocket.ClientOptions;
   private _socket: WebSocket;
-  private _subscriptions: Map<string, (data: any) => void> = new Map();
+  private _subscriptions: Map<string, InternalSubscriber> = new Map();
 
   constructor(address: string, opts?: WebSocket.ClientOptions) {
     if (!isString(address)) {
@@ -17,14 +18,18 @@ export default class WebSocketProxy {
     this._open();
   }
 
-  public async send(subscription: string, hash: string, callback: (data: any) => void): Promise<void> {
-    return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
+  public async send(
+    subscription: string,
+    hash: string,
+    subscriber: InternalSubscriber,
+  ): Promise<{ subscribed: boolean }> {
+    return new Promise((resolve: (value: { subscribed: boolean }) => void, reject: (reason: Error) => void) => {
       this._socket.send(JSON.stringify({ subscriptionID: hash, subscription }), (error) => {
         if (error) {
           reject(error);
         } else {
-          this._subscriptions.set(hash, callback);
-          resolve(undefined);
+          this._subscriptions.set(hash, subscriber);
+          resolve({ subscribed: true });
         }
       });
     });
