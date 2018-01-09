@@ -1,4 +1,5 @@
 const { resolve } = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const webpackConfig = require('./webpack.config.base');
@@ -23,7 +24,7 @@ webpackConfig.plugins.push(
     filename: '[name].js.map',
     test: /\.(tsx?|jsx?)$/,
   }),
-  new webpack.optimize.UglifyJsPlugin({
+  new UglifyJsPlugin({
     sourceMap: true,
   }),
   new BundleAnalyzerPlugin({
