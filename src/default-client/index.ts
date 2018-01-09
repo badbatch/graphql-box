@@ -256,7 +256,7 @@ export class DefaultClient {
 
     if (isPlainObject(subscriptions)) {
       this._subscriptionsEnabled = true;
-      this._subscriptionSocket = new WebSocketProxy(subscriptions.address, subscriptions.opts);
+      this._subscriptionSocket = new WebSocketProxy(subscriptions.address);
     }
 
     if (isString(url)) this._url = url;
