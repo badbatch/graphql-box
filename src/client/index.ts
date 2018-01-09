@@ -5,9 +5,11 @@ import { WorkerClient } from "../worker-client";
 
 declare global {
   interface Window {
-      Worker: Worker;
+    WebSocket: WebSocket;
+    Worker: Worker;
   }
   interface WorkerGlobalScope {
+    WebSocket: WebSocket;
     Worker: Worker;
   }
 }
