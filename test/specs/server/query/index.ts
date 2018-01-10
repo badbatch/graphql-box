@@ -7,7 +7,7 @@ import { tesco } from "../../../data/graphql";
 import { mockRestRequest } from "../../../helpers";
 import { DefaultHandl, Handl } from "../../../../src";
 import Cache from "../../../../src/cache";
-import { ClientArgs, RequestResult, ResponseCacheEntryResult } from "../../../../src/types";
+import { CacheMetadata, ClientArgs, RequestResult, ResponseCacheEntryResult } from "../../../../src/types";
 
 export default function testQueryOperation(args: ClientArgs): void {
   describe("the handl class in 'internal' mode", () => {
@@ -50,14 +50,15 @@ export default function testQueryOperation(args: ClientArgs): void {
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(tesco.responses.singleQuery);
             expect(result.queryHash).to.be.a("string");
-            expect(result.cacheMetadata.size).to.equal(4);
-            const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
+            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            expect(cacheMetadata.size).to.equal(4);
+            const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
-            const productCacheability = result.cacheMetadata.get("product") as Cacheability;
+            const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(productCacheability.metadata.cacheControl.maxAge).to.equal(28800);
-            const defaultSkuCacheability = result.cacheMetadata.get("product.defaultSku") as Cacheability;
+            const defaultSkuCacheability = cacheMetadata.get("product.defaultSku") as Cacheability;
             expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(14400);
-            const parentCacheability = result.cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
+            const parentCacheability = cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
             expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
@@ -132,14 +133,15 @@ export default function testQueryOperation(args: ClientArgs): void {
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(tesco.responses.singleQuery);
             expect(result.queryHash).to.be.a("string");
-            expect(result.cacheMetadata.size).to.equal(4);
-            const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
+            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            expect(cacheMetadata.size).to.equal(4);
+            const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
-            const productCacheability = result.cacheMetadata.get("product") as Cacheability;
+            const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(productCacheability.metadata.cacheControl.maxAge).to.equal(28800);
-            const defaultSkuCacheability = result.cacheMetadata.get("product.defaultSku") as Cacheability;
+            const defaultSkuCacheability = cacheMetadata.get("product.defaultSku") as Cacheability;
             expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(14400);
-            const parentCacheability = result.cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
+            const parentCacheability = cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
             expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
@@ -183,14 +185,15 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(resultOne).to.deep.equal(resultTwo);
             expect(resultTwo.data).to.deep.equal(tesco.responses.singleQuery);
             expect(resultTwo.queryHash).to.be.a("string");
-            expect(resultTwo.cacheMetadata.size).to.equal(4);
-            const queryCacheability = resultTwo.cacheMetadata.get("query") as Cacheability;
+            const cacheMetadata = resultTwo.cacheMetadata as CacheMetadata;
+            expect(cacheMetadata.size).to.equal(4);
+            const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
-            const productCacheability = resultTwo.cacheMetadata.get("product") as Cacheability;
+            const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(productCacheability.metadata.cacheControl.maxAge).to.equal(28800);
-            const defaultSkuCacheability = resultTwo.cacheMetadata.get("product.defaultSku") as Cacheability;
+            const defaultSkuCacheability = cacheMetadata.get("product.defaultSku") as Cacheability;
             expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(14400);
-            const parentCacheability = resultTwo.cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
+            const parentCacheability = cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
             expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
@@ -236,14 +239,15 @@ export default function testQueryOperation(args: ClientArgs): void {
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(tesco.responses.reducedSingleQuery);
             expect(result.queryHash).to.be.a("string");
-            expect(result.cacheMetadata.size).to.equal(6);
-            const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
+            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            expect(cacheMetadata.size).to.equal(6);
+            const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
-            const productCacheability = result.cacheMetadata.get("product") as Cacheability;
+            const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(productCacheability.metadata.cacheControl.maxAge).to.equal(28800);
-            const defaultSkuCacheability = result.cacheMetadata.get("product.defaultSku") as Cacheability;
+            const defaultSkuCacheability = cacheMetadata.get("product.defaultSku") as Cacheability;
             expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(14400);
-            const parentCacheability = result.cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
+            const parentCacheability = cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
             expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
@@ -314,14 +318,15 @@ export default function testQueryOperation(args: ClientArgs): void {
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(tesco.responses.reducedSingleQuery);
             expect(result.queryHash).to.be.a("string");
-            expect(result.cacheMetadata.size).to.equal(6);
-            const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
+            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            expect(cacheMetadata.size).to.equal(6);
+            const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
-            const productCacheability = result.cacheMetadata.get("product") as Cacheability;
+            const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(productCacheability.metadata.cacheControl.maxAge).to.equal(28800);
-            const defaultSkuCacheability = result.cacheMetadata.get("product.defaultSku") as Cacheability;
+            const defaultSkuCacheability = cacheMetadata.get("product.defaultSku") as Cacheability;
             expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(14400);
-            const parentCacheability = result.cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
+            const parentCacheability = cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
             expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 

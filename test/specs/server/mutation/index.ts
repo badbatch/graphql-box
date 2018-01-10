@@ -5,7 +5,7 @@ import { tesco } from "../../../data/graphql";
 import { mockRestRequest } from "../../../helpers";
 import { clearDatabase } from "../../../schema/helpers";
 import { DefaultHandl, Handl } from "../../../../src";
-import { ClientArgs, RequestResult } from "../../../../src/types";
+import { CacheMetadata, ClientArgs, RequestResult } from "../../../../src/types";
 
 export default function testMutationOperation(args: ClientArgs): void {
   describe("the handl class in 'internal' mode", () => {
@@ -47,10 +47,11 @@ export default function testMutationOperation(args: ClientArgs): void {
 
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(tesco.responses.singleMutation);
-            expect(result.cacheMetadata.size).to.equal(2);
-            const queryCacheability = result.cacheMetadata.get("query") as Cacheability;
+            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            expect(cacheMetadata.size).to.equal(2);
+            const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(60);
-            const favouriteCacheability = result.cacheMetadata.get("addFavourite") as Cacheability;
+            const favouriteCacheability = cacheMetadata.get("addFavourite") as Cacheability;
             expect(favouriteCacheability.metadata.cacheControl.maxAge).to.equal(60);
           });
 

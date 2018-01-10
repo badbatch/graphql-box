@@ -63,7 +63,7 @@ export interface QueryDatabaseArgs {
   key?: string;
   type: string;
   value?: any;
-  callback?: (dataType: ObjectMap, value: any, key?: any) => any;
+  callback?: (database: ObjectMap, value: any, dataType?: ObjectMap, key?: any) => any;
 }
 
 let database: ObjectMap = {};
@@ -73,25 +73,24 @@ export function clearDatabase(): void {
 }
 
 export function queryDatabase({ callback, cmd, key, type, value }: QueryDatabaseArgs): any {
-  if (!database[type]) database[type] = {};
   let dataType = database[type];
   let result: any;
   const _metadata = { cacheControl: `public, max-age=60` };
 
   switch (cmd) {
     case "get":
-      result = key ? dataType[key] : dataType;
+      result = dataType && key ? dataType[key] : dataType;
       if (isPlainObject(result)) result = { ...result, _metadata };
       break;
     case "set":
       if (value && !callback) {
-        if (key) {
+        if (dataType && key) {
           dataType[key] = value;
         } else {
           dataType = value;
         }
       } else if (value && callback) {
-        callback(dataType, value, key);
+        callback(database, value, dataType, key);
       }
       break;
     default:
