@@ -24,6 +24,8 @@ const tescoResponses = {
   reducedSingleQuery: require("./tesco/responses/reduced-single-query.json"),
   singleMutation: require("./tesco/responses/single-mutation.json"),
   singleQuery: require("./tesco/responses/single-query.json"),
+  singleSubscription: require("./tesco/responses/single-subscription.json"),
+  updatedSingleMutation: require("./tesco/responses/single-mutation.json"),
 };
 
 export const tesco: RequestResponseGroup = {

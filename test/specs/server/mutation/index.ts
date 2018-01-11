@@ -48,11 +48,13 @@ export default function testMutationOperation(args: ClientArgs): void {
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(tesco.responses.singleMutation);
             const cacheMetadata = result.cacheMetadata as CacheMetadata;
-            expect(cacheMetadata.size).to.equal(2);
+            expect(cacheMetadata.size).to.equal(3);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(60);
             const favouriteCacheability = cacheMetadata.get("addFavourite") as Cacheability;
             expect(favouriteCacheability.metadata.cacheControl.maxAge).to.equal(60);
+            const productsCacheability = cacheMetadata.get("addFavourite.products") as Cacheability;
+            expect(productsCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
           it("then the graphql schema should have made fetch requests", () => {

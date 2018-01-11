@@ -2,6 +2,7 @@ import * as bodyParser from "body-parser";
 import * as express from "express";
 import { execute, parse, subscribe } from "graphql";
 import * as http from "http";
+import { forAwaitEach } from "iterall";
 import * as WebSocket from "ws";
 import graphqlSchema from "../schema";
 
@@ -22,9 +23,9 @@ export default function graphqlServer(): http.Server {
       const { subscriptionID, subscription } = JSON.parse(message as string);
       const asyncIterator = await subscribe(graphqlSchema, parse(subscription));
 
-      for await (const result of asyncIterator) {
+      forAwaitEach(asyncIterator, (result) => {
         ws.send(JSON.stringify({ result, subscriptionID }));
-      }
+      });
     });
   });
 

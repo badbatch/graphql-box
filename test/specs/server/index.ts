@@ -3,6 +3,6 @@ import testMutationOperation from "./mutation";
 import testQueryOperation from "./query";
 import testSubscriptionOperation from "./subscription";
 
-// testQueryOperation(serverArgs);
-// testMutationOperation(serverArgs);
+testQueryOperation(serverArgs);
+testMutationOperation(serverArgs);
 testSubscriptionOperation(subscriptionArgs);

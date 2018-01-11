@@ -65,6 +65,7 @@ export interface DefaultCacheControls {
   mutation: string;
   query: string;
   subscription: string;
+  [key: string]: string;
 }
 
 export interface FieldTypeInfo {

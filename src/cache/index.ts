@@ -429,7 +429,7 @@ export default class Cache {
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
   ): Promise<ResolveResult> {
-    const updatedCacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata, "mutation");
+    const updatedCacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata, "subscription");
 
     this._updateDataCaches(
       ast,
@@ -740,7 +740,7 @@ export default class Cache {
 
     if (!_cacheMetadata.has("query")) {
       const cacheability = new Cacheability();
-      cacheability.parseCacheControl(this._defaultCacheControls.query);
+      cacheability.parseCacheControl(this._defaultCacheControls[operationName]);
       _cacheMetadata.set("query", cacheability);
     }
 

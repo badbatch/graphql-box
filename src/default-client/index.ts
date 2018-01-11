@@ -708,11 +708,11 @@ export class DefaultClient {
     fieldTypeMap: FieldTypeMap,
     subscriber: ExternalSubscriber,
   ): InternalSubscriber {
-    return async (data: any): Promise<void>  => {
+    return async (subscriptionResult: any): Promise<void>  => {
       const resolveResult = await this._cache.resolveSubscription(
         ast,
         fieldTypeMap,
-        data,
+        subscriptionResult.data,
         createCacheMetadata(),
       );
 
