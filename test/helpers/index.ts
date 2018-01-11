@@ -80,7 +80,7 @@ export function mockRestRequest(key: string, resource: string | string[]): { bod
   const path = buildRestPath(key, resource);
   const matcher = (url: string): boolean => url === `https://www.tesco.com/direct/rest/${path}`;
   const body = getRestResponse(key, resource);
-  fetchMock.mock(matcher, { body: JSON.stringify(body) });
+  fetchMock.get(matcher, { body: JSON.stringify(body) });
   return { body, path };
 }
 
@@ -110,6 +110,18 @@ export function mockGraphqlRequest(request: string): { body: ObjectMap } {
 
   const body = getGraphqlResponse(requestHash) as ObjectMap;
   const headers = { "cache-control": "public, max-age=300000, s-maxage=300000" };
-  fetchMock.mock(matcher, { body, headers });
+  fetchMock.post(matcher, { body, headers });
   return { body };
+}
+
+export function spyGraphqlRequest(request: string): void {
+  const requestHash = md5(request.replace(/\s/g, ""));
+
+  const matcher = (url: string, opts: fetchMock.MockRequest): boolean => {
+    const _opts = opts as RequestInit;
+    const parsedBody = JSON.parse(_opts.body);
+    return md5(parsedBody.query.replace(/\s/g, "")) === requestHash;
+  };
+
+  fetchMock.spy(matcher);
 }

@@ -83,6 +83,26 @@ export const singleMutation = `
   }
 `;
 
+export const updatedSingleMutation = `
+  mutation {
+    addFavourite(productID: "402-5806") {
+      count
+      products {
+        optionsInfo {
+          internalName
+          name
+          type
+        }
+        prices {
+          clubcardPoints
+          price
+        }
+        userActionable
+      }
+    }
+  }
+`;
+
 export const singleSubscription = `
   subscription {
     favouriteAdded {

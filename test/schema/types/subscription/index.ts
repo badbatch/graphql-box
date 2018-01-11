@@ -6,10 +6,12 @@ import pubsub from "../../pubsub";
 export default new GraphQLObjectType({
   fields: () => ({
     emailAdded: {
+      resolve: (obj) => obj,
       subscribe: () => pubsub.asyncIterator("emailAdded"),
       type: inboxType,
     },
     favouriteAdded: {
+      resolve: (obj) => obj,
       subscribe: () => pubsub.asyncIterator("favouriteAdded"),
       type: favouritesType,
     },

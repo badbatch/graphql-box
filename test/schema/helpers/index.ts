@@ -51,7 +51,7 @@ export async function fetchData(
     output.push({ ...value, _metadata });
   });
 
-  return data;
+  return output;
 }
 
 export function getLinks({ links }: { links: ObjectMap[] }, relation: string): ObjectMap[] {

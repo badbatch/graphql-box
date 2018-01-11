@@ -38,6 +38,7 @@ export default class WebSocketProxy {
       return Promise.reject(new Error("The websocket is not open."));
     }
 
+    this._subscriptions.set(hash, subscriber);
     this._socket.send(JSON.stringify({ subscriptionID: hash, subscription }));
     return { subscribed: true };
   }
