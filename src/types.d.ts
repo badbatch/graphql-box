@@ -39,13 +39,13 @@ export interface ClientArgs {
   defaultCacheControls?: DefaultCacheControls;
   fieldResolver?: GraphQLFieldResolver<any, any>;
   headers?: ObjectMap;
-  introspection?: IntrospectionQuery;
+  introspection?: IntrospectionQuery | string;
   mode: "internal" | "external";
   newInstance?: boolean;
   resourceKey?: string;
   rootValue?: any;
   schema?: GraphQLSchema;
-  subscriptions: SubscriptionsOptions;
+  subscriptions?: SubscriptionsOptions;
   url?: string;
 }
 

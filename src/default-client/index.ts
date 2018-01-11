@@ -259,7 +259,7 @@ export class DefaultClient {
       }
     }
 
-    if (DefaultClient._socketsSupported() && isPlainObject(subscriptions)) {
+    if (DefaultClient._socketsSupported() && subscriptions && isPlainObject(subscriptions)) {
       this._subscriptionsEnabled = true;
       this._subscriptionSocket = new WebSocketProxy(subscriptions.address);
     }
