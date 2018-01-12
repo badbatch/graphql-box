@@ -83,6 +83,14 @@ export const singleMutation = `
   }
 `;
 
+export const reducedSingleMutation = `
+  mutation ($productID: String!) {
+    addFavourite(productID: $productID) {
+      count
+    }
+  }
+`;
+
 export const updatedSingleMutation = `
   mutation {
     addFavourite(productID: "402-5806") {
