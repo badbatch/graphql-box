@@ -706,15 +706,21 @@ export class DefaultClient {
   private _resolveSubscriber(
     ast: DocumentNode,
     fieldTypeMap: FieldTypeMap,
-    subscriber: ExternalSubscriber,
+    opts: RequestOptions,
   ): InternalSubscriber {
     return async (subscriptionResult: any): Promise<void>  => {
+      const deferred: DeferPromise.Deferred<void> = deferredPromise();
+
       const resolveResult = await this._cache.resolveSubscription(
         ast,
         fieldTypeMap,
         subscriptionResult.data,
         createCacheMetadata(),
+        { cacheResolve: deferred.resolve },
       );
+
+      if (opts.awaitDataCached) await deferred.promise;
+      const subscriber = opts.subscriber as ExternalSubscriber;
 
       subscriber(await this._resolve({
         cacheMetadata: resolveResult.cacheMetadata,
@@ -738,13 +744,12 @@ export class DefaultClient {
     context: RequestContext,
   ): Promise<ResolveResult> {
     const hash = Cache.hash(subscription);
-    const subscriber = opts.subscriber as ExternalSubscriber;
 
     try {
       const sendResult = this._subscriptionSocket.send(
         subscription,
         hash,
-        this._resolveSubscriber(ast, context.fieldTypeMaps[0], subscriber),
+        this._resolveSubscriber(ast, context.fieldTypeMaps[0], opts),
       );
 
       return this._resolve({

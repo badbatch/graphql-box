@@ -428,17 +428,22 @@ export default class Cache {
     fieldTypeMap: FieldTypeMap,
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
+    opts: { cacheResolve: DataCachedResolver },
   ): Promise<ResolveResult> {
     const updatedCacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata, "subscription");
 
-    this._updateDataCaches(
-      ast,
-      data,
-      updatedCacheMetadata,
-      fieldTypeMap,
-      "subscription",
-      { setPaths: false },
-    );
+    (async () => {
+      await this._updateDataCaches(
+        ast,
+        data,
+        updatedCacheMetadata,
+        fieldTypeMap,
+        "subscription",
+        { setPaths: false },
+      );
+
+      opts.cacheResolve();
+    })();
 
     return { cacheMetadata: updatedCacheMetadata, data };
   }
