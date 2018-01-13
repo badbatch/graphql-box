@@ -4,7 +4,14 @@ import * as fetchMock from "fetch-mock";
 import { github } from "../../../data/graphql";
 import { mockGraphqlRequest } from "../../../helpers";
 import { DefaultHandl, Handl, WorkerHandl } from "../../../../src";
-import { CacheMetadata, ClientArgs, RequestResult, ResponseCacheEntryResult } from "../../../../src/types";
+
+import {
+  CacheMetadata,
+  ClientArgs,
+  RequestResult,
+  RequestResultData,
+  ResponseCacheEntryResult,
+} from "../../../../src/types";
 
 export default function testQueryOperation(args: ClientArgs, opts: { suppressWorkers?: boolean } = {}): void {
   describe(`the handl class in 'external' mode ${!opts.suppressWorkers && "with web workers"}`, () => {
@@ -37,14 +44,14 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
         });
 
         context("when there is no matching query in any cache", () => {
-          let result: RequestResult;
+          let result: RequestResultData;
 
           beforeEach(async () => {
             try {
               result = await client.request(
                 github.requests.singleQuery,
                 { awaitDataCached: true, variables: { login: "facebook" } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }
@@ -96,14 +103,14 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
         });
 
         context("when there is a matching query in the response cache", () => {
-          let result: RequestResult;
+          let result: RequestResultData;
 
           beforeEach(async () => {
             try {
               result = await client.request(
                 github.requests.singleQuery,
                 { awaitDataCached: true, variables: { login: "facebook" } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }
@@ -114,7 +121,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               result = await client.request(
                 github.requests.singleQuery,
                 { awaitDataCached: true, variables: { login: "facebook" } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }
@@ -142,7 +149,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
         });
 
         context("when there is a matching query in the active request map", () => {
-          let result: Array<RequestResult | RequestResult[]>;
+          let result: RequestResult[];
 
           beforeEach(async () => {
             try {
@@ -167,7 +174,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           });
 
           it("then the method should return the requested data", () => {
-            const [resultOne, resultTwo] = result as RequestResult[];
+            const [resultOne, resultTwo] = result as RequestResultData[];
             expect(resultOne).to.deep.equal(resultTwo);
             expect(resultTwo.data).to.deep.equal(github.responses.singleQuery.data);
             expect(resultTwo.queryHash).to.be.a("string");
@@ -185,14 +192,14 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
         });
 
         context("when a query response can be constructed from the data path cache", () => {
-          let result: RequestResult;
+          let result: RequestResultData;
 
           beforeEach(async () => {
             try {
               result = await client.request(
                 github.requests.singleQuery,
                 { awaitDataCached: true, variables: { login: "facebook" } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }
@@ -203,7 +210,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               result = await client.request(
                 github.requests.reducedSingleQuery,
                 { awaitDataCached: true, variables: { login: "facebook" } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }

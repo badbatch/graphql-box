@@ -1,4 +1,4 @@
-import { castArray, isArray, isPlainObject } from "lodash";
+import { isPlainObject } from "lodash";
 import PromiseWorker from "promise-worker";
 import createCacheMetadata from "../helpers/create-cache-metadata";
 
@@ -9,6 +9,7 @@ import {
   PostMessageResult,
   RequestOptions,
   RequestResult,
+  RequestResultData,
   ResponseCacheEntryResult,
 } from "../types";
 
@@ -26,17 +27,8 @@ export class WorkerClient {
     return instance;
   }
 
-  private static _convertCacheabilityObjectMap(
-    result: PostMessageResult | PostMessageResult[],
-  ): RequestResult | RequestResult[] {
-    const postMessageResults = castArray(result);
-    const requestResults: RequestResult[] = [];
-
-    postMessageResults.forEach(({ cacheMetadata, ...otherProps }) => {
-      requestResults.push({ cacheMetadata: createCacheMetadata({ cacheMetadata }), ...otherProps });
-    });
-
-    return isArray(result) ? requestResults : requestResults[0];
+  private static _convertCacheabilityObjectMap({ cacheMetadata, ...otherProps }: PostMessageResult): RequestResultData {
+    return { cacheMetadata: createCacheMetadata({ cacheMetadata }), ...otherProps };
   }
 
   private _promiseWorker: PromiseWorker;
@@ -77,9 +69,9 @@ export class WorkerClient {
     return this._postMessage({ type: "getResponseCacheSize" });
   }
 
-  public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult | RequestResult[]> {
+  public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult> {
     const args = { query, opts, type: "request" };
-    const postMessageResult = await this._postMessage(args) as PostMessageResult | PostMessageResult[];
+    const postMessageResult = await this._postMessage(args) as PostMessageResult;
     return WorkerClient._convertCacheabilityObjectMap(postMessageResult);
   }
 

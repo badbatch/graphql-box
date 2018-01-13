@@ -1,71 +1,83 @@
 import { $$asyncIterator } from "iterall";
-import { EventEmitter } from "events";
-import EventTargetProxy from "../event-target-proxy";
+import EventEmitterProxy from "../proxies/event-emitter";
+import EventTargetProxy from "../proxies/event-target";
 
-export function eventAsyncIterator(
-  eventEmitter: EventEmitter | EventTargetProxy,
-  eventName: string,
-): AsyncIterator<Event | undefined> {
-  const pullQueue: Array<(value: IteratorResult<Event | undefined>) => void> = [];
-  const pushQueue: Event[] = [];
-  let listening = true;
+export default class EventAsyncIterator {
+  private _eventEmitter: EventEmitterProxy | EventTargetProxy;
+  private _eventName: string;
+  private _listening: boolean = false;
+  private _pullQueue: Array<(value: IteratorResult<Event | undefined>) => void> = [];
+  private _pushQueue: Event[] = [];
 
-  const pushValue = (event: Event) => {
-    if (pullQueue.length !== 0) {
-      const resolver = pullQueue.shift() as (value: IteratorResult<Event | undefined>) => void;
-      resolver({ value: event, done: false });
-    } else {
-      pushQueue.push(event);
+  constructor(eventEmitter: EventEmitterProxy | EventTargetProxy, eventName: string) {
+    this._eventEmitter = eventEmitter;
+    this._eventName = eventName;
+    this._addEventListener();
+  }
+
+  public getIterator(): AsyncIterator<Event | undefined> {
+    return {
+      next: this._next.bind(this),
+      return: this._return.bind(this),
+      throw: this._throw.bind(this),
+      [$$asyncIterator]() {
+        return this;
+      },
+    };
+  }
+
+  private _addEventListener(): void {
+    this._eventEmitter.addListener(this._eventName, this._pushValue.bind(this));
+    this._listening = true;
+  }
+
+  private _emptyQueue(): void {
+    if (this._listening) {
+      this._listening = false;
+      this._removeEventListener();
+      this._pullQueue.forEach((resolve) => resolve({ value: undefined, done: true }));
+      this._pullQueue.length = 0;
+      this._pushQueue.length = 0;
     }
-  };
+  }
 
-  const pullValue = () => {
+  private _next(): Promise<IteratorResult<Event | undefined>> {
+    return this._listening ? this._pullValue() : this._return();
+  }
+
+  private _pullValue(): Promise<IteratorResult<Event>> {
     return new Promise((resolve: (value: IteratorResult<Event>) => void) => {
-      if (pushQueue.length !== 0) {
+      if (this._pushQueue.length !== 0) {
         resolve({
           done: false,
-          value: pushQueue.shift() as Event,
+          value: this._pushQueue.shift() as Event,
         });
       } else {
-        pullQueue.push(resolve);
+        this._pullQueue.push(resolve);
       }
     });
-  };
+  }
 
-  const emptyQueue = () => {
-    if (listening) {
-      listening = false;
-      removeEventListeners();
-      pullQueue.forEach((resolve) => resolve({ value: undefined, done: true }));
-      pullQueue.length = 0;
-      pushQueue.length = 0;
+  private _pushValue(event: Event): void {
+    if (this._pullQueue.length !== 0) {
+      const resolver = this._pullQueue.shift() as (value: IteratorResult<Event | undefined>) => void;
+      resolver({ value: event, done: false });
+    } else {
+      this._pushQueue.push(event);
     }
-  };
+  }
 
-  const addEventListeners = () => {
-    eventEmitter.addListener(eventName, pushValue);
-  };
+  private _removeEventListener(): void {
+    this._eventEmitter.removeListener(this._eventName, this._pushValue.bind(this));
+  }
 
-  const removeEventListeners = () => {
-    eventEmitter.removeListener(eventName, pushValue);
-  };
+  private _return(): Promise<IteratorResult<Event | undefined>> {
+    this._emptyQueue();
+    return Promise.resolve({ value: undefined, done: true });
+  }
 
-  addEventListeners();
-
-  return {
-    next(): Promise<IteratorResult<Event | undefined>> {
-      return listening ? pullValue() : this.return();
-    },
-    return(): Promise<IteratorResult<Event | undefined>> {
-      emptyQueue();
-      return Promise.resolve({ value: undefined, done: true });
-    },
-    throw(error: Error) {
-      emptyQueue();
-      return Promise.reject(error);
-    },
-    [$$asyncIterator]() {
-      return this;
-    },
-  };
+  private _throw(error: Error): Promise<void> {
+    this._emptyQueue();
+    return Promise.reject(error);
+  }
 }

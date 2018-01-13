@@ -4,7 +4,7 @@ import * as fetchMock from "fetch-mock";
 import { github } from "../../../data/graphql";
 import { mockGraphqlRequest } from "../../../helpers";
 import { DefaultHandl, Handl, WorkerHandl } from "../../../../src";
-import { CacheMetadata, ClientArgs, RequestResult } from "../../../../src/types";
+import { CacheMetadata, ClientArgs, RequestResult, RequestResultData } from "../../../../src/types";
 
 export default function testMutationOperation(args: ClientArgs, opts: { suppressWorkers?: boolean } = {}): void {
   describe(`the handl class in 'external' mode ${!opts.suppressWorkers && "with web workers"}`, () => {
@@ -37,7 +37,7 @@ export default function testMutationOperation(args: ClientArgs, opts: { suppress
         });
 
         context("when the mutation was successfully executed", () => {
-          let result: RequestResult;
+          let result: RequestResultData;
           const input = { clientMutationId: "1", starrableId: "MDEwOlJlcG9zaXRvcnkzODMwNzQyOA==" };
 
           beforeEach(async () => {
@@ -45,7 +45,7 @@ export default function testMutationOperation(args: ClientArgs, opts: { suppress
               result = await client.request(
                 github.requests.singleMutation,
                 { awaitDataCached: true, variables: { input } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }

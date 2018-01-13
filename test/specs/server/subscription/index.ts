@@ -2,12 +2,13 @@ import { Cacheability } from "cacheability";
 import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
 import * as http from "http";
+import { forAwaitEach, isAsyncIterable } from "iterall";
 import { tesco } from "../../../data/graphql";
 import { mockRestRequest, spyGraphqlRequest } from "../../../helpers";
 import { clearDatabase } from "../../../schema/helpers";
 import graphqlServer from "../../../server";
 import { DefaultHandl, Handl } from "../../../../src";
-import { CacheMetadata, ClientArgs, RequestResult } from "../../../../src/types";
+import { CacheMetadata, ClientArgs, RequestResultData } from "../../../../src/types";
 
 const deferredPromise = require("defer-promise");
 
@@ -27,21 +28,33 @@ export default function testSubscriptionOperation(args: ClientArgs): void {
 
     describe("the request method", () => {
       context("when a single subscription has been requested", () => {
-        let result: RequestResult | undefined;
-        const deferred: DeferPromise.Deferred<void> = deferredPromise();
+        let result: RequestResultData | undefined;
+
+        const deferred: Array<DeferPromise.Deferred<void>> = [
+          deferredPromise(),
+          deferredPromise(),
+          deferredPromise(),
+          deferredPromise(),
+          deferredPromise(),
+        ];
 
         before(async () => {
           mockRestRequest("product", "402-5806");
           spyGraphqlRequest(tesco.requests.reducedSingleMutation);
 
           try {
-            client.request(tesco.requests.singleSubscription, {
-              awaitDataCached: true,
-              subscriber: (subscription) => {
-                result = subscription;
-                deferred.resolve();
-              },
-            });
+            const asyncIterator = await client.request(
+              tesco.requests.singleSubscription,
+              { awaitDataCached: true },
+            );
+
+            if (isAsyncIterable(asyncIterator)) {
+              forAwaitEach(asyncIterator, (ev: { detail: RequestResultData }) => {
+                result = ev.detail;
+                const deferredValue = deferred[0] as DeferPromise.Deferred<void>;
+                deferredValue.resolve();
+              });
+            }
           } catch (error) {
             console.log(error); // tslint:disable-line
           }
@@ -62,7 +75,8 @@ export default function testSubscriptionOperation(args: ClientArgs): void {
               console.log(error); // tslint:disable-line
             }
 
-            await deferred.promise;
+            await deferred[0].promise;
+            deferred.shift();
           });
 
           afterEach(async () => {
@@ -73,7 +87,7 @@ export default function testSubscriptionOperation(args: ClientArgs): void {
           });
 
           it("then the method should return the subscribed data", () => {
-            const _result = result as RequestResult;
+            const _result = result as RequestResultData;
             expect(_result.data).to.deep.equal(tesco.responses.singleSubscription);
             const cacheMetadata = _result.cacheMetadata as CacheMetadata;
             expect(cacheMetadata.size).to.equal(3);
@@ -85,24 +99,24 @@ export default function testSubscriptionOperation(args: ClientArgs): void {
             expect(productsCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
-          // it("then the graphql schema should have made fetch requests", () => {
-          //   expect(fetchMock.calls().matched).to.have.lengthOf(1);
-          // });
+          it("then the graphql schema should have made fetch requests", () => {
+            expect(fetchMock.calls().matched).to.have.lengthOf(1);
+          });
 
-          // it("then the client should not have cached the response against the query", async () => {
-          //   const cacheSize = await client.getResponseCacheSize();
-          //   expect(cacheSize).to.equal(1);
-          // });
+          it("then the client should not have cached the response against the query", async () => {
+            const cacheSize = await client.getResponseCacheSize();
+            expect(cacheSize).to.equal(1);
+          });
 
-          // it("then the client should not have stored any data in the in the data path cache", async () => {
-          //   const cacheSize = await client.getDataPathCacheSize();
-          //   expect(cacheSize).to.eql(1);
-          // });
+          it("then the client should not have stored any data in the in the data path cache", async () => {
+            const cacheSize = await client.getDataPathCacheSize();
+            expect(cacheSize).to.eql(1);
+          });
 
-          // it("then the client should cache each data entity in the response against its identifier", async () => {
-          //   const cacheSize = await client.getDataEntityCacheSize();
-          //   expect(cacheSize).to.eql(4);
-          // });
+          it("then the client should cache each data entity in the response against its identifier", async () => {
+            const cacheSize = await client.getDataEntityCacheSize();
+            expect(cacheSize).to.eql(4);
+          });
         });
       });
     });

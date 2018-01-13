@@ -1,24 +1,17 @@
-import { castArray, isArray } from "lodash";
+import { forAwaitEach, isAsyncIterable } from "iterall";
 import registerPromiseWorker from "promise-worker/register";
 import { DefaultClient } from "./default-client";
 import mapToObject from "./helpers/map-to-object";
-import { PostMessageArgs, PostMessageResult, RequestResult } from "./types";
+import { PostMessageArgs, PostMessageResult, RequestResultData } from "./types";
 
 if (process.env.TEST_ENV) {
   require("../test/mocks");
 }
 
-function convertCacheMetadata(result: RequestResult | RequestResult[]): PostMessageResult | PostMessageResult[] {
-  const requestResults = castArray(result);
-  const postMessageResults: PostMessageResult[] = [];
-
-  requestResults.forEach(({ cacheMetadata, ...otherProps }) => {
-    const postMessageResult: PostMessageResult = { ...otherProps };
-    if (cacheMetadata) postMessageResult.cacheMetadata = mapToObject(cacheMetadata);
-    postMessageResults.push(postMessageResult);
-  });
-
-  return isArray(result) ? postMessageResults : postMessageResults[0];
+function convertCacheMetadata({ cacheMetadata, ...otherProps }: RequestResultData): PostMessageResult {
+  const postMessageResult: PostMessageResult = { ...otherProps };
+  if (cacheMetadata) postMessageResult.cacheMetadata = mapToObject(cacheMetadata);
+  return postMessageResult;
 }
 
 let client: DefaultClient;
@@ -70,7 +63,16 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
         const requestResult = await client.request(query, opts);
 
         if (requestResult) {
-          result = convertCacheMetadata(requestResult);
+          if (isAsyncIterable(requestResult)) {
+            forAwaitEach(requestResult, (value) => {
+              postMessage({ result: value, subscription: true, subscriptionID: key });
+            });
+
+            return { subscription: true, subscriptionID: key };
+          } else {
+            const resolveResult = requestResult as RequestResultData;
+            result = convertCacheMetadata(resolveResult);
+          }
         }
       }
       break;

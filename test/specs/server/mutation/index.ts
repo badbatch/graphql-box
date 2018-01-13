@@ -5,7 +5,7 @@ import { tesco } from "../../../data/graphql";
 import { mockRestRequest } from "../../../helpers";
 import { clearDatabase } from "../../../schema/helpers";
 import { DefaultHandl, Handl } from "../../../../src";
-import { CacheMetadata, ClientArgs, RequestResult } from "../../../../src/types";
+import { CacheMetadata, ClientArgs, RequestResultData } from "../../../../src/types";
 
 export default function testMutationOperation(args: ClientArgs): void {
   describe("the handl class in 'internal' mode", () => {
@@ -26,14 +26,14 @@ export default function testMutationOperation(args: ClientArgs): void {
         });
 
         context("when the mutation was successfully executed", () => {
-          let result: RequestResult;
+          let result: RequestResultData;
 
           beforeEach(async () => {
             try {
               result = await client.request(
                 tesco.requests.singleMutation,
                 { awaitDataCached: true, variables: { productID: "402-5806" } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }
