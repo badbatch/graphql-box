@@ -65,10 +65,8 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
         if (requestResult) {
           if (isAsyncIterable(requestResult)) {
             forAwaitEach(requestResult, (value) => {
-              postMessage({ result: value, subscription: true, subscriptionID: key });
+              postMessage({ result: value, subscriptionID: key });
             });
-
-            return { subscription: true, subscriptionID: key };
           } else {
             const resolveResult = requestResult as RequestResultData;
             result = convertCacheMetadata(resolveResult);

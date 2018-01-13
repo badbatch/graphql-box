@@ -25,7 +25,7 @@ export default class SubscriptionService {
 
   constructor(address: string) {
     if (!isString(address)) {
-      throw new TypeError("constructor expected address to be a string.");
+      throw new TypeError("Constructor expected address to be a string.");
     }
 
     this._address = address;
