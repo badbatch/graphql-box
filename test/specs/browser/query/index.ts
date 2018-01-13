@@ -274,10 +274,6 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(ownerCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
         });
-
-        context("when the query has an operation name", () => {
-          // TODO
-        });
       });
     });
   });

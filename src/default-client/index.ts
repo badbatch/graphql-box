@@ -197,7 +197,7 @@ export class DefaultClient {
 
   constructor(args: ClientArgs) {
     if (!isPlainObject(args)) {
-      throw new TypeError("constructor expected args to be a plain object.");
+      throw new TypeError("Constructor expected args to be a plain object.");
     }
 
     const {
@@ -215,11 +215,11 @@ export class DefaultClient {
     } = args;
 
     if (mode !== "internal" && mode !== "external") {
-      throw new TypeError("constructor expected mode to be 'internal' or 'external'.");
+      throw new TypeError("Constructor expected mode to be 'internal' or 'external'.");
     }
 
     if (mode === "internal" && process.env.WEB_ENV) {
-      throw new TypeError("constructor expected mode to be 'external' for browser client.");
+      throw new TypeError("Constructor expected mode to be 'external' for browser client.");
     }
 
     if (cachemapOptions && isPlainObject(cachemapOptions)) {
@@ -240,7 +240,7 @@ export class DefaultClient {
       if (schema instanceof GraphQLSchema) {
         this._schema = schema;
       } else {
-        throw new TypeError("constructor expected schema to be an instance of GraphQLSchema.");
+        throw new TypeError("Constructor expected schema to be an instance of GraphQLSchema.");
       }
     }
 
@@ -249,7 +249,7 @@ export class DefaultClient {
         const introspectionQuery = introspection as IntrospectionQuery;
         this._schema = buildClientSchema(introspectionQuery);
       } else {
-        throw new TypeError("constructor expected introspection to be a plain object and url to be a string.");
+        throw new TypeError("Constructor expected introspection to be a plain object and url to be a string.");
       }
     }
 
@@ -310,7 +310,7 @@ export class DefaultClient {
     if (errors.length) return Promise.reject(errors);
 
     if (opts.fragments && (!isArray(opts.fragments) || opts.fragments.some((value) => !isString(value)))) {
-      return Promise.reject(new TypeError("request expected opts.fragments to be an array of strings."));
+      return Promise.reject(new TypeError("Request expected opts.fragments to be an array of strings."));
     }
 
     try {
@@ -322,7 +322,7 @@ export class DefaultClient {
       const operations = getOperationDefinitions(updated.ast);
 
       if (operations.length > 1) {
-        return Promise.reject(new TypeError("request expected to process one operation, but got multiple."));
+        return Promise.reject(new TypeError("Request expected to process one operation, but got multiple."));
       }
 
       const result = await this._resolveRequestOperation(updated.query, updated.ast, opts, context);
@@ -398,7 +398,7 @@ export class DefaultClient {
     const jsonResult = await fetchResult.json();
 
     if (!isPlainObject(jsonResult)) {
-      const message = "fetch expected the result to be a JSON object.";
+      const message = "Fetch expected the result to be a JSON object.";
       return Promise.reject(new TypeError(message));
     }
 
@@ -684,7 +684,7 @@ export class DefaultClient {
       return this._subscription(query, ast, opts, context);
     }
 
-    return Promise.reject(new Error("request expected the operation to be 'query' or 'mutation'."));
+    return Promise.reject(new Error("Request expected the operation to be 'query' or 'mutation'."));
   }
 
   private async _resolveSubscriber(
@@ -695,7 +695,7 @@ export class DefaultClient {
   ): Promise<ResolveResult> {
     if (!isPlainObject(result)) {
       return this._resolve({
-        error: new TypeError("subscriber expected the result to be a JSON object."),
+        error: new TypeError("Subscriber expected the result to be a JSON object."),
         operation: "subscription",
       });
     }

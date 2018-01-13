@@ -365,10 +365,6 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(spy.notCalled).to.equal(true);
           });
         });
-
-        context("when the query has an operation name", () => {
-          // TODO
-        });
       });
     });
   });
