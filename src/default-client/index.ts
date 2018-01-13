@@ -89,7 +89,7 @@ import {
   ResponseCacheEntryResult,
 } from "../types";
 
-import WebSocketProxy from "../web-socket-proxy";
+import SubscriptionService from "../subscription-service";
 
 const deferredPromise = require("defer-promise");
 
@@ -198,7 +198,7 @@ export class DefaultClient {
   private _rootValue: any;
   private _schema: GraphQLSchema;
   private _subscriptionsEnabled: boolean = false;
-  private _subscriptionSocket: WebSocketProxy;
+  private _subscriptionService: SubscriptionService;
   private _url?: string;
 
   constructor(args: ClientArgs) {
@@ -261,7 +261,7 @@ export class DefaultClient {
 
     if (DefaultClient._socketsSupported() && subscriptions && isPlainObject(subscriptions)) {
       this._subscriptionsEnabled = true;
-      this._subscriptionSocket = new WebSocketProxy(subscriptions.address);
+      this._subscriptionService = new SubscriptionService(subscriptions.address);
     }
 
     if (isString(url)) this._url = url;
@@ -746,7 +746,7 @@ export class DefaultClient {
     const hash = Cache.hash(subscription);
 
     try {
-      const sendResult = this._subscriptionSocket.send(
+      const sendResult = this._subscriptionService.send(
         subscription,
         hash,
         this._resolveSubscriber(ast, context.fieldTypeMaps[0], opts),
