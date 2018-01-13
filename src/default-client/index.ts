@@ -28,6 +28,7 @@ import {
 } from "graphql";
 
 import "isomorphic-fetch";
+import { isAsyncIterable } from "iterall";
 
 import {
   isArray,
@@ -75,9 +76,7 @@ import {
   CacheMetadata,
   ClientArgs,
   DefaultCacheControls,
-  ExternalSubscriber,
   FieldTypeMap,
-  InternalSubscriber,
   ObjectMap,
   PendingRequestActions,
   PendingRequestRejection,
@@ -102,10 +101,6 @@ export class DefaultClient {
     await client._createCache();
     instance = client;
     return instance;
-  }
-
-  private static _addFieldTypeMap(context: RequestContext): void {
-    context.fieldTypeMaps.push(new Map());
   }
 
   private static _concatFragments(query: string, fragments: string[]): string {
@@ -137,8 +132,7 @@ export class DefaultClient {
       }
     }
 
-    const { fieldTypeMaps } = context;
-    const fieldTypeMap = fieldTypeMaps[fieldTypeMaps.length - 1];
+    const { fieldTypeMap } = context;
 
     fieldTypeMap.set(fieldPath, {
       hasArguments: !!argumentsObjectMap,
@@ -302,7 +296,7 @@ export class DefaultClient {
     return this._cache.responses.size();
   }
 
-  public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult | RequestResult[]> {
+  public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult> {
     let errors: Error[] = [];
 
     if (!isString(query)) {
@@ -321,36 +315,26 @@ export class DefaultClient {
 
     try {
       const _query = opts.fragments ? DefaultClient._concatFragments(query, opts.fragments) : query;
-      const context: RequestContext = { fieldTypeMaps: [] };
+      const context: RequestContext = { fieldTypeMap: new Map() };
       const updated = await this._updateQuery(_query, opts, context);
       errors = validate(this._schema, updated.ast) as GraphQLError[];
       if (errors.length) return Promise.reject(errors);
       const operations = getOperationDefinitions(updated.ast);
-      const multiQuery = operations.length > 1;
 
-      if (!multiQuery) {
-        const result = await this._resolveRequestOperation(updated.query, updated.ast, opts, context);
-
-        if (opts.awaitDataCached && result.cachePromise) {
-          await result.cachePromise;
-          delete result.cachePromise;
-        }
-
-        return result;
+      if (operations.length > 1) {
+        return Promise.reject(new TypeError("request expected to process one operation, but got multiple."));
       }
 
-      return Promise.all(operations.map(async (operation, index) => {
-        const operationQuery = print(operation);
-        const _context: RequestContext = { fieldTypeMaps: [context.fieldTypeMaps[index]] };
-        const result = await this._resolveRequestOperation(operationQuery, parse(operationQuery), opts, _context);
+      const result = await this._resolveRequestOperation(updated.query, updated.ast, opts, context);
+      if (isAsyncIterable(result)) return result;
+      const resolveResult = result as ResolveResult;
 
-        if (opts.awaitDataCached && result.cachePromise) {
-          await result.cachePromise;
-          delete result.cachePromise;
-        }
+      if (opts.awaitDataCached && resolveResult.cachePromise) {
+        await resolveResult.cachePromise;
+        delete resolveResult.cachePromise;
+      }
 
-        return result;
-      }));
+      return result;
     } catch (error) {
       return Promise.reject(error);
     }
@@ -413,6 +397,11 @@ export class DefaultClient {
 
     const jsonResult = await fetchResult.json();
 
+    if (!isPlainObject(jsonResult)) {
+      const message = "fetch expected the result to be a JSON object.";
+      return Promise.reject(new TypeError(message));
+    }
+
     if (isArray(jsonResult.errors) && jsonResult.errors[0] instanceof Error) {
       return Promise.reject(jsonResult.errors);
     }
@@ -471,7 +460,7 @@ export class DefaultClient {
 
     const resolveResult = await this._cache.resolveMutation(
       ast,
-      context.fieldTypeMaps[0],
+      context.fieldTypeMap,
       fetchResult.data,
       cacheMetadata,
       { cacheResolve: deferred.resolve },
@@ -562,7 +551,7 @@ export class DefaultClient {
       filtered,
       updatedAST,
       updatedQuery,
-    } = await this._cache.analyze(queryHash, ast, context.fieldTypeMaps[0]);
+    } = await this._cache.analyze(queryHash, ast, context.fieldTypeMap);
 
     const deferred: DeferPromise.Deferred<void> = deferredPromise();
 
@@ -614,7 +603,7 @@ export class DefaultClient {
       _updateQuery,
       _updateAST,
       queryHash,
-      context.fieldTypeMaps[0],
+      context.fieldTypeMap,
       fetchResult.data,
       _cacheMetadata,
       { cacheResolve: deferred.resolve, filtered: _filterd },
@@ -684,7 +673,7 @@ export class DefaultClient {
     ast: DocumentNode,
     opts: RequestOptions,
     context: RequestContext,
-  ): Promise<ResolveResult> {
+  ): Promise<ResolveResult | AsyncIterator<Event | undefined>> {
     const operationDefinition = getOperationDefinitions(ast)[0];
 
     if (operationDefinition.operation === "query") {
@@ -692,42 +681,49 @@ export class DefaultClient {
     } else if (operationDefinition.operation === "mutation") {
       return this._mutation(query, ast, opts, context);
     } else if (operationDefinition.operation === "subscription" && this._subscriptionsEnabled) {
-
-      if (!isFunction(opts.subscriber)) {
-        Promise.reject(new TypeError("request expected opts.subscriber to be a function"));
-      }
-
       return this._subscription(query, ast, opts, context);
     }
 
     return Promise.reject(new Error("request expected the operation to be 'query' or 'mutation'."));
   }
 
-  private _resolveSubscriber(
+  private async _resolveSubscriber(
     ast: DocumentNode,
     fieldTypeMap: FieldTypeMap,
+    result: ObjectMap,
     opts: RequestOptions,
-  ): InternalSubscriber {
-    return async (subscriptionResult: any): Promise<void>  => {
-      const deferred: DeferPromise.Deferred<void> = deferredPromise();
-
-      const resolveResult = await this._cache.resolveSubscription(
-        ast,
-        fieldTypeMap,
-        subscriptionResult.data,
-        createCacheMetadata(),
-        { cacheResolve: deferred.resolve },
-      );
-
-      if (opts.awaitDataCached) await deferred.promise;
-      const subscriber = opts.subscriber as ExternalSubscriber;
-
-      subscriber(await this._resolve({
-        cacheMetadata: resolveResult.cacheMetadata,
-        data: resolveResult.data,
+  ): Promise<ResolveResult> {
+    if (!isPlainObject(result)) {
+      return this._resolve({
+        error: new TypeError("subscriber expected the result to be a JSON object."),
         operation: "subscription",
-      }));
-    };
+      });
+    }
+
+    if (isArray(result.errors) && result.errors[0] instanceof Error) {
+      return this._resolve({
+        error: result.errors,
+        operation: "subscription",
+      });
+    }
+
+    const deferred: DeferPromise.Deferred<void> = deferredPromise();
+
+    const resolveResult = await this._cache.resolveSubscription(
+      ast,
+      fieldTypeMap,
+      result.data,
+      createCacheMetadata(result.cacheMetadata),
+      { cacheResolve: deferred.resolve },
+    );
+
+    if (opts.awaitDataCached) await deferred.promise;
+
+    return this._resolve({
+      cacheMetadata: resolveResult.cacheMetadata,
+      data: resolveResult.data,
+      operation: "subscription",
+    });
   }
 
   private _setPendingRequest(queryHash: string, { reject, resolve }: PendingRequestActions): void {
@@ -742,20 +738,15 @@ export class DefaultClient {
     ast: DocumentNode,
     opts: RequestOptions,
     context: RequestContext,
-  ): Promise<ResolveResult> {
+  ): Promise<ResolveResult | AsyncIterator<Event | undefined>> {
     const hash = Cache.hash(subscription);
 
     try {
-      const sendResult = this._subscriptionService.send(
+      return this._subscriptionService.send(
         subscription,
         hash,
-        this._resolveSubscriber(ast, context.fieldTypeMaps[0], opts),
+        async (result) => this._resolveSubscriber(ast, context.fieldTypeMap, result, opts),
       );
-
-      return this._resolve({
-        data: sendResult,
-        operation: "subscription",
-      });
     } catch (error) {
       return this._resolve({
         error,
@@ -843,7 +834,6 @@ export class DefaultClient {
         }
 
         if (kind === "OperationDefinition") {
-          DefaultClient._addFieldTypeMap(context);
           const operationDefinitionNode = node as OperationDefinitionNode;
           if (!opts.variables || !hasVariableDefinitions(operationDefinitionNode)) return undefined;
           deleteVariableDefinitions(operationDefinitionNode);

@@ -1,17 +1,17 @@
-import { EventEmitter } from "events";
 import { isString } from "lodash";
-import EventTargetProxy from "../event-target-proxy";
-import { InternalSubscriber } from "../types";
+import EventAsyncIterator from "../event-async-iterator";
+import EventEmitterProxy from "../proxies/event-emitter";
+import EventTargetProxy from "../proxies/event-target";
+import { SubscriberResolver } from "../types";
 
-let eventEmitter: typeof EventEmitter | typeof EventTargetProxy;
+let eventEmitter: typeof EventEmitterProxy | typeof EventTargetProxy;
 let websocket: typeof WebSocket;
 
 if (process.env.WEB_ENV) {
   eventEmitter = EventTargetProxy;
   websocket = WebSocket;
 } else {
-  const events = require("events");
-  eventEmitter = events.EventEmitter;
+  eventEmitter = require("../proxies/event-emitter").default;
   websocket = require("ws");
 }
 
@@ -19,9 +19,9 @@ export default class SubscriptionService {
   private _address: string;
   private _closedCode?: number;
   private _closedReason?: string;
-  private _eventEmitter: EventEmitter | EventTargetProxy;
+  private _eventEmitter: EventEmitterProxy | EventTargetProxy;
   private _socket: WebSocket;
-  private _subscriptions: Map<string, InternalSubscriber> = new Map();
+  private _subscriptions: Map<string, SubscriberResolver> = new Map();
 
   constructor(address: string) {
     if (!isString(address)) {
@@ -36,8 +36,8 @@ export default class SubscriptionService {
   public async send(
     subscription: string,
     hash: string,
-    subscriber: InternalSubscriber,
-  ): Promise<{ subscribed: boolean }> {
+    subscriberResolver: SubscriberResolver,
+  ): Promise<AsyncIterator<Event | undefined>> {
     if (this._isClosed()) {
       return Promise.reject(new Error(`The websocket is closed. ${this._closedCode}: ${this._closedReason}`));
     }
@@ -46,9 +46,10 @@ export default class SubscriptionService {
       return Promise.reject(new Error("The websocket is not open."));
     }
 
-    this._subscriptions.set(hash, subscriber);
     this._socket.send(JSON.stringify({ subscriptionID: hash, subscription }));
-    return { subscribed: true };
+    this._subscriptions.set(hash, subscriberResolver);
+    const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, hash);
+    return eventAsyncIterator.getIterator();
   }
 
   private _isClosed(): boolean {
@@ -67,13 +68,14 @@ export default class SubscriptionService {
     }
   }
 
-  private _onMessage(ev: MessageEvent): void {
+  private async _onMessage(ev: MessageEvent): Promise<void> {
     const parsedData = JSON.parse(ev.data);
     if (!parsedData) return;
     const { result, subscriptionID } = parsedData;
-    const subscriber = this._subscriptions.get(subscriptionID);
-    if (!subscriber) return;
-    subscriber(result);
+    const subscriberResolver = this._subscriptions.get(subscriptionID);
+    if (!subscriberResolver) return;
+    const resolvedResult = await subscriberResolver(result);
+    this._eventEmitter.emit(subscriptionID, resolvedResult);
   }
 
   private _onOpen(): void {

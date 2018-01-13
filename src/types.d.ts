@@ -101,7 +101,7 @@ export interface PostMessageResult {
 }
 
 export interface RequestContext {
-  fieldTypeMaps: FieldTypeMap[];
+  fieldTypeMap: FieldTypeMap;
 }
 
 export interface RequestOptions {
@@ -114,10 +114,11 @@ export interface RequestOptions {
   rootValue?: any;
   operationName?: string;
   variables?: ObjectMap;
-  subscriber?: ExternalSubscriber;
 }
 
-export interface RequestResult {
+export type RequestResult = RequestResultData | AsyncIterator<Event | undefined>;
+
+export interface RequestResultData {
   cacheMetadata?: CacheMetadata;
   data: ObjectMap;
   queryHash?: string;
@@ -135,8 +136,7 @@ export interface ResponseCacheEntryResult {
   data: ObjectMap;
 }
 
-export type ExternalSubscriber = (result: ResolveResult) => void;
-export type InternalSubscriber = (data: any) => void;
+export type SubscriberResolver = (data: any) => Promise<ResolveResult>;
 
 export interface SubscriptionsOptions {
   address: string;

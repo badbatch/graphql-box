@@ -7,7 +7,14 @@ import { tesco } from "../../../data/graphql";
 import { mockRestRequest } from "../../../helpers";
 import { DefaultHandl, Handl } from "../../../../src";
 import Cache from "../../../../src/cache";
-import { CacheMetadata, ClientArgs, RequestResult, ResponseCacheEntryResult } from "../../../../src/types";
+
+import {
+  CacheMetadata,
+  ClientArgs,
+  RequestResult,
+  RequestResultData,
+  ResponseCacheEntryResult,
+} from "../../../../src/types";
 
 export default function testQueryOperation(args: ClientArgs): void {
   describe("the handl class in 'internal' mode", () => {
@@ -29,14 +36,14 @@ export default function testQueryOperation(args: ClientArgs): void {
         });
 
         context("when there is no matching query in any cache", () => {
-          let result: RequestResult;
+          let result: RequestResultData;
 
           beforeEach(async () => {
             try {
               result = await client.request(
                 tesco.requests.singleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }
@@ -98,7 +105,7 @@ export default function testQueryOperation(args: ClientArgs): void {
         });
 
         context("when there is a matching query in the response cache", () => {
-          let result: RequestResult;
+          let result: RequestResultData;
           let spy: sinon.SinonSpy;
 
           beforeEach(async () => {
@@ -106,7 +113,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result = await client.request(
                 tesco.requests.singleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }
@@ -118,7 +125,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result = await client.request(
                 tesco.requests.singleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }
@@ -151,7 +158,7 @@ export default function testQueryOperation(args: ClientArgs): void {
         });
 
         context("when there is a matching query in the active request map", () => {
-          let result: Array<RequestResult | RequestResult[]>;
+          let result: RequestResult[];
           let spy: sinon.SinonSpy;
 
           beforeEach(async () => {
@@ -181,7 +188,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the method should return the requested data", () => {
-            const [resultOne, resultTwo] = result as RequestResult[];
+            const [resultOne, resultTwo] = result as RequestResultData[];
             expect(resultOne).to.deep.equal(resultTwo);
             expect(resultTwo.data).to.deep.equal(tesco.responses.singleQuery);
             expect(resultTwo.queryHash).to.be.a("string");
@@ -203,7 +210,7 @@ export default function testQueryOperation(args: ClientArgs): void {
         });
 
         context("when a query response can be constructed from the data path cache", () => {
-          let result: RequestResult;
+          let result: RequestResultData;
           let spy: sinon.SinonSpy;
 
           beforeEach(async () => {
@@ -211,7 +218,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result = await client.request(
                 tesco.requests.singleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }
@@ -224,7 +231,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result = await client.request(
                 tesco.requests.reducedSingleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }
@@ -281,7 +288,7 @@ export default function testQueryOperation(args: ClientArgs): void {
         });
 
         context("when a query response can be constructed from the data entity cache", () => {
-          let result: RequestResult;
+          let result: RequestResultData;
           let spy: sinon.SinonSpy;
 
           beforeEach(async () => {
@@ -289,7 +296,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result = await client.request(
                 tesco.requests.singleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }
@@ -303,7 +310,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result = await client.request(
                 tesco.requests.reducedSingleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
-              ) as RequestResult;
+              ) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
             }
