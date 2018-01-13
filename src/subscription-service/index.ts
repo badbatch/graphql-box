@@ -1,18 +1,25 @@
+import { EventEmitter } from "events";
 import { isString } from "lodash";
+import EventTargetProxy from "../event-target-proxy";
 import { InternalSubscriber } from "../types";
 
+let eventEmitter: typeof EventEmitter | typeof EventTargetProxy;
 let websocket: typeof WebSocket;
 
 if (process.env.WEB_ENV) {
+  eventEmitter = EventTargetProxy;
   websocket = WebSocket;
 } else {
+  const events = require("events");
+  eventEmitter = events.EventEmitter;
   websocket = require("ws");
 }
 
-export default class WebSocketProxy {
+export default class SubscriptionService {
   private _address: string;
   private _closedCode?: number;
   private _closedReason?: string;
+  private _eventEmitter: EventEmitter | EventTargetProxy;
   private _socket: WebSocket;
   private _subscriptions: Map<string, InternalSubscriber> = new Map();
 
@@ -22,6 +29,7 @@ export default class WebSocketProxy {
     }
 
     this._address = address;
+    this._eventEmitter = new eventEmitter();
     this._open();
   }
 

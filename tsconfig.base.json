@@ -4,11 +4,12 @@
     "experimentalDecorators": true,
     "lib": [
       "dom",
-      "es6",
-      "es2017.object",
       "dom.iterable",
-      "webworker",
-      "scripthost"
+      "es2017.object",
+      "es6",
+      "esnext.asynciterable",
+      "scripthost",
+      "webworker"
     ],
     "moduleResolution": "node",
     "noImplicitAny": true,
