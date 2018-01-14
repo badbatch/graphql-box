@@ -39,7 +39,8 @@ export default class SubscriptionService {
     subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<Event | undefined>> {
     if (this._isClosed()) {
-      return Promise.reject(new Error(`The websocket is closed. ${this._closedCode}: ${this._closedReason}`));
+      const reason = this._closedCode && this._closedReason ? `${this._closedCode}: ${this._closedReason}` : "";
+      return Promise.reject(new Error(`The websocket is closed. ${reason}`));
     }
 
     if (!this._isOpen()) {
