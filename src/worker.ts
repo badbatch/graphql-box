@@ -65,7 +65,7 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
         if (requestResult) {
           if (isAsyncIterable(requestResult)) {
             forAwaitEach(requestResult, (value) => {
-              postMessage({ result: value, subscriptionID: key });
+              postMessage({ result: value, subscriptionID: key, type: "subscription" });
             });
           } else {
             const resolveResult = requestResult as RequestResultData;

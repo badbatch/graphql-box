@@ -4,7 +4,7 @@ import * as fetchMock from "fetch-mock";
 import { github } from "../../../data/graphql";
 import { mockGraphqlRequest } from "../../../helpers";
 import { DefaultHandl, Handl, WorkerHandl } from "../../../../src";
-import { CacheMetadata, ClientArgs, RequestResult, RequestResultData } from "../../../../src/types";
+import { CacheMetadata, ClientArgs, RequestResultData } from "../../../../src/types";
 
 export default function testMutationOperation(args: ClientArgs, opts: { suppressWorkers?: boolean } = {}): void {
   describe(`the handl class in 'external' mode ${!opts.suppressWorkers && "with web workers"}`, () => {

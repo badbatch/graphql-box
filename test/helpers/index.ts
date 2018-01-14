@@ -46,9 +46,18 @@ export const serverArgs: ClientArgs = {
 
 export const subscriptionArgs: ClientArgs = {
   cachemapOptions: {
-    dataEntities: { mockRedis: true },
-    dataPaths: { mockRedis: true },
-    responses: { mockRedis: true },
+    dataEntities: {
+      mockRedis: true,
+      use: { client: "localStorage" },
+    },
+    dataPaths: {
+      mockRedis: true,
+      use: { client: "localStorage" },
+    },
+    responses: {
+      mockRedis: true,
+      use: { client: "localStorage" },
+    },
   },
   introspection: tescoIntrospection as IntrospectionQuery,
   mode: "external",

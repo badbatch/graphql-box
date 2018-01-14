@@ -122,8 +122,9 @@ export class WorkerClient {
 
   private async _onMessage(ev: MessageEvent): Promise<void> {
     const parsedData = JSON.parse(ev.data);
-    if (!parsedData) return;
-    const { result, subscriptionID } = parsedData;
+    if (!parsedData || !isPlainObject(parsedData)) return;
+    const { result, subscriptionID, type } = parsedData;
+    if (type !== "subscription") return;
     this._eventEmitter.emit(subscriptionID, result);
   }
 
