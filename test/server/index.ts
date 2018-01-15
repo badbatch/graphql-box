@@ -34,9 +34,11 @@ export default function graphqlServer(): http.Server {
 
         if (isAsyncIterable(subscribeResult)) {
           forAwaitEach(subscribeResult, (result) => {
-            ws.send(JSON.stringify({ result, subscriptionID }));
+            if (ws.readyState === ws.OPEN) {
+              ws.send(JSON.stringify({ result, subscriptionID }));
+            }
           });
-        } else {
+        } else if (ws.readyState === ws.OPEN) {
           ws.send(JSON.stringify({ result: subscribeResult, subscriptionID }));
         }
       } catch (error) {
@@ -45,22 +47,22 @@ export default function graphqlServer(): http.Server {
     });
 
     ws.on("error", (error) => {
-      console.log(error); // tslint:disable-line
+      // no catch
     });
   });
 
   wss.on("error", (error) => {
-    console.log(error); // tslint:disable-line
+    // no catch
   });
 
   server.listen(3001);
 
   server.on("error", (error) => {
-    console.log(error); // tslint:disable-line
+    // no catch
   });
 
   process.on("uncaughtException", (error) => {
-    console.log(error); // tslint:disable-line
+    // no catch
   });
 
   return server;
