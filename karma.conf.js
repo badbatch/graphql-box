@@ -3,9 +3,17 @@ const tsConfig = require('./tsconfig.test.json');
 const webpackConfig = require('./webpack.config.test');
 
 function createGraphqlServer() {
-  require('ts-node').register(tsConfig); // eslint-disable-line
-  const graphqlServer = require('./test/server/index.ts').default; // eslint-disable-line
+  require('ts-node').register(tsConfig);
+
+  require('source-map-support').install({
+    environment: 'node',
+    hookRequire: true,
+  });
+
+  const { mockRestRequest } = require('./test/helpers/index.ts');
+  const graphqlServer = require('./test/server/index.ts').default;
   const server = graphqlServer();
+  mockRestRequest('product', '402-5806');
 
   this.onRunComplete = () => {
     server.close();
@@ -30,7 +38,7 @@ module.exports = (config) => {
     files: [
       'test/specs/index.ts',
     ],
-    frameworks: ['mocha', 'chai', 'sinon'],
+    frameworks: ['mocha', 'chai', 'sinon', 'graphql-server'],
     logLevel: config.LOG_INFO,
     mime: {
       'text/x-typescript': ['ts', 'tsx'],
