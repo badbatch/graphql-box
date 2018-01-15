@@ -10,7 +10,7 @@ import { CacheMetadata, ClientArgs, RequestResultData } from "../../../../src/ty
 const deferredPromise = require("defer-promise");
 
 export default function testSubscriptionOperation(args: ClientArgs, opts: { suppressWorkers?: boolean } = {}): void {
-  describe("the handl class in 'internal' mode", () => {
+  describe(`the handl class in 'external' mode ${!opts.suppressWorkers && "with web workers"}`, () => {
     let worker: Worker;
     let client: DefaultHandl | WorkerHandl;
 
