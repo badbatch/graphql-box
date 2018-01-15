@@ -1,5 +1,6 @@
 const tsConfig = require('../../../tsconfig.test.json');
 require('ts-node').register(tsConfig); // eslint-disable-line
+require('source-map-support').install(); // eslint-disable-line
 const { mockRestRequest } = require('../../../test/helpers/index.ts');
 const graphqlServer = require('../../../test/server/index.ts').default;
 
