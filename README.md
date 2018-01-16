@@ -9,4 +9,10 @@ An isomorphic graphql client and cache.
 [![dependencies Status](https://david-dm.org/dylanaubrey/handl/status.svg)](https://david-dm.org/dylanaubrey/handl)
 [![devDependencies Status](https://david-dm.org/dylanaubrey/handl/dev-status.svg)](https://david-dm.org/dylanaubrey/handl?type=dev)
 
-### Work in progress...
+### Installation
+```
+npm install handl --save
+```
+
+### Documentation
+Please read the documentation on the handl [github pages](https://dylanaubrey.github.io/handl).
