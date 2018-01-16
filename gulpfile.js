@@ -3,6 +3,7 @@ const gulp = require('gulp');
 const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
 const tslint = require('gulp-tslint');
+const typedoc = require('gulp-typedoc');
 const ts = require('gulp-typescript');
 const merge = require('merge-stream');
 const { Linter } = require('tslint');
@@ -12,6 +13,7 @@ gulp.task('clean', () => {
   del('lib/*', { force: true });
   del('bundle/*', { force: true });
   del('coverage/*', { force: true });
+  del('docs/*', { force: true });
 });
 
 gulp.task('main', () => {
@@ -78,3 +80,22 @@ gulp.task('lint', () => {
     .pipe(tslint.report())
     .on('error', () => process.exit(1));
 });
+
+gulp.task('document', () => gulp.src(['src/**/*.ts'])
+  .pipe(typedoc({
+    excludeExternals: true,
+    excludePrivate: true,
+    excludeProtected: true,
+    exclude: '**/{cache,event-async-iterator,helpers,module-definitions,proxies,subscription-service}/**',
+    ignoreCompilerErrors: true,
+    includeDeclarations: true,
+    mode: 'file',
+    module: 'esnext',
+    name: 'Cachemap',
+    out: './docs',
+    readme: 'none',
+    target: 'es6',
+    theme: 'default',
+    verbose: true,
+    version: true,
+  })));

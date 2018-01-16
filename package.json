@@ -32,6 +32,7 @@
     "compile:module": "cross-env BABEL_ENV=module gulp module",
     "compile:umd": "cross-env BABEL_ENV=browser gulp umd",
     "debug:web": "cross-env BABEL_ENV=debug TEST_ENV=true karma start --no-single-run --browsers Chrome",
+    "document": "gulp document",
     "lint": "gulp lint",
     "publish:pkg": "npm run build && npm publish",
     "test": "npm run lint && npm run type-check && npm run test:web && npm run test:node",
@@ -40,7 +41,7 @@
     "type-check": "gulp type-check"
   },
   "dependencies": {
-    "cacheability": "0.0.50",
+    "cacheability": "0.0.57",
     "cachemap": "0.0.43",
     "defer-promise": "^1.0.1",
     "graphql": "^0.12.3",
@@ -93,6 +94,7 @@
     "gulp-babel": "^8.0.0-beta.0",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-tslint": "^8.1.2",
+    "gulp-typedoc": "^2.2.0",
     "gulp-typescript": "^3.2.3",
     "istanbul-instrumenter-loader": "^3.0.0",
     "karma": "^2.0.0",
@@ -114,6 +116,7 @@
     "source-map-support": "^0.5.0",
     "ts-node": "^4.0.2",
     "tslint": "^5.8.0",
+    "typedoc": "^0.9.0",
     "typescript": "^2.6.1",
     "uglifyjs-webpack-plugin": "^1.1.6",
     "webpack": "^3.10.0",
