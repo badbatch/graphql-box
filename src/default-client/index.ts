@@ -97,10 +97,15 @@ let instance: DefaultClient;
 export class DefaultClient {
   public static async create(args: ClientArgs): Promise<DefaultClient> {
     if (instance && isPlainObject(args) && !args.newInstance) return instance;
-    const client = new DefaultClient(args);
-    await client._createCache();
-    instance = client;
-    return instance;
+
+    try {
+      const client = new DefaultClient(args);
+      await client._createCache();
+      instance = client;
+      return instance;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   private static _concatFragments(query: string, fragments: string[]): string {
@@ -262,38 +267,66 @@ export class DefaultClient {
   }
 
   public async clearCache(): Promise<void> {
-    await Promise.all([
-      this._cache.dataPaths.clear(),
-      this._cache.dataEntities.clear(),
-      this._cache.responses.clear(),
-    ]);
+    try {
+      await Promise.all([
+        this._cache.dataPaths.clear(),
+        this._cache.dataEntities.clear(),
+        this._cache.responses.clear(),
+      ]);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async getDataEntityCacheEntry(key: string): Promise<ObjectMap | undefined> {
-    return this._cache.dataEntities.get(key);
+    try {
+      return this._cache.dataEntities.get(key);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async getDataEntityCacheSize(): Promise<number> {
-    return this._cache.dataEntities.size();
+    try {
+      return this._cache.dataEntities.size();
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async getDataPathCacheEntry(key: string): Promise<any> {
-    return this._cache.dataPaths.get(key);
+    try {
+      return this._cache.dataPaths.get(key);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async getDataPathCacheSize(): Promise<number> {
-    return this._cache.dataPaths.size();
+    try {
+      return this._cache.dataPaths.size();
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async getResponseCacheEntry(key: string): Promise<ResponseCacheEntryResult | undefined> {
-    const entry = await this._cache.responses.get(key);
-    if (!entry) return undefined;
-    const { cacheMetadata, data } = entry;
-    return { cacheMetadata: createCacheMetadata({ cacheMetadata }), data };
+    try {
+      const entry = await this._cache.responses.get(key);
+      if (!entry) return undefined;
+      const { cacheMetadata, data } = entry;
+      return { cacheMetadata: createCacheMetadata({ cacheMetadata }), data };
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async getResponseCacheSize(): Promise<number> {
-    return this._cache.responses.size();
+    try {
+      return this._cache.responses.size();
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult> {
@@ -341,18 +374,26 @@ export class DefaultClient {
   }
 
   private async _checkResponseCache(queryHash: string): Promise<ResolveResult | undefined> {
-    const cacheability = await this._cache.responses.has(queryHash);
-    if (!cacheability || !Cache.isValid(cacheability)) return;
-    const res = await this._cache.responses.get(queryHash);
-    return { cacheMetadata: parseCacheabilityObjectMap(res.cacheMetadata), data: res.data };
+    try {
+      const cacheability = await this._cache.responses.has(queryHash);
+      if (!cacheability || !Cache.isValid(cacheability)) return undefined;
+      const res = await this._cache.responses.get(queryHash);
+      return { cacheMetadata: parseCacheabilityObjectMap(res.cacheMetadata), data: res.data };
+    } catch (error) {
+      return undefined;
+    }
   }
 
   private async _createCache(): Promise<void> {
-    this._cache = await Cache.create({
-      cachemapOptions: this._cachemapOptions,
-      defaultCacheControls: this._defaultCacheControls,
-      resourceKey: this._resourceKey,
-    });
+    try {
+      this._cache = await Cache.create({
+        cachemapOptions: this._cachemapOptions,
+        defaultCacheControls: this._defaultCacheControls,
+        resourceKey: this._resourceKey,
+      });
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   private async _fetch(
@@ -445,10 +486,7 @@ export class DefaultClient {
     try {
       fetchResult = await this._fetch(mutation, ast, opts);
     } catch (error) {
-      return this._resolve({
-        error,
-        operation: "mutation",
-      });
+      return this._resolve({ error, operation: "mutation" });
     }
 
     const cacheMetadata = createCacheMetadata({
@@ -544,15 +582,8 @@ export class DefaultClient {
     }
 
     this._cache.requests.active.set(queryHash, query);
-
-    const {
-      cachedData,
-      cacheMetadata,
-      filtered,
-      updatedAST,
-      updatedQuery,
-    } = await this._cache.analyze(queryHash, ast, context.fieldTypeMap);
-
+    const analyzeResult = await this._cache.analyze(queryHash, ast, context.fieldTypeMap);
+    const { cachedData, cacheMetadata, filtered, updatedAST, updatedQuery } = analyzeResult;
     const deferred: DeferPromise.Deferred<void> = deferredPromise();
 
     if (cachedData && cacheMetadata) {
@@ -561,13 +592,17 @@ export class DefaultClient {
       const cacheControl = queryCacheability && queryCacheability.printCacheControl() || defaultCacheControl;
 
       (async () => {
-        await this._cache.responses.set(
-          queryHash,
-          { cacheMetadata: mapToObject(cacheMetadata), data: cachedData },
-          { cacheHeaders: { cacheControl },
-        });
-
-        deferred.resolve();
+        try {
+          await this._cache.responses.set(
+            queryHash,
+            { cacheMetadata: mapToObject(cacheMetadata), data: cachedData },
+            { cacheHeaders: { cacheControl },
+          });
+        } catch (error) {
+          // no catch
+        } finally {
+          deferred.resolve();
+        }
       })();
 
       return this._resolve({
@@ -587,11 +622,7 @@ export class DefaultClient {
     try {
       fetchResult = await this._fetch(_updateQuery, _updateAST, opts);
     } catch (error) {
-      return this._resolve({
-        error,
-        operation: "query",
-        queryHash,
-      });
+      return this._resolve({ error, operation: "query", queryHash });
     }
 
     const _cacheMetadata = createCacheMetadata({
@@ -701,10 +732,7 @@ export class DefaultClient {
     }
 
     if (isArray(result.errors) && result.errors[0] instanceof Error) {
-      return this._resolve({
-        error: result.errors,
-        operation: "subscription",
-      });
+      return this._resolve({ error: result.errors, operation: "subscription" });
     }
 
     const deferred: DeferPromise.Deferred<void> = deferredPromise();
@@ -748,10 +776,7 @@ export class DefaultClient {
         async (result) => this._resolveSubscriber(ast, context.fieldTypeMap, result, opts),
       );
     } catch (error) {
-      return this._resolve({
-        error,
-        operation: "subscription",
-      });
+      return this._resolve({ error, operation: "subscription" });
     }
   }
 

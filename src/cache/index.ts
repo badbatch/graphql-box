@@ -24,7 +24,6 @@ import {
 import * as md5 from "md5";
 
 import {
-  AnalyzeResult,
   CacheArgs,
   CacheEntryData,
   CacheEntryResult,
@@ -39,6 +38,7 @@ import {
 } from "./types";
 
 import {
+  AnalyzeResult,
   CachemapArgsGroup,
   CacheMetadata,
   ClientRequests,
@@ -65,9 +65,13 @@ import {
 
 export default class Cache {
   public static async create(args: CacheArgs): Promise<Cache> {
-    const cache = new Cache(args);
-    await cache._createCachemaps();
-    return cache;
+    try {
+      const cache = new Cache(args);
+      await cache._createCachemaps();
+      return cache;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public static hash(value: string): string {
@@ -304,12 +308,8 @@ export default class Cache {
     ast: DocumentNode,
     fieldTypeMap: FieldTypeMap,
   ): Promise<AnalyzeResult> {
-    const {
-      cacheMetadata,
-      checkList,
-      counter,
-      queriedData,
-    } = await this._checkDataCaches(ast, fieldTypeMap);
+    const checkDataCachesResult = await this._checkDataCaches(ast, fieldTypeMap);
+    const { cacheMetadata, checkList, counter, queriedData } = checkDataCachesResult;
 
     if (counter.missing === counter.total) {
       return { filtered: false, updatedAST: ast, updatedQuery: print(ast) };
@@ -394,18 +394,22 @@ export default class Cache {
     (async () => {
       const promises: Array<Promise<void>> = [];
 
-      promises.push(this._responses.set(
-        queryHash,
-        { cacheMetadata: mapToObject(updatedCacheMetadata), data: updatedData },
-        { cacheHeaders: { cacheControl: updatedCacheControl },
-      }));
-
-      if (filterCacheMetadata) {
+      try {
         promises.push(this._responses.set(
-          Cache.hash(query),
-          { cacheMetadata: mapToObject(filterCacheMetadata), data },
-          { cacheHeaders: { cacheControl: filterCacheControl },
+          queryHash,
+          { cacheMetadata: mapToObject(updatedCacheMetadata), data: updatedData },
+          { cacheHeaders: { cacheControl: updatedCacheControl },
         }));
+
+        if (filterCacheMetadata) {
+          promises.push(this._responses.set(
+            Cache.hash(query),
+            { cacheMetadata: mapToObject(filterCacheMetadata), data },
+            { cacheHeaders: { cacheControl: filterCacheControl },
+          }));
+        }
+      } catch (error) {
+        // no catch
       }
 
       promises.push(this._updateDataCaches(
@@ -486,23 +490,39 @@ export default class Cache {
       key = entityKey;
     }
 
-    const cacheability = await this._dataEntities.has(key);
-    let cachedData: ObjectMap | undefined;
-    if (cacheability && Cache.isValid(cacheability)) cachedData = await this._dataEntities.get(key);
-    return { cacheability, cachedData };
+    let cacheability: Cacheability | false = false;
+    let cachedData: any;
+
+    try {
+      cacheability = await this._dataEntities.has(key);
+      if (cacheability && Cache.isValid(cacheability)) cachedData = await this._dataEntities.get(key);
+      return { cacheability, cachedData };
+    } catch (error) {
+      return { cacheability, cachedData };
+    }
   }
 
   private async _checkDataPathCacheEntry(hashKey: string): Promise<CacheEntryResult> {
-    const cacheability = await this._dataPaths.has(hashKey);
-    let cachedData;
-    if (cacheability && Cache.isValid(cacheability)) cachedData = await this._dataPaths.get(hashKey);
-    return { cacheability, cachedData };
+    let cacheability: Cacheability | false = false;
+    let cachedData: any;
+
+    try {
+      cacheability = await this._dataPaths.has(hashKey);
+      if (cacheability && Cache.isValid(cacheability)) cachedData = await this._dataPaths.get(hashKey);
+      return { cacheability, cachedData };
+    } catch (error) {
+      return { cacheability, cachedData };
+    }
   }
 
   private async _createCachemaps(): Promise<void> {
-    this._dataEntities = await DefaultCachemap.create(this._cachemapOptions.dataEntities);
-    this._dataPaths = await DefaultCachemap.create(this._cachemapOptions.dataPaths);
-    this._responses = await DefaultCachemap.create(this._cachemapOptions.responses);
+    try {
+      this._dataEntities = await DefaultCachemap.create(this._cachemapOptions.dataEntities);
+      this._dataPaths = await DefaultCachemap.create(this._cachemapOptions.dataPaths);
+      this._responses = await DefaultCachemap.create(this._cachemapOptions.responses);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   private _getPartial(queryHash: string): PartialData | undefined {
@@ -681,38 +701,42 @@ export default class Cache {
       unset(dataTypes.entities, dataKey);
     }
 
-    const promises: Array<Promise<void>> = [];
+    try {
+      const promises: Array<Promise<void>> = [];
 
-    if (setEntities && fieldTypeInfo.isEntity && isPlainObject(entityfieldData)) {
-      const objectMapEntityfieldData = entityfieldData as ObjectMap;
-      const entityDataKey = `${fieldTypeInfo.typeName}:${objectMapEntityfieldData[this._resourceKey]}`;
+      if (setEntities && fieldTypeInfo.isEntity && isPlainObject(entityfieldData)) {
+        const objectMapEntityfieldData = entityfieldData as ObjectMap;
+        const entityDataKey = `${fieldTypeInfo.typeName}:${objectMapEntityfieldData[this._resourceKey]}`;
 
-      promises.push(this._dataEntities.set(
-        entityDataKey,
-        cloneDeep(objectMapEntityfieldData),
-        { cacheHeaders: { cacheControl } },
-      ));
+        promises.push(this._dataEntities.set(
+          entityDataKey,
+          cloneDeep(objectMapEntityfieldData),
+          { cacheHeaders: { cacheControl } },
+        ));
 
-      set(dataTypes.entities, dataKey, { _EntityKey: entityDataKey });
-    }
+        set(dataTypes.entities, dataKey, { _EntityKey: entityDataKey });
+      }
 
-    if (setPaths && ((fieldTypeInfo.isEntity && isPlainObject(pathfieldData)) || fieldTypeInfo.hasArguments)) {
-      promises.push(this._dataPaths.set(
-        hashKey,
-        cloneDeep(pathfieldData),
-        { cacheHeaders: { cacheControl } },
-      ));
+      if (setPaths && ((fieldTypeInfo.isEntity && isPlainObject(pathfieldData)) || fieldTypeInfo.hasArguments)) {
+        promises.push(this._dataPaths.set(
+          hashKey,
+          cloneDeep(pathfieldData),
+          { cacheHeaders: { cacheControl } },
+        ));
 
-      if (hasChildFields(field)) {
-        if (fieldTypeInfo.isEntity) {
-          set(dataTypes.paths, dataKey, { _HashKey: hashKey });
-        } else {
-          unset(dataTypes.paths, dataKey);
+        if (hasChildFields(field)) {
+          if (fieldTypeInfo.isEntity) {
+            set(dataTypes.paths, dataKey, { _HashKey: hashKey });
+          } else {
+            unset(dataTypes.paths, dataKey);
+          }
         }
       }
-    }
 
-    await Promise.all(promises);
+      await Promise.all(promises);
+    } catch (error) {
+      // no catch
+    }
   }
 
   private _updateCacheMetadata(

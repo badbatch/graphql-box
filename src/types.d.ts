@@ -7,12 +7,21 @@ import {
 } from "cachemap";
 
 import {
+  DocumentNode,
   GraphQLFieldResolver,
   GraphQLSchema,
   IntrospectionQuery,
 } from "graphql";
 
 import * as WebSocket from "ws";
+
+export interface AnalyzeResult {
+  cachedData?: ObjectMap;
+  cacheMetadata?: CacheMetadata;
+  filtered?: boolean;
+  updatedAST?: DocumentNode;
+  updatedQuery?: string;
+}
 
 export interface CacheabilityObjectMap { [key: string]: CacheabilityMetadata; }
 export type CacheMetadata = Map<string, Cacheability>;

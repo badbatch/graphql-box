@@ -1,15 +1,7 @@
 import { Cacheability } from "cacheability";
-import { DocumentNode, FieldNode } from "graphql";
+import { FieldNode } from "graphql";
 import { CachemapOptions, DefaultCacheControls } from "../client/types";
 import { CacheMetadata, ObjectMap } from "../types";
-
-export interface AnalyzeResult {
-  cachedData?: ObjectMap;
-  cacheMetadata?: CacheMetadata;
-  filtered?: boolean;
-  updatedAST?: DocumentNode;
-  updatedQuery?: string;
-}
 
 export interface CacheArgs {
   cachemapOptions: CachemapArgsGroup;

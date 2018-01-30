@@ -21,12 +21,17 @@ let instance: WorkerClient;
 export class WorkerClient {
   public static async create(args: ClientArgs): Promise<WorkerClient> {
     if (instance && isPlainObject(args) && !args.newInstance) return instance;
-    const workerClient = new WorkerClient(args);
-    const webpackWorker = require("worker-loader?inline=true&fallback=false!../worker"); // tslint:disable-line
-    workerClient._createWorker(webpackWorker);
-    await workerClient._postMessage({ args, type: "create" });
-    instance = workerClient;
-    return instance;
+
+    try {
+      const workerClient = new WorkerClient(args);
+      const webpackWorker = require("worker-loader?inline=true&fallback=false!../worker"); // tslint:disable-line
+      workerClient._createWorker(webpackWorker);
+      await workerClient._postMessage({ args, type: "create" });
+      instance = workerClient;
+      return instance;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   private static _buildSubscriptionID(concatQuery: string, variables?: ObjectMap): string {
@@ -56,38 +61,69 @@ export class WorkerClient {
   }
 
   public async clearCache(): Promise<void> {
-    await this._postMessage({ type: "clearCache" });
+    try {
+      await this._postMessage({ type: "clearCache" });
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async getDataEntityCacheEntry(key: string): Promise<ObjectMap | undefined> {
-    return this._postMessage({ key, type: "getDataPathCacheEntry" });
+    try {
+      return this._postMessage({ key, type: "getDataPathCacheEntry" });
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async getDataEntityCacheSize(): Promise<number> {
-    return this._postMessage({ type: "getDataEntityCacheSize" });
+    try {
+      return this._postMessage({ type: "getDataEntityCacheSize" });
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async getDataPathCacheEntry(key: string): Promise<any> {
-    return this._postMessage({ key, type: "getDataPathCacheEntry" });
+    try {
+      return this._postMessage({ key, type: "getDataPathCacheEntry" });
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async getDataPathCacheSize(): Promise<number> {
-    return this._postMessage({ type: "getDataPathCacheSize" });
+    try {
+      return this._postMessage({ type: "getDataPathCacheSize" });
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async getResponseCacheEntry(key: string): Promise<ResponseCacheEntryResult | undefined> {
-    const entry = await this._postMessage({ key, type: "getResponseCacheEntry" });
-    let result: ResponseCacheEntryResult | undefined;
+    try {
+      const entry = await this._postMessage({ key, type: "getResponseCacheEntry" });
+      let result: ResponseCacheEntryResult | undefined;
 
-    if (entry) {
-      result = { cacheMetadata: createCacheMetadata({ cacheMetadata: entry.cacheMetadata }), data: entry.data };
+      if (entry) {
+        result = {
+          cacheMetadata: createCacheMetadata({ cacheMetadata: entry.cacheMetadata }),
+          data: entry.data,
+        };
+      }
+
+      return result;
+    } catch (error) {
+      return Promise.reject(error);
     }
-
-    return result;
   }
 
   public async getResponseCacheSize(): Promise<number> {
-    return this._postMessage({ type: "getResponseCacheSize" });
+    try {
+      return this._postMessage({ type: "getResponseCacheSize" });
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult> {
@@ -95,23 +131,31 @@ export class WorkerClient {
       return Promise.reject(new TypeError("Request expected query to be a string."));
     }
 
-    if (this._subscriptionsEnabled) {
-      const concatQuery = query.replace(/\s/g, "");
+    try {
+      if (this._subscriptionsEnabled) {
+        const concatQuery = query.replace(/\s/g, "");
 
-      if (WorkerClient._isSubscription(concatQuery)) {
-        const key = WorkerClient._buildSubscriptionID(query, opts.variables);
-        this._postMessage({ key, query, opts, type: "request" });
-        const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, key);
-        return eventAsyncIterator.getIterator();
+        if (WorkerClient._isSubscription(concatQuery)) {
+          const key = WorkerClient._buildSubscriptionID(query, opts.variables);
+          this._postMessage({ key, query, opts, type: "request" });
+          const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, key);
+          return eventAsyncIterator.getIterator();
+        }
       }
-    }
 
-    const postMessageResult = await this._postMessage({ query, opts, type: "request" }) as PostMessageResult;
-    return WorkerClient._convertCacheabilityObjectMap(postMessageResult);
+      const postMessageResult = await this._postMessage({ query, opts, type: "request" }) as PostMessageResult;
+      return WorkerClient._convertCacheabilityObjectMap(postMessageResult);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public terminate(): void {
-    this._worker.terminate();
+    try {
+      this._worker.terminate();
+    } catch (error) {
+      throw error;
+    }
   }
 
   private _createWorker(webpackWorker: any): void {
