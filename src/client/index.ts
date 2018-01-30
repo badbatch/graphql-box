@@ -1,5 +1,6 @@
 import { isPlainObject } from "lodash";
 import { DefaultClient } from "../default-client";
+import { supportsWorkerIndexedDB } from "../helpers/user-agent-parser";
 import { ClientArgs } from "../types";
 import { WorkerClient } from "../worker-client";
 
@@ -22,14 +23,18 @@ export class Client {
 
     let client: DefaultClient | WorkerClient;
 
-    if (process.env.WEB_ENV) {
-      if (self.Worker && self.indexedDB) {
-        client = await WorkerClient.create(args);
+    try {
+      if (process.env.WEB_ENV) {
+        if (self.Worker && supportsWorkerIndexedDB(self.navigator.userAgent)) {
+          client = await WorkerClient.create(args);
+        } else {
+          client = await DefaultClient.create(args);
+        }
       } else {
         client = await DefaultClient.create(args);
       }
-    } else {
-      client = await DefaultClient.create(args);
+    } catch (error) {
+      return Promise.reject(error);
     }
 
     return client;

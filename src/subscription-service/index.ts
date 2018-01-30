@@ -47,10 +47,14 @@ export default class SubscriptionService {
       return Promise.reject(new Error("The websocket is not open."));
     }
 
-    this._socket.send(JSON.stringify({ subscriptionID: hash, subscription }));
-    this._subscriptions.set(hash, subscriberResolver);
-    const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, hash);
-    return eventAsyncIterator.getIterator();
+    try {
+      this._socket.send(JSON.stringify({ subscriptionID: hash, subscription }));
+      this._subscriptions.set(hash, subscriberResolver);
+      const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, hash);
+      return eventAsyncIterator.getIterator();
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   private _isClosed(): boolean {
@@ -85,9 +89,13 @@ export default class SubscriptionService {
   }
 
   private async _open(): Promise<void> {
-    this._socket = new websocket(this._address);
-    this._socket.onclose = this._onClose.bind(this);
-    this._socket.onmessage = this._onMessage.bind(this);
-    this._socket.onopen = this._onOpen.bind(this);
+    try {
+      this._socket = new websocket(this._address);
+      this._socket.onclose = this._onClose.bind(this);
+      this._socket.onmessage = this._onMessage.bind(this);
+      this._socket.onopen = this._onOpen.bind(this);
+    } catch (error) {
+      // no catch
+    }
   }
 }

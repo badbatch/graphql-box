@@ -1,15 +1,22 @@
 import { expect } from "chai";
 import { serverArgs, workerArgs } from "../helpers";
 import { DefaultHandl, Handl, WorkerHandl } from "../../src";
+import { supportsWorkerIndexedDB } from "../../src/helpers/user-agent-parser";
 
 describe("the Client.create method", () => {
   if (process.env.WEB_ENV) {
     context("when the environment is a browser", () => {
       context("when the browser supports web workers", () => {
         it("the method should return an instance of the WorkerClient class", async () => {
-          const workerClient = await Handl.create(workerArgs) as WorkerHandl;
-          expect(workerClient).to.be.instanceof(WorkerHandl);
-          workerClient.terminate();
+          const client = await Handl.create(workerArgs);
+
+          if (supportsWorkerIndexedDB(self.navigator.userAgent)) {
+            expect(client).to.be.instanceof(WorkerHandl);
+          } else {
+            expect(client).to.be.instanceof(DefaultHandl);
+          }
+
+          if (client instanceof WorkerHandl) client.terminate();
         });
       });
 
