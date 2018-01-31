@@ -1,5 +1,5 @@
 import * as fetchMock from "fetch-mock";
-import { GraphQLSchema, IntrospectionQuery } from "graphql";
+import { IntrospectionQuery } from "graphql";
 import { castArray, isArray } from "lodash";
 import * as md5 from "md5";
 import { github } from "../data/graphql";
@@ -27,21 +27,16 @@ export const workerArgs: ClientArgs = {
   url: "https://api.github.com/graphql",
 };
 
-let graphqlSchema: GraphQLSchema | undefined;
-
-if (!process.env.WEB_ENV) {
-  graphqlSchema = require("../schema").default;
-}
-
 export const serverArgs: ClientArgs = {
   cachemapOptions: {
     dataEntities: { mockRedis: true },
     dataPaths: { mockRedis: true },
     responses: { mockRedis: true },
   },
-  mode: "internal",
+  introspection: tescoIntrospection as IntrospectionQuery,
+  mode: "external",
   newInstance: true,
-  schema: graphqlSchema,
+  url: "http://localhost:3001/graphql",
 };
 
 export const subscriptionArgs: ClientArgs = {
@@ -121,16 +116,4 @@ export function mockGraphqlRequest(request: string): { body: ObjectMap } {
   const headers = { "cache-control": "public, max-age=300000, s-maxage=300000" };
   fetchMock.post(matcher, { body, headers });
   return { body };
-}
-
-export function spyGraphqlRequest(request: string): void {
-  const requestHash = md5(request.replace(/\s/g, ""));
-
-  const matcher = (url: string, opts: fetchMock.MockRequest): boolean => {
-    const _opts = opts as RequestInit;
-    const parsedBody = JSON.parse(_opts.body);
-    return md5(parsedBody.query.replace(/\s/g, "")) === requestHash;
-  };
-
-  fetchMock.spy(matcher);
 }

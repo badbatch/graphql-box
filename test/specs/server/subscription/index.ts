@@ -2,9 +2,10 @@ import { Cacheability } from "cacheability";
 import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
 import * as http from "http";
+import * as sinon from "sinon";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { tesco } from "../../../data/graphql";
-import { mockRestRequest, spyGraphqlRequest } from "../../../helpers";
+import { mockRestRequest } from "../../../helpers";
 import { clearDatabase } from "../../../schema/helpers";
 import graphqlServer from "../../../server";
 import { DefaultHandl, Handl } from "../../../../src";
@@ -13,16 +14,19 @@ import { CacheMetadata, ClientArgs, RequestResultData } from "../../../../src/ty
 const deferredPromise = require("defer-promise");
 
 export default function testSubscriptionOperation(args: ClientArgs): void {
-  describe("the handl class in 'internal' mode", () => {
+  describe("the handl client on the server", () => {
     let client: DefaultHandl;
     let server: http.Server;
+    let stub: sinon.SinonStub;
 
     before(async () => {
+      stub = sinon.stub(console, "warn");
       server = graphqlServer();
       client = await Handl.create(args) as DefaultHandl;
     });
 
     after(() => {
+      stub.restore();
       server.close();
     });
 
@@ -40,7 +44,7 @@ export default function testSubscriptionOperation(args: ClientArgs): void {
 
         before(async () => {
           mockRestRequest("product", "402-5806");
-          spyGraphqlRequest(tesco.requests.reducedSingleMutation);
+          fetchMock.spy();
 
           try {
             const asyncIterator = await client.request(

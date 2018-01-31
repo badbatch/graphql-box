@@ -14,7 +14,7 @@ import {
 } from "../../../../src/types";
 
 export default function testQueryOperation(args: ClientArgs, opts: { suppressWorkers?: boolean } = {}): void {
-  describe(`the handl class in 'external' mode ${!opts.suppressWorkers && "with web workers"}`, () => {
+  describe(`the handl client on the browser ${!opts.suppressWorkers && "with web workers"}`, () => {
     let worker: Worker;
     let client: DefaultHandl | WorkerHandl;
 

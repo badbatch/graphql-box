@@ -1,18 +1,19 @@
 import { Cacheability } from "cacheability";
 import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
+import * as sinon from "sinon";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { tesco } from "../../../data/graphql";
-import { mockRestRequest, spyGraphqlRequest } from "../../../helpers";
 import { DefaultHandl, Handl, WorkerHandl } from "../../../../src";
 import { CacheMetadata, ClientArgs, RequestResultData } from "../../../../src/types";
 
 const deferredPromise = require("defer-promise");
 
 export default function testSubscriptionOperation(args: ClientArgs, opts: { suppressWorkers?: boolean } = {}): void {
-  describe(`the handl class in 'external' mode ${!opts.suppressWorkers && "with web workers"}`, () => {
+  describe(`the handl client on the browser ${!opts.suppressWorkers && "with web workers"}`, () => {
     let worker: Worker;
     let client: DefaultHandl | WorkerHandl;
+    let stub: sinon.SinonStub;
 
     before(async () => {
       if (opts.suppressWorkers) {
@@ -20,11 +21,13 @@ export default function testSubscriptionOperation(args: ClientArgs, opts: { supp
         delete self.Worker;
       }
 
+      stub = sinon.stub(console, "warn");
       client = await Handl.create(args) as DefaultHandl | WorkerHandl;
     });
 
     after(() => {
       if (worker) self.Worker = worker;
+      stub.restore();
     });
 
     describe("the request method", () => {
@@ -41,7 +44,7 @@ export default function testSubscriptionOperation(args: ClientArgs, opts: { supp
 
         before(async () => {
           if (opts.suppressWorkers) {
-            spyGraphqlRequest(tesco.requests.reducedSingleMutation);
+            fetchMock.spy();
           }
 
           try {
@@ -100,24 +103,20 @@ export default function testSubscriptionOperation(args: ClientArgs, opts: { supp
             expect(productsCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
-          // it("then the graphql schema should have made fetch requests", () => {
-          //   expect(fetchMock.calls().matched).to.have.lengthOf(1);
-          // });
+          it("then the client should not have cached the response against the query", async () => {
+            const cacheSize = await client.getResponseCacheSize();
+            expect(cacheSize).to.equal(1);
+          });
 
-          // it("then the client should not have cached the response against the query", async () => {
-          //   const cacheSize = await client.getResponseCacheSize();
-          //   expect(cacheSize).to.equal(1);
-          // });
+          it("then the client should not have stored any data in the in the data path cache", async () => {
+            const cacheSize = await client.getDataPathCacheSize();
+            expect(cacheSize).to.eql(1);
+          });
 
-          // it("then the client should not have stored any data in the in the data path cache", async () => {
-          //   const cacheSize = await client.getDataPathCacheSize();
-          //   expect(cacheSize).to.eql(1);
-          // });
-
-          // it("then the client should cache each data entity in the response against its identifier", async () => {
-          //   const cacheSize = await client.getDataEntityCacheSize();
-          //   expect(cacheSize).to.eql(4);
-          // });
+          it("then the client should cache each data entity in the response against its identifier", async () => {
+            const cacheSize = await client.getDataEntityCacheSize();
+            expect(cacheSize).to.eql(4);
+          });
         });
       });
     });
