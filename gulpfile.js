@@ -91,7 +91,7 @@ gulp.task('document', () => gulp.src(['src/**/*.ts'])
     includeDeclarations: true,
     mode: 'file',
     module: 'esnext',
-    name: 'Cachemap',
+    name: 'Handl',
     out: './docs',
     readme: 'none',
     target: 'es6',

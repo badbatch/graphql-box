@@ -5,6 +5,7 @@ import { browserArgs, subscriptionArgs, workerArgs } from "../../helpers";
 
 testQueryOperation(workerArgs);
 testMutationOperation(workerArgs);
+// testSubscriptionOperation(subscriptionArgs);
 testQueryOperation(browserArgs, { suppressWorkers: true });
 testMutationOperation(browserArgs, { suppressWorkers: true });
 testSubscriptionOperation(subscriptionArgs, { suppressWorkers: true });
