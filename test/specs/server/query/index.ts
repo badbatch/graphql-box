@@ -1,10 +1,12 @@
 import { Cacheability } from "cacheability";
 import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
+import * as http from "http";
 import { get } from "lodash";
 import * as sinon from "sinon";
 import { tesco } from "../../../data/graphql";
 import { mockRestRequest } from "../../../helpers";
+import graphqlServer from "../../../server";
 import { DefaultHandl, Handl } from "../../../../src";
 import Cache from "../../../../src/cache";
 
@@ -17,11 +19,20 @@ import {
 } from "../../../../src/types";
 
 export default function testQueryOperation(args: ClientArgs): void {
-  describe("the handl class in 'internal' mode", () => {
+  describe("the handl client on the server", () => {
     let client: DefaultHandl;
+    let server: http.Server;
+    let stub: sinon.SinonStub;
 
     before(async () => {
+      stub = sinon.stub(console, "warn");
+      server = graphqlServer();
       client = await Handl.create(args) as DefaultHandl;
+    });
+
+    after(() => {
+      stub.restore();
+      server.close();
     });
 
     describe("the request method", () => {
@@ -29,6 +40,7 @@ export default function testQueryOperation(args: ClientArgs): void {
         before(() => {
           mockRestRequest("product", "402-5806");
           mockRestRequest("sku", "134-5203");
+          fetchMock.spy();
         });
 
         after(() => {

@@ -1,24 +1,37 @@
 import { Cacheability } from "cacheability";
 import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
+import * as http from "http";
+import * as sinon from "sinon";
 import { tesco } from "../../../data/graphql";
 import { mockRestRequest } from "../../../helpers";
 import { clearDatabase } from "../../../schema/helpers";
+import graphqlServer from "../../../server";
 import { DefaultHandl, Handl } from "../../../../src";
 import { CacheMetadata, ClientArgs, RequestResultData } from "../../../../src/types";
 
 export default function testMutationOperation(args: ClientArgs): void {
-  describe("the handl class in 'internal' mode", () => {
+  describe("the handl client on the server", () => {
     let client: DefaultHandl;
+    let server: http.Server;
+    let stub: sinon.SinonStub;
 
     before(async () => {
+      stub = sinon.stub(console, "warn");
+      server = graphqlServer();
       client = await Handl.create(args) as DefaultHandl;
+    });
+
+    after(() => {
+      stub.restore();
+      server.close();
     });
 
     describe("the request method", () => {
       context("when a single mutation is requested", () => {
         before(() => {
           mockRestRequest("product", "402-5806");
+          fetchMock.spy();
         });
 
         after(() => {
