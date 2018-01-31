@@ -8,8 +8,9 @@ src/
 test/
 *.log
 .*
+custom-launchers.json
 gulpfile.js
-karma.conf.js
+karma.*
 mocha.opts
 package-lock.json
 sonar-project.properties

@@ -46,16 +46,12 @@ export interface CachemapOptionsGroup {
 export interface ClientArgs {
   cachemapOptions?: CachemapOptionsGroup;
   defaultCacheControls?: DefaultCacheControls;
-  fieldResolver?: GraphQLFieldResolver<any, any>;
   headers?: ObjectMap;
-  introspection?: IntrospectionQuery | string;
-  mode: "internal" | "external";
+  introspection: IntrospectionQuery | string;
   newInstance?: boolean;
   resourceKey?: string;
-  rootValue?: any;
-  schema?: GraphQLSchema;
   subscriptions?: SubscriptionsOptions;
-  url?: string;
+  url: string;
 }
 
 export interface ClientRequests {
@@ -116,12 +112,9 @@ export interface RequestContext {
 export interface RequestOptions {
   awaitDataCached?: boolean;
   context?: any;
-  fieldResolver?: GraphQLFieldResolver<any, any>;
   forceFetch?: boolean;
   fragments?: string[];
   headers?: ObjectMap;
-  rootValue?: any;
-  operationName?: string;
   variables?: ObjectMap;
 }
 

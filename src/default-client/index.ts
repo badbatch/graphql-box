@@ -4,11 +4,8 @@ import {
   ASTNode,
   buildClientSchema,
   DocumentNode,
-  execute,
-  ExecutionResult,
   FieldNode,
   GraphQLError,
-  GraphQLFieldResolver,
   GraphQLInterfaceType,
   GraphQLNamedType,
   GraphQLObjectType,
@@ -32,7 +29,6 @@ import { isAsyncIterable } from "iterall";
 
 import {
   isArray,
-  isFunction,
   isObjectLike,
   isPlainObject,
   isString,
@@ -190,15 +186,12 @@ export class DefaultClient {
     subscription: "max-age=0, s-maxage=0, no-cache, no-store",
   };
 
-  private _fieldResolver?: GraphQLFieldResolver<any, any>;
   private _headers: ObjectMap = { "content-type": "application/json" };
-  private _mode: "internal" | "external";
   private _resourceKey: string = "id";
-  private _rootValue: any;
   private _schema: GraphQLSchema;
   private _subscriptionsEnabled: boolean = false;
   private _subscriptionService: SubscriptionService;
-  private _url?: string;
+  private _url: string;
 
   constructor(args: ClientArgs) {
     if (!isPlainObject(args)) {
@@ -208,24 +201,24 @@ export class DefaultClient {
     const {
       cachemapOptions,
       defaultCacheControls,
-      fieldResolver,
       headers,
       introspection,
-      mode,
       resourceKey,
-      rootValue,
-      schema,
       subscriptions,
       url,
     } = args;
 
-    if (mode !== "internal" && mode !== "external") {
-      throw new TypeError("Constructor expected mode to be 'internal' or 'external'.");
+    const errors: TypeError[] = [];
+
+    if (!isPlainObject(introspection)) {
+      errors.push(new TypeError("Constructor expected introspection to be a plain object."));
     }
 
-    if (mode === "internal" && process.env.WEB_ENV) {
-      throw new TypeError("Constructor expected mode to be 'external' for browser client.");
+    if (!isString(url)) {
+      errors.push(new TypeError("Constructor expected url to be a string."));
     }
+
+    if (errors.length) throw errors;
 
     if (cachemapOptions && isPlainObject(cachemapOptions)) {
       this._cachemapOptions = merge(this._cachemapOptions, cachemapOptions);
@@ -235,35 +228,17 @@ export class DefaultClient {
       this._defaultCacheControls = { ...this._defaultCacheControls, ...defaultCacheControls };
     }
 
-    if (isFunction(fieldResolver)) this._fieldResolver = fieldResolver;
     if (headers && isPlainObject(headers)) this._headers = { ...this._headers, ...headers };
-    this._mode = mode;
     if (isString(resourceKey)) this._resourceKey = resourceKey;
-    this._rootValue = rootValue;
-
-    if (mode === "internal") {
-      if (schema instanceof GraphQLSchema) {
-        this._schema = schema;
-      } else {
-        throw new TypeError("Constructor expected schema to be an instance of GraphQLSchema.");
-      }
-    }
-
-    if (mode === "external") {
-      if (isPlainObject(introspection) && isString(url)) {
-        const introspectionQuery = introspection as IntrospectionQuery;
-        this._schema = buildClientSchema(introspectionQuery);
-      } else {
-        throw new TypeError("Constructor expected introspection to be a plain object and url to be a string.");
-      }
-    }
+    const introspectionQuery = introspection as IntrospectionQuery;
+    this._schema = buildClientSchema(introspectionQuery);
 
     if (DefaultClient._socketsSupported() && subscriptions && isPlainObject(subscriptions)) {
       this._subscriptionsEnabled = true;
       this._subscriptionService = new SubscriptionService(subscriptions.address);
     }
 
-    if (isString(url)) this._url = url;
+    this._url = url;
   }
 
   public async clearCache(): Promise<void> {
@@ -401,27 +376,6 @@ export class DefaultClient {
     ast: DocumentNode,
     opts: RequestOptions,
   ): Promise<FetchResult> {
-    if (this._mode === "internal") {
-      let executeResult: ExecutionResult;
-
-      try {
-        executeResult = await execute({
-          contextValue: opts.context,
-          document: ast,
-          fieldResolver: opts.fieldResolver || this._fieldResolver,
-          operationName: opts.operationName,
-          rootValue: opts.rootValue || this._rootValue,
-          schema: this._schema,
-        });
-      } catch (error) {
-        return Promise.reject(error);
-      }
-
-      if (executeResult.errors) return Promise.reject(executeResult.errors);
-      const data = executeResult.data as ObjectMap;
-      return { data };
-    }
-
     const url = `${this._url}?requestId=${Cache.hash(request)}`;
     const headers = opts.headers ? { ...this._headers, ...opts.headers } : this._headers;
     let fetchResult: Response;

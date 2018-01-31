@@ -4,5 +4,6 @@ bundle/
 coverage/
 lib/
 node_modules/
+.env
 *.log
 .DS_Store

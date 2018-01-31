@@ -9,20 +9,13 @@ import * as tescoIntrospection from "../introspection/tesco/index.json";
 import { ClientArgs, ObjectMap } from "../../src/types";
 
 export const browserArgs: ClientArgs = {
-  cachemapOptions: {
-    dataEntities: { use: { client: "localStorage" } },
-    dataPaths: { use: { client: "localStorage" } },
-    responses: { use: { client: "localStorage" } },
-  },
   introspection: githubIntrospection as IntrospectionQuery,
-  mode: "external",
   newInstance: true,
   url: "https://api.github.com/graphql",
 };
 
 export const workerArgs: ClientArgs = {
   introspection: githubIntrospection as IntrospectionQuery,
-  mode: "external",
   newInstance: true,
   url: "https://api.github.com/graphql",
 };
@@ -34,28 +27,17 @@ export const serverArgs: ClientArgs = {
     responses: { mockRedis: true },
   },
   introspection: tescoIntrospection as IntrospectionQuery,
-  mode: "external",
   newInstance: true,
   url: "http://localhost:3001/graphql",
 };
 
 export const subscriptionArgs: ClientArgs = {
   cachemapOptions: {
-    dataEntities: {
-      mockRedis: true,
-      use: { client: "localStorage" },
-    },
-    dataPaths: {
-      mockRedis: true,
-      use: { client: "localStorage" },
-    },
-    responses: {
-      mockRedis: true,
-      use: { client: "localStorage" },
-    },
+    dataEntities: { mockRedis: true },
+    dataPaths: { mockRedis: true },
+    responses: { mockRedis: true },
   },
   introspection: tescoIntrospection as IntrospectionQuery,
-  mode: "external",
   newInstance: true,
   subscriptions: { address: "ws://localhost:3001" },
   url: "http://localhost:3001/graphql",
