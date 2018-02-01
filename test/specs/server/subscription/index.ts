@@ -53,8 +53,8 @@ export default function testSubscriptionOperation(args: ClientArgs): void {
             );
 
             if (isAsyncIterable(asyncIterator)) {
-              forAwaitEach(asyncIterator, (ev: { detail: RequestResultData }) => {
-                result = ev.detail;
+              forAwaitEach(asyncIterator, (value) => {
+                result = value as RequestResultData;
                 const deferredValue = deferred[0] as DeferPromise.Deferred<void>;
                 deferredValue.resolve();
               });
