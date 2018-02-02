@@ -90,7 +90,7 @@ export const reducedSingleQuery = `
   }
 `;
 
-export const singleMutation = `
+export const addMutation = `
   mutation ($input: AddStarInput!) {
     addStar(input: $input) {
       clientMutationId
@@ -102,7 +102,7 @@ export const singleMutation = `
   }
 `;
 
-export const updatedSingleMutation = `
+export const updatedAddMutation = `
   mutation {
     addStar(input: { clientMutationId: "1", starrableId: "MDEwOlJlcG9zaXRvcnkzODMwNzQyOA==" }) {
       clientMutationId
@@ -114,19 +114,19 @@ export const updatedSingleMutation = `
   }
 `;
 
-export const aliasQuery = `
-  {
-    facebook: organization(login: "facebook") {
-      id
-      name
-      firstSix: repositories(first: 6) {
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-    }
-  }
-`;
+// export const aliasQuery = `
+//   {
+//     facebook: organization(login: "facebook") {
+//       id
+//       name
+//       firstSix: repositories(first: 6) {
+//         edges {
+//           node {
+//             id
+//             name
+//           }
+//         }
+//       }
+//     }
+//   }
+// `;

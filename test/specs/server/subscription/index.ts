@@ -72,7 +72,7 @@ export default function testSubscriptionOperation(args: ClientArgs): void {
           beforeEach(async () => {
             try {
               await client.request(
-                tesco.requests.reducedSingleMutation,
+                tesco.requests.reducedAddMutation,
                 { awaitDataCached: true, variables: { productID: "402-5806" } },
               );
             } catch (error) {

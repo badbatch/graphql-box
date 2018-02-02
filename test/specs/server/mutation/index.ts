@@ -44,7 +44,7 @@ export default function testMutationOperation(args: ClientArgs): void {
           beforeEach(async () => {
             try {
               result = await client.request(
-                tesco.requests.singleMutation,
+                tesco.requests.addMutation,
                 { awaitDataCached: true, variables: { productID: "402-5806" } },
               ) as RequestResultData;
             } catch (error) {
@@ -59,7 +59,7 @@ export default function testMutationOperation(args: ClientArgs): void {
           });
 
           it("then the method should return the requested data", () => {
-            expect(result.data).to.deep.equal(tesco.responses.singleMutation);
+            expect(result.data).to.deep.equal(tesco.responses.addMutation);
             const cacheMetadata = result.cacheMetadata as CacheMetadata;
             expect(cacheMetadata.size).to.equal(3);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;

@@ -3,10 +3,10 @@ import * as tescoRequests from "./tesco/requests";
 import { ObjectMap } from "../../../src/types";
 
 const githubResponses = {
+  addMutation: require("./github/responses/add-mutation.json"),
   reducedSingleQuery: require("./github/responses/reduced-single-query.json"),
-  singleMutation: require("./github/responses/single-mutation.json"),
   singleQuery: require("./github/responses/single-query.json"),
-  updatedSingleMutation: require("./github/responses/single-mutation.json"),
+  updatedAddMutation: require("./github/responses/add-mutation.json"),
   updatedSingleQuery: require("./github/responses/single-query.json"),
 };
 
@@ -21,11 +21,11 @@ export const github: RequestResponseGroup = {
 };
 
 const tescoResponses = {
+  addMutation: require("./tesco/responses/add-mutation.json"),
   reducedSingleQuery: require("./tesco/responses/reduced-single-query.json"),
-  singleMutation: require("./tesco/responses/single-mutation.json"),
   singleQuery: require("./tesco/responses/single-query.json"),
   singleSubscription: require("./tesco/responses/single-subscription.json"),
-  updatedSingleMutation: require("./tesco/responses/single-mutation.json"),
+  updatedAddMutation: require("./tesco/responses/add-mutation.json"),
 };
 
 export const tesco: RequestResponseGroup = {

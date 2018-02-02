@@ -25,10 +25,10 @@ export default function testMutationOperation(args: ClientArgs, opts: { suppress
     });
 
     describe("the request method", () => {
-      context("when a single mutation is requested", () => {
+      context("when a add mutation is requested", () => {
         before(() => {
           if (opts.suppressWorkers) {
-            mockGraphqlRequest(github.requests.updatedSingleMutation);
+            mockGraphqlRequest(github.requests.updatedAddMutation);
           }
         });
 
@@ -43,7 +43,7 @@ export default function testMutationOperation(args: ClientArgs, opts: { suppress
           beforeEach(async () => {
             try {
               result = await client.request(
-                github.requests.singleMutation,
+                github.requests.addMutation,
                 { awaitDataCached: true, variables: { input } },
               ) as RequestResultData;
             } catch (error) {
@@ -57,7 +57,7 @@ export default function testMutationOperation(args: ClientArgs, opts: { suppress
           });
 
           it("then the method should return the requested data", () => {
-            expect(result.data).to.deep.equal(github.responses.singleMutation.data);
+            expect(result.data).to.deep.equal(github.responses.addMutation.data);
             const cacheMetadata = result.cacheMetadata as CacheMetadata;
             expect(cacheMetadata.size).to.equal(1);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;
