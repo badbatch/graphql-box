@@ -34,12 +34,13 @@ export default new GraphQLObjectType({
       resolve: async (obj, { productID }) => {
         queryDatabase({
           callback: (db, value, dataType) => {
-            const _dataTypye = dataType || {};
-            if (!dataType) db.favourites = _dataTypye;
-            if (!_dataTypye.products) _dataTypye.products = [];
-            _dataTypye.products.push(value);
-            _dataTypye.count = _dataTypye.products.length;
-            _dataTypye.id = 1;
+            const _dataType = dataType || {};
+            if (!dataType) db.favourites = _dataType;
+            if (!_dataType.products) _dataType.products = [];
+            if (_dataType.products.includes(value)) return;
+            _dataType.products.push(value);
+            _dataType.count = _dataType.products.length;
+            _dataType.id = 1;
           },
           cmd: "set",
           type: "favourites",
@@ -49,6 +50,22 @@ export default new GraphQLObjectType({
         const favourites = queryDatabase({ cmd: "get", type: "favourites" });
         pubsub.publish("favouriteAdded", favourites);
         return favourites;
+      },
+      type: favouritesType,
+    },
+    removeFavourite: {
+      args: { productID: { type: new GraphQLNonNull(GraphQLString) } },
+      resolve: async (obj, { productID }) => {
+        queryDatabase({
+          callback: (db, value, dataType) => {
+            if (!dataType) return;
+            dataType.products = dataType.products.filter((id: string) => id !== value);
+            dataType.count = dataType.products.length;
+          },
+          cmd: "set",
+          type: "favourites",
+          value: productID,
+        });
       },
       type: favouritesType,
     },

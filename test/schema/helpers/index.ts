@@ -78,6 +78,12 @@ export function queryDatabase({ callback, cmd, key, type, value }: QueryDatabase
   const _metadata = { cacheControl: `public, max-age=60` };
 
   switch (cmd) {
+    case "delete":
+      if (value && !callback) {
+        if (dataType && key) delete dataType[key];
+      } else if (value && callback) {
+        callback(database, value, dataType, key);
+      }
     case "get":
       result = dataType && key ? dataType[key] : dataType;
       if (isPlainObject(result)) result = { ...result, _metadata };
