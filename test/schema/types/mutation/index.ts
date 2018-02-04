@@ -62,7 +62,7 @@ export default new GraphQLObjectType({
             dataType.products = dataType.products.filter((id: string) => id !== value);
             dataType.count = dataType.products.length;
           },
-          cmd: "set",
+          cmd: "delete",
           type: "favourites",
           value: productID,
         });

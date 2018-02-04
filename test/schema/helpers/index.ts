@@ -66,11 +66,7 @@ export interface QueryDatabaseArgs {
   callback?: (database: ObjectMap, value: any, dataType?: ObjectMap, key?: any) => any;
 }
 
-let database: ObjectMap = {};
-
-export function clearDatabase(): void {
-  database = {};
-}
+const database: ObjectMap = {};
 
 export function queryDatabase({ callback, cmd, key, type, value }: QueryDatabaseArgs): any {
   let dataType = database[type];

@@ -6,7 +6,6 @@ import * as sinon from "sinon";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { tesco } from "../../../data/graphql";
 import { mockRestRequest } from "../../../helpers";
-import { clearDatabase } from "../../../schema/helpers";
 import graphqlServer from "../../../server";
 import { DefaultHandl, Handl } from "../../../../src";
 import { CacheMetadata, ClientArgs, RequestResultData } from "../../../../src/types";
@@ -86,8 +85,12 @@ export default function testSubscriptionOperation(args: ClientArgs): void {
           afterEach(async () => {
             await client.clearCache();
             fetchMock.reset();
-            clearDatabase();
             result = undefined;
+
+            await client.request(
+              tesco.requests.removeMutation,
+              { awaitDataCached: true, variables: { productID: "402-5806" } },
+            );
           });
 
           it("then the method should return the subscribed data", () => {

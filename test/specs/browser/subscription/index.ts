@@ -88,6 +88,11 @@ export default function testSubscriptionOperation(args: ClientArgs, opts: { supp
             await client.clearCache();
             if (opts.suppressWorkers) fetchMock.reset();
             result = undefined;
+
+            await client.request(
+              tesco.requests.removeMutation,
+              { awaitDataCached: true, variables: { productID: "402-5806" } },
+            );
           });
 
           it("then the method should return the subscribed data", () => {
