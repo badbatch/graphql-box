@@ -111,6 +111,14 @@ export const updatedAddMutation = `
   }
 `;
 
+export const removeMutation = `
+  mutation ($productID: String!) {
+    removeFavourite(productID: $productID) {
+      count
+    }
+  }
+`;
+
 export const singleSubscription = `
   subscription {
     favouriteAdded {

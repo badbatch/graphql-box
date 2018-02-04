@@ -33,6 +33,7 @@
     "compile:umd": "cross-env BABEL_ENV=browser gulp umd",
     "debug:web": "cross-env BABEL_ENV=debug TEST_ENV=true karma start --no-single-run --reporters progress --browsers",
     "document": "gulp document",
+    "introspect": "cross-env TS_NODE_PROJECT=\"./tsconfig.test.json\" ts-node test/introspection/index.ts",
     "lint": "gulp lint",
     "publish:pkg": "npm run build && npm publish",
     "test": "npm run lint && npm run type-check && npm run test:web && npm run test:node",
