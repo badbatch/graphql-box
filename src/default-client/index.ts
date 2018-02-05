@@ -41,7 +41,7 @@ import {
   ResolveArgs,
 } from "./types";
 
-import Cache from "../cache";
+import CacheManager from "../cache-manager";
 
 import {
   addChildFields,
@@ -148,7 +148,7 @@ export class DefaultClient {
     return !!self.WebSocket;
   }
 
-  private _cache: Cache;
+  private _cache: CacheManager;
 
   private _cachemapOptions: CachemapArgsGroup = {
     dataEntities: {
@@ -351,7 +351,7 @@ export class DefaultClient {
   private async _checkResponseCache(queryHash: string): Promise<ResolveResult | undefined> {
     try {
       const cacheability = await this._cache.responses.has(queryHash);
-      if (!cacheability || !Cache.isValid(cacheability)) return undefined;
+      if (!cacheability || !CacheManager.isValid(cacheability)) return undefined;
       const res = await this._cache.responses.get(queryHash);
       return { cacheMetadata: parseCacheabilityObjectMap(res.cacheMetadata), data: res.data };
     } catch (error) {
@@ -361,7 +361,7 @@ export class DefaultClient {
 
   private async _createCache(): Promise<void> {
     try {
-      this._cache = await Cache.create({
+      this._cache = await CacheManager.create({
         cachemapOptions: this._cachemapOptions,
         defaultCacheControls: this._defaultCacheControls,
         resourceKey: this._resourceKey,
@@ -376,7 +376,7 @@ export class DefaultClient {
     ast: DocumentNode,
     opts: RequestOptions,
   ): Promise<FetchResult> {
-    const url = `${this._url}?requestId=${Cache.hash(request)}`;
+    const url = `${this._url}?requestId=${CacheManager.hash(request)}`;
     const headers = opts.headers ? { ...this._headers, ...opts.headers } : this._headers;
     let fetchResult: Response;
 
@@ -513,7 +513,7 @@ export class DefaultClient {
     opts: RequestOptions,
     context: RequestContext,
   ): Promise<ResolveResult> {
-    const queryHash = Cache.hash(query);
+    const queryHash = CacheManager.hash(query);
 
     if (!opts.forceFetch) {
       const cachedResponse = await this._checkResponseCache(queryHash);
@@ -721,7 +721,7 @@ export class DefaultClient {
     opts: RequestOptions,
     context: RequestContext,
   ): Promise<ResolveResult | AsyncIterator<Event | undefined>> {
-    const hash = Cache.hash(subscription);
+    const hash = CacheManager.hash(subscription);
 
     try {
       return this._subscriptionService.send(
