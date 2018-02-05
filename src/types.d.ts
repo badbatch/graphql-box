@@ -47,7 +47,7 @@ export interface ClientArgs {
   cachemapOptions?: CachemapOptionsGroup;
   defaultCacheControls?: DefaultCacheControls;
   headers?: ObjectMap;
-  introspection: IntrospectionQuery | string;
+  introspection: IntrospectionQuery;
   newInstance?: boolean;
   resourceKey?: string;
   subscriptions?: SubscriptionsOptions;
@@ -111,10 +111,10 @@ export interface RequestContext {
 
 export interface RequestOptions {
   awaitDataCached?: boolean;
-  context?: any;
   forceFetch?: boolean;
   fragments?: string[];
   headers?: ObjectMap;
+  tag?: any;
   variables?: ObjectMap;
 }
 

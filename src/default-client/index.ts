@@ -455,7 +455,7 @@ export class DefaultClient {
       context.fieldTypeMap,
       fetchResult.data,
       cacheMetadata,
-      { cacheResolve: deferred.resolve },
+      { cacheResolve: deferred.resolve, tag: opts.tag },
     );
 
     return this._resolve({
@@ -550,8 +550,8 @@ export class DefaultClient {
           await this._cache.responses.set(
             queryHash,
             { cacheMetadata: mapToObject(cacheMetadata), data: cachedData },
-            { cacheHeaders: { cacheControl },
-          });
+            { cacheHeaders: { cacheControl }, tag: opts.tag },
+          );
         } catch (error) {
           // no catch
         } finally {
@@ -591,7 +591,7 @@ export class DefaultClient {
       context.fieldTypeMap,
       fetchResult.data,
       _cacheMetadata,
-      { cacheResolve: deferred.resolve, filtered: _filterd },
+      { cacheResolve: deferred.resolve, filtered: _filterd, tag: opts.tag },
     );
 
     return this._resolve({
@@ -696,7 +696,7 @@ export class DefaultClient {
       fieldTypeMap,
       result.data,
       createCacheMetadata(result.cacheMetadata),
-      { cacheResolve: deferred.resolve },
+      { cacheResolve: deferred.resolve, tag: opts.tag },
     );
 
     if (opts.awaitDataCached) await deferred.promise;

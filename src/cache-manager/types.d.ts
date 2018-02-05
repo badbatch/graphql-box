@@ -59,4 +59,5 @@ export interface PartialData {
 export interface UpdateDataCachesOptions {
   setEntities?: boolean;
   setPaths?: boolean;
+  tag?: any;
 }
