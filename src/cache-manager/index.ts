@@ -63,10 +63,10 @@ import {
   hasChildFields,
 } from "../helpers/parsing";
 
-export default class Cache {
-  public static async create(args: CacheArgs): Promise<Cache> {
+export default class CacheManager {
+  public static async create(args: CacheArgs): Promise<CacheManager> {
     try {
-      const cache = new Cache(args);
+      const cache = new CacheManager(args);
       await cache._createCachemaps();
       return cache;
     } catch (error) {
@@ -86,7 +86,7 @@ export default class Cache {
   private static _buildCacheKey(name: string, cachePath: string, args?: ObjectMap, index?: number): string {
     let key = `${isNumber(index) ? index : name}`;
     if (args) key = `${key}(${JSON.stringify(args)})`;
-    return Cache._buildKey(key, cachePath);
+    return CacheManager._buildKey(key, cachePath);
   }
 
   private static _buildKey(key: string | number, path: string): string {
@@ -108,7 +108,7 @@ export default class Cache {
 
       if (check && !hasChildFields(childField)) {
         deleteChildFields(field, childField);
-      } else if (check && Cache._filterField(childField, checkList, queryKey)) {
+      } else if (check && CacheManager._filterField(childField, checkList, queryKey)) {
         deleteChildFields(field, childField);
       }
     }
@@ -122,8 +122,8 @@ export default class Cache {
 
     for (let i = fields.length - 1; i >= 0; i -= 1) {
       const field = fields[i];
-      const { queryKey } = Cache._getKeys(field);
-      if (Cache._filterField(field, checkList, queryKey)) deleteChildFields(queryNode, field);
+      const { queryKey } = CacheManager._getKeys(field);
+      if (CacheManager._filterField(field, checkList, queryKey)) deleteChildFields(queryNode, field);
     }
   }
 
@@ -131,12 +131,12 @@ export default class Cache {
     const { cachePath = "", dataPath = "", queryPath = "" } = paths;
     const name = getName(field) as string;
     const args = getArguments(field);
-    const cacheKey = Cache._buildCacheKey(name, cachePath, args, index);
-    const hashKey = Cache.hash(cacheKey);
+    const cacheKey = CacheManager._buildCacheKey(name, cachePath, args, index);
+    const hashKey = CacheManager.hash(cacheKey);
     const nameKey = getAlias(field) || name;
-    const queryKey = isNumber(index) ? queryPath : Cache._buildKey(nameKey, queryPath);
+    const queryKey = isNumber(index) ? queryPath : CacheManager._buildKey(nameKey, queryPath);
     const propKey = isNumber(index) ? index : nameKey;
-    const dataKey = Cache._buildKey(propKey, dataPath);
+    const dataKey = CacheManager._buildKey(propKey, dataPath);
     return { cacheKey, dataKey, hashKey, name, propKey, queryKey };
   }
 
@@ -167,7 +167,7 @@ export default class Cache {
     queryPath?: string,
     index?: number,
   ): void {
-    const { dataKey, queryKey } = Cache._getKeys(field, { dataPath, queryPath }, index);
+    const { dataKey, queryKey } = CacheManager._getKeys(field, { dataPath, queryPath }, index);
     const fieldData = get(data, dataKey, null);
     if (!isObjectLike(fieldData)) return;
     const objectLikeFieldData = fieldData as ObjectMap | any[];
@@ -179,14 +179,14 @@ export default class Cache {
         const cacheControl: string = objectFieldData._metadata.cacheControl;
         const cacheability = new Cacheability();
         cacheability.parseCacheControl(cacheControl);
-        Cache._setCacheMetadata(cacheMetadata, cacheability, queryKey);
+        CacheManager._setCacheMetadata(cacheMetadata, cacheability, queryKey);
       }
 
       delete objectFieldData._metadata;
     }
 
-    Cache._iterateChildFields(field, objectLikeFieldData, (childField, childIndex) => {
-      Cache._parseResponseMetadata(childField, data, cacheMetadata, dataKey, queryKey, childIndex);
+    CacheManager._iterateChildFields(field, objectLikeFieldData, (childField, childIndex) => {
+      CacheManager._parseResponseMetadata(childField, data, cacheMetadata, dataKey, queryKey, childIndex);
     });
   }
 
@@ -198,7 +198,7 @@ export default class Cache {
     queryPath?: string,
     index?: number,
   ) {
-    const { name, propKey, queryKey } = Cache._getKeys(field, { cachePath, queryPath }, index);
+    const { name, propKey, queryKey } = CacheManager._getKeys(field, { cachePath, queryPath }, index);
     let cacheDataValue: string | number | boolean | null | undefined;
 
     if (isPlainObject(cacheEntryData.primary) && !isUndefined(cacheEntryData.primary[name])) {
@@ -208,9 +208,9 @@ export default class Cache {
     }
 
     const { checkList, counter, queriedData } = metadata;
-    Cache._setCheckList(checkList, { primary: cacheDataValue }, queryKey);
-    Cache._setCounter(counter, { primary: cacheDataValue });
-    Cache._setQueriedData(queriedData, { primary: cacheDataValue }, propKey);
+    CacheManager._setCheckList(checkList, { primary: cacheDataValue }, queryKey);
+    CacheManager._setCounter(counter, { primary: cacheDataValue });
+    CacheManager._setQueriedData(queriedData, { primary: cacheDataValue }, propKey);
   }
 
   private static _setCacheEntryMetadata(
@@ -219,10 +219,10 @@ export default class Cache {
     { propKey, queryKey }: { propKey: string | number, queryKey: string },
   ): void {
     const { cacheMetadata, checkList, counter, queriedData } = metadata;
-    Cache._setCacheMetadata(cacheMetadata, cacheEntryData.cacheability, queryKey);
-    Cache._setCheckList(checkList, cacheEntryData, queryKey);
-    Cache._setCounter(counter, cacheEntryData);
-    Cache._setQueriedData(queriedData, cacheEntryData, propKey);
+    CacheManager._setCacheMetadata(cacheMetadata, cacheEntryData.cacheability, queryKey);
+    CacheManager._setCheckList(checkList, cacheEntryData, queryKey);
+    CacheManager._setCounter(counter, cacheEntryData);
+    CacheManager._setQueriedData(queriedData, cacheEntryData, propKey);
   }
 
   private static _setCacheMetadata(
@@ -230,7 +230,7 @@ export default class Cache {
     cacheability: Cacheability | false | undefined,
     queryKey: string,
   ): void {
-    if (cacheMetadata.has(queryKey) || !cacheability || !Cache.isValid(cacheability)) return;
+    if (cacheMetadata.has(queryKey) || !cacheability || !CacheManager.isValid(cacheability)) return;
     cacheMetadata.set(queryKey, cacheability);
     const queryCacheability = cacheMetadata.get("query");
 
@@ -317,7 +317,7 @@ export default class Cache {
 
     if (!counter.missing) return { cachedData: queriedData, cacheMetadata };
     this._partials.set(queryHash, { cacheMetadata, cachedData: queriedData });
-    await Cache._filterQuery(ast, checkList);
+    await CacheManager._filterQuery(ast, checkList);
     return { filtered: true, updatedAST: ast, updatedQuery: print(ast) };
   }
 
@@ -403,7 +403,7 @@ export default class Cache {
 
         if (filterCacheMetadata) {
           promises.push(this._responses.set(
-            Cache.hash(query),
+            CacheManager.hash(query),
             { cacheMetadata: mapToObject(filterCacheMetadata), data },
             { cacheHeaders: { cacheControl: filterCacheControl },
           }));
@@ -495,7 +495,7 @@ export default class Cache {
 
     try {
       cacheability = await this._dataEntities.has(key);
-      if (cacheability && Cache.isValid(cacheability)) cachedData = await this._dataEntities.get(key);
+      if (cacheability && CacheManager.isValid(cacheability)) cachedData = await this._dataEntities.get(key);
       return { cacheability, cachedData };
     } catch (error) {
       return { cacheability, cachedData };
@@ -508,7 +508,7 @@ export default class Cache {
 
     try {
       cacheability = await this._dataPaths.has(hashKey);
-      if (cacheability && Cache.isValid(cacheability)) cachedData = await this._dataPaths.get(hashKey);
+      if (cacheability && CacheManager.isValid(cacheability)) cachedData = await this._dataPaths.get(hashKey);
       return { cacheability, cachedData };
     } catch (error) {
       return { cacheability, cachedData };
@@ -546,7 +546,7 @@ export default class Cache {
       dataKey,
       hashKey,
       queryKey,
-    } = Cache._getKeys(field, keyPaths, index);
+    } = CacheManager._getKeys(field, keyPaths, index);
 
     const entityfieldData = get(dataTypes.entities, dataKey, null);
     const pathfieldData = get(dataTypes.paths, dataKey, null);
@@ -556,7 +556,7 @@ export default class Cache {
     const promises: Array<Promise<void>> = [];
     const _keyPaths: KeyPaths = { cachePath: cacheKey, dataPath: dataKey, queryPath: queryKey };
 
-    Cache._iterateChildFields(field, pathfieldData, (childField, childIndex) => {
+    CacheManager._iterateChildFields(field, pathfieldData, (childField, childIndex) => {
       promises.push(this._parseData(
         childField,
         fieldTypeMap,
@@ -601,7 +601,7 @@ export default class Cache {
         index,
       );
     } else {
-      await Cache._parseSingleField(
+      await CacheManager._parseSingleField(
         field,
         metadata,
         cacheEntryData,
@@ -626,7 +626,7 @@ export default class Cache {
       hashKey,
       propKey,
       queryKey,
-    } = Cache._getKeys(field, { cachePath, queryPath }, index);
+    } = CacheManager._getKeys(field, { cachePath, queryPath }, index);
 
     const fieldTypeInfo = fieldTypeMap.get(queryKey);
 
@@ -657,7 +657,7 @@ export default class Cache {
       }
     }
 
-    Cache._setCacheEntryMetadata(
+    CacheManager._setCacheEntryMetadata(
       metadata,
       cacheEntryData,
       { propKey, queryKey },
@@ -668,7 +668,7 @@ export default class Cache {
     const { cacheMetadata, checkList, counter, queriedData } = metadata;
     const promises: Array<Promise<void>> = [];
 
-    Cache._iterateChildFields(field, objectLikeData, (childField, childIndex) => {
+    CacheManager._iterateChildFields(field, objectLikeData, (childField, childIndex) => {
       if (getName(childField) === "_metadata") return;
 
       promises.push(this._parseField(
@@ -764,7 +764,7 @@ export default class Cache {
     const fields = getChildFields(operationNode) as FieldNode[];
 
     fields.forEach((field) => {
-      Cache._parseResponseMetadata(field, data, _cacheMetadata);
+      CacheManager._parseResponseMetadata(field, data, _cacheMetadata);
     });
 
     if (!_cacheMetadata.has("query")) {
