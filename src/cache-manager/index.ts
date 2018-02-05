@@ -326,7 +326,7 @@ export default class CacheManager {
     fieldTypeMap: FieldTypeMap,
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
-    opts: { cacheResolve: DataCachedResolver },
+    opts: { cacheResolve: DataCachedResolver, tag?: any },
   ): Promise<ResolveResult> {
     const updatedCacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata, "mutation");
 
@@ -337,7 +337,7 @@ export default class CacheManager {
         updatedCacheMetadata,
         fieldTypeMap,
         "mutation",
-        { setPaths: false },
+        { setPaths: false, tag: opts.tag },
       );
 
       opts.cacheResolve();
@@ -353,7 +353,7 @@ export default class CacheManager {
     fieldTypeMap: FieldTypeMap,
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
-    opts: { cacheResolve: DataCachedResolver, filtered: boolean },
+    opts: { cacheResolve: DataCachedResolver, filtered: boolean, tag?: any },
   ): Promise<ResolveResult> {
     const partial = this._getPartial(queryHash);
     let updatedData = data;
@@ -398,15 +398,15 @@ export default class CacheManager {
         promises.push(this._responses.set(
           queryHash,
           { cacheMetadata: mapToObject(updatedCacheMetadata), data: updatedData },
-          { cacheHeaders: { cacheControl: updatedCacheControl },
-        }));
+          { cacheHeaders: { cacheControl: updatedCacheControl }, tag: opts.tag },
+        ));
 
         if (filterCacheMetadata) {
           promises.push(this._responses.set(
             CacheManager.hash(query),
             { cacheMetadata: mapToObject(filterCacheMetadata), data },
-            { cacheHeaders: { cacheControl: filterCacheControl },
-          }));
+            { cacheHeaders: { cacheControl: filterCacheControl }, tag: opts.tag },
+          ));
         }
       } catch (error) {
         // no catch
@@ -418,6 +418,7 @@ export default class CacheManager {
         updatedCacheMetadata,
         fieldTypeMap,
         "query",
+        { tag: opts.tag },
       ));
 
       await Promise.all(promises);
@@ -432,7 +433,7 @@ export default class CacheManager {
     fieldTypeMap: FieldTypeMap,
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
-    opts: { cacheResolve: DataCachedResolver },
+    opts: { cacheResolve: DataCachedResolver, tag?: any },
   ): Promise<ResolveResult> {
     const updatedCacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata, "subscription");
 
@@ -443,7 +444,7 @@ export default class CacheManager {
         updatedCacheMetadata,
         fieldTypeMap,
         "subscription",
-        { setPaths: false },
+        { setPaths: false, tag: opts.tag },
       );
 
       opts.cacheResolve();
@@ -692,7 +693,7 @@ export default class CacheManager {
     dataTypes: CacheUpdateDataTypes,
     cacheControl: string,
     { dataKey, hashKey, queryKey }: { dataKey: string, hashKey: string, queryKey: string },
-    { setEntities, setPaths }: UpdateDataCachesOptions,
+    { setEntities, setPaths, tag }: UpdateDataCachesOptions,
   ): Promise<void> {
     const fieldTypeInfo = fieldTypeMap.get(queryKey);
     if (!fieldTypeInfo) return;
@@ -711,7 +712,7 @@ export default class CacheManager {
         promises.push(this._dataEntities.set(
           entityDataKey,
           cloneDeep(objectMapEntityfieldData),
-          { cacheHeaders: { cacheControl } },
+          { cacheHeaders: { cacheControl }, tag },
         ));
 
         set(dataTypes.entities, dataKey, { _EntityKey: entityDataKey });
@@ -721,7 +722,7 @@ export default class CacheManager {
         promises.push(this._dataPaths.set(
           hashKey,
           cloneDeep(pathfieldData),
-          { cacheHeaders: { cacheControl } },
+          { cacheHeaders: { cacheControl }, tag },
         ));
 
         if (hasChildFields(field)) {
@@ -782,7 +783,7 @@ export default class CacheManager {
     cacheMetadata: CacheMetadata,
     fieldTypeMap: FieldTypeMap,
     operationName: string,
-    { setEntities = true, setPaths = true }: UpdateDataCachesOptions = {},
+    { setEntities = true, setPaths = true, tag }: UpdateDataCachesOptions = {},
   ): Promise<void> {
     const queryNode = getOperationDefinitions(ast, operationName)[0];
     const fields = getChildFields(queryNode) as FieldNode[];
@@ -801,7 +802,7 @@ export default class CacheManager {
           cacheMetadata,
           cacheControl,
           undefined,
-          { setEntities, setPaths },
+          { setEntities, setPaths, tag },
         );
       }),
     );
