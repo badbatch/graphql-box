@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "cacheability": "0.0.61",
-    "cachemap": "0.0.73",
+    "cachemap": "0.0.74",
     "defer-promise": "^1.0.1",
     "graphql": "^0.12.3",
     "graphql-subscriptions": "^0.5.6",

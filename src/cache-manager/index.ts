@@ -44,8 +44,11 @@ import {
   ClientRequests,
   DataCachedResolver,
   DefaultCacheControls,
+  ExportCacheResult,
+  ExportCachesResult,
   FieldTypeInfo,
   FieldTypeMap,
+  ImportCachesArgs,
   ObjectMap,
   ResolveResult,
 } from "../types";
@@ -319,6 +322,48 @@ export default class CacheManager {
     this._partials.set(queryHash, { cacheMetadata, cachedData: queriedData });
     await CacheManager._filterQuery(ast, checkList);
     return { filtered: true, updatedAST: ast, updatedQuery: print(ast) };
+  }
+
+  public async export(tag: any): Promise<ExportCachesResult> {
+    const caches: Array<[string, DefaultCachemap]> = [
+      ["dataEntities", this._dataEntities],
+      ["dataPaths", this._dataPaths],
+      ["responses", this._responses],
+    ];
+
+    try {
+      const result: ExportCachesResult = {};
+
+      await Promise.all(caches.map(([key, cache]) => {
+        const promise = cache.export({ tag });
+        const _key = key as "dataEntities" | "dataPaths" | "responses";
+        promise.then((res: ExportCacheResult) => result[_key] = res);
+        return promise;
+      }));
+
+      return result;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public async import(args: ExportCachesResult): Promise<void> {
+    const caches = {
+      dataEntities: this._dataEntities,
+      dataPaths: this._dataPaths,
+      responses: this._responses,
+    };
+
+    try {
+      await Promise.all(Object.keys(args).map((key: "dataEntities" | "dataPaths" | "responses") => {
+        const cache = caches[key];
+        const exported = args[key];
+        if (!exported) return undefined;
+        return cache.import(exported);
+      }));
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async resolveMutation(
