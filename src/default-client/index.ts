@@ -72,6 +72,7 @@ import {
   CacheMetadata,
   ClientArgs,
   DefaultCacheControls,
+  ExportCachesResult,
   FieldTypeMap,
   ObjectMap,
   PendingRequestActions,
@@ -253,6 +254,14 @@ export class DefaultClient {
     }
   }
 
+  public async exportCaches(tag: any): Promise<ExportCachesResult> {
+    try {
+      return this._cache.export(tag);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   public async getDataEntityCacheEntry(key: string): Promise<ObjectMap | undefined> {
     try {
       return this._cache.dataEntities.get(key);
@@ -299,6 +308,14 @@ export class DefaultClient {
   public async getResponseCacheSize(): Promise<number> {
     try {
       return this._cache.responses.size();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public async importCaches(caches: ExportCachesResult): Promise<void> {
+    try {
+      return this._cache.import(caches);
     } catch (error) {
       return Promise.reject(error);
     }

@@ -1,4 +1,5 @@
 import { Cacheability, CacheabilityMetadata } from "cacheability";
+import { CachemapMetadata } from "cachemap"
 
 import {
   CachemapArgs,
@@ -24,6 +25,7 @@ export interface AnalyzeResult {
 }
 
 export interface CacheabilityObjectMap { [key: string]: CacheabilityMetadata; }
+
 export type CacheMetadata = Map<string, Cacheability>;
 
 export interface CachemapArgsGroup {
@@ -71,6 +73,17 @@ export interface DefaultCacheControls {
   query: string;
   subscription: string;
   [key: string]: string;
+}
+
+export interface ExportCacheResult {
+  entries: Array<[string, any]>;
+  metadata: CachemapMetadata[];
+}
+
+export interface ExportCachesResult {
+  dataEntities?: ExportCacheResult;
+  dataPaths?: ExportCacheResult;
+  responses?: ExportCacheResult;
 }
 
 export interface FieldTypeInfo {
