@@ -39,17 +39,13 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
         result = await client.exportCaches(tag);
         break;
       case "getDataEntityCacheEntry":
-        if (key) {
-          result = await client.getDataEntityCacheEntry(key);
-        }
+        if (key) result = await client.getDataEntityCacheEntry(key);
         break;
       case "getDataEntityCacheSize":
         result = await client.getDataEntityCacheSize();
         break;
       case "getDataPathCacheEntry":
-        if (key) {
-          result = await client.getDataPathCacheEntry(key);
-        }
+        if (key) result = await client.getDataPathCacheEntry(key);
         break;
       case "getDataPathCacheSize":
         result = await client.getDataPathCacheSize();
@@ -70,9 +66,7 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
         result = await client.getResponseCacheSize();
         break;
       case "importCaches":
-        if (caches) {
-          await client.importCaches(caches);
-        }
+        if (caches) await client.importCaches(caches);
         break;
       case "request":
         if (query) {
