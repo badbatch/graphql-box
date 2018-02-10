@@ -1,9 +1,9 @@
 import { Cacheability, CacheabilityMetadata } from "cacheability";
-import { CachemapMetadata } from "cachemap"
 
 import {
   CachemapArgs,
   CachemapClientStoreTypes,
+  CachemapMetadata,
   CachemapServerStoreTypes,
 } from "cachemap";
 
@@ -106,9 +106,11 @@ export type PendingRequestResolver = (value: ResolveResult) => void;
 
 export interface PostMessageArgs {
   args?: ClientArgs;
+  caches?: ExportCachesResult;
   key?: string;
   opts?: RequestOptions;
   query?: string;
+  tag?: any;
   type: string;
 }
 

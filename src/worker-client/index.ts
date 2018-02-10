@@ -7,6 +7,7 @@ import EventTargetProxy from "../proxies/event-target";
 
 import {
   ClientArgs,
+  ExportCachesResult,
   ObjectMap,
   PostMessageArgs,
   PostMessageResult,
@@ -68,6 +69,14 @@ export class WorkerClient {
     }
   }
 
+  public async exportCaches(tag: any): Promise<ExportCachesResult> {
+    try {
+      return this._postMessage({ tag, type: "exportCaches" });
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   public async getDataEntityCacheEntry(key: string): Promise<ObjectMap | undefined> {
     try {
       return this._postMessage({ key, type: "getDataPathCacheEntry" });
@@ -121,6 +130,14 @@ export class WorkerClient {
   public async getResponseCacheSize(): Promise<number> {
     try {
       return this._postMessage({ type: "getResponseCacheSize" });
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public async importCaches(caches: ExportCachesResult): Promise<void> {
+    try {
+      await this._postMessage({ caches, type: "importCaches" });
     } catch (error) {
       return Promise.reject(error);
     }

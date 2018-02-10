@@ -8,7 +8,7 @@ import { tesco } from "../../../data/graphql";
 import { mockRestRequest } from "../../../helpers";
 import graphqlServer from "../../../server";
 import { DefaultHandl, Handl } from "../../../../src";
-import Cache from "../../../../src/cache";
+import CacheManager from "../../../../src/cache-manager";
 
 import {
   CacheMetadata,
@@ -130,7 +130,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               console.log(error); // tslint:disable-line
             }
 
-            const cache: Cache = get(client, "_cache");
+            const cache: CacheManager = get(client, "_cache");
             spy = sinon.spy(cache, "analyze");
 
             try {
@@ -174,7 +174,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           let spy: sinon.SinonSpy;
 
           beforeEach(async () => {
-            const cache: Cache = get(client, "_cache");
+            const cache: CacheManager = get(client, "_cache");
             spy = sinon.spy(cache, "analyze");
 
             try {
@@ -236,7 +236,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             }
 
             fetchMock.reset();
-            const cache: Cache = get(client, "_cache");
+            const cache: CacheManager = get(client, "_cache");
             spy = sinon.spy(cache, "resolveQuery");
 
             try {
@@ -314,7 +314,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             }
 
             fetchMock.reset();
-            const cache: Cache = get(client, "_cache");
+            const cache: CacheManager = get(client, "_cache");
             cache.dataPaths.clear();
             spy = sinon.spy(cache, "resolveQuery");
 

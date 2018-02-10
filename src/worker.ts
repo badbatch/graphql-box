@@ -17,7 +17,7 @@ function convertCacheMetadata({ cacheMetadata, ...otherProps }: RequestResultDat
 let client: DefaultClient;
 
 registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
-  const { args, key, opts, query, type } = message;
+  const { args, caches, key, opts, query, tag, type } = message;
 
   if (type === "create" && args) {
     try {
@@ -34,6 +34,9 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
     switch (message.type) {
       case "clearCache":
         await client.clearCache();
+        break;
+      case "exportCaches":
+        result = await client.exportCaches(tag);
         break;
       case "getDataEntityCacheEntry":
         if (key) {
@@ -65,6 +68,11 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
         break;
       case "getResponseCacheSize":
         result = await client.getResponseCacheSize();
+        break;
+      case "importCaches":
+        if (caches) {
+          await client.importCaches(caches);
+        }
         break;
       case "request":
         if (query) {
