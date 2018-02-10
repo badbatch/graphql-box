@@ -48,7 +48,6 @@ import {
   ExportCachesResult,
   FieldTypeInfo,
   FieldTypeMap,
-  ImportCachesArgs,
   ObjectMap,
   ResolveResult,
 } from "../types";
