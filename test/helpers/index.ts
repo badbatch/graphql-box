@@ -90,7 +90,7 @@ export function mockGraphqlRequest(request: string): { body: ObjectMap } {
 
   const matcher = (url: string, opts: fetchMock.MockRequest): boolean => {
     const _opts = opts as RequestInit;
-    const parsedBody = JSON.parse(_opts.body);
+    const parsedBody = JSON.parse(_opts.body as string);
     return md5(parsedBody.query.replace(/\s/g, "")) === requestHash;
   };
 

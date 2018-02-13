@@ -46,6 +46,7 @@ export interface CachemapOptionsGroup {
 }
 
 export interface ClientArgs {
+  batch?: boolean;
   cachemapOptions?: CachemapOptionsGroup;
   defaultCacheControls?: DefaultCacheControls;
   headers?: ObjectMap;
@@ -86,6 +87,12 @@ export interface ExportCachesResult {
   responses?: ExportCacheResult;
 }
 
+export interface FetchManagerArgs {
+  batch?: boolean;
+  headers?: ObjectMap;
+  url: string;
+}
+
 export interface FieldTypeInfo {
   hasArguments: boolean;
   isEntity: boolean;
@@ -95,6 +102,7 @@ export interface FieldTypeInfo {
 
 export type FieldTypeMap = Map<string, FieldTypeInfo>;
 export interface ObjectMap { [key: string]: any; }
+export interface ObjectStringMap { [key: string]: string; }
 
 export interface PendingRequestActions {
   reject: PendingRequestRejection;
@@ -128,7 +136,6 @@ export interface RequestOptions {
   awaitDataCached?: boolean;
   forceFetch?: boolean;
   fragments?: string[];
-  headers?: ObjectMap;
   tag?: any;
   variables?: ObjectMap;
 }
