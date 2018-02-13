@@ -42,6 +42,7 @@ import {
 } from "./types";
 
 import CacheManager from "../cache-manager";
+import FetchManager from "../fetch-manager";
 
 import {
   addChildFields,
@@ -63,6 +64,7 @@ import {
 } from "../helpers/parsing";
 
 import createCacheMetadata from "../helpers/create-cache-metadata";
+import hashRequest from "../helpers/hash-request";
 import mapToObject from "../helpers/map-to-object";
 import parseCacheabilityObjectMap from "../helpers/parse-cacheability-object-map";
 import { FragmentDefinitionNodeMap } from "../helpers/parsing/types";
@@ -187,12 +189,11 @@ export class DefaultClient {
     subscription: "max-age=0, s-maxage=0, no-cache, no-store",
   };
 
-  private _headers: ObjectMap = { "content-type": "application/json" };
+  private _fetcher: FetchManager;
   private _resourceKey: string = "id";
   private _schema: GraphQLSchema;
   private _subscriptionsEnabled: boolean = false;
   private _subscriptionService: SubscriptionService;
-  private _url: string;
 
   constructor(args: ClientArgs) {
     if (!isPlainObject(args)) {
@@ -200,6 +201,7 @@ export class DefaultClient {
     }
 
     const {
+      batch,
       cachemapOptions,
       defaultCacheControls,
       headers,
@@ -229,7 +231,7 @@ export class DefaultClient {
       this._defaultCacheControls = { ...this._defaultCacheControls, ...defaultCacheControls };
     }
 
-    if (headers && isPlainObject(headers)) this._headers = { ...this._headers, ...headers };
+    this._fetcher = new FetchManager({ batch, headers, url });
     if (isString(resourceKey)) this._resourceKey = resourceKey;
     const introspectionQuery = introspection as IntrospectionQuery;
     this._schema = buildClientSchema(introspectionQuery);
@@ -238,8 +240,6 @@ export class DefaultClient {
       this._subscriptionsEnabled = true;
       this._subscriptionService = new SubscriptionService(subscriptions.address);
     }
-
-    this._url = url;
   }
 
   public async clearCache(): Promise<void> {
@@ -388,41 +388,19 @@ export class DefaultClient {
     }
   }
 
-  private async _fetch(
-    request: string,
-    ast: DocumentNode,
-    opts: RequestOptions,
-  ): Promise<FetchResult> {
-    const url = `${this._url}?requestId=${CacheManager.hash(request)}`;
-    const headers = opts.headers ? { ...this._headers, ...opts.headers } : this._headers;
-    let fetchResult: Response;
-
+  private async _fetch(request: string): Promise<FetchResult> {
     try {
-      fetchResult = await fetch(url, {
-        body: JSON.stringify({ query: request }),
-        headers: new Headers(headers),
-        method: "POST",
-      });
+      const result = await this._fetcher.resolve(request);
+      if (result.errors) return Promise.reject(result.errors);
+
+      return {
+        cacheMetadata: result.cacheMetadata,
+        data: result.data as ObjectMap,
+        headers: result.headers as Headers,
+      };
     } catch (error) {
       return Promise.reject(error);
     }
-
-    const jsonResult = await fetchResult.json();
-
-    if (!isPlainObject(jsonResult)) {
-      const message = "Fetch expected the result to be a JSON object.";
-      return Promise.reject(new TypeError(message));
-    }
-
-    if (isArray(jsonResult.errors) && jsonResult.errors[0] instanceof Error) {
-      return Promise.reject(jsonResult.errors);
-    }
-
-    return {
-      cacheMetadata: jsonResult.cacheMetadata,
-      data: jsonResult.data,
-      headers: fetchResult.headers,
-    };
   }
 
   private _getFieldOrInlineFragmentType(
@@ -455,7 +433,7 @@ export class DefaultClient {
     let fetchResult: FetchResult;
 
     try {
-      fetchResult = await this._fetch(mutation, ast, opts);
+      fetchResult = await this._fetch(mutation);
     } catch (error) {
       return this._resolve({ error, operation: "mutation" });
     }
@@ -530,7 +508,7 @@ export class DefaultClient {
     opts: RequestOptions,
     context: RequestContext,
   ): Promise<ResolveResult> {
-    const queryHash = CacheManager.hash(query);
+    const queryHash = hashRequest(query);
 
     if (!opts.forceFetch) {
       const cachedResponse = await this._checkResponseCache(queryHash);
@@ -591,7 +569,7 @@ export class DefaultClient {
     const _filterd = filtered as boolean;
 
     try {
-      fetchResult = await this._fetch(_updateQuery, _updateAST, opts);
+      fetchResult = await this._fetch(_updateQuery);
     } catch (error) {
       return this._resolve({ error, operation: "query", queryHash });
     }
@@ -738,7 +716,7 @@ export class DefaultClient {
     opts: RequestOptions,
     context: RequestContext,
   ): Promise<ResolveResult | AsyncIterator<Event | undefined>> {
-    const hash = CacheManager.hash(subscription);
+    const hash = hashRequest(subscription);
 
     try {
       return this._subscriptionService.send(

@@ -4,7 +4,7 @@ import { FieldNode } from "graphql";
 export interface FetchResult {
   cacheMetadata?: ObjectMap;
   data: ObjectMap;
-  headers?: Headers;
+  headers: Headers;
 }
 
 export interface MapFieldToTypeArgs {

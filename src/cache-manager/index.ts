@@ -21,8 +21,6 @@ import {
   unset,
 } from "lodash";
 
-import * as md5 from "md5";
-
 import {
   CacheArgs,
   CacheEntryData,
@@ -36,6 +34,8 @@ import {
   PartialData,
   UpdateDataCachesOptions,
 } from "./types";
+
+import hashRequest from "../helpers/hash-request";
 
 import {
   AnalyzeResult,
@@ -74,10 +74,6 @@ export default class CacheManager {
     } catch (error) {
       return Promise.reject(error);
     }
-  }
-
-  public static hash(value: string): string {
-    return md5(value.replace(/\s/g, ""));
   }
 
   public static isValid(cacheability: Cacheability): boolean {
@@ -134,7 +130,7 @@ export default class CacheManager {
     const name = getName(field) as string;
     const args = getArguments(field);
     const cacheKey = CacheManager._buildCacheKey(name, cachePath, args, index);
-    const hashKey = CacheManager.hash(cacheKey);
+    const hashKey = hashRequest(cacheKey);
     const nameKey = getAlias(field) || name;
     const queryKey = isNumber(index) ? queryPath : CacheManager._buildKey(nameKey, queryPath);
     const propKey = isNumber(index) ? index : nameKey;
@@ -447,7 +443,7 @@ export default class CacheManager {
 
         if (filterCacheMetadata) {
           promises.push(this._responses.set(
-            CacheManager.hash(query),
+            hashRequest(query),
             { cacheMetadata: mapToObject(filterCacheMetadata), data },
             { cacheHeaders: { cacheControl: filterCacheControl }, tag: opts.tag },
           ));
