@@ -3,19 +3,21 @@ import { isArray, isBoolean, isNumber, isPlainObject } from "lodash";
 import {
   ActiveBatch,
   ActiveBatchValue,
+  BatchActionsObjectMap,
   BatchResultActions,
   FetchManagerFetchResult,
   FetchManagerResolveResult,
 } from "./types";
 
 import hashRequest from "../helpers/hash-request";
-import { FetchManagerArgs, ObjectMap, ObjectStringMap } from "../types";
+import { FetchManagerArgs, ObjectMap, StringObjectMap } from "../types";
 
 export default class FetchManager {
-  private static _rejectBatchEntries(batchEntries: IterableIterator<[string, ActiveBatchValue]>, error: any): void {
-    for (const [, { actions: { reject } }] of batchEntries) {
+  private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: any): void {
+    Object.keys(batchEntries).forEach((requestHash) => {
+      const { reject } = batchEntries[requestHash];
       reject(error);
-    }
+    });
   }
 
   private static _resolveFetch({ headers, result }: FetchManagerFetchResult): FetchManagerResolveResult {
@@ -39,7 +41,7 @@ export default class FetchManager {
 
   private static _resolveFetchBatch(
     { headers, result }: FetchManagerFetchResult,
-    batchEntries: IterableIterator<[string, ActiveBatchValue]>,
+    batchEntries: BatchActionsObjectMap,
   ): void {
     if (!isPlainObject(result)) {
       const typeError = new TypeError("ResolveFetchBatch expected result to be a plain object.");
@@ -49,22 +51,22 @@ export default class FetchManager {
 
     const error = new Error("FetchManager did not receive a response for the request.");
 
-    for (const [requestHash, { actions: { reject, resolve } }] of batchEntries) {
+    Object.keys(batchEntries).forEach((requestHash) => {
       const res = result[requestHash];
+      const { reject, resolve } = batchEntries[requestHash];
 
-      if (!res) {
+      if (res) {
+        resolve(FetchManager._resolveFetch({ headers, result: res }));
+      } else {
         reject(error);
-        return;
       }
-
-      resolve(FetchManager._resolveFetch({ headers, result: res }));
-    }
+    });
   }
 
   private _activeBatch: ActiveBatch;
   private _activeBatchTimer: NodeJS.Timer | undefined;
   private _batch: boolean = false;
-  private _fetchTimeout: number = 2000;
+  private _fetchTimeout: number = 5000;
   private _headers: ObjectMap = { "content-type": "application/json" };
   private _url: string;
 
@@ -106,7 +108,7 @@ export default class FetchManager {
     }, 0);
   }
 
-  private async _fetch(request: string | ObjectStringMap, requestHash: string): Promise<FetchManagerFetchResult> {
+  private async _fetch(request: string | StringObjectMap, requestHash: string): Promise<FetchManagerFetchResult> {
     try {
       return new Promise(async (resolve: (value: FetchManagerFetchResult) => void, reject) => {
         const fetchTimer = setTimeout(() => {
@@ -135,17 +137,19 @@ export default class FetchManager {
 
   private async _fetchBatch(batchEntries: IterableIterator<[string, ActiveBatchValue]>) {
     const hashes: string[] = [];
-    const requests: ObjectStringMap = {};
+    const batchRequests: StringObjectMap = {};
+    const batchActions: BatchActionsObjectMap = {};
 
-    for (const [requestHash, { request }] of batchEntries) {
+    for (const [requestHash, { actions, request }] of batchEntries) {
       hashes.push(requestHash);
-      requests[requestHash] = request;
+      batchActions[requestHash] = actions;
+      batchRequests[requestHash] = request;
     }
 
     try {
-      FetchManager._resolveFetchBatch(await this._fetch(requests, hashRequest(hashes.join())), batchEntries);
+      FetchManager._resolveFetchBatch(await this._fetch(batchRequests, hashRequest(hashes.join())), batchActions);
     } catch (error) {
-      FetchManager._rejectBatchEntries(batchEntries, error);
+      FetchManager._rejectBatchEntries(batchActions, error);
     }
   }
 

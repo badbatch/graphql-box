@@ -27,7 +27,6 @@ export default function testQueryOperation(args: ClientArgs): void {
     before(async () => {
       stub = sinon.stub(console, "warn");
       server = graphqlServer();
-      client = await Handl.create(args) as DefaultHandl;
     });
 
     after(() => {
@@ -37,7 +36,8 @@ export default function testQueryOperation(args: ClientArgs): void {
 
     describe("the request method", () => {
       context("when a single query is requested", () => {
-        before(() => {
+        before(async () => {
+          client = await Handl.create(args) as DefaultHandl;
           mockRestRequest("product", "402-5806");
           mockRestRequest("sku", "134-5203");
           fetchMock.spy();
@@ -375,6 +375,59 @@ export default function testQueryOperation(args: ClientArgs): void {
 
           it("then the client should not have called the cache's resolveQuery method", () => {
             expect(spy.notCalled).to.equal(true);
+          });
+        });
+      });
+
+      describe.only("when a batched query is requested", () => {
+        before(async () => {
+          client = await Handl.create({ ...args, batch: true }) as DefaultHandl;
+          mockRestRequest("product", "402-5806");
+          mockRestRequest("product", "522-7645");
+          mockRestRequest("sku", "104-7702");
+          mockRestRequest("sku", "134-5203");
+          fetchMock.spy();
+        });
+
+        after(() => {
+          fetchMock.restore();
+        });
+
+        context("when there is no matching query in any cache", () => {
+          let result: RequestResultData[];
+
+          beforeEach(async () => {
+            try {
+              result = await Promise.all([
+                client.request(
+                  tesco.requests.batchProductQuery,
+                  { awaitDataCached: true, variables: { id: "402-5806" } },
+                ),
+                client.request(
+                  tesco.requests.batchProductQuery,
+                  { awaitDataCached: true, variables: { id: "522-7645" } },
+                ),
+                client.request(
+                  tesco.requests.batchSkuQuery,
+                  { awaitDataCached: true, variables: { id: "104-7702" } },
+                ),
+                client.request(
+                  tesco.requests.batchSkuQuery,
+                  { awaitDataCached: true, variables: { id: "134-5203" } },
+                ),
+              ]) as RequestResultData[];
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+          });
+
+          afterEach(async () => {
+            await client.clearCache();
+            fetchMock.reset();
+          });
+
+          it("then the method should return the requested data", () => {
+            // TODO
           });
         });
       });
