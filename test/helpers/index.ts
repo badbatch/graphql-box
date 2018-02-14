@@ -9,12 +9,14 @@ import * as tescoIntrospection from "../introspection/tesco/index.json";
 import { ClientArgs, ObjectMap } from "../../src/types";
 
 export const browserArgs: ClientArgs = {
+  fetchTimeout: 5000000,
   introspection: githubIntrospection as IntrospectionQuery,
   newInstance: true,
   url: "https://api.github.com/graphql",
 };
 
 export const workerArgs: ClientArgs = {
+  fetchTimeout: 5000000,
   introspection: githubIntrospection as IntrospectionQuery,
   newInstance: true,
   url: "https://api.github.com/graphql",
@@ -26,6 +28,7 @@ export const serverArgs: ClientArgs = {
     dataPaths: { mockRedis: true },
     responses: { mockRedis: true },
   },
+  fetchTimeout: 5000000,
   introspection: tescoIntrospection as IntrospectionQuery,
   newInstance: true,
   url: "http://localhost:3001/graphql",
@@ -37,6 +40,7 @@ export const subscriptionArgs: ClientArgs = {
     dataPaths: { mockRedis: true },
     responses: { mockRedis: true },
   },
+  fetchTimeout: 5000000,
   introspection: tescoIntrospection as IntrospectionQuery,
   newInstance: true,
   subscriptions: { address: "ws://localhost:3001" },

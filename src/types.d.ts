@@ -104,7 +104,7 @@ export interface FieldTypeInfo {
 
 export type FieldTypeMap = Map<string, FieldTypeInfo>;
 export interface ObjectMap { [key: string]: any; }
-export interface ObjectStringMap { [key: string]: string; }
+export interface StringObjectMap { [key: string]: string; }
 
 export interface PendingRequestActions {
   reject: PendingRequestRejection;

@@ -1,11 +1,16 @@
 import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import * as express from "express";
-import { execute, parse, subscribe } from "graphql";
+import { execute, ExecutionResult, parse, subscribe } from "graphql";
 import * as http from "http";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import * as WebSocket from "ws";
 import graphqlSchema from "../schema";
+import { StringObjectMap } from "../../src/types";
+
+export interface ExecutionResultObjectMap {
+  [key: string]: ExecutionResult;
+}
 
 export default function graphqlServer(): http.Server {
   const app = express();
@@ -15,8 +20,23 @@ export default function graphqlServer(): http.Server {
     .use(bodyParser.json())
     .use("/graphql", async (req, res) => {
       try {
-        const { query } = req.body;
-        const result = await execute(graphqlSchema, parse(query));
+        const { batch, query } = req.body;
+        let result: ExecutionResult | ExecutionResultObjectMap;
+
+        if (batch) {
+          const requests = query as StringObjectMap;
+          const responses: ExecutionResultObjectMap = {};
+
+          await Promise.all(Object.keys(requests).map(async (requestHash) => {
+            const request = requests[requestHash];
+            responses[requestHash] = await execute(graphqlSchema, parse(request));
+          }));
+
+          result = responses;
+        } else {
+          result = await execute(graphqlSchema, parse(query));
+        }
+
         res.status(200).send(result);
       } catch (error) {
         res.status(500).send(error);

@@ -7,6 +7,10 @@ export interface ActiveBatchValue {
   request: string;
 }
 
+export interface BatchActionsObjectMap {
+  [key: string]: BatchResultActions
+}
+
 export interface BatchResultActions {
   reject: (reason: Error | Error[]) => void;
   resolve: (value: FetchManagerResolveResult) => void;

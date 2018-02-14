@@ -63,6 +63,32 @@ export const reducedSingleQuery = `
   }
 `;
 
+export const batchProductQuery = `
+  query ($id: String!) {
+    product(id: $id) {
+      optionsInfo {
+        internalName
+        name
+        type
+      }
+      prices {
+        clubcardPoints
+        price
+      }
+      userActionable
+    }
+  }
+`;
+
+export const batchSkuQuery = `
+  query ($id: String!) {
+    sku(id: $id) {
+      displayName
+      publicLink
+    }
+  }
+`;
+
 export const addMutation = `
   mutation ($productID: String!) {
     addFavourite(productID: $productID) {
