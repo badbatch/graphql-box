@@ -1,4 +1,4 @@
-import { isArray, isBoolean, isPlainObject } from "lodash";
+import { isArray, isBoolean, isNumber, isPlainObject } from "lodash";
 
 import {
   ActiveBatch,
@@ -62,13 +62,15 @@ export default class FetchManager {
   }
 
   private _activeBatch: ActiveBatch;
-  private _activeBatchID: NodeJS.Timer | undefined;
+  private _activeBatchTimer: NodeJS.Timer | undefined;
   private _batch: boolean = false;
+  private _fetchTimeout: number = 2000;
   private _headers: ObjectMap = { "content-type": "application/json" };
   private _url: string;
 
-  constructor({ batch, headers, url }: FetchManagerArgs) {
+  constructor({ batch, fetchTimeout, headers, url }: FetchManagerArgs) {
     if (isBoolean(batch)) this._batch = batch;
+    if (isNumber(fetchTimeout)) this._fetchTimeout = fetchTimeout;
     if (headers && isPlainObject(headers)) this._headers = { ...this._headers, ...headers };
     this._url = url;
   }
@@ -87,7 +89,7 @@ export default class FetchManager {
   }
 
   private _batchRequest(request: string, requestHash: string, actions: BatchResultActions) {
-    if (this._activeBatchID) {
+    if (this._activeBatchTimer) {
       this._updateBatch(request, requestHash, actions);
     } else {
       this._createBatch(request, requestHash, actions);
@@ -98,26 +100,34 @@ export default class FetchManager {
     this._activeBatch = new Map();
     this._activeBatch.set(requestHash, { actions, request });
 
-    this._activeBatchID = setTimeout(() => {
+    this._activeBatchTimer = setTimeout(() => {
       this._fetchBatch(this._activeBatch.entries());
-      this._activeBatchID = undefined;
+      this._activeBatchTimer = undefined;
     }, 0);
   }
 
   private async _fetch(request: string | ObjectStringMap, requestHash: string): Promise<FetchManagerFetchResult> {
     try {
-      const url = `${this._url}?requestId=${requestHash}`;
+      return new Promise(async (resolve: (value: FetchManagerFetchResult) => void, reject) => {
+        const fetchTimer = setTimeout(() => {
+          reject(new Error(`Fetch did not get a response within ${this._fetchTimeout}ms.`));
+        }, this._fetchTimeout);
 
-      const fetchResult = await fetch(url, {
-        body: JSON.stringify({ batch: this._batch, query: request }),
-        headers: new Headers(this._headers),
-        method: "POST",
+        const url = `${this._url}?requestId=${requestHash}`;
+
+        const fetchResult = await fetch(url, {
+          body: JSON.stringify({ batch: this._batch, query: request }),
+          headers: new Headers(this._headers),
+          method: "POST",
+        });
+
+        clearTimeout(fetchTimer);
+
+        resolve({
+          headers: fetchResult.headers,
+          result: await fetchResult.json(),
+        });
       });
-
-      return {
-        headers: fetchResult.headers,
-        result: await fetchResult.json(),
-      };
     } catch (error) {
       return Promise.reject(error);
     }
@@ -140,12 +150,12 @@ export default class FetchManager {
   }
 
   private _updateBatch(request: string, requestHash: string, actions: BatchResultActions) {
-    clearTimeout(this._activeBatchID as NodeJS.Timer);
+    clearTimeout(this._activeBatchTimer as NodeJS.Timer);
     this._activeBatch.set(requestHash, { actions, request });
 
-    this._activeBatchID = setTimeout(() => {
+    this._activeBatchTimer = setTimeout(() => {
       this._fetchBatch(this._activeBatch.entries());
-      this._activeBatchID = undefined;
+      this._activeBatchTimer = undefined;
     }, 0);
   }
 }
