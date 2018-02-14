@@ -204,6 +204,7 @@ export class DefaultClient {
       batch,
       cachemapOptions,
       defaultCacheControls,
+      fetchTimeout,
       headers,
       introspection,
       resourceKey,
@@ -231,7 +232,7 @@ export class DefaultClient {
       this._defaultCacheControls = { ...this._defaultCacheControls, ...defaultCacheControls };
     }
 
-    this._fetcher = new FetchManager({ batch, headers, url });
+    this._fetcher = new FetchManager({ batch, fetchTimeout, headers, url });
     if (isString(resourceKey)) this._resourceKey = resourceKey;
     const introspectionQuery = introspection as IntrospectionQuery;
     this._schema = buildClientSchema(introspectionQuery);

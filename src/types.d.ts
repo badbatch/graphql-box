@@ -49,6 +49,7 @@ export interface ClientArgs {
   batch?: boolean;
   cachemapOptions?: CachemapOptionsGroup;
   defaultCacheControls?: DefaultCacheControls;
+  fetchTimeout?: number;
   headers?: ObjectMap;
   introspection: IntrospectionQuery;
   newInstance?: boolean;
@@ -89,6 +90,7 @@ export interface ExportCachesResult {
 
 export interface FetchManagerArgs {
   batch?: boolean;
+  fetchTimeout?: number;
   headers?: ObjectMap;
   url: string;
 }
