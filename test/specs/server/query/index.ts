@@ -379,7 +379,7 @@ export default function testQueryOperation(args: ClientArgs): void {
         });
       });
 
-      describe.only("when a batched query is requested", () => {
+      context("when a batched query is requested", () => {
         before(async () => {
           client = await Handl.create({ ...args, batch: true }) as DefaultHandl;
           mockRestRequest("product", "402-5806");
@@ -393,12 +393,12 @@ export default function testQueryOperation(args: ClientArgs): void {
           fetchMock.restore();
         });
 
-        context("when there is no matching query in any cache", () => {
-          let result: RequestResultData[];
+        context("when there are no matching queries in any cache", () => {
+          let batchedResults: RequestResultData[];
 
           beforeEach(async () => {
             try {
-              result = await Promise.all([
+              batchedResults = await Promise.all([
                 client.request(
                   tesco.requests.batchProductQuery,
                   { awaitDataCached: true, variables: { id: "402-5806" } },
@@ -427,7 +427,140 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the method should return the requested data", () => {
-            // TODO
+            const data = batchedResults.map((result) => result.data);
+            expect(data).to.deep.equal(tesco.responses.batchedQuery);
+
+            batchedResults.forEach((result) => {
+              expect(result.queryHash).to.be.a("string");
+              const cacheMetadata = result.cacheMetadata as CacheMetadata;
+              expect(cacheMetadata.size).to.equal(2);
+              const isProduct = cacheMetadata.has("product");
+              const ttl = isProduct ? 28800 : 14400;
+              const key = isProduct ? "product" : "sku";
+              const queryCacheability = cacheMetadata.get("query") as Cacheability;
+              expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
+              const productCacheability = cacheMetadata.get(key) as Cacheability;
+              expect(productCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
+            });
+          });
+
+          it("then the graphql schema should have made fetch requests", () => {
+            expect(fetchMock.calls().matched).to.have.lengthOf(4);
+          });
+
+          it("then the client should have cached the responses against the queries", async () => {
+            const cacheSize = await client.getResponseCacheSize();
+            expect(cacheSize).to.equal(5);
+
+            await Promise.all(batchedResults.map(async (result) => {
+              const cacheEntry = await client.getResponseCacheEntry(
+                result.queryHash as string,
+              ) as ResponseCacheEntryResult;
+
+              expect(cacheEntry.data).to.deep.equal(result.data);
+              expect(cacheEntry.cacheMetadata.size).to.equal(2);
+              const isProduct = cacheEntry.cacheMetadata.has("product");
+              const ttl = isProduct ? 28800 : 14400;
+              const key = isProduct ? "product" : "sku";
+              const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+              expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
+              const productCacheability = cacheEntry.cacheMetadata.get(key) as Cacheability;
+              expect(productCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
+            }));
+          });
+
+          it("then the client should cache each data object in the response against its query path", async () => {
+            const cacheSize = await client.getDataPathCacheSize();
+            expect(cacheSize).to.eql(7);
+          });
+
+          it("then the client should cache each data entity in the response against its identifier", async () => {
+            const cacheSize = await client.getDataEntityCacheSize();
+            expect(cacheSize).to.eql(7);
+          });
+        });
+
+        context("when there are matching queries in the response cache", () => {
+          let batchedResults: RequestResultData[];
+          let spy: sinon.SinonSpy;
+
+          beforeEach(async () => {
+            try {
+              await Promise.all([
+                client.request(
+                  tesco.requests.batchProductQuery,
+                  { awaitDataCached: true, variables: { id: "402-5806" } },
+                ),
+                client.request(
+                  tesco.requests.batchProductQuery,
+                  { awaitDataCached: true, variables: { id: "522-7645" } },
+                ),
+                client.request(
+                  tesco.requests.batchSkuQuery,
+                  { awaitDataCached: true, variables: { id: "104-7702" } },
+                ),
+                client.request(
+                  tesco.requests.batchSkuQuery,
+                  { awaitDataCached: true, variables: { id: "134-5203" } },
+                ),
+              ]);
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+
+            const cache: CacheManager = get(client, "_cache");
+            spy = sinon.spy(cache, "analyze");
+
+            try {
+              batchedResults = await Promise.all([
+                client.request(
+                  tesco.requests.batchProductQuery,
+                  { awaitDataCached: true, variables: { id: "402-5806" } },
+                ),
+                client.request(
+                  tesco.requests.batchProductQuery,
+                  { awaitDataCached: true, variables: { id: "522-7645" } },
+                ),
+                client.request(
+                  tesco.requests.batchSkuQuery,
+                  { awaitDataCached: true, variables: { id: "104-7702" } },
+                ),
+                client.request(
+                  tesco.requests.batchSkuQuery,
+                  { awaitDataCached: true, variables: { id: "134-5203" } },
+                ),
+              ]) as RequestResultData[];
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+          });
+
+          afterEach(async () => {
+            await client.clearCache();
+            fetchMock.reset();
+            spy.restore();
+          });
+
+          it("then the method should return the requested data", () => {
+            const data = batchedResults.map((result) => result.data);
+            expect(data).to.deep.equal(tesco.responses.batchedQuery);
+
+            batchedResults.forEach((result) => {
+              expect(result.queryHash).to.be.a("string");
+              const cacheMetadata = result.cacheMetadata as CacheMetadata;
+              expect(cacheMetadata.size).to.equal(2);
+              const isProduct = cacheMetadata.has("product");
+              const ttl = isProduct ? 28800 : 14400;
+              const key = isProduct ? "product" : "sku";
+              const queryCacheability = cacheMetadata.get("query") as Cacheability;
+              expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
+              const productCacheability = cacheMetadata.get(key) as Cacheability;
+              expect(productCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
+            });
+          });
+
+          it("then the client should not have called the cache's analyze method", () => {
+            expect(spy.notCalled).to.equal(true);
           });
         });
       });

@@ -1,6 +1,6 @@
 import * as fetchMock from "fetch-mock";
 import { IntrospectionQuery } from "graphql";
-import { castArray, isArray } from "lodash";
+import { castArray, isArray, isString } from "lodash";
 import * as md5 from "md5";
 import { github } from "../data/graphql";
 import { dataEndpoints, endpointData } from "../data/rest";
@@ -95,6 +95,7 @@ export function mockGraphqlRequest(request: string): { body: ObjectMap } {
   const matcher = (url: string, opts: fetchMock.MockRequest): boolean => {
     const _opts = opts as RequestInit;
     const parsedBody = JSON.parse(_opts.body as string);
+    if (!isString(parsedBody.query)) return false;
     return md5(parsedBody.query.replace(/\s/g, "")) === requestHash;
   };
 
