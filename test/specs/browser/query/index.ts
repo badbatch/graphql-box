@@ -116,7 +116,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               console.log(error); // tslint:disable-line
             }
 
-            fetchMock.reset();
+            if (opts.suppressWorkers) fetchMock.reset();
 
             try {
               result = await client.request(
@@ -130,7 +130,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            fetchMock.reset();
+            if (opts.suppressWorkers) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -171,7 +171,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            fetchMock.reset();
+            if (opts.suppressWorkers) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -205,7 +205,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               console.log(error); // tslint:disable-line
             }
 
-            fetchMock.reset();
+            if (opts.suppressWorkers) fetchMock.reset();
 
             try {
               result = await client.request(
@@ -219,7 +219,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            fetchMock.reset();
+            if (opts.suppressWorkers) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -324,7 +324,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            fetchMock.reset();
+            if (opts.suppressWorkers) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -410,7 +410,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               console.log(error); // tslint:disable-line
             }
 
-            fetchMock.reset();
+            if (opts.suppressWorkers) fetchMock.reset();
 
             try {
               batchedResults = await Promise.all([
@@ -438,7 +438,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            fetchMock.reset();
+            if (opts.suppressWorkers) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
