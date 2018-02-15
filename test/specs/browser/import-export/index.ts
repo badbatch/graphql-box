@@ -103,7 +103,7 @@ export default function testImportExportMethods(args: ClientArgs, opts: { suppre
 
       after(async () => {
         await client.clearCache();
-        fetchMock.reset();
+        if (opts.suppressWorkers) fetchMock.reset();
       });
 
       context("when exported cache results are passed in", () => {
