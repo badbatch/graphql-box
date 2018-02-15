@@ -8,7 +8,7 @@ export interface ActiveBatchValue {
 }
 
 export interface BatchActionsObjectMap {
-  [key: string]: BatchResultActions
+  [key: string]: BatchResultActions;
 }
 
 export interface BatchResultActions {
