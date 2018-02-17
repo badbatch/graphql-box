@@ -5,7 +5,6 @@ export const singleQuery = `
         displayName
         parentProduct {
           optionsInfo {
-            internalName
             name
             type
           }
@@ -18,7 +17,6 @@ export const singleQuery = `
         publicLink
       }
       optionsInfo {
-        internalName
         name
         type
       }
@@ -38,7 +36,6 @@ export const reducedSingleQuery = `
         displayName
         parentProduct {
           optionsInfo {
-            internalName
             name
             type
           }
@@ -51,6 +48,41 @@ export const reducedSingleQuery = `
         publicLink
       }
       optionsInfo {
+        name
+        type
+      }
+      prices {
+        clubcardPoints
+        price
+      }
+    }
+  }
+`;
+
+export const extendedSingleQuery = `
+  query ($id: String!) {
+    product(id: $id) {
+      brand
+      defaultSku {
+        displayName
+        parentProduct {
+          longDescription
+          optionsInfo {
+            internalName
+            name
+            type
+          }
+          prices {
+            clubcardPoints
+            price
+          }
+          userActionable
+        }
+        publicLink
+        rangedInStore
+      }
+      longDescription
+      optionsInfo {
         internalName
         name
         type
@@ -58,6 +90,39 @@ export const reducedSingleQuery = `
       prices {
         clubcardPoints
         price
+      }
+      publicLink
+      userActionable
+    }
+  }
+`;
+
+export const partialSingleQuery = `
+  {
+    product(id: "402-5806") {
+      brand
+      defaultSku {
+        parentProduct {
+          longDescription
+          optionsInfo {
+            internalName
+          }
+          _metadata {
+            cacheControl
+          }
+        }
+        rangedInStore
+        _metadata {
+          cacheControl
+        }
+      }
+      longDescription
+      optionsInfo {
+        internalName
+      }
+      publicLink
+      _metadata {
+        cacheControl
       }
     }
   }

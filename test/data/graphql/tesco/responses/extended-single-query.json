@@ -1,0 +1,48 @@
+{
+  "product": {
+    "brand" : "F&F",
+    "id": "402-5806",
+    "defaultSku": {
+      "id": "134-5203",
+      "displayName": "F&F Regular Fit Suit Trousers 36 Waist 35 Leg Charcoal",
+      "parentProduct": {
+        "id": "402-5806",
+        "longDescription" : "Bring some classic tailoring into your wardrobe with these&nbsp;charcoal suit trousers, which can be paired with the matching jacket to make a suit. Cut to a regular fit for comfortable all-day wear, these trousers have belt loops, two slanted front pockets, and two back pockets with button fastenings.Zip fly with hook and bar fasteningsThese regular fit trousers have a wider leg shape for a classic, comfortable silhouette. Model height is 6 feet 2 inches",
+        "optionsInfo": [{
+          "internalName": "colour",
+          "name": "Colour",
+          "type": "primary"
+        }, {
+          "internalName": "p_size",
+          "name": "Size",
+          "type": "secondary"
+        }],
+        "prices": {
+          "clubcardPoints": 19,
+          "id": "402-5806",
+          "price": "19.00"
+        },
+        "userActionable": true
+      },
+      "publicLink": "/direct/ff-regular-fit-suit-trousers/402-5806.prd?skuId=134-5203",
+      "rangedInStore": false
+    },
+    "longDescription" : "Bring some classic tailoring into your wardrobe with these&nbsp;charcoal suit trousers, which can be paired with the matching jacket to make a suit. Cut to a regular fit for comfortable all-day wear, these trousers have belt loops, two slanted front pockets, and two back pockets with button fastenings.Zip fly with hook and bar fasteningsThese regular fit trousers have a wider leg shape for a classic, comfortable silhouette. Model height is 6 feet 2 inches",
+    "optionsInfo": [{
+      "internalName": "colour",
+      "name": "Colour",
+      "type": "primary"
+    }, {
+      "internalName": "p_size",
+      "name": "Size",
+      "type": "secondary"
+    }],
+    "prices": {
+      "clubcardPoints": 19,
+      "id": "402-5806",
+      "price": "19.00"
+    },
+    "publicLink" : "/direct/ff-regular-fit-suit-trousers/402-5806.prd",
+    "userActionable": true
+  }
+}

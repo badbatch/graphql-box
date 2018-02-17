@@ -74,6 +74,10 @@ export function mockRestRequest(key: string, resource: string | string[]): { bod
   return { body, path };
 }
 
+export function stripSpaces(request: string): string {
+  return request.replace(/\s/g, "");
+}
+
 export function getGraphqlResponse(requestHash: string): ObjectMap | undefined {
   const keys = Object.keys(github.requests);
 
@@ -81,7 +85,7 @@ export function getGraphqlResponse(requestHash: string): ObjectMap | undefined {
     const request = github.requests[key];
     if (!request) continue;
 
-    if (md5(request.replace(/\s/g, "")) === requestHash) {
+    if (md5(stripSpaces(request)) === requestHash) {
       return github.responses[key];
     }
   }
@@ -90,13 +94,13 @@ export function getGraphqlResponse(requestHash: string): ObjectMap | undefined {
 }
 
 export function mockGraphqlRequest(request: string): { body: ObjectMap } {
-  const requestHash = md5(request.replace(/\s/g, ""));
+  const requestHash = md5(stripSpaces(request));
 
   const matcher = (url: string, opts: fetchMock.MockRequest): boolean => {
     const _opts = opts as RequestInit;
     const parsedBody = JSON.parse(_opts.body as string);
     if (!isString(parsedBody.query)) return false;
-    return md5(parsedBody.query.replace(/\s/g, "")) === requestHash;
+    return md5(stripSpaces(parsedBody.query)) === requestHash;
   };
 
   const body = getGraphqlResponse(requestHash) as ObjectMap;

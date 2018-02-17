@@ -5,7 +5,7 @@ import * as http from "http";
 import { get } from "lodash";
 import * as sinon from "sinon";
 import { tesco } from "../../../data/graphql";
-import { mockRestRequest } from "../../../helpers";
+import { mockRestRequest, stripSpaces } from "../../../helpers";
 import graphqlServer from "../../../server";
 import { DefaultHandl, Handl } from "../../../../src";
 import CacheManager from "../../../../src/cache-manager";
@@ -81,6 +81,10 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
+          it("then the client should have made one fetch request", () => {
+            expect(fetchMock.calls().unmatched).to.have.lengthOf(1);
+          });
+
           it("then the graphql schema should have made fetch requests", () => {
             expect(fetchMock.calls().matched).to.have.lengthOf(3);
           });
@@ -130,6 +134,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               console.log(error); // tslint:disable-line
             }
 
+            fetchMock.reset();
             const cache: CacheManager = get(client, "_cache");
             spy = sinon.spy(cache, "analyze");
 
@@ -162,6 +167,10 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(14400);
             const parentCacheability = cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
             expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
+          });
+
+          it("then the client should have made no fetch request", () => {
+            expect(fetchMock.calls().unmatched).to.have.lengthOf(0);
           });
 
           it("then the client should not have called the cache's analyze method", () => {
@@ -216,6 +225,10 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
+          it("then the client should have made one fetch request", () => {
+            expect(fetchMock.calls().unmatched).to.have.lengthOf(1);
+          });
+
           it("then the client should have called the cache's analyze method once", () => {
             expect(spy.calledOnce).to.equal(true);
           });
@@ -268,6 +281,10 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(14400);
             const parentCacheability = cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
             expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
+          });
+
+          it("then the client should have made no fetch request", () => {
+            expect(fetchMock.calls().unmatched).to.have.lengthOf(0);
           });
 
           it("then the graphql schema should not have made a fetch request", () => {
@@ -349,6 +366,10 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
+          it("then the client should have made no fetch request", () => {
+            expect(fetchMock.calls().unmatched).to.have.lengthOf(0);
+          });
+
           it("then the graphql schema should not have made a fetch request", () => {
             expect(fetchMock.calls().matched).to.have.lengthOf(0);
           });
@@ -375,6 +396,87 @@ export default function testQueryOperation(args: ClientArgs): void {
 
           it("then the client should not have called the cache's resolveQuery method", () => {
             expect(spy.notCalled).to.equal(true);
+          });
+        });
+
+        context("when a query response can be partially constructed from the caches", () => {
+          let result: RequestResultData;
+          let spy: sinon.SinonSpy;
+
+          beforeEach(async () => {
+            try {
+              result = await client.request(
+                tesco.requests.singleQuery,
+                { awaitDataCached: true, variables: { id: "402-5806" } },
+              ) as RequestResultData;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+
+            fetchMock.reset();
+            const clientFetch = { fetch: get(client, "_fetch") };
+            spy = sinon.spy(clientFetch, "fetch");
+
+            try {
+              result = await client.request(
+                tesco.requests.extendedSingleQuery,
+                { awaitDataCached: true, variables: { id: "402-5806" } },
+              ) as RequestResultData;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+          });
+
+          afterEach(async () => {
+            await client.clearCache();
+            fetchMock.reset();
+            spy.restore();
+          });
+
+          it("then the method should return the requested data", () => {
+            expect(result.data).to.deep.equal(tesco.responses.extendedSingleQuery);
+          });
+
+          it("then the client should have made one fetch request", () => {
+            const unmatched = fetchMock.calls().unmatched;
+            expect(unmatched).to.have.lengthOf(1);
+            const requestOpts = unmatched[0][1] as RequestInit;
+            const unmatchedBody = JSON.parse(requestOpts.body as string);
+            expect(stripSpaces(tesco.requests.partialSingleQuery)).to.equal(stripSpaces(unmatchedBody.query));
+          });
+
+          it("then the graphql schema should have made three fetch requests", () => {
+            expect(fetchMock.calls().matched).to.have.lengthOf(3);
+          });
+
+          it("then the client should have cached the responses against the query", async () => {
+            const cacheSize = await client.getResponseCacheSize();
+            expect(cacheSize).to.equal(4);
+
+            const cacheEntry = await client.getResponseCacheEntry(
+              result.queryHash as string,
+            ) as ResponseCacheEntryResult;
+
+            expect(cacheEntry.data).to.deep.equal(tesco.responses.extendedSingleQuery);
+            expect(cacheEntry.cacheMetadata.size).to.equal(6);
+            const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
+            const productCacheability = cacheEntry.cacheMetadata.get("product") as Cacheability;
+            expect(productCacheability.metadata.cacheControl.maxAge).to.equal(28800);
+            const defaultSkuCacheability = cacheEntry.cacheMetadata.get("product.defaultSku") as Cacheability;
+            expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(14400);
+            const parentCacheability = cacheEntry.cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
+            expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
+          });
+
+          it("then the client should cache each data object in the response against its query path", async () => {
+            const cacheSize = await client.getDataPathCacheSize();
+            expect(cacheSize).to.eql(6);
+          });
+
+          it("then the client should cache each data entity in the response against its identifier", async () => {
+            const cacheSize = await client.getDataEntityCacheSize();
+            expect(cacheSize).to.eql(4);
           });
         });
       });
@@ -444,6 +546,10 @@ export default function testQueryOperation(args: ClientArgs): void {
             });
           });
 
+          it("then the client should have made one fetch request", () => {
+            expect(fetchMock.calls().unmatched).to.have.lengthOf(1);
+          });
+
           it("then the graphql schema should have made fetch requests", () => {
             expect(fetchMock.calls().matched).to.have.lengthOf(4);
           });
@@ -508,6 +614,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               console.log(error); // tslint:disable-line
             }
 
+            fetchMock.reset();
             const cache: CacheManager = get(client, "_cache");
             spy = sinon.spy(cache, "analyze");
 
@@ -557,6 +664,10 @@ export default function testQueryOperation(args: ClientArgs): void {
               const productCacheability = cacheMetadata.get(key) as Cacheability;
               expect(productCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
             });
+          });
+
+          it("then the client should have made no fetch request", () => {
+            expect(fetchMock.calls().unmatched).to.have.lengthOf(0);
           });
 
           it("then the client should not have called the cache's analyze method", () => {

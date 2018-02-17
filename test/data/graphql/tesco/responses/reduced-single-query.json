@@ -7,11 +7,9 @@
       "parentProduct": {
         "id": "402-5806",
         "optionsInfo": [{
-          "internalName": "colour",
           "name": "Colour",
           "type": "primary"
         }, {
-          "internalName": "p_size",
           "name": "Size",
           "type": "secondary"
         }],
@@ -25,11 +23,9 @@
       "publicLink": "/direct/ff-regular-fit-suit-trousers/402-5806.prd?skuId=134-5203"
     },
     "optionsInfo": [{
-      "internalName": "colour",
       "name": "Colour",
       "type": "primary"
     }, {
-      "internalName": "p_size",
       "name": "Size",
       "type": "secondary"
     }],
