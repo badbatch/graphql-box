@@ -71,7 +71,10 @@ const skuType: GraphQLObjectType = new GraphQLObjectType({
       },
       type: new GraphQLList(skuType),
     },
-    rangedInStore: { type: GraphQLBoolean },
+    rangedInStore: {
+      resolve: (obj: ObjectMap) => !!obj.rangedInStore,
+      type: GraphQLBoolean,
+    },
     skuSynopsis: { type: GraphQLString },
   }),
   name: "Sku",

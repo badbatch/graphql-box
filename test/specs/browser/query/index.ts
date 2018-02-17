@@ -186,7 +186,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           });
 
           if (opts.suppressWorkers) {
-            it("then the client should not have made a fetch request", () => {
+            it("then the client should have made one fetch request", () => {
               expect(fetchMock.calls().matched).to.have.lengthOf(1);
             });
           }
@@ -273,6 +273,10 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             ) as Cacheability;
 
             expect(ownerCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+          });
+
+          context("when a query response can be partially constructed from the caches", () => {
+            // TODO
           });
         });
       });

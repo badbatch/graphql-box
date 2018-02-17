@@ -23,6 +23,7 @@ export const github: RequestResponseGroup = {
 const tescoResponses = {
   addMutation: require("./tesco/responses/add-mutation.json"),
   batchedQuery: require("./tesco/responses/batched-query.json"),
+  extendedSingleQuery: require("./tesco/responses/extended-single-query.json"),
   reducedSingleQuery: require("./tesco/responses/reduced-single-query.json"),
   singleQuery: require("./tesco/responses/single-query.json"),
   singleSubscription: require("./tesco/responses/single-subscription.json"),
