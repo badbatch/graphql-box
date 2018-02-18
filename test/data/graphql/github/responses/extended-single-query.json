@@ -1,0 +1,144 @@
+{
+  "data": {
+    "organization": {
+      "description": "We work hard to contribute our work back to the web, mobile, big data, & infrastructure communities. NB: members must have two-factor auth.",
+      "email": "",
+      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "location": "Menlo Park, California",
+      "login": "facebook",
+      "name": "Facebook",
+      "repositories": {
+        "edges": [
+          {
+            "node": {
+              "description": "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
+              "homepageUrl": "",
+              "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+              "name": "codemod",
+              "owner": {
+                "description": "We work hard to contribute our work back to the web, mobile, big data, & infrastructure communities. NB: members must have two-factor auth.",
+                "email": "",
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "name": "Facebook",
+                "url": "https://github.com/facebook",
+                "websiteUrl": "https://code.facebook.com/projects/"
+              },
+              "primaryLanguage": {
+                "name": "Python",
+                "id": "MDg6TGFuZ3VhZ2UxNDU="
+              }
+            }
+          },
+          {
+            "node": {
+              "description": "A virtual machine designed for executing programs written in Hack and PHP. ",
+              "homepageUrl": "https://hhvm.com",
+              "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+              "name": "hhvm",
+              "owner": {
+                "description": "We work hard to contribute our work back to the web, mobile, big data, & infrastructure communities. NB: members must have two-factor auth.",
+                "email": "",
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "name": "Facebook",
+                "url": "https://github.com/facebook",
+                "websiteUrl": "https://code.facebook.com/projects/"
+              },
+              "primaryLanguage": {
+                "name": "C++",
+                "id": "MDg6TGFuZ3VhZ2UxNDI="
+              }
+            }
+          },
+          {
+            "node": {
+              "description": "Python wrapper for RE2",
+              "homepageUrl": "",
+              "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+              "name": "pyre2",
+              "owner": {
+                "description": "We work hard to contribute our work back to the web, mobile, big data, & infrastructure communities. NB: members must have two-factor auth.",
+                "email": "",
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "name": "Facebook",
+                "url": "https://github.com/facebook",
+                "websiteUrl": "https://code.facebook.com/projects/"
+              },
+              "primaryLanguage": {
+                "name": "C++",
+                "id": "MDg6TGFuZ3VhZ2UxNDI="
+              }
+            }
+          },
+          {
+            "node": {
+              "description": null,
+              "homepageUrl": "http://ogp.me",
+              "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+              "name": "open-graph-protocol",
+              "owner": {
+                "description": "We work hard to contribute our work back to the web, mobile, big data, & infrastructure communities. NB: members must have two-factor auth.",
+                "email": "",
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "name": "Facebook",
+                "url": "https://github.com/facebook",
+                "websiteUrl": "https://code.facebook.com/projects/"
+              },
+              "primaryLanguage": {
+                "name": "PHP",
+                "id": "MDg6TGFuZ3VhZ2UxNTE="
+              }
+            }
+          },
+          {
+            "node": {
+              "description": "Used to integrate Android apps with Facebook Platform.",
+              "homepageUrl": "https://developers.facebook.com/docs/android",
+              "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+              "name": "facebook-android-sdk",
+              "owner": {
+                "description": "We work hard to contribute our work back to the web, mobile, big data, & infrastructure communities. NB: members must have two-factor auth.",
+                "email": "",
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "name": "Facebook",
+                "url": "https://github.com/facebook",
+                "websiteUrl": "https://code.facebook.com/projects/"
+              },
+              "primaryLanguage": {
+                "name": "Java",
+                "id": "MDg6TGFuZ3VhZ2UxNTg="
+              }
+            }
+          },
+          {
+            "node": {
+              "description": "Used to integrate iOS apps with Facebook Platform.",
+              "homepageUrl": "https://developers.facebook.com/docs/ios",
+              "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+              "name": "facebook-ios-sdk",
+              "owner": {
+                "description": "We work hard to contribute our work back to the web, mobile, big data, & infrastructure communities. NB: members must have two-factor auth.",
+                "email": "",
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "name": "Facebook",
+                "url": "https://github.com/facebook",
+                "websiteUrl": "https://code.facebook.com/projects/"
+              },
+              "primaryLanguage": {
+                "name": "Objective-C",
+                "id": "MDg6TGFuZ3VhZ2UxNTY="
+              }
+            }
+          }
+        ]
+      },
+      "url": "https://github.com/facebook",
+      "websiteUrl": "https://code.facebook.com/projects/"
+    }
+  }
+}

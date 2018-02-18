@@ -4,6 +4,8 @@ import { ObjectMap } from "../../../src/types";
 
 const githubResponses = {
   addMutation: require("./github/responses/add-mutation.json"),
+  extendedSingleQuery: require("./github/responses/extended-single-query.json"),
+  partialSingleQuery: require("./github/responses/partial-single-query.json"),
   reducedSingleQuery: require("./github/responses/reduced-single-query.json"),
   singleQuery: require("./github/responses/single-query.json"),
   updatedAddMutation: require("./github/responses/add-mutation.json"),

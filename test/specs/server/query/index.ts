@@ -435,6 +435,17 @@ export default function testQueryOperation(args: ClientArgs): void {
 
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(tesco.responses.extendedSingleQuery);
+            expect(result.queryHash).to.be.a("string");
+            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            expect(cacheMetadata.size).to.equal(6);
+            const queryCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
+            const productCacheability = cacheMetadata.get("product") as Cacheability;
+            expect(productCacheability.metadata.cacheControl.maxAge).to.equal(28800);
+            const defaultSkuCacheability = cacheMetadata.get("product.defaultSku") as Cacheability;
+            expect(defaultSkuCacheability.metadata.cacheControl.maxAge).to.equal(14400);
+            const parentCacheability = cacheMetadata.get("product.defaultSku.parentProduct") as Cacheability;
+            expect(parentCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
           it("then the client should have made one fetch request", () => {
@@ -449,7 +460,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(fetchMock.calls().matched).to.have.lengthOf(3);
           });
 
-          it("then the client should have cached the responses against the query", async () => {
+          it("then the client should have cached the responses against the queries", async () => {
             const cacheSize = await client.getResponseCacheSize();
             expect(cacheSize).to.equal(4);
 
