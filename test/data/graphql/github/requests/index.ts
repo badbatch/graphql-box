@@ -90,6 +90,71 @@ export const reducedSingleQuery = `
   }
 `;
 
+export const extendedSingleQuery = `
+  query ($login: String!) {
+    organization(login: $login) {
+      description
+      email
+      id
+      location
+      login
+      name
+      repositories(first: 6) {
+        edges {
+          node {
+            description
+            homepageUrl
+            id
+            name
+            owner {
+              ... on Organization {
+                description
+                email
+                id
+                login
+                name
+                url
+                websiteUrl
+              }
+            }
+            primaryLanguage {
+              name
+            }
+          }
+        }
+      }
+      url
+      websiteUrl
+    }
+  }
+`;
+
+export const partialSingleQuery = `
+  {
+    organization(login: "facebook") {
+      location
+      repositories(first: 6) {
+        edges {
+          node {
+            homepageUrl
+            owner {
+              ... on Organization {
+                url
+                websiteUrl
+              }
+            }
+            primaryLanguage {
+              name
+              id
+            }
+          }
+        }
+      }
+      websiteUrl
+    }
+  }
+`;
+
 export const addMutation = `
   mutation ($input: AddStarInput!) {
     addStar(input: $input) {

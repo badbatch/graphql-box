@@ -3,7 +3,7 @@ import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
 import * as sinon from "sinon";
 import { github, tesco } from "../../../data/graphql";
-import { mockGraphqlRequest, serverArgs } from "../../../helpers";
+import { mockGraphqlRequest, serverArgs, stripSpaces } from "../../../helpers";
 import { DefaultHandl, Handl, WorkerHandl } from "../../../../src";
 
 import {
@@ -35,6 +35,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
         before(async () => {
           if (opts.suppressWorkers) {
             mockGraphqlRequest(github.requests.updatedSingleQuery);
+            mockGraphqlRequest(github.requests.partialSingleQuery);
           }
 
           client = await Handl.create(args) as DefaultHandl | WorkerHandl;
@@ -274,9 +275,103 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
             expect(ownerCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
+        });
 
-          context("when a query response can be partially constructed from the caches", () => {
-            // TODO
+        context("when a query response can be partially constructed from the caches", () => {
+          let result: RequestResultData;
+
+          beforeEach(async () => {
+            try {
+              result = await client.request(
+                github.requests.singleQuery,
+                { awaitDataCached: true, variables: { login: "facebook" } },
+              ) as RequestResultData;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+
+            if (opts.suppressWorkers) fetchMock.reset();
+
+            try {
+              result = await client.request(
+                github.requests.extendedSingleQuery,
+                { awaitDataCached: true, variables: { login: "facebook" } },
+              ) as RequestResultData;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+          });
+
+          afterEach(async () => {
+            await client.clearCache();
+            if (opts.suppressWorkers) fetchMock.reset();
+          });
+
+          it("then the method should return the requested data", () => {
+            expect(result.data).to.deep.equal(github.responses.extendedSingleQuery.data);
+            expect(result.queryHash).to.be.a("string");
+            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            expect(cacheMetadata.size).to.equal(5);
+            const queryCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const organizationCacheability = cacheMetadata.get("organization") as Cacheability;
+            expect(organizationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const repositoriesCacheability = cacheMetadata.get("organization.repositories") as Cacheability;
+            expect(repositoriesCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const nodeCacheability = cacheMetadata.get("organization.repositories.edges.node") as Cacheability;
+            expect(nodeCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const ownerCacheability = cacheMetadata.get("organization.repositories.edges.node.owner") as Cacheability;
+            expect(ownerCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+          });
+
+          if (opts.suppressWorkers) {
+            it("then the client should have made one fetch request", () => {
+              const matched = fetchMock.calls().matched;
+              expect(matched).to.have.lengthOf(1);
+              const requestOpts = matched[0][1] as RequestInit;
+              const matchedBody = JSON.parse(requestOpts.body as string);
+              expect(stripSpaces(github.requests.partialSingleQuery)).to.equal(stripSpaces(matchedBody.query));
+            });
+          }
+
+          it("then the client should have cached the responses against the queries", async () => {
+            const cacheSize = await client.getResponseCacheSize();
+            expect(cacheSize).to.equal(4);
+
+            const cacheEntry = await client.getResponseCacheEntry(
+              result.queryHash as string,
+            ) as ResponseCacheEntryResult;
+
+            expect(cacheEntry.data).to.deep.equal(github.responses.extendedSingleQuery.data);
+            expect(cacheEntry.cacheMetadata.size).to.equal(5);
+            const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const organizationCacheability = cacheEntry.cacheMetadata.get("organization") as Cacheability;
+            expect(organizationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const repositoriesCacheability = cacheEntry.cacheMetadata.get("organization.repositories") as Cacheability;
+            expect(repositoriesCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+
+            const nodeCacheability = cacheEntry.cacheMetadata.get(
+              "organization.repositories.edges.node",
+            ) as Cacheability;
+
+            expect(nodeCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+
+            const ownerCacheability = cacheEntry.cacheMetadata.get(
+              "organization.repositories.edges.node.owner",
+            ) as Cacheability;
+
+            expect(ownerCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+          });
+
+          it("then the client should cache each data object in the response against its query path", async () => {
+            const cacheSize = await client.getDataPathCacheSize();
+            expect(cacheSize).to.eql(21);
+          });
+
+          it("then the client should cache each data entity in the response against its identifier", async () => {
+            const cacheSize = await client.getDataEntityCacheSize();
+            expect(cacheSize).to.eql(14);
           });
         });
       });
