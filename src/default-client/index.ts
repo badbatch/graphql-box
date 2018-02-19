@@ -45,7 +45,7 @@ import CacheManager from "../cache-manager";
 import FetchManager from "../fetch-manager";
 
 import {
-  addChildFields,
+  addChildField,
   deleteFragmentDefinitions,
   deleteVariableDefinitions,
   getAlias,
@@ -794,7 +794,7 @@ export class DefaultClient {
               const mockAST = parse(`{${_this._resourceKey}}`);
               const queryNode = getOperationDefinitions(mockAST, "query")[0];
               const field = getChildFields(queryNode, _this._resourceKey) as FieldNode;
-              addChildFields(fieldOrInlineFragmentNode, field);
+              addChildField(fieldOrInlineFragmentNode, field, _this._schema, _this._resourceKey);
             }
           }
 
@@ -802,7 +802,7 @@ export class DefaultClient {
             const mockAST = parse(`{ _metadata { cacheControl } }`);
             const queryNode = getOperationDefinitions(mockAST, "query")[0];
             const field = getChildFields(queryNode, "_metadata") as FieldNode;
-            addChildFields(fieldOrInlineFragmentNode, field);
+            addChildField(fieldOrInlineFragmentNode, field, _this._schema, _this._resourceKey);
           }
 
           return undefined;

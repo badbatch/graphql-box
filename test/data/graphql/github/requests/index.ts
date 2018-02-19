@@ -155,6 +155,71 @@ export const partialSingleQuery = `
   }
 `;
 
+export const sugaredSingleQuery = `
+  query OrganizationAndRepositories($login: String!, $withOwner: Boolean = false) {
+    organization(login: $login) {
+      description
+      email
+      login
+      name
+      firstSix: repositories(first: 6) {
+        edges {
+          node {
+            ...repositoryFields
+          }
+        }
+      }
+      url
+    }
+  }
+`;
+
+export const sugaredSingleQueryFragment = `
+  fragment repositoryFields on Repository {
+    description
+    name
+    owner @include(if: $withOwner) {
+      ... on Organization {
+        description
+        email
+        login
+        name
+      }
+    }
+  }
+`;
+
+export const updatedSugaredSingleQuery = `
+  query OrganizationAndRepositories {
+    organization(login: "facebook") {
+      description
+      email
+      login
+      name
+      firstSix: repositories(first: 6) {
+        edges {
+          node {
+            description
+            name
+            owner @include(if: true) {
+              ... on Organization {
+                description
+                email
+                login
+                name
+                id
+              }
+            }
+            id
+          }
+        }
+      }
+      url
+      id
+    }
+  }
+`;
+
 export const addMutation = `
   mutation ($input: AddStarInput!) {
     addStar(input: $input) {

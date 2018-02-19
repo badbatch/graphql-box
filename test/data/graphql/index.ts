@@ -8,8 +8,10 @@ const githubResponses = {
   partialSingleQuery: require("./github/responses/partial-single-query.json"),
   reducedSingleQuery: require("./github/responses/reduced-single-query.json"),
   singleQuery: require("./github/responses/single-query.json"),
+  sugaredSingleQuery: require("./github/responses/sugared-single-query.json"),
   updatedAddMutation: require("./github/responses/add-mutation.json"),
   updatedSingleQuery: require("./github/responses/single-query.json"),
+  updatedSugaredSingleQuery: require("./github/responses/sugared-single-query.json"),
 };
 
 export interface RequestResponseGroup {
@@ -29,6 +31,7 @@ const tescoResponses = {
   reducedSingleQuery: require("./tesco/responses/reduced-single-query.json"),
   singleQuery: require("./tesco/responses/single-query.json"),
   singleSubscription: require("./tesco/responses/single-subscription.json"),
+  sugaredSingleQuery: require("./tesco/responses/sugared-single-query.json"),
   updatedAddMutation: require("./tesco/responses/add-mutation.json"),
 };
 

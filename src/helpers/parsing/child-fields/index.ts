@@ -1,19 +1,46 @@
-import { FieldNode, InlineFragmentNode } from "graphql";
-import { castArray, isArray } from "lodash";
+import { FieldNode, GraphQLInterfaceType, GraphQLObjectType, GraphQLSchema, InlineFragmentNode } from "graphql";
+import { castArray } from "lodash";
 import { unwrapInlineFragments } from "../inline-fragments";
 import { getKind } from "../kind";
 import { getName } from "../name";
 import { ParentNode } from "../types";
 
-export function addChildFields(node: ParentNode, fields: FieldNode[] | FieldNode): void {
+export function addChildField(
+  node: ParentNode,
+  field: FieldNode,
+  schema: GraphQLSchema,
+  resourceID: string,
+): void {
   if (!node.selectionSet) return;
-  let selections = node.selectionSet.selections;
+  const childFields = node.selectionSet.selections;
+  let added = false;
 
-  if (isArray(fields)) {
-    selections = [...selections, ...fields];
-  } else {
-    selections.push(fields);
+  for (const childField of childFields) {
+    if (getKind(childField) === "InlineFragment") {
+      const inlineFragmentNode = childField as InlineFragmentNode;
+
+      if (inlineFragmentNode.typeCondition) {
+        const name = getName(inlineFragmentNode.typeCondition);
+
+        if (name) {
+          const type = schema.getType(name);
+
+          if (type instanceof GraphQLObjectType || type instanceof GraphQLInterfaceType) {
+            const objectOrInterfaceType = type as GraphQLObjectType | GraphQLInterfaceType;
+            const fields = objectOrInterfaceType.getFields();
+
+            if (fields[resourceID]) {
+              addChildField(inlineFragmentNode, field, schema, resourceID);
+              added = true;
+            }
+          }
+        }
+      }
+    }
   }
+
+  if (added) return;
+  childFields.push(field);
 }
 
 export function deleteChildFields(node: ParentNode, fields: FieldNode[] | FieldNode): void {
