@@ -128,6 +128,47 @@ export const partialSingleQuery = `
   }
 `;
 
+export const sugaredSingleQuery = `
+  query ProductAndDefaultSkus($id: String!, $withParent: Boolean = false) {
+    product(id: $id) {
+      primaryChild: defaultSku {
+        ...skuFields
+      }
+      optionsInfo {
+        name
+        type
+      }
+      prices {
+        ... on Prices {
+          clubcardPoints
+          price
+        }
+      }
+      userActionable
+    }
+  }
+`;
+
+export const sugaredSingleQueryFragment = `
+  fragment skuFields on Sku {
+    displayName
+    parentProduct @include(if: $withParent) {
+      optionsInfo {
+        name
+        type
+      }
+      prices {
+        ... on Prices {
+          clubcardPoints
+          price
+        }
+      }
+      userActionable
+    }
+    publicLink
+  }
+`;
+
 export const batchProductQuery = `
   query ($id: String!) {
     product(id: $id) {
@@ -268,58 +309,6 @@ export const singleSubscription = `
 //   }
 // `;
 
-// export const partOneQuery = `
-//   {
-//     product(id: "402-5806") {
-//       id
-//       optionsInfo {
-//         type
-//         name
-//       }
-//       userActionable
-//       prices {
-//         id
-//         price
-//       }
-//     }
-//   }
-// `;
-
-// export const partTwoQuery = `
-//   {
-//     product(id: "402-5806") {
-//       optionsInfo {
-//         internalName
-//       }
-//       prices {
-//         clubcardPoints
-//       }
-//       _metadata {
-//         cacheControl
-//       }
-//     }
-//   }
-// `;
-
-// export const variableQuery = `
-//   query ($id: String!) {
-//     product(id: $id) {
-//       id
-//       optionsInfo {
-//         type
-//         name
-//         internalName
-//       }
-//       userActionable
-//       prices {
-//         id
-//         price
-//         clubcardPoints
-//       }
-//     }
-//   }
-// `;
-
 // export const fragmentQuery = `
 //   {
 //     product(id: "402-5806") {
@@ -410,71 +399,6 @@ export const singleSubscription = `
 //       }
 //       _metadata {
 //         cacheControl
-//       }
-//     }
-//   }
-// `;
-
-// export const multiQuery = `
-//   query getProduct {
-//     product(id: "402-5806") {
-//       id
-//       optionsInfo {
-//         type
-//         name
-//         internalName
-//       }
-//       userActionable
-//       prices {
-//         id
-//         price
-//         clubcardPoints
-//       }
-//     }
-//   }
-//   query getSku {
-//     sku(id: "104-7702") {
-//       id
-//       displayName
-//       publicLink
-//       prices {
-//         id
-//         price
-//         clubcardPoints
-//       }
-//     }
-//   }
-// `;
-
-// export const skuQuery = `
-//   query getSku {
-//     sku(id: "104-7702") {
-//       id
-//       displayName
-//       publicLink
-//       prices {
-//         id
-//         price
-//         clubcardPoints
-//       }
-//     }
-//   }
-// `;
-
-// export const multiItemQuery = `
-//   query getProducts($id: [String]) {
-//     products(id: $id) {
-//       id
-//       optionsInfo {
-//         type
-//         name
-//         internalName
-//       }
-//       userActionable
-//       prices {
-//         id
-//         price
-//         clubcardPoints
 //       }
 //     }
 //   }

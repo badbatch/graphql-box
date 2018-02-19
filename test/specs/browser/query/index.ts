@@ -376,6 +376,83 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
         });
       });
 
+      context("when a sugared query is requested", () => {
+        before(async () => {
+          if (opts.suppressWorkers) {
+            mockGraphqlRequest(github.requests.updatedSingleQuery);
+            mockGraphqlRequest(github.requests.updatedSugaredSingleQuery);
+          }
+
+          client = await Handl.create(args) as DefaultHandl | WorkerHandl;
+        });
+
+        after(() => {
+          if (opts.suppressWorkers) fetchMock.restore();
+        });
+
+        context("when there is no matching query in any cache", () => {
+          let result: RequestResultData;
+
+          beforeEach(async () => {
+            try {
+              result = await client.request(github.requests.sugaredSingleQuery, {
+                awaitDataCached: true,
+                fragments: [github.requests.sugaredSingleQueryFragment],
+                variables: { login: "facebook", withOwner: true },
+              }) as RequestResultData;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+          });
+
+          afterEach(async () => {
+            await client.clearCache();
+            if (opts.suppressWorkers) fetchMock.reset();
+          });
+
+          it("then the method should return the requested data", () => {
+            expect(result.data).to.deep.equal(github.responses.sugaredSingleQuery.data);
+            expect(result.queryHash).to.be.a("string");
+            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            expect(cacheMetadata.size).to.equal(1);
+            const queryCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+          });
+
+          if (opts.suppressWorkers) {
+            it("then the client should have made a fetch request", () => {
+              expect(fetchMock.calls().matched).to.have.lengthOf(1);
+            });
+          }
+
+          it("then the client should have cached the response against the query", async () => {
+            const cacheSize = await client.getResponseCacheSize();
+            expect(cacheSize).to.equal(2);
+
+            const cacheEntry = await client.getResponseCacheEntry(
+              result.queryHash as string,
+            ) as ResponseCacheEntryResult;
+
+            expect(cacheEntry.data).to.deep.equal(github.responses.sugaredSingleQuery.data);
+            expect(cacheEntry.cacheMetadata.size).to.equal(1);
+            const queryCacheMetadata = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheMetadata.metadata.cacheControl.maxAge).to.equal(300000);
+          });
+
+          it("then the client should cache each data object in the response against its query path", async () => {
+            const cacheSize = await client.getDataPathCacheSize();
+            expect(cacheSize).to.eql(15);
+          });
+
+          it("then the client should cache each data entity in the response against its identifier", async () => {
+            const cacheSize = await client.getDataEntityCacheSize();
+            expect(cacheSize).to.eql(9);
+          });
+        });
+
+        // TODO
+      });
+
       context("when a batched query is requested", () => {
         let stub: sinon.SinonStub;
 

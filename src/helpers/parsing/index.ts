@@ -2,7 +2,7 @@ export { getAlias } from "./alias";
 export { getArguments } from "./arguments";
 
 export {
-  addChildFields,
+  addChildField,
   deleteChildFields,
   getChildFields,
   hasChildFields,
