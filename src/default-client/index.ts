@@ -88,6 +88,7 @@ import {
 } from "../types";
 
 import SubscriptionService from "../subscription-service";
+import { getDirectives } from "../helpers/parsing/directives";
 
 const deferredPromise = require("defer-promise");
 
@@ -126,6 +127,7 @@ export class DefaultClient {
     ancestorFieldPath.push(fieldName);
     const fieldPath = ancestorFieldPath.join(".");
     const argumentsObjectMap = getArguments(fieldNode);
+    const directives = getDirectives(fieldNode);
     let resourceValue: string | undefined;
 
     if (argumentsObjectMap) {
@@ -140,6 +142,7 @@ export class DefaultClient {
 
     fieldTypeMap.set(fieldPath, {
       hasArguments: !!argumentsObjectMap,
+      hasDirectives: !!directives,
       isEntity,
       resourceValue,
       typeName,

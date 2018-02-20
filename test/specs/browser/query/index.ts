@@ -400,7 +400,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               result = await client.request(github.requests.sugaredSingleQuery, {
                 awaitDataCached: true,
                 fragments: [github.requests.sugaredSingleQueryFragment],
-                variables: { login: "facebook", withOwner: true },
+                variables: { login: "facebook" },
               }) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -460,7 +460,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               result = await client.request(github.requests.sugaredSingleQuery, {
                 awaitDataCached: true,
                 fragments: [github.requests.sugaredSingleQueryFragment],
-                variables: { login: "facebook", withOwner: true },
+                variables: { login: "facebook" },
               }) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -472,7 +472,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               result = await client.request(github.requests.sugaredSingleQuery, {
                 awaitDataCached: true,
                 fragments: [github.requests.sugaredSingleQueryFragment],
-                variables: { login: "facebook", withOwner: true },
+                variables: { login: "facebook" },
               }) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -519,7 +519,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               result = await client.request(github.requests.sugaredSingleQuery, {
                 awaitDataCached: true,
                 fragments: [github.requests.sugaredSingleQueryFragment],
-                variables: { login: "facebook", withOwner: true },
+                variables: { login: "facebook" },
               }) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -562,7 +562,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               result.queryHash as string,
             ) as ResponseCacheEntryResult;
 
-            expect(cacheEntry.data).to.deep.equal(github.responses.reducedSingleQuery.data);
+            expect(cacheEntry.data).to.deep.equal(github.responses.sugaredSingleQuery.data);
             expect(cacheEntry.cacheMetadata.size).to.equal(5);
             const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
