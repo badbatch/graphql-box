@@ -38,6 +38,7 @@ export default function testQueryOperation(args: ClientArgs): void {
       context("when a single query is requested", () => {
         before(async () => {
           client = await Handl.create(args) as DefaultHandl;
+          await client.clearCache();
           mockRestRequest("product", "402-5806");
           mockRestRequest("sku", "134-5203");
           fetchMock.spy();
@@ -495,6 +496,7 @@ export default function testQueryOperation(args: ClientArgs): void {
       context("when a sugared query is requested", () => {
         before(async () => {
           client = await Handl.create(args) as DefaultHandl;
+          await client.clearCache();
           mockRestRequest("product", "402-5806");
           mockRestRequest("sku", "134-5203");
           fetchMock.spy();
@@ -733,6 +735,7 @@ export default function testQueryOperation(args: ClientArgs): void {
       context("when a batched query is requested", () => {
         before(async () => {
           client = await Handl.create({ ...args, batch: true }) as DefaultHandl;
+          await client.clearCache();
           mockRestRequest("product", "402-5806");
           mockRestRequest("product", "522-7645");
           mockRestRequest("sku", "104-7702");

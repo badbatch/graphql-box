@@ -39,6 +39,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           }
 
           client = await Handl.create(args) as DefaultHandl | WorkerHandl;
+          await client.clearCache();
         });
 
         after(() => {
@@ -384,6 +385,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           }
 
           client = await Handl.create(args) as DefaultHandl | WorkerHandl;
+          await client.clearCache();
         });
 
         after(() => {
@@ -450,7 +452,134 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           });
         });
 
-        // TODO
+        context("when there is a matching query in the response cache", () => {
+          let result: RequestResultData;
+
+          beforeEach(async () => {
+            try {
+              result = await client.request(github.requests.sugaredSingleQuery, {
+                awaitDataCached: true,
+                fragments: [github.requests.sugaredSingleQueryFragment],
+                variables: { login: "facebook", withOwner: true },
+              }) as RequestResultData;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+
+            if (opts.suppressWorkers) fetchMock.reset();
+
+            try {
+              result = await client.request(github.requests.sugaredSingleQuery, {
+                awaitDataCached: true,
+                fragments: [github.requests.sugaredSingleQueryFragment],
+                variables: { login: "facebook", withOwner: true },
+              }) as RequestResultData;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+          });
+
+          afterEach(async () => {
+            await client.clearCache();
+            if (opts.suppressWorkers) fetchMock.reset();
+          });
+
+          it("then the method should return the requested data", () => {
+            expect(result.data).to.deep.equal(github.responses.sugaredSingleQuery.data);
+            expect(result.queryHash).to.be.a("string");
+            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            expect(cacheMetadata.size).to.equal(1);
+            const queryCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+          });
+
+          if (opts.suppressWorkers) {
+            it("then the client should not have made a fetch request", () => {
+              expect(fetchMock.calls().matched).to.have.lengthOf(0);
+            });
+          }
+        });
+
+        context("when a query response can be constructed from the data path cache", () => {
+          let result: RequestResultData;
+
+          beforeEach(async () => {
+            try {
+              result = await client.request(
+                github.requests.singleQuery,
+                { awaitDataCached: true, variables: { login: "facebook" } },
+              ) as RequestResultData;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+
+            if (opts.suppressWorkers) fetchMock.reset();
+
+            try {
+              result = await client.request(github.requests.sugaredSingleQuery, {
+                awaitDataCached: true,
+                fragments: [github.requests.sugaredSingleQueryFragment],
+                variables: { login: "facebook", withOwner: true },
+              }) as RequestResultData;
+            } catch (error) {
+              console.log(error); // tslint:disable-line
+            }
+          });
+
+          afterEach(async () => {
+            await client.clearCache();
+            if (opts.suppressWorkers) fetchMock.reset();
+          });
+
+          it("then the method should return the requested data", () => {
+            expect(result.data).to.deep.equal(github.responses.sugaredSingleQuery.data);
+            expect(result.queryHash).to.be.a("string");
+            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            expect(cacheMetadata.size).to.equal(5);
+            const queryCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const organizationCacheability = cacheMetadata.get("organization") as Cacheability;
+            expect(organizationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const repositoriesCacheability = cacheMetadata.get("organization.firstSix") as Cacheability;
+            expect(repositoriesCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const nodeCacheability = cacheMetadata.get("organization.firstSix.edges.node") as Cacheability;
+            expect(nodeCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const ownerCacheability = cacheMetadata.get("organization.firstSix.edges.node.owner") as Cacheability;
+            expect(ownerCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+          });
+
+          if (opts.suppressWorkers) {
+            it("then the client should not have made a fetch request", () => {
+              expect(fetchMock.calls().matched).to.have.lengthOf(0);
+            });
+          }
+
+          it("then the client should have cached the response against the query", async () => {
+            const cacheSize = await client.getResponseCacheSize();
+            expect(cacheSize).to.equal(3);
+
+            const cacheEntry = await client.getResponseCacheEntry(
+              result.queryHash as string,
+            ) as ResponseCacheEntryResult;
+
+            expect(cacheEntry.data).to.deep.equal(github.responses.reducedSingleQuery.data);
+            expect(cacheEntry.cacheMetadata.size).to.equal(5);
+            const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const organizationCacheability = cacheEntry.cacheMetadata.get("organization") as Cacheability;
+            expect(organizationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const repositoriesCacheability = cacheEntry.cacheMetadata.get("organization.firstSix") as Cacheability;
+            expect(repositoriesCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const nodeCacheability = cacheEntry.cacheMetadata.get("organization.firstSix.edges.node") as Cacheability;
+            expect(nodeCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+
+            const ownerCacheability = cacheEntry.cacheMetadata.get(
+              "organization.firstSix.edges.node.owner",
+            ) as Cacheability;
+
+            expect(ownerCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+          });
+        });
       });
 
       context("when a batched query is requested", () => {
@@ -463,6 +592,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           stub = sinon.stub(console, "warn");
           client = await Handl.create({ ...serverArgs, batch: true }) as DefaultHandl;
+          await client.clearCache();
         });
 
         after(() => {
