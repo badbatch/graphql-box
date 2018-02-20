@@ -97,6 +97,7 @@ export interface FetchManagerArgs {
 
 export interface FieldTypeInfo {
   hasArguments: boolean;
+  hasDirectives: boolean;
   isEntity: boolean;
   resourceValue?: string | number;
   typeName: string;

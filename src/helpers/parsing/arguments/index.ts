@@ -1,4 +1,5 @@
 import {
+  DirectiveNode,
   FieldNode,
   ListValueNode,
   ObjectValueNode,
@@ -41,7 +42,7 @@ function parseValue(valueNode: ValueNode): ParseValueResult {
   return output;
 }
 
-export function getArguments(field: FieldNode): ObjectMap | undefined {
+export function getArguments(field: FieldNode | DirectiveNode): ObjectMap | undefined {
   if (!field.arguments || !field.arguments.length) return undefined;
   const args: ObjectMap = {};
 

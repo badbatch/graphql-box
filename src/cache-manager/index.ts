@@ -64,6 +64,7 @@ import {
   getOperationDefinitions,
   hasChildFields,
 } from "../helpers/parsing";
+import { getDirectives } from "../helpers/parsing/directives";
 
 export default class CacheManager {
   public static async create(args: CacheArgs): Promise<CacheManager> {
@@ -81,9 +82,16 @@ export default class CacheManager {
     return cacheability && !noCache && cacheability.checkTTL();
   }
 
-  private static _buildCacheKey(name: string, cachePath: string, args?: ObjectMap, index?: number): string {
+  private static _buildCacheKey(
+    name: string,
+    cachePath: string,
+    args?: ObjectMap,
+    directives?: ObjectMap,
+    index?: number,
+  ): string {
     let key = `${isNumber(index) ? index : name}`;
     if (args) key = `${key}(${JSON.stringify(args)})`;
+    if (directives) key = `${key}(${JSON.stringify(directives)})`;
     return CacheManager._buildKey(key, cachePath);
   }
 
@@ -129,7 +137,8 @@ export default class CacheManager {
     const { cachePath = "", dataPath = "", queryPath = "" } = paths;
     const name = getName(field) as string;
     const args = getArguments(field);
-    const cacheKey = CacheManager._buildCacheKey(name, cachePath, args, index);
+    const directives = getDirectives(field);
+    const cacheKey = CacheManager._buildCacheKey(name, cachePath, args, directives, index);
     const hashKey = hashRequest(cacheKey);
     const nameKey = getAlias(field) || name;
     const queryKey = isNumber(index) ? queryPath : CacheManager._buildKey(nameKey, queryPath);
@@ -737,8 +746,9 @@ export default class CacheManager {
   ): Promise<void> {
     const fieldTypeInfo = fieldTypeMap.get(queryKey);
     if (!fieldTypeInfo) return;
+    const hasArgsOrDirectives = fieldTypeInfo.hasArguments || fieldTypeInfo.hasDirectives;
 
-    if (!fieldTypeInfo.isEntity && fieldTypeInfo.hasArguments) {
+    if (!fieldTypeInfo.isEntity && hasArgsOrDirectives) {
       unset(dataTypes.entities, dataKey);
     }
 
@@ -758,7 +768,7 @@ export default class CacheManager {
         set(dataTypes.entities, dataKey, { _EntityKey: entityDataKey });
       }
 
-      if (setPaths && ((fieldTypeInfo.isEntity && isPlainObject(pathfieldData)) || fieldTypeInfo.hasArguments)) {
+      if (setPaths && ((fieldTypeInfo.isEntity && isPlainObject(pathfieldData)) || hasArgsOrDirectives)) {
         promises.push(this._dataPaths.set(
           hashKey,
           cloneDeep(pathfieldData),

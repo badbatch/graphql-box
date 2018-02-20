@@ -514,7 +514,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result = await client.request(tesco.requests.sugaredSingleQuery, {
                 awaitDataCached: true,
                 fragments: [tesco.requests.sugaredSingleQueryFragment],
-                variables: { id: "402-5806", withParent: true },
+                variables: { id: "402-5806" },
               }) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -593,7 +593,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result = await client.request(tesco.requests.sugaredSingleQuery, {
                 awaitDataCached: true,
                 fragments: [tesco.requests.sugaredSingleQueryFragment],
-                variables: { id: "402-5806", withParent: true },
+                variables: { id: "402-5806" },
               }) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -607,7 +607,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result = await client.request(tesco.requests.sugaredSingleQuery, {
                 awaitDataCached: true,
                 fragments: [tesco.requests.sugaredSingleQueryFragment],
-                variables: { id: "402-5806", withParent: true },
+                variables: { id: "402-5806" },
               }) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line
@@ -666,7 +666,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result = await client.request(tesco.requests.sugaredSingleQuery, {
                 awaitDataCached: true,
                 fragments: [tesco.requests.sugaredSingleQueryFragment],
-                variables: { id: "402-5806", withParent: true },
+                variables: { id: "402-5806" },
               }) as RequestResultData;
             } catch (error) {
               console.log(error); // tslint:disable-line

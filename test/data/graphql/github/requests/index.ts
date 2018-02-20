@@ -156,7 +156,7 @@ export const partialSingleQuery = `
 `;
 
 export const sugaredSingleQuery = `
-  query OrganizationAndRepositories($login: String!, $withOwner: Boolean = false) {
+  query OrganizationAndRepositories($login: String!) {
     organization(login: $login) {
       description
       email
@@ -178,7 +178,7 @@ export const sugaredSingleQueryFragment = `
   fragment repositoryFields on Repository {
     description
     name
-    owner @include(if: $withOwner) {
+    owner {
       ... on Organization {
         description
         email
@@ -201,7 +201,7 @@ export const updatedSugaredSingleQuery = `
           node {
             description
             name
-            owner @include(if: true) {
+            owner {
               ... on Organization {
                 description
                 email
@@ -243,20 +243,3 @@ export const updatedAddMutation = `
     }
   }
 `;
-
-// export const aliasQuery = `
-//   {
-//     facebook: organization(login: "facebook") {
-//       id
-//       name
-//       firstSix: repositories(first: 6) {
-//         edges {
-//           node {
-//             id
-//             name
-//           }
-//         }
-//       }
-//     }
-//   }
-// `;
