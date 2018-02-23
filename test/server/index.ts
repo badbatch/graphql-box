@@ -20,10 +20,10 @@ export default function graphqlServer(): http.Server {
     .use(bodyParser.json())
     .use("/graphql", async (req, res) => {
       try {
-        const { batch, query } = req.body;
+        const { batched, query } = req.body;
         let result: ExecutionResult | ExecutionResultObjectMap;
 
-        if (batch) {
+        if (batched) {
           const requests = query as StringObjectMap;
           const responses: ExecutionResultObjectMap = {};
 

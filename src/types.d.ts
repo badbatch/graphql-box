@@ -140,6 +140,7 @@ export interface RequestOptions {
   forceFetch?: boolean;
   fragments?: string[];
   tag?: any;
+  updated?: boolean;
   variables?: ObjectMap;
 }
 

@@ -118,7 +118,7 @@ export default class FetchManager {
         const url = `${this._url}?requestId=${requestHash}`;
 
         const fetchResult = await fetch(url, {
-          body: JSON.stringify({ batch: this._batch, query: request }),
+          body: JSON.stringify({ batched: this._batch, query: request, updated: true }),
           headers: new Headers(this._headers),
           method: "POST",
         });

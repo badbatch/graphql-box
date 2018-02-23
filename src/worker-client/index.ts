@@ -79,7 +79,7 @@ export class WorkerClient {
 
   public async getDataEntityCacheEntry(key: string): Promise<ObjectMap | undefined> {
     try {
-      return this._postMessage({ key, type: "getDataPathCacheEntry" });
+      return this._postMessage({ key, type: "getDataEntityCacheEntry" });
     } catch (error) {
       return Promise.reject(error);
     }
