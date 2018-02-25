@@ -87,7 +87,7 @@ import {
   ResponseCacheEntryResult,
 } from "../types";
 
-import SubscriptionService from "../subscription-service";
+import SubscriptionManager from "../subscription-manager";
 import { getDirectives } from "../helpers/parsing/directives";
 
 const deferredPromise = require("defer-promise");
@@ -195,8 +195,8 @@ export class DefaultClient {
   private _fetcher: FetchManager;
   private _resourceKey: string = "id";
   private _schema: GraphQLSchema;
+  private _subscriptionManager: SubscriptionManager;
   private _subscriptionsEnabled: boolean = false;
-  private _subscriptionService: SubscriptionService;
 
   constructor(args: ClientArgs) {
     if (!isPlainObject(args)) {
@@ -241,8 +241,8 @@ export class DefaultClient {
     this._schema = buildClientSchema(introspectionQuery);
 
     if (DefaultClient._socketsSupported() && subscriptions && isPlainObject(subscriptions)) {
+      this._subscriptionManager = new SubscriptionManager(subscriptions.address);
       this._subscriptionsEnabled = true;
-      this._subscriptionService = new SubscriptionService(subscriptions.address);
     }
   }
 
@@ -723,7 +723,7 @@ export class DefaultClient {
     const hash = hashRequest(subscription);
 
     try {
-      return this._subscriptionService.send(
+      return this._subscriptionManager.resolve(
         subscription,
         hash,
         async (result) => this._resolveSubscriber(ast, context.fieldTypeMap, result, opts),
