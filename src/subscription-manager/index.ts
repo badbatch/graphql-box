@@ -15,7 +15,7 @@ if (process.env.WEB_ENV) {
   websocket = require("ws");
 }
 
-export default class SubscriptionService {
+export default class SubscriptionManager {
   private _address: string;
   private _closedCode?: number;
   private _closedReason?: string;
@@ -33,7 +33,7 @@ export default class SubscriptionService {
     this._open();
   }
 
-  public async send(
+  public async resolve(
     subscription: string,
     hash: string,
     subscriberResolver: SubscriberResolver,
