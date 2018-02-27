@@ -1,8 +1,10 @@
-import { isString } from "lodash";
+import { DocumentNode } from "graphql";
+import { isPlainObject, isString } from "lodash";
+import * as WebSocket from "ws";
 import EventAsyncIterator from "../event-async-iterator";
 import EventEmitterProxy from "../proxies/event-emitter";
 import EventTargetProxy from "../proxies/event-target";
-import { SubscriberResolver } from "../types";
+import { RequestOptions, SubscriberResolver } from "../types";
 
 let eventEmitter: typeof EventEmitterProxy | typeof EventTargetProxy;
 let websocket: typeof WebSocket;
@@ -15,29 +17,47 @@ if (process.env.WEB_ENV) {
   websocket = require("ws");
 }
 
-export default class SubscriptionManager {
+export default class SocketManager {
   private _address: string;
   private _closedCode?: number;
   private _closedReason?: string;
   private _eventEmitter: EventEmitterProxy | EventTargetProxy;
+  private _options: WebSocket.ClientOptions = {};
   private _socket: WebSocket;
   private _subscriptions: Map<string, SubscriberResolver> = new Map();
 
-  constructor(address: string) {
+  constructor(address: string, opts?: WebSocket.ClientOptions) {
     if (!isString(address)) {
       throw new TypeError("Constructor expected address to be a string.");
     }
 
     this._address = address;
     this._eventEmitter = new eventEmitter();
+    if (opts && isPlainObject(opts)) this._options = opts;
     this._open();
   }
 
   public async resolve(
     subscription: string,
     hash: string,
+    /**
+     * The GraphQL AST document is not used
+     * in this method, but is declared as an argument
+     * so that the method as the same signature as
+     * the GraphQLSubscribeProxy resolve method.
+     *
+     */
+    ast: DocumentNode,
     subscriberResolver: SubscriberResolver,
-  ): Promise<AsyncIterator<Event | undefined>> {
+    /**
+     * The request options not used
+     * in this method, but are declared as an argument
+     * so that the method as the same signature as
+     * the GraphQLSubscribeProxy resolve method.
+     *
+     */
+    opts: RequestOptions,
+  ): Promise<AsyncIterator<any>> {
     if (this._isClosed()) {
       const reason = this._closedCode && this._closedReason ? `${this._closedCode}: ${this._closedReason}` : "";
       return Promise.reject(new Error(`The websocket is closed. ${reason}`));
@@ -90,7 +110,7 @@ export default class SubscriptionManager {
 
   private async _open(): Promise<void> {
     try {
-      this._socket = new websocket(this._address);
+      this._socket = new websocket(this._address, this._options);
       this._socket.onclose = this._onClose.bind(this);
       this._socket.onmessage = this._onMessage.bind(this);
       this._socket.onopen = this._onOpen.bind(this);

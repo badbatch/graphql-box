@@ -1,4 +1,5 @@
 import { FetchResult } from "../default-client/types";
+import { RequestExecutorResolveResult } from "../types";
 
 export type ActiveBatch = Map<string, ActiveBatchValue>;
 
@@ -13,17 +14,10 @@ export interface BatchActionsObjectMap {
 
 export interface BatchResultActions {
   reject: (reason: Error | Error[]) => void;
-  resolve: (value: FetchManagerResolveResult) => void;
+  resolve: (value: RequestExecutorResolveResult) => void;
 }
 
 export interface FetchManagerFetchResult {
   headers: Headers;
   result: any;
-}
-
-export interface FetchManagerResolveResult {
-  cacheMetadata?: ObjectMap;
-  errors?: Error | Error[];
-  data?: ObjectMap;
-  headers?: Headers;
 }
