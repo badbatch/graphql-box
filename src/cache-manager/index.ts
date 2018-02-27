@@ -64,6 +64,7 @@ import {
   getOperationDefinitions,
   hasChildFields,
 } from "../helpers/parsing";
+
 import { getDirectives } from "../helpers/parsing/directives";
 
 export default class CacheManager {

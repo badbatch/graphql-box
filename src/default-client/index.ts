@@ -1,27 +1,12 @@
 import { Cacheability } from "cacheability";
 
 import {
-  ASTNode,
   buildClientSchema,
   DocumentNode,
-  FieldNode,
+  ExecutionResult,
   GraphQLError,
-  GraphQLInterfaceType,
-  GraphQLNamedType,
-  GraphQLObjectType,
-  GraphQLOutputType,
   GraphQLSchema,
-  InlineFragmentNode,
-  IntrospectionQuery,
-  OperationDefinitionNode,
-  parse,
-  parseValue,
-  print,
-  TypeInfo,
   validate,
-  ValueNode,
-  VariableNode,
-  visit,
 } from "graphql";
 
 import "isomorphic-fetch";
@@ -29,45 +14,24 @@ import { isAsyncIterable } from "iterall";
 
 import {
   isArray,
-  isObjectLike,
   isPlainObject,
   isString,
   merge,
 } from "lodash";
 
-import {
-  FetchResult,
-  MapFieldToTypeArgs,
-  ResolveArgs,
-} from "./types";
-
 import CacheManager from "../cache-manager";
+import mapToObject from "../helpers/map-to-object";
 import FetchManager from "../fetch-manager";
-
-import {
-  addChildField,
-  deleteFragmentDefinitions,
-  deleteVariableDefinitions,
-  getAlias,
-  getArguments,
-  getChildFields,
-  getFragmentDefinitions,
-  getKind,
-  getName,
-  getOperationDefinitions,
-  getType,
-  hasChildFields,
-  hasFragmentDefinitions,
-  hasFragmentSpreads,
-  hasVariableDefinitions,
-  setFragmentDefinitions,
-} from "../helpers/parsing";
-
+import { getOperationDefinitions } from "../helpers/parsing";
 import createCacheMetadata from "../helpers/create-cache-metadata";
 import hashRequest from "../helpers/hash-request";
-import mapToObject from "../helpers/map-to-object";
+import { FetchResult, ResolveArgs } from "./types";
 import parseCacheabilityObjectMap from "../helpers/parse-cacheability-object-map";
-import { FragmentDefinitionNodeMap } from "../helpers/parsing/types";
+import socketsSupported from "../helpers/sockets-supported";
+import GraphQLExecuteProxy from "../proxies/graphql-execute";
+import GraphQLSubscribeProxy from "../proxies/graphql-subscribe";
+import { RequestParser } from "../request-parser";
+import SocketManager from "../socket-manager";
 
 import {
   CachemapArgsGroup,
@@ -87,10 +51,14 @@ import {
   ResponseCacheEntryResult,
 } from "../types";
 
-import SubscriptionManager from "../subscription-manager";
-import { getDirectives } from "../helpers/parsing/directives";
-
 const deferredPromise = require("defer-promise");
+let GraphQLExecute: typeof GraphQLExecuteProxy;
+let GraphQLSubscribe: typeof GraphQLSubscribeProxy;
+
+if (!process.env.WEB_ENV) {
+  GraphQLExecute = require("../proxies/graphql-execute");
+  GraphQLSubscribe = require("../proxies/graphql-subscribe");
+}
 
 let instance: DefaultClient;
 
@@ -106,52 +74,6 @@ export class DefaultClient {
     } catch (error) {
       return Promise.reject(error);
     }
-  }
-
-  private static _concatFragments(query: string, fragments: string[]): string {
-    return [query, ...fragments].join("\n\n");
-  }
-
-  private static _mapFieldToType(args: MapFieldToTypeArgs): void {
-    const { ancestors, context, fieldNode, isEntity, resourceKey, typeName, variables } = args;
-    const ancestorFieldPath: string[] = [];
-
-    ancestors.forEach((ancestor) => {
-      if (isPlainObject(ancestor) && getKind(ancestor as ASTNode) === "Field") {
-        const ancestorFieldNode = ancestor as FieldNode;
-        ancestorFieldPath.push(getAlias(ancestorFieldNode) || getName(ancestorFieldNode) as string);
-      }
-    });
-
-    const fieldName = getAlias(fieldNode) || getName(fieldNode) as string;
-    ancestorFieldPath.push(fieldName);
-    const fieldPath = ancestorFieldPath.join(".");
-    const argumentsObjectMap = getArguments(fieldNode);
-    const directives = getDirectives(fieldNode);
-    let resourceValue: string | undefined;
-
-    if (argumentsObjectMap) {
-      if (argumentsObjectMap[resourceKey]) {
-        resourceValue = argumentsObjectMap[resourceKey];
-      } else if (variables && variables[resourceKey]) {
-        resourceValue = variables[resourceKey];
-      }
-    }
-
-    const { fieldTypeMap } = context;
-
-    fieldTypeMap.set(fieldPath, {
-      hasArguments: !!argumentsObjectMap,
-      hasDirectives: !!directives,
-      isEntity,
-      resourceValue,
-      typeName,
-    });
-  }
-
-  private static _socketsSupported(): boolean {
-    if (!process.env.WEB_ENV) return true;
-    return !!self.WebSocket;
   }
 
   private _cache: CacheManager;
@@ -192,10 +114,12 @@ export class DefaultClient {
     subscription: "max-age=0, s-maxage=0, no-cache, no-store",
   };
 
-  private _fetcher: FetchManager;
+  private _mode: "default" | "server" = "default";
+  private _requestExecutor: FetchManager | GraphQLExecuteProxy;
+  private _requestParser: RequestParser;
+  private _requestSubscriber: SocketManager | GraphQLSubscribeProxy;
   private _resourceKey: string = "id";
   private _schema: GraphQLSchema;
-  private _subscriptionManager: SubscriptionManager;
   private _subscriptionsEnabled: boolean = false;
 
   constructor(args: ClientArgs) {
@@ -208,21 +132,49 @@ export class DefaultClient {
       cachemapOptions,
       defaultCacheControls,
       fetchTimeout,
+      fieldResolver,
       headers,
       introspection,
+      mode,
       resourceKey,
+      rootValue,
+      schema,
+      subscribeFieldResolver,
       subscriptions,
       url,
     } = args;
 
     const errors: TypeError[] = [];
+    if (mode === "server" && !process.env.WEB_ENV) this._mode = mode;
 
-    if (!isPlainObject(introspection)) {
-      errors.push(new TypeError("Constructor expected introspection to be a plain object."));
+    if (this._mode === "default") {
+      if (introspection && isPlainObject(introspection)) {
+        this._schema = buildClientSchema(introspection);
+      } else {
+        errors.push(new TypeError("Constructor expected introspection to be a plain object."));
+      }
+
+      if (isString(url)) {
+        this._requestExecutor = new FetchManager({ batch, fetchTimeout, headers, url });
+      } else {
+        errors.push(new TypeError("Constructor expected url to be a string."));
+      }
+
+      if (socketsSupported() && subscriptions && isPlainObject(subscriptions)) {
+        this._requestSubscriber = new SocketManager(subscriptions.address, subscriptions.opts);
+        this._subscriptionsEnabled = true;
+      }
     }
 
-    if (!isString(url)) {
-      errors.push(new TypeError("Constructor expected url to be a string."));
+    if (this._mode === "server") {
+      if (schema instanceof GraphQLSchema) {
+        this._requestExecutor = new GraphQLExecute({ fieldResolver, rootValue, schema });
+        this._requestSubscriber = new GraphQLSubscribe({ fieldResolver, rootValue, schema, subscribeFieldResolver });
+        this._schema = schema;
+        this._subscriptionsEnabled = true;
+      } else {
+        errors.push(new TypeError("Constructor expected schema to be an instance of GraphQLSchema."));
+      }
     }
 
     if (errors.length) throw errors;
@@ -235,15 +187,8 @@ export class DefaultClient {
       this._defaultCacheControls = { ...this._defaultCacheControls, ...defaultCacheControls };
     }
 
-    this._fetcher = new FetchManager({ batch, fetchTimeout, headers, url });
     if (isString(resourceKey)) this._resourceKey = resourceKey;
-    const introspectionQuery = introspection as IntrospectionQuery;
-    this._schema = buildClientSchema(introspectionQuery);
-
-    if (DefaultClient._socketsSupported() && subscriptions && isPlainObject(subscriptions)) {
-      this._subscriptionManager = new SubscriptionManager(subscriptions.address);
-      this._subscriptionsEnabled = true;
-    }
+    this._requestParser = new RequestParser(this._schema, this._resourceKey);
   }
 
   public async clearCache(): Promise<void> {
@@ -343,9 +288,8 @@ export class DefaultClient {
     }
 
     try {
-      const _query = opts.fragments ? DefaultClient._concatFragments(query, opts.fragments) : query;
       const context: RequestContext = { fieldTypeMap: new Map() };
-      const updated = await this._updateQuery(_query, opts, context);
+      const updated = await this._requestParser.updateRequest(query, opts, context);
       errors = validate(this._schema, updated.ast) as GraphQLError[];
       if (errors.length) return Promise.reject(errors);
       const operations = getOperationDefinitions(updated.ast);
@@ -392,9 +336,13 @@ export class DefaultClient {
     }
   }
 
-  private async _fetch(request: string): Promise<FetchResult> {
+  private async _fetch(
+    request: string,
+    ast: DocumentNode,
+    opts: RequestOptions,
+  ): Promise<FetchResult> {
     try {
-      const result = await this._fetcher.resolve(request);
+      const result = await this._requestExecutor.resolve(request, ast, opts);
       if (result.errors) return Promise.reject(result.errors);
 
       return {
@@ -407,27 +355,6 @@ export class DefaultClient {
     }
   }
 
-  private _getFieldOrInlineFragmentType(
-    kind: "Field" | "InlineFragment",
-    node: FieldNode | InlineFragmentNode,
-    typeInfo: TypeInfo,
-  ): GraphQLOutputType | GraphQLNamedType | undefined {
-    if (kind === "Field") {
-      const typeDef = typeInfo.getFieldDef();
-      return typeDef ? getType(typeDef) : undefined;
-    }
-
-    if (kind  === "InlineFragment") {
-      const inlineFragmentNode = node as InlineFragmentNode;
-      if (!inlineFragmentNode.typeCondition) return undefined;
-      const name = getName(inlineFragmentNode.typeCondition) as string;
-      if (name === typeInfo.getParentType().name) return undefined;
-      return this._schema.getType(name);
-    }
-
-    return undefined;
-  }
-
   private async _mutation(
     mutation: string,
     ast: DocumentNode,
@@ -437,7 +364,7 @@ export class DefaultClient {
     let fetchResult: FetchResult;
 
     try {
-      fetchResult = await this._fetch(mutation);
+      fetchResult = await this._fetch(mutation, ast, opts);
     } catch (error) {
       return this._resolve({ error, operation: "mutation" });
     }
@@ -463,47 +390,6 @@ export class DefaultClient {
       data: resolveResult.data,
       operation: "mutation",
     });
-  }
-
-  private _parseArrayToInputString(values: any[]): string {
-    let inputString = "[";
-
-    values.forEach((value, index, arr) => {
-      if (!isPlainObject(value)) {
-        inputString += isString(value) ? `"${value}"` : `${value}`;
-      } else {
-        inputString += this._parseToInputString(value);
-      }
-
-      if (index < arr.length - 1) { inputString += ","; }
-    });
-
-    inputString += "]";
-    return inputString;
-  }
-
-  private _parseObjectToInputString(obj: ObjectMap): string {
-    let inputString = "{";
-
-    Object.keys(obj).forEach((key, index, arr) => {
-      inputString += `${key}:`;
-
-      if (!isPlainObject(obj[key])) {
-        inputString += isString(obj[key]) ? `"${obj[key]}"` : `${obj[key]}`;
-      } else {
-        inputString += this._parseToInputString(obj[key]);
-      }
-
-      if (index < arr.length - 1) { inputString += ","; }
-    });
-
-    inputString += "}";
-    return inputString;
-  }
-
-  private _parseToInputString(value: ObjectMap | any[]): string {
-    if (isPlainObject(value)) return this._parseObjectToInputString(value as ObjectMap);
-    return this._parseArrayToInputString(value as any[]);
   }
 
   private async _query(
@@ -573,7 +459,7 @@ export class DefaultClient {
     const _filterd = filtered as boolean;
 
     try {
-      fetchResult = await this._fetch(_updateQuery);
+      fetchResult = await this._fetch(_updateQuery, _updateAST, opts);
     } catch (error) {
       return this._resolve({ error, operation: "query", queryHash });
     }
@@ -668,7 +554,7 @@ export class DefaultClient {
       return this._subscription(query, ast, opts, context);
     }
 
-    return Promise.reject(new Error("Request expected the operation to be 'query' or 'mutation'."));
+    return Promise.reject(new Error("Request expected the operation to be 'query', 'mutation' or 'subscription'."));
   }
 
   private async _resolveSubscriber(
@@ -719,122 +605,24 @@ export class DefaultClient {
     ast: DocumentNode,
     opts: RequestOptions,
     context: RequestContext,
-  ): Promise<ResolveResult | AsyncIterator<Event | undefined>> {
+  ): Promise<ResolveResult | AsyncIterator<any>> {
     const hash = hashRequest(subscription);
 
     try {
-      return this._subscriptionManager.resolve(
+      const subscribeResult = await this._requestSubscriber.resolve(
         subscription,
         hash,
+        ast,
         async (result) => this._resolveSubscriber(ast, context.fieldTypeMap, result, opts),
+        opts,
       );
+
+      if (isAsyncIterable(subscribeResult)) return subscribeResult as AsyncIterator<any>;
+      const executionResult = subscribeResult as ExecutionResult;
+      if (executionResult.errors) return Promise.reject(executionResult.errors);
+      return this._resolve({ data: executionResult.data, operation: "subscription" });
     } catch (error) {
       return this._resolve({ error, operation: "subscription" });
     }
-  }
-
-  private async _updateQuery(
-    query: string,
-    opts: RequestOptions,
-    context: RequestContext,
-  ): Promise<{ ast: DocumentNode, query: string }> {
-    const _this = this;
-    const typeInfo = new TypeInfo(this._schema);
-    let fragmentDefinitions: FragmentDefinitionNodeMap | undefined;
-
-    const ast = visit(parse(query), {
-      enter(
-        node: ASTNode,
-        key: string | number,
-        parent: any,
-        path: Array<string | number>,
-        ancestors: any[],
-      ): ValueNode | undefined {
-        typeInfo.enter(node);
-        const kind = getKind(node);
-
-        if (kind === "Document") {
-          const documentNode = node as DocumentNode;
-          if (!opts.fragments || !hasFragmentDefinitions(documentNode)) return undefined;
-          fragmentDefinitions = getFragmentDefinitions(documentNode);
-          deleteFragmentDefinitions(documentNode);
-          return undefined;
-        }
-
-        if (kind === "Field" || kind === "InlineFragment") {
-          const fieldOrInlineFragmentNode = node as FieldNode | InlineFragmentNode;
-          const type = _this._getFieldOrInlineFragmentType(kind, fieldOrInlineFragmentNode, typeInfo);
-          if (!type) return undefined;
-
-          if (kind === "Field") {
-            const fieldNode = node as FieldNode;
-
-            if (fragmentDefinitions && hasFragmentSpreads(fieldNode)) {
-              setFragmentDefinitions(fragmentDefinitions, fieldNode);
-            }
-          }
-
-          if (!(type instanceof GraphQLObjectType) && !(type instanceof GraphQLInterfaceType)) return undefined;
-          const objectOrInterfaceType = type as GraphQLObjectType | GraphQLInterfaceType;
-          const fields = objectOrInterfaceType.getFields();
-
-          if (kind === "Field") {
-            const fieldNode = node as FieldNode;
-
-            DefaultClient._mapFieldToType({
-              ancestors,
-              context,
-              fieldNode,
-              isEntity: !!fields[_this._resourceKey],
-              resourceKey: _this._resourceKey,
-              typeName: objectOrInterfaceType.name,
-              variables: opts.variables,
-            });
-          }
-
-          if (fields[_this._resourceKey]) {
-            if (!hasChildFields(fieldOrInlineFragmentNode, _this._resourceKey)) {
-              const mockAST = parse(`{${_this._resourceKey}}`);
-              const queryNode = getOperationDefinitions(mockAST, "query")[0];
-              const field = getChildFields(queryNode, _this._resourceKey) as FieldNode;
-              addChildField(fieldOrInlineFragmentNode, field, _this._schema, _this._resourceKey);
-            }
-          }
-
-          if (fields._metadata && !hasChildFields(fieldOrInlineFragmentNode, "_metadata")) {
-            const mockAST = parse(`{ _metadata { cacheControl } }`);
-            const queryNode = getOperationDefinitions(mockAST, "query")[0];
-            const field = getChildFields(queryNode, "_metadata") as FieldNode;
-            addChildField(fieldOrInlineFragmentNode, field, _this._schema, _this._resourceKey);
-          }
-
-          return undefined;
-        }
-
-        if (kind === "OperationDefinition") {
-          const operationDefinitionNode = node as OperationDefinitionNode;
-          if (!opts.variables || !hasVariableDefinitions(operationDefinitionNode)) return undefined;
-          deleteVariableDefinitions(operationDefinitionNode);
-          return undefined;
-        }
-
-        if (kind === "Variable") {
-          if (!opts.variables) return parseValue(`${null}`);
-          const variableNode = node as VariableNode;
-          const name = getName(variableNode) as string;
-          const value = opts.variables[name];
-          if (!value) return parseValue(`${null}`);
-          if (isObjectLike(value)) return parseValue(_this._parseToInputString(value));
-          return parseValue(isString(value) ? `"${value}"` : `${value}`);
-        }
-
-        return undefined;
-      },
-      leave(node: ASTNode): any {
-        typeInfo.leave(node);
-      },
-    });
-
-    return { ast, query: print(ast) };
   }
 }
