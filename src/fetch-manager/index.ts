@@ -1,3 +1,4 @@
+import { DocumentNode } from "graphql";
 import { isArray, isBoolean, isNumber, isPlainObject } from "lodash";
 
 import {
@@ -6,11 +7,17 @@ import {
   BatchActionsObjectMap,
   BatchResultActions,
   FetchManagerFetchResult,
-  FetchManagerResolveResult,
 } from "./types";
 
 import hashRequest from "../helpers/hash-request";
-import { FetchManagerArgs, ObjectMap, StringObjectMap } from "../types";
+
+import {
+  FetchManagerArgs,
+  ObjectMap,
+  RequestExecutorResolveResult,
+  RequestOptions,
+  StringObjectMap,
+} from "../types";
 
 export default class FetchManager {
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: any): void {
@@ -20,7 +27,7 @@ export default class FetchManager {
     });
   }
 
-  private static _resolveFetch({ headers, result }: FetchManagerFetchResult): FetchManagerResolveResult {
+  private static _resolveFetch({ headers, result }: FetchManagerFetchResult): RequestExecutorResolveResult {
     let errors: Error | Error[];
 
     if (!isPlainObject(result)) {
@@ -77,12 +84,30 @@ export default class FetchManager {
     this._url = url;
   }
 
-  public async resolve(request: string): Promise<FetchManagerResolveResult> {
+  public async resolve(
+    request: string,
+    /**
+     * The GraphQL AST document is not used
+     * in this method, but is declared as an argument
+     * so that the method as the same signature as
+     * the GraphQLExecuteProxy resolve method.
+     *
+     */
+    ast: DocumentNode,
+    /**
+     * The request options not used
+     * in this method, but are declared as an argument
+     * so that the method as the same signature as
+     * the GraphQLExecuteProxy resolve method.
+     *
+     */
+    opts: RequestOptions,
+  ): Promise<RequestExecutorResolveResult> {
     try {
       const requestHash = hashRequest(request);
       if (!this._batch) return FetchManager._resolveFetch(await this._fetch(request, requestHash));
 
-      return new Promise((resolve: (value: FetchManagerResolveResult) => void, reject) => {
+      return new Promise((resolve: (value: RequestExecutorResolveResult) => void, reject) => {
         this._batchRequest(request, requestHash, { resolve, reject });
       });
     } catch (error) {

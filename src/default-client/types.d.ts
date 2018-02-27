@@ -1,20 +1,9 @@
-import { CacheMetadata, ObjectMap, RequestContext } from "../types";
-import { FieldNode } from "graphql";
+import { CacheMetadata, ObjectMap, SubscriptionsOptions } from "../types";
 
 export interface FetchResult {
   cacheMetadata?: ObjectMap;
   data: ObjectMap;
   headers: Headers;
-}
-
-export interface MapFieldToTypeArgs {
-  ancestors: any[];
-  context: RequestContext;
-  fieldNode: FieldNode;
-  isEntity: boolean;
-  resourceKey: string;
-  typeName: string;
-  variables?: ObjectMap;
 }
 
 export interface ResolveArgs {

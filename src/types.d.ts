@@ -50,12 +50,17 @@ export interface ClientArgs {
   cachemapOptions?: CachemapOptionsGroup;
   defaultCacheControls?: DefaultCacheControls;
   fetchTimeout?: number;
+  fieldResolver?: GraphQLFieldResolver<any, any>;
   headers?: ObjectMap;
-  introspection: IntrospectionQuery;
+  introspection?: IntrospectionQuery;
+  mode?: "default" | "server";
   newInstance?: boolean;
   resourceKey?: string;
+  rootValue?: any;
+  schema?: GraphQLSchema;
+  subscribeFieldResolver?: GraphQLFieldResolver<any, any>;
   subscriptions?: SubscriptionsOptions;
-  url: string;
+  url?: string;
 }
 
 export interface ClientRequests {
@@ -135,10 +140,22 @@ export interface RequestContext {
   fieldTypeMap: FieldTypeMap;
 }
 
+export interface RequestExecutorResolveResult {
+  cacheMetadata?: ObjectMap;
+  errors?: Error | Error[];
+  data?: ObjectMap;
+  headers?: Headers;
+}
+
 export interface RequestOptions {
   awaitDataCached?: boolean;
+  contextValue?: any;
+  fieldResolver?: GraphQLFieldResolver<any, any>;
   forceFetch?: boolean;
   fragments?: string[];
+  operationName?: string;
+  rootValue?: any;
+  subscribeFieldResolver?: GraphQLFieldResolver<any, any>;
   tag?: any;
   variables?: ObjectMap;
 }
