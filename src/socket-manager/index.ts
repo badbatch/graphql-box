@@ -1,20 +1,17 @@
 import { DocumentNode } from "graphql";
 import { isPlainObject, isString } from "lodash";
-import * as WebSocket from "ws";
+import * as WS from "ws";
 import EventAsyncIterator from "../event-async-iterator";
 import EventEmitterProxy from "../proxies/event-emitter";
 import EventTargetProxy from "../proxies/event-target";
 import { RequestOptions, SubscriberResolver } from "../types";
 
 let eventEmitter: typeof EventEmitterProxy | typeof EventTargetProxy;
-let websocket: typeof WebSocket;
 
 if (process.env.WEB_ENV) {
   eventEmitter = EventTargetProxy;
-  websocket = WebSocket;
 } else {
   eventEmitter = require("../proxies/event-emitter").default;
-  websocket = require("ws");
 }
 
 export default class SocketManager {
@@ -22,11 +19,11 @@ export default class SocketManager {
   private _closedCode?: number;
   private _closedReason?: string;
   private _eventEmitter: EventEmitterProxy | EventTargetProxy;
-  private _options: WebSocket.ClientOptions = {};
-  private _socket: WebSocket;
+  private _options: WS.ClientOptions = {};
+  private _socket: WebSocket | WS;
   private _subscriptions: Map<string, SubscriberResolver> = new Map();
 
-  constructor(address: string, opts?: WebSocket.ClientOptions) {
+  constructor(address: string, opts?: WS.ClientOptions) {
     if (!isString(address)) {
       throw new TypeError("Constructor expected address to be a string.");
     }
@@ -110,7 +107,14 @@ export default class SocketManager {
 
   private async _open(): Promise<void> {
     try {
-      this._socket = new websocket(this._address, this._options);
+      if (process.env.WEB_ENV) {
+        const websocket = WebSocket;
+        this._socket = new websocket(this._address);
+      } else {
+        const websocket = require("ws");
+        this._socket = new websocket(this._address, this._options);
+      }
+
       this._socket.onclose = this._onClose.bind(this);
       this._socket.onmessage = this._onMessage.bind(this);
       this._socket.onopen = this._onOpen.bind(this);
