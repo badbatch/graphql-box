@@ -4,11 +4,11 @@ import testQueryOperation from "./query";
 import testSubscriptionOperation from "./subscription";
 import { browserArgs, subscriptionArgs, workerArgs } from "../../helpers";
 
-// testQueryOperation(workerArgs);
-// testMutationOperation(workerArgs);
-// testSubscriptionOperation(subscriptionArgs);
-// testImportExportMethods(workerArgs);
-// testQueryOperation(browserArgs, { suppressWorkers: true });
-// testMutationOperation(browserArgs, { suppressWorkers: true });
+testQueryOperation(workerArgs);
+testMutationOperation(workerArgs);
+testSubscriptionOperation(subscriptionArgs);
+testImportExportMethods(workerArgs);
+testQueryOperation(browserArgs, { suppressWorkers: true });
+testMutationOperation(browserArgs, { suppressWorkers: true });
 testSubscriptionOperation(subscriptionArgs, { suppressWorkers: true });
-// testImportExportMethods(browserArgs, { suppressWorkers: true });
+testImportExportMethods(browserArgs, { suppressWorkers: true });
