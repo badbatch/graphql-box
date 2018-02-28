@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2017.object",
+      "es6",
+      "esnext.asynciterable",
+      "scripthost",
+      "webworker"
+    ],
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "pretty": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "target": "es6"
+  },
+  "include": ["src/**/*", "test/**/*"]
+}

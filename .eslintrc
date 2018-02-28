@@ -1,7 +1,5 @@
 {
   "env": {
-    "browser": true,
-    "mocha": true,
     "node": true
   },
   "extends": [
@@ -9,13 +7,10 @@
   ],
   "parser": "babel-eslint",
   "rules": {
-    // overrides
-    "class-methods-use-this": 0,
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": 0,
     "no-param-reassign": ["error", { "props": false }],
     "no-underscore-dangle": 0,
     "one-var": ["error", { "initialized": "never" }],
-    "one-var-declaration-per-line": ["error", "initializations"],
-    "prefer-promise-reject-errors": 0
+    "one-var-declaration-per-line": ["error", "initializations"]
   }
 }

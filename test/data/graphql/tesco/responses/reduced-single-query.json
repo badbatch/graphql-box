@@ -1,0 +1,38 @@
+{
+  "product": {
+    "id": "402-5806",
+    "defaultSku": {
+      "id": "134-5203",
+      "displayName": "F&F Regular Fit Suit Trousers 36 Waist 35 Leg Charcoal",
+      "parentProduct": {
+        "id": "402-5806",
+        "optionsInfo": [{
+          "name": "Colour",
+          "type": "primary"
+        }, {
+          "name": "Size",
+          "type": "secondary"
+        }],
+        "prices": {
+          "clubcardPoints": 19,
+          "id": "402-5806",
+          "price": "19.00"
+        },
+        "userActionable": true
+      },
+      "publicLink": "/direct/ff-regular-fit-suit-trousers/402-5806.prd?skuId=134-5203"
+    },
+    "optionsInfo": [{
+      "name": "Colour",
+      "type": "primary"
+    }, {
+      "name": "Size",
+      "type": "secondary"
+    }],
+    "prices": {
+      "clubcardPoints": 19,
+      "id": "402-5806",
+      "price": "19.00"
+    }
+  }
+}

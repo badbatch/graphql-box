@@ -17,7 +17,7 @@ script:
   - npm test
   - sonar-scanner
   - codecov
-  - npm run transpile
+  - npm run compile
 deploy:
   provider: npm
   email: "dylanaubrey@gmail.com"

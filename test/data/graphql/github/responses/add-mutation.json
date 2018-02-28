@@ -1,0 +1,11 @@
+{
+  "data": {
+    "addStar": {
+      "clientMutationId": "1",
+      "starrable": {
+        "id": "MDEwOlJlcG9zaXRvcnkzODMwNzQyOA==",
+        "viewerHasStarred": true
+      }
+    }
+  }
+}

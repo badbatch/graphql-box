@@ -1,27 +1,29 @@
 {
-  "ignore": [
-    ".nyc_output",
-    ".vscode",
-    "coverage",
-    "lib",
-    "node_modules"
-  ],
+  "comments": false,
   "env": {
     "browser": {
-      "comments": false,
-      "plugins": ["lodash"],
       "presets": [
         ["@babel/preset-env", {
           "debug": true,
+          "modules": false,
           "targets": { "browsers": "last 4 versions" },
           "useBuiltIns": "usage"
         }],
         "@babel/preset-stage-0"
       ]
     },
+    "debug": {
+      "presets": [
+        ["@babel/preset-env", {
+          "debug": true,
+          "modules": false,
+          "targets": { "browsers": "chrome >= 60" },
+          "useBuiltIns": "usage"
+        }],
+        "@babel/preset-stage-0"
+      ]
+    },
     "main": {
-      "comments": false,
-      "plugins": ["lodash"],
       "presets": [
         ["@babel/preset-env", {
           "debug": true,
@@ -32,8 +34,6 @@
       ]
     },
     "module": {
-      "comments": false,
-      "plugins": ["lodash"],
       "presets": [
         ["@babel/preset-env", {
           "debug": true,
@@ -43,17 +43,19 @@
         }],
         "@babel/preset-stage-0"
       ]
-    },
-    "test": {
-      "plugins": ["istanbul"],
-      "presets": [
-        ["@babel/preset-env", {
-          "debug": true,
-          "targets": { "node": "current" },
-          "useBuiltIns": "usage"
-        }],
-        "@babel/preset-stage-0"
-      ]
     }
-  }
+  },
+  "ignore": [
+    ".nyc_output",
+    ".vscode",
+    "bundle",
+    "coverage",
+    "docs",
+    "lib",
+    "node_modules",
+    "**/*.d.ts"
+  ],
+  "plugins": [
+    "lodash"
+  ]
 }
