@@ -6,23 +6,25 @@ import { github } from "../data/graphql";
 import { dataEndpoints, endpointData } from "../data/rest";
 import * as githubIntrospection from "../introspection/github/index.json";
 import * as tescoIntrospection from "../introspection/tesco/index.json";
+import schema from "../schema";
+import { ServerArgs } from "../../src/server/types";
 import { ClientArgs, ObjectMap } from "../../src/types";
 
-export const browserArgs: ClientArgs = {
+export const browserClientArgs: ClientArgs = {
   fetchTimeout: 5000000,
   introspection: githubIntrospection as IntrospectionQuery,
   newInstance: true,
   url: "https://api.github.com/graphql",
 };
 
-export const workerArgs: ClientArgs = {
+export const workerClientArgs: ClientArgs = {
   fetchTimeout: 5000000,
   introspection: githubIntrospection as IntrospectionQuery,
   newInstance: true,
   url: "https://api.github.com/graphql",
 };
 
-export const serverArgs: ClientArgs = {
+export const serverClientArgs: ClientArgs = {
   cachemapOptions: {
     dataEntities: { mockRedis: true },
     dataPaths: { mockRedis: true },
@@ -34,7 +36,7 @@ export const serverArgs: ClientArgs = {
   url: "http://localhost:3001/graphql",
 };
 
-export const subscriptionArgs: ClientArgs = {
+export const subscriptionClientArgs: ClientArgs = {
   cachemapOptions: {
     dataEntities: { mockRedis: true },
     dataPaths: { mockRedis: true },
@@ -45,6 +47,16 @@ export const subscriptionArgs: ClientArgs = {
   newInstance: true,
   subscriptions: { address: "ws://localhost:3001" },
   url: "http://localhost:3001/graphql",
+};
+
+export const serverArgs: ServerArgs = {
+  cachemapOptions: {
+    dataEntities: { mockRedis: true },
+    dataPaths: { mockRedis: true },
+    responses: { mockRedis: true },
+  },
+  newInstance: true,
+  schema,
 };
 
 export function buildRestPath(key: string, resource: string | string[]): string {

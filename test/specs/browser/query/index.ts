@@ -3,11 +3,10 @@ import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
 import * as sinon from "sinon";
 import { github, tesco } from "../../../data/graphql";
-import { mockGraphqlRequest, serverArgs, stripSpaces } from "../../../helpers";
+import { mockGraphqlRequest, serverClientArgs, stripSpaces } from "../../../helpers";
 import { DefaultHandl, Handl, WorkerHandl } from "../../../../src";
 
 import {
-  CacheMetadata,
   ClientArgs,
   RequestResult,
   RequestResultData,
@@ -68,7 +67,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(github.responses.singleQuery.data);
             expect(result.queryHash).to.be.a("string");
-            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(1);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
@@ -138,7 +137,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(github.responses.singleQuery.data);
             expect(result.queryHash).to.be.a("string");
-            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(1);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
@@ -181,7 +180,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(resultOne).to.deep.equal(resultTwo);
             expect(resultTwo.data).to.deep.equal(github.responses.singleQuery.data);
             expect(resultTwo.queryHash).to.be.a("string");
-            const cacheMetadata = resultTwo.cacheMetadata as CacheMetadata;
+            const cacheMetadata = resultTwo.cacheMetadata;
             expect(cacheMetadata.size).to.equal(1);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
@@ -227,7 +226,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(github.responses.reducedSingleQuery.data);
             expect(result.queryHash).to.be.a("string");
-            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(5);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
@@ -311,7 +310,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(github.responses.extendedSingleQuery.data);
             expect(result.queryHash).to.be.a("string");
-            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(5);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
@@ -415,7 +414,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(github.responses.sugaredSingleQuery.data);
             expect(result.queryHash).to.be.a("string");
-            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(1);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
@@ -487,7 +486,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(github.responses.sugaredSingleQuery.data);
             expect(result.queryHash).to.be.a("string");
-            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(1);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
@@ -534,7 +533,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(github.responses.sugaredSingleQuery.data);
             expect(result.queryHash).to.be.a("string");
-            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(5);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
@@ -591,7 +590,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           }
 
           stub = sinon.stub(console, "warn");
-          client = await Handl.create({ ...serverArgs, batch: true }) as DefaultHandl;
+          client = await Handl.create({ ...serverClientArgs, batch: true }) as DefaultHandl;
           await client.clearCache();
         });
 
@@ -639,7 +638,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
             batchedResults.forEach((result) => {
               expect(result.queryHash).to.be.a("string");
-              const cacheMetadata = result.cacheMetadata as CacheMetadata;
+              const cacheMetadata = result.cacheMetadata;
               expect(cacheMetadata.size).to.equal(2);
               const isProduct = cacheMetadata.has("product");
               const ttl = isProduct ? 28800 : 14400;
@@ -753,7 +752,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
             batchedResults.forEach((result) => {
               expect(result.queryHash).to.be.a("string");
-              const cacheMetadata = result.cacheMetadata as CacheMetadata;
+              const cacheMetadata = result.cacheMetadata;
               expect(cacheMetadata.size).to.equal(2);
               const isProduct = cacheMetadata.has("product");
               const ttl = isProduct ? 28800 : 14400;

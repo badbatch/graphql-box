@@ -3,17 +3,20 @@ import * as md5 from "md5";
 import PromiseWorker from "promise-worker";
 import EventAsyncIterator from "../event-async-iterator";
 import createCacheMetadata from "../helpers/create-cache-metadata";
+import dehydrateCacheMetadata from "../helpers/dehydrate-cache-metadata";
+import rehydrateCacheMetadata from "../helpers/rehydrate-cache-metadata";
 import EventTargetProxy from "../proxies/event-target";
 
 import {
+  CacheMetadata,
   ClientArgs,
+  DehydratedCacheMetadata,
+  DehydratedRequestResultData,
   ExportCachesResult,
   ObjectMap,
   PostMessageArgs,
-  PostMessageResult,
   RequestOptions,
   RequestResult,
-  RequestResultData,
   ResponseCacheEntryResult,
 } from "../types";
 
@@ -35,14 +38,18 @@ export class WorkerClient {
     }
   }
 
+  public static dehydrateCacheMetadata(cacheMetadata?: CacheMetadata): DehydratedCacheMetadata {
+    return dehydrateCacheMetadata(cacheMetadata);
+  }
+
+  public static rehydrateCacheMetadata(dehydratedCacheMetadata: DehydratedCacheMetadata): CacheMetadata {
+    return rehydrateCacheMetadata(dehydratedCacheMetadata);
+  }
+
   private static _buildSubscriptionID(concatQuery: string, variables?: ObjectMap): string {
     let id = concatQuery.replace(/\s/g, "");
     if (variables) id += JSON.stringify(variables);
     return md5(id);
-  }
-
-  private static _convertCacheabilityObjectMap({ cacheMetadata, ...otherProps }: PostMessageResult): RequestResultData {
-    return { cacheMetadata: createCacheMetadata({ cacheMetadata }), ...otherProps };
   }
 
   private static _isSubscription(concatQuery: string): boolean {
@@ -160,8 +167,12 @@ export class WorkerClient {
         }
       }
 
-      const postMessageResult = await this._postMessage({ query, opts, type: "request" }) as PostMessageResult;
-      return WorkerClient._convertCacheabilityObjectMap(postMessageResult);
+      const result = await this._postMessage({ query, opts, type: "request" }) as DehydratedRequestResultData;
+
+      return {
+        ...result,
+        cacheMetadata: rehydrateCacheMetadata(result.cacheMetadata),
+      };
     } catch (error) {
       return Promise.reject(error);
     }

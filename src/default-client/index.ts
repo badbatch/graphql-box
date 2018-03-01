@@ -19,14 +19,14 @@ import {
   merge,
 } from "lodash";
 
-import CacheManager from "../cache-manager";
-import mapToObject from "../helpers/map-to-object";
-import FetchManager from "../fetch-manager";
-import { getOperationDefinitions } from "../helpers/parsing";
-import createCacheMetadata from "../helpers/create-cache-metadata";
-import hashRequest from "../helpers/hash-request";
 import { FetchResult, ResolveArgs } from "./types";
-import parseCacheabilityObjectMap from "../helpers/parse-cacheability-object-map";
+import CacheManager from "../cache-manager";
+import FetchManager from "../fetch-manager";
+import createCacheMetadata from "../helpers/create-cache-metadata";
+import dehydrateCacheMetadata from "../helpers/dehydrate-cache-metadata";
+import hashRequest from "../helpers/hash-request";
+import { getOperationDefinitions } from "../helpers/parsing";
+import rehydrateCacheMetadata from "../helpers/rehydrate-cache-metadata";
 import socketsSupported from "../helpers/sockets-supported";
 import GraphQLExecuteProxy from "../proxies/graphql-execute";
 import GraphQLSubscribeProxy from "../proxies/graphql-subscribe";
@@ -38,6 +38,7 @@ import {
   CacheMetadata,
   ClientArgs,
   DefaultCacheControls,
+  DehydratedCacheMetadata,
   ExportCachesResult,
   FieldTypeMap,
   ObjectMap,
@@ -56,8 +57,8 @@ let GraphQLExecute: typeof GraphQLExecuteProxy;
 let GraphQLSubscribe: typeof GraphQLSubscribeProxy;
 
 if (!process.env.WEB_ENV) {
-  GraphQLExecute = require("../proxies/graphql-execute");
-  GraphQLSubscribe = require("../proxies/graphql-subscribe");
+  GraphQLExecute = require("../proxies/graphql-execute").default;
+  GraphQLSubscribe = require("../proxies/graphql-subscribe").default;
 }
 
 let instance: DefaultClient;
@@ -74,6 +75,14 @@ export class DefaultClient {
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  public static dehydrateCacheMetadata(cacheMetadata?: CacheMetadata): DehydratedCacheMetadata {
+    return dehydrateCacheMetadata(cacheMetadata);
+  }
+
+  public static rehydrateCacheMetadata(dehydratedCacheMetadata: DehydratedCacheMetadata): CacheMetadata {
+    return rehydrateCacheMetadata(dehydratedCacheMetadata);
   }
 
   private _cache: CacheManager;
@@ -301,12 +310,8 @@ export class DefaultClient {
       const result = await this._resolveRequestOperation(updated.query, updated.ast, opts, context);
       if (isAsyncIterable(result)) return result;
       const resolveResult = result as ResolveResult;
-
-      if (opts.awaitDataCached && resolveResult.cachePromise) {
-        await resolveResult.cachePromise;
-        delete resolveResult.cachePromise;
-      }
-
+      if (opts.awaitDataCached && resolveResult.cachePromise) await resolveResult.cachePromise;
+      delete resolveResult.cachePromise;
       return result;
     } catch (error) {
       return Promise.reject(error);
@@ -318,7 +323,7 @@ export class DefaultClient {
       const cacheability = await this._cache.responses.has(queryHash);
       if (!cacheability || !CacheManager.isValid(cacheability)) return undefined;
       const res = await this._cache.responses.get(queryHash);
-      return { cacheMetadata: parseCacheabilityObjectMap(res.cacheMetadata), data: res.data };
+      return { cacheMetadata: rehydrateCacheMetadata(res.cacheMetadata), data: res.data };
     } catch (error) {
       return undefined;
     }
@@ -434,7 +439,7 @@ export class DefaultClient {
         try {
           await this._cache.responses.set(
             queryHash,
-            { cacheMetadata: mapToObject(cacheMetadata), data: cachedData },
+            { cacheMetadata: dehydrateCacheMetadata(cacheMetadata), data: cachedData },
             { cacheHeaders: { cacheControl }, tag: opts.tag },
           );
         } catch (error) {
@@ -505,7 +510,7 @@ export class DefaultClient {
     if (error) return Promise.reject(error);
 
     const output: ResolveResult = {
-      cacheMetadata,
+      cacheMetadata: cacheMetadata as CacheMetadata,
       data: data as ObjectMap,
     };
 
@@ -528,7 +533,7 @@ export class DefaultClient {
         reject(error);
       } else {
         resolve({
-          cacheMetadata,
+          cacheMetadata: cacheMetadata as CacheMetadata,
           data: data as ObjectMap,
           queryHash,
         });
@@ -620,7 +625,7 @@ export class DefaultClient {
       if (isAsyncIterable(subscribeResult)) return subscribeResult as AsyncIterator<any>;
       const executionResult = subscribeResult as ExecutionResult;
       if (executionResult.errors) return Promise.reject(executionResult.errors);
-      return this._resolve({ data: executionResult.data, operation: "subscription" });
+      return this._resolveSubscriber(ast, context.fieldTypeMap, executionResult, opts);
     } catch (error) {
       return this._resolve({ error, operation: "subscription" });
     }

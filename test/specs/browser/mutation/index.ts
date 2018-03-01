@@ -4,7 +4,7 @@ import * as fetchMock from "fetch-mock";
 import { github } from "../../../data/graphql";
 import { mockGraphqlRequest } from "../../../helpers";
 import { DefaultHandl, Handl, WorkerHandl } from "../../../../src";
-import { CacheMetadata, ClientArgs, RequestResultData } from "../../../../src/types";
+import { ClientArgs, RequestResultData } from "../../../../src/types";
 
 export default function testMutationOperation(args: ClientArgs, opts: { suppressWorkers?: boolean } = {}): void {
   describe(`the handl client on the browser ${!opts.suppressWorkers ? "with web workers" : ""}`, () => {
@@ -58,7 +58,7 @@ export default function testMutationOperation(args: ClientArgs, opts: { suppress
 
           it("then the method should return the requested data", () => {
             expect(result.data).to.deep.equal(github.responses.addMutation.data);
-            const cacheMetadata = result.cacheMetadata as CacheMetadata;
+            const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(1);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
