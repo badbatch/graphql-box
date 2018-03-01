@@ -52,7 +52,7 @@ import {
   ResolveResult,
 } from "../types";
 
-import mapToObject from "../helpers/map-to-object";
+import dehydrateCacheMetadata from "../helpers/dehydrate-cache-metadata";
 import mergeObjects from "../helpers/merge-objects";
 
 import {
@@ -447,14 +447,14 @@ export default class CacheManager {
       try {
         promises.push(this._responses.set(
           queryHash,
-          { cacheMetadata: mapToObject(updatedCacheMetadata), data: updatedData },
+          { cacheMetadata: dehydrateCacheMetadata(updatedCacheMetadata), data: updatedData },
           { cacheHeaders: { cacheControl: updatedCacheControl }, tag: opts.tag },
         ));
 
         if (filterCacheMetadata) {
           promises.push(this._responses.set(
             hashRequest(query),
-            { cacheMetadata: mapToObject(filterCacheMetadata), data },
+            { cacheMetadata: dehydrateCacheMetadata(filterCacheMetadata), data },
             { cacheHeaders: { cacheControl: filterCacheControl }, tag: opts.tag },
           ));
         }

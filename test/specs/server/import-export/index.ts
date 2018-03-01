@@ -27,7 +27,7 @@ export default function testImportExportMethods(args: ClientArgs): void {
       mockRestRequest("sku", "134-5203");
       fetchMock.spy();
       stub = sinon.stub(console, "warn");
-      server = graphqlServer();
+      server = await graphqlServer();
       client = await Handl.create(args) as DefaultHandl;
     });
 

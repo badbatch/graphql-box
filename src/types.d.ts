@@ -24,8 +24,6 @@ export interface AnalyzeResult {
   updatedQuery?: string;
 }
 
-export interface CacheabilityObjectMap { [key: string]: CacheabilityMetadata; }
-
 export type CacheMetadata = Map<string, Cacheability>;
 
 export interface CachemapArgsGroup {
@@ -69,7 +67,7 @@ export interface ClientRequests {
 }
 
 export interface CreateCacheMetadataArgs {
-  cacheMetadata?: CacheabilityObjectMap;
+  cacheMetadata?: DehydratedCacheMetadata;
   headers?: Headers;
 }
 
@@ -80,6 +78,14 @@ export interface DefaultCacheControls {
   query: string;
   subscription: string;
   [key: string]: string;
+}
+
+export interface DehydratedCacheMetadata { [key: string]: CacheabilityMetadata; }
+
+export interface DehydratedRequestResultData {
+  cacheMetadata: DehydratedCacheMetadata;
+  data: ObjectMap;
+  queryHash?: string;
 }
 
 export interface ExportCacheResult {
@@ -130,12 +136,6 @@ export interface PostMessageArgs {
   type: string;
 }
 
-export interface PostMessageResult {
-  cacheMetadata?: CacheabilityObjectMap;
-  data: ObjectMap;
-  queryHash?: string;
-}
-
 export interface RequestContext {
   fieldTypeMap: FieldTypeMap;
 }
@@ -163,13 +163,13 @@ export interface RequestOptions {
 export type RequestResult = RequestResultData | AsyncIterator<Event | undefined>;
 
 export interface RequestResultData {
-  cacheMetadata?: CacheMetadata;
+  cacheMetadata: CacheMetadata;
   data: ObjectMap;
   queryHash?: string;
 }
 
 export interface ResolveResult {
-  cacheMetadata?: CacheMetadata;
+  cacheMetadata: CacheMetadata;
   cachePromise?: Promise<void>;
   data: ObjectMap;
   queryHash?: string;

@@ -8,7 +8,7 @@ import { tesco } from "../../../data/graphql";
 import { mockRestRequest } from "../../../helpers";
 import graphqlServer from "../../../server";
 import { DefaultHandl, Handl } from "../../../../src";
-import { CacheMetadata, ClientArgs, RequestResultData } from "../../../../src/types";
+import { ClientArgs, RequestResultData } from "../../../../src/types";
 
 const deferredPromise = require("defer-promise");
 
@@ -20,7 +20,7 @@ export default function testSubscriptionOperation(args: ClientArgs): void {
 
     before(async () => {
       stub = sinon.stub(console, "warn");
-      server = graphqlServer();
+      server = await graphqlServer();
       client = await Handl.create(args) as DefaultHandl;
     });
 
@@ -96,7 +96,7 @@ export default function testSubscriptionOperation(args: ClientArgs): void {
           it("then the method should return the subscribed data", () => {
             const _result = result as RequestResultData;
             expect(_result.data).to.deep.equal(tesco.responses.singleSubscription);
-            const cacheMetadata = _result.cacheMetadata as CacheMetadata;
+            const cacheMetadata = _result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(3);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(60);

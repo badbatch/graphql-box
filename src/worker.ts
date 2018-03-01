@@ -1,17 +1,11 @@
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import registerPromiseWorker from "promise-worker/register";
 import { DefaultClient } from "./default-client";
-import mapToObject from "./helpers/map-to-object";
-import { PostMessageArgs, PostMessageResult, RequestResultData } from "./types";
+import dehydrateCacheMetadata from "./helpers/dehydrate-cache-metadata";
+import { PostMessageArgs, RequestResultData } from "./types";
 
 if (process.env.TEST_ENV) {
   require("../test/mocks");
-}
-
-function convertCacheMetadata({ cacheMetadata, ...otherProps }: RequestResultData): PostMessageResult {
-  const postMessageResult: PostMessageResult = { ...otherProps };
-  if (cacheMetadata) postMessageResult.cacheMetadata = mapToObject(cacheMetadata);
-  return postMessageResult;
 }
 
 let client: DefaultClient;
@@ -56,7 +50,7 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
 
           if (entry) {
             result = {
-              cacheMetadata: mapToObject(entry.cacheMetadata),
+              cacheMetadata: dehydrateCacheMetadata(entry.cacheMetadata),
               data: entry.data,
             };
           }
@@ -79,7 +73,11 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
               });
             } else {
               const resolveResult = requestResult as RequestResultData;
-              result = convertCacheMetadata(resolveResult);
+
+              result = {
+                ...resolveResult,
+                cacheMetadata: dehydrateCacheMetadata(resolveResult.cacheMetadata),
+              };
             }
           }
         }
