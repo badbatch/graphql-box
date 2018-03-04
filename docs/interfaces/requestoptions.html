@@ -80,9 +80,13 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#awaitdatacached" class="tsd-kind-icon">await<wbr>Data<wbr>Cached</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#contextvalue" class="tsd-kind-icon">context<wbr>Value</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#fieldresolver" class="tsd-kind-icon">field<wbr>Resolver</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#forcefetch" class="tsd-kind-icon">force<wbr>Fetch</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#fragments" class="tsd-kind-icon">fragments</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#headers" class="tsd-kind-icon">headers</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#operationname" class="tsd-kind-icon">operation<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#rootvalue" class="tsd-kind-icon">root<wbr>Value</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#subscribefieldresolver" class="tsd-kind-icon">subscribe<wbr>Field<wbr>Resolver</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#tag" class="tsd-kind-icon">tag</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="requestoptions.html#variables" class="tsd-kind-icon">variables</a></li>
 							</ul>
@@ -98,7 +102,27 @@
 					<div class="tsd-signature tsd-kind-icon">await<wbr>Data<wbr>Cached<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/9418960/src/types.d.ts#L128">types.d.ts:128</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L151">types.d.ts:151</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="contextvalue" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> context<wbr>Value</h3>
+					<div class="tsd-signature tsd-kind-icon">context<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L152">types.d.ts:152</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="fieldresolver" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> field<wbr>Resolver</h3>
+					<div class="tsd-signature tsd-kind-icon">field<wbr>Resolver<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">GraphQLFieldResolver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L153">types.d.ts:153</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -108,7 +132,7 @@
 					<div class="tsd-signature tsd-kind-icon">force<wbr>Fetch<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/9418960/src/types.d.ts#L129">types.d.ts:129</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L154">types.d.ts:154</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -118,17 +142,37 @@
 					<div class="tsd-signature tsd-kind-icon">fragments<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/9418960/src/types.d.ts#L130">types.d.ts:130</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L155">types.d.ts:155</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="headers" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> headers</h3>
-					<div class="tsd-signature tsd-kind-icon">headers<span class="tsd-signature-symbol">:</span> <a href="objectmap.html" class="tsd-signature-type">ObjectMap</a></div>
+					<a name="operationname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> operation<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">operation<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/9418960/src/types.d.ts#L131">types.d.ts:131</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L156">types.d.ts:156</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="rootvalue" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> root<wbr>Value</h3>
+					<div class="tsd-signature tsd-kind-icon">root<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L157">types.d.ts:157</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="subscribefieldresolver" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> subscribe<wbr>Field<wbr>Resolver</h3>
+					<div class="tsd-signature tsd-kind-icon">subscribe<wbr>Field<wbr>Resolver<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">GraphQLFieldResolver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L158">types.d.ts:158</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -138,7 +182,7 @@
 					<div class="tsd-signature tsd-kind-icon">tag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/9418960/src/types.d.ts#L132">types.d.ts:132</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L159">types.d.ts:159</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -148,7 +192,7 @@
 					<div class="tsd-signature tsd-kind-icon">variables<span class="tsd-signature-symbol">:</span> <a href="objectmap.html" class="tsd-signature-type">ObjectMap</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/9418960/src/types.d.ts#L133">types.d.ts:133</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L160">types.d.ts:160</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -173,13 +217,25 @@
 								<a href="requestoptions.html#awaitdatacached" class="tsd-kind-icon">await<wbr>Data<wbr>Cached</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="requestoptions.html#contextvalue" class="tsd-kind-icon">context<wbr>Value</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="requestoptions.html#fieldresolver" class="tsd-kind-icon">field<wbr>Resolver</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="requestoptions.html#forcefetch" class="tsd-kind-icon">force<wbr>Fetch</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="requestoptions.html#fragments" class="tsd-kind-icon">fragments</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="requestoptions.html#headers" class="tsd-kind-icon">headers</a>
+								<a href="requestoptions.html#operationname" class="tsd-kind-icon">operation<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="requestoptions.html#rootvalue" class="tsd-kind-icon">root<wbr>Value</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="requestoptions.html#subscribefieldresolver" class="tsd-kind-icon">subscribe<wbr>Field<wbr>Resolver</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="requestoptions.html#tag" class="tsd-kind-icon">tag</a>
