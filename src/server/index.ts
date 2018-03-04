@@ -1,6 +1,15 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
+import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
-import { DehydratedRequestResultDataObjectMap, ServerArgs, ServerRequestOptions } from "./types";
+import * as WebSocket from "ws";
+
+import {
+  DehydratedRequestResultDataObjectMap,
+  MessageHandler,
+  ServerArgs,
+  ServerRequestOptions,
+} from "./types";
+
 import { DefaultClient } from "../default-client";
 import { DehydratedRequestResultData, RequestResultData, StringObjectMap } from "../types";
 
@@ -22,14 +31,51 @@ export class ServerHandl {
 
   private _client: DefaultClient;
 
-  public router(opts?: ServerRequestOptions): RequestHandler {
-    return (req: Request, res: Response, next: NextFunction) => {
+  public request(opts?: ServerRequestOptions): RequestHandler {
+    return (req: Request, res: Response, next: NextFunction): void => {
       this._requestHandler(req, res, opts);
+    };
+  }
+
+  public message(ws: WebSocket, opts?: ServerRequestOptions): MessageHandler {
+    return (message: string): void => {
+      this._messageHandler(ws, message, opts);
     };
   }
 
   private async _createClient(args: ServerArgs): Promise<void> {
     this._client = await DefaultClient.create({ ...args, mode: "server" });
+  }
+
+  private async _messageHandler(ws: WebSocket, message: string, opts: ServerRequestOptions = {}): Promise<void> {
+    try {
+      const { subscriptionID, subscription } = JSON.parse(message as string);
+      const subscribeResult = await this._client.request(subscription, opts);
+
+      if (isAsyncIterable(subscribeResult)) {
+        forAwaitEach(subscribeResult, (result: RequestResultData) => {
+          if (ws.readyState === ws.OPEN) {
+            const dehydratedResult = {
+              ...result,
+              cacheMetadata: DefaultClient.dehydrateCacheMetadata(result.cacheMetadata),
+            };
+
+            ws.send(JSON.stringify({ result: dehydratedResult, subscriptionID }));
+          }
+        });
+      } else if (ws.readyState === ws.OPEN) {
+        const result = subscribeResult as RequestResultData;
+
+        const dehydratedResult = {
+          ...result,
+          cacheMetadata: DefaultClient.dehydrateCacheMetadata(result.cacheMetadata),
+        };
+
+        ws.send(JSON.stringify({ result: dehydratedResult, subscriptionID }));
+      }
+    } catch (error) {
+      ws.send(error);
+    }
   }
 
   private async _requestHandler(

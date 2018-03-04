@@ -73,10 +73,6 @@ export default function testMutationOperation(args: ClientArgs): void {
             expect(productsCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           });
 
-          it("then the graphql schema should have made fetch requests", () => {
-            expect(fetchMock.calls().matched).to.have.lengthOf(1);
-          });
-
           it("then the client should not have cached the response against the query", async () => {
             const cacheSize = await client.getResponseCacheSize();
             expect(cacheSize).to.equal(1);
