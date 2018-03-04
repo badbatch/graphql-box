@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MapFieldToTypeArgs | Handl</title>
+	<title>FetchManagerArgs | Handl</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="mapfieldtotypeargs.html">MapFieldToTypeArgs</a>
+					<a href="fetchmanagerargs.html">FetchManagerArgs</a>
 				</li>
 			</ul>
-			<h1>Interface MapFieldToTypeArgs</h1>
+			<h1>Interface FetchManagerArgs</h1>
 		</div>
 	</div>
 </header>
@@ -68,7 +68,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">MapFieldToTypeArgs</span>
+						<span class="target">FetchManagerArgs</span>
 					</li>
 				</ul>
 			</section>
@@ -79,13 +79,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="mapfieldtotypeargs.html#ancestors" class="tsd-kind-icon">ancestors</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="mapfieldtotypeargs.html#context" class="tsd-kind-icon">context</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="mapfieldtotypeargs.html#fieldnode" class="tsd-kind-icon">field<wbr>Node</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="mapfieldtotypeargs.html#isentity" class="tsd-kind-icon">is<wbr>Entity</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="mapfieldtotypeargs.html#resourcekey" class="tsd-kind-icon">resource<wbr>Key</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="mapfieldtotypeargs.html#typename" class="tsd-kind-icon">type<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="mapfieldtotypeargs.html#variables" class="tsd-kind-icon">variables</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="fetchmanagerargs.html#batch" class="tsd-kind-icon">batch</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="fetchmanagerargs.html#fetchtimeout" class="tsd-kind-icon">fetch<wbr>Timeout</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="fetchmanagerargs.html#headers" class="tsd-kind-icon">headers</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="fetchmanagerargs.html#url" class="tsd-kind-icon">url</a></li>
 							</ul>
 						</section>
 					</div>
@@ -94,72 +91,42 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="ancestors" class="tsd-anchor"></a>
-					<h3>ancestors</h3>
-					<div class="tsd-signature tsd-kind-icon">ancestors<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
+					<a name="batch" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> batch</h3>
+					<div class="tsd-signature tsd-kind-icon">batch<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/9418960/src/default-client/types.d.ts#L11">default-client/types.d.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L103">types.d.ts:103</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="context" class="tsd-anchor"></a>
-					<h3>context</h3>
-					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <a href="requestcontext.html" class="tsd-signature-type">RequestContext</a></div>
+					<a name="fetchtimeout" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> fetch<wbr>Timeout</h3>
+					<div class="tsd-signature tsd-kind-icon">fetch<wbr>Timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/9418960/src/default-client/types.d.ts#L12">default-client/types.d.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L104">types.d.ts:104</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="fieldnode" class="tsd-anchor"></a>
-					<h3>field<wbr>Node</h3>
-					<div class="tsd-signature tsd-kind-icon">field<wbr>Node<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">FieldNode</span></div>
+					<a name="headers" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> headers</h3>
+					<div class="tsd-signature tsd-kind-icon">headers<span class="tsd-signature-symbol">:</span> <a href="objectmap.html" class="tsd-signature-type">ObjectMap</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/9418960/src/default-client/types.d.ts#L13">default-client/types.d.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L105">types.d.ts:105</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="isentity" class="tsd-anchor"></a>
-					<h3>is<wbr>Entity</h3>
-					<div class="tsd-signature tsd-kind-icon">is<wbr>Entity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="url" class="tsd-anchor"></a>
+					<h3>url</h3>
+					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/9418960/src/default-client/types.d.ts#L14">default-client/types.d.ts:14</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="resourcekey" class="tsd-anchor"></a>
-					<h3>resource<wbr>Key</h3>
-					<div class="tsd-signature tsd-kind-icon">resource<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/9418960/src/default-client/types.d.ts#L15">default-client/types.d.ts:15</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="typename" class="tsd-anchor"></a>
-					<h3>type<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">type<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/9418960/src/default-client/types.d.ts#L16">default-client/types.d.ts:16</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="variables" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> variables</h3>
-					<div class="tsd-signature tsd-kind-icon">variables<span class="tsd-signature-symbol">:</span> <a href="objectmap.html" class="tsd-signature-type">ObjectMap</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/9418960/src/default-client/types.d.ts#L17">default-client/types.d.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/ee8d153/src/types.d.ts#L106">types.d.ts:106</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -178,28 +145,19 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="mapfieldtotypeargs.html" class="tsd-kind-icon">Map<wbr>Field<wbr>ToType<wbr>Args</a>
+						<a href="fetchmanagerargs.html" class="tsd-kind-icon">Fetch<wbr>Manager<wbr>Args</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="mapfieldtotypeargs.html#ancestors" class="tsd-kind-icon">ancestors</a>
+								<a href="fetchmanagerargs.html#batch" class="tsd-kind-icon">batch</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="mapfieldtotypeargs.html#context" class="tsd-kind-icon">context</a>
+								<a href="fetchmanagerargs.html#fetchtimeout" class="tsd-kind-icon">fetch<wbr>Timeout</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="mapfieldtotypeargs.html#fieldnode" class="tsd-kind-icon">field<wbr>Node</a>
+								<a href="fetchmanagerargs.html#headers" class="tsd-kind-icon">headers</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="mapfieldtotypeargs.html#isentity" class="tsd-kind-icon">is<wbr>Entity</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="mapfieldtotypeargs.html#resourcekey" class="tsd-kind-icon">resource<wbr>Key</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="mapfieldtotypeargs.html#typename" class="tsd-kind-icon">type<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="mapfieldtotypeargs.html#variables" class="tsd-kind-icon">variables</a>
+								<a href="fetchmanagerargs.html#url" class="tsd-kind-icon">url</a>
 							</li>
 						</ul>
 					</li>

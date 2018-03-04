@@ -9,3 +9,4 @@ export { DefaultClient as DefaultHandl } from "./default-client";
 export { ServerHandl } from "./server";
 export { WorkerClient as WorkerHandl } from "./worker-client";
 export { Client as Handl } from "./client";
+export { MetadataType } from "./metadata-type";
