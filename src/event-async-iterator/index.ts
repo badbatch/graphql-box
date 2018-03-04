@@ -1,12 +1,13 @@
 import { $$asyncIterator } from "iterall";
 import EventEmitterProxy from "../proxies/event-emitter";
 import EventTargetProxy from "../proxies/event-target";
+import { ResolveResult } from "../types";
 
 export default class EventAsyncIterator {
   private _eventEmitter: EventEmitterProxy | EventTargetProxy;
   private _eventName: string;
   private _listening: boolean = false;
-  private _pullQueue: Array<(value: IteratorResult<CustomEvent | undefined>) => void> = [];
+  private _pullQueue: Array<(value: IteratorResult<ResolveResult | undefined>) => void> = [];
   private _pushQueue: CustomEvent[] = [];
 
   constructor(eventEmitter: EventEmitterProxy | EventTargetProxy, eventName: string) {
@@ -15,7 +16,7 @@ export default class EventAsyncIterator {
     this._addEventListener();
   }
 
-  public getIterator(): AsyncIterator<CustomEvent | undefined> {
+  public getIterator(): AsyncIterator<ResolveResult | undefined> {
     return {
       next: this._next.bind(this),
       return: this._return.bind(this),
@@ -41,16 +42,18 @@ export default class EventAsyncIterator {
     }
   }
 
-  private _next(): Promise<IteratorResult<CustomEvent | undefined>> {
+  private _next(): Promise<IteratorResult<ResolveResult | undefined>> {
     return this._listening ? this._pullValue() : this._return();
   }
 
-  private _pullValue(): Promise<IteratorResult<CustomEvent>> {
-    return new Promise((resolve: (value: IteratorResult<CustomEvent>) => void) => {
+  private _pullValue(): Promise<IteratorResult<ResolveResult>> {
+    return new Promise((resolve: (value: IteratorResult<ResolveResult>) => void) => {
       if (this._pushQueue.length !== 0) {
+        const event = this._pushQueue.shift() as CustomEvent;
+
         resolve({
           done: false,
-          value: this._pushQueue.shift() as CustomEvent,
+          value: event.detail,
         });
       } else {
         this._pullQueue.push(resolve);
@@ -60,7 +63,7 @@ export default class EventAsyncIterator {
 
   private _pushValue(event: CustomEvent): void {
     if (this._pullQueue.length !== 0) {
-      const resolver = this._pullQueue.shift() as (value: IteratorResult<CustomEvent | undefined>) => void;
+      const resolver = this._pullQueue.shift() as (value: IteratorResult<ResolveResult | undefined>) => void;
       resolver({ value: event.detail, done: false });
     } else {
       this._pushQueue.push(event);
@@ -71,7 +74,7 @@ export default class EventAsyncIterator {
     this._eventEmitter.removeListener(this._eventName, this._pushValue.bind(this));
   }
 
-  private _return(): Promise<IteratorResult<CustomEvent | undefined>> {
+  private _return(): Promise<IteratorResult<ResolveResult | undefined>> {
     this._emptyQueue();
     return Promise.resolve({ value: undefined, done: true });
   }

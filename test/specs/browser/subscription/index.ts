@@ -120,7 +120,7 @@ export default function testSubscriptionOperation(args: ClientArgs, opts: { supp
 
           it("then the client should cache each data entity in the response against its identifier", async () => {
             const cacheSize = await client.getDataEntityCacheSize();
-            expect(cacheSize).to.eql(4);
+            expect(cacheSize).to.be.within(3, 4);
           });
         });
       });

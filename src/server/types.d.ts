@@ -1,8 +1,11 @@
+import * as WS from "ws";
 import { DehydratedRequestResultData } from "../types";
 
 export interface DehydratedRequestResultDataObjectMap {
   [key: string]: DehydratedRequestResultData;
 }
+
+export type MessageHandler = (message: string) => void;
 
 export interface ServerArgs {
   cachemapOptions?: CachemapOptionsGroup;

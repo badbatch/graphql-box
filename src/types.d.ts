@@ -160,7 +160,7 @@ export interface RequestOptions {
   variables?: ObjectMap;
 }
 
-export type RequestResult = RequestResultData | AsyncIterator<Event | undefined>;
+export type RequestResult = RequestResultData | AsyncIterator<any>;
 
 export interface RequestResultData {
   cacheMetadata: CacheMetadata;

@@ -548,7 +548,7 @@ export class DefaultClient {
     ast: DocumentNode,
     opts: RequestOptions,
     context: RequestContext,
-  ): Promise<ResolveResult | AsyncIterator<Event | undefined>> {
+  ): Promise<ResolveResult | AsyncIterator<any>> {
     const operationDefinition = getOperationDefinitions(ast)[0];
 
     if (operationDefinition.operation === "query") {
@@ -585,7 +585,7 @@ export class DefaultClient {
       ast,
       fieldTypeMap,
       result.data,
-      createCacheMetadata(result.cacheMetadata),
+      createCacheMetadata({ cacheMetadata: result.cacheMetadata }),
       { cacheResolve: deferred.resolve, tag: opts.tag },
     );
 
