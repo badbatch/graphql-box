@@ -16,6 +16,7 @@ import {
 
 import * as WebSocket from "ws";
 
+/** @hidden */
 export interface AnalyzeResult {
   cachedData?: ObjectMap;
   cacheMetadata?: CacheMetadata;
@@ -26,6 +27,7 @@ export interface AnalyzeResult {
 
 export type CacheMetadata = Map<string, Cacheability>;
 
+/** @hidden */
 export interface CachemapArgsGroup {
   dataEntities: CachemapArgs;
   dataPaths: CachemapArgs;
@@ -61,16 +63,19 @@ export interface ClientArgs {
   url?: string;
 }
 
+/** @hidden */
 export interface ClientRequests {
   active: Map<string, string>;
   pending: Map<string, PendingRequestActions[]>;
 }
 
+/** @hidden */
 export interface CreateCacheMetadataArgs {
   cacheMetadata?: DehydratedCacheMetadata;
   headers?: Headers;
 }
 
+/** @hidden */
 export type DataCachedResolver = () => void;
 
 export interface DefaultCacheControls {
@@ -82,6 +87,7 @@ export interface DefaultCacheControls {
 
 export interface DehydratedCacheMetadata { [key: string]: CacheabilityMetadata; }
 
+/** @hidden */
 export interface DehydratedRequestResultData {
   cacheMetadata: DehydratedCacheMetadata;
   data: ObjectMap;
@@ -99,6 +105,7 @@ export interface ExportCachesResult {
   responses?: ExportCacheResult;
 }
 
+/** @hidden */
 export interface FetchManagerArgs {
   batch?: boolean;
   fetchTimeout?: number;
@@ -106,6 +113,7 @@ export interface FetchManagerArgs {
   url: string;
 }
 
+/** @hidden */
 export interface FieldTypeInfo {
   hasArguments: boolean;
   hasDirectives: boolean;
@@ -114,18 +122,24 @@ export interface FieldTypeInfo {
   typeName: string;
 }
 
+/** @hidden */
 export type FieldTypeMap = Map<string, FieldTypeInfo>;
 export interface ObjectMap { [key: string]: any; }
+/** @hidden */
 export interface StringObjectMap { [key: string]: string; }
 
+/** @hidden */
 export interface PendingRequestActions {
   reject: PendingRequestRejection;
   resolve: PendingRequestResolver;
 }
 
+/** @hidden */
 export type PendingRequestRejection = (value: Error | Error[]) => void;
+/** @hidden */
 export type PendingRequestResolver = (value: ResolveResult) => void;
 
+/** @hidden */
 export interface PostMessageArgs {
   args?: ClientArgs;
   caches?: ExportCachesResult;
@@ -136,10 +150,12 @@ export interface PostMessageArgs {
   type: string;
 }
 
+/** @hidden */
 export interface RequestContext {
   fieldTypeMap: FieldTypeMap;
 }
 
+/** @hidden */
 export interface RequestExecutorResolveResult {
   cacheMetadata?: ObjectMap;
   errors?: Error | Error[];
@@ -168,6 +184,7 @@ export interface RequestResultData {
   queryHash?: string;
 }
 
+/** @hidden */
 export interface ResolveResult {
   cacheMetadata: CacheMetadata;
   cachePromise?: Promise<void>;
@@ -180,6 +197,7 @@ export interface ResponseCacheEntryResult {
   data: ObjectMap;
 }
 
+/** @hidden */
 export type SubscriberResolver = (data: any) => Promise<ResolveResult>;
 
 export interface SubscriptionsOptions {

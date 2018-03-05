@@ -31,6 +31,10 @@ export class ServerClient {
 
   private _client: DefaultClient;
 
+  get client(): DefaultClient {
+    return this._client;
+  }
+
   public request(opts?: ServerRequestOptions): RequestHandler {
     return (req: Request, res: Response, next: NextFunction): void => {
       this._requestHandler(req, res, opts);
