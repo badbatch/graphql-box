@@ -1,6 +1,7 @@
 import * as WS from "ws";
 import { DehydratedRequestResultData } from "../types";
 
+/** @hidden */
 export interface DehydratedRequestResultDataObjectMap {
   [key: string]: DehydratedRequestResultData;
 }
