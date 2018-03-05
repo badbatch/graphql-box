@@ -13,14 +13,14 @@ import {
 import { DefaultClient } from "../default-client";
 import { DehydratedRequestResultData, RequestResultData, StringObjectMap } from "../types";
 
-let instance: ServerHandl;
+let instance: ServerClient;
 
-export class ServerHandl {
-  public static async create(args: ServerArgs): Promise<ServerHandl> {
+export class ServerClient {
+  public static async create(args: ServerArgs): Promise<ServerClient> {
     if (instance && isPlainObject(args) && !args.newInstance) return instance;
 
     try {
-      const server = new ServerHandl();
+      const server = new ServerClient();
       await server._createClient(args);
       instance = server;
       return instance;
