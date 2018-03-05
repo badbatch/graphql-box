@@ -84,6 +84,7 @@ gulp.task('lint', () => {
 gulp.task('document', () => gulp.src(['src/**/*.ts'])
   .pipe(typedoc({
     excludeExternals: true,
+    excludeNotExported: true,
     excludePrivate: true,
     excludeProtected: true,
     exclude: '**/{cache-manager,event-async-iterator,fetch-manager,helpers,module-definitions,proxies,request-parser,socket-manager,subscription-service}/**',
