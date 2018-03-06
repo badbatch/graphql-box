@@ -4,7 +4,7 @@ import * as fetchMock from "fetch-mock";
 import * as sinon from "sinon";
 import { github, tesco } from "../../../data/graphql";
 import { mockGraphqlRequest, serverClientArgs, stripSpaces } from "../../../helpers";
-import { DefaultHandl, Handl, WorkerHandl } from "../../../../src";
+import { ClientHandl, Handl, WorkerHandl } from "../../../../src";
 
 import {
   ClientArgs,
@@ -16,7 +16,7 @@ import {
 export default function testQueryOperation(args: ClientArgs, opts: { suppressWorkers?: boolean } = {}): void {
   describe(`the handl client on the browser ${!opts.suppressWorkers ? "with web workers" : ""}`, () => {
     let worker: Worker;
-    let client: DefaultHandl | WorkerHandl;
+    let client: ClientHandl | WorkerHandl;
 
     before(async () => {
       if (opts.suppressWorkers) {
@@ -37,7 +37,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             mockGraphqlRequest(github.requests.partialSingleQuery);
           }
 
-          client = await Handl.create(args) as DefaultHandl | WorkerHandl;
+          client = await Handl.create(args) as ClientHandl | WorkerHandl;
           await client.clearCache();
         });
 
@@ -383,7 +383,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             mockGraphqlRequest(github.requests.updatedSugaredSingleQuery);
           }
 
-          client = await Handl.create(args) as DefaultHandl | WorkerHandl;
+          client = await Handl.create(args) as ClientHandl | WorkerHandl;
           await client.clearCache();
         });
 
@@ -590,7 +590,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           }
 
           stub = sinon.stub(console, "warn");
-          client = await Handl.create({ ...serverClientArgs, batch: true }) as DefaultHandl;
+          client = await Handl.create({ ...serverClientArgs, batch: true }) as ClientHandl;
           await client.clearCache();
         });
 

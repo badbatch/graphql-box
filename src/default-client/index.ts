@@ -35,6 +35,8 @@ import SocketManager from "../socket-manager";
 
 import {
   CachemapArgsGroup,
+  CachemapOptions,
+  CachemapOptionsGroup,
   CacheMetadata,
   ClientArgs,
   DefaultCacheControls,
@@ -189,7 +191,7 @@ export class DefaultClient {
     if (errors.length) throw errors;
 
     if (cachemapOptions && isPlainObject(cachemapOptions)) {
-      this._cachemapOptions = merge(this._cachemapOptions, cachemapOptions);
+      this._setCachemapOptions(cachemapOptions);
     }
 
     if (defaultCacheControls && isPlainObject(defaultCacheControls)) {
@@ -596,6 +598,20 @@ export class DefaultClient {
       data: resolveResult.data,
       operation: "subscription",
     });
+  }
+
+  private _setCachemapOptions(args: CachemapOptionsGroup | CachemapOptions): void {
+    const defaultKeys = Object.keys(this._cachemapOptions);
+    const argKeys = Object.keys(args);
+    const hasMatch = defaultKeys.some((key) => argKeys.includes(key));
+
+    if (!hasMatch) {
+      defaultKeys.forEach((key) => {
+        merge(this._cachemapOptions[key], args as CachemapOptions);
+      });
+    } else {
+      merge(this._cachemapOptions, args as CachemapOptionsGroup);
+    }
   }
 
   private _setPendingRequest(queryHash: string, { reject, resolve }: PendingRequestActions): void {

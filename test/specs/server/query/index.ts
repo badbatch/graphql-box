@@ -7,7 +7,7 @@ import * as sinon from "sinon";
 import { tesco } from "../../../data/graphql";
 import { mockRestRequest, stripSpaces } from "../../../helpers";
 import graphqlServer from "../../../server";
-import { DefaultHandl, Handl } from "../../../../src";
+import { ClientHandl, Handl } from "../../../../src";
 import CacheManager from "../../../../src/cache-manager";
 
 import {
@@ -19,7 +19,7 @@ import {
 
 export default function testQueryOperation(args: ClientArgs): void {
   describe("the handl client on the server", () => {
-    let client: DefaultHandl;
+    let client: ClientHandl;
     let server: http.Server;
     let stub: sinon.SinonStub;
 
@@ -36,7 +36,7 @@ export default function testQueryOperation(args: ClientArgs): void {
     describe("the request method", () => {
       context("when a single query is requested", () => {
         before(async () => {
-          client = await Handl.create(args) as DefaultHandl;
+          client = await Handl.create(args) as ClientHandl;
           await client.clearCache();
           mockRestRequest("product", "402-5806");
           mockRestRequest("sku", "134-5203");
@@ -478,7 +478,7 @@ export default function testQueryOperation(args: ClientArgs): void {
 
       context("when a sugared query is requested", () => {
         before(async () => {
-          client = await Handl.create(args) as DefaultHandl;
+          client = await Handl.create(args) as ClientHandl;
           await client.clearCache();
           mockRestRequest("product", "402-5806");
           mockRestRequest("sku", "134-5203");
@@ -709,7 +709,7 @@ export default function testQueryOperation(args: ClientArgs): void {
 
       context("when a batched query is requested", () => {
         before(async () => {
-          client = await Handl.create({ ...args, batch: true }) as DefaultHandl;
+          client = await Handl.create({ ...args, batch: true }) as ClientHandl;
           await client.clearCache();
           mockRestRequest("product", "402-5806");
           mockRestRequest("product", "522-7645");

@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { serverClientArgs, workerClientArgs } from "../helpers";
-import { DefaultHandl, Handl, WorkerHandl } from "../../src";
+import { ClientHandl, Handl, WorkerHandl } from "../../src";
 import { supportsWorkerIndexedDB } from "../../src/helpers/user-agent-parser";
 
 describe("the Client.create method", () => {
@@ -13,7 +13,7 @@ describe("the Client.create method", () => {
           if (supportsWorkerIndexedDB(self.navigator.userAgent)) {
             expect(client).to.be.instanceof(WorkerHandl);
           } else {
-            expect(client).to.be.instanceof(DefaultHandl);
+            expect(client).to.be.instanceof(ClientHandl);
           }
 
           if (client instanceof WorkerHandl) client.terminate();
@@ -33,7 +33,7 @@ describe("the Client.create method", () => {
 
         it("the method should return an instance of the Client class", async () => {
           const client = await Handl.create(workerClientArgs);
-          expect(client).to.be.instanceof(DefaultHandl);
+          expect(client).to.be.instanceof(ClientHandl);
         });
       });
     });
@@ -41,7 +41,7 @@ describe("the Client.create method", () => {
     context("when the environment is a server", () => {
       it("the method should return an instance of the Client class", async () => {
         const client = await Handl.create(serverClientArgs);
-        expect(client).to.be.instanceof(DefaultHandl);
+        expect(client).to.be.instanceof(ClientHandl);
       });
     });
   }

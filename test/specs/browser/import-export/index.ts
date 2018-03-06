@@ -3,7 +3,7 @@ import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
 import { github } from "../../../data/graphql";
 import { mockGraphqlRequest } from "../../../helpers";
-import { DefaultHandl, Handl, WorkerHandl } from "../../../../src";
+import { ClientHandl, Handl, WorkerHandl } from "../../../../src";
 
 import {
   ClientArgs,
@@ -16,7 +16,7 @@ import {
 export default function testImportExportMethods(args: ClientArgs, opts: { suppressWorkers?: boolean } = {}): void {
   describe(`the handl client on the browser ${!opts.suppressWorkers ? "with web workers" : ""}`, () => {
     let worker: Worker;
-    let client: DefaultHandl | WorkerHandl;
+    let client: ClientHandl | WorkerHandl;
 
     before(async () => {
       if (opts.suppressWorkers) {
@@ -25,7 +25,7 @@ export default function testImportExportMethods(args: ClientArgs, opts: { suppre
         delete self.Worker;
       }
 
-      client = await Handl.create(args) as DefaultHandl;
+      client = await Handl.create(args) as ClientHandl;
     });
 
     after(() => {

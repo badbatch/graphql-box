@@ -6,7 +6,7 @@ import * as sinon from "sinon";
 import { tesco } from "../../../data/graphql";
 import { mockRestRequest } from "../../../helpers";
 import graphqlServer from "../../../server";
-import { DefaultHandl, Handl } from "../../../../src";
+import { ClientHandl, Handl } from "../../../../src";
 
 import {
   ClientArgs,
@@ -18,7 +18,7 @@ import {
 
 export default function testImportExportMethods(args: ClientArgs): void {
   describe("the handl client on the server", () => {
-    let client: DefaultHandl;
+    let client: ClientHandl;
     let server: http.Server;
     let stub: sinon.SinonStub;
 
@@ -28,7 +28,7 @@ export default function testImportExportMethods(args: ClientArgs): void {
       fetchMock.spy();
       stub = sinon.stub(console, "warn");
       server = await graphqlServer();
-      client = await Handl.create(args) as DefaultHandl;
+      client = await Handl.create(args) as ClientHandl;
     });
 
     after(() => {

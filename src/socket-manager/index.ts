@@ -108,8 +108,7 @@ export default class SocketManager {
   private async _open(): Promise<void> {
     try {
       if (process.env.WEB_ENV) {
-        const websocket = WebSocket;
-        this._socket = new websocket(this._address);
+        this._socket = new WebSocket(this._address);
       } else {
         const websocket = require("ws");
         this._socket = new websocket(this._address, this._options);
