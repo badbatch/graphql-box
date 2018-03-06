@@ -7,7 +7,7 @@ import { dataEndpoints, endpointData } from "../data/rest";
 import * as githubIntrospection from "../introspection/github/index.json";
 import * as tescoIntrospection from "../introspection/tesco/index.json";
 import schema from "../schema";
-import { ServerArgs } from "../../src/server/types";
+import { ServerArgs } from "../../src/server-client/types";
 import { ClientArgs, ObjectMap } from "../../src/types";
 
 export const browserClientArgs: ClientArgs = {
@@ -25,11 +25,7 @@ export const workerClientArgs: ClientArgs = {
 };
 
 export const serverClientArgs: ClientArgs = {
-  cachemapOptions: {
-    dataEntities: { mockRedis: true },
-    dataPaths: { mockRedis: true },
-    responses: { mockRedis: true },
-  },
+  cachemapOptions: { mockRedis: true },
   fetchTimeout: 5000000,
   introspection: tescoIntrospection as IntrospectionQuery,
   newInstance: true,
@@ -37,11 +33,7 @@ export const serverClientArgs: ClientArgs = {
 };
 
 export const subscriptionClientArgs: ClientArgs = {
-  cachemapOptions: {
-    dataEntities: { mockRedis: true },
-    dataPaths: { mockRedis: true },
-    responses: { mockRedis: true },
-  },
+  cachemapOptions: { mockRedis: true },
   fetchTimeout: 5000000,
   introspection: tescoIntrospection as IntrospectionQuery,
   newInstance: true,
@@ -50,11 +42,7 @@ export const subscriptionClientArgs: ClientArgs = {
 };
 
 export const serverArgs: ServerArgs = {
-  cachemapOptions: {
-    dataEntities: { mockRedis: true },
-    dataPaths: { mockRedis: true },
-    responses: { mockRedis: true },
-  },
+  cachemapOptions: { mockRedis: true },
   newInstance: true,
   schema,
 };

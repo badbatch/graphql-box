@@ -6,19 +6,19 @@ import * as sinon from "sinon";
 import { tesco } from "../../../data/graphql";
 import { mockRestRequest } from "../../../helpers";
 import graphqlServer from "../../../server";
-import { DefaultHandl, Handl } from "../../../../src";
+import { ClientHandl, Handl } from "../../../../src";
 import { ClientArgs, RequestResultData } from "../../../../src/types";
 
 export default function testMutationOperation(args: ClientArgs): void {
   describe("the handl client on the server", () => {
-    let client: DefaultHandl;
+    let client: ClientHandl;
     let server: http.Server;
     let stub: sinon.SinonStub;
 
     before(async () => {
       stub = sinon.stub(console, "warn");
       server = await graphqlServer();
-      client = await Handl.create(args) as DefaultHandl;
+      client = await Handl.create(args) as ClientHandl;
     });
 
     after(() => {

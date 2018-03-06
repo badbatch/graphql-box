@@ -32,6 +32,7 @@ export interface CachemapArgsGroup {
   dataEntities: CachemapArgs;
   dataPaths: CachemapArgs;
   responses: CachemapArgs;
+  [key: string]: CachemapArgs;
 }
 
 export interface CachemapOptions extends CachemapArgs {
@@ -47,7 +48,7 @@ export interface CachemapOptionsGroup {
 
 export interface ClientArgs {
   batch?: boolean;
-  cachemapOptions?: CachemapOptionsGroup;
+  cachemapOptions?: CachemapOptionsGroup | CachemapOptions;
   defaultCacheControls?: DefaultCacheControls;
   fetchTimeout?: number;
   fieldResolver?: GraphQLFieldResolver<any, any>;
