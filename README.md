@@ -40,26 +40,27 @@ Please read the full API documentation on the handl [github pages](https://dylan
 
 ## Usage
 
-### Client handl
+### Creating a client
 
 Get started by creating an instance of `ClientHandl` and pass in whatever configuration options you require. The main
 options are detailed in the example below. For a full list, please read the [API documentation](https://dylanaubrey.github.io/handl).
 
 ```javascript
 // handl.js
+
 import { ClientHandl } from 'handl';
-import introspectionQuery from './introspection-query';
+import introspection from './introspection';
 
 const handl = ClientHandl.create({
   // mandatory
-  introspection: introspectionQuery,
+  introspection,
   url: 'https://api.github.com/graphql',
   // optional
   batch: true,
   cachemapOptions: { use: { client: 'indexedDB', server: 'redis' } },
   defaultCacheControls: { query: 'public, max-age=60, s-maxage=60' },
   fetchTimeout: 5000,
-  headers: { Authorization: 'bearer 3cdbb1ec-2189-11e8-b467-0ed5f89f718b' }
+  headers: { Authorization: 'bearer 3cdbb1ec-2189-11e8-b467-0ed5f89f718b' },
   resourceKey: 'id',
   subscriptions: { address: "ws://api.github.com/graphql" },
 });
@@ -86,14 +87,84 @@ database each cache should use.
 These are used as a response's root cache-control directives in the absense of any returned in the response from
 the GraphQL server.
 
-`fetchTimeout` is the amount of time handl should wait for a response before rejecting a request.
+`fetchTimeout` is the amount of time handl should wait for a response before rejecting a request. It is set to
+`5000` milliseconds by default.
 
 `headers` are any additional headers you would like sent with every request.
 
 `resourceKey` is the name of the property thats value is used as the unique identifier for each resource/entity in
-the GraphQL schema.
+the GraphQL schema. It is set to `'id'` by default.
 
 `subscriptions` is the configuration object passed to handl's socket manager. `address` is the only mandatory property.
 If no configuration object is passed in, then subscriptions are not enabled.
 
-### Introspection queries
+### Making a query
+
+Handl lets you execute queries, mutations and subscriptions anywhere in your application, so you can use it in your
+service layer, Redux thunks, React higher-order components... whatever works for you. Just import the handl instance
+you created in the above example and pass the request and any options you require into handl's `request` method.
+
+```javascript
+// query.js
+
+export const organization = `
+  query ($login: String!, $first: Int!) {
+    organization(login: $login) {
+      description
+      login
+      name
+      repositories(first: $first) {
+        edges {
+          node {
+            ...repositoryFields
+          }
+        }
+      }
+    }
+  }
+`;
+```
+
+```javascript
+// fragment.js
+
+export const repositoryFields = `
+  fragment repositoryFields on Repository {
+    description
+    name
+  }
+`;
+```
+
+```javascript
+// request.js
+
+import handl from './handl';
+import { organization } from './query';
+import { repositoryFields } from './fragment';
+
+(async function makeRequest() {
+  try {
+    const { cacheMetadata, data, queryHash } = await client.request(query, {
+      fragments: [repositoryFields],
+      variables: { login: "facebook", first: 20 },
+    });
+
+    // Do something with result...
+  } catch (error) {
+    // Handle error...
+  }
+}());
+```
+
+`fragments` ...
+
+`variables` ...
+
+`cacheMetadata` ...
+
+`data` ...
+
+`queryHash` ...
+
+### Introspecting the schema

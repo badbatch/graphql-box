@@ -89,15 +89,15 @@ export default class FetchManager {
     /**
      * The GraphQL AST document is not used
      * in this method, but is declared as an argument
-     * so that the method as the same signature as
+     * so that the method has the same signature as
      * the GraphQLExecuteProxy resolve method.
      *
      */
     ast: DocumentNode,
     /**
-     * The request options not used
+     * The request options are not used
      * in this method, but are declared as an argument
-     * so that the method as the same signature as
+     * so that the method has the same signature as
      * the GraphQLExecuteProxy resolve method.
      *
      */

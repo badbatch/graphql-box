@@ -25,7 +25,7 @@ export default class GraphQLExecuteProxy {
     /**
      * The GraphQL request string is not used
      * in this method, but is declared as an argument
-     * so that the method as the same signature as
+     * so that the method has the same signature as
      * the FetchManager resolve method.
      *
      */
