@@ -10,6 +10,12 @@ An isomorphic graphql client and server with a three-tier cache and persisted st
 [![dependencies Status](https://david-dm.org/dylanaubrey/handl/status.svg)](https://david-dm.org/dylanaubrey/handl)
 [![devDependencies Status](https://david-dm.org/dylanaubrey/handl/dev-status.svg)](https://david-dm.org/dylanaubrey/handl?type=dev)
 
+* [Summary](#summary)
+* [Installation](#installation)
+* [Compilation](#compilation)
+* [Documentation](#documentation)
+* [Usage](#usage)
+
 ## Summary
 
 * **Simple interface:** Make queries, mutations and subscriptions using the same method.
@@ -39,6 +45,9 @@ worker-loader via a blob URL.
 Please read the full API documentation on the handl [github pages](https://dylanaubrey.github.io/handl).
 
 ## Usage
+
+* [Creating a client](#creating-a-client)
+* [Making queries, mutations or subscriptions](#making-queries-mutations-or-subscriptions)
 
 ### Creating a client
 
@@ -98,14 +107,20 @@ the GraphQL schema. It is set to `'id'` by default.
 `subscriptions` is the configuration object passed to handl's socket manager. `address` is the only mandatory property.
 If no configuration object is passed in, then subscriptions are not enabled.
 
-### Making a query
+### Making queries, mutations or subscriptions
 
 Handl lets you execute queries, mutations and subscriptions anywhere in your application, so you can use it in your
 service layer, Redux thunks, React higher-order components... whatever works for you. Just import the handl instance
 you created in the above example and pass the request and any options you require into handl's `request` method.
 
+* [Query](#query)
+* [Mutation](#mutation)
+* [Subscription](#subscription)
+
+#### Query
+
 ```javascript
-// query.js
+// organization-query.js
 
 export const organization = `
   query ($login: String!, $first: Int!) {
@@ -126,7 +141,7 @@ export const organization = `
 ```
 
 ```javascript
-// fragment.js
+// repository-fields-fragment.js
 
 export const repositoryFields = `
   fragment repositoryFields on Repository {
@@ -137,15 +152,15 @@ export const repositoryFields = `
 ```
 
 ```javascript
-// request.js
+// query.js
 
 import handl from './handl';
-import { organization } from './query';
-import { repositoryFields } from './fragment';
+import { organization } from './organization-query';
+import { repositoryFields } from './repository-fields-fragment';
 
-(async function makeRequest() {
+(async function makeQuery() {
   try {
-    const { cacheMetadata, data, queryHash } = await client.request(query, {
+    const { cacheMetadata, data, queryHash } = await handl.request(organization, {
       fragments: [repositoryFields],
       variables: { login: "facebook", first: 20 },
     });
@@ -157,7 +172,84 @@ import { repositoryFields } from './fragment';
 }());
 ```
 
-`fragments` ...
+#### Mutation
+
+```javascript
+// add-star-mutation.js
+
+export const addStar = `
+  mutation ($input: AddStarInput!) {
+    addStar(input: $input) {
+      clientMutationId
+      starrable {
+        id
+        viewerHasStarred
+      }
+    }
+  }
+`;
+```
+
+```javascript
+// mutation.js
+
+import handl from './handl';
+import { addStar } from './add-star-mutation';
+
+(async function makeMutation() {
+  try {
+    const { cacheMetadata, data } = await handl.request(addStar, {
+      variables: { input: { clientMutationId: '1', starrableId: 'MDEwOlJlcG9zaXRvcnkzODMwNzQyOA==' } },
+    });
+
+    // Do something with result...
+  } catch (error) {
+    // Handle error...
+  }
+}());
+```
+
+#### Subscription
+
+```javascript
+// favourite-added-subscription.js
+
+export const favouriteAdded = `
+  subscription {
+    favouriteAdded {
+      count
+      products {
+        displayName
+        longDescription
+        brand
+      }
+    }
+  }
+`;
+```
+
+```javascript
+// subscription.js
+
+import { forAwaitEach } from 'iterall';
+import handl from './handl';
+import { favouriteAdded } from './favourite-added-subscription';
+
+(async function makeSubscription() {
+  try {
+    const asyncIterator = await handl.request(favouriteAdded);
+
+    forAwaitEach(asyncIterator, (result) => {
+      const { cacheMetadata, data } = result;
+      // Do something with result...
+    });
+  } catch (error) {
+    // Handle error...
+  }
+}());
+```
+
+`fragments` are groups of fields that can be shared between queries, mutations and subscriptions.
 
 `variables` ...
 
