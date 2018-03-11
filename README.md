@@ -310,8 +310,9 @@ the request and send the response.
 
 #### Subscription messages
 
-Use the `message` method to create a `messageHandler`. This function returns an event handler for the
-websocket's message event. The handler will create the subscription and send the responses.
+For websocket messages to a server for subscriptions, use the `message` method to create a `messageHandler`. This
+function returns an event handler for the websocket's message event. The handler will create the subscription and
+send the responses.
 
 ```javascript
 // app.js
