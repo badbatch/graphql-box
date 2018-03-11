@@ -18,7 +18,7 @@ export default async function graphqlServer(): Promise<http.Server> {
     .use("/graphql", requestHandler);
 
   const server = http.createServer(app);
-  const wss = new WebSocket.Server({ server });
+  const wss = new WebSocket.Server({ path: "/graphql", server });
 
   wss.on("connection", (ws, req) => {
     ws.on("message", messageHandler(ws));

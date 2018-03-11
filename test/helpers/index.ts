@@ -37,7 +37,7 @@ export const subscriptionClientArgs: ClientArgs = {
   fetchTimeout: 5000000,
   introspection: tescoIntrospection as IntrospectionQuery,
   newInstance: true,
-  subscriptions: { address: "ws://localhost:3001" },
+  subscriptions: { address: "ws://localhost:3001/graphql" },
   url: "http://localhost:3001/graphql",
 };
 
