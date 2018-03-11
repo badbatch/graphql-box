@@ -1,4 +1,4 @@
-import { GraphQLFieldResolver } from "graphql";
+import { GraphQLFieldResolver, GraphQLSchema } from "graphql";
 
 export interface GraphQLExecuteProxyArgs {
   fieldResolver?: GraphQLFieldResolver<any, any>;

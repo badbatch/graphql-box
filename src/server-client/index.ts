@@ -36,14 +36,16 @@ export class ServerClient {
   }
 
   public request(opts?: ServerRequestOptions): RequestHandler {
-    return (req: Request, res: Response, next: NextFunction): void => {
+    return (req: Request, res: Response, next: NextFunction) => {
       this._requestHandler(req, res, opts);
     };
   }
 
-  public message(ws: WebSocket, opts?: ServerRequestOptions): MessageHandler {
-    return (message: string): void => {
-      this._messageHandler(ws, message, opts);
+  public message(opts?: ServerRequestOptions): MessageHandler {
+    return (ws: WebSocket) => {
+      return (message: string) => {
+        this._messageHandler(ws, message, opts);
+      };
     };
   }
 
