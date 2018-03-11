@@ -9,17 +9,19 @@ import { ServerHandl } from "../../src";
 export default async function graphqlServer(): Promise<http.Server> {
   const app = express();
   const handl = await ServerHandl.create(serverArgs);
+  const requestHandler = handl.request();
+  const messageHandler = handl.message();
 
   app.use(cors())
     .use(bodyParser.urlencoded({ extended: true }))
     .use(bodyParser.json())
-    .use("/graphql", handl.request());
+    .use("/graphql", requestHandler);
 
   const server = http.createServer(app);
   const wss = new WebSocket.Server({ server });
 
   wss.on("connection", (ws, req) => {
-    ws.on("message", handl.message(ws));
+    ws.on("message", messageHandler(ws));
 
     ws.on("error", (error) => {
       // no catch

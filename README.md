@@ -48,6 +48,10 @@ Please read the full API documentation on the handl [github pages](https://dylan
 
 * [Creating a client](#creating-a-client)
 * [Making queries, mutations or subscriptions](#making-queries-mutations-or-subscriptions)
+* [Introspecting the schema](#introspecting-the-schema)
+* [Creating a server](#creating-a-server)
+* [Routing queries, mutations and subscriptions](#routing-queries-mutations-and-subscriptions)
+* [Caching](#caching)
 
 ### Creating a client
 
@@ -55,7 +59,7 @@ Get started by creating an instance of `ClientHandl` and pass in whatever config
 options are detailed in the example below. For a full list, please read the [API documentation](https://dylanaubrey.github.io/handl).
 
 ```javascript
-// handl.js
+// client-handl.js
 
 import { ClientHandl } from 'handl';
 import introspection from './introspection';
@@ -110,8 +114,8 @@ If no configuration object is passed in, then subscriptions are not enabled.
 ### Making queries, mutations or subscriptions
 
 Handl lets you execute queries, mutations and subscriptions anywhere in your application, so you can use it in your
-service layer, Redux thunks, React higher-order components... whatever works for you. Just import the handl instance
-you created in the above example and pass the request and any options you require into handl's `request` method.
+service layer, Redux thunks, React higher-order components... whatever works for you. Just import the `ClientHandl` instance
+you created in the above example and pass the request and any options you require into the `request` method.
 
 * [Query](#query)
 * [Mutation](#mutation)
@@ -154,7 +158,7 @@ export const repositoryFields = `
 ```javascript
 // query.js
 
-import handl from './handl';
+import handl from './client-handl';
 import { organization } from './organization-query';
 import { repositoryFields } from './repository-fields-fragment';
 
@@ -193,7 +197,7 @@ export const addStar = `
 ```javascript
 // mutation.js
 
-import handl from './handl';
+import handl from './client-handl';
 import { addStar } from './add-star-mutation';
 
 (async function makeMutation() {
@@ -232,7 +236,7 @@ export const favouriteAdded = `
 // subscription.js
 
 import { forAwaitEach } from 'iterall';
-import handl from './handl';
+import handl from './client-handl';
 import { favouriteAdded } from './favourite-added-subscription';
 
 (async function makeSubscription() {
@@ -249,14 +253,96 @@ import { favouriteAdded } from './favourite-added-subscription';
 }());
 ```
 
-`fragments` are groups of fields that can be shared between queries, mutations and subscriptions.
+`fragments` are groups of fields that can be reused between queries, mutations and subscriptions. Handl will
+automatically insert these into a request. Read more information about [fragments](http://graphql.org/learn/queries/#fragments).
 
-`variables` ...
+`variables` are arguments that can be passed to fields within a request. Handl will automatically insert these into a
+request. Read more information about [arguments](http://graphql.org/learn/queries/#arguments).
 
-`cacheMetadata` ...
+`cacheMetadata` is a map of query paths to their cache control directives. This metadata is used by a handl when
+receiving data from another handl to allow it to cache the data correctly.
 
-`data` ...
+`data` is the data requested in a query, mutation or subscription.
 
-`queryHash` ...
+`queryHash` is a hash of the query that was requested.
+
+`asyncIterator` is an asynchronous iterator that gets triggerd each time a subscription result is returned. Read more
+about [async iterators](https://github.com/tc39/proposal-async-iteration) and the [iterall utilities library](https://github.com/leebyron/iterall).
 
 ### Introspecting the schema
+
+// TODO
+
+### Creating a server
+
+Get started by creating an instance of `ServerHandl` and pass in whatever configuration options you require. The main
+options are detailed in the example below. For a full list, please read the [API documentation](https://dylanaubrey.github.io/handl).
+
+```javascript
+// server-handl.js
+
+import { ServerHandl } from 'handl';
+import schema from './graphql-schema';
+
+const handl = ServerHandl.create({
+  // mandatory
+  schema,
+  // optional
+  cachemapOptions: { use: { server: 'redis' } },
+  defaultCacheControls: { query: 'public, max-age=60, s-maxage=60' },
+  resourceKey: 'id',
+});
+
+export default handl;
+```
+
+`schema` is the GraphQL schema that you want to execute queries and mutations against. It must be an instance
+of `GraphQLSchema`. Read more about [creating a GraphQL schema](http://graphql.org/graphql-js/).
+
+### Routing queries, mutations and subscriptions
+
+#### Query and mutation requests
+
+Requests to a server for queries and mutations can be routed using a express-compatible middleware. Just import the
+`ServerHandl` instance you created in the above example and create a `requestHandler` using the `request` method, and
+mount the middleware function on the path to which your GraphQL requests will be sent. The middleware will execute
+the request and send the response.
+
+#### Subscription messages
+
+Use the `message` method to create a `messageHandler`. This function returns an event handler for the
+websocket's message event. The handler will create the subscription and send the responses.
+
+```javascript
+// app.js
+
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import express from 'express';
+import http from 'http';
+import handl from './server-handl';
+
+(async function createServer() {
+  const app = express();
+  const requestHandler = handl.request();
+  const messageHandler = handl.message();
+
+  app.use(cors())
+    .use(bodyParser.urlencoded({ extended: true }))
+    .use(bodyParser.json())
+    .use('/graphql', requestHandler);
+
+  const server = http.createServer(app);
+  const wss = new WebSocket.Server({ server });
+
+  wss.on("connection", (ws, req) => {
+    ws.on("message", messageHandler(ws));
+  });
+
+  server.listen(3000);
+}());
+```
+
+### Caching
+
+// TODO
