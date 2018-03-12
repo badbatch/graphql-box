@@ -55,7 +55,7 @@ export class ServerClient {
 
   private async _messageHandler(ws: WebSocket, message: string, opts: ServerRequestOptions = {}): Promise<void> {
     try {
-      const { subscriptionID, subscription } = JSON.parse(message as string);
+      const { subscriptionID, subscription } = JSON.parse(message);
       const subscribeResult = await this._client.request(subscription, opts);
 
       if (isAsyncIterable(subscribeResult)) {

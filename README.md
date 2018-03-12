@@ -64,21 +64,25 @@ options are detailed in the example below. For a full list, please read the [API
 import { ClientHandl } from 'handl';
 import introspection from './introspection';
 
-const handl = ClientHandl.create({
-  // mandatory
-  introspection,
-  url: 'https://api.github.com/graphql',
-  // optional
-  batch: true,
-  cachemapOptions: { use: { client: 'indexedDB', server: 'redis' } },
-  defaultCacheControls: { query: 'public, max-age=60, s-maxage=60' },
-  fetchTimeout: 5000,
-  headers: { Authorization: 'bearer 3cdbb1ec-2189-11e8-b467-0ed5f89f718b' },
-  resourceKey: 'id',
-  subscriptions: { address: "ws://api.github.com/graphql" },
-});
-
-export default handl;
+export default async function clientHandl() {
+  try {
+    return ClientHandl.create({
+      // mandatory
+      introspection,
+      url: 'https://api.github.com/graphql',
+      // optional
+      batch: true,
+      cachemapOptions: { use: { client: 'indexedDB', server: 'redis' } },
+      defaultCacheControls: { query: 'public, max-age=60, s-maxage=60' },
+      fetchTimeout: 5000,
+      headers: { Authorization: 'bearer 3cdbb1ec-2189-11e8-b467-0ed5f89f718b' },
+      resourceKey: 'id',
+      subscriptions: { address: "ws://api.github.com/graphql" },
+    });
+  } catch (error) {
+    // Handle error...
+  }
+}
 ```
 
 `introspection` is the output of an introspection query to the GraphQL server that handl needs to communicate with.
@@ -158,12 +162,14 @@ export const repositoryFields = `
 ```javascript
 // query.js
 
-import handl from './client-handl';
+import clientHandl from './client-handl';
 import { organization } from './organization-query';
 import { repositoryFields } from './repository-fields-fragment';
 
 (async function makeQuery() {
   try {
+    const handl = await clientHandl();
+
     const { cacheMetadata, data, queryHash } = await handl.request(organization, {
       fragments: [repositoryFields],
       variables: { login: "facebook", first: 20 },
@@ -197,11 +203,13 @@ export const addStar = `
 ```javascript
 // mutation.js
 
-import handl from './client-handl';
+import clientHandl from './client-handl';
 import { addStar } from './add-star-mutation';
 
 (async function makeMutation() {
   try {
+    const handl = await clientHandl();
+
     const { cacheMetadata, data } = await handl.request(addStar, {
       variables: { input: { clientMutationId: '1', starrableId: 'MDEwOlJlcG9zaXRvcnkzODMwNzQyOA==' } },
     });
@@ -236,11 +244,12 @@ export const favouriteAdded = `
 // subscription.js
 
 import { forAwaitEach } from 'iterall';
-import handl from './client-handl';
+import clientHandl from './client-handl';
 import { favouriteAdded } from './favourite-added-subscription';
 
 (async function makeSubscription() {
   try {
+    const handl = await clientHandl();
     const asyncIterator = await handl.request(favouriteAdded);
 
     forAwaitEach(asyncIterator, (result) => {
@@ -284,16 +293,20 @@ options are detailed in the example below. For a full list, please read the [API
 import { ServerHandl } from 'handl';
 import schema from './graphql-schema';
 
-const handl = ServerHandl.create({
-  // mandatory
-  schema,
-  // optional
-  cachemapOptions: { use: { server: 'redis' } },
-  defaultCacheControls: { query: 'public, max-age=60, s-maxage=60' },
-  resourceKey: 'id',
-});
-
-export default handl;
+export default async function serverHandl() {
+  try {
+    return ServerHandl.create({
+      // mandatory
+      schema,
+      // optional
+      cachemapOptions: { use: { server: 'redis' } },
+      defaultCacheControls: { query: 'public, max-age=60, s-maxage=60' },
+      resourceKey: 'id',
+    });
+  } catch (error) {
+    // handle error...
+  }
+}
 ```
 
 `schema` is the GraphQL schema that you want to execute queries and mutations against. It must be an instance
@@ -321,10 +334,11 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import http from 'http';
-import handl from './server-handl';
+import serverHandl from './server-handl';
 
-(async function createServer() {
+(async function startServer() {
   const app = express();
+  const handl = await serverHandl();
   const requestHandler = handl.request();
   const messageHandler = handl.message();
 
@@ -341,7 +355,7 @@ import handl from './server-handl';
   });
 
   server.listen(3000);
-}());
+}())
 ```
 
 ### Caching
