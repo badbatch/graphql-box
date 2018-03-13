@@ -426,7 +426,7 @@ export default new GraphQLObjectType({
       type: ProductType,
     },
   }),
-  name: "Query",
+  name: 'Query',
 });
 ```
 
