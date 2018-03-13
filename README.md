@@ -52,6 +52,7 @@ Please read the full API documentation on the handl [github pages](https://dylan
 * [Creating a server](#creating-a-server)
 * [Routing queries, mutations and subscriptions](#routing-queries-mutations-and-subscriptions)
 * [Caching](#caching)
+* [Persisted storage](#persisted-storage)
 
 ### Creating a client
 
@@ -434,12 +435,54 @@ export default new GraphQLObjectType({
 });
 ```
 
-#### Responses
+#### Cache tiers
 
-#### Query paths
+##### Responses
 
-#### Data entities
+Each query's response data is cached against a hash of the query, unless it is instructed otherwise. So any time the
+same query is requested again, it will be served from the response cache, as long as the cache entry has not expired.
 
-#### Persisted storage
+##### Query paths
+
+As well as caching an entire query against its response data, handl also parses the query and breaks it down into its
+'paths' and the data for each path is cached against a hash of each path. So, if handl does not find a match in the
+response cache, it could still return the requested data from cache by building up a response from the query path cache.
+
+```javascript
+const parsedQuery = `
+  query {
+    organization(login: "facebook") {
+      description
+      login
+      name
+      repositories(first: 20) {
+        edges {
+          node {
+            description
+            name
+            id
+          }
+        }
+      }
+      id
+    }
+  }
+`;
+
+const queryPaths = [
+  'organization({login:"facebook"})',
+  'organization({login:"facebook"}).repositories({first:20})',
+  'organization({login:"facebook"}).repositories({first:20}).edges.node',
+];
+```
+
+A query path is defined as an entity object (an object type with an ID) or a data type with arguments or directives.
+The query path is stored alongside its data except for when the data is part of a sub query path. So, for example,
+`organization({login:"facebook"})` would include data for the fields `description`, `login`, `name` and `id`, but not
+for the field `repositories`.
+
+##### Data entities
+
+### Persisted storage
 
 // TODO
