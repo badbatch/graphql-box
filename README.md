@@ -26,7 +26,7 @@ An isomorphic GraphQL client and server with a three-tier cache and persisted st
 * **Cache pruning:** Save storage by automatically removing expired and infrequently accessed cache entries.
 * **Persisted storage:** Store cache entries on browser using LocalStorage and IndexedDB and on server using Redis.
 * **Cache sharing:** Export cache entries in a serializable format to be imported by another handl.
-* **Web worker interface:** Free up the main browser thread by running handl in a web worker.
+* **Web worker interface:** Free up the main thread by running handl in a web worker.
 
 ## Installation
 
@@ -348,10 +348,10 @@ import serverHandl from './server-handl';
     .use('/graphql', requestHandler);
 
   const server = http.createServer(app);
-  const wss = new WebSocket.Server({ path: "/graphql", server });
+  const wss = new WebSocket.Server({ path: '/graphql', server });
 
-  wss.on("connection", (ws, req) => {
-    ws.on("message", messageHandler(ws));
+  wss.on('connection', (ws, req) => {
+    ws.on('message', messageHandler(ws));
   });
 
   server.listen(3000);
@@ -367,21 +367,68 @@ GraphQL schema.
 
 #### Cascading cache control
 
-Each cache entry at any of the three levels is assigned a cacheability through a mechanism of cascading cache
+Each entry in any of the three caches is assigned a cacheability through a mechanism of cascading cache
 control. If an entry has its own cache control directives, these are used to generate its cacheability,
 otherwise it inherits its directives from its parent. The root response data object inherits its directives from the
 response headers or the handl defaults.
 
 #### Single source of truth
 
-Inheritance works with the most common use-case for GraphQL as an aggregator of REST-based microservices. Each service
-will already be providing cache control directives in their responses, and this information can be mapped into the
-schema object types that represent the responses' data structures and passed on to handl. An query response could
-be made up of half a dozen microservice responses, each with their own directives cascading through the response data.
+Cascading cache control works with the most common use-case for GraphQL as an aggregator of REST-based microservices.
+Each service will already be providing cache control directives in their responses, and this information can be mapped
+into the schema object types that represent the responses' data structures and passed on to handl. This keeps a
+microservice as the single source of truth for caching of its data.
 
 #### The Metadata type
 
-Handl provides a GraphQL object type to use for mapping cache control directives. The `MetadataType` ...
+Handl provides a GraphQL object type to use for mapping cache control directives. Just create a `_metadata` field
+on the object type you want to associate cache control directives and assign the field the `type` of `MetadataType`.
+In the object type's resolver, return `_metadata` as an object with a property of `cacheControl` that you can assign
+the cache control directives.
+
+```javascript
+// product-type.js
+
+import { MetadataType } from 'handl';
+import { GraphQLObjectType, GraphQLString } from 'graphql';
+
+export default new GraphQLObjectType({
+  fields: () => ({
+    _metadata: { type: metadataType },
+    brand: { type: GraphQLString },
+    description: { type: GraphQLString },
+    displayName: { type: GraphQLString },
+  }),
+  name: 'Product',
+});
+```
+
+```javascript
+// query-type.js
+
+import { GraphQLObjectType, GraphQLString } from 'graphql';
+import ProductType from './product-type';
+
+export default new GraphQLObjectType({
+  fields: () => ({
+    product: {
+      args: { id: { type: GraphQLString } },
+      resolve: async (obj, { id }) => {
+        const fetchResult = await fetch(`https://product-endpoint/${id}`);
+        const data = await fetchResult.json();
+        const cacheControl = fetchResult.headers.get('cache-control');
+
+        return {
+          _metadata: { cacheControl },
+          ...data,
+        };
+      },
+      type: ProductType,
+    },
+  }),
+  name: "Query",
+});
+```
 
 #### Responses
 
