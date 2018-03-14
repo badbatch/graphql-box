@@ -477,11 +477,13 @@ const queryPaths = [
 ```
 
 A query path is defined as an entity object (an object type with an ID) or a data type with arguments or directives.
-The query path is stored alongside its data except for when the data is part of a sub query path. So, for example,
+The query path is stored alongside its data except for when the data is part of a sub query path. So
 `organization({login:"facebook"})` would include data for the fields `description`, `login`, `name` and `id`, but not
 for the field `repositories`.
 
 ##### Data entities
+
+Data entities are the last line of handl's cache defense.
 
 ### Persisted storage
 
