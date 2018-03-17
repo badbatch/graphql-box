@@ -30,7 +30,7 @@ export type CacheMetadata = Map<string, Cacheability>;
 /** @hidden */
 export interface CachemapArgsGroup {
   dataEntities: CachemapArgs;
-  dataPaths: CachemapArgs;
+  queryPaths: CachemapArgs;
   responses: CachemapArgs;
   [key: string]: CachemapArgs;
 }
@@ -42,7 +42,7 @@ export interface CachemapOptions extends CachemapArgs {
 
 export interface CachemapOptionsGroup {
   dataEntities?: CachemapOptions;
-  dataPaths?: CachemapOptions;
+  queryPaths?: CachemapOptions;
   responses?: CachemapOptions;
 }
 
@@ -183,7 +183,7 @@ export interface ExportCacheResult {
 
 export interface ExportCachesResult {
   dataEntities?: ExportCacheResult;
-  dataPaths?: ExportCacheResult;
+  queryPaths?: ExportCacheResult;
   responses?: ExportCacheResult;
 }
 

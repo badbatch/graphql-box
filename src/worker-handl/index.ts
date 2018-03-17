@@ -143,9 +143,9 @@ export class WorkerHandl {
    * from the query path cache.
    *
    */
-  public async getDataPathCacheEntry(key: string): Promise<any> {
+  public async getQueryPathCacheEntry(key: string): Promise<any> {
     try {
-      return this._postMessage({ key, type: "getDataPathCacheEntry" });
+      return this._postMessage({ key, type: "getQueryPathCacheEntry" });
     } catch (error) {
       return Promise.reject(error);
     }
@@ -156,9 +156,9 @@ export class WorkerHandl {
    * path cache.
    *
    */
-  public async getDataPathCacheSize(): Promise<number> {
+  public async getQueryPathCacheSize(): Promise<number> {
     try {
-      return this._postMessage({ type: "getDataPathCacheSize" });
+      return this._postMessage({ type: "getQueryPathCacheSize" });
     } catch (error) {
       return Promise.reject(error);
     }

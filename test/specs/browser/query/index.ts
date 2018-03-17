@@ -94,7 +94,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           });
 
           it("then the client should cache each data object in the response against its query path", async () => {
-            const cacheSize = await client.getDataPathCacheSize();
+            const cacheSize = await client.getQueryPathCacheSize();
             expect(cacheSize).to.eql(15);
           });
 
@@ -365,7 +365,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           });
 
           it("then the client should cache each data object in the response against its query path", async () => {
-            const cacheSize = await client.getDataPathCacheSize();
+            const cacheSize = await client.getQueryPathCacheSize();
             expect(cacheSize).to.eql(21);
           });
 
@@ -441,7 +441,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           });
 
           it("then the client should cache each data object in the response against its query path", async () => {
-            const cacheSize = await client.getDataPathCacheSize();
+            const cacheSize = await client.getQueryPathCacheSize();
             expect(cacheSize).to.eql(15);
           });
 
@@ -678,7 +678,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
           });
 
           it("then the client should cache each data object in the response against its query path", async () => {
-            const cacheSize = await client.getDataPathCacheSize();
+            const cacheSize = await client.getQueryPathCacheSize();
             expect(cacheSize).to.eql(7);
           });
 

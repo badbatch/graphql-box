@@ -281,7 +281,7 @@ export default class CacheManager {
 
   private _cachemapOptions: CachemapArgsGroup;
   private _dataEntities: DefaultCachemap;
-  private _dataPaths: DefaultCachemap;
+  private _queryPaths: DefaultCachemap;
   private _defaultCacheControls: DefaultCacheControls;
   private _partials: Map<string, PartialData>;
   private _requests: ClientRequests = { active: new Map(), pending: new Map() };
@@ -299,8 +299,8 @@ export default class CacheManager {
     return this._dataEntities;
   }
 
-  get dataPaths(): DefaultCachemap {
-    return this._dataPaths;
+  get queryPaths(): DefaultCachemap {
+    return this._queryPaths;
   }
 
   get requests(): ClientRequests {
@@ -332,7 +332,7 @@ export default class CacheManager {
   public async export(tag: any): Promise<ExportCachesResult> {
     const caches: Array<[string, DefaultCachemap]> = [
       ["dataEntities", this._dataEntities],
-      ["dataPaths", this._dataPaths],
+      ["queryPaths", this._queryPaths],
       ["responses", this._responses],
     ];
 
@@ -341,7 +341,7 @@ export default class CacheManager {
 
       await Promise.all(caches.map(([key, cache]) => {
         const promise = cache.export({ tag });
-        const _key = key as "dataEntities" | "dataPaths" | "responses";
+        const _key = key as "dataEntities" | "queryPaths" | "responses";
         promise.then((res: ExportCacheResult) => result[_key] = res);
         return promise;
       }));
@@ -355,12 +355,12 @@ export default class CacheManager {
   public async import(args: ExportCachesResult): Promise<void> {
     const caches = {
       dataEntities: this._dataEntities,
-      dataPaths: this._dataPaths,
+      queryPaths: this._queryPaths,
       responses: this._responses,
     };
 
     try {
-      await Promise.all(Object.keys(args).map((key: "dataEntities" | "dataPaths" | "responses") => {
+      await Promise.all(Object.keys(args).map((key: "dataEntities" | "queryPaths" | "responses") => {
         const cache = caches[key];
         const exported = args[key];
         if (!exported) return undefined;
@@ -553,13 +553,13 @@ export default class CacheManager {
     }
   }
 
-  private async _checkDataPathCacheEntry(hashKey: string): Promise<CacheEntryResult> {
+  private async _checkQueryPathCacheEntry(hashKey: string): Promise<CacheEntryResult> {
     let cacheability: Cacheability | false = false;
     let cachedData: any;
 
     try {
-      cacheability = await this._dataPaths.has(hashKey);
-      if (cacheability && CacheManager.isValid(cacheability)) cachedData = await this._dataPaths.get(hashKey);
+      cacheability = await this._queryPaths.has(hashKey);
+      if (cacheability && CacheManager.isValid(cacheability)) cachedData = await this._queryPaths.get(hashKey);
       return { cacheability, cachedData };
     } catch (error) {
       return { cacheability, cachedData };
@@ -569,7 +569,7 @@ export default class CacheManager {
   private async _createCachemaps(): Promise<void> {
     try {
       this._dataEntities = await DefaultCachemap.create(this._cachemapOptions.dataEntities);
-      this._dataPaths = await DefaultCachemap.create(this._cachemapOptions.dataPaths);
+      this._queryPaths = await DefaultCachemap.create(this._cachemapOptions.queryPaths);
       this._responses = await DefaultCachemap.create(this._cachemapOptions.responses);
     } catch (error) {
       return Promise.reject(error);
@@ -686,8 +686,8 @@ export default class CacheManager {
       secondary: isObjectLike(secondary) ? secondary[propKey] : undefined,
     };
 
-    if (fieldTypeInfo && (fieldTypeInfo.isEntity || fieldTypeInfo.hasArguments)) {
-      const { cacheability, cachedData } = await this._checkDataPathCacheEntry(hashKey);
+    if (fieldTypeInfo && (fieldTypeInfo.isEntity || fieldTypeInfo.hasArguments || fieldTypeInfo.hasDirectives)) {
+      const { cacheability, cachedData } = await this._checkQueryPathCacheEntry(hashKey);
 
       if (cacheability && cachedData) {
         cacheEntryData.primary = cachedData;
@@ -770,7 +770,7 @@ export default class CacheManager {
       }
 
       if (setPaths && ((fieldTypeInfo.isEntity && isPlainObject(pathfieldData)) || hasArgsOrDirectives)) {
-        promises.push(this._dataPaths.set(
+        promises.push(this._queryPaths.set(
           hashKey,
           cloneDeep(pathfieldData),
           { cacheHeaders: { cacheControl }, tag },

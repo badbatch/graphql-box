@@ -69,9 +69,9 @@ export default function testImportExportMethods(args: ClientArgs, opts: { suppre
         });
 
         it("then the method should return five data path entry/metadata pairs", () => {
-          const dataPaths = exportCachesResult.dataPaths as ExportCacheResult;
-          expect(dataPaths.entries).to.be.lengthOf(14);
-          expect(dataPaths.metadata).to.be.lengthOf(14);
+          const queryPaths = exportCachesResult.queryPaths as ExportCacheResult;
+          expect(queryPaths.entries).to.be.lengthOf(14);
+          expect(queryPaths.metadata).to.be.lengthOf(14);
         });
 
         it("then the method should return three data entity entry/metadata pair", () => {
@@ -130,7 +130,7 @@ export default function testImportExportMethods(args: ClientArgs, opts: { suppre
         });
 
         it("then the client should have populated the relevant data in the data paths cache", async () => {
-          const cacheSize = await client.getDataPathCacheSize();
+          const cacheSize = await client.getQueryPathCacheSize();
           expect(cacheSize).to.eql(15);
         });
 
