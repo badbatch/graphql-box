@@ -22,7 +22,15 @@ import {
 
 let instance: WorkerHandl;
 
+/**
+ * A GraphQL client that works in a web worker.
+ *
+ */
 export class WorkerHandl {
+  /**
+   * The method creates an instance of WorkerHandl.
+   *
+   */
   public static async create(args: ClientArgs): Promise<WorkerHandl> {
     if (instance && isPlainObject(args) && !args.newInstance) return instance;
 
@@ -38,10 +46,20 @@ export class WorkerHandl {
     }
   }
 
+  /**
+   * The method turns the cacheMetadata map into a
+   * plain object that can be serialised and transported.
+   *
+   */
   public static dehydrateCacheMetadata(cacheMetadata?: CacheMetadata): DehydratedCacheMetadata {
     return dehydrateCacheMetadata(cacheMetadata);
   }
 
+  /**
+   * The method turn a cacheMetadata plain object into
+   * a map of Cacheability objects.
+   *
+   */
   public static rehydrateCacheMetadata(dehydratedCacheMetadata: DehydratedCacheMetadata): CacheMetadata {
     return rehydrateCacheMetadata(dehydratedCacheMetadata);
   }
@@ -68,6 +86,10 @@ export class WorkerHandl {
     }
   }
 
+  /**
+   * The method removes all cache entries from all three caches.
+   *
+   */
   public async clearCache(): Promise<void> {
     try {
       await this._postMessage({ type: "clearCache" });
@@ -76,6 +98,12 @@ export class WorkerHandl {
     }
   }
 
+  /**
+   * The method returns all cache entries from all three caches
+   * or a subset of cache entries based on a 'tag' in a
+   * serializable format that can be imported by another handl.
+   *
+   */
   public async exportCaches(tag: any): Promise<ExportCachesResult> {
     try {
       return this._postMessage({ tag, type: "exportCaches" });
@@ -84,6 +112,11 @@ export class WorkerHandl {
     }
   }
 
+  /**
+   * Given a valid key, the method returns the matching entry
+   * from the data entity cache.
+   *
+   */
   public async getDataEntityCacheEntry(key: string): Promise<ObjectMap | undefined> {
     try {
       return this._postMessage({ key, type: "getDataEntityCacheEntry" });
@@ -92,6 +125,11 @@ export class WorkerHandl {
     }
   }
 
+  /**
+   * The method returns the number of entries in the data
+   * entity cache.
+   *
+   */
   public async getDataEntityCacheSize(): Promise<number> {
     try {
       return this._postMessage({ type: "getDataEntityCacheSize" });
@@ -100,6 +138,11 @@ export class WorkerHandl {
     }
   }
 
+  /**
+   * Given a valid key, the method returns the matching entry
+   * from the query path cache.
+   *
+   */
   public async getDataPathCacheEntry(key: string): Promise<any> {
     try {
       return this._postMessage({ key, type: "getDataPathCacheEntry" });
@@ -108,6 +151,11 @@ export class WorkerHandl {
     }
   }
 
+  /**
+   * The method returns the number of entries in the query
+   * path cache.
+   *
+   */
   public async getDataPathCacheSize(): Promise<number> {
     try {
       return this._postMessage({ type: "getDataPathCacheSize" });
@@ -116,6 +164,11 @@ export class WorkerHandl {
     }
   }
 
+  /**
+   * Given a valid key, the method returns the matching entry
+   * from the response cache.
+   *
+   */
   public async getResponseCacheEntry(key: string): Promise<ResponseCacheEntryResult | undefined> {
     try {
       const entry = await this._postMessage({ key, type: "getResponseCacheEntry" });
@@ -134,6 +187,10 @@ export class WorkerHandl {
     }
   }
 
+  /**
+   * The method returns the number of entries in the response cache.
+   *
+   */
   public async getResponseCacheSize(): Promise<number> {
     try {
       return this._postMessage({ type: "getResponseCacheSize" });
@@ -142,6 +199,11 @@ export class WorkerHandl {
     }
   }
 
+  /**
+   * The method imports data exported by another handl
+   * into the caches.
+   *
+   */
   public async importCaches(caches: ExportCachesResult): Promise<void> {
     try {
       await this._postMessage({ caches, type: "importCaches" });
@@ -150,6 +212,11 @@ export class WorkerHandl {
     }
   }
 
+  /**
+   * The method makes query, mutation and subscription requests and
+   * handles request parsing, filtering and caching.
+   *
+   */
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult> {
     if (!isString(query)) {
       return Promise.reject(new TypeError("Request expected query to be a string."));
@@ -178,6 +245,10 @@ export class WorkerHandl {
     }
   }
 
+  /**
+   * The method immediately terminates a web worker.
+   *
+   */
   public terminate(): void {
     try {
       this._worker.terminate();

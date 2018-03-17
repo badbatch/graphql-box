@@ -15,7 +15,15 @@ import { DehydratedRequestResultData, RequestResultData, StringObjectMap } from 
 
 let instance: ServerHandl;
 
+/**
+ * A GraphQL server.
+ *
+ */
 export class ServerHandl {
+  /**
+   * The method creates an instance of `ServerHandl`.
+   *
+   */
   public static async create(args: ServerArgs): Promise<ServerHandl> {
     if (instance && isPlainObject(args) && !args.newInstance) return instance;
 
@@ -31,16 +39,30 @@ export class ServerHandl {
 
   private _client: ClientHandl;
 
+  /**
+   * The `ClientHandl` instance used by the server.
+   *
+   */
   get client(): ClientHandl {
     return this._client;
   }
 
+  /**
+   * The method returns an express-compatible middleware to
+   * use for responding to GraphQL queries and mutations.
+   *
+   */
   public request(opts?: ServerRequestOptions): RequestHandler {
     return (req: Request, res: Response, next: NextFunction) => {
       this._requestHandler(req, res, opts);
     };
   }
 
+  /**
+   * The method returns a function that in turn returns a message handler
+   * for responding to GraphQL subscription websocket messages.
+   *
+   */
   public message(opts?: ServerRequestOptions): MessageHandler {
     return (ws: WebSocket) => {
       return (message: string) => {
