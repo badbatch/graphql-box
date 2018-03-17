@@ -7,7 +7,7 @@ import { dataEndpoints, endpointData } from "../data/rest";
 import * as githubIntrospection from "../introspection/github/index.json";
 import * as tescoIntrospection from "../introspection/tesco/index.json";
 import schema from "../schema";
-import { ServerArgs } from "../../src/server-client/types";
+import { ServerArgs } from "../../src/server-handl/types";
 import { ClientArgs, ObjectMap } from "../../src/types";
 
 export const browserClientArgs: ClientArgs = {

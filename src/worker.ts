@@ -1,6 +1,6 @@
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import registerPromiseWorker from "promise-worker/register";
-import { DefaultClient } from "./default-client";
+import { ClientHandl } from "./client-handl";
 import dehydrateCacheMetadata from "./helpers/dehydrate-cache-metadata";
 import { PostMessageArgs, RequestResultData } from "./types";
 
@@ -8,14 +8,14 @@ if (process.env.TEST_ENV) {
   require("../test/mocks");
 }
 
-let client: DefaultClient;
+let client: ClientHandl;
 
 registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
   const { args, caches, key, opts, query, tag, type } = message;
 
   if (type === "create" && args) {
     try {
-      client = await DefaultClient.create(args);
+      client = await ClientHandl.create(args);
       return undefined;
     } catch (error) {
       return Promise.reject(error);

@@ -1,4 +1,3 @@
-import { FetchResult } from "../default-client/types";
 import { RequestExecutorResolveResult } from "../types";
 
 export type ActiveBatch = Map<string, ActiveBatchValue>;

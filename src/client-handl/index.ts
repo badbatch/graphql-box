@@ -63,14 +63,14 @@ if (!process.env.WEB_ENV) {
   GraphQLSubscribe = require("../proxies/graphql-subscribe").default;
 }
 
-let instance: DefaultClient;
+let instance: ClientHandl;
 
-export class DefaultClient {
-  public static async create(args: ClientArgs): Promise<DefaultClient> {
+export class ClientHandl {
+  public static async create(args: ClientArgs): Promise<ClientHandl> {
     if (instance && isPlainObject(args) && !args.newInstance) return instance;
 
     try {
-      const client = new DefaultClient(args);
+      const client = new ClientHandl(args);
       await client._createCache();
       instance = client;
       return instance;
