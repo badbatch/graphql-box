@@ -38,11 +38,11 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
       case "getDataEntityCacheSize":
         result = await client.getDataEntityCacheSize();
         break;
-      case "getDataPathCacheEntry":
-        if (key) result = await client.getDataPathCacheEntry(key);
+      case "getQueryPathCacheEntry":
+        if (key) result = await client.getQueryPathCacheEntry(key);
         break;
-      case "getDataPathCacheSize":
-        result = await client.getDataPathCacheSize();
+      case "getQueryPathCacheSize":
+        result = await client.getQueryPathCacheSize();
         break;
       case "getResponseCacheEntry":
         if (key) {

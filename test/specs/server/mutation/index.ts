@@ -79,7 +79,7 @@ export default function testMutationOperation(args: ClientArgs): void {
           });
 
           it("then the client should not have stored any data in the in the data path cache", async () => {
-            const cacheSize = await client.getDataPathCacheSize();
+            const cacheSize = await client.getQueryPathCacheSize();
             expect(cacheSize).to.eql(1);
           });
 

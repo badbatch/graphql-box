@@ -106,7 +106,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the client should cache each data object in the response against its query path", async () => {
-            const cacheSize = await client.getDataPathCacheSize();
+            const cacheSize = await client.getQueryPathCacheSize();
             expect(cacheSize).to.eql(6);
           });
 
@@ -324,7 +324,7 @@ export default function testQueryOperation(args: ClientArgs): void {
 
             fetchMock.reset();
             const cache: CacheManager = get(client, "_cache");
-            cache.dataPaths.clear();
+            cache.queryPaths.clear();
             spy = sinon.spy(cache, "resolveQuery");
 
             try {
@@ -465,7 +465,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the client should cache each data object in the response against its query path", async () => {
-            const cacheSize = await client.getDataPathCacheSize();
+            const cacheSize = await client.getQueryPathCacheSize();
             expect(cacheSize).to.eql(6);
           });
 
@@ -553,7 +553,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the client should cache each data object in the response against its query path", async () => {
-            const cacheSize = await client.getDataPathCacheSize();
+            const cacheSize = await client.getQueryPathCacheSize();
             expect(cacheSize).to.eql(6);
           });
 
@@ -799,7 +799,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the client should cache each data object in the response against its query path", async () => {
-            const cacheSize = await client.getDataPathCacheSize();
+            const cacheSize = await client.getQueryPathCacheSize();
             expect(cacheSize).to.eql(7);
           });
 

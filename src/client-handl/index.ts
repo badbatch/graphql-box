@@ -120,12 +120,12 @@ export class ClientHandl {
       redisOptions: { db: 0 },
       use: { client: "indexedDB", server: "redis" },
     },
-    dataPaths: {
+    queryPaths: {
       indexedDBOptions: {
-        databaseName: "handl-dataPaths-store",
-        objectStoreName: "dataPaths",
+        databaseName: "handl-queryPaths-store",
+        objectStoreName: "queryPaths",
       },
-      name: "handl-dataPaths",
+      name: "handl-queryPaths",
       redisOptions: { db: 1 },
       use: { client: "indexedDB", server: "redis" },
     },
@@ -230,7 +230,7 @@ export class ClientHandl {
   public async clearCache(): Promise<void> {
     try {
       await Promise.all([
-        this._cache.dataPaths.clear(),
+        this._cache.queryPaths.clear(),
         this._cache.dataEntities.clear(),
         this._cache.responses.clear(),
       ]);
@@ -284,9 +284,9 @@ export class ClientHandl {
    * from the query path cache.
    *
    */
-  public async getDataPathCacheEntry(key: string): Promise<any> {
+  public async getQueryPathCacheEntry(key: string): Promise<any> {
     try {
-      return this._cache.dataPaths.get(key);
+      return this._cache.queryPaths.get(key);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -297,9 +297,9 @@ export class ClientHandl {
    * path cache.
    *
    */
-  public async getDataPathCacheSize(): Promise<number> {
+  public async getQueryPathCacheSize(): Promise<number> {
     try {
-      return this._cache.dataPaths.size();
+      return this._cache.queryPaths.size();
     } catch (error) {
       return Promise.reject(error);
     }
