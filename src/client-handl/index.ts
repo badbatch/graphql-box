@@ -406,19 +406,16 @@ export class ClientHandl {
     context: RequestContext,
   ): Promise<ResolveResult> {
     const queryHash = hashRequest(query);
+    const cachedResponse = await this._checkResponseCache(queryHash);
 
-    if (!opts.forceFetch) {
-      const cachedResponse = await this._checkResponseCache(queryHash);
-
-      if (cachedResponse) {
-        return this._resolve({
-          cacheMetadata: cachedResponse.cacheMetadata,
-          data: cachedResponse.data,
-          operation: "query",
-          queryHash,
-          resolvePending: false,
-        });
-      }
+    if (cachedResponse) {
+      return this._resolve({
+        cacheMetadata: cachedResponse.cacheMetadata,
+        data: cachedResponse.data,
+        operation: "query",
+        queryHash,
+        resolvePending: false,
+      });
     }
 
     if (this._cache.requests.active.has(queryHash)) {

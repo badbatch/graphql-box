@@ -168,7 +168,6 @@ export interface RequestOptions {
   awaitDataCached?: boolean;
   contextValue?: any;
   fieldResolver?: GraphQLFieldResolver<any, any>;
-  forceFetch?: boolean;
   fragments?: string[];
   operationName?: string;
   rootValue?: any;
