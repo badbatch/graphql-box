@@ -491,3 +491,7 @@ Data entities are object types with an ID. Handl will check query, mutation and 
 entities and each one it finds is cached, unless instructed otherwise, against a combination of the object type name
 and ID. i.e. `typename:ID`. This is equivalent to a normalized cache and allows handl to resolve a request from cache
 even if the requested entity was previously returned for a different request at a different level in the query path.
+
+## License
+
+Handl is MIT Licensed.
