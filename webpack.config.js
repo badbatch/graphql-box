@@ -37,8 +37,8 @@ webpackConfig.plugins.push(
 module.exports = {
   entry: {
     handl: './src/index.ts',
-    'default-handl': './src/default-client/index.ts',
-    'worker-handl': './src/worker-client/index.ts',
+    'client-handl': './src/client-handl/index.ts',
+    'worker-handl': './src/worker-handl/index.ts',
   },
   output: {
     filename: '[name].js',

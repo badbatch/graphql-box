@@ -1,12 +1,12 @@
-import { ServerArgs, ServerRequestOptions } from "./server-client/types";
+import { ServerArgs, ServerRequestOptions } from "./server-handl/types";
 import { ClientArgs, RequestOptions, RequestResult } from "./types";
 export type HandlClientArgs = ClientArgs;
 export type HandlClientRequestOptions = RequestOptions;
 export type HandlClientRequestResult = RequestResult;
 export type HandlServerArgs = ServerArgs;
 export type HandlServerRequestOptions = ServerRequestOptions;
-export { DefaultClient as ClientHandl } from "./default-client";
-export { ServerClient as ServerHandl } from "./server-client";
-export { WorkerClient as WorkerHandl } from "./worker-client";
-export { Client as Handl } from "./client";
+export { ClientHandl } from "./client-handl";
+export { ServerHandl } from "./server-handl";
+export { WorkerHandl } from "./worker-handl";
+export { Handl } from "./handl";
 export { MetadataType } from "./metadata-type";

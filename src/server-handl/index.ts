@@ -10,17 +10,17 @@ import {
   ServerRequestOptions,
 } from "./types";
 
-import { DefaultClient } from "../default-client";
+import { ClientHandl } from "../client-handl";
 import { DehydratedRequestResultData, RequestResultData, StringObjectMap } from "../types";
 
-let instance: ServerClient;
+let instance: ServerHandl;
 
-export class ServerClient {
-  public static async create(args: ServerArgs): Promise<ServerClient> {
+export class ServerHandl {
+  public static async create(args: ServerArgs): Promise<ServerHandl> {
     if (instance && isPlainObject(args) && !args.newInstance) return instance;
 
     try {
-      const server = new ServerClient();
+      const server = new ServerHandl();
       await server._createClient(args);
       instance = server;
       return instance;
@@ -29,9 +29,9 @@ export class ServerClient {
     }
   }
 
-  private _client: DefaultClient;
+  private _client: ClientHandl;
 
-  get client(): DefaultClient {
+  get client(): ClientHandl {
     return this._client;
   }
 
@@ -50,7 +50,7 @@ export class ServerClient {
   }
 
   private async _createClient(args: ServerArgs): Promise<void> {
-    this._client = await DefaultClient.create({ ...args, mode: "server" });
+    this._client = await ClientHandl.create({ ...args, mode: "server" });
   }
 
   private async _messageHandler(ws: WebSocket, message: string, opts: ServerRequestOptions = {}): Promise<void> {
@@ -63,7 +63,7 @@ export class ServerClient {
           if (ws.readyState === ws.OPEN) {
             const dehydratedResult = {
               ...result,
-              cacheMetadata: DefaultClient.dehydrateCacheMetadata(result.cacheMetadata),
+              cacheMetadata: ClientHandl.dehydrateCacheMetadata(result.cacheMetadata),
             };
 
             ws.send(JSON.stringify({ result: dehydratedResult, subscriptionID }));
@@ -74,7 +74,7 @@ export class ServerClient {
 
         const dehydratedResult = {
           ...result,
-          cacheMetadata: DefaultClient.dehydrateCacheMetadata(result.cacheMetadata),
+          cacheMetadata: ClientHandl.dehydrateCacheMetadata(result.cacheMetadata),
         };
 
         ws.send(JSON.stringify({ result: dehydratedResult, subscriptionID }));
@@ -103,7 +103,7 @@ export class ServerClient {
 
           responses[requestHash] = {
             ...result,
-            cacheMetadata: DefaultClient.dehydrateCacheMetadata(result.cacheMetadata),
+            cacheMetadata: ClientHandl.dehydrateCacheMetadata(result.cacheMetadata),
           };
         }));
 
@@ -113,7 +113,7 @@ export class ServerClient {
 
         dehydratedResult = {
           ...result,
-          cacheMetadata: DefaultClient.dehydrateCacheMetadata(result.cacheMetadata),
+          cacheMetadata: ClientHandl.dehydrateCacheMetadata(result.cacheMetadata),
         };
       }
 

@@ -20,14 +20,14 @@ import {
   ResponseCacheEntryResult,
 } from "../types";
 
-let instance: WorkerClient;
+let instance: WorkerHandl;
 
-export class WorkerClient {
-  public static async create(args: ClientArgs): Promise<WorkerClient> {
+export class WorkerHandl {
+  public static async create(args: ClientArgs): Promise<WorkerHandl> {
     if (instance && isPlainObject(args) && !args.newInstance) return instance;
 
     try {
-      const workerClient = new WorkerClient(args);
+      const workerClient = new WorkerHandl(args);
       const webpackWorker = require("worker-loader?inline=true&fallback=false!../worker"); // tslint:disable-line
       workerClient._createWorker(webpackWorker);
       await workerClient._postMessage({ args, type: "create" });
@@ -159,8 +159,8 @@ export class WorkerClient {
       if (this._subscriptionsEnabled) {
         const concatQuery = query.replace(/\s/g, "");
 
-        if (WorkerClient._isSubscription(concatQuery)) {
-          const key = WorkerClient._buildSubscriptionID(query, opts.variables);
+        if (WorkerHandl._isSubscription(concatQuery)) {
+          const key = WorkerHandl._buildSubscriptionID(query, opts.variables);
           this._postMessage({ key, query, opts, type: "request" });
           const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, key);
           return eventAsyncIterator.getIterator();
