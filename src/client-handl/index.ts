@@ -65,7 +65,18 @@ if (!process.env.WEB_ENV) {
 
 let instance: ClientHandl;
 
+/**
+ * An isomorphic GraphQL client that works on the
+ * server and in a browser.
+ *
+ */
 export class ClientHandl {
+  /**
+   * The method creates an instance of either ClientHandl for
+   * the server or ClientHandl for the browser based on whether the
+   * `WEB_ENV` environment variable is set to `true`.
+   *
+   */
   public static async create(args: ClientArgs): Promise<ClientHandl> {
     if (instance && isPlainObject(args) && !args.newInstance) return instance;
 
@@ -79,10 +90,20 @@ export class ClientHandl {
     }
   }
 
+  /**
+   * The method turns the cacheMetadata map into a
+   * plain object that can be serialised and transported.
+   *
+   */
   public static dehydrateCacheMetadata(cacheMetadata?: CacheMetadata): DehydratedCacheMetadata {
     return dehydrateCacheMetadata(cacheMetadata);
   }
 
+  /**
+   * The method turn a cacheMetadata plain object into
+   * a map of Cacheability objects.
+   *
+   */
   public static rehydrateCacheMetadata(dehydratedCacheMetadata: DehydratedCacheMetadata): CacheMetadata {
     return rehydrateCacheMetadata(dehydratedCacheMetadata);
   }
@@ -202,6 +223,10 @@ export class ClientHandl {
     this._requestParser = new RequestParser(this._schema, this._resourceKey);
   }
 
+  /**
+   * The method removes all cache entries from all three caches.
+   *
+   */
   public async clearCache(): Promise<void> {
     try {
       await Promise.all([
@@ -214,6 +239,12 @@ export class ClientHandl {
     }
   }
 
+  /**
+   * The method returns all cache entries from all three caches
+   * or a subset of cache entries based on a 'tag' in a
+   * serializable format that can be imported by another handl.
+   *
+   */
   public async exportCaches(tag: any): Promise<ExportCachesResult> {
     try {
       return this._cache.export(tag);
@@ -222,6 +253,11 @@ export class ClientHandl {
     }
   }
 
+  /**
+   * Given a valid key, the method returns the matching entry
+   * from the data entity cache.
+   *
+   */
   public async getDataEntityCacheEntry(key: string): Promise<ObjectMap | undefined> {
     try {
       return this._cache.dataEntities.get(key);
@@ -230,6 +266,11 @@ export class ClientHandl {
     }
   }
 
+  /**
+   * The method returns the number of entries in the data
+   * entity cache.
+   *
+   */
   public async getDataEntityCacheSize(): Promise<number> {
     try {
       return this._cache.dataEntities.size();
@@ -238,6 +279,11 @@ export class ClientHandl {
     }
   }
 
+  /**
+   * Given a valid key, the method returns the matching entry
+   * from the query path cache.
+   *
+   */
   public async getDataPathCacheEntry(key: string): Promise<any> {
     try {
       return this._cache.dataPaths.get(key);
@@ -246,6 +292,11 @@ export class ClientHandl {
     }
   }
 
+  /**
+   * The method returns the number of entries in the query
+   * path cache.
+   *
+   */
   public async getDataPathCacheSize(): Promise<number> {
     try {
       return this._cache.dataPaths.size();
@@ -254,6 +305,11 @@ export class ClientHandl {
     }
   }
 
+  /**
+   * Given a valid key, the method returns the matching entry
+   * from the response cache.
+   *
+   */
   public async getResponseCacheEntry(key: string): Promise<ResponseCacheEntryResult | undefined> {
     try {
       const entry = await this._cache.responses.get(key);
@@ -265,6 +321,10 @@ export class ClientHandl {
     }
   }
 
+  /**
+   * The method returns the number of entries in the response cache.
+   *
+   */
   public async getResponseCacheSize(): Promise<number> {
     try {
       return this._cache.responses.size();
@@ -273,6 +333,11 @@ export class ClientHandl {
     }
   }
 
+  /**
+   * The method imports data exported by another handl
+   * into the caches.
+   *
+   */
   public async importCaches(caches: ExportCachesResult): Promise<void> {
     try {
       return this._cache.import(caches);
@@ -281,6 +346,11 @@ export class ClientHandl {
     }
   }
 
+  /**
+   * The method makes query, mutation and subscription requests and
+   * handles request parsing, filtering and caching.
+   *
+   */
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult> {
     let errors: Error[] = [];
 
