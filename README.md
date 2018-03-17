@@ -37,7 +37,7 @@ npm install handl --save
 ## Compilation
 
 A couple of notes on compilation. Firstly, the `WEB_ENV` environment variable must be set when you compile your browser
-bundle in order to exclude node modules. Secondly, the worker handl is currently only set up to be built with Webpack's
+bundle in order to exclude node modules. Secondly, `WorkerHandl` is currently only set up to be built with Webpack's
 worker-loader via a blob URL.
 
 ## Documentation
@@ -52,7 +52,6 @@ Please read the full API documentation on the handl [github pages](https://dylan
 * [Creating a server](#creating-a-server)
 * [Routing queries, mutations and subscriptions](#routing-queries-mutations-and-subscriptions)
 * [Caching](#caching)
-* [Persisted storage](#persisted-storage)
 
 ### Creating a client
 
@@ -88,7 +87,7 @@ export default async function clientHandl() {
 
 `introspection` is the output of an introspection query to the GraphQL server that handl needs to communicate with.
 There are [several ways](#introspecting-the-schema) to generate this output. Handl uses the output to assist in
-parsing, filtering and caching requests and response payloads.
+parsing, filtering and caching.
 
 `url` is the endpoint that handl will use to communicate with the GraphQL server for queries and mutations.
 
@@ -281,7 +280,11 @@ about [async iterators](https://github.com/tc39/proposal-async-iteration) and th
 
 ### Introspecting the schema
 
-// TODO
+If the GraphQL server that handl needs to communicate with is a third-party such as Github, it is common practice
+to allow users to run an introspection query of the server's schema via a `GET` request (GraphQL requests are
+usually `POST`). If it is not a third-party, GraphQL [provides an introspection query](http://graphql.org/graphql-js/utilities/)
+you can use on your schema. Either way, make an introspection query and write the response to file as part of a
+step in your build process.
 
 ### Creating a server
 
@@ -364,6 +367,7 @@ import serverHandl from './server-handl';
 * [Cascading cache control](#cascading-cache-control)
 * [Single source of truth](#single-source-of-truth)
 * [The Metadata type](#the-metadata-type)
+* [Cache tiers](#cache-tiers)
 
 Handl has three levels of caching for data returned from requests, based on whether the request was a query, mutation
 or subscription. What gets cached and for how long is determined by http cache control directives. These directives
@@ -483,8 +487,7 @@ for the field `repositories`.
 
 ##### Data entities
 
-Data entities are the last line of handl's cache defense.
-
-### Persisted storage
-
-// TODO
+Data entities are object types with an ID. Handl will check query, mutation and subscription responses for data
+entities and each one it finds is cached, unless instructed otherwise, against a combination of the object type name
+and ID. i.e. `typename:ID`. This is equivalent to a normalized cache and allows handl to resolve a request from cache
+even if the requested entity was previously returned for a different request at a different level in the query path.
