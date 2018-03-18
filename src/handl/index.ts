@@ -24,7 +24,7 @@ export class Handl {
   /**
    * The method creates an instance of either ClientHandl for
    * the server, ClientHandl for the browser, or WorkerHandl,
-   * based on whether the `WEB_ENV` environment variable is set to `true`
+   * based on whether the `WEB_ENV` environment variable is set to `"true"`
    * and whether the environment supports web workers.
    *
    */

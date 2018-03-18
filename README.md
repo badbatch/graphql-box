@@ -36,9 +36,9 @@ npm install handl --save
 
 ## Compilation
 
-A couple of notes on compilation. Firstly, the `WEB_ENV` environment variable must be set when you compile your browser
-bundle in order to exclude node modules. Secondly, `WorkerHandl` is currently only set up to be built with Webpack's
-worker-loader via a blob URL.
+A couple of notes on compilation. Firstly, the `WEB_ENV` environment variable must be set to `'true'` when you compile
+your browser bundle in order to exclude node modules. Secondly, `WorkerHandl` is currently only set up to be built with
+Webpack's worker-loader via a blob URL.
 
 ## Documentation
 
@@ -77,7 +77,7 @@ export default async function clientHandl() {
       fetchTimeout: 5000,
       headers: { Authorization: 'bearer 3cdbb1ec-2189-11e8-b467-0ed5f89f718b' },
       resourceKey: 'id',
-      subscriptions: { address: "ws://api.github.com/graphql" },
+      subscriptions: { address: 'ws://api.github.com/graphql' },
     });
   } catch (error) {
     // Handle error...
@@ -172,7 +172,7 @@ import { repositoryFields } from './repository-fields-fragment';
 
     const { cacheMetadata, data, queryHash } = await handl.request(organization, {
       fragments: [repositoryFields],
-      variables: { login: "facebook", first: 20 },
+      variables: { login: 'facebook', first: 20 },
     });
 
     // Do something with result...
