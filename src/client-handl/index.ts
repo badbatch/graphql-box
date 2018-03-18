@@ -28,6 +28,7 @@ import hashRequest from "../helpers/hash-request";
 import { getOperationDefinitions } from "../helpers/parsing";
 import rehydrateCacheMetadata from "../helpers/rehydrate-cache-metadata";
 import socketsSupported from "../helpers/sockets-supported";
+import { clockAsyncMethod } from "../performance";
 import GraphQLExecuteProxy from "../proxies/graphql-execute";
 import GraphQLSubscribeProxy from "../proxies/graphql-subscribe";
 import { RequestParser } from "../request-parser";
@@ -351,6 +352,7 @@ export class ClientHandl {
    * handles request parsing, filtering and caching.
    *
    */
+  @clockAsyncMethod
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult> {
     let errors: Error[] = [];
 
