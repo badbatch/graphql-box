@@ -75,7 +75,7 @@ export class ClientHandl {
   /**
    * The method creates an instance of either ClientHandl for
    * the server or ClientHandl for the browser based on whether the
-   * `WEB_ENV` environment variable is set to `true`.
+   * `WEB_ENV` environment variable is set to `"true"`.
    *
    */
   public static async create(args: ClientArgs): Promise<ClientHandl> {
