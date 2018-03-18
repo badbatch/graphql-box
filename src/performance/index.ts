@@ -17,9 +17,14 @@ export function clockAsyncMethod(
   if (!method) return;
 
   descriptor.value = async function (...args: any[]): Promise<any> {
-    const startTime = performance.now();
-    const result = await method.apply(this, args);
-    logger.debug(`${propertyName} method => completed in ${(performance.now() - startTime).toFixed(2)}ms`, { result });
-    return result;
+    try {
+      const startTime = performance.now();
+      const result = await method.apply(this, args);
+      const message = `${propertyName} method => completed in ${(performance.now() - startTime).toFixed(2)}ms`;
+      logger.debug(message, { result });
+      return result;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   };
 }
