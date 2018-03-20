@@ -16,12 +16,14 @@ import {
 export default function testQueryOperation(args: ClientArgs, opts: { suppressWorkers?: boolean } = {}): void {
   describe(`the handl client on the browser ${!opts.suppressWorkers ? "with web workers" : ""}`, () => {
     let worker: Worker;
+    let onMainThread: boolean;
     let client: ClientHandl | WorkerHandl;
 
     before(async () => {
       if (opts.suppressWorkers) {
         worker = self.Worker;
         delete self.Worker;
+        onMainThread = true;
       }
     });
 
@@ -32,17 +34,18 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
     describe("the request method", () => {
       context("when a single query is requested", () => {
         before(async () => {
-          if (opts.suppressWorkers) {
+          client = await Handl.create(args) as ClientHandl | WorkerHandl;
+          await client.clearCache();
+          onMainThread = client instanceof ClientHandl;
+
+          if (onMainThread) {
             mockGraphqlRequest(github.requests.updatedSingleQuery);
             mockGraphqlRequest(github.requests.partialSingleQuery);
           }
-
-          client = await Handl.create(args) as ClientHandl | WorkerHandl;
-          await client.clearCache();
         });
 
         after(() => {
-          if (opts.suppressWorkers) fetchMock.restore();
+          if (onMainThread) fetchMock.restore();
         });
 
         context("when there is no matching query in any cache", () => {
@@ -61,7 +64,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -73,7 +76,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             it("then the client should have made a fetch request", () => {
               expect(fetchMock.calls().matched).to.have.lengthOf(1);
             });
@@ -117,7 +120,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               console.log(error); // tslint:disable-line
             }
 
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
 
             try {
               result = await client.request(
@@ -131,7 +134,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -143,7 +146,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             it("then the client should not have made a fetch request", () => {
               expect(fetchMock.calls().matched).to.have.lengthOf(0);
             });
@@ -172,7 +175,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -186,7 +189,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             it("then the client should have made one fetch request", () => {
               expect(fetchMock.calls().matched).to.have.lengthOf(1);
             });
@@ -206,7 +209,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               console.log(error); // tslint:disable-line
             }
 
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
 
             try {
               result = await client.request(
@@ -220,7 +223,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -240,7 +243,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(ownerCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             it("then the client should not have made a fetch request", () => {
               expect(fetchMock.calls().matched).to.have.lengthOf(0);
             });
@@ -290,7 +293,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               console.log(error); // tslint:disable-line
             }
 
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
 
             try {
               result = await client.request(
@@ -304,7 +307,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -324,7 +327,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(ownerCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             it("then the client should have made one fetch request", () => {
               const matched = fetchMock.calls().matched;
               expect(matched).to.have.lengthOf(1);
@@ -378,7 +381,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
       context("when a sugared query is requested", () => {
         before(async () => {
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             mockGraphqlRequest(github.requests.updatedSingleQuery);
             mockGraphqlRequest(github.requests.updatedSugaredSingleQuery);
           }
@@ -388,7 +391,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
         });
 
         after(() => {
-          if (opts.suppressWorkers) fetchMock.restore();
+          if (onMainThread) fetchMock.restore();
         });
 
         context("when there is no matching query in any cache", () => {
@@ -408,7 +411,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -420,7 +423,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             it("then the client should have made a fetch request", () => {
               expect(fetchMock.calls().matched).to.have.lengthOf(1);
             });
@@ -465,7 +468,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               console.log(error); // tslint:disable-line
             }
 
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
 
             try {
               result = await client.request(github.requests.sugaredSingleQuery, {
@@ -480,7 +483,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -492,7 +495,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             it("then the client should not have made a fetch request", () => {
               expect(fetchMock.calls().matched).to.have.lengthOf(0);
             });
@@ -512,7 +515,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               console.log(error); // tslint:disable-line
             }
 
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
 
             try {
               result = await client.request(github.requests.sugaredSingleQuery, {
@@ -527,7 +530,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -547,7 +550,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(ownerCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             it("then the client should not have made a fetch request", () => {
               expect(fetchMock.calls().matched).to.have.lengthOf(0);
             });
@@ -585,7 +588,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
         let stub: sinon.SinonStub;
 
         before(async () => {
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             fetchMock.spy();
           }
 
@@ -595,7 +598,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
         });
 
         after(() => {
-          if (opts.suppressWorkers) fetchMock.restore();
+          if (onMainThread) fetchMock.restore();
           stub.restore();
         });
 
@@ -629,7 +632,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -650,7 +653,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             });
           });
 
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             it("then the client should have made a fetch request", () => {
               expect(fetchMock.calls().unmatched).to.have.lengthOf(1);
             });
@@ -715,7 +718,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               console.log(error); // tslint:disable-line
             }
 
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
 
             try {
               batchedResults = await Promise.all([
@@ -743,7 +746,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           afterEach(async () => {
             await client.clearCache();
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -764,7 +767,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             });
           });
 
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             it("then the client should not have made a fetch request", () => {
               expect(fetchMock.calls().unmatched).to.have.lengthOf(0);
             });
