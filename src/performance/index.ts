@@ -8,7 +8,7 @@ if (process.env.WEB_ENV) {
   performance = require("perf_hooks").performance; // tslint:disable-line
 }
 
-export function clockAsyncMethod(
+export function timeAsyncMethod(
   target: any,
   propertyName: string,
   descriptor: TypedPropertyDescriptor<(...args: any[]) => Promise<any>>,
@@ -20,8 +20,8 @@ export function clockAsyncMethod(
     try {
       const startTime = performance.now();
       const result = await method.apply(this, args);
-      const message = `${propertyName} method => completed in ${(performance.now() - startTime).toFixed(2)}ms`;
-      logger.debug(message, { result });
+      const message = `${propertyName} method => timed at ${(performance.now() - startTime).toFixed(2)}ms`;
+      logger.debug(message, { query: args[0] });
       return result;
     } catch (error) {
       return Promise.reject(error);

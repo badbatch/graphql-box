@@ -56,6 +56,7 @@
     "**/*.d.ts"
   ],
   "plugins": [
-    "lodash"
+    "lodash",
+    "@babel/plugin-proposal-decorators"
   ]
 }
