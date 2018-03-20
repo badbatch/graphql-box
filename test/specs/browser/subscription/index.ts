@@ -12,6 +12,7 @@ const deferredPromise = require("defer-promise");
 export default function testSubscriptionOperation(args: ClientArgs, opts: { suppressWorkers?: boolean } = {}): void {
   describe(`the handl client on the browser ${!opts.suppressWorkers ? "with web workers" : ""}`, () => {
     let worker: Worker;
+    let onMainThread: boolean;
     let client: ClientHandl | WorkerHandl;
     let stub: sinon.SinonStub;
 
@@ -19,10 +20,13 @@ export default function testSubscriptionOperation(args: ClientArgs, opts: { supp
       if (opts.suppressWorkers) {
         worker = self.Worker;
         delete self.Worker;
+        onMainThread = true;
       }
 
       stub = sinon.stub(console, "warn");
       client = await Handl.create(args) as ClientHandl | WorkerHandl;
+      await client.clearCache();
+      onMainThread = client instanceof ClientHandl;
     });
 
     after(() => {
@@ -43,7 +47,7 @@ export default function testSubscriptionOperation(args: ClientArgs, opts: { supp
         ];
 
         before(async () => {
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             fetchMock.spy();
           }
 
@@ -66,7 +70,7 @@ export default function testSubscriptionOperation(args: ClientArgs, opts: { supp
         });
 
         after(() => {
-          if (opts.suppressWorkers) fetchMock.restore();
+          if (onMainThread) fetchMock.restore();
         });
 
         context("when a mutation is requested to data that is subscribed to", () => {
@@ -86,7 +90,7 @@ export default function testSubscriptionOperation(args: ClientArgs, opts: { supp
 
           afterEach(async () => {
             await client.clearCache();
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
             result = undefined;
 
             await client.request(

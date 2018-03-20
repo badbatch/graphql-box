@@ -16,21 +16,25 @@ import {
 export default function testImportExportMethods(args: ClientArgs, opts: { suppressWorkers?: boolean } = {}): void {
   describe(`the handl client on the browser ${!opts.suppressWorkers ? "with web workers" : ""}`, () => {
     let worker: Worker;
+    let onMainThread: boolean;
     let client: ClientHandl | WorkerHandl;
 
     before(async () => {
       if (opts.suppressWorkers) {
-        mockGraphqlRequest(github.requests.updatedSingleQuery);
         worker = self.Worker;
         delete self.Worker;
+        onMainThread = true;
       }
 
       client = await Handl.create(args) as ClientHandl;
+      await client.clearCache();
+      onMainThread = client instanceof ClientHandl;
+      if (onMainThread) mockGraphqlRequest(github.requests.updatedSingleQuery);
     });
 
     after(() => {
       if (worker) self.Worker = worker;
-      if (opts.suppressWorkers) fetchMock.restore();
+      if (onMainThread) fetchMock.restore();
     });
 
     describe("the export method", () => {
@@ -50,7 +54,7 @@ export default function testImportExportMethods(args: ClientArgs, opts: { suppre
 
       after(async () => {
         await client.clearCache();
-        if (opts.suppressWorkers) fetchMock.reset();
+        if (onMainThread) fetchMock.reset();
       });
 
       context("when the client has data in its caches", () => {
@@ -103,7 +107,7 @@ export default function testImportExportMethods(args: ClientArgs, opts: { suppre
 
       after(async () => {
         await client.clearCache();
-        if (opts.suppressWorkers) fetchMock.reset();
+        if (onMainThread) fetchMock.reset();
       });
 
       context("when exported cache results are passed in", () => {

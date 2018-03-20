@@ -9,15 +9,19 @@ import { ClientArgs, RequestResultData } from "../../../../src/types";
 export default function testMutationOperation(args: ClientArgs, opts: { suppressWorkers?: boolean } = {}): void {
   describe(`the handl client on the browser ${!opts.suppressWorkers ? "with web workers" : ""}`, () => {
     let worker: Worker;
+    let onMainThread: boolean;
     let client: ClientHandl | WorkerHandl;
 
     before(async () => {
       if (opts.suppressWorkers) {
         worker = self.Worker;
         delete self.Worker;
+        onMainThread = true;
       }
 
       client = await Handl.create(args) as ClientHandl | WorkerHandl;
+      await client.clearCache();
+      onMainThread = client instanceof ClientHandl;
     });
 
     after(() => {
@@ -27,13 +31,13 @@ export default function testMutationOperation(args: ClientArgs, opts: { suppress
     describe("the request method", () => {
       context("when a add mutation is requested", () => {
         before(() => {
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             mockGraphqlRequest(github.requests.updatedAddMutation);
           }
         });
 
         after(() => {
-          if (opts.suppressWorkers) fetchMock.restore();
+          if (onMainThread) fetchMock.restore();
         });
 
         context("when the mutation was successfully executed", () => {
@@ -53,7 +57,7 @@ export default function testMutationOperation(args: ClientArgs, opts: { suppress
 
           afterEach(async () => {
             await client.clearCache();
-            if (opts.suppressWorkers) fetchMock.reset();
+            if (onMainThread) fetchMock.reset();
           });
 
           it("then the method should return the requested data", () => {
@@ -64,7 +68,7 @@ export default function testMutationOperation(args: ClientArgs, opts: { suppress
             expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
-          if (opts.suppressWorkers) {
+          if (onMainThread) {
             it("then the client should have made a fetch request", () => {
               expect(fetchMock.calls().matched).to.have.lengthOf(1);
             });
