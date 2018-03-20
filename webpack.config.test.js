@@ -18,6 +18,7 @@ webpackConfig.module.rules.unshift({
   }],
 }, {
   enforce: 'pre',
+  exclude: [/node_modules/],
   test: /\.(tsx?|jsx?)$/,
   use: {
     loader: 'source-map-loader',
