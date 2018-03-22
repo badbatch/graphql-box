@@ -44,8 +44,9 @@
   "dependencies": {
     "cacheability": "0.0.61",
     "cachemap": "^0.1.0",
+    "custom-event": "^1.0.1",
     "defer-promise": "^1.0.1",
-    "graphql": "^0.12.3",
+    "graphql": "^0.13.2",
     "graphql-subscriptions": "^0.5.6",
     "iso-logger": "0.0.12",
     "isomorphic-fetch": "^2.2.1",
