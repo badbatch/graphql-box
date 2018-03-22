@@ -1,24 +1,15 @@
+import * as EventEmitter from "eventemitter3";
 import { DocumentNode } from "graphql";
 import { isPlainObject, isString } from "lodash";
 import * as WS from "ws";
 import EventAsyncIterator from "../event-async-iterator";
-import EventEmitterProxy from "../proxies/event-emitter";
-import EventTargetProxy from "../proxies/event-target";
 import { RequestOptions, SubscriberResolver } from "../types";
-
-let eventEmitter: typeof EventEmitterProxy | typeof EventTargetProxy;
-
-if (process.env.WEB_ENV) {
-  eventEmitter = EventTargetProxy;
-} else {
-  eventEmitter = require("../proxies/event-emitter").default;
-}
 
 export default class SocketManager {
   private _address: string;
   private _closedCode?: number;
   private _closedReason?: string;
-  private _eventEmitter: EventEmitterProxy | EventTargetProxy;
+  private _eventEmitter: EventEmitter;
   private _options: WS.ClientOptions = {};
   private _socket: WebSocket | WS;
   private _subscriptions: Map<string, SubscriberResolver> = new Map();
@@ -29,7 +20,7 @@ export default class SocketManager {
     }
 
     this._address = address;
-    this._eventEmitter = new eventEmitter();
+    this._eventEmitter = new EventEmitter();
     if (opts && isPlainObject(opts)) this._options = opts;
     this._open();
   }

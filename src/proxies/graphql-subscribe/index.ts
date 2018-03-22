@@ -1,3 +1,5 @@
+import * as EventEmitter from "eventemitter3";
+
 import {
   DocumentNode,
   ExecutionResult,
@@ -8,20 +10,19 @@ import {
 
 import { isFunction } from "lodash";
 import { GraphQLSubscribeProxyArgs } from "./types";
-import EventEmmitterProxy from "../event-emitter";
 import EventAsyncIterator from "../../event-async-iterator";
 import { RequestOptions, SubscriberResolver } from "../../types";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 
 export default class GraphQLSubscribeProxy {
-  private _eventEmitter: EventEmmitterProxy;
+  private _eventEmitter: EventEmitter;
   private _fieldResolver?: GraphQLFieldResolver<any, any>;
   private _rootValue: any;
   private _schema: GraphQLSchema;
   private _subscribeFieldResolver?: GraphQLFieldResolver<any, any>;
 
   constructor({ fieldResolver, rootValue, schema, subscribeFieldResolver }: GraphQLSubscribeProxyArgs) {
-    this._eventEmitter = new EventEmmitterProxy();
+    this._eventEmitter = new EventEmitter();
     if (isFunction(fieldResolver)) this._fieldResolver = fieldResolver;
     this._rootValue = rootValue;
     this._schema = schema;
