@@ -16,6 +16,7 @@ module.exports = {
   plugins: [
     new webpack.EnvironmentPlugin({
       DEBUG: !!process.env.DEBUG,
+      NODE_ENV: 'production',
       TEST_ENV: !!process.env.TEST_ENV,
       WEB_ENV: true,
     }),

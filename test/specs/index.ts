@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import "isomorphic-fetch";
 import { serverClientArgs, workerClientArgs } from "../helpers";
 import { ClientHandl, Handl, WorkerHandl } from "../../src";
 import { supportsWorkerIndexedDB } from "../../src/helpers/user-agent-parser";

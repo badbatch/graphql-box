@@ -1,3 +1,5 @@
+import CustomEvent from "custom-event";
+
 export default class EventTargetProxy {
   private _eventTarget: EventTarget = self;
 
