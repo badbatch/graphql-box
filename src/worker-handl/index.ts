@@ -1,3 +1,4 @@
+import * as EventEmitter from "eventemitter3";
 import { isPlainObject, isString } from "lodash";
 import * as md5 from "md5";
 import PromiseWorker from "promise-worker";
@@ -5,7 +6,6 @@ import EventAsyncIterator from "../event-async-iterator";
 import createCacheMetadata from "../helpers/create-cache-metadata";
 import dehydrateCacheMetadata from "../helpers/dehydrate-cache-metadata";
 import rehydrateCacheMetadata from "../helpers/rehydrate-cache-metadata";
-import EventTargetProxy from "../proxies/event-target";
 
 import {
   CacheMetadata,
@@ -74,14 +74,14 @@ export class WorkerHandl {
     return concatQuery.startsWith("subscription");
   }
 
-  private _eventEmitter: EventTargetProxy;
+  private _eventEmitter: EventEmitter;
   private _promiseWorker: PromiseWorker;
   private _subscriptionsEnabled: boolean = false;
   private _worker: Worker;
 
   constructor(args: ClientArgs) {
     if (args.subscriptions && isPlainObject(args.subscriptions)) {
-      this._eventEmitter = new EventTargetProxy();
+      this._eventEmitter = new EventEmitter();
       this._subscriptionsEnabled = true;
     }
   }
