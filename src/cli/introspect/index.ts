@@ -5,11 +5,11 @@ import * as path from "path";
 import * as yargs from "yargs";
 import { ObjectMap } from "../../types";
 
-function mkdirSyncRec(filePath: string): void {
+function mkdirSyncRec(filePath: string): string {
   const parsed = path.parse(filePath);
   const dirPaths = parsed.dir.split(path.sep);
 
-  dirPaths.reduce((existingPath, dirPath) => {
+  return dirPaths.reduce((existingPath, dirPath) => {
     const newPath = !existingPath ? dirPath : `${existingPath}${path.sep}${dirPath}`;
     if (!fs.existsSync(newPath)) fs.mkdirSync(newPath);
     return newPath;
