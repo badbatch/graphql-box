@@ -22,6 +22,9 @@
     "client",
     "isomorphic"
   ],
+  "bin": {
+    "introspect": "bin/introspect"
+  },
   "scripts": {
     "analyze:bundle": "webpack-bundle-analyzer bundle/stats.json lib/umd --mode static --report bundle/report.html --no-open",
     "build": "npm run clean && npm run test && npm run compile && npm run analyze:bundle && npm run document",
@@ -33,7 +36,8 @@
     "compile:umd": "cross-env BABEL_ENV=browser gulp umd",
     "debug:web": "cross-env BABEL_ENV=browser TEST_ENV=true karma start --no-single-run --reporters progress --browsers",
     "document": "gulp document",
-    "introspect": "cross-env TS_NODE_PROJECT=\"./tsconfig.test.json\" ts-node test/introspection/index.ts",
+    "introspect:schema": "node bin/introspect --schema \"test/schema/index.ts\" --output \".out/introspection.json\" --tsconfig \"tsconfig.test.json\"",
+    "introspect:url": "node bin/introspect --url \"https://api.github.com/graphql\" --headers \"Authorization:bearer <TOKEN>\" --output \".out/introspection.json\" --tsconfig \"tsconfig.test.json\"",
     "lint": "gulp lint",
     "publish:pkg": "npm run build && npm publish",
     "test": "npm run lint && npm run type-check && npm run test:web && npm run test:node",
@@ -53,7 +57,8 @@
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
     "promise-worker": "^1.1.1",
-    "ws": "^4.0.0"
+    "ws": "^4.0.0",
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.42",
@@ -76,6 +81,7 @@
     "@types/sinon": "^4.0.0",
     "@types/sinon-chai": "^2.7.29",
     "@types/ws": "^3.2.1",
+    "@types/yargs": "^11.0.0",
     "awesome-typescript-loader": "^3.4.1",
     "babel-eslint": "^8.0.2",
     "babel-plugin-lodash": "^3.3.2",
