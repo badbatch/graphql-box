@@ -1,7 +1,7 @@
 {
   "name": "handl",
-  "version": "0.1.3",
-  "description": "An isomorphic graphql client and cache.",
+  "version": "0.1.4",
+  "description": "An isomorphic GraphQL client and server with a three-tier cache and persisted storage.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/dylanaubrey/handl",
@@ -50,7 +50,6 @@
     "cachemap": "^0.1.0",
     "defer-promise": "^1.0.1",
     "eventemitter3": "^3.0.1",
-    "graphql": "^0.13.2",
     "iso-logger": "0.0.12",
     "isomorphic-fetch": "^2.2.1",
     "iterall": "^1.1.3",
@@ -59,6 +58,9 @@
     "promise-worker": "^1.1.1",
     "ws": "^4.0.0",
     "yargs": "^11.0.0"
+  },
+  "peerDependencies": {
+    "graphql": "^0.10.5 || ^0.11.3 || ^0.12.0 || ^0.13.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.42",
@@ -98,6 +100,7 @@
     "eslint-plugin-react": "^7.5.1",
     "express": "^4.16.2",
     "fetch-mock": "^5.12.1",
+    "graphql": "^0.13.2",
     "graphql-subscriptions": "^0.5.6",
     "gulp": "^3.9.1",
     "gulp-babel": "^8.0.0-beta.2",
