@@ -23,7 +23,7 @@
     "isomorphic"
   ],
   "bin": {
-    "introspect": "bin/introspect"
+    "introspect": "bin/introspect.js"
   },
   "scripts": {
     "analyze:bundle": "webpack-bundle-analyzer bundle/stats.json lib/umd --mode static --report bundle/report.html --no-open",

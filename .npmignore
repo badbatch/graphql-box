@@ -4,6 +4,7 @@
 bundle/
 coverage/
 docs/
+karma/
 src/
 test/
 *.log
