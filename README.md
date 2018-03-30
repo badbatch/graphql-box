@@ -281,10 +281,23 @@ about [async iterators](https://github.com/tc39/proposal-async-iteration) and th
 ### Introspecting the schema
 
 If the GraphQL server that handl needs to communicate with is a third-party such as Github, it is common practice
-to allow users to run an introspection query of the server's schema via a `GET` request (GraphQL requests are
-usually `POST`). If it is not a third-party, GraphQL [provides an introspection query](http://graphql.org/graphql-js/utilities/)
-you can use on your schema. Either way, make an introspection query and write the response to file as part of a
+to allow users to run an introspection query of the server's schema via a `GET` request (GraphQL requests are `POST`).
+If it is not a third-party, GraphQL [provides an introspection query](http://graphql.org/graphql-js/utilities/)
+you can use on your schema. Either way, make an introspection query and write the response to a json file as part of a
 step in your build process.
+
+Handl provides a command line interface for introspecting a schema and writing the response to a json file. Just create
+an npm script like either of the examples below and then run them in your terminal like so `npm run introspect:url`. All
+paths are relative to the project root. If you are writing in Typescript and want to introspect a schema without having
+to compile your code to javascript, the CLI accepts an additional argument of `--tsconfig` with the value being the path
+to your `tsconfig.json` file. You will need `ts-node` installed as a devDependency to make use of this feature.
+
+```json
+"scripts": {
+  "introspect:schema": "introspect --schema \"test/schema/index.ts\" --output \".out/introspection.json\"",
+  "introspect:url": "introspect --url \"https://api.github.com/graphql\" --headers \"Authorization:bearer <TOKEN>\" --output \".out/introspection.json\"",
+}
+```
 
 ### Creating a server
 
