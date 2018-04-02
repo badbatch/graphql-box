@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ServerRequestOptions | Handl</title>
+	<title>GetKeysResult | Handl</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,10 +52,10 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="serverrequestoptions.html">ServerRequestOptions</a>
+					<a href="getkeysresult.html">GetKeysResult</a>
 				</li>
 			</ul>
-			<h1>Interface ServerRequestOptions</h1>
+			<h1>Interface GetKeysResult</h1>
 		</div>
 	</div>
 </header>
@@ -66,7 +66,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ServerRequestOptions</span>
+						<span class="target">GetKeysResult</span>
 					</li>
 				</ul>
 			</section>
@@ -77,12 +77,12 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="serverrequestoptions.html#contextvalue" class="tsd-kind-icon">context<wbr>Value</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="serverrequestoptions.html#fieldresolver" class="tsd-kind-icon">field<wbr>Resolver</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="serverrequestoptions.html#operationname" class="tsd-kind-icon">operation<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="serverrequestoptions.html#rootvalue" class="tsd-kind-icon">root<wbr>Value</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="serverrequestoptions.html#subscribefieldresolver" class="tsd-kind-icon">subscribe<wbr>Field<wbr>Resolver</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="serverrequestoptions.html#tag" class="tsd-kind-icon">tag</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="getkeysresult.html#cachekey" class="tsd-kind-icon">cache<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="getkeysresult.html#datakey" class="tsd-kind-icon">data<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="getkeysresult.html#hashkey" class="tsd-kind-icon">hash<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="getkeysresult.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="getkeysresult.html#propkey" class="tsd-kind-icon">prop<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="getkeysresult.html#querykey" class="tsd-kind-icon">query<wbr>Key</a></li>
 							</ul>
 						</section>
 					</div>
@@ -91,101 +91,64 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="contextvalue" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> context<wbr>Value</h3>
-					<div class="tsd-signature tsd-kind-icon">context<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="cachekey" class="tsd-anchor"></a>
+					<h3>cache<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">cache<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/d84399f/src/server-handl/types.d.ts#L77">server-handl/types.d.ts:77</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/d84399f/src/cache-manager/types.d.ts#L38">cache-manager/types.d.ts:38</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Set GraphQL context value to be passed on to
-							GraphQL&#39;s execute and subscribe methods.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="fieldresolver" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> field<wbr>Resolver</h3>
-					<div class="tsd-signature tsd-kind-icon">field<wbr>Resolver<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">GraphQLFieldResolver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="datakey" class="tsd-anchor"></a>
+					<h3>data<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">data<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/d84399f/src/server-handl/types.d.ts#L84">server-handl/types.d.ts:84</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/d84399f/src/cache-manager/types.d.ts#L39">cache-manager/types.d.ts:39</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Set default GraphQL field resolver function to
-								be passed on to GraphQL&#39;s execute and subscribe
-							methods.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="operationname" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> operation<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">operation<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="hashkey" class="tsd-anchor"></a>
+					<h3>hash<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">hash<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/d84399f/src/server-handl/types.d.ts#L90">server-handl/types.d.ts:90</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/d84399f/src/cache-manager/types.d.ts#L40">cache-manager/types.d.ts:40</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Set GraphQL operation name to be passed on to
-							GraphQL&#39;s execute and subscribe methods.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="rootvalue" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> root<wbr>Value</h3>
-					<div class="tsd-signature tsd-kind-icon">root<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/d84399f/src/server-handl/types.d.ts#L96">server-handl/types.d.ts:96</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/d84399f/src/cache-manager/types.d.ts#L41">cache-manager/types.d.ts:41</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Set default GraphQL root value to be passed on to
-							GraphQL&#39;s execute and subscribe methods.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="subscribefieldresolver" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> subscribe<wbr>Field<wbr>Resolver</h3>
-					<div class="tsd-signature tsd-kind-icon">subscribe<wbr>Field<wbr>Resolver<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">GraphQLFieldResolver</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="propkey" class="tsd-anchor"></a>
+					<h3>prop<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">prop<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/d84399f/src/server-handl/types.d.ts#L102">server-handl/types.d.ts:102</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/d84399f/src/cache-manager/types.d.ts#L42">cache-manager/types.d.ts:42</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Set default GraphQL subscribe field resolver function to
-							be passed on to GraphQL&#39;s subscribe method.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="tag" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> tag</h3>
-					<div class="tsd-signature tsd-kind-icon">tag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="querykey" class="tsd-anchor"></a>
+					<h3>query<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">query<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/d84399f/src/server-handl/types.d.ts#L108">server-handl/types.d.ts:108</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/handl/blob/d84399f/src/cache-manager/types.d.ts#L43">cache-manager/types.d.ts:43</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An identifier that will be stored in a request&#39;s cache metadata.
-							This can be used to retrieve cache entries against.</p>
-						</div>
-					</div>
 				</section>
 			</section>
 		</div>
@@ -202,25 +165,25 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="serverrequestoptions.html" class="tsd-kind-icon">Server<wbr>Request<wbr>Options</a>
+						<a href="getkeysresult.html" class="tsd-kind-icon">Get<wbr>Keys<wbr>Result</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="serverrequestoptions.html#contextvalue" class="tsd-kind-icon">context<wbr>Value</a>
+								<a href="getkeysresult.html#cachekey" class="tsd-kind-icon">cache<wbr>Key</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="serverrequestoptions.html#fieldresolver" class="tsd-kind-icon">field<wbr>Resolver</a>
+								<a href="getkeysresult.html#datakey" class="tsd-kind-icon">data<wbr>Key</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="serverrequestoptions.html#operationname" class="tsd-kind-icon">operation<wbr>Name</a>
+								<a href="getkeysresult.html#hashkey" class="tsd-kind-icon">hash<wbr>Key</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="serverrequestoptions.html#rootvalue" class="tsd-kind-icon">root<wbr>Value</a>
+								<a href="getkeysresult.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="serverrequestoptions.html#subscribefieldresolver" class="tsd-kind-icon">subscribe<wbr>Field<wbr>Resolver</a>
+								<a href="getkeysresult.html#propkey" class="tsd-kind-icon">prop<wbr>Key</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="serverrequestoptions.html#tag" class="tsd-kind-icon">tag</a>
+								<a href="getkeysresult.html#querykey" class="tsd-kind-icon">query<wbr>Key</a>
 							</li>
 						</ul>
 					</li>

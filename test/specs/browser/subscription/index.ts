@@ -3,7 +3,7 @@ import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
 import * as sinon from "sinon";
 import { forAwaitEach, isAsyncIterable } from "iterall";
-import { tesco } from "../../../data/graphql";
+import { ecom } from "../../../data/graphql";
 import { ClientHandl, Handl, WorkerHandl } from "../../../../src";
 import { ClientArgs, RequestResultData } from "../../../../src/types";
 
@@ -53,7 +53,7 @@ export default function testSubscriptionOperation(args: ClientArgs, opts: { supp
 
           try {
             const asyncIterator = await client.request(
-              tesco.requests.singleSubscription,
+              ecom.requests.singleSubscription,
               { awaitDataCached: true },
             );
 
@@ -77,7 +77,7 @@ export default function testSubscriptionOperation(args: ClientArgs, opts: { supp
           beforeEach(async () => {
             try {
               await client.request(
-                tesco.requests.reducedAddMutation,
+                ecom.requests.reducedAddMutation,
                 { awaitDataCached: true, variables: { productID: "402-5806" } },
               );
             } catch (error) {
@@ -94,14 +94,14 @@ export default function testSubscriptionOperation(args: ClientArgs, opts: { supp
             result = undefined;
 
             await client.request(
-              tesco.requests.removeMutation,
+              ecom.requests.removeMutation,
               { awaitDataCached: true, variables: { productID: "402-5806" } },
             );
           });
 
           it("then the method should return the subscribed data", () => {
             const _result = result as RequestResultData;
-            expect(_result.data).to.deep.equal(tesco.responses.singleSubscription);
+            expect(_result.data).to.deep.equal(ecom.responses.singleSubscription);
             const cacheMetadata = _result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(3);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;
