@@ -1,4 +1,4 @@
-import logger from "../logger";
+import handlDebugger from "../debugger";
 
 let performance: Performance;
 
@@ -25,15 +25,13 @@ export function timeRequest(
         resolve(result);
         const duration = endTime - startTime;
         const { handlID, operation } = args[2];
-        const message = `Request ${handlID} => ${duration.toFixed(2)}ms`;
 
-        logger.debug(message, {
+        handlDebugger.emit("request_timed", {
           duration,
           endTime,
           handlID,
           operation,
           startTime,
-          type: "time_request",
         });
       });
     } catch (error) {

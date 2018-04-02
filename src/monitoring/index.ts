@@ -1,4 +1,4 @@
-import logger from "../logger";
+import handlDebugger from "../debugger";
 
 export function logCacheEntry(
   target: any,
@@ -15,15 +15,13 @@ export function logCacheEntry(
       (async () => {
         const { cacheHeaders = {}, tag = null } = args[2];
         const { cache, handlID, operation } = args[3];
-        const message = `Request ${handlID} => ${cache} cache entry logged`;
 
-        logger.debug(message, {
+        handlDebugger.emit("cache_entry_added", {
           cache,
           cacheHeaders,
           handlID,
           key: args[0],
           operation, tag,
-          type: "log_cache_entry",
           value: args[1],
         });
       })();
@@ -47,15 +45,13 @@ export function logFetch(
         const result = await method.apply(this, args);
         resolve(result);
         const { handlID, operation } = args[3];
-        const message = `Request ${handlID} => fetch logged`;
 
-        logger.debug(message, {
+        handlDebugger.emit("fetch_executed", {
           handlID,
           operation,
           opts: args[2],
           request: args[0],
           result,
-          type: "log_fetch",
         });
       });
     } catch (error) {
@@ -77,13 +73,11 @@ export function logPartial(
 
     (async () => {
       const { handlID, operation } = args[2];
-      const message = `Request ${handlID} => partial logged`;
 
-      logger.debug(message, {
+      handlDebugger.emit("partial_compiled", {
         handlID,
         operation,
         partial: args[1],
-        type: "log_partial",
       });
     })();
   };
@@ -103,15 +97,13 @@ export function logRequest(
         const result = await method.apply(this, args);
         resolve(result);
         const { handlID, operation } = args[2];
-        const message = `Request ${handlID} => logged`;
 
-        logger.debug(message, {
+        handlDebugger.emit("request_executed", {
           handlID,
           operation,
           opts: args[1],
           request: args[0],
           result,
-          type: "log_request",
         });
       });
     } catch (error) {
@@ -134,14 +126,12 @@ export function logSubscription(
         const result = await method.apply(this, args);
         resolve(result);
         const { handlID, operation } = args[3];
-        const message = `Request ${handlID} => subscription logged`;
 
-        logger.debug(message, {
+        handlDebugger.emit("subscription_executed", {
           handlID,
           operation,
           opts: args[2],
           result,
-          type: "log_subscription",
         });
       });
     } catch (error) {
