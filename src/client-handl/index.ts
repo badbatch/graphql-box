@@ -19,14 +19,15 @@ import {
   merge,
 } from "lodash";
 
+import { getOperationDefinitions } from "../helpers/parsing";
 import rehydrateCacheMetadata from "../helpers/rehydrate-cache-metadata";
-import * as uuid from "uuid/v1";
 import CacheManager from "../cache-manager";
+import handlDebugger, { HandlDebugger } from "../debugger";
 import FetchManager from "../fetch-manager";
 import createCacheMetadata from "../helpers/create-cache-metadata";
 import dehydrateCacheMetadata from "../helpers/dehydrate-cache-metadata";
 import hashRequest from "../helpers/hash-request";
-import { getOperationDefinitions } from "../helpers/parsing";
+import * as uuid from "uuid/v1";
 import { FetchResult, ResolveArgs } from "./types";
 import socketsSupported from "../helpers/sockets-supported";
 import { logFetch, logRequest, logSubscription } from "../monitoring";
@@ -142,6 +143,8 @@ export class ClientHandl {
     },
   };
 
+  private _debugger: HandlDebugger = handlDebugger;
+
   private _defaultCacheControls: DefaultCacheControls = {
     mutation: "max-age=0, s-maxage=0, no-cache, no-store",
     query: "public, max-age=60, s-maxage=60",
@@ -223,6 +226,15 @@ export class ClientHandl {
 
     if (isString(resourceKey)) this._resourceKey = resourceKey;
     this._requestParser = new RequestParser(this._schema, this._resourceKey);
+  }
+
+  /**
+   * The debug object that can be used to listen for handl
+   * request lifecycle events.
+   *
+   */
+  get debugger(): HandlDebugger {
+    return this._debugger;
   }
 
   /**
