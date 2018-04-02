@@ -225,6 +225,7 @@ export type PendingRequestResolver = (value: ResolveResult) => void;
 export interface PostMessageArgs {
   args?: ClientArgs;
   caches?: ExportCachesResult;
+  eventName?: string;
   key?: string;
   opts?: RequestOptions;
   query?: string;

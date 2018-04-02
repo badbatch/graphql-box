@@ -1,4 +1,4 @@
-import handlDebugger from "../debugger";
+import clientHandlDebugger from "../debuggers/client-handl";
 
 let performance: Performance;
 
@@ -26,7 +26,7 @@ export function timeRequest(
         const duration = endTime - startTime;
         const { handlID, operation } = args[2];
 
-        handlDebugger.emit("request_timed", {
+        clientHandlDebugger.emit("request_timed", {
           duration,
           endTime,
           handlID,
