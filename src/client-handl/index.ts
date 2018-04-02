@@ -19,16 +19,18 @@ import {
   merge,
 } from "lodash";
 
-import { FetchResult, ResolveArgs } from "./types";
+import rehydrateCacheMetadata from "../helpers/rehydrate-cache-metadata";
+import * as uuid from "uuid/v1";
 import CacheManager from "../cache-manager";
 import FetchManager from "../fetch-manager";
 import createCacheMetadata from "../helpers/create-cache-metadata";
 import dehydrateCacheMetadata from "../helpers/dehydrate-cache-metadata";
 import hashRequest from "../helpers/hash-request";
 import { getOperationDefinitions } from "../helpers/parsing";
-import rehydrateCacheMetadata from "../helpers/rehydrate-cache-metadata";
+import { FetchResult, ResolveArgs } from "./types";
 import socketsSupported from "../helpers/sockets-supported";
-import { timeAsyncMethod } from "../performance";
+import { logFetch, logRequest, logSubscription } from "../monitoring";
+import { timeRequest } from "../performance";
 import GraphQLExecuteProxy from "../proxies/graphql-execute";
 import GraphQLSubscribeProxy from "../proxies/graphql-subscribe";
 import { RequestParser } from "../request-parser";
@@ -43,7 +45,6 @@ import {
   DefaultCacheControls,
   DehydratedCacheMetadata,
   ExportCachesResult,
-  FieldTypeMap,
   ObjectMap,
   PendingRequestActions,
   PendingRequestRejection,
@@ -352,44 +353,9 @@ export class ClientHandl {
    * handles request parsing, filtering and caching.
    *
    */
-  @timeAsyncMethod
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult> {
-    let errors: Error[] = [];
-
-    if (!isString(query)) {
-      errors.push(new TypeError("Request expected query to be a string."));
-    }
-
-    if (!isPlainObject(opts)) {
-      errors.push(new TypeError("Request expected opts to be a plain object."));
-    }
-
-    if (errors.length) return Promise.reject(errors);
-
-    if (opts.fragments && (!isArray(opts.fragments) || opts.fragments.some((value) => !isString(value)))) {
-      return Promise.reject(new TypeError("Request expected opts.fragments to be an array of strings."));
-    }
-
-    try {
-      const context: RequestContext = { fieldTypeMap: new Map() };
-      const updated = await this._requestParser.updateRequest(query, opts, context);
-      errors = validate(this._schema, updated.ast) as GraphQLError[];
-      if (errors.length) return Promise.reject(errors);
-      const operations = getOperationDefinitions(updated.ast);
-
-      if (operations.length > 1) {
-        return Promise.reject(new TypeError("Request expected to process one operation, but got multiple."));
-      }
-
-      const result = await this._resolveRequestOperation(updated.query, updated.ast, opts, context);
-      if (isAsyncIterable(result)) return result;
-      const resolveResult = result as ResolveResult;
-      if (opts.awaitDataCached && resolveResult.cachePromise) await resolveResult.cachePromise;
-      delete resolveResult.cachePromise;
-      return result;
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    const context: RequestContext = { fieldTypeMap: new Map(), handlID: uuid(), operation: "" };
+    return this._request(query, opts, context);
   }
 
   private async _checkResponseCache(queryHash: string): Promise<ResolveResult | undefined> {
@@ -415,10 +381,12 @@ export class ClientHandl {
     }
   }
 
+  @logFetch
   private async _fetch(
     request: string,
     ast: DocumentNode,
     opts: RequestOptions,
+    context: RequestContext,
   ): Promise<FetchResult> {
     try {
       const result = await this._requestExecutor.resolve(request, ast, opts);
@@ -443,7 +411,7 @@ export class ClientHandl {
     let fetchResult: FetchResult;
 
     try {
-      fetchResult = await this._fetch(mutation, ast, opts);
+      fetchResult = await this._fetch(mutation, ast, opts, context);
     } catch (error) {
       return this._resolve({ error, operation: "mutation" });
     }
@@ -457,10 +425,10 @@ export class ClientHandl {
 
     const resolveResult = await this._cache.resolveMutation(
       ast,
-      context.fieldTypeMap,
       fetchResult.data,
       cacheMetadata,
       { cacheResolve: deferred.resolve, tag: opts.tag },
+      context,
     );
 
     return this._resolve({
@@ -497,7 +465,7 @@ export class ClientHandl {
     }
 
     this._cache.requests.active.set(queryHash, query);
-    const analyzeResult = await this._cache.analyze(queryHash, ast, context.fieldTypeMap);
+    const analyzeResult = await this._cache.analyze(queryHash, ast, context);
     const { cachedData, cacheMetadata, filtered, updatedAST, updatedQuery } = analyzeResult;
     const deferred: DeferPromise.Deferred<void> = deferredPromise();
 
@@ -512,6 +480,7 @@ export class ClientHandl {
             queryHash,
             { cacheMetadata: dehydrateCacheMetadata(cacheMetadata), data: cachedData },
             { cacheHeaders: { cacheControl }, tag: opts.tag },
+            { ...context, cache: "responses" },
           );
         } catch (error) {
           // no catch
@@ -535,7 +504,7 @@ export class ClientHandl {
     const _filterd = filtered as boolean;
 
     try {
-      fetchResult = await this._fetch(_updateQuery, _updateAST, opts);
+      fetchResult = await this._fetch(_updateQuery, _updateAST, opts, context);
     } catch (error) {
       return this._resolve({ error, operation: "query", queryHash });
     }
@@ -549,10 +518,10 @@ export class ClientHandl {
       _updateQuery,
       _updateAST,
       queryHash,
-      context.fieldTypeMap,
       fetchResult.data,
       _cacheMetadata,
       { cacheResolve: deferred.resolve, filtered: _filterd, tag: opts.tag },
+      context,
     );
 
     return this._resolve({
@@ -562,6 +531,47 @@ export class ClientHandl {
       operation: "query",
       queryHash,
     });
+  }
+
+  @logRequest
+  @timeRequest
+  private async _request(query: string, opts: RequestOptions = {}, context: RequestContext): Promise<RequestResult> {
+    let errors: Error[] = [];
+
+    if (!isString(query)) {
+      errors.push(new TypeError("Request expected query to be a string."));
+    }
+
+    if (!isPlainObject(opts)) {
+      errors.push(new TypeError("Request expected opts to be a plain object."));
+    }
+
+    if (errors.length) return Promise.reject(errors);
+
+    if (opts.fragments && (!isArray(opts.fragments) || opts.fragments.some((value) => !isString(value)))) {
+      return Promise.reject(new TypeError("Request expected opts.fragments to be an array of strings."));
+    }
+
+    try {
+      const updated = await this._requestParser.updateRequest(query, opts, context);
+      errors = validate(this._schema, updated.ast) as GraphQLError[];
+      if (errors.length) return Promise.reject(errors);
+      const operationDefinitions = getOperationDefinitions(updated.ast);
+
+      if (operationDefinitions.length > 1) {
+        return Promise.reject(new TypeError("Request expected to process one operation, but got multiple."));
+      }
+
+      context.operation = operationDefinitions[0].operation;
+      const result = await this._resolveRequestOperation(updated.query, updated.ast, opts, context);
+      if (isAsyncIterable(result)) return result;
+      const resolveResult = result as ResolveResult;
+      if (opts.awaitDataCached && resolveResult.cachePromise) await resolveResult.cachePromise;
+      delete resolveResult.cachePromise;
+      return result;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   private async _resolve(args: ResolveArgs): Promise<ResolveResult> {
@@ -620,24 +630,23 @@ export class ClientHandl {
     opts: RequestOptions,
     context: RequestContext,
   ): Promise<ResolveResult | AsyncIterator<any>> {
-    const operationDefinition = getOperationDefinitions(ast)[0];
-
-    if (operationDefinition.operation === "query") {
+    if (context.operation === "query") {
       return this._query(query, ast, opts, context);
-    } else if (operationDefinition.operation === "mutation") {
+    } else if (context.operation === "mutation") {
       return this._mutation(query, ast, opts, context);
-    } else if (operationDefinition.operation === "subscription" && this._subscriptionsEnabled) {
+    } else if (context.operation === "subscription" && this._subscriptionsEnabled) {
       return this._subscription(query, ast, opts, context);
     }
 
     return Promise.reject(new Error("Request expected the operation to be 'query', 'mutation' or 'subscription'."));
   }
 
+  @logSubscription
   private async _resolveSubscriber(
     ast: DocumentNode,
-    fieldTypeMap: FieldTypeMap,
     result: ObjectMap,
     opts: RequestOptions,
+    context: RequestContext,
   ): Promise<ResolveResult> {
     if (!isPlainObject(result)) {
       return this._resolve({
@@ -654,10 +663,10 @@ export class ClientHandl {
 
     const resolveResult = await this._cache.resolveSubscription(
       ast,
-      fieldTypeMap,
       result.data,
       createCacheMetadata({ cacheMetadata: result.cacheMetadata }),
       { cacheResolve: deferred.resolve, tag: opts.tag },
+      context,
     );
 
     if (opts.awaitDataCached) await deferred.promise;
@@ -703,14 +712,14 @@ export class ClientHandl {
         subscription,
         hash,
         ast,
-        async (result) => this._resolveSubscriber(ast, context.fieldTypeMap, result, opts),
+        async (result) => this._resolveSubscriber(ast, result, opts, context),
         opts,
       );
 
       if (isAsyncIterable(subscribeResult)) return subscribeResult as AsyncIterator<any>;
       const executionResult = subscribeResult as ExecutionResult;
       if (executionResult.errors) return Promise.reject(executionResult.errors);
-      return this._resolveSubscriber(ast, context.fieldTypeMap, executionResult, opts);
+      return this._resolveSubscriber(ast, executionResult, opts, context);
     } catch (error) {
       return this._resolve({ error, operation: "subscription" });
     }

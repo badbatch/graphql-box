@@ -1,5 +1,4 @@
 import { Cacheability } from "cacheability";
-import { DefaultCachemap } from "cachemap";
 
 import {
   DocumentNode,
@@ -49,6 +48,7 @@ import {
   FieldTypeInfo,
   FieldTypeMap,
   ObjectMap,
+  RequestContext,
   ResolveResult,
 } from "../types";
 
@@ -66,6 +66,8 @@ import {
 } from "../helpers/parsing";
 
 import { getDirectives } from "../helpers/parsing/directives";
+import { logPartial } from "../monitoring";
+import { CachemapProxy } from "../proxies/cachemap";
 
 export default class CacheManager {
   public static async create(args: CacheArgs): Promise<CacheManager> {
@@ -280,13 +282,13 @@ export default class CacheManager {
   }
 
   private _cachemapOptions: CachemapArgsGroup;
-  private _dataEntities: DefaultCachemap;
-  private _queryPaths: DefaultCachemap;
+  private _dataEntities: CachemapProxy;
+  private _queryPaths: CachemapProxy;
   private _defaultCacheControls: DefaultCacheControls;
   private _partials: Map<string, PartialData>;
   private _requests: ClientRequests = { active: new Map(), pending: new Map() };
   private _resourceKey: string;
-  private _responses: DefaultCachemap;
+  private _responses: CachemapProxy;
 
   constructor({ cachemapOptions, defaultCacheControls, resourceKey }: CacheArgs) {
     this._cachemapOptions = cachemapOptions;
@@ -295,11 +297,11 @@ export default class CacheManager {
     this._resourceKey = resourceKey;
   }
 
-  get dataEntities(): DefaultCachemap {
+  get dataEntities(): CachemapProxy {
     return this._dataEntities;
   }
 
-  get queryPaths(): DefaultCachemap {
+  get queryPaths(): CachemapProxy {
     return this._queryPaths;
   }
 
@@ -307,16 +309,16 @@ export default class CacheManager {
     return this._requests;
   }
 
-  get responses(): DefaultCachemap {
+  get responses(): CachemapProxy {
     return this._responses;
   }
 
   public async analyze(
     queryHash: string,
     ast: DocumentNode,
-    fieldTypeMap: FieldTypeMap,
+    context: RequestContext,
   ): Promise<AnalyzeResult> {
-    const checkDataCachesResult = await this._checkDataCaches(ast, fieldTypeMap);
+    const checkDataCachesResult = await this._checkDataCaches(ast, context.fieldTypeMap);
     const { cacheMetadata, checkList, counter, queriedData } = checkDataCachesResult;
 
     if (counter.missing === counter.total) {
@@ -324,13 +326,13 @@ export default class CacheManager {
     }
 
     if (!counter.missing) return { cachedData: queriedData, cacheMetadata };
-    this._partials.set(queryHash, { cacheMetadata, cachedData: queriedData });
+    this._setPartial(queryHash, { cacheMetadata, cachedData: queriedData }, context);
     await CacheManager._filterQuery(ast, checkList);
     return { filtered: true, updatedAST: ast, updatedQuery: print(ast) };
   }
 
   public async export(tag: any): Promise<ExportCachesResult> {
-    const caches: Array<[string, DefaultCachemap]> = [
+    const caches: Array<[string, CachemapProxy]> = [
       ["dataEntities", this._dataEntities],
       ["queryPaths", this._queryPaths],
       ["responses", this._responses],
@@ -373,10 +375,10 @@ export default class CacheManager {
 
   public async resolveMutation(
     ast: DocumentNode,
-    fieldTypeMap: FieldTypeMap,
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
     opts: { cacheResolve: DataCachedResolver, tag?: any },
+    context: RequestContext,
   ): Promise<ResolveResult> {
     const updatedCacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata, "mutation");
 
@@ -385,9 +387,9 @@ export default class CacheManager {
         ast,
         data,
         updatedCacheMetadata,
-        fieldTypeMap,
         "mutation",
         { setPaths: false, tag: opts.tag },
+        context,
       );
 
       opts.cacheResolve();
@@ -400,10 +402,10 @@ export default class CacheManager {
     query: string,
     ast: DocumentNode,
     queryHash: string,
-    fieldTypeMap: FieldTypeMap,
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
     opts: { cacheResolve: DataCachedResolver, filtered: boolean, tag?: any },
+    context: RequestContext,
   ): Promise<ResolveResult> {
     const partial = this._getPartial(queryHash);
     let updatedData = data;
@@ -449,6 +451,7 @@ export default class CacheManager {
           queryHash,
           { cacheMetadata: dehydrateCacheMetadata(updatedCacheMetadata), data: updatedData },
           { cacheHeaders: { cacheControl: updatedCacheControl }, tag: opts.tag },
+          { ...context, cache: "responses" },
         ));
 
         if (filterCacheMetadata) {
@@ -456,6 +459,7 @@ export default class CacheManager {
             hashRequest(query),
             { cacheMetadata: dehydrateCacheMetadata(filterCacheMetadata), data },
             { cacheHeaders: { cacheControl: filterCacheControl }, tag: opts.tag },
+            { ...context, cache: "responses" },
           ));
         }
       } catch (error) {
@@ -466,9 +470,9 @@ export default class CacheManager {
         ast,
         updatedData,
         updatedCacheMetadata,
-        fieldTypeMap,
         "query",
         { tag: opts.tag },
+        context,
       ));
 
       await Promise.all(promises);
@@ -480,10 +484,10 @@ export default class CacheManager {
 
   public async resolveSubscription(
     ast: DocumentNode,
-    fieldTypeMap: FieldTypeMap,
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
     opts: { cacheResolve: DataCachedResolver, tag?: any },
+    context: RequestContext,
   ): Promise<ResolveResult> {
     const updatedCacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata, "subscription");
 
@@ -492,9 +496,9 @@ export default class CacheManager {
         ast,
         data,
         updatedCacheMetadata,
-        fieldTypeMap,
         "subscription",
         { setPaths: false, tag: opts.tag },
+        context,
       );
 
       opts.cacheResolve();
@@ -568,9 +572,9 @@ export default class CacheManager {
 
   private async _createCachemaps(): Promise<void> {
     try {
-      this._dataEntities = await DefaultCachemap.create(this._cachemapOptions.dataEntities);
-      this._queryPaths = await DefaultCachemap.create(this._cachemapOptions.queryPaths);
-      this._responses = await DefaultCachemap.create(this._cachemapOptions.responses);
+      this._dataEntities = await CachemapProxy.create(this._cachemapOptions.dataEntities);
+      this._queryPaths = await CachemapProxy.create(this._cachemapOptions.queryPaths);
+      this._responses = await CachemapProxy.create(this._cachemapOptions.responses);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -585,12 +589,12 @@ export default class CacheManager {
 
   private async _parseData(
     field: FieldNode,
-    fieldTypeMap: FieldTypeMap,
     dataTypes: CacheUpdateDataTypes,
     cacheMetadata: CacheMetadata,
     cacheControl: string,
     { keyPaths, index }: { keyPaths?: KeyPaths, index?: number } = {},
     opts: UpdateDataCachesOptions,
+    context: RequestContext,
   ): Promise<void> {
     const {
       cacheKey,
@@ -610,12 +614,12 @@ export default class CacheManager {
     CacheManager._iterateChildFields(field, pathfieldData, (childField, childIndex) => {
       promises.push(this._parseData(
         childField,
-        fieldTypeMap,
         dataTypes,
         cacheMetadata,
         _cacheControl,
         { keyPaths: _keyPaths, index: childIndex },
         opts,
+        context,
       ));
     });
 
@@ -623,12 +627,12 @@ export default class CacheManager {
 
     await this._setData(
       field,
-      fieldTypeMap,
       { entityfieldData, pathfieldData },
       dataTypes,
       _cacheControl,
       { dataKey, hashKey, queryKey },
       opts,
+      context,
     );
   }
 
@@ -738,14 +742,14 @@ export default class CacheManager {
 
   private async _setData(
     field: FieldNode,
-    fieldTypeMap: FieldTypeMap,
     { entityfieldData, pathfieldData }: { entityfieldData: ObjectMap | any[], pathfieldData: ObjectMap | any[] },
     dataTypes: CacheUpdateDataTypes,
     cacheControl: string,
     { dataKey, hashKey, queryKey }: { dataKey: string, hashKey: string, queryKey: string },
     { setEntities, setPaths, tag }: UpdateDataCachesOptions,
+    context: RequestContext,
   ): Promise<void> {
-    const fieldTypeInfo = fieldTypeMap.get(queryKey);
+    const fieldTypeInfo = context.fieldTypeMap.get(queryKey);
     if (!fieldTypeInfo) return;
     const hasArgsOrDirectives = fieldTypeInfo.hasArguments || fieldTypeInfo.hasDirectives;
 
@@ -764,6 +768,7 @@ export default class CacheManager {
           entityDataKey,
           cloneDeep(objectMapEntityfieldData),
           { cacheHeaders: { cacheControl }, tag },
+          { ...context, cache: "dataEntities" },
         ));
 
         set(dataTypes.entities, dataKey, { _EntityKey: entityDataKey });
@@ -774,6 +779,7 @@ export default class CacheManager {
           hashKey,
           cloneDeep(pathfieldData),
           { cacheHeaders: { cacheControl }, tag },
+          { ...context, cache: "queryPaths" },
         ));
 
         if (hasChildFields(field)) {
@@ -789,6 +795,11 @@ export default class CacheManager {
     } catch (error) {
       // no catch
     }
+  }
+
+  @logPartial
+  private _setPartial(key: string, value: PartialData, context: RequestContext) {
+    this._partials.set(key, value);
   }
 
   private _updateCacheMetadata(
@@ -832,9 +843,9 @@ export default class CacheManager {
     ast: DocumentNode,
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
-    fieldTypeMap: FieldTypeMap,
     operationName: string,
     { setEntities = true, setPaths = true, tag }: UpdateDataCachesOptions = {},
+    context: RequestContext,
   ): Promise<void> {
     const queryNode = getOperationDefinitions(ast, operationName)[0];
     const fields = getChildFields(queryNode) as FieldNode[];
@@ -848,12 +859,12 @@ export default class CacheManager {
 
         return this._parseData(
           field,
-          fieldTypeMap,
           { entities: cloneDeep(data), paths: cloneDeep(data) },
           cacheMetadata,
           cacheControl,
           undefined,
           { setEntities, setPaths, tag },
+          context,
         );
       }),
     );
