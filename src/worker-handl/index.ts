@@ -291,7 +291,7 @@ export class WorkerHandl {
         this._subscriber.emit(subscriptionID, result);
         break;
       case "debugger":
-        this._debugger.emit(eventName, props);
+        this._debugger.emit(eventName, ...props);
         break;
       default:
         // no default
