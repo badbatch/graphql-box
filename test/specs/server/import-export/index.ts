@@ -3,7 +3,7 @@ import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
 import * as http from "http";
 import * as sinon from "sinon";
-import { tesco } from "../../../data/graphql";
+import { ecom } from "../../../data/graphql";
 import { mockRestRequest } from "../../../helpers";
 import graphqlServer from "../../../server";
 import { ClientHandl, Handl } from "../../../../src";
@@ -44,7 +44,7 @@ export default function testImportExportMethods(args: ClientArgs): void {
       before(async () => {
         try {
           await client.request(
-            tesco.requests.singleQuery,
+            ecom.requests.singleQuery,
             { awaitDataCached: true, tag, variables: { id: "402-5806" } },
           );
         } catch (error) {
@@ -94,7 +94,7 @@ export default function testImportExportMethods(args: ClientArgs): void {
       before(async () => {
         try {
           requestResult = await client.request(
-            tesco.requests.singleQuery,
+            ecom.requests.singleQuery,
             { awaitDataCached: true, tag, variables: { id: "402-5806" } },
           ) as RequestResultData;
 
@@ -127,7 +127,7 @@ export default function testImportExportMethods(args: ClientArgs): void {
             requestResult.queryHash as string,
           ) as ResponseCacheEntryResult;
 
-          expect(cacheEntry.data).to.deep.equal(tesco.responses.singleQuery);
+          expect(cacheEntry.data).to.deep.equal(ecom.responses.singleQuery);
           expect(cacheEntry.cacheMetadata.size).to.equal(4);
           const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
           expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);

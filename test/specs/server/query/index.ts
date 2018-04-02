@@ -4,7 +4,7 @@ import * as fetchMock from "fetch-mock";
 import * as http from "http";
 import { get } from "lodash";
 import * as sinon from "sinon";
-import { tesco } from "../../../data/graphql";
+import { ecom } from "../../../data/graphql";
 import { mockRestRequest, stripSpaces } from "../../../helpers";
 import graphqlServer from "../../../server";
 import { ClientHandl, Handl } from "../../../../src";
@@ -53,7 +53,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           beforeEach(async () => {
             try {
               result = await client.request(
-                tesco.requests.singleQuery,
+                ecom.requests.singleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResultData;
             } catch (error) {
@@ -67,7 +67,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the method should return the requested data", () => {
-            expect(result.data).to.deep.equal(tesco.responses.singleQuery);
+            expect(result.data).to.deep.equal(ecom.responses.singleQuery);
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(4);
@@ -93,7 +93,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result.queryHash as string,
             ) as ResponseCacheEntryResult;
 
-            expect(cacheEntry.data).to.deep.equal(tesco.responses.singleQuery);
+            expect(cacheEntry.data).to.deep.equal(ecom.responses.singleQuery);
             expect(cacheEntry.cacheMetadata.size).to.equal(4);
             const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
             expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
@@ -123,7 +123,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           beforeEach(async () => {
             try {
               result = await client.request(
-                tesco.requests.singleQuery,
+                ecom.requests.singleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResultData;
             } catch (error) {
@@ -136,7 +136,7 @@ export default function testQueryOperation(args: ClientArgs): void {
 
             try {
               result = await client.request(
-                tesco.requests.singleQuery,
+                ecom.requests.singleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResultData;
             } catch (error) {
@@ -151,7 +151,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the method should return the requested data", () => {
-            expect(result.data).to.deep.equal(tesco.responses.singleQuery);
+            expect(result.data).to.deep.equal(ecom.responses.singleQuery);
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(4);
@@ -185,11 +185,11 @@ export default function testQueryOperation(args: ClientArgs): void {
             try {
               result = await Promise.all([
                 client.request(
-                  tesco.requests.singleQuery,
+                  ecom.requests.singleQuery,
                   { awaitDataCached: true, variables: { id: "402-5806" } },
                 ),
                 client.request(
-                  tesco.requests.singleQuery,
+                  ecom.requests.singleQuery,
                   { awaitDataCached: true, variables: { id: "402-5806" } },
                 ),
               ]);
@@ -207,7 +207,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           it("then the method should return the requested data", () => {
             const [resultOne, resultTwo] = result as RequestResultData[];
             expect(resultOne).to.deep.equal(resultTwo);
-            expect(resultTwo.data).to.deep.equal(tesco.responses.singleQuery);
+            expect(resultTwo.data).to.deep.equal(ecom.responses.singleQuery);
             expect(resultTwo.queryHash).to.be.a("string");
             const cacheMetadata = resultTwo.cacheMetadata;
             expect(cacheMetadata.size).to.equal(4);
@@ -237,7 +237,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           beforeEach(async () => {
             try {
               result = await client.request(
-                tesco.requests.singleQuery,
+                ecom.requests.singleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResultData;
             } catch (error) {
@@ -250,7 +250,7 @@ export default function testQueryOperation(args: ClientArgs): void {
 
             try {
               result = await client.request(
-                tesco.requests.reducedSingleQuery,
+                ecom.requests.reducedSingleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResultData;
             } catch (error) {
@@ -265,7 +265,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the method should return the requested data", () => {
-            expect(result.data).to.deep.equal(tesco.responses.reducedSingleQuery);
+            expect(result.data).to.deep.equal(ecom.responses.reducedSingleQuery);
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(6);
@@ -291,7 +291,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result.queryHash as string,
             ) as ResponseCacheEntryResult;
 
-            expect(cacheEntry.data).to.deep.equal(tesco.responses.reducedSingleQuery);
+            expect(cacheEntry.data).to.deep.equal(ecom.responses.reducedSingleQuery);
             expect(cacheEntry.cacheMetadata.size).to.equal(6);
             const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
             expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
@@ -315,7 +315,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           beforeEach(async () => {
             try {
               result = await client.request(
-                tesco.requests.singleQuery,
+                ecom.requests.singleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResultData;
             } catch (error) {
@@ -329,7 +329,7 @@ export default function testQueryOperation(args: ClientArgs): void {
 
             try {
               result = await client.request(
-                tesco.requests.reducedSingleQuery,
+                ecom.requests.reducedSingleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResultData;
             } catch (error) {
@@ -344,7 +344,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the method should return the requested data", () => {
-            expect(result.data).to.deep.equal(tesco.responses.reducedSingleQuery);
+            expect(result.data).to.deep.equal(ecom.responses.reducedSingleQuery);
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(6);
@@ -370,7 +370,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result.queryHash as string,
             ) as ResponseCacheEntryResult;
 
-            expect(cacheEntry.data).to.deep.equal(tesco.responses.reducedSingleQuery);
+            expect(cacheEntry.data).to.deep.equal(ecom.responses.reducedSingleQuery);
             expect(cacheEntry.cacheMetadata.size).to.equal(6);
             const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
             expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
@@ -394,7 +394,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           beforeEach(async () => {
             try {
               result = await client.request(
-                tesco.requests.singleQuery,
+                ecom.requests.singleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResultData;
             } catch (error) {
@@ -407,7 +407,7 @@ export default function testQueryOperation(args: ClientArgs): void {
 
             try {
               result = await client.request(
-                tesco.requests.extendedSingleQuery,
+                ecom.requests.extendedSingleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResultData;
             } catch (error) {
@@ -422,7 +422,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the method should return the requested data", () => {
-            expect(result.data).to.deep.equal(tesco.responses.extendedSingleQuery);
+            expect(result.data).to.deep.equal(ecom.responses.extendedSingleQuery);
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(6);
@@ -441,7 +441,7 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(unmatched).to.have.lengthOf(1);
             const requestOpts = unmatched[0][1] as RequestInit;
             const unmatchedBody = JSON.parse(requestOpts.body as string);
-            expect(stripSpaces(tesco.requests.partialSingleQuery)).to.equal(stripSpaces(unmatchedBody.query));
+            expect(stripSpaces(ecom.requests.partialSingleQuery)).to.equal(stripSpaces(unmatchedBody.query));
           });
 
           it("then the client should have cached the responses against the queries", async () => {
@@ -452,7 +452,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result.queryHash as string,
             ) as ResponseCacheEntryResult;
 
-            expect(cacheEntry.data).to.deep.equal(tesco.responses.extendedSingleQuery);
+            expect(cacheEntry.data).to.deep.equal(ecom.responses.extendedSingleQuery);
             expect(cacheEntry.cacheMetadata.size).to.equal(6);
             const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
             expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
@@ -494,9 +494,9 @@ export default function testQueryOperation(args: ClientArgs): void {
 
           beforeEach(async () => {
             try {
-              result = await client.request(tesco.requests.sugaredSingleQuery, {
+              result = await client.request(ecom.requests.sugaredSingleQuery, {
                 awaitDataCached: true,
-                fragments: [tesco.requests.sugaredSingleQueryFragment],
+                fragments: [ecom.requests.sugaredSingleQueryFragment],
                 variables: { id: "402-5806" },
               }) as RequestResultData;
             } catch (error) {
@@ -510,7 +510,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the method should return the requested data", () => {
-            expect(result.data).to.deep.equal(tesco.responses.sugaredSingleQuery);
+            expect(result.data).to.deep.equal(ecom.responses.sugaredSingleQuery);
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(6);
@@ -536,7 +536,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result.queryHash as string,
             ) as ResponseCacheEntryResult;
 
-            expect(cacheEntry.data).to.deep.equal(tesco.responses.sugaredSingleQuery);
+            expect(cacheEntry.data).to.deep.equal(ecom.responses.sugaredSingleQuery);
             expect(cacheEntry.cacheMetadata.size).to.equal(6);
             const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
             expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
@@ -569,9 +569,9 @@ export default function testQueryOperation(args: ClientArgs): void {
 
           beforeEach(async () => {
             try {
-              result = await client.request(tesco.requests.sugaredSingleQuery, {
+              result = await client.request(ecom.requests.sugaredSingleQuery, {
                 awaitDataCached: true,
-                fragments: [tesco.requests.sugaredSingleQueryFragment],
+                fragments: [ecom.requests.sugaredSingleQueryFragment],
                 variables: { id: "402-5806" },
               }) as RequestResultData;
             } catch (error) {
@@ -583,9 +583,9 @@ export default function testQueryOperation(args: ClientArgs): void {
             spy = sinon.spy(cache, "analyze");
 
             try {
-              result = await client.request(tesco.requests.sugaredSingleQuery, {
+              result = await client.request(ecom.requests.sugaredSingleQuery, {
                 awaitDataCached: true,
-                fragments: [tesco.requests.sugaredSingleQueryFragment],
+                fragments: [ecom.requests.sugaredSingleQueryFragment],
                 variables: { id: "402-5806" },
               }) as RequestResultData;
             } catch (error) {
@@ -600,7 +600,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the method should return the requested data", () => {
-            expect(result.data).to.deep.equal(tesco.responses.sugaredSingleQuery);
+            expect(result.data).to.deep.equal(ecom.responses.sugaredSingleQuery);
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(6);
@@ -630,7 +630,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           beforeEach(async () => {
             try {
               result = await client.request(
-                tesco.requests.singleQuery,
+                ecom.requests.singleQuery,
                 { awaitDataCached: true, variables: { id: "402-5806" } },
               ) as RequestResultData;
             } catch (error) {
@@ -642,9 +642,9 @@ export default function testQueryOperation(args: ClientArgs): void {
             spy = sinon.spy(cache, "resolveQuery");
 
             try {
-              result = await client.request(tesco.requests.sugaredSingleQuery, {
+              result = await client.request(ecom.requests.sugaredSingleQuery, {
                 awaitDataCached: true,
-                fragments: [tesco.requests.sugaredSingleQueryFragment],
+                fragments: [ecom.requests.sugaredSingleQueryFragment],
                 variables: { id: "402-5806" },
               }) as RequestResultData;
             } catch (error) {
@@ -659,7 +659,7 @@ export default function testQueryOperation(args: ClientArgs): void {
           });
 
           it("then the method should return the requested data", () => {
-            expect(result.data).to.deep.equal(tesco.responses.sugaredSingleQuery);
+            expect(result.data).to.deep.equal(ecom.responses.sugaredSingleQuery);
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(6);
@@ -685,7 +685,7 @@ export default function testQueryOperation(args: ClientArgs): void {
               result.queryHash as string,
             ) as ResponseCacheEntryResult;
 
-            expect(cacheEntry.data).to.deep.equal(tesco.responses.sugaredSingleQuery);
+            expect(cacheEntry.data).to.deep.equal(ecom.responses.sugaredSingleQuery);
             expect(cacheEntry.cacheMetadata.size).to.equal(6);
             const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
             expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
@@ -729,19 +729,19 @@ export default function testQueryOperation(args: ClientArgs): void {
             try {
               batchedResults = await Promise.all([
                 client.request(
-                  tesco.requests.batchProductQuery,
+                  ecom.requests.batchProductQuery,
                   { awaitDataCached: true, variables: { id: "402-5806" } },
                 ),
                 client.request(
-                  tesco.requests.batchProductQuery,
+                  ecom.requests.batchProductQuery,
                   { awaitDataCached: true, variables: { id: "522-7645" } },
                 ),
                 client.request(
-                  tesco.requests.batchSkuQuery,
+                  ecom.requests.batchSkuQuery,
                   { awaitDataCached: true, variables: { id: "104-7702" } },
                 ),
                 client.request(
-                  tesco.requests.batchSkuQuery,
+                  ecom.requests.batchSkuQuery,
                   { awaitDataCached: true, variables: { id: "134-5203" } },
                 ),
               ]) as RequestResultData[];
@@ -757,7 +757,7 @@ export default function testQueryOperation(args: ClientArgs): void {
 
           it("then the method should return the requested data", () => {
             const data = batchedResults.map((result) => result.data);
-            expect(data).to.deep.equal(tesco.responses.batchedQuery);
+            expect(data).to.deep.equal(ecom.responses.batchedQuery);
 
             batchedResults.forEach((result) => {
               expect(result.queryHash).to.be.a("string");
@@ -817,19 +817,19 @@ export default function testQueryOperation(args: ClientArgs): void {
             try {
               await Promise.all([
                 client.request(
-                  tesco.requests.batchProductQuery,
+                  ecom.requests.batchProductQuery,
                   { awaitDataCached: true, variables: { id: "402-5806" } },
                 ),
                 client.request(
-                  tesco.requests.batchProductQuery,
+                  ecom.requests.batchProductQuery,
                   { awaitDataCached: true, variables: { id: "522-7645" } },
                 ),
                 client.request(
-                  tesco.requests.batchSkuQuery,
+                  ecom.requests.batchSkuQuery,
                   { awaitDataCached: true, variables: { id: "104-7702" } },
                 ),
                 client.request(
-                  tesco.requests.batchSkuQuery,
+                  ecom.requests.batchSkuQuery,
                   { awaitDataCached: true, variables: { id: "134-5203" } },
                 ),
               ]);
@@ -844,19 +844,19 @@ export default function testQueryOperation(args: ClientArgs): void {
             try {
               batchedResults = await Promise.all([
                 client.request(
-                  tesco.requests.batchProductQuery,
+                  ecom.requests.batchProductQuery,
                   { awaitDataCached: true, variables: { id: "402-5806" } },
                 ),
                 client.request(
-                  tesco.requests.batchProductQuery,
+                  ecom.requests.batchProductQuery,
                   { awaitDataCached: true, variables: { id: "522-7645" } },
                 ),
                 client.request(
-                  tesco.requests.batchSkuQuery,
+                  ecom.requests.batchSkuQuery,
                   { awaitDataCached: true, variables: { id: "104-7702" } },
                 ),
                 client.request(
-                  tesco.requests.batchSkuQuery,
+                  ecom.requests.batchSkuQuery,
                   { awaitDataCached: true, variables: { id: "134-5203" } },
                 ),
               ]) as RequestResultData[];
@@ -873,7 +873,7 @@ export default function testQueryOperation(args: ClientArgs): void {
 
           it("then the method should return the requested data", () => {
             const data = batchedResults.map((result) => result.data);
-            expect(data).to.deep.equal(tesco.responses.batchedQuery);
+            expect(data).to.deep.equal(ecom.responses.batchedQuery);
 
             batchedResults.forEach((result) => {
               expect(result.queryHash).to.be.a("string");

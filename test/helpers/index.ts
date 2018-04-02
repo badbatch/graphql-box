@@ -5,7 +5,7 @@ import * as md5 from "md5";
 import { github } from "../data/graphql";
 import { dataEndpoints, endpointData } from "../data/rest";
 import * as githubIntrospection from "../introspection/github/index.json";
-import * as tescoIntrospection from "../introspection/tesco/index.json";
+import * as ecomIntrospection from "../introspection/ecom/index.json";
 import schema from "../schema";
 import { ServerArgs } from "../../src/server-handl/types";
 import { ClientArgs, ObjectMap } from "../../src/types";
@@ -27,7 +27,7 @@ export const workerClientArgs: ClientArgs = {
 export const serverClientArgs: ClientArgs = {
   cachemapOptions: { mockRedis: true },
   fetchTimeout: 5000000,
-  introspection: tescoIntrospection as IntrospectionQuery,
+  introspection: ecomIntrospection as IntrospectionQuery,
   newInstance: true,
   url: "http://localhost:3001/graphql",
 };
@@ -35,7 +35,7 @@ export const serverClientArgs: ClientArgs = {
 export const subscriptionClientArgs: ClientArgs = {
   cachemapOptions: { mockRedis: true },
   fetchTimeout: 5000000,
-  introspection: tescoIntrospection as IntrospectionQuery,
+  introspection: ecomIntrospection as IntrospectionQuery,
   newInstance: true,
   subscriptions: { address: "ws://localhost:3001/graphql" },
   url: "http://localhost:3001/graphql",
@@ -68,7 +68,7 @@ export function getRestResponse(key: string, resource: string | string[]): Objec
 
 export function mockRestRequest(key: string, resource: string | string[]): { body: ObjectMap, path: string } {
   const path = buildRestPath(key, resource);
-  const matcher = (url: string): boolean => url === `https://www.tesco.com/direct/rest/${path}`;
+  const matcher = (url: string): boolean => url === `https://www.ecom.com/direct/rest/${path}`;
   const body = getRestResponse(key, resource);
   fetchMock.get(matcher, { body: JSON.stringify(body) });
   return { body, path };

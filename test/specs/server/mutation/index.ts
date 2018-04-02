@@ -3,7 +3,7 @@ import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
 import * as http from "http";
 import * as sinon from "sinon";
-import { tesco } from "../../../data/graphql";
+import { ecom } from "../../../data/graphql";
 import { mockRestRequest } from "../../../helpers";
 import graphqlServer from "../../../server";
 import { ClientHandl, Handl } from "../../../../src";
@@ -43,7 +43,7 @@ export default function testMutationOperation(args: ClientArgs): void {
           beforeEach(async () => {
             try {
               result = await client.request(
-                tesco.requests.addMutation,
+                ecom.requests.addMutation,
                 { awaitDataCached: true, variables: { productID: "402-5806" } },
               ) as RequestResultData;
             } catch (error) {
@@ -56,13 +56,13 @@ export default function testMutationOperation(args: ClientArgs): void {
             fetchMock.reset();
 
             await client.request(
-              tesco.requests.removeMutation,
+              ecom.requests.removeMutation,
               { awaitDataCached: true, variables: { productID: "402-5806" } },
             );
           });
 
           it("then the method should return the requested data", () => {
-            expect(result.data).to.deep.equal(tesco.responses.addMutation);
+            expect(result.data).to.deep.equal(ecom.responses.addMutation);
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(3);
             const queryCacheability = cacheMetadata.get("query") as Cacheability;

@@ -2,7 +2,7 @@ import { castArray, flatten, isArray, isPlainObject } from "lodash";
 import { dataEndpoints } from "../../data/rest";
 import { ObjectMap } from "../../../src/types";
 
-const tescoBaseURL = "https://www.tesco.com/direct/rest/";
+const ecomBaseURL = "https://www.ecom.com/direct/rest/";
 
 function buildURLs(
   args: ObjectMap,
@@ -14,10 +14,10 @@ function buildURLs(
   const urls: string[] = [];
 
   if (!isArray(args.id) || opts.batch) {
-    urls.push(`${tescoBaseURL}${path}/${resource.join()}`);
+    urls.push(`${ecomBaseURL}${path}/${resource.join()}`);
   } else {
     resource.forEach((value) => {
-      urls.push(`${tescoBaseURL}${path}/${value}`);
+      urls.push(`${ecomBaseURL}${path}/${value}`);
     });
   }
 

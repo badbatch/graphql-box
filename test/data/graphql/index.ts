@@ -1,5 +1,5 @@
 import * as githubRequests from "./github/requests";
-import * as tescoRequests from "./tesco/requests";
+import * as ecomRequests from "./ecom/requests";
 import { ObjectMap } from "../../../src/types";
 
 const githubResponses = {
@@ -24,18 +24,18 @@ export const github: RequestResponseGroup = {
   responses: githubResponses,
 };
 
-const tescoResponses = {
-  addMutation: require("./tesco/responses/add-mutation.json"),
-  batchedQuery: require("./tesco/responses/batched-query.json"),
-  extendedSingleQuery: require("./tesco/responses/extended-single-query.json"),
-  reducedSingleQuery: require("./tesco/responses/reduced-single-query.json"),
-  singleQuery: require("./tesco/responses/single-query.json"),
-  singleSubscription: require("./tesco/responses/single-subscription.json"),
-  sugaredSingleQuery: require("./tesco/responses/sugared-single-query.json"),
-  updatedAddMutation: require("./tesco/responses/add-mutation.json"),
+const ecomResponses = {
+  addMutation: require("./ecom/responses/add-mutation.json"),
+  batchedQuery: require("./ecom/responses/batched-query.json"),
+  extendedSingleQuery: require("./ecom/responses/extended-single-query.json"),
+  reducedSingleQuery: require("./ecom/responses/reduced-single-query.json"),
+  singleQuery: require("./ecom/responses/single-query.json"),
+  singleSubscription: require("./ecom/responses/single-subscription.json"),
+  sugaredSingleQuery: require("./ecom/responses/sugared-single-query.json"),
+  updatedAddMutation: require("./ecom/responses/add-mutation.json"),
 };
 
-export const tesco: RequestResponseGroup = {
-  requests: tescoRequests,
-  responses: tescoResponses,
+export const ecom: RequestResponseGroup = {
+  requests: ecomRequests,
+  responses: ecomResponses,
 };

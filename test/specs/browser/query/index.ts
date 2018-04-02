@@ -2,7 +2,7 @@ import { Cacheability } from "cacheability";
 import { expect } from "chai";
 import * as fetchMock from "fetch-mock";
 import * as sinon from "sinon";
-import { github, tesco } from "../../../data/graphql";
+import { ecom, github } from "../../../data/graphql";
 import { mockGraphqlRequest, serverClientArgs, stripSpaces } from "../../../helpers";
 import { ClientHandl, Handl, WorkerHandl } from "../../../../src";
 
@@ -609,19 +609,19 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             try {
               batchedResults = await Promise.all([
                 client.request(
-                  tesco.requests.batchProductQuery,
+                  ecom.requests.batchProductQuery,
                   { awaitDataCached: true, variables: { id: "402-5806" } },
                 ),
                 client.request(
-                  tesco.requests.batchProductQuery,
+                  ecom.requests.batchProductQuery,
                   { awaitDataCached: true, variables: { id: "522-7645" } },
                 ),
                 client.request(
-                  tesco.requests.batchSkuQuery,
+                  ecom.requests.batchSkuQuery,
                   { awaitDataCached: true, variables: { id: "104-7702" } },
                 ),
                 client.request(
-                  tesco.requests.batchSkuQuery,
+                  ecom.requests.batchSkuQuery,
                   { awaitDataCached: true, variables: { id: "134-5203" } },
                 ),
               ]) as RequestResultData[];
@@ -637,7 +637,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           it("then the method should return the requested data", () => {
             const data = batchedResults.map((result) => result.data);
-            expect(data).to.deep.equal(tesco.responses.batchedQuery);
+            expect(data).to.deep.equal(ecom.responses.batchedQuery);
 
             batchedResults.forEach((result) => {
               expect(result.queryHash).to.be.a("string");
@@ -698,19 +698,19 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             try {
               await Promise.all([
                 client.request(
-                  tesco.requests.batchProductQuery,
+                  ecom.requests.batchProductQuery,
                   { awaitDataCached: true, variables: { id: "402-5806" } },
                 ),
                 client.request(
-                  tesco.requests.batchProductQuery,
+                  ecom.requests.batchProductQuery,
                   { awaitDataCached: true, variables: { id: "522-7645" } },
                 ),
                 client.request(
-                  tesco.requests.batchSkuQuery,
+                  ecom.requests.batchSkuQuery,
                   { awaitDataCached: true, variables: { id: "104-7702" } },
                 ),
                 client.request(
-                  tesco.requests.batchSkuQuery,
+                  ecom.requests.batchSkuQuery,
                   { awaitDataCached: true, variables: { id: "134-5203" } },
                 ),
               ]);
@@ -723,19 +723,19 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             try {
               batchedResults = await Promise.all([
                 client.request(
-                  tesco.requests.batchProductQuery,
+                  ecom.requests.batchProductQuery,
                   { awaitDataCached: true, variables: { id: "402-5806" } },
                 ),
                 client.request(
-                  tesco.requests.batchProductQuery,
+                  ecom.requests.batchProductQuery,
                   { awaitDataCached: true, variables: { id: "522-7645" } },
                 ),
                 client.request(
-                  tesco.requests.batchSkuQuery,
+                  ecom.requests.batchSkuQuery,
                   { awaitDataCached: true, variables: { id: "104-7702" } },
                 ),
                 client.request(
-                  tesco.requests.batchSkuQuery,
+                  ecom.requests.batchSkuQuery,
                   { awaitDataCached: true, variables: { id: "134-5203" } },
                 ),
               ]) as RequestResultData[];
@@ -751,7 +751,7 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
           it("then the method should return the requested data", () => {
             const data = batchedResults.map((result) => result.data);
-            expect(data).to.deep.equal(tesco.responses.batchedQuery);
+            expect(data).to.deep.equal(ecom.responses.batchedQuery);
 
             batchedResults.forEach((result) => {
               expect(result.queryHash).to.be.a("string");
