@@ -1,4 +1,4 @@
-import handlDebugger from "../debugger";
+import clientHandlDebugger from "../debuggers/client-handl";
 
 export function logCacheEntry(
   target: any,
@@ -16,7 +16,7 @@ export function logCacheEntry(
         const { cacheHeaders = {}, tag = null } = args[2];
         const { cache, handlID, operation } = args[3];
 
-        handlDebugger.emit("cache_entry_added", {
+        clientHandlDebugger.emit("cache_entry_added", {
           cache,
           cacheHeaders,
           handlID,
@@ -46,7 +46,7 @@ export function logFetch(
         resolve(result);
         const { handlID, operation } = args[3];
 
-        handlDebugger.emit("fetch_executed", {
+        clientHandlDebugger.emit("fetch_executed", {
           handlID,
           operation,
           opts: args[2],
@@ -74,7 +74,7 @@ export function logPartial(
     (async () => {
       const { handlID, operation } = args[2];
 
-      handlDebugger.emit("partial_compiled", {
+      clientHandlDebugger.emit("partial_compiled", {
         handlID,
         operation,
         partial: args[1],
@@ -98,7 +98,7 @@ export function logRequest(
         resolve(result);
         const { handlID, operation } = args[2];
 
-        handlDebugger.emit("request_executed", {
+        clientHandlDebugger.emit("request_executed", {
           handlID,
           operation,
           opts: args[1],
@@ -127,7 +127,7 @@ export function logSubscription(
         resolve(result);
         const { handlID, operation } = args[3];
 
-        handlDebugger.emit("subscription_executed", {
+        clientHandlDebugger.emit("subscription_executed", {
           handlID,
           operation,
           opts: args[2],

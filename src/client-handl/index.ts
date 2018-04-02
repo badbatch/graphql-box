@@ -1,4 +1,5 @@
 import { Cacheability } from "cacheability";
+import * as EventEmitter from "eventemitter3";
 
 import {
   buildClientSchema,
@@ -22,7 +23,7 @@ import {
 import { getOperationDefinitions } from "../helpers/parsing";
 import rehydrateCacheMetadata from "../helpers/rehydrate-cache-metadata";
 import CacheManager from "../cache-manager";
-import handlDebugger, { HandlDebugger } from "../debugger";
+import handlDebugger from "../debuggers/client-handl";
 import FetchManager from "../fetch-manager";
 import createCacheMetadata from "../helpers/create-cache-metadata";
 import dehydrateCacheMetadata from "../helpers/dehydrate-cache-metadata";
@@ -143,7 +144,7 @@ export class ClientHandl {
     },
   };
 
-  private _debugger: HandlDebugger = handlDebugger;
+  private _debugger: EventEmitter = handlDebugger;
 
   private _defaultCacheControls: DefaultCacheControls = {
     mutation: "max-age=0, s-maxage=0, no-cache, no-store",
@@ -226,15 +227,6 @@ export class ClientHandl {
 
     if (isString(resourceKey)) this._resourceKey = resourceKey;
     this._requestParser = new RequestParser(this._schema, this._resourceKey);
-  }
-
-  /**
-   * The debug object that can be used to listen for handl
-   * request lifecycle events.
-   *
-   */
-  get debugger(): HandlDebugger {
-    return this._debugger;
   }
 
   /**
@@ -358,6 +350,22 @@ export class ClientHandl {
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  /**
+   * Remove listener for one of the debug events.
+   *
+   */
+  public off(eventName: string, callback?: (...args: any[]) => void, context?: any): EventEmitter {
+    return this._debugger.off(eventName, callback, context);
+  }
+
+  /**
+   * Add listener for one of the debug events.
+   *
+   */
+  public on(eventName: string, callback: (...args: any[]) => void, context?: any): EventEmitter {
+    return this._debugger.on(eventName, callback, context);
   }
 
   /**

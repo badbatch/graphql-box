@@ -74,14 +74,15 @@ export class WorkerHandl {
     return concatQuery.startsWith("subscription");
   }
 
-  private _eventEmitter: EventEmitter;
+  private _subscriber: EventEmitter;
+  private _debugger: EventEmitter = new EventEmitter();
   private _promiseWorker: PromiseWorker;
   private _subscriptionsEnabled: boolean = false;
   private _worker: Worker;
 
   constructor(args: ClientArgs) {
     if (args.subscriptions && isPlainObject(args.subscriptions)) {
-      this._eventEmitter = new EventEmitter();
+      this._subscriber = new EventEmitter();
       this._subscriptionsEnabled = true;
     }
   }
@@ -213,6 +214,24 @@ export class WorkerHandl {
   }
 
   /**
+   * Remove listener for one of the debug events.
+   *
+   */
+  public off(eventName: string, callback?: (...args: any[]) => void, context?: any): EventEmitter {
+    this._postMessage({ eventName, type: "off" });
+    return this._debugger.off(eventName, callback, context);
+  }
+
+  /**
+   * Add listener for one of the debug events.
+   *
+   */
+  public on(eventName: string, callback: (...args: any[]) => void, context?: any): EventEmitter {
+    this._postMessage({ eventName, type: "on" });
+    return this._debugger.on(eventName, callback, context);
+  }
+
+  /**
    * The method makes query, mutation and subscription requests and
    * handles request parsing, filtering and caching.
    *
@@ -229,7 +248,7 @@ export class WorkerHandl {
         if (WorkerHandl._isSubscription(concatQuery)) {
           const key = WorkerHandl._buildSubscriptionID(query, opts.variables);
           this._postMessage({ key, query, opts, type: "request" });
-          const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, key);
+          const eventAsyncIterator = new EventAsyncIterator(this._subscriber, key);
           return eventAsyncIterator.getIterator();
         }
       }
@@ -265,9 +284,18 @@ export class WorkerHandl {
 
   private async _onMessage(ev: MessageEvent): Promise<void> {
     if (!ev.data || !isPlainObject(ev.data)) return;
-    const { result, subscriptionID, type } = ev.data;
-    if (type !== "subscription") return;
-    this._eventEmitter.emit(subscriptionID, result);
+    const { eventName, props, result, subscriptionID, type } = ev.data;
+
+    switch (type) {
+      case "subscription":
+        this._subscriber.emit(subscriptionID, result);
+        break;
+      case "debugger":
+        this._debugger.emit(eventName, props);
+        break;
+      default:
+        // no default
+    }
   }
 
   private async _postMessage(args: PostMessageArgs): Promise<any> {
