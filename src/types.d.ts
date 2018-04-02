@@ -234,7 +234,10 @@ export interface PostMessageArgs {
 
 /** @hidden */
 export interface RequestContext {
+  cache?: "responses" | "queryPaths" | "dataEntities";
   fieldTypeMap: FieldTypeMap;
+  handlID: string;
+  operation: string;
 }
 
 /** @hidden */

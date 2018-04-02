@@ -9,7 +9,7 @@
     "interface-name": [true, "never-prefix"],
     "no-implicit-dependencies": [true, "dev"],
     "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
-    "no-submodule-imports": [true, "promise-worker/register"],
+    "no-submodule-imports": [true, "promise-worker/register", "uuid/v1"],
     "no-this-assignment": [true, {"allowed-names": ["_this"] }],
     "no-var-requires": false,
     "object-literal-sort-keys": [true, "ignore-case"],
