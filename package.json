@@ -1,6 +1,6 @@
 {
   "name": "handl",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "An isomorphic GraphQL client and server with a three-tier cache and persisted storage.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -47,6 +47,7 @@
     "type-check": "gulp type-check"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0-beta.42",
     "cacheability": "0.0.61",
     "cachemap": "^0.1.4",
     "defer-promise": "^1.0.1",
