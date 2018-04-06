@@ -49,7 +49,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.42",
     "cacheability": "0.0.61",
-    "cachemap": "^0.1.4",
+    "cachemap": "^0.1.5",
     "defer-promise": "^1.0.1",
     "eventemitter3": "^3.0.1",
     "iso-logger": "0.0.12",
