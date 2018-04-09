@@ -21,6 +21,7 @@ module.exports = (config) => {
     frameworks: ['mocha', 'chai', 'sinon'],
     files: [
       'test/specs/index.ts',
+      'src/worker.ts',
     ],
     hostname: 'ci.build',
     logLevel: config.LOG_INFO,
@@ -30,6 +31,10 @@ module.exports = (config) => {
     port: 9876,
     preprocessors: {
       'test/specs/index.ts': ['webpack', 'sourcemap'],
+      'src/worker.ts': ['webpack', 'sourcemap'],
+    },
+    proxies: {
+      '/worker-handl.worker.js': '/base/src/worker.ts',
     },
     reporters: ['dots', 'mocha', 'saucelabs'],
     sauceLabs: {

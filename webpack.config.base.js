@@ -3,12 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
   module: {
-    rules: [{
-      test: /.worker\.js$/,
-      use: {
-        loader: 'worker-loader',
-      },
-    }],
+    rules: [],
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],

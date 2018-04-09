@@ -36,8 +36,7 @@ export class WorkerHandl {
 
     try {
       const workerClient = new WorkerHandl(args);
-      const webpackWorker = require("worker-loader?inline=true&fallback=false!../worker"); // tslint:disable-line
-      workerClient._createWorker(webpackWorker);
+      workerClient._createWorker();
       await workerClient._postMessage({ args, type: "create" });
       instance = workerClient;
       return instance;
@@ -276,8 +275,8 @@ export class WorkerHandl {
     }
   }
 
-  private _createWorker(webpackWorker: any): void {
-    this._worker = new webpackWorker();
+  private _createWorker(): void {
+    this._worker = new Worker("worker-handl.worker.js");
     this._worker.onmessage = this._onMessage.bind(this);
     this._promiseWorker = new PromiseWorker(this._worker);
   }
