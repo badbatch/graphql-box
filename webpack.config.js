@@ -39,6 +39,7 @@ module.exports = {
     handl: './src/index.ts',
     'client-handl': './src/client-handl/index.ts',
     'worker-handl': './src/worker-handl/index.ts',
+    'worker-handl.worker': './src/worker.ts',
   },
   output: {
     filename: '[name].js',

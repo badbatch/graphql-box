@@ -19,6 +19,7 @@ module.exports = (config) => {
     },
     files: [
       'test/specs/index.ts',
+      'src/worker.ts',
     ],
     frameworks: ['mocha', 'chai', 'sinon', 'graphql-server'],
     logLevel: config.LOG_INFO,
@@ -43,6 +44,10 @@ module.exports = (config) => {
     port: 9876,
     preprocessors: {
       'test/specs/index.ts': ['webpack', 'sourcemap'],
+      'src/worker.ts': ['webpack', 'sourcemap'],
+    },
+    proxies: {
+      '/worker-handl.worker.js': '/base/src/worker.ts',
     },
     webpack: webpackConfig,
   });

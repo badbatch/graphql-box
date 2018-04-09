@@ -96,5 +96,5 @@ export function isSafariVersionAbove10(ua: string): boolean {
 }
 
 export function supportsWorkerIndexedDB(ua: string): boolean {
-  return !isIE(ua) && !isEdge(ua) && (isFirefoxVersionAbove36(ua) || isSafariVersionAbove10(ua) || isChrome(ua));
+  return !isIE(ua) && (isEdge(ua) || isFirefoxVersionAbove36(ua) || isSafariVersionAbove10(ua) || isChrome(ua));
 }

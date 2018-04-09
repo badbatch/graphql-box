@@ -13,6 +13,7 @@ An isomorphic GraphQL client and server with a three-tier cache and persisted st
 * [Summary](#summary)
 * [Installation](#installation)
 * [Compilation](#compilation)
+* [Web worker interface](#web-worker-interface)
 * [Documentation](#documentation)
 * [Usage](#usage)
 
@@ -36,9 +37,14 @@ npm install handl --save
 
 ## Compilation
 
-A couple of notes on compilation. Firstly, the `WEB_ENV` environment variable must be set to `'true'` when you compile
-your browser bundle in order to exclude node modules. Secondly, `WorkerHandl` is currently only set up to be built with
-Webpack's worker-loader via a blob URL.
+The `WEB_ENV` environment variable must be set to `'true'` when you compile your browser bundle in order to exclude
+node modules.
+
+## Web worker interface
+
+You can run handl in a web worker by using `WorkerHandl` as the handl interface in your bundle on the main
+thread and `{ worker-handl.worker: ./node_modules/handl/lib/browser/worker.js }` as the entry point for your
+bundle on the worker thread.
 
 ## Documentation
 
