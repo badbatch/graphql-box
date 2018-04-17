@@ -1,8 +1,16 @@
 import { ServerArgs, ServerRequestOptions } from "./server-handl/types";
-import { ClientArgs, RequestOptions, RequestResult } from "./types";
+
+import {
+  ClientArgs,
+  RequestOptions,
+  RequestResult,
+  RequestResultData,
+} from "./types";
+
 export type HandlClientArgs = ClientArgs;
 export type HandlClientRequestOptions = RequestOptions;
 export type HandlClientRequestResult = RequestResult;
+export type HandlClientRequestResultData = RequestResultData;
 export type HandlServerArgs = ServerArgs;
 export type HandlServerRequestOptions = ServerRequestOptions;
 export { ClientHandl } from "./client-handl";
