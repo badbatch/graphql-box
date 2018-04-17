@@ -87,8 +87,8 @@ gulp.task('document', () => gulp.src(['src/**/*.ts'])
     excludeNotExported: true,
     excludePrivate: true,
     excludeProtected: true,
-    exclude: `**/+(cache-manager|cli|event-async-iterator|debuggers|fetch-manager|helpers|logger|module-definitions|
-      monitoring|performance|proxies|request-parser|socket-manager|subscription-service)/**`,
+    exclude: `**/+(cache-manager|cli|constants|event-async-iterator|debuggers|fetch-manager|helpers|logger|
+      module-definitions|monitoring|performance|proxies|request-parser|socket-manager|subscription-service)/**`,
     ignoreCompilerErrors: true,
     includeDeclarations: true,
     mode: 'file',

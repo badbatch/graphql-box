@@ -1,3 +1,4 @@
+import { REQUEST_TIMED } from "../constants/events";
 import clientHandlDebugger from "../debuggers/client-handl";
 
 let performance: Performance;
@@ -24,13 +25,14 @@ export function timeRequest(
         const endTime = performance.now();
         resolve(result);
         const duration = endTime - startTime;
-        const { handlID, operation } = args[2];
+        const { handlID, operation, operationName } = args[2];
 
-        clientHandlDebugger.emit("request_timed", {
+        clientHandlDebugger.emit(REQUEST_TIMED, {
           duration,
           endTime,
           handlID,
           operation,
+          operationName,
           startTime,
         });
       });

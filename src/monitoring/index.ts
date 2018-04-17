@@ -1,3 +1,11 @@
+import {
+  CACHE_ENTRY_ADDED,
+  FETCH_EXECUTED,
+  PARTIAL_COMPILED,
+  REQUEST_EXECUTED,
+  SUBSCRIPTION_EXECUTED,
+} from "../constants/events";
+
 import clientHandlDebugger from "../debuggers/client-handl";
 
 export function logCacheEntry(
@@ -14,14 +22,16 @@ export function logCacheEntry(
 
       (async () => {
         const { cacheHeaders = {}, tag = null } = args[2];
-        const { cache, handlID, operation } = args[3];
+        const { cache, handlID, operation, operationName } = args[3];
 
-        clientHandlDebugger.emit("cache_entry_added", {
+        clientHandlDebugger.emit(CACHE_ENTRY_ADDED, {
           cache,
           cacheHeaders,
           handlID,
           key: args[0],
-          operation, tag,
+          operation,
+          operationName,
+          tag,
           value: args[1],
         });
       })();
@@ -44,11 +54,12 @@ export function logFetch(
       return new Promise(async (resolve) => {
         const result = await method.apply(this, args);
         resolve(result);
-        const { handlID, operation } = args[3];
+        const { handlID, operation, operationName } = args[3];
 
-        clientHandlDebugger.emit("fetch_executed", {
+        clientHandlDebugger.emit(FETCH_EXECUTED, {
           handlID,
           operation,
+          operationName,
           opts: args[2],
           request: args[0],
           result,
@@ -72,11 +83,12 @@ export function logPartial(
     method.apply(this, args);
 
     (async () => {
-      const { handlID, operation } = args[2];
+      const { handlID, operation, operationName } = args[2];
 
-      clientHandlDebugger.emit("partial_compiled", {
+      clientHandlDebugger.emit(PARTIAL_COMPILED, {
         handlID,
         operation,
+        operationName,
         partial: args[1],
       });
     })();
@@ -96,11 +108,12 @@ export function logRequest(
       return new Promise(async (resolve) => {
         const result = await method.apply(this, args);
         resolve(result);
-        const { handlID, operation } = args[2];
+        const { handlID, operation, operationName } = args[2];
 
-        clientHandlDebugger.emit("request_executed", {
+        clientHandlDebugger.emit(REQUEST_EXECUTED, {
           handlID,
           operation,
+          operationName,
           opts: args[1],
           request: args[0],
           result,
@@ -125,11 +138,12 @@ export function logSubscription(
       return new Promise(async (resolve) => {
         const result = await method.apply(this, args);
         resolve(result);
-        const { handlID, operation } = args[3];
+        const { handlID, operation, operationName } = args[3];
 
-        clientHandlDebugger.emit("subscription_executed", {
+        clientHandlDebugger.emit(SUBSCRIPTION_EXECUTED, {
           handlID,
           operation,
+          operationName,
           opts: args[2],
           result,
         });
