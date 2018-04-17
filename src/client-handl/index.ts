@@ -14,6 +14,7 @@ import "isomorphic-fetch";
 import { isAsyncIterable } from "iterall";
 
 import {
+  get,
   isArray,
   isPlainObject,
   isString,
@@ -374,7 +375,13 @@ export class ClientHandl {
    *
    */
   public async request(query: string, opts: RequestOptions = {}): Promise<RequestResult> {
-    const context: RequestContext = { fieldTypeMap: new Map(), handlID: uuid(), operation: "" };
+    const context: RequestContext = {
+      fieldTypeMap: new Map(),
+      handlID: uuid(),
+      operation: "",
+      operationName: "",
+    };
+
     return this._request(query, opts, context);
   }
 
@@ -583,6 +590,7 @@ export class ClientHandl {
       }
 
       context.operation = operationDefinitions[0].operation;
+      context.operationName = get(operationDefinitions[0], ["name", "value"], "");
       const result = await this._resolveRequestOperation(updated.query, updated.ast, opts, context);
       if (isAsyncIterable(result)) return result;
       const resolveResult = result as ResolveResult;

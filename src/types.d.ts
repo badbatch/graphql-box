@@ -239,6 +239,7 @@ export interface RequestContext {
   fieldTypeMap: FieldTypeMap;
   handlID: string;
   operation: string;
+  operationName: string;
 }
 
 /** @hidden */

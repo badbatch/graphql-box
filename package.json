@@ -1,6 +1,6 @@
 {
   "name": "handl",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "An isomorphic GraphQL client and server with a three-tier cache and persisted storage.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -48,14 +48,13 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.42",
-    "cacheability": "0.0.61",
-    "cachemap": "^0.1.6",
+    "cacheability": "^0.1.1",
+    "cachemap": "^0.1.8",
     "defer-promise": "^1.0.1",
     "eventemitter3": "^3.0.1",
     "iso-logger": "0.0.12",
     "isomorphic-fetch": "^2.2.1",
     "iterall": "^1.1.3",
-    "lodash": "^4.17.4",
     "md5": "^2.2.1",
     "promise-worker": "^1.1.1",
     "uuid": "^3.2.1",
@@ -63,7 +62,8 @@
     "yargs": "^11.0.0"
   },
   "peerDependencies": {
-    "graphql": "^0.10.5 || ^0.11.3 || ^0.12.0 || ^0.13.0"
+    "graphql": "^0.10.5 || ^0.11.3 || ^0.12.0 || ^0.13.0",
+    "lodash": "^4.17.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.42",
@@ -128,6 +128,7 @@
     "karma-sinon": "^1.0.5",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.6",
+    "lodash": "^4.17.4",
     "lodash-webpack-plugin": "^0.11.4",
     "merge-stream": "^1.0.1",
     "mocha": "^4.0.1",
