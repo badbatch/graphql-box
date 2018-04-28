@@ -318,7 +318,7 @@ export default class CacheManager {
     ast: DocumentNode,
     context: RequestContext,
   ): Promise<AnalyzeResult> {
-    const checkDataCachesResult = await this._checkDataCaches(ast, context.fieldTypeMap);
+    const checkDataCachesResult = await this._checkDataCaches(ast, context);
     const { cacheMetadata, checkList, counter, queriedData } = checkDataCachesResult;
 
     if (counter.missing === counter.total) {
@@ -509,7 +509,7 @@ export default class CacheManager {
 
   private async _checkDataCaches(
     ast: DocumentNode,
-    fieldTypeMap: FieldTypeMap,
+    context: RequestContext,
   ): Promise<CachesCheckMetadata> {
     const metadata: CachesCheckMetadata = {
       cacheMetadata: new Map(),
@@ -520,12 +520,13 @@ export default class CacheManager {
 
     const queryNode = getOperationDefinitions(ast, "query")[0];
     const fields = getChildFields(queryNode) as FieldNode[];
-    await Promise.all(fields.map((field) => this._parseField(field, metadata, fieldTypeMap)));
+    await Promise.all(fields.map((field) => this._parseField(field, metadata, context)));
     return metadata;
   }
 
   private async _checkDataEntityCacheEntry(
     fieldTypeInfo: FieldTypeInfo,
+    context: RequestContext,
     cachedPathData?: ObjectMap,
     entityKey?: string,
   ): Promise<CacheEntryResult | undefined> {
@@ -550,20 +551,28 @@ export default class CacheManager {
 
     try {
       cacheability = await this._dataEntities.has(key);
-      if (cacheability && CacheManager.isValid(cacheability)) cachedData = await this._dataEntities.get(key);
+
+      if (cacheability && CacheManager.isValid(cacheability)) {
+        cachedData = await this._dataEntities.get(key, {}, { ...context, cache: "dataEntities" });
+      }
+
       return { cacheability, cachedData };
     } catch (error) {
       return { cacheability, cachedData };
     }
   }
 
-  private async _checkQueryPathCacheEntry(hashKey: string): Promise<CacheEntryResult> {
+  private async _checkQueryPathCacheEntry(hashKey: string, context: RequestContext): Promise<CacheEntryResult> {
     let cacheability: Cacheability | false = false;
     let cachedData: any;
 
     try {
       cacheability = await this._queryPaths.has(hashKey);
-      if (cacheability && CacheManager.isValid(cacheability)) cachedData = await this._queryPaths.get(hashKey);
+
+      if (cacheability && CacheManager.isValid(cacheability)) {
+        cachedData = await this._queryPaths.get(hashKey, {}, { ...context, cache: "queryPaths" });
+      }
+
       return { cacheability, cachedData };
     } catch (error) {
       return { cacheability, cachedData };
@@ -639,7 +648,7 @@ export default class CacheManager {
   private async _parseField(
     field: FieldNode,
     metadata: CachesCheckMetadata,
-    fieldTypeMap: FieldTypeMap,
+    context: RequestContext,
     cacheEntryData?: CacheEntryData,
     cachePath?: string,
     queryPath?: string,
@@ -649,7 +658,7 @@ export default class CacheManager {
       await this._parseParentField(
         field,
         metadata,
-        fieldTypeMap,
+        context,
         cacheEntryData,
         cachePath,
         queryPath,
@@ -670,7 +679,7 @@ export default class CacheManager {
   private async _parseParentField(
     field: FieldNode,
     metadata: CachesCheckMetadata,
-    fieldTypeMap: FieldTypeMap,
+    context: RequestContext,
     { primary, secondary }: CacheEntryData = {},
     cachePath?: string,
     queryPath?: string,
@@ -683,7 +692,7 @@ export default class CacheManager {
       queryKey,
     } = CacheManager._getKeys(field, { cachePath, queryPath }, index);
 
-    const fieldTypeInfo = fieldTypeMap.get(queryKey);
+    const fieldTypeInfo = context.fieldTypeMap.get(queryKey);
 
     const cacheEntryData: CacheEntryData = {
       primary: isObjectLike(primary) ? primary[propKey] : undefined,
@@ -691,7 +700,7 @@ export default class CacheManager {
     };
 
     if (fieldTypeInfo && (fieldTypeInfo.isEntity || fieldTypeInfo.hasArguments || fieldTypeInfo.hasDirectives)) {
-      const { cacheability, cachedData } = await this._checkQueryPathCacheEntry(hashKey);
+      const { cacheability, cachedData } = await this._checkQueryPathCacheEntry(hashKey, context);
 
       if (cacheability && cachedData) {
         cacheEntryData.primary = cachedData;
@@ -702,6 +711,7 @@ export default class CacheManager {
     if (fieldTypeInfo && fieldTypeInfo.isEntity) {
       const dataEntityResult = await this._checkDataEntityCacheEntry(
         fieldTypeInfo,
+        context,
         cacheEntryData.primary,
         isPlainObject(cacheEntryData.secondary) && cacheEntryData.secondary._EntityKey,
       );
@@ -729,7 +739,7 @@ export default class CacheManager {
       promises.push(this._parseField(
         childField,
         { cacheMetadata, checkList, counter, queriedData: queriedData[propKey] },
-        fieldTypeMap,
+        context,
         cacheEntryData,
         cacheKey,
         queryKey,

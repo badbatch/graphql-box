@@ -1,5 +1,6 @@
 import {
   CACHE_ENTRY_ADDED,
+  CACHE_ENTRY_QUERIED,
   FETCH_EXECUTED,
   PARTIAL_COMPILED,
   REQUEST_EXECUTED,
@@ -35,6 +36,39 @@ export function logCacheEntry(
           value: args[1],
         });
       })();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  };
+}
+
+export function logCacheQuery(
+  target: any,
+  propertyName: string,
+  descriptor: TypedPropertyDescriptor<(...args: any[]) => Promise<any>>,
+): void {
+  const method = descriptor.value;
+  if (!method) return;
+
+  descriptor.value = async function (...args: any[]): Promise<any> {
+    try {
+      const result = await method.apply(this, args);
+
+      (async () => {
+        if (!args[2]) return;
+        const { cache, handlID, operation, operationName } = args[2];
+
+        clientHandlDebugger.emit(CACHE_ENTRY_QUERIED, {
+          cache,
+          handlID,
+          key: args[0],
+          operation,
+          operationName,
+          value: result,
+        });
+      })();
+
+      return result;
     } catch (error) {
       return Promise.reject(error);
     }

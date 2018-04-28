@@ -21,6 +21,7 @@ export { MetadataType } from "./metadata-type";
 
 export {
   CACHE_ENTRY_ADDED,
+  CACHE_ENTRY_QUERIED,
   FETCH_EXECUTED,
   PARTIAL_COMPILED,
   REQUEST_EXECUTED,
