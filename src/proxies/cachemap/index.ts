@@ -8,7 +8,7 @@ import {
   DefaultCachemap,
 } from "cachemap";
 
-import { logCacheEntry } from "../../monitoring";
+import { logCacheEntry, logCacheQuery } from "../../monitoring";
 import { ObjectMap, RequestContext } from "../../types";
 
 export class CachemapProxy {
@@ -69,7 +69,8 @@ export class CachemapProxy {
     }
   }
 
-  public async get(key: string, opts?: ObjectMap): Promise<any> {
+  @logCacheQuery
+  public async get(key: string, opts?: ObjectMap, context?: RequestContext): Promise<any> {
     try {
       return this._cachemap.get(key, opts);
     } catch (error) {

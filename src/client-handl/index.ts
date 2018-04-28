@@ -385,11 +385,11 @@ export class ClientHandl {
     return this._request(query, opts, context);
   }
 
-  private async _checkResponseCache(queryHash: string): Promise<ResolveResult | undefined> {
+  private async _checkResponseCache(queryHash: string, context: RequestContext): Promise<ResolveResult | undefined> {
     try {
       const cacheability = await this._cache.responses.has(queryHash);
       if (!cacheability || !CacheManager.isValid(cacheability)) return undefined;
-      const res = await this._cache.responses.get(queryHash);
+      const res = await this._cache.responses.get(queryHash, {}, { ...context, cache: "responses" });
       return { cacheMetadata: rehydrateCacheMetadata(res.cacheMetadata), data: res.data };
     } catch (error) {
       return undefined;
@@ -473,7 +473,7 @@ export class ClientHandl {
     context: RequestContext,
   ): Promise<ResolveResult> {
     const queryHash = hashRequest(query);
-    const cachedResponse = await this._checkResponseCache(queryHash);
+    const cachedResponse = await this._checkResponseCache(queryHash, context);
 
     if (cachedResponse) {
       return this._resolve({
