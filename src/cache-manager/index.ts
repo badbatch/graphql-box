@@ -46,7 +46,6 @@ import {
   ExportCacheResult,
   ExportCachesResult,
   FieldTypeInfo,
-  FieldTypeMap,
   ObjectMap,
   RequestContext,
   ResolveResult,
