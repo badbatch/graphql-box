@@ -160,6 +160,7 @@ export class ClientHandl {
   private _resourceKey: string = "id";
   private _schema: GraphQLSchema;
   private _subscriptionsEnabled: boolean = false;
+  private _typeCacheControls: ObjectMap;
 
   constructor(args: ClientArgs) {
     if (!isPlainObject(args)) {
@@ -180,6 +181,7 @@ export class ClientHandl {
       schema,
       subscribeFieldResolver,
       subscriptions,
+      typeCacheControls,
       url,
     } = args;
 
@@ -228,6 +230,7 @@ export class ClientHandl {
 
     if (isString(resourceKey)) this._resourceKey = resourceKey;
     this._requestParser = new RequestParser(this._schema, this._resourceKey);
+    if (typeCacheControls && isPlainObject(typeCacheControls)) this._typeCacheControls = typeCacheControls;
   }
 
   /**
@@ -388,7 +391,7 @@ export class ClientHandl {
   private async _checkResponseCache(queryHash: string, context: RequestContext): Promise<ResolveResult | undefined> {
     try {
       const cacheability = await this._cache.responses.has(queryHash);
-      if (!cacheability || !CacheManager.isValid(cacheability)) return undefined;
+      if (!this._cache.isValid(cacheability)) return undefined;
       const res = await this._cache.responses.get(queryHash, {}, { ...context, cache: "responses" });
       return { cacheMetadata: rehydrateCacheMetadata(res.cacheMetadata), data: res.data };
     } catch (error) {
@@ -402,6 +405,7 @@ export class ClientHandl {
         cachemapOptions: this._cachemapOptions,
         defaultCacheControls: this._defaultCacheControls,
         resourceKey: this._resourceKey,
+        typeCacheControls: this._typeCacheControls,
       });
     } catch (error) {
       return Promise.reject(error);
