@@ -137,6 +137,14 @@ export interface ClientArgs {
    */
   subscriptions?: SubscriptionsOptions;
   /**
+   * An optional object map of GraphQL schema types to cache-control
+   * directives used for caching object types. This offers a quick
+   * way to implement type-level caching without having to
+   * touch the underlying schema.
+   *
+   */
+  typeCacheControls?: ObjectMap;
+  /**
    * The endpoint that handl will use to communicate with the
    * GraphQL server for queries and mutations. Only applicable
    * for `ClientHandl` and `WorkerHandl`.

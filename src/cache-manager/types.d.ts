@@ -1,5 +1,5 @@
 import { Cacheability } from "cacheability";
-import { FieldNode } from "graphql";
+import { FieldNode, GraphQLSchema } from "graphql";
 import { CachemapOptions, DefaultCacheControls } from "../client/types";
 import { CacheMetadata, ObjectMap } from "../types";
 
@@ -7,6 +7,7 @@ export interface CacheArgs {
   cachemapOptions: CachemapArgsGroup;
   defaultCacheControls: DefaultCacheControls;
   resourceKey: string;
+  typeCacheControls?: ObjectMap;
 }
 
 export interface CachesCheckMetadata {
