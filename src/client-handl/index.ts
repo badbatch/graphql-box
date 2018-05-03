@@ -57,6 +57,7 @@ import {
   RequestResult,
   ResolveResult,
   ResponseCacheEntryResult,
+  SchemaTypeMap,
 } from "../types";
 
 const deferredPromise = require("defer-promise");
@@ -341,6 +342,10 @@ export class ClientHandl {
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  public getSchemaTypeMap(): SchemaTypeMap {
+    return this._schema.getTypeMap();
   }
 
   /**

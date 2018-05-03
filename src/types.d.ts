@@ -10,6 +10,7 @@ import {
 import {
   DocumentNode,
   GraphQLFieldResolver,
+  GraphQLNamedType,
   GraphQLSchema,
   IntrospectionQuery,
 } from "graphql";
@@ -358,6 +359,10 @@ export interface ResolveResult {
 export interface ResponseCacheEntryResult {
   cacheMetadata: CacheMetadata;
   data: ObjectMap;
+}
+
+export interface SchemaTypeMap {
+  [typeName: string]: GraphQLNamedType;
 }
 
 /** @hidden */
