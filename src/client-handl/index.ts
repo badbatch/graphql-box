@@ -344,7 +344,11 @@ export class ClientHandl {
     }
   }
 
-  public getSchemaTypeMap(): SchemaTypeMap {
+  /**
+   * The method returns a map of schema types.
+   *
+   */
+  public async getSchemaTypeMap(): Promise<SchemaTypeMap> {
     return this._schema.getTypeMap();
   }
 

@@ -59,6 +59,9 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
       case "getResponseCacheSize":
         result = await client.getResponseCacheSize();
         break;
+      case "getSchemaTypeMap":
+        result = await client.getSchemaTypeMap();
+        break;
       case "importCaches":
         if (caches) await client.importCaches(caches);
         break;

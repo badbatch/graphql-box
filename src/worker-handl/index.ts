@@ -18,6 +18,7 @@ import {
   RequestOptions,
   RequestResult,
   ResponseCacheEntryResult,
+  SchemaTypeMap,
 } from "../types";
 
 let instance: WorkerHandl;
@@ -194,6 +195,18 @@ export class WorkerHandl {
   public async getResponseCacheSize(): Promise<number> {
     try {
       return this._postMessage({ type: "getResponseCacheSize" });
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  /**
+   * The method returns a map of schema types.
+   *
+   */
+  public async getSchemaTypeMap(): Promise<SchemaTypeMap> {
+    try {
+      return this._postMessage({ type: "getSchemaTypeMap" });
     } catch (error) {
       return Promise.reject(error);
     }
