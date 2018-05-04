@@ -25,5 +25,6 @@ export {
   FETCH_EXECUTED,
   PARTIAL_COMPILED,
   REQUEST_EXECUTED,
+  REQUEST_TIMED,
   SUBSCRIPTION_EXECUTED,
 } from "./constants/events";
