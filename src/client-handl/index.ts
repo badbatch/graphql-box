@@ -57,7 +57,6 @@ import {
   RequestResult,
   ResolveResult,
   ResponseCacheEntryResult,
-  SchemaTypeMap,
 } from "../types";
 
 const deferredPromise = require("defer-promise");
@@ -345,11 +344,11 @@ export class ClientHandl {
   }
 
   /**
-   * The method returns a map of schema types.
+   * The method returns an array of schema types.
    *
    */
-  public async getSchemaTypeMap(): Promise<SchemaTypeMap> {
-    return this._schema.getTypeMap();
+  public async getSchemaTypes(): Promise<string[]> {
+    return Object.keys(this._schema.getTypeMap());
   }
 
   /**

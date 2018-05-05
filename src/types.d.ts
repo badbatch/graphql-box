@@ -361,10 +361,6 @@ export interface ResponseCacheEntryResult {
   data: ObjectMap;
 }
 
-export interface SchemaTypeMap {
-  [typeName: string]: GraphQLNamedType;
-}
-
 /** @hidden */
 export type SubscriberResolver = (data: any) => Promise<ResolveResult>;
 

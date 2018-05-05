@@ -18,7 +18,6 @@ import {
   RequestOptions,
   RequestResult,
   ResponseCacheEntryResult,
-  SchemaTypeMap,
 } from "../types";
 
 let instance: WorkerHandl;
@@ -201,12 +200,12 @@ export class WorkerHandl {
   }
 
   /**
-   * The method returns a map of schema types.
+   * The method returns an array of schema types.
    *
    */
-  public async getSchemaTypeMap(): Promise<SchemaTypeMap> {
+  public async getSchemaTypes(): Promise<string[]> {
     try {
-      return this._postMessage({ type: "getSchemaTypeMap" });
+      return this._postMessage({ type: "getSchemaTypes" });
     } catch (error) {
       return Promise.reject(error);
     }
