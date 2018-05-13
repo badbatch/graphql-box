@@ -1,6 +1,6 @@
 {
   "name": "handl",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "An isomorphic GraphQL client and server with a three-tier cache and persisted storage.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -128,7 +128,7 @@
     "karma-sinon": "^1.0.5",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.6",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.10",
     "lodash-webpack-plugin": "^0.11.4",
     "merge-stream": "^1.0.1",
     "mocha": "^4.0.1",

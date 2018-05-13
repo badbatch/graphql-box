@@ -18,6 +18,7 @@ import {
   RequestOptions,
   RequestResult,
   ResponseCacheEntryResult,
+  StringObjectMap,
 } from "../types";
 
 let instance: WorkerHandl;
@@ -270,6 +271,19 @@ export class WorkerHandl {
         ...result,
         cacheMetadata: rehydrateCacheMetadata(result.cacheMetadata),
       };
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  /**
+   * The method updates type cache control directives for use
+   * by the cache manager.
+   *
+   */
+  public async setTypeCacheControls(typeCacheControls: StringObjectMap): Promise<void> {
+    try {
+      await this._postMessage({ type: "typeCacheControls", typeCacheControls });
     } catch (error) {
       return Promise.reject(error);
     }

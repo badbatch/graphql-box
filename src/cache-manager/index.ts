@@ -49,6 +49,7 @@ import {
   ObjectMap,
   RequestContext,
   ResolveResult,
+  StringObjectMap,
 } from "../types";
 
 import dehydrateCacheMetadata from "../helpers/dehydrate-cache-metadata";
@@ -221,7 +222,7 @@ export default class CacheManager {
   private _requests: ClientRequests = { active: new Map(), pending: new Map() };
   private _resourceKey: string;
   private _responses: CachemapProxy;
-  private _typeCacheControls: ObjectMap | undefined;
+  private _typeCacheControls: StringObjectMap | undefined;
 
   constructor({ cachemapOptions, defaultCacheControls, resourceKey, typeCacheControls }: CacheArgs) {
     this._cachemapOptions = cachemapOptions;
@@ -456,6 +457,14 @@ export default class CacheManager {
     })();
 
     return { cacheMetadata: updatedCacheMetadata, data };
+  }
+
+  /**
+   * The method updates type cache control directives.
+   *
+   */
+  public setTypeCacheControls(typeCacheControls: StringObjectMap): void {
+    this._typeCacheControls = typeCacheControls;
   }
 
   private async _checkDataCaches(

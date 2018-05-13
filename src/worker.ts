@@ -11,7 +11,7 @@ if (process.env.TEST_ENV) {
 let client: ClientHandl;
 
 registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
-  const { args, caches, eventName, key, opts, query, tag, type } = message;
+  const { args, caches, eventName, key, opts, query, tag, type, typeCacheControls } = message;
 
   if (type === "create" && args) {
     try {
@@ -94,6 +94,9 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<any> => {
             }
           }
         }
+        break;
+      case "setTypeCacheControls":
+        if (typeCacheControls) await client.setTypeCacheControls(typeCacheControls);
         break;
       default:
         // no default
