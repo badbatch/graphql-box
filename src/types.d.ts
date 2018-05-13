@@ -144,7 +144,7 @@ export interface ClientArgs {
    * touch the underlying schema.
    *
    */
-  typeCacheControls?: ObjectMap;
+  typeCacheControls?: StringObjectMap;
   /**
    * The endpoint that handl will use to communicate with the
    * GraphQL server for queries and mutations. Only applicable
@@ -240,6 +240,7 @@ export interface PostMessageArgs {
   query?: string;
   tag?: any;
   type: string;
+  typeCacheControls?: StringObjectMap;
 }
 
 /** @hidden */

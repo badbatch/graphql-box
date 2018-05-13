@@ -57,6 +57,7 @@ import {
   RequestResult,
   ResolveResult,
   ResponseCacheEntryResult,
+  StringObjectMap,
 } from "../types";
 
 const deferredPromise = require("defer-promise");
@@ -394,6 +395,18 @@ export class ClientHandl {
     };
 
     return this._request(query, opts, context);
+  }
+
+  /**
+   * The method updates type cache control directives for use
+   * by the cache manager.
+   *
+   */
+  public async setTypeCacheControls(typeCacheControls: StringObjectMap): Promise<void> {
+    if (typeCacheControls && isPlainObject(typeCacheControls)) {
+      this._typeCacheControls = typeCacheControls;
+      this._cache.setTypeCacheControls(this._typeCacheControls);
+    }
   }
 
   private async _checkResponseCache(queryHash: string, context: RequestContext): Promise<ResolveResult | undefined> {
