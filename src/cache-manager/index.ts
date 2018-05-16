@@ -309,8 +309,6 @@ export default class CacheManager {
   }
 
   public isValid(cacheability?: Cacheability | false, fieldTypeInfo?: FieldTypeInfo): Cacheability | false {
-    if (!cacheability) return false;
-
     if (this._typeCacheControls && fieldTypeInfo) {
       const cacheControl = this._typeCacheControls[fieldTypeInfo.typeName];
 
@@ -320,6 +318,7 @@ export default class CacheManager {
       }
     }
 
+    if (!cacheability) return false;
     const noCache = get(cacheability, ["metadata", "cacheControl", "noCache"], false);
     if (!noCache && cacheability.checkTTL()) return cacheability;
     return false;
