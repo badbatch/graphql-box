@@ -1,12 +1,6 @@
 import { GraphQLFieldResolver, GraphQLSchema } from "graphql";
 import * as WebSocket from "ws";
-
-import {
-  CachemapOptions,
-  CachemapOptionsGroup,
-  DefaultCacheControls,
-  DehydratedRequestResultData,
-} from "../types";
+import { CachemapOptions, CachemapOptionsGroup, DehydratedRequestResultData } from "../types";
 
 /** @hidden */
 export interface DehydratedRequestResultDataObjectMap {
@@ -23,12 +17,6 @@ export interface ServerArgs {
    *
    */
   cachemapOptions?: CachemapOptionsGroup | CachemapOptions;
-  /**
-   * The default cache control directives to be used
-   * for queries, mutations and subscriptions.
-   *
-   */
-  defaultCacheControls?: DefaultCacheControls;
   /**
    * Set default GraphQL field resolver function to
    * be passed on to GraphQL's execute and subscribe
@@ -66,6 +54,14 @@ export interface ServerArgs {
    *
    */
   subscribeFieldResolver?: GraphQLFieldResolver<any, any>;
+  /**
+   * An optional object map of GraphQL schema types to cache-control
+   * directives used for caching object types. This offers a quick
+   * way to implement type-level caching without having to
+   * touch the underlying schema.
+   *
+   */
+  typeCacheControls?: StringObjectMap;
 }
 
 export interface ServerRequestOptions {

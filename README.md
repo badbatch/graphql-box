@@ -79,7 +79,6 @@ export default async function clientHandl() {
       // optional
       batch: true,
       cachemapOptions: { use: { client: 'indexedDB', server: 'redis' } },
-      defaultCacheControls: { query: 'public, max-age=60, s-maxage=60' },
       fetchTimeout: 5000,
       headers: { Authorization: 'bearer 3cdbb1ec-2189-11e8-b467-0ed5f89f718b' },
       resourceKey: 'id',
@@ -105,10 +104,6 @@ then re-batch the execution results to be sent back to `ClientHandl`.
 handl uses for its persisted storage for each cache. The main properties you may want to change from their defaults
 are `use`, which allows you to specify the storage method, and `redisOptions`. which allows you to specify the
 database each cache should use.
-
-`defaultCacheControls` let you set cache-control directives for each type of operation (query, mutation, subscription).
-These are used as a response's root cache-control directives in the absense of any returned in the response from
-the GraphQL server.
 
 `fetchTimeout` is the amount of time handl should wait for a response before rejecting a request. It is set to
 `5000` milliseconds by default.
@@ -323,7 +318,6 @@ export default async function serverHandl() {
       schema,
       // optional
       cachemapOptions: { use: { server: 'redis' } },
-      defaultCacheControls: { query: 'public, max-age=60, s-maxage=60' },
       resourceKey: 'id',
     });
   } catch (error) {

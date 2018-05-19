@@ -42,7 +42,6 @@ import {
   CacheMetadata,
   ClientRequests,
   DataCachedResolver,
-  DefaultCacheControls,
   ExportCacheResult,
   ExportCachesResult,
   FieldTypeInfo,
@@ -217,16 +216,14 @@ export default class CacheManager {
   private _cachemapOptions: CachemapArgsGroup;
   private _dataEntities: CachemapProxy;
   private _queryPaths: CachemapProxy;
-  private _defaultCacheControls: DefaultCacheControls;
   private _partials: Map<string, PartialData>;
   private _requests: ClientRequests = { active: new Map(), pending: new Map() };
   private _resourceKey: string;
   private _responses: CachemapProxy;
   private _typeCacheControls: StringObjectMap | undefined;
 
-  constructor({ cachemapOptions, defaultCacheControls, resourceKey, typeCacheControls }: CacheArgs) {
+  constructor({ cachemapOptions, resourceKey, typeCacheControls }: CacheArgs) {
     this._cachemapOptions = cachemapOptions;
-    this._defaultCacheControls = defaultCacheControls;
     this._partials = new Map();
     this._resourceKey = resourceKey;
     this._typeCacheControls = typeCacheControls;
