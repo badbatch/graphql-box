@@ -287,9 +287,10 @@ export default class CacheManager {
   }
 
   public getCacheControl(cacheMetadata: CacheMetadata, operationName: string = "query"): string {
-    const cacheability = cacheMetadata.get(operationName);
     const typeName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
-    return cacheability ? cacheability.printCacheControl() : this._typeCacheControls[typeName] || "no-cache";
+    if (this._typeCacheControls[typeName]) return this._typeCacheControls[typeName];
+    const cacheability = cacheMetadata.get(operationName);
+    return cacheability ? cacheability.printCacheControl() : "no-cache";
   }
 
   public async import(args: ExportCachesResult): Promise<void> {
