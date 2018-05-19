@@ -45,7 +45,6 @@ import {
   CachemapOptionsGroup,
   CacheMetadata,
   ClientArgs,
-  DefaultCacheControls,
   DehydratedCacheMetadata,
   ExportCachesResult,
   ObjectMap,
@@ -147,13 +146,6 @@ export class ClientHandl {
   };
 
   private _debugger: EventEmitter = handlDebugger;
-
-  private _defaultCacheControls: DefaultCacheControls = {
-    mutation: "max-age=0, s-maxage=0, no-cache, no-store",
-    query: "public, max-age=60, s-maxage=60",
-    subscription: "max-age=0, s-maxage=0, no-cache, no-store",
-  };
-
   private _mode: "default" | "server" = "default";
   private _requestExecutor: FetchManager | GraphQLExecuteProxy;
   private _requestParser: RequestParser;
@@ -161,7 +153,7 @@ export class ClientHandl {
   private _resourceKey: string = "id";
   private _schema: GraphQLSchema;
   private _subscriptionsEnabled: boolean = false;
-  private _typeCacheControls: ObjectMap;
+  private _typeCacheControls: StringObjectMap;
 
   constructor(args: ClientArgs) {
     if (!isPlainObject(args)) {
@@ -171,7 +163,6 @@ export class ClientHandl {
     const {
       batch,
       cachemapOptions,
-      defaultCacheControls,
       fetchTimeout,
       fieldResolver,
       headers,
@@ -223,10 +214,6 @@ export class ClientHandl {
 
     if (cachemapOptions && isPlainObject(cachemapOptions)) {
       this._setCachemapOptions(cachemapOptions);
-    }
-
-    if (defaultCacheControls && isPlainObject(defaultCacheControls)) {
-      this._defaultCacheControls = { ...this._defaultCacheControls, ...defaultCacheControls };
     }
 
     if (isString(resourceKey)) this._resourceKey = resourceKey;
@@ -424,7 +411,6 @@ export class ClientHandl {
     try {
       this._cache = await CacheManager.create({
         cachemapOptions: this._cachemapOptions,
-        defaultCacheControls: this._defaultCacheControls,
         resourceKey: this._resourceKey,
         typeCacheControls: this._typeCacheControls,
       });

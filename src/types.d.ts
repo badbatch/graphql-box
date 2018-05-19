@@ -62,12 +62,6 @@ export interface ClientArgs {
    */
   cachemapOptions?: CachemapOptionsGroup | CachemapOptions;
   /**
-   * The default cache control directives to be used
-   * for queries, mutations and subscriptions.
-   *
-   */
-  defaultCacheControls?: DefaultCacheControls;
-  /**
    * How long handl should wait for a server to
    * respond before timing out. Only applicable for
    * `ClientHandl` and `WorkerHandl`.
@@ -168,14 +162,6 @@ export interface CreateCacheMetadataArgs {
 
 /** @hidden */
 export type DataCachedResolver = () => void;
-
-export interface DefaultCacheControls {
-  mutation: string;
-  query: string;
-  subscription: string;
-  [key: string]: string;
-}
-
 export interface DehydratedCacheMetadata { [key: string]: CacheabilityMetadata; }
 
 /** @hidden */
