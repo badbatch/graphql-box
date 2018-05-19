@@ -6,7 +6,7 @@ import { CacheMetadata, ObjectMap, StringObjectMap } from "../types";
 export interface CacheArgs {
   cachemapOptions: CachemapArgsGroup;
   resourceKey: string;
-  typeCacheControls?: StringObjectMap;
+  typeCacheControls: StringObjectMap;
 }
 
 export interface CachesCheckMetadata {
