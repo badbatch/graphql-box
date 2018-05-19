@@ -153,7 +153,7 @@ export class ClientHandl {
   private _resourceKey: string = "id";
   private _schema: GraphQLSchema;
   private _subscriptionsEnabled: boolean = false;
-  private _typeCacheControls: StringObjectMap;
+  private _typeCacheControls: StringObjectMap = {};
 
   constructor(args: ClientArgs) {
     if (!isPlainObject(args)) {
@@ -508,9 +508,7 @@ export class ClientHandl {
     const deferred: DeferPromise.Deferred<void> = deferredPromise();
 
     if (cachedData && cacheMetadata) {
-      const defaultCacheControl = this._defaultCacheControls.query;
-      const queryCacheability = cacheMetadata.get("query");
-      const cacheControl = queryCacheability && queryCacheability.printCacheControl() || defaultCacheControl;
+      const cacheControl = this._cache.getCacheControl(cacheMetadata);
 
       (async () => {
         try {
@@ -618,7 +616,7 @@ export class ClientHandl {
 
     if (cacheMetadata && !cacheMetadata.has("query")) {
       const cacheability = new Cacheability();
-      cacheability.parseCacheControl(this._defaultCacheControls[operation]);
+      cacheability.parseCacheControl(this._cache.getCacheControl(cacheMetadata, operation));
       cacheMetadata.set("query", cacheability);
     }
 

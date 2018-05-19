@@ -220,7 +220,7 @@ export default class CacheManager {
   private _requests: ClientRequests = { active: new Map(), pending: new Map() };
   private _resourceKey: string;
   private _responses: CachemapProxy;
-  private _typeCacheControls: StringObjectMap | undefined;
+  private _typeCacheControls: StringObjectMap;
 
   constructor({ cachemapOptions, resourceKey, typeCacheControls }: CacheArgs) {
     this._cachemapOptions = cachemapOptions;
@@ -284,6 +284,12 @@ export default class CacheManager {
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  public getCacheControl(cacheMetadata: CacheMetadata, operationName: string = "query"): string {
+    const cacheability = cacheMetadata.get(operationName);
+    const typeName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
+    return cacheability ? cacheability.printCacheControl() : this._typeCacheControls[typeName] || "no-cache";
   }
 
   public async import(args: ExportCachesResult): Promise<void> {
@@ -368,8 +374,6 @@ export default class CacheManager {
       });
     }
 
-    const defaultCacheControl = this._defaultCacheControls.query;
-
     const updatedCacheMetadata = this._updateCacheMetadata(
       ast,
       updatedData,
@@ -378,18 +382,9 @@ export default class CacheManager {
       partial && partial.cacheMetadata,
     );
 
-    const updatedCacheability = updatedCacheMetadata.get("query");
-
-    const updatedCacheControl = updatedCacheability
-      && updatedCacheability.printCacheControl()
-      || defaultCacheControl;
-
+    const updatedCacheControl = this.getCacheControl(updatedCacheMetadata);
     const filterCacheMetadata = opts.filtered && this._updateCacheMetadata(ast, data, cacheMetadata, "query");
-    const filterCacheability = filterCacheMetadata && filterCacheMetadata.get("query");
-
-    const filterCacheControl = filterCacheability
-      && filterCacheability.printCacheControl()
-      || defaultCacheControl;
+    const filterCacheControl = filterCacheMetadata && this.getCacheControl(filterCacheMetadata);
 
     (async () => {
       const promises: Array<Promise<void>> = [];
@@ -455,10 +450,6 @@ export default class CacheManager {
     return { cacheMetadata: updatedCacheMetadata, data };
   }
 
-  /**
-   * The method updates type cache control directives.
-   *
-   */
   public setTypeCacheControls(typeCacheControls: StringObjectMap): void {
     this._typeCacheControls = typeCacheControls;
   }
@@ -867,7 +858,7 @@ export default class CacheManager {
 
     if (!_cacheMetadata.has("query")) {
       const cacheability = new Cacheability();
-      cacheability.parseCacheControl(this._defaultCacheControls[operationName]);
+      cacheability.parseCacheControl(this.getCacheControl(_cacheMetadata, operationName));
       _cacheMetadata.set("query", cacheability);
     }
 
@@ -884,14 +875,10 @@ export default class CacheManager {
   ): Promise<void> {
     const queryNode = getOperationDefinitions(ast, operationName)[0];
     const fields = getChildFields(queryNode) as FieldNode[];
-    const queryCacheability = cacheMetadata.get("query");
+    const cacheControl = this.getCacheControl(cacheMetadata);
 
     await Promise.all(
       fields.map((field) => {
-        const cacheControl = queryCacheability
-          && queryCacheability.printCacheControl()
-          || this._defaultCacheControls.query;
-
         return this._parseData(
           field,
           { entities: cloneDeep(data), paths: cloneDeep(data) },
