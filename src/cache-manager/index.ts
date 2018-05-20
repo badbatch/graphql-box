@@ -79,6 +79,16 @@ export default class CacheManager {
     }
   }
 
+  public static getOperationCacheControl(cacheMetadata: CacheMetadata): string {
+    const cacheability = cacheMetadata.get("query");
+    return cacheability ? cacheability.printCacheControl() : "no-cache";
+  }
+
+  public static isValid(cacheability?: Cacheability | false): boolean {
+    const noCache = get(cacheability, ["metadata", "cacheControl", "noCache"], false);
+    return !!cacheability && !noCache && cacheability.checkTTL();
+  }
+
   private static _buildCacheKey(
     name: string,
     cachePath: string,
@@ -186,6 +196,33 @@ export default class CacheManager {
     CacheManager._setQueriedData(queriedData, { primary: cacheDataValue }, propKey);
   }
 
+  private static _setCacheEntryMetadata(
+    metadata: CachesCheckMetadata,
+    cacheEntryData: CacheEntryData,
+    { propKey, queryKey }: { propKey: string | number, queryKey: string },
+  ): void {
+    const { cacheMetadata, checkList, counter, queriedData } = metadata;
+    CacheManager._setCacheMetadata(cacheMetadata, cacheEntryData.cacheability, queryKey);
+    CacheManager._setCheckList(checkList, cacheEntryData, queryKey);
+    CacheManager._setCounter(counter, cacheEntryData);
+    CacheManager._setQueriedData(queriedData, cacheEntryData, propKey);
+  }
+
+  private static _setCacheMetadata(
+    cacheMetadata: CacheMetadata,
+    cacheability: Cacheability | false | undefined,
+    queryKey: string,
+  ): void {
+    if (!CacheManager.isValid(cacheability)) return;
+    const _cacheability = cacheability as Cacheability;
+    cacheMetadata.set(queryKey, _cacheability);
+    const queryCacheability = cacheMetadata.get("query");
+
+    if (!queryCacheability || (queryCacheability.metadata.ttl > _cacheability.metadata.ttl)) {
+      cacheMetadata.set("query", _cacheability);
+    }
+  }
+
   private static _setCheckList(checkList: CheckList, cacheEntryData: CacheEntryData, queryKey: string): void {
     if (checkList.has(queryKey)) return;
     const data = !isUndefined(cacheEntryData.primary) ? cacheEntryData.primary : cacheEntryData.secondary;
@@ -286,13 +323,6 @@ export default class CacheManager {
     }
   }
 
-  public getCacheControl(cacheMetadata: CacheMetadata, operationName: string = "query"): string {
-    const typeName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
-    if (this._typeCacheControls[typeName]) return this._typeCacheControls[typeName];
-    const cacheability = cacheMetadata.get(operationName);
-    return cacheability ? cacheability.printCacheControl() : "no-cache";
-  }
-
   public async import(args: ExportCachesResult): Promise<void> {
     const caches = {
       dataEntities: this._dataEntities,
@@ -312,22 +342,6 @@ export default class CacheManager {
     }
   }
 
-  public isValid(cacheability?: Cacheability | false, fieldTypeInfo?: FieldTypeInfo): Cacheability | false {
-    if (this._typeCacheControls && fieldTypeInfo) {
-      const cacheControl = this._typeCacheControls[fieldTypeInfo.typeName];
-
-      if (cacheControl) {
-        cacheability = new Cacheability();
-        cacheability.parseCacheControl(cacheControl);
-      }
-    }
-
-    if (!cacheability) return false;
-    const noCache = get(cacheability, ["metadata", "cacheControl", "noCache"], false);
-    if (!noCache && cacheability.checkTTL()) return cacheability;
-    return false;
-  }
-
   public async resolveMutation(
     ast: DocumentNode,
     data: ObjectMap,
@@ -335,14 +349,13 @@ export default class CacheManager {
     opts: { cacheResolve: DataCachedResolver, tag?: any },
     context: RequestContext,
   ): Promise<ResolveResult> {
-    const updatedCacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata, "mutation");
+    const updatedCacheMetadata = this._updateCacheMetadata(ast, data, context, cacheMetadata);
 
     (async () => {
       await this._updateDataCaches(
         ast,
         data,
         updatedCacheMetadata,
-        "mutation",
         { setPaths: false, tag: opts.tag },
         context,
       );
@@ -378,14 +391,14 @@ export default class CacheManager {
     const updatedCacheMetadata = this._updateCacheMetadata(
       ast,
       updatedData,
+      context,
       cacheMetadata,
-      "query",
       partial && partial.cacheMetadata,
     );
 
-    const updatedCacheControl = this.getCacheControl(updatedCacheMetadata);
-    const filterCacheMetadata = opts.filtered && this._updateCacheMetadata(ast, data, cacheMetadata, "query");
-    const filterCacheControl = filterCacheMetadata && this.getCacheControl(filterCacheMetadata);
+    const updatedCacheControl = CacheManager.getOperationCacheControl(updatedCacheMetadata);
+    const filterCacheMetadata = opts.filtered && this._updateCacheMetadata(ast, data, context, cacheMetadata);
+    const filterCacheControl = filterCacheMetadata && CacheManager.getOperationCacheControl(filterCacheMetadata);
 
     (async () => {
       const promises: Array<Promise<void>> = [];
@@ -414,7 +427,6 @@ export default class CacheManager {
         ast,
         updatedData,
         updatedCacheMetadata,
-        "query",
         { tag: opts.tag },
         context,
       ));
@@ -433,14 +445,13 @@ export default class CacheManager {
     opts: { cacheResolve: DataCachedResolver, tag?: any },
     context: RequestContext,
   ): Promise<ResolveResult> {
-    const updatedCacheMetadata = this._updateCacheMetadata(ast, data, cacheMetadata, "subscription");
+    const updatedCacheMetadata = this._updateCacheMetadata(ast, data, context, cacheMetadata);
 
     (async () => {
       await this._updateDataCaches(
         ast,
         data,
         updatedCacheMetadata,
-        "subscription",
         { setPaths: false, tag: opts.tag },
         context,
       );
@@ -453,6 +464,17 @@ export default class CacheManager {
 
   public setTypeCacheControls(typeCacheControls: StringObjectMap): void {
     this._typeCacheControls = typeCacheControls;
+  }
+
+  public setOperationCacheability(cacheMetadata: CacheMetadata, operationName: string): void {
+    const operationTypeName = operationName.charAt(0).toUpperCase() + operationName.slice(1);
+    const typeCacheControl = this._typeCacheControls[operationTypeName] || !cacheMetadata.has("query") && "no-cache";
+
+    if (typeCacheControl) {
+      const cacheability = new Cacheability();
+      cacheability.parseCacheControl(typeCacheControl);
+      cacheMetadata.set("query", cacheability);
+    }
   }
 
   private async _checkDataCaches(
@@ -499,9 +521,8 @@ export default class CacheManager {
 
     try {
       cacheability = await this._dataEntities.has(key);
-      if (cacheability) cacheability = this.isValid(cacheability, fieldTypeInfo);
 
-      if (cacheability) {
+      if (CacheManager.isValid(cacheability)) {
         cachedData = await this._dataEntities.get(key, {}, { ...context, cache: "dataEntities" });
       }
 
@@ -513,7 +534,6 @@ export default class CacheManager {
 
   private async _checkQueryPathCacheEntry(
     hashKey: string,
-    fieldTypeInfo: FieldTypeInfo,
     context: RequestContext,
   ): Promise<CacheEntryResult> {
     let cacheability: Cacheability | false = false;
@@ -521,9 +541,8 @@ export default class CacheManager {
 
     try {
       cacheability = await this._queryPaths.has(hashKey);
-      if (cacheability) cacheability = this.isValid(cacheability, fieldTypeInfo);
 
-      if (cacheability) {
+      if (CacheManager.isValid(cacheability)) {
         cachedData = await this._queryPaths.get(hashKey, {}, { ...context, cache: "queryPaths" });
       }
 
@@ -654,7 +673,7 @@ export default class CacheManager {
     };
 
     if (fieldTypeInfo && (fieldTypeInfo.isEntity || fieldTypeInfo.hasArguments || fieldTypeInfo.hasDirectives)) {
-      const { cacheability, cachedData } = await this._checkQueryPathCacheEntry(hashKey, fieldTypeInfo, context);
+      const { cacheability, cachedData } = await this._checkQueryPathCacheEntry(hashKey, context);
 
       if (cacheability && cachedData) {
         cacheEntryData.primary = cachedData;
@@ -676,7 +695,7 @@ export default class CacheManager {
       }
     }
 
-    this._setCacheEntryMetadata(
+    CacheManager._setCacheEntryMetadata(
       metadata,
       cacheEntryData,
       { propKey, queryKey },
@@ -707,6 +726,7 @@ export default class CacheManager {
   private _parseResponseMetadata(
     field: FieldNode,
     data: ObjectMap,
+    context: RequestContext,
     cacheMetadata: CacheMetadata,
     dataPath?: string,
     queryPath?: string,
@@ -717,54 +737,36 @@ export default class CacheManager {
     if (!isObjectLike(fieldData)) return;
     const objectLikeFieldData = fieldData as ObjectMap | any[];
 
+    const fieldTypeInfo = context.fieldTypeMap.get(queryKey);
+    let cacheabilitySet = false;
+
+    if (fieldTypeInfo && this._typeCacheControls[fieldTypeInfo.typeName]) {
+      const cacheability = new Cacheability();
+      cacheability.parseCacheControl(this._typeCacheControls[fieldTypeInfo.typeName]);
+      CacheManager._setCacheMetadata(cacheMetadata, cacheability, queryKey);
+      cacheabilitySet = true;
+    }
+
     if (Object.prototype.hasOwnProperty.call(objectLikeFieldData, "_metadata")) {
       const objectFieldData = objectLikeFieldData as ObjectMap;
 
-      if (has(objectFieldData, ["_metadata", "cacheControl"]) && isString(objectFieldData._metadata.cacheControl)) {
+      if (
+        !cacheabilitySet &&
+        has(objectFieldData, ["_metadata", "cacheControl"]) &&
+        isString(objectFieldData._metadata.cacheControl)
+      ) {
         const cacheControl: string = objectFieldData._metadata.cacheControl;
         const cacheability = new Cacheability();
         cacheability.parseCacheControl(cacheControl);
-        this._setCacheMetadata(cacheMetadata, cacheability, queryKey);
+        CacheManager._setCacheMetadata(cacheMetadata, cacheability, queryKey);
       }
 
       delete objectFieldData._metadata;
     }
 
     CacheManager._iterateChildFields(field, objectLikeFieldData, (childField, childIndex) => {
-      this._parseResponseMetadata(childField, data, cacheMetadata, dataKey, queryKey, childIndex);
+      this._parseResponseMetadata(childField, data, context, cacheMetadata, dataKey, queryKey, childIndex);
     });
-  }
-
-  private _setCacheEntryMetadata(
-    metadata: CachesCheckMetadata,
-    cacheEntryData: CacheEntryData,
-    { propKey, queryKey }: { propKey: string | number, queryKey: string },
-  ): void {
-    const { cacheMetadata, checkList, counter, queriedData } = metadata;
-    this._setCacheMetadata(cacheMetadata, cacheEntryData.cacheability, queryKey);
-    CacheManager._setCheckList(checkList, cacheEntryData, queryKey);
-    CacheManager._setCounter(counter, cacheEntryData);
-    CacheManager._setQueriedData(queriedData, cacheEntryData, propKey);
-  }
-
-  private _setCacheMetadata(
-    cacheMetadata: CacheMetadata,
-    cacheability: Cacheability | false | undefined,
-    queryKey: string,
-  ): void {
-    if (!this.isValid(cacheability)) return;
-    const _cacheability = cacheability as Cacheability;
-    cacheMetadata.set(queryKey, _cacheability);
-    const queryCacheability = cacheMetadata.get("query");
-
-    if (!queryCacheability) {
-      cacheMetadata.set("query", _cacheability);
-      return;
-    }
-
-    if (queryCacheability.metadata.ttl > _cacheability.metadata.ttl) {
-      cacheMetadata.set("query", _cacheability);
-    }
   }
 
   private async _setData(
@@ -832,8 +834,8 @@ export default class CacheManager {
   private _updateCacheMetadata(
     ast: DocumentNode,
     data: ObjectMap,
+    context: RequestContext,
     cacheMetadata: CacheMetadata,
-    operationName: string,
     partialCacheMetadata?: CacheMetadata,
   ): CacheMetadata {
     let _cacheMetadata: CacheMetadata = new Map([...cacheMetadata]);
@@ -850,19 +852,14 @@ export default class CacheManager {
       }
     }
 
-    const operationNode = getOperationDefinitions(ast, operationName)[0];
+    const operationNode = getOperationDefinitions(ast, context.operationName)[0];
     const fields = getChildFields(operationNode) as FieldNode[];
 
     fields.forEach((field) => {
-      this._parseResponseMetadata(field, data, _cacheMetadata);
+      this._parseResponseMetadata(field, data, context, _cacheMetadata);
     });
 
-    if (!_cacheMetadata.has("query")) {
-      const cacheability = new Cacheability();
-      cacheability.parseCacheControl(this.getCacheControl(_cacheMetadata, operationName));
-      _cacheMetadata.set("query", cacheability);
-    }
-
+    this.setOperationCacheability(_cacheMetadata, context.operationName);
     return _cacheMetadata;
   }
 
@@ -870,13 +867,12 @@ export default class CacheManager {
     ast: DocumentNode,
     data: ObjectMap,
     cacheMetadata: CacheMetadata,
-    operationName: string,
     { setEntities = true, setPaths = true, tag }: UpdateDataCachesOptions = {},
     context: RequestContext,
   ): Promise<void> {
-    const queryNode = getOperationDefinitions(ast, operationName)[0];
+    const queryNode = getOperationDefinitions(ast, context.operationName)[0];
     const fields = getChildFields(queryNode) as FieldNode[];
-    const cacheControl = this.getCacheControl(cacheMetadata);
+    const cacheControl = CacheManager.getOperationCacheControl(cacheMetadata);
 
     await Promise.all(
       fields.map((field) => {

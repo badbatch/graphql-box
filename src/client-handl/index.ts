@@ -1,4 +1,3 @@
-import { Cacheability } from "cacheability";
 import * as EventEmitter from "eventemitter3";
 
 import {
@@ -399,7 +398,7 @@ export class ClientHandl {
   private async _checkResponseCache(queryHash: string, context: RequestContext): Promise<ResolveResult | undefined> {
     try {
       const cacheability = await this._cache.responses.has(queryHash);
-      if (!this._cache.isValid(cacheability)) return undefined;
+      if (!CacheManager.isValid(cacheability)) return undefined;
       const res = await this._cache.responses.get(queryHash, {}, { ...context, cache: "responses" });
       return { cacheMetadata: rehydrateCacheMetadata(res.cacheMetadata), data: res.data };
     } catch (error) {
@@ -508,7 +507,7 @@ export class ClientHandl {
     const deferred: DeferPromise.Deferred<void> = deferredPromise();
 
     if (cachedData && cacheMetadata) {
-      const cacheControl = this._cache.getCacheControl(cacheMetadata);
+      const cacheControl = CacheManager.getOperationCacheControl(cacheMetadata);
 
       (async () => {
         try {
@@ -614,10 +613,8 @@ export class ClientHandl {
   private async _resolve(args: ResolveArgs): Promise<ResolveResult> {
     const { cacheMetadata, cachePromise, data, error, operation, queryHash, resolvePending = true } = args;
 
-    if (cacheMetadata && !cacheMetadata.has("query")) {
-      const cacheability = new Cacheability();
-      cacheability.parseCacheControl(this._cache.getCacheControl(cacheMetadata, operation));
-      cacheMetadata.set("query", cacheability);
+    if (cacheMetadata) {
+      this._cache.setOperationCacheability(cacheMetadata, operation);
     }
 
     if (resolvePending && queryHash) {
