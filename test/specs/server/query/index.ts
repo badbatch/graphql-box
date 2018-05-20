@@ -71,8 +71,8 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(4);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheMetadata.get("product.defaultSku") as Cacheability;
@@ -95,8 +95,8 @@ export default function testQueryOperation(args: ClientArgs): void {
 
             expect(cacheEntry.data).to.deep.equal(ecom.responses.singleQuery);
             expect(cacheEntry.cacheMetadata.size).to.equal(4);
-            const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheEntry.cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheEntry.cacheMetadata.get("product.defaultSku") as Cacheability;
@@ -155,8 +155,8 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(4);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheMetadata.get("product.defaultSku") as Cacheability;
@@ -211,8 +211,8 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(resultTwo.queryHash).to.be.a("string");
             const cacheMetadata = resultTwo.cacheMetadata;
             expect(cacheMetadata.size).to.equal(4);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheMetadata.get("product.defaultSku") as Cacheability;
@@ -269,8 +269,8 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(6);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheMetadata.get("product.defaultSku") as Cacheability;
@@ -293,8 +293,8 @@ export default function testQueryOperation(args: ClientArgs): void {
 
             expect(cacheEntry.data).to.deep.equal(ecom.responses.reducedSingleQuery);
             expect(cacheEntry.cacheMetadata.size).to.equal(6);
-            const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheEntry.cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheEntry.cacheMetadata.get("product.defaultSku") as Cacheability;
@@ -348,8 +348,8 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(6);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheMetadata.get("product.defaultSku") as Cacheability;
@@ -372,8 +372,8 @@ export default function testQueryOperation(args: ClientArgs): void {
 
             expect(cacheEntry.data).to.deep.equal(ecom.responses.reducedSingleQuery);
             expect(cacheEntry.cacheMetadata.size).to.equal(6);
-            const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheEntry.cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheEntry.cacheMetadata.get("product.defaultSku") as Cacheability;
@@ -426,8 +426,8 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(6);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheMetadata.get("product.defaultSku") as Cacheability;
@@ -454,8 +454,8 @@ export default function testQueryOperation(args: ClientArgs): void {
 
             expect(cacheEntry.data).to.deep.equal(ecom.responses.extendedSingleQuery);
             expect(cacheEntry.cacheMetadata.size).to.equal(6);
-            const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheEntry.cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheEntry.cacheMetadata.get("product.defaultSku") as Cacheability;
@@ -514,8 +514,8 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(6);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheMetadata.get("product.primaryChild") as Cacheability;
@@ -538,8 +538,8 @@ export default function testQueryOperation(args: ClientArgs): void {
 
             expect(cacheEntry.data).to.deep.equal(ecom.responses.sugaredSingleQuery);
             expect(cacheEntry.cacheMetadata.size).to.equal(6);
-            const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheEntry.cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheEntry.cacheMetadata.get("product.primaryChild") as Cacheability;
@@ -604,8 +604,8 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(6);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheMetadata.get("product.primaryChild") as Cacheability;
@@ -663,8 +663,8 @@ export default function testQueryOperation(args: ClientArgs): void {
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(6);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheMetadata.get("product.primaryChild") as Cacheability;
@@ -687,8 +687,8 @@ export default function testQueryOperation(args: ClientArgs): void {
 
             expect(cacheEntry.data).to.deep.equal(ecom.responses.sugaredSingleQuery);
             expect(cacheEntry.cacheMetadata.size).to.equal(6);
-            const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
-            expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
+            const operationCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= 14400).to.equal(true);
             const productCacheability = cacheEntry.cacheMetadata.get("product") as Cacheability;
             expect(Number(productCacheability.metadata.cacheControl.maxAge) <= 28800).to.equal(true);
             const defaultSkuCacheability = cacheEntry.cacheMetadata.get("product.primaryChild") as Cacheability;
@@ -766,8 +766,8 @@ export default function testQueryOperation(args: ClientArgs): void {
               const isProduct = cacheMetadata.has("product");
               const ttl = isProduct ? 28800 : 14400;
               const key = isProduct ? "product" : "sku";
-              const queryCacheability = cacheMetadata.get("query") as Cacheability;
-              expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= ttl).to.equal(true);
+              const operationCacheability = cacheMetadata.get("query") as Cacheability;
+              expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= ttl).to.equal(true);
               const itemCacheability = cacheMetadata.get(key) as Cacheability;
               expect(Number(itemCacheability.metadata.cacheControl.maxAge) <= ttl).to.equal(true);
             });
@@ -791,8 +791,8 @@ export default function testQueryOperation(args: ClientArgs): void {
               const isProduct = cacheEntry.cacheMetadata.has("product");
               const ttl = isProduct ? 28800 : 14400;
               const key = isProduct ? "product" : "sku";
-              const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
-              expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= ttl).to.equal(true);
+              const operationCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+              expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= ttl).to.equal(true);
               const itemCacheability = cacheEntry.cacheMetadata.get(key) as Cacheability;
               expect(Number(itemCacheability.metadata.cacheControl.maxAge) <= ttl).to.equal(true);
             }));
@@ -882,8 +882,8 @@ export default function testQueryOperation(args: ClientArgs): void {
               const isProduct = cacheMetadata.has("product");
               const ttl = isProduct ? 28800 : 14400;
               const key = isProduct ? "product" : "sku";
-              const queryCacheability = cacheMetadata.get("query") as Cacheability;
-              expect(Number(queryCacheability.metadata.cacheControl.maxAge) <= ttl).to.equal(true);
+              const operationCacheability = cacheMetadata.get("query") as Cacheability;
+              expect(Number(operationCacheability.metadata.cacheControl.maxAge) <= ttl).to.equal(true);
               const itemCacheability = cacheMetadata.get(key) as Cacheability;
               expect(Number(itemCacheability.metadata.cacheControl.maxAge) <= ttl).to.equal(true);
             });

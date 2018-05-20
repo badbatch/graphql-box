@@ -65,8 +65,8 @@ export default function testMutationOperation(args: ClientArgs): void {
             expect(result.data).to.deep.equal(ecom.responses.addMutation);
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(3);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(60);
+            const operationCacheability = cacheMetadata.get("mutation") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(60);
             const favouriteCacheability = cacheMetadata.get("addFavourite") as Cacheability;
             expect(favouriteCacheability.metadata.cacheControl.maxAge).to.equal(60);
             const productsCacheability = cacheMetadata.get("addFavourite.products") as Cacheability;

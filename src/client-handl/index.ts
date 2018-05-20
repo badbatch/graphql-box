@@ -20,16 +20,16 @@ import {
   merge,
 } from "lodash";
 
-import { getOperationDefinitions } from "../helpers/parsing";
-import rehydrateCacheMetadata from "../helpers/rehydrate-cache-metadata";
+import * as uuid from "uuid/v1";
+import { FetchResult, ResolveArgs } from "./types";
 import CacheManager from "../cache-manager";
 import handlDebugger from "../debuggers/client-handl";
 import FetchManager from "../fetch-manager";
 import createCacheMetadata from "../helpers/create-cache-metadata";
 import dehydrateCacheMetadata from "../helpers/dehydrate-cache-metadata";
 import hashRequest from "../helpers/hash-request";
-import * as uuid from "uuid/v1";
-import { FetchResult, ResolveArgs } from "./types";
+import { getOperationDefinitions } from "../helpers/parsing";
+import rehydrateCacheMetadata from "../helpers/rehydrate-cache-metadata";
 import socketsSupported from "../helpers/sockets-supported";
 import { logFetch, logRequest, logSubscription } from "../monitoring";
 import { timeRequest } from "../performance";
@@ -457,6 +457,7 @@ export class ClientHandl {
     const cacheMetadata = createCacheMetadata({
       cacheMetadata: fetchResult.cacheMetadata,
       headers: fetchResult.headers,
+      operation,
     });
 
     const deferred: DeferPromise.Deferred<void> = deferredPromise();
@@ -509,7 +510,7 @@ export class ClientHandl {
     const deferred: DeferPromise.Deferred<void> = deferredPromise();
 
     if (cachedData && cacheMetadata) {
-      const cacheControl = CacheManager.getOperationCacheControl(cacheMetadata);
+      const cacheControl = CacheManager.getOperationCacheControl(cacheMetadata, operation);
 
       (async () => {
         try {
@@ -549,6 +550,7 @@ export class ClientHandl {
     const _cacheMetadata = createCacheMetadata({
       cacheMetadata: fetchResult.cacheMetadata,
       headers: fetchResult.headers,
+      operation,
     });
 
     const resolveResult = await this._cache.resolveQuery(
@@ -702,7 +704,7 @@ export class ClientHandl {
     const resolveResult = await this._cache.resolveSubscription(
       ast,
       result.data,
-      createCacheMetadata({ cacheMetadata: result.cacheMetadata }),
+      createCacheMetadata({ cacheMetadata: result.cacheMetadata, operation }),
       { cacheResolve: deferred.resolve, tag: opts.tag },
       context,
     );

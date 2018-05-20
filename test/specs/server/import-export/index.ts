@@ -129,8 +129,8 @@ export default function testImportExportMethods(args: ClientArgs): void {
 
           expect(cacheEntry.data).to.deep.equal(ecom.responses.singleQuery);
           expect(cacheEntry.cacheMetadata.size).to.equal(4);
-          const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
-          expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(14400);
+          const operationCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+          expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(14400);
           const productCacheability = cacheEntry.cacheMetadata.get("product") as Cacheability;
           expect(productCacheability.metadata.cacheControl.maxAge).to.equal(28800);
           const defaultSkuCacheability = cacheEntry.cacheMetadata.get("product.defaultSku") as Cacheability;

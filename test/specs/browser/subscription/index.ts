@@ -104,8 +104,8 @@ export default function testSubscriptionOperation(args: ClientArgs, opts: { supp
             expect(_result.data).to.deep.equal(ecom.responses.singleSubscription);
             const cacheMetadata = _result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(3);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(60);
+            const operationCacheability = cacheMetadata.get("subscription") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(60);
             const favouriteCacheability = cacheMetadata.get("favouriteAdded") as Cacheability;
             expect(favouriteCacheability.metadata.cacheControl.maxAge).to.equal(60);
             const productsCacheability = cacheMetadata.get("favouriteAdded.products") as Cacheability;

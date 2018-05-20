@@ -64,8 +64,8 @@ export default function testMutationOperation(args: ClientArgs, opts: { suppress
             expect(result.data).to.deep.equal(github.responses.addMutation.data);
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(1);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const operationCacheability = cacheMetadata.get("mutation") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
           if (onMainThread) {

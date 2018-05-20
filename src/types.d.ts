@@ -47,6 +47,9 @@ export interface CachemapOptionsGroup {
   responses?: CachemapOptions;
 }
 
+/** @hidden */
+export type CacheTypes = "responses" | "queryPaths" | "dataEntities";
+
 export interface ClientArgs {
   /**
    * Whether a client should batch query and mutation
@@ -158,6 +161,7 @@ export interface ClientRequests {
 export interface CreateCacheMetadataArgs {
   cacheMetadata?: DehydratedCacheMetadata;
   headers?: Headers;
+  operation?: ValidOperation;
 }
 
 /** @hidden */
@@ -231,7 +235,7 @@ export interface PostMessageArgs {
 
 /** @hidden */
 export interface RequestContext {
-  cache?: "responses" | "queryPaths" | "dataEntities";
+  cache?: CacheTypes;
   fieldTypeMap: FieldTypeMap;
   handlID: string;
   operation: ValidOperation;
