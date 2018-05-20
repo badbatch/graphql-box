@@ -4,7 +4,6 @@
     "browser": {
       "presets": [
         ["@babel/preset-env", {
-          "debug": true,
           "modules": false,
           "targets": { "browsers": "last 4 versions" },
           "useBuiltIns": "usage"
@@ -15,7 +14,6 @@
     "debug": {
       "presets": [
         ["@babel/preset-env", {
-          "debug": true,
           "modules": false,
           "targets": { "browsers": "chrome >= 60" },
           "useBuiltIns": "usage"
@@ -26,7 +24,6 @@
     "main": {
       "presets": [
         ["@babel/preset-env", {
-          "debug": true,
           "targets": { "node": "6" },
           "useBuiltIns": "usage"
         }],
@@ -36,7 +33,6 @@
     "module": {
       "presets": [
         ["@babel/preset-env", {
-          "debug": true,
           "modules": false,
           "targets": { "node": "6" },
           "useBuiltIns": "usage"

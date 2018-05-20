@@ -852,14 +852,14 @@ export default class CacheManager {
       }
     }
 
-    const operationNode = getOperationDefinitions(ast, context.operationName)[0];
+    const operationNode = getOperationDefinitions(ast, context.operation)[0];
     const fields = getChildFields(operationNode) as FieldNode[];
 
     fields.forEach((field) => {
       this._parseResponseMetadata(field, data, context, _cacheMetadata);
     });
 
-    this.setOperationCacheability(_cacheMetadata, context.operationName);
+    this.setOperationCacheability(_cacheMetadata, context.operation);
     return _cacheMetadata;
   }
 
@@ -870,7 +870,7 @@ export default class CacheManager {
     { setEntities = true, setPaths = true, tag }: UpdateDataCachesOptions = {},
     context: RequestContext,
   ): Promise<void> {
-    const queryNode = getOperationDefinitions(ast, context.operationName)[0];
+    const queryNode = getOperationDefinitions(ast, context.operation)[0];
     const fields = getChildFields(queryNode) as FieldNode[];
     const cacheControl = CacheManager.getOperationCacheControl(cacheMetadata);
 
