@@ -72,8 +72,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(1);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
           if (onMainThread) {
@@ -142,8 +142,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(1);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
           if (onMainThread) {
@@ -185,8 +185,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(resultTwo.queryHash).to.be.a("string");
             const cacheMetadata = resultTwo.cacheMetadata;
             expect(cacheMetadata.size).to.equal(1);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
           if (onMainThread) {
@@ -231,8 +231,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(5);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
             const organizationCacheability = cacheMetadata.get("organization") as Cacheability;
             expect(organizationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
             const repositoriesCacheability = cacheMetadata.get("organization.repositories") as Cacheability;
@@ -259,8 +259,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
             expect(cacheEntry.data).to.deep.equal(github.responses.reducedSingleQuery.data);
             expect(cacheEntry.cacheMetadata.size).to.equal(5);
-            const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const operationCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
             const organizationCacheability = cacheEntry.cacheMetadata.get("organization") as Cacheability;
             expect(organizationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
             const repositoriesCacheability = cacheEntry.cacheMetadata.get("organization.repositories") as Cacheability;
@@ -315,8 +315,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(5);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
             const organizationCacheability = cacheMetadata.get("organization") as Cacheability;
             expect(organizationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
             const repositoriesCacheability = cacheMetadata.get("organization.repositories") as Cacheability;
@@ -347,8 +347,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
             expect(cacheEntry.data).to.deep.equal(github.responses.extendedSingleQuery.data);
             expect(cacheEntry.cacheMetadata.size).to.equal(5);
-            const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const operationCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
             const organizationCacheability = cacheEntry.cacheMetadata.get("organization") as Cacheability;
             expect(organizationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
             const repositoriesCacheability = cacheEntry.cacheMetadata.get("organization.repositories") as Cacheability;
@@ -419,8 +419,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(1);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
           if (onMainThread) {
@@ -491,8 +491,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(1);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
           });
 
           if (onMainThread) {
@@ -538,8 +538,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
             expect(result.queryHash).to.be.a("string");
             const cacheMetadata = result.cacheMetadata;
             expect(cacheMetadata.size).to.equal(5);
-            const queryCacheability = cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const operationCacheability = cacheMetadata.get("query") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
             const organizationCacheability = cacheMetadata.get("organization") as Cacheability;
             expect(organizationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
             const repositoriesCacheability = cacheMetadata.get("organization.firstSix") as Cacheability;
@@ -566,8 +566,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
 
             expect(cacheEntry.data).to.deep.equal(github.responses.sugaredSingleQuery.data);
             expect(cacheEntry.cacheMetadata.size).to.equal(5);
-            const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
-            expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(300000);
+            const operationCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+            expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
             const organizationCacheability = cacheEntry.cacheMetadata.get("organization") as Cacheability;
             expect(organizationCacheability.metadata.cacheControl.maxAge).to.equal(300000);
             const repositoriesCacheability = cacheEntry.cacheMetadata.get("organization.firstSix") as Cacheability;
@@ -646,8 +646,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               const isProduct = cacheMetadata.has("product");
               const ttl = isProduct ? 28800 : 14400;
               const key = isProduct ? "product" : "sku";
-              const queryCacheability = cacheMetadata.get("query") as Cacheability;
-              expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
+              const operationCacheability = cacheMetadata.get("query") as Cacheability;
+              expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
               const productCacheability = cacheMetadata.get(key) as Cacheability;
               expect(productCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
             });
@@ -673,8 +673,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               const isProduct = cacheEntry.cacheMetadata.has("product");
               const ttl = isProduct ? 28800 : 14400;
               const key = isProduct ? "product" : "sku";
-              const queryCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
-              expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
+              const operationCacheability = cacheEntry.cacheMetadata.get("query") as Cacheability;
+              expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
               const productCacheability = cacheEntry.cacheMetadata.get(key) as Cacheability;
               expect(productCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
             }));
@@ -760,8 +760,8 @@ export default function testQueryOperation(args: ClientArgs, opts: { suppressWor
               const isProduct = cacheMetadata.has("product");
               const ttl = isProduct ? 28800 : 14400;
               const key = isProduct ? "product" : "sku";
-              const queryCacheability = cacheMetadata.get("query") as Cacheability;
-              expect(queryCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
+              const operationCacheability = cacheMetadata.get("query") as Cacheability;
+              expect(operationCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
               const productCacheability = cacheMetadata.get(key) as Cacheability;
               expect(productCacheability.metadata.cacheControl.maxAge).to.equal(ttl);
             });
