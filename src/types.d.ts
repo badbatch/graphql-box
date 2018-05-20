@@ -234,7 +234,7 @@ export interface RequestContext {
   cache?: "responses" | "queryPaths" | "dataEntities";
   fieldTypeMap: FieldTypeMap;
   handlID: string;
-  operation: string;
+  operation: ValidOperation;
   operationName: string;
 }
 
@@ -355,3 +355,6 @@ export interface SubscriptionsOptions {
   address: string;
   opts?: WebSocket.ClientOptions;
 }
+
+/** @hidden */
+export type ValidOperation = "mutation" | "query" | "subscription";
