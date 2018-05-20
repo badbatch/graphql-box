@@ -129,8 +129,12 @@ export default class CacheManager {
     return !hasChildFields(field);
   }
 
-  private static async _filterQuery(ast: DocumentNode, checkList: CheckList): Promise<void> {
-    const queryNode = getOperationDefinitions(ast, "query")[0];
+  private static async _filterQuery(
+    ast: DocumentNode,
+    checkList: CheckList,
+    context: RequestContext,
+  ): Promise<void> {
+    const queryNode = getOperationDefinitions(ast, context.operation)[0];
     const fields = getChildFields(queryNode) as FieldNode[];
 
     for (let i = fields.length - 1; i >= 0; i -= 1) {
@@ -296,7 +300,7 @@ export default class CacheManager {
 
     if (!counter.missing) return { cachedData: queriedData, cacheMetadata };
     this._setPartial(queryHash, { cacheMetadata, cachedData: queriedData }, context);
-    await CacheManager._filterQuery(ast, checkList);
+    await CacheManager._filterQuery(ast, checkList, context);
     return { filtered: true, updatedAST: ast, updatedQuery: print(ast) };
   }
 
@@ -488,7 +492,7 @@ export default class CacheManager {
       queriedData: {},
     };
 
-    const queryNode = getOperationDefinitions(ast, "query")[0];
+    const queryNode = getOperationDefinitions(ast, context.operation)[0];
     const fields = getChildFields(queryNode) as FieldNode[];
     await Promise.all(fields.map((field) => this._parseField(field, metadata, context)));
     return metadata;

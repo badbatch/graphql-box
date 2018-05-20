@@ -1,4 +1,4 @@
-import { CacheMetadata, ObjectMap, SubscriptionsOptions } from "../types";
+import { CacheMetadata, ObjectMap, SubscriptionsOptions, ValidOperation } from "../types";
 
 /** @hidden */
 export interface FetchResult {
@@ -17,6 +17,3 @@ export interface ResolveArgs {
   queryHash?: string;
   resolvePending?: boolean;
 }
-
-/** @hidden */
-export type ValidOperation = "mutation" | "query" | "subscription";

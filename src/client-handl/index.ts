@@ -376,7 +376,7 @@ export class ClientHandl {
     const context: RequestContext = {
       fieldTypeMap: new Map(),
       handlID: uuid(),
-      operation: "",
+      operation: "query",
       operationName: "",
     };
 
@@ -446,11 +446,12 @@ export class ClientHandl {
     context: RequestContext,
   ): Promise<ResolveResult> {
     let fetchResult: FetchResult;
+    const { operation } = context;
 
     try {
       fetchResult = await this._fetch(mutation, ast, opts, context);
     } catch (error) {
-      return this._resolve({ error, operation: "mutation" });
+      return this._resolve({ error, operation });
     }
 
     const cacheMetadata = createCacheMetadata({
@@ -472,7 +473,7 @@ export class ClientHandl {
       cacheMetadata: resolveResult.cacheMetadata,
       cachePromise: deferred.promise,
       data: resolveResult.data,
-      operation: "mutation",
+      operation,
     });
   }
 
@@ -484,12 +485,13 @@ export class ClientHandl {
   ): Promise<ResolveResult> {
     const queryHash = hashRequest(query);
     const cachedResponse = await this._checkResponseCache(queryHash, context);
+    const { operation } = context;
 
     if (cachedResponse) {
       return this._resolve({
         cacheMetadata: cachedResponse.cacheMetadata,
         data: cachedResponse.data,
-        operation: "query",
+        operation,
         queryHash,
         resolvePending: false,
       });
@@ -528,7 +530,7 @@ export class ClientHandl {
         cacheMetadata,
         cachePromise: deferred.promise,
         data: cachedData,
-        operation: "query",
+        operation,
         queryHash,
       });
     }
@@ -541,7 +543,7 @@ export class ClientHandl {
     try {
       fetchResult = await this._fetch(_updateQuery, _updateAST, opts, context);
     } catch (error) {
-      return this._resolve({ error, operation: "query", queryHash });
+      return this._resolve({ error, operation, queryHash });
     }
 
     const _cacheMetadata = createCacheMetadata({
@@ -563,7 +565,7 @@ export class ClientHandl {
       cacheMetadata: resolveResult.cacheMetadata,
       cachePromise: deferred.promise,
       data: resolveResult.data,
-      operation: "query",
+      operation,
       queryHash,
     });
   }
@@ -682,15 +684,17 @@ export class ClientHandl {
     opts: RequestOptions,
     context: RequestContext,
   ): Promise<ResolveResult> {
+    const { operation } = context;
+
     if (!isPlainObject(result)) {
       return this._resolve({
         error: new TypeError("Subscriber expected the result to be a JSON object."),
-        operation: "subscription",
+        operation,
       });
     }
 
     if (isArray(result.errors) && result.errors[0] instanceof Error) {
-      return this._resolve({ error: result.errors, operation: "subscription" });
+      return this._resolve({ error: result.errors, operation });
     }
 
     const deferred: DeferPromise.Deferred<void> = deferredPromise();
@@ -708,7 +712,7 @@ export class ClientHandl {
     return this._resolve({
       cacheMetadata: resolveResult.cacheMetadata,
       data: resolveResult.data,
-      operation: "subscription",
+      operation,
     });
   }
 
@@ -755,7 +759,7 @@ export class ClientHandl {
       if (executionResult.errors) return Promise.reject(executionResult.errors);
       return this._resolveSubscriber(ast, executionResult, opts, context);
     } catch (error) {
-      return this._resolve({ error, operation: "subscription" });
+      return this._resolve({ error, operation: context.operation });
     }
   }
 }
