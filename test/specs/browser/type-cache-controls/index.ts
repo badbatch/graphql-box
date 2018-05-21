@@ -30,7 +30,7 @@ export default function testTypeCacheControls(args: ClientArgs, opts: { suppress
       if (onMainThread) fetchMock.restore();
     });
 
-    describe.only("Type cache controls", () => {
+    describe("Type cache controls", () => {
       context("when no type cache controls are set", () => {
         let result: RequestResultData;
 
@@ -39,7 +39,7 @@ export default function testTypeCacheControls(args: ClientArgs, opts: { suppress
             result = await client.request(
               github.requests.singleQuery,
               { awaitDataCached: true, variables: { login: "facebook" } },
-            )  as RequestResultData;
+            ) as RequestResultData;
           } catch (error) {
             console.log(error); // tslint:disable-line
           }
@@ -58,11 +58,7 @@ export default function testTypeCacheControls(args: ClientArgs, opts: { suppress
         });
       });
 
-      /**
-       * FIXME: This test is failing when it is run in a browser in a web worker, the max-age is
-       * not being respected by the worker handl.
-       */
-      context("when a type cache control is set on the Query type", () => {
+      context.only("when a type cache control is set on the Query type", () => {
         let result: RequestResultData;
 
         before(async () => {
@@ -72,7 +68,7 @@ export default function testTypeCacheControls(args: ClientArgs, opts: { suppress
             result = await client.request(
               github.requests.singleQuery,
               { awaitDataCached: true, variables: { login: "facebook" } },
-            )  as RequestResultData;
+            ) as RequestResultData;
           } catch (error) {
             console.log(error); // tslint:disable-line
           }
