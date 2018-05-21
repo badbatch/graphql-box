@@ -4,7 +4,6 @@ import {
   buildClientSchema,
   DocumentNode,
   ExecutionResult,
-  GraphQLError,
   GraphQLSchema,
   validate,
 } from "graphql";
