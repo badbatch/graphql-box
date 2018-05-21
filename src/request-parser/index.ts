@@ -147,7 +147,7 @@ export class RequestParser {
           }
 
           if (!(type instanceof GraphQLObjectType) && !(type instanceof GraphQLInterfaceType)) return undefined;
-          const objectOrInterfaceType = type as GraphQLObjectType | GraphQLInterfaceType;
+          const objectOrInterfaceType = type;
           const fields = objectOrInterfaceType.getFields();
 
           if (kind === "Field") {

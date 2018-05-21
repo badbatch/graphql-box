@@ -593,7 +593,7 @@ export class ClientHandl {
 
     try {
       const updated = await this._requestParser.updateRequest(query, opts, context);
-      errors = validate(this._schema, updated.ast) as GraphQLError[];
+      errors = validate(this._schema, updated.ast);
       if (errors.length) return Promise.reject(errors);
       const operationDefinitions = getOperationDefinitions(updated.ast);
 
@@ -634,7 +634,7 @@ export class ClientHandl {
     };
 
     if (cachePromise) output.cachePromise = cachePromise;
-    if (queryHash) output.queryHash = queryHash as string;
+    if (queryHash) output.queryHash = queryHash;
     return output;
   }
 
