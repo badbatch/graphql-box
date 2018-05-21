@@ -283,7 +283,7 @@ export class WorkerHandl {
    */
   public async setTypeCacheControls(typeCacheControls: StringObjectMap): Promise<void> {
     try {
-      await this._postMessage({ type: "typeCacheControls", typeCacheControls });
+      await this._postMessage({ type: "setTypeCacheControls", typeCacheControls });
     } catch (error) {
       return Promise.reject(error);
     }
