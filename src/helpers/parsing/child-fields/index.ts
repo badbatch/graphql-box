@@ -26,7 +26,7 @@ export function addChildField(
           const type = schema.getType(name);
 
           if (type instanceof GraphQLObjectType || type instanceof GraphQLInterfaceType) {
-            const objectOrInterfaceType = type as GraphQLObjectType | GraphQLInterfaceType;
+            const objectOrInterfaceType = type;
             const fields = objectOrInterfaceType.getFields();
 
             if (fields[resourceID]) {

@@ -34,7 +34,7 @@
     "compile:main": "cross-env BABEL_ENV=main gulp main",
     "compile:module": "cross-env BABEL_ENV=module gulp module",
     "compile:umd": "cross-env BABEL_ENV=browser gulp umd",
-    "debug:web": "cross-env BABEL_ENV=debug TEST_ENV=true karma start --no-single-run --reporters progress --browsers",
+    "debug:web": "cross-env BABEL_ENV=browser TEST_ENV=true karma start --no-single-run --reporters progress --browsers",
     "document": "gulp document",
     "introspect:schema": "node bin/introspect --schema \"test/schema/index.ts\" --output \"test/introspection/ecom/index.json\" --tsconfig \"tsconfig.test.json\"",
     "introspect:url": "node bin/introspect --url \"https://api.github.com/graphql\" --headers \"Authorization:bearer <TOKEN>\" --output \"test/introspection/github/index.json\" --tsconfig \"tsconfig.test.json\"",

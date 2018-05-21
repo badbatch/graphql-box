@@ -1,11 +1,4 @@
-import {
-  DirectiveNode,
-  FieldNode,
-  ListValueNode,
-  ObjectValueNode,
-  ValueNode,
-} from "graphql";
-
+import { DirectiveNode, FieldNode, ValueNode } from "graphql";
 import { ScalarValueNode } from "../types";
 import { ObjectMap } from "../../../types";
 
@@ -18,7 +11,7 @@ function parseValue(valueNode: ValueNode): ParseValueResult {
     const scalarValueNode = valueNode as ScalarValueNode;
     output = scalarValueNode.value;
   } else if (valueNode.kind === "ObjectValue") {
-    const objectValueNode = valueNode as ObjectValueNode;
+    const objectValueNode = valueNode;
     const obj: ObjectMap = {};
 
     objectValueNode.fields.forEach(({ name, value }) => {
@@ -27,7 +20,7 @@ function parseValue(valueNode: ValueNode): ParseValueResult {
 
     output = obj;
   } else if (valueNode.kind === "ListValue") {
-    const listValueNode = valueNode as ListValueNode;
+    const listValueNode = valueNode;
     const arr: any[] = [];
 
     listValueNode.values.forEach((value) => {
