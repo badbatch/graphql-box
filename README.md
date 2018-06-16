@@ -2,13 +2,13 @@
 
 An isomorphic GraphQL client and server with a three-tier cache and persisted storage.
 
-[![Build Status](https://travis-ci.org/dylanaubrey/handl.svg?branch=master)](https://travis-ci.org/dylanaubrey/handl)
-[![codecov](https://codecov.io/gh/dylanaubrey/handl/branch/master/graph/badge.svg)](https://codecov.io/gh/dylanaubrey/handl)
-[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=sonarqube:handl)](https://sonarcloud.io/dashboard?id=sonarqube%3Ahandl)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/dylanaubrey/handl/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/bad-batch/handl.svg?branch=master)](https://travis-ci.org/bad-batch/handl)
+[![codecov](https://codecov.io/gh/bad-batch/handl/branch/master/graph/badge.svg)](https://codecov.io/gh/bad-batch/handl)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=sonarqube%3Ahandl&metric=alert_status)](https://sonarcloud.io/dashboard?id=sonarqube%3Ahandl)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![npm version](https://badge.fury.io/js/handl.svg)](https://badge.fury.io/js/handl)
-[![dependencies Status](https://david-dm.org/dylanaubrey/handl/status.svg)](https://david-dm.org/dylanaubrey/handl)
-[![devDependencies Status](https://david-dm.org/dylanaubrey/handl/dev-status.svg)](https://david-dm.org/dylanaubrey/handl?type=dev)
+[![dependencies Status](https://david-dm.org/bad-batch/handl/status.svg)](https://david-dm.org/bad-batch/handl)
+[![devDependencies Status](https://david-dm.org/bad-batch/handl/dev-status.svg)](https://david-dm.org/bad-batch/handl?type=dev)
 
 * [Summary](#summary)
 * [Installation](#installation)
@@ -62,7 +62,7 @@ Please read the full API documentation on the handl [github pages](https://dylan
 ### Creating a client
 
 Get started by creating an instance of `ClientHandl` and pass in whatever configuration options you require. The main
-options are detailed in the example below. For a full list, please read the [API documentation](https://dylanaubrey.github.io/handl).
+options are detailed in the example below. For a full list, please read the [API documentation](https://bad-batch.github.io/handl).
 
 ```javascript
 // client-handl.js
@@ -552,4 +552,4 @@ even if the requested entity was previously returned for a different request at 
 
 ## License
 
-Handl is [MIT Licensed](https://github.com/dylanaubrey/handl/blob/master/LICENSE).
+Handl is [MIT Licensed](LICENSE).
