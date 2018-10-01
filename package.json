@@ -31,7 +31,7 @@
     "introspect": "bin/introspect.js"
   },
   "scripts": {
-   "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap",
     "build": "yarn run clean:libs && yarn run compile",
     "clean": "concurrently npm:clean:*",
     "clean:docs": "lerna exec --parallel -- del-cli ./docs",
@@ -84,7 +84,7 @@
     "@types/node": "^10.9.4",
     "@types/sinon": "^5.0.2",
     "@types/sinon-chai": "^3.2.0",
-    "babel-eslint": "^9.0.0",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.2",
     "babel-plugin-lodash": "^3.3.2",
     "chai": "^4.1.2",
@@ -99,12 +99,12 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.11.1",
-    "husky": "1.0.0-rc.8",
+    "husky": "1.1.0",
     "istanbul-instrumenter-loader": "^3.0.0",
     "karma": "^3.0.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.2.0",
-    "karma-coverage-istanbul-reporter": "^1.3.0",
+    "karma-coverage-istanbul-reporter": "^2.0.4",
     "karma-edge-launcher": "^0.4.2",
     "karma-firefox-launcher": "^1.1.0",
     "karma-ie-launcher": "^1.0.0",
@@ -119,8 +119,7 @@
     "lodash-webpack-plugin": "^0.11.4",
     "markdownlint-cli": "^0.13.0",
     "mocha": "^5.0.5",
-    "repodog": "^0.0.3",
-    "nyc": "^11.0.3",
+    "nyc": "^13.0.1",
     "repodog": "^0.0.3",
     "sinon": "^6.3.3",
     "sinon-chai": "^3.2.0",
@@ -131,7 +130,7 @@
     "typedoc": "^0.12.0",
     "typedoc-plugin-markdown": "^1.1.15",
     "typescript": "^3.0.3",
-    "webpack": "4.19.0",
+    "webpack": "4.20.2",
     "webpack-cli": "^3.0.8"
   }
 }
