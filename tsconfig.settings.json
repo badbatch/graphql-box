@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": true,
     "baseUrl": ".",
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "lib": [
       "dom",
@@ -13,6 +16,7 @@
       "webworker"
     ],
     "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -20,8 +24,11 @@
     "noUnusedParameters": false,
     "pretty": true,
     "skipLibCheck": true,
+    "sourceMap": true,
+    "strictFunctionTypes": true,
     "strictNullChecks": true,
-    "target": "es6"
+    "strictPropertyInitialization": true,
+    "target": "esnext"
   },
-  "include": ["src/**/*", "test/**/*"]
+  "$schema": "http://json.schemastore.org/tsconfig"
 }

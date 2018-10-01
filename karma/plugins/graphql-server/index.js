@@ -1,4 +1,4 @@
-const tsConfig = require('../../../tsconfig.test.json');
+const tsConfig = require('../../../tsconfig.json');
 require('ts-node').register(tsConfig); // eslint-disable-line
 require('source-map-support').install(); // eslint-disable-line
 const { mockRestRequest } = require('../../../test/helpers/index.ts');

@@ -1,4 +1,10 @@
 {
-  "extends": "./tsconfig.base",
-  "compilerOptions": { "module": "esnext" }
+  "extends": "./tsconfig.settings.json",
+  "exclude": [
+    "**/lib/**",
+    "**/node_modules/**"
+  ],
+  "include": [
+    "packages"
+  ]
 }

@@ -1,0 +1,7 @@
+.nyc_output
+.vscode
+bundle
+coverage
+docs
+lib
+node_modules

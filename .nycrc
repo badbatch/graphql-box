@@ -1,9 +1,9 @@
 {
   "all": true,
   "cache": true,
-  "exclude": ["**/*.d.ts"],
+  "exclude": [],
   "extension": [".ts"],
-  "include": ["src/**/*"],
+  "include": ["packages/**/*"],
   "instrument": true,
   "report-dir": "./coverage/node",
   "reporter": ["json", "lcov", "text-summary"],
