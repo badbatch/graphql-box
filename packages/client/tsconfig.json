@@ -1,13 +1,18 @@
 {
-  "extends": "./tsconfig.settings.json",
-  "files": [],
+  "extends": "../tsconfig.settings.json",
+  "compilerOptions": {
+    "outDir": "lib/types",
+    "rootDir": "src"
+  },
+  "include": [
+    "src"
+  ],
   "references": [
     { "path": "../cache-manager" },
-    { "path": "../client" },
     { "path": "../core" },
     { "path": "../debug-manager" },
     { "path": "../request-manager" },
     { "path": "../request-parser" },
     { "path": "../subscriptions-manager" }
-  ],
+  ]
 }

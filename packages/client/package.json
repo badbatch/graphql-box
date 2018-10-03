@@ -1,0 +1,43 @@
+{
+  "name": "@handl/client",
+  "version": "0.1.22",
+  "description": "The Handl client module.",
+  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/badbatch/cachemap",
+  "bugs": {
+    "url": "https://github.com/badbatch/cachemap/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/badbatch/cachemap"
+  },
+  "main": "lib/main/index.js",
+  "module": "lib/module/index.js",
+  "browser": "lib/browser/index.js",
+  "types": "lib/types/index.d.ts",
+  "keywords": [
+    "handl",
+    "graphql",
+    "client",
+    "server",
+    "isomorphic"
+  ],
+  "peerDependencies": {
+    "core-js": "^2.5",
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+    "@cachemap/core": "^1.0.4",
+    "@handl/core": "^0.1.22",
+    "@types/uuid": "^3.4.4"
+  },
+  "dependencies": {
+    "@handl/cache-manager": "^0.1.22",
+    "@handl/debug-manager": "^0.1.22",
+    "@handl/request-manager": "^0.1.22",
+    "@handl/request-parser": "^0.1.22",
+    "@handl/subscriptions-manager": "^0.1.22",
+    "uuid": "^3.3.2"
+  }
+}

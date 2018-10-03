@@ -1,0 +1,33 @@
+{
+  "name": "@handl/debug-manager",
+  "version": "0.1.22",
+  "description": "The Handl debug manager module.",
+  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/badbatch/cachemap",
+  "bugs": {
+    "url": "https://github.com/badbatch/cachemap/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/badbatch/cachemap"
+  },
+  "main": "lib/main/index.js",
+  "module": "lib/module/index.js",
+  "browser": "lib/browser/index.js",
+  "types": "lib/types/index.d.ts",
+  "keywords": [
+    "handl",
+    "graphql",
+    "client",
+    "server",
+    "isomorphic"
+  ],
+  "peerDependencies": {
+    "core-js": "^2.5",
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+    "@handl/core": "^0.1.22"
+  }
+}

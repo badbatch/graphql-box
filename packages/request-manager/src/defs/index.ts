@@ -1,0 +1,42 @@
+import { coreDefs } from "@handl/core";
+
+/**
+ * Base options.
+ */
+export interface BaseOptions {
+  /**
+   * Whether a client should batch query and mutation
+   * requests.
+   */
+  batch?: boolean;
+
+  /**
+   * How long handl should wait for a server to
+   * respond before timing out.
+   */
+  fetchTimeout?: number;
+
+  /**
+   * Additional headers to be sent with every request.
+   */
+  headers?: coreDefs.PlainObjectMap;
+
+  /**
+   * The endpoint that handl will use to communicate with the
+   * GraphQL server for queries and mutations.
+   */
+  url: string;
+}
+
+export interface FetchResult {
+  cacheMetadata?: coreDefs.PlainObjectMap;
+  errors?: Error | Error[];
+  data?: coreDefs.PlainObjectMap;
+  headers?: Headers;
+}
+
+export interface RequestManager {
+  fetch(request: string): Promise<FetchResult>;
+}
+
+export type RequestManagerInit = () => RequestManager;
