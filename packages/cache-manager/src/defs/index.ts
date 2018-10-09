@@ -1,6 +1,5 @@
 import Cachemap, { coreDefs as cachemapDefs } from "@cachemap/core";
 import { coreDefs } from "@handl/core";
-import { DocumentNode } from "graphql";
 
 /**
  * Base options.
@@ -20,25 +19,43 @@ export interface ExportCacheResult {
 
 export interface ExportCachesResult {
   dataEntities?: ExportCacheResult;
-  queryPaths?: ExportCacheResult;
-  responses?: ExportCacheResult;
+  queryResponses?: ExportCacheResult;
+  requestFieldPaths?: ExportCacheResult;
 }
 
-export interface AnalyzeResult {
-  cachedData?: coreDefs.PlainObjectMap;
-  cacheMetadata?: cachemapDefs.Metadata;
-  filtered?: boolean;
-  updatedAST?: DocumentNode;
-  updatedQuery?: string;
+export interface AnalyzeQueryResult {
+  response?: coreDefs.ResponseData;
+  updated?: coreDefs.RequestData;
 }
 
 export interface CacheManager {
   dataEntities: Cachemap;
-  queryPaths: Cachemap;
-  responses: Cachemap;
-  analyze(queryHash: string, ast: DocumentNode, context: coreDefs.RequestContext): Promise<AnalyzeResult>;
+  queryResponses: Cachemap;
+  requestFieldPaths: Cachemap;
+  analyzeQuery(
+    requestData: coreDefs.RequestData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<AnalyzeQueryResult>;
+  check(
+    cacheType: coreDefs.CacheTypes,
+    requestData: coreDefs.RequestData,
+  ): Promise<coreDefs.ResponseData | false>;
   export(): Promise<ExportCachesResult>;
   import(options: ExportCachesResult): Promise<void>;
+  resolveQuery(
+    requestData: coreDefs.RequestData,
+    updatedRequestData: coreDefs.RequestData,
+    responseData: coreDefs.ResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<coreDefs.ResponseData>;
+  set(
+    cacheType: coreDefs.CacheTypes,
+    responseData: coreDefs.ResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<void>;
 }
 
 export type CacheManagerInit = (options: { typeIDKey?: string; }) => CacheManager;

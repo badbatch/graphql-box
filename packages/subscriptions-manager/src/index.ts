@@ -1,7 +1,7 @@
-import * as coreDefs from "./defs";
-import Core from "./main";
+import * as subDefs from "./defs";
+import SubscriptionsManager from "./main";
 
 export {
-  Core as default,
-  coreDefs,
+  SubscriptionsManager as default,
+  subDefs,
 };

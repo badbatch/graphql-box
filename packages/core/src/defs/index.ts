@@ -1,3 +1,6 @@
+import { coreDefs as cachemapDefs } from "@cachemap/core";
+import { DocumentNode } from "graphql";
+
 export interface PlainObjectMap {
   [key: string]: any;
 }
@@ -13,6 +16,12 @@ export interface RequestOptions {
    * returning the response data.
    */
   awaitDataCaching?: boolean;
+
+  /**
+   * Whether to return the cache metadata along
+   * with the requested data.
+   */
+  cacheMetadata?: boolean;
 
   /**
    * A list of query fragements to be inserted
@@ -34,7 +43,7 @@ export interface RequestOptions {
   variables?: PlainObjectMap;
 }
 
-export type CacheTypes = "responses" | "queryPaths" | "dataEntities";
+export type CacheTypes = "dataEntities" | "queryResponses" | "requestFieldPaths";
 
 export interface FieldTypeInfo {
   hasArguments: boolean;
@@ -46,12 +55,25 @@ export interface FieldTypeInfo {
 
 export type FieldTypeMap = Map<string, FieldTypeInfo>;
 
-export type ValidOperation = "mutation" | "query" | "subscription";
+export type ValidOperations = "mutation" | "query" | "subscription";
 
 export interface RequestContext {
-  cache?: CacheTypes;
+  cacheType?: CacheTypes;
   fieldTypeMap: FieldTypeMap;
+  filtered: boolean;
   handlID: string;
-  operation: ValidOperation;
+  operation: ValidOperations;
   operationName: string;
+}
+
+export interface ResponseData {
+  cacheMetadata?: cachemapDefs.Metadata;
+  data?: PlainObjectMap;
+  errors?: Error | Error[];
+}
+
+export interface RequestData {
+  ast?: DocumentNode;
+  hash: string;
+  request: string;
 }

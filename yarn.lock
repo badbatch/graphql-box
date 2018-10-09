@@ -1345,6 +1345,10 @@
   version "14.0.1"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-14.0.1.tgz#ff44c20fefdf0cf8c390f64b0dfbbc3c10dbaa87"
 
+"@types/graphql@^14.0.2":
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-14.0.2.tgz#415e3779718c1e0805e418e3a798cb39dccc58ab"
+
 "@types/handlebars@^4.0.38":
   version "4.0.39"
   resolved "https://registry.yarnpkg.com/@types/handlebars/-/handlebars-4.0.39.tgz#961fb54db68030890942e6aeffe9f93a957807bd"
@@ -1360,6 +1364,12 @@
 "@types/marked@^0.4.0":
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/@types/marked/-/marked-0.4.1.tgz#6595701c4d0dfde9d04894d3be04b8a97a49e0d7"
+
+"@types/md5@^2.1.33":
+  version "2.1.33"
+  resolved "https://registry.yarnpkg.com/@types/md5/-/md5-2.1.33.tgz#8c8dba30df4ad0e92296424f08c4898dd808e8df"
+  dependencies:
+    "@types/node" "*"
 
 "@types/minimatch@*", "@types/minimatch@3.0.3":
   version "3.0.3"

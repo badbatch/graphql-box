@@ -28,6 +28,7 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "@handl/core": "^0.1.22"
+    "@handl/core": "^0.1.22",
+    "@types/graphql": "^14.0.2"
   }
 }

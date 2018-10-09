@@ -1,7 +1,7 @@
 import * as coreDefs from "./defs";
-import Core from "./main";
+import hashRequest from "./helpers/hash-request";
 
 export {
-  Core as default,
   coreDefs,
+  hashRequest,
 };

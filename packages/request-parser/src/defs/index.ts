@@ -11,18 +11,18 @@ export interface BaseOptions {
   introspection: IntrospectionQuery;
 }
 
-export interface UpdateQueryResult {
+export interface UpdateRequestResult {
   ast: DocumentNode;
   errors: Error[];
-  query: string;
+  request: string;
 }
 
 export interface RequestParser {
-  updateQuery(
-    query: string,
+  updateRequest(
+    request: string,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<UpdateQueryResult>;
+  ): Promise<UpdateRequestResult>;
 }
 
 export type RequestParserInit = (options: { typeIDKey?: string; }) => RequestParser;

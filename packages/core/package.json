@@ -28,6 +28,11 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "@cachemap/core": "^1.0.4"
+    "@cachemap/core": "^1.0.4",
+    "@types/graphql": "^14.0.2",
+    "@types/md5": "^2.1.33"
+  },
+  "dependencies": {
+    "md5": "^2.2.1"
   }
 }

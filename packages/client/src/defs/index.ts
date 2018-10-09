@@ -4,6 +4,7 @@ import { coreDefs } from "@handl/core";
 import { debugDefs } from "@handl/debug-manager";
 import { requestDefs } from "@handl/request-manager";
 import { parserDefs } from "@handl/request-parser";
+import { subDefs } from "@handl/subscriptions-manager";
 
 /**
  * Constructor options.
@@ -32,7 +33,7 @@ export interface ConstructorOptions {
   /**
    * The subscriptions manager.
    */
-  subscriptionsManager?: SubscriptionsManager;
+  subscriptionsManager?: subDefs.SubscriptionsManager;
 
   /**
    * The name of the property thats value is used as the unique
@@ -68,7 +69,7 @@ export interface InitOptions {
   /**
    * The curried function to initialize the subscriptions manager.
    */
-  subscriptionsManager?: SubscriptionsManagerInit;
+  subscriptionsManager?: subDefs.SubscriptionsManagerInit;
 
   /**
    * The name of the property thats value is used as the unique
@@ -85,35 +86,28 @@ export interface RequestResult {
   _cacheMetadata?: cachemapDefs.Metadata;
 
   /**
-   * A hash of the query that was requested.
-   */
-  _queryHash?: string;
-
-  /**
    * The data requested in a query, mutation or subscription.
    */
-  data: coreDefs.PlainObjectMap;
+  data?: coreDefs.PlainObjectMap;
+
+  /**
+   * Any errors thrown during the request.
+   */
+  errors?: Error | Error[];
 }
 
-export interface ResolveRequestResult {
-  cacheMetadata: cachemapDefs.Metadata;
-  cachingPromise?: Promise<void>;
-  data: coreDefs.PlainObjectMap;
-  queryHash?: string;
+export type PendingQueryResolver = (value: coreDefs.ResponseData) => void;
+
+export interface PendingQueryData {
+  context: coreDefs.RequestContext;
+  options: coreDefs.RequestOptions;
+  requestData: coreDefs.RequestData;
+  resolve: PendingQueryResolver;
 }
 
-export type PendingRequestRejection = (value: Error | Error[]) => void;
-
-export type PendingRequestResolver = (value: ResolveRequestResult) => void;
-
-export interface PendingRequestActions {
-  reject: PendingRequestRejection;
-  resolve: PendingRequestResolver;
-}
-
-export interface RequestTracker {
-  active: Map<string, string>;
-  pending: Map<string, PendingRequestActions[]>;
+export interface QueryTracker {
+  active: string[];
+  pending: Map<string, PendingQueryData[]>;
 }
 
 export type SubscribeResult = AsyncIterator<any>;

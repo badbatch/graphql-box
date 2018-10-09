@@ -20,7 +20,6 @@ import {
 } from "lodash";
 
 import * as uuid from "uuid/v1";
-import { FetchResult, ResolveArgs } from "./types";
 import CacheManager from "../cache-manager";
 import handlDebugger from "../debuggers/client-handl";
 import FetchManager from "../fetch-manager";
@@ -36,6 +35,7 @@ import GraphQLExecuteProxy from "../proxies/graphql-execute";
 import GraphQLSubscribeProxy from "../proxies/graphql-subscribe";
 import { RequestParser } from "../request-parser";
 import SocketManager from "../socket-manager";
+import { FetchResult, ResolveArgs } from "./types";
 
 import {
   CachemapArgsGroup,
