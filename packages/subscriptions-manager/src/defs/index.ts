@@ -1,15 +1,13 @@
 import { coreDefs } from "@handl/core";
-import { DocumentNode } from "graphql";
 
-export type SubscriberResolver = (result: coreDefs.PlainObjectMap) => Promise<coreDefs.ResolveRequestResult>;
+export type SubscriberResolver = (responseData: coreDefs.ResponseData) => Promise<coreDefs.RequestResult>;
 
 export interface SubscriptionsManager {
   subscribe(
-    request: string,
-    ast: DocumentNode,
+    requestData: coreDefs.RequestData,
     options: coreDefs.RequestOptions,
     subscriberResolver: SubscriberResolver,
-  ): Promise<AsyncIterator<any>>;
+  ): Promise<AsyncIterator<any> | coreDefs.ResponseData>;
 }
 
 export type SubscriptionsManagerInit = () => SubscriptionsManager;

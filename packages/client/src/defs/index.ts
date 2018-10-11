@@ -78,30 +78,11 @@ export interface InitOptions {
   typeIDKey?: string;
 }
 
-export interface RequestResult {
-  /**
-   * A map of query paths to their cacheability
-   * information.
-   */
-  _cacheMetadata?: cachemapDefs.Metadata;
-
-  /**
-   * The data requested in a query, mutation or subscription.
-   */
-  data?: coreDefs.PlainObjectMap;
-
-  /**
-   * Any errors thrown during the request.
-   */
-  errors?: Error | Error[];
-}
-
-export type PendingQueryResolver = (value: coreDefs.ResponseData) => void;
+export type PendingQueryResolver = (value: coreDefs.RequestResult) => void;
 
 export interface PendingQueryData {
   context: coreDefs.RequestContext;
   options: coreDefs.RequestOptions;
-  requestData: coreDefs.RequestData;
   resolve: PendingQueryResolver;
 }
 

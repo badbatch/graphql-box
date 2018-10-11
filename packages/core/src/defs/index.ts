@@ -77,3 +77,21 @@ export interface RequestData {
   hash: string;
   request: string;
 }
+
+export interface RequestResult {
+  /**
+   * A map of query paths to their cacheability
+   * information.
+   */
+  _cacheMetadata?: cachemapDefs.Metadata;
+
+  /**
+   * The data requested in a query, mutation or subscription.
+   */
+  data?: PlainObjectMap;
+
+  /**
+   * Any errors thrown during the request.
+   */
+  errors?: Error | Error[];
+}

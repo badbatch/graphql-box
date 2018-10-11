@@ -82,6 +82,16 @@ export default class Client {
     };
   }
 
+  private static _resolve(
+    { cacheMetadata, data, errors }: coreDefs.ResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): RequestResult {
+    const result: RequestResult = { data, errors };
+    if (options.cacheMetadata) result._cacheMetadata = cacheMetadata;
+    return result;
+  }
+
   private static _validateRequestArguments(query: string, options: coreDefs.RequestOptions): Error[] {
     const errors: Error[] = [];
 
@@ -120,12 +130,12 @@ export default class Client {
 
   public async request(request: string, options: coreDefs.RequestOptions = {}): Promise<RequestResult> {
     const errors = Client._validateRequestArguments(request, options);
-    if (errors.length) return Promise.reject(errors);
+    if (errors.length) return { errors };
 
     try {
       return this._request(request, options, Client._getRequestContext(QUERY));
     } catch (error) {
-      return Promise.reject(error);
+      return { errors: error };
     }
   }
 
@@ -133,13 +143,19 @@ export default class Client {
     request: string,
     options: coreDefs.RequestOptions = {},
   ): Promise<SubscribeResult | RequestResult> {
-    const errors = Client._validateRequestArguments(request, options);
-    if (errors.length) return Promise.reject(errors);
+    const errors: Error[] = [];
+
+    if (!this._subscriptionsManager) {
+      errors.push(new Error("@handl/client does not have the subscriptions manager module."));
+    }
+
+    errors.push(...Client._validateRequestArguments(request, options));
+    if (errors.length) return { errors };
 
     try {
-      return this._subscribe(request, options, Client._getRequestContext(SUBSCRIPTION));
+      return this._request(request, options, Client._getRequestContext(SUBSCRIPTION));
     } catch (error) {
-      return Promise.reject(error);
+      return { errors: error };
     }
   }
 
@@ -151,7 +167,7 @@ export default class Client {
     try {
       if (this._cacheManager) {
         const checkResult = await this._cacheManager.check(QUERY_RESPONSES, requestData);
-        if (checkResult) return this._resolve(checkResult, options, context);
+        if (checkResult) return Client._resolve(checkResult, options, context);
       }
 
       const pendingQuery = this._trackQuery(requestData, options, context);
@@ -164,7 +180,7 @@ export default class Client {
         const { response, updated } = analyzeQueryResult;
 
         if (response) {
-          return this._resolveQuery(response, options, context);
+          return this._resolveQuery(requestData, response, options, context);
         } else if (updated) {
           updatedRequestData = updated;
         }
@@ -182,9 +198,9 @@ export default class Client {
         );
       }
 
-      return this._resolveQuery(responseData, options, context);
+      return this._resolveQuery(requestData, responseData, options, context);
     } catch (error) {
-      return this._resolveQuery({ errors: error }, options, context);
+      return this._resolveQuery(requestData, { errors: error }, options, context);
     }
   }
 
@@ -192,36 +208,38 @@ export default class Client {
     requestData: coreDefs.RequestData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<RequestResult> {
+  ): Promise<SubscribeResult | RequestResult> {
     try {
       if (context.operation === QUERY) {
         return this._handleQuery(requestData, options, context);
       } else if (context.operation === MUTATION) {
         return this._handleMutation(requestData, options, context);
-      } else {
-        return Promise.reject(new Error("@handl/client expected the operation to be 'query' or 'mutation'."));
+      } else if (context.operation === SUBSCRIPTION) {
+        return this._handleSubscription(requestData, options, context);
       }
+
+      const message = "@handl/client expected the operation to be 'query', 'mutation' or 'subscription.";
+      return Promise.reject(new Error(message));
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
   private async _handleSubscription(
-    request: string,
-    ast: DocumentNode | undefined,
+    requestData: coreDefs.RequestData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<SubscribeResult | RequestResult> {
-    if (context.operation !== SUBSCRIPTION) {
-      return Promise.reject(new Error("@handl/client expected the operation to be 'subscription'."));
-    }
+    if (!this._subscriptionsManager) return;
 
     try {
-      const resolver = async (result: coreDefs.PlainObjectMap) => this._resolve(result, ast, options, context);
-      const subscribeResult = await this._subscriptionsManager.subscribe(request, ast, options, resolver);
+      const resolver = async (responseData: coreDefs.ResponseData) =>
+        this._resolveSubscription(requestData, responseData, options, context);
+
+      const subscribeResult = await this._subscriptionsManager.subscribe(requestData, options, resolver);
       if (isAsyncIterable(subscribeResult)) return subscribeResult as SubscribeResult;
 
-      return this._resolve(subscribeResult as ExecutionResult, ast, options, context);
+      return this._resolveSubscription(requestData, subscribeResult, options, context);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -231,7 +249,7 @@ export default class Client {
     request: string,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<RequestResult> {
+  ): Promise<SubscribeResult | RequestResult> {
     try {
       let updatedRequest = request;
       let ast;
@@ -251,16 +269,29 @@ export default class Client {
     }
   }
 
-  private async _resolve(): Promise<RequestResult> {
-    // TODO: Check options.cacheMetadata before returning response data
-  }
-
   private async _resolveQuery(
+    requestData: coreDefs.RequestData,
     responseData: coreDefs.ResponseData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<RequestResult> {
-    // TODO: Resolve tracked queries and call _resolve()
+    this._resolvePendingRequests(requestData, responseData);
+    this._queryTracker.active = this._queryTracker.active.filter((value) => value !== requestData.hash);
+    return Client._resolve(responseData, options, context);
+  }
+
+  private _resolvePendingRequests(
+    { hash }: coreDefs.RequestData,
+    responseData: coreDefs.ResponseData,
+  ): void {
+    const pendingRequests = this._queryTracker.pending.get(hash);
+    if (!pendingRequests) return;
+
+    pendingRequests.forEach(({ context, options, resolve }) => {
+      resolve(Client._resolve(responseData, options, context));
+    });
+
+    this._queryTracker.pending.delete(hash);
   }
 
   private _setPendingQuery(requestHash: string, data: PendingQueryData): void {
@@ -270,40 +301,17 @@ export default class Client {
     this._queryTracker.pending.set(requestHash, pending);
   }
 
-  private async _subscribe(
-    request: string,
-    options: coreDefs.RequestOptions,
-    context: coreDefs.RequestContext,
-  ): Promise<SubscribeResult | RequestResult> {
-    try {
-      let updateRequest = request;
-      let ast;
-
-      if (this._requestParser) {
-        const updated = await this._requestParser.updateRequest(request, options, context);
-        if (updated.errors.length) return Promise.reject(updated.errors);
-
-        updateRequest = updated.request;
-        ast = updated.ast;
-      }
-
-      return this._handleSubscription(updateRequest, ast, options, context);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
   private async _trackQuery(
-    requestData: coreDefs.RequestData,
+    { hash }: coreDefs.RequestData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<RequestResult | void> {
-    if (this._queryTracker.active.includes(requestData.hash)) {
+    if (this._queryTracker.active.includes(hash)) {
       return new Promise((resolve: PendingQueryResolver) => {
-        this._setPendingQuery(requestData.hash, { context, options, requestData, resolve });
+        this._setPendingQuery(hash, { context, options, resolve });
       });
     }
 
-    this._queryTracker.active.push(requestData.hash);
+    this._queryTracker.active.push(hash);
   }
 }
