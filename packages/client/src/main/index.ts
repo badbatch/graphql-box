@@ -4,7 +4,6 @@ import { debugDefs } from "@handl/debug-manager";
 import { requestDefs } from "@handl/request-manager";
 import { parserDefs } from "@handl/request-parser";
 import { subDefs } from "@handl/subscriptions-manager";
-import { DocumentNode } from "graphql";
 import { isAsyncIterable } from "iterall";
 import { isArray, isPlainObject, isString } from "lodash";
 import uuid from "uuid/v1";
@@ -15,7 +14,6 @@ import {
   PendingQueryData,
   PendingQueryResolver,
   QueryTracker,
-  RequestResult,
   SubscribeResult,
 } from "../defs";
 
@@ -86,8 +84,8 @@ export default class Client {
     { cacheMetadata, data, errors }: coreDefs.ResponseData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): RequestResult {
-    const result: RequestResult = { data, errors };
+  ): coreDefs.RequestResult {
+    const result: coreDefs.RequestResult = { data, errors };
     if (options.cacheMetadata) result._cacheMetadata = cacheMetadata;
     return result;
   }
@@ -128,12 +126,12 @@ export default class Client {
     this._typeIDKey = typeIDKey;
   }
 
-  public async request(request: string, options: coreDefs.RequestOptions = {}): Promise<RequestResult> {
+  public async request(request: string, options: coreDefs.RequestOptions = {}): Promise<coreDefs.RequestResult> {
     const errors = Client._validateRequestArguments(request, options);
     if (errors.length) return { errors };
 
     try {
-      return this._request(request, options, Client._getRequestContext(QUERY));
+      return this._request(request, options, Client._getRequestContext(QUERY)) as coreDefs.RequestResult;
     } catch (error) {
       return { errors: error };
     }
@@ -142,7 +140,7 @@ export default class Client {
   public async subscribe(
     request: string,
     options: coreDefs.RequestOptions = {},
-  ): Promise<SubscribeResult | RequestResult> {
+  ): Promise<SubscribeResult | coreDefs.RequestResult> {
     const errors: Error[] = [];
 
     if (!this._subscriptionsManager) {
@@ -163,7 +161,7 @@ export default class Client {
     requestData: coreDefs.RequestData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<RequestResult> {
+  ): Promise<coreDefs.RequestResult> {
     try {
       if (this._cacheManager) {
         const checkResult = await this._cacheManager.check(QUERY_RESPONSES, requestData);
@@ -171,7 +169,7 @@ export default class Client {
       }
 
       const pendingQuery = this._trackQuery(requestData, options, context);
-      if (pendingQuery) return pendingQuery as Promise<RequestResult>;
+      if (pendingQuery) return pendingQuery as Promise<coreDefs.RequestResult>;
 
       let updatedRequestData: coreDefs.RequestData = requestData;
 
@@ -208,7 +206,7 @@ export default class Client {
     requestData: coreDefs.RequestData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<SubscribeResult | RequestResult> {
+  ): Promise<SubscribeResult | coreDefs.RequestResult> {
     try {
       if (context.operation === QUERY) {
         return this._handleQuery(requestData, options, context);
@@ -229,14 +227,13 @@ export default class Client {
     requestData: coreDefs.RequestData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<SubscribeResult | RequestResult> {
-    if (!this._subscriptionsManager) return;
-
+  ): Promise<SubscribeResult | coreDefs.RequestResult> {
     try {
       const resolver = async (responseData: coreDefs.ResponseData) =>
         this._resolveSubscription(requestData, responseData, options, context);
 
-      const subscribeResult = await this._subscriptionsManager.subscribe(requestData, options, resolver);
+      const subscriptionsManager = this._subscriptionsManager as subDefs.SubscriptionsManager;
+      const subscribeResult = await subscriptionsManager.subscribe(requestData, options, resolver);
       if (isAsyncIterable(subscribeResult)) return subscribeResult as SubscribeResult;
 
       return this._resolveSubscription(requestData, subscribeResult, options, context);
@@ -249,7 +246,7 @@ export default class Client {
     request: string,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<SubscribeResult | RequestResult> {
+  ): Promise<SubscribeResult | coreDefs.RequestResult> {
     try {
       let updatedRequest = request;
       let ast;
@@ -274,7 +271,7 @@ export default class Client {
     responseData: coreDefs.ResponseData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<RequestResult> {
+  ): Promise<coreDefs.RequestResult> {
     this._resolvePendingRequests(requestData, responseData);
     this._queryTracker.active = this._queryTracker.active.filter((value) => value !== requestData.hash);
     return Client._resolve(responseData, options, context);
@@ -305,7 +302,7 @@ export default class Client {
     { hash }: coreDefs.RequestData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<RequestResult | void> {
+  ): Promise<coreDefs.RequestResult | void> {
     if (this._queryTracker.active.includes(hash)) {
       return new Promise((resolve: PendingQueryResolver) => {
         this._setPendingQuery(hash, { context, options, resolve });
