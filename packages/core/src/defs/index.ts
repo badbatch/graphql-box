@@ -1,4 +1,4 @@
-import { coreDefs as cachemapDefs } from "@cachemap/core";
+import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
 import { DocumentNode } from "graphql";
 
 export interface PlainObjectMap {
@@ -66,8 +66,21 @@ export interface RequestContext {
   operationName: string;
 }
 
+export interface DehydratedCacheMetadata {
+  [key: string]: CacheabilityMetadata;
+}
+
+export type CacheMetadata = Map<string, Cacheability>;
+
+export interface RawResponseData {
+  cacheMetadata?: DehydratedCacheMetadata;
+  data?: PlainObjectMap;
+  errors?: Error | Error[];
+  headers?: Headers;
+}
+
 export interface ResponseData {
-  cacheMetadata?: cachemapDefs.Metadata;
+  cacheMetadata?: CacheMetadata;
   data?: PlainObjectMap;
   errors?: Error | Error[];
 }
@@ -83,7 +96,7 @@ export interface RequestResult {
    * A map of query paths to their cacheability
    * information.
    */
-  _cacheMetadata?: cachemapDefs.Metadata;
+  _cacheMetadata?: CacheMetadata;
 
   /**
    * The data requested in a query, mutation or subscription.

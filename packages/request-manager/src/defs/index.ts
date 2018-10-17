@@ -28,15 +28,8 @@ export interface BaseOptions {
   url: string;
 }
 
-export interface FetchResult {
-  cacheMetadata?: coreDefs.PlainObjectMap;
-  errors?: Error | Error[];
-  data?: coreDefs.PlainObjectMap;
-  headers?: Headers;
-}
-
 export interface RequestManager {
-  fetch(request: string): Promise<FetchResult>;
+  fetch(requestData: coreDefs.RequestData): Promise<coreDefs.RawResponseData>;
 }
 
 export type RequestManagerInit = () => RequestManager;

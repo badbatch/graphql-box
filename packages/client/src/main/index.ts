@@ -14,7 +14,6 @@ import {
   PendingQueryData,
   PendingQueryResolver,
   QueryTracker,
-  SubscribeResult,
 } from "../defs";
 
 export default class Client {
@@ -36,7 +35,6 @@ export default class Client {
 
       const constructorOptions: ConstructorOptions = {
         requestManager: await options.requestManager(),
-        typeIDKey,
       };
 
       if (options.cacheManager) {
@@ -114,16 +112,14 @@ export default class Client {
   private _requestManager: requestDefs.RequestManager;
   private _requestParser: parserDefs.RequestParser | undefined;
   private _subscriptionsManager: subDefs.SubscriptionsManager | undefined;
-  private _typeIDKey: string;
 
   constructor(options: ConstructorOptions) {
-    const { cacheManager, debugManager, requestManager, requestParser, subscriptionsManager, typeIDKey } = options;
+    const { cacheManager, debugManager, requestManager, requestParser, subscriptionsManager } = options;
     if (cacheManager) this._cacheManager = cacheManager;
     if (debugManager) this._debugManager = debugManager;
     this._requestManager = requestManager;
     if (requestParser) this._requestParser = requestParser;
     if (subscriptionsManager) this._subscriptionsManager = subscriptionsManager;
-    this._typeIDKey = typeIDKey;
   }
 
   public async request(request: string, options: coreDefs.RequestOptions = {}): Promise<coreDefs.RequestResult> {
@@ -140,7 +136,7 @@ export default class Client {
   public async subscribe(
     request: string,
     options: coreDefs.RequestOptions = {},
-  ): Promise<SubscribeResult | coreDefs.RequestResult> {
+  ): Promise<AsyncIterable<any> | coreDefs.RequestResult> {
     const errors: Error[] = [];
 
     if (!this._subscriptionsManager) {
@@ -154,6 +150,40 @@ export default class Client {
       return this._request(request, options, Client._getRequestContext(SUBSCRIPTION));
     } catch (error) {
       return { errors: error };
+    }
+  }
+
+  private async _fetch(
+    requestData: coreDefs.RequestData,
+  ): Promise<coreDefs.RawResponseData> {
+    try {
+      return this._requestManager.fetch(requestData);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private async _handleMutation(
+    requestData: coreDefs.RequestData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<coreDefs.RequestResult> {
+    try {
+      const rawResponseData = await this._fetch(requestData);
+      let { cacheMetadata, headers, ...responseData } = rawResponseData; // tslint:disable-line
+
+      if (this._cacheManager) {
+        responseData = await this._cacheManager.resolve(
+          requestData,
+          rawResponseData,
+          options,
+          context,
+        );
+      }
+
+      return Client._resolve(responseData, options, context);
+    } catch (error) {
+      return Client._resolve({ errors: error }, options, context);
     }
   }
 
@@ -184,13 +214,14 @@ export default class Client {
         }
       }
 
-      let responseData = await this._fetch(updatedRequestData, options, context);
+      const rawResponseData = await this._fetch(updatedRequestData);
+      let { cacheMetadata, headers, ...responseData } = rawResponseData; // tslint:disable-line
 
       if (this._cacheManager) {
         responseData = await this._cacheManager.resolveQuery(
           requestData,
           updatedRequestData,
-          responseData,
+          rawResponseData,
           options,
           context,
         );
@@ -206,7 +237,7 @@ export default class Client {
     requestData: coreDefs.RequestData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<SubscribeResult | coreDefs.RequestResult> {
+  ): Promise<AsyncIterable<any> | coreDefs.RequestResult> {
     try {
       if (context.operation === QUERY) {
         return this._handleQuery(requestData, options, context);
@@ -227,16 +258,16 @@ export default class Client {
     requestData: coreDefs.RequestData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<SubscribeResult | coreDefs.RequestResult> {
+  ): Promise<AsyncIterable<any> | coreDefs.RequestResult> {
     try {
-      const resolver = async (responseData: coreDefs.ResponseData) =>
+      const resolver = async (responseData: coreDefs.RawResponseData) =>
         this._resolveSubscription(requestData, responseData, options, context);
 
       const subscriptionsManager = this._subscriptionsManager as subDefs.SubscriptionsManager;
       const subscribeResult = await subscriptionsManager.subscribe(requestData, options, resolver);
-      if (isAsyncIterable(subscribeResult)) return subscribeResult as SubscribeResult;
+      if (isAsyncIterable(subscribeResult)) return subscribeResult as AsyncIterable<any>;
 
-      return this._resolveSubscription(requestData, subscribeResult, options, context);
+      return this._resolveSubscription(requestData, subscribeResult as coreDefs.RawResponseData, options, context);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -246,7 +277,7 @@ export default class Client {
     request: string,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<SubscribeResult | coreDefs.RequestResult> {
+  ): Promise<AsyncIterable<any> | coreDefs.RequestResult> {
     try {
       let updatedRequest = request;
       let ast;
@@ -266,17 +297,6 @@ export default class Client {
     }
   }
 
-  private async _resolveQuery(
-    requestData: coreDefs.RequestData,
-    responseData: coreDefs.ResponseData,
-    options: coreDefs.RequestOptions,
-    context: coreDefs.RequestContext,
-  ): Promise<coreDefs.RequestResult> {
-    this._resolvePendingRequests(requestData, responseData);
-    this._queryTracker.active = this._queryTracker.active.filter((value) => value !== requestData.hash);
-    return Client._resolve(responseData, options, context);
-  }
-
   private _resolvePendingRequests(
     { hash }: coreDefs.RequestData,
     responseData: coreDefs.ResponseData,
@@ -289,6 +309,41 @@ export default class Client {
     });
 
     this._queryTracker.pending.delete(hash);
+  }
+
+  private async _resolveQuery(
+    requestData: coreDefs.RequestData,
+    responseData: coreDefs.ResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<coreDefs.RequestResult> {
+    this._resolvePendingRequests(requestData, responseData);
+    this._queryTracker.active = this._queryTracker.active.filter((value) => value !== requestData.hash);
+    return Client._resolve(responseData, options, context);
+  }
+
+  private async _resolveSubscription(
+    requestData: coreDefs.RequestData,
+    rawResponseData: coreDefs.RawResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<coreDefs.RequestResult> {
+    try {
+      let { cacheMetadata, ...responseData } = rawResponseData; // tslint:disable-line
+
+      if (this._cacheManager) {
+        responseData = await this._cacheManager.resolve(
+          requestData,
+          rawResponseData,
+          options,
+          context,
+        );
+      }
+
+      return Client._resolve(responseData, options, context);
+    } catch (error) {
+      return Client._resolve({ errors: error }, options, context);
+    }
   }
 
   private _setPendingQuery(requestHash: string, data: PendingQueryData): void {

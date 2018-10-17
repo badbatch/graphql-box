@@ -43,10 +43,16 @@ export interface CacheManager {
   ): Promise<coreDefs.ResponseData | false>;
   export(): Promise<ExportCachesResult>;
   import(options: ExportCachesResult): Promise<void>;
+  resolve(
+    requestData: coreDefs.RequestData,
+    rawResponseData: coreDefs.RawResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<coreDefs.ResponseData>;
   resolveQuery(
     requestData: coreDefs.RequestData,
     updatedRequestData: coreDefs.RequestData,
-    responseData: coreDefs.ResponseData,
+    rawResponseData: coreDefs.RawResponseData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.ResponseData>;

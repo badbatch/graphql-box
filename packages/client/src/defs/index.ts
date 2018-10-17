@@ -1,4 +1,3 @@
-import { coreDefs as cachemapDefs } from "@cachemap/core";
 import { cacheDefs } from "@handl/cache-manager";
 import { coreDefs } from "@handl/core";
 import { debugDefs } from "@handl/debug-manager";
@@ -34,12 +33,6 @@ export interface ConstructorOptions {
    * The subscriptions manager.
    */
   subscriptionsManager?: subDefs.SubscriptionsManager;
-
-  /**
-   * The name of the property thats value is used as the unique
-   * identifier for each type in the GraphQL schema.
-   */
-  typeIDKey: string;
 }
 
 /**
@@ -90,5 +83,3 @@ export interface QueryTracker {
   active: string[];
   pending: Map<string, PendingQueryData[]>;
 }
-
-export type SubscribeResult = AsyncIterator<any>;
