@@ -8,6 +8,9 @@ import { isAsyncIterable } from "iterall";
 import { isArray, isPlainObject, isString } from "lodash";
 import uuid from "uuid/v1";
 import { DEFAULT_TYPE_ID_KEY, MUTATION, QUERY, QUERY_RESPONSES, SUBSCRIPTION } from "../consts";
+import logFetch from "../debug/log-fetch";
+import logRequest from "../debug/log-request";
+import logSubscription from "../debug/log-subscription";
 import {
   ConstructorOptions,
   InitOptions,
@@ -31,6 +34,10 @@ export default class Client {
     if (errors.length) return Promise.reject(errors);
 
     try {
+      if (options.debugManager) {
+        Client._debugManager = await options.debugManager();
+      }
+
       const typeIDKey = options.typeIDKey || DEFAULT_TYPE_ID_KEY;
 
       const constructorOptions: ConstructorOptions = {
@@ -39,10 +46,6 @@ export default class Client {
 
       if (options.cacheManager) {
         constructorOptions.cacheManager = await options.cacheManager({ typeIDKey });
-      }
-
-      if (options.debugManager) {
-        constructorOptions.debugManager = await options.debugManager();
       }
 
       if (options.requestParser) {
@@ -59,6 +62,8 @@ export default class Client {
       return Promise.reject(error);
     }
   }
+
+  private static _debugManager: debugDefs.DebugManager | undefined;
 
   private static _areFragmentsInvalid(fragments?: string[]): boolean {
     return !!fragments && (!isArray(fragments) || !fragments.every((value) => isString(value)));
@@ -107,16 +112,14 @@ export default class Client {
   }
 
   private _cacheManager: cacheDefs.CacheManager | undefined;
-  private _debugManager: debugDefs.DebugManager | undefined;
   private _queryTracker: QueryTracker = { active: [], pending: new Map() };
   private _requestManager: requestDefs.RequestManager;
   private _requestParser: parserDefs.RequestParser | undefined;
   private _subscriptionsManager: subDefs.SubscriptionsManager | undefined;
 
   constructor(options: ConstructorOptions) {
-    const { cacheManager, debugManager, requestManager, requestParser, subscriptionsManager } = options;
+    const { cacheManager, requestManager, requestParser, subscriptionsManager } = options;
     if (cacheManager) this._cacheManager = cacheManager;
-    if (debugManager) this._debugManager = debugManager;
     this._requestManager = requestManager;
     if (requestParser) this._requestParser = requestParser;
     if (subscriptionsManager) this._subscriptionsManager = subscriptionsManager;
@@ -153,8 +156,11 @@ export default class Client {
     }
   }
 
+  @logFetch(Client._debugManager)
   private async _fetch(
     requestData: coreDefs.RequestData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
   ): Promise<coreDefs.RawResponseData> {
     try {
       return this._requestManager.fetch(requestData);
@@ -169,7 +175,7 @@ export default class Client {
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.RequestResult> {
     try {
-      const rawResponseData = await this._fetch(requestData);
+      const rawResponseData = await this._fetch(requestData, options, context);
       let { cacheMetadata, headers, ...responseData } = rawResponseData; // tslint:disable-line
 
       if (this._cacheManager) {
@@ -214,7 +220,7 @@ export default class Client {
         }
       }
 
-      const rawResponseData = await this._fetch(updatedRequestData);
+      const rawResponseData = await this._fetch(updatedRequestData, options, context);
       let { cacheMetadata, headers, ...responseData } = rawResponseData; // tslint:disable-line
 
       if (this._cacheManager) {
@@ -273,6 +279,7 @@ export default class Client {
     }
   }
 
+  @logRequest(Client._debugManager)
   private async _request(
     request: string,
     options: coreDefs.RequestOptions,
@@ -322,6 +329,7 @@ export default class Client {
     return Client._resolve(responseData, options, context);
   }
 
+  @logSubscription(Client._debugManager)
   private async _resolveSubscription(
     requestData: coreDefs.RequestData,
     rawResponseData: coreDefs.RawResponseData,

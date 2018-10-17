@@ -15,11 +15,6 @@ export interface ConstructorOptions {
   cacheManager?: cacheDefs.CacheManager;
 
   /**
-   * The debug manager.
-   */
-  debugManager?: debugDefs.DebugManager;
-
-  /**
    * The request manager.
    */
   requestManager: requestDefs.RequestManager;
