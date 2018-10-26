@@ -4,6 +4,7 @@ import { debugDefs } from "@handl/debug-manager";
 import { requestDefs } from "@handl/request-manager";
 import { parserDefs } from "@handl/request-parser";
 import { subDefs } from "@handl/subscriptions-manager";
+import { DocumentNode } from "graphql";
 import { isAsyncIterable } from "iterall";
 import { isArray, isPlainObject, isString } from "lodash";
 import uuid from "uuid/v1";
@@ -11,16 +12,10 @@ import { DEFAULT_TYPE_ID_KEY, MUTATION, QUERY, QUERY_RESPONSES, SUBSCRIPTION } f
 import logFetch from "../debug/log-fetch";
 import logRequest from "../debug/log-request";
 import logSubscription from "../debug/log-subscription";
-import {
-  ConstructorOptions,
-  InitOptions,
-  PendingQueryData,
-  PendingQueryResolver,
-  QueryTracker,
-} from "../defs";
+import * as defs from "../defs";
 
 export default class Client {
-  public static async init(options: InitOptions): Promise<Client> {
+  public static async init(options: defs.UserOptions): Promise<Client> {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(options)) {
@@ -40,7 +35,7 @@ export default class Client {
 
       const typeIDKey = options.typeIDKey || DEFAULT_TYPE_ID_KEY;
 
-      const constructorOptions: ConstructorOptions = {
+      const constructorOptions: defs.ConstructorOptions = {
         requestManager: await options.requestManager(),
       };
 
@@ -56,8 +51,7 @@ export default class Client {
         constructorOptions.subscriptionsManager = await options.subscriptionsManager();
       }
 
-      const instance = new Client(constructorOptions);
-      return instance;
+      return new Client(constructorOptions);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -69,7 +63,7 @@ export default class Client {
     return !!fragments && (!isArray(fragments) || !fragments.every((value) => isString(value)));
   }
 
-  private static _areModulesInvalid(options: InitOptions): boolean {
+  private static _areModulesInvalid(options: defs.UserOptions): boolean {
     return (!!options.cacheManager && !options.requestParser) || (!options.cacheManager && !!options.requestParser);
   }
 
@@ -89,7 +83,7 @@ export default class Client {
     context: coreDefs.RequestContext,
   ): coreDefs.RequestResult {
     const result: coreDefs.RequestResult = { data, errors };
-    if (options.cacheMetadata) result._cacheMetadata = cacheMetadata;
+    if (options.cacheMetadata && cacheMetadata) result._cacheMetadata = cacheMetadata;
     return result;
   }
 
@@ -112,12 +106,12 @@ export default class Client {
   }
 
   private _cacheManager: cacheDefs.CacheManager | undefined;
-  private _queryTracker: QueryTracker = { active: [], pending: new Map() };
+  private _queryTracker: defs.QueryTracker = { active: [], pending: new Map() };
   private _requestManager: requestDefs.RequestManager;
   private _requestParser: parserDefs.RequestParser | undefined;
   private _subscriptionsManager: subDefs.SubscriptionsManager | undefined;
 
-  constructor(options: ConstructorOptions) {
+  constructor(options: defs.ConstructorOptions) {
     const { cacheManager, requestManager, requestParser, subscriptionsManager } = options;
     if (cacheManager) this._cacheManager = cacheManager;
     this._requestManager = requestManager;
@@ -189,7 +183,7 @@ export default class Client {
 
       return Client._resolve(responseData, options, context);
     } catch (error) {
-      return Client._resolve({ errors: error }, options, context);
+      return Promise.reject(error);
     }
   }
 
@@ -287,12 +281,10 @@ export default class Client {
   ): Promise<AsyncIterable<any> | coreDefs.RequestResult> {
     try {
       let updatedRequest = request;
-      let ast;
+      let ast: DocumentNode | undefined;
 
       if (this._requestParser) {
         const updated = await this._requestParser.updateRequest(request, options, context);
-        if (updated.errors.length) return Promise.reject(updated.errors);
-
         updatedRequest = updated.request;
         ast = updated.ast;
       }
@@ -300,7 +292,7 @@ export default class Client {
       const requestData = { ast, hash: hashRequest(updatedRequest), request: updatedRequest };
       return this._handleRequest(requestData, options, context);
     } catch (error) {
-      return Promise.reject(error);
+      return Client._resolve({ errors: error }, options, context);
     }
   }
 
@@ -354,7 +346,7 @@ export default class Client {
     }
   }
 
-  private _setPendingQuery(requestHash: string, data: PendingQueryData): void {
+  private _setPendingQuery(requestHash: string, data: defs.PendingQueryData): void {
     let pending = this._queryTracker.pending.get(requestHash);
     if (!pending) pending = [];
     pending.push(data);
@@ -367,7 +359,7 @@ export default class Client {
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.RequestResult | void> {
     if (this._queryTracker.active.includes(hash)) {
-      return new Promise((resolve: PendingQueryResolver) => {
+      return new Promise((resolve: defs.PendingQueryResolver) => {
         this._setPendingQuery(hash, { context, options, resolve });
       });
     }

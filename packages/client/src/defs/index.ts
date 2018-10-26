@@ -5,9 +5,6 @@ import { requestDefs } from "@handl/request-manager";
 import { parserDefs } from "@handl/request-parser";
 import { subDefs } from "@handl/subscriptions-manager";
 
-/**
- * Constructor options.
- */
 export interface ConstructorOptions {
   /**
    * The cache manager.
@@ -30,10 +27,7 @@ export interface ConstructorOptions {
   subscriptionsManager?: subDefs.SubscriptionsManager;
 }
 
-/**
- * Init options.
- */
-export interface InitOptions {
+export interface UserOptions {
   /**
    * The curried function to initialize the cache manager.
    */
