@@ -1,9 +1,6 @@
 import Cachemap, { coreDefs as cachemapDefs } from "@cachemap/core";
 import { coreDefs } from "@handl/core";
 
-/**
- * Base options.
- */
 export interface BaseOptions {
   /**
    * An object map of GraphQL schema types to cache-control

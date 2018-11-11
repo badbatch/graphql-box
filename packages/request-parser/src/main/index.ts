@@ -309,76 +309,80 @@ export class RequestParser implements defs.RequestParser {
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<defs.UpdateRequestResult> {
-    const _this = this;
-    const typeInfo = new TypeInfo(this._schema);
-    let fragmentDefinitions: defs.FragmentDefinitionNodeMap | undefined;
+    try {
+      const _this = this;
+      const typeInfo = new TypeInfo(this._schema);
+      let fragmentDefinitions: defs.FragmentDefinitionNodeMap | undefined;
 
-    let updatedRequest;
+      let updatedRequest;
 
-    if (options.fragments) {
-      updatedRequest = RequestParser._concatFragments(request, options.fragments);
-    } else {
-      updatedRequest = request;
-    }
+      if (options.fragments) {
+        updatedRequest = RequestParser._concatFragments(request, options.fragments);
+      } else {
+        updatedRequest = request;
+      }
 
-    const ast = parse(updatedRequest);
-    const operationDefinitions = getOperationDefinitions(ast);
+      const ast = parse(updatedRequest);
+      const operationDefinitions = getOperationDefinitions(ast);
 
-    if (operationDefinitions.length > 1) {
-      return Promise.reject(new TypeError("@handl/request-parser expected one operation, but got multiple."));
-    }
+      if (operationDefinitions.length > 1) {
+        return Promise.reject(new TypeError("@handl/request-parser expected one operation, but got multiple."));
+      }
 
-    RequestParser._addOperationToContext(operationDefinitions, context);
+      RequestParser._addOperationToContext(operationDefinitions, context);
 
-    const updatedAST = visit(ast, {
-      enter(
-        node: ASTNode,
-        key: string | number | undefined,
-        parent: any | ReadonlyArray<any> | undefined,
-        path: ReadonlyArray<string | number>,
-        ancestors: ReadonlyArray<any>,
-      ): ValueNode | undefined {
-        typeInfo.enter(node);
-        const kind = getKind(node);
+      const updatedAST = visit(ast, {
+        enter(
+          node: ASTNode,
+          key: string | number | undefined,
+          parent: any | ReadonlyArray<any> | undefined,
+          path: ReadonlyArray<string | number>,
+          ancestors: ReadonlyArray<any>,
+        ): ValueNode | undefined {
+          typeInfo.enter(node);
+          const kind = getKind(node);
 
-        if (kind === DOCUMENT) {
-          fragmentDefinitions = RequestParser._getFragmentDefinitions(node as DocumentNode, options);
+          if (kind === DOCUMENT) {
+            fragmentDefinitions = RequestParser._getFragmentDefinitions(node as DocumentNode, options);
+            return undefined;
+          }
+
+          if (kind === FIELD || kind === INLINE_FRAGMENT) {
+            return _this._updateFieldOrInlineFragmentNode(
+              node as FieldNode | InlineFragmentNode,
+              ancestors,
+              kind,
+              typeInfo,
+              fragmentDefinitions,
+              options,
+              context,
+            );
+          }
+
+          if (kind === VARIABLE) {
+            return RequestParser._updateVariableNode(node as VariableNode, options);
+          }
+
           return undefined;
-        }
+        },
+        leave(node: ASTNode): any {
+          typeInfo.leave(node);
+          const kind = getKind(node);
 
-        if (kind === FIELD || kind === INLINE_FRAGMENT) {
-          return _this._updateFieldOrInlineFragmentNode(
-            node as FieldNode | InlineFragmentNode,
-            ancestors,
-            kind,
-            typeInfo,
-            fragmentDefinitions,
-            options,
-            context,
-          );
-        }
+          if (kind === DOCUMENT) {
+            return RequestParser._deleteFragmentDefinitions(node as DocumentNode, options);
+          }
 
-        if (kind === VARIABLE) {
-          return RequestParser._updateVariableNode(node as VariableNode, options);
-        }
+          if (kind === OPERATION_DEFINITION) {
+            return RequestParser._deleteVariableDefinitions(node as OperationDefinitionNode, options);
+          }
+        },
+      });
 
-        return undefined;
-      },
-      leave(node: ASTNode): any {
-        typeInfo.leave(node);
-        const kind = getKind(node);
-
-        if (kind === DOCUMENT) {
-          return RequestParser._deleteFragmentDefinitions(node as DocumentNode, options);
-        }
-
-        if (kind === OPERATION_DEFINITION) {
-          return RequestParser._deleteVariableDefinitions(node as OperationDefinitionNode, options);
-        }
-      },
-    });
-
-    return { ast: updatedAST, request: print(updatedAST) };
+      return { ast: updatedAST, request: print(updatedAST) };
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 }
 

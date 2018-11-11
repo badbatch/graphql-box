@@ -1,7 +1,7 @@
 {
-  "name": "@handl/subscriptions-manager",
+  "name": "@handl/test-utils",
   "version": "0.1.22",
-  "description": "The Handl subscriptions manager module.",
+  "description": "The Handl test utils module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/handl",
@@ -28,7 +28,6 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "@handl/core": "^0.1.22",
-    "@types/graphql": "^14.0.2"
+    "@handl/core": "^0.1.22"
   }
 }

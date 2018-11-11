@@ -4,13 +4,13 @@
   "description": "The Handl request parser module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/badbatch/cachemap",
+  "homepage": "https://github.com/badbatch/handl",
   "bugs": {
-    "url": "https://github.com/badbatch/cachemap/issues"
+    "url": "https://github.com/badbatch/handl/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/badbatch/cachemap"
+    "url": "https://github.com/badbatch/handl"
   },
   "main": "lib/main/index.js",
   "module": "lib/module/index.js",
@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@handl/core": "^0.1.22",
+    "@handl/test-utils": "^0.1.22",
     "@types/graphql": "^14.0.1"
   }
 }

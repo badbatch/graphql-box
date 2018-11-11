@@ -1,6 +1,6 @@
 import { coreDefs } from "@handl/core";
 
-export function getRequestContext(props: coreDefs.PlainObjectMap = {}): coreDefs.RequestContext {
+export default function getRequestContext(props: coreDefs.PlainObjectMap = {}): coreDefs.RequestContext {
   return {
     fieldTypeMap: new Map(),
     filtered:  false,

@@ -4,11 +4,13 @@
     "outDir": "lib/types",
     "rootDir": "src"
   },
+  "files": [
+    "src/introspections/github/index.json"
+  ],
   "include": [
     "src"
   ],
   "references": [
-    { "path": "../core" },
-    { "path": "../test-utils" }
+    { "path": "../core" }
   ]
 }

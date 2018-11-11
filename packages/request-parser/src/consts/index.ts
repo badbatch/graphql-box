@@ -9,7 +9,7 @@ export const OBJECT_VALUE = "ObjectValue";
 export const OF_TYPE = "ofType";
 export const OPERATION_DEFINITION = "OperationDefinition";
 export const VALUE = "value";
-export const VARIABLE = "variable";
+export const VARIABLE = "Variable";
 
 export const QUERY = "query";
 export const METADATA = "_metadata";

@@ -4,13 +4,13 @@
   "description": "The Handl core module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/badbatch/cachemap",
+  "homepage": "https://github.com/badbatch/handl",
   "bugs": {
-    "url": "https://github.com/badbatch/cachemap/issues"
+    "url": "https://github.com/badbatch/handl/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/badbatch/cachemap"
+    "url": "https://github.com/badbatch/handl"
   },
   "main": "lib/main/index.js",
   "module": "lib/module/index.js",

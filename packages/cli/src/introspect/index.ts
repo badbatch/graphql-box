@@ -8,20 +8,20 @@ import yargs from "yargs";
 import * as defs from "../defs";
 
 export default async function introspect(): Promise<void> {
-  const { headers, output, schemaPath, url } = yargs.option("headers", { type: "array" }).argv;
-
+  const argv = yargs.option("headers", { type: "array" }).argv;
+  const { headers, output, schemaPath, url } = argv as unknown as defs.IntrospectArgs;
   let result: defs.IntrospectionResult | undefined;
 
-  if (!schemaPath && !url) {
-    const message = "introspect requires either the 'schemaPath' or 'url' argument, but not neither.";
-    return Promise.reject(new TypeError(message));
-  }
-
-  if (!output) {
-    return Promise.reject(new TypeError("introspect expected the 'output' argument."));
-  }
-
   try {
+    if (!schemaPath && !url) {
+      const message = "introspect requires either the 'schemaPath' or 'url' argument, but not neither.";
+      return Promise.reject(new TypeError(message));
+    }
+
+    if (!output) {
+      return Promise.reject(new TypeError("introspect expected the 'output' argument."));
+    }
+
     const rootDir = process.cwd();
 
     if (schemaPath) {

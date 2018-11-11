@@ -12,10 +12,6 @@
     "type": "git",
     "url": "https://github.com/dylanaubrey/handl"
   },
-  "main": "lib/main/index.js",
-  "module": "lib/module/index.js",
-  "browser": "lib/browser/index.js",
-  "types": "lib/main/index.d.ts",
   "keywords": [
     "handl",
     "graphql",
@@ -27,8 +23,8 @@
   "workspaces": [
     "packages/*"
   ],
-  "bin": {
-    "introspect": "bin/introspect.js"
+  "resolutions": {
+    "babel-core": "^7.0.0-0"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
@@ -85,6 +81,7 @@
     "@types/node": "^10.9.4",
     "@types/sinon": "^5.0.2",
     "@types/sinon-chai": "^3.2.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.2",
     "babel-plugin-lodash": "^3.3.2",
@@ -127,9 +124,6 @@
     "sinon": "^6.3.3",
     "sinon-chai": "^3.2.0",
     "source-map-loader": "^0.2.4",
-    "source-map-support": "^0.5.9",
-    "ts-jest": "^23.10.4",
-    "ts-node": "^7.0.1",
     "tslint": "^5.9.1",
     "typedoc": "^0.12.0",
     "typedoc-plugin-markdown": "^1.1.15",
