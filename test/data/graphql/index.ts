@@ -1,6 +1,6 @@
-import * as githubRequests from "./github/requests";
+import * as defs from "../../defs";
 import * as ecomRequests from "./ecom/requests";
-import { ObjectMap } from "../../../src/types";
+import * as githubRequests from "./github/requests";
 
 const githubResponses = {
   addMutation: require("./github/responses/add-mutation.json"),
@@ -14,12 +14,7 @@ const githubResponses = {
   updatedSugaredSingleQuery: require("./github/responses/sugared-single-query.json"),
 };
 
-export interface RequestResponseGroup {
-  requests: { [key: string]: string };
-  responses: { [key: string]: ObjectMap };
-}
-
-export const github: RequestResponseGroup = {
+export const github: defs.RequestResponseGroup = {
   requests: githubRequests,
   responses: githubResponses,
 };
@@ -35,7 +30,7 @@ const ecomResponses = {
   updatedAddMutation: require("./ecom/responses/add-mutation.json"),
 };
 
-export const ecom: RequestResponseGroup = {
+export const ecom: defs.RequestResponseGroup = {
   requests: ecomRequests,
   responses: ecomResponses,
 };

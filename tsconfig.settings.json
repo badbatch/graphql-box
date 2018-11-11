@@ -23,6 +23,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "pretty": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strictFunctionTypes": true,

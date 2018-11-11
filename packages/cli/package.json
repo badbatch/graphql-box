@@ -1,0 +1,43 @@
+{
+  "name": "@handl/cli",
+  "version": "0.1.22",
+  "description": "The Handl cli module.",
+  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/badbatch/cachemap",
+  "bugs": {
+    "url": "https://github.com/badbatch/cachemap/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/badbatch/cachemap"
+  },
+  "main": "lib/main/index.js",
+  "types": "lib/types/index.d.ts",
+  "keywords": [
+    "handl",
+    "graphql",
+    "client",
+    "server",
+    "isomorphic"
+  ],
+  "bin": {
+    "introspect": "bin/introspect"
+  },
+  "peerDependencies": {
+    "core-js": "^2.5",
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+    "@handl/core": "^0.1.22",
+    "@types/fs-extra": "^5.0.4",
+    "@types/shelljs": "^0.8.0",
+    "@types/yargs": "^12.0.1"
+  },
+  "dependencies": {
+    "fs-extra": "^7.0.0",
+    "shelljs": "^0.8.2",
+    "yargs": "^12.0.2"
+  }
+}

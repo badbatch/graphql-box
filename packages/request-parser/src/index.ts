@@ -1,7 +1,8 @@
 import * as parserDefs from "./defs";
-import RequestParser from "./main";
+import requestParser, { RequestParser } from "./main";
 
 export {
-  RequestParser as default,
   parserDefs,
+  RequestParser,
+  requestParser as default,
 };

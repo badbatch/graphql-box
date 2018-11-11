@@ -1,26 +1,22 @@
-import { ObjectMap } from "../../../src/types";
+import * as defs from "../../defs";
 
-export interface DataType {
-  [key: string]: ObjectMap;
-}
+export const accessoriesData: defs.DataType = {};
+export const inventoryProductData: defs.DataType = {};
+export const inventorySkuData: defs.DataType = {};
 
-export const accessoriesData: DataType = {};
-export const inventoryProductData: DataType = {};
-export const inventorySkuData: DataType = {};
-
-export const productData: DataType = {
+export const productData: defs.DataType = {
   "402-5806": require("./responses/product/402-5806.json"),
   "522-7645": require("./responses/product/522-7645.json"),
 };
 
-export const rangeData: DataType = {};
+export const rangeData: defs.DataType = {};
 
-export const skuData: DataType = {
+export const skuData: defs.DataType = {
   "104-7702": require("./responses/sku/104-7702.json"),
   "134-5203": require("./responses/sku/134-5203.json"),
 };
 
-export const endpointData: { [key: string]: DataType } = {
+export const endpointData: { [key: string]: defs.DataType } = {
   accessoriesData,
   inventoryProductData,
   inventorySkuData,
@@ -29,7 +25,7 @@ export const endpointData: { [key: string]: DataType } = {
   skuData,
 };
 
-export const dataEndpoints: { [key: string]: string } = {
+export const dataEndpoints: defs.PlainObjectStringMap = {
   accessories: "content/relationships/accessories",
   inventoryProduct: "inventory/product",
   inventorySku: "inventory/sku",

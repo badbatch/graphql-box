@@ -13,3 +13,5 @@ export const VARIABLE = "variable";
 
 export const QUERY = "query";
 export const METADATA = "_metadata";
+
+export const DEFAULT_TYPE_ID_KEY = "id";
