@@ -1,3 +1,4 @@
+import { coreDefs } from "@handl/core";
 import { getRequestContext, githubIntrospection, githubQueries } from "@handl/test-utils";
 import { IntrospectionQuery } from "graphql";
 import { parserDefs, RequestParser } from ".";
@@ -13,16 +14,98 @@ describe("@handl/request-parser", () => {
     });
   });
 
-  describe("when a query with a variable is passed in", () => {
+  describe("when a query without a variable is passed in", () => {
     let updatedRequest: parserDefs.UpdateRequestResult;
+    let requestContext: coreDefs.RequestContext;
 
     beforeAll(async () => {
-      const options = { variables: { login: "facebook" } };
-      updatedRequest = await requestParser.updateRequest(githubQueries.withVariable, options, getRequestContext());
+      const { options, request } = githubQueries.withVariable;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("then the function should return the query with the variable embedded in it", () => {
+    it("then the parser should return the query unchanged", () => {
       expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("then the parser should update the request context with the correct data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
+  describe("when a query with a variable is passed in", () => {
+    let updatedRequest: parserDefs.UpdateRequestResult;
+    let requestContext: coreDefs.RequestContext;
+
+    beforeAll(async () => {
+      const { options, request } = githubQueries.withVariable;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("then the parser should return the query with the variable embedded in it", () => {
+      expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("then the parser should update the request context with the correct data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
+  describe("when a query with an inline fragment is passed in", () => {
+    let updatedRequest: parserDefs.UpdateRequestResult;
+    let requestContext: coreDefs.RequestContext;
+
+    beforeAll(async () => {
+      const { options, request } = githubQueries.withInlineFragment;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("then the parser should return the query with the inline fragment retained", () => {
+      expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("then the parser should update the request context with the correct data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
+  describe("when a query with a fragment spread is passed in", () => {
+    let updatedRequest: parserDefs.UpdateRequestResult;
+    let requestContext: coreDefs.RequestContext;
+
+    beforeAll(async () => {
+      const { options, request } = githubQueries.withFragmentSpread;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("then the parser should return the query with the fragment spread embedded in it", () => {
+      expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("then the parser should update the request context with the correct data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
+  describe("when a query with a fragment option is passed in", () => {
+    let updatedRequest: parserDefs.UpdateRequestResult;
+    let requestContext: coreDefs.RequestContext;
+
+    beforeAll(async () => {
+      const { options, request } = githubQueries.withFragmentOption;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("then the parser should return the query with the fragment option embedded in it", () => {
+      expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("then the parser should update the request context with the correct data", () => {
+      expect(requestContext).toMatchSnapshot();
     });
   });
 });

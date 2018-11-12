@@ -2,7 +2,7 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     'packages/**/*.ts',
-    '!**/src/**/*.test.ts',
+    '!**/*.test.ts',
     '!**/bin/**',
     '!**/lib/**',
     '!**/node_modules/**',

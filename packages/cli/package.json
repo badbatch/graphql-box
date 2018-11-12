@@ -24,6 +24,11 @@
   "bin": {
     "introspect": "bin/introspect"
   },
+  "scripts": {
+    "compile": "concurrently npm:compile:*",
+    "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --config-file ../../babel.config.js",
+    "compile:types": "tsc --build"
+  },
   "peerDependencies": {
     "core-js": "^2.5",
     "isomorphic-fetch": "^2.2.1",

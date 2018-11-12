@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@handl/request-parser when a query with a fragment option is passed in then the parser should return the query with the fragment option embedded in it 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@handl/request-parser when a query with a fragment option is passed in then the parser should update the request context with the correct data 1`] = `
+Object {
+  "fieldTypeMap": Map {
+    "organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "filtered": false,
+  "handlID": "123456789",
+  "operation": "query",
+  "operationName": "",
+}
+`;
+
+exports[`@handl/request-parser when a query with a fragment spread is passed in then the parser should return the query with the fragment spread embedded in it 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@handl/request-parser when a query with a fragment spread is passed in then the parser should update the request context with the correct data 1`] = `
+Object {
+  "fieldTypeMap": Map {
+    "organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "filtered": false,
+  "handlID": "123456789",
+  "operation": "query",
+  "operationName": "",
+}
+`;
+
+exports[`@handl/request-parser when a query with a variable is passed in then the parser should return the query with the variable embedded in it 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@handl/request-parser when a query with a variable is passed in then the parser should update the request context with the correct data 1`] = `
+Object {
+  "fieldTypeMap": Map {
+    "organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "filtered": false,
+  "handlID": "123456789",
+  "operation": "query",
+  "operationName": "",
+}
+`;
+
+exports[`@handl/request-parser when a query with an inline fragment is passed in then the parser should return the query with the inline fragment retained 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    ... on Organization {
+      description
+      email
+      login
+      name
+      url
+      id
+    }
+  }
+}
+"
+`;
+
+exports[`@handl/request-parser when a query with an inline fragment is passed in then the parser should update the request context with the correct data 1`] = `
+Object {
+  "fieldTypeMap": Map {
+    "organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "filtered": false,
+  "handlID": "123456789",
+  "operation": "query",
+  "operationName": "",
+}
+`;
+
+exports[`@handl/request-parser when a query without a variable is passed in then the parser should return the query unchanged 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@handl/request-parser when a query without a variable is passed in then the parser should update the request context with the correct data 1`] = `
+Object {
+  "fieldTypeMap": Map {
+    "organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "filtered": false,
+  "handlID": "123456789",
+  "operation": "query",
+  "operationName": "",
+}
+`;

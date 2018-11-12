@@ -89,7 +89,7 @@ export class RequestParser implements defs.RequestParser {
     node: DocumentNode,
     { fragments }: coreDefs.RequestOptions,
   ): DocumentNode | undefined {
-    if (!fragments || !hasFragmentDefinitions(node)) return undefined;
+    if (!fragments && !hasFragmentDefinitions(node)) return undefined;
 
     return deleteFragmentDefinitions(node);
   }
@@ -146,7 +146,7 @@ export class RequestParser implements defs.RequestParser {
     node: DocumentNode,
     { fragments }: coreDefs.RequestOptions,
   ): defs.FragmentDefinitionNodeMap | undefined {
-    if (!fragments || !hasFragmentDefinitions(node)) return undefined;
+    if (!fragments && !hasFragmentDefinitions(node)) return undefined;
     return getFragmentDefinitions(node);
   }
 

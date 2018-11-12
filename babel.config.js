@@ -1,5 +1,14 @@
 module.exports = (api) => {
   const env = api.env();
+  let ignore = [];
+
+  if (env !== 'test') {
+    ignore = [
+      '**/*.test.ts',
+      '**/defs/**',
+    ];
+  }
+
   const modules = env === 'main' || env === 'test' ? 'commonjs' : false;
   let targets;
 
@@ -13,6 +22,7 @@ module.exports = (api) => {
 
   return {
     comments: false,
+    ignore,
     plugins: [
       ['@babel/plugin-proposal-decorators', { legacy: true }],
       '@babel/plugin-proposal-function-sent',
