@@ -19,12 +19,31 @@ describe("@handl/request-parser", () => {
     let requestContext: coreDefs.RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueries.withVariable;
+      const { options, request } = githubQueries.withoutVariable;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
     it("then the parser should return the query unchanged", () => {
+      expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("then the parser should update the request context with the correct data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
+  describe("when a query with an operation name is passed in", () => {
+    let updatedRequest: parserDefs.UpdateRequestResult;
+    let requestContext: coreDefs.RequestContext;
+
+    beforeAll(async () => {
+      const { options, request } = githubQueries.withOperationName;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("then the parser should return the query with the operation name retained", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 
@@ -44,6 +63,44 @@ describe("@handl/request-parser", () => {
     });
 
     it("then the parser should return the query with the variable embedded in it", () => {
+      expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("then the parser should update the request context with the correct data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
+  describe("when a query with multiple variables are passed in", () => {
+    let updatedRequest: parserDefs.UpdateRequestResult;
+    let requestContext: coreDefs.RequestContext;
+
+    beforeAll(async () => {
+      const { options, request } = githubQueries.withVariables;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("then the parser should return the query with the variables embedded in it", () => {
+      expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("then the parser should update the request context with the correct data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
+  describe("when a query with a directive is passed in", () => {
+    let updatedRequest: parserDefs.UpdateRequestResult;
+    let requestContext: coreDefs.RequestContext;
+
+    beforeAll(async () => {
+      const { options, request } = githubQueries.withDirective;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("then the parser should return the query with the directive retained", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 

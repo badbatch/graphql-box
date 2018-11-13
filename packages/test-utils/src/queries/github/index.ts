@@ -1,8 +1,24 @@
 import * as defs from "../../defs";
 
 export const withoutVariable: defs.RequestAndOptions = {
+  options: {},
   request: `
     query {
+      organization(login: "facebook") {
+        description
+        email
+        login
+        name
+        url
+      }
+    }
+  `,
+};
+
+export const withOperationName: defs.RequestAndOptions = {
+  options: {},
+  request: `
+    query GetOrganization {
       organization(login: "facebook") {
         description
         email
@@ -23,6 +39,54 @@ export const withVariable: defs.RequestAndOptions = {
         email
         login
         name
+        url
+      }
+    }
+  `,
+};
+
+export const withVariables: defs.RequestAndOptions = {
+  options: { variables: { first: 6, login: "facebook" } },
+  request: `
+    query ($login: String!, $first: Number!) {
+      organization(login: $login) {
+        description
+        email
+        login
+        name
+        repositories(first: $first) {
+          edges {
+            node {
+              description
+              homepageUrl
+              name
+            }
+          }
+        }
+        url
+      }
+    }
+  `,
+};
+
+export const withDirective: defs.RequestAndOptions = {
+  options: { variables: { first: 6, login: "facebook", withRepos: true } },
+  request: `
+    query ($login: String!, $withRepos: Boolean!) {
+      organization(login: $login) {
+        description
+        email
+        login
+        name
+        repositories(first: $first) @include(if: $withRepos) {
+          edges {
+            node {
+              description
+              homepageUrl
+              name
+            }
+          }
+        }
         url
       }
     }

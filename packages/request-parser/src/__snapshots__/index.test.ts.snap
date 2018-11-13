@@ -1,5 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`@handl/request-parser when a query with a directive is passed in then the parser should return the query with the directive retained 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    repositories(first: 6) @include(if: true) {
+      edges {
+        node {
+          description
+          homepageUrl
+          name
+          id
+        }
+      }
+    }
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@handl/request-parser when a query with a directive is passed in then the parser should update the request context with the correct data 1`] = `
+Object {
+  "fieldTypeMap": Map {
+    "organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+    "organization.repositories" => Object {
+      "hasArguments": true,
+      "hasDirectives": true,
+      "isEntity": false,
+      "typeIDValue": undefined,
+      "typeName": "RepositoryConnection",
+    },
+    "organization.repositories.edges" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "typeIDValue": undefined,
+      "typeName": "RepositoryEdge",
+    },
+    "organization.repositories.edges.node" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "typeIDValue": undefined,
+      "typeName": "Repository",
+    },
+  },
+  "filtered": false,
+  "handlID": "123456789",
+  "operation": "query",
+  "operationName": "",
+}
+`;
+
 exports[`@handl/request-parser when a query with a fragment option is passed in then the parser should return the query with the fragment option embedded in it 1`] = `
 "{
   organization(login: \\"facebook\\") {
@@ -121,6 +184,101 @@ Object {
       "isEntity": true,
       "typeIDValue": undefined,
       "typeName": "Organization",
+    },
+  },
+  "filtered": false,
+  "handlID": "123456789",
+  "operation": "query",
+  "operationName": "",
+}
+`;
+
+exports[`@handl/request-parser when a query with an operation name is passed in then the parser should return the query with the operation name retained 1`] = `
+"query GetOrganization {
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@handl/request-parser when a query with an operation name is passed in then the parser should update the request context with the correct data 1`] = `
+Object {
+  "fieldTypeMap": Map {
+    "organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "filtered": false,
+  "handlID": "123456789",
+  "operation": "query",
+  "operationName": "GetOrganization",
+}
+`;
+
+exports[`@handl/request-parser when a query with multiple variables are passed in then the parser should return the query with the variables embedded in it 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    repositories(first: 6) {
+      edges {
+        node {
+          description
+          homepageUrl
+          name
+          id
+        }
+      }
+    }
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@handl/request-parser when a query with multiple variables are passed in then the parser should update the request context with the correct data 1`] = `
+Object {
+  "fieldTypeMap": Map {
+    "organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+    "organization.repositories" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": false,
+      "typeIDValue": undefined,
+      "typeName": "RepositoryConnection",
+    },
+    "organization.repositories.edges" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "typeIDValue": undefined,
+      "typeName": "RepositoryEdge",
+    },
+    "organization.repositories.edges.node" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "typeIDValue": undefined,
+      "typeName": "Repository",
     },
   },
   "filtered": false,

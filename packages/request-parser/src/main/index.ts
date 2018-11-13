@@ -75,10 +75,10 @@ export class RequestParser implements defs.RequestParser {
 
   private static _addOperationToContext(
     operationDefinitions: OperationDefinitionNode[],
-    { operation, operationName }: coreDefs.RequestContext,
+    context: coreDefs.RequestContext,
   ): void {
-    operation = operationDefinitions[0].operation;
-    operationName = get(operationDefinitions[0], ["name", "value"], "");
+    context.operation = operationDefinitions[0].operation;
+    context.operationName = get(operationDefinitions[0], ["name", "value"], "");
   }
 
   private static _concatFragments(query: string, fragments: string[]): string {
