@@ -31,7 +31,11 @@ export const withOperationName: defs.RequestAndOptions = {
 };
 
 export const withVariable: defs.RequestAndOptions = {
-  options: { variables: { login: "facebook" } },
+  options: {
+    variables: {
+      login: "facebook",
+    },
+  },
   request: `
     query ($login: String!) {
       organization(login: $login) {
@@ -46,9 +50,14 @@ export const withVariable: defs.RequestAndOptions = {
 };
 
 export const withVariables: defs.RequestAndOptions = {
-  options: { variables: { first: 6, login: "facebook" } },
+  options: {
+    variables: {
+      first: 6,
+      login: "facebook",
+    },
+  },
   request: `
-    query ($login: String!, $first: Number!) {
+    query ($login: String!, $first: Int!) {
       organization(login: $login) {
         description
         email
@@ -69,8 +78,44 @@ export const withVariables: defs.RequestAndOptions = {
   `,
 };
 
+export const withEnumVariable: defs.RequestAndOptions = {
+  options: {
+    variables: {
+      first: 6,
+      login: "facebook",
+      ownerAffiliations: ["OWNER", "COLLABORATOR"],
+    },
+  },
+  request: `
+    query ($login: String!, $first: Int!, $ownerAffiliations: [RepositoryAffiliation]) {
+      organization(login: $login) {
+        description
+        email
+        login
+        name
+        repositories(first: $first, ownerAffiliations: $ownerAffiliations) {
+          edges {
+            node {
+              description
+              homepageUrl
+              name
+            }
+          }
+        }
+        url
+      }
+    }
+  `,
+};
+
 export const withDirective: defs.RequestAndOptions = {
-  options: { variables: { first: 6, login: "facebook", withRepos: true } },
+  options: {
+    variables: {
+      first: 6,
+      login: "facebook",
+      withRepos: true,
+    },
+  },
   request: `
     query ($login: String!, $withRepos: Boolean!) {
       organization(login: $login) {
@@ -94,7 +139,11 @@ export const withDirective: defs.RequestAndOptions = {
 };
 
 export const withInlineFragment: defs.RequestAndOptions = {
-  options: { variables: { login: "facebook" } },
+  options: {
+    variables: {
+      login: "facebook",
+    },
+  },
   request: `
     query ($login: String!) {
       organization(login: $login) {
@@ -111,7 +160,11 @@ export const withInlineFragment: defs.RequestAndOptions = {
 };
 
 export const withFragmentSpread: defs.RequestAndOptions = {
-  options: { variables: { login: "facebook" } },
+  options: {
+    variables: {
+      login: "facebook",
+    },
+  },
   request: `
     fragment organizationFields on Organization {
       description
@@ -142,7 +195,9 @@ export const withFragmentOption: defs.RequestAndOptions = {
         }
       `,
     ],
-    variables: { login: "facebook" },
+    variables: {
+      login: "facebook",
+    },
   },
   request: `
     query ($login: String!) {

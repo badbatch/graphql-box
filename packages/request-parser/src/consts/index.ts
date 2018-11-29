@@ -8,8 +8,11 @@ export const NAME = "name";
 export const OBJECT_VALUE = "ObjectValue";
 export const OF_TYPE = "ofType";
 export const OPERATION_DEFINITION = "OperationDefinition";
+export const STRING = "String";
+export const TYPE = "type";
 export const VALUE = "value";
 export const VARIABLE = "Variable";
+export const VARIABLE_DEFINITION = "VariableDefinition";
 
 export const QUERY = "query";
 export const METADATA = "_metadata";

@@ -1,12 +1,25 @@
 import Cachemap, { coreDefs as cachemapDefs } from "@cachemap/core";
 import { coreDefs } from "@handl/core";
 
-export interface BaseOptions {
+export interface UserOptions {
   /**
    * An object map of GraphQL schema types to cache-control
    * directives used for caching object types.
    */
   typeCacheDirectives?: coreDefs.PlainObjectStringMap;
+}
+
+export interface ClientOptions {
+  typeIDKey: string;
+}
+
+export interface InitOptions {
+  typeCacheDirectives?: coreDefs.PlainObjectStringMap;
+  typeIDKey: string;
+}
+
+export interface ConstructorOptions {
+  typeIDKey: string;
 }
 
 export interface ExportCacheResult {
@@ -61,4 +74,4 @@ export interface CacheManager {
   ): Promise<void>;
 }
 
-export type CacheManagerInit = (options: { typeIDKey?: string; }) => CacheManager;
+export type CacheManagerInit = (options: ClientOptions) => Promise<CacheManager>;

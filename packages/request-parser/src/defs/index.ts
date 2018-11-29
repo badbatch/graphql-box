@@ -16,6 +16,7 @@ import {
   GraphQLEnumType,
   GraphQLInterfaceType,
   GraphQLList,
+  GraphQLNamedType,
   GraphQLObjectType,
   GraphQLScalarType,
   GraphQLSchema,
@@ -35,9 +36,14 @@ import {
   UnionTypeDefinitionNode,
   VariableNode,
 } from "graphql";
+import Maybe from "graphql/tsutils/Maybe";
 
 export interface FragmentDefinitionNodeMap {
   [key: string]: FragmentDefinitionNode;
+}
+
+export interface VariableTypesMap {
+  [key: string]: Maybe<GraphQLNamedType>;
 }
 
 export type GraphQLNullableOutputType =

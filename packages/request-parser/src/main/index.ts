@@ -4,6 +4,7 @@ import {
   buildClientSchema,
   DocumentNode,
   FieldNode,
+  GraphQLEnumType,
   GraphQLInterfaceType,
   GraphQLNamedType,
   GraphQLObjectType,
@@ -20,6 +21,7 @@ import {
   VariableNode,
   visit,
 } from "graphql";
+import Maybe from "graphql/tsutils/Maybe";
 import { get, isObjectLike, isPlainObject, isString } from "lodash";
 import {
   DOCUMENT,
@@ -29,6 +31,7 @@ import {
   OPERATION_DEFINITION,
   QUERY,
   VARIABLE,
+  VARIABLE_DEFINITION,
 } from "../consts";
 import * as defs from "../defs";
 import {
@@ -38,18 +41,19 @@ import {
   getAlias,
   getArguments,
   getChildFields,
+  getDirectives,
   getFragmentDefinitions,
   getKind,
   getName,
   getOperationDefinitions,
   getType,
+  getVariableDefinitionType,
   hasChildFields,
   hasFragmentDefinitions,
   hasFragmentSpreads,
   hasVariableDefinitions,
   setFragmentDefinitions,
 } from "../parsing";
-import { getDirectives } from "../parsing/directives";
 
 export class RequestParser implements defs.RequestParser {
   public static async init(options: defs.InitOptions): Promise<RequestParser> {
@@ -150,14 +154,17 @@ export class RequestParser implements defs.RequestParser {
     return getFragmentDefinitions(node);
   }
 
-  private static _parseArrayToInputString(values: any[]): string {
+  private static _parseArrayToInputString(values: any[], variableType: Maybe<GraphQLNamedType>): string {
     let inputString = "[";
 
     values.forEach((value, index, arr) => {
       if (!isPlainObject(value)) {
-        inputString += isString(value) ? `"${value}"` : `${value}`;
+        const sanitizedValue = isString(value) && !(variableType instanceof GraphQLEnumType)
+          ? `"${value}"` : `${value}`;
+
+        inputString += sanitizedValue;
       } else {
-        inputString += RequestParser._parseToInputString(value);
+        inputString += RequestParser._parseToInputString(value, variableType);
       }
 
       if (index < arr.length - 1) { inputString += ","; }
@@ -167,7 +174,10 @@ export class RequestParser implements defs.RequestParser {
     return inputString;
   }
 
-  private static _parseObjectToInputString(obj: coreDefs.PlainObjectMap): string {
+  private static _parseObjectToInputString(
+    obj: coreDefs.PlainObjectMap,
+    variableType: Maybe<GraphQLNamedType>,
+  ): string {
     let inputString = "{";
 
     Object.keys(obj).forEach((key, index, arr) => {
@@ -176,7 +186,7 @@ export class RequestParser implements defs.RequestParser {
       if (!isPlainObject(obj[key])) {
         inputString += isString(obj[key]) ? `"${obj[key]}"` : `${obj[key]}`;
       } else {
-        inputString += RequestParser._parseToInputString(obj[key]);
+        inputString += RequestParser._parseToInputString(obj[key], variableType);
       }
 
       if (index < arr.length - 1) { inputString += ","; }
@@ -186,22 +196,32 @@ export class RequestParser implements defs.RequestParser {
     return inputString;
   }
 
-  private static _parseToInputString(value: coreDefs.PlainObjectMap | any[]): string {
-    if (isPlainObject(value)) return RequestParser._parseObjectToInputString(value as coreDefs.PlainObjectMap);
+  private static _parseToInputString(
+    value: coreDefs.PlainObjectMap | any[],
+    variableType: Maybe<GraphQLNamedType>,
+  ): string {
+    if (isPlainObject(value)) {
+      return RequestParser._parseObjectToInputString(value as coreDefs.PlainObjectMap, variableType);
+    }
 
-    return RequestParser._parseArrayToInputString(value as any[]);
+    return RequestParser._parseArrayToInputString(value as any[], variableType);
   }
 
-  private static _updateVariableNode(node: VariableNode, { variables }: coreDefs.RequestOptions): ValueNode {
+  private static _updateVariableNode(
+    node: VariableNode,
+    variableType: Maybe<GraphQLNamedType>,
+    { variables }: coreDefs.RequestOptions,
+  ): ValueNode {
     if (!variables) return parseValue(`${null}`);
 
     const name = getName(node) as string;
     const value = variables[name];
     if (!value) return parseValue(`${null}`);
 
-    if (isObjectLike(value)) return parseValue(RequestParser._parseToInputString(value));
+    if (isObjectLike(value)) return parseValue(RequestParser._parseToInputString(value, variableType));
 
-    return parseValue(isString(value) ? `"${value}"` : `${value}`);
+    const sanitizedValue = isString(value) && !(variableType instanceof GraphQLEnumType) ? `"${value}"` : `${value}`;
+    return parseValue(sanitizedValue);
   }
 
   private _schema: GraphQLSchema;
@@ -221,6 +241,7 @@ export class RequestParser implements defs.RequestParser {
       const updated = await this._updateRequest(request, options, context);
       const errors = validate(this._schema, updated.ast);
       if (errors.length) return Promise.reject(errors);
+
       return updated;
     } catch (error) {
       return Promise.reject(error);
@@ -313,6 +334,7 @@ export class RequestParser implements defs.RequestParser {
       const _this = this;
       const typeInfo = new TypeInfo(this._schema);
       let fragmentDefinitions: defs.FragmentDefinitionNodeMap | undefined;
+      const variableTypes: defs.VariableTypesMap = {};
 
       let updatedRequest;
 
@@ -360,7 +382,17 @@ export class RequestParser implements defs.RequestParser {
           }
 
           if (kind === VARIABLE) {
-            return RequestParser._updateVariableNode(node as VariableNode, options);
+            const variableName = getName(node) as string;
+
+            if (getKind(parent) === VARIABLE_DEFINITION) {
+              variableTypes[variableName] = _this._schema.getType(getVariableDefinitionType(parent));
+            }
+
+            return RequestParser._updateVariableNode(
+              node as VariableNode,
+              variableTypes[variableName],
+              options,
+            );
           }
 
           return undefined;

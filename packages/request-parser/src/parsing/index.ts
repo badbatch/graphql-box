@@ -6,6 +6,7 @@ export {
   getChildFields,
   hasChildFields,
 } from "./child-fields";
+export { getDirectives } from "./directives";
 export {
   deleteFragmentDefinitions,
   getFragmentDefinitions,
@@ -22,4 +23,5 @@ export { getType } from "./type";
 export {
   deleteVariableDefinitions,
   hasVariableDefinitions,
+  getVariableDefinitionType,
 } from "./variable-definitions";

@@ -1,5 +1,5 @@
 import { coreDefs } from "@handl/core";
-import { getRequestContext, githubIntrospection, githubQueries } from "@handl/test-utils";
+import { getRequestContext, githubIntrospection, githubMutations, githubQueries } from "@handl/test-utils";
 import { IntrospectionQuery } from "graphql";
 import { parserDefs, RequestParser } from ".";
 import { DEFAULT_TYPE_ID_KEY } from "./consts";
@@ -90,6 +90,25 @@ describe("@handl/request-parser", () => {
     });
   });
 
+  describe("when a query with an enum variable is passed in", () => {
+    let updatedRequest: parserDefs.UpdateRequestResult;
+    let requestContext: coreDefs.RequestContext;
+
+    beforeAll(async () => {
+      const { options, request } = githubQueries.withEnumVariable;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("then the parser should return the query with the enum variable embedded in it", () => {
+      expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("then the parser should update the request context with the correct data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
   describe("when a query with a directive is passed in", () => {
     let updatedRequest: parserDefs.UpdateRequestResult;
     let requestContext: coreDefs.RequestContext;
@@ -158,6 +177,25 @@ describe("@handl/request-parser", () => {
     });
 
     it("then the parser should return the query with the fragment option embedded in it", () => {
+      expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("then the parser should update the request context with the correct data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
+  describe("when a mutation with an input type variable is passed in", () => {
+    let updatedRequest: parserDefs.UpdateRequestResult;
+    let requestContext: coreDefs.RequestContext;
+
+    beforeAll(async () => {
+      const { options, request } = githubMutations.withInputType;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("then the parser should return the query with the input type variable embedded in it", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 

@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`@handl/request-parser when a mutation with an input type variable is passed in then the parser should return the query with the input type variable embedded in it 1`] = `
+"mutation {
+  addStar(input: {clientMutationId: \\"1\\", starrableId: \\"MDEwOlJlcG9zaXRvcnkzODMwNzQyOA==\\"}) {
+    clientMutationId
+    starrable {
+      viewerHasStarred
+      id
+    }
+  }
+}
+"
+`;
+
+exports[`@handl/request-parser when a mutation with an input type variable is passed in then the parser should update the request context with the correct data 1`] = `
+Object {
+  "fieldTypeMap": Map {
+    "addStar" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": false,
+      "typeIDValue": undefined,
+      "typeName": "AddStarPayload",
+    },
+    "addStar.starrable" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "typeIDValue": undefined,
+      "typeName": "Starrable",
+    },
+  },
+  "filtered": false,
+  "handlID": "123456789",
+  "operation": "mutation",
+  "operationName": "",
+}
+`;
+
 exports[`@handl/request-parser when a query with a directive is passed in then the parser should return the query with the directive retained 1`] = `
 "{
   organization(login: \\"facebook\\") {
@@ -150,6 +188,69 @@ Object {
       "isEntity": true,
       "typeIDValue": undefined,
       "typeName": "Organization",
+    },
+  },
+  "filtered": false,
+  "handlID": "123456789",
+  "operation": "query",
+  "operationName": "",
+}
+`;
+
+exports[`@handl/request-parser when a query with an enum variable is passed in then the parser should return the query with the enum variable embedded in it 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    repositories(first: 6, ownerAffiliations: [OWNER, COLLABORATOR]) {
+      edges {
+        node {
+          description
+          homepageUrl
+          name
+          id
+        }
+      }
+    }
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@handl/request-parser when a query with an enum variable is passed in then the parser should update the request context with the correct data 1`] = `
+Object {
+  "fieldTypeMap": Map {
+    "organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+    "organization.repositories" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": false,
+      "typeIDValue": undefined,
+      "typeName": "RepositoryConnection",
+    },
+    "organization.repositories.edges" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "typeIDValue": undefined,
+      "typeName": "RepositoryEdge",
+    },
+    "organization.repositories.edges.node" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "typeIDValue": undefined,
+      "typeName": "Repository",
     },
   },
   "filtered": false,
