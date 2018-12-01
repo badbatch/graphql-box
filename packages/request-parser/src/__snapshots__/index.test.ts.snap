@@ -260,17 +260,15 @@ Object {
 }
 `;
 
-exports[`@handl/request-parser when a query with an inline fragment is passed in then the parser should return the query with the inline fragment retained 1`] = `
+exports[`@handl/request-parser when a query with an inline fragment is passed in then the parser should return the query with the inline fragment embedded in it 1`] = `
 "{
   organization(login: \\"facebook\\") {
-    ... on Organization {
-      description
-      email
-      login
-      name
-      url
-      id
-    }
+    description
+    email
+    login
+    name
+    url
+    id
   }
 }
 "
@@ -323,6 +321,73 @@ Object {
   "handlID": "123456789",
   "operation": "query",
   "operationName": "GetOrganization",
+}
+`;
+
+exports[`@handl/request-parser when a query with inline fragments for a union type are passed in then the parser should return the query with the inline fragments retained 1`] = `
+"{
+  search(query: \\"react\\", first: 10, type: REPOSITORY) {
+    edges {
+      node {
+        ... on Organization {
+          description
+          login
+          organizationName: name
+          id
+        }
+        ... on Issue {
+          bodyText
+          number
+          title
+          id
+        }
+        ... on MarketplaceListing {
+          slug
+          shortDescription
+          howItWorks
+          id
+        }
+        ... on PullRequest {
+          bodyText
+          number
+          title
+          id
+        }
+        ... on Repository {
+          description
+          homepageUrl
+          name
+          id
+        }
+      }
+    }
+  }
+}
+"
+`;
+
+exports[`@handl/request-parser when a query with inline fragments for a union type are passed in then the parser should update the request context with the correct data 1`] = `
+Object {
+  "fieldTypeMap": Map {
+    "search" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": false,
+      "typeIDValue": undefined,
+      "typeName": "SearchResultItemConnection",
+    },
+    "search.edges" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "typeIDValue": undefined,
+      "typeName": "SearchResultItemEdge",
+    },
+  },
+  "filtered": false,
+  "handlID": "123456789",
+  "operation": "query",
+  "operationName": "",
 }
 `;
 

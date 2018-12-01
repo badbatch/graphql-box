@@ -28,8 +28,7 @@ export function addChildField(
           const type = schema.getType(name);
 
           if (type instanceof GraphQLObjectType || type instanceof GraphQLInterfaceType) {
-            const objectOrInterfaceType = type;
-            const fields = objectOrInterfaceType.getFields();
+            const fields = type.getFields();
 
             if (fields[resourceID]) {
               addChildField(inlineFragmentNode, field, schema, resourceID);

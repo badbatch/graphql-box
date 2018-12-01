@@ -14,7 +14,11 @@ export {
   setFragmentDefinitions,
 } from "./fragment-definitions";
 export { hasFragmentSpreads } from "./fragment-spreads";
-export { unwrapInlineFragments } from "./inline-fragments";
+export {
+  hasInlineFragments,
+  setInlineFragments,
+  unwrapInlineFragments,
+} from "./inline-fragments";
 export { getKind } from "./kind";
 export { getName } from "./name";
 export { getOperationDefinitions } from "./operation-definitions";

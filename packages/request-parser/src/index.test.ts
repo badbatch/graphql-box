@@ -138,7 +138,26 @@ describe("@handl/request-parser", () => {
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("then the parser should return the query with the inline fragment retained", () => {
+    it("then the parser should return the query with the inline fragment embedded in it", () => {
+      expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("then the parser should update the request context with the correct data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
+  describe("when a query with inline fragments for a union type are passed in", () => {
+    let updatedRequest: parserDefs.UpdateRequestResult;
+    let requestContext: coreDefs.RequestContext;
+
+    beforeAll(async () => {
+      const { options, request } = githubQueries.withUnionInlineFragments;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("then the parser should return the query with the inline fragments retained", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 

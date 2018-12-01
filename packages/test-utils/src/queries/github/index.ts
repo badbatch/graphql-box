@@ -159,6 +159,51 @@ export const withInlineFragment: defs.RequestAndOptions = {
   `,
 };
 
+export const withUnionInlineFragments: defs.RequestAndOptions = {
+  options: {
+    variables: {
+      first: 10,
+      query: "react",
+      type: "REPOSITORY",
+    },
+  },
+  request: `
+    query ($query: String!, $first: Int!, $type: SearchType!) {
+      search(query: $query, first: $first, type: $type) {
+        edges {
+          node {
+            ... on Organization {
+              description
+              login
+              organizationName: name
+            }
+            ... on Issue {
+              bodyText
+              number
+              title
+            }
+            ... on MarketplaceListing {
+              slug
+              shortDescription
+              howItWorks
+            }
+            ... on PullRequest {
+              bodyText
+              number
+              title
+            }
+            ... on Repository {
+              description
+              homepageUrl
+              name
+            }
+          }
+        }
+      }
+    }
+  `,
+};
+
 export const withFragmentSpread: defs.RequestAndOptions = {
   options: {
     variables: {

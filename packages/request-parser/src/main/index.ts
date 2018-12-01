@@ -10,6 +10,7 @@ import {
   GraphQLObjectType,
   GraphQLOutputType,
   GraphQLSchema,
+  GraphQLUnionType,
   InlineFragmentNode,
   OperationDefinitionNode,
   parse,
@@ -51,8 +52,10 @@ import {
   hasChildFields,
   hasFragmentDefinitions,
   hasFragmentSpreads,
+  hasInlineFragments,
   hasVariableDefinitions,
   setFragmentDefinitions,
+  setInlineFragments,
 } from "../parsing";
 
 export class RequestParser implements defs.RequestParser {
@@ -283,14 +286,17 @@ export class RequestParser implements defs.RequestParser {
     if (kind === FIELD) {
       const fieldNode = node as FieldNode;
 
+      if (!(type instanceof GraphQLUnionType) && hasInlineFragments(fieldNode)) {
+        setInlineFragments(fieldNode);
+      }
+
       if (fragmentDefinitions && hasFragmentSpreads(fieldNode)) {
         setFragmentDefinitions(fragmentDefinitions, fieldNode);
       }
     }
 
     if (!(type instanceof GraphQLObjectType) && !(type instanceof GraphQLInterfaceType)) return undefined;
-    const objectOrInterfaceType = type;
-    const fields = objectOrInterfaceType.getFields();
+    const fields = type.getFields();
 
     if (kind === FIELD) {
       const fieldNode = node as FieldNode;
@@ -300,7 +306,7 @@ export class RequestParser implements defs.RequestParser {
         fieldNode,
         isEntity: !!fields[this._typeIDKey],
         typeIDKey: this._typeIDKey,
-        typeName: objectOrInterfaceType.name,
+        typeName: type.name,
       };
 
       RequestParser._mapFieldToType(data, options, context);
