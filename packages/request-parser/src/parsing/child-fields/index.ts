@@ -10,7 +10,7 @@ export function addChildField(
   node: defs.ParentNode,
   field: FieldNode,
   schema: GraphQLSchema,
-  resourceID: string,
+  typeIDKey: string,
 ): void {
   if (!node.selectionSet) return;
 
@@ -30,8 +30,8 @@ export function addChildField(
           if (type instanceof GraphQLObjectType || type instanceof GraphQLInterfaceType) {
             const fields = type.getFields();
 
-            if (fields[resourceID]) {
-              addChildField(inlineFragmentNode, field, schema, resourceID);
+            if (fields[typeIDKey]) {
+              addChildField(inlineFragmentNode, field, schema, typeIDKey);
               added = true;
             }
           }
