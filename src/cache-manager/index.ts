@@ -34,8 +34,8 @@ import {
   UpdateDataCachesOptions,
 } from "./types";
 
-import hashRequest from "../helpers/hash-request";
 import dehydrateCacheMetadata from "../helpers/dehydrate-cache-metadata";
+import hashRequest from "../helpers/hash-request";
 import mergeObjects from "../helpers/merge-objects";
 
 import {

@@ -39,9 +39,9 @@ export interface UserOptions {
   requestManager: requestDefs.RequestManagerInit;
 
   /**
-   * The curried function to initialize the debug manager.
+   * The debug manager.
    */
-  debugManager?: debugDefs.DebugManagerInit;
+  debugManager?: debugDefs.DebugManager;
 
   /**
    * The curried function to initialzie the request parser.

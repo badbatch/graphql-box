@@ -29,9 +29,7 @@ export default class Client {
     if (errors.length) return Promise.reject(errors);
 
     try {
-      if (options.debugManager) {
-        Client._debugManager = await options.debugManager();
-      }
+      Client._debugManager = options.debugManager;
 
       const typeIDKey = options.typeIDKey || DEFAULT_TYPE_ID_KEY;
 
@@ -113,10 +111,10 @@ export default class Client {
 
   constructor(options: defs.ConstructorOptions) {
     const { cacheManager, requestManager, requestParser, subscriptionsManager } = options;
-    if (cacheManager) this._cacheManager = cacheManager;
+    this._cacheManager = cacheManager;
     this._requestManager = requestManager;
-    if (requestParser) this._requestParser = requestParser;
-    if (subscriptionsManager) this._subscriptionsManager = subscriptionsManager;
+    this._requestParser = requestParser;
+    this._subscriptionsManager = subscriptionsManager;
   }
 
   public async request(request: string, options: coreDefs.RequestOptions = {}): Promise<coreDefs.RequestResult> {
@@ -194,7 +192,7 @@ export default class Client {
   ): Promise<coreDefs.RequestResult> {
     try {
       if (this._cacheManager) {
-        const checkResult = await this._cacheManager.check(QUERY_RESPONSES, requestData);
+        const checkResult = await this._cacheManager.check(QUERY_RESPONSES, requestData, context);
         if (checkResult) return Client._resolve(checkResult, options, context);
       }
 

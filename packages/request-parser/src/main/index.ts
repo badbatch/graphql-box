@@ -28,9 +28,10 @@ import {
   DOCUMENT,
   FIELD,
   INLINE_FRAGMENT,
-  METADATA,
+  NAME,
   OPERATION_DEFINITION,
   QUERY,
+  VALUE,
   VARIABLE,
   VARIABLE_DEFINITION,
 } from "../consts";
@@ -85,7 +86,7 @@ export class RequestParser implements defs.RequestParser {
     context: coreDefs.RequestContext,
   ): void {
     context.operation = operationDefinitions[0].operation;
-    context.operationName = get(operationDefinitions[0], ["name", "value"], "");
+    context.operationName = get(operationDefinitions[0], [NAME, VALUE], "");
   }
 
   private static _concatFragments(query: string, fragments: string[]): string {
@@ -319,13 +320,6 @@ export class RequestParser implements defs.RequestParser {
         const field = getChildFields(queryNode, this._typeIDKey) as FieldNode;
         addChildField(node, field, this._schema, this._typeIDKey);
       }
-    }
-
-    if (fields._metadata && !hasChildFields(node, METADATA)) {
-      const mockAST = parse(`{ _metadata { cacheControl } }`);
-      const queryNode = getOperationDefinitions(mockAST, QUERY)[0];
-      const field = getChildFields(queryNode, METADATA) as FieldNode;
-      addChildField(node, field, this._schema, this._typeIDKey);
     }
 
     return undefined;
