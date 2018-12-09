@@ -50,6 +50,15 @@ export interface PartialQueryResponse {
   cacheMetadata: CacheMetadata;
 }
 
+export type FieldPathChecklist = Map<string, boolean>;
+
+export interface CachedRequestDataResult {
+  cacheMetadata: CacheMetadata;
+  data: coreDefs.PlainObjectMap;
+  fieldPathChecklist: FieldPathChecklist;
+  fields: { missing: number, total: number };
+}
+
 export interface ExportCacheResult {
   entries: Array<[string, any]>;
   metadata: cachemapDefs.Metadata[];
@@ -70,6 +79,7 @@ export interface CacheManager {
   check(
     cacheType: coreDefs.CacheTypes,
     requestData: coreDefs.RequestData,
+    options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.ResponseData | false>;
   export(): Promise<ExportCacheResult>;

@@ -4,6 +4,7 @@ import { debugDefs } from "@handl/debug-manager";
 import Cacheability from "cacheability";
 import { get, isPlainObject } from "lodash";
 import { CACHE_CONTROL, METADATA, NO_CACHE } from "../consts";
+import logQuery from "../debug/log-query";
 import * as defs from "../defs";
 
 export class CacheManager implements defs.CacheManager  {
@@ -60,13 +61,24 @@ export class CacheManager implements defs.CacheManager  {
     return this._cache;
   }
 
+  public async analyzeQuery(
+    requestData: coreDefs.RequestData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<defs.AnalyzeQueryResult> {
+    const cachedRequestData = await this._getCachedRequestData(requestData, options, context);
+    const { cacheMetadata, data, fieldPathChecklist, fields } = cachedRequestData;
+    // TODO
+  }
+
   public async check(
     cacheType: coreDefs.CacheTypes,
     requestData: coreDefs.RequestData,
+    options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.ResponseData | false> {
     try {
-      return this._check(cacheType, requestData, context);
+      return this._check(cacheType, requestData, options, context);
     } catch (error) {
       return false;
     }
@@ -74,39 +86,63 @@ export class CacheManager implements defs.CacheManager  {
 
   private async _check(
     cacheType: coreDefs.CacheTypes,
-    { hash }: coreDefs.RequestData,
+    requestData: coreDefs.RequestData,
+    options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.ResponseData | false> {
     try {
-      const cacheability = await this._has(cacheType, hash);
+      const cacheability = await this._has(cacheType, requestData);
       if (!CacheManager._isValid(cacheability)) return false;
-      const { cacheMetadata, data } = await this._get(cacheType, hash, context);
-      if (!cacheMetadata || !data) return false;
+      const { cacheMetadata, data, errors } = await this._get(cacheType, requestData, options, context);
+      if (errors) return false;
       return { cacheMetadata, data };
     } catch (error) {
       return false;
     }
   }
 
+  @logQuery(CacheManager._debugManager)
   private async _get(
     cacheType: coreDefs.CacheTypes,
-    hash: string,
+    { hash }: coreDefs.RequestData,
+    options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.ResponseData> {
     try {
-      const { cacheMetadata, data } = await this._cache.get(hash);
+      const { cacheMetadata, data } = await this._cache.get(`${cacheType}::${hash}`);
       return { cacheMetadata: CacheManager._rehydrateCacheMetadata(cacheMetadata), data };
-    } catch (error) {
-      return {};
+    } catch (errors) {
+      return { errors };
     }
   }
 
-  private async _has(cacheType: coreDefs.CacheTypes, hash: string): Promise<Cacheability | false> {
+  private async _has(
+    cacheType: coreDefs.CacheTypes,
+    { hash }: coreDefs.RequestData,
+  ): Promise<Cacheability | false> {
     try {
-      return this._cache.has(hash);
+      return this._cache.has(`${cacheType}::${hash}`);
     } catch (error) {
       return false;
     }
+  }
+
+  private async _getCachedRequestData(
+    requestData: coreDefs.RequestData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<defs.CachedRequestDataResult> {
+    const cachedRequestData: defs.CachedRequestDataResult = {
+      cacheMetadata: new Map(),
+      data: {},
+      fieldPathChecklist: new Map(),
+      fields: { missing: 0, total: 0 },
+    };
+
+    const queryNode = getOperationDefinitions(ast, context.operation)[0];
+    const fields = getChildFields(queryNode) as FieldNode[];
+    await Promise.all(fields.map((field) => this._parseField(field, metadata, context)));
+    return metadata;
   }
 }
 

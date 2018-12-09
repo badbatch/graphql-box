@@ -40,5 +40,8 @@
     "@handl/debug-manager": "^0.1.22",
     "@types/graphql": "^14.0.1",
     "cacheability": "^2.0.4"
+  },
+  "dependencies": {
+    "graphql": "^14.0.2"
   }
 }
