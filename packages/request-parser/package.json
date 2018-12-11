@@ -35,6 +35,7 @@
     "lodash": "^4.17.5"
   },
   "dependencies": {
+    "@handl/helpers": "^0.1.22",
     "graphql": "^14.0.2"
   },
   "devDependencies": {

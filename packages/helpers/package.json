@@ -1,7 +1,7 @@
 {
-  "name": "@handl/core",
+  "name": "@handl/helpers",
   "version": "0.1.22",
-  "description": "The Handl core module.",
+  "description": "The Handl helpers module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/handl",
@@ -35,11 +35,6 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "@types/graphql": "^14.0.1",
-    "@types/md5": "^2.1.33",
-    "cacheability": "^2.0.4"
-  },
-  "dependencies": {
-    "md5": "^2.2.1"
+    "@handl/core": "^0.1.22"
   }
 }

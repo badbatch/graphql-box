@@ -131,8 +131,8 @@ export class CacheManager implements defs.CacheManager  {
     requestData: coreDefs.RequestData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<defs.CachedRequestDataResult> {
-    const cachedRequestData: defs.CachedRequestDataResult = {
+  ): Promise<defs.CachedRequestData> {
+    const cachedRequestData: defs.CachedRequestData = {
       cacheMetadata: new Map(),
       data: {},
       fieldPathChecklist: new Map(),

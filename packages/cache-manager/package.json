@@ -42,6 +42,7 @@
     "cacheability": "^2.0.4"
   },
   "dependencies": {
+    "@handl/helpers": "^0.1.22",
     "graphql": "^14.0.2"
   }
 }

@@ -1,5 +1,27 @@
 import { coreDefs } from "@handl/core";
 import {
+  addChildField,
+  deleteFragmentDefinitions,
+  deleteVariableDefinitions,
+  getAlias,
+  getArguments,
+  getChildFields,
+  getDirectives,
+  getFragmentDefinitions,
+  getKind,
+  getName,
+  getOperationDefinitions,
+  getType,
+  getVariableDefinitionType,
+  hasChildFields,
+  hasFragmentDefinitions,
+  hasFragmentSpreads,
+  hasInlineFragments,
+  hasVariableDefinitions,
+  setFragmentDefinitions,
+  setInlineFragments,
+} from "@handl/helpers";
+import {
   ASTNode,
   buildClientSchema,
   DocumentNode,
@@ -36,28 +58,6 @@ import {
   VARIABLE_DEFINITION,
 } from "../consts";
 import * as defs from "../defs";
-import {
-  addChildField,
-  deleteFragmentDefinitions,
-  deleteVariableDefinitions,
-  getAlias,
-  getArguments,
-  getChildFields,
-  getDirectives,
-  getFragmentDefinitions,
-  getKind,
-  getName,
-  getOperationDefinitions,
-  getType,
-  getVariableDefinitionType,
-  hasChildFields,
-  hasFragmentDefinitions,
-  hasFragmentSpreads,
-  hasInlineFragments,
-  hasVariableDefinitions,
-  setFragmentDefinitions,
-  setInlineFragments,
-} from "../parsing";
 
 export class RequestParser implements defs.RequestParser {
   public static async init(options: defs.InitOptions): Promise<RequestParser> {

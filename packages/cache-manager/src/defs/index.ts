@@ -52,7 +52,7 @@ export interface PartialQueryResponse {
 
 export type FieldPathChecklist = Map<string, boolean>;
 
-export interface CachedRequestDataResult {
+export interface CachedRequestData {
   cacheMetadata: CacheMetadata;
   data: coreDefs.PlainObjectMap;
   fieldPathChecklist: FieldPathChecklist;
