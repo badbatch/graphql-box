@@ -50,13 +50,43 @@ export interface PartialQueryResponse {
   cacheMetadata: CacheMetadata;
 }
 
+export interface FieldCount {
+  missing: number;
+  total: number;
+}
+
 export type FieldPathChecklist = Map<string, boolean>;
 
 export interface CachedRequestData {
   cacheMetadata: CacheMetadata;
   data: coreDefs.PlainObjectMap;
+  fieldCount: FieldCount;
   fieldPathChecklist: FieldPathChecklist;
-  fields: { missing: number, total: number };
+}
+
+export interface CachedFieldData {
+  cacheability?: Cacheability;
+  dataEntityData?: any;
+  requestFieldPathData?: any;
+  requestFieldCacheKey?: string;
+  requestFieldPath?: string;
+  index?: number;
+}
+
+export interface KeysAndPathsOptions {
+  index?: number;
+  requestFieldCacheKey?: string;
+  requetFieldPath?: string;
+  responseDataPath?: string;
+}
+
+export interface KeysAndPaths {
+  hashedRequestFieldCacheKey: string;
+  name: string;
+  propNameOrIndex: string | number;
+  requestFieldCacheKey: string;
+  requestFieldPath: string;
+  responseDataPath: string;
 }
 
 export interface ExportCacheResult {
@@ -69,6 +99,11 @@ export interface AnalyzeQueryResult {
   updated?: coreDefs.RequestData;
 }
 
+export interface CheckResult {
+  cacheability: Cacheability;
+  data: coreDefs.PlainObjectMap | any[];
+}
+
 export interface CacheManager {
   cache: Cachemap;
   analyzeQuery(
@@ -78,10 +113,10 @@ export interface CacheManager {
   ): Promise<AnalyzeQueryResult>;
   check(
     cacheType: coreDefs.CacheTypes,
-    requestData: coreDefs.RequestData,
+    hash: string,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<coreDefs.ResponseData | false>;
+  ): Promise<CheckResult | false>;
   export(): Promise<ExportCacheResult>;
   import(options: ExportCacheResult): Promise<void>;
   resolve(

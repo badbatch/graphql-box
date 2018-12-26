@@ -155,6 +155,7 @@ export class RequestParser implements defs.RequestParser {
     { fragments }: coreDefs.RequestOptions,
   ): defs.FragmentDefinitionNodeMap | undefined {
     if (!fragments && !hasFragmentDefinitions(node)) return undefined;
+
     return getFragmentDefinitions(node);
   }
 
@@ -297,6 +298,7 @@ export class RequestParser implements defs.RequestParser {
     }
 
     if (!(type instanceof GraphQLObjectType) && !(type instanceof GraphQLInterfaceType)) return undefined;
+
     const fields = type.getFields();
 
     if (kind === FIELD) {

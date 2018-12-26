@@ -192,8 +192,8 @@ export default class Client {
   ): Promise<coreDefs.RequestResult> {
     try {
       if (this._cacheManager) {
-        const checkResult = await this._cacheManager.check(QUERY_RESPONSES, requestData, options, context);
-        if (checkResult) return Client._resolve(checkResult, options, context);
+        const checkResult = await this._cacheManager.check(QUERY_RESPONSES, requestData.hash, options, context);
+        if (checkResult) return Client._resolve(checkResult as coreDefs.ResponseData, options, context);
       }
 
       const pendingQuery = this._trackQuery(requestData, options, context);
