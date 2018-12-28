@@ -22,7 +22,7 @@ export default function logFetch(debugManager?: debugDefs.DebugManager) {
           debugManager.emit(FETCH_EXECUTED, {
             context: args[2],
             options: args[1],
-            request: args[0],
+            requestData: args[0],
             result,
             stats: { duration, endTime, startTime },
           });

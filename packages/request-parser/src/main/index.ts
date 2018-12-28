@@ -244,6 +244,7 @@ export class RequestParser implements defs.RequestParser {
   ): Promise<defs.UpdateRequestResult> {
     try {
       const updated = await this._updateRequest(request, options, context);
+
       const errors = validate(this._schema, updated.ast);
       if (errors.length) return Promise.reject(errors);
 

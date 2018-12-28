@@ -5,6 +5,7 @@ export {
   deleteChildFields,
   getChildFields,
   hasChildFields,
+  iterateChildFields,
 } from "./parsing/child-fields";
 export { getDirectives } from "./parsing/directives";
 export {

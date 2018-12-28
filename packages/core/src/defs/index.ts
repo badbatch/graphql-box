@@ -64,6 +64,7 @@ export interface RequestContext {
   handlID: string;
   operation: ValidOperations;
   operationName: string;
+  request: string;
 }
 
 export interface DehydratedCacheMetadata {

@@ -1,5 +1,6 @@
+import { coreDefs } from "@handl/core";
 import { FieldNode, GraphQLInterfaceType, GraphQLObjectType, GraphQLSchema, InlineFragmentNode } from "graphql";
-import { castArray } from "lodash";
+import { castArray, isArray } from "lodash";
 import { FIELD, INLINE_FRAGMENT } from "../../consts";
 import * as defs from "../../defs";
 import { unwrapInlineFragments } from "../inline-fragments";
@@ -86,4 +87,23 @@ export function hasChildFields(node: defs.ParentNode, name?: string): boolean {
   if (!name) return !!childFields.length;
 
   return childFields.some((field) => getName(field) === name || getKind(field) === name);
+}
+
+export function iterateChildFields(
+  field: FieldNode,
+  data: coreDefs.PlainObjectMap | any[],
+  callback: (childField: FieldNode, childIndex?: number) => void,
+): void {
+  if (!isArray(data)) {
+    const childFields = getChildFields(field) as FieldNode[] | undefined;
+    if (!childFields) return;
+
+    childFields.forEach((child) => {
+      callback(child);
+    });
+  } else {
+    data.forEach((value, index) => {
+      callback(field, index);
+    });
+  }
 }

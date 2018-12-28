@@ -2,6 +2,7 @@ import Cachemap, { coreDefs as cachemapDefs } from "@cachemap/core";
 import { coreDefs } from "@handl/core";
 import { debugDefs } from "@handl/debug-manager";
 import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
+import { FieldNode } from "graphql";
 
 export interface UserOptions {
   /**
@@ -76,7 +77,7 @@ export interface CachedFieldData {
 export interface KeysAndPathsOptions {
   index?: number;
   requestFieldCacheKey?: string;
-  requetFieldPath?: string;
+  requestFieldPath?: string;
   responseDataPath?: string;
 }
 

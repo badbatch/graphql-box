@@ -1,7 +1,7 @@
 import { debugDefs } from "@handl/debug-manager";
-import { CACHE_ENTRY_QUERIED } from "../../consts";
+import { PARTIAL_QUERY_COMPILED } from "../../consts";
 
-export default function logQuery(debugManager?: debugDefs.DebugManager) {
+export default function logPartialCompiled(debugManager?: debugDefs.DebugManager) {
   return (
     target: any,
     propertyName: string,
@@ -14,17 +14,16 @@ export default function logQuery(debugManager?: debugDefs.DebugManager) {
       try {
         return new Promise(async (resolve) => {
           const startTime = debugManager.now();
-          const result = await method.apply(this, args);
+          await method.apply(this, args);
           const endTime = debugManager.now();
           const duration = endTime - startTime;
-          resolve(result);
+          resolve();
 
-          debugManager.emit(CACHE_ENTRY_QUERIED, {
-            cacheType: args[0],
+          debugManager.emit(PARTIAL_QUERY_COMPILED, {
             context: args[3],
-            hash: args[1],
+            hash: args[0],
             options: args[2],
-            result,
+            partialQueryResponse: args[1],
             stats: { duration, endTime, startTime },
           });
         });

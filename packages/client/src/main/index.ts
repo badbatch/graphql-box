@@ -65,13 +65,14 @@ export default class Client {
     return (!!options.cacheManager && !options.requestParser) || (!options.cacheManager && !!options.requestParser);
   }
 
-  private static _getRequestContext(operation: coreDefs.ValidOperations): coreDefs.RequestContext {
+  private static _getRequestContext(operation: coreDefs.ValidOperations, request: string): coreDefs.RequestContext {
     return {
       fieldTypeMap: new Map(),
       filtered: false,
       handlID: uuid(),
       operation,
       operationName: "",
+      request,
     };
   }
 
@@ -122,7 +123,7 @@ export default class Client {
     if (errors.length) return { errors };
 
     try {
-      return this._request(request, options, Client._getRequestContext(QUERY)) as coreDefs.RequestResult;
+      return this._request(request, options, Client._getRequestContext(QUERY, request)) as coreDefs.RequestResult;
     } catch (error) {
       return { errors: error };
     }
@@ -142,7 +143,7 @@ export default class Client {
     if (errors.length) return { errors };
 
     try {
-      return this._request(request, options, Client._getRequestContext(SUBSCRIPTION));
+      return this._request(request, options, Client._getRequestContext(SUBSCRIPTION, request));
     } catch (error) {
       return { errors: error };
     }
@@ -168,6 +169,7 @@ export default class Client {
   ): Promise<coreDefs.RequestResult> {
     try {
       const rawResponseData = await this._fetch(requestData, options, context);
+
       let { cacheMetadata, headers, ...responseData } = rawResponseData; // tslint:disable-line
 
       if (this._cacheManager) {
@@ -193,6 +195,7 @@ export default class Client {
     try {
       if (this._cacheManager) {
         const checkResult = await this._cacheManager.check(QUERY_RESPONSES, requestData.hash, options, context);
+
         if (checkResult) return Client._resolve(checkResult as coreDefs.ResponseData, options, context);
       }
 
@@ -203,6 +206,7 @@ export default class Client {
 
       if (this._cacheManager) {
         const analyzeQueryResult = await this._cacheManager.analyzeQuery(requestData, options, context);
+
         const { response, updated } = analyzeQueryResult;
 
         if (response) {
@@ -213,6 +217,7 @@ export default class Client {
       }
 
       const rawResponseData = await this._fetch(updatedRequestData, options, context);
+
       let { cacheMetadata, headers, ...responseData } = rawResponseData; // tslint:disable-line
 
       if (this._cacheManager) {
@@ -263,6 +268,7 @@ export default class Client {
 
       const subscriptionsManager = this._subscriptionsManager as subDefs.SubscriptionsManager;
       const subscribeResult = await subscriptionsManager.subscribe(requestData, options, resolver);
+
       if (isAsyncIterable(subscribeResult)) return subscribeResult as AsyncIterable<any>;
 
       return this._resolveSubscription(requestData, subscribeResult as coreDefs.RawResponseData, options, context);
@@ -283,6 +289,7 @@ export default class Client {
 
       if (this._requestParser) {
         const updated = await this._requestParser.updateRequest(request, options, context);
+
         updatedRequest = updated.request;
         ast = updated.ast;
       }

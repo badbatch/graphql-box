@@ -22,8 +22,8 @@ export default function logSubscription(debugManager?: debugDefs.DebugManager) {
           debugManager.emit(SUBSCRIPTION_EXECUTED, {
             context: args[3],
             options: args[2],
-            rawResult: args[1],
-            request: args[0],
+            rawResponseData: args[1],
+            requestData: args[0],
             result,
             stats: { duration, endTime, startTime },
           });
