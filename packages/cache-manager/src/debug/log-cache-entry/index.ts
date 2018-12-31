@@ -1,7 +1,7 @@
 import { debugDefs } from "@handl/debug-manager";
-import { CACHE_ENTRY_QUERIED } from "../../consts";
+import { CACHE_ENTRY_ADDED } from "../../consts";
 
-export default function logQuery(debugManager?: debugDefs.DebugManager) {
+export default function logCacheEntry(debugManager?: debugDefs.DebugManager) {
   return (
     target: any,
     propertyName: string,
@@ -14,18 +14,19 @@ export default function logQuery(debugManager?: debugDefs.DebugManager) {
       try {
         return new Promise(async (resolve) => {
           const startTime = debugManager.now();
-          const result = await method.apply(this, args);
+          await method.apply(this, args);
           const endTime = debugManager.now();
           const duration = endTime - startTime;
-          resolve(result);
+          resolve();
 
-          debugManager.emit(CACHE_ENTRY_QUERIED, {
+          debugManager.emit(CACHE_ENTRY_ADDED, {
+            cachemapOptions: args[3],
             cacheType: args[0],
-            context: args[3],
+            context: args[5],
             hash: args[1],
-            options: args[2],
-            result,
+            options: args[4],
             stats: { duration, endTime, startTime },
+            value: args[2],
           });
         });
       } catch (error) {
