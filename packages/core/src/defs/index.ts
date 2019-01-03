@@ -21,7 +21,7 @@ export interface RequestOptions {
    * Whether to return the cache metadata along
    * with the requested data.
    */
-  cacheMetadata?: boolean;
+  returnCacheMetadata?: boolean;
 
   /**
    * A list of query fragements to be inserted
@@ -81,18 +81,29 @@ export interface RawResponseData {
 }
 
 export interface ResponseData {
+  cacheMetadata: CacheMetadata;
+  data: PlainObjectMap;
+}
+
+export interface MaybeResponseData {
   cacheMetadata?: CacheMetadata;
   data?: PlainObjectMap;
   errors?: Error | Error[];
 }
 
-export interface RequestData {
+export interface RequestDataWithMaybeAST {
   ast?: DocumentNode;
   hash: string;
   request: string;
 }
 
-export interface RequestResult {
+export interface RequestData {
+  ast: DocumentNode;
+  hash: string;
+  request: string;
+}
+
+export interface MaybeRequestResult {
   /**
    * A map of query paths to their cacheability
    * information.

@@ -29,7 +29,7 @@ export interface BaseOptions {
 }
 
 export interface RequestManager {
-  fetch(requestData: coreDefs.RequestData): Promise<coreDefs.RawResponseData>;
+  fetch(requestData: coreDefs.RequestDataWithMaybeAST): Promise<coreDefs.RawResponseData>;
 }
 
 export type RequestManagerInit = () => RequestManager;

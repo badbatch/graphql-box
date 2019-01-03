@@ -60,7 +60,7 @@ export interface UserOptions {
   typeIDKey?: string;
 }
 
-export type PendingQueryResolver = (value: coreDefs.RequestResult) => void;
+export type PendingQueryResolver = (value: coreDefs.MaybeRequestResult) => void;
 
 export interface PendingQueryData {
   context: coreDefs.RequestContext;

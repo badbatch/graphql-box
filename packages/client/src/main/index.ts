@@ -8,7 +8,7 @@ import { DocumentNode } from "graphql";
 import { isAsyncIterable } from "iterall";
 import { isArray, isPlainObject, isString } from "lodash";
 import uuid from "uuid/v1";
-import { DEFAULT_TYPE_ID_KEY, MUTATION, QUERY, QUERY_RESPONSES, SUBSCRIPTION } from "../consts";
+import { DEFAULT_TYPE_ID_KEY, MUTATION, QUERY, SUBSCRIPTION } from "../consts";
 import logFetch from "../debug/log-fetch";
 import logRequest from "../debug/log-request";
 import logSubscription from "../debug/log-subscription";
@@ -77,12 +77,12 @@ export default class Client {
   }
 
   private static _resolve(
-    { cacheMetadata, data, errors }: coreDefs.ResponseData,
+    { cacheMetadata, data, errors }: coreDefs.MaybeResponseData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): coreDefs.RequestResult {
-    const result: coreDefs.RequestResult = { data, errors };
-    if (options.cacheMetadata && cacheMetadata) result._cacheMetadata = cacheMetadata;
+  ): coreDefs.MaybeRequestResult {
+    const result: coreDefs.MaybeRequestResult = { data, errors };
+    if (options.returnCacheMetadata && cacheMetadata) result._cacheMetadata = cacheMetadata;
     return result;
   }
 
@@ -118,12 +118,12 @@ export default class Client {
     this._subscriptionsManager = subscriptionsManager;
   }
 
-  public async request(request: string, options: coreDefs.RequestOptions = {}): Promise<coreDefs.RequestResult> {
+  public async request(request: string, options: coreDefs.RequestOptions = {}): Promise<coreDefs.MaybeRequestResult> {
     const errors = Client._validateRequestArguments(request, options);
     if (errors.length) return { errors };
 
     try {
-      return this._request(request, options, Client._getRequestContext(QUERY, request)) as coreDefs.RequestResult;
+      return this._request(request, options, Client._getRequestContext(QUERY, request)) as coreDefs.MaybeRequestResult;
     } catch (error) {
       return { errors: error };
     }
@@ -132,7 +132,7 @@ export default class Client {
   public async subscribe(
     request: string,
     options: coreDefs.RequestOptions = {},
-  ): Promise<AsyncIterable<any> | coreDefs.RequestResult> {
+  ): Promise<AsyncIterable<any> | coreDefs.MaybeRequestResult> {
     const errors: Error[] = [];
 
     if (!this._subscriptionsManager) {
@@ -151,7 +151,7 @@ export default class Client {
 
   @logFetch(Client._debugManager)
   private async _fetch(
-    requestData: coreDefs.RequestData,
+    requestData: coreDefs.RequestDataWithMaybeAST,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.RawResponseData> {
@@ -163,10 +163,10 @@ export default class Client {
   }
 
   private async _handleMutation(
-    requestData: coreDefs.RequestData,
+    requestData: coreDefs.RequestDataWithMaybeAST,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<coreDefs.RequestResult> {
+  ): Promise<coreDefs.MaybeRequestResult> {
     try {
       const rawResponseData = await this._fetch(requestData, options, context);
 
@@ -174,7 +174,7 @@ export default class Client {
 
       if (this._cacheManager) {
         responseData = await this._cacheManager.resolve(
-          requestData,
+          requestData as coreDefs.RequestData,
           rawResponseData,
           options,
           context,
@@ -188,10 +188,10 @@ export default class Client {
   }
 
   private async _handleQuery(
-    requestData: coreDefs.RequestData,
+    requestData: coreDefs.RequestDataWithMaybeAST,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<coreDefs.RequestResult> {
+  ): Promise<coreDefs.MaybeRequestResult> {
     try {
       if (this._cacheManager) {
         const checkResult = await this._cacheManager.checkQueryResponseCacheEntry(requestData.hash, options, context);
@@ -200,12 +200,16 @@ export default class Client {
       }
 
       const pendingQuery = this._trackQuery(requestData, options, context);
-      if (pendingQuery) return pendingQuery as Promise<coreDefs.RequestResult>;
+      if (pendingQuery) return pendingQuery as Promise<coreDefs.MaybeRequestResult>;
 
-      let updatedRequestData: coreDefs.RequestData = requestData;
+      let updatedRequestData: coreDefs.RequestDataWithMaybeAST = requestData;
 
       if (this._cacheManager) {
-        const analyzeQueryResult = await this._cacheManager.analyzeQuery(requestData, options, context);
+        const analyzeQueryResult = await this._cacheManager.analyzeQuery(
+          requestData as coreDefs.RequestData,
+          options,
+          context,
+        );
 
         const { response, updated } = analyzeQueryResult;
 
@@ -222,8 +226,8 @@ export default class Client {
 
       if (this._cacheManager) {
         responseData = await this._cacheManager.resolveQuery(
-          requestData,
-          updatedRequestData,
+          requestData as coreDefs.RequestData,
+          updatedRequestData as coreDefs.RequestData,
           rawResponseData,
           options,
           context,
@@ -231,16 +235,16 @@ export default class Client {
       }
 
       return this._resolveQuery(requestData, responseData, options, context);
-    } catch (error) {
-      return this._resolveQuery(requestData, { errors: error }, options, context);
+    } catch (errors) {
+      return this._resolveQuery(requestData, { errors }, options, context);
     }
   }
 
   private _handleRequest(
-    requestData: coreDefs.RequestData,
+    requestData: coreDefs.RequestDataWithMaybeAST,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<AsyncIterable<any> | coreDefs.RequestResult> {
+  ): Promise<AsyncIterable<any> | coreDefs.MaybeRequestResult> {
     try {
       if (context.operation === QUERY) {
         return this._handleQuery(requestData, options, context);
@@ -258,10 +262,10 @@ export default class Client {
   }
 
   private async _handleSubscription(
-    requestData: coreDefs.RequestData,
+    requestData: coreDefs.RequestDataWithMaybeAST,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<AsyncIterable<any> | coreDefs.RequestResult> {
+  ): Promise<AsyncIterable<any> | coreDefs.MaybeRequestResult> {
     try {
       const resolver = async (responseData: coreDefs.RawResponseData) =>
         this._resolveSubscription(requestData, responseData, options, context);
@@ -282,7 +286,7 @@ export default class Client {
     request: string,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<AsyncIterable<any> | coreDefs.RequestResult> {
+  ): Promise<AsyncIterable<any> | coreDefs.MaybeRequestResult> {
     try {
       let updatedRequest = request;
       let ast: DocumentNode | undefined;
@@ -302,8 +306,8 @@ export default class Client {
   }
 
   private _resolvePendingRequests(
-    { hash }: coreDefs.RequestData,
-    responseData: coreDefs.ResponseData,
+    { hash }: coreDefs.RequestDataWithMaybeAST,
+    responseData: coreDefs.MaybeResponseData,
   ): void {
     const pendingRequests = this._queryTracker.pending.get(hash);
     if (!pendingRequests) return;
@@ -316,11 +320,11 @@ export default class Client {
   }
 
   private async _resolveQuery(
-    requestData: coreDefs.RequestData,
-    responseData: coreDefs.ResponseData,
+    requestData: coreDefs.RequestDataWithMaybeAST,
+    responseData: coreDefs.MaybeResponseData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<coreDefs.RequestResult> {
+  ): Promise<coreDefs.MaybeRequestResult> {
     this._resolvePendingRequests(requestData, responseData);
     this._queryTracker.active = this._queryTracker.active.filter((value) => value !== requestData.hash);
     return Client._resolve(responseData, options, context);
@@ -328,17 +332,17 @@ export default class Client {
 
   @logSubscription(Client._debugManager)
   private async _resolveSubscription(
-    requestData: coreDefs.RequestData,
+    requestData: coreDefs.RequestDataWithMaybeAST,
     rawResponseData: coreDefs.RawResponseData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<coreDefs.RequestResult> {
+  ): Promise<coreDefs.MaybeRequestResult> {
     try {
       let { cacheMetadata, ...responseData } = rawResponseData; // tslint:disable-line
 
       if (this._cacheManager) {
         responseData = await this._cacheManager.resolve(
-          requestData,
+          requestData as coreDefs.RequestData,
           rawResponseData,
           options,
           context,
@@ -359,10 +363,10 @@ export default class Client {
   }
 
   private async _trackQuery(
-    { hash }: coreDefs.RequestData,
+    { hash }: coreDefs.RequestDataWithMaybeAST,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<coreDefs.RequestResult | void> {
+  ): Promise<coreDefs.MaybeRequestResult | void> {
     if (this._queryTracker.active.includes(hash)) {
       return new Promise((resolve: defs.PendingQueryResolver) => {
         this._setPendingQuery(hash, { context, options, resolve });

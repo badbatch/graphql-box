@@ -334,11 +334,6 @@ export class RequestParser implements defs.RequestParser {
     context: coreDefs.RequestContext,
   ): Promise<defs.UpdateRequestResult> {
     try {
-      const _this = this;
-      const typeInfo = new TypeInfo(this._schema);
-      let fragmentDefinitions: defs.FragmentDefinitionNodeMap | undefined;
-      const variableTypes: defs.VariableTypesMap = {};
-
       let updatedRequest;
 
       if (options.fragments) {
@@ -355,6 +350,11 @@ export class RequestParser implements defs.RequestParser {
       }
 
       RequestParser._addOperationToContext(operationDefinitions, context);
+
+      const _this = this;
+      const typeInfo = new TypeInfo(this._schema);
+      let fragmentDefinitions: defs.FragmentDefinitionNodeMap | undefined;
+      const variableTypes: defs.VariableTypesMap = {};
 
       const updatedAST = visit(ast, {
         enter(

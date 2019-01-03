@@ -2,7 +2,6 @@ import Cachemap, { coreDefs as cachemapDefs } from "@cachemap/core";
 import { coreDefs } from "@handl/core";
 import { debugDefs } from "@handl/debug-manager";
 import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
-import { FieldNode } from "graphql";
 
 export interface UserOptions {
   /**
@@ -58,7 +57,7 @@ export interface FieldCount {
 
 export type FieldPathChecklist = Map<string, boolean>;
 
-export interface CachedRequestData {
+export interface CachedResponseData {
   cacheMetadata: CacheMetadata;
   data: coreDefs.PlainObjectMap;
   fieldCount: FieldCount;
@@ -100,12 +99,12 @@ export interface AnalyzeQueryResult {
   updated?: coreDefs.RequestData;
 }
 
-export interface CacheEntry {
+export interface CheckCacheEntryResult {
   cacheability: Cacheability;
-  data: coreDefs.PlainObjectMap | any[];
+  entry: coreDefs.PlainObjectMap | any[];
 }
 
-export interface QueryResponseCacheEntryData {
+export interface QueryResponseCacheEntry {
   cacheMetadata: coreDefs.DehydratedCacheMetadata;
   data: coreDefs.PlainObjectMap;
 }
@@ -127,7 +126,7 @@ export interface CacheManager {
     hash: string,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<CacheEntry | false>;
+  ): Promise<CheckCacheEntryResult | false>;
   checkQueryResponseCacheEntry(
     hash: string,
     options: coreDefs.RequestOptions,
@@ -138,14 +137,14 @@ export interface CacheManager {
     rawResponseData: coreDefs.RawResponseData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<coreDefs.ResponseData>;
+  ): Promise<coreDefs.MaybeResponseData>;
   resolveQuery(
     requestData: coreDefs.RequestData,
     updatedRequestData: coreDefs.RequestData,
     rawResponseData: coreDefs.RawResponseData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<coreDefs.ResponseData>;
+  ): Promise<coreDefs.MaybeResponseData>;
 }
 
 export type CacheManagerInit = (options: ClientOptions) => Promise<CacheManager>;
