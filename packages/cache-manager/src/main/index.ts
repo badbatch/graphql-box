@@ -143,7 +143,7 @@ export class CacheManager implements defs.CacheManager  {
       if (CacheManager._filterField(field, fieldPathChecklist, requestFieldPath)) deleteChildFields(queryNode, field);
     }
 
-    context.filtered = true;
+    context.queryFiltered = true;
   }
 
   private static _getFieldDataFromAncestor(ancestorFieldData: any, propNameOrIndex: string | number): any {
@@ -368,8 +368,47 @@ export class CacheManager implements defs.CacheManager  {
     rawResponseData: coreDefs.RawResponseData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<coreDefs.MaybeResponseData> {
+  ): Promise<coreDefs.ResponseData> {
+    const dataCaching: Array<Promise<void>> = [];
+    const responseCacheMetadata = CacheManager._rehydrateCacheMetadata(rawResponseData.cacheMetadata);
+    const responseData = rawResponseData.data;
+    let partialQueryResponse: defs.PartialQueryResponse | undefined;
+
+    if (context.queryFiltered) {
+      dataCaching.push(this._setQueryResponseCacheEntry(
+        updatedRequestData.hash,
+        { cacheMetadata: responseCacheMetadata, data: responseData },
+        options,
+        context,
+      ));
+
+      partialQueryResponse = this._getPartialQueryResponse(requestData.hash);
+    }
+
+    const cacheMetadata = this._getResponseCacheMetadata(responseCacheMetadata, partialQueryResponse);
+    const data = this._getResponseData(responseData, partialQueryResponse);
+
+    dataCaching.push(this._setQueryResponseCacheEntry(
+      requestData.hash,
+      { cacheMetadata, data },
+      options,
+      context,
+    ));
+
     // TODO
+
+    if (options.awaitDataCaching) await Promise.all(dataCaching);
+
+    return { cacheMetadata, data };
+  }
+
+  public async resolveRequest(
+    requestData: coreDefs.RequestData,
+    rawResponseData: coreDefs.RawResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<coreDefs.ResponseData> {
+
   }
 
   private async _analyzeField(
@@ -483,6 +522,26 @@ export class CacheManager implements defs.CacheManager  {
     } catch (errors) {
       return Promise.reject(errors);
     }
+  }
+
+  private _getPartialQueryResponse(hash: string): defs.PartialQueryResponse | undefined {
+    const partialQueryResponse = this._partialQueryResponses.get(hash);
+    this._partialQueryResponses.delete(hash);
+    return partialQueryResponse;
+  }
+
+  private _getResponseCacheMetadata(
+    cacheMetadata: coreDefs.CacheMetadata,
+    partialQueryResponse?: defs.PartialQueryResponse,
+  ): coreDefs.CacheMetadata {
+
+  }
+
+  private _getResponseData(
+    data: coreDefs.PlainObjectMap,
+    partialQueryResponse?: defs.PartialQueryResponse,
+  ): coreDefs.PlainObjectMap {
+
   }
 
   private async _hasCacheEntry(

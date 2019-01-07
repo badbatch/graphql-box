@@ -334,14 +334,7 @@ export class RequestParser implements defs.RequestParser {
     context: coreDefs.RequestContext,
   ): Promise<defs.UpdateRequestResult> {
     try {
-      let updatedRequest;
-
-      if (options.fragments) {
-        updatedRequest = RequestParser._concatFragments(request, options.fragments);
-      } else {
-        updatedRequest = request;
-      }
-
+      const updatedRequest = options.fragments ? RequestParser._concatFragments(request, options.fragments) : request;
       const ast = parse(updatedRequest);
       const operationDefinitions = getOperationDefinitions(ast);
 

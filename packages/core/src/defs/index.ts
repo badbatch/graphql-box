@@ -60,10 +60,10 @@ export type ValidOperations = "mutation" | "query" | "subscription";
 export interface RequestContext {
   cacheType?: CacheTypes;
   fieldTypeMap: FieldTypeMap;
-  filtered: boolean;
   handlID: string;
   operation: ValidOperations;
   operationName: string;
+  queryFiltered: boolean;
   request: string;
 }
 
@@ -74,10 +74,14 @@ export interface DehydratedCacheMetadata {
 export type CacheMetadata = Map<string, Cacheability>;
 
 export interface RawResponseData {
+  cacheMetadata: DehydratedCacheMetadata;
+  data: PlainObjectMap;
+}
+
+export interface MaybeRawResponseData {
   cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObjectMap;
   errors?: Error | Error[];
-  headers?: Headers;
 }
 
 export interface ResponseData {

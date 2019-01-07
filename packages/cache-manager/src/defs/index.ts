@@ -132,16 +132,16 @@ export interface CacheManager {
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.ResponseData | false>;
-  resolve(
-    requestData: coreDefs.RequestData,
-    rawResponseData: coreDefs.RawResponseData,
-    options: coreDefs.RequestOptions,
-    context: coreDefs.RequestContext,
-  ): Promise<coreDefs.MaybeResponseData>;
   resolveQuery(
     requestData: coreDefs.RequestData,
     updatedRequestData: coreDefs.RequestData,
-    rawResponseData: coreDefs.RawResponseData,
+    responseData: coreDefs.RawResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<coreDefs.MaybeResponseData>;
+  resolveRequest(
+    requestData: coreDefs.RequestData,
+    responseData: coreDefs.RawResponseData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.MaybeResponseData>;

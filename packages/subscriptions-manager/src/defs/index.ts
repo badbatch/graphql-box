@@ -7,7 +7,7 @@ export interface SubscriptionsManager {
     requestData: coreDefs.RequestDataWithMaybeAST,
     options: coreDefs.RequestOptions,
     subscriberResolver: SubscriberResolver,
-  ): Promise<AsyncIterable<any> | coreDefs.RawResponseData>;
+  ): Promise<AsyncIterable<any> | coreDefs.MaybeRawResponseData>;
 }
 
 export type SubscriptionsManagerInit = () => SubscriptionsManager;

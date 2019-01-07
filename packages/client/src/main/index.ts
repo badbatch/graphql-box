@@ -68,10 +68,10 @@ export default class Client {
   private static _getRequestContext(operation: coreDefs.ValidOperations, request: string): coreDefs.RequestContext {
     return {
       fieldTypeMap: new Map(),
-      filtered: false,
       handlID: uuid(),
       operation,
       operationName: "",
+      queryFiltered: false,
       request,
     };
   }
@@ -154,7 +154,7 @@ export default class Client {
     requestData: coreDefs.RequestDataWithMaybeAST,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<coreDefs.RawResponseData> {
+  ): Promise<coreDefs.MaybeRawResponseData> {
     try {
       return this._requestManager.fetch(requestData);
     } catch (error) {
@@ -170,20 +170,23 @@ export default class Client {
     try {
       const rawResponseData = await this._fetch(requestData, options, context);
 
-      let { cacheMetadata, headers, ...responseData } = rawResponseData; // tslint:disable-line
+      const { data, errors } = rawResponseData;
+      if (errors) return Promise.reject(errors);
+
+      let responseData = { data };
 
       if (this._cacheManager) {
-        responseData = await this._cacheManager.resolve(
+        responseData = await this._cacheManager.resolveRequest(
           requestData as coreDefs.RequestData,
-          rawResponseData,
+          rawResponseData as coreDefs.RawResponseData,
           options,
           context,
         );
       }
 
       return Client._resolve(responseData, options, context);
-    } catch (error) {
-      return Promise.reject(error);
+    } catch (errors) {
+      return Promise.reject(errors);
     }
   }
 
@@ -222,13 +225,16 @@ export default class Client {
 
       const rawResponseData = await this._fetch(updatedRequestData, options, context);
 
-      let { cacheMetadata, headers, ...responseData } = rawResponseData; // tslint:disable-line
+      const { data, errors } = rawResponseData;
+      if (errors) return this._resolveQuery(updatedRequestData, { errors }, options, context);
+
+      let responseData = { data };
 
       if (this._cacheManager) {
         responseData = await this._cacheManager.resolveQuery(
           requestData as coreDefs.RequestData,
           updatedRequestData as coreDefs.RequestData,
-          rawResponseData,
+          rawResponseData as coreDefs.RawResponseData,
           options,
           context,
         );
@@ -267,7 +273,7 @@ export default class Client {
     context: coreDefs.RequestContext,
   ): Promise<AsyncIterable<any> | coreDefs.MaybeRequestResult> {
     try {
-      const resolver = async (responseData: coreDefs.RawResponseData) =>
+      const resolver = async (responseData: coreDefs.MaybeRawResponseData) =>
         this._resolveSubscription(requestData, responseData, options, context);
 
       const subscriptionsManager = this._subscriptionsManager as subDefs.SubscriptionsManager;
@@ -275,7 +281,7 @@ export default class Client {
 
       if (isAsyncIterable(subscribeResult)) return subscribeResult as AsyncIterable<any>;
 
-      return this._resolveSubscription(requestData, subscribeResult as coreDefs.RawResponseData, options, context);
+      return this._resolveSubscription(requestData, subscribeResult as coreDefs.MaybeRawResponseData, options, context);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -301,7 +307,7 @@ export default class Client {
       const requestData = { ast, hash: hashRequest(updatedRequest), request: updatedRequest };
       return this._handleRequest(requestData, options, context);
     } catch (error) {
-      return Client._resolve({ errors: error }, options, context);
+      return Promise.reject(error);
     }
   }
 
@@ -333,25 +339,28 @@ export default class Client {
   @logSubscription(Client._debugManager)
   private async _resolveSubscription(
     requestData: coreDefs.RequestDataWithMaybeAST,
-    rawResponseData: coreDefs.RawResponseData,
+    rawResponseData: coreDefs.MaybeRawResponseData,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.MaybeRequestResult> {
     try {
-      let { cacheMetadata, ...responseData } = rawResponseData; // tslint:disable-line
+      const { data, errors } = rawResponseData;
+      if (errors) return Client._resolve({ errors }, options, context);
+
+      let responseData = { data };
 
       if (this._cacheManager) {
-        responseData = await this._cacheManager.resolve(
+        responseData = await this._cacheManager.resolveRequest(
           requestData as coreDefs.RequestData,
-          rawResponseData,
+          rawResponseData as coreDefs.RawResponseData,
           options,
           context,
         );
       }
 
       return Client._resolve(responseData, options, context);
-    } catch (error) {
-      return Client._resolve({ errors: error }, options, context);
+    } catch (errors) {
+      return Client._resolve({ errors }, options, context);
     }
   }
 
