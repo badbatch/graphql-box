@@ -11,14 +11,22 @@ import {
   getOperationDefinitions,
   hasChildFields,
   iterateChildFields,
+  mergeObjects,
 } from "@handl/helpers";
 import Cacheability from "cacheability";
 import { FieldNode, print } from "graphql";
 import { get, isArray, isNumber, isObjectLike, isPlainObject, isUndefined } from "lodash";
-import { CACHE_CONTROL, DATA_ENTITIES, METADATA, NO_CACHE, QUERY_RESPONSES, REQUEST_FIELD_PATHS } from "../consts";
-import logCacheEntry from "../debug/log-cache-entry";
-import logCacheQuery from "../debug/log-cache-query";
-import logPartialCompiled from "../debug/log-partial-compiled";
+import {
+  CACHE_CONTROL,
+  DATA_ENTITIES,
+  HEADER_CACHE_CONTROL,
+  HEADER_NO_CACHE,
+  METADATA,
+  NO_CACHE,
+  QUERY_RESPONSES,
+  REQUEST_FIELD_PATHS,
+} from "../consts";
+import { logCacheEntry, logCacheQuery, logPartialCompiled } from "../debug";
 import * as defs from "../defs";
 
 export class CacheManager implements defs.CacheManager  {
@@ -88,6 +96,17 @@ export class CacheManager implements defs.CacheManager  {
     if (path.length) paths.push(path);
     paths.push(key);
     return paths.join(".");
+  }
+
+  private static _createCacheMetadata(
+    { headers }: coreDefs.RawResponseData,
+    { operation }: coreDefs.RequestContext,
+  ): coreDefs.CacheMetadata {
+    const cacheMetadata = new Map();
+    const cacheControl = headers.get(HEADER_CACHE_CONTROL) || HEADER_NO_CACHE;
+    const cacheability = new Cacheability({ cacheControl });
+    cacheMetadata.set(operation, cacheability);
+    return cacheMetadata;
   }
 
   private static _dehydrateCacheMetadata(cacheMetadata: defs.CacheMetadata): defs.DehydratedCacheMetadata {
@@ -188,11 +207,20 @@ export class CacheManager implements defs.CacheManager  {
     cacheMetadata: coreDefs.CacheMetadata | undefined,
     operation: string,
   ): string {
-    const defaultCacheControl = "no-cache";
+    const defaultCacheControl = HEADER_NO_CACHE;
     if (!cacheMetadata) return defaultCacheControl;
 
     const cacheability = cacheMetadata.get(operation);
     return cacheability ? cacheability.printCacheControl() : defaultCacheControl;
+  }
+
+  private static _getResponseCacheMetadata(
+    cacheMetadata: coreDefs.CacheMetadata,
+    partialQueryResponse?: defs.PartialQueryResponse,
+  ): coreDefs.CacheMetadata {
+    if (!partialQueryResponse) return cacheMetadata;
+
+    return new Map([...partialQueryResponse.cacheMetadata, ...cacheMetadata]);
   }
 
   private static _getValidFieldData({ dataEntityData, requestFieldPathData }: defs.CachedFieldData): any {
@@ -370,14 +398,14 @@ export class CacheManager implements defs.CacheManager  {
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.ResponseData> {
     const dataCaching: Array<Promise<void>> = [];
-    const responseCacheMetadata = CacheManager._rehydrateCacheMetadata(rawResponseData.cacheMetadata);
-    const responseData = rawResponseData.data;
+    const { cacheMetadata, data } = await this._resolveRequest(updatedRequestData, rawResponseData, options, context);
+
     let partialQueryResponse: defs.PartialQueryResponse | undefined;
 
     if (context.queryFiltered) {
       dataCaching.push(this._setQueryResponseCacheEntry(
         updatedRequestData.hash,
-        { cacheMetadata: responseCacheMetadata, data: responseData },
+        { cacheMetadata, data },
         options,
         context,
       ));
@@ -385,21 +413,19 @@ export class CacheManager implements defs.CacheManager  {
       partialQueryResponse = this._getPartialQueryResponse(requestData.hash);
     }
 
-    const cacheMetadata = this._getResponseCacheMetadata(responseCacheMetadata, partialQueryResponse);
-    const data = this._getResponseData(responseData, partialQueryResponse);
+    const responseCacheMetadata = CacheManager._getResponseCacheMetadata(cacheMetadata, partialQueryResponse);
+    const responseData = this._getResponseData(data, partialQueryResponse);
 
     dataCaching.push(this._setQueryResponseCacheEntry(
       requestData.hash,
-      { cacheMetadata, data },
+      { cacheMetadata: responseCacheMetadata, data: responseData },
       options,
       context,
     ));
 
-    // TODO
-
     if (options.awaitDataCaching) await Promise.all(dataCaching);
 
-    return { cacheMetadata, data };
+    return { cacheMetadata: responseCacheMetadata, data: responseData };
   }
 
   public async resolveRequest(
@@ -408,7 +434,7 @@ export class CacheManager implements defs.CacheManager  {
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.ResponseData> {
-
+    return this._resolveRequest(requestData, rawResponseData, options, context);
   }
 
   private async _analyzeField(
@@ -474,6 +500,15 @@ export class CacheManager implements defs.CacheManager  {
     await Promise.all(promises);
   }
 
+  private async _buildCacheMetadata(
+    requestData: coreDefs.RequestData,
+    rawResponseData: coreDefs.RawResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<coreDefs.CacheMetadata> {
+    // TODO
+  }
+
   private _buildDataEntityCacheKey(
     { requestFieldPathData }: defs.CachedFieldData,
     { typeIDValue, typeName }: coreDefs.FieldTypeInfo,
@@ -530,18 +565,19 @@ export class CacheManager implements defs.CacheManager  {
     return partialQueryResponse;
   }
 
-  private _getResponseCacheMetadata(
-    cacheMetadata: coreDefs.CacheMetadata,
-    partialQueryResponse?: defs.PartialQueryResponse,
-  ): coreDefs.CacheMetadata {
-
-  }
-
   private _getResponseData(
-    data: coreDefs.PlainObjectMap,
+    responseData: coreDefs.PlainObjectMap,
     partialQueryResponse?: defs.PartialQueryResponse,
   ): coreDefs.PlainObjectMap {
+    if (!partialQueryResponse) return responseData;
 
+    return mergeObjects(
+      partialQueryResponse.data,
+      responseData,
+      (key: string, val: any): string | number | undefined => {
+        return isPlainObject(val) && val[this._typeIDKey] ? val[this._typeIDKey] : undefined;
+      },
+    );
   }
 
   private async _hasCacheEntry(
@@ -572,6 +608,28 @@ export class CacheManager implements defs.CacheManager  {
     await Promise.all(fields.map((field) => this._analyzeField(field, {}, cachedResponseData, options, context)));
 
     return cachedResponseData;
+  }
+
+  private async _resolveRequest(
+    requestData: coreDefs.RequestData,
+    rawResponseData: coreDefs.RawResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<coreDefs.ResponseData> {
+    const dataCaching: Array<Promise<void>> = [];
+    const cacheMetadata = await this._buildCacheMetadata(requestData, rawResponseData, options, context);
+    const { data } = rawResponseData;
+
+    dataCaching.push(this._setDataEntityAndRequestFieldPathCacheEntries(
+      requestData,
+      { cacheMetadata, data },
+      options,
+      context,
+    ));
+
+    if (options.awaitDataCaching) await Promise.all(dataCaching);
+
+    return { cacheMetadata, data: rawResponseData.data };
   }
 
   @logCacheEntry(CacheManager._debugManager)
@@ -608,6 +666,15 @@ export class CacheManager implements defs.CacheManager  {
       if (cacheability && !cachedFieldData.cacheability) cachedFieldData.cacheability = cacheability;
       if (entry) cachedFieldData.requestFieldPathData = entry;
     }
+  }
+
+  private async _setDataEntityAndRequestFieldPathCacheEntries(
+    requestData: coreDefs.RequestData,
+    responseData: coreDefs.ResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<void> {
+    // TODO
   }
 
   @logPartialCompiled(CacheManager._debugManager)
