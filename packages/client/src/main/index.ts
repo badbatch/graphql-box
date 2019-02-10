@@ -178,7 +178,7 @@ export default class Client {
       if (this._cacheManager) {
         responseData = await this._cacheManager.resolveRequest(
           requestData as coreDefs.RequestData,
-          rawResponseData as coreDefs.RawResponseData,
+          rawResponseData as coreDefs.RawResponseDataWithMaybeCacheMetadata,
           options,
           context,
         );
@@ -234,7 +234,7 @@ export default class Client {
         responseData = await this._cacheManager.resolveQuery(
           requestData as coreDefs.RequestData,
           updatedRequestData as coreDefs.RequestData,
-          rawResponseData as coreDefs.RawResponseData,
+          rawResponseData as coreDefs.RawResponseDataWithMaybeCacheMetadata,
           options,
           context,
         );
@@ -352,7 +352,7 @@ export default class Client {
       if (this._cacheManager) {
         responseData = await this._cacheManager.resolveRequest(
           requestData as coreDefs.RequestData,
-          rawResponseData as coreDefs.RawResponseData,
+          rawResponseData as coreDefs.RawResponseDataWithMaybeCacheMetadata,
           options,
           context,
         );

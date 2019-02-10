@@ -16,6 +16,13 @@ export interface UserOptions {
   debugManager?: debugDefs.DebugManager;
 
   /**
+   * The cache control directive to apply to an operation
+   * when none is provided in the response headers or the
+   * operation's cache metadata.
+   */
+  fallbackOperationCacheability?: string;
+
+  /**
    * An object map of GraphQL schema types to cache-control
    * directives used for caching object types.
    */
@@ -28,6 +35,7 @@ export interface ClientOptions {
 
 export interface InitOptions {
   cache: Cachemap;
+  fallbackOperationCacheability?: string;
   debugManager?: debugDefs.DebugManager;
   typeCacheDirectives?: coreDefs.PlainObjectStringMap;
   typeIDKey: string;
@@ -35,6 +43,7 @@ export interface InitOptions {
 
 export interface ConstructorOptions {
   cache: Cachemap;
+  fallbackOperationCacheability?: string;
   typeCacheDirectives?: coreDefs.PlainObjectStringMap;
   typeIDKey: string;
 }
@@ -64,7 +73,19 @@ export interface CachedResponseData {
   fieldPathChecklist: FieldPathChecklist;
 }
 
+export interface AncestorKeysAndPaths {
+  index?: number;
+  requestFieldPath?: string;
+  responseDataPath?: string;
+}
+
 export interface CachedFieldData {
+  cacheability?: Cacheability;
+  dataEntityData?: any;
+  requestFieldPathData?: any;
+}
+
+export interface CachedAncestorFieldData {
   cacheability?: Cacheability;
   dataEntityData?: any;
   requestFieldPathData?: any;
@@ -135,16 +156,16 @@ export interface CacheManager {
   resolveQuery(
     requestData: coreDefs.RequestData,
     updatedRequestData: coreDefs.RequestData,
-    responseData: coreDefs.RawResponseData,
+    responseData: coreDefs.RawResponseDataWithMaybeCacheMetadata,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<coreDefs.MaybeResponseData>;
+  ): Promise<coreDefs.ResponseData>;
   resolveRequest(
     requestData: coreDefs.RequestData,
-    responseData: coreDefs.RawResponseData,
+    responseData: coreDefs.RawResponseDataWithMaybeCacheMetadata,
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
-  ): Promise<coreDefs.MaybeResponseData>;
+  ): Promise<coreDefs.ResponseData>;
 }
 
 export type CacheManagerInit = (options: ClientOptions) => Promise<CacheManager>;

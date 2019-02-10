@@ -1,6 +1,8 @@
 import { coreDefs } from "@handl/core";
 
-export type SubscriberResolver = (rawResponseData: coreDefs.RawResponseData) => Promise<coreDefs.MaybeRequestResult>;
+export type SubscriberResolver = (
+  rawResponseData: coreDefs.RawResponseDataWithMaybeCacheMetadata,
+) => Promise<coreDefs.MaybeRequestResult>;
 
 export interface SubscriptionsManager {
   subscribe(

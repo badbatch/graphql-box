@@ -73,12 +73,14 @@ export interface DehydratedCacheMetadata {
 
 export type CacheMetadata = Map<string, Cacheability>;
 
-export interface RawResponseData {
+export interface RawResponseDataWithMaybeCacheMetadata {
+  cacheMetadata?: DehydratedCacheMetadata;
   data: PlainObjectMap;
   headers: Headers;
 }
 
 export interface MaybeRawResponseData {
+  cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObjectMap;
   errors?: Error | Error[];
   headers: Headers;
