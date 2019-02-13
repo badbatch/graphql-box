@@ -333,6 +333,7 @@ export default class Client {
   ): Promise<coreDefs.MaybeRequestResult> {
     this._resolvePendingRequests(requestData, responseData);
     this._queryTracker.active = this._queryTracker.active.filter((value) => value !== requestData.hash);
+    if (this._cacheManager) this._cacheManager.deletePartialQueryResponse(requestData.hash);
     return Client._resolve(responseData, options, context);
   }
 

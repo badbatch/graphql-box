@@ -58,7 +58,6 @@ export type FieldTypeMap = Map<string, FieldTypeInfo>;
 export type ValidOperations = "mutation" | "query" | "subscription";
 
 export interface RequestContext {
-  cacheType?: CacheTypes;
   fieldTypeMap: FieldTypeMap;
   handlID: string;
   operation: ValidOperations;

@@ -15,7 +15,7 @@ import {
 } from "@handl/helpers";
 import Cacheability from "cacheability";
 import { FieldNode, print } from "graphql";
-import { get, isArray, isNumber, isObjectLike, isPlainObject, isUndefined } from "lodash";
+import { cloneDeep, get, isArray, isNumber, isObjectLike, isPlainObject, isUndefined, unset } from "lodash";
 import {
   CACHE_CONTROL,
   DATA_ENTITIES,
@@ -23,6 +23,7 @@ import {
   HEADER_NO_CACHE,
   METADATA,
   NO_CACHE,
+  QUERY,
   QUERY_RESPONSES,
   REQUEST_FIELD_PATHS,
 } from "../consts";
@@ -191,7 +192,6 @@ export class CacheManager implements defs.CacheManager  {
 
     return {
       hashedRequestFieldCacheKey: hashRequest(updatedRequestFieldCacheKey),
-      name,
       propNameOrIndex,
       requestFieldCacheKey: updatedRequestFieldCacheKey,
       requestFieldPath: updatedRequestFieldPath,
@@ -308,7 +308,31 @@ export class CacheManager implements defs.CacheManager  {
     fieldPathChecklist.set(requestFieldPath, !isUndefined(data));
   }
 
+  private static _toSetDataEntityCacheEntry(
+    data: coreDefs.PlainObjectMap | any[],
+    requestFieldPath: string,
+    { fieldTypeMap, operation }: coreDefs.RequestContext,
+  ): boolean {
+    const fieldTypeInfo = fieldTypeMap.get(requestFieldPath);
+    if (!fieldTypeInfo) return false;
+
+    return fieldTypeInfo.isEntity && isPlainObject(data);
+  }
+
+  private static _toSetRequestFieldPathCacheEntry(
+    data: coreDefs.PlainObjectMap | any[],
+    requestFieldPath: string,
+    { fieldTypeMap, operation }: coreDefs.RequestContext,
+  ): boolean {
+    const fieldTypeInfo = fieldTypeMap.get(requestFieldPath);
+    if (!fieldTypeInfo) return false;
+
+    const hasArgsOrDirectives = fieldTypeInfo.hasArguments || fieldTypeInfo.hasDirectives;
+    return operation === QUERY && ((fieldTypeInfo.isEntity && isPlainObject(data)) || hasArgsOrDirectives);
+  }
+
   private _cache: Cachemap;
+  private _cascadeCacheControl: boolean;
   private _fallbackOperationCacheability: string;
   private _partialQueryResponses: Map<string, defs.PartialQueryResponse> = new Map();
   private _typeCacheDirectives: coreDefs.PlainObjectStringMap;
@@ -316,6 +340,7 @@ export class CacheManager implements defs.CacheManager  {
 
   constructor(options: defs.ConstructorOptions) {
     this._cache = options.cache;
+    this._cascadeCacheControl = options.cascadeCacheControl || false;
     this._fallbackOperationCacheability = options.fallbackOperationCacheability || NO_CACHE;
     this._typeCacheDirectives = options.typeCacheDirectives || {};
     this._typeIDKey = options.typeIDKey;
@@ -361,11 +386,7 @@ export class CacheManager implements defs.CacheManager  {
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<defs.CheckCacheEntryResult | false> {
-    try {
-      return this._checkCacheEntry(cacheType, hash, options, context);
-    } catch (error) {
-      return false;
-    }
+    return this._checkCacheEntry(cacheType, hash, options, context);
   }
 
   public async checkQueryResponseCacheEntry(
@@ -373,20 +394,20 @@ export class CacheManager implements defs.CacheManager  {
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.ResponseData | false> {
-    try {
-      const result = await this._checkCacheEntry(QUERY_RESPONSES, hash, options, context);
+    const result = await this._checkCacheEntry(QUERY_RESPONSES, hash, options, context);
 
-      if (!result) return false;
+    if (!result) return false;
 
-      const { cacheMetadata, data } = result.entry as defs.QueryResponseCacheEntry;
+    const { cacheMetadata, data } = result.entry as defs.QueryResponseCacheEntry;
 
-      return {
-        cacheMetadata: CacheManager._rehydrateCacheMetadata(cacheMetadata),
-        data,
-      };
-    } catch (error) {
-      return false;
-    }
+    return {
+      cacheMetadata: CacheManager._rehydrateCacheMetadata(cacheMetadata),
+      data,
+    };
+  }
+
+  public deletePartialQueryResponse(hash: string): void {
+    this._partialQueryResponses.delete(hash);
   }
 
   public async resolveQuery(
@@ -683,7 +704,7 @@ export class CacheManager implements defs.CacheManager  {
     if (checkResult) {
       const { cacheability, entry } = checkResult;
       if (cacheability && !cachedFieldData.cacheability) cachedFieldData.cacheability = cacheability;
-      if (entry) cachedFieldData.requestFieldPathData = entry;
+      if (entry) cachedFieldData.dataEntityData = entry;
     }
   }
 
@@ -693,7 +714,43 @@ export class CacheManager implements defs.CacheManager  {
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<void> {
-    // TODO
+    const queryNode = getOperationDefinitions(requestData.ast, context.operation)[0];
+    const fields = getChildFields(queryNode) as FieldNode[];
+
+    await Promise.all(
+      fields.map((field) => {
+        return this._setFieldDataEntityAndRequestFieldPathCacheEntry(
+          field,
+          {},
+          responseData,
+          options,
+          context,
+        );
+      }),
+    );
+  }
+
+  private async _setDataEntityCacheEntry(
+    { requestFieldPath }: defs.KeysAndPaths,
+    { cacheMetadata, data }: coreDefs.ResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ) {
+    const { fieldTypeMap } = context;
+    const fieldTypeInfo = fieldTypeMap.get(requestFieldPath);
+    const cacheability = cacheMetadata.get(requestFieldPath);
+    if (!fieldTypeInfo || !cacheability) return;
+
+    const entityDataKey = `${fieldTypeInfo.typeName}:${data[this._typeIDKey]}`;
+
+    await this._setCacheEntry(
+      DATA_ENTITIES,
+      entityDataKey,
+      cloneDeep(data),
+      { cacheHeaders: { cacheControl: cacheability.printCacheControl() }, tag: options.tag },
+      options,
+      context,
+    );
   }
 
   private _setFieldCacheability(
@@ -703,13 +760,14 @@ export class CacheManager implements defs.CacheManager  {
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): void {
+    const { requestFieldPath: ancestorRequestFieldPath } = ancestorKeysAndPaths;
     const keysAndPaths = CacheManager._getFieldKeysAndPaths(field, ancestorKeysAndPaths);
     const { requestFieldPath, responseDataPath } = keysAndPaths;
     const fieldData = CacheManager._getFieldDataFromResponseDataPath(data, responseDataPath);
     if (!isObjectLike(fieldData)) return;
 
     const objectLikeFieldData = fieldData as coreDefs.PlainObjectMap | any[];
-    this._setFieldTypeCacheDirective(cacheMetadata, requestFieldPath, context);
+    this._setFieldTypeCacheDirective(cacheMetadata, { ancestorRequestFieldPath, requestFieldPath }, context);
 
     iterateChildFields(field, objectLikeFieldData, (childField: FieldNode, childIndex?: number) => {
       this._setFieldCacheability(
@@ -722,9 +780,57 @@ export class CacheManager implements defs.CacheManager  {
     });
   }
 
+  private async _setFieldDataEntityAndRequestFieldPathCacheEntry(
+    field: FieldNode,
+    ancestorKeysAndPaths: defs.AncestorKeysAndPaths,
+    { cacheMetadata, data }: coreDefs.ResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<void> {
+    const keysAndPaths = CacheManager._getFieldKeysAndPaths(field, ancestorKeysAndPaths);
+    const { requestFieldCacheKey, requestFieldPath, responseDataPath } = keysAndPaths;
+    const fieldData = CacheManager._getFieldDataFromResponseDataPath(data, responseDataPath);
+    if (!isObjectLike(fieldData)) return;
+
+    const objectLikeFieldData = fieldData as coreDefs.PlainObjectMap | any[];
+    const promises: Array<Promise<void>> = [];
+
+    iterateChildFields(field, objectLikeFieldData, (childField: FieldNode, childIndex?: number) => {
+      promises.push(this._setFieldDataEntityAndRequestFieldPathCacheEntry(
+        childField,
+        { index: childIndex, requestFieldCacheKey, requestFieldPath, responseDataPath },
+        { cacheMetadata, data },
+        options,
+        context,
+      ));
+    });
+
+    await Promise.all(promises);
+
+    if (CacheManager._toSetRequestFieldPathCacheEntry(objectLikeFieldData, requestFieldPath, context)) {
+      await this._setRequestFieldPathCacheEntry(
+        keysAndPaths,
+        { cacheMetadata, data: objectLikeFieldData },
+        options,
+        context,
+      );
+    }
+
+    if (CacheManager._toSetDataEntityCacheEntry(objectLikeFieldData, requestFieldPath, context)) {
+      await this._setDataEntityCacheEntry(
+        keysAndPaths,
+        { cacheMetadata, data: objectLikeFieldData },
+        options,
+        context,
+      );
+    }
+
+    unset(objectLikeFieldData, responseDataPath);
+  }
+
   private _setFieldTypeCacheDirective(
     cacheMetadata: coreDefs.CacheMetadata,
-    requestFieldPath: string,
+    { ancestorRequestFieldPath, requestFieldPath }: { ancestorRequestFieldPath?: string, requestFieldPath: string },
     { fieldTypeMap, operation }: coreDefs.RequestContext,
   ): void {
     if (cacheMetadata.has(requestFieldPath)) return;
@@ -734,6 +840,13 @@ export class CacheManager implements defs.CacheManager  {
     if (fieldTypeInfo && this._typeCacheDirectives[fieldTypeInfo.typeName]) {
       const cacheability = new Cacheability({ cacheControl: this._typeCacheDirectives[fieldTypeInfo.typeName] });
       CacheManager._setCacheMetadata(cacheMetadata, { cacheability }, requestFieldPath, operation);
+    } else if (this._cascadeCacheControl && ancestorRequestFieldPath) {
+      CacheManager._setCacheMetadata(
+        cacheMetadata,
+        { cacheability: cacheMetadata.get(ancestorRequestFieldPath) },
+        requestFieldPath,
+        operation,
+      );
     }
   }
 
@@ -761,6 +874,25 @@ export class CacheManager implements defs.CacheManager  {
       hash,
       { cacheMetadata: dehydratedCacheMetadata, data },
       { cacheHeaders: { cacheControl }, tag: options.tag },
+      options,
+      context,
+    );
+  }
+
+  private async _setRequestFieldPathCacheEntry(
+    { hashedRequestFieldCacheKey, requestFieldPath }: defs.KeysAndPaths,
+    { cacheMetadata, data }: coreDefs.ResponseData,
+    options: coreDefs.RequestOptions,
+    context: coreDefs.RequestContext,
+  ): Promise<void> {
+    const cacheability = cacheMetadata.get(requestFieldPath);
+    if (!cacheability) return;
+
+    await this._setCacheEntry(
+      REQUEST_FIELD_PATHS,
+      hashedRequestFieldCacheKey,
+      cloneDeep(data),
+      { cacheHeaders: { cacheControl: cacheability.printCacheControl() }, tag: options.tag },
       options,
       context,
     );

@@ -12,3 +12,7 @@ export const HEADER_NO_CACHE = "no-cache";
 export const CACHE_ENTRY_ADDED = "cache_entry_added";
 export const CACHE_ENTRY_QUERIED = "cache_entry_queried";
 export const PARTIAL_QUERY_COMPILED = "partial_query_compiled";
+
+export const MUTATION = "mutation";
+export const QUERY = "query";
+export const SUBSCRIPTION = "subscription";

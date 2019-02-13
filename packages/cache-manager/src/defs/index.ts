@@ -11,6 +11,13 @@ export interface UserOptions {
   cache: Cachemap;
 
   /**
+   * Whether to cascade cache control directives down to
+   * child nodes if a child node does not have its down
+   * cache control directives.
+   */
+  cascadeCacheControl?: boolean;
+
+  /**
    * The debug manager.
    */
   debugManager?: debugDefs.DebugManager;
@@ -35,6 +42,7 @@ export interface ClientOptions {
 
 export interface InitOptions {
   cache: Cachemap;
+  cascadeCacheControl?: boolean;
   fallbackOperationCacheability?: string;
   debugManager?: debugDefs.DebugManager;
   typeCacheDirectives?: coreDefs.PlainObjectStringMap;
@@ -43,6 +51,7 @@ export interface InitOptions {
 
 export interface ConstructorOptions {
   cache: Cachemap;
+  cascadeCacheControl?: boolean;
   fallbackOperationCacheability?: string;
   typeCacheDirectives?: coreDefs.PlainObjectStringMap;
   typeIDKey: string;
@@ -75,6 +84,7 @@ export interface CachedResponseData {
 
 export interface AncestorKeysAndPaths {
   index?: number;
+  requestFieldCacheKey?: string;
   requestFieldPath?: string;
   responseDataPath?: string;
 }
@@ -103,7 +113,6 @@ export interface KeysAndPathsOptions {
 
 export interface KeysAndPaths {
   hashedRequestFieldCacheKey: string;
-  name: string;
   propNameOrIndex: string | number;
   requestFieldCacheKey: string;
   requestFieldPath: string;
@@ -153,6 +162,9 @@ export interface CacheManager {
     options: coreDefs.RequestOptions,
     context: coreDefs.RequestContext,
   ): Promise<coreDefs.ResponseData | false>;
+  deletePartialQueryResponse(
+    hash: string,
+  ): void;
   resolveQuery(
     requestData: coreDefs.RequestData,
     updatedRequestData: coreDefs.RequestData,
