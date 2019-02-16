@@ -1,7 +1,7 @@
-import { debugDefs } from "@handl/debug-manager";
+import { DebugManagerDef } from "@handl/debug-manager";
 import { FETCH_EXECUTED } from "../../consts";
 
-export default function logFetch(debugManager?: debugDefs.DebugManager) {
+export default function logFetch(debugManager?: DebugManagerDef) {
   return (
     target: any,
     propertyName: string,

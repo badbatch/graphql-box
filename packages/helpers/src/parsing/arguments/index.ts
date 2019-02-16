@@ -1,19 +1,19 @@
-import { coreDefs } from "@handl/core";
+import { PlainObjectMap } from "@handl/core";
 import { DirectiveNode, FieldNode, ValueNode } from "graphql";
 import { LIST_VALUE, OBJECT_VALUE, VALUE } from "../../consts";
-import * as defs from "../../defs";
+import { ScalarValueNode } from "../../defs";
 
-type ParseValueResult = string | boolean | null | coreDefs.PlainObjectMap | any[];
+type ParseValueResult = string | boolean | null | PlainObjectMap | any[];
 
 function parseValue(valueNode: ValueNode): ParseValueResult {
   let output: ParseValueResult;
 
   if (valueNode.hasOwnProperty(VALUE)) {
-    const scalarValueNode = valueNode as defs.ScalarValueNode;
+    const scalarValueNode = valueNode as ScalarValueNode;
     output = scalarValueNode.value;
   } else if (valueNode.kind === OBJECT_VALUE) {
     const objectValueNode = valueNode;
-    const obj: coreDefs.PlainObjectMap = {};
+    const obj: PlainObjectMap = {};
 
     objectValueNode.fields.forEach(({ name, value }) => {
       obj[name.value] = parseValue(value);
@@ -36,9 +36,9 @@ function parseValue(valueNode: ValueNode): ParseValueResult {
   return output;
 }
 
-export function getArguments(field: FieldNode | DirectiveNode): coreDefs.PlainObjectMap | undefined {
+export function getArguments(field: FieldNode | DirectiveNode): PlainObjectMap | undefined {
   if (!field.arguments || !field.arguments.length) return undefined;
-  const args: coreDefs.PlainObjectMap = {};
+  const args: PlainObjectMap = {};
 
   field.arguments.forEach(({ name, value }) => {
     args[name.value] = parseValue(value);

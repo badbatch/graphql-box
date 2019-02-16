@@ -1,14 +1,14 @@
-import { coreDefs } from "@handl/core";
+import { PlainObjectMap } from "@handl/core";
 import { FieldNode } from "graphql";
 import { getArguments } from "../arguments";
 
-export function getDirectives(field: FieldNode): coreDefs.PlainObjectMap | undefined {
+export function getDirectives(field: FieldNode): PlainObjectMap | undefined {
   if (!field.directives || !field.directives.length) return undefined;
 
-  const directives: coreDefs.PlainObjectMap = {};
+  const directives: PlainObjectMap = {};
 
   field.directives.forEach((directive) => {
-    let args: coreDefs.PlainObjectMap = {};
+    let args: PlainObjectMap = {};
 
     if (directive.arguments && directive.arguments.length) {
       args = getArguments(directive) || {};

@@ -1,4 +1,4 @@
-import { coreDefs } from "@handl/core";
+import { PlainObjectMap } from "@handl/core";
 import { outputFileSync } from "fs-extra";
 import { execute, introspectionQuery, parse } from "graphql";
 import "isomorphic-fetch";
@@ -31,12 +31,12 @@ export default async function introspect(): Promise<void> {
       shell.echo(">>>>>> introspect executing introspection query against schema");
       result = await execute(schema, parse(introspectionQuery));
     } else if (url) {
-      let headersObj: coreDefs.PlainObjectMap | undefined;
+      let headersObj: PlainObjectMap | undefined;
 
       if (headers) {
         shell.echo(">>>>>> introspect parsing headers");
 
-        headersObj = headers.reduce((obj: coreDefs.PlainObjectMap, header: string) => {
+        headersObj = headers.reduce((obj: PlainObjectMap, header: string) => {
           const [key, value] = header.split(":");
           if (key && value) obj[key] = value;
           return obj;

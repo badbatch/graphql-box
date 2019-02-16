@@ -1,15 +1,21 @@
-import { coreDefs } from "@handl/core";
+import {
+  MaybeRawResponseData,
+  MaybeRequestResult,
+  RawResponseDataWithMaybeCacheMetadata,
+  RequestDataWithMaybeAST,
+  RequestOptions,
+} from "@handl/core";
 
 export type SubscriberResolver = (
-  rawResponseData: coreDefs.RawResponseDataWithMaybeCacheMetadata,
-) => Promise<coreDefs.MaybeRequestResult>;
+  rawResponseData: RawResponseDataWithMaybeCacheMetadata,
+) => Promise<MaybeRequestResult>;
 
-export interface SubscriptionsManager {
+export interface SubscriptionsManagerDef {
   subscribe(
-    requestData: coreDefs.RequestDataWithMaybeAST,
-    options: coreDefs.RequestOptions,
+    requestData: RequestDataWithMaybeAST,
+    options: RequestOptions,
     subscriberResolver: SubscriberResolver,
-  ): Promise<AsyncIterable<any> | coreDefs.MaybeRawResponseData>;
+  ): Promise<AsyncIterable<any> | MaybeRawResponseData>;
 }
 
-export type SubscriptionsManagerInit = () => SubscriptionsManager;
+export type SubscriptionsManagerInit = () => SubscriptionsManagerDef;

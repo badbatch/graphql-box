@@ -1,4 +1,4 @@
-import { coreDefs } from "@handl/core";
+import { PlainObjectMap } from "@handl/core";
 
 export interface IntrospectArgs {
   headers?: string[];
@@ -8,6 +8,6 @@ export interface IntrospectArgs {
 }
 
 export interface IntrospectionResult {
-  data?: coreDefs.PlainObjectMap;
+  data?: PlainObjectMap;
   [key: string]: any;
 }

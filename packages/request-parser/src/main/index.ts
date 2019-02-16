@@ -1,4 +1,4 @@
-import { coreDefs } from "@handl/core";
+import { PlainObjectMap, RequestContext, RequestOptions } from "@handl/core";
 import {
   addChildField,
   deleteFragmentDefinitions,
@@ -57,10 +57,21 @@ import {
   VARIABLE,
   VARIABLE_DEFINITION,
 } from "../consts";
-import * as defs from "../defs";
+import {
+  ClientOptions,
+  ConstructorOptions,
+  FragmentDefinitionNodeMap,
+  InitOptions,
+  MapFieldToTypeData,
+  RequestParserDef,
+  RequestParserInit,
+  UpdateRequestResult,
+  UserOptions,
+  VariableTypesMap,
+} from "../defs";
 
-export class RequestParser implements defs.RequestParser {
-  public static async init(options: defs.InitOptions): Promise<RequestParser> {
+export class RequestParser implements RequestParserDef {
+  public static async init(options: InitOptions): Promise<RequestParser> {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(options.introspection)) {
@@ -70,7 +81,7 @@ export class RequestParser implements defs.RequestParser {
     if (errors.length) return Promise.reject(errors);
 
     try {
-      const constructorOptions: defs.ConstructorOptions = {
+      const constructorOptions: ConstructorOptions = {
         schema: buildClientSchema(options.introspection),
         typeIDKey: options.typeIDKey,
       };
@@ -83,7 +94,7 @@ export class RequestParser implements defs.RequestParser {
 
   private static _addOperationToContext(
     operationDefinitions: OperationDefinitionNode[],
-    context: coreDefs.RequestContext,
+    context: RequestContext,
   ): void {
     context.operation = operationDefinitions[0].operation;
     context.operationName = get(operationDefinitions[0], [NAME, VALUE], "");
@@ -95,7 +106,7 @@ export class RequestParser implements defs.RequestParser {
 
   private static _deleteFragmentDefinitions(
     node: DocumentNode,
-    { fragments }: coreDefs.RequestOptions,
+    { fragments }: RequestOptions,
   ): DocumentNode | undefined {
     if (!fragments && !hasFragmentDefinitions(node)) return undefined;
 
@@ -104,7 +115,7 @@ export class RequestParser implements defs.RequestParser {
 
   private static _deleteVariableDefinitions(
     node: OperationDefinitionNode,
-    { variables }: coreDefs.RequestOptions,
+    { variables }: RequestOptions,
   ): OperationDefinitionNode | undefined {
     if (!variables || !hasVariableDefinitions(node)) return undefined;
 
@@ -112,9 +123,9 @@ export class RequestParser implements defs.RequestParser {
   }
 
   private static _mapFieldToType(
-    data: defs.MapFieldToTypeData,
-    { variables }: coreDefs.RequestOptions,
-    { fieldTypeMap }: coreDefs.RequestContext,
+    data: MapFieldToTypeData,
+    { variables }: RequestOptions,
+    { fieldTypeMap }: RequestContext,
   ): void {
     const { ancestors, fieldNode, isEntity, typeIDKey, typeName } = data;
     const ancestorFieldPath: string[] = [];
@@ -152,8 +163,8 @@ export class RequestParser implements defs.RequestParser {
 
   private static _getFragmentDefinitions(
     node: DocumentNode,
-    { fragments }: coreDefs.RequestOptions,
-  ): defs.FragmentDefinitionNodeMap | undefined {
+    { fragments }: RequestOptions,
+  ): FragmentDefinitionNodeMap | undefined {
     if (!fragments && !hasFragmentDefinitions(node)) return undefined;
 
     return getFragmentDefinitions(node);
@@ -180,7 +191,7 @@ export class RequestParser implements defs.RequestParser {
   }
 
   private static _parseObjectToInputString(
-    obj: coreDefs.PlainObjectMap,
+    obj: PlainObjectMap,
     variableType: Maybe<GraphQLNamedType>,
   ): string {
     let inputString = "{";
@@ -202,11 +213,11 @@ export class RequestParser implements defs.RequestParser {
   }
 
   private static _parseToInputString(
-    value: coreDefs.PlainObjectMap | any[],
+    value: PlainObjectMap | any[],
     variableType: Maybe<GraphQLNamedType>,
   ): string {
     if (isPlainObject(value)) {
-      return RequestParser._parseObjectToInputString(value as coreDefs.PlainObjectMap, variableType);
+      return RequestParser._parseObjectToInputString(value as PlainObjectMap, variableType);
     }
 
     return RequestParser._parseArrayToInputString(value as any[], variableType);
@@ -215,7 +226,7 @@ export class RequestParser implements defs.RequestParser {
   private static _updateVariableNode(
     node: VariableNode,
     variableType: Maybe<GraphQLNamedType>,
-    { variables }: coreDefs.RequestOptions,
+    { variables }: RequestOptions,
   ): ValueNode {
     if (!variables) return parseValue(`${null}`);
 
@@ -232,16 +243,16 @@ export class RequestParser implements defs.RequestParser {
   private _schema: GraphQLSchema;
   private _typeIDKey: string;
 
-  constructor(options: defs.ConstructorOptions) {
+  constructor(options: ConstructorOptions) {
     this._schema = options.schema;
     this._typeIDKey = options.typeIDKey;
   }
 
   public async updateRequest(
     request: string,
-    options: coreDefs.RequestOptions,
-    context: coreDefs.RequestContext,
-  ): Promise<defs.UpdateRequestResult> {
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<UpdateRequestResult> {
     try {
       const updated = await this._updateRequest(request, options, context);
 
@@ -279,9 +290,9 @@ export class RequestParser implements defs.RequestParser {
     ancestors: ReadonlyArray<any>,
     kind: "Field" | "InlineFragment",
     typeInfo: TypeInfo,
-    fragmentDefinitions: defs.FragmentDefinitionNodeMap | undefined,
-    options: coreDefs.RequestOptions,
-    context: coreDefs.RequestContext,
+    fragmentDefinitions: FragmentDefinitionNodeMap | undefined,
+    options: RequestOptions,
+    context: RequestContext,
   ) {
     const type = this._getFieldOrInlineFragmentType(kind, node, typeInfo);
     if (!type) return undefined;
@@ -305,7 +316,7 @@ export class RequestParser implements defs.RequestParser {
     if (kind === FIELD) {
       const fieldNode = node as FieldNode;
 
-      const data: defs.MapFieldToTypeData = {
+      const data: MapFieldToTypeData = {
         ancestors,
         fieldNode,
         isEntity: !!fields[this._typeIDKey],
@@ -330,25 +341,25 @@ export class RequestParser implements defs.RequestParser {
 
   private async _updateRequest(
     request: string,
-    options: coreDefs.RequestOptions,
-    context: coreDefs.RequestContext,
-  ): Promise<defs.UpdateRequestResult> {
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<UpdateRequestResult> {
+    const updatedRequest = options.fragments ? RequestParser._concatFragments(request, options.fragments) : request;
+    const ast = parse(updatedRequest);
+    const operationDefinitions = getOperationDefinitions(ast);
+
+    if (operationDefinitions.length > 1) {
+      return Promise.reject(new TypeError("@handl/request-parser expected one operation, but got multiple."));
+    }
+
+    RequestParser._addOperationToContext(operationDefinitions, context);
+
+    const _this = this;
+    const typeInfo = new TypeInfo(this._schema);
+    let fragmentDefinitions: FragmentDefinitionNodeMap | undefined;
+    const variableTypes: VariableTypesMap = {};
+
     try {
-      const updatedRequest = options.fragments ? RequestParser._concatFragments(request, options.fragments) : request;
-      const ast = parse(updatedRequest);
-      const operationDefinitions = getOperationDefinitions(ast);
-
-      if (operationDefinitions.length > 1) {
-        return Promise.reject(new TypeError("@handl/request-parser expected one operation, but got multiple."));
-      }
-
-      RequestParser._addOperationToContext(operationDefinitions, context);
-
-      const _this = this;
-      const typeInfo = new TypeInfo(this._schema);
-      let fragmentDefinitions: defs.FragmentDefinitionNodeMap | undefined;
-      const variableTypes: defs.VariableTypesMap = {};
-
       const updatedAST = visit(ast, {
         enter(
           node: ASTNode,
@@ -414,10 +425,10 @@ export class RequestParser implements defs.RequestParser {
   }
 }
 
-export default function init(userOptions: defs.UserOptions): defs.RequestParserInit {
+export default function init(userOptions: UserOptions): RequestParserInit {
   if (!isPlainObject(userOptions)) {
     throw new TypeError("@handl/request-parser expected userOptions to be a plain object.");
   }
 
-  return (clientOptions: defs.ClientOptions) => RequestParser.init({ ...clientOptions, ...userOptions });
+  return (clientOptions: ClientOptions) => RequestParser.init({ ...clientOptions, ...userOptions });
 }

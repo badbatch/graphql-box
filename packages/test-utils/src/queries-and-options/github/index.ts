@@ -1,6 +1,6 @@
-import * as defs from "../../defs";
+import { RequestAndOptions } from "../../defs";
 
-export const withoutVariable: defs.RequestAndOptions = {
+export const withoutVariable: RequestAndOptions = {
   options: {},
   request: `
     query {
@@ -15,7 +15,7 @@ export const withoutVariable: defs.RequestAndOptions = {
   `,
 };
 
-export const withOperationName: defs.RequestAndOptions = {
+export const withOperationName: RequestAndOptions = {
   options: {},
   request: `
     query GetOrganization {
@@ -30,7 +30,7 @@ export const withOperationName: defs.RequestAndOptions = {
   `,
 };
 
-export const withVariable: defs.RequestAndOptions = {
+export const withVariable: RequestAndOptions = {
   options: {
     variables: {
       login: "facebook",
@@ -49,7 +49,7 @@ export const withVariable: defs.RequestAndOptions = {
   `,
 };
 
-export const withVariables: defs.RequestAndOptions = {
+export const withVariables: RequestAndOptions = {
   options: {
     variables: {
       first: 6,
@@ -78,7 +78,7 @@ export const withVariables: defs.RequestAndOptions = {
   `,
 };
 
-export const withEnumVariable: defs.RequestAndOptions = {
+export const withEnumVariable: RequestAndOptions = {
   options: {
     variables: {
       first: 6,
@@ -108,7 +108,7 @@ export const withEnumVariable: defs.RequestAndOptions = {
   `,
 };
 
-export const withDirective: defs.RequestAndOptions = {
+export const withDirective: RequestAndOptions = {
   options: {
     variables: {
       first: 6,
@@ -138,7 +138,7 @@ export const withDirective: defs.RequestAndOptions = {
   `,
 };
 
-export const withInlineFragment: defs.RequestAndOptions = {
+export const withInlineFragment: RequestAndOptions = {
   options: {
     variables: {
       login: "facebook",
@@ -159,7 +159,7 @@ export const withInlineFragment: defs.RequestAndOptions = {
   `,
 };
 
-export const withUnionInlineFragments: defs.RequestAndOptions = {
+export const withUnionInlineFragments: RequestAndOptions = {
   options: {
     variables: {
       first: 10,
@@ -204,7 +204,7 @@ export const withUnionInlineFragments: defs.RequestAndOptions = {
   `,
 };
 
-export const withFragmentSpread: defs.RequestAndOptions = {
+export const withFragmentSpread: RequestAndOptions = {
   options: {
     variables: {
       login: "facebook",
@@ -227,7 +227,7 @@ export const withFragmentSpread: defs.RequestAndOptions = {
   `,
 };
 
-export const withFragmentOption: defs.RequestAndOptions = {
+export const withFragmentOption: RequestAndOptions = {
   options: {
     fragments: [
       `

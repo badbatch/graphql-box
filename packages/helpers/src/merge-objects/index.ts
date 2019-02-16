@@ -1,4 +1,4 @@
-import { coreDefs } from "@handl/core";
+import { PlainObjectMap } from "@handl/core";
 import {
   cloneDeep,
   isArray,
@@ -8,10 +8,10 @@ import {
 } from "lodash";
 
 export default function mergeObjects(
-  obj: coreDefs.PlainObjectMap,
-  src: coreDefs.PlainObjectMap,
+  obj: PlainObjectMap,
+  src: PlainObjectMap,
   matcher: (key: string, value: any) => any,
-): coreDefs.PlainObjectMap {
+): PlainObjectMap {
   function mergeCustomizer(objValue: any, srcValue: any, key: string): any[] | undefined {
     if (!isArray(objValue) || !isArray(srcValue)) return undefined;
     const objValues = objValue;

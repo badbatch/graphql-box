@@ -36,13 +36,13 @@
   },
   "devDependencies": {
     "@handl/core": "^0.1.22",
-    "@types/fs-extra": "^5.0.4",
-    "@types/shelljs": "^0.8.0",
-    "@types/yargs": "^12.0.1"
+    "@types/fs-extra": "^5.0.5",
+    "@types/shelljs": "^0.8.3",
+    "@types/yargs": "^12.0.9"
   },
   "dependencies": {
-    "fs-extra": "^7.0.0",
-    "shelljs": "^0.8.2",
-    "yargs": "^12.0.2"
+    "fs-extra": "^7.0.1",
+    "shelljs": "^0.8.3",
+    "yargs": "^13.2.0"
   }
 }

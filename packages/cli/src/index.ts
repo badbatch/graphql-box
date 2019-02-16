@@ -1,5 +1,1 @@
-import introspect from "./introspect";
-
-export {
-  introspect,
-};
+export { default as introspect } from "./introspect";

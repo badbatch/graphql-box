@@ -1,6 +1,6 @@
-import { coreDefs } from "@handl/core";
+import { PlainObjectMap } from "@handl/core";
 
 export interface RequestAndOptions {
-  options: coreDefs.PlainObjectMap;
+  options: PlainObjectMap;
   request: string;
 }

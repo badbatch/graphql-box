@@ -35,7 +35,7 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "@types/graphql": "^14.0.1",
+    "@types/graphql": "^14.0.7",
     "@types/md5": "^2.1.33",
     "cacheability": "^2.0.4"
   },

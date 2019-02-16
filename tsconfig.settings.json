@@ -30,6 +30,5 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "target": "esnext"
-  },
-  "$schema": "http://json.schemastore.org/tsconfig"
+  }
 }

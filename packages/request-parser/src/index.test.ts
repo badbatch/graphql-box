@@ -1,11 +1,16 @@
-import { coreDefs } from "@handl/core";
-import { getRequestContext, githubIntrospection, githubMutations, githubQueries } from "@handl/test-utils";
+import { RequestContext } from "@handl/core";
+import {
+  getRequestContext,
+  githubIntrospection,
+  githubMutationsAndOptions,
+  githubQueriesAndOptions,
+} from "@handl/test-utils";
 import { IntrospectionQuery } from "graphql";
-import { parserDefs, RequestParser } from ".";
+import { RequestParser, RequestParserDef, UpdateRequestResult } from ".";
 import { DEFAULT_TYPE_ID_KEY } from "./consts";
 
 describe("@handl/request-parser", () => {
-  let requestParser: parserDefs.RequestParser;
+  let requestParser: RequestParserDef;
 
   beforeAll(async () => {
     requestParser = await RequestParser.init({
@@ -15,11 +20,11 @@ describe("@handl/request-parser", () => {
   });
 
   describe("when a query without a variable is passed in", () => {
-    let updatedRequest: parserDefs.UpdateRequestResult;
-    let requestContext: coreDefs.RequestContext;
+    let updatedRequest: UpdateRequestResult;
+    let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueries.withoutVariable;
+      const { options, request } = githubQueriesAndOptions.withoutVariable;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -34,11 +39,11 @@ describe("@handl/request-parser", () => {
   });
 
   describe("when a query with an operation name is passed in", () => {
-    let updatedRequest: parserDefs.UpdateRequestResult;
-    let requestContext: coreDefs.RequestContext;
+    let updatedRequest: UpdateRequestResult;
+    let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueries.withOperationName;
+      const { options, request } = githubQueriesAndOptions.withOperationName;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -53,11 +58,11 @@ describe("@handl/request-parser", () => {
   });
 
   describe("when a query with a variable is passed in", () => {
-    let updatedRequest: parserDefs.UpdateRequestResult;
-    let requestContext: coreDefs.RequestContext;
+    let updatedRequest: UpdateRequestResult;
+    let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueries.withVariable;
+      const { options, request } = githubQueriesAndOptions.withVariable;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -72,11 +77,11 @@ describe("@handl/request-parser", () => {
   });
 
   describe("when a query with multiple variables are passed in", () => {
-    let updatedRequest: parserDefs.UpdateRequestResult;
-    let requestContext: coreDefs.RequestContext;
+    let updatedRequest: UpdateRequestResult;
+    let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueries.withVariables;
+      const { options, request } = githubQueriesAndOptions.withVariables;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -91,11 +96,11 @@ describe("@handl/request-parser", () => {
   });
 
   describe("when a query with an enum variable is passed in", () => {
-    let updatedRequest: parserDefs.UpdateRequestResult;
-    let requestContext: coreDefs.RequestContext;
+    let updatedRequest: UpdateRequestResult;
+    let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueries.withEnumVariable;
+      const { options, request } = githubQueriesAndOptions.withEnumVariable;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -110,11 +115,11 @@ describe("@handl/request-parser", () => {
   });
 
   describe("when a query with a directive is passed in", () => {
-    let updatedRequest: parserDefs.UpdateRequestResult;
-    let requestContext: coreDefs.RequestContext;
+    let updatedRequest: UpdateRequestResult;
+    let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueries.withDirective;
+      const { options, request } = githubQueriesAndOptions.withDirective;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -129,11 +134,11 @@ describe("@handl/request-parser", () => {
   });
 
   describe("when a query with an inline fragment is passed in", () => {
-    let updatedRequest: parserDefs.UpdateRequestResult;
-    let requestContext: coreDefs.RequestContext;
+    let updatedRequest: UpdateRequestResult;
+    let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueries.withInlineFragment;
+      const { options, request } = githubQueriesAndOptions.withInlineFragment;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -148,11 +153,11 @@ describe("@handl/request-parser", () => {
   });
 
   describe("when a query with inline fragments for a union type are passed in", () => {
-    let updatedRequest: parserDefs.UpdateRequestResult;
-    let requestContext: coreDefs.RequestContext;
+    let updatedRequest: UpdateRequestResult;
+    let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueries.withUnionInlineFragments;
+      const { options, request } = githubQueriesAndOptions.withUnionInlineFragments;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -167,11 +172,11 @@ describe("@handl/request-parser", () => {
   });
 
   describe("when a query with a fragment spread is passed in", () => {
-    let updatedRequest: parserDefs.UpdateRequestResult;
-    let requestContext: coreDefs.RequestContext;
+    let updatedRequest: UpdateRequestResult;
+    let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueries.withFragmentSpread;
+      const { options, request } = githubQueriesAndOptions.withFragmentSpread;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -186,11 +191,11 @@ describe("@handl/request-parser", () => {
   });
 
   describe("when a query with a fragment option is passed in", () => {
-    let updatedRequest: parserDefs.UpdateRequestResult;
-    let requestContext: coreDefs.RequestContext;
+    let updatedRequest: UpdateRequestResult;
+    let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueries.withFragmentOption;
+      const { options, request } = githubQueriesAndOptions.withFragmentOption;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -205,11 +210,11 @@ describe("@handl/request-parser", () => {
   });
 
   describe("when a mutation with an input type variable is passed in", () => {
-    let updatedRequest: parserDefs.UpdateRequestResult;
-    let requestContext: coreDefs.RequestContext;
+    let updatedRequest: UpdateRequestResult;
+    let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubMutations.withInputType;
+      const { options, request } = githubMutationsAndOptions.withInputType;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });

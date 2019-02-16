@@ -1,57 +1,57 @@
-import { cacheDefs } from "@handl/cache-manager";
-import { coreDefs } from "@handl/core";
-import { debugDefs } from "@handl/debug-manager";
-import { requestDefs } from "@handl/request-manager";
-import { parserDefs } from "@handl/request-parser";
-import { subDefs } from "@handl/subscriptions-manager";
+import { CacheManagerDef, CacheManagerInit } from "@handl/cache-manager";
+import { MaybeRequestResult, RequestContext, RequestOptions } from "@handl/core";
+import { DebugManagerDef } from "@handl/debug-manager";
+import { RequestManagerDef, RequestManagerInit } from "@handl/request-manager";
+import { RequestParserDef, RequestParserInit } from "@handl/request-parser";
+import { SubscriptionsManagerDef, SubscriptionsManagerInit } from "@handl/subscriptions-manager";
 
 export interface ConstructorOptions {
   /**
    * The cache manager.
    */
-  cacheManager?: cacheDefs.CacheManager;
+  cacheManager?: CacheManagerDef;
 
   /**
    * The request manager.
    */
-  requestManager: requestDefs.RequestManager;
+  requestManager: RequestManagerDef;
 
   /**
    * The GraphQL request parser.
    */
-  requestParser?: parserDefs.RequestParser;
+  requestParser?: RequestParserDef;
 
   /**
    * The subscriptions manager.
    */
-  subscriptionsManager?: subDefs.SubscriptionsManager;
+  subscriptionsManager?: SubscriptionsManagerDef;
 }
 
 export interface UserOptions {
   /**
    * The curried function to initialize the cache manager.
    */
-  cacheManager?: cacheDefs.CacheManagerInit;
+  cacheManager?: CacheManagerInit;
 
   /**
    * The curried function to initialize the request manager.
    */
-  requestManager: requestDefs.RequestManagerInit;
+  requestManager: RequestManagerInit;
 
   /**
    * The debug manager.
    */
-  debugManager?: debugDefs.DebugManager;
+  debugManager?: DebugManagerDef;
 
   /**
    * The curried function to initialzie the request parser.
    */
-  requestParser?: parserDefs.RequestParserInit;
+  requestParser?: RequestParserInit;
 
   /**
    * The curried function to initialize the subscriptions manager.
    */
-  subscriptionsManager?: subDefs.SubscriptionsManagerInit;
+  subscriptionsManager?: SubscriptionsManagerInit;
 
   /**
    * The name of the property thats value is used as the unique
@@ -60,11 +60,11 @@ export interface UserOptions {
   typeIDKey?: string;
 }
 
-export type PendingQueryResolver = (value: coreDefs.MaybeRequestResult) => void;
+export type PendingQueryResolver = (value: MaybeRequestResult) => void;
 
 export interface PendingQueryData {
-  context: coreDefs.RequestContext;
-  options: coreDefs.RequestOptions;
+  context: RequestContext;
+  options: RequestOptions;
   resolve: PendingQueryResolver;
 }
 

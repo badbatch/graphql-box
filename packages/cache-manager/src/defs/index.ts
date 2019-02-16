@@ -1,7 +1,18 @@
 import Cachemap, { coreDefs as cachemapDefs } from "@cachemap/core";
-import { coreDefs } from "@handl/core";
-import { debugDefs } from "@handl/debug-manager";
-import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
+import {
+  CacheMetadata,
+  CacheTypes,
+  DehydratedCacheMetadata,
+  PlainObjectMap,
+  PlainObjectStringMap,
+  RawResponseDataWithMaybeCacheMetadata,
+  RequestContext,
+  RequestData,
+  RequestOptions,
+  ResponseData,
+} from "@handl/core";
+import { DebugManagerDef } from "@handl/debug-manager";
+import Cacheability from "cacheability";
 
 export interface UserOptions {
   /**
@@ -20,7 +31,7 @@ export interface UserOptions {
   /**
    * The debug manager.
    */
-  debugManager?: debugDefs.DebugManager;
+  debugManager?: DebugManagerDef;
 
   /**
    * The cache control directive to apply to an operation
@@ -33,7 +44,7 @@ export interface UserOptions {
    * An object map of GraphQL schema types to cache-control
    * directives used for caching object types.
    */
-  typeCacheDirectives?: coreDefs.PlainObjectStringMap;
+  typeCacheDirectives?: PlainObjectStringMap;
 }
 
 export interface ClientOptions {
@@ -44,8 +55,8 @@ export interface InitOptions {
   cache: Cachemap;
   cascadeCacheControl?: boolean;
   fallbackOperationCacheability?: string;
-  debugManager?: debugDefs.DebugManager;
-  typeCacheDirectives?: coreDefs.PlainObjectStringMap;
+  debugManager?: DebugManagerDef;
+  typeCacheDirectives?: PlainObjectStringMap;
   typeIDKey: string;
 }
 
@@ -53,18 +64,12 @@ export interface ConstructorOptions {
   cache: Cachemap;
   cascadeCacheControl?: boolean;
   fallbackOperationCacheability?: string;
-  typeCacheDirectives?: coreDefs.PlainObjectStringMap;
+  typeCacheDirectives?: PlainObjectStringMap;
   typeIDKey: string;
 }
 
-export type CacheMetadata = Map<string, Cacheability>;
-
-export interface DehydratedCacheMetadata {
-  [key: string]: CacheabilityMetadata;
-}
-
 export interface PartialQueryResponse {
-  data: coreDefs.PlainObjectMap;
+  data: PlainObjectMap;
   cacheMetadata: CacheMetadata;
 }
 
@@ -77,7 +82,7 @@ export type FieldPathChecklist = Map<string, boolean>;
 
 export interface CachedResponseData {
   cacheMetadata: CacheMetadata;
-  data: coreDefs.PlainObjectMap;
+  data: PlainObjectMap;
   fieldCount: FieldCount;
   fieldPathChecklist: FieldPathChecklist;
 }
@@ -125,18 +130,18 @@ export interface ExportCacheResult {
 }
 
 export interface AnalyzeQueryResult {
-  response?: coreDefs.ResponseData;
-  updated?: coreDefs.RequestData;
+  response?: ResponseData;
+  updated?: RequestData;
 }
 
 export interface CheckCacheEntryResult {
   cacheability: Cacheability;
-  entry: coreDefs.PlainObjectMap | any[];
+  entry: PlainObjectMap | any[];
 }
 
 export interface QueryResponseCacheEntry {
-  cacheMetadata: coreDefs.DehydratedCacheMetadata;
-  data: coreDefs.PlainObjectMap;
+  cacheMetadata: DehydratedCacheMetadata;
+  data: PlainObjectMap;
 }
 
 export interface CachemapOptions {
@@ -144,40 +149,40 @@ export interface CachemapOptions {
   tag?: any;
 }
 
-export interface CacheManager {
+export interface CacheManagerDef {
   cache: Cachemap;
   analyzeQuery(
-    requestData: coreDefs.RequestData,
-    options: coreDefs.RequestOptions,
-    context: coreDefs.RequestContext,
+    requestData: RequestData,
+    options: RequestOptions,
+    context: RequestContext,
   ): Promise<AnalyzeQueryResult>;
   checkCacheEntry(
-    cacheType: coreDefs.CacheTypes,
+    cacheType: CacheTypes,
     hash: string,
-    options: coreDefs.RequestOptions,
-    context: coreDefs.RequestContext,
+    options: RequestOptions,
+    context: RequestContext,
   ): Promise<CheckCacheEntryResult | false>;
   checkQueryResponseCacheEntry(
     hash: string,
-    options: coreDefs.RequestOptions,
-    context: coreDefs.RequestContext,
-  ): Promise<coreDefs.ResponseData | false>;
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<ResponseData | false>;
   deletePartialQueryResponse(
     hash: string,
   ): void;
   resolveQuery(
-    requestData: coreDefs.RequestData,
-    updatedRequestData: coreDefs.RequestData,
-    responseData: coreDefs.RawResponseDataWithMaybeCacheMetadata,
-    options: coreDefs.RequestOptions,
-    context: coreDefs.RequestContext,
-  ): Promise<coreDefs.ResponseData>;
+    requestData: RequestData,
+    updatedRequestData: RequestData,
+    responseData: RawResponseDataWithMaybeCacheMetadata,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<ResponseData>;
   resolveRequest(
-    requestData: coreDefs.RequestData,
-    responseData: coreDefs.RawResponseDataWithMaybeCacheMetadata,
-    options: coreDefs.RequestOptions,
-    context: coreDefs.RequestContext,
-  ): Promise<coreDefs.ResponseData>;
+    requestData: RequestData,
+    responseData: RawResponseDataWithMaybeCacheMetadata,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<ResponseData>;
 }
 
-export type CacheManagerInit = (options: ClientOptions) => Promise<CacheManager>;
+export type CacheManagerInit = (options: ClientOptions) => Promise<CacheManagerDef>;

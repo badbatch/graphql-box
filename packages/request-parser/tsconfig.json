@@ -8,7 +8,7 @@
     "**/*.test.ts"
   ],
   "include": [
-    "src"
+    "src/**/*",
   ],
   "references": [
     { "path": "../core" },

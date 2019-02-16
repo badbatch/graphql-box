@@ -1,9 +1,9 @@
-import { coreDefs } from "@handl/core";
+import { PlainObjectMap } from "@handl/core";
 import EventEmitter from "eventemitter3";
 
-export interface DebugManager extends EventEmitter {
-  emit(event: string, props: coreDefs.PlainObjectMap): boolean;
+export interface DebugManagerDef extends EventEmitter {
+  emit(event: string, props: PlainObjectMap): boolean;
   now(): number;
 }
 
-export type DebugManagerInit = () => DebugManager;
+export type DebugManagerInit = () => DebugManagerDef;

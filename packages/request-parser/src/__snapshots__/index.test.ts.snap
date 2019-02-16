@@ -31,10 +31,11 @@ Object {
       "typeName": "Starrable",
     },
   },
-  "filtered": false,
   "handlID": "123456789",
   "operation": "mutation",
   "operationName": "",
+  "queryFiltered": false,
+  "request": "",
 }
 `;
 
@@ -94,10 +95,11 @@ Object {
       "typeName": "Repository",
     },
   },
-  "filtered": false,
   "handlID": "123456789",
   "operation": "query",
   "operationName": "",
+  "queryFiltered": false,
+  "request": "",
 }
 `;
 
@@ -126,10 +128,11 @@ Object {
       "typeName": "Organization",
     },
   },
-  "filtered": false,
   "handlID": "123456789",
   "operation": "query",
   "operationName": "",
+  "queryFiltered": false,
+  "request": "",
 }
 `;
 
@@ -158,10 +161,11 @@ Object {
       "typeName": "Organization",
     },
   },
-  "filtered": false,
   "handlID": "123456789",
   "operation": "query",
   "operationName": "",
+  "queryFiltered": false,
+  "request": "",
 }
 `;
 
@@ -190,10 +194,11 @@ Object {
       "typeName": "Organization",
     },
   },
-  "filtered": false,
   "handlID": "123456789",
   "operation": "query",
   "operationName": "",
+  "queryFiltered": false,
+  "request": "",
 }
 `;
 
@@ -253,10 +258,11 @@ Object {
       "typeName": "Repository",
     },
   },
-  "filtered": false,
   "handlID": "123456789",
   "operation": "query",
   "operationName": "",
+  "queryFiltered": false,
+  "request": "",
 }
 `;
 
@@ -285,10 +291,11 @@ Object {
       "typeName": "Organization",
     },
   },
-  "filtered": false,
   "handlID": "123456789",
   "operation": "query",
   "operationName": "",
+  "queryFiltered": false,
+  "request": "",
 }
 `;
 
@@ -317,10 +324,11 @@ Object {
       "typeName": "Organization",
     },
   },
-  "filtered": false,
   "handlID": "123456789",
   "operation": "query",
   "operationName": "GetOrganization",
+  "queryFiltered": false,
+  "request": "",
 }
 `;
 
@@ -384,10 +392,11 @@ Object {
       "typeName": "SearchResultItemEdge",
     },
   },
-  "filtered": false,
   "handlID": "123456789",
   "operation": "query",
   "operationName": "",
+  "queryFiltered": false,
+  "request": "",
 }
 `;
 
@@ -447,10 +456,11 @@ Object {
       "typeName": "Repository",
     },
   },
-  "filtered": false,
   "handlID": "123456789",
   "operation": "query",
   "operationName": "",
+  "queryFiltered": false,
+  "request": "",
 }
 `;
 
@@ -479,9 +489,10 @@ Object {
       "typeName": "Organization",
     },
   },
-  "filtered": false,
   "handlID": "123456789",
   "operation": "query",
   "operationName": "",
+  "queryFiltered": false,
+  "request": "",
 }
 `;

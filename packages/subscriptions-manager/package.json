@@ -36,6 +36,6 @@
   },
   "devDependencies": {
     "@handl/core": "^0.1.22",
-    "@types/graphql": "^14.0.1"
+    "@types/graphql": "^14.0.7"
   }
 }

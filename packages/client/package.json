@@ -40,7 +40,7 @@
     "@handl/request-manager": "^0.1.22",
     "@handl/request-parser": "^0.1.22",
     "@handl/subscriptions-manager": "^0.1.22",
-    "@types/graphql": "^14.0.1",
+    "@types/graphql": "^14.0.7",
     "@types/uuid": "^3.4.4"
   },
   "dependencies": {

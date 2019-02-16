@@ -1,7 +1,7 @@
-import { debugDefs } from "@handl/debug-manager";
+import { DebugManagerDef } from "@handl/debug-manager";
 import { SUBSCRIPTION_EXECUTED } from "../../consts";
 
-export default function logSubscription(debugManager?: debugDefs.DebugManager) {
+export default function logSubscription(debugManager?: DebugManagerDef) {
   return (
     target: any,
     propertyName: string,

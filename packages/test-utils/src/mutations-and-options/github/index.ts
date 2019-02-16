@@ -1,6 +1,6 @@
-import * as defs from "../../defs";
+import { RequestAndOptions } from "../../defs";
 
-export const withInputType: defs.RequestAndOptions = {
+export const withInputType: RequestAndOptions = {
   options: {
     variables: {
       input: {

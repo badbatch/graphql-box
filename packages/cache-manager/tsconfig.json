@@ -5,10 +5,11 @@
     "rootDir": "src"
   },
   "include": [
-    "src"
+    "src/**/*",
   ],
   "references": [
     { "path": "../core" },
-    { "path": "../helpers" }
+    { "path": "../helpers" },
+    { "path": "../test-utils" }
   ]
 }

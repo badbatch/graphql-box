@@ -1,7 +1,7 @@
-import { debugDefs } from "@handl/debug-manager";
+import { DebugManagerDef } from "@handl/debug-manager";
 import { CACHE_ENTRY_ADDED } from "../../consts";
 
-export default function logCacheEntry(debugManager?: debugDefs.DebugManager) {
+export default function logCacheEntry(debugManager?: DebugManagerDef) {
   return (
     target: any,
     propertyName: string,

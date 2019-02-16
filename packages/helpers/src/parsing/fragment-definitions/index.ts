@@ -1,6 +1,6 @@
 import { DocumentNode, FieldNode, FragmentDefinitionNode, FragmentSpreadNode } from "graphql";
 import { FRAGMENT_DEFINITION, FRAGMENT_SPREAD } from "../../consts";
-import * as defs from "../../defs";
+import { FragmentDefinitionNodeMap } from "../../defs";
 import { getKind } from "../kind";
 import { getName } from "../name";
 
@@ -19,8 +19,8 @@ export function deleteFragmentDefinitions(documentNode: DocumentNode): DocumentN
   };
 }
 
-export  function getFragmentDefinitions({ definitions }: DocumentNode): defs.FragmentDefinitionNodeMap | undefined {
-  const fragmentDefinitions: defs.FragmentDefinitionNodeMap = {};
+export  function getFragmentDefinitions({ definitions }: DocumentNode): FragmentDefinitionNodeMap | undefined {
+  const fragmentDefinitions: FragmentDefinitionNodeMap = {};
 
   definitions.forEach((value) => {
     if (getKind(value) === FRAGMENT_DEFINITION) {
@@ -41,7 +41,7 @@ export function hasFragmentDefinitions({ definitions }: DocumentNode): boolean {
   return definitions.some((value) => getKind(value) === FRAGMENT_DEFINITION);
 }
 
-export function setFragmentDefinitions(fragmentDefinitions: defs.FragmentDefinitionNodeMap, node: FieldNode): void {
+export function setFragmentDefinitions(fragmentDefinitions: FragmentDefinitionNodeMap, node: FieldNode): void {
   if (!node.selectionSet) return;
 
   const selections = [...node.selectionSet.selections];

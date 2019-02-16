@@ -1,4 +1,4 @@
-import { coreDefs } from "@handl/core";
+import { MaybeRawResponseData, PlainObjectMap, RequestDataWithMaybeAST } from "@handl/core";
 
 /**
  * Base options.
@@ -19,7 +19,7 @@ export interface BaseOptions {
   /**
    * Additional headers to be sent with every request.
    */
-  headers?: coreDefs.PlainObjectMap;
+  headers?: PlainObjectMap;
 
   /**
    * The endpoint that handl will use to communicate with the
@@ -28,8 +28,8 @@ export interface BaseOptions {
   url: string;
 }
 
-export interface RequestManager {
-  fetch(requestData: coreDefs.RequestDataWithMaybeAST): Promise<coreDefs.MaybeRawResponseData>;
+export interface RequestManagerDef {
+  fetch(requestData: RequestDataWithMaybeAST): Promise<MaybeRawResponseData>;
 }
 
-export type RequestManagerInit = () => RequestManager;
+export type RequestManagerInit = () => RequestManagerDef;

@@ -1,4 +1,4 @@
-import { coreDefs } from "@handl/core";
+import { RequestContext, RequestOptions } from "@handl/core";
 import {
   DocumentNode,
   FieldNode,
@@ -43,15 +43,15 @@ export interface UpdateRequestResult {
   request: string;
 }
 
-export interface RequestParser {
+export interface RequestParserDef {
   updateRequest(
     request: string,
-    options: coreDefs.RequestOptions,
-    context: coreDefs.RequestContext,
+    options: RequestOptions,
+    context: RequestContext,
   ): Promise<UpdateRequestResult>;
 }
 
-export type RequestParserInit = (options: ClientOptions) => Promise<RequestParser>;
+export type RequestParserInit = (options: ClientOptions) => Promise<RequestParserDef>;
 
 export interface MapFieldToTypeData {
   ancestors: ReadonlyArray<any>;

@@ -1,14 +1,14 @@
-import { coreDefs } from "@handl/core";
+import { PlainObjectMap } from "@handl/core";
 import { FieldNode, GraphQLInterfaceType, GraphQLObjectType, GraphQLSchema, InlineFragmentNode } from "graphql";
 import { castArray, isArray } from "lodash";
 import { FIELD, INLINE_FRAGMENT } from "../../consts";
-import * as defs from "../../defs";
+import { ParentNode } from "../../defs";
 import { unwrapInlineFragments } from "../inline-fragments";
 import { getKind } from "../kind";
 import { getName } from "../name";
 
 export function addChildField(
-  node: defs.ParentNode,
+  node: ParentNode,
   field: FieldNode,
   schema: GraphQLSchema,
   typeIDKey: string,
@@ -47,7 +47,7 @@ export function addChildField(
   node.selectionSet.selections = childFields;
 }
 
-export function deleteChildFields(node: defs.ParentNode, fields: FieldNode[] | FieldNode): void {
+export function deleteChildFields(node: ParentNode, fields: FieldNode[] | FieldNode): void {
   if (!node.selectionSet) return;
 
   const _fields = castArray(fields);
@@ -71,7 +71,7 @@ export function deleteChildFields(node: defs.ParentNode, fields: FieldNode[] | F
 
 export type GetChildFieldsResults = FieldNode[] | FieldNode | undefined;
 
-export function getChildFields(node: defs.ParentNode, name?: string): GetChildFieldsResults {
+export function getChildFields(node: ParentNode, name?: string): GetChildFieldsResults {
   if (!node.selectionSet) return undefined;
 
   const childFields = unwrapInlineFragments(node.selectionSet.selections);
@@ -80,7 +80,7 @@ export function getChildFields(node: defs.ParentNode, name?: string): GetChildFi
   return childFields.find((field) => getName(field) === name || getKind(field) === name);
 }
 
-export function hasChildFields(node: defs.ParentNode, name?: string): boolean {
+export function hasChildFields(node: ParentNode, name?: string): boolean {
   if (!node.selectionSet) return false;
 
   const childFields = unwrapInlineFragments(node.selectionSet.selections);
@@ -91,7 +91,7 @@ export function hasChildFields(node: defs.ParentNode, name?: string): boolean {
 
 export function iterateChildFields(
   field: FieldNode,
-  data: coreDefs.PlainObjectMap | any[],
+  data: PlainObjectMap | any[],
   callback: (childField: FieldNode, childIndex?: number) => void,
 ): void {
   if (!isArray(data)) {
