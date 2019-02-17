@@ -1,5 +1,7 @@
 import Core from "@cachemap/core";
 import map from "@cachemap/map";
+import { RequestData, RequestOptions, ResponseData } from "@handl/core";
+import { getRequestContext, getRequestData, githubParsedQueries, githubQueryResponses } from "@handl/test-utils";
 import { CacheManager, CacheManagerDef } from ".";
 import { DEFAULT_TYPE_ID_KEY } from "./consts";
 
@@ -12,18 +14,32 @@ describe("@handl/cache-manager", () => {
         name: "cachemap",
         store: map(),
       }),
+      cascadeCacheControl: true,
       typeIDKey: DEFAULT_TYPE_ID_KEY,
     });
   });
 
-  describe("the analyzeQuery method", () => {
-    describe("when there are no matching entries in the cache manager", () => {
+  describe("the resolveQuery method", () => {
+    let responseData: ResponseData;
+    let requestData: RequestData;
+
+    describe("when the query has not been filtered", () => {
       beforeAll(async () => {
-        // TODO
+        requestData = getRequestData(githubParsedQueries.organizationSmall);
+        const options: RequestOptions = { awaitDataCaching: true };
+        const requestContext = getRequestContext();
+
+        responseData = await cacheManager.resolveQuery(
+          requestData,
+          requestData,
+          githubQueryResponses.organizationSmall,
+          options,
+          requestContext,
+        );
       });
 
-      it("then the method should return the original request", () => {
-        // TODO
+      it("then the method should return correct response data", () => {
+        expect(responseData).toMatchSnapshot();
       });
     });
   });

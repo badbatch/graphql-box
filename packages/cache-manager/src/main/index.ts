@@ -13,7 +13,6 @@ import {
   RequestOptions,
   ResponseData,
 } from "@handl/core";
-import { DebugManagerDef } from "@handl/debug-manager";
 import {
   deleteChildFields,
   getAlias,
@@ -77,11 +76,8 @@ export class CacheManager implements CacheManagerDef  {
 
     if (errors.length) return Promise.reject(errors);
 
-    CacheManager._debugManager = options.debugManager;
     return new CacheManager(options);
   }
-
-  private static _debugManager: DebugManagerDef | undefined;
 
   private static _analyzeLeafField(
     field: FieldNode,
@@ -614,7 +610,7 @@ export class CacheManager implements CacheManagerDef  {
     return cacheMetadata;
   }
 
-  @logCacheQuery(CacheManager._debugManager)
+  @logCacheQuery()
   private async _getCacheEntry(
     cacheType: CacheTypes,
     hash: string,
@@ -701,7 +697,7 @@ export class CacheManager implements CacheManagerDef  {
     return { cacheMetadata, data: rawResponseData.data };
   }
 
-  @logCacheEntry(CacheManager._debugManager)
+  @logCacheEntry()
   private async _setCacheEntry(
     cacheType: CacheTypes,
     hash: string,
@@ -879,7 +875,7 @@ export class CacheManager implements CacheManagerDef  {
     }
   }
 
-  @logPartialCompiled(CacheManager._debugManager)
+  @logPartialCompiled()
   private async _setPartialQueryResponse(
     hash: string,
     partialQueryResponse: PartialQueryResponse,

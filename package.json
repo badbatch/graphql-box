@@ -95,6 +95,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "husky": "1.1.0",
+    "isomorphic-fetch": "^2.2.1",
     "istanbul-instrumenter-loader": "^3.0.0",
     "jest": "^24.1.0",
     "karma": "^3.0.0",

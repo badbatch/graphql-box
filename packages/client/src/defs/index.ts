@@ -1,6 +1,6 @@
 import { CacheManagerDef, CacheManagerInit } from "@handl/cache-manager";
-import { MaybeRequestResult, RequestContext, RequestOptions } from "@handl/core";
-import { DebugManagerDef } from "@handl/debug-manager";
+import { DebugManagerDef, MaybeRequestResult, RequestContext, RequestOptions } from "@handl/core";
+import { DebugManagerInit } from "@handl/debug-manager";
 import { RequestManagerDef, RequestManagerInit } from "@handl/request-manager";
 import { RequestParserDef, RequestParserInit } from "@handl/request-parser";
 import { SubscriptionsManagerDef, SubscriptionsManagerInit } from "@handl/subscriptions-manager";
@@ -10,6 +10,11 @@ export interface ConstructorOptions {
    * The cache manager.
    */
   cacheManager?: CacheManagerDef;
+
+  /**
+   * The debug manager.
+   */
+  debugManager?: DebugManagerDef;
 
   /**
    * The request manager.
@@ -41,7 +46,7 @@ export interface UserOptions {
   /**
    * The debug manager.
    */
-  debugManager?: DebugManagerDef;
+  debugManager?: DebugManagerInit;
 
   /**
    * The curried function to initialzie the request parser.

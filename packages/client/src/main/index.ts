@@ -1,5 +1,6 @@
 import { CacheManagerDef } from "@handl/cache-manager";
 import {
+  DebugManagerDef,
   hashRequest,
   MaybeRawResponseData,
   MaybeRequestResult,
@@ -11,7 +12,6 @@ import {
   RequestOptions,
   ValidOperations,
 } from "@handl/core";
-import { DebugManagerDef } from "@handl/debug-manager";
 import { RequestManagerDef } from "@handl/request-manager";
 import { RequestParserDef } from "@handl/request-parser";
 import { SubscriptionsManagerDef } from "@handl/subscriptions-manager";
@@ -40,8 +40,6 @@ export default class Client {
     if (errors.length) return Promise.reject(errors);
 
     try {
-      Client._debugManager = options.debugManager;
-
       const typeIDKey = options.typeIDKey || DEFAULT_TYPE_ID_KEY;
 
       const constructorOptions: ConstructorOptions = {
@@ -50,6 +48,10 @@ export default class Client {
 
       if (options.cacheManager) {
         constructorOptions.cacheManager = await options.cacheManager({ typeIDKey });
+      }
+
+      if (options.debugManager) {
+        constructorOptions.debugManager = await options.debugManager();
       }
 
       if (options.requestParser) {
@@ -66,25 +68,12 @@ export default class Client {
     }
   }
 
-  private static _debugManager: DebugManagerDef | undefined;
-
   private static _areFragmentsInvalid(fragments?: string[]): boolean {
     return !!fragments && (!isArray(fragments) || !fragments.every((value) => isString(value)));
   }
 
   private static _areModulesInvalid(options: UserOptions): boolean {
     return (!!options.cacheManager && !options.requestParser) || (!options.cacheManager && !!options.requestParser);
-  }
-
-  private static _getRequestContext(operation: ValidOperations, request: string): RequestContext {
-    return {
-      fieldTypeMap: new Map(),
-      handlID: uuid(),
-      operation,
-      operationName: "",
-      queryFiltered: false,
-      request,
-    };
   }
 
   private static _resolve(
@@ -115,18 +104,20 @@ export default class Client {
     return errors;
   }
 
-  private _cacheManager: CacheManagerDef | undefined;
+  private _cacheManager: CacheManagerDef | null;
+  private _debugManager: DebugManagerDef | null;
   private _queryTracker: QueryTracker = { active: [], pending: new Map() };
   private _requestManager: RequestManagerDef;
-  private _requestParser: RequestParserDef | undefined;
-  private _subscriptionsManager: SubscriptionsManagerDef | undefined;
+  private _requestParser: RequestParserDef | null;
+  private _subscriptionsManager: SubscriptionsManagerDef | null;
 
   constructor(options: ConstructorOptions) {
-    const { cacheManager, requestManager, requestParser, subscriptionsManager } = options;
-    this._cacheManager = cacheManager;
+    const { cacheManager, debugManager, requestManager, requestParser, subscriptionsManager } = options;
+    this._cacheManager = cacheManager || null;
+    this._debugManager = debugManager || null;
     this._requestManager = requestManager;
-    this._requestParser = requestParser;
-    this._subscriptionsManager = subscriptionsManager;
+    this._requestParser = requestParser || null;
+    this._subscriptionsManager = subscriptionsManager || null;
   }
 
   public async request(request: string, options: RequestOptions = {}): Promise<MaybeRequestResult> {
@@ -134,7 +125,7 @@ export default class Client {
     if (errors.length) return { errors };
 
     try {
-      return this._request(request, options, Client._getRequestContext(QUERY, request)) as MaybeRequestResult;
+      return this._request(request, options, this._getRequestContext(QUERY, request)) as MaybeRequestResult;
     } catch (error) {
       return { errors: error };
     }
@@ -154,13 +145,13 @@ export default class Client {
     if (errors.length) return { errors };
 
     try {
-      return this._request(request, options, Client._getRequestContext(SUBSCRIPTION, request));
+      return this._request(request, options, this._getRequestContext(SUBSCRIPTION, request));
     } catch (error) {
       return { errors: error };
     }
   }
 
-  @logFetch(Client._debugManager)
+  @logFetch()
   private async _fetch(
     requestData: RequestDataWithMaybeAST,
     options: RequestOptions,
@@ -171,6 +162,18 @@ export default class Client {
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  private _getRequestContext(operation: ValidOperations, request: string): RequestContext {
+    return {
+      debugManager: this._debugManager,
+      fieldTypeMap: new Map(),
+      handlID: uuid(),
+      operation,
+      operationName: "",
+      queryFiltered: false,
+      request,
+    };
   }
 
   private async _handleMutation(
@@ -298,7 +301,7 @@ export default class Client {
     }
   }
 
-  @logRequest(Client._debugManager)
+  @logRequest()
   private async _request(
     request: string,
     options: RequestOptions,
@@ -348,7 +351,7 @@ export default class Client {
     return Client._resolve(responseData, options, context);
   }
 
-  @logSubscription(Client._debugManager)
+  @logSubscription()
   private async _resolveSubscription(
     requestData: RequestDataWithMaybeAST,
     rawResponseData: MaybeRawResponseData,

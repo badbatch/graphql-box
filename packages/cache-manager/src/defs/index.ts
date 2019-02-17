@@ -11,7 +11,6 @@ import {
   RequestOptions,
   ResponseData,
 } from "@handl/core";
-import { DebugManagerDef } from "@handl/debug-manager";
 import Cacheability from "cacheability";
 
 export interface UserOptions {
@@ -27,11 +26,6 @@ export interface UserOptions {
    * cache control directives.
    */
   cascadeCacheControl?: boolean;
-
-  /**
-   * The debug manager.
-   */
-  debugManager?: DebugManagerDef;
 
   /**
    * The cache control directive to apply to an operation
@@ -55,7 +49,6 @@ export interface InitOptions {
   cache: Cachemap;
   cascadeCacheControl?: boolean;
   fallbackOperationCacheability?: string;
-  debugManager?: DebugManagerDef;
   typeCacheDirectives?: PlainObjectStringMap;
   typeIDKey: string;
 }

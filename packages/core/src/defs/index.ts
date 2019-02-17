@@ -1,4 +1,5 @@
 import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
+import EventEmitter from "eventemitter3";
 import { DocumentNode } from "graphql";
 
 export interface PlainObjectMap {
@@ -45,6 +46,11 @@ export interface RequestOptions {
 
 export type CacheTypes = "dataEntities" | "queryResponses" | "requestFieldPaths";
 
+export interface DebugManagerDef extends EventEmitter {
+  emit(event: string, props: PlainObjectMap): boolean;
+  now(): number;
+}
+
 export interface FieldTypeInfo {
   hasArguments: boolean;
   hasDirectives: boolean;
@@ -58,6 +64,7 @@ export type FieldTypeMap = Map<string, FieldTypeInfo>;
 export type ValidOperations = "mutation" | "query" | "subscription";
 
 export interface RequestContext {
+  debugManager: DebugManagerDef | null;
   fieldTypeMap: FieldTypeMap;
   handlID: string;
   operation: ValidOperations;

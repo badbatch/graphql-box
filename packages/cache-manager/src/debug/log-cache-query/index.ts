@@ -1,18 +1,26 @@
-import { DebugManagerDef } from "@handl/debug-manager";
+import { RequestContext } from "@handl/core";
 import { CACHE_ENTRY_QUERIED } from "../../consts";
 
-export default function logCacheQuery(debugManager?: DebugManagerDef) {
+export default function logCacheQuery() {
   return (
     target: any,
     propertyName: string,
     descriptor: TypedPropertyDescriptor<(...args: any[]) => Promise<any>>,
   ): void => {
     const method = descriptor.value;
-    if (!method || !debugManager) return;
+    if (!method) return;
 
     descriptor.value = async function (...args: any[]): Promise<any> {
       try {
         return new Promise(async (resolve) => {
+          const { debugManager, ...otherContext } = args[3] as RequestContext;
+
+          if (!debugManager) {
+            method.apply(this, args);
+            resolve();
+            return;
+          }
+
           const startTime = debugManager.now();
           const result = await method.apply(this, args);
           const endTime = debugManager.now();
@@ -21,7 +29,7 @@ export default function logCacheQuery(debugManager?: DebugManagerDef) {
 
           debugManager.emit(CACHE_ENTRY_QUERIED, {
             cacheType: args[0],
-            context: args[3],
+            context: otherContext,
             hash: args[1],
             options: args[2],
             result,

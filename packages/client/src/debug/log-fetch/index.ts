@@ -1,18 +1,26 @@
-import { DebugManagerDef } from "@handl/debug-manager";
+import { RequestContext } from "@handl/core";
 import { FETCH_EXECUTED } from "../../consts";
 
-export default function logFetch(debugManager?: DebugManagerDef) {
+export default function logFetch() {
   return (
     target: any,
     propertyName: string,
     descriptor: TypedPropertyDescriptor<(...args: any[]) => Promise<any>>,
   ): void => {
     const method = descriptor.value;
-    if (!method || !debugManager) return;
+    if (!method) return;
 
     descriptor.value = async function (...args: any[]): Promise<any> {
       try {
         return new Promise(async (resolve) => {
+          const { debugManager, ...otherContext } = args[2] as RequestContext;
+
+          if (!debugManager) {
+            method.apply(this, args);
+            resolve();
+            return;
+          }
+
           const startTime = debugManager.now();
           const result = await method.apply(this, args);
           const endTime = debugManager.now();
@@ -20,7 +28,7 @@ export default function logFetch(debugManager?: DebugManagerDef) {
           resolve(result);
 
           debugManager.emit(FETCH_EXECUTED, {
-            context: args[2],
+            context: otherContext,
             options: args[1],
             requestData: args[0],
             result,
