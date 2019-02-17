@@ -554,7 +554,15 @@ export class CacheManager implements CacheManagerDef  {
     const cacheMetadata = this._createCacheMetadata({ data, ...otherProps }, context);
     const queryNode = getOperationDefinitions(ast, context.operation)[0];
     const fields = getChildFields(queryNode) as FieldNode[];
-    fields.forEach((field) => this._setFieldCacheability(field, {}, { cacheMetadata, data }, options, context));
+
+    fields.forEach((field) => this._setFieldCacheability(
+      field,
+      { requestFieldPath: context.operation },
+      { cacheMetadata, data },
+      options,
+      context,
+    ));
+
     return cacheMetadata;
   }
 
@@ -670,7 +678,14 @@ export class CacheManager implements CacheManagerDef  {
 
     const queryNode = getOperationDefinitions(ast, context.operation)[0];
     const fields = getChildFields(queryNode) as FieldNode[];
-    await Promise.all(fields.map((field) => this._analyzeField(field, {}, cachedResponseData, options, context)));
+
+    await Promise.all(fields.map((field) => this._analyzeField(
+      field,
+      { requestFieldPath: context.operation },
+      cachedResponseData,
+      options,
+      context,
+    )));
 
     return cachedResponseData;
   }
@@ -746,7 +761,7 @@ export class CacheManager implements CacheManagerDef  {
       fields.map((field) => {
         return this._setFieldDataEntityAndRequestFieldPathCacheEntry(
           field,
-          {},
+          { requestFieldPath: context.operation },
           responseData,
           options,
           context,

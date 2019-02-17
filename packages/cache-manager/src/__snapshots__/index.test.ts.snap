@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered then the cache should contain the correct data 1`] = `
+Object {
+  "entries": Array [
+    Array [
+      "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 1550443524843,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 1550443524843,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+            "email": "",
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "login": "facebook",
+            "name": "Facebook",
+            "url": "https://github.com/facebook",
+          },
+        },
+      },
+    ],
+  ],
+  "metadata": Array [
+    Object {
+      "accessedCount": 0,
+      "added": 1550443519848,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550443524848,
+        },
+      },
+      "key": "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      "lastAccessed": 1550443519848,
+      "lastUpdated": 1550443519848,
+      "size": 678,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+  ],
+}
+`;
+
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered then the method should return the correct response data 1`] = `
+Object {
+  "cacheMetadata": Map {
+    "query" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 5,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 1550443524843,
+      },
+    },
+    "query.organization" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 5,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 1550443524843,
+      },
+    },
+  },
+  "data": Object {
+    "organization": Object {
+      "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+      "email": "",
+      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "login": "facebook",
+      "name": "Facebook",
+      "url": "https://github.com/facebook",
+    },
+  },
+}
+`;

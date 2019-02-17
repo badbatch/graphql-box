@@ -38,8 +38,12 @@ describe("@handl/cache-manager", () => {
         );
       });
 
-      it("then the method should return correct response data", () => {
+      it("then the method should return the correct response data", () => {
         expect(responseData).toMatchSnapshot();
+      });
+
+      it("then the cache should contain the correct data", async () => {
+        expect(await cacheManager.cache.export()).toMatchSnapshot();
       });
     });
   });

@@ -15,15 +15,16 @@ exports[`@handl/request-parser when a mutation with an input type variable is pa
 
 exports[`@handl/request-parser when a mutation with an input type variable is passed in then the parser should update the request context with the correct data 1`] = `
 Object {
+  "debugManager": null,
   "fieldTypeMap": Map {
-    "addStar" => Object {
+    "mutation.addStar" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
       "typeIDValue": undefined,
       "typeName": "AddStarPayload",
     },
-    "addStar.starrable" => Object {
+    "mutation.addStar.starrable" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -65,29 +66,30 @@ exports[`@handl/request-parser when a query with a directive is passed in then t
 
 exports[`@handl/request-parser when a query with a directive is passed in then the parser should update the request context with the correct data 1`] = `
 Object {
+  "debugManager": null,
   "fieldTypeMap": Map {
-    "organization" => Object {
+    "query.organization" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
-    "organization.repositories" => Object {
+    "query.organization.repositories" => Object {
       "hasArguments": true,
       "hasDirectives": true,
       "isEntity": false,
       "typeIDValue": undefined,
       "typeName": "RepositoryConnection",
     },
-    "organization.repositories.edges" => Object {
+    "query.organization.repositories.edges" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "typeIDValue": undefined,
       "typeName": "RepositoryEdge",
     },
-    "organization.repositories.edges.node" => Object {
+    "query.organization.repositories.edges.node" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -119,8 +121,9 @@ exports[`@handl/request-parser when a query with a fragment option is passed in 
 
 exports[`@handl/request-parser when a query with a fragment option is passed in then the parser should update the request context with the correct data 1`] = `
 Object {
+  "debugManager": null,
   "fieldTypeMap": Map {
-    "organization" => Object {
+    "query.organization" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -152,8 +155,9 @@ exports[`@handl/request-parser when a query with a fragment spread is passed in 
 
 exports[`@handl/request-parser when a query with a fragment spread is passed in then the parser should update the request context with the correct data 1`] = `
 Object {
+  "debugManager": null,
   "fieldTypeMap": Map {
-    "organization" => Object {
+    "query.organization" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -185,8 +189,9 @@ exports[`@handl/request-parser when a query with a variable is passed in then th
 
 exports[`@handl/request-parser when a query with a variable is passed in then the parser should update the request context with the correct data 1`] = `
 Object {
+  "debugManager": null,
   "fieldTypeMap": Map {
-    "organization" => Object {
+    "query.organization" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -228,29 +233,30 @@ exports[`@handl/request-parser when a query with an enum variable is passed in t
 
 exports[`@handl/request-parser when a query with an enum variable is passed in then the parser should update the request context with the correct data 1`] = `
 Object {
+  "debugManager": null,
   "fieldTypeMap": Map {
-    "organization" => Object {
+    "query.organization" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
-    "organization.repositories" => Object {
+    "query.organization.repositories" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
       "typeIDValue": undefined,
       "typeName": "RepositoryConnection",
     },
-    "organization.repositories.edges" => Object {
+    "query.organization.repositories.edges" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "typeIDValue": undefined,
       "typeName": "RepositoryEdge",
     },
-    "organization.repositories.edges.node" => Object {
+    "query.organization.repositories.edges.node" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -282,8 +288,9 @@ exports[`@handl/request-parser when a query with an inline fragment is passed in
 
 exports[`@handl/request-parser when a query with an inline fragment is passed in then the parser should update the request context with the correct data 1`] = `
 Object {
+  "debugManager": null,
   "fieldTypeMap": Map {
-    "organization" => Object {
+    "query.organization" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -315,8 +322,9 @@ exports[`@handl/request-parser when a query with an operation name is passed in 
 
 exports[`@handl/request-parser when a query with an operation name is passed in then the parser should update the request context with the correct data 1`] = `
 Object {
+  "debugManager": null,
   "fieldTypeMap": Map {
-    "organization" => Object {
+    "query.organization" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -376,15 +384,16 @@ exports[`@handl/request-parser when a query with inline fragments for a union ty
 
 exports[`@handl/request-parser when a query with inline fragments for a union type are passed in then the parser should update the request context with the correct data 1`] = `
 Object {
+  "debugManager": null,
   "fieldTypeMap": Map {
-    "search" => Object {
+    "query.search" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
       "typeIDValue": undefined,
       "typeName": "SearchResultItemConnection",
     },
-    "search.edges" => Object {
+    "query.search.edges" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
@@ -426,29 +435,30 @@ exports[`@handl/request-parser when a query with multiple variables are passed i
 
 exports[`@handl/request-parser when a query with multiple variables are passed in then the parser should update the request context with the correct data 1`] = `
 Object {
+  "debugManager": null,
   "fieldTypeMap": Map {
-    "organization" => Object {
+    "query.organization" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
-    "organization.repositories" => Object {
+    "query.organization.repositories" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
       "typeIDValue": undefined,
       "typeName": "RepositoryConnection",
     },
-    "organization.repositories.edges" => Object {
+    "query.organization.repositories.edges" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "typeIDValue": undefined,
       "typeName": "RepositoryEdge",
     },
-    "organization.repositories.edges.node" => Object {
+    "query.organization.repositories.edges.node" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -480,8 +490,9 @@ exports[`@handl/request-parser when a query without a variable is passed in then
 
 exports[`@handl/request-parser when a query without a variable is passed in then the parser should update the request context with the correct data 1`] = `
 Object {
+  "debugManager": null,
   "fieldTypeMap": Map {
-    "organization" => Object {
+    "query.organization" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,

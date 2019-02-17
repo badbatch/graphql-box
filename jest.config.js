@@ -14,6 +14,7 @@ module.exports = {
     'text-summary',
   ],
   moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
+  setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
   testMatch: [
     '<rootDir>/packages/**/*.test.ts',
   ],

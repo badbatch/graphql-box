@@ -125,21 +125,21 @@ export class RequestParser implements RequestParserDef {
   private static _mapFieldToType(
     data: MapFieldToTypeData,
     { variables }: RequestOptions,
-    { fieldTypeMap }: RequestContext,
+    { fieldTypeMap, operation }: RequestContext,
   ): void {
     const { ancestors, fieldNode, isEntity, typeIDKey, typeName } = data;
-    const ancestorFieldPath: string[] = [];
+    const ancestorRequestFieldPath: string[] = [operation];
 
     ancestors.forEach((ancestor) => {
       if (isPlainObject(ancestor) && getKind(ancestor as ASTNode) === FIELD) {
         const ancestorFieldNode = ancestor as FieldNode;
-        ancestorFieldPath.push(getAlias(ancestorFieldNode) || getName(ancestorFieldNode) as string);
+        ancestorRequestFieldPath.push(getAlias(ancestorFieldNode) || getName(ancestorFieldNode) as string);
       }
     });
 
     const fieldName = getAlias(fieldNode) || getName(fieldNode) as string;
-    ancestorFieldPath.push(fieldName);
-    const fieldPath = ancestorFieldPath.join(".");
+    ancestorRequestFieldPath.push(fieldName);
+    const requestfieldPath = ancestorRequestFieldPath.join(".");
     const argumentsObjectMap = getArguments(fieldNode);
     const directives = getDirectives(fieldNode);
     let typeIDValue: string | undefined;
@@ -152,7 +152,7 @@ export class RequestParser implements RequestParserDef {
       }
     }
 
-    fieldTypeMap.set(fieldPath, {
+    fieldTypeMap.set(requestfieldPath, {
       hasArguments: !!argumentsObjectMap,
       hasDirectives: !!directives,
       isEntity,
