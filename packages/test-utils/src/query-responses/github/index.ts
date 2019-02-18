@@ -2,7 +2,7 @@ import { RawResponseDataWithMaybeCacheMetadata } from "@handl/core";
 
 /* tslint:disable max-line-length */
 
-export const organizationSmall: RawResponseDataWithMaybeCacheMetadata = {
+export const simple: RawResponseDataWithMaybeCacheMetadata = {
   data: {
     organization: {
       description: "We are working to build community through open source technology. NB: members must have two-factor auth.",

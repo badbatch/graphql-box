@@ -1,4 +1,4 @@
-export const organizationSmall = `
+export const simple = `
   query {
     organization(login: "facebook") {
       description

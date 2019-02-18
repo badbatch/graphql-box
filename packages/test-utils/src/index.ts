@@ -4,6 +4,7 @@ import { default as githubIntrospection } from "./introspections/github/index.js
 import * as githubMutationsAndOptions from "./mutations-and-options/github";
 import * as githubParsedQueries from "./parsed-queries/github";
 import * as githubQueriesAndOptions from "./queries-and-options/github";
+import * as githubQueryFieldTypeMaps from "./query-field-type-maps/github";
 import * as githubQueryResponses from "./query-responses/github";
 
 export {
@@ -11,5 +12,6 @@ export {
   githubMutationsAndOptions,
   githubParsedQueries,
   githubQueriesAndOptions,
+  githubQueryFieldTypeMaps,
   githubQueryResponses,
 };
