@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@handl/cache-manager the resolveQuery method when caching is done through cascading cache control then the cache should contain the correct data 1`] = `
+exports[`@handl/cache-manager the resolveQuery method a simple query when caching is done through cascading cache control then the cache should contain the correct data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -35,7 +35,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550528399907,
+            "ttl": 1550528652317,
           },
           "query.organization": Object {
             "cacheControl": Object {
@@ -43,7 +43,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550528399907,
+            "ttl": 1550528652317,
           },
         },
         "data": Object {
@@ -62,7 +62,7 @@ Object {
   "metadata": Array [
     Object {
       "accessedCount": 0,
-      "added": 1550528394914,
+      "added": 1550528647324,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -70,19 +70,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550528399914,
+          "ttl": 1550528652324,
         },
       },
       "key": "dataEntities::Organization:MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      "lastAccessed": 1550528394914,
-      "lastUpdated": 1550528394914,
+      "lastAccessed": 1550528647324,
+      "lastUpdated": 1550528647324,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550528394914,
+      "added": 1550528647324,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -90,19 +90,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550528399914,
+          "ttl": 1550528652324,
         },
       },
       "key": "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
-      "lastAccessed": 1550528394914,
-      "lastUpdated": 1550528394914,
+      "lastAccessed": 1550528647324,
+      "lastUpdated": 1550528647324,
       "size": 678,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550528394913,
+      "added": 1550528647323,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -110,12 +110,12 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550528399913,
+          "ttl": 1550528652323,
         },
       },
       "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      "lastAccessed": 1550528394913,
-      "lastUpdated": 1550528394913,
+      "lastAccessed": 1550528647323,
+      "lastUpdated": 1550528647323,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
@@ -124,7 +124,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager the resolveQuery method when caching is done through cascading cache control then the method should return the correct response data 1`] = `
+exports[`@handl/cache-manager the resolveQuery method a simple query when caching is done through cascading cache control then the method should return the correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -134,7 +134,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550528399907,
+        "ttl": 1550528652317,
       },
     },
     "query.organization" => Cacheability {
@@ -144,7 +144,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550528399907,
+        "ttl": 1550528652317,
       },
     },
   },
@@ -161,7 +161,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager the resolveQuery method when caching is done through type cache directives then the cache should contain the correct data 1`] = `
+exports[`@handl/cache-manager the resolveQuery method a simple query when caching is done through type cache directives then the cache should contain the correct data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -196,7 +196,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550528395921,
+            "ttl": 1550528648332,
           },
           "query.organization": Object {
             "cacheControl": Object {
@@ -204,7 +204,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550528395921,
+            "ttl": 1550528648332,
           },
         },
         "data": Object {
@@ -223,7 +223,7 @@ Object {
   "metadata": Array [
     Object {
       "accessedCount": 0,
-      "added": 1550528394921,
+      "added": 1550528647332,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -231,19 +231,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550528395921,
+          "ttl": 1550528648332,
         },
       },
       "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      "lastAccessed": 1550528394921,
-      "lastUpdated": 1550528394921,
+      "lastAccessed": 1550528647332,
+      "lastUpdated": 1550528647332,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550528394921,
+      "added": 1550528647332,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -251,19 +251,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550528395921,
+          "ttl": 1550528648332,
         },
       },
       "key": "dataEntities::Organization:MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      "lastAccessed": 1550528394921,
-      "lastUpdated": 1550528394921,
+      "lastAccessed": 1550528647332,
+      "lastUpdated": 1550528647332,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550528394921,
+      "added": 1550528647332,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -271,12 +271,12 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550528395921,
+          "ttl": 1550528648332,
         },
       },
       "key": "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
-      "lastAccessed": 1550528394921,
-      "lastUpdated": 1550528394921,
+      "lastAccessed": 1550528647332,
+      "lastUpdated": 1550528647332,
       "size": 678,
       "tags": Array [],
       "updatedCount": 0,
@@ -285,7 +285,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager the resolveQuery method when caching is done through type cache directives then the method should return the correct response data 1`] = `
+exports[`@handl/cache-manager the resolveQuery method a simple query when caching is done through type cache directives then the method should return the correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -295,7 +295,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550528395921,
+        "ttl": 1550528648332,
       },
     },
     "query.organization" => Cacheability {
@@ -305,7 +305,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550528395921,
+        "ttl": 1550528648332,
       },
     },
   },
