@@ -180,7 +180,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550614815106,
+            "ttl": 1550615949248,
           },
           "query.organization": Object {
             "cacheControl": Object {
@@ -188,7 +188,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550614815106,
+            "ttl": 1550615949248,
           },
           "query.organization.repositories": Object {
             "cacheControl": Object {
@@ -196,7 +196,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550614815106,
+            "ttl": 1550615949248,
           },
           "query.organization.repositories.edges": Object {
             "cacheControl": Object {
@@ -204,7 +204,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550614815106,
+            "ttl": 1550615949248,
           },
           "query.organization.repositories.edges.node": Object {
             "cacheControl": Object {
@@ -212,7 +212,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550614815106,
+            "ttl": 1550615949248,
           },
         },
         "data": Object {
@@ -283,7 +283,7 @@ Object {
   "metadata": Array [
     Object {
       "accessedCount": 0,
-      "added": 1550614810116,
+      "added": 1550615944256,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -291,19 +291,79 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815116,
+          "ttl": 1550615949256,
+        },
+      },
+      "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      "lastAccessed": 1550615944256,
+      "lastUpdated": 1550615944256,
+      "size": 410,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944256,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615949256,
+        },
+      },
+      "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "lastAccessed": 1550615944256,
+      "lastUpdated": 1550615944256,
+      "size": 410,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944256,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615949256,
+        },
+      },
+      "key": "requestFieldPaths::da942e5e50337b7d4495590126407fd8",
+      "lastAccessed": 1550615944256,
+      "lastUpdated": 1550615944256,
+      "size": 802,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944256,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615949256,
         },
       },
       "key": "queryResponses::b2ccf1c8e82dc22c4494ef2ac6ff304e",
-      "lastAccessed": 1550614810116,
-      "lastUpdated": 1550614810116,
+      "lastAccessed": 1550615944256,
+      "lastUpdated": 1550615944256,
       "size": 3144,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810115,
+      "added": 1550615944255,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -311,19 +371,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815114,
+          "ttl": 1550615949255,
         },
       },
       "key": "requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
+      "lastAccessed": 1550615944255,
+      "lastUpdated": 1550615944255,
       "size": 166,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810115,
+      "added": 1550615944255,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -331,19 +391,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815114,
+          "ttl": 1550615949255,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
+      "lastAccessed": 1550615944255,
+      "lastUpdated": 1550615944255,
       "size": 166,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810115,
+      "added": 1550615944255,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -351,19 +411,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815114,
+          "ttl": 1550615949255,
         },
       },
       "key": "requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
+      "lastAccessed": 1550615944255,
+      "lastUpdated": 1550615944255,
       "size": 176,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810115,
+      "added": 1550615944255,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -371,19 +431,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815114,
+          "ttl": 1550615949255,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
+      "lastAccessed": 1550615944255,
+      "lastUpdated": 1550615944255,
       "size": 176,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810115,
+      "added": 1550615944255,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -391,19 +451,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815114,
+          "ttl": 1550615949255,
         },
       },
       "key": "requestFieldPaths::9b6f480860437518432fa4e56252825d",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
+      "lastAccessed": 1550615944255,
+      "lastUpdated": 1550615944255,
       "size": 266,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810115,
+      "added": 1550615944255,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -411,19 +471,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815114,
+          "ttl": 1550615949255,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
+      "lastAccessed": 1550615944255,
+      "lastUpdated": 1550615944255,
       "size": 266,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810115,
+      "added": 1550615944255,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -431,19 +491,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815114,
+          "ttl": 1550615949255,
         },
       },
       "key": "requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
+      "lastAccessed": 1550615944255,
+      "lastUpdated": 1550615944255,
       "size": 348,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810115,
+      "added": 1550615944255,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -451,19 +511,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815114,
+          "ttl": 1550615949255,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
+      "lastAccessed": 1550615944255,
+      "lastUpdated": 1550615944255,
       "size": 348,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810115,
+      "added": 1550615944255,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -471,19 +531,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815114,
+          "ttl": 1550615949255,
         },
       },
       "key": "requestFieldPaths::e837bc099bd7b2e544e29234260d9ead",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
+      "lastAccessed": 1550615944255,
+      "lastUpdated": 1550615944255,
       "size": 358,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810115,
+      "added": 1550615944255,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -491,19 +551,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815114,
+          "ttl": 1550615949255,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
+      "lastAccessed": 1550615944255,
+      "lastUpdated": 1550615944255,
       "size": 358,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810115,
+      "added": 1550615944255,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -511,59 +571,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815115,
-        },
-      },
-      "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
-      "size": 410,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810115,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 5,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614815115,
-        },
-      },
-      "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
-      "size": 410,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810115,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 5,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614815114,
+          "ttl": 1550615949254,
         },
       },
       "key": "requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
+      "lastAccessed": 1550615944255,
+      "lastUpdated": 1550615944255,
       "size": 592,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810115,
+      "added": 1550615944255,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -571,33 +591,13 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815114,
+          "ttl": 1550615949254,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
+      "lastAccessed": 1550615944255,
+      "lastUpdated": 1550615944255,
       "size": 592,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810115,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 5,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614815115,
-        },
-      },
-      "key": "requestFieldPaths::da942e5e50337b7d4495590126407fd8",
-      "lastAccessed": 1550614810115,
-      "lastUpdated": 1550614810115,
-      "size": 802,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -615,7 +615,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550614815106,
+        "ttl": 1550615949248,
       },
     },
     "query.organization" => Cacheability {
@@ -625,7 +625,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550614815106,
+        "ttl": 1550615949248,
       },
     },
     "query.organization.repositories" => Cacheability {
@@ -635,7 +635,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550614815106,
+        "ttl": 1550615949248,
       },
     },
     "query.organization.repositories.edges" => Cacheability {
@@ -645,7 +645,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550614815106,
+        "ttl": 1550615949248,
       },
     },
     "query.organization.repositories.edges.node" => Cacheability {
@@ -655,7 +655,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550614815106,
+        "ttl": 1550615949248,
       },
     },
   },
@@ -836,6 +836,43 @@ Object {
       },
     ],
     Array [
+      "requestFieldPaths::da942e5e50337b7d4495590126407fd8",
+      Object {
+        "edges": Array [
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::9b6f480860437518432fa4e56252825d",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::e837bc099bd7b2e544e29234260d9ead",
+            },
+          },
+        ],
+      },
+    ],
+    Array [
       "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
       Object {
         "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -843,40 +880,6 @@ Object {
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "name": "Facebook",
-        "repositories": Object {
-          "edges": Array [
-            Object {
-              "node": Object {
-                "__cacheKey": "requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311",
-              },
-            },
-            Object {
-              "node": Object {
-                "__cacheKey": "requestFieldPaths::9b6f480860437518432fa4e56252825d",
-              },
-            },
-            Object {
-              "node": Object {
-                "__cacheKey": "requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b",
-              },
-            },
-            Object {
-              "node": Object {
-                "__cacheKey": "requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2",
-              },
-            },
-            Object {
-              "node": Object {
-                "__cacheKey": "requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8",
-              },
-            },
-            Object {
-              "node": Object {
-                "__cacheKey": "requestFieldPaths::e837bc099bd7b2e544e29234260d9ead",
-              },
-            },
-          ],
-        },
         "url": "https://github.com/facebook",
       },
     ],
@@ -888,40 +891,6 @@ Object {
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "name": "Facebook",
-        "repositories": Object {
-          "edges": Array [
-            Object {
-              "node": Object {
-                "__cacheKey": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
-              },
-            },
-            Object {
-              "node": Object {
-                "__cacheKey": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-              },
-            },
-            Object {
-              "node": Object {
-                "__cacheKey": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-              },
-            },
-            Object {
-              "node": Object {
-                "__cacheKey": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
-              },
-            },
-            Object {
-              "node": Object {
-                "__cacheKey": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-              },
-            },
-            Object {
-              "node": Object {
-                "__cacheKey": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-              },
-            },
-          ],
-        },
         "url": "https://github.com/facebook",
       },
     ],
@@ -935,7 +904,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550614811121,
+            "ttl": 1550615945261,
           },
           "query.organization": Object {
             "cacheControl": Object {
@@ -943,15 +912,23 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550614813121,
+            "ttl": 1550615947261,
           },
-          "query.organization.repositories.edges.node": Object {
+          "query.organization.repositories": Object {
             "cacheControl": Object {
               "maxAge": 1,
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550614811121,
+            "ttl": 1550615945261,
+          },
+          "query.organization.repositories.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 2,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 1550615946262,
           },
         },
         "data": Object {
@@ -1022,267 +999,7 @@ Object {
   "metadata": Array [
     Object {
       "accessedCount": 0,
-      "added": 1550614810130,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614811130,
-        },
-      },
-      "key": "queryResponses::b2ccf1c8e82dc22c4494ef2ac6ff304e",
-      "lastAccessed": 1550614810130,
-      "lastUpdated": 1550614810130,
-      "size": 2844,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810129,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614811128,
-        },
-      },
-      "key": "requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 166,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810129,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614811129,
-        },
-      },
-      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 166,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810129,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614811129,
-        },
-      },
-      "key": "requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 176,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810129,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614811129,
-        },
-      },
-      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 176,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810129,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614811128,
-        },
-      },
-      "key": "requestFieldPaths::9b6f480860437518432fa4e56252825d",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 266,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810129,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614811128,
-        },
-      },
-      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 266,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810129,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614811129,
-        },
-      },
-      "key": "requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 348,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810129,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614811129,
-        },
-      },
-      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 348,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810129,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614811129,
-        },
-      },
-      "key": "requestFieldPaths::e837bc099bd7b2e544e29234260d9ead",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 358,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810129,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614811129,
-        },
-      },
-      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 358,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810129,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614811128,
-        },
-      },
-      "key": "requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 592,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810129,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550614811128,
-        },
-      },
-      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 592,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550614810129,
+      "added": 1550615944269,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1290,19 +1007,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614813129,
+          "ttl": 1550615947269,
         },
       },
       "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 1236,
+      "lastAccessed": 1550615944269,
+      "lastUpdated": 1550615944269,
+      "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810129,
+      "added": 1550615944269,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1310,13 +1027,293 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614813129,
+          "ttl": 1550615947269,
         },
       },
       "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      "lastAccessed": 1550614810129,
-      "lastUpdated": 1550614810129,
-      "size": 1272,
+      "lastAccessed": 1550615944269,
+      "lastUpdated": 1550615944269,
+      "size": 410,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944269,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615945269,
+        },
+      },
+      "key": "queryResponses::b2ccf1c8e82dc22c4494ef2ac6ff304e",
+      "lastAccessed": 1550615944269,
+      "lastUpdated": 1550615944269,
+      "size": 2988,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944268,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615946268,
+        },
+      },
+      "key": "requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b",
+      "lastAccessed": 1550615944268,
+      "lastUpdated": 1550615944268,
+      "size": 166,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944268,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615946268,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+      "lastAccessed": 1550615944268,
+      "lastUpdated": 1550615944268,
+      "size": 166,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944268,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615946268,
+        },
+      },
+      "key": "requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2",
+      "lastAccessed": 1550615944268,
+      "lastUpdated": 1550615944268,
+      "size": 176,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944268,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615946268,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+      "lastAccessed": 1550615944268,
+      "lastUpdated": 1550615944268,
+      "size": 176,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944268,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615946267,
+        },
+      },
+      "key": "requestFieldPaths::9b6f480860437518432fa4e56252825d",
+      "lastAccessed": 1550615944268,
+      "lastUpdated": 1550615944268,
+      "size": 266,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944268,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615946268,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+      "lastAccessed": 1550615944268,
+      "lastUpdated": 1550615944268,
+      "size": 266,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944268,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615946268,
+        },
+      },
+      "key": "requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8",
+      "lastAccessed": 1550615944268,
+      "lastUpdated": 1550615944268,
+      "size": 348,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944268,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615946268,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+      "lastAccessed": 1550615944268,
+      "lastUpdated": 1550615944268,
+      "size": 348,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944268,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615946268,
+        },
+      },
+      "key": "requestFieldPaths::e837bc099bd7b2e544e29234260d9ead",
+      "lastAccessed": 1550615944268,
+      "lastUpdated": 1550615944268,
+      "size": 358,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944268,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615946268,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+      "lastAccessed": 1550615944268,
+      "lastUpdated": 1550615944268,
+      "size": 358,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944268,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615946267,
+        },
+      },
+      "key": "requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311",
+      "lastAccessed": 1550615944268,
+      "lastUpdated": 1550615944268,
+      "size": 592,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944268,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615946267,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+      "lastAccessed": 1550615944268,
+      "lastUpdated": 1550615944268,
+      "size": 592,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550615944268,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550615945268,
+        },
+      },
+      "key": "requestFieldPaths::da942e5e50337b7d4495590126407fd8",
+      "lastAccessed": 1550615944268,
+      "lastUpdated": 1550615944268,
+      "size": 802,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -1334,7 +1331,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550614811121,
+        "ttl": 1550615945261,
       },
     },
     "query.organization" => Cacheability {
@@ -1344,17 +1341,27 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550614813121,
+        "ttl": 1550615947261,
       },
     },
-    "query.organization.repositories.edges.node" => Cacheability {
+    "query.organization.repositories" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
           "maxAge": 1,
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550614811121,
+        "ttl": 1550615945261,
+      },
+    },
+    "query.organization.repositories.edges.node" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 2,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 1550615946262,
       },
     },
   },
@@ -1458,7 +1465,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550614815088,
+            "ttl": 1550615949232,
           },
           "query.organization": Object {
             "cacheControl": Object {
@@ -1466,7 +1473,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550614815088,
+            "ttl": 1550615949232,
           },
         },
         "data": Object {
@@ -1485,7 +1492,7 @@ Object {
   "metadata": Array [
     Object {
       "accessedCount": 0,
-      "added": 1550614810096,
+      "added": 1550615944239,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1493,19 +1500,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815096,
+          "ttl": 1550615949239,
         },
       },
       "key": "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
-      "lastAccessed": 1550614810096,
-      "lastUpdated": 1550614810096,
+      "lastAccessed": 1550615944239,
+      "lastUpdated": 1550615944239,
       "size": 678,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810095,
+      "added": 1550615944238,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1513,19 +1520,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815094,
+          "ttl": 1550615949237,
         },
       },
       "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      "lastAccessed": 1550614810095,
-      "lastUpdated": 1550614810095,
+      "lastAccessed": 1550615944238,
+      "lastUpdated": 1550615944238,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810095,
+      "added": 1550615944238,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1533,12 +1540,12 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614815095,
+          "ttl": 1550615949238,
         },
       },
       "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      "lastAccessed": 1550614810095,
-      "lastUpdated": 1550614810095,
+      "lastAccessed": 1550615944238,
+      "lastUpdated": 1550615944238,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
@@ -1557,7 +1564,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550614815088,
+        "ttl": 1550615949232,
       },
     },
     "query.organization" => Cacheability {
@@ -1567,7 +1574,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550614815088,
+        "ttl": 1550615949232,
       },
     },
   },
@@ -1619,7 +1626,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550614811103,
+            "ttl": 1550615945245,
           },
           "query.organization": Object {
             "cacheControl": Object {
@@ -1627,7 +1634,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550614811103,
+            "ttl": 1550615945245,
           },
         },
         "data": Object {
@@ -1646,7 +1653,7 @@ Object {
   "metadata": Array [
     Object {
       "accessedCount": 0,
-      "added": 1550614810104,
+      "added": 1550615944246,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1654,19 +1661,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614811104,
+          "ttl": 1550615945246,
         },
       },
       "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      "lastAccessed": 1550614810104,
-      "lastUpdated": 1550614810104,
+      "lastAccessed": 1550615944246,
+      "lastUpdated": 1550615944246,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810104,
+      "added": 1550615944246,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1674,19 +1681,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614811104,
+          "ttl": 1550615945246,
         },
       },
       "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      "lastAccessed": 1550614810104,
-      "lastUpdated": 1550614810104,
+      "lastAccessed": 1550615944246,
+      "lastUpdated": 1550615944246,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550614810104,
+      "added": 1550615944246,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1694,12 +1701,12 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550614811104,
+          "ttl": 1550615945246,
         },
       },
       "key": "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
-      "lastAccessed": 1550614810104,
-      "lastUpdated": 1550614810104,
+      "lastAccessed": 1550615944246,
+      "lastUpdated": 1550615944246,
       "size": 678,
       "tags": Array [],
       "updatedCount": 0,
@@ -1718,7 +1725,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550614811103,
+        "ttl": 1550615945245,
       },
     },
     "query.organization" => Cacheability {
@@ -1728,7 +1735,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550614811103,
+        "ttl": 1550615945245,
       },
     },
   },

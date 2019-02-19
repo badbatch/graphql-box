@@ -125,7 +125,8 @@ describe("@handl/cache-manager", () => {
             }),
             typeCacheDirectives: {
               Organization: "public, max-age=3",
-              Repository: "public, max-age=1",
+              Repository: "public, max-age=2",
+              RepositoryConnection: "public, max-age=1",
             },
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
