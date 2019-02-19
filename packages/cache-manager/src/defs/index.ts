@@ -3,6 +3,7 @@ import {
   CacheMetadata,
   CacheTypes,
   DehydratedCacheMetadata,
+  FieldTypeInfo,
   PlainObjectMap,
   PlainObjectStringMap,
   RawResponseDataWithMaybeCacheMetadata,
@@ -115,6 +116,18 @@ export interface KeysAndPaths {
   requestFieldCacheKey: string;
   requestFieldPath: string;
   responseDataPath: string;
+}
+
+export interface ResponseDataForCaching {
+  cacheMetadata: CacheMetadata;
+  dataEntityData: PlainObjectMap;
+  requestFieldPathData: PlainObjectMap;
+}
+
+export interface DataForCachingEntry {
+  cacheability: Cacheability;
+  data: PlainObjectMap;
+  fieldTypeInfo: FieldTypeInfo;
 }
 
 export interface ExportCacheResult {

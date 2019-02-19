@@ -18,7 +18,7 @@ describe("@handl/cache-manager", () => {
     let responseData: ResponseData;
     let requestData: RequestData;
 
-    describe("a simple query", () => {
+    describe("with a single type query", () => {
       describe("when caching is done through cascading cache control", () => {
         beforeAll(async () => {
           cacheManager = await CacheManager.init({
@@ -30,14 +30,14 @@ describe("@handl/cache-manager", () => {
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
 
-          requestData = getRequestData(githubParsedQueries.simple);
+          requestData = getRequestData(githubParsedQueries.singleType);
 
           responseData = await cacheManager.resolveQuery(
             requestData,
             requestData,
-            githubQueryResponses.simple,
+            githubQueryResponses.singleType,
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.simple }),
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
           );
         });
 
@@ -63,14 +63,81 @@ describe("@handl/cache-manager", () => {
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
 
-          requestData = getRequestData(githubParsedQueries.simple);
+          requestData = getRequestData(githubParsedQueries.singleType);
 
           responseData = await cacheManager.resolveQuery(
             requestData,
             requestData,
-            githubQueryResponses.simple,
+            githubQueryResponses.singleType,
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.simple }),
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+          );
+        });
+
+        it("then the method should return the correct response data", () => {
+          expect(responseData).toMatchSnapshot();
+        });
+
+        it("then the cache should contain the correct data", async () => {
+          expect(await cacheManager.cache.export()).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe("with a nested type with edges query", () => {
+      describe("when caching is done through cascading cache control", () => {
+        beforeAll(async () => {
+          cacheManager = await CacheManager.init({
+            cache: await Core.init({
+              name: "cachemap",
+              store: map(),
+            }),
+            cascadeCacheControl: true,
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          requestData = getRequestData(githubParsedQueries.nestedTypeWithEdges);
+
+          responseData = await cacheManager.resolveQuery(
+            requestData,
+            requestData,
+            githubQueryResponses.nestedTypeWithEdges,
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
+          );
+        });
+
+        it("then the method should return the correct response data", () => {
+          expect(responseData).toMatchSnapshot();
+        });
+
+        it("then the cache should contain the correct data", async () => {
+          expect(await cacheManager.cache.export()).toMatchSnapshot();
+        });
+      });
+
+      describe("when caching is done through type cache directives", () => {
+        beforeAll(async () => {
+          cacheManager = await CacheManager.init({
+            cache: await Core.init({
+              name: "cachemap",
+              store: map(),
+            }),
+            typeCacheDirectives: {
+              Organization: "public, max-age=3",
+              Repository: "public, max-age=1",
+            },
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          requestData = getRequestData(githubParsedQueries.nestedTypeWithEdges);
+
+          responseData = await cacheManager.resolveQuery(
+            requestData,
+            requestData,
+            githubQueryResponses.nestedTypeWithEdges,
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
           );
         });
 
