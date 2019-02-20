@@ -38,12 +38,12 @@
     "@cachemap/core": "^1.0.4",
     "@cachemap/map": "^1.0.4",
     "@cachemap/redis": "^1.0.4",
-    "@handl/core": "^0.1.22",
     "@handl/test-utils": "^0.1.22",
     "@types/graphql": "^14.0.7",
     "cacheability": "^2.0.4"
   },
   "dependencies": {
+    "@handl/core": "^0.1.22",
     "@handl/helpers": "^0.1.22",
     "graphql": "^14.1.1"
   }
