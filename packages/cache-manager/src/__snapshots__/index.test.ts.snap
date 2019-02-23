@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@handl/cache-manager the resolveQuery method with a nested type with edges query when caching is done through cascading cache control then the cache should contain the correct data 1`] = `
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered with a nested type with edges query when caching is done through cascading cache control then the cache should contain the correct data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -180,7 +180,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550615949248,
+            "ttl": 1550885216471,
           },
           "query.organization": Object {
             "cacheControl": Object {
@@ -188,7 +188,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550615949248,
+            "ttl": 1550885216471,
           },
           "query.organization.repositories": Object {
             "cacheControl": Object {
@@ -196,7 +196,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550615949248,
+            "ttl": 1550885216471,
           },
           "query.organization.repositories.edges": Object {
             "cacheControl": Object {
@@ -204,7 +204,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550615949248,
+            "ttl": 1550885216471,
           },
           "query.organization.repositories.edges.node": Object {
             "cacheControl": Object {
@@ -212,7 +212,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550615949248,
+            "ttl": 1550885216471,
           },
         },
         "data": Object {
@@ -283,7 +283,7 @@ Object {
   "metadata": Array [
     Object {
       "accessedCount": 0,
-      "added": 1550615944256,
+      "added": 1550885211481,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -291,19 +291,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949256,
+          "ttl": 1550885216480,
         },
       },
       "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      "lastAccessed": 1550615944256,
-      "lastUpdated": 1550615944256,
+      "lastAccessed": 1550885211481,
+      "lastUpdated": 1550885211481,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944256,
+      "added": 1550885211481,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -311,19 +311,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949256,
+          "ttl": 1550885216481,
         },
       },
       "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      "lastAccessed": 1550615944256,
-      "lastUpdated": 1550615944256,
+      "lastAccessed": 1550885211481,
+      "lastUpdated": 1550885211481,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944256,
+      "added": 1550885211481,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -331,39 +331,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949256,
-        },
-      },
-      "key": "requestFieldPaths::da942e5e50337b7d4495590126407fd8",
-      "lastAccessed": 1550615944256,
-      "lastUpdated": 1550615944256,
-      "size": 802,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550615944256,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 5,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550615949256,
+          "ttl": 1550885216481,
         },
       },
       "key": "queryResponses::b2ccf1c8e82dc22c4494ef2ac6ff304e",
-      "lastAccessed": 1550615944256,
-      "lastUpdated": 1550615944256,
+      "lastAccessed": 1550885211481,
+      "lastUpdated": 1550885211481,
       "size": 3144,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944255,
+      "added": 1550885211480,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -371,19 +351,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949255,
+          "ttl": 1550885216479,
         },
       },
       "key": "requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b",
-      "lastAccessed": 1550615944255,
-      "lastUpdated": 1550615944255,
+      "lastAccessed": 1550885211480,
+      "lastUpdated": 1550885211480,
       "size": 166,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944255,
+      "added": 1550885211480,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -391,19 +371,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949255,
+          "ttl": 1550885216479,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-      "lastAccessed": 1550615944255,
-      "lastUpdated": 1550615944255,
+      "lastAccessed": 1550885211480,
+      "lastUpdated": 1550885211480,
       "size": 166,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944255,
+      "added": 1550885211480,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -411,19 +391,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949255,
+          "ttl": 1550885216479,
         },
       },
       "key": "requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2",
-      "lastAccessed": 1550615944255,
-      "lastUpdated": 1550615944255,
+      "lastAccessed": 1550885211480,
+      "lastUpdated": 1550885211480,
       "size": 176,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944255,
+      "added": 1550885211480,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -431,19 +411,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949255,
+          "ttl": 1550885216479,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
-      "lastAccessed": 1550615944255,
-      "lastUpdated": 1550615944255,
+      "lastAccessed": 1550885211480,
+      "lastUpdated": 1550885211480,
       "size": 176,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944255,
+      "added": 1550885211480,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -451,19 +431,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949255,
+          "ttl": 1550885216479,
         },
       },
       "key": "requestFieldPaths::9b6f480860437518432fa4e56252825d",
-      "lastAccessed": 1550615944255,
-      "lastUpdated": 1550615944255,
+      "lastAccessed": 1550885211480,
+      "lastUpdated": 1550885211480,
       "size": 266,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944255,
+      "added": 1550885211480,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -471,19 +451,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949255,
+          "ttl": 1550885216479,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-      "lastAccessed": 1550615944255,
-      "lastUpdated": 1550615944255,
+      "lastAccessed": 1550885211480,
+      "lastUpdated": 1550885211480,
       "size": 266,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944255,
+      "added": 1550885211480,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -491,19 +471,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949255,
+          "ttl": 1550885216479,
         },
       },
       "key": "requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8",
-      "lastAccessed": 1550615944255,
-      "lastUpdated": 1550615944255,
+      "lastAccessed": 1550885211480,
+      "lastUpdated": 1550885211480,
       "size": 348,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944255,
+      "added": 1550885211480,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -511,19 +491,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949255,
+          "ttl": 1550885216479,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-      "lastAccessed": 1550615944255,
-      "lastUpdated": 1550615944255,
+      "lastAccessed": 1550885211480,
+      "lastUpdated": 1550885211480,
       "size": 348,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944255,
+      "added": 1550885211480,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -531,19 +511,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949255,
+          "ttl": 1550885216479,
         },
       },
       "key": "requestFieldPaths::e837bc099bd7b2e544e29234260d9ead",
-      "lastAccessed": 1550615944255,
-      "lastUpdated": 1550615944255,
+      "lastAccessed": 1550885211480,
+      "lastUpdated": 1550885211480,
       "size": 358,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944255,
+      "added": 1550885211480,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -551,19 +531,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949255,
+          "ttl": 1550885216480,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-      "lastAccessed": 1550615944255,
-      "lastUpdated": 1550615944255,
+      "lastAccessed": 1550885211480,
+      "lastUpdated": 1550885211480,
       "size": 358,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944255,
+      "added": 1550885211480,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -571,19 +551,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949254,
+          "ttl": 1550885216479,
         },
       },
       "key": "requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311",
-      "lastAccessed": 1550615944255,
-      "lastUpdated": 1550615944255,
+      "lastAccessed": 1550885211480,
+      "lastUpdated": 1550885211480,
       "size": 592,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944255,
+      "added": 1550885211480,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -591,13 +571,33 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949254,
+          "ttl": 1550885216479,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
-      "lastAccessed": 1550615944255,
-      "lastUpdated": 1550615944255,
+      "lastAccessed": 1550885211480,
+      "lastUpdated": 1550885211480,
       "size": 592,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211480,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216480,
+        },
+      },
+      "key": "requestFieldPaths::da942e5e50337b7d4495590126407fd8",
+      "lastAccessed": 1550885211480,
+      "lastUpdated": 1550885211480,
+      "size": 802,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -605,7 +605,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager the resolveQuery method with a nested type with edges query when caching is done through cascading cache control then the method should return the correct response data 1`] = `
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered with a nested type with edges query when caching is done through cascading cache control then the method should return the correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -615,7 +615,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550615949248,
+        "ttl": 1550885216471,
       },
     },
     "query.organization" => Cacheability {
@@ -625,7 +625,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550615949248,
+        "ttl": 1550885216471,
       },
     },
     "query.organization.repositories" => Cacheability {
@@ -635,7 +635,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550615949248,
+        "ttl": 1550885216471,
       },
     },
     "query.organization.repositories.edges" => Cacheability {
@@ -645,7 +645,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550615949248,
+        "ttl": 1550885216471,
       },
     },
     "query.organization.repositories.edges.node" => Cacheability {
@@ -655,7 +655,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550615949248,
+        "ttl": 1550885216471,
       },
     },
   },
@@ -724,7 +724,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager the resolveQuery method with a nested type with edges query when caching is done through type cache directives then the cache should contain the correct data 1`] = `
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered with a nested type with edges query when caching is done through type cache directives then the cache should contain the correct data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -904,7 +904,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550615945261,
+            "ttl": 1550885212487,
           },
           "query.organization": Object {
             "cacheControl": Object {
@@ -912,7 +912,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550615947261,
+            "ttl": 1550885214487,
           },
           "query.organization.repositories": Object {
             "cacheControl": Object {
@@ -920,7 +920,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550615945261,
+            "ttl": 1550885212487,
           },
           "query.organization.repositories.edges.node": Object {
             "cacheControl": Object {
@@ -928,7 +928,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550615946262,
+            "ttl": 1550885213488,
           },
         },
         "data": Object {
@@ -999,7 +999,7 @@ Object {
   "metadata": Array [
     Object {
       "accessedCount": 0,
-      "added": 1550615944269,
+      "added": 1550885211495,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1007,19 +1007,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615947269,
+          "ttl": 1550885214495,
         },
       },
       "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      "lastAccessed": 1550615944269,
-      "lastUpdated": 1550615944269,
+      "lastAccessed": 1550885211495,
+      "lastUpdated": 1550885211495,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944269,
+      "added": 1550885211495,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1027,19 +1027,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615947269,
+          "ttl": 1550885214495,
         },
       },
       "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      "lastAccessed": 1550615944269,
-      "lastUpdated": 1550615944269,
+      "lastAccessed": 1550885211495,
+      "lastUpdated": 1550885211495,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944269,
+      "added": 1550885211495,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1047,19 +1047,39 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615945269,
+          "ttl": 1550885212495,
+        },
+      },
+      "key": "requestFieldPaths::da942e5e50337b7d4495590126407fd8",
+      "lastAccessed": 1550885211495,
+      "lastUpdated": 1550885211495,
+      "size": 802,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211495,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212495,
         },
       },
       "key": "queryResponses::b2ccf1c8e82dc22c4494ef2ac6ff304e",
-      "lastAccessed": 1550615944269,
-      "lastUpdated": 1550615944269,
+      "lastAccessed": 1550885211495,
+      "lastUpdated": 1550885211495,
       "size": 2988,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944268,
+      "added": 1550885211494,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1067,19 +1087,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615946268,
+          "ttl": 1550885213493,
         },
       },
       "key": "requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b",
-      "lastAccessed": 1550615944268,
-      "lastUpdated": 1550615944268,
+      "lastAccessed": 1550885211494,
+      "lastUpdated": 1550885211494,
       "size": 166,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944268,
+      "added": 1550885211494,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1087,19 +1107,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615946268,
+          "ttl": 1550885213494,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-      "lastAccessed": 1550615944268,
-      "lastUpdated": 1550615944268,
+      "lastAccessed": 1550885211494,
+      "lastUpdated": 1550885211494,
       "size": 166,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944268,
+      "added": 1550885211494,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1107,19 +1127,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615946268,
+          "ttl": 1550885213494,
         },
       },
       "key": "requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2",
-      "lastAccessed": 1550615944268,
-      "lastUpdated": 1550615944268,
+      "lastAccessed": 1550885211494,
+      "lastUpdated": 1550885211494,
       "size": 176,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944268,
+      "added": 1550885211494,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1127,19 +1147,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615946268,
+          "ttl": 1550885213494,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
-      "lastAccessed": 1550615944268,
-      "lastUpdated": 1550615944268,
+      "lastAccessed": 1550885211494,
+      "lastUpdated": 1550885211494,
       "size": 176,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944268,
+      "added": 1550885211494,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1147,19 +1167,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615946267,
+          "ttl": 1550885213493,
         },
       },
       "key": "requestFieldPaths::9b6f480860437518432fa4e56252825d",
-      "lastAccessed": 1550615944268,
-      "lastUpdated": 1550615944268,
+      "lastAccessed": 1550885211494,
+      "lastUpdated": 1550885211494,
       "size": 266,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944268,
+      "added": 1550885211494,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1167,19 +1187,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615946268,
+          "ttl": 1550885213493,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-      "lastAccessed": 1550615944268,
-      "lastUpdated": 1550615944268,
+      "lastAccessed": 1550885211494,
+      "lastUpdated": 1550885211494,
       "size": 266,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944268,
+      "added": 1550885211494,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1187,19 +1207,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615946268,
+          "ttl": 1550885213494,
         },
       },
       "key": "requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8",
-      "lastAccessed": 1550615944268,
-      "lastUpdated": 1550615944268,
+      "lastAccessed": 1550885211494,
+      "lastUpdated": 1550885211494,
       "size": 348,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944268,
+      "added": 1550885211494,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1207,19 +1227,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615946268,
+          "ttl": 1550885213494,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-      "lastAccessed": 1550615944268,
-      "lastUpdated": 1550615944268,
+      "lastAccessed": 1550885211494,
+      "lastUpdated": 1550885211494,
       "size": 348,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944268,
+      "added": 1550885211494,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1227,19 +1247,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615946268,
+          "ttl": 1550885213494,
         },
       },
       "key": "requestFieldPaths::e837bc099bd7b2e544e29234260d9ead",
-      "lastAccessed": 1550615944268,
-      "lastUpdated": 1550615944268,
+      "lastAccessed": 1550885211494,
+      "lastUpdated": 1550885211494,
       "size": 358,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944268,
+      "added": 1550885211494,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1247,19 +1267,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615946268,
+          "ttl": 1550885213494,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-      "lastAccessed": 1550615944268,
-      "lastUpdated": 1550615944268,
+      "lastAccessed": 1550885211494,
+      "lastUpdated": 1550885211494,
       "size": 358,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944268,
+      "added": 1550885211494,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1267,19 +1287,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615946267,
+          "ttl": 1550885213493,
         },
       },
       "key": "requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311",
-      "lastAccessed": 1550615944268,
-      "lastUpdated": 1550615944268,
+      "lastAccessed": 1550885211494,
+      "lastUpdated": 1550885211494,
       "size": 592,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944268,
+      "added": 1550885211494,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1287,33 +1307,13 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615946267,
+          "ttl": 1550885213493,
         },
       },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
-      "lastAccessed": 1550615944268,
-      "lastUpdated": 1550615944268,
+      "lastAccessed": 1550885211494,
+      "lastUpdated": 1550885211494,
       "size": 592,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 1550615944268,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 1,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 1550615945268,
-        },
-      },
-      "key": "requestFieldPaths::da942e5e50337b7d4495590126407fd8",
-      "lastAccessed": 1550615944268,
-      "lastUpdated": 1550615944268,
-      "size": 802,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -1321,7 +1321,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager the resolveQuery method with a nested type with edges query when caching is done through type cache directives then the method should return the correct response data 1`] = `
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered with a nested type with edges query when caching is done through type cache directives then the method should return the correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -1331,7 +1331,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550615945261,
+        "ttl": 1550885212487,
       },
     },
     "query.organization" => Cacheability {
@@ -1341,7 +1341,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550615947261,
+        "ttl": 1550885214487,
       },
     },
     "query.organization.repositories" => Cacheability {
@@ -1351,7 +1351,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550615945261,
+        "ttl": 1550885212487,
       },
     },
     "query.organization.repositories.edges.node" => Cacheability {
@@ -1361,7 +1361,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550615946262,
+        "ttl": 1550885213488,
       },
     },
   },
@@ -1430,7 +1430,1877 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager the resolveQuery method with a single type query when caching is done through cascading cache control then the cache should contain the correct data 1`] = `
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered with a nested union with edges query when caching is done through cascading cache control then the cache should contain the correct data 1`] = `
+Object {
+  "entries": Array [
+    Array [
+      "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
+      Object {
+        "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+        "homepageUrl": "https://reactjs.org",
+        "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+      Object {
+        "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+        "homepageUrl": "https://reactjs.org",
+        "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
+      Object {
+        "description": "Event-driven, non-blocking I/O with PHP.",
+        "homepageUrl": "https://reactphp.org",
+        "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+        "name": "react",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+      Object {
+        "description": "Event-driven, non-blocking I/O with PHP.",
+        "homepageUrl": "https://reactphp.org",
+        "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+        "name": "react",
+      },
+    ],
+    Array [
+      "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
+      Object {
+        "description": "React background management framework | React全家桶后台管理框架",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+      Object {
+        "description": "React background management framework | React全家桶后台管理框架",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "requestFieldPaths::777b88f07c71a41c39f323b651206906",
+      Object {
+        "description": "React docs in Chinese | React 中文文档翻译",
+        "homepageUrl": "https://react.docschina.org/",
+        "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+      Object {
+        "description": "React docs in Chinese | React 中文文档翻译",
+        "homepageUrl": "https://react.docschina.org/",
+        "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "requestFieldPaths::85e40d970842e957d769693d96d22971",
+      Object {
+        "description": "京东首页构建",
+        "homepageUrl": null,
+        "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+      Object {
+        "description": "京东首页构建",
+        "homepageUrl": null,
+        "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "requestFieldPaths::30da55f710d24120983bf2581f41b992",
+      Object {
+        "description": "基于react的企业后台管理开发框架",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+      Object {
+        "description": "基于react的企业后台管理开发框架",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
+      Object {
+        "description": "Streams of values over time",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+        "name": "ReactiveCocoa",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+      Object {
+        "description": "Streams of values over time",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+        "name": "ReactiveCocoa",
+      },
+    ],
+    Array [
+      "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
+      Object {
+        "description": "A framework for building native apps with React.",
+        "homepageUrl": "https://facebook.github.io/react-native/",
+        "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+        "name": "react-native",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+      Object {
+        "description": "A framework for building native apps with React.",
+        "homepageUrl": "https://facebook.github.io/react-native/",
+        "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+        "name": "react-native",
+      },
+    ],
+    Array [
+      "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
+      Object {
+        "description": "Declarative routing for React",
+        "homepageUrl": "https://reacttraining.com/react-router/",
+        "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+        "name": "react-router",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+      Object {
+        "description": "Declarative routing for React",
+        "homepageUrl": "https://reacttraining.com/react-router/",
+        "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+        "name": "react-router",
+      },
+    ],
+    Array [
+      "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
+      Object {
+        "description": "Set up a modern web app by running one command.",
+        "homepageUrl": "https://facebook.github.io/create-react-app/",
+        "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+        "name": "create-react-app",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+      Object {
+        "description": "Set up a modern web app by running one command.",
+        "homepageUrl": "https://facebook.github.io/create-react-app/",
+        "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+        "name": "create-react-app",
+      },
+    ],
+    Array [
+      "requestFieldPaths::24624ac52ad7d89bee8ccb6bb2485123",
+      Object {
+        "edges": Array [
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::777b88f07c71a41c39f323b651206906",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::85e40d970842e957d769693d96d22971",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::30da55f710d24120983bf2581f41b992",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
+            },
+          },
+        ],
+      },
+    ],
+    Array [
+      "queryResponses::cff34cbf0a66b422ef210f1e6c991414",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 1550885216499,
+          },
+          "query.search": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 1550885216499,
+          },
+          "query.search.edges": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 1550885216499,
+          },
+          "query.search.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 1550885216499,
+          },
+        },
+        "data": Object {
+          "search": Object {
+            "edges": Array [
+              Object {
+                "node": Object {
+                  "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+                  "homepageUrl": "https://reactjs.org",
+                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "Event-driven, non-blocking I/O with PHP.",
+                  "homepageUrl": "https://reactphp.org",
+                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "React background management framework | React全家桶后台管理框架",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "React docs in Chinese | React 中文文档翻译",
+                  "homepageUrl": "https://react.docschina.org/",
+                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "京东首页构建",
+                  "homepageUrl": null,
+                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "基于react的企业后台管理开发框架",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "Streams of values over time",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+                  "name": "ReactiveCocoa",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "A framework for building native apps with React.",
+                  "homepageUrl": "https://facebook.github.io/react-native/",
+                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+                  "name": "react-native",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "Declarative routing for React",
+                  "homepageUrl": "https://reacttraining.com/react-router/",
+                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+                  "name": "react-router",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "Set up a modern web app by running one command.",
+                  "homepageUrl": "https://facebook.github.io/create-react-app/",
+                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+                  "name": "create-react-app",
+                },
+              },
+            ],
+          },
+        },
+      },
+    ],
+  ],
+  "metadata": Array [
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "requestFieldPaths::85e40d970842e957d769693d96d22971",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 142,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 142,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "requestFieldPaths::30da55f710d24120983bf2581f41b992",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 166,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 166,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 192,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 192,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 238,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 238,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 242,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 242,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "requestFieldPaths::777b88f07c71a41c39f323b651206906",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 258,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 258,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 280,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 280,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 320,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 320,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 334,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216518,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 334,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216516,
+        },
+      },
+      "key": "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 342,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216517,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 342,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216518,
+        },
+      },
+      "key": "requestFieldPaths::24624ac52ad7d89bee8ccb6bb2485123",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 1330,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211518,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885216518,
+        },
+      },
+      "key": "queryResponses::cff34cbf0a66b422ef210f1e6c991414",
+      "lastAccessed": 1550885211518,
+      "lastUpdated": 1550885211518,
+      "size": 3114,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+  ],
+}
+`;
+
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered with a nested union with edges query when caching is done through cascading cache control then the method should return the correct response data 1`] = `
+Object {
+  "cacheMetadata": Map {
+    "query" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 5,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 1550885216499,
+      },
+    },
+    "query.search" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 5,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 1550885216499,
+      },
+    },
+    "query.search.edges" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 5,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 1550885216499,
+      },
+    },
+    "query.search.edges.node" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 5,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 1550885216499,
+      },
+    },
+  },
+  "data": Object {
+    "search": Object {
+      "edges": Array [
+        Object {
+          "node": Object {
+            "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+            "homepageUrl": "https://reactjs.org",
+            "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+            "name": "react",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "Event-driven, non-blocking I/O with PHP.",
+            "homepageUrl": "https://reactphp.org",
+            "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+            "name": "react",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "React background management framework | React全家桶后台管理框架",
+            "homepageUrl": "",
+            "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+            "name": "react",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "React docs in Chinese | React 中文文档翻译",
+            "homepageUrl": "https://react.docschina.org/",
+            "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+            "name": "react",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "京东首页构建",
+            "homepageUrl": null,
+            "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+            "name": "react",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "基于react的企业后台管理开发框架",
+            "homepageUrl": "",
+            "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+            "name": "react",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "Streams of values over time",
+            "homepageUrl": "",
+            "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+            "name": "ReactiveCocoa",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "A framework for building native apps with React.",
+            "homepageUrl": "https://facebook.github.io/react-native/",
+            "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+            "name": "react-native",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "Declarative routing for React",
+            "homepageUrl": "https://reacttraining.com/react-router/",
+            "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+            "name": "react-router",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "Set up a modern web app by running one command.",
+            "homepageUrl": "https://facebook.github.io/create-react-app/",
+            "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+            "name": "create-react-app",
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered with a nested union with edges query when caching is done through type cache directives then the cache should contain the correct data 1`] = `
+Object {
+  "entries": Array [
+    Array [
+      "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
+      Object {
+        "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+        "homepageUrl": "https://reactjs.org",
+        "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+      Object {
+        "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+        "homepageUrl": "https://reactjs.org",
+        "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
+      Object {
+        "description": "Event-driven, non-blocking I/O with PHP.",
+        "homepageUrl": "https://reactphp.org",
+        "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+        "name": "react",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+      Object {
+        "description": "Event-driven, non-blocking I/O with PHP.",
+        "homepageUrl": "https://reactphp.org",
+        "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+        "name": "react",
+      },
+    ],
+    Array [
+      "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
+      Object {
+        "description": "React background management framework | React全家桶后台管理框架",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+      Object {
+        "description": "React background management framework | React全家桶后台管理框架",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "requestFieldPaths::777b88f07c71a41c39f323b651206906",
+      Object {
+        "description": "React docs in Chinese | React 中文文档翻译",
+        "homepageUrl": "https://react.docschina.org/",
+        "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+      Object {
+        "description": "React docs in Chinese | React 中文文档翻译",
+        "homepageUrl": "https://react.docschina.org/",
+        "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "requestFieldPaths::85e40d970842e957d769693d96d22971",
+      Object {
+        "description": "京东首页构建",
+        "homepageUrl": null,
+        "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+      Object {
+        "description": "京东首页构建",
+        "homepageUrl": null,
+        "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "requestFieldPaths::30da55f710d24120983bf2581f41b992",
+      Object {
+        "description": "基于react的企业后台管理开发框架",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+      Object {
+        "description": "基于react的企业后台管理开发框架",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+        "name": "react",
+      },
+    ],
+    Array [
+      "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
+      Object {
+        "description": "Streams of values over time",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+        "name": "ReactiveCocoa",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+      Object {
+        "description": "Streams of values over time",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+        "name": "ReactiveCocoa",
+      },
+    ],
+    Array [
+      "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
+      Object {
+        "description": "A framework for building native apps with React.",
+        "homepageUrl": "https://facebook.github.io/react-native/",
+        "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+        "name": "react-native",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+      Object {
+        "description": "A framework for building native apps with React.",
+        "homepageUrl": "https://facebook.github.io/react-native/",
+        "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+        "name": "react-native",
+      },
+    ],
+    Array [
+      "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
+      Object {
+        "description": "Declarative routing for React",
+        "homepageUrl": "https://reacttraining.com/react-router/",
+        "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+        "name": "react-router",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+      Object {
+        "description": "Declarative routing for React",
+        "homepageUrl": "https://reacttraining.com/react-router/",
+        "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+        "name": "react-router",
+      },
+    ],
+    Array [
+      "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
+      Object {
+        "description": "Set up a modern web app by running one command.",
+        "homepageUrl": "https://facebook.github.io/create-react-app/",
+        "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+        "name": "create-react-app",
+      },
+    ],
+    Array [
+      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+      Object {
+        "description": "Set up a modern web app by running one command.",
+        "homepageUrl": "https://facebook.github.io/create-react-app/",
+        "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+        "name": "create-react-app",
+      },
+    ],
+    Array [
+      "requestFieldPaths::24624ac52ad7d89bee8ccb6bb2485123",
+      Object {
+        "edges": Array [
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::777b88f07c71a41c39f323b651206906",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::85e40d970842e957d769693d96d22971",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::30da55f710d24120983bf2581f41b992",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
+            },
+          },
+        ],
+      },
+    ],
+    Array [
+      "queryResponses::cff34cbf0a66b422ef210f1e6c991414",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 1550885212524,
+          },
+          "query.search": Object {
+            "cacheControl": Object {
+              "maxAge": 3,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 1550885214524,
+          },
+          "query.search.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 1550885212524,
+          },
+        },
+        "data": Object {
+          "search": Object {
+            "edges": Array [
+              Object {
+                "node": Object {
+                  "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+                  "homepageUrl": "https://reactjs.org",
+                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "Event-driven, non-blocking I/O with PHP.",
+                  "homepageUrl": "https://reactphp.org",
+                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "React background management framework | React全家桶后台管理框架",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "React docs in Chinese | React 中文文档翻译",
+                  "homepageUrl": "https://react.docschina.org/",
+                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "京东首页构建",
+                  "homepageUrl": null,
+                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "基于react的企业后台管理开发框架",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "Streams of values over time",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+                  "name": "ReactiveCocoa",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "A framework for building native apps with React.",
+                  "homepageUrl": "https://facebook.github.io/react-native/",
+                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+                  "name": "react-native",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "Declarative routing for React",
+                  "homepageUrl": "https://reacttraining.com/react-router/",
+                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+                  "name": "react-router",
+                },
+              },
+              Object {
+                "node": Object {
+                  "description": "Set up a modern web app by running one command.",
+                  "homepageUrl": "https://facebook.github.io/create-react-app/",
+                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+                  "name": "create-react-app",
+                },
+              },
+            ],
+          },
+        },
+      },
+    ],
+  ],
+  "metadata": Array [
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211537,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212537,
+        },
+      },
+      "key": "queryResponses::cff34cbf0a66b422ef210f1e6c991414",
+      "lastAccessed": 1550885211537,
+      "lastUpdated": 1550885211537,
+      "size": 2996,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212534,
+        },
+      },
+      "key": "requestFieldPaths::85e40d970842e957d769693d96d22971",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 142,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212534,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 142,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212534,
+        },
+      },
+      "key": "requestFieldPaths::30da55f710d24120983bf2581f41b992",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 166,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212534,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 166,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212535,
+        },
+      },
+      "key": "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 192,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212535,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 192,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212534,
+        },
+      },
+      "key": "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 238,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212534,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 238,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212533,
+        },
+      },
+      "key": "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 242,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212534,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 242,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212534,
+        },
+      },
+      "key": "requestFieldPaths::777b88f07c71a41c39f323b651206906",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 258,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212534,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 258,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212535,
+        },
+      },
+      "key": "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 280,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212535,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 280,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212535,
+        },
+      },
+      "key": "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 320,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212535,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 320,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212535,
+        },
+      },
+      "key": "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 334,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212535,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 334,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212533,
+        },
+      },
+      "key": "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 342,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885212533,
+        },
+      },
+      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 342,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 1550885211536,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 3,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 1550885214536,
+        },
+      },
+      "key": "requestFieldPaths::24624ac52ad7d89bee8ccb6bb2485123",
+      "lastAccessed": 1550885211536,
+      "lastUpdated": 1550885211536,
+      "size": 1330,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+  ],
+}
+`;
+
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered with a nested union with edges query when caching is done through type cache directives then the method should return the correct response data 1`] = `
+Object {
+  "cacheMetadata": Map {
+    "query" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 1,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 1550885212524,
+      },
+    },
+    "query.search" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 3,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 1550885214524,
+      },
+    },
+    "query.search.edges.node" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 1,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 1550885212524,
+      },
+    },
+  },
+  "data": Object {
+    "search": Object {
+      "edges": Array [
+        Object {
+          "node": Object {
+            "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+            "homepageUrl": "https://reactjs.org",
+            "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+            "name": "react",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "Event-driven, non-blocking I/O with PHP.",
+            "homepageUrl": "https://reactphp.org",
+            "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+            "name": "react",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "React background management framework | React全家桶后台管理框架",
+            "homepageUrl": "",
+            "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+            "name": "react",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "React docs in Chinese | React 中文文档翻译",
+            "homepageUrl": "https://react.docschina.org/",
+            "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+            "name": "react",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "京东首页构建",
+            "homepageUrl": null,
+            "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+            "name": "react",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "基于react的企业后台管理开发框架",
+            "homepageUrl": "",
+            "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+            "name": "react",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "Streams of values over time",
+            "homepageUrl": "",
+            "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+            "name": "ReactiveCocoa",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "A framework for building native apps with React.",
+            "homepageUrl": "https://facebook.github.io/react-native/",
+            "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+            "name": "react-native",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "Declarative routing for React",
+            "homepageUrl": "https://reacttraining.com/react-router/",
+            "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+            "name": "react-router",
+          },
+        },
+        Object {
+          "node": Object {
+            "description": "Set up a modern web app by running one command.",
+            "homepageUrl": "https://facebook.github.io/create-react-app/",
+            "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+            "name": "create-react-app",
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered with a single type query when caching is done through cascading cache control then the cache should contain the correct data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -1465,7 +3335,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550615949232,
+            "ttl": 1550885216453,
           },
           "query.organization": Object {
             "cacheControl": Object {
@@ -1473,7 +3343,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550615949232,
+            "ttl": 1550885216453,
           },
         },
         "data": Object {
@@ -1492,7 +3362,7 @@ Object {
   "metadata": Array [
     Object {
       "accessedCount": 0,
-      "added": 1550615944239,
+      "added": 1550885211462,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1500,19 +3370,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949239,
+          "ttl": 1550885216462,
         },
       },
       "key": "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
-      "lastAccessed": 1550615944239,
-      "lastUpdated": 1550615944239,
+      "lastAccessed": 1550885211462,
+      "lastUpdated": 1550885211462,
       "size": 678,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944238,
+      "added": 1550885211461,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1520,19 +3390,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949237,
+          "ttl": 1550885216460,
         },
       },
       "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      "lastAccessed": 1550615944238,
-      "lastUpdated": 1550615944238,
+      "lastAccessed": 1550885211461,
+      "lastUpdated": 1550885211461,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944238,
+      "added": 1550885211461,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1540,12 +3410,12 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615949238,
+          "ttl": 1550885216460,
         },
       },
       "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      "lastAccessed": 1550615944238,
-      "lastUpdated": 1550615944238,
+      "lastAccessed": 1550885211461,
+      "lastUpdated": 1550885211461,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
@@ -1554,7 +3424,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager the resolveQuery method with a single type query when caching is done through cascading cache control then the method should return the correct response data 1`] = `
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered with a single type query when caching is done through cascading cache control then the method should return the correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -1564,7 +3434,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550615949232,
+        "ttl": 1550885216453,
       },
     },
     "query.organization" => Cacheability {
@@ -1574,7 +3444,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550615949232,
+        "ttl": 1550885216453,
       },
     },
   },
@@ -1591,7 +3461,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager the resolveQuery method with a single type query when caching is done through type cache directives then the cache should contain the correct data 1`] = `
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered with a single type query when caching is done through type cache directives then the cache should contain the correct data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -1626,7 +3496,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550615945245,
+            "ttl": 1550885212468,
           },
           "query.organization": Object {
             "cacheControl": Object {
@@ -1634,7 +3504,7 @@ Object {
               "public": true,
             },
             "etag": undefined,
-            "ttl": 1550615945245,
+            "ttl": 1550885212468,
           },
         },
         "data": Object {
@@ -1653,7 +3523,7 @@ Object {
   "metadata": Array [
     Object {
       "accessedCount": 0,
-      "added": 1550615944246,
+      "added": 1550885211469,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1661,19 +3531,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615945246,
+          "ttl": 1550885212469,
         },
       },
       "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      "lastAccessed": 1550615944246,
-      "lastUpdated": 1550615944246,
+      "lastAccessed": 1550885211469,
+      "lastUpdated": 1550885211469,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944246,
+      "added": 1550885211469,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1681,19 +3551,19 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615945246,
+          "ttl": 1550885212469,
         },
       },
       "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      "lastAccessed": 1550615944246,
-      "lastUpdated": 1550615944246,
+      "lastAccessed": 1550885211469,
+      "lastUpdated": 1550885211469,
       "size": 410,
       "tags": Array [],
       "updatedCount": 0,
     },
     Object {
       "accessedCount": 0,
-      "added": 1550615944246,
+      "added": 1550885211469,
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -1701,12 +3571,12 @@ Object {
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1550615945246,
+          "ttl": 1550885212469,
         },
       },
       "key": "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
-      "lastAccessed": 1550615944246,
-      "lastUpdated": 1550615944246,
+      "lastAccessed": 1550885211469,
+      "lastUpdated": 1550885211469,
       "size": 678,
       "tags": Array [],
       "updatedCount": 0,
@@ -1715,7 +3585,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager the resolveQuery method with a single type query when caching is done through type cache directives then the method should return the correct response data 1`] = `
+exports[`@handl/cache-manager the resolveQuery method when the query has not been filtered with a single type query when caching is done through type cache directives then the method should return the correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -1725,7 +3595,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550615945245,
+        "ttl": 1550885212468,
       },
     },
     "query.organization" => Cacheability {
@@ -1735,7 +3605,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 1550615945245,
+        "ttl": 1550885212468,
       },
     },
   },

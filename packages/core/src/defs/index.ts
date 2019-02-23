@@ -57,6 +57,7 @@ export interface FieldTypeInfo {
   isEntity: boolean;
   typeIDValue?: string | number;
   typeName: string;
+  unionTypeNames: string[];
 }
 
 export type FieldTypeMap = Map<string, FieldTypeInfo>;

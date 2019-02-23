@@ -127,7 +127,7 @@ export class RequestParser implements RequestParserDef {
     { variables }: RequestOptions,
     { fieldTypeMap, operation }: RequestContext,
   ): void {
-    const { ancestors, fieldNode, isEntity, typeIDKey, typeName } = data;
+    const { ancestors, fieldNode, isEntity, typeIDKey, typeName, unionTypeNames } = data;
     const ancestorRequestFieldPath: string[] = [operation];
 
     ancestors.forEach((ancestor) => {
@@ -158,6 +158,7 @@ export class RequestParser implements RequestParserDef {
       isEntity,
       typeIDValue,
       typeName,
+      unionTypeNames,
     });
   }
 
@@ -294,7 +295,7 @@ export class RequestParser implements RequestParserDef {
     options: RequestOptions,
     context: RequestContext,
   ) {
-    const type = this._getFieldOrInlineFragmentType(kind, node, typeInfo);
+    let type = this._getFieldOrInlineFragmentType(kind, node, typeInfo);
     if (!type) return undefined;
 
     if (kind === FIELD) {
@@ -309,7 +310,20 @@ export class RequestParser implements RequestParserDef {
       }
     }
 
-    if (!(type instanceof GraphQLObjectType) && !(type instanceof GraphQLInterfaceType)) return undefined;
+    if (
+      !(type instanceof GraphQLObjectType)
+      && !(type instanceof GraphQLInterfaceType)
+      && !(type instanceof GraphQLUnionType)
+    ) return undefined;
+
+    let unionType: GraphQLUnionType | null = null;
+    const unionTypeNames: string[] = [];
+
+    if (type instanceof GraphQLUnionType) {
+      unionType = type;
+      unionTypeNames.push(...type.getTypes().map((t) => t.name));
+      type = type.getTypes()[0];
+    }
 
     const fields = type.getFields();
 
@@ -321,7 +335,8 @@ export class RequestParser implements RequestParserDef {
         fieldNode,
         isEntity: !!fields[this._typeIDKey],
         typeIDKey: this._typeIDKey,
-        typeName: type.name,
+        typeName: unionType ? unionType.name : type.name,
+        unionTypeNames,
       };
 
       RequestParser._mapFieldToType(data, options, context);

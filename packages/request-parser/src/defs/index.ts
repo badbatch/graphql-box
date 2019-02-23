@@ -59,4 +59,5 @@ export interface MapFieldToTypeData {
   isEntity: boolean;
   typeIDKey: string;
   typeName: string;
+  unionTypeNames: string[];
 }

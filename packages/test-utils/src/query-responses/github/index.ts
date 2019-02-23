@@ -81,3 +81,93 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
   },
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };
+
+export const nestedUnionWithEdges: RawResponseDataWithMaybeCacheMetadata = {
+  data: {
+    search: {
+      edges: [
+        {
+          node: {
+            description: "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+            homepageUrl: "https://reactjs.org",
+            id: "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+            name: "react",
+          },
+        },
+        {
+          node: {
+            description: "Event-driven, non-blocking I/O with PHP.",
+            homepageUrl: "https://reactphp.org",
+            id: "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+            name: "react",
+          },
+        },
+        {
+          node: {
+            description: "React background management framework | React全家桶后台管理框架",
+            homepageUrl: "",
+            id: "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+            name: "react",
+          },
+        },
+        {
+          node: {
+            description: "React docs in Chinese | React 中文文档翻译",
+            homepageUrl: "https://react.docschina.org/",
+            id: "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+            name: "react",
+          },
+        },
+        {
+          node: {
+            description: "京东首页构建",
+            homepageUrl: null,
+            id: "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+            name: "react",
+          },
+        },
+        {
+          node: {
+            description: "基于react的企业后台管理开发框架",
+            homepageUrl: "",
+            id: "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+            name: "react",
+          },
+        },
+        {
+          node: {
+            description: "Streams of values over time",
+            homepageUrl: "",
+            id: "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+            name: "ReactiveCocoa",
+          },
+        },
+        {
+          node: {
+            description: "A framework for building native apps with React.",
+            homepageUrl: "https://facebook.github.io/react-native/",
+            id: "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+            name: "react-native",
+          },
+        },
+        {
+          node: {
+            description: "Declarative routing for React",
+            homepageUrl: "https://reacttraining.com/react-router/",
+            id: "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+            name: "react-router",
+          },
+        },
+        {
+          node: {
+            description: "Set up a modern web app by running one command.",
+            homepageUrl: "https://facebook.github.io/create-react-app/",
+            id: "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+            name: "create-react-app",
+          },
+        },
+      ],
+    },
+  },
+  headers: new Headers({ "Cache-Control": "public, max-age=5" }),
+};
