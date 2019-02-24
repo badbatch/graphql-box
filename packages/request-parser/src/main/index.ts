@@ -127,7 +127,7 @@ export class RequestParser implements RequestParserDef {
     { variables }: RequestOptions,
     { fieldTypeMap, operation }: RequestContext,
   ): void {
-    const { ancestors, fieldNode, isEntity, typeIDKey, typeName, unionTypeNames } = data;
+    const { ancestors, fieldNode, isEntity, possibleTypeNames, typeIDKey, typeName } = data;
     const ancestorRequestFieldPath: string[] = [operation];
 
     ancestors.forEach((ancestor) => {
@@ -156,9 +156,9 @@ export class RequestParser implements RequestParserDef {
       hasArguments: !!argumentsObjectMap,
       hasDirectives: !!directives,
       isEntity,
+      possibleTypeNames,
       typeIDValue,
       typeName,
-      unionTypeNames,
     });
   }
 
@@ -317,12 +317,16 @@ export class RequestParser implements RequestParserDef {
     ) return undefined;
 
     let unionType: GraphQLUnionType | null = null;
-    const unionTypeNames: string[] = [];
+    const possibleTypeNames: string[] = [];
 
-    if (type instanceof GraphQLUnionType) {
-      unionType = type;
-      unionTypeNames.push(...type.getTypes().map((t) => t.name));
-      type = type.getTypes()[0];
+    if (type instanceof GraphQLInterfaceType || type instanceof GraphQLUnionType) {
+      const possibleTypes = this._schema.getPossibleTypes(type);
+      possibleTypeNames.push(...possibleTypes.map((possibleType) => possibleType.name));
+
+      if (type instanceof GraphQLUnionType) {
+        unionType = type;
+        type = type.getTypes()[0];
+      }
     }
 
     const fields = type.getFields();
@@ -334,9 +338,9 @@ export class RequestParser implements RequestParserDef {
         ancestors,
         fieldNode,
         isEntity: !!fields[this._typeIDKey],
+        possibleTypeNames,
         typeIDKey: this._typeIDKey,
         typeName: unionType ? unionType.name : type.name,
-        unionTypeNames,
       };
 
       RequestParser._mapFieldToType(data, options, context);

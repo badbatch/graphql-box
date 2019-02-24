@@ -69,6 +69,10 @@ export const withVariables: RequestAndOptions = {
               description
               homepageUrl
               name
+              owner {
+                description
+                name
+              }
             }
           }
         }
@@ -99,6 +103,10 @@ export const withEnumVariable: RequestAndOptions = {
               description
               homepageUrl
               name
+              owner {
+                description
+                name
+              }
             }
           }
         }
@@ -129,6 +137,10 @@ export const withDirective: RequestAndOptions = {
               description
               homepageUrl
               name
+              owner {
+                description
+                name
+              }
             }
           }
         }

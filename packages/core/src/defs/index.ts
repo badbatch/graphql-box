@@ -55,9 +55,9 @@ export interface FieldTypeInfo {
   hasArguments: boolean;
   hasDirectives: boolean;
   isEntity: boolean;
+  possibleTypeNames: string[];
   typeIDValue?: string | number;
   typeName: string;
-  unionTypeNames: string[];
 }
 
 export type FieldTypeMap = Map<string, FieldTypeInfo>;
