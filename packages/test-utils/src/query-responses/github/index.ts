@@ -32,6 +32,11 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
               homepageUrl: "",
               id: "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
               name: "codemod",
+              owner: {
+                id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                login: "facebook",
+                url: "https://github.com/facebook",
+              },
             },
           },
           {
@@ -40,6 +45,11 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
               homepageUrl: "https://hhvm.com",
               id: "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
               name: "hhvm",
+              owner: {
+                id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                login: "facebook",
+                url: "https://github.com/facebook",
+              },
             },
           },
           {
@@ -48,6 +58,11 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
               homepageUrl: "",
               id: "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
               name: "pyre2",
+              owner: {
+                id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                login: "facebook",
+                url: "https://github.com/facebook",
+              },
             },
           },
           {
@@ -56,6 +71,11 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
               homepageUrl: "http://ogp.me",
               id: "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
               name: "open-graph-protocol",
+              owner: {
+                id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                login: "facebook",
+                url: "https://github.com/facebook",
+              },
             },
           },
           {
@@ -64,6 +84,11 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
               homepageUrl: "https://developers.facebook.com/docs/android",
               id: "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
               name: "facebook-android-sdk",
+              owner: {
+                id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                login: "facebook",
+                url: "https://github.com/facebook",
+              },
             },
           },
           {
@@ -72,6 +97,11 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
               homepageUrl: "https://developers.facebook.com/docs/ios",
               id: "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
               name: "facebook-objc-sdk",
+              owner: {
+                id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                login: "facebook",
+                url: "https://github.com/facebook",
+              },
             },
           },
         ],

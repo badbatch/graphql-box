@@ -21,17 +21,21 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "AddStarPayload",
-      "unionTypeNames": Array [],
     },
     "mutation.addStar.starrable" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
+      "possibleTypeNames": Array [
+        "Repository",
+        "Topic",
+        "Gist",
+      ],
       "typeIDValue": undefined,
       "typeName": "Starrable",
-      "unionTypeNames": Array [],
     },
   },
   "handlID": "123456789",
@@ -55,6 +59,11 @@ exports[`@handl/request-parser when a query with a directive is passed in then t
           description
           homepageUrl
           name
+          owner {
+            login
+            url
+            id
+          }
           id
         }
       }
@@ -74,33 +83,44 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "Organization",
-      "unionTypeNames": Array [],
     },
     "query.organization.repositories" => Object {
       "hasArguments": true,
       "hasDirectives": true,
       "isEntity": false,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "RepositoryConnection",
-      "unionTypeNames": Array [],
     },
     "query.organization.repositories.edges" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "RepositoryEdge",
-      "unionTypeNames": Array [],
     },
     "query.organization.repositories.edges.node" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "Repository",
-      "unionTypeNames": Array [],
+    },
+    "query.organization.repositories.edges.node.owner" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "possibleTypeNames": Array [
+        "Organization",
+        "User",
+      ],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryOwner",
     },
   },
   "handlID": "123456789",
@@ -133,9 +153,9 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "Organization",
-      "unionTypeNames": Array [],
     },
   },
   "handlID": "123456789",
@@ -168,9 +188,9 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "Organization",
-      "unionTypeNames": Array [],
     },
   },
   "handlID": "123456789",
@@ -203,9 +223,9 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "Organization",
-      "unionTypeNames": Array [],
     },
   },
   "handlID": "123456789",
@@ -229,6 +249,11 @@ exports[`@handl/request-parser when a query with an enum variable is passed in t
           description
           homepageUrl
           name
+          owner {
+            login
+            url
+            id
+          }
           id
         }
       }
@@ -248,33 +273,44 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "Organization",
-      "unionTypeNames": Array [],
     },
     "query.organization.repositories" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "RepositoryConnection",
-      "unionTypeNames": Array [],
     },
     "query.organization.repositories.edges" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "RepositoryEdge",
-      "unionTypeNames": Array [],
     },
     "query.organization.repositories.edges.node" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "Repository",
-      "unionTypeNames": Array [],
+    },
+    "query.organization.repositories.edges.node.owner" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "possibleTypeNames": Array [
+        "Organization",
+        "User",
+      ],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryOwner",
     },
   },
   "handlID": "123456789",
@@ -307,9 +343,9 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "Organization",
-      "unionTypeNames": Array [],
     },
   },
   "handlID": "123456789",
@@ -342,9 +378,9 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "Organization",
-      "unionTypeNames": Array [],
     },
   },
   "handlID": "123456789",
@@ -405,25 +441,23 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "SearchResultItemConnection",
-      "unionTypeNames": Array [],
     },
     "query.search.edges" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "SearchResultItemEdge",
-      "unionTypeNames": Array [],
     },
     "query.search.edges.node" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
-      "typeIDValue": undefined,
-      "typeName": "SearchResultItem",
-      "unionTypeNames": Array [
+      "possibleTypeNames": Array [
         "Issue",
         "PullRequest",
         "Repository",
@@ -431,6 +465,8 @@ Object {
         "Organization",
         "MarketplaceListing",
       ],
+      "typeIDValue": undefined,
+      "typeName": "SearchResultItem",
     },
   },
   "handlID": "123456789",
@@ -454,6 +490,11 @@ exports[`@handl/request-parser when a query with multiple variables are passed i
           description
           homepageUrl
           name
+          owner {
+            login
+            url
+            id
+          }
           id
         }
       }
@@ -473,33 +514,44 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "Organization",
-      "unionTypeNames": Array [],
     },
     "query.organization.repositories" => Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "RepositoryConnection",
-      "unionTypeNames": Array [],
     },
     "query.organization.repositories.edges" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "RepositoryEdge",
-      "unionTypeNames": Array [],
     },
     "query.organization.repositories.edges.node" => Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "Repository",
-      "unionTypeNames": Array [],
+    },
+    "query.organization.repositories.edges.node.owner" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "possibleTypeNames": Array [
+        "Organization",
+        "User",
+      ],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryOwner",
     },
   },
   "handlID": "123456789",
@@ -532,9 +584,9 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "possibleTypeNames": Array [],
       "typeIDValue": undefined,
       "typeName": "Organization",
-      "unionTypeNames": Array [],
     },
   },
   "handlID": "123456789",

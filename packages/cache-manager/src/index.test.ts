@@ -12,7 +12,16 @@ import { CacheManager, CacheManagerDef } from ".";
 import { DEFAULT_TYPE_ID_KEY } from "./consts";
 
 describe("@handl/cache-manager", () => {
+  const realDateNow = Date.now.bind(global.Date);
   let cacheManager: CacheManagerDef;
+
+  beforeAll(() => {
+    global.Date.now = jest.fn().mockReturnValue(Date.parse("June 6, 1979"));
+  });
+
+  afterAll(() => {
+    global.Date.now = realDateNow;
+  });
 
   describe("the resolveQuery method", () => {
     let responseData: ResponseData;
@@ -128,6 +137,7 @@ describe("@handl/cache-manager", () => {
                 Organization: "public, max-age=3",
                 Repository: "public, max-age=2",
                 RepositoryConnection: "public, max-age=1",
+                RepositoryOwner: "public, max-age=10",
               },
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });

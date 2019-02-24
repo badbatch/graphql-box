@@ -25,6 +25,11 @@ export const nestedTypeWithEdges = `
             homepageUrl
             name
             id
+            owner {
+              login
+              url
+              id
+            }
           }
         }
       }

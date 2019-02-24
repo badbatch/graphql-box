@@ -70,8 +70,8 @@ export const withVariables: RequestAndOptions = {
               homepageUrl
               name
               owner {
-                description
-                name
+                login
+                url
               }
             }
           }
@@ -104,8 +104,8 @@ export const withEnumVariable: RequestAndOptions = {
               homepageUrl
               name
               owner {
-                description
-                name
+                login
+                url
               }
             }
           }
@@ -138,8 +138,8 @@ export const withDirective: RequestAndOptions = {
               homepageUrl
               name
               owner {
-                description
-                name
+                login
+                url
               }
             }
           }
