@@ -283,6 +283,58 @@ describe("@handl/cache-manager", () => {
             expect(await cacheManager.cache.export()).toMatchSnapshot();
           });
         });
+
+        describe("when caching is done through type cache directives", () => {
+          beforeAll(async () => {
+            // @ts-ignore
+            jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+
+            cacheManager = await CacheManager.init({
+              cache: await Cachemap.init({
+                name: "cachemap",
+                store: map(),
+              }),
+              typeCacheDirectives: {
+                Organization: "public, max-age=1",
+              },
+              typeIDKey: DEFAULT_TYPE_ID_KEY,
+            });
+
+            requestData = getRequestData(githubParsedQueries.singleTypeWithFilter.initial);
+
+            responseData = await cacheManager.resolveQuery(
+              requestData,
+              requestData,
+              githubQueryResponses.singleTypePartialAndFilter.initial,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+            );
+
+            const { cacheMetadata, data } = githubQueryResponses.singleTypePartialAndFilter.partial;
+
+            // @ts-ignore
+            jest.spyOn(cacheManager._partialQueryResponses, "get").mockReturnValue({
+              cacheMetadata: rehydrateCacheMetadata(cacheMetadata as DehydratedCacheMetadata),
+              data,
+            });
+
+            responseData = await cacheManager.resolveQuery(
+              getRequestData(githubParsedQueries.singleTypeWithFilter.full),
+              getRequestData(githubParsedQueries.singleTypeWithFilter.updated),
+              githubQueryResponses.singleTypePartialAndFilter.updated,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType, queryFiltered: true }),
+            );
+          });
+
+          it("then the method should return the correct response data", () => {
+            expect(responseData).toMatchSnapshot();
+          });
+
+          it("then the cache should contain the correct data", async () => {
+            expect(await cacheManager.cache.export()).toMatchSnapshot();
+          });
+        });
       });
     });
   });
