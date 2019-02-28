@@ -67,6 +67,8 @@ export interface PartialQueryResponse {
   cacheMetadata: CacheMetadata;
 }
 
+export type PartialQueryResponses = Map<string, PartialQueryResponse>;
+
 export interface FieldCount {
   missing: number;
   total: number;

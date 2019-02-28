@@ -1,3 +1,5 @@
+import { ParsedQueryWithFilter } from "../../defs";
+
 export const singleType = `
   query {
     organization(login: "facebook") {
@@ -10,6 +12,29 @@ export const singleType = `
     }
   }
 `;
+
+export const singleTypeWithFilter: ParsedQueryWithFilter = {
+  full: singleType,
+  initial: `
+    query {
+      organization(login: "facebook") {
+        description
+        login
+        id
+      }
+    }
+  `,
+  updated: `
+    query {
+      organization(login: "facebook") {
+        email
+        name
+        url
+        id
+      }
+    }
+  `,
+};
 
 export const nestedTypeWithEdges = `
   query {

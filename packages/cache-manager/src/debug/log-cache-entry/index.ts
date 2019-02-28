@@ -15,7 +15,7 @@ export default function logCacheEntry() {
         const { debugManager, ...otherContext } = args[5] as RequestContext;
 
         if (!debugManager) {
-          method.apply(this, args);
+          await method.apply(this, args);
           resolve();
           return;
         }

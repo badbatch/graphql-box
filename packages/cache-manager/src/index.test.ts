@@ -1,6 +1,6 @@
 import Cachemap from "@cachemap/core";
 import map from "@cachemap/map";
-import { RequestData, ResponseData } from "@handl/core";
+import { DehydratedCacheMetadata, RequestData, ResponseData } from "@handl/core";
 import {
   getRequestContext,
   getRequestData,
@@ -10,6 +10,7 @@ import {
 } from "@handl/test-utils";
 import { CacheManager, CacheManagerDef } from ".";
 import { DEFAULT_TYPE_ID_KEY } from "./consts";
+import { rehydrateCacheMetadata } from "./helpers/cache-metadata";
 
 describe("@handl/cache-manager", () => {
   const realDateNow = Date.now.bind(global.Date);
@@ -217,6 +218,60 @@ describe("@handl/cache-manager", () => {
               githubQueryResponses.nestedUnionWithEdges,
               { awaitDataCaching: true },
               getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+            );
+          });
+
+          it("then the method should return the correct response data", () => {
+            expect(responseData).toMatchSnapshot();
+          });
+
+          it("then the cache should contain the correct data", async () => {
+            expect(await cacheManager.cache.export()).toMatchSnapshot();
+          });
+        });
+      });
+    });
+
+    describe("when the query has been filtered", () => {
+      describe("with a single type query", () => {
+        describe("when caching is done through cascading cache control", () => {
+          beforeAll(async () => {
+            // @ts-ignore
+            jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+
+            cacheManager = await CacheManager.init({
+              cache: await Cachemap.init({
+                name: "cachemap",
+                store: map(),
+              }),
+              cascadeCacheControl: true,
+              typeIDKey: DEFAULT_TYPE_ID_KEY,
+            });
+
+            requestData = getRequestData(githubParsedQueries.singleTypeWithFilter.initial);
+
+            responseData = await cacheManager.resolveQuery(
+              requestData,
+              requestData,
+              githubQueryResponses.singleTypePartialAndFilter.initial,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+            );
+
+            const { cacheMetadata, data } = githubQueryResponses.singleTypePartialAndFilter.partial;
+
+            // @ts-ignore
+            jest.spyOn(cacheManager._partialQueryResponses, "get").mockReturnValue({
+              cacheMetadata: rehydrateCacheMetadata(cacheMetadata as DehydratedCacheMetadata),
+              data,
+            });
+
+            responseData = await cacheManager.resolveQuery(
+              getRequestData(githubParsedQueries.singleTypeWithFilter.full),
+              getRequestData(githubParsedQueries.singleTypeWithFilter.updated),
+              githubQueryResponses.singleTypePartialAndFilter.updated,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType, queryFiltered: true }),
             );
           });
 

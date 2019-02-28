@@ -2,7 +2,6 @@ import Cachemap from "@cachemap/core";
 import {
   CacheMetadata,
   CacheTypes,
-  DehydratedCacheMetadata,
   FieldTypeInfo,
   hashRequest,
   PlainObjectMap,
@@ -59,10 +58,12 @@ import {
   KeysAndPaths,
   KeysAndPathsOptions,
   PartialQueryResponse,
+  PartialQueryResponses,
   QueryResponseCacheEntry,
   ResponseDataForCaching,
   UserOptions,
 } from "../defs";
+import { dehydrateCacheMetadata, rehydrateCacheMetadata } from "../helpers/cache-metadata";
 
 export class CacheManager implements CacheManagerDef  {
   public static async init(options: InitOptions): Promise<CacheManager> {
@@ -124,62 +125,6 @@ export class CacheManager implements CacheManagerDef  {
     if (path.length) paths.push(path);
     paths.push(key);
     return paths.join(".");
-  }
-
-  private static _dehydrateCacheMetadata(cacheMetadata: CacheMetadata): DehydratedCacheMetadata {
-    const obj: DehydratedCacheMetadata = {};
-
-    cacheMetadata.forEach((cacheability, key) => {
-      obj[key] = cacheability.metadata;
-    });
-
-    return obj;
-  }
-
-  private static _filterField(
-    field: FieldNode,
-    fieldPathChecklist: FieldPathChecklist,
-    ancestorRequestFieldPath: string,
-  ): boolean {
-    const childFields = getChildFields(field) as FieldNode[] | undefined;
-    if (!childFields) return false;
-
-    for (let i = childFields.length - 1; i >= 0; i -= 1) {
-      const childField = childFields[i];
-
-      const { requestFieldPath } = CacheManager._getFieldKeysAndPaths(
-        field,
-        { requestFieldPath: ancestorRequestFieldPath },
-      );
-
-      const check = fieldPathChecklist.get(requestFieldPath);
-
-      if (check && !hasChildFields(childField)) {
-        deleteChildFields(field, childField);
-      } else if (check && CacheManager._filterField(childField, fieldPathChecklist, requestFieldPath)) {
-        deleteChildFields(field, childField);
-      }
-    }
-
-    return !hasChildFields(field);
-  }
-
-  private static async _filterQuery(
-    { ast }: RequestData,
-    { fieldPathChecklist }: CachedResponseData,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<void> {
-    const queryNode = getOperationDefinitions(ast, context.operation)[0];
-    const fields = getChildFields(queryNode) as FieldNode[];
-
-    for (let i = fields.length - 1; i >= 0; i -= 1) {
-      const field = fields[i];
-      const { requestFieldPath } = CacheManager._getFieldKeysAndPaths(field, {});
-      if (CacheManager._filterField(field, fieldPathChecklist, requestFieldPath)) deleteChildFields(queryNode, field);
-    }
-
-    context.queryFiltered = true;
   }
 
   private static _getFieldDataFromAncestor(ancestorFieldData: any, propNameOrIndex: string | number): any {
@@ -256,17 +201,6 @@ export class CacheManager implements CacheManagerDef  {
     return !noCache && cacheability.checkTTL();
   }
 
-  private static _rehydrateCacheMetadata(
-    dehydratedCacheMetadata: DehydratedCacheMetadata,
-    cacheMetadata: CacheMetadata = new Map(),
-  ): CacheMetadata {
-    return Object.keys(dehydratedCacheMetadata).reduce((map: CacheMetadata, key: string) => {
-      const cacheability = new Cacheability({ metadata: dehydratedCacheMetadata[key] });
-      map.set(key, cacheability);
-      return map;
-    }, cacheMetadata);
-  }
-
   private static _setCachedResponseData(
     cachedFieldData: CachedFieldData,
     { cacheMetadata, data, fieldCount, fieldPathChecklist }: CachedResponseData,
@@ -331,7 +265,7 @@ export class CacheManager implements CacheManagerDef  {
   private _cache: Cachemap;
   private _cascadeCacheControl: boolean;
   private _fallbackOperationCacheability: string;
-  private _partialQueryResponses: Map<string, PartialQueryResponse> = new Map();
+  private _partialQueryResponses: PartialQueryResponses = new Map();
   private _typeCacheDirectives: PlainObjectStringMap;
   private _typeIDKey: string;
 
@@ -371,7 +305,7 @@ export class CacheManager implements CacheManagerDef  {
     }
 
     this._setPartialQueryResponse(hash, { cacheMetadata, data }, options, context);
-    await CacheManager._filterQuery(requestData, cachedResponseData, options, context);
+    await this._filterQuery(requestData, cachedResponseData, context);
 
     const request = print(ast);
     return { updated: { ast, hash: hashRequest(request), request } };
@@ -398,7 +332,7 @@ export class CacheManager implements CacheManagerDef  {
     const { cacheMetadata, data } = result.entry as QueryResponseCacheEntry;
 
     return {
-      cacheMetadata: CacheManager._rehydrateCacheMetadata(cacheMetadata),
+      cacheMetadata: rehydrateCacheMetadata(cacheMetadata),
       data,
     };
   }
@@ -584,10 +518,64 @@ export class CacheManager implements CacheManagerDef  {
     cacheMetadata.set(operation, cacheability);
 
     if (rawResponseData.cacheMetadata) {
-      CacheManager._rehydrateCacheMetadata(rawResponseData.cacheMetadata, cacheMetadata);
+      rehydrateCacheMetadata(rawResponseData.cacheMetadata, cacheMetadata);
     }
 
     return cacheMetadata;
+  }
+
+  private _filterField(
+    field: FieldNode,
+    fieldPathChecklist: FieldPathChecklist,
+    ancestorRequestFieldPath: string,
+    context: RequestContext,
+  ): boolean {
+    const childFields = getChildFields(field) as FieldNode[] | undefined;
+    if (!childFields) return false;
+
+    for (let i = childFields.length - 1; i >= 0; i -= 1) {
+      const childField = childFields[i];
+
+      if (getName(childField) === this._typeIDKey) continue;
+
+      const { requestFieldPath } = CacheManager._getFieldKeysAndPaths(
+        field,
+        { requestFieldPath: ancestorRequestFieldPath },
+      );
+
+      const check = fieldPathChecklist.get(requestFieldPath);
+
+      if (check && !hasChildFields(childField)) {
+        deleteChildFields(field, childField);
+      } else if (check && this._filterField(childField, fieldPathChecklist, requestFieldPath, context)) {
+        deleteChildFields(field, childField);
+      }
+    }
+
+    const fieldTypeInfo = context.fieldTypeMap.get(ancestorRequestFieldPath);
+
+    if (fieldTypeInfo && fieldTypeInfo.isEntity && childFields.length === 1) {
+      deleteChildFields(field, childFields[0]);
+    }
+
+    return !hasChildFields(field);
+  }
+
+  private async _filterQuery(
+    { ast }: RequestData,
+    { fieldPathChecklist }: CachedResponseData,
+    context: RequestContext,
+  ): Promise<void> {
+    const queryNode = getOperationDefinitions(ast, context.operation)[0];
+    const fields = getChildFields(queryNode) as FieldNode[];
+
+    for (let i = fields.length - 1; i >= 0; i -= 1) {
+      const field = fields[i];
+      const { requestFieldPath } = CacheManager._getFieldKeysAndPaths(field, {});
+      if (this._filterField(field, fieldPathChecklist, requestFieldPath, context)) deleteChildFields(queryNode, field);
+    }
+
+    context.queryFiltered = true;
   }
 
   @logCacheQuery()
@@ -598,7 +586,7 @@ export class CacheManager implements CacheManagerDef  {
     context: RequestContext,
   ): Promise<ResponseData> {
     try {
-      return this._cache.get(`${cacheType}::${hash}`);
+      return await this._cache.get(`${cacheType}::${hash}`);
     } catch (errors) {
       return Promise.reject(errors);
     }
@@ -630,7 +618,7 @@ export class CacheManager implements CacheManagerDef  {
     hash: string,
   ): Promise<Cacheability | false> {
     try {
-      return this._cache.has(`${cacheType}::${hash}`);
+      return await this._cache.has(`${cacheType}::${hash}`);
     } catch (error) {
       return false;
     }
@@ -785,7 +773,7 @@ export class CacheManager implements CacheManagerDef  {
     context: RequestContext,
   ) {
     const hasArgsOrDirectives = fieldTypeInfo.hasArguments || fieldTypeInfo.hasDirectives;
-    const fieldData = get(data, responseDataPath, null);
+    let fieldData = get(data, responseDataPath, null);
 
     if (!fieldTypeInfo.isEntity && hasArgsOrDirectives) {
       unset(data, responseDataPath);
@@ -793,6 +781,17 @@ export class CacheManager implements CacheManagerDef  {
 
     if (fieldTypeInfo.isEntity && isPlainObject(fieldData)) {
       const entityDataKey = `${fieldTypeInfo.typeName}::${fieldData[this._typeIDKey]}`;
+      const result = await this._checkCacheEntry(DATA_ENTITIES, entityDataKey, options, context);
+
+      if (result) {
+        fieldData = mergeObjects(
+          result.entry,
+          fieldData,
+          (key: string, val: any): string | number | undefined => {
+            return isPlainObject(val) && val[this._typeIDKey] ? val[this._typeIDKey] : undefined;
+          },
+        );
+      }
 
       await this._setCacheEntry(
         DATA_ENTITIES,
@@ -904,7 +903,7 @@ export class CacheManager implements CacheManagerDef  {
     options: RequestOptions,
     context: RequestContext,
   ): Promise<void> {
-    const dehydratedCacheMetadata = CacheManager._dehydrateCacheMetadata(cacheMetadata);
+    const dehydratedCacheMetadata = dehydrateCacheMetadata(cacheMetadata);
     const cacheControl = CacheManager._getOperationCacheControl(cacheMetadata, context.operation);
 
     await this._setCacheEntry(
@@ -925,9 +924,21 @@ export class CacheManager implements CacheManagerDef  {
     context: RequestContext,
   ): Promise<void> {
     const hasArgsOrDirectives = fieldTypeInfo.hasArguments || fieldTypeInfo.hasDirectives;
-    const fieldData = get(data, responseDataPath, null);
+    let fieldData = get(data, responseDataPath, null);
 
     if (context.operation === QUERY && ((fieldTypeInfo.isEntity && isPlainObject(fieldData)) || hasArgsOrDirectives)) {
+      const result = await this._checkCacheEntry(REQUEST_FIELD_PATHS, hashedRequestFieldCacheKey, options, context);
+
+      if (result) {
+        fieldData = mergeObjects(
+          result.entry,
+          fieldData,
+          (key: string, val: any): string | number | undefined => {
+            return isPlainObject(val) && val[this._typeIDKey] ? val[this._typeIDKey] : undefined;
+          },
+        );
+      }
+
       await this._setCacheEntry(
         REQUEST_FIELD_PATHS,
         hashedRequestFieldCacheKey,

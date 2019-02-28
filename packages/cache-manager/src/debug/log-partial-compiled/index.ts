@@ -15,7 +15,7 @@ export default function logPartialCompiled() {
         const { debugManager, ...otherContext } = args[3] as RequestContext;
 
         if (!debugManager) {
-          method.apply(this, args);
+          await method.apply(this, args);
           resolve();
           return;
         }

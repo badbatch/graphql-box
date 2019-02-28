@@ -1,4 +1,5 @@
 import { RawResponseDataWithMaybeCacheMetadata } from "@handl/core";
+import { QueryResponsePartialAndFilter } from "../../defs";
 
 /* tslint:disable max-line-length */
 
@@ -14,6 +15,58 @@ export const singleType: RawResponseDataWithMaybeCacheMetadata = {
     },
   },
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
+};
+
+export const singleTypePartialAndFilter: QueryResponsePartialAndFilter = {
+  initial: {
+    data: {
+      organization: {
+        description: "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        login: "facebook",
+      },
+    },
+    headers: new Headers({ "Cache-Control": "public, max-age=5" }),
+  },
+  partial: {
+    cacheMetadata: {
+      "query": {
+        cacheControl: {
+          maxAge: 10,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297471605000,
+      },
+      "query.organization": {
+        cacheControl: {
+          maxAge: 10,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297471605000,
+      },
+    },
+    data: {
+      organization: {
+        description: "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        login: "facebook",
+      },
+    },
+    headers: new Headers({ "Cache-Control": "public, max-age=5" }),
+  },
+  updated: {
+    data: {
+      organization: {
+        email: "",
+        id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        name: "Facebook",
+        url: "https://github.com/facebook",
+      },
+    },
+    headers: new Headers({ "Cache-Control": "public, max-age=5" }),
+  },
 };
 
 export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
