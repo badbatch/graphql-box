@@ -64,6 +64,54 @@ export const nestedTypeWithEdges = `
   }
 `;
 
+export const nestedTypeWithEdgesWithFilter: ParsedQueryWithFilter = {
+  full: nestedTypeWithEdges,
+  initial: `
+    query {
+      organization(login: "facebook") {
+        login
+        name
+        repositories(first: 6) {
+          edges {
+            node {
+              name
+              id
+              owner {
+                url
+                id
+              }
+            }
+          }
+        }
+        id
+      }
+    }
+  `,
+  updated: `
+    query {
+      organization(login: "facebook") {
+        description
+        email
+        repositories(first: 6) {
+          edges {
+            node {
+              description
+              homepageUrl
+              id
+              owner {
+                login
+                id
+              }
+            }
+          }
+        }
+        url
+        id
+      }
+    }
+  `,
+};
+
 export const nestedUnionWithEdges = `
   query {
     search(query: "react", first: 10, type: REPOSITORY) {

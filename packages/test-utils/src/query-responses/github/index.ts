@@ -165,6 +165,280 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };
 
+export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter = {
+  initial: {
+    data: {
+      organization: {
+        id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        login: "facebook",
+        name: "Facebook",
+        repositories: {
+          edges: [
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+                name: "codemod",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  url: "https://github.com/facebook",
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                name: "hhvm",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  url: "https://github.com/facebook",
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                name: "pyre2",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  url: "https://github.com/facebook",
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+                name: "open-graph-protocol",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  url: "https://github.com/facebook",
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                name: "facebook-android-sdk",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  url: "https://github.com/facebook",
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                name: "facebook-objc-sdk",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  url: "https://github.com/facebook",
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    headers: new Headers({ "Cache-Control": "public, max-age=5" }),
+  },
+  partial: {
+    cacheMetadata: {
+      "query": {
+        cacheControl: {
+          maxAge: 5,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297471605000,
+      },
+      "query.organization": {
+        cacheControl: {
+          maxAge: 5,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297471605000,
+      },
+      "query.organization.repositories": {
+        cacheControl: {
+          maxAge: 5,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297471605000,
+      },
+      "query.organization.repositories.edges.node": {
+        cacheControl: {
+          maxAge: 5,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297471605000,
+      },
+      "query.organization.repositories.edges.node.owner": {
+        cacheControl: {
+          maxAge: 5,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297471605000,
+      },
+    },
+    data: {
+      organization: {
+        id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        login: "facebook",
+        name: "Facebook",
+        repositories: {
+          edges: [
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+                name: "codemod",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  url: "https://github.com/facebook",
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                name: "hhvm",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  url: "https://github.com/facebook",
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                name: "pyre2",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  url: "https://github.com/facebook",
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+                name: "open-graph-protocol",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  url: "https://github.com/facebook",
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                name: "facebook-android-sdk",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  url: "https://github.com/facebook",
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                name: "facebook-objc-sdk",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  url: "https://github.com/facebook",
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    headers: new Headers({ "Cache-Control": "public, max-age=5" }),
+  },
+  updated: {
+    data: {
+      organization: {
+        description: "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        email: "",
+        id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        repositories: {
+          edges: [
+            {
+              node: {
+                description: "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
+                homepageUrl: "",
+                id: "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  login: "facebook",
+                },
+              },
+            },
+            {
+              node: {
+                description: "A virtual machine for executing programs written in Hack.",
+                homepageUrl: "https://hhvm.com",
+                id: "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  login: "facebook",
+                },
+              },
+            },
+            {
+              node: {
+                description: "Python wrapper for RE2",
+                homepageUrl: "",
+                id: "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  login: "facebook",
+                },
+              },
+            },
+            {
+              node: {
+                description: null,
+                homepageUrl: "http://ogp.me",
+                id: "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  login: "facebook",
+                },
+              },
+            },
+            {
+              node: {
+                description: "Used to integrate Android apps with Facebook Platform.",
+                homepageUrl: "https://developers.facebook.com/docs/android",
+                id: "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  login: "facebook",
+                },
+              },
+            },
+            {
+              node: {
+                description: "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+                homepageUrl: "https://developers.facebook.com/docs/ios",
+                id: "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                owner: {
+                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  login: "facebook",
+                },
+              },
+            },
+          ],
+        },
+        url: "https://github.com/facebook",
+      },
+    },
+    headers: new Headers({ "Cache-Control": "public, max-age=5" }),
+  },
+};
+
 export const nestedUnionWithEdges: RawResponseDataWithMaybeCacheMetadata = {
   data: {
     search: {

@@ -336,6 +336,113 @@ describe("@handl/cache-manager", () => {
           });
         });
       });
+
+      describe("with a nested type with edges query", () => {
+        describe("when caching is done through cascading cache control", () => {
+          beforeAll(async () => {
+            // @ts-ignore
+            jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+
+            cacheManager = await CacheManager.init({
+              cache: await Cachemap.init({
+                name: "cachemap",
+                store: map(),
+              }),
+              cascadeCacheControl: true,
+              typeIDKey: DEFAULT_TYPE_ID_KEY,
+            });
+
+            requestData = getRequestData(githubParsedQueries.nestedTypeWithEdgesWithFilter.initial);
+
+            responseData = await cacheManager.resolveQuery(
+              requestData,
+              requestData,
+              githubQueryResponses.nestedTypeWithEdgesPartialAndFilter.initial,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
+            );
+
+            const { cacheMetadata, data } = githubQueryResponses.nestedTypeWithEdgesPartialAndFilter.partial;
+
+            // @ts-ignore
+            jest.spyOn(cacheManager._partialQueryResponses, "get").mockReturnValue({
+              cacheMetadata: rehydrateCacheMetadata(cacheMetadata as DehydratedCacheMetadata),
+              data,
+            });
+
+            responseData = await cacheManager.resolveQuery(
+              getRequestData(githubParsedQueries.nestedTypeWithEdgesWithFilter.full),
+              getRequestData(githubParsedQueries.nestedTypeWithEdgesWithFilter.updated),
+              githubQueryResponses.nestedTypeWithEdgesPartialAndFilter.updated,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges, queryFiltered: true }),
+            );
+          });
+
+          it("then the method should return the correct response data", () => {
+            expect(responseData).toMatchSnapshot();
+          });
+
+          it("then the cache should contain the correct data", async () => {
+            expect(await cacheManager.cache.export()).toMatchSnapshot();
+          });
+        });
+
+        describe("when caching is done through type cache directives", () => {
+          beforeAll(async () => {
+            // @ts-ignore
+            jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+
+            cacheManager = await CacheManager.init({
+              cache: await Cachemap.init({
+                name: "cachemap",
+                store: map(),
+              }),
+              typeCacheDirectives: {
+                Organization: "public, max-age=3",
+                Repository: "public, max-age=2",
+                RepositoryConnection: "public, max-age=1",
+                RepositoryOwner: "public, max-age=10",
+              },
+              typeIDKey: DEFAULT_TYPE_ID_KEY,
+            });
+
+            requestData = getRequestData(githubParsedQueries.nestedTypeWithEdgesWithFilter.initial);
+
+            responseData = await cacheManager.resolveQuery(
+              requestData,
+              requestData,
+              githubQueryResponses.nestedTypeWithEdgesPartialAndFilter.initial,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
+            );
+
+            const { cacheMetadata, data } = githubQueryResponses.nestedTypeWithEdgesPartialAndFilter.partial;
+
+            // @ts-ignore
+            jest.spyOn(cacheManager._partialQueryResponses, "get").mockReturnValue({
+              cacheMetadata: rehydrateCacheMetadata(cacheMetadata as DehydratedCacheMetadata),
+              data,
+            });
+
+            responseData = await cacheManager.resolveQuery(
+              getRequestData(githubParsedQueries.nestedTypeWithEdgesWithFilter.full),
+              getRequestData(githubParsedQueries.nestedTypeWithEdgesWithFilter.updated),
+              githubQueryResponses.nestedTypeWithEdgesPartialAndFilter.updated,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges, queryFiltered: true }),
+            );
+          });
+
+          it("then the method should return the correct response data", () => {
+            expect(responseData).toMatchSnapshot();
+          });
+
+          it("then the cache should contain the correct data", async () => {
+            expect(await cacheManager.cache.export()).toMatchSnapshot();
+          });
+        });
+      });
     });
   });
 });
