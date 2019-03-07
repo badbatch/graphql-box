@@ -7,6 +7,7 @@ exports[`@handl/request-parser when a mutation with an input type variable is pa
     starrable {
       viewerHasStarred
       id
+      __typename
     }
   }
 }
@@ -63,6 +64,7 @@ exports[`@handl/request-parser when a query with a directive is passed in then t
             login
             url
             id
+            __typename
           }
           id
         }
@@ -253,6 +255,7 @@ exports[`@handl/request-parser when a query with an enum variable is passed in t
             login
             url
             id
+            __typename
           }
           id
         }
@@ -426,6 +429,7 @@ exports[`@handl/request-parser when a query with inline fragments for a union ty
           name
           id
         }
+        __typename
       }
     }
   }
@@ -494,6 +498,7 @@ exports[`@handl/request-parser when a query with multiple variables are passed i
             login
             url
             id
+            __typename
           }
           id
         }

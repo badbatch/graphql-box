@@ -53,6 +53,7 @@ import {
   NAME,
   OPERATION_DEFINITION,
   QUERY,
+  TYPE_NAME_KEY,
   VALUE,
   VARIABLE,
   VARIABLE_DEFINITION,
@@ -266,55 +267,56 @@ export class RequestParser implements RequestParserDef {
     }
   }
 
-  private _getFieldOrInlineFragmentType(
-    kind: "Field" | "InlineFragment",
+  private _addFieldToNode(
     node: FieldNode | InlineFragmentNode,
+    key: string,
+  ): void {
+      if (!hasChildFields(node, key)) {
+        const mockAST = parse(`{${key}}`);
+        const queryNode = getOperationDefinitions(mockAST, QUERY)[0];
+        const field = getChildFields(queryNode, key) as FieldNode;
+        addChildField(node, field, this._schema, key);
+      }
+    }
+
+  private _getInlineFragmentType(
+    node: InlineFragmentNode,
     typeInfo: TypeInfo,
   ): GraphQLOutputType | GraphQLNamedType | undefined {
-    if (kind === FIELD) {
-      const typeDef = typeInfo.getFieldDef();
-      return typeDef ? getType(typeDef) : undefined;
-    } else {
-      const inlineFragmentNode = node as InlineFragmentNode;
-      if (!inlineFragmentNode.typeCondition) return undefined;
+    if (!node.typeCondition) return undefined;
 
-      const name = getName(inlineFragmentNode.typeCondition) as string;
-      const parentType = typeInfo.getParentType();
-      if (!parentType || name === parentType.name) return undefined;
+    const name = getName(node.typeCondition) as string;
+    const parentType = typeInfo.getParentType();
+    if (!parentType || name === parentType.name) return undefined;
 
-      return this._schema.getType(name) || undefined;
-    }
+    return this._schema.getType(name) || undefined;
   }
 
-  private _updateFieldOrInlineFragmentNode(
-    node: FieldNode | InlineFragmentNode,
+  private _updateFieldNode(
+    node: FieldNode,
     ancestors: ReadonlyArray<any>,
-    kind: "Field" | "InlineFragment",
     typeInfo: TypeInfo,
     fragmentDefinitions: FragmentDefinitionNodeMap | undefined,
     options: RequestOptions,
     context: RequestContext,
-  ) {
-    let type = this._getFieldOrInlineFragmentType(kind, node, typeInfo);
-    if (!type) return undefined;
-
-    if (kind === FIELD) {
-      const fieldNode = node as FieldNode;
-
-      if (!(type instanceof GraphQLUnionType) && hasInlineFragments(fieldNode)) {
-        setInlineFragments(fieldNode);
-      }
-
-      if (fragmentDefinitions && hasFragmentSpreads(fieldNode)) {
-        setFragmentDefinitions(fragmentDefinitions, fieldNode);
-      }
-    }
+  ): undefined {
+    const typeDef = typeInfo.getFieldDef();
+    let type = typeDef ? getType(typeDef) : undefined;
 
     if (
-      !(type instanceof GraphQLObjectType)
+      !type
+      || (!(type instanceof GraphQLObjectType)
       && !(type instanceof GraphQLInterfaceType)
-      && !(type instanceof GraphQLUnionType)
+      && !(type instanceof GraphQLUnionType))
     ) return undefined;
+
+    if (!(type instanceof GraphQLUnionType) && hasInlineFragments(node)) {
+      setInlineFragments(node);
+    }
+
+    if (fragmentDefinitions && hasFragmentSpreads(node)) {
+      setFragmentDefinitions(fragmentDefinitions, node);
+    }
 
     let unionType: GraphQLUnionType | null = null;
     const possibleTypeNames: string[] = [];
@@ -331,28 +333,39 @@ export class RequestParser implements RequestParserDef {
 
     const fields = type.getFields();
 
-    if (kind === FIELD) {
-      const fieldNode = node as FieldNode;
+    const data: MapFieldToTypeData = {
+      ancestors,
+      fieldNode: node,
+      isEntity: !!fields[this._typeIDKey],
+      possibleTypeNames,
+      typeIDKey: this._typeIDKey,
+      typeName: unionType ? unionType.name : type.name,
+    };
 
-      const data: MapFieldToTypeData = {
-        ancestors,
-        fieldNode,
-        isEntity: !!fields[this._typeIDKey],
-        possibleTypeNames,
-        typeIDKey: this._typeIDKey,
-        typeName: unionType ? unionType.name : type.name,
-      };
-
-      RequestParser._mapFieldToType(data, options, context);
-    }
+    RequestParser._mapFieldToType(data, options, context);
 
     if (fields[this._typeIDKey]) {
-      if (!hasChildFields(node, this._typeIDKey)) {
-        const mockAST = parse(`{${this._typeIDKey}}`);
-        const queryNode = getOperationDefinitions(mockAST, QUERY)[0];
-        const field = getChildFields(queryNode, this._typeIDKey) as FieldNode;
-        addChildField(node, field, this._schema, this._typeIDKey);
-      }
+      this._addFieldToNode(node, this._typeIDKey);
+    }
+
+    if (type instanceof GraphQLInterfaceType || unionType instanceof GraphQLUnionType) {
+      this._addFieldToNode(node, TYPE_NAME_KEY);
+    }
+
+    return undefined;
+  }
+
+  private _updateInlineFragmentNode(
+    node: InlineFragmentNode,
+    typeInfo: TypeInfo,
+  ): undefined {
+    const type = this._getInlineFragmentType(node, typeInfo);
+    if (!type || (!(type instanceof GraphQLObjectType) && !(type instanceof GraphQLInterfaceType))) return undefined;
+
+    const fields = type.getFields();
+
+    if (fields[this._typeIDKey]) {
+      this._addFieldToNode(node, this._typeIDKey);
     }
 
     return undefined;
@@ -395,16 +408,19 @@ export class RequestParser implements RequestParserDef {
             return undefined;
           }
 
-          if (kind === FIELD || kind === INLINE_FRAGMENT) {
-            return _this._updateFieldOrInlineFragmentNode(
-              node as FieldNode | InlineFragmentNode,
+          if (kind === FIELD) {
+            return _this._updateFieldNode(
+              node as FieldNode,
               ancestors,
-              kind,
               typeInfo,
               fragmentDefinitions,
               options,
               context,
             );
+          }
+
+          if (kind === INLINE_FRAGMENT) {
+            return _this._updateInlineFragmentNode(node as InlineFragmentNode, typeInfo);
           }
 
           if (kind === VARIABLE) {
