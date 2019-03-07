@@ -528,3 +528,249 @@ export const nestedUnionWithEdges: RawResponseDataWithMaybeCacheMetadata = {
   },
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };
+
+export const nestedUnionWithEdgesPartialAndFilter: QueryResponsePartialAndFilter = {
+  initial: {
+    data: {
+      search: {
+        edges: [
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+              name: "react",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+              name: "react",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+              name: "react",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+              name: "react",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+              name: "react",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+              name: "react",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+              name: "ReactiveCocoa",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+              name: "react-native",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+              name: "react-router",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+              name: "create-react-app",
+            },
+          },
+        ],
+      },
+    },
+    headers: new Headers({ "Cache-Control": "public, max-age=5" }),
+  },
+  partial: {
+    cacheMetadata: {
+      "query": {
+        cacheControl: {
+          maxAge: 5,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297471605000,
+      },
+      "query.search": {
+        cacheControl: {
+          maxAge: 5,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297471605000,
+      },
+      "query.search.edges.node": {
+        cacheControl: {
+          maxAge: 5,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297471605000,
+      },
+    },
+    data: {
+      search: {
+        edges: [
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+              name: "react",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+              name: "react",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+              name: "react",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+              name: "react",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+              name: "react",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+              name: "react",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+              name: "ReactiveCocoa",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+              name: "react-native",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+              name: "react-router",
+            },
+          },
+          {
+            node: {
+              id: "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+              name: "create-react-app",
+            },
+          },
+        ],
+      },
+    },
+    headers: new Headers({ "Cache-Control": "public, max-age=5" }),
+  },
+  updated: {
+    data: {
+      search: {
+        edges: [
+          {
+            node: {
+              description: "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+              homepageUrl: "https://reactjs.org",
+              id: "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+            },
+          },
+          {
+            node: {
+              description: "Event-driven, non-blocking I/O with PHP.",
+              homepageUrl: "https://reactphp.org",
+              id: "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+            },
+          },
+          {
+            node: {
+              description: "React background management framework | React全家桶后台管理框架",
+              homepageUrl: "",
+              id: "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+            },
+          },
+          {
+            node: {
+              description: "React docs in Chinese | React 中文文档翻译",
+              homepageUrl: "https://react.docschina.org/",
+              id: "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+            },
+          },
+          {
+            node: {
+              description: "京东首页构建",
+              homepageUrl: null,
+              id: "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+            },
+          },
+          {
+            node: {
+              description: "基于react的企业后台管理开发框架",
+              homepageUrl: "",
+              id: "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+            },
+          },
+          {
+            node: {
+              description: "Streams of values over time",
+              homepageUrl: "",
+              id: "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+            },
+          },
+          {
+            node: {
+              description: "A framework for building native apps with React.",
+              homepageUrl: "https://facebook.github.io/react-native/",
+              id: "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+            },
+          },
+          {
+            node: {
+              description: "Declarative routing for React",
+              homepageUrl: "https://reacttraining.com/react-router/",
+              id: "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+            },
+          },
+          {
+            node: {
+              description: "Set up a modern web app by running one command.",
+              homepageUrl: "https://facebook.github.io/create-react-app/",
+              id: "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+            },
+          },
+        ],
+      },
+    },
+    headers: new Headers({ "Cache-Control": "public, max-age=5" }),
+  },
+};

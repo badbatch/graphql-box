@@ -152,3 +152,72 @@ export const nestedUnionWithEdges = `
     }
   }
 `;
+
+export const nestedUnionWithEdgesWithFilter: ParsedQueryWithFilter = {
+  full: nestedUnionWithEdges,
+  initial: `
+    query {
+      search(query: "react", first: 10, type: REPOSITORY) {
+        edges {
+          node {
+            ... on Organization {
+              organizationName: name
+              id
+            }
+            ... on Issue {
+              title
+              id
+            }
+            ... on MarketplaceListing {
+              slug
+              shortDescription
+              id
+            }
+            ... on PullRequest {
+              title
+              id
+            }
+            ... on Repository {
+              name
+              id
+            }
+          }
+        }
+      }
+    }
+  `,
+  updated: `
+    query {
+      search(query: "react", first: 10, type: REPOSITORY) {
+        edges {
+          node {
+            ... on Organization {
+              description
+              login
+              id
+            }
+            ... on Issue {
+              bodyText
+              number
+              id
+            }
+            ... on MarketplaceListing {
+              howItWorks
+              id
+            }
+            ... on PullRequest {
+              bodyText
+              number
+              id
+            }
+            ... on Repository {
+              description
+              homepageUrl
+              id
+            }
+          }
+        }
+      }
+    }
+  `,
+};

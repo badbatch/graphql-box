@@ -443,6 +443,111 @@ describe("@handl/cache-manager", () => {
           });
         });
       });
+
+      describe("with a nested union with edges query", () => {
+        describe("when caching is done through cascading cache control", () => {
+          beforeAll(async () => {
+            // @ts-ignore
+            jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+
+            cacheManager = await CacheManager.init({
+              cache: await Cachemap.init({
+                name: "cachemap",
+                store: map(),
+              }),
+              cascadeCacheControl: true,
+              typeIDKey: DEFAULT_TYPE_ID_KEY,
+            });
+
+            requestData = getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.initial);
+
+            responseData = await cacheManager.resolveQuery(
+              requestData,
+              requestData,
+              githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.initial,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+            );
+
+            const { cacheMetadata, data } = githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.partial;
+
+            // @ts-ignore
+            jest.spyOn(cacheManager._partialQueryResponses, "get").mockReturnValue({
+              cacheMetadata: rehydrateCacheMetadata(cacheMetadata as DehydratedCacheMetadata),
+              data,
+            });
+
+            responseData = await cacheManager.resolveQuery(
+              getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.full),
+              getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.updated),
+              githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.updated,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges, queryFiltered: true }),
+            );
+          });
+
+          it("then the method should return the correct response data", () => {
+            expect(responseData).toMatchSnapshot();
+          });
+
+          it("then the cache should contain the correct data", async () => {
+            expect(await cacheManager.cache.export()).toMatchSnapshot();
+          });
+        });
+
+        describe("when caching is done through type cache directives", () => {
+          beforeAll(async () => {
+            // @ts-ignore
+            jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+
+            cacheManager = await CacheManager.init({
+              cache: await Cachemap.init({
+                name: "cachemap",
+                store: map(),
+              }),
+              typeCacheDirectives: {
+                SearchResultItem: "public, max-age=1",
+                SearchResultItemConnection: "public, max-age=3",
+              },
+              typeIDKey: DEFAULT_TYPE_ID_KEY,
+            });
+
+            requestData = getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.initial);
+
+            responseData = await cacheManager.resolveQuery(
+              requestData,
+              requestData,
+              githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.initial,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+            );
+
+            const { cacheMetadata, data } = githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.partial;
+
+            // @ts-ignore
+            jest.spyOn(cacheManager._partialQueryResponses, "get").mockReturnValue({
+              cacheMetadata: rehydrateCacheMetadata(cacheMetadata as DehydratedCacheMetadata),
+              data,
+            });
+
+            responseData = await cacheManager.resolveQuery(
+              getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.full),
+              getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.updated),
+              githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.updated,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges, queryFiltered: true }),
+            );
+          });
+
+          it("then the method should return the correct response data", () => {
+            expect(responseData).toMatchSnapshot();
+          });
+
+          it("then the cache should contain the correct data", async () => {
+            expect(await cacheManager.cache.export()).toMatchSnapshot();
+          });
+        });
+      });
     });
   });
 });
