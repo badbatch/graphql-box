@@ -305,8 +305,7 @@ export class CacheManager implements CacheManagerDef  {
     }
 
     this._setPartialQueryResponse(hash, { cacheMetadata, data }, options, context);
-    await this._filterQuery(requestData, cachedResponseData, context);
-
+    this._filterQuery(requestData, cachedResponseData, context);
     const request = print(ast);
     return { updated: { ast, hash: hashRequest(request), request } };
   }
@@ -424,11 +423,11 @@ export class CacheManager implements CacheManagerDef  {
     };
 
     if (CacheManager._isRequestFieldPath(fieldTypeInfo)) {
-      this._setRequestFieldPathData(cachedFieldData, hashedRequestFieldCacheKey, options, context);
+      await this._setRequestFieldPathData(cachedFieldData, hashedRequestFieldCacheKey, options, context);
     }
 
     if (CacheManager._isDataEntity(fieldTypeInfo)) {
-      this._setDataEntityData(cachedFieldData, fieldTypeInfo as FieldTypeInfo, options, context);
+      await this._setDataEntityData(cachedFieldData, fieldTypeInfo as FieldTypeInfo, options, context);
     }
 
     CacheManager._setCachedResponseData(cachedFieldData, cachedResponseData, keysAndPaths, options, context);
@@ -539,7 +538,7 @@ export class CacheManager implements CacheManagerDef  {
       if (getName(childField) === this._typeIDKey) continue;
 
       const { requestFieldPath } = CacheManager._getFieldKeysAndPaths(
-        field,
+        childField,
         { requestFieldPath: ancestorRequestFieldPath },
       );
 
@@ -561,17 +560,17 @@ export class CacheManager implements CacheManagerDef  {
     return !hasChildFields(field);
   }
 
-  private async _filterQuery(
+  private _filterQuery(
     { ast }: RequestData,
     { fieldPathChecklist }: CachedResponseData,
     context: RequestContext,
-  ): Promise<void> {
+  ): void {
     const queryNode = getOperationDefinitions(ast, context.operation)[0];
     const fields = getChildFields(queryNode) as FieldNode[];
 
     for (let i = fields.length - 1; i >= 0; i -= 1) {
       const field = fields[i];
-      const { requestFieldPath } = CacheManager._getFieldKeysAndPaths(field, {});
+      const { requestFieldPath } = CacheManager._getFieldKeysAndPaths(field, { requestFieldPath: context.operation });
       if (this._filterField(field, fieldPathChecklist, requestFieldPath, context)) deleteChildFields(queryNode, field);
     }
 

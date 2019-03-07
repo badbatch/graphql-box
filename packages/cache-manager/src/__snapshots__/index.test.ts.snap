@@ -1,5 +1,2412 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`@handl/cache-manager the analyzeQuery method with a nested type with edges query when there is matching data for some of the request in the cache then the cache should contain the correct data 1`] = `
+Object {
+  "entries": Array [
+    Array [
+      "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "requestFieldPaths::fac0b5026f368ef4428db067436423db",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311",
+      Object {
+        "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+        "name": "codemod",
+        "owner": Object {
+          "__cacheKey": "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
+        },
+      },
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+      Object {
+        "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+        "name": "codemod",
+        "owner": Object {
+          "__cacheKey": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        },
+      },
+    ],
+    Array [
+      "requestFieldPaths::9b6f480860437518432fa4e56252825d",
+      Object {
+        "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+        "name": "hhvm",
+        "owner": Object {
+          "__cacheKey": "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
+        },
+      },
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+      Object {
+        "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+        "name": "hhvm",
+        "owner": Object {
+          "__cacheKey": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        },
+      },
+    ],
+    Array [
+      "requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b",
+      Object {
+        "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+        "name": "pyre2",
+        "owner": Object {
+          "__cacheKey": "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
+        },
+      },
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+      Object {
+        "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+        "name": "pyre2",
+        "owner": Object {
+          "__cacheKey": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        },
+      },
+    ],
+    Array [
+      "requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2",
+      Object {
+        "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+        "name": "open-graph-protocol",
+        "owner": Object {
+          "__cacheKey": "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
+        },
+      },
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+      Object {
+        "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+        "name": "open-graph-protocol",
+        "owner": Object {
+          "__cacheKey": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        },
+      },
+    ],
+    Array [
+      "requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8",
+      Object {
+        "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+        "name": "facebook-android-sdk",
+        "owner": Object {
+          "__cacheKey": "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
+        },
+      },
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+      Object {
+        "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+        "name": "facebook-android-sdk",
+        "owner": Object {
+          "__cacheKey": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        },
+      },
+    ],
+    Array [
+      "requestFieldPaths::e837bc099bd7b2e544e29234260d9ead",
+      Object {
+        "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+        "name": "facebook-objc-sdk",
+        "owner": Object {
+          "__cacheKey": "requestFieldPaths::fac0b5026f368ef4428db067436423db",
+        },
+      },
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+      Object {
+        "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+        "name": "facebook-objc-sdk",
+        "owner": Object {
+          "__cacheKey": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        },
+      },
+    ],
+    Array [
+      "requestFieldPaths::da942e5e50337b7d4495590126407fd8",
+      Object {
+        "edges": Array [
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::9b6f480860437518432fa4e56252825d",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::e837bc099bd7b2e544e29234260d9ead",
+            },
+          },
+        ],
+      },
+    ],
+    Array [
+      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+      },
+    ],
+    Array [
+      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+      },
+    ],
+    Array [
+      "queryResponses::48d59b1afd6e0c6fabf984bcd6af19c1",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471601000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 3,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471603000,
+          },
+          "query.organization.repositories": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471601000,
+          },
+          "query.organization.repositories.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 2,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471602000,
+          },
+          "query.organization.repositories.edges.node.owner": Object {
+            "cacheControl": Object {
+              "maxAge": 10,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471610000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "login": "facebook",
+            "name": "Facebook",
+            "repositories": Object {
+              "edges": Array [
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+                    "name": "codemod",
+                    "owner": Object {
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                    "name": "hhvm",
+                    "owner": Object {
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                    "name": "pyre2",
+                    "owner": Object {
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+                    "name": "open-graph-protocol",
+                    "owner": Object {
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                    "name": "facebook-android-sdk",
+                    "owner": Object {
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                    "name": "facebook-objc-sdk",
+                    "owner": Object {
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    ],
+  ],
+  "metadata": Array [
+    Object {
+      "accessedCount": 6,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 120,
+      "tags": Array [],
+      "updatedCount": 5,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 3,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471603000,
+        },
+      },
+      "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 110,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 3,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471603000,
+        },
+      },
+      "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 110,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 120,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 120,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 120,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 120,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 120,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "requestFieldPaths::fac0b5026f368ef4428db067436423db",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 120,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "requestFieldPaths::9b6f480860437518432fa4e56252825d",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 208,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 210,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 214,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 224,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 226,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 230,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "requestFieldPaths::e837bc099bd7b2e544e29234260d9ead",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 234,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 238,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 240,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 250,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 254,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 256,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+      "key": "requestFieldPaths::da942e5e50337b7d4495590126407fd8",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 802,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+      "key": "queryResponses::48d59b1afd6e0c6fabf984bcd6af19c1",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 2292,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+  ],
+}
+`;
+
+exports[`@handl/cache-manager the analyzeQuery method with a nested type with edges query when there is matching data for some of the request in the cache then the method should return the correct request data 1`] = `
+Object {
+  "hash": "9329adef388af0a8c33189b013fc719c",
+  "request": "{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    repositories(first: 6) {
+      edges {
+        node {
+          description
+          homepageUrl
+          id
+          owner {
+            login
+            id
+          }
+        }
+      }
+    }
+    url
+    id
+  }
+}
+",
+}
+`;
+
+exports[`@handl/cache-manager the analyzeQuery method with a nested type with edges query when there is matching data for some of the request in the cache then the partial query response map should contain the correct data 1`] = `
+Map {
+  "3144fc4ab6ed7e246f5e92966d833865" => Object {
+    "cacheMetadata": Map {
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 3,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471603000,
+        },
+      },
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "query.organization.repositories.edges.node.owner" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+    },
+    "data": Object {
+      "organization": Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "repositories": Object {
+          "edges": Array [
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+                "name": "codemod",
+                "owner": Object {
+                  "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  "url": "https://github.com/facebook",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                "name": "hhvm",
+                "owner": Object {
+                  "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  "url": "https://github.com/facebook",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                "name": "pyre2",
+                "owner": Object {
+                  "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  "url": "https://github.com/facebook",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+                "name": "open-graph-protocol",
+                "owner": Object {
+                  "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  "url": "https://github.com/facebook",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                "name": "facebook-android-sdk",
+                "owner": Object {
+                  "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  "url": "https://github.com/facebook",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                "name": "facebook-objc-sdk",
+                "owner": Object {
+                  "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  "url": "https://github.com/facebook",
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`@handl/cache-manager the analyzeQuery method with a nested type with edges query when there is matching data for the entire request in the cache then the cache should contain the correct data 1`] = `
+Object {
+  "entries": Array [
+    Array [
+      "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "requestFieldPaths::fac0b5026f368ef4428db067436423db",
+      Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311",
+      Object {
+        "description": "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+        "name": "codemod",
+        "owner": Object {
+          "__cacheKey": "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
+        },
+      },
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+      Object {
+        "description": "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+        "name": "codemod",
+        "owner": Object {
+          "__cacheKey": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        },
+      },
+    ],
+    Array [
+      "requestFieldPaths::9b6f480860437518432fa4e56252825d",
+      Object {
+        "description": "A virtual machine for executing programs written in Hack.",
+        "homepageUrl": "https://hhvm.com",
+        "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+        "name": "hhvm",
+        "owner": Object {
+          "__cacheKey": "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
+        },
+      },
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+      Object {
+        "description": "A virtual machine for executing programs written in Hack.",
+        "homepageUrl": "https://hhvm.com",
+        "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+        "name": "hhvm",
+        "owner": Object {
+          "__cacheKey": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        },
+      },
+    ],
+    Array [
+      "requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b",
+      Object {
+        "description": "Python wrapper for RE2",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+        "name": "pyre2",
+        "owner": Object {
+          "__cacheKey": "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
+        },
+      },
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+      Object {
+        "description": "Python wrapper for RE2",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+        "name": "pyre2",
+        "owner": Object {
+          "__cacheKey": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        },
+      },
+    ],
+    Array [
+      "requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2",
+      Object {
+        "description": null,
+        "homepageUrl": "http://ogp.me",
+        "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+        "name": "open-graph-protocol",
+        "owner": Object {
+          "__cacheKey": "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
+        },
+      },
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+      Object {
+        "description": null,
+        "homepageUrl": "http://ogp.me",
+        "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+        "name": "open-graph-protocol",
+        "owner": Object {
+          "__cacheKey": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        },
+      },
+    ],
+    Array [
+      "requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8",
+      Object {
+        "description": "Used to integrate Android apps with Facebook Platform.",
+        "homepageUrl": "https://developers.facebook.com/docs/android",
+        "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+        "name": "facebook-android-sdk",
+        "owner": Object {
+          "__cacheKey": "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
+        },
+      },
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+      Object {
+        "description": "Used to integrate Android apps with Facebook Platform.",
+        "homepageUrl": "https://developers.facebook.com/docs/android",
+        "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+        "name": "facebook-android-sdk",
+        "owner": Object {
+          "__cacheKey": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        },
+      },
+    ],
+    Array [
+      "requestFieldPaths::e837bc099bd7b2e544e29234260d9ead",
+      Object {
+        "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+        "homepageUrl": "https://developers.facebook.com/docs/ios",
+        "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+        "name": "facebook-objc-sdk",
+        "owner": Object {
+          "__cacheKey": "requestFieldPaths::fac0b5026f368ef4428db067436423db",
+        },
+      },
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+      Object {
+        "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+        "homepageUrl": "https://developers.facebook.com/docs/ios",
+        "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+        "name": "facebook-objc-sdk",
+        "owner": Object {
+          "__cacheKey": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        },
+      },
+    ],
+    Array [
+      "requestFieldPaths::da942e5e50337b7d4495590126407fd8",
+      Object {
+        "edges": Array [
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::9b6f480860437518432fa4e56252825d",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8",
+            },
+          },
+          Object {
+            "node": Object {
+              "__cacheKey": "requestFieldPaths::e837bc099bd7b2e544e29234260d9ead",
+            },
+          },
+        ],
+      },
+    ],
+    Array [
+      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "queryResponses::3144fc4ab6ed7e246f5e92966d833865",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471601000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 3,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471603000,
+          },
+          "query.organization.repositories": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471601000,
+          },
+          "query.organization.repositories.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 2,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471602000,
+          },
+          "query.organization.repositories.edges.node.owner": Object {
+            "cacheControl": Object {
+              "maxAge": 10,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471610000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+            "email": "",
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "login": "facebook",
+            "name": "Facebook",
+            "repositories": Object {
+              "edges": Array [
+                Object {
+                  "node": Object {
+                    "description": "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
+                    "homepageUrl": "",
+                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+                    "name": "codemod",
+                    "owner": Object {
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "A virtual machine for executing programs written in Hack.",
+                    "homepageUrl": "https://hhvm.com",
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                    "name": "hhvm",
+                    "owner": Object {
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Python wrapper for RE2",
+                    "homepageUrl": "",
+                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                    "name": "pyre2",
+                    "owner": Object {
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": null,
+                    "homepageUrl": "http://ogp.me",
+                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+                    "name": "open-graph-protocol",
+                    "owner": Object {
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate Android apps with Facebook Platform.",
+                    "homepageUrl": "https://developers.facebook.com/docs/android",
+                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                    "name": "facebook-android-sdk",
+                    "owner": Object {
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+                    "homepageUrl": "https://developers.facebook.com/docs/ios",
+                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                    "name": "facebook-objc-sdk",
+                    "owner": Object {
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+              ],
+            },
+            "url": "https://github.com/facebook",
+          },
+        },
+      },
+    ],
+  ],
+  "metadata": Array [
+    Object {
+      "accessedCount": 6,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 146,
+      "tags": Array [],
+      "updatedCount": 5,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 146,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 146,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 146,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 146,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 146,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "requestFieldPaths::fac0b5026f368ef4428db067436423db",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 146,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 298,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 308,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 314,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 324,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "requestFieldPaths::9b6f480860437518432fa4e56252825d",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 398,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 3,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471603000,
+        },
+      },
+      "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 410,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 3,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471603000,
+        },
+      },
+      "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 410,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 414,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 480,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "requestFieldPaths::e837bc099bd7b2e544e29234260d9ead",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 490,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 496,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 506,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 724,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 2,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471602000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 740,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+      "key": "requestFieldPaths::da942e5e50337b7d4495590126407fd8",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 802,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+      "key": "queryResponses::3144fc4ab6ed7e246f5e92966d833865",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 4102,
+      "tags": Array [],
+      "updatedCount": 1,
+    },
+  ],
+}
+`;
+
+exports[`@handl/cache-manager the analyzeQuery method with a nested type with edges query when there is matching data for the entire request in the cache then the method should return the correct response data 1`] = `
+Object {
+  "cacheMetadata": Map {
+    "query.organization" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 3,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471603000,
+      },
+    },
+    "query" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 1,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471601000,
+      },
+    },
+    "query.organization.repositories" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 1,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471601000,
+      },
+    },
+    "query.organization.repositories.edges.node" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 2,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471602000,
+      },
+    },
+    "query.organization.repositories.edges.node.owner" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 10,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471610000,
+      },
+    },
+  },
+  "data": Object {
+    "organization": Object {
+      "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+      "email": "",
+      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "login": "facebook",
+      "name": "Facebook",
+      "repositories": Object {
+        "edges": Array [
+          Object {
+            "node": Object {
+              "description": "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
+              "homepageUrl": "",
+              "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+              "name": "codemod",
+              "owner": Object {
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "url": "https://github.com/facebook",
+              },
+            },
+          },
+          Object {
+            "node": Object {
+              "description": "A virtual machine for executing programs written in Hack.",
+              "homepageUrl": "https://hhvm.com",
+              "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+              "name": "hhvm",
+              "owner": Object {
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "url": "https://github.com/facebook",
+              },
+            },
+          },
+          Object {
+            "node": Object {
+              "description": "Python wrapper for RE2",
+              "homepageUrl": "",
+              "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+              "name": "pyre2",
+              "owner": Object {
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "url": "https://github.com/facebook",
+              },
+            },
+          },
+          Object {
+            "node": Object {
+              "description": null,
+              "homepageUrl": "http://ogp.me",
+              "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+              "name": "open-graph-protocol",
+              "owner": Object {
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "url": "https://github.com/facebook",
+              },
+            },
+          },
+          Object {
+            "node": Object {
+              "description": "Used to integrate Android apps with Facebook Platform.",
+              "homepageUrl": "https://developers.facebook.com/docs/android",
+              "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+              "name": "facebook-android-sdk",
+              "owner": Object {
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "url": "https://github.com/facebook",
+              },
+            },
+          },
+          Object {
+            "node": Object {
+              "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+              "homepageUrl": "https://developers.facebook.com/docs/ios",
+              "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+              "name": "facebook-objc-sdk",
+              "owner": Object {
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "url": "https://github.com/facebook",
+              },
+            },
+          },
+        ],
+      },
+      "url": "https://github.com/facebook",
+    },
+  },
+}
+`;
+
+exports[`@handl/cache-manager the analyzeQuery method with a nested type with edges query when there is no matching data for the request in the cache then the method should return the correct request data 1`] = `
+Object {
+  "hash": "3144fc4ab6ed7e246f5e92966d833865",
+  "request": "
+  query {
+    organization(login: \\"facebook\\") {
+      description
+      email
+      login
+      name
+      repositories(first: 6) {
+        edges {
+          node {
+            description
+            homepageUrl
+            name
+            id
+            owner {
+              login
+              url
+              id
+            }
+          }
+        }
+      }
+      url
+      id
+    }
+  }
+",
+}
+`;
+
+exports[`@handl/cache-manager the analyzeQuery method with a nested union with edges query when there is no matching data for the request in the cache then the method should return the correct request data 1`] = `
+Object {
+  "hash": "cff34cbf0a66b422ef210f1e6c991414",
+  "request": "
+  query {
+    search(query: \\"react\\", first: 10, type: REPOSITORY) {
+      edges {
+        node {
+          ... on Organization {
+            description
+            login
+            organizationName: name
+            id
+          }
+          ... on Issue {
+            bodyText
+            number
+            title
+            id
+          }
+          ... on MarketplaceListing {
+            slug
+            shortDescription
+            howItWorks
+            id
+          }
+          ... on PullRequest {
+            bodyText
+            number
+            title
+            id
+          }
+          ... on Repository {
+            description
+            homepageUrl
+            name
+            id
+          }
+        }
+      }
+    }
+  }
+",
+}
+`;
+
+exports[`@handl/cache-manager the analyzeQuery method with a single type query when there is matching data for some of the request in the cache then the cache should contain the correct data 1`] = `
+Object {
+  "entries": Array [
+    Array [
+      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+      },
+    ],
+    Array [
+      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+      },
+    ],
+    Array [
+      "queryResponses::8fc321b1bf4d18ee3d1f2d745b4b28f8",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471601000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471601000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "login": "facebook",
+          },
+        },
+      },
+    ],
+  ],
+  "metadata": Array [
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+      "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 316,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+      "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 316,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+      "key": "queryResponses::8fc321b1bf4d18ee3d1f2d745b4b28f8",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 584,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+  ],
+}
+`;
+
+exports[`@handl/cache-manager the analyzeQuery method with a single type query when there is matching data for some of the request in the cache then the method should return the correct request data 1`] = `
+Object {
+  "hash": "70a245971c9c179bc5c30c3925e4881c",
+  "request": "{
+  organization(login: \\"facebook\\") {
+    email
+    name
+    url
+    id
+  }
+}
+",
+}
+`;
+
+exports[`@handl/cache-manager the analyzeQuery method with a single type query when there is matching data for some of the request in the cache then the partial query response map should contain the correct data 1`] = `
+Map {
+  "651f14b3df12bef942ed3b1ba9e7f1f1" => Object {
+    "cacheMetadata": Map {
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+    },
+    "data": Object {
+      "organization": Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+      },
+    },
+  },
+}
+`;
+
+exports[`@handl/cache-manager the analyzeQuery method with a single type query when there is matching data for the entire request in the cache then the cache should contain the correct data 1`] = `
+Object {
+  "entries": Array [
+    Array [
+      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471601000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297471601000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+            "email": "",
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "login": "facebook",
+            "name": "Facebook",
+            "url": "https://github.com/facebook",
+          },
+        },
+      },
+    ],
+  ],
+  "metadata": Array [
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+      "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 410,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+      "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 410,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471601000,
+        },
+      },
+      "key": "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 678,
+      "tags": Array [],
+      "updatedCount": 1,
+    },
+  ],
+}
+`;
+
+exports[`@handl/cache-manager the analyzeQuery method with a single type query when there is matching data for the entire request in the cache then the method should return the correct response data 1`] = `
+Object {
+  "cacheMetadata": Map {
+    "query.organization" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 1,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471601000,
+      },
+    },
+    "query" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 1,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471601000,
+      },
+    },
+  },
+  "data": Object {
+    "organization": Object {
+      "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+      "email": "",
+      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "login": "facebook",
+      "name": "Facebook",
+      "url": "https://github.com/facebook",
+    },
+  },
+}
+`;
+
+exports[`@handl/cache-manager the analyzeQuery method with a single type query when there is no matching data for the request in the cache then the method should return the correct request data 1`] = `
+Object {
+  "hash": "651f14b3df12bef942ed3b1ba9e7f1f1",
+  "request": "
+  query {
+    organization(login: \\"facebook\\") {
+      description
+      email
+      login
+      name
+      url
+      id
+    }
+  }
+",
+}
+`;
+
 exports[`@handl/cache-manager the resolveQuery method when the query has been filtered with a nested type with edges query when caching is done through cascading cache control then the cache should contain the correct data 1`] = `
 Object {
   "entries": Array [
