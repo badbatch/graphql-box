@@ -5,7 +5,7 @@ export const singleType: FieldTypeMap = new Map([
     hasArguments: true,
     hasDirectives: false,
     isEntity: true,
-    possibleTypeNames: [],
+    possibleTypes: [],
     typeIDValue: undefined,
     typeName: "Organization",
   }],
@@ -16,7 +16,7 @@ export const nestedTypeWithEdges: FieldTypeMap = new Map([
     hasArguments: true,
     hasDirectives: false,
     isEntity: true,
-    possibleTypeNames: [],
+    possibleTypes: [],
     typeIDValue: undefined,
     typeName: "Organization",
   }],
@@ -24,7 +24,7 @@ export const nestedTypeWithEdges: FieldTypeMap = new Map([
     hasArguments: true,
     hasDirectives: false,
     isEntity: false,
-    possibleTypeNames: [],
+    possibleTypes: [],
     typeIDValue: undefined,
     typeName: "RepositoryConnection",
   }],
@@ -32,7 +32,7 @@ export const nestedTypeWithEdges: FieldTypeMap = new Map([
     hasArguments: false,
     hasDirectives: false,
     isEntity: false,
-    possibleTypeNames: [],
+    possibleTypes: [],
     typeIDValue: undefined,
     typeName: "RepositoryEdge",
   }],
@@ -40,7 +40,7 @@ export const nestedTypeWithEdges: FieldTypeMap = new Map([
     hasArguments: false,
     hasDirectives: false,
     isEntity: true,
-    possibleTypeNames: [],
+    possibleTypes: [],
     typeIDValue: undefined,
     typeName: "Repository",
   }],
@@ -48,21 +48,27 @@ export const nestedTypeWithEdges: FieldTypeMap = new Map([
     hasArguments: false,
     hasDirectives: false,
     isEntity: true,
-    possibleTypeNames: [
-      "Organization",
-      "User",
+    possibleTypes: [
+      {
+        isEntity: true,
+        typeName: "Organization",
+      },
+      {
+        isEntity: true,
+        typeName: "User",
+      },
     ],
     typeIDValue: undefined,
     typeName: "RepositoryOwner",
   }],
 ]);
 
-export const nestedUnionWithEdges = new Map([
+export const nestedUnionWithEdges: FieldTypeMap = new Map([
   ["query.search", {
     hasArguments: true,
     hasDirectives: false,
     isEntity: false,
-    possibleTypeNames: [],
+    possibleTypes: [],
     typeIDValue: undefined,
     typeName: "SearchResultItemConnection",
   }],
@@ -70,21 +76,39 @@ export const nestedUnionWithEdges = new Map([
     hasArguments: false,
     hasDirectives: false,
     isEntity: false,
-    possibleTypeNames: [],
+    possibleTypes: [],
     typeIDValue: undefined,
     typeName: "SearchResultItemEdge",
   }],
   ["query.search.edges.node", {
     hasArguments: false,
     hasDirectives: false,
-    isEntity: true,
-    possibleTypeNames: [
-      "Issue",
-      "PullRequest",
-      "Repository",
-      "User",
-      "Organization",
-      "MarketplaceListing",
+    isEntity: false,
+    possibleTypes: [
+      {
+        isEntity: true,
+        typeName: "Issue",
+      },
+      {
+        isEntity: true,
+        typeName: "PullRequest",
+      },
+      {
+        isEntity: true,
+        typeName: "Repository",
+      },
+      {
+        isEntity: true,
+        typeName: "User",
+      },
+      {
+        isEntity: true,
+        typeName: "Organization",
+      },
+      {
+        isEntity: true,
+        typeName: "MarketplaceListing",
+      },
     ],
     typeIDValue: undefined,
     typeName: "SearchResultItem",

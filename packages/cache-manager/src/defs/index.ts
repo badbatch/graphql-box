@@ -96,6 +96,11 @@ export interface CachedFieldData {
   requestFieldPathData?: any;
 }
 
+export interface MergedCachedFieldData {
+  cacheability?: Cacheability;
+  data: any;
+}
+
 export interface CachedAncestorFieldData {
   cacheability?: Cacheability;
   dataEntityData?: any;

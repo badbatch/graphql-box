@@ -6,6 +6,7 @@ Object {
     Array [
       "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "url": "https://github.com/facebook",
       },
@@ -13,6 +14,7 @@ Object {
     Array [
       "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "url": "https://github.com/facebook",
       },
@@ -20,6 +22,7 @@ Object {
     Array [
       "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "url": "https://github.com/facebook",
       },
@@ -27,6 +30,7 @@ Object {
     Array [
       "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "url": "https://github.com/facebook",
       },
@@ -34,6 +38,7 @@ Object {
     Array [
       "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "url": "https://github.com/facebook",
       },
@@ -41,6 +46,7 @@ Object {
     Array [
       "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "url": "https://github.com/facebook",
       },
@@ -48,6 +54,7 @@ Object {
     Array [
       "requestFieldPaths::fac0b5026f368ef4428db067436423db",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "url": "https://github.com/facebook",
       },
@@ -226,7 +233,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::48d59b1afd6e0c6fabf984bcd6af19c1",
+      "queryResponses::789473f3f2776150b2d86f054fc6e7b1",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -282,6 +289,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
                     "name": "codemod",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -292,6 +300,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
                     "name": "hhvm",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -302,6 +311,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                     "name": "pyre2",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -312,6 +322,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
                     "name": "open-graph-protocol",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -322,6 +333,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
                     "name": "facebook-android-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -332,6 +344,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
                     "name": "facebook-objc-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -345,6 +358,26 @@ Object {
     ],
   ],
   "metadata": Array [
+    Object {
+      "accessedCount": 7,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 3,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471603000,
+        },
+      },
+      "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 110,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
     Object {
       "accessedCount": 6,
       "added": 297471600000,
@@ -361,7 +394,7 @@ Object {
       "key": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 120,
+      "size": 164,
       "tags": Array [],
       "updatedCount": 5,
     },
@@ -391,26 +424,6 @@ Object {
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
-            "maxAge": 3,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297471603000,
-        },
-      },
-      "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      "lastAccessed": 297471600000,
-      "lastUpdated": 297471600000,
-      "size": 110,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297471600000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
             "maxAge": 10,
             "public": true,
           },
@@ -421,7 +434,7 @@ Object {
       "key": "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 120,
+      "size": 164,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -441,7 +454,7 @@ Object {
       "key": "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 120,
+      "size": 164,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -461,7 +474,7 @@ Object {
       "key": "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 120,
+      "size": 164,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -481,7 +494,7 @@ Object {
       "key": "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 120,
+      "size": 164,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -501,7 +514,7 @@ Object {
       "key": "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 120,
+      "size": 164,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -521,7 +534,7 @@ Object {
       "key": "requestFieldPaths::fac0b5026f368ef4428db067436423db",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 120,
+      "size": 164,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -798,10 +811,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::48d59b1afd6e0c6fabf984bcd6af19c1",
+      "key": "queryResponses::789473f3f2776150b2d86f054fc6e7b1",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 2292,
+      "size": 2556,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -811,7 +824,7 @@ Object {
 
 exports[`@handl/cache-manager the analyzeQuery method with a nested type with edges query when there is matching data for some of the request in the cache then the method should return the correct request data 1`] = `
 Object {
-  "hash": "9329adef388af0a8c33189b013fc719c",
+  "hash": "312c519161d060ebe8fd2dca8b32429a",
   "request": "{
   organization(login: \\"facebook\\") {
     description
@@ -823,8 +836,8 @@ Object {
           homepageUrl
           id
           owner {
-            login
             id
+            __typename
           }
         }
       }
@@ -839,7 +852,7 @@ Object {
 
 exports[`@handl/cache-manager the analyzeQuery method with a nested type with edges query when there is matching data for some of the request in the cache then the partial query response map should contain the correct data 1`] = `
 Map {
-  "3144fc4ab6ed7e246f5e92966d833865" => Object {
+  "c81ab24ee247e7f3b837971b4eda89fc" => Object {
     "cacheMetadata": Map {
       "query.organization" => Cacheability {
         "metadata": Object {
@@ -904,7 +917,9 @@ Map {
                 "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
                 "name": "codemod",
                 "owner": Object {
+                  "__typename": "Organization",
                   "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  "login": "facebook",
                   "url": "https://github.com/facebook",
                 },
               },
@@ -914,7 +929,9 @@ Map {
                 "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
                 "name": "hhvm",
                 "owner": Object {
+                  "__typename": "Organization",
                   "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  "login": "facebook",
                   "url": "https://github.com/facebook",
                 },
               },
@@ -924,7 +941,9 @@ Map {
                 "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                 "name": "pyre2",
                 "owner": Object {
+                  "__typename": "Organization",
                   "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  "login": "facebook",
                   "url": "https://github.com/facebook",
                 },
               },
@@ -934,7 +953,9 @@ Map {
                 "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
                 "name": "open-graph-protocol",
                 "owner": Object {
+                  "__typename": "Organization",
                   "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  "login": "facebook",
                   "url": "https://github.com/facebook",
                 },
               },
@@ -944,7 +965,9 @@ Map {
                 "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
                 "name": "facebook-android-sdk",
                 "owner": Object {
+                  "__typename": "Organization",
                   "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  "login": "facebook",
                   "url": "https://github.com/facebook",
                 },
               },
@@ -954,7 +977,9 @@ Map {
                 "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
                 "name": "facebook-objc-sdk",
                 "owner": Object {
+                  "__typename": "Organization",
                   "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  "login": "facebook",
                   "url": "https://github.com/facebook",
                 },
               },
@@ -973,6 +998,7 @@ Object {
     Array [
       "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -981,6 +1007,7 @@ Object {
     Array [
       "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -989,6 +1016,7 @@ Object {
     Array [
       "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -997,6 +1025,7 @@ Object {
     Array [
       "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -1005,6 +1034,7 @@ Object {
     Array [
       "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -1013,6 +1043,7 @@ Object {
     Array [
       "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -1021,6 +1052,7 @@ Object {
     Array [
       "requestFieldPaths::fac0b5026f368ef4428db067436423db",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -1230,7 +1262,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::3144fc4ab6ed7e246f5e92966d833865",
+      "queryResponses::c81ab24ee247e7f3b837971b4eda89fc",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -1290,6 +1322,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
                     "name": "codemod",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -1303,6 +1336,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
                     "name": "hhvm",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -1316,6 +1350,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                     "name": "pyre2",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -1329,6 +1364,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
                     "name": "open-graph-protocol",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -1342,6 +1378,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
                     "name": "facebook-android-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -1355,6 +1392,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
                     "name": "facebook-objc-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -1371,6 +1409,26 @@ Object {
   ],
   "metadata": Array [
     Object {
+      "accessedCount": 7,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 3,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471603000,
+        },
+      },
+      "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 410,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
       "accessedCount": 6,
       "added": 297471600000,
       "cacheability": Cacheability {
@@ -1386,7 +1444,7 @@ Object {
       "key": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 5,
     },
@@ -1406,7 +1464,7 @@ Object {
       "key": "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -1426,7 +1484,7 @@ Object {
       "key": "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -1446,7 +1504,7 @@ Object {
       "key": "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -1466,7 +1524,7 @@ Object {
       "key": "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -1486,7 +1544,7 @@ Object {
       "key": "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -1506,7 +1564,7 @@ Object {
       "key": "requestFieldPaths::fac0b5026f368ef4428db067436423db",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -1624,26 +1682,6 @@ Object {
         },
       },
       "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      "lastAccessed": 297471600000,
-      "lastUpdated": 297471600000,
-      "size": 410,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297471600000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 3,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297471603000,
-        },
-      },
-      "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 410,
@@ -1823,10 +1861,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::3144fc4ab6ed7e246f5e92966d833865",
+      "key": "queryResponses::c81ab24ee247e7f3b837971b4eda89fc",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 4102,
+      "size": 4366,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -1904,6 +1942,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
               "name": "codemod",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -1917,6 +1956,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
               "name": "hhvm",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -1930,6 +1970,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
               "name": "pyre2",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -1943,6 +1984,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
               "name": "open-graph-protocol",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -1956,6 +1998,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
               "name": "facebook-android-sdk",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -1969,6 +2012,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
               "name": "facebook-objc-sdk",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -1985,7 +2029,7 @@ Object {
 
 exports[`@handl/cache-manager the analyzeQuery method with a nested type with edges query when there is no matching data for the request in the cache then the method should return the correct request data 1`] = `
 Object {
-  "hash": "3144fc4ab6ed7e246f5e92966d833865",
+  "hash": "c81ab24ee247e7f3b837971b4eda89fc",
   "request": "
   query {
     organization(login: \\"facebook\\") {
@@ -2004,6 +2048,7 @@ Object {
               login
               url
               id
+              __typename
             }
           }
         }
@@ -2018,7 +2063,7 @@ Object {
 
 exports[`@handl/cache-manager the analyzeQuery method with a nested union with edges query when there is no matching data for the request in the cache then the method should return the correct request data 1`] = `
 Object {
-  "hash": "cff34cbf0a66b422ef210f1e6c991414",
+  "hash": "491d6c88629d057b423eebd83b076a01",
   "request": "
   query {
     search(query: \\"react\\", first: 10, type: REPOSITORY) {
@@ -2054,6 +2099,7 @@ Object {
             name
             id
           }
+          __typename
         }
       }
     }
@@ -2413,6 +2459,7 @@ Object {
     Array [
       "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -2421,6 +2468,7 @@ Object {
     Array [
       "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -2429,6 +2477,7 @@ Object {
     Array [
       "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -2437,6 +2486,7 @@ Object {
     Array [
       "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -2445,6 +2495,7 @@ Object {
     Array [
       "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -2453,6 +2504,7 @@ Object {
     Array [
       "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -2461,6 +2513,7 @@ Object {
     Array [
       "requestFieldPaths::fac0b5026f368ef4428db067436423db",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -2670,7 +2723,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::48d59b1afd6e0c6fabf984bcd6af19c1",
+      "queryResponses::789473f3f2776150b2d86f054fc6e7b1",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -2734,6 +2787,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
                     "name": "codemod",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -2744,6 +2798,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
                     "name": "hhvm",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -2754,6 +2809,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                     "name": "pyre2",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -2764,6 +2820,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
                     "name": "open-graph-protocol",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -2774,6 +2831,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
                     "name": "facebook-android-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -2784,6 +2842,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
                     "name": "facebook-objc-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -2796,7 +2855,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::32a949dfcca73082f2e1bead7cce91fd",
+      "queryResponses::c8cba56c290c44df542606b738115a43",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -2861,6 +2920,7 @@ Object {
                     "homepageUrl": "",
                     "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                     },
@@ -2872,6 +2932,7 @@ Object {
                     "homepageUrl": "https://hhvm.com",
                     "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                     },
@@ -2883,6 +2944,7 @@ Object {
                     "homepageUrl": "",
                     "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                     },
@@ -2894,6 +2956,7 @@ Object {
                     "homepageUrl": "http://ogp.me",
                     "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                     },
@@ -2905,6 +2968,7 @@ Object {
                     "homepageUrl": "https://developers.facebook.com/docs/android",
                     "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                     },
@@ -2916,6 +2980,7 @@ Object {
                     "homepageUrl": "https://developers.facebook.com/docs/ios",
                     "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                     },
@@ -2929,7 +2994,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::3144fc4ab6ed7e246f5e92966d833865",
+      "queryResponses::c81ab24ee247e7f3b837971b4eda89fc",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -2997,6 +3062,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
                     "name": "codemod",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -3010,6 +3076,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
                     "name": "hhvm",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -3023,6 +3090,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                     "name": "pyre2",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -3036,6 +3104,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
                     "name": "open-graph-protocol",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -3049,6 +3118,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
                     "name": "facebook-android-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -3062,6 +3132,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
                     "name": "facebook-objc-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -3093,7 +3164,7 @@ Object {
       "key": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 11,
     },
@@ -3113,7 +3184,7 @@ Object {
       "key": "requestFieldPaths::fac0b5026f368ef4428db067436423db",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -3133,7 +3204,7 @@ Object {
       "key": "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -3153,7 +3224,7 @@ Object {
       "key": "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -3173,7 +3244,7 @@ Object {
       "key": "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -3193,7 +3264,7 @@ Object {
       "key": "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -3213,7 +3284,7 @@ Object {
       "key": "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -3530,10 +3601,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::48d59b1afd6e0c6fabf984bcd6af19c1",
+      "key": "queryResponses::789473f3f2776150b2d86f054fc6e7b1",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 2448,
+      "size": 2712,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -3550,10 +3621,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::32a949dfcca73082f2e1bead7cce91fd",
+      "key": "queryResponses::c8cba56c290c44df542606b738115a43",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 3656,
+      "size": 3920,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -3570,10 +3641,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::3144fc4ab6ed7e246f5e92966d833865",
+      "key": "queryResponses::c81ab24ee247e7f3b837971b4eda89fc",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 4258,
+      "size": 4522,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -3661,6 +3732,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
               "name": "codemod",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -3674,6 +3746,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
               "name": "hhvm",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -3687,6 +3760,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
               "name": "pyre2",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -3700,6 +3774,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
               "name": "open-graph-protocol",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -3713,6 +3788,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
               "name": "facebook-android-sdk",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -3726,6 +3802,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
               "name": "facebook-objc-sdk",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -3746,6 +3823,7 @@ Object {
     Array [
       "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -3754,6 +3832,7 @@ Object {
     Array [
       "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -3762,6 +3841,7 @@ Object {
     Array [
       "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -3770,6 +3850,7 @@ Object {
     Array [
       "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -3778,6 +3859,7 @@ Object {
     Array [
       "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -3786,6 +3868,7 @@ Object {
     Array [
       "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -3794,6 +3877,7 @@ Object {
     Array [
       "requestFieldPaths::fac0b5026f368ef4428db067436423db",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -4003,7 +4087,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::48d59b1afd6e0c6fabf984bcd6af19c1",
+      "queryResponses::789473f3f2776150b2d86f054fc6e7b1",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -4059,6 +4143,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
                     "name": "codemod",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -4069,6 +4154,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
                     "name": "hhvm",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -4079,6 +4165,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                     "name": "pyre2",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -4089,6 +4176,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
                     "name": "open-graph-protocol",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -4099,6 +4187,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
                     "name": "facebook-android-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -4109,6 +4198,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
                     "name": "facebook-objc-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "url": "https://github.com/facebook",
                     },
@@ -4121,7 +4211,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::32a949dfcca73082f2e1bead7cce91fd",
+      "queryResponses::c8cba56c290c44df542606b738115a43",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -4178,6 +4268,7 @@ Object {
                     "homepageUrl": "",
                     "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                     },
@@ -4189,6 +4280,7 @@ Object {
                     "homepageUrl": "https://hhvm.com",
                     "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                     },
@@ -4200,6 +4292,7 @@ Object {
                     "homepageUrl": "",
                     "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                     },
@@ -4211,6 +4304,7 @@ Object {
                     "homepageUrl": "http://ogp.me",
                     "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                     },
@@ -4222,6 +4316,7 @@ Object {
                     "homepageUrl": "https://developers.facebook.com/docs/android",
                     "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                     },
@@ -4233,6 +4328,7 @@ Object {
                     "homepageUrl": "https://developers.facebook.com/docs/ios",
                     "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                     },
@@ -4246,7 +4342,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::3144fc4ab6ed7e246f5e92966d833865",
+      "queryResponses::c81ab24ee247e7f3b837971b4eda89fc",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -4306,6 +4402,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
                     "name": "codemod",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -4319,6 +4416,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
                     "name": "hhvm",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -4332,6 +4430,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                     "name": "pyre2",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -4345,6 +4444,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
                     "name": "open-graph-protocol",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -4358,6 +4458,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
                     "name": "facebook-android-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -4371,6 +4472,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
                     "name": "facebook-objc-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -4402,7 +4504,7 @@ Object {
       "key": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 11,
     },
@@ -4422,7 +4524,7 @@ Object {
       "key": "requestFieldPaths::fac0b5026f368ef4428db067436423db",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -4442,7 +4544,7 @@ Object {
       "key": "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -4462,7 +4564,7 @@ Object {
       "key": "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -4482,7 +4584,7 @@ Object {
       "key": "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -4502,7 +4604,7 @@ Object {
       "key": "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -4522,7 +4624,7 @@ Object {
       "key": "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -4839,10 +4941,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::48d59b1afd6e0c6fabf984bcd6af19c1",
+      "key": "queryResponses::789473f3f2776150b2d86f054fc6e7b1",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 2292,
+      "size": 2556,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -4859,10 +4961,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::32a949dfcca73082f2e1bead7cce91fd",
+      "key": "queryResponses::c8cba56c290c44df542606b738115a43",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 3500,
+      "size": 3764,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -4879,10 +4981,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::3144fc4ab6ed7e246f5e92966d833865",
+      "key": "queryResponses::c81ab24ee247e7f3b837971b4eda89fc",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 4102,
+      "size": 4366,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -4960,6 +5062,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
               "name": "codemod",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -4973,6 +5076,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
               "name": "hhvm",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -4986,6 +5090,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
               "name": "pyre2",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -4999,6 +5104,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
               "name": "open-graph-protocol",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -5012,6 +5118,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
               "name": "facebook-android-sdk",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -5025,6 +5132,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
               "name": "facebook-objc-sdk",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -5045,6 +5153,7 @@ Object {
     Array [
       "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       Object {
+        "__typename": "Repository",
         "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
         "homepageUrl": "https://reactjs.org",
         "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -5052,8 +5161,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
       Object {
+        "__typename": "Repository",
         "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
         "homepageUrl": "https://reactjs.org",
         "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -5063,6 +5173,7 @@ Object {
     Array [
       "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
       Object {
+        "__typename": "Repository",
         "description": "Event-driven, non-blocking I/O with PHP.",
         "homepageUrl": "https://reactphp.org",
         "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -5070,8 +5181,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
       Object {
+        "__typename": "Repository",
         "description": "Event-driven, non-blocking I/O with PHP.",
         "homepageUrl": "https://reactphp.org",
         "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -5081,6 +5193,7 @@ Object {
     Array [
       "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
       Object {
+        "__typename": "Repository",
         "description": "React background management framework | React全家桶后台管理框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -5088,8 +5201,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
       Object {
+        "__typename": "Repository",
         "description": "React background management framework | React全家桶后台管理框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -5099,6 +5213,7 @@ Object {
     Array [
       "requestFieldPaths::777b88f07c71a41c39f323b651206906",
       Object {
+        "__typename": "Repository",
         "description": "React docs in Chinese | React 中文文档翻译",
         "homepageUrl": "https://react.docschina.org/",
         "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -5106,8 +5221,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
       Object {
+        "__typename": "Repository",
         "description": "React docs in Chinese | React 中文文档翻译",
         "homepageUrl": "https://react.docschina.org/",
         "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -5117,6 +5233,7 @@ Object {
     Array [
       "requestFieldPaths::85e40d970842e957d769693d96d22971",
       Object {
+        "__typename": "Repository",
         "description": "京东首页构建",
         "homepageUrl": null,
         "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -5124,8 +5241,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
       Object {
+        "__typename": "Repository",
         "description": "京东首页构建",
         "homepageUrl": null,
         "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -5135,6 +5253,7 @@ Object {
     Array [
       "requestFieldPaths::30da55f710d24120983bf2581f41b992",
       Object {
+        "__typename": "Repository",
         "description": "基于react的企业后台管理开发框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -5142,8 +5261,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
       Object {
+        "__typename": "Repository",
         "description": "基于react的企业后台管理开发框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -5153,6 +5273,7 @@ Object {
     Array [
       "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
       Object {
+        "__typename": "Repository",
         "description": "Streams of values over time",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -5160,8 +5281,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
       Object {
+        "__typename": "Repository",
         "description": "Streams of values over time",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -5171,6 +5293,7 @@ Object {
     Array [
       "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
       Object {
+        "__typename": "Repository",
         "description": "A framework for building native apps with React.",
         "homepageUrl": "https://facebook.github.io/react-native/",
         "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -5178,8 +5301,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
       Object {
+        "__typename": "Repository",
         "description": "A framework for building native apps with React.",
         "homepageUrl": "https://facebook.github.io/react-native/",
         "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -5189,6 +5313,7 @@ Object {
     Array [
       "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
       Object {
+        "__typename": "Repository",
         "description": "Declarative routing for React",
         "homepageUrl": "https://reacttraining.com/react-router/",
         "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -5196,8 +5321,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
       Object {
+        "__typename": "Repository",
         "description": "Declarative routing for React",
         "homepageUrl": "https://reacttraining.com/react-router/",
         "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -5207,6 +5333,7 @@ Object {
     Array [
       "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
       Object {
+        "__typename": "Repository",
         "description": "Set up a modern web app by running one command.",
         "homepageUrl": "https://facebook.github.io/create-react-app/",
         "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -5214,8 +5341,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
       Object {
+        "__typename": "Repository",
         "description": "Set up a modern web app by running one command.",
         "homepageUrl": "https://facebook.github.io/create-react-app/",
         "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -5280,7 +5408,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::4b84d169cde5fa4f31710f384fa65294",
+      "queryResponses::925987b129ee0fca8756d531d6a52aab",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -5321,60 +5449,70 @@ Object {
             "edges": Array [
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
                   "name": "react",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
                   "name": "react",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
                   "name": "react",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
                   "name": "react",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
                   "name": "react",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
                   "name": "react",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
                   "name": "ReactiveCocoa",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
                   "name": "react-native",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
                   "name": "react-router",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
                   "name": "create-react-app",
                 },
@@ -5385,7 +5523,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::7137ef8512099c8c535e1eed8ddc5d07",
+      "queryResponses::4c9c6396c46ab1d6a7536a800f91ac5d",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -5426,6 +5564,7 @@ Object {
             "edges": Array [
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
                   "homepageUrl": "https://reactjs.org",
                   "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -5433,6 +5572,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Event-driven, non-blocking I/O with PHP.",
                   "homepageUrl": "https://reactphp.org",
                   "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -5440,6 +5580,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "React background management framework | React全家桶后台管理框架",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -5447,6 +5588,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "React docs in Chinese | React 中文文档翻译",
                   "homepageUrl": "https://react.docschina.org/",
                   "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -5454,6 +5596,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "京东首页构建",
                   "homepageUrl": null,
                   "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -5461,6 +5604,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "基于react的企业后台管理开发框架",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -5468,6 +5612,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Streams of values over time",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -5475,6 +5620,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "A framework for building native apps with React.",
                   "homepageUrl": "https://facebook.github.io/react-native/",
                   "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -5482,6 +5628,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Declarative routing for React",
                   "homepageUrl": "https://reacttraining.com/react-router/",
                   "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -5489,6 +5636,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Set up a modern web app by running one command.",
                   "homepageUrl": "https://facebook.github.io/create-react-app/",
                   "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -5500,7 +5648,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::cff34cbf0a66b422ef210f1e6c991414",
+      "queryResponses::491d6c88629d057b423eebd83b076a01",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -5541,6 +5689,7 @@ Object {
             "edges": Array [
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
                   "homepageUrl": "https://reactjs.org",
                   "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -5549,6 +5698,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Event-driven, non-blocking I/O with PHP.",
                   "homepageUrl": "https://reactphp.org",
                   "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -5557,6 +5707,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "React background management framework | React全家桶后台管理框架",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -5565,6 +5716,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "React docs in Chinese | React 中文文档翻译",
                   "homepageUrl": "https://react.docschina.org/",
                   "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -5573,6 +5725,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "京东首页构建",
                   "homepageUrl": null,
                   "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -5581,6 +5734,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "基于react的企业后台管理开发框架",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -5589,6 +5743,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Streams of values over time",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -5597,6 +5752,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "A framework for building native apps with React.",
                   "homepageUrl": "https://facebook.github.io/react-native/",
                   "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -5605,6 +5761,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Declarative routing for React",
                   "homepageUrl": "https://reacttraining.com/react-router/",
                   "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -5613,6 +5770,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Set up a modern web app by running one command.",
                   "homepageUrl": "https://facebook.github.io/create-react-app/",
                   "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -5639,10 +5797,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 142,
+      "size": 182,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5662,7 +5820,7 @@ Object {
       "key": "requestFieldPaths::85e40d970842e957d769693d96d22971",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 142,
+      "size": 182,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5679,10 +5837,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 166,
+      "size": 206,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5702,7 +5860,7 @@ Object {
       "key": "requestFieldPaths::30da55f710d24120983bf2581f41b992",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 166,
+      "size": 206,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5719,10 +5877,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 192,
+      "size": 232,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5742,7 +5900,7 @@ Object {
       "key": "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 192,
+      "size": 232,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5759,10 +5917,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 238,
+      "size": 278,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5782,7 +5940,7 @@ Object {
       "key": "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 238,
+      "size": 278,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5799,10 +5957,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 242,
+      "size": 282,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5822,7 +5980,7 @@ Object {
       "key": "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 242,
+      "size": 282,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5839,10 +5997,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 258,
+      "size": 298,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5862,7 +6020,7 @@ Object {
       "key": "requestFieldPaths::777b88f07c71a41c39f323b651206906",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 258,
+      "size": 298,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5879,10 +6037,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 280,
+      "size": 320,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5902,7 +6060,7 @@ Object {
       "key": "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 280,
+      "size": 320,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5919,10 +6077,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 320,
+      "size": 360,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5942,7 +6100,7 @@ Object {
       "key": "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 320,
+      "size": 360,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5959,10 +6117,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 334,
+      "size": 374,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5982,7 +6140,7 @@ Object {
       "key": "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 334,
+      "size": 374,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -5999,10 +6157,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 342,
+      "size": 382,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -6022,7 +6180,7 @@ Object {
       "key": "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 342,
+      "size": 382,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -6059,10 +6217,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::4b84d169cde5fa4f31710f384fa65294",
+      "key": "queryResponses::925987b129ee0fca8756d531d6a52aab",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 1510,
+      "size": 1910,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -6079,10 +6237,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::7137ef8512099c8c535e1eed8ddc5d07",
+      "key": "queryResponses::4c9c6396c46ab1d6a7536a800f91ac5d",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 2868,
+      "size": 3268,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -6099,10 +6257,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::cff34cbf0a66b422ef210f1e6c991414",
+      "key": "queryResponses::491d6c88629d057b423eebd83b076a01",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 3114,
+      "size": 3514,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -6159,6 +6317,7 @@ Object {
       "edges": Array [
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
             "homepageUrl": "https://reactjs.org",
             "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -6167,6 +6326,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Event-driven, non-blocking I/O with PHP.",
             "homepageUrl": "https://reactphp.org",
             "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -6175,6 +6335,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "React background management framework | React全家桶后台管理框架",
             "homepageUrl": "",
             "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -6183,6 +6344,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "React docs in Chinese | React 中文文档翻译",
             "homepageUrl": "https://react.docschina.org/",
             "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -6191,6 +6353,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "京东首页构建",
             "homepageUrl": null,
             "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -6199,6 +6362,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "基于react的企业后台管理开发框架",
             "homepageUrl": "",
             "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -6207,6 +6371,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Streams of values over time",
             "homepageUrl": "",
             "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -6215,6 +6380,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "A framework for building native apps with React.",
             "homepageUrl": "https://facebook.github.io/react-native/",
             "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -6223,6 +6389,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Declarative routing for React",
             "homepageUrl": "https://reacttraining.com/react-router/",
             "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -6231,6 +6398,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Set up a modern web app by running one command.",
             "homepageUrl": "https://facebook.github.io/create-react-app/",
             "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -6249,6 +6417,7 @@ Object {
     Array [
       "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       Object {
+        "__typename": "Repository",
         "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
         "homepageUrl": "https://reactjs.org",
         "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -6256,8 +6425,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
       Object {
+        "__typename": "Repository",
         "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
         "homepageUrl": "https://reactjs.org",
         "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -6267,6 +6437,7 @@ Object {
     Array [
       "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
       Object {
+        "__typename": "Repository",
         "description": "Event-driven, non-blocking I/O with PHP.",
         "homepageUrl": "https://reactphp.org",
         "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -6274,8 +6445,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
       Object {
+        "__typename": "Repository",
         "description": "Event-driven, non-blocking I/O with PHP.",
         "homepageUrl": "https://reactphp.org",
         "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -6285,6 +6457,7 @@ Object {
     Array [
       "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
       Object {
+        "__typename": "Repository",
         "description": "React background management framework | React全家桶后台管理框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -6292,8 +6465,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
       Object {
+        "__typename": "Repository",
         "description": "React background management framework | React全家桶后台管理框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -6303,6 +6477,7 @@ Object {
     Array [
       "requestFieldPaths::777b88f07c71a41c39f323b651206906",
       Object {
+        "__typename": "Repository",
         "description": "React docs in Chinese | React 中文文档翻译",
         "homepageUrl": "https://react.docschina.org/",
         "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -6310,8 +6485,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
       Object {
+        "__typename": "Repository",
         "description": "React docs in Chinese | React 中文文档翻译",
         "homepageUrl": "https://react.docschina.org/",
         "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -6321,6 +6497,7 @@ Object {
     Array [
       "requestFieldPaths::85e40d970842e957d769693d96d22971",
       Object {
+        "__typename": "Repository",
         "description": "京东首页构建",
         "homepageUrl": null,
         "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -6328,8 +6505,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
       Object {
+        "__typename": "Repository",
         "description": "京东首页构建",
         "homepageUrl": null,
         "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -6339,6 +6517,7 @@ Object {
     Array [
       "requestFieldPaths::30da55f710d24120983bf2581f41b992",
       Object {
+        "__typename": "Repository",
         "description": "基于react的企业后台管理开发框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -6346,8 +6525,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
       Object {
+        "__typename": "Repository",
         "description": "基于react的企业后台管理开发框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -6357,6 +6537,7 @@ Object {
     Array [
       "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
       Object {
+        "__typename": "Repository",
         "description": "Streams of values over time",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -6364,8 +6545,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
       Object {
+        "__typename": "Repository",
         "description": "Streams of values over time",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -6375,6 +6557,7 @@ Object {
     Array [
       "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
       Object {
+        "__typename": "Repository",
         "description": "A framework for building native apps with React.",
         "homepageUrl": "https://facebook.github.io/react-native/",
         "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -6382,8 +6565,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
       Object {
+        "__typename": "Repository",
         "description": "A framework for building native apps with React.",
         "homepageUrl": "https://facebook.github.io/react-native/",
         "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -6393,6 +6577,7 @@ Object {
     Array [
       "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
       Object {
+        "__typename": "Repository",
         "description": "Declarative routing for React",
         "homepageUrl": "https://reacttraining.com/react-router/",
         "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -6400,8 +6585,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
       Object {
+        "__typename": "Repository",
         "description": "Declarative routing for React",
         "homepageUrl": "https://reacttraining.com/react-router/",
         "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -6411,6 +6597,7 @@ Object {
     Array [
       "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
       Object {
+        "__typename": "Repository",
         "description": "Set up a modern web app by running one command.",
         "homepageUrl": "https://facebook.github.io/create-react-app/",
         "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -6418,8 +6605,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
       Object {
+        "__typename": "Repository",
         "description": "Set up a modern web app by running one command.",
         "homepageUrl": "https://facebook.github.io/create-react-app/",
         "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -6484,7 +6672,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::4b84d169cde5fa4f31710f384fa65294",
+      "queryResponses::925987b129ee0fca8756d531d6a52aab",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -6517,60 +6705,70 @@ Object {
             "edges": Array [
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
                   "name": "react",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
                   "name": "react",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
                   "name": "react",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
                   "name": "react",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
                   "name": "react",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
                   "name": "react",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
                   "name": "ReactiveCocoa",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
                   "name": "react-native",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
                   "name": "react-router",
                 },
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
                   "name": "create-react-app",
                 },
@@ -6581,7 +6779,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::7137ef8512099c8c535e1eed8ddc5d07",
+      "queryResponses::4c9c6396c46ab1d6a7536a800f91ac5d",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -6614,6 +6812,7 @@ Object {
             "edges": Array [
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
                   "homepageUrl": "https://reactjs.org",
                   "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -6621,6 +6820,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Event-driven, non-blocking I/O with PHP.",
                   "homepageUrl": "https://reactphp.org",
                   "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -6628,6 +6828,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "React background management framework | React全家桶后台管理框架",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -6635,6 +6836,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "React docs in Chinese | React 中文文档翻译",
                   "homepageUrl": "https://react.docschina.org/",
                   "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -6642,6 +6844,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "京东首页构建",
                   "homepageUrl": null,
                   "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -6649,6 +6852,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "基于react的企业后台管理开发框架",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -6656,6 +6860,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Streams of values over time",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -6663,6 +6868,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "A framework for building native apps with React.",
                   "homepageUrl": "https://facebook.github.io/react-native/",
                   "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -6670,6 +6876,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Declarative routing for React",
                   "homepageUrl": "https://reacttraining.com/react-router/",
                   "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -6677,6 +6884,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Set up a modern web app by running one command.",
                   "homepageUrl": "https://facebook.github.io/create-react-app/",
                   "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -6688,7 +6896,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::cff34cbf0a66b422ef210f1e6c991414",
+      "queryResponses::491d6c88629d057b423eebd83b076a01",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -6721,6 +6929,7 @@ Object {
             "edges": Array [
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
                   "homepageUrl": "https://reactjs.org",
                   "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -6729,6 +6938,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Event-driven, non-blocking I/O with PHP.",
                   "homepageUrl": "https://reactphp.org",
                   "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -6737,6 +6947,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "React background management framework | React全家桶后台管理框架",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -6745,6 +6956,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "React docs in Chinese | React 中文文档翻译",
                   "homepageUrl": "https://react.docschina.org/",
                   "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -6753,6 +6965,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "京东首页构建",
                   "homepageUrl": null,
                   "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -6761,6 +6974,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "基于react的企业后台管理开发框架",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -6769,6 +6983,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Streams of values over time",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -6777,6 +6992,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "A framework for building native apps with React.",
                   "homepageUrl": "https://facebook.github.io/react-native/",
                   "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -6785,6 +7001,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Declarative routing for React",
                   "homepageUrl": "https://reacttraining.com/react-router/",
                   "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -6793,6 +7010,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Set up a modern web app by running one command.",
                   "homepageUrl": "https://facebook.github.io/create-react-app/",
                   "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -6819,10 +7037,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 142,
+      "size": 182,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -6842,7 +7060,7 @@ Object {
       "key": "requestFieldPaths::85e40d970842e957d769693d96d22971",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 142,
+      "size": 182,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -6859,10 +7077,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 166,
+      "size": 206,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -6882,7 +7100,7 @@ Object {
       "key": "requestFieldPaths::30da55f710d24120983bf2581f41b992",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 166,
+      "size": 206,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -6899,10 +7117,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 192,
+      "size": 232,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -6922,7 +7140,7 @@ Object {
       "key": "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 192,
+      "size": 232,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -6939,10 +7157,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 238,
+      "size": 278,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -6962,7 +7180,7 @@ Object {
       "key": "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 238,
+      "size": 278,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -6979,10 +7197,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 242,
+      "size": 282,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -7002,7 +7220,7 @@ Object {
       "key": "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 242,
+      "size": 282,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -7019,10 +7237,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 258,
+      "size": 298,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -7042,7 +7260,7 @@ Object {
       "key": "requestFieldPaths::777b88f07c71a41c39f323b651206906",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 258,
+      "size": 298,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -7059,10 +7277,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 280,
+      "size": 320,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -7082,7 +7300,7 @@ Object {
       "key": "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 280,
+      "size": 320,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -7099,10 +7317,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 320,
+      "size": 360,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -7122,7 +7340,7 @@ Object {
       "key": "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 320,
+      "size": 360,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -7139,10 +7357,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 334,
+      "size": 374,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -7162,7 +7380,7 @@ Object {
       "key": "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 334,
+      "size": 374,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -7179,10 +7397,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 342,
+      "size": 382,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -7202,7 +7420,7 @@ Object {
       "key": "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 342,
+      "size": 382,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -7239,10 +7457,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::4b84d169cde5fa4f31710f384fa65294",
+      "key": "queryResponses::925987b129ee0fca8756d531d6a52aab",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 1392,
+      "size": 1792,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -7259,10 +7477,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::7137ef8512099c8c535e1eed8ddc5d07",
+      "key": "queryResponses::4c9c6396c46ab1d6a7536a800f91ac5d",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 2750,
+      "size": 3150,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -7279,10 +7497,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::cff34cbf0a66b422ef210f1e6c991414",
+      "key": "queryResponses::491d6c88629d057b423eebd83b076a01",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 2996,
+      "size": 3396,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -7329,6 +7547,7 @@ Object {
       "edges": Array [
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
             "homepageUrl": "https://reactjs.org",
             "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -7337,6 +7556,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Event-driven, non-blocking I/O with PHP.",
             "homepageUrl": "https://reactphp.org",
             "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -7345,6 +7565,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "React background management framework | React全家桶后台管理框架",
             "homepageUrl": "",
             "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -7353,6 +7574,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "React docs in Chinese | React 中文文档翻译",
             "homepageUrl": "https://react.docschina.org/",
             "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -7361,6 +7583,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "京东首页构建",
             "homepageUrl": null,
             "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -7369,6 +7592,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "基于react的企业后台管理开发框架",
             "homepageUrl": "",
             "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -7377,6 +7601,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Streams of values over time",
             "homepageUrl": "",
             "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -7385,6 +7610,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "A framework for building native apps with React.",
             "homepageUrl": "https://facebook.github.io/react-native/",
             "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -7393,6 +7619,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Declarative routing for React",
             "homepageUrl": "https://reacttraining.com/react-router/",
             "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -7401,6 +7628,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Set up a modern web app by running one command.",
             "homepageUrl": "https://facebook.github.io/create-react-app/",
             "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -7943,6 +8171,7 @@ Object {
     Array [
       "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -7951,6 +8180,7 @@ Object {
     Array [
       "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -7959,6 +8189,7 @@ Object {
     Array [
       "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -7967,6 +8198,7 @@ Object {
     Array [
       "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -7975,6 +8207,7 @@ Object {
     Array [
       "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -7983,6 +8216,7 @@ Object {
     Array [
       "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -7991,6 +8225,7 @@ Object {
     Array [
       "requestFieldPaths::fac0b5026f368ef4428db067436423db",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -8200,7 +8435,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::3144fc4ab6ed7e246f5e92966d833865",
+      "queryResponses::c81ab24ee247e7f3b837971b4eda89fc",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -8268,6 +8503,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
                     "name": "codemod",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -8281,6 +8517,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
                     "name": "hhvm",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -8294,6 +8531,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                     "name": "pyre2",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -8307,6 +8545,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
                     "name": "open-graph-protocol",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -8320,6 +8559,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
                     "name": "facebook-android-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -8333,6 +8573,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
                     "name": "facebook-objc-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -8364,7 +8605,7 @@ Object {
       "key": "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -8384,7 +8625,7 @@ Object {
       "key": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 5,
     },
@@ -8404,7 +8645,7 @@ Object {
       "key": "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -8424,7 +8665,7 @@ Object {
       "key": "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -8444,7 +8685,7 @@ Object {
       "key": "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -8464,7 +8705,7 @@ Object {
       "key": "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -8484,7 +8725,7 @@ Object {
       "key": "requestFieldPaths::fac0b5026f368ef4428db067436423db",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -8801,10 +9042,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::3144fc4ab6ed7e246f5e92966d833865",
+      "key": "queryResponses::c81ab24ee247e7f3b837971b4eda89fc",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 4258,
+      "size": 4522,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -8892,6 +9133,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
               "name": "codemod",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -8905,6 +9147,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
               "name": "hhvm",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -8918,6 +9161,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
               "name": "pyre2",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -8931,6 +9175,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
               "name": "open-graph-protocol",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -8944,6 +9189,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
               "name": "facebook-android-sdk",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -8957,6 +9203,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
               "name": "facebook-objc-sdk",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -8977,6 +9224,7 @@ Object {
     Array [
       "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -8985,6 +9233,7 @@ Object {
     Array [
       "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -8993,6 +9242,7 @@ Object {
     Array [
       "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -9001,6 +9251,7 @@ Object {
     Array [
       "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -9009,6 +9260,7 @@ Object {
     Array [
       "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -9017,6 +9269,7 @@ Object {
     Array [
       "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -9025,6 +9278,7 @@ Object {
     Array [
       "requestFieldPaths::fac0b5026f368ef4428db067436423db",
       Object {
+        "__typename": "Organization",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "url": "https://github.com/facebook",
@@ -9234,7 +9488,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::3144fc4ab6ed7e246f5e92966d833865",
+      "queryResponses::c81ab24ee247e7f3b837971b4eda89fc",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -9294,6 +9548,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
                     "name": "codemod",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -9307,6 +9562,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
                     "name": "hhvm",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -9320,6 +9576,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                     "name": "pyre2",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -9333,6 +9590,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
                     "name": "open-graph-protocol",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -9346,6 +9604,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
                     "name": "facebook-android-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -9359,6 +9618,7 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
                     "name": "facebook-objc-sdk",
                     "owner": Object {
+                      "__typename": "Organization",
                       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                       "login": "facebook",
                       "url": "https://github.com/facebook",
@@ -9390,7 +9650,7 @@ Object {
       "key": "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -9410,7 +9670,7 @@ Object {
       "key": "dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 5,
     },
@@ -9430,7 +9690,7 @@ Object {
       "key": "requestFieldPaths::87b204dfb276479261afc6ed9a74c96c",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -9450,7 +9710,7 @@ Object {
       "key": "requestFieldPaths::ffa65fdcf6b1370af59f364589a51214",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -9470,7 +9730,7 @@ Object {
       "key": "requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -9490,7 +9750,7 @@ Object {
       "key": "requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -9510,7 +9770,7 @@ Object {
       "key": "requestFieldPaths::fac0b5026f368ef4428db067436423db",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 146,
+      "size": 190,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -9827,10 +10087,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::3144fc4ab6ed7e246f5e92966d833865",
+      "key": "queryResponses::c81ab24ee247e7f3b837971b4eda89fc",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 4102,
+      "size": 4366,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -9908,6 +10168,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
               "name": "codemod",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -9921,6 +10182,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
               "name": "hhvm",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -9934,6 +10196,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
               "name": "pyre2",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -9947,6 +10210,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
               "name": "open-graph-protocol",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -9960,6 +10224,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
               "name": "facebook-android-sdk",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -9973,6 +10238,7 @@ Object {
               "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
               "name": "facebook-objc-sdk",
               "owner": Object {
+                "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "url": "https://github.com/facebook",
@@ -9993,6 +10259,7 @@ Object {
     Array [
       "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       Object {
+        "__typename": "Repository",
         "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
         "homepageUrl": "https://reactjs.org",
         "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -10000,8 +10267,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
       Object {
+        "__typename": "Repository",
         "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
         "homepageUrl": "https://reactjs.org",
         "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -10011,6 +10279,7 @@ Object {
     Array [
       "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
       Object {
+        "__typename": "Repository",
         "description": "Event-driven, non-blocking I/O with PHP.",
         "homepageUrl": "https://reactphp.org",
         "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -10018,8 +10287,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
       Object {
+        "__typename": "Repository",
         "description": "Event-driven, non-blocking I/O with PHP.",
         "homepageUrl": "https://reactphp.org",
         "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -10029,6 +10299,7 @@ Object {
     Array [
       "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
       Object {
+        "__typename": "Repository",
         "description": "React background management framework | React全家桶后台管理框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -10036,8 +10307,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
       Object {
+        "__typename": "Repository",
         "description": "React background management framework | React全家桶后台管理框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -10047,6 +10319,7 @@ Object {
     Array [
       "requestFieldPaths::777b88f07c71a41c39f323b651206906",
       Object {
+        "__typename": "Repository",
         "description": "React docs in Chinese | React 中文文档翻译",
         "homepageUrl": "https://react.docschina.org/",
         "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -10054,8 +10327,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
       Object {
+        "__typename": "Repository",
         "description": "React docs in Chinese | React 中文文档翻译",
         "homepageUrl": "https://react.docschina.org/",
         "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -10065,6 +10339,7 @@ Object {
     Array [
       "requestFieldPaths::85e40d970842e957d769693d96d22971",
       Object {
+        "__typename": "Repository",
         "description": "京东首页构建",
         "homepageUrl": null,
         "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -10072,8 +10347,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
       Object {
+        "__typename": "Repository",
         "description": "京东首页构建",
         "homepageUrl": null,
         "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -10083,6 +10359,7 @@ Object {
     Array [
       "requestFieldPaths::30da55f710d24120983bf2581f41b992",
       Object {
+        "__typename": "Repository",
         "description": "基于react的企业后台管理开发框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -10090,8 +10367,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
       Object {
+        "__typename": "Repository",
         "description": "基于react的企业后台管理开发框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -10101,6 +10379,7 @@ Object {
     Array [
       "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
       Object {
+        "__typename": "Repository",
         "description": "Streams of values over time",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -10108,8 +10387,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
       Object {
+        "__typename": "Repository",
         "description": "Streams of values over time",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -10119,6 +10399,7 @@ Object {
     Array [
       "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
       Object {
+        "__typename": "Repository",
         "description": "A framework for building native apps with React.",
         "homepageUrl": "https://facebook.github.io/react-native/",
         "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -10126,8 +10407,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
       Object {
+        "__typename": "Repository",
         "description": "A framework for building native apps with React.",
         "homepageUrl": "https://facebook.github.io/react-native/",
         "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -10137,6 +10419,7 @@ Object {
     Array [
       "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
       Object {
+        "__typename": "Repository",
         "description": "Declarative routing for React",
         "homepageUrl": "https://reacttraining.com/react-router/",
         "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -10144,8 +10427,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
       Object {
+        "__typename": "Repository",
         "description": "Declarative routing for React",
         "homepageUrl": "https://reacttraining.com/react-router/",
         "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -10155,6 +10439,7 @@ Object {
     Array [
       "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
       Object {
+        "__typename": "Repository",
         "description": "Set up a modern web app by running one command.",
         "homepageUrl": "https://facebook.github.io/create-react-app/",
         "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -10162,8 +10447,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
       Object {
+        "__typename": "Repository",
         "description": "Set up a modern web app by running one command.",
         "homepageUrl": "https://facebook.github.io/create-react-app/",
         "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -10228,7 +10514,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::cff34cbf0a66b422ef210f1e6c991414",
+      "queryResponses::491d6c88629d057b423eebd83b076a01",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -10269,6 +10555,7 @@ Object {
             "edges": Array [
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
                   "homepageUrl": "https://reactjs.org",
                   "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -10277,6 +10564,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Event-driven, non-blocking I/O with PHP.",
                   "homepageUrl": "https://reactphp.org",
                   "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -10285,6 +10573,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "React background management framework | React全家桶后台管理框架",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -10293,6 +10582,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "React docs in Chinese | React 中文文档翻译",
                   "homepageUrl": "https://react.docschina.org/",
                   "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -10301,6 +10591,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "京东首页构建",
                   "homepageUrl": null,
                   "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -10309,6 +10600,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "基于react的企业后台管理开发框架",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -10317,6 +10609,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Streams of values over time",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -10325,6 +10618,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "A framework for building native apps with React.",
                   "homepageUrl": "https://facebook.github.io/react-native/",
                   "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -10333,6 +10627,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Declarative routing for React",
                   "homepageUrl": "https://reacttraining.com/react-router/",
                   "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -10341,6 +10636,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Set up a modern web app by running one command.",
                   "homepageUrl": "https://facebook.github.io/create-react-app/",
                   "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -10370,7 +10666,7 @@ Object {
       "key": "requestFieldPaths::85e40d970842e957d769693d96d22971",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 142,
+      "size": 182,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10387,10 +10683,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 142,
+      "size": 182,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10410,7 +10706,7 @@ Object {
       "key": "requestFieldPaths::30da55f710d24120983bf2581f41b992",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 166,
+      "size": 206,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10427,10 +10723,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 166,
+      "size": 206,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10450,7 +10746,7 @@ Object {
       "key": "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 192,
+      "size": 232,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10467,10 +10763,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 192,
+      "size": 232,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10490,7 +10786,7 @@ Object {
       "key": "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 238,
+      "size": 278,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10507,10 +10803,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 238,
+      "size": 278,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10530,7 +10826,7 @@ Object {
       "key": "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 242,
+      "size": 282,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10547,10 +10843,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 242,
+      "size": 282,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10570,7 +10866,7 @@ Object {
       "key": "requestFieldPaths::777b88f07c71a41c39f323b651206906",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 258,
+      "size": 298,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10587,10 +10883,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 258,
+      "size": 298,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10610,7 +10906,7 @@ Object {
       "key": "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 280,
+      "size": 320,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10627,10 +10923,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 280,
+      "size": 320,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10650,7 +10946,7 @@ Object {
       "key": "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 320,
+      "size": 360,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10667,10 +10963,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 320,
+      "size": 360,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10690,7 +10986,7 @@ Object {
       "key": "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 334,
+      "size": 374,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10707,10 +11003,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 334,
+      "size": 374,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10730,7 +11026,7 @@ Object {
       "key": "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 342,
+      "size": 382,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10747,10 +11043,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 342,
+      "size": 382,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10787,10 +11083,10 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::cff34cbf0a66b422ef210f1e6c991414",
+      "key": "queryResponses::491d6c88629d057b423eebd83b076a01",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 3114,
+      "size": 3514,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -10847,6 +11143,7 @@ Object {
       "edges": Array [
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
             "homepageUrl": "https://reactjs.org",
             "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -10855,6 +11152,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Event-driven, non-blocking I/O with PHP.",
             "homepageUrl": "https://reactphp.org",
             "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -10863,6 +11161,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "React background management framework | React全家桶后台管理框架",
             "homepageUrl": "",
             "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -10871,6 +11170,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "React docs in Chinese | React 中文文档翻译",
             "homepageUrl": "https://react.docschina.org/",
             "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -10879,6 +11179,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "京东首页构建",
             "homepageUrl": null,
             "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -10887,6 +11188,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "基于react的企业后台管理开发框架",
             "homepageUrl": "",
             "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -10895,6 +11197,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Streams of values over time",
             "homepageUrl": "",
             "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -10903,6 +11206,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "A framework for building native apps with React.",
             "homepageUrl": "https://facebook.github.io/react-native/",
             "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -10911,6 +11215,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Declarative routing for React",
             "homepageUrl": "https://reacttraining.com/react-router/",
             "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -10919,6 +11224,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Set up a modern web app by running one command.",
             "homepageUrl": "https://facebook.github.io/create-react-app/",
             "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -10937,6 +11243,7 @@ Object {
     Array [
       "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       Object {
+        "__typename": "Repository",
         "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
         "homepageUrl": "https://reactjs.org",
         "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -10944,8 +11251,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
       Object {
+        "__typename": "Repository",
         "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
         "homepageUrl": "https://reactjs.org",
         "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -10955,6 +11263,7 @@ Object {
     Array [
       "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
       Object {
+        "__typename": "Repository",
         "description": "Event-driven, non-blocking I/O with PHP.",
         "homepageUrl": "https://reactphp.org",
         "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -10962,8 +11271,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
       Object {
+        "__typename": "Repository",
         "description": "Event-driven, non-blocking I/O with PHP.",
         "homepageUrl": "https://reactphp.org",
         "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -10973,6 +11283,7 @@ Object {
     Array [
       "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
       Object {
+        "__typename": "Repository",
         "description": "React background management framework | React全家桶后台管理框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -10980,8 +11291,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
       Object {
+        "__typename": "Repository",
         "description": "React background management framework | React全家桶后台管理框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -10991,6 +11303,7 @@ Object {
     Array [
       "requestFieldPaths::777b88f07c71a41c39f323b651206906",
       Object {
+        "__typename": "Repository",
         "description": "React docs in Chinese | React 中文文档翻译",
         "homepageUrl": "https://react.docschina.org/",
         "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -10998,8 +11311,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
       Object {
+        "__typename": "Repository",
         "description": "React docs in Chinese | React 中文文档翻译",
         "homepageUrl": "https://react.docschina.org/",
         "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -11009,6 +11323,7 @@ Object {
     Array [
       "requestFieldPaths::85e40d970842e957d769693d96d22971",
       Object {
+        "__typename": "Repository",
         "description": "京东首页构建",
         "homepageUrl": null,
         "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -11016,8 +11331,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
       Object {
+        "__typename": "Repository",
         "description": "京东首页构建",
         "homepageUrl": null,
         "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -11027,6 +11343,7 @@ Object {
     Array [
       "requestFieldPaths::30da55f710d24120983bf2581f41b992",
       Object {
+        "__typename": "Repository",
         "description": "基于react的企业后台管理开发框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -11034,8 +11351,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
       Object {
+        "__typename": "Repository",
         "description": "基于react的企业后台管理开发框架",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -11045,6 +11363,7 @@ Object {
     Array [
       "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
       Object {
+        "__typename": "Repository",
         "description": "Streams of values over time",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -11052,8 +11371,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
       Object {
+        "__typename": "Repository",
         "description": "Streams of values over time",
         "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -11063,6 +11383,7 @@ Object {
     Array [
       "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
       Object {
+        "__typename": "Repository",
         "description": "A framework for building native apps with React.",
         "homepageUrl": "https://facebook.github.io/react-native/",
         "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -11070,8 +11391,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
       Object {
+        "__typename": "Repository",
         "description": "A framework for building native apps with React.",
         "homepageUrl": "https://facebook.github.io/react-native/",
         "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -11081,6 +11403,7 @@ Object {
     Array [
       "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
       Object {
+        "__typename": "Repository",
         "description": "Declarative routing for React",
         "homepageUrl": "https://reacttraining.com/react-router/",
         "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -11088,8 +11411,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
       Object {
+        "__typename": "Repository",
         "description": "Declarative routing for React",
         "homepageUrl": "https://reacttraining.com/react-router/",
         "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -11099,6 +11423,7 @@ Object {
     Array [
       "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
       Object {
+        "__typename": "Repository",
         "description": "Set up a modern web app by running one command.",
         "homepageUrl": "https://facebook.github.io/create-react-app/",
         "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -11106,8 +11431,9 @@ Object {
       },
     ],
     Array [
-      "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
       Object {
+        "__typename": "Repository",
         "description": "Set up a modern web app by running one command.",
         "homepageUrl": "https://facebook.github.io/create-react-app/",
         "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -11172,7 +11498,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::cff34cbf0a66b422ef210f1e6c991414",
+      "queryResponses::491d6c88629d057b423eebd83b076a01",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -11205,6 +11531,7 @@ Object {
             "edges": Array [
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
                   "homepageUrl": "https://reactjs.org",
                   "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -11213,6 +11540,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Event-driven, non-blocking I/O with PHP.",
                   "homepageUrl": "https://reactphp.org",
                   "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -11221,6 +11549,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "React background management framework | React全家桶后台管理框架",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -11229,6 +11558,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "React docs in Chinese | React 中文文档翻译",
                   "homepageUrl": "https://react.docschina.org/",
                   "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -11237,6 +11567,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "京东首页构建",
                   "homepageUrl": null,
                   "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -11245,6 +11576,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "基于react的企业后台管理开发框架",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -11253,6 +11585,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Streams of values over time",
                   "homepageUrl": "",
                   "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -11261,6 +11594,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "A framework for building native apps with React.",
                   "homepageUrl": "https://facebook.github.io/react-native/",
                   "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -11269,6 +11603,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Declarative routing for React",
                   "homepageUrl": "https://reacttraining.com/react-router/",
                   "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -11277,6 +11612,7 @@ Object {
               },
               Object {
                 "node": Object {
+                  "__typename": "Repository",
                   "description": "Set up a modern web app by running one command.",
                   "homepageUrl": "https://facebook.github.io/create-react-app/",
                   "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
@@ -11306,7 +11642,7 @@ Object {
       "key": "requestFieldPaths::85e40d970842e957d769693d96d22971",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 142,
+      "size": 182,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11323,10 +11659,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 142,
+      "size": 182,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11346,7 +11682,7 @@ Object {
       "key": "requestFieldPaths::30da55f710d24120983bf2581f41b992",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 166,
+      "size": 206,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11363,10 +11699,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 166,
+      "size": 206,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11386,7 +11722,7 @@ Object {
       "key": "requestFieldPaths::5cfffe1c653ba9b60874c4cc16b7ca23",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 192,
+      "size": 232,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11403,10 +11739,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 192,
+      "size": 232,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11426,7 +11762,7 @@ Object {
       "key": "requestFieldPaths::fd8a585a69ef1737948dc535b9e9b733",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 238,
+      "size": 278,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11443,10 +11779,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 238,
+      "size": 278,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11466,7 +11802,7 @@ Object {
       "key": "requestFieldPaths::8f35063a5b7932608c1a6b892af232a1",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 242,
+      "size": 282,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11483,10 +11819,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 242,
+      "size": 282,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11506,7 +11842,7 @@ Object {
       "key": "requestFieldPaths::777b88f07c71a41c39f323b651206906",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 258,
+      "size": 298,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11523,10 +11859,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 258,
+      "size": 298,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11546,7 +11882,7 @@ Object {
       "key": "requestFieldPaths::c5fb26a465da5c814cf8659217d31fd5",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 280,
+      "size": 320,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11563,10 +11899,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 280,
+      "size": 320,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11586,7 +11922,7 @@ Object {
       "key": "requestFieldPaths::fc04f52ab7977a7a32c436f300949240",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 320,
+      "size": 360,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11603,10 +11939,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 320,
+      "size": 360,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11626,7 +11962,7 @@ Object {
       "key": "requestFieldPaths::f94148a2bb2c8dc948d741f149ae7d8c",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 334,
+      "size": 374,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11643,10 +11979,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 334,
+      "size": 374,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11666,7 +12002,7 @@ Object {
       "key": "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 342,
+      "size": 382,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11683,10 +12019,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "dataEntities::SearchResultItem::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 342,
+      "size": 382,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11723,10 +12059,10 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::cff34cbf0a66b422ef210f1e6c991414",
+      "key": "queryResponses::491d6c88629d057b423eebd83b076a01",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
-      "size": 2996,
+      "size": 3396,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -11773,6 +12109,7 @@ Object {
       "edges": Array [
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
             "homepageUrl": "https://reactjs.org",
             "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
@@ -11781,6 +12118,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Event-driven, non-blocking I/O with PHP.",
             "homepageUrl": "https://reactphp.org",
             "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
@@ -11789,6 +12127,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "React background management framework | React全家桶后台管理框架",
             "homepageUrl": "",
             "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
@@ -11797,6 +12136,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "React docs in Chinese | React 中文文档翻译",
             "homepageUrl": "https://react.docschina.org/",
             "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
@@ -11805,6 +12145,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "京东首页构建",
             "homepageUrl": null,
             "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
@@ -11813,6 +12154,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "基于react的企业后台管理开发框架",
             "homepageUrl": "",
             "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
@@ -11821,6 +12163,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Streams of values over time",
             "homepageUrl": "",
             "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
@@ -11829,6 +12172,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "A framework for building native apps with React.",
             "homepageUrl": "https://facebook.github.io/react-native/",
             "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
@@ -11837,6 +12181,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Declarative routing for React",
             "homepageUrl": "https://reacttraining.com/react-router/",
             "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
@@ -11845,6 +12190,7 @@ Object {
         },
         Object {
           "node": Object {
+            "__typename": "Repository",
             "description": "Set up a modern web app by running one command.",
             "homepageUrl": "https://facebook.github.io/create-react-app/",
             "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",

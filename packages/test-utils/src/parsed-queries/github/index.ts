@@ -54,6 +54,7 @@ export const nestedTypeWithEdges = `
               login
               url
               id
+              __typename
             }
           }
         }
@@ -79,6 +80,7 @@ export const nestedTypeWithEdgesWithFilter: ParsedQueryWithFilter = {
               owner {
                 url
                 id
+                __typename
               }
             }
           }
@@ -101,6 +103,7 @@ export const nestedTypeWithEdgesWithFilter: ParsedQueryWithFilter = {
               owner {
                 login
                 id
+                __typename
               }
             }
           }
@@ -147,6 +150,7 @@ export const nestedUnionWithEdges = `
             name
             id
           }
+          __typename
         }
       }
     }
@@ -181,6 +185,7 @@ export const nestedUnionWithEdgesWithFilter: ParsedQueryWithFilter = {
               name
               id
             }
+            __typename
           }
         }
       }
@@ -215,6 +220,7 @@ export const nestedUnionWithEdgesWithFilter: ParsedQueryWithFilter = {
               homepageUrl
               id
             }
+            __typename
           }
         }
       }

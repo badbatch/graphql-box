@@ -1,4 +1,3 @@
-import { PlainObjectMap } from "@handl/core";
 import {
   cloneDeep,
   isArray,
@@ -7,11 +6,7 @@ import {
   mergeWith,
 } from "lodash";
 
-export default function mergeObjects(
-  obj: PlainObjectMap,
-  src: PlainObjectMap,
-  matcher: (key: string, value: any) => any,
-): PlainObjectMap {
+export default function mergeObjects<T>(obj: T, src: T, matcher: (key: string, value: any) => any): T {
   function mergeCustomizer(objValue: any, srcValue: any, key: string): any[] | undefined {
     if (!isArray(objValue) || !isArray(srcValue)) return undefined;
     const objValues = objValue;
@@ -46,6 +41,10 @@ export default function mergeObjects(
 
     return objValues;
   }
+
+  if (!obj) return cloneDeep(src);
+
+  if (!src) return cloneDeep(obj);
 
   const objClone = cloneDeep(obj);
   return mergeWith(objClone, src, mergeCustomizer);
