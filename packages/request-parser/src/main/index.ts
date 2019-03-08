@@ -128,7 +128,7 @@ export class RequestParser implements RequestParserDef {
     { variables }: RequestOptions,
     { fieldTypeMap, operation }: RequestContext,
   ): void {
-    const { ancestors, fieldNode, isEntity, possibleTypes, typeIDKey, typeName } = data;
+    const { ancestors, fieldNode, isEntity, isUnion, possibleTypes, typeIDKey, typeName } = data;
     const ancestorRequestFieldPath: string[] = [operation];
 
     ancestors.forEach((ancestor) => {
@@ -157,6 +157,7 @@ export class RequestParser implements RequestParserDef {
       hasArguments: !!argumentsObjectMap,
       hasDirectives: !!directives,
       isEntity,
+      isUnion,
       possibleTypes,
       typeIDValue,
       typeName,
@@ -344,6 +345,7 @@ export class RequestParser implements RequestParserDef {
       ancestors,
       fieldNode: node,
       isEntity,
+      isUnion: type instanceof GraphQLUnionType,
       possibleTypes: possibleTypeDetails,
       typeIDKey: this._typeIDKey,
       typeName: type.name,

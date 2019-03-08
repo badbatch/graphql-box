@@ -57,6 +57,7 @@ export interface MapFieldToTypeData {
   ancestors: ReadonlyArray<any>;
   fieldNode: FieldNode;
   isEntity: boolean;
+  isUnion: boolean;
   possibleTypes: PossibleType[];
   typeIDKey: string;
   typeName: string;

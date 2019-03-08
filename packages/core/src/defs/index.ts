@@ -60,6 +60,7 @@ export interface FieldTypeInfo {
   hasArguments: boolean;
   hasDirectives: boolean;
   isEntity: boolean;
+  isUnion: boolean;
   possibleTypes: PossibleType[];
   typeIDValue?: string | number;
   typeName: string;
