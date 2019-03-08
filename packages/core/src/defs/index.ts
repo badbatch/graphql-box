@@ -51,11 +51,16 @@ export interface DebugManagerDef extends EventEmitter {
   now(): number;
 }
 
+export interface PossibleType {
+  isEntity: boolean;
+  typeName: string;
+}
+
 export interface FieldTypeInfo {
   hasArguments: boolean;
   hasDirectives: boolean;
   isEntity: boolean;
-  possibleTypeNames: string[];
+  possibleTypes: PossibleType[];
   typeIDValue?: string | number;
   typeName: string;
 }

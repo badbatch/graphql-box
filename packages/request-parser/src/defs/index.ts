@@ -1,4 +1,4 @@
-import { RequestContext, RequestOptions } from "@handl/core";
+import { PossibleType, RequestContext, RequestOptions } from "@handl/core";
 import {
   DocumentNode,
   FieldNode,
@@ -57,7 +57,7 @@ export interface MapFieldToTypeData {
   ancestors: ReadonlyArray<any>;
   fieldNode: FieldNode;
   isEntity: boolean;
-  possibleTypeNames: string[];
+  possibleTypes: PossibleType[];
   typeIDKey: string;
   typeName: string;
 }
