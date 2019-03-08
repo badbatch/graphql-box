@@ -181,7 +181,10 @@ export class CacheManager implements CacheManagerDef  {
   }
 
   private static _isDataEntity(fieldTypeInfo?: FieldTypeInfo): boolean {
-    return !!fieldTypeInfo && fieldTypeInfo.isEntity;
+    if (!fieldTypeInfo) return false;
+
+    const { isEntity, possibleTypes } = fieldTypeInfo;
+    return isEntity || possibleTypes.some((type) => !!type.isEntity);
   }
 
   private static _isFieldEntity(fieldData: any, { isEntity, possibleTypes }: FieldTypeInfo): boolean {
@@ -191,7 +194,10 @@ export class CacheManager implements CacheManagerDef  {
   }
 
   private static _isRequestFieldPath(fieldTypeInfo?: FieldTypeInfo): boolean {
-    return !!fieldTypeInfo && (fieldTypeInfo.isEntity || fieldTypeInfo.hasArguments || fieldTypeInfo.hasDirectives);
+    return !!fieldTypeInfo
+      && (this._isDataEntity(fieldTypeInfo)
+      || fieldTypeInfo.hasArguments
+      || fieldTypeInfo.hasDirectives);
   }
 
   private static _isValid(cacheability: Cacheability): boolean {
