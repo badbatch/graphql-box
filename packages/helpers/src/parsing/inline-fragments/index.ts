@@ -1,6 +1,8 @@
 import { FieldNode, InlineFragmentNode, SelectionNode } from "graphql";
 import { FIELD, INLINE_FRAGMENT } from "../../consts";
+import { UnwrapInlineFragmentsResult } from "../../defs";
 import { getKind } from "../kind";
+import { getName } from "../name";
 
 export function hasInlineFragments({ selectionSet }: FieldNode): boolean {
   if (!selectionSet) return false;
@@ -26,8 +28,13 @@ export function setInlineFragments({ selectionSet }: FieldNode): void {
   selectionSet.selections = selectionNodes;
 }
 
-export function unwrapInlineFragments(selectionNodes: ReadonlyArray<SelectionNode>): FieldNode[] {
+export function unwrapInlineFragments(
+  selectionNodes: ReadonlyArray<SelectionNode>,
+  maxDepth: number = 1,
+  depth: number = 0,
+): UnwrapInlineFragmentsResult {
   let fieldNodes: FieldNode[] = [];
+  let inlineFragmentType: string | undefined;
 
   for (const selectionNode of selectionNodes) {
     const kind = getKind(selectionNode);
@@ -35,11 +42,21 @@ export function unwrapInlineFragments(selectionNodes: ReadonlyArray<SelectionNod
     if (kind === FIELD) {
       const fieldNode = selectionNode as FieldNode;
       fieldNodes.push(fieldNode);
-    } else if (kind === INLINE_FRAGMENT) {
+    } else if (kind === INLINE_FRAGMENT && depth < maxDepth) {
       const inlineFragmentNode = selectionNode as InlineFragmentNode;
-      fieldNodes = fieldNodes.concat(unwrapInlineFragments(inlineFragmentNode.selectionSet.selections));
+
+      inlineFragmentType = inlineFragmentNode.typeCondition
+        ? getName(inlineFragmentNode.typeCondition) as string : undefined;
+
+      const { fieldNodes: unwrappedFieldNodes } = unwrapInlineFragments(
+        inlineFragmentNode.selectionSet.selections,
+        maxDepth,
+        depth + 1,
+      );
+
+      fieldNodes = fieldNodes.concat(unwrappedFieldNodes);
     }
   }
 
-  return fieldNodes;
+  return { fieldNodes, inlineFragmentType };
 }

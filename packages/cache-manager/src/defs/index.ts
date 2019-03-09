@@ -108,6 +108,7 @@ export interface CachedAncestorFieldData {
   requestFieldCacheKey?: string;
   requestFieldPath?: string;
   index?: number;
+  typeName?: string;
 }
 
 export interface KeysAndPathsOptions {

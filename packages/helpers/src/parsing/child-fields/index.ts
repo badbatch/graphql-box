@@ -2,7 +2,7 @@ import { PlainObjectMap } from "@handl/core";
 import { FieldNode, GraphQLInterfaceType, GraphQLObjectType, GraphQLSchema, InlineFragmentNode } from "graphql";
 import { castArray, isArray } from "lodash";
 import { FIELD, INLINE_FRAGMENT } from "../../consts";
-import { ParentNode } from "../../defs";
+import { GetChildFieldsResult, ParentNode } from "../../defs";
 import { unwrapInlineFragments } from "../inline-fragments";
 import { getKind } from "../kind";
 import { getName } from "../name";
@@ -69,41 +69,42 @@ export function deleteChildFields(node: ParentNode, fields: FieldNode[] | FieldN
   node.selectionSet.selections = childFields;
 }
 
-export type GetChildFieldsResults = FieldNode[] | FieldNode | undefined;
-
-export function getChildFields(node: ParentNode, name?: string): GetChildFieldsResults {
+export function getChildFields(node: ParentNode, name?: string): GetChildFieldsResult | undefined {
   if (!node.selectionSet) return undefined;
 
-  const childFields = unwrapInlineFragments(node.selectionSet.selections);
-  if (!name) return childFields;
+  const { fieldNodes, inlineFragmentType } = unwrapInlineFragments(node.selectionSet.selections);
+  if (!name) return { fieldNodes, inlineFragmentType };
 
-  return childFields.find((field) => getName(field) === name || getKind(field) === name);
+  const filtered = fieldNodes.filter((field) => getName(field) === name || getKind(field) === name);
+  return { fieldNodes: filtered, inlineFragmentType };
 }
 
 export function hasChildFields(node: ParentNode, name?: string): boolean {
   if (!node.selectionSet) return false;
 
-  const childFields = unwrapInlineFragments(node.selectionSet.selections);
-  if (!name) return !!childFields.length;
+  const { fieldNodes } = unwrapInlineFragments(node.selectionSet.selections);
+  if (!name) return !!fieldNodes.length;
 
-  return childFields.some((field) => getName(field) === name || getKind(field) === name);
+  return fieldNodes.some((field) => getName(field) === name || getKind(field) === name);
 }
 
 export function iterateChildFields(
   field: FieldNode,
   data: PlainObjectMap | any[],
-  callback: (childField: FieldNode, childIndex?: number) => void,
+  callback: (childField: FieldNode, inlineFragmentType: string | undefined, childIndex?: number) => void,
 ): void {
   if (!isArray(data)) {
-    const childFields = getChildFields(field) as FieldNode[] | undefined;
+    const childFields = getChildFields(field);
     if (!childFields) return;
 
-    childFields.forEach((child) => {
-      callback(child);
+    const { fieldNodes, inlineFragmentType } = childFields;
+
+    fieldNodes.forEach((child) => {
+      callback(child, inlineFragmentType);
     });
   } else {
     data.forEach((value, index) => {
-      callback(field, index);
+      callback(field, undefined, index);
     });
   }
 }
