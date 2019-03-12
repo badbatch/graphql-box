@@ -1,2 +1,2 @@
 export * from "./defs";
-export { default } from "./main";
+export { default, RequestManager } from "./main";

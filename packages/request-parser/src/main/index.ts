@@ -247,8 +247,9 @@ export class RequestParser implements RequestParserDef {
   private _typeIDKey: string;
 
   constructor(options: ConstructorOptions) {
-    this._schema = options.schema;
-    this._typeIDKey = options.typeIDKey;
+    const { schema, typeIDKey } = options;
+    this._schema = schema;
+    this._typeIDKey = typeIDKey;
   }
 
   public async updateRequest(

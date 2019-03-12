@@ -319,11 +319,12 @@ export class CacheManager implements CacheManagerDef  {
   private _typeIDKey: string;
 
   constructor(options: ConstructorOptions) {
-    this._cache = options.cache;
-    this._cascadeCacheControl = options.cascadeCacheControl || false;
-    this._fallbackOperationCacheability = options.fallbackOperationCacheability || NO_CACHE;
-    this._typeCacheDirectives = options.typeCacheDirectives || {};
-    this._typeIDKey = options.typeIDKey;
+    const { cache, cascadeCacheControl, fallbackOperationCacheability, typeCacheDirectives, typeIDKey } = options;
+    this._cache = cache;
+    this._cascadeCacheControl = cascadeCacheControl || false;
+    this._fallbackOperationCacheability = fallbackOperationCacheability || NO_CACHE;
+    this._typeCacheDirectives = typeCacheDirectives || {};
+    this._typeIDKey = typeIDKey;
   }
 
   get cache(): Cachemap {
