@@ -275,11 +275,11 @@ export class RequestParser implements RequestParserDef {
       if (!hasChildFields(node, key)) {
         const mockAST = parse(`{${key}}`);
         const queryNode = getOperationDefinitions(mockAST, QUERY)[0];
-        const childFields = getChildFields(queryNode, key);
-        if (!childFields) return;
+        const fieldsAndTypeNames = getChildFields(queryNode, key);
+        if (!fieldsAndTypeNames) return;
 
-        const { fieldNodes } = childFields;
-        addChildField(node, fieldNodes[0], this._schema, key);
+        const { fieldNode } = fieldsAndTypeNames[0];
+        addChildField(node, fieldNode, this._schema, key);
       }
     }
 

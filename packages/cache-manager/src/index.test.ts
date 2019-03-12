@@ -843,105 +843,105 @@ describe("@handl/cache-manager", () => {
         });
       });
 
-      // describe("when there is matching data for the entire request in the cache", () => {
-      //   beforeAll(async () => {
-      //     // @ts-ignore
-      //     jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+      describe("when there is matching data for the entire request in the cache", () => {
+        beforeAll(async () => {
+          // @ts-ignore
+          jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
-      //     cacheManager = await CacheManager.init({
-      //       cache: await Cachemap.init({
-      //         name: "cachemap",
-      //         store: map(),
-      //       }),
-      //       typeCacheDirectives: {
-      //         SearchResultItem: "public, max-age=1",
-      //         SearchResultItemConnection: "public, max-age=3",
-      //       },
-      //       typeIDKey: DEFAULT_TYPE_ID_KEY,
-      //     });
+          cacheManager = await CacheManager.init({
+            cache: await Cachemap.init({
+              name: "cachemap",
+              store: map(),
+            }),
+            typeCacheDirectives: {
+              SearchResultItem: "public, max-age=1",
+              SearchResultItemConnection: "public, max-age=3",
+            },
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
 
-      //     const requestData = getRequestData(githubParsedQueries.nestedUnionWithEdges);
+          const requestData = getRequestData(githubParsedQueries.nestedUnionWithEdges);
 
-      //     await cacheManager.resolveQuery(
-      //       requestData,
-      //       requestData,
-      //       githubQueryResponses.nestedUnionWithEdges,
-      //       { awaitDataCaching: true },
-      //       getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
-      //     );
+          await cacheManager.resolveQuery(
+            requestData,
+            requestData,
+            githubQueryResponses.nestedUnionWithEdges,
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+          );
 
-      //     analyzeQueryResult = await cacheManager.analyzeQuery(
-      //       getRequestData(githubParsedQueries.nestedUnionWithEdges),
-      //       { awaitDataCaching: true },
-      //       getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
-      //     );
-      //   });
+          analyzeQueryResult = await cacheManager.analyzeQuery(
+            getRequestData(githubParsedQueries.nestedUnionWithEdges),
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+          );
+        });
 
-      //   it("then the method not return any request data", () => {
-      //     expect(analyzeQueryResult.updated).toBeUndefined();
-      //   });
+        it("then the method not return any request data", () => {
+          expect(analyzeQueryResult.updated).toBeUndefined();
+        });
 
-      //   it("then the method should return the correct response data", () => {
-      //     expect(analyzeQueryResult.response).toMatchSnapshot();
-      //   });
+        it("then the method should return the correct response data", () => {
+          expect(analyzeQueryResult.response).toMatchSnapshot();
+        });
 
-      //   it("then the cache should contain the correct data", async () => {
-      //     expect(await cacheManager.cache.export()).toMatchSnapshot();
-      //   });
-      // });
+        it("then the cache should contain the correct data", async () => {
+          expect(await cacheManager.cache.export()).toMatchSnapshot();
+        });
+      });
 
-      // describe("when there is matching data for some of the request in the cache", () => {
-      //   beforeAll(async () => {
-      //     // @ts-ignore
-      //     jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+      describe("when there is matching data for some of the request in the cache", () => {
+        beforeAll(async () => {
+          // @ts-ignore
+          jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
-      //     cacheManager = await CacheManager.init({
-      //       cache: await Cachemap.init({
-      //         name: "cachemap",
-      //         store: map(),
-      //       }),
-      //       typeCacheDirectives: {
-      //         SearchResultItem: "public, max-age=1",
-      //         SearchResultItemConnection: "public, max-age=3",
-      //       },
-      //       typeIDKey: DEFAULT_TYPE_ID_KEY,
-      //     });
+          cacheManager = await CacheManager.init({
+            cache: await Cachemap.init({
+              name: "cachemap",
+              store: map(),
+            }),
+            typeCacheDirectives: {
+              SearchResultItem: "public, max-age=1",
+              SearchResultItemConnection: "public, max-age=3",
+            },
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
 
-      //     const requestData = getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.initial);
+          const requestData = getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.initial);
 
-      //     await cacheManager.resolveQuery(
-      //       requestData,
-      //       requestData,
-      //       githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.initial,
-      //       { awaitDataCaching: true },
-      //       getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
-      //     );
+          await cacheManager.resolveQuery(
+            requestData,
+            requestData,
+            githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.initial,
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+          );
 
-      //     analyzeQueryResult = await cacheManager.analyzeQuery(
-      //       getRequestData(githubParsedQueries.nestedUnionWithEdges),
-      //       { awaitDataCaching: true },
-      //       getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
-      //     );
-      //   });
+          analyzeQueryResult = await cacheManager.analyzeQuery(
+            getRequestData(githubParsedQueries.nestedUnionWithEdges),
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+          );
+        });
 
-      //   it("then the method should return the correct request data", () => {
-      //     const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
-      //     expect(otherProps).toMatchSnapshot();
-      //   });
+        it("then the method should return the correct request data", () => {
+          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          expect(otherProps).toMatchSnapshot();
+        });
 
-      //   it("then the method should not return any response data", () => {
-      //     expect(analyzeQueryResult.response).toBeUndefined();
-      //   });
+        it("then the method should not return any response data", () => {
+          expect(analyzeQueryResult.response).toBeUndefined();
+        });
 
-      //   it("then the cache should contain the correct data", async () => {
-      //     expect(await cacheManager.cache.export()).toMatchSnapshot();
-      //   });
+        it("then the cache should contain the correct data", async () => {
+          expect(await cacheManager.cache.export()).toMatchSnapshot();
+        });
 
-      //   it("then the partial query response map should contain the correct data", () => {
-      //     // @ts-ignore
-      //     expect(cacheManager._partialQueryResponses).toMatchSnapshot();
-      //   });
-      // });
+        it("then the partial query response map should contain the correct data", () => {
+          // @ts-ignore
+          expect(cacheManager._partialQueryResponses).toMatchSnapshot();
+        });
+      });
     });
   });
 });

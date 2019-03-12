@@ -74,7 +74,17 @@ export interface FieldCount {
   total: number;
 }
 
-export type FieldPathChecklist = Map<string, boolean>;
+export interface FieldPathChecklistValue {
+  hasData: boolean;
+  typeName?: string | undefined;
+}
+
+export interface CheckFieldPathChecklistResult {
+  hasData: boolean;
+  typeUnused?: boolean;
+}
+
+export type FieldPathChecklist = Map<string, FieldPathChecklistValue[]>;
 
 export interface CachedResponseData {
   cacheMetadata: CacheMetadata;
@@ -124,6 +134,11 @@ export interface KeysAndPaths {
   requestFieldCacheKey: string;
   requestFieldPath: string;
   responseDataPath: string;
+}
+
+export interface TypeNames {
+  dataTypeName: string | undefined;
+  fieldTypeName: string | undefined;
 }
 
 export interface ResponseDataForCaching {

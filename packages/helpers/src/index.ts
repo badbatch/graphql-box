@@ -17,6 +17,8 @@ export {
 } from "./parsing/fragment-definitions";
 export { hasFragmentSpreads } from "./parsing/fragment-spreads";
 export {
+  deleteInlineFragments,
+  getInlineFragments,
   hasInlineFragments,
   setInlineFragments,
   unwrapInlineFragments,

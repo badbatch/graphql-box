@@ -84,12 +84,7 @@ export type ScalarValueNode =
   | BooleanValueNode
   | EnumValueNode;
 
-export interface GetChildFieldsResult {
-  fieldNodes: FieldNode[];
-  inlineFragmentType: string | undefined;
-}
-
-export interface UnwrapInlineFragmentsResult {
-  fieldNodes: FieldNode[];
-  inlineFragmentType: string | undefined;
+export interface FieldAndTypeName {
+  fieldNode: FieldNode;
+  typeName: string | undefined;
 }

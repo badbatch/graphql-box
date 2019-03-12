@@ -14,10 +14,12 @@ import {
 } from "@handl/core";
 import {
   deleteChildFields,
+  deleteInlineFragments,
   getAlias,
   getArguments,
   getChildFields,
   getDirectives,
+  getInlineFragments,
   getName,
   getOperationDefinitions,
   hasChildFields,
@@ -50,11 +52,13 @@ import {
   CacheManagerInit,
   CachemapOptions,
   CheckCacheEntryResult,
+  CheckFieldPathChecklistResult,
   ClientOptions,
   ConstructorOptions,
   DataForCachingEntry,
   FieldCount,
   FieldPathChecklist,
+  FieldPathChecklistValue,
   InitOptions,
   KeysAndPaths,
   KeysAndPathsOptions,
@@ -63,6 +67,7 @@ import {
   PartialQueryResponses,
   QueryResponseCacheEntry,
   ResponseDataForCaching,
+  TypeNames,
   UserOptions,
 } from "../defs";
 import { dehydrateCacheMetadata, rehydrateCacheMetadata } from "../helpers/cache-metadata";
@@ -87,19 +92,23 @@ export class CacheManager implements CacheManagerDef  {
   private static _analyzeLeafField(
     field: FieldNode,
     cachedAncestorFieldData: CachedAncestorFieldData,
-    { data, fieldCount, fieldPathChecklist }: CachedResponseData,
+    { data, fieldPathChecklist }: CachedResponseData,
     options: RequestOptions,
     context: RequestContext,
   ): void {
     const keysAndPaths = CacheManager._getFieldKeysAndPaths(field, cachedAncestorFieldData);
     const { propNameOrIndex, requestFieldPath } = keysAndPaths;
-    const { dataEntityData, requestFieldPathData } = cachedAncestorFieldData;
+    const { dataEntityData, requestFieldPathData, typeName } = cachedAncestorFieldData;
 
     const cachedFieldData = CacheManager._getFieldDataFromAncestor(dataEntityData, propNameOrIndex)
       || CacheManager._getFieldDataFromAncestor(requestFieldPathData, propNameOrIndex);
 
-    CacheManager._setFieldPathChecklist(fieldPathChecklist, { data: cachedFieldData }, requestFieldPath);
-    CacheManager._setFieldCount(fieldCount, { data: cachedFieldData });
+    const typeNames = {
+      dataTypeName: dataEntityData.__typename || requestFieldPathData.__typename,
+      fieldTypeName: typeName,
+    };
+
+    CacheManager._setFieldPathChecklist(fieldPathChecklist, { data: cachedFieldData }, requestFieldPath, typeNames);
     CacheManager._setCachedData(data, { data: cachedFieldData }, propNameOrIndex);
   }
 
@@ -121,6 +130,38 @@ export class CacheManager implements CacheManagerDef  {
     if (path.length) paths.push(path);
     paths.push(key);
     return paths.join(".");
+  }
+
+  private static _checkFieldPathChecklist(
+    fieldPathChecklistValues: FieldPathChecklistValue[] | undefined,
+    fieldTypeName: string | undefined,
+  ): CheckFieldPathChecklistResult {
+    if (!fieldPathChecklistValues || !fieldPathChecklistValues.length) {
+      return { hasData: false, typeUnused: !!fieldTypeName };
+    }
+
+    if (fieldPathChecklistValues.length === 1) {
+      const { hasData, typeName } = fieldPathChecklistValues[0];
+      const typeUnused = !typeName ? undefined : typeName !== fieldTypeName;
+      return { hasData, typeUnused };
+    }
+
+    return {
+      hasData: fieldPathChecklistValues.some(({ hasData, typeName }) => typeName === fieldTypeName && hasData),
+      typeUnused: !fieldPathChecklistValues.every(({ typeName }) => typeName === fieldTypeName),
+    };
+  }
+
+  private static _countFieldPathChecklist(fieldPathChecklist: FieldPathChecklist): FieldCount {
+    const fieldCount: FieldCount = { missing: 0, total: 0 };
+
+    fieldPathChecklist.forEach((checklistValues) => {
+      fieldCount.total += checklistValues.length;
+      const missing = checklistValues.filter(({ hasData }) => !hasData);
+      fieldCount.missing += missing.length;
+    });
+
+    return fieldCount;
   }
 
   private static _getFieldDataFromAncestor(ancestorFieldData: any, propNameOrIndex: string | number): any {
@@ -207,14 +248,14 @@ export class CacheManager implements CacheManagerDef  {
 
   private static _setCachedResponseData(
     cachedFieldData: MergedCachedFieldData,
-    { cacheMetadata, data, fieldCount, fieldPathChecklist }: CachedResponseData,
+    { cacheMetadata, data, fieldPathChecklist }: CachedResponseData,
     { propNameOrIndex, requestFieldPath }: KeysAndPaths,
+    typeNames: TypeNames,
     options: RequestOptions,
     { operation }: RequestContext,
   ) {
     CacheManager._setCacheMetadata(cacheMetadata, cachedFieldData.cacheability, requestFieldPath, operation);
-    CacheManager._setFieldPathChecklist(fieldPathChecklist, cachedFieldData, requestFieldPath);
-    CacheManager._setFieldCount(fieldCount, cachedFieldData);
+    CacheManager._setFieldPathChecklist(fieldPathChecklist, cachedFieldData, requestFieldPath, typeNames);
     CacheManager._setCachedData(data, cachedFieldData, propNameOrIndex);
   }
 
@@ -247,19 +288,27 @@ export class CacheManager implements CacheManagerDef  {
     }
   }
 
-  private static _setFieldCount(fieldCount: FieldCount, { data }: MergedCachedFieldData): void {
-    if (isUndefined(data)) fieldCount.missing += 1;
-    fieldCount.total += 1;
-  }
-
   private static _setFieldPathChecklist(
     fieldPathChecklist: FieldPathChecklist,
     { data }: MergedCachedFieldData,
     requestFieldPath: string,
+    { dataTypeName, fieldTypeName }: TypeNames,
   ): void {
-    if (fieldPathChecklist.has(requestFieldPath)) return;
+    if (isUndefined(fieldTypeName)) {
+      if (fieldPathChecklist.has(requestFieldPath)) return;
+      fieldPathChecklist.set(requestFieldPath, [{ hasData: !isUndefined(data) }]);
+      return;
+    }
 
-    fieldPathChecklist.set(requestFieldPath, !isUndefined(data));
+    if (dataTypeName !== fieldTypeName) return;
+
+    const entry = fieldPathChecklist.get(requestFieldPath);
+    const checklistValues = entry ? entry as FieldPathChecklistValue[] : [];
+    if (checklistValues.some(({ typeName }) => typeName === dataTypeName)) return;
+
+    fieldPathChecklist.set(
+      requestFieldPath,
+      [...checklistValues, { hasData: !isUndefined(data), typeName: dataTypeName as string }]);
   }
 
   private _cache: Cachemap;
@@ -415,6 +464,7 @@ export class CacheManager implements CacheManagerDef  {
     const {
       dataEntityData: ancestorDataEntityData,
       requestFieldPathData: ancestorRequestFieldPathData,
+      typeName,
     } = cachedAncestorFieldData;
 
     const cachedFieldData: CachedFieldData = {
@@ -435,7 +485,15 @@ export class CacheManager implements CacheManagerDef  {
     const data = !isUndefined(requestFieldPathData) || !isUndefined(dataEntityData)
       ? this._mergeObjects(requestFieldPathData, dataEntityData) : undefined;
 
-    CacheManager._setCachedResponseData({ cacheability, data }, cachedResponseData, keysAndPaths, options, context);
+    CacheManager._setCachedResponseData(
+      { cacheability, data },
+      cachedResponseData,
+      keysAndPaths,
+      { dataTypeName: get(data, TYPE_NAME_KEY), fieldTypeName: typeName },
+      options,
+      context,
+    );
+
     if (!isObjectLike(data)) return;
 
     const objectLikeData = data as PlainObjectMap | any[];
@@ -444,10 +502,10 @@ export class CacheManager implements CacheManagerDef  {
     iterateChildFields(
       field,
       objectLikeData,
-      (childField: FieldNode, inlineFragmentType: string | undefined, childIndex?: number) => {
+      (childField: FieldNode, childTypeName: string | undefined, childIndex?: number) => {
         promises.push(this._analyzeField(
           childField,
-          { index: childIndex, requestFieldCacheKey, requestFieldPath, ...cachedFieldData },
+          { index: childIndex, requestFieldCacheKey, requestFieldPath, typeName: childTypeName, ...cachedFieldData },
           { ...cachedResponseData, data: cachedResponseData.data[propNameOrIndex] },
           options,
           context,
@@ -466,13 +524,11 @@ export class CacheManager implements CacheManagerDef  {
   ): CacheMetadata {
     const cacheMetadata = this._createCacheMetadata({ data, ...otherProps }, context);
     const queryNode = getOperationDefinitions(ast, context.operation)[0];
-    const childFields = getChildFields(queryNode);
-    if (!childFields) return cacheMetadata;
+    const fieldsAndTypeNames = getChildFields(queryNode);
+    if (!fieldsAndTypeNames) return cacheMetadata;
 
-    const { fieldNodes } = childFields;
-
-    fieldNodes.forEach((field) => this._setFieldCacheability(
-      field,
+    fieldsAndTypeNames.forEach(({ fieldNode }) => this._setFieldCacheability(
+      fieldNode,
       { requestFieldPath: context.operation },
       { cacheMetadata, data },
       options,
@@ -525,13 +581,11 @@ export class CacheManager implements CacheManagerDef  {
     ancestorRequestFieldPath: string,
     context: RequestContext,
   ): boolean {
-    const childFields = getChildFields(field);
-    if (!childFields) return false;
+    const fieldsAndTypeNames = getChildFields(field);
+    if (!fieldsAndTypeNames) return false;
 
-    const { fieldNodes } = childFields;
-
-    for (let i = fieldNodes.length - 1; i >= 0; i -= 1) {
-      const childField = fieldNodes[i];
+    for (let i = fieldsAndTypeNames.length - 1; i >= 0; i -= 1) {
+      const { fieldNode: childField, typeName: childTypeName } = fieldsAndTypeNames[i];
       const childFieldName = getName(childField);
 
       if (childFieldName === this._typeIDKey || childFieldName === TYPE_NAME_KEY) continue;
@@ -541,22 +595,69 @@ export class CacheManager implements CacheManagerDef  {
         { requestFieldPath: ancestorRequestFieldPath },
       );
 
-      const check = fieldPathChecklist.get(requestFieldPath);
+      const { hasData, typeUnused } = CacheManager._checkFieldPathChecklist(
+        fieldPathChecklist.get(requestFieldPath),
+        childTypeName,
+      );
 
-      if (check && !hasChildFields(childField)) {
-        deleteChildFields(field, childField);
-      } else if (check && this._filterField(childField, fieldPathChecklist, requestFieldPath, context)) {
-        deleteChildFields(field, childField);
+      if (hasData || typeUnused) {
+        if (!hasChildFields(childField)) {
+          deleteChildFields(field, childField);
+        } else if (this._filterField(childField, fieldPathChecklist, requestFieldPath, context)) {
+          deleteChildFields(field, childField);
+        }
       }
     }
 
-    const fieldTypeInfo = context.fieldTypeMap.get(ancestorRequestFieldPath);
+    this._filterInlineFragments(field);
+    this._filterIDsAndTypeNames(field);
+    return !hasChildFields(field);
+  }
 
-    if (fieldTypeInfo && fieldTypeInfo.isEntity && fieldNodes.length === 1) {
-      deleteChildFields(field, fieldNodes[0]);
+  private _filterIDsAndTypeNames(field: FieldNode): boolean {
+    const fieldsAndTypeNames = getChildFields(field);
+    if (!fieldsAndTypeNames || fieldsAndTypeNames.length > 3) return false;
+
+    const fieldNames = fieldsAndTypeNames.map(({ fieldNode }) => getName(fieldNode) as string);
+
+    if (fieldNames.length === 2 && fieldNames.every((name) => name === this._typeIDKey || name === TYPE_NAME_KEY)) {
+      deleteChildFields(field, fieldsAndTypeNames.map(({ fieldNode }) => fieldNode));
+      return true;
     }
 
-    return !hasChildFields(field);
+    if (fieldNames.length === 1 && fieldNames[0] === this._typeIDKey || fieldNames[0] === TYPE_NAME_KEY) {
+      const { fieldNode } = fieldsAndTypeNames[0];
+      deleteChildFields(field, fieldNode);
+      return true;
+    }
+
+    return false;
+  }
+
+  private _filterInlineFragments(field: FieldNode): boolean {
+    const inlineFragments = getInlineFragments(field);
+    let filtered = false;
+
+    inlineFragments.forEach((fragment) => {
+      const fieldsAndTypeNames = getChildFields(fragment);
+
+      if (!fieldsAndTypeNames || !fieldsAndTypeNames.length) {
+        deleteInlineFragments(field, fragment);
+        filtered = true;
+        return;
+      }
+
+      if (fieldsAndTypeNames.length === 1) {
+        const { fieldNode } = fieldsAndTypeNames[0];
+
+        if (getName(fieldNode) === this._typeIDKey) {
+          deleteInlineFragments(field, fragment);
+          filtered = true;
+        }
+      }
+    });
+
+    return filtered;
   }
 
   private _filterQuery(
@@ -565,15 +666,20 @@ export class CacheManager implements CacheManagerDef  {
     context: RequestContext,
   ): void {
     const queryNode = getOperationDefinitions(ast, context.operation)[0];
-    const childFields = getChildFields(queryNode);
-    if (!childFields) return;
+    const fieldsAndTypeNames = getChildFields(queryNode);
+    if (!fieldsAndTypeNames) return;
 
-    const { fieldNodes } = childFields;
+    for (let i = fieldsAndTypeNames.length - 1; i >= 0; i -= 1) {
+      const { fieldNode } = fieldsAndTypeNames[i];
 
-    for (let i = fieldNodes.length - 1; i >= 0; i -= 1) {
-      const field = fieldNodes[i];
-      const { requestFieldPath } = CacheManager._getFieldKeysAndPaths(field, { requestFieldPath: context.operation });
-      if (this._filterField(field, fieldPathChecklist, requestFieldPath, context)) deleteChildFields(queryNode, field);
+      const { requestFieldPath } = CacheManager._getFieldKeysAndPaths(
+        fieldNode,
+        { requestFieldPath: context.operation },
+      );
+
+      if (this._filterField(fieldNode, fieldPathChecklist, requestFieldPath, context)) {
+        deleteChildFields(queryNode, fieldNode);
+      }
     }
 
     context.queryFiltered = true;
@@ -632,19 +738,18 @@ export class CacheManager implements CacheManagerDef  {
     };
 
     const queryNode = getOperationDefinitions(ast, context.operation)[0];
-    const childFields = getChildFields(queryNode);
-    if (!childFields) return cachedResponseData;
+    const fieldsAndTypeNames = getChildFields(queryNode);
+    if (!fieldsAndTypeNames) return cachedResponseData;
 
-    const { fieldNodes } = childFields;
-
-    await Promise.all(fieldNodes.map((field) => this._analyzeField(
-      field,
+    await Promise.all(fieldsAndTypeNames.map(({ fieldNode }) => this._analyzeField(
+      fieldNode,
       { requestFieldPath: context.operation },
       cachedResponseData,
       options,
       context,
     )));
 
+    cachedResponseData.fieldCount = CacheManager._countFieldPathChecklist(cachedResponseData.fieldPathChecklist);
     return cachedResponseData;
   }
 
@@ -672,7 +777,7 @@ export class CacheManager implements CacheManagerDef  {
     iterateChildFields(
       field,
       objectLikeFieldData,
-      (childField: FieldNode, inlineFragmentType: string | undefined, childIndex?: number) => {
+      (childField: FieldNode, typeName: string | undefined, childIndex?: number) => {
         promises.push(this._parseFieldDataEntityAndRequestFieldPathCacheEntryData(
           childField,
           { index: childIndex, requestFieldCacheKey, requestFieldPath, responseDataPath },
@@ -781,15 +886,13 @@ export class CacheManager implements CacheManagerDef  {
     context: RequestContext,
   ): Promise<void> {
     const queryNode = getOperationDefinitions(requestData.ast, context.operation)[0];
-    const childFields = getChildFields(queryNode);
-    if (!childFields) return;
-
-    const { fieldNodes } = childFields;
+    const fieldsAndTypeNames = getChildFields(queryNode);
+    if (!fieldsAndTypeNames) return;
 
     await Promise.all(
-      fieldNodes.map((field) => {
+      fieldsAndTypeNames.map(({ fieldNode }) => {
         return this._parseFieldDataEntityAndRequestFieldPathCacheEntryData(
-          field,
+          fieldNode,
           { requestFieldPath: context.operation },
           responseData,
           options,
@@ -854,7 +957,7 @@ export class CacheManager implements CacheManagerDef  {
     iterateChildFields(
       field,
       objectLikeFieldData,
-      (childField: FieldNode, inlineFragmentType: string | undefined, childIndex?: number) => {
+      (childField: FieldNode, typeName: string | undefined, childIndex?: number) => {
         this._setFieldCacheability(
           childField,
           { index: childIndex, requestFieldPath, responseDataPath },
