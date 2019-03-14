@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@handl/request-manager when batching is set to false then the request manager should return the correct response data 1`] = `
+Object {
+  "data": Object {
+    "organization": Object {
+      "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+      "email": "",
+      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "login": "facebook",
+      "name": "Facebook",
+      "url": "https://github.com/facebook",
+    },
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "cache-control": Array [
+        "public, max-age=5",
+      ],
+      "content-length": Array [
+        "268",
+      ],
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+}
+`;
+
+exports[`@handl/request-manager when batching is set to false then the request manager should send the correct request 1`] = `
+Array [
+  "https://api.github.com/graphql?requestId=651f14b3df12bef942ed3b1ba9e7f1f1",
+  Object {
+    "body": "{\\"batched\\":false,\\"request\\":\\"\\\\n  query {\\\\n    organization(login: \\\\\\"facebook\\\\\\") {\\\\n      description\\\\n      email\\\\n      login\\\\n      name\\\\n      url\\\\n      id\\\\n    }\\\\n  }\\\\n\\"}",
+    "headers": Headers {
+      "_headers": Object {
+        "content-type": Array [
+          "application/json",
+        ],
+      },
+    },
+    "method": "POST",
+  },
+]
+`;
+
+exports[`@handl/request-manager when batching is set to true when a single request is made within a batch interval then the request manager should return the correct response data 1`] = `
+Object {
+  "data": Object {
+    "organization": Object {
+      "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+      "email": "",
+      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "login": "facebook",
+      "name": "Facebook",
+      "url": "https://github.com/facebook",
+    },
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "cache-control": Array [
+        "public, max-age=5",
+      ],
+      "content-length": Array [
+        "315",
+      ],
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+}
+`;
+
+exports[`@handl/request-manager when batching is set to true when a single request is made within a batch interval then the request manager should send the correct request 1`] = `
+Array [
+  "https://api.github.com/graphql?requestId=651f14b3df12bef942ed3b1ba9e7f1f1",
+  Object {
+    "body": "{\\"batched\\":true,\\"request\\":{\\"651f14b3df12bef942ed3b1ba9e7f1f1\\":\\"\\\\n  query {\\\\n    organization(login: \\\\\\"facebook\\\\\\") {\\\\n      description\\\\n      email\\\\n      login\\\\n      name\\\\n      url\\\\n      id\\\\n    }\\\\n  }\\\\n\\"}}",
+    "headers": Headers {
+      "_headers": Object {
+        "content-type": Array [
+          "application/json",
+        ],
+      },
+    },
+    "method": "POST",
+  },
+]
+`;
+
+exports[`@handl/request-manager when batching is set to true when multiple requests are made within a batch interval then the request manager should return the correct response data 1`] = `
+Object {
+  "data": Object {
+    "organization": Object {
+      "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "login": "facebook",
+    },
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "cache-control": Array [
+        "public, max-age=5",
+      ],
+      "content-length": Array [
+        "414",
+      ],
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+}
+`;
+
+exports[`@handl/request-manager when batching is set to true when multiple requests are made within a batch interval then the request manager should return the correct response data 2`] = `
+Object {
+  "data": Object {
+    "organization": Object {
+      "email": "",
+      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "name": "Facebook",
+      "url": "https://github.com/facebook",
+    },
+  },
+  "headers": Headers {
+    "_headers": Object {
+      "cache-control": Array [
+        "public, max-age=5",
+      ],
+      "content-length": Array [
+        "414",
+      ],
+      "content-type": Array [
+        "application/json",
+      ],
+    },
+  },
+}
+`;
+
+exports[`@handl/request-manager when batching is set to true when multiple requests are made within a batch interval then the request manager should send the correct request 1`] = `
+Array [
+  "https://api.github.com/graphql?requestId=8fc321b1bf4d18ee3d1f2d745b4b28f8-6f657b2d4a58985d1a26dbf3176137b0",
+  Object {
+    "body": "{\\"batched\\":true,\\"request\\":{\\"8fc321b1bf4d18ee3d1f2d745b4b28f8\\":\\"\\\\n    query {\\\\n      organization(login: \\\\\\"facebook\\\\\\") {\\\\n        description\\\\n        login\\\\n        id\\\\n      }\\\\n    }\\\\n  \\",\\"6f657b2d4a58985d1a26dbf3176137b0\\":\\"\\\\n    query {\\\\n      organization(login: \\\\\\"facebook\\\\\\") {\\\\n        email\\\\n        name\\\\n        url\\\\n        id\\\\n      }\\\\n    }\\\\n  \\"}}",
+    "headers": Headers {
+      "_headers": Object {
+        "content-type": Array [
+          "application/json",
+        ],
+      },
+    },
+    "method": "POST",
+  },
+]
+`;

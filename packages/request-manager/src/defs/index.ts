@@ -41,6 +41,10 @@ export type InitOptions = UserOptions;
 
 export type ConstructorOptions = UserOptions;
 
+export interface FetchOptions {
+  batch: boolean;
+}
+
 export type ActiveBatch = Map<string, ActiveBatchValue>;
 
 export interface ActiveBatchValue {

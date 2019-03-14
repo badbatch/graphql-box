@@ -36,6 +36,8 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "@handl/core": "^0.1.22"
+    "@handl/core": "^0.1.22",
+    "@types/fetch-mock": "^7.2.3",
+    "fetch-mock": "^7.3.1"
   }
 }

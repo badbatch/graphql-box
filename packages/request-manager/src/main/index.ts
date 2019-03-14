@@ -7,6 +7,7 @@ import {
   BatchedMaybeFetchData,
   BatchResultActions,
   ConstructorOptions,
+  FetchOptions,
   InitOptions,
   RequestManagerInit,
   UserOptions,
@@ -71,7 +72,7 @@ export class RequestManager {
 
   public async fetch({ hash, request }: RequestDataWithMaybeAST): Promise<MaybeRawResponseData> {
     try {
-      if (!this._batch) return await this._fetch(request, hash);
+      if (!this._batch) return await this._fetch(request, hash, { batch: false });
 
       return new Promise((resolve: (value: MaybeRawResponseData) => void, reject) => {
         this._batchRequest(request, hash, { resolve, reject });
@@ -98,6 +99,7 @@ export class RequestManager {
   private async _fetch(
     request: string | PlainObjectStringMap,
     hash: string,
+    { batch }: FetchOptions,
   ): Promise<MaybeRawResponseData | BatchedMaybeFetchData> {
     try {
       return new Promise(async (resolve: (value: MaybeRawResponseData) => void, reject) => {
@@ -108,7 +110,7 @@ export class RequestManager {
         const url = `${this._url}?requestId=${hash}`;
 
         const fetchResult = await fetch(url, {
-          body: JSON.stringify({ batched: this._batch, query: request }),
+          body: JSON.stringify({ batched: batch, request }),
           headers: new Headers(this._headers),
           method: "POST",
         });
@@ -138,7 +140,7 @@ export class RequestManager {
 
     try {
       RequestManager._resolveFetchBatch(
-        await this._fetch(batchRequests, hashes.join("-")) as BatchedMaybeFetchData,
+        await this._fetch(batchRequests, hashes.join("-"), { batch: true }) as BatchedMaybeFetchData,
         batchActions,
       );
     } catch (error) {
