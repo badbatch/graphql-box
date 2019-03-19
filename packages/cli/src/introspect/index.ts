@@ -5,12 +5,12 @@ import "isomorphic-fetch";
 import { resolve } from "path";
 import shell from "shelljs";
 import yargs from "yargs";
-import * as defs from "../defs";
+import { IntrospectArgs, IntrospectionResult } from "../defs";
 
 export default async function introspect(): Promise<void> {
   const argv = yargs.option("headers", { type: "array" }).argv;
-  const { headers, output, schemaPath, url } = argv as unknown as defs.IntrospectArgs;
-  let result: defs.IntrospectionResult | undefined;
+  const { headers, output, schemaPath, url } = argv as unknown as IntrospectArgs;
+  let result: IntrospectionResult | undefined;
 
   try {
     if (!schemaPath && !url) {

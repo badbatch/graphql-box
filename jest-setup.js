@@ -1,1 +1,4 @@
-import 'isomorphic-fetch'; // eslint-disable-line import/no-extraneous-dependencies
+import 'isomorphic-fetch';
+import { WebSocket } from 'mock-socket';
+
+global.WebSocket = WebSocket;

@@ -25,19 +25,15 @@
   ],
   "scripts": {
     "compile": "concurrently npm:compile:*",
-    "compile:browser": "cross-env BABEL_ENV=web babel ./src --out-dir ./lib/browser --extensions \".ts\" --config-file ../../babel.config.js",
+    "compile:browser": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js",
     "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --config-file ../../babel.config.js",
     "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --config-file ../../babel.config.js",
     "compile:types": "tsc --build"
   },
   "peerDependencies": {
+    "@babel/runtime": "^7.0.0",
     "core-js": "^2.5",
     "lodash": "^4.17.5"
-  },
-  "devDependencies": {
-    "@types/graphql": "^14.0.7",
-    "@types/md5": "^2.1.33",
-    "cacheability": "^2.0.4"
   },
   "dependencies": {
     "md5": "^2.2.1"

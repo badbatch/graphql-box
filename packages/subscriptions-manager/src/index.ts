@@ -1,2 +1,2 @@
 export * from "./defs";
-export { default } from "./main";
+export { default, SubscriptionsManager } from "./main";

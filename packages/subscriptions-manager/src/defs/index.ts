@@ -1,10 +1,21 @@
 import {
-  MaybeRawResponseData,
   MaybeRequestResult,
   RawResponseDataWithMaybeCacheMetadata,
   RequestDataWithMaybeAST,
   RequestOptions,
 } from "@handl/core";
+
+export interface UserOptions {
+  /**
+   * The WebSocket instance for managing a
+   * WebSocket connection.
+   */
+  websocket: WebSocket;
+}
+
+export type InitOptions = UserOptions;
+
+export type ConstructorOptions = UserOptions;
 
 export type SubscriberResolver = (
   rawResponseData: RawResponseDataWithMaybeCacheMetadata,
@@ -15,7 +26,7 @@ export interface SubscriptionsManagerDef {
     requestData: RequestDataWithMaybeAST,
     options: RequestOptions,
     subscriberResolver: SubscriberResolver,
-  ): Promise<AsyncIterable<any> | MaybeRawResponseData>;
+  ): Promise<AsyncIterator<MaybeRequestResult | undefined>>;
 }
 
-export type SubscriptionsManagerInit = () => SubscriptionsManagerDef;
+export type SubscriptionsManagerInit = () => Promise<SubscriptionsManagerDef>;

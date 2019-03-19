@@ -13,6 +13,7 @@
     { "path": "../debug-manager" },
     { "path": "../request-manager" },
     { "path": "../request-parser" },
-    { "path": "../subscriptions-manager" }
+    { "path": "../subscriptions-manager" },
+    { "path": "../test-utils" },
   ]
 }

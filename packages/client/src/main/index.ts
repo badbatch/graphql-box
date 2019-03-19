@@ -16,7 +16,6 @@ import { RequestManagerDef } from "@handl/request-manager";
 import { RequestParserDef } from "@handl/request-parser";
 import { SubscriptionsManagerDef } from "@handl/subscriptions-manager";
 import { DocumentNode } from "graphql";
-import { isAsyncIterable } from "iterall";
 import { isArray, isPlainObject, isString } from "lodash";
 import uuid from "uuid/v1";
 import { DEFAULT_TYPE_ID_KEY, MUTATION, QUERY, SUBSCRIPTION } from "../consts";
@@ -134,7 +133,7 @@ export default class Client {
   public async subscribe(
     request: string,
     options: RequestOptions = {},
-  ): Promise<AsyncIterable<any> | MaybeRequestResult> {
+  ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
     const errors: Error[] = [];
 
     if (!this._subscriptionsManager) {
@@ -142,12 +141,16 @@ export default class Client {
     }
 
     errors.push(...Client._validateRequestArguments(request, options));
-    if (errors.length) return { errors };
+    if (errors.length) return Promise.reject(errors);
 
     try {
-      return this._request(request, options, this._getRequestContext(SUBSCRIPTION, request));
+      return await this._request(
+        request,
+        options,
+        this._getRequestContext(SUBSCRIPTION, request),
+      ) as AsyncIterator<MaybeRequestResult | undefined>;
     } catch (error) {
-      return { errors: error };
+      return Promise.reject(error);
     }
   }
 
@@ -264,7 +267,7 @@ export default class Client {
     requestData: RequestDataWithMaybeAST,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<AsyncIterable<any> | MaybeRequestResult> {
+  ): Promise<AsyncIterator<MaybeRequestResult | undefined> | MaybeRequestResult> {
     try {
       if (context.operation === QUERY) {
         return this._handleQuery(requestData, options, context);
@@ -285,17 +288,13 @@ export default class Client {
     requestData: RequestDataWithMaybeAST,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<AsyncIterable<any> | MaybeRequestResult> {
+  ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
     try {
       const resolver = async (responseData: MaybeRawResponseData) =>
         this._resolveSubscription(requestData, responseData, options, context);
 
       const subscriptionsManager = this._subscriptionsManager as SubscriptionsManagerDef;
-      const subscribeResult = await subscriptionsManager.subscribe(requestData, options, resolver);
-
-      if (isAsyncIterable(subscribeResult)) return subscribeResult as AsyncIterable<any>;
-
-      return this._resolveSubscription(requestData, subscribeResult as MaybeRawResponseData, options, context);
+      return await subscriptionsManager.subscribe(requestData, options, resolver);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -306,7 +305,7 @@ export default class Client {
     request: string,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<AsyncIterable<any> | MaybeRequestResult> {
+  ): Promise<AsyncIterator<MaybeRequestResult | undefined> | MaybeRequestResult> {
     try {
       let updatedRequest = request;
       let ast: DocumentNode | undefined;

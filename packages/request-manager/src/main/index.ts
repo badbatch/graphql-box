@@ -9,11 +9,12 @@ import {
   ConstructorOptions,
   FetchOptions,
   InitOptions,
+  RequestManagerDef,
   RequestManagerInit,
   UserOptions,
 } from "../defs";
 
-export class RequestManager {
+export class RequestManager implements RequestManagerDef {
   public static async init(options: InitOptions): Promise<RequestManager> {
     const errors: TypeError[] = [];
 
