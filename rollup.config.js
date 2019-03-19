@@ -35,7 +35,7 @@ function external(id) {
   return externalModuleNames.some(name => id.startsWith(name));
 }
 
-const extensions = ['.js', '.jsx', 'json', '.ts', '.tsx'];
+const extensions = ['.mjs', '.js', '.jsx', 'json', '.ts', '.tsx'];
 
 const defaultPlugins = [
   nodeResolve({
