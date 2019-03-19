@@ -1,7 +1,6 @@
-.nyc_output
+.repodog
 .vscode
-bundle
 coverage
-docs
+node_modules
 lib
 node_modules
