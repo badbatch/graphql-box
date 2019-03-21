@@ -1,19 +1,15 @@
 export { default as getRequestContext } from "./get-request-context";
 export { default as getRequestData } from "./get-request-data";
-import { default as githubIntrospection } from "./introspections/github/index.json";
-import * as githubMutationsAndOptions from "./mutations-and-options/github";
-import * as githubParsedQueries from "./parsed-queries/github";
-import * as githubParsedSubscriptions from "./parsed-subscriptions/github";
-import * as githubQueriesAndOptions from "./queries-and-options/github";
-import * as githubQueryFieldTypeMaps from "./query-field-type-maps/github";
-import * as githubQueryResponses from "./query-responses/github";
+import { default as githubIntrospection } from "./introspection/index.json";
+import * as parsedRequests from "./parsed-requests";
+import * as requestFieldTypeMaps from "./request-field-type-maps";
+import * as requestsAndOptions from "./requests-and-options";
+import * as responses from "./responses";
 
 export {
   githubIntrospection,
-  githubMutationsAndOptions,
-  githubParsedQueries,
-  githubParsedSubscriptions,
-  githubQueriesAndOptions,
-  githubQueryFieldTypeMaps,
-  githubQueryResponses,
+  parsedRequests,
+  requestFieldTypeMaps,
+  requestsAndOptions,
+  responses,
 };

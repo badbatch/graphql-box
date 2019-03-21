@@ -1,8 +1,8 @@
 import { MaybeRawResponseData } from "@handl/core";
 import {
   getRequestData,
-  githubParsedQueries,
-  githubQueryResponses,
+  parsedRequests,
+  responses,
 } from "@handl/test-utils";
 import fetchMock from "fetch-mock";
 import { RequestManager } from ".";
@@ -20,10 +20,10 @@ describe("@handl/request-manager >>", () => {
         url: URL,
       });
 
-      const body = { data: githubQueryResponses.singleType.data };
+      const body = { data: responses.singleTypeQuery.data };
       const headers = { "cache-control": "public, max-age=5" };
       fetchMock.post("*", { body, headers });
-      response = await requestManager.fetch(getRequestData(githubParsedQueries.singleType));
+      response = await requestManager.fetch(getRequestData(parsedRequests.singleTypeQuery));
     });
 
     afterAll(() => {
@@ -52,11 +52,11 @@ describe("@handl/request-manager >>", () => {
           url: URL,
         });
 
-        const requestData = getRequestData(githubParsedQueries.singleType);
+        const requestData = getRequestData(parsedRequests.singleTypeQuery);
 
         const body = {
           batch: {
-            [requestData.hash]: { data: githubQueryResponses.singleType.data },
+            [requestData.hash]: { data: responses.singleTypeQuery.data },
           },
         };
 
@@ -92,13 +92,13 @@ describe("@handl/request-manager >>", () => {
           url: URL,
         });
 
-        const initialRequestData = getRequestData(githubParsedQueries.singleTypeWithFilter.initial);
-        const updatedRequestData = getRequestData(githubParsedQueries.singleTypeWithFilter.updated);
+        const initialRequestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
+        const updatedRequestData = getRequestData(parsedRequests.singleTypeQuerySet.updated);
 
         const body = {
           batch: {
-            [initialRequestData.hash]: { data: githubQueryResponses.singleTypePartialAndFilter.initial.data },
-            [updatedRequestData.hash]: { data: githubQueryResponses.singleTypePartialAndFilter.updated.data },
+            [initialRequestData.hash]: { data: responses.singleTypeQuerySet.initial.data },
+            [updatedRequestData.hash]: { data: responses.singleTypeQuerySet.updated.data },
           },
         };
 

@@ -1,9 +1,9 @@
 import { RawResponseDataWithMaybeCacheMetadata } from "@handl/core";
-import { QueryResponsePartialAndFilter } from "../../defs";
+import { QueryResponseSet } from "../defs";
 
 /* tslint:disable max-line-length */
 
-export const singleType: RawResponseDataWithMaybeCacheMetadata = {
+export const singleTypeQuery: RawResponseDataWithMaybeCacheMetadata = {
   data: {
     organization: {
       description: "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -17,7 +17,7 @@ export const singleType: RawResponseDataWithMaybeCacheMetadata = {
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };
 
-export const singleTypePartialAndFilter: QueryResponsePartialAndFilter = {
+export const singleTypeQuerySet: QueryResponseSet = {
   initial: {
     data: {
       organization: {
@@ -54,7 +54,6 @@ export const singleTypePartialAndFilter: QueryResponsePartialAndFilter = {
         login: "facebook",
       },
     },
-    headers: new Headers({ "Cache-Control": "public, max-age=5" }),
   },
   updated: {
     data: {
@@ -69,7 +68,7 @@ export const singleTypePartialAndFilter: QueryResponsePartialAndFilter = {
   },
 };
 
-export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
+export const nestedTypeQuery: RawResponseDataWithMaybeCacheMetadata = {
   data: {
     organization: {
       description: "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -177,7 +176,7 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };
 
-export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter = {
+export const nestedTypeQuerySet: QueryResponseSet = {
   initial: {
     data: {
       organization: {
@@ -396,7 +395,6 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
         },
       },
     },
-    headers: new Headers({ "Cache-Control": "public, max-age=5" }),
   },
   updated: {
     data: {
@@ -457,7 +455,7 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
   },
 };
 
-export const nestedUnionWithEdges: RawResponseDataWithMaybeCacheMetadata = {
+export const nestedUnionQuery: RawResponseDataWithMaybeCacheMetadata = {
   data: {
     search: {
       edges: [
@@ -557,7 +555,7 @@ export const nestedUnionWithEdges: RawResponseDataWithMaybeCacheMetadata = {
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };
 
-export const nestedUnionWithEdgesPartialAndFilter: QueryResponsePartialAndFilter = {
+export const nestedUnionQuerySet: QueryResponseSet = {
   initial: {
     data: {
       search: {
@@ -740,7 +738,6 @@ export const nestedUnionWithEdgesPartialAndFilter: QueryResponsePartialAndFilter
         ],
       },
     },
-    headers: new Headers({ "Cache-Control": "public, max-age=5" }),
   },
   updated: {
     data: {

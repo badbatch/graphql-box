@@ -1,6 +1,6 @@
 import { FieldTypeMap } from "@handl/core";
 
-export const singleType: FieldTypeMap = new Map([
+export const singleTypeQuery: FieldTypeMap = new Map([
   ["query.organization", {
     hasArguments: true,
     hasDirectives: false,
@@ -13,7 +13,7 @@ export const singleType: FieldTypeMap = new Map([
   }],
 ]);
 
-export const nestedTypeWithEdges: FieldTypeMap = new Map([
+export const nestedTypeQuery: FieldTypeMap = new Map([
   ["query.organization", {
     hasArguments: true,
     hasDirectives: false,
@@ -75,7 +75,7 @@ export const nestedTypeWithEdges: FieldTypeMap = new Map([
   }],
 ]);
 
-export const nestedUnionWithEdges: FieldTypeMap = new Map([
+export const nestedUnionQuery: FieldTypeMap = new Map([
   ["query.search", {
     hasArguments: true,
     hasDirectives: false,

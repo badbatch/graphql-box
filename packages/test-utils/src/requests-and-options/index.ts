@@ -1,6 +1,6 @@
-import { RequestAndOptions } from "../../defs";
+import { RequestAndOptions } from "../defs";
 
-export const withoutVariable: RequestAndOptions = {
+export const queryWithoutVariable: RequestAndOptions = {
   options: {},
   request: `
     query {
@@ -15,7 +15,7 @@ export const withoutVariable: RequestAndOptions = {
   `,
 };
 
-export const withOperationName: RequestAndOptions = {
+export const queryWithOperationName: RequestAndOptions = {
   options: {},
   request: `
     query GetOrganization {
@@ -30,7 +30,7 @@ export const withOperationName: RequestAndOptions = {
   `,
 };
 
-export const withVariable: RequestAndOptions = {
+export const queryWithVariable: RequestAndOptions = {
   options: {
     variables: {
       login: "facebook",
@@ -49,7 +49,7 @@ export const withVariable: RequestAndOptions = {
   `,
 };
 
-export const withVariables: RequestAndOptions = {
+export const queryWithVariables: RequestAndOptions = {
   options: {
     variables: {
       first: 6,
@@ -85,7 +85,7 @@ export const withVariables: RequestAndOptions = {
   `,
 };
 
-export const withEnumVariable: RequestAndOptions = {
+export const queryWithEnumVariable: RequestAndOptions = {
   options: {
     variables: {
       first: 6,
@@ -122,7 +122,7 @@ export const withEnumVariable: RequestAndOptions = {
   `,
 };
 
-export const withDirective: RequestAndOptions = {
+export const queryWithDirective: RequestAndOptions = {
   options: {
     variables: {
       first: 6,
@@ -159,7 +159,7 @@ export const withDirective: RequestAndOptions = {
   `,
 };
 
-export const withInlineFragment: RequestAndOptions = {
+export const queryWithInlineFragment: RequestAndOptions = {
   options: {
     variables: {
       login: "facebook",
@@ -180,7 +180,7 @@ export const withInlineFragment: RequestAndOptions = {
   `,
 };
 
-export const withUnionInlineFragments: RequestAndOptions = {
+export const queryWithUnionInlineFragments: RequestAndOptions = {
   options: {
     variables: {
       first: 10,
@@ -225,7 +225,7 @@ export const withUnionInlineFragments: RequestAndOptions = {
   `,
 };
 
-export const withFragmentSpread: RequestAndOptions = {
+export const queryWithFragmentSpread: RequestAndOptions = {
   options: {
     variables: {
       login: "facebook",
@@ -248,7 +248,7 @@ export const withFragmentSpread: RequestAndOptions = {
   `,
 };
 
-export const withFragmentOption: RequestAndOptions = {
+export const queryWithFragmentOption: RequestAndOptions = {
   options: {
     fragments: [
       `
@@ -269,6 +269,38 @@ export const withFragmentOption: RequestAndOptions = {
     query ($login: String!) {
       organization(login: $login) {
         ...organizationFields
+      }
+    }
+  `,
+};
+
+export const mutationWithInputType: RequestAndOptions = {
+  options: {
+    variables: {
+      input: {
+        clientMutationId: "1",
+        starrableId: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
+      },
+    },
+  },
+  request: `
+    mutation ($input: AddStarInput!) {
+      addStar(input: $input) {
+        clientMutationId
+        starrable {
+          viewerHasStarred
+
+          ... on Repository {
+            stargazers(first: 6) {
+              edges {
+                node {
+                  name
+                  login
+                }
+              }
+            }
+          }
+        }
       }
     }
   `,

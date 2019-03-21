@@ -2,8 +2,7 @@ import { RequestContext } from "@handl/core";
 import {
   getRequestContext,
   githubIntrospection,
-  githubMutationsAndOptions,
-  githubQueriesAndOptions,
+  requestsAndOptions,
 } from "@handl/test-utils";
 import { IntrospectionQuery } from "graphql";
 import { RequestParser, RequestParserDef, UpdateRequestResult } from ".";
@@ -24,7 +23,7 @@ describe("@handl/request-parser >>", () => {
     let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueriesAndOptions.withoutVariable;
+      const { options, request } = requestsAndOptions.queryWithoutVariable;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -43,7 +42,7 @@ describe("@handl/request-parser >>", () => {
     let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueriesAndOptions.withOperationName;
+      const { options, request } = requestsAndOptions.queryWithOperationName;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -62,7 +61,7 @@ describe("@handl/request-parser >>", () => {
     let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueriesAndOptions.withVariable;
+      const { options, request } = requestsAndOptions.queryWithVariable;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -81,7 +80,7 @@ describe("@handl/request-parser >>", () => {
     let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueriesAndOptions.withVariables;
+      const { options, request } = requestsAndOptions.queryWithVariables;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -100,7 +99,7 @@ describe("@handl/request-parser >>", () => {
     let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueriesAndOptions.withEnumVariable;
+      const { options, request } = requestsAndOptions.queryWithEnumVariable;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -119,7 +118,7 @@ describe("@handl/request-parser >>", () => {
     let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueriesAndOptions.withDirective;
+      const { options, request } = requestsAndOptions.queryWithDirective;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -138,7 +137,7 @@ describe("@handl/request-parser >>", () => {
     let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueriesAndOptions.withInlineFragment;
+      const { options, request } = requestsAndOptions.queryWithInlineFragment;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -157,7 +156,7 @@ describe("@handl/request-parser >>", () => {
     let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueriesAndOptions.withUnionInlineFragments;
+      const { options, request } = requestsAndOptions.queryWithUnionInlineFragments;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -176,7 +175,7 @@ describe("@handl/request-parser >>", () => {
     let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueriesAndOptions.withFragmentSpread;
+      const { options, request } = requestsAndOptions.queryWithFragmentSpread;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -195,7 +194,7 @@ describe("@handl/request-parser >>", () => {
     let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubQueriesAndOptions.withFragmentOption;
+      const { options, request } = requestsAndOptions.queryWithFragmentOption;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
@@ -214,7 +213,7 @@ describe("@handl/request-parser >>", () => {
     let requestContext: RequestContext;
 
     beforeAll(async () => {
-      const { options, request } = githubMutationsAndOptions.withInputType;
+      const { options, request } = requestsAndOptions.mutationWithInputType;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });

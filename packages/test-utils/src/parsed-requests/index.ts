@@ -1,6 +1,6 @@
-import { ParsedQueryWithFilter } from "../../defs";
+import { ParsedQuerySet } from "../defs";
 
-export const singleType = `
+export const singleTypeQuery = `
   query {
     organization(login: "facebook") {
       description
@@ -13,8 +13,8 @@ export const singleType = `
   }
 `;
 
-export const singleTypeWithFilter: ParsedQueryWithFilter = {
-  full: singleType,
+export const singleTypeQuerySet: ParsedQuerySet = {
+  full: singleTypeQuery,
   initial: `
     query {
       organization(login: "facebook") {
@@ -36,7 +36,7 @@ export const singleTypeWithFilter: ParsedQueryWithFilter = {
   `,
 };
 
-export const nestedTypeWithEdges = `
+export const nestedTypeQuery = `
   query {
     organization(login: "facebook") {
       description
@@ -68,8 +68,8 @@ export const nestedTypeWithEdges = `
   }
 `;
 
-export const nestedTypeWithEdgesWithFilter: ParsedQueryWithFilter = {
-  full: nestedTypeWithEdges,
+export const nestedTypeQuerySet: ParsedQuerySet = {
+  full: nestedTypeQuery,
   initial: `
     query {
       organization(login: "facebook") {
@@ -116,7 +116,7 @@ export const nestedTypeWithEdgesWithFilter: ParsedQueryWithFilter = {
   `,
 };
 
-export const nestedUnionWithEdges = `
+export const nestedUnionQuery = `
   query {
     search(query: "react", first: 10, type: REPOSITORY) {
       edges {
@@ -158,8 +158,8 @@ export const nestedUnionWithEdges = `
   }
 `;
 
-export const nestedUnionWithEdgesWithFilter: ParsedQueryWithFilter = {
-  full: nestedUnionWithEdges,
+export const nestedUnionQuerySet: ParsedQuerySet = {
+  full: nestedUnionQuery,
   initial: `
     query {
       search(query: "react", first: 10, type: REPOSITORY) {
@@ -209,3 +209,23 @@ export const nestedUnionWithEdgesWithFilter: ParsedQueryWithFilter = {
     }
   `,
 };
+
+export const nestedInterfaceSubscription = `
+  subscription {
+    starAdded {
+      ... on Repository {
+        stargazers(first: 6) {
+          edges {
+            node {
+              name
+              login
+              id
+            }
+          }
+        }
+        id
+      }
+      __typename
+    }
+  }
+`;

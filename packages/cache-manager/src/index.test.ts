@@ -4,9 +4,9 @@ import { DehydratedCacheMetadata, RequestData, ResponseData } from "@handl/core"
 import {
   getRequestContext,
   getRequestData,
-  githubParsedQueries,
-  githubQueryFieldTypeMaps,
-  githubQueryResponses,
+  parsedRequests,
+  requestFieldTypeMaps,
+  responses,
 } from "@handl/test-utils";
 import { CacheManager, CacheManagerDef } from ".";
 import { DEFAULT_TYPE_ID_KEY } from "./consts";
@@ -42,14 +42,14 @@ describe("@handl/cache-manager >>", () => {
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
 
-            requestData = getRequestData(githubParsedQueries.singleType);
+            requestData = getRequestData(parsedRequests.singleTypeQuery);
 
             responseData = await cacheManager.resolveQuery(
               requestData,
               requestData,
-              githubQueryResponses.singleType,
+              responses.singleTypeQuery,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
             );
           });
 
@@ -75,14 +75,14 @@ describe("@handl/cache-manager >>", () => {
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
 
-            requestData = getRequestData(githubParsedQueries.singleType);
+            requestData = getRequestData(parsedRequests.singleTypeQuery);
 
             responseData = await cacheManager.resolveQuery(
               requestData,
               requestData,
-              githubQueryResponses.singleType,
+              responses.singleTypeQuery,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
             );
           });
 
@@ -108,14 +108,14 @@ describe("@handl/cache-manager >>", () => {
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
 
-            requestData = getRequestData(githubParsedQueries.nestedTypeWithEdges);
+            requestData = getRequestData(parsedRequests.nestedTypeQuery);
 
             responseData = await cacheManager.resolveQuery(
               requestData,
               requestData,
-              githubQueryResponses.nestedTypeWithEdges,
+              responses.nestedTypeQuery,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery }),
             );
           });
 
@@ -144,14 +144,14 @@ describe("@handl/cache-manager >>", () => {
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
 
-            requestData = getRequestData(githubParsedQueries.nestedTypeWithEdges);
+            requestData = getRequestData(parsedRequests.nestedTypeQuery);
 
             responseData = await cacheManager.resolveQuery(
               requestData,
               requestData,
-              githubQueryResponses.nestedTypeWithEdges,
+              responses.nestedTypeQuery,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery }),
             );
           });
 
@@ -177,14 +177,14 @@ describe("@handl/cache-manager >>", () => {
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
 
-            requestData = getRequestData(githubParsedQueries.nestedUnionWithEdges);
+            requestData = getRequestData(parsedRequests.nestedUnionQuery);
 
             responseData = await cacheManager.resolveQuery(
               requestData,
               requestData,
-              githubQueryResponses.nestedUnionWithEdges,
+              responses.nestedUnionQuery,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery }),
             );
           });
 
@@ -211,14 +211,14 @@ describe("@handl/cache-manager >>", () => {
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
 
-            requestData = getRequestData(githubParsedQueries.nestedUnionWithEdges);
+            requestData = getRequestData(parsedRequests.nestedUnionQuery);
 
             responseData = await cacheManager.resolveQuery(
               requestData,
               requestData,
-              githubQueryResponses.nestedUnionWithEdges,
+              responses.nestedUnionQuery,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery }),
             );
           });
 
@@ -249,17 +249,17 @@ describe("@handl/cache-manager >>", () => {
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
 
-            requestData = getRequestData(githubParsedQueries.singleTypeWithFilter.initial);
+            requestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
 
             responseData = await cacheManager.resolveQuery(
               requestData,
               requestData,
-              githubQueryResponses.singleTypePartialAndFilter.initial,
+              responses.singleTypeQuerySet.initial,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
             );
 
-            const { cacheMetadata, data } = githubQueryResponses.singleTypePartialAndFilter.partial;
+            const { cacheMetadata, data } = responses.singleTypeQuerySet.partial;
 
             // @ts-ignore
             jest.spyOn(cacheManager._partialQueryResponses, "get").mockReturnValue({
@@ -268,11 +268,11 @@ describe("@handl/cache-manager >>", () => {
             });
 
             responseData = await cacheManager.resolveQuery(
-              getRequestData(githubParsedQueries.singleTypeWithFilter.full),
-              getRequestData(githubParsedQueries.singleTypeWithFilter.updated),
-              githubQueryResponses.singleTypePartialAndFilter.updated,
+              getRequestData(parsedRequests.singleTypeQuerySet.full),
+              getRequestData(parsedRequests.singleTypeQuerySet.updated),
+              responses.singleTypeQuerySet.updated,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType, queryFiltered: true }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery, queryFiltered: true }),
             );
           });
 
@@ -301,17 +301,17 @@ describe("@handl/cache-manager >>", () => {
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
 
-            requestData = getRequestData(githubParsedQueries.singleTypeWithFilter.initial);
+            requestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
 
             responseData = await cacheManager.resolveQuery(
               requestData,
               requestData,
-              githubQueryResponses.singleTypePartialAndFilter.initial,
+              responses.singleTypeQuerySet.initial,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
             );
 
-            const { cacheMetadata, data } = githubQueryResponses.singleTypePartialAndFilter.partial;
+            const { cacheMetadata, data } = responses.singleTypeQuerySet.partial;
 
             // @ts-ignore
             jest.spyOn(cacheManager._partialQueryResponses, "get").mockReturnValue({
@@ -320,11 +320,11 @@ describe("@handl/cache-manager >>", () => {
             });
 
             responseData = await cacheManager.resolveQuery(
-              getRequestData(githubParsedQueries.singleTypeWithFilter.full),
-              getRequestData(githubParsedQueries.singleTypeWithFilter.updated),
-              githubQueryResponses.singleTypePartialAndFilter.updated,
+              getRequestData(parsedRequests.singleTypeQuerySet.full),
+              getRequestData(parsedRequests.singleTypeQuerySet.updated),
+              responses.singleTypeQuerySet.updated,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType, queryFiltered: true }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery, queryFiltered: true }),
             );
           });
 
@@ -353,17 +353,17 @@ describe("@handl/cache-manager >>", () => {
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
 
-            requestData = getRequestData(githubParsedQueries.nestedTypeWithEdgesWithFilter.initial);
+            requestData = getRequestData(parsedRequests.nestedTypeQuerySet.initial);
 
             responseData = await cacheManager.resolveQuery(
               requestData,
               requestData,
-              githubQueryResponses.nestedTypeWithEdgesPartialAndFilter.initial,
+              responses.nestedTypeQuerySet.initial,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery }),
             );
 
-            const { cacheMetadata, data } = githubQueryResponses.nestedTypeWithEdgesPartialAndFilter.partial;
+            const { cacheMetadata, data } = responses.nestedTypeQuerySet.partial;
 
             // @ts-ignore
             jest.spyOn(cacheManager._partialQueryResponses, "get").mockReturnValue({
@@ -372,11 +372,11 @@ describe("@handl/cache-manager >>", () => {
             });
 
             responseData = await cacheManager.resolveQuery(
-              getRequestData(githubParsedQueries.nestedTypeWithEdgesWithFilter.full),
-              getRequestData(githubParsedQueries.nestedTypeWithEdgesWithFilter.updated),
-              githubQueryResponses.nestedTypeWithEdgesPartialAndFilter.updated,
+              getRequestData(parsedRequests.nestedTypeQuerySet.full),
+              getRequestData(parsedRequests.nestedTypeQuerySet.updated),
+              responses.nestedTypeQuerySet.updated,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges, queryFiltered: true }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery, queryFiltered: true }),
             );
           });
 
@@ -408,17 +408,17 @@ describe("@handl/cache-manager >>", () => {
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
 
-            requestData = getRequestData(githubParsedQueries.nestedTypeWithEdgesWithFilter.initial);
+            requestData = getRequestData(parsedRequests.nestedTypeQuerySet.initial);
 
             responseData = await cacheManager.resolveQuery(
               requestData,
               requestData,
-              githubQueryResponses.nestedTypeWithEdgesPartialAndFilter.initial,
+              responses.nestedTypeQuerySet.initial,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery }),
             );
 
-            const { cacheMetadata, data } = githubQueryResponses.nestedTypeWithEdgesPartialAndFilter.partial;
+            const { cacheMetadata, data } = responses.nestedTypeQuerySet.partial;
 
             // @ts-ignore
             jest.spyOn(cacheManager._partialQueryResponses, "get").mockReturnValue({
@@ -427,11 +427,11 @@ describe("@handl/cache-manager >>", () => {
             });
 
             responseData = await cacheManager.resolveQuery(
-              getRequestData(githubParsedQueries.nestedTypeWithEdgesWithFilter.full),
-              getRequestData(githubParsedQueries.nestedTypeWithEdgesWithFilter.updated),
-              githubQueryResponses.nestedTypeWithEdgesPartialAndFilter.updated,
+              getRequestData(parsedRequests.nestedTypeQuerySet.full),
+              getRequestData(parsedRequests.nestedTypeQuerySet.updated),
+              responses.nestedTypeQuerySet.updated,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges, queryFiltered: true }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery, queryFiltered: true }),
             );
           });
 
@@ -460,17 +460,17 @@ describe("@handl/cache-manager >>", () => {
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
 
-            requestData = getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.initial);
+            requestData = getRequestData(parsedRequests.nestedUnionQuerySet.initial);
 
             responseData = await cacheManager.resolveQuery(
               requestData,
               requestData,
-              githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.initial,
+              responses.nestedUnionQuerySet.initial,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery }),
             );
 
-            const { cacheMetadata, data } = githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.partial;
+            const { cacheMetadata, data } = responses.nestedUnionQuerySet.partial;
 
             // @ts-ignore
             jest.spyOn(cacheManager._partialQueryResponses, "get").mockReturnValue({
@@ -479,11 +479,11 @@ describe("@handl/cache-manager >>", () => {
             });
 
             responseData = await cacheManager.resolveQuery(
-              getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.full),
-              getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.updated),
-              githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.updated,
+              getRequestData(parsedRequests.nestedUnionQuerySet.full),
+              getRequestData(parsedRequests.nestedUnionQuerySet.updated),
+              responses.nestedUnionQuerySet.updated,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges, queryFiltered: true }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery, queryFiltered: true }),
             );
           });
 
@@ -513,17 +513,17 @@ describe("@handl/cache-manager >>", () => {
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
 
-            requestData = getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.initial);
+            requestData = getRequestData(parsedRequests.nestedUnionQuerySet.initial);
 
             responseData = await cacheManager.resolveQuery(
               requestData,
               requestData,
-              githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.initial,
+              responses.nestedUnionQuerySet.initial,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery }),
             );
 
-            const { cacheMetadata, data } = githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.partial;
+            const { cacheMetadata, data } = responses.nestedUnionQuerySet.partial;
 
             // @ts-ignore
             jest.spyOn(cacheManager._partialQueryResponses, "get").mockReturnValue({
@@ -532,11 +532,11 @@ describe("@handl/cache-manager >>", () => {
             });
 
             responseData = await cacheManager.resolveQuery(
-              getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.full),
-              getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.updated),
-              githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.updated,
+              getRequestData(parsedRequests.nestedUnionQuerySet.full),
+              getRequestData(parsedRequests.nestedUnionQuerySet.updated),
+              responses.nestedUnionQuerySet.updated,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges, queryFiltered: true }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery, queryFiltered: true }),
             );
           });
 
@@ -567,9 +567,9 @@ describe("@handl/cache-manager >>", () => {
           });
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(githubParsedQueries.singleType),
+            getRequestData(parsedRequests.singleTypeQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
           );
         });
 
@@ -594,9 +594,9 @@ describe("@handl/cache-manager >>", () => {
           });
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(githubParsedQueries.nestedTypeWithEdges),
+            getRequestData(parsedRequests.nestedTypeQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery }),
           );
         });
 
@@ -621,9 +621,9 @@ describe("@handl/cache-manager >>", () => {
           });
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(githubParsedQueries.nestedUnionWithEdges),
+            getRequestData(parsedRequests.nestedUnionQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery }),
           );
         });
 
@@ -655,20 +655,20 @@ describe("@handl/cache-manager >>", () => {
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
 
-          const requestData = getRequestData(githubParsedQueries.singleType);
+          const requestData = getRequestData(parsedRequests.singleTypeQuery);
 
           await cacheManager.resolveQuery(
             requestData,
             requestData,
-            githubQueryResponses.singleType,
+            responses.singleTypeQuery,
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
           );
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(githubParsedQueries.singleType),
+            getRequestData(parsedRequests.singleTypeQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
           );
         });
 
@@ -704,20 +704,20 @@ describe("@handl/cache-manager >>", () => {
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
 
-          const requestData = getRequestData(githubParsedQueries.nestedTypeWithEdges);
+          const requestData = getRequestData(parsedRequests.nestedTypeQuery);
 
           await cacheManager.resolveQuery(
             requestData,
             requestData,
-            githubQueryResponses.nestedTypeWithEdges,
+            responses.nestedTypeQuery,
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery }),
           );
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(githubParsedQueries.nestedTypeWithEdges),
+            getRequestData(parsedRequests.nestedTypeQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery }),
           );
         });
 
@@ -751,20 +751,20 @@ describe("@handl/cache-manager >>", () => {
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
 
-          const requestData = getRequestData(githubParsedQueries.nestedUnionWithEdges);
+          const requestData = getRequestData(parsedRequests.nestedUnionQuery);
 
           await cacheManager.resolveQuery(
             requestData,
             requestData,
-            githubQueryResponses.nestedUnionWithEdges,
+            responses.nestedUnionQuery,
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery }),
           );
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(githubParsedQueries.nestedUnionWithEdges),
+            getRequestData(parsedRequests.nestedUnionQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery }),
           );
         });
 
@@ -799,20 +799,20 @@ describe("@handl/cache-manager >>", () => {
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
 
-          const requestData = getRequestData(githubParsedQueries.singleTypeWithFilter.initial);
+          const requestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
 
           await cacheManager.resolveQuery(
             requestData,
             requestData,
-            githubQueryResponses.singleTypePartialAndFilter.initial,
+            responses.singleTypeQuerySet.initial,
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
           );
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(githubParsedQueries.singleType),
+            getRequestData(parsedRequests.singleTypeQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
           );
         });
 
@@ -854,20 +854,20 @@ describe("@handl/cache-manager >>", () => {
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
 
-          const requestData = getRequestData(githubParsedQueries.nestedTypeWithEdgesWithFilter.initial);
+          const requestData = getRequestData(parsedRequests.nestedTypeQuerySet.initial);
 
           await cacheManager.resolveQuery(
             requestData,
             requestData,
-            githubQueryResponses.nestedTypeWithEdgesPartialAndFilter.initial,
+            responses.nestedTypeQuerySet.initial,
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery }),
           );
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(githubParsedQueries.nestedTypeWithEdges),
+            getRequestData(parsedRequests.nestedTypeQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery }),
           );
         });
 
@@ -907,20 +907,20 @@ describe("@handl/cache-manager >>", () => {
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
 
-          const requestData = getRequestData(githubParsedQueries.nestedUnionWithEdgesWithFilter.initial);
+          const requestData = getRequestData(parsedRequests.nestedUnionQuerySet.initial);
 
           await cacheManager.resolveQuery(
             requestData,
             requestData,
-            githubQueryResponses.nestedUnionWithEdgesPartialAndFilter.initial,
+            responses.nestedUnionQuerySet.initial,
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery }),
           );
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(githubParsedQueries.nestedUnionWithEdges),
+            getRequestData(parsedRequests.nestedUnionQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery }),
           );
         });
 
