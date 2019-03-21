@@ -9,10 +9,10 @@ import { RequestManager } from ".";
 
 const URL = "https://api.github.com/graphql";
 
-describe("@handl/request-manager", () => {
+describe("@handl/request-manager >>", () => {
   let requestManager: RequestManager;
 
-  describe("when batching is set to false", () => {
+  describe("no batching >>", () => {
     let response: MaybeRawResponseData;
 
     beforeAll(async () => {
@@ -30,17 +30,17 @@ describe("@handl/request-manager", () => {
       fetchMock.restore();
     });
 
-    it("then the request manager should send the correct request", () => {
+    it("correct request", () => {
       expect(fetchMock.lastCall()).toMatchSnapshot();
     });
 
-    it("then the request manager should return the correct response data", () => {
+    it("correct response data", () => {
       expect(response).toMatchSnapshot();
     });
   });
 
-  describe("when batching is set to true", () => {
-    describe("when a single request is made within a batch interval", () => {
+  describe("batching >>", () => {
+    describe("single request >>", () => {
       let response: MaybeRawResponseData;
 
       beforeAll(async () => {
@@ -71,16 +71,16 @@ describe("@handl/request-manager", () => {
         fetchMock.restore();
       });
 
-      it("then the request manager should send the correct request", () => {
+      it("correct request", () => {
         expect(fetchMock.lastCall()).toMatchSnapshot();
       });
 
-      it("then the request manager should return the correct response data", () => {
+      it("correct response data", () => {
         expect(response).toMatchSnapshot();
       });
     });
 
-    describe("when multiple requests are made within a batch interval", () => {
+    describe("multiple requests >>", () => {
       let response: MaybeRawResponseData[];
 
       beforeAll(async () => {
@@ -118,11 +118,11 @@ describe("@handl/request-manager", () => {
         fetchMock.restore();
       });
 
-      it("then the request manager should send the correct request", () => {
+      it("correct request", () => {
         expect(fetchMock.lastCall()).toMatchSnapshot();
       });
 
-      it("then the request manager should return the correct response data", () => {
+      it("correct response data", () => {
         expect(response[0]).toMatchSnapshot();
         expect(response[1]).toMatchSnapshot();
       });

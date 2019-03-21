@@ -9,7 +9,7 @@ import { IntrospectionQuery } from "graphql";
 import { RequestParser, RequestParserDef, UpdateRequestResult } from ".";
 import { DEFAULT_TYPE_ID_KEY } from "./consts";
 
-describe("@handl/request-parser", () => {
+describe("@handl/request-parser >>", () => {
   let requestParser: RequestParserDef;
 
   beforeAll(async () => {
@@ -19,7 +19,7 @@ describe("@handl/request-parser", () => {
     });
   });
 
-  describe("when a query without a variable is passed in", () => {
+  describe("query >> no variable >>", () => {
     let updatedRequest: UpdateRequestResult;
     let requestContext: RequestContext;
 
@@ -29,16 +29,16 @@ describe("@handl/request-parser", () => {
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("then the parser should return the query unchanged", () => {
+    it("correct request", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 
-    it("then the parser should update the request context with the correct data", () => {
+    it("correct context data", () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("when a query with an operation name is passed in", () => {
+  describe("query >> operation name >>", () => {
     let updatedRequest: UpdateRequestResult;
     let requestContext: RequestContext;
 
@@ -48,16 +48,16 @@ describe("@handl/request-parser", () => {
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("then the parser should return the query with the operation name retained", () => {
+    it("correct request", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 
-    it("then the parser should update the request context with the correct data", () => {
+    it("correct context data", () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("when a query with a variable is passed in", () => {
+  describe("query >> variable", () => {
     let updatedRequest: UpdateRequestResult;
     let requestContext: RequestContext;
 
@@ -67,16 +67,16 @@ describe("@handl/request-parser", () => {
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("then the parser should return the query with the variable embedded in it", () => {
+    it("correct request", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 
-    it("then the parser should update the request context with the correct data", () => {
+    it("correct context data", () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("when a query with multiple variables are passed in", () => {
+  describe("query >> multiple variables >>", () => {
     let updatedRequest: UpdateRequestResult;
     let requestContext: RequestContext;
 
@@ -86,16 +86,16 @@ describe("@handl/request-parser", () => {
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("then the parser should return the query with the variables embedded in it", () => {
+    it("correct request", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 
-    it("then the parser should update the request context with the correct data", () => {
+    it("correct context data", () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("when a query with an enum variable is passed in", () => {
+  describe("query >> enum variable >>", () => {
     let updatedRequest: UpdateRequestResult;
     let requestContext: RequestContext;
 
@@ -105,16 +105,16 @@ describe("@handl/request-parser", () => {
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("then the parser should return the query with the enum variable embedded in it", () => {
+    it("correct request", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 
-    it("then the parser should update the request context with the correct data", () => {
+    it("correct context data", () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("when a query with a directive is passed in", () => {
+  describe("query >> directive", () => {
     let updatedRequest: UpdateRequestResult;
     let requestContext: RequestContext;
 
@@ -124,16 +124,16 @@ describe("@handl/request-parser", () => {
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("then the parser should return the query with the directive retained", () => {
+    it("correct request", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 
-    it("then the parser should update the request context with the correct data", () => {
+    it("correct context data", () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("when a query with an inline fragment is passed in", () => {
+  describe("query >> inline fragment >>", () => {
     let updatedRequest: UpdateRequestResult;
     let requestContext: RequestContext;
 
@@ -143,16 +143,16 @@ describe("@handl/request-parser", () => {
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("then the parser should return the query with the inline fragment embedded in it", () => {
+    it("correct request", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 
-    it("then the parser should update the request context with the correct data", () => {
+    it("correct context data", () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("when a query with inline fragments for a union type are passed in", () => {
+  describe("query >> inline fragments >> union type >>", () => {
     let updatedRequest: UpdateRequestResult;
     let requestContext: RequestContext;
 
@@ -162,16 +162,16 @@ describe("@handl/request-parser", () => {
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("then the parser should return the query with the inline fragments retained", () => {
+    it("correct request", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 
-    it("then the parser should update the request context with the correct data", () => {
+    it("correct context data", () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("when a query with a fragment spread is passed in", () => {
+  describe("query >> fragment spread >>", () => {
     let updatedRequest: UpdateRequestResult;
     let requestContext: RequestContext;
 
@@ -181,16 +181,16 @@ describe("@handl/request-parser", () => {
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("then the parser should return the query with the fragment spread embedded in it", () => {
+    it("correct request", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 
-    it("then the parser should update the request context with the correct data", () => {
+    it("correct context data", () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("when a query with a fragment option is passed in", () => {
+  describe("query >> fragment option >>", () => {
     let updatedRequest: UpdateRequestResult;
     let requestContext: RequestContext;
 
@@ -200,16 +200,16 @@ describe("@handl/request-parser", () => {
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("then the parser should return the query with the fragment option embedded in it", () => {
+    it("correct request", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 
-    it("then the parser should update the request context with the correct data", () => {
+    it("correct context data", () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("when a mutation with an input type variable is passed in", () => {
+  describe("mutation >> input type variable >>", () => {
     let updatedRequest: UpdateRequestResult;
     let requestContext: RequestContext;
 
@@ -219,11 +219,11 @@ describe("@handl/request-parser", () => {
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("then the parser should return the query with the input type variable embedded in it", () => {
+    it("correct request", () => {
       expect(updatedRequest.request).toMatchSnapshot();
     });
 
-    it("then the parser should update the request context with the correct data", () => {
+    it("correct context data", () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
