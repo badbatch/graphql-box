@@ -72,6 +72,9 @@ export const withVariables: RequestAndOptions = {
               owner {
                 login
                 url
+                ... on Organization {
+                  name
+                }
               }
             }
           }
@@ -106,6 +109,9 @@ export const withEnumVariable: RequestAndOptions = {
               owner {
                 login
                 url
+                ... on Organization {
+                  name
+                }
               }
             }
           }
@@ -140,6 +146,9 @@ export const withDirective: RequestAndOptions = {
               owner {
                 login
                 url
+                ... on Organization {
+                  name
+                }
               }
             }
           }

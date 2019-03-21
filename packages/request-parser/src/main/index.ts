@@ -128,7 +128,7 @@ export class RequestParser implements RequestParserDef {
     { variables }: RequestOptions,
     { fieldTypeMap, operation }: RequestContext,
   ): void {
-    const { ancestors, fieldNode, isEntity, isUnion, possibleTypes, typeIDKey, typeName } = data;
+    const { ancestors, fieldNode, isEntity, isInterface, isUnion, possibleTypes, typeIDKey, typeName } = data;
     const ancestorRequestFieldPath: string[] = [operation];
 
     ancestors.forEach((ancestor) => {
@@ -157,6 +157,7 @@ export class RequestParser implements RequestParserDef {
       hasArguments: !!argumentsObjectMap,
       hasDirectives: !!directives,
       isEntity,
+      isInterface,
       isUnion,
       possibleTypes,
       typeIDValue,
@@ -315,7 +316,11 @@ export class RequestParser implements RequestParserDef {
       && !(type instanceof GraphQLUnionType))
     ) return undefined;
 
-    if (!(type instanceof GraphQLUnionType) && hasInlineFragments(node)) {
+    if (
+      !(type instanceof GraphQLInterfaceType)
+      && !(type instanceof GraphQLUnionType)
+      && hasInlineFragments(node)
+    ) {
       setInlineFragments(node);
     }
 
@@ -349,6 +354,7 @@ export class RequestParser implements RequestParserDef {
       ancestors,
       fieldNode: node,
       isEntity,
+      isInterface: type instanceof GraphQLInterfaceType,
       isUnion: type instanceof GraphQLUnionType,
       possibleTypes: possibleTypeDetails,
       typeIDKey: this._typeIDKey,

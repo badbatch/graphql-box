@@ -89,6 +89,7 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
                 __typename: "Organization",
                 id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 login: "facebook",
+                name: "Facebook",
                 url: "https://github.com/facebook",
               },
             },
@@ -103,6 +104,7 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
                 __typename: "Organization",
                 id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 login: "facebook",
+                name: "Facebook",
                 url: "https://github.com/facebook",
               },
             },
@@ -117,6 +119,7 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
                 __typename: "Organization",
                 id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 login: "facebook",
+                name: "Facebook",
                 url: "https://github.com/facebook",
               },
             },
@@ -131,6 +134,7 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
                 __typename: "Organization",
                 id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 login: "facebook",
+                name: "Facebook",
                 url: "https://github.com/facebook",
               },
             },
@@ -145,6 +149,7 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
                 __typename: "Organization",
                 id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 login: "facebook",
+                name: "Facebook",
                 url: "https://github.com/facebook",
               },
             },
@@ -159,6 +164,7 @@ export const nestedTypeWithEdges: RawResponseDataWithMaybeCacheMetadata = {
                 __typename: "Organization",
                 id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 login: "facebook",
+                name: "Facebook",
                 url: "https://github.com/facebook",
               },
             },
@@ -187,6 +193,7 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 owner: {
                   __typename: "Organization",
                   id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  name: "Facebook",
                   url: "https://github.com/facebook",
                 },
               },
@@ -198,6 +205,7 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 owner: {
                   __typename: "Organization",
                   id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  name: "Facebook",
                   url: "https://github.com/facebook",
                 },
               },
@@ -209,6 +217,7 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 owner: {
                   __typename: "Organization",
                   id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  name: "Facebook",
                   url: "https://github.com/facebook",
                 },
               },
@@ -220,6 +229,7 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 owner: {
                   __typename: "Organization",
                   id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  name: "Facebook",
                   url: "https://github.com/facebook",
                 },
               },
@@ -231,6 +241,7 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 owner: {
                   __typename: "Organization",
                   id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  name: "Facebook",
                   url: "https://github.com/facebook",
                 },
               },
@@ -242,6 +253,7 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 owner: {
                   __typename: "Organization",
                   id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  name: "Facebook",
                   url: "https://github.com/facebook",
                 },
               },
@@ -309,6 +321,8 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 owner: {
                   __typename: "Organization",
                   id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  login: "facebook",
+                  name: "Facebook",
                   url: "https://github.com/facebook",
                 },
               },
@@ -320,6 +334,8 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 owner: {
                   __typename: "Organization",
                   id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  login: "facebook",
+                  name: "Facebook",
                   url: "https://github.com/facebook",
                 },
               },
@@ -331,6 +347,8 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 owner: {
                   __typename: "Organization",
                   id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  login: "facebook",
+                  name: "Facebook",
                   url: "https://github.com/facebook",
                 },
               },
@@ -342,6 +360,8 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 owner: {
                   __typename: "Organization",
                   id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  login: "facebook",
+                  name: "Facebook",
                   url: "https://github.com/facebook",
                 },
               },
@@ -353,6 +373,8 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 owner: {
                   __typename: "Organization",
                   id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  login: "facebook",
+                  name: "Facebook",
                   url: "https://github.com/facebook",
                 },
               },
@@ -364,6 +386,8 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 owner: {
                   __typename: "Organization",
                   id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                  login: "facebook",
+                  name: "Facebook",
                   url: "https://github.com/facebook",
                 },
               },
@@ -387,11 +411,6 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 description: "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
                 homepageUrl: "",
                 id: "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
-                owner: {
-                  __typename: "Organization",
-                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                  login: "facebook",
-                },
               },
             },
             {
@@ -399,11 +418,6 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 description: "A virtual machine for executing programs written in Hack.",
                 homepageUrl: "https://hhvm.com",
                 id: "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-                owner: {
-                  __typename: "Organization",
-                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                  login: "facebook",
-                },
               },
             },
             {
@@ -411,11 +425,6 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 description: "Python wrapper for RE2",
                 homepageUrl: "",
                 id: "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-                owner: {
-                  __typename: "Organization",
-                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                  login: "facebook",
-                },
               },
             },
             {
@@ -423,11 +432,6 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 description: null,
                 homepageUrl: "http://ogp.me",
                 id: "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
-                owner: {
-                  __typename: "Organization",
-                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                  login: "facebook",
-                },
               },
             },
             {
@@ -435,11 +439,6 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 description: "Used to integrate Android apps with Facebook Platform.",
                 homepageUrl: "https://developers.facebook.com/docs/android",
                 id: "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-                owner: {
-                  __typename: "Organization",
-                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                  login: "facebook",
-                },
               },
             },
             {
@@ -447,11 +446,6 @@ export const nestedTypeWithEdgesPartialAndFilter: QueryResponsePartialAndFilter 
                 description: "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
                 homepageUrl: "https://developers.facebook.com/docs/ios",
                 id: "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-                owner: {
-                  __typename: "Organization",
-                  id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                  login: "facebook",
-                },
               },
             },
           ],

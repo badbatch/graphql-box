@@ -5,7 +5,7 @@ export const withInputType: RequestAndOptions = {
     variables: {
       input: {
         clientMutationId: "1",
-        starrableId: "MDEwOlJlcG9zaXRvcnkzODMwNzQyOA==",
+        starrableId: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
       },
     },
   },
@@ -15,6 +15,17 @@ export const withInputType: RequestAndOptions = {
         clientMutationId
         starrable {
           viewerHasStarred
+
+          ... on Repository {
+            stargazers(first: 6) {
+              edges {
+                node {
+                  name
+                  login
+                }
+              }
+            }
+          }
         }
       }
     }

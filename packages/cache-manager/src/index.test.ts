@@ -13,7 +13,7 @@ import { DEFAULT_TYPE_ID_KEY } from "./consts";
 import { AnalyzeQueryResult } from "./defs";
 import { rehydrateCacheMetadata } from "./helpers/cache-metadata";
 
-describe("@handl/cache-manager", () => {
+describe("@handl/cache-manager >>", () => {
   const realDateNow = Date.now.bind(global.Date);
   let cacheManager: CacheManagerDef;
 
@@ -25,13 +25,13 @@ describe("@handl/cache-manager", () => {
     global.Date.now = realDateNow;
   });
 
-  describe("the resolveQuery method", () => {
+  describe("resolveQuery >>", () => {
     let responseData: ResponseData;
     let requestData: RequestData;
 
-    describe("when the query has not been filtered", () => {
-      describe("with a single type query", () => {
-        describe("when caching is done through cascading cache control", () => {
+    describe("not filtered >>", () => {
+      describe("single type >>", () => {
+        describe("cascading cache control >>", () => {
           beforeAll(async () => {
             cacheManager = await CacheManager.init({
               cache: await Cachemap.init({
@@ -53,16 +53,16 @@ describe("@handl/cache-manager", () => {
             );
           });
 
-          it("then the method should return the correct response data", () => {
+          it("correct response data", () => {
             expect(responseData).toMatchSnapshot();
           });
 
-          it("then the cache should contain the correct data", async () => {
+          it("correct cache data", async () => {
             expect(await cacheManager.cache.export()).toMatchSnapshot();
           });
         });
 
-        describe("when caching is done through type cache directives", () => {
+        describe("type cache directives >>", () => {
           beforeAll(async () => {
             cacheManager = await CacheManager.init({
               cache: await Cachemap.init({
@@ -86,18 +86,18 @@ describe("@handl/cache-manager", () => {
             );
           });
 
-          it("then the method should return the correct response data", () => {
+          it("correct response data", () => {
             expect(responseData).toMatchSnapshot();
           });
 
-          it("then the cache should contain the correct data", async () => {
+          it("correct cache data", async () => {
             expect(await cacheManager.cache.export()).toMatchSnapshot();
           });
         });
       });
 
-      describe("with a nested type with edges query", () => {
-        describe("when caching is done through cascading cache control", () => {
+      describe("nested type with edges >>", () => {
+        describe("cascading cache control >>", () => {
           beforeAll(async () => {
             cacheManager = await CacheManager.init({
               cache: await Cachemap.init({
@@ -119,16 +119,16 @@ describe("@handl/cache-manager", () => {
             );
           });
 
-          it("then the method should return the correct response data", () => {
+          it("correct response data", () => {
             expect(responseData).toMatchSnapshot();
           });
 
-          it("then the cache should contain the correct data", async () => {
+          it("correct cache data", async () => {
             expect(await cacheManager.cache.export()).toMatchSnapshot();
           });
         });
 
-        describe("when caching is done through type cache directives", () => {
+        describe("type cache directives >>", () => {
           beforeAll(async () => {
             cacheManager = await CacheManager.init({
               cache: await Cachemap.init({
@@ -155,18 +155,18 @@ describe("@handl/cache-manager", () => {
             );
           });
 
-          it("then the method should return the correct response data", () => {
+          it("correct response data", () => {
             expect(responseData).toMatchSnapshot();
           });
 
-          it("then the cache should contain the correct data", async () => {
+          it("correct cache data", async () => {
             expect(await cacheManager.cache.export()).toMatchSnapshot();
           });
         });
       });
 
-      describe("with a nested union with edges query", () => {
-        describe("when caching is done through cascading cache control", () => {
+      describe("nested union with edges >>", () => {
+        describe("cascading cache control >>", () => {
           beforeAll(async () => {
             cacheManager = await CacheManager.init({
               cache: await Cachemap.init({
@@ -188,16 +188,16 @@ describe("@handl/cache-manager", () => {
             );
           });
 
-          it("then the method should return the correct response data", () => {
+          it("correct response data", () => {
             expect(responseData).toMatchSnapshot();
           });
 
-          it("then the cache should contain the correct data", async () => {
+          it("correct cache data", async () => {
             expect(await cacheManager.cache.export()).toMatchSnapshot();
           });
         });
 
-        describe("when caching is done through type cache directives", () => {
+        describe("type cache directives >>", () => {
           beforeAll(async () => {
             cacheManager = await CacheManager.init({
               cache: await Cachemap.init({
@@ -222,20 +222,20 @@ describe("@handl/cache-manager", () => {
             );
           });
 
-          it("then the method should return the correct response data", () => {
+          it("correct response data", () => {
             expect(responseData).toMatchSnapshot();
           });
 
-          it("then the cache should contain the correct data", async () => {
+          it("correct cache data", async () => {
             expect(await cacheManager.cache.export()).toMatchSnapshot();
           });
         });
       });
     });
 
-    describe("when the query has been filtered", () => {
-      describe("with a single type query", () => {
-        describe("when caching is done through cascading cache control", () => {
+    describe("filtered >>", () => {
+      describe("single type >>", () => {
+        describe("cascading cache control >>", () => {
           beforeAll(async () => {
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
@@ -276,16 +276,16 @@ describe("@handl/cache-manager", () => {
             );
           });
 
-          it("then the method should return the correct response data", () => {
+          it("correct response data", () => {
             expect(responseData).toMatchSnapshot();
           });
 
-          it("then the cache should contain the correct data", async () => {
+          it("correct cache data", async () => {
             expect(await cacheManager.cache.export()).toMatchSnapshot();
           });
         });
 
-        describe("when caching is done through type cache directives", () => {
+        describe("type cache directives >>", () => {
           beforeAll(async () => {
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
@@ -328,18 +328,18 @@ describe("@handl/cache-manager", () => {
             );
           });
 
-          it("then the method should return the correct response data", () => {
+          it("correct response data", () => {
             expect(responseData).toMatchSnapshot();
           });
 
-          it("then the cache should contain the correct data", async () => {
+          it("correct cache data", async () => {
             expect(await cacheManager.cache.export()).toMatchSnapshot();
           });
         });
       });
 
-      describe("with a nested type with edges query", () => {
-        describe("when caching is done through cascading cache control", () => {
+      describe("nested type with edges >>", () => {
+        describe("cascading cache control >>", () => {
           beforeAll(async () => {
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
@@ -380,16 +380,16 @@ describe("@handl/cache-manager", () => {
             );
           });
 
-          it("then the method should return the correct response data", () => {
+          it("correct response data", () => {
             expect(responseData).toMatchSnapshot();
           });
 
-          it("then the cache should contain the correct data", async () => {
+          it("correct cache data", async () => {
             expect(await cacheManager.cache.export()).toMatchSnapshot();
           });
         });
 
-        describe("when caching is done through type cache directives", () => {
+        describe("type cache directives >>", () => {
           beforeAll(async () => {
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
@@ -435,18 +435,18 @@ describe("@handl/cache-manager", () => {
             );
           });
 
-          it("then the method should return the correct response data", () => {
+          it("correct response data", () => {
             expect(responseData).toMatchSnapshot();
           });
 
-          it("then the cache should contain the correct data", async () => {
+          it("correct cache data", async () => {
             expect(await cacheManager.cache.export()).toMatchSnapshot();
           });
         });
       });
 
-      describe("with a nested union with edges query", () => {
-        describe("when caching is done through cascading cache control", () => {
+      describe("nested union with edges >>", () => {
+        describe("cascading cache control >>", () => {
           beforeAll(async () => {
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
@@ -487,16 +487,16 @@ describe("@handl/cache-manager", () => {
             );
           });
 
-          it("then the method should return the correct response data", () => {
+          it("correct response data", () => {
             expect(responseData).toMatchSnapshot();
           });
 
-          it("then the cache should contain the correct data", async () => {
+          it("correct cache data", async () => {
             expect(await cacheManager.cache.export()).toMatchSnapshot();
           });
         });
 
-        describe("when caching is done through type cache directives", () => {
+        describe("type cache directives >>", () => {
           beforeAll(async () => {
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
@@ -540,11 +540,11 @@ describe("@handl/cache-manager", () => {
             );
           });
 
-          it("then the method should return the correct response data", () => {
+          it("correct response data", () => {
             expect(responseData).toMatchSnapshot();
           });
 
-          it("then the cache should contain the correct data", async () => {
+          it("correct cache data", async () => {
             expect(await cacheManager.cache.export()).toMatchSnapshot();
           });
         });
@@ -552,11 +552,11 @@ describe("@handl/cache-manager", () => {
     });
   });
 
-  describe("the analyzeQuery method", () => {
+  describe("analyzeQuery >>", () => {
     let analyzeQueryResult: AnalyzeQueryResult;
 
-    describe("with a single type query", () => {
-      describe("when there is no matching data for the request in the cache", () => {
+    describe("no matching data >>", () => {
+      describe("single type >>", () => {
         beforeAll(async () => {
           cacheManager = await CacheManager.init({
             cache: await Cachemap.init({
@@ -573,17 +573,73 @@ describe("@handl/cache-manager", () => {
           );
         });
 
-        it("then the method should return the correct request data", () => {
+        it("correct request data", () => {
           const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
           expect(otherProps).toMatchSnapshot();
         });
 
-        it("then the method should not return any response data", () => {
+        it("no response data", () => {
           expect(analyzeQueryResult.response).toBeUndefined();
         });
       });
 
-      describe("when there is matching data for the entire request in the cache", () => {
+      describe("nested type with edges >>", () => {
+        beforeAll(async () => {
+          cacheManager = await CacheManager.init({
+            cache: await Cachemap.init({
+              name: "cachemap",
+              store: map(),
+            }),
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          analyzeQueryResult = await cacheManager.analyzeQuery(
+            getRequestData(githubParsedQueries.nestedTypeWithEdges),
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
+          );
+        });
+
+        it("correct request data", () => {
+          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          expect(otherProps).toMatchSnapshot();
+        });
+
+        it("no response data", () => {
+          expect(analyzeQueryResult.response).toBeUndefined();
+        });
+      });
+
+      describe("nested union with edges >>", () => {
+        beforeAll(async () => {
+          cacheManager = await CacheManager.init({
+            cache: await Cachemap.init({
+              name: "cachemap",
+              store: map(),
+            }),
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          analyzeQueryResult = await cacheManager.analyzeQuery(
+            getRequestData(githubParsedQueries.nestedUnionWithEdges),
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+          );
+        });
+
+        it("correct request data", () => {
+          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          expect(otherProps).toMatchSnapshot();
+        });
+
+        it("no response data", () => {
+          expect(analyzeQueryResult.response).toBeUndefined();
+        });
+      });
+    });
+
+    describe("entire matching data >>", () => {
+      describe("single type >>", () => {
         beforeAll(async () => {
           // @ts-ignore
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
@@ -616,101 +672,20 @@ describe("@handl/cache-manager", () => {
           );
         });
 
-        it("then the method not return any request data", () => {
+        it("no request data", () => {
           expect(analyzeQueryResult.updated).toBeUndefined();
         });
 
-        it("then the method should return the correct response data", () => {
+        it("correct response data", () => {
           expect(analyzeQueryResult.response).toMatchSnapshot();
         });
 
-        it("then the cache should contain the correct data", async () => {
+        it("correct cache data", async () => {
           expect(await cacheManager.cache.export()).toMatchSnapshot();
         });
       });
 
-      describe("when there is matching data for some of the request in the cache", () => {
-        beforeAll(async () => {
-          // @ts-ignore
-          jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
-
-          cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
-              name: "cachemap",
-              store: map(),
-            }),
-            typeCacheDirectives: {
-              Organization: "public, max-age=1",
-            },
-            typeIDKey: DEFAULT_TYPE_ID_KEY,
-          });
-
-          const requestData = getRequestData(githubParsedQueries.singleTypeWithFilter.initial);
-
-          await cacheManager.resolveQuery(
-            requestData,
-            requestData,
-            githubQueryResponses.singleTypePartialAndFilter.initial,
-            { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
-          );
-
-          analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(githubParsedQueries.singleType),
-            { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
-          );
-        });
-
-        it("then the method should return the correct request data", () => {
-          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
-          expect(otherProps).toMatchSnapshot();
-        });
-
-        it("then the method should not return any response data", () => {
-          expect(analyzeQueryResult.response).toBeUndefined();
-        });
-
-        it("then the cache should contain the correct data", async () => {
-          expect(await cacheManager.cache.export()).toMatchSnapshot();
-        });
-
-        it("then the partial query response map should contain the correct data", () => {
-          // @ts-ignore
-          expect(cacheManager._partialQueryResponses).toMatchSnapshot();
-        });
-      });
-    });
-
-    describe("with a nested type with edges query", () => {
-      describe("when there is no matching data for the request in the cache", () => {
-        beforeAll(async () => {
-          cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
-              name: "cachemap",
-              store: map(),
-            }),
-            typeIDKey: DEFAULT_TYPE_ID_KEY,
-          });
-
-          analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(githubParsedQueries.nestedTypeWithEdges),
-            { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedTypeWithEdges }),
-          );
-        });
-
-        it("then the method should return the correct request data", () => {
-          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
-          expect(otherProps).toMatchSnapshot();
-        });
-
-        it("then the method should not return any response data", () => {
-          expect(analyzeQueryResult.response).toBeUndefined();
-        });
-      });
-
-      describe("when there is matching data for the entire request in the cache", () => {
+      describe("nested type with edges >>", () => {
         beforeAll(async () => {
           // @ts-ignore
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
@@ -746,20 +721,121 @@ describe("@handl/cache-manager", () => {
           );
         });
 
-        it("then the method not return any request data", () => {
+        it("no request data", () => {
           expect(analyzeQueryResult.updated).toBeUndefined();
         });
 
-        it("then the method should return the correct response data", () => {
+        it("correct response data", () => {
           expect(analyzeQueryResult.response).toMatchSnapshot();
         });
 
-        it("then the cache should contain the correct data", async () => {
+        it("correct cache data", async () => {
           expect(await cacheManager.cache.export()).toMatchSnapshot();
         });
       });
 
-      describe("when there is matching data for some of the request in the cache", () => {
+      describe("nested union with edges >>", () => {
+        beforeAll(async () => {
+          // @ts-ignore
+          jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+
+          cacheManager = await CacheManager.init({
+            cache: await Cachemap.init({
+              name: "cachemap",
+              store: map(),
+            }),
+            typeCacheDirectives: {
+              SearchResultItem: "public, max-age=1",
+              SearchResultItemConnection: "public, max-age=3",
+            },
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          const requestData = getRequestData(githubParsedQueries.nestedUnionWithEdges);
+
+          await cacheManager.resolveQuery(
+            requestData,
+            requestData,
+            githubQueryResponses.nestedUnionWithEdges,
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+          );
+
+          analyzeQueryResult = await cacheManager.analyzeQuery(
+            getRequestData(githubParsedQueries.nestedUnionWithEdges),
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
+          );
+        });
+
+        it("no request data", () => {
+          expect(analyzeQueryResult.updated).toBeUndefined();
+        });
+
+        it("correct response data", () => {
+          expect(analyzeQueryResult.response).toMatchSnapshot();
+        });
+
+        it("correct cache data", async () => {
+          expect(await cacheManager.cache.export()).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe("some matching data >>", () => {
+      describe("single type >>", () => {
+        beforeAll(async () => {
+          // @ts-ignore
+          jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+
+          cacheManager = await CacheManager.init({
+            cache: await Cachemap.init({
+              name: "cachemap",
+              store: map(),
+            }),
+            typeCacheDirectives: {
+              Organization: "public, max-age=1",
+            },
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          const requestData = getRequestData(githubParsedQueries.singleTypeWithFilter.initial);
+
+          await cacheManager.resolveQuery(
+            requestData,
+            requestData,
+            githubQueryResponses.singleTypePartialAndFilter.initial,
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+          );
+
+          analyzeQueryResult = await cacheManager.analyzeQuery(
+            getRequestData(githubParsedQueries.singleType),
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.singleType }),
+          );
+        });
+
+        it("correct request data", () => {
+          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          expect(otherProps).toMatchSnapshot();
+        });
+
+        it("no response data", () => {
+          expect(analyzeQueryResult.response).toBeUndefined();
+        });
+
+        it("correct cache data", async () => {
+          expect(await cacheManager.cache.export()).toMatchSnapshot();
+        });
+
+        it("correct partial data", () => {
+          // @ts-ignore
+          expect(cacheManager._partialQueryResponses).toMatchSnapshot();
+        });
+      });
+
+      describe("nested type with edges >", () => {
         beforeAll(async () => {
           // @ts-ignore
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
@@ -795,102 +871,26 @@ describe("@handl/cache-manager", () => {
           );
         });
 
-        it("then the method should return the correct request data", () => {
+        it("correct request data", () => {
           const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
           expect(otherProps).toMatchSnapshot();
         });
 
-        it("then the method should not return any response data", () => {
+        it("no response data", () => {
           expect(analyzeQueryResult.response).toBeUndefined();
         });
 
-        it("then the cache should contain the correct data", async () => {
+        it("correct cache data", async () => {
           expect(await cacheManager.cache.export()).toMatchSnapshot();
         });
 
-        it("then the partial query response map should contain the correct data", () => {
+        it("correct partial data", () => {
           // @ts-ignore
           expect(cacheManager._partialQueryResponses).toMatchSnapshot();
         });
       });
-    });
 
-    describe("with a nested union with edges query", () => {
-      describe("when there is no matching data for the request in the cache", () => {
-        beforeAll(async () => {
-          cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
-              name: "cachemap",
-              store: map(),
-            }),
-            typeIDKey: DEFAULT_TYPE_ID_KEY,
-          });
-
-          analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(githubParsedQueries.nestedUnionWithEdges),
-            { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
-          );
-        });
-
-        it("then the method should return the correct request data", () => {
-          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
-          expect(otherProps).toMatchSnapshot();
-        });
-
-        it("then the method should not return any response data", () => {
-          expect(analyzeQueryResult.response).toBeUndefined();
-        });
-      });
-
-      describe("when there is matching data for the entire request in the cache", () => {
-        beforeAll(async () => {
-          // @ts-ignore
-          jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
-
-          cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
-              name: "cachemap",
-              store: map(),
-            }),
-            typeCacheDirectives: {
-              SearchResultItem: "public, max-age=1",
-              SearchResultItemConnection: "public, max-age=3",
-            },
-            typeIDKey: DEFAULT_TYPE_ID_KEY,
-          });
-
-          const requestData = getRequestData(githubParsedQueries.nestedUnionWithEdges);
-
-          await cacheManager.resolveQuery(
-            requestData,
-            requestData,
-            githubQueryResponses.nestedUnionWithEdges,
-            { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
-          );
-
-          analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(githubParsedQueries.nestedUnionWithEdges),
-            { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: githubQueryFieldTypeMaps.nestedUnionWithEdges }),
-          );
-        });
-
-        it("then the method not return any request data", () => {
-          expect(analyzeQueryResult.updated).toBeUndefined();
-        });
-
-        it("then the method should return the correct response data", () => {
-          expect(analyzeQueryResult.response).toMatchSnapshot();
-        });
-
-        it("then the cache should contain the correct data", async () => {
-          expect(await cacheManager.cache.export()).toMatchSnapshot();
-        });
-      });
-
-      describe("when there is matching data for some of the request in the cache", () => {
+      describe("nested union with edges >>", () => {
         beforeAll(async () => {
           // @ts-ignore
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
@@ -924,20 +924,20 @@ describe("@handl/cache-manager", () => {
           );
         });
 
-        it("then the method should return the correct request data", () => {
+        it("correct request data", () => {
           const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
           expect(otherProps).toMatchSnapshot();
         });
 
-        it("then the method should not return any response data", () => {
+        it("no response data", () => {
           expect(analyzeQueryResult.response).toBeUndefined();
         });
 
-        it("then the cache should contain the correct data", async () => {
+        it("correct cache data", async () => {
           expect(await cacheManager.cache.export()).toMatchSnapshot();
         });
 
-        it("then the partial query response map should contain the correct data", () => {
+        it("correct partial data", () => {
           // @ts-ignore
           expect(cacheManager._partialQueryResponses).toMatchSnapshot();
         });

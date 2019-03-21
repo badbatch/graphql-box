@@ -53,7 +53,10 @@ export const nestedTypeWithEdges = `
             owner {
               login
               url
-              id
+              ... on Organization {
+                name
+                id
+              }
               __typename
             }
           }
@@ -79,7 +82,10 @@ export const nestedTypeWithEdgesWithFilter: ParsedQueryWithFilter = {
               id
               owner {
                 url
-                id
+                ... on Organization {
+                  name
+                  id
+                }
                 __typename
               }
             }
@@ -100,11 +106,6 @@ export const nestedTypeWithEdgesWithFilter: ParsedQueryWithFilter = {
               description
               homepageUrl
               id
-              owner {
-                login
-                id
-                __typename
-              }
             }
           }
         }
@@ -196,25 +197,6 @@ export const nestedUnionWithEdgesWithFilter: ParsedQueryWithFilter = {
       search(query: "react", first: 10, type: REPOSITORY) {
         edges {
           node {
-            ... on Organization {
-              description
-              login
-              id
-            }
-            ... on Issue {
-              bodyText
-              number
-              id
-            }
-            ... on MarketplaceListing {
-              howItWorks
-              id
-            }
-            ... on PullRequest {
-              bodyText
-              number
-              id
-            }
             ... on Repository {
               description
               homepageUrl

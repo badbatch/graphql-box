@@ -2,11 +2,22 @@
 
 exports[`@handl/request-parser when a mutation with an input type variable is passed in then the parser should return the query with the input type variable embedded in it 1`] = `
 "mutation {
-  addStar(input: {clientMutationId: \\"1\\", starrableId: \\"MDEwOlJlcG9zaXRvcnkzODMwNzQyOA==\\"}) {
+  addStar(input: {clientMutationId: \\"1\\", starrableId: \\"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=\\"}) {
     clientMutationId
     starrable {
       viewerHasStarred
-      id
+      ... on Repository {
+        stargazers(first: 6) {
+          edges {
+            node {
+              name
+              login
+              id
+            }
+          }
+        }
+        id
+      }
       __typename
     }
   }
@@ -22,6 +33,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -31,6 +43,7 @@ Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": true,
       "isUnion": false,
       "possibleTypes": Array [
         Object {
@@ -48,6 +61,36 @@ Object {
       ],
       "typeIDValue": undefined,
       "typeName": "Starrable",
+    },
+    "mutation.addStar.starrable.stargazers" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "StargazerConnection",
+    },
+    "mutation.addStar.starrable.stargazers.edges" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "StargazerEdge",
+    },
+    "mutation.addStar.starrable.stargazers.edges.node" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "User",
     },
   },
   "handlID": "123456789",
@@ -74,7 +117,10 @@ exports[`@handl/request-parser when a query with a directive is passed in then t
           owner {
             login
             url
-            id
+            ... on Organization {
+              name
+              id
+            }
             __typename
           }
           id
@@ -96,6 +142,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -105,6 +152,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": true,
       "isEntity": false,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -114,6 +162,7 @@ Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -123,6 +172,7 @@ Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -132,6 +182,7 @@ Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": true,
       "isUnion": false,
       "possibleTypes": Array [
         Object {
@@ -177,6 +228,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -213,6 +265,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -249,6 +302,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -279,7 +333,10 @@ exports[`@handl/request-parser when a query with an enum variable is passed in t
           owner {
             login
             url
-            id
+            ... on Organization {
+              name
+              id
+            }
             __typename
           }
           id
@@ -301,6 +358,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -310,6 +368,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -319,6 +378,7 @@ Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -328,6 +388,7 @@ Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -337,6 +398,7 @@ Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": true,
       "isUnion": false,
       "possibleTypes": Array [
         Object {
@@ -382,6 +444,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -418,6 +481,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -483,6 +547,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -492,6 +557,7 @@ Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -501,6 +567,7 @@ Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
+      "isInterface": false,
       "isUnion": true,
       "possibleTypes": Array [
         Object {
@@ -556,7 +623,10 @@ exports[`@handl/request-parser when a query with multiple variables are passed i
           owner {
             login
             url
-            id
+            ... on Organization {
+              name
+              id
+            }
             __typename
           }
           id
@@ -578,6 +648,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -587,6 +658,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -596,6 +668,7 @@ Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -605,6 +678,7 @@ Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
@@ -614,6 +688,7 @@ Object {
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": true,
       "isUnion": false,
       "possibleTypes": Array [
         Object {
@@ -659,6 +734,7 @@ Object {
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
+      "isInterface": false,
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,

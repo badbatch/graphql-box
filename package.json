@@ -40,7 +40,7 @@
     "compile:types": "lerna run compile:types --parallel",
     "cutoff": "cutoff-lerna",
     "docs": "lerna exec --parallel -- typedoc --includes ./src/main --out ./docs --options ../../typedoc.js",
-    "init": "yarn && yarn run bootstrap && yarn run compile",
+    "init": "yarn && yarn run bootstrap && yarn run build",
     "introspect:url": "node packages/cli/bin/introspect --url \"https://api.github.com/graphql\" --headers \"Authorization:bearer <TOKEN>\" --output \"test/introspections/github/index.json\"",
     "lint": "tslint --project ./tsconfig.json",
     "new-package": "new-package",
