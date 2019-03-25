@@ -4365,6 +4365,662 @@ Object {
 }
 `;
 
+exports[`@handl/cache-manager >> resolve >> mutation >> nested interface >> cascading cache control >> correct cache data 1`] = `
+Object {
+  "entries": Array [
+    Array [
+      "dataEntities::User::MDQ6VXNlcjk5MzQzMjc=",
+      Object {
+        "id": "MDQ6VXNlcjk5MzQzMjc=",
+        "login": "duataud",
+        "name": "Yamir",
+      },
+    ],
+    Array [
+      "dataEntities::User::MDQ6VXNlcjI5NTMwMjU=",
+      Object {
+        "id": "MDQ6VXNlcjI5NTMwMjU=",
+        "login": "fabiodr",
+        "name": "Fabio Dias Rollo",
+      },
+    ],
+    Array [
+      "dataEntities::User::MDQ6VXNlcjc2OTYxNDU=",
+      Object {
+        "id": "MDQ6VXNlcjc2OTYxNDU=",
+        "login": "kevinsegal",
+        "name": "Kevin Segal",
+      },
+    ],
+    Array [
+      "dataEntities::User::MDQ6VXNlcjE2MjcxNjIx",
+      Object {
+        "id": "MDQ6VXNlcjE2MjcxNjIx",
+        "login": "darcyturk",
+        "name": "Darcy Turk",
+      },
+    ],
+    Array [
+      "dataEntities::User::MDQ6VXNlcjE3NTM0MDA2",
+      Object {
+        "id": "MDQ6VXNlcjE3NTM0MDA2",
+        "login": "nicholas-b-carter",
+        "name": "Nick Carter",
+      },
+    ],
+    Array [
+      "dataEntities::User::MDQ6VXNlcjE3MzQ2OTc4",
+      Object {
+        "id": "MDQ6VXNlcjE3MzQ2OTc4",
+        "login": "dylanaubrey",
+        "name": "Dylan Aubrey",
+      },
+    ],
+    Array [
+      "dataEntities::Starrable::MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
+      Object {
+        "__typename": "Repository",
+        "id": "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
+        "name": "handl",
+      },
+    ],
+  ],
+  "metadata": Array [
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471605000,
+        },
+      },
+      "key": "dataEntities::User::MDQ6VXNlcjk5MzQzMjc=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 86,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471605000,
+        },
+      },
+      "key": "dataEntities::User::MDQ6VXNlcjE2MjcxNjIx",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 100,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471605000,
+        },
+      },
+      "key": "dataEntities::User::MDQ6VXNlcjc2OTYxNDU=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 104,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471605000,
+        },
+      },
+      "key": "dataEntities::User::MDQ6VXNlcjI5NTMwMjU=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 108,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471605000,
+        },
+      },
+      "key": "dataEntities::User::MDQ6VXNlcjE3MzQ2OTc4",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 108,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471605000,
+        },
+      },
+      "key": "dataEntities::User::MDQ6VXNlcjE3NTM0MDA2",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 118,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471605000,
+        },
+      },
+      "key": "dataEntities::Starrable::MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 126,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+  ],
+}
+`;
+
+exports[`@handl/cache-manager >> resolve >> mutation >> nested interface >> cascading cache control >> correct response data 1`] = `
+Object {
+  "cacheMetadata": Map {
+    "mutation" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 5,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471605000,
+      },
+    },
+    "mutation.addStar" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 5,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471605000,
+      },
+    },
+    "mutation.addStar.starrable" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 5,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471605000,
+      },
+    },
+    "mutation.addStar.starrable.stargazers" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 5,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471605000,
+      },
+    },
+    "mutation.addStar.starrable.stargazers.edges" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 5,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471605000,
+      },
+    },
+    "mutation.addStar.starrable.stargazers.edges.node" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 5,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471605000,
+      },
+    },
+  },
+  "data": Object {
+    "addStar": Object {
+      "clientMutationId": "1",
+      "starrable": Object {
+        "__typename": "Repository",
+        "id": "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
+        "name": "handl",
+        "stargazers": Object {
+          "edges": Array [
+            Object {
+              "node": Object {
+                "id": "MDQ6VXNlcjk5MzQzMjc=",
+                "login": "duataud",
+                "name": "Yamir",
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDQ6VXNlcjI5NTMwMjU=",
+                "login": "fabiodr",
+                "name": "Fabio Dias Rollo",
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDQ6VXNlcjc2OTYxNDU=",
+                "login": "kevinsegal",
+                "name": "Kevin Segal",
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDQ6VXNlcjE2MjcxNjIx",
+                "login": "darcyturk",
+                "name": "Darcy Turk",
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDQ6VXNlcjE3NTM0MDA2",
+                "login": "nicholas-b-carter",
+                "name": "Nick Carter",
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDQ6VXNlcjE3MzQ2OTc4",
+                "login": "dylanaubrey",
+                "name": "Dylan Aubrey",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`@handl/cache-manager >> resolve >> mutation >> nested interface >> type cache directives >> correct cache data 1`] = `
+Object {
+  "entries": Array [
+    Array [
+      "dataEntities::User::MDQ6VXNlcjk5MzQzMjc=",
+      Object {
+        "id": "MDQ6VXNlcjk5MzQzMjc=",
+        "login": "duataud",
+        "name": "Yamir",
+      },
+    ],
+    Array [
+      "dataEntities::User::MDQ6VXNlcjI5NTMwMjU=",
+      Object {
+        "id": "MDQ6VXNlcjI5NTMwMjU=",
+        "login": "fabiodr",
+        "name": "Fabio Dias Rollo",
+      },
+    ],
+    Array [
+      "dataEntities::User::MDQ6VXNlcjc2OTYxNDU=",
+      Object {
+        "id": "MDQ6VXNlcjc2OTYxNDU=",
+        "login": "kevinsegal",
+        "name": "Kevin Segal",
+      },
+    ],
+    Array [
+      "dataEntities::User::MDQ6VXNlcjE2MjcxNjIx",
+      Object {
+        "id": "MDQ6VXNlcjE2MjcxNjIx",
+        "login": "darcyturk",
+        "name": "Darcy Turk",
+      },
+    ],
+    Array [
+      "dataEntities::User::MDQ6VXNlcjE3NTM0MDA2",
+      Object {
+        "id": "MDQ6VXNlcjE3NTM0MDA2",
+        "login": "nicholas-b-carter",
+        "name": "Nick Carter",
+      },
+    ],
+    Array [
+      "dataEntities::User::MDQ6VXNlcjE3MzQ2OTc4",
+      Object {
+        "id": "MDQ6VXNlcjE3MzQ2OTc4",
+        "login": "dylanaubrey",
+        "name": "Dylan Aubrey",
+      },
+    ],
+    Array [
+      "dataEntities::Starrable::MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
+      Object {
+        "__typename": "Repository",
+        "id": "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
+        "name": "handl",
+      },
+    ],
+  ],
+  "metadata": Array [
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471605000,
+        },
+      },
+      "key": "dataEntities::User::MDQ6VXNlcjk5MzQzMjc=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 86,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471605000,
+        },
+      },
+      "key": "dataEntities::User::MDQ6VXNlcjE2MjcxNjIx",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 100,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471605000,
+        },
+      },
+      "key": "dataEntities::User::MDQ6VXNlcjc2OTYxNDU=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 104,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471605000,
+        },
+      },
+      "key": "dataEntities::User::MDQ6VXNlcjI5NTMwMjU=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 108,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471605000,
+        },
+      },
+      "key": "dataEntities::User::MDQ6VXNlcjE3MzQ2OTc4",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 108,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 5,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471605000,
+        },
+      },
+      "key": "dataEntities::User::MDQ6VXNlcjE3NTM0MDA2",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 118,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297471600000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 10,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297471610000,
+        },
+      },
+      "key": "dataEntities::Starrable::MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
+      "lastAccessed": 297471600000,
+      "lastUpdated": 297471600000,
+      "size": 126,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+  ],
+}
+`;
+
+exports[`@handl/cache-manager >> resolve >> mutation >> nested interface >> type cache directives >> correct response data 1`] = `
+Object {
+  "cacheMetadata": Map {
+    "mutation" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "noCache": true,
+          "noStore": true,
+        },
+        "etag": undefined,
+        "ttl": 0,
+      },
+    },
+    "mutation.addStar" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "noCache": true,
+          "noStore": true,
+        },
+        "etag": undefined,
+        "ttl": 0,
+      },
+    },
+    "mutation.addStar.starrable" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 10,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471610000,
+      },
+    },
+    "mutation.addStar.starrable.stargazers" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 1,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471601000,
+      },
+    },
+    "mutation.addStar.starrable.stargazers.edges" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 1,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471601000,
+      },
+    },
+    "mutation.addStar.starrable.stargazers.edges.node" => Cacheability {
+      "metadata": Object {
+        "cacheControl": Object {
+          "maxAge": 5,
+          "public": true,
+        },
+        "etag": undefined,
+        "ttl": 297471605000,
+      },
+    },
+  },
+  "data": Object {
+    "addStar": Object {
+      "clientMutationId": "1",
+      "starrable": Object {
+        "__typename": "Repository",
+        "id": "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
+        "name": "handl",
+        "stargazers": Object {
+          "edges": Array [
+            Object {
+              "node": Object {
+                "id": "MDQ6VXNlcjk5MzQzMjc=",
+                "login": "duataud",
+                "name": "Yamir",
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDQ6VXNlcjI5NTMwMjU=",
+                "login": "fabiodr",
+                "name": "Fabio Dias Rollo",
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDQ6VXNlcjc2OTYxNDU=",
+                "login": "kevinsegal",
+                "name": "Kevin Segal",
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDQ6VXNlcjE2MjcxNjIx",
+                "login": "darcyturk",
+                "name": "Darcy Turk",
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDQ6VXNlcjE3NTM0MDA2",
+                "login": "nicholas-b-carter",
+                "name": "Nick Carter",
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDQ6VXNlcjE3MzQ2OTc4",
+                "login": "dylanaubrey",
+                "name": "Dylan Aubrey",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`@handl/cache-manager >> resolveQuery >> filtered >> nested type with edges >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [

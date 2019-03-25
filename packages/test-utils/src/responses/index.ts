@@ -830,6 +830,66 @@ export const nestedUnionQuerySet: QueryResponseSet = {
   },
 };
 
+export const nestedInterfaceMutation: RawResponseDataWithMaybeCacheMetadata = {
+  data: {
+    addStar: {
+      clientMutationId: "1",
+      starrable: {
+        __typename: "Repository",
+        id: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
+        name: "handl",
+        stargazers: {
+          edges: [
+            {
+              node: {
+                id: "MDQ6VXNlcjk5MzQzMjc=",
+                login: "duataud",
+                name: "Yamir",
+              },
+            },
+            {
+              node: {
+                id: "MDQ6VXNlcjI5NTMwMjU=",
+                login: "fabiodr",
+                name: "Fabio Dias Rollo",
+              },
+            },
+            {
+              node: {
+                id: "MDQ6VXNlcjc2OTYxNDU=",
+                login: "kevinsegal",
+                name: "Kevin Segal",
+              },
+            },
+            {
+              node: {
+                id: "MDQ6VXNlcjE2MjcxNjIx",
+                login: "darcyturk",
+                name: "Darcy Turk",
+              },
+            },
+            {
+              node: {
+                id: "MDQ6VXNlcjE3NTM0MDA2",
+                login: "nicholas-b-carter",
+                name: "Nick Carter",
+              },
+            },
+            {
+              node: {
+                id: "MDQ6VXNlcjE3MzQ2OTc4",
+                login: "dylanaubrey",
+                name: "Dylan Aubrey",
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+  headers: new Headers({ "Cache-Control": "public, max-age=5" }),
+};
+
 export const nestedInterfaceSubscription: MaybeRequestResult = {
   data: {
     __typename: "Repository",

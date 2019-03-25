@@ -210,6 +210,30 @@ export const nestedUnionQuerySet: ParsedQuerySet = {
   `,
 };
 
+export const nestedInterfaceMutation = `
+  mutation {
+    addStar(input: { clientMutationId: "1", starrableId: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=" }) {
+      clientMutationId
+      starrable {
+        viewerHasStarred
+        ... on Repository {
+          stargazers(first: 6) {
+            edges {
+              node {
+                name
+                login
+                id
+              }
+            }
+          }
+          id
+        }
+        __typename
+      }
+    }
+  }
+`;
+
 export const nestedInterfaceSubscription = `
   subscription {
     starAdded {

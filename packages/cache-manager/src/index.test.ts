@@ -9,7 +9,7 @@ import {
   responses,
 } from "@handl/test-utils";
 import { CacheManager, CacheManagerDef } from ".";
-import { DEFAULT_TYPE_ID_KEY } from "./consts";
+import { DEFAULT_TYPE_ID_KEY, MUTATION } from "./consts";
 import { AnalyzeQueryResult } from "./defs";
 import { rehydrateCacheMetadata } from "./helpers/cache-metadata";
 
@@ -23,6 +23,79 @@ describe("@handl/cache-manager >>", () => {
 
   afterAll(() => {
     global.Date.now = realDateNow;
+  });
+
+  describe("resolve >>", () => {
+    let responseData: ResponseData;
+    let requestData: RequestData;
+
+    describe("mutation >> nested interface >>", () => {
+      describe("cascading cache control >>", () => {
+        beforeAll(async () => {
+          cacheManager = await CacheManager.init({
+            cache: await Cachemap.init({
+              name: "cachemap",
+              store: map(),
+            }),
+            cascadeCacheControl: true,
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          requestData = getRequestData(parsedRequests.nestedInterfaceMutation);
+
+          responseData = await cacheManager.resolveRequest(
+            requestData,
+            responses.nestedInterfaceMutation,
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedInterfaceMutation, operation: MUTATION }),
+          );
+        });
+
+        it("correct response data", () => {
+          expect(responseData).toMatchSnapshot();
+        });
+
+        it("correct cache data", async () => {
+          expect(await cacheManager.cache.export()).toMatchSnapshot();
+        });
+      });
+
+      describe("type cache directives >>", () => {
+        beforeAll(async () => {
+          cacheManager = await CacheManager.init({
+            cache: await Cachemap.init({
+              name: "cachemap",
+              store: map(),
+            }),
+            typeCacheDirectives: {
+              AddStarPayload: "no-cache, no-store",
+              StargazerConnection: "public, max-age=1",
+              StargazerEdge: "public, max-age=1",
+              Starrable: "public, max-age=10",
+              User: "public, max-age=5",
+            },
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          requestData = getRequestData(parsedRequests.nestedInterfaceMutation);
+
+          responseData = await cacheManager.resolveRequest(
+            requestData,
+            responses.nestedInterfaceMutation,
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedInterfaceMutation, operation: MUTATION }),
+          );
+        });
+
+        it("correct response data", () => {
+          expect(responseData).toMatchSnapshot();
+        });
+
+        it("correct cache data", async () => {
+          expect(await cacheManager.cache.export()).toMatchSnapshot();
+        });
+      });
+    });
   });
 
   describe("resolveQuery >>", () => {

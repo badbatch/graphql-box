@@ -132,3 +132,69 @@ export const nestedUnionQuery: FieldTypeMap = new Map([
     typeName: "SearchResultItem",
   }],
 ]);
+
+export const nestedInterfaceMutation: FieldTypeMap = new Map([
+  ["mutation.addStar", {
+    hasArguments: true,
+    hasDirectives: false,
+    isEntity: false,
+    isInterface: false,
+    isUnion: false,
+    possibleTypes: [],
+    typeIDValue: undefined,
+    typeName: "AddStarPayload",
+  }],
+  ["mutation.addStar.starrable", {
+    hasArguments: false,
+    hasDirectives: false,
+    isEntity: true,
+    isInterface: true,
+    isUnion: false,
+    possibleTypes: [
+      {
+        isEntity: true,
+        typeName: "Repository",
+      },
+      {
+        isEntity: true,
+        typeName: "Topic",
+      },
+      {
+        isEntity: true,
+        typeName: "Gist",
+      },
+    ],
+    typeIDValue: undefined,
+    typeName: "Starrable",
+  }],
+  ["mutation.addStar.starrable.stargazers", {
+    hasArguments: true,
+    hasDirectives: false,
+    isEntity: false,
+    isInterface: false,
+    isUnion: false,
+    possibleTypes: [],
+    typeIDValue: undefined,
+    typeName: "StargazerConnection",
+  }],
+  ["mutation.addStar.starrable.stargazers.edges", {
+    hasArguments: false,
+    hasDirectives: false,
+    isEntity: false,
+    isInterface: false,
+    isUnion: false,
+    possibleTypes: [],
+    typeIDValue: undefined,
+    typeName: "StargazerEdge",
+  }],
+  ["mutation.addStar.starrable.stargazers.edges.node", {
+    hasArguments: false,
+    hasDirectives: false,
+    isEntity: true,
+    isInterface: false,
+    isUnion: false,
+    possibleTypes: [],
+    typeIDValue: undefined,
+    typeName: "User",
+  }],
+]);
