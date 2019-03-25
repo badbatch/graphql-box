@@ -9,7 +9,9 @@ import { terser } from 'rollup-plugin-terser';
 
 const rootPackageJson = require('./package.json');
 
-outputFileSync(resolve(process.cwd(), 'lib/browser/index.js'), `
+const dirRoot = resolve(process.cwd());
+
+outputFileSync(`${dirRoot}/lib/browser/index.js`, `
 'use strict';
 if (process.env.NODE_ENV === 'production') {
   module.exports = require('./production.min.js');
@@ -21,8 +23,6 @@ if (process.env.NODE_ENV === 'production') {
 function getKeys(dependencies = []) {
   return Object.keys(dependencies);
 }
-
-const dirRoot = resolve(process.cwd());
 
 const packageJson = require(`${dirRoot}/package.json`); // eslint-disable-line import/no-dynamic-require
 

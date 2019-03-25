@@ -1,45 +1,96 @@
 import { MaybeRequestResult } from "@handl/core";
 import {
   getRequestData,
-  githubParsedQueries,
-  githubQueryResponses,
+  parsedRequests,
+  responses,
 } from "@handl/test-utils";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { Server } from "mock-socket";
 import { SubscriptionsManager } from ".";
 
-const URL = "ws://localhost:8080";
+function onOpen(websocket: WebSocket): Promise<void> {
+  return new Promise((resolve) => {
+    websocket.onopen = () => {
+      resolve();
+    };
+  });
+}
 
 describe("@handl/subscriptions-manager >>", () => {
+  const subscriptionResolver = async (result: any) => result;
+  const url = "ws://localhost:8080";
   let server: Server;
-  let websocket: WebSocket;
+  let serverSocket: WebSocket;
   let subscriptionsManager: SubscriptionsManager;
 
-  beforeAll(() => {
-    server = new Server(URL);
+  beforeEach(() => {
+    server = new Server(url);
 
     server.on("connection", (socket) => {
-      websocket = socket;
+      serverSocket = socket;
     });
   });
 
-  afterAll(() => {
+  afterEach(() => {
     server.stop();
   });
 
   describe("subscribe >> return value >>", () => {
     let response: AsyncIterator<MaybeRequestResult | undefined>;
 
-    beforeAll(async () => {
+    beforeEach(async () => {
+      const websocket = new WebSocket(url);
+      await onOpen(websocket);
+
       subscriptionsManager = await SubscriptionsManager.init({
-        websocket: new WebSocket(URL),
+        websocket,
       });
 
-      response = await subscriptionsManager.subscribe();
+      response = await subscriptionsManager.subscribe(
+        getRequestData(parsedRequests.nestedInterfaceSubscription),
+        {},
+        subscriptionResolver,
+      );
     });
 
     it("async iterator", () => {
       expect(isAsyncIterable(response)).toBeTruthy();
+    });
+  });
+
+  describe("async iterator >> message received >>", () => {
+    let response: MaybeRequestResult;
+
+    beforeEach(async () => {
+      const websocket = new WebSocket(url);
+      await onOpen(websocket);
+
+      subscriptionsManager = await SubscriptionsManager.init({
+        websocket,
+      });
+
+      const requestData = getRequestData(parsedRequests.nestedInterfaceSubscription);
+      const asyncIterator = await subscriptionsManager.subscribe(requestData, {}, subscriptionResolver);
+
+      const promise = new Promise((resolve) => {
+        if (isAsyncIterable(asyncIterator)) {
+          forAwaitEach(asyncIterator, (value: MaybeRequestResult) => {
+            response = value;
+            resolve();
+          });
+        }
+      });
+
+      serverSocket.send(JSON.stringify({
+        result: responses.nestedInterfaceSubscription,
+        subscriptionID: requestData.hash,
+      }));
+
+      await promise;
+    });
+
+    it("correct data", () => {
+      expect(response).toEqual(responses.nestedInterfaceSubscription);
     });
   });
 });
