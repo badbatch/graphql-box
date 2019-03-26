@@ -1,6 +1,7 @@
 import { CacheManagerDef } from "@handl/cache-manager";
 import {
   DebugManagerDef,
+  DEFAULT_TYPE_ID_KEY,
   hashRequest,
   MaybeRawResponseData,
   MaybeRequestResult,
@@ -18,7 +19,7 @@ import { SubscriptionsManagerDef } from "@handl/subscriptions-manager";
 import { DocumentNode } from "graphql";
 import { isArray, isPlainObject, isString } from "lodash";
 import uuid from "uuid/v1";
-import { DEFAULT_TYPE_ID_KEY, MUTATION, QUERY, SUBSCRIPTION } from "../consts";
+import { MUTATION, QUERY, SUBSCRIPTION } from "../consts";
 import logFetch from "../debug/log-fetch";
 import logRequest from "../debug/log-request";
 import logSubscription from "../debug/log-subscription";

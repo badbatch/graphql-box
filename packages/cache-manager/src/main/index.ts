@@ -11,6 +11,7 @@ import {
   RequestData,
   RequestOptions,
   ResponseData,
+  TYPE_NAME_KEY,
 } from "@handl/core";
 import {
   deleteChildFields,
@@ -39,7 +40,6 @@ import {
   QUERY,
   QUERY_RESPONSES,
   REQUEST_FIELD_PATHS,
-  TYPE_NAME_KEY,
 } from "../consts";
 import { logCacheEntry, logCacheQuery, logPartialCompiled } from "../debug";
 import {

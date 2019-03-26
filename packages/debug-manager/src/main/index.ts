@@ -5,14 +5,14 @@ import { ConstructorOptions, DebugManagerInit, InitOptions, Logger, UserOptions 
 import performance from "../helpers/isomorphic-performance";
 
 export class DebugManager extends EventEmitter implements DebugManagerDef {
-  public static async init(options: InitOptions): Promise<DebugManager> {
+  public static async init(options?: InitOptions): Promise<DebugManager> {
     return new DebugManager(options);
   }
 
   private _logger: Logger | null;
   private _performance: Performance;
 
-  constructor(options: ConstructorOptions) {
+  constructor(options: ConstructorOptions = {}) {
     super();
     const { logger } = options;
     this._logger = logger || null;
@@ -34,7 +34,7 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
   }
 }
 
-export default function init(userOptions: UserOptions): DebugManagerInit {
+export default function init(userOptions?: UserOptions): DebugManagerInit {
   if (userOptions && !isPlainObject(userOptions)) {
     throw new TypeError("@handl/debug-manager expected userOptions to be a plain object.");
   }

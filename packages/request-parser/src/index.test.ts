@@ -1,4 +1,4 @@
-import { RequestContext } from "@handl/core";
+import { DEFAULT_TYPE_ID_KEY, RequestContext } from "@handl/core";
 import {
   getRequestContext,
   githubIntrospection,
@@ -6,7 +6,6 @@ import {
 } from "@handl/test-utils";
 import { IntrospectionQuery } from "graphql";
 import { RequestParser, RequestParserDef, UpdateRequestResult } from ".";
-import { DEFAULT_TYPE_ID_KEY } from "./consts";
 
 describe("@handl/request-parser >>", () => {
   let requestParser: RequestParserDef;
