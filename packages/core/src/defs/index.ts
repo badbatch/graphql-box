@@ -47,7 +47,6 @@ export interface RequestOptions {
 export type CacheTypes = "dataEntities" | "queryResponses" | "requestFieldPaths";
 
 export interface DebugManagerDef extends EventEmitter {
-  emit(event: string, props: PlainObjectMap): boolean;
   now(): number;
 }
 
