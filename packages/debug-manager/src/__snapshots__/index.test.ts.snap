@@ -34,9 +34,9 @@ Array [
       "awaitDataCaching": true,
     },
     "stats": Object {
-      "duration": 1.572599000000082,
-      "endTime": 2570.773773,
-      "startTime": 2569.201174,
+      "duration": 0,
+      "endTime": 0,
+      "startTime": 0,
     },
     "value": Object {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -79,9 +79,9 @@ Array [
       "awaitDataCaching": true,
     },
     "stats": Object {
-      "duration": 0.8382910000000265,
-      "endTime": 2571.017401,
-      "startTime": 2570.17911,
+      "duration": 0,
+      "endTime": 0,
+      "startTime": 0,
     },
     "value": Object {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -124,9 +124,9 @@ Array [
       "awaitDataCaching": true,
     },
     "stats": Object {
-      "duration": 0.21927000000005137,
-      "endTime": 2571.74437,
-      "startTime": 2571.5251,
+      "duration": 0,
+      "endTime": 0,
+      "startTime": 0,
     },
     "value": Object {
       "cacheMetadata": Object {
@@ -136,7 +136,7 @@ Array [
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1553641023230,
+          "ttl": 297471605000,
         },
         "query.organization": Object {
           "cacheControl": Object {
@@ -144,7 +144,7 @@ Array [
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1553641023230,
+          "ttl": 297471605000,
         },
       },
       "data": Object {
@@ -157,6 +157,83 @@ Array [
           "url": "https://github.com/facebook",
         },
       },
+    },
+  },
+]
+`;
+
+exports[`@handl/debug-manager >> CacheManager >> CACHE_ENTRY_QUERIED >> correct data emitted 1`] = `
+Array [
+  Object {
+    "cacheType": "requestFieldPaths",
+    "context": Object {
+      "fieldTypeMap": Map {
+        "query.organization" => Object {
+          "hasArguments": true,
+          "hasDirectives": false,
+          "isEntity": true,
+          "isInterface": false,
+          "isUnion": false,
+          "possibleTypes": Array [],
+          "typeIDValue": undefined,
+          "typeName": "Organization",
+        },
+      },
+      "handlID": "123456789",
+      "operation": "query",
+      "operationName": "",
+      "queryFiltered": false,
+      "request": "",
+    },
+    "hash": "5256db516a2438a7e5488a00413f4809",
+    "options": Object {
+      "awaitDataCaching": true,
+    },
+    "result": Object {
+      "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "login": "facebook",
+    },
+    "stats": Object {
+      "duration": 0,
+      "endTime": 0,
+      "startTime": 0,
+    },
+  },
+  Object {
+    "cacheType": "dataEntities",
+    "context": Object {
+      "fieldTypeMap": Map {
+        "query.organization" => Object {
+          "hasArguments": true,
+          "hasDirectives": false,
+          "isEntity": true,
+          "isInterface": false,
+          "isUnion": false,
+          "possibleTypes": Array [],
+          "typeIDValue": undefined,
+          "typeName": "Organization",
+        },
+      },
+      "handlID": "123456789",
+      "operation": "query",
+      "operationName": "",
+      "queryFiltered": false,
+      "request": "",
+    },
+    "hash": "Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+    "options": Object {
+      "awaitDataCaching": true,
+    },
+    "result": Object {
+      "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "login": "facebook",
+    },
+    "stats": Object {
+      "duration": 0,
+      "endTime": 0,
+      "startTime": 0,
     },
   },
 ]
