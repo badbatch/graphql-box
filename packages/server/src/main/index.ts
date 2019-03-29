@@ -3,6 +3,7 @@ import {
   MaybeRequestResult,
   MaybeRequestResultWithDehydratedCacheMetadata,
   PlainObjectStringMap,
+  ServerRequestOptions,
 } from "@handl/core";
 import { dehydrateCacheMetadata } from "@handl/helpers";
 import { Request, Response } from "express";
@@ -14,7 +15,6 @@ import {
   MessageHandler,
   RequestData,
   RequestHandler,
-  RequestOptions,
   ResponseDataWithMaybeDehydratedCacheMetadataBatch,
   UserOptions,
 } from "../defs";
@@ -47,13 +47,13 @@ export class Server {
     this._client = client;
   }
 
-  public request(options: RequestOptions = {}): RequestHandler {
+  public request(options: ServerRequestOptions = {}): RequestHandler {
     return (req: Request, res: Response) => {
       this._requestHandler(req, res, options);
     };
   }
 
-  public message(options: RequestOptions = {}): MessageHandler {
+  public message(options: ServerRequestOptions = {}): MessageHandler {
     return (ws: WebSocket) => {
       return (message: string) => {
         this._messageHandler(ws, message, options);
@@ -63,17 +63,13 @@ export class Server {
 
   private async _handleBatchRequest(
     requests: PlainObjectStringMap,
-    { awaitDataCaching, returnCacheMetadata, tag }: RequestOptions,
+    options: ServerRequestOptions,
   ): Promise<ResponseDataWithMaybeDehydratedCacheMetadataBatch> {
     const responses: ResponseDataWithMaybeDehydratedCacheMetadataBatch = {};
 
     await Promise.all(Object.keys(requests).map(async (requestHash) => {
       const request = requests[requestHash];
-
-      const { _cacheMetadata, ...otherProps } = await this._client.request(
-        request,
-        { awaitDataCaching, returnCacheMetadata, tag },
-      );
+      const { _cacheMetadata, ...otherProps } = await this._client.request(request, options);
 
       responses[requestHash] = { ...otherProps };
       if (_cacheMetadata) responses[requestHash]._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
@@ -84,19 +80,15 @@ export class Server {
 
   private async _handleRequest(
     request: string,
-    { awaitDataCaching, returnCacheMetadata, tag }: RequestOptions,
+    options: ServerRequestOptions,
   ): Promise<MaybeRequestResultWithDehydratedCacheMetadata> {
-    const { _cacheMetadata, ...otherProps } = await this._client.request(
-      request,
-      { awaitDataCaching, returnCacheMetadata, tag },
-    );
-
+    const { _cacheMetadata, ...otherProps } = await this._client.request(request, options);
     const response: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
     if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
     return response;
   }
 
-  private async _messageHandler(ws: WebSocket, message: string, options: RequestOptions): Promise<void> {
+  private async _messageHandler(ws: WebSocket, message: string, options: ServerRequestOptions): Promise<void> {
     try {
       const { subscriptionID, subscription } = JSON.parse(message);
       const subscribeResult = await this._client.request(subscription, options);
@@ -115,7 +107,7 @@ export class Server {
     }
   }
 
-  private async _requestHandler(req: Request, res: Response, options: RequestOptions): Promise<void> {
+  private async _requestHandler(req: Request, res: Response, options: ServerRequestOptions): Promise<void> {
     try {
       const { batched, request } = req.body as RequestData;
 

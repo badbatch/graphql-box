@@ -78,18 +78,13 @@ export class RequestManager implements RequestManagerDef {
     this._url = url;
   }
 
-  @logFetch()
   public async execute(
-    { hash, request }: RequestDataWithMaybeAST,
+    requestData: RequestDataWithMaybeAST,
     options: RequestOptions,
     context: RequestContext,
   ): Promise<MaybeRawResponseData> {
     try {
-      if (!this._batch) return await this._fetch(request, hash, { batch: false });
-
-      return new Promise((resolve: (value: MaybeRawResponseData) => void, reject) => {
-        this._batchRequest(request, hash, { resolve, reject });
-      });
+      return this._execute(requestData, options, context);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -107,6 +102,23 @@ export class RequestManager implements RequestManagerDef {
     this._activeBatch = new Map();
     this._activeBatch.set(hash, { actions, request });
     this._startBatchTimer();
+  }
+
+  @logFetch()
+  private async _execute(
+    { hash, request }: RequestDataWithMaybeAST,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<MaybeRawResponseData> {
+    try {
+      if (!this._batch) return await this._fetch(request, hash, { batch: false });
+
+      return new Promise((resolve: (value: MaybeRawResponseData) => void, reject) => {
+        this._batchRequest(request, hash, { resolve, reject });
+      });
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   private async _fetch(

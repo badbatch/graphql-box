@@ -1,6 +1,6 @@
 import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
 import EventEmitter from "eventemitter3";
-import { DocumentNode } from "graphql";
+import { DocumentNode, GraphQLFieldResolver } from "graphql";
 
 export interface PlainObjectMap {
   [key: string]: any;
@@ -42,6 +42,58 @@ export interface RequestOptions {
    * subscription being requested.
    */
   variables?: PlainObjectMap;
+}
+
+export interface ServerRequestOptions {
+  /**
+   * Whether the request method should wait until
+   * all response data has been cached before
+   * returning the response data.
+   */
+  awaitDataCaching?: boolean;
+
+  /**
+   * Set GraphQL context value to be passed on to
+   * GraphQL's execute and subscribe methods.
+   */
+  contextValue?: any;
+
+  /**
+   * Set default GraphQL field resolver function to
+   * be passed on to GraphQL's execute and subscribe
+   * methods.
+   */
+  fieldResolver?: GraphQLFieldResolver<any, any>;
+
+  /**
+   * Set GraphQL operation name to be passed on to
+   * GraphQL's execute and subscribe methods.
+   */
+  operationName?: string;
+
+  /**
+   * Whether to return the cache metadata along
+   * with the requested data.
+   */
+  returnCacheMetadata?: boolean;
+
+  /**
+   * Set default GraphQL root value to be passed on to
+   * GraphQL's execute and subscribe methods.
+   */
+  rootValue?: any;
+
+  /**
+   * Set default GraphQL subscribe field resolver function to
+   * be passed on to GraphQL's subscribe method.
+   */
+  subscribeFieldResolver?: GraphQLFieldResolver<any, any>;
+
+  /**
+   * An identifier that will be stored in a request's cache metadata.
+   * This can be used to retrieve cache entries against.
+   */
+  tag?: any;
 }
 
 export type CacheTypes = "dataEntities" | "queryResponses" | "requestFieldPaths";
