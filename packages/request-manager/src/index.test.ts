@@ -1,5 +1,6 @@
 import { MaybeRawResponseData } from "@handl/core";
 import {
+  getRequestContext,
   getRequestData,
   parsedRequests,
   responses,
@@ -23,7 +24,12 @@ describe("@handl/request-manager >>", () => {
       const body = { data: responses.singleTypeQuery.data };
       const headers = { "cache-control": "public, max-age=5" };
       fetchMock.post("*", { body, headers });
-      response = await requestManager.fetch(getRequestData(parsedRequests.singleTypeQuery));
+
+      response = await requestManager.execute(
+        getRequestData(parsedRequests.singleTypeQuery),
+        {},
+        getRequestContext(),
+      );
     });
 
     afterAll(() => {
@@ -62,7 +68,7 @@ describe("@handl/request-manager >>", () => {
 
         const headers = { "cache-control": "public, max-age=5" };
         fetchMock.post("*", { body, headers });
-        const promise = requestManager.fetch(requestData);
+        const promise = requestManager.execute(requestData, {}, getRequestContext());
         jest.runOnlyPendingTimers();
         response = await promise;
       });
@@ -106,8 +112,8 @@ describe("@handl/request-manager >>", () => {
         fetchMock.post("*", { body, headers });
 
         const promises = [
-          requestManager.fetch(initialRequestData),
-          requestManager.fetch(updatedRequestData),
+          requestManager.execute(initialRequestData, {}, getRequestContext()),
+          requestManager.execute(updatedRequestData, {}, getRequestContext()),
         ];
 
         jest.runOnlyPendingTimers();

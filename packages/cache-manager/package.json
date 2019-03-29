@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@handl/core": "^0.1.22",
-    "@handl/helpers": "^0.1.22"
+    "@handl/helpers": "^0.1.22",
+    "cacheability": "^2.0.4"
   }
 }

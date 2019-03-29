@@ -14,6 +14,7 @@ import {
   TYPE_NAME_KEY,
 } from "@handl/core";
 import {
+  dehydrateCacheMetadata,
   deleteChildFields,
   deleteInlineFragments,
   getAlias,
@@ -26,6 +27,7 @@ import {
   hasChildFields,
   iterateChildFields,
   mergeObjects,
+  rehydrateCacheMetadata,
 } from "@handl/helpers";
 import Cacheability from "cacheability";
 import { FieldNode, print } from "graphql";
@@ -70,7 +72,6 @@ import {
   TypeNames,
   UserOptions,
 } from "../defs";
-import { dehydrateCacheMetadata, rehydrateCacheMetadata } from "../helpers/cache-metadata";
 
 export class CacheManager implements CacheManagerDef  {
   public static async init(options: InitOptions): Promise<CacheManager> {
@@ -561,18 +562,14 @@ export class CacheManager implements CacheManagerDef  {
   }
 
   private _createCacheMetadata(
-    rawResponseData: RawResponseDataWithMaybeCacheMetadata,
+    { _cacheMetadata, headers }: RawResponseDataWithMaybeCacheMetadata,
     { operation }: RequestContext,
   ): CacheMetadata {
     const cacheMetadata = new Map();
-    const cacheControl = rawResponseData.headers.get(HEADER_CACHE_CONTROL) || this._fallbackOperationCacheability;
+    const cacheControl = (headers && headers.get(HEADER_CACHE_CONTROL)) || this._fallbackOperationCacheability;
     const cacheability = new Cacheability({ cacheControl });
     cacheMetadata.set(operation, cacheability);
-
-    if (rawResponseData.cacheMetadata) {
-      rehydrateCacheMetadata(rawResponseData.cacheMetadata, cacheMetadata);
-    }
-
+    if (_cacheMetadata) rehydrateCacheMetadata(_cacheMetadata, cacheMetadata);
     return cacheMetadata;
   }
 

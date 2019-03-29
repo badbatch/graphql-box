@@ -1,5 +1,12 @@
-import { MaybeRawResponseData, PlainObjectStringMap, RequestDataWithMaybeAST } from "@handl/core";
+import {
+  MaybeRawResponseData,
+  PlainObjectStringMap,
+  RequestContext,
+  RequestDataWithMaybeAST,
+  RequestOptions,
+} from "@handl/core";
 import { isPlainObject, isString } from "lodash";
+import logFetch from "../debug/log-fetch";
 import {
   ActiveBatch,
   ActiveBatchValue,
@@ -71,7 +78,12 @@ export class RequestManager implements RequestManagerDef {
     this._url = url;
   }
 
-  public async fetch({ hash, request }: RequestDataWithMaybeAST): Promise<MaybeRawResponseData> {
+  @logFetch()
+  public async execute(
+    { hash, request }: RequestDataWithMaybeAST,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<MaybeRawResponseData> {
     try {
       if (!this._batch) return await this._fetch(request, hash, { batch: false });
 

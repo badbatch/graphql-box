@@ -20,7 +20,6 @@ import { DocumentNode } from "graphql";
 import { isArray, isPlainObject, isString } from "lodash";
 import uuid from "uuid/v1";
 import { MUTATION, QUERY, SUBSCRIPTION } from "../consts";
-import logFetch from "../debug/log-fetch";
 import logRequest from "../debug/log-request";
 import logSubscription from "../debug/log-subscription";
 import { ConstructorOptions, PendingQueryData, PendingQueryResolver, QueryTracker, UserOptions } from "../defs";
@@ -155,19 +154,6 @@ export default class Client {
     }
   }
 
-  @logFetch()
-  private async _fetch(
-    requestData: RequestDataWithMaybeAST,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<MaybeRawResponseData> {
-    try {
-      return this._requestManager.fetch(requestData);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
   private _getRequestContext(operation: ValidOperations, request: string): RequestContext {
     return {
       debugManager: this._debugManager,
@@ -186,7 +172,7 @@ export default class Client {
     context: RequestContext,
   ): Promise<MaybeRequestResult> {
     try {
-      const rawResponseData = await this._fetch(requestData, options, context);
+      const rawResponseData = await this._requestManager.execute(requestData, options, context);
 
       const { data, errors } = rawResponseData;
       if (errors) return Promise.reject(errors);
@@ -241,7 +227,7 @@ export default class Client {
         }
       }
 
-      const rawResponseData = await this._fetch(updatedRequestData, options, context);
+      const rawResponseData = await this._requestManager.execute(updatedRequestData, options, context);
 
       const { data, errors } = rawResponseData;
       if (errors) return this._resolveQuery(updatedRequestData, { errors }, options, context);

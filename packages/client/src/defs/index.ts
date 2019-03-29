@@ -5,6 +5,39 @@ import { RequestManagerDef, RequestManagerInit } from "@handl/request-manager";
 import { RequestParserDef, RequestParserInit } from "@handl/request-parser";
 import { SubscriptionsManagerDef, SubscriptionsManagerInit } from "@handl/subscriptions-manager";
 
+export interface UserOptions {
+  /**
+   * The curried function to initialize the cache manager.
+   */
+  cacheManager?: CacheManagerInit;
+
+  /**
+   * The curried function to initialize the request manager.
+   */
+  requestManager: RequestManagerInit;
+
+  /**
+   * The curried function to initialize the debug manager.
+   */
+  debugManager?: DebugManagerInit;
+
+  /**
+   * The curried function to initialzie the request parser.
+   */
+  requestParser?: RequestParserInit;
+
+  /**
+   * The curried function to initialize the subscriptions manager.
+   */
+  subscriptionsManager?: SubscriptionsManagerInit;
+
+  /**
+   * The name of the property thats value is used as the unique
+   * identifier for each type in the GraphQL schema.
+   */
+  typeIDKey?: string;
+}
+
 export interface ConstructorOptions {
   /**
    * The cache manager.
@@ -30,39 +63,6 @@ export interface ConstructorOptions {
    * The subscriptions manager.
    */
   subscriptionsManager?: SubscriptionsManagerDef;
-}
-
-export interface UserOptions {
-  /**
-   * The curried function to initialize the cache manager.
-   */
-  cacheManager?: CacheManagerInit;
-
-  /**
-   * The curried function to initialize the request manager.
-   */
-  requestManager: RequestManagerInit;
-
-  /**
-   * The debug manager.
-   */
-  debugManager?: DebugManagerInit;
-
-  /**
-   * The curried function to initialzie the request parser.
-   */
-  requestParser?: RequestParserInit;
-
-  /**
-   * The curried function to initialize the subscriptions manager.
-   */
-  subscriptionsManager?: SubscriptionsManagerInit;
-
-  /**
-   * The name of the property thats value is used as the unique
-   * identifier for each type in the GraphQL schema.
-   */
-  typeIDKey?: string;
 }
 
 export type PendingQueryResolver = (value: MaybeRequestResult) => void;

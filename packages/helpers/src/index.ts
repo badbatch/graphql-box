@@ -1,3 +1,4 @@
+export { dehydrateCacheMetadata, rehydrateCacheMetadata } from "./cache-metadata";
 export { default as mergeObjects } from "./merge-objects";
 export { getAlias } from "./parsing/alias";
 export { getArguments } from "./parsing/arguments";

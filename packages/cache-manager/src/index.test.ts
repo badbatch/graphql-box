@@ -1,6 +1,7 @@
 import Cachemap from "@cachemap/core";
 import map from "@cachemap/map";
 import { DEFAULT_TYPE_ID_KEY, DehydratedCacheMetadata, RequestData, ResponseData } from "@handl/core";
+import { rehydrateCacheMetadata } from "@handl/helpers";
 import {
   getRequestContext,
   getRequestData,
@@ -11,7 +12,6 @@ import {
 import { CacheManager, CacheManagerDef } from ".";
 import { MUTATION } from "./consts";
 import { AnalyzeQueryResult } from "./defs";
-import { rehydrateCacheMetadata } from "./helpers/cache-metadata";
 
 describe("@handl/cache-manager >>", () => {
   const realDateNow = Date.now.bind(global.Date);

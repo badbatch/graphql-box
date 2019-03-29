@@ -16,8 +16,7 @@ export default function logRequest() {
           const { debugManager, ...otherContext } = args[2] as RequestContext;
 
           if (!debugManager) {
-            method.apply(this, args);
-            resolve();
+            resolve(await method.apply(this, args));
             return;
           }
 

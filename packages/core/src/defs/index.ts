@@ -87,16 +87,16 @@ export interface DehydratedCacheMetadata {
 export type CacheMetadata = Map<string, Cacheability>;
 
 export interface RawResponseDataWithMaybeCacheMetadata {
-  cacheMetadata?: DehydratedCacheMetadata;
+  _cacheMetadata?: DehydratedCacheMetadata;
   data: PlainObjectMap;
-  headers: Headers;
+  headers?: Headers;
 }
 
 export interface MaybeRawResponseData {
-  cacheMetadata?: DehydratedCacheMetadata;
+  _cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObjectMap;
   errors?: Error | Error[];
-  headers: Headers;
+  headers?: Headers;
 }
 
 export interface ResponseData {
@@ -137,5 +137,11 @@ export interface MaybeRequestResult {
   /**
    * Any errors thrown during the request.
    */
+  errors?: Error | Error[];
+}
+
+export interface MaybeRequestResultWithDehydratedCacheMetadata {
+  _cacheMetadata?: DehydratedCacheMetadata;
+  data?: PlainObjectMap;
   errors?: Error | Error[];
 }
