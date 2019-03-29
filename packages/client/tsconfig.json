@@ -13,7 +13,7 @@
     { "path": "../debug-manager" },
     { "path": "../request-manager" },
     { "path": "../request-parser" },
-    { "path": "../subscriptions-manager" },
+    { "path": "../websocket-manager" },
     { "path": "../test-utils" },
   ]
 }

@@ -197,3 +197,17 @@ export interface MaybeRequestResultWithDehydratedCacheMetadata {
   data?: PlainObjectMap;
   errors?: Error | Error[];
 }
+
+export type SubscriberResolver = (
+  rawResponseData: RawResponseDataWithMaybeCacheMetadata,
+) => Promise<MaybeRequestResult>;
+
+export interface SubscriptionsManagerDef {
+  subscribe(
+    requestData: RequestDataWithMaybeAST,
+    options: RequestOptions,
+    subscriberResolver: SubscriberResolver,
+  ): Promise<AsyncIterator<MaybeRequestResult | undefined>>;
+}
+
+export type SubscriptionsManagerInit = () => Promise<SubscriptionsManagerDef>;

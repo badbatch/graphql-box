@@ -6,7 +6,7 @@ import {
 } from "@handl/test-utils";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { Server } from "mock-socket";
-import { SubscriptionsManager } from ".";
+import { WebsocketManager } from ".";
 
 function onOpen(websocket: WebSocket): Promise<void> {
   return new Promise((resolve) => {
@@ -16,12 +16,12 @@ function onOpen(websocket: WebSocket): Promise<void> {
   });
 }
 
-describe("@handl/subscriptions-manager >>", () => {
+describe("@handl/websocket-manager >>", () => {
   const subscriptionResolver = async (result: any) => result;
   const url = "ws://localhost:8080";
   let server: Server;
   let serverSocket: WebSocket;
-  let subscriptionsManager: SubscriptionsManager;
+  let websocketManager: WebsocketManager;
 
   beforeEach(() => {
     server = new Server(url);
@@ -42,11 +42,11 @@ describe("@handl/subscriptions-manager >>", () => {
       const websocket = new WebSocket(url);
       await onOpen(websocket);
 
-      subscriptionsManager = await SubscriptionsManager.init({
+      websocketManager = await WebsocketManager.init({
         websocket,
       });
 
-      response = await subscriptionsManager.subscribe(
+      response = await websocketManager.subscribe(
         getRequestData(parsedRequests.nestedInterfaceSubscription),
         {},
         subscriptionResolver,
@@ -65,12 +65,12 @@ describe("@handl/subscriptions-manager >>", () => {
       const websocket = new WebSocket(url);
       await onOpen(websocket);
 
-      subscriptionsManager = await SubscriptionsManager.init({
+      websocketManager = await WebsocketManager.init({
         websocket,
       });
 
       const requestData = getRequestData(parsedRequests.nestedInterfaceSubscription);
-      const asyncIterator = await subscriptionsManager.subscribe(requestData, {}, subscriptionResolver);
+      const asyncIterator = await websocketManager.subscribe(requestData, {}, subscriptionResolver);
 
       const promise = new Promise((resolve) => {
         if (isAsyncIterable(asyncIterator)) {

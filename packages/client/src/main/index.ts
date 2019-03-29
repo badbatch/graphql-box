@@ -11,11 +11,11 @@ import {
   RequestData,
   RequestDataWithMaybeAST,
   RequestOptions,
+  SubscriptionsManagerDef,
   ValidOperations,
 } from "@handl/core";
 import { RequestManagerDef } from "@handl/request-manager";
 import { RequestParserDef } from "@handl/request-parser";
-import { SubscriptionsManagerDef } from "@handl/subscriptions-manager";
 import { DocumentNode } from "graphql";
 import { isArray, isPlainObject, isString } from "lodash";
 import uuid from "uuid/v1";

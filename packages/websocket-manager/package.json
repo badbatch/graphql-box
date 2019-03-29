@@ -1,7 +1,7 @@
 {
-  "name": "@handl/subscriptions-manager",
+  "name": "@handl/websocket-manager",
   "version": "0.1.22",
-  "description": "The Handl subscriptions manager module.",
+  "description": "The Handl websocket manager module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/handl",

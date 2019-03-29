@@ -1,28 +1,32 @@
-import { MaybeRequestResult, RequestDataWithMaybeAST, RequestOptions } from "@handl/core";
+import {
+  MaybeRequestResult,
+  RequestDataWithMaybeAST,
+  RequestOptions,
+  SubscriberResolver,
+  SubscriptionsManagerDef,
+  SubscriptionsManagerInit,
+} from "@handl/core";
 import EventEmitter from "eventemitter3";
 import { isPlainObject } from "lodash";
 import {
   ConstructorOptions,
   InitOptions,
-  SubscriberResolver,
-  SubscriptionsManagerDef,
-  SubscriptionsManagerInit,
   UserOptions,
 } from "../defs";
 import EventAsyncIterator from "../helpers/event-async-iterator";
 
-export class SubscriptionsManager implements SubscriptionsManagerDef {
-  public static async init(options: InitOptions): Promise<SubscriptionsManager> {
+export class WebsocketManager implements SubscriptionsManagerDef {
+  public static async init(options: InitOptions): Promise<WebsocketManager> {
     const errors: TypeError[] = [];
 
     if (!options.websocket) {
-       errors.push(new TypeError("@handl/subscriptions-manager expected options.websocket."));
+       errors.push(new TypeError("@handl/websocket-manager expected options.websocket."));
     }
 
     if (errors.length) return Promise.reject(errors);
 
     try {
-      return new SubscriptionsManager(options);
+      return new WebsocketManager(options);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -44,7 +48,7 @@ export class SubscriptionsManager implements SubscriptionsManagerDef {
     subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
     if (!this._isSocketOpen()) {
-      return Promise.reject(new Error("@handl/subscriptions-manager expected the websocket to be open."));
+      return Promise.reject(new Error("@handl/websocket-manager expected the websocket to be open."));
     }
 
     try {
@@ -76,8 +80,8 @@ export class SubscriptionsManager implements SubscriptionsManagerDef {
 
 export default function init(userOptions: UserOptions): SubscriptionsManagerInit {
   if (!isPlainObject(userOptions)) {
-    throw new TypeError("@handl/subscriptions-manager expected userOptions to be a plain object.");
+    throw new TypeError("@handl/websocket-manager expected userOptions to be a plain object.");
   }
 
-  return () => SubscriptionsManager.init(userOptions);
+  return () => WebsocketManager.init(userOptions);
 }
