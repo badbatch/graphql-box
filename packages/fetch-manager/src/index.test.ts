@@ -1,4 +1,4 @@
-import { MaybeRawResponseData } from "@handl/core";
+import { MaybeRawResponseData, RequestManagerDef } from "@handl/core";
 import {
   getRequestContext,
   getRequestData,
@@ -6,18 +6,18 @@ import {
   responses,
 } from "@handl/test-utils";
 import fetchMock from "fetch-mock";
-import { RequestManager } from ".";
+import { FetchManager } from ".";
 
 const URL = "https://api.github.com/graphql";
 
-describe("@handl/request-manager >>", () => {
-  let requestManager: RequestManager;
+describe("@handl/fetch-manager >>", () => {
+  let fetchManager: RequestManagerDef;
 
   describe("no batching >>", () => {
     let response: MaybeRawResponseData;
 
     beforeAll(async () => {
-      requestManager = await RequestManager.init({
+      fetchManager = await FetchManager.init({
         url: URL,
       });
 
@@ -25,7 +25,7 @@ describe("@handl/request-manager >>", () => {
       const headers = { "cache-control": "public, max-age=5" };
       fetchMock.post("*", { body, headers });
 
-      response = await requestManager.execute(
+      response = await fetchManager.execute(
         getRequestData(parsedRequests.singleTypeQuery),
         {},
         getRequestContext(),
@@ -52,7 +52,7 @@ describe("@handl/request-manager >>", () => {
       beforeAll(async () => {
         jest.useFakeTimers();
 
-        requestManager = await RequestManager.init({
+        fetchManager = await FetchManager.init({
           batch: true,
           fetchTimeout: 10000,
           url: URL,
@@ -68,7 +68,7 @@ describe("@handl/request-manager >>", () => {
 
         const headers = { "cache-control": "public, max-age=5" };
         fetchMock.post("*", { body, headers });
-        const promise = requestManager.execute(requestData, {}, getRequestContext());
+        const promise = fetchManager.execute(requestData, {}, getRequestContext());
         jest.runOnlyPendingTimers();
         response = await promise;
       });
@@ -92,7 +92,7 @@ describe("@handl/request-manager >>", () => {
       beforeAll(async () => {
         jest.useFakeTimers();
 
-        requestManager = await RequestManager.init({
+        fetchManager = await FetchManager.init({
           batch: true,
           fetchTimeout: 10000,
           url: URL,
@@ -112,8 +112,8 @@ describe("@handl/request-manager >>", () => {
         fetchMock.post("*", { body, headers });
 
         const promises = [
-          requestManager.execute(initialRequestData, {}, getRequestContext()),
-          requestManager.execute(updatedRequestData, {}, getRequestContext()),
+          fetchManager.execute(initialRequestData, {}, getRequestContext()),
+          fetchManager.execute(updatedRequestData, {}, getRequestContext()),
         ];
 
         jest.runOnlyPendingTimers();

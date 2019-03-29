@@ -3,12 +3,13 @@ import {
   DebugManagerDef,
   MaybeRequestResult,
   RequestContext,
+  RequestManagerDef,
+  RequestManagerInit,
   RequestOptions,
   SubscriptionsManagerDef,
   SubscriptionsManagerInit,
 } from "@handl/core";
 import { DebugManagerInit } from "@handl/debug-manager";
-import { RequestManagerDef, RequestManagerInit } from "@handl/request-manager";
 import { RequestParserDef, RequestParserInit } from "@handl/request-parser";
 
 export interface UserOptions {

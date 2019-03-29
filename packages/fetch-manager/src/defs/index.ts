@@ -3,9 +3,6 @@ import {
   MaybeRawResponseData,
   PlainObjectMap,
   PlainObjectStringMap,
-  RequestContext,
-  RequestDataWithMaybeAST,
-  RequestOptions,
 } from "@handl/core";
 
 export interface UserOptions {
@@ -78,13 +75,3 @@ export interface BatchedMaybeFetchData {
   batch: MaybeRawFetchDataObjectMap;
   headers: Headers;
 }
-
-export interface RequestManagerDef {
-  execute(
-    requestData: RequestDataWithMaybeAST,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<MaybeRawResponseData>;
-}
-
-export type RequestManagerInit = () => Promise<RequestManagerDef>;

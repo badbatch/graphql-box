@@ -3,6 +3,8 @@ import {
   PlainObjectStringMap,
   RequestContext,
   RequestDataWithMaybeAST,
+  RequestManagerDef,
+  RequestManagerInit,
   RequestOptions,
 } from "@handl/core";
 import { isPlainObject, isString } from "lodash";
@@ -16,23 +18,21 @@ import {
   ConstructorOptions,
   FetchOptions,
   InitOptions,
-  RequestManagerDef,
-  RequestManagerInit,
   UserOptions,
 } from "../defs";
 
-export class RequestManager implements RequestManagerDef {
-  public static async init(options: InitOptions): Promise<RequestManager> {
+export class FetchManager implements RequestManagerDef {
+  public static async init(options: InitOptions): Promise<FetchManager> {
     const errors: TypeError[] = [];
 
     if (!isString(options.url)) {
-       errors.push(new TypeError("@handl/request-manager expected url to be a string."));
+       errors.push(new TypeError("@handl/fetch-manager expected url to be a string."));
     }
 
     if (errors.length) return Promise.reject(errors);
 
     try {
-      return new RequestManager(options);
+      return new FetchManager(options);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -56,7 +56,7 @@ export class RequestManager implements RequestManagerDef {
       if (responseData) {
         resolve({ headers, ...responseData });
       } else {
-        reject(new Error(`@handl/request-manager did not get a response for batched request ${hash}.`));
+        reject(new Error(`@handl/fetch-manager did not get a response for batched request ${hash}.`));
       }
     });
   }
@@ -129,7 +129,7 @@ export class RequestManager implements RequestManagerDef {
     try {
       return new Promise(async (resolve: (value: MaybeRawResponseData) => void, reject) => {
         const fetchTimer = setTimeout(() => {
-          reject(new Error(`@handl/request-manager did not get a response within ${this._fetchTimeout}ms.`));
+          reject(new Error(`@handl/fetch-manager did not get a response within ${this._fetchTimeout}ms.`));
         }, this._fetchTimeout);
 
         const url = `${this._url}?requestId=${hash}`;
@@ -164,12 +164,12 @@ export class RequestManager implements RequestManagerDef {
     }
 
     try {
-      RequestManager._resolveFetchBatch(
+      FetchManager._resolveFetchBatch(
         await this._fetch(batchRequests, hashes.join("-"), { batch: true }) as BatchedMaybeFetchData,
         batchActions,
       );
     } catch (error) {
-      RequestManager._rejectBatchEntries(batchActions, error);
+      FetchManager._rejectBatchEntries(batchActions, error);
     }
   }
 
@@ -196,8 +196,8 @@ export class RequestManager implements RequestManagerDef {
 
 export default function init(userOptions: UserOptions): RequestManagerInit {
   if (!isPlainObject(userOptions)) {
-    throw new TypeError("@handl/request-manager expected userOptions to be a plain object.");
+    throw new TypeError("@handl/fetch-manager expected userOptions to be a plain object.");
   }
 
-  return () => RequestManager.init(userOptions);
+  return () => FetchManager.init(userOptions);
 }

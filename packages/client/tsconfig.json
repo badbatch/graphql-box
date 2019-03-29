@@ -11,7 +11,7 @@
     { "path": "../cache-manager" },
     { "path": "../core" },
     { "path": "../debug-manager" },
-    { "path": "../request-manager" },
+    { "path": "../fetch-manager" },
     { "path": "../request-parser" },
     { "path": "../websocket-manager" },
     { "path": "../test-utils" },

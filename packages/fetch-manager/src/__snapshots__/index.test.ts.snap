@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@handl/request-manager >> batching >> multiple requests >> correct request 1`] = `
+exports[`@handl/fetch-manager >> batching >> multiple requests >> correct request 1`] = `
 Array [
   "https://api.github.com/graphql?requestId=8fc321b1bf4d18ee3d1f2d745b4b28f8-6f657b2d4a58985d1a26dbf3176137b0",
   Object {
@@ -17,7 +17,7 @@ Array [
 ]
 `;
 
-exports[`@handl/request-manager >> batching >> multiple requests >> correct response data 1`] = `
+exports[`@handl/fetch-manager >> batching >> multiple requests >> correct response data 1`] = `
 Object {
   "data": Object {
     "organization": Object {
@@ -42,7 +42,7 @@ Object {
 }
 `;
 
-exports[`@handl/request-manager >> batching >> multiple requests >> correct response data 2`] = `
+exports[`@handl/fetch-manager >> batching >> multiple requests >> correct response data 2`] = `
 Object {
   "data": Object {
     "organization": Object {
@@ -68,7 +68,7 @@ Object {
 }
 `;
 
-exports[`@handl/request-manager >> batching >> single request >> correct request 1`] = `
+exports[`@handl/fetch-manager >> batching >> single request >> correct request 1`] = `
 Array [
   "https://api.github.com/graphql?requestId=651f14b3df12bef942ed3b1ba9e7f1f1",
   Object {
@@ -85,7 +85,7 @@ Array [
 ]
 `;
 
-exports[`@handl/request-manager >> batching >> single request >> correct response data 1`] = `
+exports[`@handl/fetch-manager >> batching >> single request >> correct response data 1`] = `
 Object {
   "data": Object {
     "organization": Object {
@@ -113,7 +113,7 @@ Object {
 }
 `;
 
-exports[`@handl/request-manager >> no batching >> correct request 1`] = `
+exports[`@handl/fetch-manager >> no batching >> correct request 1`] = `
 Array [
   "https://api.github.com/graphql?requestId=651f14b3df12bef942ed3b1ba9e7f1f1",
   Object {
@@ -130,7 +130,7 @@ Array [
 ]
 `;
 
-exports[`@handl/request-manager >> no batching >> correct response data 1`] = `
+exports[`@handl/fetch-manager >> no batching >> correct response data 1`] = `
 Object {
   "data": Object {
     "organization": Object {

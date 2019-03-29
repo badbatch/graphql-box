@@ -10,11 +10,11 @@ import {
   RequestContext,
   RequestData,
   RequestDataWithMaybeAST,
+  RequestManagerDef,
   RequestOptions,
   SubscriptionsManagerDef,
   ValidOperations,
 } from "@handl/core";
-import { RequestManagerDef } from "@handl/request-manager";
 import { RequestParserDef } from "@handl/request-parser";
 import { DocumentNode } from "graphql";
 import { isArray, isPlainObject, isString } from "lodash";

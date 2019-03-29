@@ -1,7 +1,7 @@
 {
-  "name": "@handl/request-manager",
+  "name": "@handl/fetch-manager",
   "version": "0.1.22",
-  "description": "The Handl request manager module.",
+  "description": "The Handl fetch manager module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/handl",

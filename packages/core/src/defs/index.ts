@@ -198,6 +198,16 @@ export interface MaybeRequestResultWithDehydratedCacheMetadata {
   errors?: Error | Error[];
 }
 
+export interface RequestManagerDef {
+  execute(
+    requestData: RequestDataWithMaybeAST,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<MaybeRawResponseData>;
+}
+
+export type RequestManagerInit = () => Promise<RequestManagerDef>;
+
 export type SubscriberResolver = (
   rawResponseData: RawResponseDataWithMaybeCacheMetadata,
 ) => Promise<MaybeRequestResult>;
