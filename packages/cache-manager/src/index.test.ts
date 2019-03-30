@@ -1,6 +1,6 @@
 import Cachemap from "@cachemap/core";
 import map from "@cachemap/map";
-import { DEFAULT_TYPE_ID_KEY, DehydratedCacheMetadata, RequestData, ResponseData } from "@handl/core";
+import { DEFAULT_TYPE_ID_KEY, DehydratedCacheMetadata, MUTATION, RequestData, ResponseData } from "@handl/core";
 import { rehydrateCacheMetadata } from "@handl/helpers";
 import {
   getRequestContext,
@@ -10,7 +10,6 @@ import {
   responses,
 } from "@handl/test-utils";
 import { CacheManager, CacheManagerDef } from ".";
-import { MUTATION } from "./consts";
 import { AnalyzeQueryResult } from "./defs";
 
 describe("@handl/cache-manager >>", () => {

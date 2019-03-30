@@ -1,4 +1,4 @@
-import { PlainObjectMap, PossibleType, RequestContext, RequestOptions, TYPE_NAME_KEY } from "@handl/core";
+import { PlainObjectMap, PossibleType, QUERY, RequestContext, RequestOptions, TYPE_NAME_KEY } from "@handl/core";
 import {
   addChildField,
   deleteFragmentDefinitions,
@@ -52,7 +52,6 @@ import {
   INLINE_FRAGMENT,
   NAME,
   OPERATION_DEFINITION,
-  QUERY,
   VALUE,
   VARIABLE,
   VARIABLE_DEFINITION,

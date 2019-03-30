@@ -13,5 +13,3 @@ export const TYPE = "type";
 export const VALUE = "value";
 export const VARIABLE = "Variable";
 export const VARIABLE_DEFINITION = "VariableDefinition";
-
-export const QUERY = "query";

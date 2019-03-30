@@ -2,10 +2,14 @@ import Cachemap from "@cachemap/core";
 import {
   CacheMetadata,
   CacheTypes,
+  DATA_ENTITIES,
   FieldTypeInfo,
   PlainObjectMap,
   PlainObjectStringMap,
+  QUERY,
+  QUERY_RESPONSES,
   RawResponseDataWithMaybeCacheMetadata,
+  REQUEST_FIELD_PATHS,
   RequestContext,
   RequestData,
   RequestOptions,
@@ -34,14 +38,10 @@ import { FieldNode, print } from "graphql";
 import { cloneDeep, get, isArray, isNumber, isObjectLike, isPlainObject, isUndefined, set, unset } from "lodash";
 import {
   CACHE_CONTROL,
-  DATA_ENTITIES,
   HEADER_CACHE_CONTROL,
   HEADER_NO_CACHE,
   METADATA,
   NO_CACHE,
-  QUERY,
-  QUERY_RESPONSES,
-  REQUEST_FIELD_PATHS,
 } from "../consts";
 import { logCacheEntry, logCacheQuery, logPartialCompiled } from "../debug";
 import {

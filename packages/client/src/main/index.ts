@@ -5,12 +5,15 @@ import {
   MaybeRawResponseData,
   MaybeRequestResult,
   MaybeResponseData,
+  MUTATION,
+  QUERY,
   RawResponseDataWithMaybeCacheMetadata,
   RequestContext,
   RequestData,
   RequestDataWithMaybeAST,
   RequestManagerDef,
   RequestOptions,
+  SUBSCRIPTION,
   SubscriptionsManagerDef,
   ValidOperations,
 } from "@handl/core";
@@ -19,7 +22,6 @@ import { RequestParserDef } from "@handl/request-parser";
 import { DocumentNode } from "graphql";
 import { isArray, isPlainObject, isString } from "lodash";
 import uuid from "uuid/v1";
-import { MUTATION, QUERY, SUBSCRIPTION } from "../consts";
 import logRequest from "../debug/log-request";
 import logSubscription from "../debug/log-subscription";
 import { ConstructorOptions, PendingQueryData, PendingQueryResolver, QueryTracker, UserOptions } from "../defs";
