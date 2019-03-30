@@ -27,7 +27,7 @@ describe("@handl/debug-manager >>", () => {
     const response: PlainObjectMap[] = [];
 
     beforeAll(async () => {
-      debugManager = await DebugManager.init();
+      debugManager = await DebugManager.init({ name: "CLIENT" });
 
       // @ts-ignore
       jest.spyOn(debugManager._performance, "now").mockReturnValue(0);
@@ -65,7 +65,7 @@ describe("@handl/debug-manager >>", () => {
     const response: PlainObjectMap[] = [];
 
     beforeAll(async () => {
-      debugManager = await DebugManager.init();
+      debugManager = await DebugManager.init({ name: "CLIENT" });
 
       // @ts-ignore
       jest.spyOn(debugManager._performance, "now").mockReturnValue(0);

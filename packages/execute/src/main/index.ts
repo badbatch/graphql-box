@@ -26,11 +26,7 @@ export class Execute implements RequestManagerDef {
 
     if (errors.length) return Promise.reject(errors);
 
-    try {
-      return new Execute(options);
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    return new Execute(options);
   }
 
   private _execute: GraphQLExecute;

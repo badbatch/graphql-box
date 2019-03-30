@@ -31,11 +31,7 @@ export class FetchManager implements RequestManagerDef {
 
     if (errors.length) return Promise.reject(errors);
 
-    try {
-      return new FetchManager(options);
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    return new FetchManager(options);
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: any): void {

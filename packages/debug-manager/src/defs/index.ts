@@ -5,7 +5,16 @@ export interface Logger {
 }
 
 export interface UserOptions {
+  /**
+   * The logger to use.
+   */
   logger?: Logger;
+
+  /**
+   * The name of the debug manager. This is used
+   * to distinguish the logs of multiple debug managers.
+   */
+  name: string;
 }
 
 export type InitOptions = UserOptions;

@@ -29,6 +29,7 @@ Array [
       "queryFiltered": false,
       "request": "",
     },
+    "debuggerName": "CLIENT",
     "hash": "5256db516a2438a7e5488a00413f4809",
     "options": Object {
       "awaitDataCaching": true,
@@ -74,6 +75,7 @@ Array [
       "queryFiltered": false,
       "request": "",
     },
+    "debuggerName": "CLIENT",
     "hash": "Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
     "options": Object {
       "awaitDataCaching": true,
@@ -119,6 +121,7 @@ Array [
       "queryFiltered": false,
       "request": "",
     },
+    "debuggerName": "CLIENT",
     "hash": "651f14b3df12bef942ed3b1ba9e7f1f1",
     "options": Object {
       "awaitDataCaching": true,
@@ -185,6 +188,7 @@ Array [
       "queryFiltered": false,
       "request": "",
     },
+    "debuggerName": "CLIENT",
     "hash": "5256db516a2438a7e5488a00413f4809",
     "options": Object {
       "awaitDataCaching": true,
@@ -221,6 +225,7 @@ Array [
       "queryFiltered": false,
       "request": "",
     },
+    "debuggerName": "CLIENT",
     "hash": "Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
     "options": Object {
       "awaitDataCaching": true,

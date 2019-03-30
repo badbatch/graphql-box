@@ -25,11 +25,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
 
     if (errors.length) return Promise.reject(errors);
 
-    try {
-      return new WebsocketManager(options);
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    return new WebsocketManager(options);
   }
 
   private _eventEmitter: EventEmitter;

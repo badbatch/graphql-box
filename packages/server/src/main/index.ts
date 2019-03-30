@@ -33,11 +33,7 @@ export class Server {
 
     if (errors.length) return Promise.reject(errors);
 
-    try {
-      return new Server(options);
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    return new Server(options);
   }
 
   private _client: Client;
