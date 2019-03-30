@@ -2,7 +2,6 @@ import { CacheManagerDef } from "@handl/cache-manager";
 import {
   DebugManagerDef,
   DEFAULT_TYPE_ID_KEY,
-  hashRequest,
   MaybeRawResponseData,
   MaybeRequestResult,
   MaybeResponseData,
@@ -15,6 +14,7 @@ import {
   SubscriptionsManagerDef,
   ValidOperations,
 } from "@handl/core";
+import { hashRequest } from "@handl/helpers";
 import { RequestParserDef } from "@handl/request-parser";
 import { DocumentNode } from "graphql";
 import { isArray, isPlainObject, isString } from "lodash";

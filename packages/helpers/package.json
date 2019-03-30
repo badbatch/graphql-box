@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "cacheability": "^2.0.4",
-    "iterall": "^1.2.2"
+    "iterall": "^1.2.2",
+    "md5": "^2.2.1"
   }
 }

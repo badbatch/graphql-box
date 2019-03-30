@@ -1,5 +1,6 @@
 export { dehydrateCacheMetadata, rehydrateCacheMetadata } from "./cache-metadata";
 export { default as EventAsyncIterator } from "./event-async-iterator";
+export { default as hashRequest } from "./hash-request";
 export { default as mergeObjects } from "./merge-objects";
 export { getAlias } from "./parsing/alias";
 export { getArguments } from "./parsing/arguments";

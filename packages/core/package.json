@@ -34,8 +34,5 @@
     "@babel/runtime": "^7.0.0",
     "core-js": "^2.5",
     "lodash": "^4.17.5"
-  },
-  "dependencies": {
-    "md5": "^2.2.1"
   }
 }

@@ -9,6 +9,7 @@
     "src/**/*.json"
   ],
   "references": [
-    { "path": "../core" }
+    { "path": "../core" },
+    { "path": "../helpers" }
   ]
 }

@@ -1,4 +1,5 @@
-import { hashRequest, RequestData } from "@handl/core";
+import { RequestData } from "@handl/core";
+import { hashRequest } from "@handl/helpers";
 import { parse } from "graphql";
 
 export default function getRequestData(request: string): RequestData {

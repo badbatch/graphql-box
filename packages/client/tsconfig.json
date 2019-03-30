@@ -12,6 +12,7 @@
     { "path": "../core" },
     { "path": "../debug-manager" },
     { "path": "../fetch-manager" },
+    { "path": "../helpers" },
     { "path": "../request-parser" },
     { "path": "../websocket-manager" },
     { "path": "../test-utils" },
