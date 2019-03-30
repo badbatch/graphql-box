@@ -42,8 +42,7 @@ export class Server {
 
   private _client: Client;
 
-  constructor(options: ConstructorOptions) {
-    const { client } = options;
+  constructor({ client }: ConstructorOptions) {
     this._client = client;
   }
 

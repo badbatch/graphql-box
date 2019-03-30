@@ -147,7 +147,7 @@ export interface RawResponseDataWithMaybeCacheMetadata {
 export interface MaybeRawResponseData {
   _cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObjectMap;
-  errors?: Error | Error[];
+  errors?: Error | ReadonlyArray<Error>;
   headers?: Headers;
 }
 
@@ -159,7 +159,7 @@ export interface ResponseData {
 export interface MaybeResponseData {
   cacheMetadata?: CacheMetadata;
   data?: PlainObjectMap;
-  errors?: Error | Error[];
+  errors?: Error | ReadonlyArray<Error>;
 }
 
 export interface RequestDataWithMaybeAST {
@@ -189,13 +189,13 @@ export interface MaybeRequestResult {
   /**
    * Any errors thrown during the request.
    */
-  errors?: Error | Error[];
+  errors?: Error | ReadonlyArray<Error>;
 }
 
 export interface MaybeRequestResultWithDehydratedCacheMetadata {
   _cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObjectMap;
-  errors?: Error | Error[];
+  errors?: Error | ReadonlyArray<Error>;
 }
 
 export interface RequestManagerDef {
@@ -209,7 +209,7 @@ export interface RequestManagerDef {
 export type RequestManagerInit = () => Promise<RequestManagerDef>;
 
 export type SubscriberResolver = (
-  rawResponseData: RawResponseDataWithMaybeCacheMetadata,
+  rawResponseData: MaybeRawResponseData,
 ) => Promise<MaybeRequestResult>;
 
 export interface SubscriptionsManagerDef {

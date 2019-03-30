@@ -6,6 +6,7 @@ import {
   SubscriptionsManagerDef,
   SubscriptionsManagerInit,
 } from "@handl/core";
+import { EventAsyncIterator } from "@handl/helpers";
 import EventEmitter from "eventemitter3";
 import { isPlainObject } from "lodash";
 import {
@@ -13,7 +14,6 @@ import {
   InitOptions,
   UserOptions,
 } from "../defs";
-import EventAsyncIterator from "../helpers/event-async-iterator";
 
 export class WebsocketManager implements SubscriptionsManagerDef {
   public static async init(options: InitOptions): Promise<WebsocketManager> {

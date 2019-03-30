@@ -10,7 +10,14 @@
     "no-implicit-dependencies": false,
     "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
     "no-namespace": true,
-    "no-submodule-imports": [true, "promise-worker/register", "uuid/v1", "graphql/tsutils/Maybe"],
+    "no-submodule-imports": [
+      true,
+      "promise-worker/register",
+      "uuid/v1",
+      "graphql/tsutils/Maybe",
+      "graphql/execution/execute",
+      "graphql/jsutils/MaybePromise"
+    ],
     "no-this-assignment": [true, { "allowed-names": ["_this"] }],
     "no-var-requires": false,
     "object-literal-sort-keys": [true, "ignore-case"],

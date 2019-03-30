@@ -36,7 +36,7 @@
     "lodash": "^4.17.5"
   },
   "dependencies": {
-    "eventemitter3": "^3.1.0",
-    "iterall": "^1.2.2"
+    "@handl/helpers": "^0.1.22",
+    "eventemitter3": "^3.1.0"
   }
 }

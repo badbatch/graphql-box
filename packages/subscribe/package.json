@@ -1,7 +1,7 @@
 {
-  "name": "@handl/request-parser",
+  "name": "@handl/subscribe",
   "version": "0.1.22",
-  "description": "The Handl request parser module.",
+  "description": "The Handl subscribe module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/handl",
@@ -25,7 +25,6 @@
   ],
   "scripts": {
     "compile": "concurrently npm:compile:*",
-    "compile:browser": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js",
     "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --config-file ../../babel.config.js",
     "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --config-file ../../babel.config.js",
     "compile:types": "tsc --build"
@@ -37,7 +36,8 @@
     "lodash": "^4.17.5"
   },
   "dependencies": {
-    "@handl/core": "^0.1.22",
-    "@handl/helpers": "^0.1.22"
+    "@handl/helpers": "^0.1.22",
+    "eventemitter3": "^3.1.0",
+    "iterall": "^1.2.2"
   }
 }
