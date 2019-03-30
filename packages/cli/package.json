@@ -37,6 +37,7 @@
     "lodash": "^4.17.5"
   },
   "dependencies": {
+    "@handl/core": "^0.1.22",
     "fs-extra": "^7.0.1",
     "shelljs": "^0.8.3",
     "yargs": "^13.2.0"

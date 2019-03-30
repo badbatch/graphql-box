@@ -36,6 +36,7 @@
     "lodash": "^4.17.5"
   },
   "dependencies": {
+    "@handl/core": "^0.1.22",
     "eventemitter3": "^3.1.0"
   }
 }

@@ -34,5 +34,8 @@
     "core-js": "^2.5",
     "graphql": "^14.1.1",
     "lodash": "^4.17.5"
+  },
+  "dependencies": {
+    "@handl/core": "^0.1.22"
   }
 }

@@ -36,6 +36,7 @@
     "lodash": "^4.17.5"
   },
   "dependencies": {
+    "@handl/core": "^0.1.22",
     "cacheability": "^2.0.4",
     "iterall": "^1.2.2",
     "md5": "^2.2.1"

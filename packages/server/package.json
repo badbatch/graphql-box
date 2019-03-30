@@ -36,6 +36,7 @@
     "ws": "^6.2.1"
   },
   "dependencies": {
+    "@handl/core": "^0.1.22",
     "@handl/helpers": "^0.1.22",
     "iterall": "^1.2.2"
   }
