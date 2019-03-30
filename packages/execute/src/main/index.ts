@@ -14,6 +14,7 @@ import {
   parse,
 } from "graphql";
 import { isPlainObject } from "lodash";
+import logExecute from "../debug/log-execute";
 import { ConstructorOptions, GraphQLExecute, InitOptions, UserOptions } from "../defs";
 
 export class Execute implements RequestManagerDef {
@@ -41,6 +42,7 @@ export class Execute implements RequestManagerDef {
     this._schema = options.schema;
   }
 
+  @logExecute()
   public async execute(
     { ast, request }: RequestDataWithMaybeAST,
     options: ServerRequestOptions,
