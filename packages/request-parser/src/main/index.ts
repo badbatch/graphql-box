@@ -3,6 +3,8 @@ import {
   addChildField,
   deleteFragmentDefinitions,
   deleteVariableDefinitions,
+  DOCUMENT,
+  FIELD,
   getAlias,
   getArguments,
   getChildFields,
@@ -18,8 +20,14 @@ import {
   hasFragmentSpreads,
   hasInlineFragments,
   hasVariableDefinitions,
+  INLINE_FRAGMENT,
+  NAME,
+  OPERATION_DEFINITION,
   setFragmentDefinitions,
   setInlineFragments,
+  VALUE,
+  VARIABLE,
+  VARIABLE_DEFINITION,
 } from "@handl/helpers";
 import {
   ASTNode,
@@ -46,16 +54,6 @@ import {
 } from "graphql";
 import Maybe from "graphql/tsutils/Maybe";
 import { get, isObjectLike, isPlainObject, isString } from "lodash";
-import {
-  DOCUMENT,
-  FIELD,
-  INLINE_FRAGMENT,
-  NAME,
-  OPERATION_DEFINITION,
-  VALUE,
-  VARIABLE,
-  VARIABLE_DEFINITION,
-} from "../consts";
 import {
   ClientOptions,
   ConstructorOptions,
