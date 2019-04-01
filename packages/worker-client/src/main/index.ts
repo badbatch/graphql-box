@@ -16,7 +16,7 @@ import logRequest from "../debug/log-request";
 import {
   ConstructorOptions,
   MessageContext,
-  MessagePayload,
+  MessageResponsePayload,
   PendingResolver,
   PendingTracker,
   UserOptions,
@@ -103,7 +103,7 @@ export default class WorkerClient {
   private async _onMessage(ev: MessageEvent): Promise<void> {
     if (!isPlainObject(ev.data)) return;
 
-    const { context, method, result } = ev.data as MessagePayload;
+    const { context, method, result } = ev.data as MessageResponsePayload;
     if (!isPlainObject(result)) return;
 
     const { _cacheMetadata, ...otherProps } = result;

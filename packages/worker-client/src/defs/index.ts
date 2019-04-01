@@ -41,7 +41,14 @@ export interface PendingData {
 
 export type PendingTracker = Map<string, PendingData>;
 
-export interface MessagePayload {
+export interface MessageRequestPayload {
+  context: RequestContext;
+  method: MethodNames;
+  options: RequestOptions;
+  request: string;
+}
+
+export interface MessageResponsePayload {
   context: RequestContext;
   method: MethodNames;
   options: RequestOptions;
@@ -51,3 +58,5 @@ export interface MessagePayload {
 export interface MessageContext {
   handlID: string;
 }
+
+export type MessageHandler = (args: MessageRequestPayload) => Promise<void>;

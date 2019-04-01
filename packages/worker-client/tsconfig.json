@@ -9,6 +9,7 @@
   ],
   "references": [
     { "path": "../core" },
+    { "path": "../client" },
     { "path": "../debug-manager" },
     { "path": "../helpers" },
     { "path": "../test-utils" },
