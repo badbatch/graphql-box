@@ -1,5 +1,6 @@
 import Client from "@handl/client";
 import {
+  MaybeRequestContext,
   MaybeRequestResult,
   MaybeRequestResultWithDehydratedCacheMetadata,
   PlainObjectStringMap,
@@ -59,12 +60,13 @@ export class Server {
   private async _handleBatchRequest(
     requests: PlainObjectStringMap,
     options: ServerRequestOptions,
+    context: MaybeRequestContext,
   ): Promise<ResponseDataWithMaybeDehydratedCacheMetadataBatch> {
     const responses: ResponseDataWithMaybeDehydratedCacheMetadataBatch = {};
 
     await Promise.all(Object.keys(requests).map(async (requestHash) => {
       const request = requests[requestHash];
-      const { _cacheMetadata, ...otherProps } = await this._client.request(request, options);
+      const { _cacheMetadata, ...otherProps } = await this._client.request(request, options, context);
 
       responses[requestHash] = { ...otherProps };
       if (_cacheMetadata) responses[requestHash]._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
@@ -76,8 +78,9 @@ export class Server {
   private async _handleRequest(
     request: string,
     options: ServerRequestOptions,
+    context: MaybeRequestContext,
   ): Promise<MaybeRequestResultWithDehydratedCacheMetadata> {
-    const { _cacheMetadata, ...otherProps } = await this._client.request(request, options);
+    const { _cacheMetadata, ...otherProps } = await this._client.request(request, options, context);
     const response: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
     if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
     return response;
@@ -85,8 +88,8 @@ export class Server {
 
   private async _messageHandler(ws: WebSocket, message: string, options: ServerRequestOptions): Promise<void> {
     try {
-      const { subscriptionID, subscription } = JSON.parse(message);
-      const subscribeResult = await this._client.request(subscription, options);
+      const { context, subscriptionID, subscription } = JSON.parse(message);
+      const subscribeResult = await this._client.request(subscription, options, context);
 
       if (isAsyncIterable(subscribeResult)) {
         forAwaitEach(subscribeResult, ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {
@@ -104,11 +107,11 @@ export class Server {
 
   private async _requestHandler(req: Request, res: Response, options: ServerRequestOptions): Promise<void> {
     try {
-      const { batched, request } = req.body as RequestData;
+      const { batched, context, request } = req.body as RequestData;
 
       const result = batched
-        ? await this._handleBatchRequest(request as PlainObjectStringMap, options)
-        : await this._handleRequest(request as string, options);
+        ? await this._handleBatchRequest(request as PlainObjectStringMap, options, context)
+        : await this._handleRequest(request as string, options, context);
 
       res.status(200).send(result);
     } catch (error) {

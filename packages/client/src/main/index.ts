@@ -3,6 +3,7 @@ import {
   DebugManagerDef,
   DEFAULT_TYPE_ID_KEY,
   MaybeRawResponseData,
+  MaybeRequestContext,
   MaybeRequestResult,
   MaybeResponseData,
   MUTATION,
@@ -121,12 +122,16 @@ export default class Client {
     this._subscriptionsManager = subscriptionsManager || null;
   }
 
-  public async request(request: string, options: RequestOptions = {}): Promise<MaybeRequestResult> {
+  public async request(
+    request: string,
+    options: RequestOptions = {},
+    context: MaybeRequestContext = {},
+  ): Promise<MaybeRequestResult> {
     const errors = Client._validateRequestArguments(request, options);
     if (errors.length) return { errors };
 
     try {
-      return this._request(request, options, this._getRequestContext(QUERY, request)) as MaybeRequestResult;
+      return this._request(request, options, this._getRequestContext(QUERY, request, context)) as MaybeRequestResult;
     } catch (error) {
       return { errors: error };
     }
@@ -135,6 +140,7 @@ export default class Client {
   public async subscribe(
     request: string,
     options: RequestOptions = {},
+    context: MaybeRequestContext = {},
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
     const errors: Error[] = [];
 
@@ -149,14 +155,18 @@ export default class Client {
       return await this._request(
         request,
         options,
-        this._getRequestContext(SUBSCRIPTION, request),
+        this._getRequestContext(SUBSCRIPTION, request, context),
       ) as AsyncIterator<MaybeRequestResult | undefined>;
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  private _getRequestContext(operation: ValidOperations, request: string): RequestContext {
+  private _getRequestContext(
+    operation: ValidOperations,
+    request: string,
+    context: MaybeRequestContext,
+  ): RequestContext {
     return {
       debugManager: this._debugManager,
       fieldTypeMap: new Map(),
@@ -165,6 +175,7 @@ export default class Client {
       operationName: "",
       queryFiltered: false,
       request,
+      ...context,
     };
   }
 
@@ -283,7 +294,7 @@ export default class Client {
         this._resolveSubscription(requestData, responseData, options, context);
 
       const subscriptionsManager = this._subscriptionsManager as SubscriptionsManagerDef;
-      return await subscriptionsManager.subscribe(requestData, options, resolver);
+      return await subscriptionsManager.subscribe(requestData, options, context, resolver);
     } catch (error) {
       return Promise.reject(error);
     }

@@ -1,5 +1,6 @@
 import {
   MaybeRequestResult,
+  RequestContext,
   RequestDataWithMaybeAST,
   ServerRequestOptions,
   SubscriberResolver,
@@ -51,6 +52,7 @@ export class Subscribe {
   public async subscribe(
     { ast, hash, request }: RequestDataWithMaybeAST,
     options: ServerRequestOptions,
+    context: RequestContext,
     subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
     const { contextValue, fieldResolver, operationName, rootValue, subscribeFieldResolver } = options;

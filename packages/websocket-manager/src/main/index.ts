@@ -1,5 +1,7 @@
 import {
+  MaybeRequestContext,
   MaybeRequestResult,
+  RequestContext,
   RequestDataWithMaybeAST,
   RequestOptions,
   SubscriberResolver,
@@ -28,6 +30,10 @@ export class WebsocketManager implements SubscriptionsManagerDef {
     return new WebsocketManager(options);
   }
 
+  private static _getMessageContext({ handlID, operation }: RequestContext): MaybeRequestContext {
+    return { handlID, operation };
+  }
+
   private _eventEmitter: EventEmitter;
   private _subscriptions: Map<string, SubscriberResolver> = new Map();
   private _websocket: WebSocket;
@@ -41,6 +47,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
   public async subscribe(
     { hash, request }: RequestDataWithMaybeAST,
     options: RequestOptions,
+    context: RequestContext,
     subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
     if (!this._isSocketOpen()) {
@@ -48,7 +55,12 @@ export class WebsocketManager implements SubscriptionsManagerDef {
     }
 
     try {
-      this._websocket.send(JSON.stringify({ subscriptionID: hash, subscription: request }));
+      this._websocket.send(JSON.stringify({
+        context: WebsocketManager._getMessageContext(context),
+        subscription: request,
+        subscriptionID: hash,
+      }));
+
       this._subscriptions.set(hash, subscriberResolver);
       const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, hash);
       return eventAsyncIterator.getIterator();

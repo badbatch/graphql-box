@@ -1,5 +1,6 @@
-import { MaybeRequestResult } from "@handl/core";
+import { MaybeRequestResult, SUBSCRIPTION } from "@handl/core";
 import {
+  getRequestContext,
   getRequestData,
   parsedRequests,
   responses,
@@ -49,6 +50,7 @@ describe("@handl/websocket-manager >>", () => {
       response = await websocketManager.subscribe(
         getRequestData(parsedRequests.nestedInterfaceSubscription),
         {},
+        getRequestContext({ operation: SUBSCRIPTION }),
         subscriptionResolver,
       );
     });
@@ -70,7 +72,13 @@ describe("@handl/websocket-manager >>", () => {
       });
 
       const requestData = getRequestData(parsedRequests.nestedInterfaceSubscription);
-      const asyncIterator = await websocketManager.subscribe(requestData, {}, subscriptionResolver);
+
+      const asyncIterator = await websocketManager.subscribe(
+        requestData,
+        {},
+        getRequestContext({ operation: SUBSCRIPTION }),
+        subscriptionResolver,
+      );
 
       const promise = new Promise((resolve) => {
         if (isAsyncIterable(asyncIterator)) {

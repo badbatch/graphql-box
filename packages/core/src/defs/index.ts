@@ -132,6 +132,16 @@ export interface RequestContext {
   request: string;
 }
 
+export interface MaybeRequestContext {
+  debugManager?: DebugManagerDef | null;
+  fieldTypeMap?: FieldTypeMap;
+  handlID?: string;
+  operation?: ValidOperations;
+  operationName?: string;
+  queryFiltered?: boolean;
+  request?: string;
+}
+
 export interface DehydratedCacheMetadata {
   [key: string]: CacheabilityMetadata;
 }
@@ -216,6 +226,7 @@ export interface SubscriptionsManagerDef {
   subscribe(
     requestData: RequestDataWithMaybeAST,
     options: RequestOptions,
+    context: RequestContext,
     subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>>;
 }

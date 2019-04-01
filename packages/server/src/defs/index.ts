@@ -1,5 +1,9 @@
 import Client from "@handl/client";
-import { MaybeRequestResultWithDehydratedCacheMetadata, PlainObjectStringMap } from "@handl/core";
+import {
+  MaybeRequestContext,
+  MaybeRequestResultWithDehydratedCacheMetadata,
+  PlainObjectStringMap,
+} from "@handl/core";
 import { Request, Response } from "express";
 import WebSocket from "ws";
 
@@ -18,6 +22,7 @@ export type MessageHandler = (ws: WebSocket) => (message: string) => void;
 
 export interface RequestData {
   batched: boolean;
+  context: MaybeRequestContext;
   request: string | PlainObjectStringMap;
 }
 

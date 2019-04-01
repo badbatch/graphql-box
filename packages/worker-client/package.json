@@ -1,0 +1,45 @@
+{
+  "name": "@handl/worker-client",
+  "version": "0.1.22",
+  "description": "The Handl web worker client module.",
+  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/badbatch/handl",
+  "bugs": {
+    "url": "https://github.com/badbatch/handl/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/badbatch/handl"
+  },
+  "main": "lib/main/index.js",
+  "module": "lib/module/index.js",
+  "browser": "lib/browser/index.js",
+  "types": "lib/types/index.d.ts",
+  "keywords": [
+    "handl",
+    "graphql",
+    "client",
+    "server",
+    "isomorphic"
+  ],
+  "scripts": {
+    "compile": "concurrently npm:compile:*",
+    "compile:browser": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js",
+    "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --config-file ../../babel.config.js",
+    "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --config-file ../../babel.config.js",
+    "compile:types": "tsc --build"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "^7.0.0",
+    "core-js": "^2.5",
+    "lodash": "^4.17.5"
+  },
+  "dependencies": {
+    "@handl/core": "^0.1.22",
+    "@handl/helpers": "^0.1.22",
+    "eventemitter3": "^3.1.0",
+    "iterall": "^1.2.2",
+    "uuid": "^3.3.2"
+  }
+}
