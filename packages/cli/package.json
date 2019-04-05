@@ -27,7 +27,8 @@
   "scripts": {
     "compile": "concurrently npm:compile:*",
     "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --config-file ../../babel.config.js",
-    "compile:types": "tsc --build"
+    "compile:types": "tsc --build",
+    "docs": "typedoc --includes ./src/introspect --out ./docs --options ../../typedoc.js"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
