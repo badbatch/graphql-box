@@ -42,7 +42,7 @@ export default function getMessageHandler(client: Client): MessageHandler {
     }
   }
 
-  return async function messageHandler({ context, method, options, request }: MessageRequestPayload): Promise<void> {
+  return function messageHandler({ context, method, options, request }: MessageRequestPayload): void {
     if (method === REQUEST) {
       handleRequest(request, method, options, context);
     } else if (method === SUBSCRIBE) {

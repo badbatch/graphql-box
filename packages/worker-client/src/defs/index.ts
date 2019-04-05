@@ -59,4 +59,4 @@ export interface MessageContext {
   handlID: string;
 }
 
-export type MessageHandler = (args: MessageRequestPayload) => Promise<void>;
+export type MessageHandler = (args: MessageRequestPayload) => void;
