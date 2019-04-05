@@ -52,13 +52,13 @@ export class Subscribe {
   public async subscribe(
     { ast, hash, request }: RequestDataWithMaybeAST,
     options: ServerRequestOptions,
-    context: RequestContext,
+    { handlID }: RequestContext,
     subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
-    const { contextValue, fieldResolver, operationName, rootValue, subscribeFieldResolver } = options;
+    const { contextValue = {}, fieldResolver, operationName, rootValue, subscribeFieldResolver } = options;
 
     const subscribeArgs: SubscribeArgs = {
-      contextValue,
+      contextValue: { ...contextValue, handlID },
       document: ast || parse(request),
       fieldResolver: fieldResolver || this._fieldResolver,
       operationName,

@@ -46,12 +46,12 @@ export class Execute implements RequestManagerDef {
   public async execute(
     { ast, request }: RequestDataWithMaybeAST,
     options: ServerRequestOptions,
-    context: RequestContext,
+    { handlID }: RequestContext,
   ): Promise<MaybeRawResponseData> {
-    const { contextValue, fieldResolver, operationName, rootValue } = options;
+    const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
 
     const executeArgs: ExecutionArgs = {
-      contextValue,
+      contextValue: { ...contextValue, handlID },
       document: ast || parse(request),
       fieldResolver: fieldResolver || this._fieldResolver,
       operationName,
