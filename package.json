@@ -29,6 +29,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "yarn run clean:libs && yarn run compile",
+    "clean": "yarn run clean:packages && yarn run clean:libs && yarn run clean:docs && yarn run clean:repo",
     "clean:docs": "lerna exec --parallel -- del-cli ./docs",
     "clean:libs": "lerna exec --parallel -- del-cli ./lib",
     "clean:packages": "lerna exec --parallel -- del-cli ./node_modules",

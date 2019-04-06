@@ -20,7 +20,7 @@ import {
   UserOptions,
 } from "../defs";
 
-export class Server {
+export default class Server {
   public static async init(options: UserOptions): Promise<Server> {
     const errors: TypeError[] = [];
 

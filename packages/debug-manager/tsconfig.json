@@ -9,6 +9,7 @@
   ],
   "references": [
     { "path": "../core" },
-    { "path": "../cache-manager" }
+    { "path": "../cache-manager" },
+    { "path": "../test-utils" }
   ]
 }
