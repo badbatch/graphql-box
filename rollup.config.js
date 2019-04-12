@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { basename, resolve } from 'path';
 import { outputFileSync } from 'fs-extra';
 import { plugin as analyzer } from 'rollup-plugin-analyzer';
 import babel from 'rollup-plugin-babel';
@@ -10,14 +10,23 @@ import { terser } from 'rollup-plugin-terser';
 const rootPackageJson = require('./package.json');
 
 const dirRoot = resolve(process.cwd());
+const isDev = process.env.NODE_ENV === 'development';
 
-outputFileSync(`${dirRoot}/lib/browser/index.js`, `
-'use strict';
+const devAndProdModuleExport = `
 if (process.env.NODE_ENV === 'production') {
   module.exports = require('./production.min.js');
 } else {
   module.exports = require('./development.js');
 }
+`;
+
+const devModuleExport = `
+module.exports = require('./development.js');
+`;
+
+outputFileSync(`${dirRoot}/lib/browser/index.js`, `
+'use strict';
+${isDev ? devModuleExport : devAndProdModuleExport}
 `);
 
 function getKeys(dependencies = []) {
@@ -28,7 +37,7 @@ const packageJson = require(`${dirRoot}/package.json`); // eslint-disable-line i
 
 const devDependencies = getKeys(rootPackageJson.devDependencies);
 const peerDependencies = getKeys(packageJson.peerDependencies);
-const dependencies = getKeys(packageJson.dependencies).filter(name => /@handl/.test(name));
+const dependencies = getKeys(packageJson.dependencies);
 const externalModuleNames = [...dependencies, ...peerDependencies, ...devDependencies];
 
 function external(id) {
@@ -39,7 +48,6 @@ const extensions = ['.mjs', '.js', '.jsx', 'json', '.ts', '.tsx'];
 
 const defaultPlugins = [
   nodeResolve({
-    browser: true,
     extensions,
   }),
   commonjs(),
@@ -55,28 +63,49 @@ function writeTo(analysisString) {
   outputFileSync(`${dirRoot}/lib/browser/production.analysis.txt`, analysisString);
 }
 
-export default [{
+const dirName = basename(dirRoot);
+
+function sourcemapPathTransform(sourcePath) {
+  if (/node_modules/.test(sourcePath)) return sourcePath;
+  return sourcePath.replace('../../src/', `../${dirName}/src/`);
+}
+
+const devConfig = {
   external,
   input: `${dirRoot}/src/index.ts`,
   output: {
     file: `${dirRoot}/lib/browser/development.js`,
     format: 'esm',
     sourcemap: true,
+    sourcemapPathTransform,
   },
   plugins: [
     ...defaultPlugins,
   ],
-}, {
+};
+
+const prodConfig = {
   external,
   input: `${dirRoot}/src/index.ts`,
   output: {
     file: `${dirRoot}/lib/browser/production.min.js`,
     format: 'esm',
     sourcemap: true,
+    sourcemapPathTransform,
   },
   plugins: [
     ...defaultPlugins,
     terser(),
     analyzer({ writeTo }),
   ],
-}];
+};
+
+const config = [];
+
+if (isDev) {
+  config.push(devConfig);
+} else {
+  config.push(devConfig, prodConfig);
+}
+
+export default config;

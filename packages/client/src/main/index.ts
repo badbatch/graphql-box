@@ -1,3 +1,4 @@
+import Core from "@cachemap/core";
 import { CacheManagerDef } from "@handl/cache-manager";
 import {
   DebugManagerDef,
@@ -122,6 +123,11 @@ export default class Client {
     this._subscriptionsManager = subscriptionsManager || null;
   }
 
+  get cache(): Core | null {
+    if (!this._cacheManager) return null;
+    return this._cacheManager.cache;
+  }
+
   public async request(
     request: string,
     options: RequestOptions = {},
@@ -220,7 +226,7 @@ export default class Client {
       }
 
       const pendingQuery = this._trackQuery(requestData, options, context);
-      if (pendingQuery) return pendingQuery as Promise<MaybeRequestResult>;
+      if (pendingQuery) return pendingQuery;
 
       let updatedRequestData: RequestDataWithMaybeAST = requestData;
 
@@ -385,11 +391,11 @@ export default class Client {
     this._queryTracker.pending.set(requestHash, pending);
   }
 
-  private async _trackQuery(
+  private _trackQuery(
     { hash }: RequestDataWithMaybeAST,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<MaybeRequestResult | void> {
+  ): Promise<MaybeRequestResult> | void {
     if (this._queryTracker.active.includes(hash)) {
       return new Promise((resolve: PendingQueryResolver) => {
         this._setPendingQuery(hash, { context, options, resolve });

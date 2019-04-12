@@ -28,7 +28,8 @@
     "compile:browser": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js",
     "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --copy-files --config-file ../../babel.config.js",
     "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --copy-files --config-file ../../babel.config.js",
-    "compile:types": "tsc --build"
+    "compile:types": "tsc --build",
+    "watch": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js -w"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",

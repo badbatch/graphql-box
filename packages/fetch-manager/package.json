@@ -29,7 +29,8 @@
     "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --config-file ../../babel.config.js",
     "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --config-file ../../babel.config.js",
     "compile:types": "tsc --build",
-    "docs": "typedoc --includes ./src/main --out ./docs --options ../../typedoc.js"
+    "docs": "typedoc --includes ./src/main --out ./docs --options ../../typedoc.js",
+    "watch": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js -w"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
