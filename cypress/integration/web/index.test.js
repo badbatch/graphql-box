@@ -3,13 +3,46 @@ import indexedDB from '@cachemap/indexed-db';
 import cacheManager from '@handl/cache-manager';
 import Client from '@handl/client';
 import { DEFAULT_TYPE_ID_KEY } from '@handl/core';
+import debugManager from '@handl/debug-manager';
 import fetchManager from '@handl/fetch-manager';
 import { dehydrateCacheMetadata } from '@handl/helpers';
 import requestParser from '@handl/request-parser';
-import { githubIntrospection, requestsAndOptions, responses } from '@handl/test-utils';
+import { githubIntrospection, parsedRequests, responses } from '@handl/test-utils';
 import fetchMock from 'fetch-mock';
 
 const defaultOptions = { awaitDataCaching: true, returnCacheMetadata: true };
+const { performance } = window;
+
+function log(...args) {
+  console.log(...args); // eslint-disable-line no-console
+}
+
+async function initClient({ typeCacheDirectives }) {
+  return Client.init({
+    cacheManager: cacheManager({
+      cache: await Cachemap.init({
+        name: 'cachemap',
+        store: indexedDB(),
+      }),
+      cascadeCacheControl: true,
+      typeCacheDirectives,
+    }),
+    debugManager: debugManager({
+      logger: { log },
+      name: 'CLIENT',
+      performance,
+    }),
+    requestManager: fetchManager({ url: 'https://api.github.com/graphql' }),
+    requestParser: requestParser({ introspection: githubIntrospection }),
+    typeIDKey: DEFAULT_TYPE_ID_KEY,
+  });
+}
+
+function mockRequest({ data }) {
+  const body = { data };
+  const headers = { 'cache-control': 'public, max-age=5' };
+  fetchMock.post('*', { body, headers });
+}
 
 describe('@handl/client', () => {
   const realDateNow = Date.now.bind(window.Date);
@@ -23,40 +56,144 @@ describe('@handl/client', () => {
   });
 
   describe('request', () => {
-    let cache, response;
+    let cache, client, response;
 
-    before(async () => {
-      const client = await Client.init({
-        cacheManager: cacheManager({
-          cache: await Cachemap.init({
-            name: 'cachemap',
-            store: indexedDB(),
-          }),
-          cascadeCacheControl: true,
-          typeCacheDirectives: {
-            Organization: 'public, max-age=1',
-          },
-        }),
-        requestManager: fetchManager({ url: 'https://api.github.com/graphql' }),
-        requestParser: requestParser({ introspection: githubIntrospection }),
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
+    describe('no match', () => {
+      before(async () => {
+        mockRequest({ data: responses.singleTypeQuery.data });
+
+        const typeCacheDirectives = {
+          Organization: 'public, max-age=1',
+        };
+
+        try {
+          client = await initClient({ typeCacheDirectives });
+        } catch (errors) {
+          log(errors);
+        }
+
+        const request = parsedRequests.singleTypeQuery;
+
+        try {
+          const { _cacheMetadata, data } = await client.request(request, { ...defaultOptions });
+          response = { _cacheMetadata: dehydrateCacheMetadata(_cacheMetadata), data };
+        } catch (errors) {
+          log(errors);
+        }
+
+        cache = await client.cache.export();
       });
 
-      const body = { data: responses.singleTypeQuery.data };
-      const headers = { 'cache-control': 'public, max-age=5' };
-      fetchMock.post('*', { body, headers });
-      const { options, request } = requestsAndOptions.queryWithVariable;
-      const { _cacheMetadata, data } = await client.request(request, { ...options, ...defaultOptions });
-      response = { _cacheMetadata: dehydrateCacheMetadata(_cacheMetadata), data };
-      cache = await client.cache.export();
+      after(async () => {
+        fetchMock.restore();
+        await client.cache.clear();
+      });
+
+      it('correct response data', () => {
+        cy.wrap(response).toMatchSnapshot();
+      });
+
+      it('correct cache data', () => {
+        cy.wrap(cache).toMatchSnapshot();
+      });
     });
 
-    it('correct response data', () => {
-      cy.wrap(response).toMatchSnapshot();
+    describe('query response match', () => {
+      before(async () => {
+        mockRequest({ data: responses.singleTypeQuery.data });
+
+        const typeCacheDirectives = {
+          Organization: 'public, max-age=1',
+        };
+
+        try {
+          client = await initClient({ typeCacheDirectives });
+        } catch (errors) {
+          log(errors);
+        }
+
+        const request = parsedRequests.singleTypeQuery;
+
+        try {
+          await client.request(request, { ...defaultOptions });
+          fetchMock.reset();
+          const { _cacheMetadata, data } = await client.request(request, { ...defaultOptions });
+          response = { _cacheMetadata: dehydrateCacheMetadata(_cacheMetadata), data };
+        } catch (errors) {
+          log(errors);
+        }
+
+        cache = await client.cache.export();
+      });
+
+      after(async () => {
+        fetchMock.restore();
+        await client.cache.clear();
+      });
+
+      it('no request', () => {
+        expect(fetchMock.calls()).to.have.lengthOf(0);
+      });
+
+      it('correct response data', () => {
+        cy.wrap(response).toMatchSnapshot();
+      });
+
+      it('correct cache data', () => {
+        cy.wrap(cache).toMatchSnapshot();
+      });
     });
 
-    it('correct cache data', () => {
-      cy.wrap(cache).toMatchSnapshot();
+    describe('request field path / data entity match', () => {
+      before(async () => {
+        mockRequest({ data: responses.singleTypeQuery.data });
+
+        const typeCacheDirectives = {
+          Organization: 'public, max-age=1',
+        };
+
+        try {
+          client = await initClient({ typeCacheDirectives });
+        } catch (errors) {
+          log(errors);
+        }
+
+        const { full, initial } = parsedRequests.singleTypeQuerySet;
+
+        try {
+          await client.request(full, { ...defaultOptions });
+        } catch (errors) {
+          log(errors);
+        }
+
+        fetchMock.reset();
+
+        try {
+          const { _cacheMetadata, data } = await client.request(initial, { ...defaultOptions });
+          response = { _cacheMetadata: dehydrateCacheMetadata(_cacheMetadata), data };
+        } catch (errors) {
+          log(errors);
+        }
+
+        cache = await client.cache.export();
+      });
+
+      after(async () => {
+        fetchMock.restore();
+        await client.cache.clear();
+      });
+
+      it('no request', () => {
+        expect(fetchMock.calls()).to.have.lengthOf(0);
+      });
+
+      it('correct response data', () => {
+        cy.wrap(response).toMatchSnapshot();
+      });
+
+      it('correct cache data', () => {
+        cy.wrap(cache).toMatchSnapshot();
+      });
     });
   });
 });

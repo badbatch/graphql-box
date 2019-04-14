@@ -15,6 +15,12 @@ export interface UserOptions {
    * to distinguish the logs of multiple debug managers.
    */
   name: string;
+
+  /**
+   * The performance object to use for measuring method
+   * execution speeds.
+   */
+  performance: Performance;
 }
 
 export type InitOptions = UserOptions;

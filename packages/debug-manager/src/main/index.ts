@@ -2,7 +2,6 @@ import { DebugManagerDef, PlainObjectMap } from "@handl/core";
 import EventEmitter from "eventemitter3";
 import { isPlainObject, isString } from "lodash";
 import { ConstructorOptions, DebugManagerInit, InitOptions, Logger, UserOptions } from "../defs";
-import performance from "../helpers/isomorphic-performance";
 
 export class DebugManager extends EventEmitter implements DebugManagerDef {
   public static async init(options: InitOptions): Promise<DebugManager> {
@@ -21,7 +20,7 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
   private _name: string;
   private _performance: Performance;
 
-  constructor({ logger, name }: ConstructorOptions) {
+  constructor({ logger, name, performance }: ConstructorOptions) {
     super();
     this._logger = logger || null;
     this._name = name;

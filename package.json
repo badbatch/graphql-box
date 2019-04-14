@@ -40,7 +40,7 @@
     "compile:module": "lerna run compile:module --parallel",
     "compile:types": "lerna run compile:types --parallel",
     "cutoff": "cutoff-lerna",
-    "cypress:open": "cypress open --config defaultCommandTimeout=4000000",
+    "integration:debug": "cypress open --config defaultCommandTimeout=4000000",
     "docs": "lerna run docs --parallel",
     "init": "yarn && yarn run bootstrap && yarn run build",
     "introspect:url": "node packages/cli/bin/introspect --url \"https://api.github.com/graphql\" --headers \"Authorization:bearer <TOKEN>\" --output \"test/introspections/github/index.json\"",
