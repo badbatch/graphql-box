@@ -104,6 +104,55 @@ describe('@handl/client', () => {
       });
     });
 
+    describe('query tracker match', () => {
+      before(async () => {
+        mockRequest({ data: responses.singleTypeQuery.data });
+
+        const typeCacheDirectives = {
+          Organization: 'public, max-age=1',
+        };
+
+        try {
+          client = await initClient({ typeCacheDirectives });
+        } catch (errors) {
+          log(errors);
+        }
+
+        const request = parsedRequests.singleTypeQuery;
+
+        try {
+          const result = await Promise.all([
+            client.request(request, { ...defaultOptions }),
+            client.request(request, { ...defaultOptions }),
+          ]);
+
+          const { _cacheMetadata, data } = result[1];
+          response = { _cacheMetadata: dehydrateCacheMetadata(_cacheMetadata), data };
+        } catch (errors) {
+          log(errors);
+        }
+
+        cache = await client.cache.export();
+      });
+
+      after(async () => {
+        fetchMock.restore();
+        await client.cache.clear();
+      });
+
+      it('one request', () => {
+        expect(fetchMock.calls()).to.have.lengthOf(1);
+      });
+
+      it('correct response data', () => {
+        cy.wrap(response).toMatchSnapshot();
+      });
+
+      it('correct cache data', () => {
+        cy.wrap(cache).toMatchSnapshot();
+      });
+    });
+
     describe('query response match', () => {
       before(async () => {
         mockRequest({ data: responses.singleTypeQuery.data });
