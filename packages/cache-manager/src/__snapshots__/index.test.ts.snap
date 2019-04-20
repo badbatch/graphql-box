@@ -277,7 +277,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::1c45c714e49ec15135b65e1bc62ad8f5",
+      "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -882,7 +882,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::1c45c714e49ec15135b65e1bc62ad8f5",
+      "key": "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 4510,
@@ -1315,7 +1315,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::491d6c88629d057b423eebd83b076a01",
+      "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -1876,7 +1876,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::491d6c88629d057b423eebd83b076a01",
+      "key": "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 3396,
@@ -2046,7 +2046,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -2133,7 +2133,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      "key": "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 678,
@@ -2183,9 +2183,9 @@ Object {
 
 exports[`@handl/cache-manager >> analyzeQuery >> no matching data >> nested type with edges >> correct request data 1`] = `
 Object {
-  "hash": "1c45c714e49ec15135b65e1bc62ad8f5",
+  "hash": "2a0b8ac261139c6615fcf79f54ef01bd",
   "request": "
-  query {
+  {
     organization(login: \\"facebook\\") {
       description
       email
@@ -2220,9 +2220,9 @@ Object {
 
 exports[`@handl/cache-manager >> analyzeQuery >> no matching data >> nested union with edges >> correct request data 1`] = `
 Object {
-  "hash": "491d6c88629d057b423eebd83b076a01",
+  "hash": "6b4da6c8224569c09b25b81c57f6ec26",
   "request": "
-  query {
+  {
     search(query: \\"react\\", first: 10, type: REPOSITORY) {
       edges {
         node {
@@ -2267,9 +2267,9 @@ Object {
 
 exports[`@handl/cache-manager >> analyzeQuery >> no matching data >> single type >> correct request data 1`] = `
 Object {
-  "hash": "651f14b3df12bef942ed3b1ba9e7f1f1",
+  "hash": "ea1cbc58eca798225b53f59d95ffb23a",
   "request": "
-  query {
+  {
     organization(login: \\"facebook\\") {
       description
       email
@@ -2523,7 +2523,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::906262da0133f2715dfe8e750c110551",
+      "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -3107,7 +3107,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::906262da0133f2715dfe8e750c110551",
+      "key": "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 2700,
@@ -3120,7 +3120,7 @@ Object {
 
 exports[`@handl/cache-manager >> analyzeQuery >> some matching data >> nested type with edges > correct partial data 1`] = `
 Map {
-  "1c45c714e49ec15135b65e1bc62ad8f5" => Object {
+  "2a0b8ac261139c6615fcf79f54ef01bd" => Object {
     "cacheMetadata": Map {
       "query.organization" => Cacheability {
         "metadata": Object {
@@ -3511,7 +3511,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::925987b129ee0fca8756d531d6a52aab",
+      "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -4052,7 +4052,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::925987b129ee0fca8756d531d6a52aab",
+      "key": "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 1792,
@@ -4065,7 +4065,7 @@ Object {
 
 exports[`@handl/cache-manager >> analyzeQuery >> some matching data >> nested union with edges >> correct partial data 1`] = `
 Map {
-  "491d6c88629d057b423eebd83b076a01" => Object {
+  "6b4da6c8224569c09b25b81c57f6ec26" => Object {
     "cacheMetadata": Map {
       "query.search" => Cacheability {
         "metadata": Object {
@@ -4219,7 +4219,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::8fc321b1bf4d18ee3d1f2d745b4b28f8",
+      "queryResponses::f666cc27cdcfcecacb340b64fcf27506",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -4303,7 +4303,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::8fc321b1bf4d18ee3d1f2d745b4b28f8",
+      "key": "queryResponses::f666cc27cdcfcecacb340b64fcf27506",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 584,
@@ -4316,7 +4316,7 @@ Object {
 
 exports[`@handl/cache-manager >> analyzeQuery >> some matching data >> single type >> correct partial data 1`] = `
 Map {
-  "651f14b3df12bef942ed3b1ba9e7f1f1" => Object {
+  "ea1cbc58eca798225b53f59d95ffb23a" => Object {
     "cacheMetadata": Map {
       "query.organization" => Cacheability {
         "metadata": Object {
@@ -5291,7 +5291,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::906262da0133f2715dfe8e750c110551",
+      "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -5429,7 +5429,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::b1b9d87e72abfd00416f2c32f413a2ec",
+      "queryResponses::e7d453e539306bbae7174ecd79493270",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -5530,7 +5530,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::1c45c714e49ec15135b65e1bc62ad8f5",
+      "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -6143,7 +6143,7 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::906262da0133f2715dfe8e750c110551",
+      "key": "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 2856,
@@ -6163,7 +6163,7 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::b1b9d87e72abfd00416f2c32f413a2ec",
+      "key": "queryResponses::e7d453e539306bbae7174ecd79493270",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 2902,
@@ -6183,7 +6183,7 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::1c45c714e49ec15135b65e1bc62ad8f5",
+      "key": "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 4666,
@@ -6635,7 +6635,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::906262da0133f2715dfe8e750c110551",
+      "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -6765,7 +6765,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::b1b9d87e72abfd00416f2c32f413a2ec",
+      "queryResponses::e7d453e539306bbae7174ecd79493270",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -6858,7 +6858,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::1c45c714e49ec15135b65e1bc62ad8f5",
+      "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -7463,7 +7463,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::906262da0133f2715dfe8e750c110551",
+      "key": "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 2700,
@@ -7483,7 +7483,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::b1b9d87e72abfd00416f2c32f413a2ec",
+      "key": "queryResponses::e7d453e539306bbae7174ecd79493270",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 2746,
@@ -7503,7 +7503,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::1c45c714e49ec15135b65e1bc62ad8f5",
+      "key": "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 4510,
@@ -7936,7 +7936,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::925987b129ee0fca8756d531d6a52aab",
+      "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -8051,7 +8051,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::53aee0ce7ac9cae1e81344516ff1d70b",
+      "queryResponses::187cd490f45b73275b5b309f76900cde",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -8176,7 +8176,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::491d6c88629d057b423eebd83b076a01",
+      "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -8745,7 +8745,7 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::925987b129ee0fca8756d531d6a52aab",
+      "key": "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 1910,
@@ -8765,7 +8765,7 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::53aee0ce7ac9cae1e81344516ff1d70b",
+      "key": "queryResponses::187cd490f45b73275b5b309f76900cde",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 3268,
@@ -8785,7 +8785,7 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::491d6c88629d057b423eebd83b076a01",
+      "key": "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 3514,
@@ -9200,7 +9200,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::925987b129ee0fca8756d531d6a52aab",
+      "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -9307,7 +9307,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::53aee0ce7ac9cae1e81344516ff1d70b",
+      "queryResponses::187cd490f45b73275b5b309f76900cde",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -9424,7 +9424,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::491d6c88629d057b423eebd83b076a01",
+      "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -9985,7 +9985,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::925987b129ee0fca8756d531d6a52aab",
+      "key": "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 1792,
@@ -10005,7 +10005,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::53aee0ce7ac9cae1e81344516ff1d70b",
+      "key": "queryResponses::187cd490f45b73275b5b309f76900cde",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 3150,
@@ -10025,7 +10025,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::491d6c88629d057b423eebd83b076a01",
+      "key": "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 3396,
@@ -10195,7 +10195,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::8fc321b1bf4d18ee3d1f2d745b4b28f8",
+      "queryResponses::f666cc27cdcfcecacb340b64fcf27506",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -10225,7 +10225,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::6f657b2d4a58985d1a26dbf3176137b0",
+      "queryResponses::70a245971c9c179bc5c30c3925e4881c",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -10256,7 +10256,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -10343,7 +10343,7 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::6f657b2d4a58985d1a26dbf3176137b0",
+      "key": "queryResponses::70a245971c9c179bc5c30c3925e4881c",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 422,
@@ -10363,7 +10363,7 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::8fc321b1bf4d18ee3d1f2d745b4b28f8",
+      "key": "queryResponses::f666cc27cdcfcecacb340b64fcf27506",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 584,
@@ -10383,7 +10383,7 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      "key": "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 678,
@@ -10457,7 +10457,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::8fc321b1bf4d18ee3d1f2d745b4b28f8",
+      "queryResponses::f666cc27cdcfcecacb340b64fcf27506",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -10487,7 +10487,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::6f657b2d4a58985d1a26dbf3176137b0",
+      "queryResponses::70a245971c9c179bc5c30c3925e4881c",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -10518,7 +10518,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -10605,7 +10605,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::6f657b2d4a58985d1a26dbf3176137b0",
+      "key": "queryResponses::70a245971c9c179bc5c30c3925e4881c",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 422,
@@ -10625,7 +10625,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::8fc321b1bf4d18ee3d1f2d745b4b28f8",
+      "key": "queryResponses::f666cc27cdcfcecacb340b64fcf27506",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 584,
@@ -10645,7 +10645,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      "key": "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 678,
@@ -10970,7 +10970,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::1c45c714e49ec15135b65e1bc62ad8f5",
+      "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -11583,7 +11583,7 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::1c45c714e49ec15135b65e1bc62ad8f5",
+      "key": "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 4666,
@@ -12042,7 +12042,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::1c45c714e49ec15135b65e1bc62ad8f5",
+      "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -12647,7 +12647,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::1c45c714e49ec15135b65e1bc62ad8f5",
+      "key": "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 4510,
@@ -13080,7 +13080,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::491d6c88629d057b423eebd83b076a01",
+      "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -13649,7 +13649,7 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::491d6c88629d057b423eebd83b076a01",
+      "key": "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 3514,
@@ -14064,7 +14064,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::491d6c88629d057b423eebd83b076a01",
+      "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -14625,7 +14625,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::491d6c88629d057b423eebd83b076a01",
+      "key": "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 3396,
@@ -14795,7 +14795,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -14882,7 +14882,7 @@ Object {
           "ttl": 297471605000,
         },
       },
-      "key": "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      "key": "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 678,
@@ -14956,7 +14956,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -15043,7 +15043,7 @@ Object {
           "ttl": 297471601000,
         },
       },
-      "key": "queryResponses::651f14b3df12bef942ed3b1ba9e7f1f1",
+      "key": "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       "lastAccessed": 297471600000,
       "lastUpdated": 297471600000,
       "size": 678,

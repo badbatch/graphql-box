@@ -40,6 +40,7 @@
     "compile:module": "lerna run compile:module --parallel",
     "compile:types": "lerna run compile:types --parallel",
     "cutoff": "cutoff-lerna",
+    "integration": "cypress run --browser chrome",
     "integration:debug": "cypress open --config defaultCommandTimeout=4000000",
     "docs": "lerna run docs --parallel",
     "init": "yarn && yarn run bootstrap && yarn run build",

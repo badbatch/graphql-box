@@ -309,7 +309,8 @@ export class CacheManager implements CacheManagerDef  {
 
     fieldPathChecklist.set(
       requestFieldPath,
-      [...checklistValues, { hasData: !isUndefined(data), typeName: dataTypeName as string }]);
+      [...checklistValues, { hasData: !isUndefined(data), typeName: dataTypeName as string }],
+    );
   }
 
   private _cache: Cachemap;

@@ -2,9 +2,9 @@
 
 exports[`@handl/fetch-manager >> batching >> multiple requests >> correct request 1`] = `
 Array [
-  "https://api.github.com/graphql?requestId=8fc321b1bf4d18ee3d1f2d745b4b28f8-6f657b2d4a58985d1a26dbf3176137b0",
+  "https://api.github.com/graphql?requestId=f666cc27cdcfcecacb340b64fcf27506-70a245971c9c179bc5c30c3925e4881c",
   Object {
-    "body": "{\\"batched\\":true,\\"context\\":{\\"handlID\\":\\"123456789\\",\\"operation\\":\\"query\\"},\\"request\\":{\\"8fc321b1bf4d18ee3d1f2d745b4b28f8\\":\\"\\\\n    query {\\\\n      organization(login: \\\\\\"facebook\\\\\\") {\\\\n        description\\\\n        login\\\\n        id\\\\n      }\\\\n    }\\\\n  \\",\\"6f657b2d4a58985d1a26dbf3176137b0\\":\\"\\\\n    query {\\\\n      organization(login: \\\\\\"facebook\\\\\\") {\\\\n        email\\\\n        name\\\\n        url\\\\n        id\\\\n      }\\\\n    }\\\\n  \\"}}",
+    "body": "{\\"batched\\":true,\\"context\\":{\\"handlID\\":\\"123456789\\",\\"operation\\":\\"query\\"},\\"request\\":{\\"f666cc27cdcfcecacb340b64fcf27506\\":\\"\\\\n    {\\\\n      organization(login: \\\\\\"facebook\\\\\\") {\\\\n        description\\\\n        login\\\\n        id\\\\n      }\\\\n    }\\\\n  \\",\\"70a245971c9c179bc5c30c3925e4881c\\":\\"\\\\n    {\\\\n      organization(login: \\\\\\"facebook\\\\\\") {\\\\n        email\\\\n        name\\\\n        url\\\\n        id\\\\n      }\\\\n    }\\\\n  \\"}}",
     "headers": Headers {
       "_headers": Object {
         "content-type": Array [
@@ -70,9 +70,9 @@ Object {
 
 exports[`@handl/fetch-manager >> batching >> single request >> correct request 1`] = `
 Array [
-  "https://api.github.com/graphql?requestId=651f14b3df12bef942ed3b1ba9e7f1f1",
+  "https://api.github.com/graphql?requestId=ea1cbc58eca798225b53f59d95ffb23a",
   Object {
-    "body": "{\\"batched\\":true,\\"context\\":{\\"handlID\\":\\"123456789\\",\\"operation\\":\\"query\\"},\\"request\\":{\\"651f14b3df12bef942ed3b1ba9e7f1f1\\":\\"\\\\n  query {\\\\n    organization(login: \\\\\\"facebook\\\\\\") {\\\\n      description\\\\n      email\\\\n      login\\\\n      name\\\\n      url\\\\n      id\\\\n    }\\\\n  }\\\\n\\"}}",
+    "body": "{\\"batched\\":true,\\"context\\":{\\"handlID\\":\\"123456789\\",\\"operation\\":\\"query\\"},\\"request\\":{\\"ea1cbc58eca798225b53f59d95ffb23a\\":\\"\\\\n  {\\\\n    organization(login: \\\\\\"facebook\\\\\\") {\\\\n      description\\\\n      email\\\\n      login\\\\n      name\\\\n      url\\\\n      id\\\\n    }\\\\n  }\\\\n\\"}}",
     "headers": Headers {
       "_headers": Object {
         "content-type": Array [
@@ -115,9 +115,9 @@ Object {
 
 exports[`@handl/fetch-manager >> no batching >> correct request 1`] = `
 Array [
-  "https://api.github.com/graphql?requestId=651f14b3df12bef942ed3b1ba9e7f1f1",
+  "https://api.github.com/graphql?requestId=ea1cbc58eca798225b53f59d95ffb23a",
   Object {
-    "body": "{\\"batched\\":false,\\"context\\":{\\"handlID\\":\\"123456789\\",\\"operation\\":\\"query\\"},\\"request\\":\\"\\\\n  query {\\\\n    organization(login: \\\\\\"facebook\\\\\\") {\\\\n      description\\\\n      email\\\\n      login\\\\n      name\\\\n      url\\\\n      id\\\\n    }\\\\n  }\\\\n\\"}",
+    "body": "{\\"batched\\":false,\\"context\\":{\\"handlID\\":\\"123456789\\",\\"operation\\":\\"query\\"},\\"request\\":\\"\\\\n  {\\\\n    organization(login: \\\\\\"facebook\\\\\\") {\\\\n      description\\\\n      email\\\\n      login\\\\n      name\\\\n      url\\\\n      id\\\\n    }\\\\n  }\\\\n\\"}",
     "headers": Headers {
       "_headers": Object {
         "content-type": Array [

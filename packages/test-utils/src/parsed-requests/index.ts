@@ -1,7 +1,7 @@
 import { ParsedQuerySet } from "../defs";
 
 export const singleTypeQuery = `
-  query {
+  {
     organization(login: "facebook") {
       description
       email
@@ -16,7 +16,7 @@ export const singleTypeQuery = `
 export const singleTypeQuerySet: ParsedQuerySet = {
   full: singleTypeQuery,
   initial: `
-    query {
+    {
       organization(login: "facebook") {
         description
         login
@@ -25,7 +25,7 @@ export const singleTypeQuerySet: ParsedQuerySet = {
     }
   `,
   updated: `
-    query {
+    {
       organization(login: "facebook") {
         email
         name
@@ -37,7 +37,7 @@ export const singleTypeQuerySet: ParsedQuerySet = {
 };
 
 export const nestedTypeQuery = `
-  query {
+  {
     organization(login: "facebook") {
       description
       email
@@ -71,7 +71,7 @@ export const nestedTypeQuery = `
 export const nestedTypeQuerySet: ParsedQuerySet = {
   full: nestedTypeQuery,
   initial: `
-    query {
+    {
       organization(login: "facebook") {
         login
         name
@@ -96,7 +96,7 @@ export const nestedTypeQuerySet: ParsedQuerySet = {
     }
   `,
   updated: `
-    query {
+    {
       organization(login: "facebook") {
         description
         email
@@ -117,7 +117,7 @@ export const nestedTypeQuerySet: ParsedQuerySet = {
 };
 
 export const nestedUnionQuery = `
-  query {
+  {
     search(query: "react", first: 10, type: REPOSITORY) {
       edges {
         node {
@@ -161,7 +161,7 @@ export const nestedUnionQuery = `
 export const nestedUnionQuerySet: ParsedQuerySet = {
   full: nestedUnionQuery,
   initial: `
-    query {
+    {
       search(query: "react", first: 10, type: REPOSITORY) {
         edges {
           node {
@@ -193,7 +193,7 @@ export const nestedUnionQuerySet: ParsedQuerySet = {
     }
   `,
   updated: `
-    query {
+    {
       search(query: "react", first: 10, type: REPOSITORY) {
         edges {
           node {
