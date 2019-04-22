@@ -6,28 +6,9 @@ import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
-
-const rootPackageJson = require('./package.json');
+import rootPackageJson from './package.json';
 
 const dirRoot = resolve(process.cwd());
-const isDev = process.env.NODE_ENV === 'development';
-
-const devAndProdModuleExport = `
-if (process.env.NODE_ENV === 'production') {
-  module.exports = require('./production.min.js');
-} else {
-  module.exports = require('./development.js');
-}
-`;
-
-const devModuleExport = `
-module.exports = require('./development.js');
-`;
-
-outputFileSync(`${dirRoot}/lib/browser/index.js`, `
-'use strict';
-${isDev ? devModuleExport : devAndProdModuleExport}
-`);
 
 function getKeys(dependencies = []) {
   return Object.keys(dependencies);
@@ -74,7 +55,7 @@ const devConfig = {
   external,
   input: `${dirRoot}/src/index.ts`,
   output: {
-    file: `${dirRoot}/lib/browser/development.js`,
+    file: `${dirRoot}/lib/browser/index.js`,
     format: 'esm',
     sourcemap: true,
     sourcemapPathTransform,
@@ -88,7 +69,7 @@ const prodConfig = {
   external,
   input: `${dirRoot}/src/index.ts`,
   output: {
-    file: `${dirRoot}/lib/browser/production.min.js`,
+    file: `${dirRoot}/lib/browser/index.js`,
     format: 'esm',
     sourcemap: true,
     sourcemapPathTransform,
@@ -102,10 +83,10 @@ const prodConfig = {
 
 const config = [];
 
-if (isDev) {
+if (process.env.NODE_ENV === 'development') {
   config.push(devConfig);
 } else {
-  config.push(devConfig, prodConfig);
+  config.push(prodConfig);
 }
 
 export default config;
