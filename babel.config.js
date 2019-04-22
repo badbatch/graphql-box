@@ -2,7 +2,7 @@ module.exports = (api) => {
   const env = api.env();
   let ignore = [];
 
-  if (env !== 'test') {
+  if (env !== 'test' && env !== 'integration') {
     ignore = [
       '**/*.test.ts',
     ];
@@ -11,10 +11,8 @@ module.exports = (api) => {
   const modules = env === 'main' || env === 'test' ? 'commonjs' : false;
   let targets;
 
-  if (env === 'web') {
+  if (env === 'web' || env !== 'integration') {
     targets = { browsers: 'last 2 versions' };
-  } else if (env === 'debug') {
-    targets = { browsers: 'chrome >= 60' };
   } else {
     targets = { node: '8' };
   }

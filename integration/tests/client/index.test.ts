@@ -1,38 +1,43 @@
-import { dehydrateCacheMetadata, hashRequest } from '@handl/helpers';
-import { parsedRequests, responses } from '@handl/test-utils';
-import { use, expect } from 'chai';
-import { matchSnapshot } from 'chai-karma-snapshot';
-import fetchMock from 'fetch-mock';
-import sinon from 'sinon';
+import { ExportCacheResult } from "@handl/cache-manager";
+import Client from "@handl/client";
+import { MaybeRequestResultWithDehydratedCacheMetadata } from "@handl/core";
+import { dehydrateCacheMetadata, hashRequest } from "@handl/helpers";
+import { parsedRequests, responses } from "@handl/test-utils";
+import { expect, use } from "chai";
+import { matchSnapshot } from "chai-karma-snapshot";
+import fetchMock from "fetch-mock";
+import sinon from "sinon";
 import {
   defaultOptions,
   initClient,
   log,
   mockRequest,
-} from '../../helpers';
+} from "../../helpers";
 
 use(matchSnapshot);
 
-describe('client', () => {
-  const realDateNow = Date.now.bind(window.Date);
+describe("client", () => {
+  const realDateNow = Date.now.bind(global.Date);
 
   before(() => {
-    window.Date.now = sinon.stub().returns(Date.parse('June 6, 1979'));
+    global.Date.now = sinon.stub().returns(Date.parse("June 6, 1979"));
   });
 
   after(() => {
-    window.Date.now = realDateNow;
+    global.Date.now = realDateNow;
   });
 
-  describe('request', () => {
-    let cache, client, response;
+  describe("request", () => {
+    let cache: ExportCacheResult;
+    let client: Client;
+    let response: MaybeRequestResultWithDehydratedCacheMetadata;
 
-    describe('no match', () => {
+    describe("no match", () => {
       before(async () => {
         mockRequest({ data: responses.singleTypeQuery.data });
 
         const typeCacheDirectives = {
-          Organization: 'public, max-age=1',
+          Organization: "public, max-age=1",
         };
 
         try {
@@ -58,21 +63,21 @@ describe('client', () => {
         await client.cache.clear();
       });
 
-      it('correct response data', () => {
+      it("correct response data", () => {
         expect(response).to.matchSnapshot();
       });
 
-      it('correct cache data', () => {
+      it("correct cache data", () => {
         expect(cache).to.matchSnapshot();
       });
     });
 
-    describe('query tracker match', () => {
+    describe("query tracker match", () => {
       before(async () => {
         mockRequest({ data: responses.singleTypeQuery.data });
 
         const typeCacheDirectives = {
-          Organization: 'public, max-age=1',
+          Organization: "public, max-age=1",
         };
 
         try {
@@ -103,25 +108,25 @@ describe('client', () => {
         await client.cache.clear();
       });
 
-      it('one request', () => {
+      it("one request", () => {
         expect(fetchMock.calls()).to.have.lengthOf(1);
       });
 
-      it('correct response data', () => {
+      it("correct response data", () => {
         expect(response).to.matchSnapshot();
       });
 
-      it('correct cache data', () => {
+      it("correct cache data", () => {
         expect(cache).to.matchSnapshot();
       });
     });
 
-    describe('query response match', () => {
+    describe("query response match", () => {
       before(async () => {
         mockRequest({ data: responses.singleTypeQuery.data });
 
         const typeCacheDirectives = {
-          Organization: 'public, max-age=1',
+          Organization: "public, max-age=1",
         };
 
         try {
@@ -155,25 +160,25 @@ describe('client', () => {
         await client.cache.clear();
       });
 
-      it('no request', () => {
+      it("no request", () => {
         expect(fetchMock.calls()).to.have.lengthOf(0);
       });
 
-      it('correct response data', () => {
+      it("correct response data", () => {
         expect(response).to.matchSnapshot();
       });
 
-      it('correct cache data', () => {
+      it("correct cache data", () => {
         expect(cache).to.matchSnapshot();
       });
     });
 
-    describe('request field path / data entity match', () => {
+    describe("request field path / data entity match", () => {
       before(async () => {
         mockRequest({ data: responses.singleTypeQuery.data });
 
         const typeCacheDirectives = {
-          Organization: 'public, max-age=1',
+          Organization: "public, max-age=1",
         };
 
         try {
@@ -207,20 +212,20 @@ describe('client', () => {
         await client.cache.clear();
       });
 
-      it('no request', () => {
+      it("no request", () => {
         expect(fetchMock.calls()).to.have.lengthOf(0);
       });
 
-      it('correct response data', () => {
+      it("correct response data", () => {
         expect(response).to.matchSnapshot();
       });
 
-      it('correct cache data', () => {
+      it("correct cache data", () => {
         expect(cache).to.matchSnapshot();
       });
     });
 
-    describe('request field path / data entity partial match', () => {
+    describe("request field path / data entity partial match", () => {
       before(async () => {
         const { full, initial, updated } = parsedRequests.nestedTypeQuerySet;
 
@@ -235,10 +240,10 @@ describe('client', () => {
         });
 
         const typeCacheDirectives = {
-          Organization: 'public, max-age=3',
-          Repository: 'public, max-age=3',
-          RepositoryConnection: 'public, max-age=1',
-          RepositoryOwner: 'public, max-age=3',
+          Organization: "public, max-age=3",
+          Repository: "public, max-age=3",
+          RepositoryConnection: "public, max-age=1",
+          RepositoryOwner: "public, max-age=3",
         };
 
         try {
@@ -270,15 +275,15 @@ describe('client', () => {
         await client.cache.clear();
       });
 
-      it('one request', () => {
+      it("one request", () => {
         expect(fetchMock.calls()).to.have.lengthOf(1);
       });
 
-      it('correct response data', () => {
+      it("correct response data", () => {
         expect(response).to.matchSnapshot();
       });
 
-      it('correct cache data', () => {
+      it("correct cache data", () => {
         expect(cache).to.matchSnapshot();
       });
     });

@@ -13,7 +13,7 @@ module.exports = (config) => {
     concurrency: Infinity,
     files: [
       '**/__snapshots__/**/*.md',
-      'integration/tests/**/*.test.js',
+      'integration/tests/**/*.test.ts',
     ],
     frameworks: ['mocha', 'chai', 'sinon', 'snapshot', 'mocha-snapshot'],
     logLevel: config.LOG_INFO,
@@ -23,7 +23,7 @@ module.exports = (config) => {
     port: 9876,
     preprocessors: {
       '**/__snapshots__/**/*.md': ['snapshot'],
-      'integration/tests/**/*.test.js': ['webpack', 'sourcemap'],
+      'integration/tests/**/*.test.ts': ['webpack', 'sourcemap'],
     },
     proxies: {},
     snapshot: {
