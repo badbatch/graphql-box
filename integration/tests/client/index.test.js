@@ -1,6 +1,9 @@
 import { dehydrateCacheMetadata, hashRequest } from '@handl/helpers';
 import { parsedRequests, responses } from '@handl/test-utils';
+import { use, expect } from 'chai';
+import { matchSnapshot } from 'chai-karma-snapshot';
 import fetchMock from 'fetch-mock';
+import sinon from 'sinon';
 import {
   defaultOptions,
   initClient,
@@ -8,11 +11,13 @@ import {
   mockRequest,
 } from '../../helpers';
 
-describe('@handl/client', () => {
+use(matchSnapshot);
+
+describe('client', () => {
   const realDateNow = Date.now.bind(window.Date);
 
   before(() => {
-    window.Date.now = cy.stub().returns(Date.parse('June 6, 1979'));
+    window.Date.now = sinon.stub().returns(Date.parse('June 6, 1979'));
   });
 
   after(() => {
@@ -54,11 +59,11 @@ describe('@handl/client', () => {
       });
 
       it('correct response data', () => {
-        cy.wrap(response).toMatchSnapshot();
+        expect(response).to.matchSnapshot();
       });
 
       it('correct cache data', () => {
-        cy.wrap(cache).toMatchSnapshot();
+        expect(cache).to.matchSnapshot();
       });
     });
 
@@ -103,11 +108,11 @@ describe('@handl/client', () => {
       });
 
       it('correct response data', () => {
-        cy.wrap(response).toMatchSnapshot();
+        expect(response).to.matchSnapshot();
       });
 
       it('correct cache data', () => {
-        cy.wrap(cache).toMatchSnapshot();
+        expect(cache).to.matchSnapshot();
       });
     });
 
@@ -155,11 +160,11 @@ describe('@handl/client', () => {
       });
 
       it('correct response data', () => {
-        cy.wrap(response).toMatchSnapshot();
+        expect(response).to.matchSnapshot();
       });
 
       it('correct cache data', () => {
-        cy.wrap(cache).toMatchSnapshot();
+        expect(cache).to.matchSnapshot();
       });
     });
 
@@ -207,11 +212,11 @@ describe('@handl/client', () => {
       });
 
       it('correct response data', () => {
-        cy.wrap(response).toMatchSnapshot();
+        expect(response).to.matchSnapshot();
       });
 
       it('correct cache data', () => {
-        cy.wrap(cache).toMatchSnapshot();
+        expect(cache).to.matchSnapshot();
       });
     });
 
@@ -270,11 +275,11 @@ describe('@handl/client', () => {
       });
 
       it('correct response data', () => {
-        cy.wrap(response).toMatchSnapshot();
+        expect(response).to.matchSnapshot();
       });
 
       it('correct cache data', () => {
-        cy.wrap(cache).toMatchSnapshot();
+        expect(cache).to.matchSnapshot();
       });
     });
   });

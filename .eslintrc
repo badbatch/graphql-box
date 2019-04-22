@@ -1,16 +1,13 @@
 {
   "env": {
-    "cypress/globals": true,
+    "browser": true,
+    "mocha": true,
     "node": true
   },
   "extends": [
-    "airbnb",
-    "plugin:cypress/recommended"
+    "airbnb"
   ],
   "parser": "babel-eslint",
-  "plugins": [
-    "cypress"
-  ],
   "rules": {
     "import/no-extraneous-dependencies": 0,
     "linebreak-style": 0,
