@@ -1,39 +1,41 @@
 import Cachemap from "@cachemap/core";
-import indexedDB from "@cachemap/indexed-db";
 import cacheManager from "@handl/cache-manager";
 import Client from "@handl/client";
-import { DEFAULT_TYPE_ID_KEY, PlainObjectMap, PlainObjectStringMap } from "@handl/core";
+import { DEFAULT_TYPE_ID_KEY } from "@handl/core";
 import debugManager from "@handl/debug-manager";
 import fetchManager from "@handl/fetch-manager";
 import requestParser from "@handl/request-parser";
 import { githubIntrospection } from "@handl/test-utils";
 import WorkerClient from "@handl/worker-client";
 import fetchMock from "fetch-mock";
+import { InitClientOptions, InitWorkerClientOptions, MockRequestOptions } from "../defs";
 
 export const defaultOptions = { awaitDataCaching: true, returnCacheMetadata: true };
 
-const { performance } = window;
+const { performance } = self;
 const url = "https://api.github.com/graphql";
 
-export function log(...args: any[]) {
+export function log(...args: any[]): void {
   console.log(...args); // tslint:disable-line:no-console
 }
 
-export async function initClient(
-  { typeCacheDirectives }: { typeCacheDirectives: PlainObjectStringMap },
-): Promise<Client> {
+export async function initClient({
+  cachemapStore,
+  debuggerName = "CLIENT",
+  typeCacheDirectives,
+}: InitClientOptions): Promise<Client> {
   return Client.init({
     cacheManager: cacheManager({
       cache: await Cachemap.init({
         name: "cachemap",
-        store: indexedDB(),
+        store: cachemapStore,
       }),
       cascadeCacheControl: true,
       typeCacheDirectives,
     }),
     debugManager: debugManager({
       logger: { log },
-      name: "CLIENT",
+      name: debuggerName,
       performance,
     }),
     requestManager: fetchManager({ url }),
@@ -42,7 +44,7 @@ export async function initClient(
   });
 }
 
-export async function initWorkerClient({ worker }: { worker: Worker }): Promise<WorkerClient> {
+export async function initWorkerClient({ worker }: InitWorkerClientOptions): Promise<WorkerClient> {
   return WorkerClient.init({
     debugManager: debugManager({
       logger: { log },
@@ -58,7 +60,7 @@ function buildRequestURL(hash?: string): string {
   return `${url}?requestId=${hash}`;
 }
 
-export function mockRequest({ data, hash }: { data: PlainObjectMap, hash?: string }): void {
+export function mockRequest({ data, hash }: MockRequestOptions): void {
   const body = { data };
   const headers = { "cache-control": "public, max-age=5" };
   fetchMock.post(buildRequestURL(hash), { body, headers });

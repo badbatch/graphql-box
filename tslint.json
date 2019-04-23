@@ -12,7 +12,6 @@
     "no-namespace": true,
     "no-submodule-imports": [
       true,
-      "promise-worker/register",
       "uuid/v1",
       "graphql/tsutils/Maybe",
       "graphql/execution/execute",

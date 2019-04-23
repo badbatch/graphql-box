@@ -1,8 +1,8 @@
+import Client from "@handl/client";
 import {
   DebugManagerDef,
   MaybeRequestResult,
   MaybeRequestResultWithDehydratedCacheMetadata,
-  RequestContext,
   RequestOptions,
 } from "@handl/core";
 import { DebugManagerInit } from "@handl/debug-manager";
@@ -42,16 +42,15 @@ export interface PendingData {
 export type PendingTracker = Map<string, PendingData>;
 
 export interface MessageRequestPayload {
-  context: RequestContext;
+  context: MessageContext;
   method: MethodNames;
   options: RequestOptions;
   request: string;
 }
 
 export interface MessageResponsePayload {
-  context: RequestContext;
+  context: MessageContext;
   method: MethodNames;
-  options: RequestOptions;
   result: MaybeRequestResultWithDehydratedCacheMetadata;
 }
 
@@ -59,4 +58,6 @@ export interface MessageContext {
   handlID: string;
 }
 
-export type MessageHandler = (args: MessageRequestPayload) => void;
+export interface RegisterWorkerOptions {
+  initClient: () => Promise<Client>;
+}

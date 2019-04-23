@@ -1,3 +1,4 @@
+import indexedDB from "@cachemap/indexed-db";
 import { ExportCacheResult } from "@handl/cache-manager";
 import Client from "@handl/client";
 import { MaybeRequestResultWithDehydratedCacheMetadata } from "@handl/core";
@@ -41,7 +42,7 @@ describe("client", () => {
         };
 
         try {
-          client = await initClient({ typeCacheDirectives });
+          client = await initClient({ cachemapStore: indexedDB(), typeCacheDirectives });
         } catch (errors) {
           log(errors);
         }
@@ -81,7 +82,7 @@ describe("client", () => {
         };
 
         try {
-          client = await initClient({ typeCacheDirectives });
+          client = await initClient({ cachemapStore: indexedDB(), typeCacheDirectives });
         } catch (errors) {
           log(errors);
         }
@@ -130,7 +131,7 @@ describe("client", () => {
         };
 
         try {
-          client = await initClient({ typeCacheDirectives });
+          client = await initClient({ cachemapStore: indexedDB(), typeCacheDirectives });
         } catch (errors) {
           log(errors);
         }
@@ -182,7 +183,7 @@ describe("client", () => {
         };
 
         try {
-          client = await initClient({ typeCacheDirectives });
+          client = await initClient({ cachemapStore: indexedDB(), typeCacheDirectives });
         } catch (errors) {
           log(errors);
         }
@@ -247,7 +248,7 @@ describe("client", () => {
         };
 
         try {
-          client = await initClient({ typeCacheDirectives });
+          client = await initClient({ cachemapStore: indexedDB(), typeCacheDirectives });
         } catch (errors) {
           log(errors);
         }

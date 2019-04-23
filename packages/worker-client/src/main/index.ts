@@ -11,7 +11,7 @@ import { EventAsyncIterator, rehydrateCacheMetadata } from "@handl/helpers";
 import EventEmitter from "eventemitter3";
 import { isPlainObject } from "lodash";
 import uuid from "uuid/v1";
-import { REQUEST, SUBSCRIBE } from "../consts";
+import { MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
 import logRequest from "../debug/log-request";
 import {
   ConstructorOptions,
@@ -61,11 +61,14 @@ export default class WorkerClient {
   constructor({ debugManager, worker }: ConstructorOptions) {
     this._debugManager = debugManager || null;
     this._eventEmitter = new EventEmitter();
-    worker.onmessage = this._onMessage.bind(this);
     this._worker = worker;
+    this._addEventListener();
   }
 
-  public async request(request: string, options: RequestOptions = {}): Promise<MaybeRequestResult> {
+  public async request(
+    request: string,
+    options: RequestOptions = {},
+  ): Promise<MaybeRequestResult> {
     try {
       return this._request(request, options, this._getRequestContext(QUERY, request)) as MaybeRequestResult;
     } catch (error) {
@@ -88,6 +91,10 @@ export default class WorkerClient {
     }
   }
 
+  private _addEventListener(): void {
+    this._worker.addEventListener(MESSAGE, this._onMessage);
+  }
+
   private _getRequestContext(operation: ValidOperations, request: string): RequestContext {
     return {
       debugManager: this._debugManager,
@@ -100,10 +107,10 @@ export default class WorkerClient {
     };
   }
 
-  private async _onMessage(ev: MessageEvent): Promise<void> {
-    if (!isPlainObject(ev.data)) return;
+  private _onMessage = async ({ data }: MessageEvent): Promise<void> => {
+    if (!isPlainObject(data)) return;
 
-    const { context, method, result } = ev.data as MessageResponsePayload;
+    const { context, method, result } = data as MessageResponsePayload;
     if (!isPlainObject(result)) return;
 
     const { _cacheMetadata, ...otherProps } = result;
@@ -137,8 +144,8 @@ export default class WorkerClient {
 
         this._pending.set(context.handlID, { resolve });
       });
-    } catch (error) {
-      return Promise.reject(error);
+    } catch (errors) {
+      return { errors };
     }
   }
 

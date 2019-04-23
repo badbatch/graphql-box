@@ -1,23 +1,28 @@
-import Client from "@handl/client";
 import {
-  MaybeRequestContext,
   MaybeRequestResult,
   MaybeRequestResultWithDehydratedCacheMetadata,
   RequestOptions,
 } from "@handl/core";
 import { dehydrateCacheMetadata } from "@handl/helpers";
 import { forAwaitEach, isAsyncIterable } from "iterall";
-import { REQUEST, SUBSCRIBE } from "../consts";
-import { MessageHandler, MessageRequestPayload, MethodNames } from "../defs";
+import { isPlainObject } from "lodash";
+import { MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
+import {
+  MessageContext,
+  MessageRequestPayload,
+  MethodNames,
+  RegisterWorkerOptions,
+} from "../defs";
 
-export default function getMessageHandler(client: Client): MessageHandler {
-  const { postMessage } = self as unknown as DedicatedWorkerGlobalScope;
+export default async function registerWorker({ initClient }: RegisterWorkerOptions): Promise<void> {
+  const client = await initClient();
+  const { addEventListener, postMessage } = self as unknown as DedicatedWorkerGlobalScope;
 
   async function handleRequest(
     request: string,
     method: MethodNames,
     options: RequestOptions,
-    context: MaybeRequestContext,
+    context: MessageContext,
   ): Promise<void> {
     const { _cacheMetadata, ...otherProps } = await client.request(request, options, context);
     const result: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
@@ -29,7 +34,7 @@ export default function getMessageHandler(client: Client): MessageHandler {
     request: string,
     method: MethodNames,
     options: RequestOptions,
-    context: MaybeRequestContext,
+    context: MessageContext,
   ): Promise<void> {
     const subscribeResult = await client.subscribe(request, options, context);
 
@@ -42,11 +47,17 @@ export default function getMessageHandler(client: Client): MessageHandler {
     }
   }
 
-  return function messageHandler({ context, method, options, request }: MessageRequestPayload): void {
+  function onMessage({ data }: MessageEvent): void {
+    if (!isPlainObject(data)) return;
+
+    const { context, method, options, request } = data as MessageRequestPayload;
+
     if (method === REQUEST) {
       handleRequest(request, method, options, context);
     } else if (method === SUBSCRIBE) {
       handleSubscription(request, method, options, context);
     }
-  };
+  }
+
+  addEventListener(MESSAGE, onMessage);
 }
