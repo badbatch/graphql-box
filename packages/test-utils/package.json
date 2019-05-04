@@ -33,7 +33,7 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
-    "core-js": "^2.5",
+    "core-js": "^2.0",
     "graphql": "^14.1.1",
     "lodash": "^4.17.5"
   },

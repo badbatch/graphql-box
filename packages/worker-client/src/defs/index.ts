@@ -46,12 +46,14 @@ export interface MessageRequestPayload {
   method: MethodNames;
   options: RequestOptions;
   request: string;
+  type: "handl" | "cachemap";
 }
 
 export interface MessageResponsePayload {
   context: MessageContext;
   method: MethodNames;
   result: MaybeRequestResultWithDehydratedCacheMetadata;
+  type: "handl" | "cachemap";
 }
 
 export interface MessageContext {
@@ -59,5 +61,5 @@ export interface MessageContext {
 }
 
 export interface RegisterWorkerOptions {
-  initClient: () => Promise<Client>;
+  client: Client;
 }

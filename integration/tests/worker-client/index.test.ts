@@ -1,3 +1,4 @@
+import { ExportCacheResult } from "@handl/cache-manager";
 import { MaybeRequestResultWithDehydratedCacheMetadata } from "@handl/core";
 import { dehydrateCacheMetadata } from "@handl/helpers";
 import { parsedRequests } from "@handl/test-utils";
@@ -10,6 +11,7 @@ use(matchSnapshot);
 
 describe("worker-client", () => {
   describe("request", () => {
+    let cache: ExportCacheResult;
     let worker: Worker;
     let workerClient: WorkerClient;
     let response: MaybeRequestResultWithDehydratedCacheMetadata;
@@ -32,20 +34,20 @@ describe("worker-client", () => {
           log(errors);
         }
 
-        // cache = await client.cache.export();
+        cache = await workerClient.cache.export();
       });
 
       after(async () => {
-        // await client.cache.clear();
+        await workerClient.cache.clear();
       });
 
       it("correct response data", () => {
         expect(response).to.matchSnapshot();
       });
 
-      // it('correct cache data', () => {
-      //   expect(cache).to.matchSnapshot();
-      // });
+      it("correct cache data", () => {
+        expect(cache).to.matchSnapshot();
+      });
     });
   });
 });

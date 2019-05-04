@@ -34,12 +34,12 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
-    "core-js": "^2.5",
+    "core-js": "^2.0",
     "lodash": "^4.17.5"
   },
   "dependencies": {
     "@handl/core": "^0.1.22",
     "@handl/helpers": "^0.1.22",
-    "eventemitter3": "^3.1.0"
+    "eventemitter3": "^3.1.2"
   }
 }

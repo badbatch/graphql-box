@@ -1,3 +1,4 @@
+import WorkerCachemap from "@cachemap/core-worker";
 import {
   DebugManagerDef,
   MaybeRequestResult,
@@ -11,7 +12,7 @@ import { EventAsyncIterator, rehydrateCacheMetadata } from "@handl/helpers";
 import EventEmitter from "eventemitter3";
 import { isPlainObject } from "lodash";
 import uuid from "uuid/v1";
-import { MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
+import { HANDL, MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
 import logRequest from "../debug/log-request";
 import {
   ConstructorOptions,
@@ -53,16 +54,22 @@ export default class WorkerClient {
     return { handlID };
   }
 
+  private _cache: WorkerCachemap;
   private _debugManager: DebugManagerDef | null;
   private _eventEmitter: EventEmitter;
   private _pending: PendingTracker = new Map();
   private _worker: Worker;
 
   constructor({ debugManager, worker }: ConstructorOptions) {
+    this._cache = new WorkerCachemap({ worker });
     this._debugManager = debugManager || null;
     this._eventEmitter = new EventEmitter();
     this._worker = worker;
     this._addEventListener();
+  }
+
+  get cache(): WorkerCachemap {
+    return this._cache;
   }
 
   public async request(
@@ -110,8 +117,8 @@ export default class WorkerClient {
   private _onMessage = async ({ data }: MessageEvent): Promise<void> => {
     if (!isPlainObject(data)) return;
 
-    const { context, method, result } = data as MessageResponsePayload;
-    if (!isPlainObject(result)) return;
+    const { context, method, result, type } = data as MessageResponsePayload;
+    if (type !== HANDL || !isPlainObject(result)) return;
 
     const { _cacheMetadata, ...otherProps } = result;
     const response: MaybeRequestResult = { ...otherProps };
@@ -140,6 +147,7 @@ export default class WorkerClient {
           method: REQUEST,
           options,
           request,
+          type: HANDL,
         });
 
         this._pending.set(context.handlID, { resolve });
@@ -161,6 +169,7 @@ export default class WorkerClient {
         method: SUBSCRIBE,
         options,
         request,
+        type: HANDL,
       });
 
       const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, context.handlID);

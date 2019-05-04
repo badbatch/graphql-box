@@ -32,9 +32,9 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
-    "core-js": "^2.5",
+    "core-js": "^2.0",
     "lodash": "^4.17.5",
-    "ws": "^6.2.1"
+    "ws": "^7.0.0"
   },
   "dependencies": {
     "@handl/core": "^0.1.22",

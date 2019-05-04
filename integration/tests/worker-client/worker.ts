@@ -15,10 +15,12 @@ const typeCacheDirectives = {
   RepositoryOwner: "public, max-age=3",
 };
 
-registerWorker({
-  initClient: async () => initClient({
+(async () => {
+  const client = await initClient({
     cachemapStore: map(),
     debuggerName: "WORKER",
     typeCacheDirectives,
-  }),
-});
+  });
+
+  registerWorker({ client });
+})();

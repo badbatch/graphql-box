@@ -34,7 +34,7 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
-    "core-js": "^2.5",
+    "core-js": "^2.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.5"
   },
