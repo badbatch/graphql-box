@@ -1,12 +1,28 @@
 import map from "@cachemap/map";
-import { responses } from "@handl/test-utils";
+import { hashRequest } from "@handl/helpers";
+import { parsedRequests, responses } from "@handl/test-utils";
 import { registerWorker } from "@handl/worker-client";
 import sinon from "sinon";
-import { initClient, mockRequest } from "../../helpers";
+import { mockRequest } from "../../fetch-mock/helpers";
+import registerFetchMockWorker from "../../fetch-mock/register-worker";
+import { initClient } from "../../helpers";
 
 global.Date.now = sinon.stub().returns(Date.parse("June 6, 1979"));
 
-mockRequest({ data: responses.singleTypeQuery.data });
+mockRequest({
+  data: responses.singleTypeQuery.data,
+  hash: hashRequest(parsedRequests.singleTypeQuery),
+});
+
+mockRequest({
+  data: responses.nestedTypeQuerySet.initial.data,
+  hash: hashRequest(parsedRequests.nestedTypeQuerySet.initial),
+});
+
+mockRequest({
+  data: responses.nestedTypeQuerySet.updated.data,
+  hash: hashRequest(parsedRequests.nestedTypeQuerySet.updated),
+});
 
 const typeCacheDirectives = {
   Organization: "public, max-age=1",
@@ -22,5 +38,6 @@ const typeCacheDirectives = {
     typeCacheDirectives,
   });
 
+  registerFetchMockWorker();
   registerWorker({ client });
 })();

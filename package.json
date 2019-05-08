@@ -145,6 +145,7 @@
     "source-map-loader": "^0.2.4",
     "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
+    "type-fest": "^0.4.1",
     "typedoc": "^0.14.2",
     "typedoc-plugin-markdown": "^1.2.0",
     "typescript": "^3.4.5",

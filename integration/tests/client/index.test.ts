@@ -1,3 +1,4 @@
+import Core from "@cachemap/core";
 import indexedDB from "@cachemap/indexed-db";
 import { ExportCacheResult } from "@handl/cache-manager";
 import Client from "@handl/client";
@@ -8,11 +9,11 @@ import { expect, use } from "chai";
 import { matchSnapshot } from "chai-karma-snapshot";
 import fetchMock from "fetch-mock";
 import sinon from "sinon";
+import { mockRequest } from "../../fetch-mock/helpers";
 import {
   defaultOptions,
   initClient,
   log,
-  mockRequest,
 } from "../../helpers";
 
 use(matchSnapshot);
@@ -51,17 +52,18 @@ describe("client", () => {
 
         try {
           const { _cacheMetadata, data } = await client.request(request, { ...defaultOptions });
-          response = { _cacheMetadata: dehydrateCacheMetadata(_cacheMetadata), data };
+          response = { data };
+          if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         } catch (errors) {
           log(errors);
         }
 
-        cache = await client.cache.export();
+        cache = await (client.cache as Core).export();
       });
 
       after(async () => {
         fetchMock.restore();
-        await client.cache.clear();
+        await (client.cache as Core).clear();
       });
 
       it("correct response data", () => {
@@ -96,17 +98,18 @@ describe("client", () => {
           ]);
 
           const { _cacheMetadata, data } = result[1];
-          response = { _cacheMetadata: dehydrateCacheMetadata(_cacheMetadata), data };
+          response = { data };
+          if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         } catch (errors) {
           log(errors);
         }
 
-        cache = await client.cache.export();
+        cache = await (client.cache as Core).export();
       });
 
       after(async () => {
         fetchMock.restore();
-        await client.cache.clear();
+        await (client.cache as Core).clear();
       });
 
       it("one request", () => {
@@ -148,17 +151,18 @@ describe("client", () => {
 
         try {
           const { _cacheMetadata, data } = await client.request(request, { ...defaultOptions });
-          response = { _cacheMetadata: dehydrateCacheMetadata(_cacheMetadata), data };
+          response = { data };
+          if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         } catch (errors) {
           log(errors);
         }
 
-        cache = await client.cache.export();
+        cache = await (client.cache as Core).export();
       });
 
       after(async () => {
         fetchMock.restore();
-        await client.cache.clear();
+        await (client.cache as Core).clear();
       });
 
       it("no request", () => {
@@ -200,17 +204,18 @@ describe("client", () => {
 
         try {
           const { _cacheMetadata, data } = await client.request(initial, { ...defaultOptions });
-          response = { _cacheMetadata: dehydrateCacheMetadata(_cacheMetadata), data };
+          response = { data };
+          if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         } catch (errors) {
           log(errors);
         }
 
-        cache = await client.cache.export();
+        cache = await ((client.cache as Core) as Core).export();
       });
 
       after(async () => {
         fetchMock.restore();
-        await client.cache.clear();
+        await (client.cache as Core).clear();
       });
 
       it("no request", () => {
@@ -263,17 +268,18 @@ describe("client", () => {
 
         try {
           const { _cacheMetadata, data } = await client.request(full, { ...defaultOptions });
-          response = { _cacheMetadata: dehydrateCacheMetadata(_cacheMetadata), data };
+          response = { data };
+          if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         } catch (errors) {
           log(errors);
         }
 
-        cache = await client.cache.export();
+        cache = await (client.cache as Core).export();
       });
 
       after(async () => {
         fetchMock.restore();
-        await client.cache.clear();
+        await (client.cache as Core).clear();
       });
 
       it("one request", () => {
