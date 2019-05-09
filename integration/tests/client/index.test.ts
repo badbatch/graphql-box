@@ -9,12 +9,8 @@ import { expect, use } from "chai";
 import { matchSnapshot } from "chai-karma-snapshot";
 import fetchMock from "fetch-mock";
 import sinon from "sinon";
-import { mockRequest } from "../../fetch-mock/helpers";
-import {
-  defaultOptions,
-  initClient,
-  log,
-} from "../../helpers";
+import { defaultOptions, initClient, log } from "../../helpers";
+import { mockRequest } from "../../modules/fetch-mock";
 
 use(matchSnapshot);
 

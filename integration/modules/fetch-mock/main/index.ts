@@ -1,5 +1,5 @@
 import { isPlainObject } from "lodash";
-import { MESSAGE } from "../consts";
+import { FETCH_MOCK, MESSAGE } from "../consts";
 import {
   FetchMockMessageResponse,
   FetchMockMethods,
@@ -7,8 +7,7 @@ import {
   PendingResolver,
   PendingTracker,
 } from "../defs";
-import { FETCH_MOCK } from "./consts";
-import { rehydrateFetchMock } from "./helpers";
+import { rehydrateFetchMock } from "../helpers";
 
 export default class FetchMockWorker {
   private _messageID: number = 0;

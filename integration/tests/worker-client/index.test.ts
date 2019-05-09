@@ -5,8 +5,8 @@ import { parsedRequests } from "@handl/test-utils";
 import WorkerClient from "@handl/worker-client";
 import { expect, use } from "chai";
 import { matchSnapshot } from "chai-karma-snapshot";
-import FetchMockWorker from "../../fetch-mock";
 import { defaultOptions, initWorkerClient, log } from "../../helpers";
+import FetchMockWorker from "../../modules/fetch-mock";
 
 use(matchSnapshot);
 

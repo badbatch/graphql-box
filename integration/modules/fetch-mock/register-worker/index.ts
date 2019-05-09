@@ -1,8 +1,7 @@
 import fetchMock from "fetch-mock";
 import { isPlainObject } from "lodash";
-import { MESSAGE } from "../../consts";
-import { FetchMockMessageRequest } from "../../defs";
-import { FETCH_MOCK } from "../consts";
+import { FETCH_MOCK, MESSAGE } from "../consts";
+import { FetchMockMessageRequest } from "../defs";
 import { dehydrateFetchMock } from "../helpers";
 
 export default function registerFetchMockWorker(): void {

@@ -1,9 +1,9 @@
 import { PlainObjectMap } from "@handl/core";
 import fetchMock from "fetch-mock";
 import { cloneDeepWith } from "lodash";
-import { URL } from "../../consts";
-import { MockRequestOptions } from "../../defs";
+import { URL } from "../../../consts";
 import { HEADERS } from "../consts";
+import { MockRequestOptions } from "../defs";
 
 function buildRequestURL(hash?: string): string {
   if (!hash) return "*";

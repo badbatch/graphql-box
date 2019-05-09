@@ -3,9 +3,8 @@ import { hashRequest } from "@handl/helpers";
 import { parsedRequests, responses } from "@handl/test-utils";
 import { registerWorker } from "@handl/worker-client";
 import sinon from "sinon";
-import { mockRequest } from "../../fetch-mock/helpers";
-import registerFetchMockWorker from "../../fetch-mock/register-worker";
 import { initClient } from "../../helpers";
+import { mockRequest, registerFetchMockWorker } from "../../modules/fetch-mock";
 
 global.Date.now = sinon.stub().returns(Date.parse("June 6, 1979"));
 
