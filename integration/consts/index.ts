@@ -1,1 +1,2 @@
-export const URL = "https://api.github.com/graphql";
+export const URL = "http://localhost:3001/graphql";
+export const WS_URL = "ws://localhost:3001/graphql";

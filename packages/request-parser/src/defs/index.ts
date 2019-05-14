@@ -21,7 +21,12 @@ export interface UserOptions {
   /**
    * Output of an introspection query.
    */
-  introspection: IntrospectionQuery;
+  introspection?: IntrospectionQuery;
+
+  /**
+   * A GraphQL schema.
+   */
+  schema?: GraphQLSchema;
 }
 
 export interface ClientOptions {
@@ -29,7 +34,8 @@ export interface ClientOptions {
 }
 
 export interface InitOptions {
-  introspection: IntrospectionQuery;
+  introspection?: IntrospectionQuery;
+  schema?: GraphQLSchema;
   typeIDKey: string;
 }
 

@@ -69,18 +69,20 @@ import {
 
 export class RequestParser implements RequestParserDef {
   public static async init(options: InitOptions): Promise<RequestParser> {
+    const { introspection, schema, typeIDKey } = options;
     const errors: TypeError[] = [];
 
-    if (!isPlainObject(options.introspection)) {
-       errors.push(new TypeError("@handl/request-parser expected introspection to be a plain object."));
+    if (!isPlainObject(introspection) && !(schema instanceof GraphQLSchema)) {
+      const message = "@handl/request-parser expected introspection to be an object or schema to be a GraphQLSchema";
+      errors.push(new TypeError(message));
     }
 
     if (errors.length) return Promise.reject(errors);
 
     try {
       const constructorOptions: ConstructorOptions = {
-        schema: buildClientSchema(options.introspection),
-        typeIDKey: options.typeIDKey,
+        schema: introspection ? buildClientSchema(introspection) : schema as GraphQLSchema,
+        typeIDKey,
       };
 
       return new RequestParser(constructorOptions);

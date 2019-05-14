@@ -1,5 +1,5 @@
 import { PlainObjectMap } from "@handl/core";
-import fetchMock from "fetch-mock";
+import { FetchMockStatic } from "fetch-mock";
 import { cloneDeepWith } from "lodash";
 import { URL } from "../../../consts";
 import { HEADERS } from "../consts";
@@ -10,7 +10,7 @@ function buildRequestURL(hash?: string): string {
   return `${URL}?requestId=${hash}`;
 }
 
-export function mockRequest({ data, hash }: MockRequestOptions): void {
+export function mockRequest(fetchMock: FetchMockStatic, { data, hash }: MockRequestOptions): void {
   const body = { data };
   const headers = { "cache-control": "public, max-age=5" };
   fetchMock.post(buildRequestURL(hash), { body, headers });

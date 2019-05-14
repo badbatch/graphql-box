@@ -5,12 +5,13 @@ import {
   MaybeRequestResultWithDehydratedCacheMetadata,
   PlainObjectStringMap,
   ServerRequestOptions,
+  ServerSocketRequestOptions,
 } from "@handl/core";
 import { dehydrateCacheMetadata } from "@handl/helpers";
 import { Request, Response } from "express";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
-import WebSocket from "ws";
+import { Data } from "ws";
 import {
   ConstructorOptions,
   MessageHandler,
@@ -49,11 +50,9 @@ export default class Server {
     };
   }
 
-  public message(options: ServerRequestOptions = {}): MessageHandler {
-    return (ws: WebSocket) => {
-      return (message: string) => {
-        this._messageHandler(ws, message, options);
-      };
+  public message(options: ServerSocketRequestOptions): MessageHandler {
+    return (message: Data) => {
+      this._messageHandler(message, options);
     };
   }
 
@@ -86,10 +85,10 @@ export default class Server {
     return response;
   }
 
-  private async _messageHandler(ws: WebSocket, message: string, options: ServerRequestOptions): Promise<void> {
+  private async _messageHandler(message: Data, { ws, ...rest }: ServerSocketRequestOptions): Promise<void> {
     try {
-      const { context, subscriptionID, subscription } = JSON.parse(message);
-      const subscribeResult = await this._client.request(subscription, options, context);
+      const { context, subscriptionID, subscription } = JSON.parse(message as string);
+      const subscribeResult = await this._client.request(subscription, rest, context);
 
       if (isAsyncIterable(subscribeResult)) {
         forAwaitEach(subscribeResult, ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {

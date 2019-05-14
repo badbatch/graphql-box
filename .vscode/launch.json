@@ -25,6 +25,17 @@
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Integration - server",
+      "program": "${workspaceFolder}/integration/server/cli.js",
+      "env": {
+        "BABEL_ENV": "main"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

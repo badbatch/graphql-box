@@ -1,6 +1,7 @@
 import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
 import EventEmitter from "eventemitter3";
 import { DocumentNode, GraphQLFieldResolver } from "graphql";
+import WebSocket from "ws";
 
 export interface PlainObjectMap {
   [key: string]: any;
@@ -94,6 +95,13 @@ export interface ServerRequestOptions {
    * This can be used to retrieve cache entries against.
    */
   tag?: any;
+}
+
+export interface ServerSocketRequestOptions extends ServerRequestOptions {
+  /**
+   * The websocket.
+   */
+  ws: WebSocket;
 }
 
 export type CacheTypes = "dataEntities" | "queryResponses" | "requestFieldPaths";

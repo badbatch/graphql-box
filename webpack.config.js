@@ -14,6 +14,7 @@ module.exports = {
       },
     }, {
       enforce: 'pre',
+      exclude: /node_modules\/(graphql-tools|deprecated-decorator)/,
       test: /\.(tsx?|jsx?)$/,
       use: {
         loader: 'source-map-loader',
