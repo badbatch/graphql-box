@@ -6,14 +6,13 @@ import debugManager from "@handl/debug-manager";
 import execute from "@handl/execute";
 import requestParser from "@handl/request-parser";
 import subscribe from "@handl/subscribe";
+import { schemaResolvers, schemaTypeDefs } from "@handl/test-utils";
 import { makeExecutableSchema } from "graphql-tools";
 import { performance } from "perf_hooks";
 import { log } from "..";
 import { InitServerOptions } from "../../defs";
-import resolvers from "../../schema/resolvers";
-import typeDefs from "../../schema/type-defs";
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+const schema = makeExecutableSchema({ typeDefs: schemaTypeDefs, resolvers: schemaResolvers });
 
 export default async function initServer({
   cachemapStore,

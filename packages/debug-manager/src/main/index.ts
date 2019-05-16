@@ -1,7 +1,7 @@
 import { DebugManagerDef, PlainObjectMap } from "@handl/core";
 import EventEmitter from "eventemitter3";
 import { isPlainObject, isString } from "lodash";
-import { ConstructorOptions, DebugManagerInit, InitOptions, Logger, UserOptions } from "../defs";
+import { ConstructorOptions, DebugManagerInit, InitOptions, Logger, Performance, UserOptions } from "../defs";
 
 export class DebugManager extends EventEmitter implements DebugManagerDef {
   public static async init(options: InitOptions): Promise<DebugManager> {

@@ -1,7 +1,7 @@
 import { PlainObjectMap } from "@handl/core";
-import { EMAIL_ADDED, EMAILS_DELETED } from "../consts";
+import { EMAIL_ADDED, EMAILS_DELETED } from "../../consts";
+import { EmailInput } from "../../defs";
 import { addEmail, deleteEmails, getInbox } from "../database";
-import { EmailInput } from "../defs";
 import { publish, subscribe } from "../pubsub";
 
 const resolvers = {

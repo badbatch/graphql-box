@@ -1,4 +1,4 @@
-import { EmailInput, Inbox } from "../defs";
+import { EmailInput, Inbox } from "../../defs";
 
 const inbox: Inbox = {
   emails: [

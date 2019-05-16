@@ -4,7 +4,15 @@ import { ExportCacheResult } from "@handl/cache-manager";
 import Client from "@handl/client";
 import { MaybeRequestResult, MaybeRequestResultWithDehydratedCacheMetadata } from "@handl/core";
 import { dehydrateCacheMetadata, hashRequest } from "@handl/helpers";
-import { githubIntrospection as introspection, parsedRequests, responses } from "@handl/test-utils";
+import {
+  EmailInput,
+  githubIntrospection as introspection,
+  parsedRequests,
+  responses,
+  schemaRequests,
+  schemaResolvers,
+  schemaTypeDefs,
+} from "@handl/test-utils";
 import websocketManager from "@handl/websocket-manager";
 import { expect, use } from "chai";
 import { matchSnapshot } from "chai-karma-snapshot";
@@ -16,10 +24,6 @@ import { WS_URL } from "../../consts";
 import { defaultOptions, log, onWebsocketOpen } from "../../helpers";
 import initClient from "../../helpers/init-client";
 import { mockRequest } from "../../modules/fetch-mock";
-import { EmailInput } from "../../schema/defs";
-import { addEmail, emailAdded } from "../../schema/requests";
-import resolvers from "../../schema/resolvers";
-import typeDefs from "../../schema/type-defs";
 
 use(matchSnapshot);
 
@@ -325,7 +329,8 @@ describe("client", () => {
     let asyncIterator: AsyncIterator<MaybeRequestResult | undefined>;
     let cache: ExportCacheResult;
     let client: Client;
-    let response: MaybeRequestResultWithDehydratedCacheMetadata;
+    let mutResponse: MaybeRequestResultWithDehydratedCacheMetadata;
+    let subResponse: MaybeRequestResultWithDehydratedCacheMetadata;
     let subscriptionResponse: Promise<void>;
 
     before(async () => {
@@ -335,7 +340,7 @@ describe("client", () => {
 
         client = await initClient({
           cachemapStore: indexedDB(),
-          schema: makeExecutableSchema({ typeDefs, resolvers }),
+          schema: makeExecutableSchema({ typeDefs: schemaTypeDefs, resolvers: schemaResolvers }),
           subscriptionsManager: websocketManager({ websocket }),
           typeCacheDirectives: {
             Email: "public, max-age=5",
@@ -347,13 +352,13 @@ describe("client", () => {
       }
 
       try {
-        asyncIterator = await client.subscribe(emailAdded, { ...defaultOptions });
+        asyncIterator = await client.subscribe(schemaRequests.emailAdded, { ...defaultOptions });
 
         subscriptionResponse = new Promise((resolve) => {
           if (isAsyncIterable(asyncIterator)) {
-            forAwaitEach(asyncIterator, async ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {
-              response = { ...otherProps };
-              if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+            forAwaitEach(asyncIterator, async ({ _cacheMetadata, data }: MaybeRequestResult) => {
+              subResponse = { data };
+              if (_cacheMetadata) subResponse._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
               cache = await (client.cache as Core).export();
               resolve();
             });
@@ -386,7 +391,13 @@ describe("client", () => {
         };
 
         try {
-          await client.request(addEmail, { ...defaultOptions, variables: { input } });
+          const { _cacheMetadata, data } = await client.request(
+            schemaRequests.addEmail,
+            { ...defaultOptions, variables: { input } },
+          );
+
+          mutResponse = { data };
+          if (_cacheMetadata) mutResponse._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
           await subscriptionResponse;
         } catch (errors) {
           log(errors);
@@ -398,8 +409,12 @@ describe("client", () => {
         fetchMock.config.warnOnFallback = true;
       });
 
+      it("correct mutation response data", () => {
+        expect(mutResponse).to.matchSnapshot();
+      });
+
       it("correct subscription response data", () => {
-        expect(response).to.matchSnapshot();
+        expect(subResponse).to.matchSnapshot();
       });
 
       it("correct cache data", () => {
