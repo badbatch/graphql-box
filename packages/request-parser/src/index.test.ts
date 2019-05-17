@@ -1,27 +1,27 @@
-import { DEFAULT_TYPE_ID_KEY, RequestContext } from "@handl/core";
+import { DEFAULT_TYPE_ID_KEY, MUTATION, RequestContext, SUBSCRIPTION } from "@handl/core";
 import {
   getRequestContext,
   githubIntrospection,
   requestsAndOptions,
+  schemaResolvers,
+  schemaTypeDefs,
 } from "@handl/test-utils";
 import { IntrospectionQuery } from "graphql";
+import { makeExecutableSchema } from "graphql-tools";
 import { RequestParser, RequestParserDef, UpdateRequestResult } from ".";
 
 describe("@handl/request-parser >>", () => {
+  let requestContext: RequestContext;
   let requestParser: RequestParserDef;
-
-  beforeAll(async () => {
-    requestParser = await RequestParser.init({
-      introspection: githubIntrospection as IntrospectionQuery,
-      typeIDKey: DEFAULT_TYPE_ID_KEY,
-    });
-  });
+  let updatedRequest: UpdateRequestResult;
 
   describe("query >> no variable >>", () => {
-    let updatedRequest: UpdateRequestResult;
-    let requestContext: RequestContext;
-
     beforeAll(async () => {
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
       const { options, request } = requestsAndOptions.queryWithoutVariable;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
@@ -37,10 +37,12 @@ describe("@handl/request-parser >>", () => {
   });
 
   describe("query >> operation name >>", () => {
-    let updatedRequest: UpdateRequestResult;
-    let requestContext: RequestContext;
-
     beforeAll(async () => {
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
       const { options, request } = requestsAndOptions.queryWithOperationName;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
@@ -56,10 +58,12 @@ describe("@handl/request-parser >>", () => {
   });
 
   describe("query >> variable", () => {
-    let updatedRequest: UpdateRequestResult;
-    let requestContext: RequestContext;
-
     beforeAll(async () => {
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
       const { options, request } = requestsAndOptions.queryWithVariable;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
@@ -75,10 +79,12 @@ describe("@handl/request-parser >>", () => {
   });
 
   describe("query >> multiple variables >>", () => {
-    let updatedRequest: UpdateRequestResult;
-    let requestContext: RequestContext;
-
     beforeAll(async () => {
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
       const { options, request } = requestsAndOptions.queryWithVariables;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
@@ -94,10 +100,12 @@ describe("@handl/request-parser >>", () => {
   });
 
   describe("query >> enum variable >>", () => {
-    let updatedRequest: UpdateRequestResult;
-    let requestContext: RequestContext;
-
     beforeAll(async () => {
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
       const { options, request } = requestsAndOptions.queryWithEnumVariable;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
@@ -113,10 +121,12 @@ describe("@handl/request-parser >>", () => {
   });
 
   describe("query >> directive", () => {
-    let updatedRequest: UpdateRequestResult;
-    let requestContext: RequestContext;
-
     beforeAll(async () => {
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
       const { options, request } = requestsAndOptions.queryWithDirective;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
@@ -132,10 +142,12 @@ describe("@handl/request-parser >>", () => {
   });
 
   describe("query >> inline fragment >>", () => {
-    let updatedRequest: UpdateRequestResult;
-    let requestContext: RequestContext;
-
     beforeAll(async () => {
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
       const { options, request } = requestsAndOptions.queryWithInlineFragment;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
@@ -151,10 +163,12 @@ describe("@handl/request-parser >>", () => {
   });
 
   describe("query >> inline fragments >> union type >>", () => {
-    let updatedRequest: UpdateRequestResult;
-    let requestContext: RequestContext;
-
     beforeAll(async () => {
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
       const { options, request } = requestsAndOptions.queryWithUnionInlineFragments;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
@@ -170,10 +184,12 @@ describe("@handl/request-parser >>", () => {
   });
 
   describe("query >> fragment spread >>", () => {
-    let updatedRequest: UpdateRequestResult;
-    let requestContext: RequestContext;
-
     beforeAll(async () => {
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
       const { options, request } = requestsAndOptions.queryWithFragmentSpread;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
@@ -189,10 +205,12 @@ describe("@handl/request-parser >>", () => {
   });
 
   describe("query >> fragment option >>", () => {
-    let updatedRequest: UpdateRequestResult;
-    let requestContext: RequestContext;
-
     beforeAll(async () => {
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
       const { options, request } = requestsAndOptions.queryWithFragmentOption;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
@@ -208,12 +226,35 @@ describe("@handl/request-parser >>", () => {
   });
 
   describe("mutation >> input type variable >>", () => {
-    let updatedRequest: UpdateRequestResult;
-    let requestContext: RequestContext;
-
     beforeAll(async () => {
-      const { options, request } = requestsAndOptions.mutationWithInputType;
-      requestContext = getRequestContext();
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
+      const { options, request } = requestsAndOptions.nestedInterfaceMutation;
+      requestContext = getRequestContext({ operation: MUTATION });
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("correct request", () => {
+      expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("correct context data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
+  describe("subscription >>", () => {
+    beforeAll(async () => {
+      requestParser = await RequestParser.init({
+        schema: makeExecutableSchema({ typeDefs: schemaTypeDefs, resolvers: schemaResolvers }),
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
+      const { options, request } = requestsAndOptions.nestedTypeSubscription;
+      requestContext = getRequestContext({ operation: SUBSCRIPTION });
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 

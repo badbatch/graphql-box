@@ -1,3 +1,5 @@
+/* tslint:disable:max-line-length */
+
 import { ParsedQuerySet } from "../defs";
 
 export const singleTypeQuery = `
@@ -210,6 +212,21 @@ export const nestedUnionQuerySet: ParsedQuerySet = {
   `,
 };
 
+export const nestedTypeMutation = `
+  mutation {
+    addEmail(input: { from: "delta@gmail.com", message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit", subject: "Hi, this is Delta" }) {
+      emails {
+        from
+        message
+        subject
+        unread
+      }
+      total
+      unread
+    }
+  }
+`;
+
 export const nestedInterfaceMutation = `
   mutation {
     addStar(input: { clientMutationId: "1", starrableId: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=" }) {
@@ -230,6 +247,23 @@ export const nestedInterfaceMutation = `
         }
         __typename
       }
+    }
+  }
+`;
+
+export const nestedTypeSubscription = `
+  subscription {
+    emailAdded {
+      emails {
+        from
+        message
+        subject
+        unread
+        id
+      }
+      total
+      unread
+      id
     }
   }
 `;

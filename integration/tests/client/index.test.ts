@@ -5,11 +5,9 @@ import Client from "@handl/client";
 import { MaybeRequestResult, MaybeRequestResultWithDehydratedCacheMetadata } from "@handl/core";
 import { dehydrateCacheMetadata, hashRequest } from "@handl/helpers";
 import {
-  EmailInput,
   githubIntrospection as introspection,
   parsedRequests,
   responses,
-  schemaRequests,
   schemaResolvers,
   schemaTypeDefs,
 } from "@handl/test-utils";
@@ -352,7 +350,7 @@ describe("client", () => {
       }
 
       try {
-        asyncIterator = await client.subscribe(schemaRequests.emailAdded, { ...defaultOptions });
+        asyncIterator = await client.subscribe(parsedRequests.nestedTypeSubscription, { ...defaultOptions });
 
         subscriptionResponse = new Promise((resolve) => {
           if (isAsyncIterable(asyncIterator)) {
@@ -384,16 +382,10 @@ describe("client", () => {
         fetchMock.config.fallbackToNetwork = true;
         fetchMock.config.warnOnFallback = false;
 
-        const input: EmailInput = {
-          from: "delta@gmail.com",
-          message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          subject: "Hi, this is Delta",
-        };
-
         try {
           const { _cacheMetadata, data } = await client.request(
-            schemaRequests.addEmail,
-            { ...defaultOptions, variables: { input } },
+            parsedRequests.nestedTypeMutation,
+            { ...defaultOptions },
           );
 
           mutResponse = { data };

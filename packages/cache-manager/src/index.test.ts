@@ -1,6 +1,13 @@
 import Cachemap from "@cachemap/core";
 import map from "@cachemap/map";
-import { DEFAULT_TYPE_ID_KEY, DehydratedCacheMetadata, MUTATION, RequestData, ResponseData } from "@handl/core";
+import {
+  DEFAULT_TYPE_ID_KEY,
+  DehydratedCacheMetadata,
+  MUTATION,
+  RequestData,
+  ResponseData,
+  SUBSCRIPTION,
+} from "@handl/core";
 import { rehydrateCacheMetadata } from "@handl/helpers";
 import {
   getRequestContext,
@@ -83,6 +90,71 @@ describe("@handl/cache-manager >>", () => {
             responses.nestedInterfaceMutation,
             { awaitDataCaching: true },
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedInterfaceMutation, operation: MUTATION }),
+          );
+        });
+
+        it("correct response data", () => {
+          expect(responseData).toMatchSnapshot();
+        });
+
+        it("correct cache data", async () => {
+          expect(await cacheManager.cache.export()).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe("subscription >> nested type >>", () => {
+      describe("cascading cache control >>", () => {
+        beforeAll(async () => {
+          cacheManager = await CacheManager.init({
+            cache: await Cachemap.init({
+              name: "cachemap",
+              store: map(),
+            }),
+            cascadeCacheControl: true,
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          requestData = getRequestData(parsedRequests.nestedTypeSubscription);
+
+          responseData = await cacheManager.resolveRequest(
+            requestData,
+            responses.nestedTypeSubscription,
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeSubscription, operation: SUBSCRIPTION }),
+          );
+        });
+
+        it("correct response data", () => {
+          expect(responseData).toMatchSnapshot();
+        });
+
+        it("correct cache data", async () => {
+          expect(await cacheManager.cache.export()).toMatchSnapshot();
+        });
+      });
+
+      describe("type cache directives >>", () => {
+        beforeAll(async () => {
+          cacheManager = await CacheManager.init({
+            cache: await Cachemap.init({
+              name: "cachemap",
+              store: map(),
+            }),
+            typeCacheDirectives: {
+              Email: "public, max-age=5",
+              Inbox: "public, max-age=1",
+            },
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          requestData = getRequestData(parsedRequests.nestedTypeSubscription);
+
+          responseData = await cacheManager.resolveRequest(
+            requestData,
+            responses.nestedTypeSubscription,
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeSubscription, operation: SUBSCRIPTION }),
           );
         });
 

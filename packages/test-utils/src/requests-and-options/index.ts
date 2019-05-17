@@ -274,7 +274,7 @@ export const queryWithFragmentOption: RequestAndOptions = {
   `,
 };
 
-export const mutationWithInputType: RequestAndOptions = {
+export const nestedInterfaceMutation: RequestAndOptions = {
   options: {
     variables: {
       input: {
@@ -301,6 +301,50 @@ export const mutationWithInputType: RequestAndOptions = {
             }
           }
         }
+      }
+    }
+  `,
+};
+
+export const nestedTypeMutation: RequestAndOptions = {
+  options: {
+    variables: {
+      input: {
+        from: "delta@gmail.com",
+        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        subject: "Hi, this is Delta",
+      },
+    },
+  },
+  request: `
+    mutation ($input: EmailInput!) {
+      addEmail(input: $input) {
+        emails {
+          from
+          message
+          subject
+          unread
+        }
+        total
+        unread
+      }
+    }
+  `,
+};
+
+export const nestedTypeSubscription: RequestAndOptions = {
+  options: {},
+  request: `
+    subscription {
+      emailAdded {
+        emails {
+          from
+          message
+          subject
+          unread
+        }
+        total
+        unread
       }
     }
   `,

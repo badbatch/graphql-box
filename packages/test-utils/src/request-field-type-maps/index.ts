@@ -198,3 +198,26 @@ export const nestedInterfaceMutation: FieldTypeMap = new Map([
     typeName: "User",
   }],
 ]);
+
+export const nestedTypeSubscription: FieldTypeMap = new Map([
+  ["subscription.emailAdded", {
+    hasArguments: false,
+    hasDirectives: false,
+    isEntity: true,
+    isInterface: false,
+    isUnion: false,
+    possibleTypes: [],
+    typeIDValue: undefined,
+    typeName: "Inbox",
+  }],
+  ["subscription.emailAdded.emails", {
+    hasArguments: false,
+    hasDirectives: false,
+    isEntity: true,
+    isInterface: false,
+    isUnion: false,
+    possibleTypes: [],
+    typeIDValue: undefined,
+    typeName: "Email",
+  }],
+]);

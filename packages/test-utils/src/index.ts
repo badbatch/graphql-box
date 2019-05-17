@@ -8,12 +8,10 @@ import * as parsedRequests from "./parsed-requests";
 import * as requestFieldTypeMaps from "./request-field-type-maps";
 import * as requestsAndOptions from "./requests-and-options";
 import * as responses from "./responses";
-import * as schemaRequests from "./schema/requests";
 
 export {
   parsedRequests,
   requestFieldTypeMaps,
   requestsAndOptions,
   responses,
-  schemaRequests,
 };

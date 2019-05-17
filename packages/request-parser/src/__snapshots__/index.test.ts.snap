@@ -748,3 +748,54 @@ exports[`@handl/request-parser >> query >> variable correct request 1`] = `
 }
 "
 `;
+
+exports[`@handl/request-parser >> subscription >> correct context data 1`] = `
+Object {
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "subscription.emailAdded" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Inbox",
+    },
+    "subscription.emailAdded.emails" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Email",
+    },
+  },
+  "handlID": "123456789",
+  "operation": "subscription",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@handl/request-parser >> subscription >> correct request 1`] = `
+"subscription {
+  emailAdded {
+    emails {
+      from
+      message
+      subject
+      unread
+      id
+    }
+    total
+    unread
+    id
+  }
+}
+"
+`;

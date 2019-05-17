@@ -229,12 +229,6 @@ export class CacheManager implements CacheManagerDef  {
     return isEntity || possibleTypes.some((type) => !!type.isEntity);
   }
 
-  private static _isFieldEntity(fieldData: any, { isEntity, possibleTypes }: FieldTypeInfo): boolean {
-    if (isEntity) return true;
-    if (!possibleTypes.length) return false;
-    return possibleTypes.some((type) => type.typeName === fieldData.__typename);
-  }
-
   private static _isRequestFieldPath(fieldTypeInfo?: FieldTypeInfo): boolean {
     return !!fieldTypeInfo
       && (this._isDataEntity(fieldTypeInfo)
@@ -752,6 +746,13 @@ export class CacheManager implements CacheManagerDef  {
     return cachedResponseData;
   }
 
+  private _isFieldEntity(fieldData: any, { isEntity, possibleTypes }: FieldTypeInfo): boolean {
+    if (!get(fieldData, this._typeIDKey, null)) return false;
+    if (isEntity) return true;
+    if (!possibleTypes.length) return false;
+    return possibleTypes.some((type) => type.typeName === fieldData.__typename);
+  }
+
   private _mergeObjects<T>(obj: T, src: T): T {
     return mergeObjects(obj, src, (key: string, val: any): string | number | undefined => {
       return isPlainObject(val) && val[this._typeIDKey] ? val[this._typeIDKey] : undefined;
@@ -884,8 +885,8 @@ export class CacheManager implements CacheManagerDef  {
     options: RequestOptions,
     context: RequestContext,
   ): Promise<void> {
-    const queryNode = getOperationDefinitions(requestData.ast, context.operation)[0];
-    const fieldsAndTypeNames = getChildFields(queryNode);
+    const operationNode = getOperationDefinitions(requestData.ast, context.operation)[0];
+    const fieldsAndTypeNames = getChildFields(operationNode);
     if (!fieldsAndTypeNames) return;
 
     await Promise.all(
@@ -909,7 +910,7 @@ export class CacheManager implements CacheManagerDef  {
   ) {
     const hasArgsOrDirectives = fieldTypeInfo.hasArguments || fieldTypeInfo.hasDirectives;
     let fieldData = get(data, responseDataPath, null);
-    const isEntity = CacheManager._isFieldEntity(fieldData, fieldTypeInfo);
+    const isEntity = this._isFieldEntity(fieldData, fieldTypeInfo);
 
     if (!isEntity && hasArgsOrDirectives) {
       unset(data, responseDataPath);
@@ -1060,7 +1061,7 @@ export class CacheManager implements CacheManagerDef  {
   ): Promise<void> {
     const hasArgsOrDirectives = fieldTypeInfo.hasArguments || fieldTypeInfo.hasDirectives;
     let fieldData = get(data, responseDataPath, null);
-    const isEntity = CacheManager._isFieldEntity(fieldData, fieldTypeInfo);
+    const isEntity = this._isFieldEntity(fieldData, fieldTypeInfo);
 
     if (context.operation === QUERY && (isEntity || hasArgsOrDirectives)) {
       const result = await this._checkCacheEntry(REQUEST_FIELD_PATHS, hashedRequestFieldCacheKey, options, context);

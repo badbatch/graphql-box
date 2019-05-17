@@ -4,21 +4,21 @@ const inbox: Inbox = {
   emails: [
     {
       from: "alfa@gmail.com",
-      id: 0,
+      id: 1,
       message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       subject: "Hi, this is Alfa",
       unread: false,
     },
     {
       from: "bravo@gmail.com",
-      id: 0,
+      id: 2,
       message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       subject: "Hi, this is Bravo",
       unread: false,
     },
     {
       from: "charlie@gmail.com",
-      id: 0,
+      id: 3,
       message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       subject: "Hi, this is Charlie",
       unread: false,
