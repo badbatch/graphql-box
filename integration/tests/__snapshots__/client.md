@@ -2061,7 +2061,7 @@ Object {
         "public": true,
       },
       "etag": undefined,
-      "ttl": 1558080782707,
+      "ttl": 297471601000,
     },
     "mutation.addEmail.emails": Object {
       "cacheControl": Object {
@@ -2069,7 +2069,7 @@ Object {
         "public": true,
       },
       "etag": undefined,
-      "ttl": 1558080786707,
+      "ttl": 297471605000,
     },
   },
   "data": Object {
@@ -2130,7 +2130,7 @@ Object {
         "public": true,
       },
       "etag": undefined,
-      "ttl": 1558080782701,
+      "ttl": 297471601000,
     },
     "subscription.emailAdded.emails": Object {
       "cacheControl": Object {
@@ -2138,7 +2138,7 @@ Object {
         "public": true,
       },
       "etag": undefined,
-      "ttl": 1558080786702,
+      "ttl": 297471605000,
     },
   },
   "data": Object {
@@ -2256,11 +2256,11 @@ Object {
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
-            "maxAge": 1260609187,
+            "maxAge": 5,
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1558080787000,
+          "ttl": 297471605000,
         },
       },
       "key": "dataEntities::Email::1",
@@ -2276,11 +2276,11 @@ Object {
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
-            "maxAge": 1260609187,
+            "maxAge": 5,
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1558080787000,
+          "ttl": 297471605000,
         },
       },
       "key": "dataEntities::Email::2",
@@ -2296,11 +2296,11 @@ Object {
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
-            "maxAge": 1260609187,
+            "maxAge": 5,
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1558080787000,
+          "ttl": 297471605000,
         },
       },
       "key": "dataEntities::Email::4",
@@ -2316,11 +2316,11 @@ Object {
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
-            "maxAge": 1260609187,
+            "maxAge": 5,
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1558080787000,
+          "ttl": 297471605000,
         },
       },
       "key": "dataEntities::Email::3",
@@ -2336,11 +2336,11 @@ Object {
       "cacheability": Cacheability {
         "metadata": Object {
           "cacheControl": Object {
-            "maxAge": 1260609183,
+            "maxAge": 1,
             "public": true,
           },
           "etag": undefined,
-          "ttl": 1558080783000,
+          "ttl": 297471601000,
         },
       },
       "key": "dataEntities::Inbox::1",

@@ -6,8 +6,11 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
 import http from "http";
+import sinon from "sinon";
 import WebSocket from "ws";
 import initServer from "../helpers/init-server";
+
+global.Date.now = sinon.stub().returns(Date.parse("June 6, 1979"));
 
 export default async function graphqlServer(): Promise<http.Server> {
   const handlServer = await HandlServer.init({
