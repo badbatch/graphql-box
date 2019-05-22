@@ -1,6 +1,6 @@
 import { ExecutionArgs, ExecutionResult, GraphQLFieldResolver, GraphQLSchema } from "graphql";
 import { ExecutionResultDataDefault } from "graphql/execution/execute";
-import { MaybePromise } from "graphql/jsutils/MaybePromise";
+import { PromiseOrValue } from "graphql/jsutils/PromiseOrValue";
 
 export interface UserOptions {
   /**
@@ -33,4 +33,4 @@ export type InitOptions = UserOptions;
 export type ConstructorOptions = UserOptions;
 
 // tslint:disable-next-line:max-line-length
-export type GraphQLExecute = <TData = ExecutionResultDataDefault>(args: ExecutionArgs) => MaybePromise<ExecutionResult<TData>>;
+export type GraphQLExecute = <TData = ExecutionResultDataDefault>(args: ExecutionArgs) => PromiseOrValue<ExecutionResult<TData>>;

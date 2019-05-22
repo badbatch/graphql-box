@@ -15,7 +15,7 @@
       "uuid/v1",
       "graphql/tsutils/Maybe",
       "graphql/execution/execute",
-      "graphql/jsutils/MaybePromise"
+      "graphql/jsutils/PromiseOrValue"
     ],
     "no-this-assignment": [true, { "allowed-names": ["_this"] }],
     "no-var-requires": false,
