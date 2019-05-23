@@ -1,19 +1,19 @@
 import Cachemap from "@cachemap/core";
 import map from "@cachemap/map";
-import { CACHE_ENTRY_ADDED, CACHE_ENTRY_QUERIED, CacheManager } from "@handl/cache-manager";
-import { DebugManagerDef, DEFAULT_TYPE_ID_KEY, PlainObjectMap } from "@handl/core";
+import { CACHE_ENTRY_ADDED, CACHE_ENTRY_QUERIED, CacheManager } from "@graphql-box/cache-manager";
+import { DebugManagerDef, DEFAULT_TYPE_ID_KEY, PlainObjectMap } from "@graphql-box/core";
 import {
   getRequestContext,
   getRequestData,
   parsedRequests,
   requestFieldTypeMaps,
   responses,
-} from "@handl/test-utils";
+} from "@graphql-box/test-utils";
 import { DebugManager } from ".";
 
 const { performance } = window;
 
-describe("@handl/debug-manager >>", () => {
+describe("@graphql-box/debug-manager >>", () => {
   const realDateNow = Date.now.bind(global.Date);
   let debugManager: DebugManagerDef;
 

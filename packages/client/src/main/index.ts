@@ -1,5 +1,5 @@
 import Core from "@cachemap/core";
-import { CacheManagerDef } from "@handl/cache-manager";
+import { CacheManagerDef } from "@graphql-box/cache-manager";
 import {
   DebugManagerDef,
   DEFAULT_TYPE_ID_KEY,
@@ -18,9 +18,9 @@ import {
   SUBSCRIPTION,
   SubscriptionsManagerDef,
   ValidOperations,
-} from "@handl/core";
-import { hashRequest } from "@handl/helpers";
-import { RequestParserDef } from "@handl/request-parser";
+} from "@graphql-box/core";
+import { hashRequest } from "@graphql-box/helpers";
+import { RequestParserDef } from "@graphql-box/request-parser";
 import { DocumentNode } from "graphql";
 import { isArray, isPlainObject, isString } from "lodash";
 import uuid from "uuid/v1";
@@ -33,11 +33,11 @@ export default class Client {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("@handl/client expected options to ba a plain object."));
+      errors.push(new TypeError("@graphql-box/client expected options to ba a plain object."));
     }
 
     if (this._areModulesInvalid(options)) {
-      errors.push(new TypeError("@handl/client expected both options.cacheManager and options.requestParser."));
+      errors.push(new TypeError("@graphql-box/client expected both options.cacheManager and options.requestParser."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -93,15 +93,15 @@ export default class Client {
     const errors: Error[] = [];
 
     if (!isString(query)) {
-      errors.push(new TypeError("@handl/client expected query to be a string."));
+      errors.push(new TypeError("@graphql-box/client expected query to be a string."));
     }
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("@handl/client expected options to be a plain object."));
+      errors.push(new TypeError("@graphql-box/client expected options to be a plain object."));
     }
 
     if (Client._areFragmentsInvalid(options.fragments)) {
-      errors.push(new TypeError("@handl/client expected options.fragments to be an array of strings."));
+      errors.push(new TypeError("@graphql-box/client expected options.fragments to be an array of strings."));
     }
 
     return errors;
@@ -151,7 +151,7 @@ export default class Client {
     const errors: Error[] = [];
 
     if (!this._subscriptionsManager) {
-      errors.push(new Error("@handl/client does not have the subscriptions manager module."));
+      errors.push(new Error("@graphql-box/client does not have the subscriptions manager module."));
     }
 
     errors.push(...Client._validateRequestArguments(request, options));
@@ -174,9 +174,9 @@ export default class Client {
     context: MaybeRequestContext,
   ): RequestContext {
     return {
+      boxID: uuid(),
       debugManager: this._debugManager,
       fieldTypeMap: new Map(),
-      handlID: uuid(),
       operation,
       operationName: "",
       queryFiltered: false,
@@ -283,7 +283,7 @@ export default class Client {
         return this._handleSubscription(requestData, options, context);
       }
 
-      const message = "@handl/client expected the operation to be 'query', 'mutation' or 'subscription.";
+      const message = "@graphql-box/client expected the operation to be 'query', 'mutation' or 'subscription.";
       return Promise.reject(new Error(message));
     } catch (error) {
       return Promise.reject(error);

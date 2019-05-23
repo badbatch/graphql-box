@@ -1,4 +1,4 @@
-import { PlainObjectMap } from "@handl/core";
+import { PlainObjectMap } from "@graphql-box/core";
 import { FieldNode, GraphQLInterfaceType, GraphQLObjectType, GraphQLSchema, InlineFragmentNode } from "graphql";
 import { castArray, isArray } from "lodash";
 import { FIELD, INLINE_FRAGMENT } from "../../consts";

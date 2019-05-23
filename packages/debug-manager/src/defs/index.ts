@@ -1,4 +1,4 @@
-import { DebugManagerDef } from "@handl/core";
+import { DebugManagerDef } from "@graphql-box/core";
 
 export interface Logger {
   log(message?: any, ...optionalParams: any[]): void;

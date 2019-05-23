@@ -5,8 +5,8 @@ import {
   ServerRequestOptions,
   SubscriberResolver,
   SubscriptionsManagerInit,
-} from "@handl/core";
-import { EventAsyncIterator } from "@handl/helpers";
+} from "@graphql-box/core";
+import { EventAsyncIterator } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import {
   ExecutionResult,
@@ -25,7 +25,7 @@ export class Subscribe {
     const errors: TypeError[] = [];
 
     if (!(options.schema instanceof GraphQLSchema)) {
-      errors.push(new TypeError("@handl/subscribe expected options.schema to be a GraphQL schema."));
+      errors.push(new TypeError("@graphql-box/subscribe expected options.schema to be a GraphQL schema."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -52,13 +52,13 @@ export class Subscribe {
   public async subscribe(
     { ast, hash, request }: RequestDataWithMaybeAST,
     options: ServerRequestOptions,
-    { handlID }: RequestContext,
+    { boxID }: RequestContext,
     subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
     const { contextValue = {}, fieldResolver, operationName, rootValue, subscribeFieldResolver } = options;
 
     const subscribeArgs: SubscribeArgs = {
-      contextValue: { ...contextValue, handlID },
+      contextValue: { ...contextValue, boxID },
       document: ast || parse(request),
       fieldResolver: fieldResolver || this._fieldResolver,
       operationName,
@@ -87,7 +87,7 @@ export class Subscribe {
 
 export default function init(userOptions: UserOptions): SubscriptionsManagerInit {
   if (!isPlainObject(userOptions)) {
-    throw new TypeError("@handl/subscribe expected userOptions to be a plain object.");
+    throw new TypeError("@graphql-box/subscribe expected userOptions to be a plain object.");
   }
 
   return () => Subscribe.init(userOptions);

@@ -7,12 +7,12 @@ import {
   RequestOptions,
   SUBSCRIPTION,
   ValidOperations,
-} from "@handl/core";
-import { EventAsyncIterator, rehydrateCacheMetadata } from "@handl/helpers";
+} from "@graphql-box/core";
+import { EventAsyncIterator, rehydrateCacheMetadata } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { isPlainObject } from "lodash";
 import uuid from "uuid/v1";
-import { HANDL, MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
+import { GRAPHQL_BOX, MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
 import logRequest from "../debug/log-request";
 import {
   ConstructorOptions,
@@ -28,11 +28,11 @@ export default class WorkerClient {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("@handl/client expected options to ba a plain object."));
+      errors.push(new TypeError("@graphql-box/client expected options to ba a plain object."));
     }
 
     if (!options.worker) {
-      errors.push(new TypeError("@handl/client expected options.worker."));
+      errors.push(new TypeError("@graphql-box/client expected options.worker."));
     }
 
     const constructorOptions: ConstructorOptions = {
@@ -50,8 +50,8 @@ export default class WorkerClient {
     }
   }
 
-  private static _getMessageContext({ handlID }: RequestContext): MessageContext {
-    return { handlID };
+  private static _getMessageContext({ boxID }: RequestContext): MessageContext {
+    return { boxID };
   }
 
   private _cache: WorkerCachemap;
@@ -104,9 +104,9 @@ export default class WorkerClient {
 
   private _getRequestContext(operation: ValidOperations, request: string): RequestContext {
     return {
+      boxID: uuid(),
       debugManager: this._debugManager,
       fieldTypeMap: new Map(),
-      handlID: uuid(),
       operation,
       operationName: "",
       queryFiltered: false,
@@ -118,19 +118,19 @@ export default class WorkerClient {
     if (!isPlainObject(data)) return;
 
     const { context, method, result, type } = data as MessageResponsePayload;
-    if (type !== HANDL || !isPlainObject(result)) return;
+    if (type !== GRAPHQL_BOX || !isPlainObject(result)) return;
 
     const { _cacheMetadata, ...otherProps } = result;
     const response: MaybeRequestResult = { ...otherProps };
     if (_cacheMetadata) response._cacheMetadata = rehydrateCacheMetadata(_cacheMetadata);
 
     if (method === REQUEST) {
-      const pending = this._pending.get(context.handlID);
+      const pending = this._pending.get(context.boxID);
       if (!pending) return;
 
       pending.resolve(response);
     } else if (method === SUBSCRIBE) {
-      this._eventEmitter.emit(context.handlID, response);
+      this._eventEmitter.emit(context.boxID, response);
     }
   }
 
@@ -147,10 +147,10 @@ export default class WorkerClient {
           method: REQUEST,
           options,
           request,
-          type: HANDL,
+          type: GRAPHQL_BOX,
         });
 
-        this._pending.set(context.handlID, { resolve });
+        this._pending.set(context.boxID, { resolve });
       });
     } catch (errors) {
       return { errors };
@@ -169,10 +169,10 @@ export default class WorkerClient {
         method: SUBSCRIBE,
         options,
         request,
-        type: HANDL,
+        type: GRAPHQL_BOX,
       });
 
-      const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, context.handlID);
+      const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, context.boxID);
       return eventAsyncIterator.getIterator();
     } catch (error) {
       return Promise.reject(error);

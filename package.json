@@ -1,22 +1,22 @@
 {
-  "name": "handl",
+  "name": "graphql-box",
   "version": "0.1.22",
-  "description": "An isomorphic GraphQL client and server with a three-tier cache and persisted storage.",
+  "description": "An extensible, isomorphic GraphQL client and server with modules for caching, request parsing, subscriptions and more.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/dylanaubrey/handl",
+  "homepage": "https://github.com/badbatch/graphql-box",
   "bugs": {
-    "url": "https://github.com/dylanaubrey/handl/issues"
+    "url": "https://github.com/badbatch/graphql-box/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dylanaubrey/handl"
+    "url": "https://github.com/badbatch/graphql-box"
   },
   "engines": {
     "node": "^10.15.0"
   },
   "keywords": [
-    "handl",
+    "graphql-box",
     "graphql",
     "client",
     "server",

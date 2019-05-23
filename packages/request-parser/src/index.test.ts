@@ -1,16 +1,16 @@
-import { DEFAULT_TYPE_ID_KEY, MUTATION, RequestContext, SUBSCRIPTION } from "@handl/core";
+import { DEFAULT_TYPE_ID_KEY, MUTATION, RequestContext, SUBSCRIPTION } from "@graphql-box/core";
 import {
   getRequestContext,
   githubIntrospection,
   requestsAndOptions,
   schemaResolvers,
   schemaTypeDefs,
-} from "@handl/test-utils";
+} from "@graphql-box/test-utils";
 import { IntrospectionQuery } from "graphql";
 import { makeExecutableSchema } from "graphql-tools";
 import { RequestParser, RequestParserDef, UpdateRequestResult } from ".";
 
-describe("@handl/request-parser >>", () => {
+describe("@graphql-box/request-parser >>", () => {
   let requestContext: RequestContext;
   let requestParser: RequestParserDef;
   let updatedRequest: UpdateRequestResult;

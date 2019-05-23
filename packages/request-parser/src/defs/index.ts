@@ -1,4 +1,4 @@
-import { PossibleType, RequestContext, RequestOptions } from "@handl/core";
+import { PossibleType, RequestContext, RequestOptions } from "@graphql-box/core";
 import {
   DocumentNode,
   FieldNode,

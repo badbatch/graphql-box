@@ -11,7 +11,7 @@ import {
   RequestData,
   RequestOptions,
   ResponseData,
-} from "@handl/core";
+} from "@graphql-box/core";
 import Cacheability from "cacheability";
 
 export interface UserOptions {

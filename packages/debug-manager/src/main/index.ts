@@ -1,4 +1,4 @@
-import { DebugManagerDef, PlainObjectMap } from "@handl/core";
+import { DebugManagerDef, PlainObjectMap } from "@graphql-box/core";
 import EventEmitter from "eventemitter3";
 import { isPlainObject, isString } from "lodash";
 import { ConstructorOptions, DebugManagerInit, InitOptions, Logger, Performance, UserOptions } from "../defs";
@@ -8,7 +8,7 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
     const errors: TypeError[] = [];
 
     if (!isString(options.name)) {
-       errors.push(new TypeError("@handl/debug-manager expected options.name to be a string."));
+       errors.push(new TypeError("@graphql-box/debug-manager expected options.name to be a string."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -45,7 +45,7 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
 
 export default function init(userOptions: UserOptions): DebugManagerInit {
   if (!isPlainObject(userOptions)) {
-    throw new TypeError("@handl/debug-manager expected userOptions to be a plain object.");
+    throw new TypeError("@graphql-box/debug-manager expected userOptions to be a plain object.");
   }
 
   return () => DebugManager.init(userOptions);

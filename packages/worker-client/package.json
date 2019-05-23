@@ -1,23 +1,23 @@
 {
-  "name": "@handl/worker-client",
+  "name": "@graphql-box/worker-client",
   "version": "0.1.22",
-  "description": "The Handl web worker client module.",
+  "description": "The GraphQL Box web worker client module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/badbatch/handl",
+  "homepage": "https://github.com/badbatch/graphql-box",
   "bugs": {
-    "url": "https://github.com/badbatch/handl/issues"
+    "url": "https://github.com/badbatch/graphql-box/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/badbatch/handl"
+    "url": "https://github.com/badbatch/graphql-box"
   },
   "main": "lib/main/index.js",
   "module": "lib/module/index.js",
   "browser": "lib/browser/index.js",
   "types": "lib/types/index.d.ts",
   "keywords": [
-    "handl",
+    "graphql-box",
     "graphql",
     "client",
     "server",
@@ -39,8 +39,8 @@
   },
   "dependencies": {
     "@cachemap/core-worker": "^1.2.0",
-    "@handl/core": "^0.1.22",
-    "@handl/helpers": "^0.1.22",
+    "@graphql-box/core": "^0.1.22",
+    "@graphql-box/helpers": "^0.1.22",
     "eventemitter3": "^3.1.2",
     "iterall": "^1.2.2",
     "uuid": "^3.3.2"

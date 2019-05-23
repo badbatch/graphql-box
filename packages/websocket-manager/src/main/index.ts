@@ -7,8 +7,8 @@ import {
   SubscriberResolver,
   SubscriptionsManagerDef,
   SubscriptionsManagerInit,
-} from "@handl/core";
-import { EventAsyncIterator } from "@handl/helpers";
+} from "@graphql-box/core";
+import { EventAsyncIterator } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { isPlainObject } from "lodash";
 import {
@@ -22,7 +22,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
     const errors: TypeError[] = [];
 
     if (!options.websocket) {
-       errors.push(new TypeError("@handl/websocket-manager expected options.websocket."));
+       errors.push(new TypeError("@graphql-box/websocket-manager expected options.websocket."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -30,8 +30,8 @@ export class WebsocketManager implements SubscriptionsManagerDef {
     return new WebsocketManager(options);
   }
 
-  private static _getMessageContext({ handlID, operation }: RequestContext): MaybeRequestContext {
-    return { handlID, operation };
+  private static _getMessageContext({ boxID, operation }: RequestContext): MaybeRequestContext {
+    return { boxID, operation };
   }
 
   private _eventEmitter: EventEmitter;
@@ -51,7 +51,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
     subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
     if (!this._isSocketOpen()) {
-      return Promise.reject(new Error("@handl/websocket-manager expected the websocket to be open."));
+      return Promise.reject(new Error("@graphql-box/websocket-manager expected the websocket to be open."));
     }
 
     try {
@@ -88,7 +88,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
 
 export default function init(userOptions: UserOptions): SubscriptionsManagerInit {
   if (!isPlainObject(userOptions)) {
-    throw new TypeError("@handl/websocket-manager expected userOptions to be a plain object.");
+    throw new TypeError("@graphql-box/websocket-manager expected userOptions to be a plain object.");
   }
 
   return () => WebsocketManager.init(userOptions);

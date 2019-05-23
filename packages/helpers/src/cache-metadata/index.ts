@@ -1,4 +1,4 @@
-import { CacheMetadata, DehydratedCacheMetadata } from "@handl/core";
+import { CacheMetadata, DehydratedCacheMetadata } from "@graphql-box/core";
 import Cacheability from "cacheability";
 
 export function dehydrateCacheMetadata(cacheMetadata: CacheMetadata): DehydratedCacheMetadata {

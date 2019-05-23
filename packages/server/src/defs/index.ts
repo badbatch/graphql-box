@@ -1,9 +1,9 @@
-import Client from "@handl/client";
+import Client from "@graphql-box/client";
 import {
   MaybeRequestContext,
   MaybeRequestResultWithDehydratedCacheMetadata,
   PlainObjectStringMap,
-} from "@handl/core";
+} from "@graphql-box/core";
 import { Request, Response } from "express";
 import { Data } from "ws";
 

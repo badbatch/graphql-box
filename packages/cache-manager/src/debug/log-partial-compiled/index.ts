@@ -1,4 +1,4 @@
-import { RequestContext } from "@handl/core";
+import { RequestContext } from "@graphql-box/core";
 import { PARTIAL_QUERY_COMPILED } from "../../consts";
 
 export default function logPartialCompiled() {

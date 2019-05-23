@@ -1,4 +1,4 @@
-import { PlainObjectMap } from "@handl/core";
+import { PlainObjectMap } from "@graphql-box/core";
 import { DirectiveNode, FieldNode, ValueNode } from "graphql";
 import { LIST_VALUE, OBJECT_VALUE, VALUE } from "../../consts";
 import { ScalarValueNode } from "../../defs";

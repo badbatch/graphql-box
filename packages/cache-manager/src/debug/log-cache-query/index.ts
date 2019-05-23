@@ -1,4 +1,4 @@
-import { RequestContext } from "@handl/core";
+import { RequestContext } from "@graphql-box/core";
 import { CACHE_ENTRY_QUERIED } from "../../consts";
 
 export default function logCacheQuery() {

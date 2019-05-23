@@ -1,17 +1,17 @@
 import Core from "@cachemap/core";
 import indexedDB from "@cachemap/indexed-db";
-import { ExportCacheResult } from "@handl/cache-manager";
-import Client from "@handl/client";
-import { MaybeRequestResult, MaybeRequestResultWithDehydratedCacheMetadata } from "@handl/core";
-import { dehydrateCacheMetadata, hashRequest } from "@handl/helpers";
+import { ExportCacheResult } from "@graphql-box/cache-manager";
+import Client from "@graphql-box/client";
+import { MaybeRequestResult, MaybeRequestResultWithDehydratedCacheMetadata } from "@graphql-box/core";
+import { dehydrateCacheMetadata, hashRequest } from "@graphql-box/helpers";
 import {
   githubIntrospection as introspection,
   parsedRequests,
   responses,
   schemaResolvers,
   schemaTypeDefs,
-} from "@handl/test-utils";
-import websocketManager from "@handl/websocket-manager";
+} from "@graphql-box/test-utils";
+import websocketManager from "@graphql-box/websocket-manager";
 import { expect, use } from "chai";
 import { matchSnapshot } from "chai-karma-snapshot";
 import fetchMock from "fetch-mock";

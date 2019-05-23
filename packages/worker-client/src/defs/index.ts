@@ -1,11 +1,11 @@
-import Client from "@handl/client";
+import Client from "@graphql-box/client";
 import {
   DebugManagerDef,
   MaybeRequestResult,
   MaybeRequestResultWithDehydratedCacheMetadata,
   RequestOptions,
-} from "@handl/core";
-import { DebugManagerInit } from "@handl/debug-manager";
+} from "@graphql-box/core";
+import { DebugManagerInit } from "@graphql-box/debug-manager";
 
 export interface UserOptions {
   /**
@@ -46,18 +46,18 @@ export interface MessageRequestPayload {
   method: MethodNames;
   options: RequestOptions;
   request: string;
-  type: "handl" | "cachemap";
+  type: "graphqlBox" | "cachemap";
 }
 
 export interface MessageResponsePayload {
   context: MessageContext;
   method: MethodNames;
   result: MaybeRequestResultWithDehydratedCacheMetadata;
-  type: "handl" | "cachemap";
+  type: "graphqlBox" | "cachemap";
 }
 
 export interface MessageContext {
-  handlID: string;
+  boxID: string;
 }
 
 export interface RegisterWorkerOptions {

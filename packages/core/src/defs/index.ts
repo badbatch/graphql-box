@@ -133,7 +133,7 @@ export type ValidOperations = "mutation" | "query" | "subscription";
 export interface RequestContext {
   debugManager: DebugManagerDef | null;
   fieldTypeMap: FieldTypeMap;
-  handlID: string;
+  boxID: string;
   operation: ValidOperations;
   operationName: string;
   queryFiltered: boolean;
@@ -143,7 +143,7 @@ export interface RequestContext {
 export interface MaybeRequestContext {
   debugManager?: DebugManagerDef | null;
   fieldTypeMap?: FieldTypeMap;
-  handlID?: string;
+  boxID?: string;
   operation?: ValidOperations;
   operationName?: string;
   queryFiltered?: boolean;

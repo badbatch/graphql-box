@@ -1,4 +1,4 @@
-import { MaybeRequestResult, RawResponseDataWithMaybeCacheMetadata } from "@handl/core";
+import { MaybeRequestResult, RawResponseDataWithMaybeCacheMetadata } from "@graphql-box/core";
 import { QueryResponseSet } from "../defs";
 
 /* tslint:disable max-line-length */

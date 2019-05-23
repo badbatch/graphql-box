@@ -1,10 +1,10 @@
-import { MaybeRequestResult, SUBSCRIPTION } from "@handl/core";
+import { MaybeRequestResult, SUBSCRIPTION } from "@graphql-box/core";
 import {
   getRequestContext,
   getRequestData,
   parsedRequests,
   responses,
-} from "@handl/test-utils";
+} from "@graphql-box/test-utils";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { Server } from "mock-socket";
 import { WebsocketManager } from ".";
@@ -17,7 +17,7 @@ function onOpen(websocket: WebSocket): Promise<void> {
   });
 }
 
-describe("@handl/websocket-manager >>", () => {
+describe("@graphql-box/websocket-manager >>", () => {
   const subscriptionResolver = async (result: any) => result;
   const url = "ws://localhost:8080";
   let server: Server;

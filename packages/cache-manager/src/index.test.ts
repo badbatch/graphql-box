@@ -7,19 +7,19 @@ import {
   RequestData,
   ResponseData,
   SUBSCRIPTION,
-} from "@handl/core";
-import { rehydrateCacheMetadata } from "@handl/helpers";
+} from "@graphql-box/core";
+import { rehydrateCacheMetadata } from "@graphql-box/helpers";
 import {
   getRequestContext,
   getRequestData,
   parsedRequests,
   requestFieldTypeMaps,
   responses,
-} from "@handl/test-utils";
+} from "@graphql-box/test-utils";
 import { CacheManager, CacheManagerDef } from ".";
 import { AnalyzeQueryResult } from "./defs";
 
-describe("@handl/cache-manager >>", () => {
+describe("@graphql-box/cache-manager >>", () => {
   const realDateNow = Date.now.bind(global.Date);
   let cacheManager: CacheManagerDef;
 

@@ -15,7 +15,7 @@ import {
   RequestOptions,
   ResponseData,
   TYPE_NAME_KEY,
-} from "@handl/core";
+} from "@graphql-box/core";
 import {
   dehydrateCacheMetadata,
   deleteChildFields,
@@ -32,7 +32,7 @@ import {
   iterateChildFields,
   mergeObjects,
   rehydrateCacheMetadata,
-} from "@handl/helpers";
+} from "@graphql-box/helpers";
 import Cacheability from "cacheability";
 import { FieldNode, print } from "graphql";
 import { cloneDeep, get, isArray, isNumber, isObjectLike, isPlainObject, isUndefined, set, unset } from "lodash";
@@ -78,11 +78,12 @@ export class CacheManager implements CacheManagerDef  {
     const errors: TypeError[] = [];
 
     if (!options.cache) {
-       errors.push(new TypeError("@handl/cache-manager expected options.cache."));
+       errors.push(new TypeError("@graphql-box/cache-manager expected options.cache."));
     }
 
     if (!!options.typeCacheDirectives && !isPlainObject(options.typeCacheDirectives)) {
-      errors.push(new TypeError("@handl/cache-manager expected options.typeCacheDirectives to be a plain object."));
+      const message = "@graphql-box/cache-manager expected options.typeCacheDirectives to be a plain object.";
+      errors.push(new TypeError(message));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -335,7 +336,7 @@ export class CacheManager implements CacheManagerDef  {
     const { ast, hash } = requestData;
 
     if (!ast) {
-      return Promise.reject(new TypeError("@handl/cache-manager expected an AST."));
+      return Promise.reject(new TypeError("@graphql-box/cache-manager expected an AST."));
     }
 
     const cachedResponseData = await this._getCachedResponseData(requestData, options, context);
@@ -1107,7 +1108,7 @@ export class CacheManager implements CacheManagerDef  {
 
 export default function init(userOptions: UserOptions): CacheManagerInit {
   if (!isPlainObject(userOptions)) {
-    throw new TypeError("@handl/cache-manager expected userOptions to be a plain object.");
+    throw new TypeError("@graphql-box/cache-manager expected userOptions to be a plain object.");
   }
 
   return (clientOptions: ClientOptions) => CacheManager.init({ ...clientOptions, ...userOptions });

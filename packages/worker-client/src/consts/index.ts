@@ -5,5 +5,5 @@ export const SUBSCRIBE = "subscribe";
 
 export const MESSAGE = "message";
 
-export const HANDL = "handl";
+export const GRAPHQL_BOX = "graphqlBox";
 export const CACHEMAP = "cachemap";

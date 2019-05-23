@@ -1,10 +1,10 @@
 import Cachemap from "@cachemap/core";
-import cacheManager from "@handl/cache-manager";
-import Client from "@handl/client";
-import { DEFAULT_TYPE_ID_KEY } from "@handl/core";
-import debugManager from "@handl/debug-manager";
-import fetchManager from "@handl/fetch-manager";
-import requestParser from "@handl/request-parser";
+import cacheManager from "@graphql-box/cache-manager";
+import Client from "@graphql-box/client";
+import { DEFAULT_TYPE_ID_KEY } from "@graphql-box/core";
+import debugManager from "@graphql-box/debug-manager";
+import fetchManager from "@graphql-box/fetch-manager";
+import requestParser from "@graphql-box/request-parser";
 import { log } from "..";
 import { URL } from "../../consts";
 import { InitClientOptions } from "../../defs";

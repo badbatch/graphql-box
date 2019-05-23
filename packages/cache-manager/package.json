@@ -1,23 +1,23 @@
 {
-  "name": "@handl/cache-manager",
+  "name": "@graphql-box/cache-manager",
   "version": "0.1.22",
-  "description": "The Handl cache manager module.",
+  "description": "The GraphQL Box cache manager module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/badbatch/handl",
+  "homepage": "https://github.com/badbatch/graphql-box",
   "bugs": {
-    "url": "https://github.com/badbatch/handl/issues"
+    "url": "https://github.com/badbatch/graphql-box/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/badbatch/handl"
+    "url": "https://github.com/badbatch/graphql-box"
   },
   "main": "lib/main/index.js",
   "module": "lib/module/index.js",
   "browser": "lib/browser/index.js",
   "types": "lib/types/index.d.ts",
   "keywords": [
-    "handl",
+    "graphql-box",
     "graphql",
     "client",
     "server",
@@ -39,8 +39,8 @@
     "lodash": "^4.17.5"
   },
   "dependencies": {
-    "@handl/core": "^0.1.22",
-    "@handl/helpers": "^0.1.22",
+    "@graphql-box/core": "^0.1.22",
+    "@graphql-box/helpers": "^0.1.22",
     "cacheability": "^2.0.4"
   }
 }

@@ -1,4 +1,4 @@
-import Client from "@handl/client";
+import Client from "@graphql-box/client";
 import {
   MaybeRequestContext,
   MaybeRequestResult,
@@ -6,8 +6,8 @@ import {
   PlainObjectStringMap,
   ServerRequestOptions,
   ServerSocketRequestOptions,
-} from "@handl/core";
-import { dehydrateCacheMetadata } from "@handl/helpers";
+} from "@graphql-box/core";
+import { dehydrateCacheMetadata } from "@graphql-box/helpers";
 import { Request, Response } from "express";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
@@ -26,11 +26,11 @@ export default class Server {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("@handl/server expected options to ba a plain object."));
+      errors.push(new TypeError("@graphql-box/server expected options to ba a plain object."));
     }
 
     if (!options.client) {
-      errors.push(new TypeError("@handl/server expected options.client."));
+      errors.push(new TypeError("@graphql-box/server expected options.client."));
     }
 
     if (errors.length) return Promise.reject(errors);

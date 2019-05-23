@@ -1,4 +1,4 @@
-import { CacheManagerDef, CacheManagerInit } from "@handl/cache-manager";
+import { CacheManagerDef, CacheManagerInit } from "@graphql-box/cache-manager";
 import {
   DebugManagerDef,
   MaybeRequestResult,
@@ -8,9 +8,9 @@ import {
   RequestOptions,
   SubscriptionsManagerDef,
   SubscriptionsManagerInit,
-} from "@handl/core";
-import { DebugManagerInit } from "@handl/debug-manager";
-import { RequestParserDef, RequestParserInit } from "@handl/request-parser";
+} from "@graphql-box/core";
+import { DebugManagerInit } from "@graphql-box/debug-manager";
+import { RequestParserDef, RequestParserInit } from "@graphql-box/request-parser";
 
 export interface UserOptions {
   /**

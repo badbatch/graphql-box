@@ -1,4 +1,4 @@
-import { PlainObjectMap } from "@handl/core";
+import { PlainObjectMap } from "@graphql-box/core";
 
 export interface IntrospectArgs {
   headers?: string[];

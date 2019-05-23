@@ -1,4 +1,4 @@
-import { RequestContext } from "@handl/core";
+import { RequestContext } from "@graphql-box/core";
 import { FETCH_EXECUTED } from "../../consts";
 
 export default function logFetch() {

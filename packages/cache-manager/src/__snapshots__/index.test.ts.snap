@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@handl/cache-manager >> analyzeQuery >> entire matching data >> nested type with edges >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> nested type with edges >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -893,7 +893,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> entire matching data >> nested type with edges >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> nested type with edges >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query.organization" => Cacheability {
@@ -1054,7 +1054,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> entire matching data >> nested union with edges >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> nested union with edges >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -1887,7 +1887,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> entire matching data >> nested union with edges >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> nested union with edges >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query.search" => Cacheability {
@@ -2020,7 +2020,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> entire matching data >> single type >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> single type >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -2144,7 +2144,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> entire matching data >> single type >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> single type >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query.organization" => Cacheability {
@@ -2181,7 +2181,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> no matching data >> nested type with edges >> correct request data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> no matching data >> nested type with edges >> correct request data 1`] = `
 Object {
   "hash": "2a0b8ac261139c6615fcf79f54ef01bd",
   "request": "
@@ -2218,7 +2218,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> no matching data >> nested union with edges >> correct request data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> no matching data >> nested union with edges >> correct request data 1`] = `
 Object {
   "hash": "6b4da6c8224569c09b25b81c57f6ec26",
   "request": "
@@ -2265,7 +2265,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> no matching data >> single type >> correct request data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> no matching data >> single type >> correct request data 1`] = `
 Object {
   "hash": "ea1cbc58eca798225b53f59d95ffb23a",
   "request": "
@@ -2283,7 +2283,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> some matching data >> nested type with edges > correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> nested type with edges > correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -3118,7 +3118,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> some matching data >> nested type with edges > correct partial data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> nested type with edges > correct partial data 1`] = `
 Map {
   "2a0b8ac261139c6615fcf79f54ef01bd" => Object {
     "cacheMetadata": Map {
@@ -3266,7 +3266,7 @@ Map {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> some matching data >> nested type with edges > correct request data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> nested type with edges > correct request data 1`] = `
 Object {
   "hash": "e7d453e539306bbae7174ecd79493270",
   "request": "{
@@ -3290,7 +3290,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> some matching data >> nested union with edges >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> nested union with edges >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -4063,7 +4063,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> some matching data >> nested union with edges >> correct partial data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> nested union with edges >> correct partial data 1`] = `
 Map {
   "6b4da6c8224569c09b25b81c57f6ec26" => Object {
     "cacheMetadata": Map {
@@ -4178,7 +4178,7 @@ Map {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> some matching data >> nested union with edges >> correct request data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> nested union with edges >> correct request data 1`] = `
 Object {
   "hash": "187cd490f45b73275b5b309f76900cde",
   "request": "{
@@ -4199,7 +4199,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> some matching data >> single type >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> single type >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -4314,7 +4314,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> some matching data >> single type >> correct partial data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> single type >> correct partial data 1`] = `
 Map {
   "ea1cbc58eca798225b53f59d95ffb23a" => Object {
     "cacheMetadata": Map {
@@ -4350,7 +4350,7 @@ Map {
 }
 `;
 
-exports[`@handl/cache-manager >> analyzeQuery >> some matching data >> single type >> correct request data 1`] = `
+exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> single type >> correct request data 1`] = `
 Object {
   "hash": "70a245971c9c179bc5c30c3925e4881c",
   "request": "{
@@ -4365,7 +4365,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolve >> mutation >> nested interface >> cascading cache control >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolve >> mutation >> nested interface >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -4570,7 +4570,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolve >> mutation >> nested interface >> cascading cache control >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolve >> mutation >> nested interface >> cascading cache control >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "mutation" => Cacheability {
@@ -4693,7 +4693,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolve >> mutation >> nested interface >> type cache directives >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolve >> mutation >> nested interface >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -4898,7 +4898,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolve >> mutation >> nested interface >> type cache directives >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolve >> mutation >> nested interface >> type cache directives >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "mutation" => Cacheability {
@@ -5021,7 +5021,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolve >> subscription >> nested type >> cascading cache control >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolve >> subscription >> nested type >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -5192,7 +5192,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolve >> subscription >> nested type >> cascading cache control >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolve >> subscription >> nested type >> cascading cache control >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "subscription" => Cacheability {
@@ -5266,7 +5266,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolve >> subscription >> nested type >> type cache directives >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolve >> subscription >> nested type >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -5437,7 +5437,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolve >> subscription >> nested type >> type cache directives >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolve >> subscription >> nested type >> type cache directives >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "subscription" => Cacheability {
@@ -5511,7 +5511,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> filtered >> nested type with edges >> cascading cache control >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested type with edges >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -6684,7 +6684,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> filtered >> nested type with edges >> cascading cache control >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested type with edges >> cascading cache control >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -6855,7 +6855,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> filtered >> nested type with edges >> type cache directives >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested type with edges >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -8004,7 +8004,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> filtered >> nested type with edges >> type cache directives >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested type with edges >> type cache directives >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -8165,7 +8165,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> filtered >> nested union with edges >> cascading cache control >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested union with edges >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -9286,7 +9286,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> filtered >> nested union with edges >> cascading cache control >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested union with edges >> cascading cache control >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -9429,7 +9429,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> filtered >> nested union with edges >> type cache directives >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested union with edges >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -10526,7 +10526,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> filtered >> nested union with edges >> type cache directives >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested union with edges >> type cache directives >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -10659,7 +10659,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> filtered >> single type >> cascading cache control >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> single type >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -10884,7 +10884,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> filtered >> single type >> cascading cache control >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> single type >> cascading cache control >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -10921,7 +10921,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> filtered >> single type >> type cache directives >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> single type >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -11146,7 +11146,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> filtered >> single type >> type cache directives >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> single type >> type cache directives >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -11183,7 +11183,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> not filtered >> nested type with edges >> cascading cache control >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested type with edges >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -12084,7 +12084,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> not filtered >> nested type with edges >> cascading cache control >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested type with edges >> cascading cache control >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -12255,7 +12255,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> not filtered >> nested type with edges >> type cache directives >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested type with edges >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -13148,7 +13148,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> not filtered >> nested type with edges >> type cache directives >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested type with edges >> type cache directives >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -13309,7 +13309,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> not filtered >> nested union with edges >> cascading cache control >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested union with edges >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -14150,7 +14150,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> not filtered >> nested union with edges >> cascading cache control >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested union with edges >> cascading cache control >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -14293,7 +14293,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> not filtered >> nested union with edges >> type cache directives >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested union with edges >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -15126,7 +15126,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> not filtered >> nested union with edges >> type cache directives >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested union with edges >> type cache directives >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -15259,7 +15259,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> not filtered >> single type >> cascading cache control >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> single type >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -15383,7 +15383,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> not filtered >> single type >> cascading cache control >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> single type >> cascading cache control >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {
@@ -15420,7 +15420,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> not filtered >> single type >> type cache directives >> correct cache data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> single type >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
     Array [
@@ -15544,7 +15544,7 @@ Object {
 }
 `;
 
-exports[`@handl/cache-manager >> resolveQuery >> not filtered >> single type >> type cache directives >> correct response data 1`] = `
+exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> single type >> type cache directives >> correct response data 1`] = `
 Object {
   "cacheMetadata": Map {
     "query" => Cacheability {

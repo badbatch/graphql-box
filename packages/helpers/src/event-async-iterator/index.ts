@@ -1,4 +1,4 @@
-import { MaybeRequestResult } from "@handl/core";
+import { MaybeRequestResult } from "@graphql-box/core";
 import EventEmitter from "eventemitter3";
 import { $$asyncIterator } from "iterall";
 

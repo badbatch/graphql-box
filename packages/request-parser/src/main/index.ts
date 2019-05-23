@@ -1,4 +1,4 @@
-import { PlainObjectMap, PossibleType, QUERY, RequestContext, RequestOptions, TYPE_NAME_KEY } from "@handl/core";
+import { PlainObjectMap, PossibleType, QUERY, RequestContext, RequestOptions, TYPE_NAME_KEY } from "@graphql-box/core";
 import {
   addChildField,
   deleteFragmentDefinitions,
@@ -28,7 +28,7 @@ import {
   VALUE,
   VARIABLE,
   VARIABLE_DEFINITION,
-} from "@handl/helpers";
+} from "@graphql-box/helpers";
 import {
   ASTNode,
   buildClientSchema,
@@ -73,8 +73,8 @@ export class RequestParser implements RequestParserDef {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(introspection) && !(schema instanceof GraphQLSchema)) {
-      const message = "@handl/request-parser expected introspection to be an object or schema to be a GraphQLSchema";
-      errors.push(new TypeError(message));
+      const msg = "@graphql-box/request-parser expected introspection to be an object or schema to be a GraphQLSchema";
+      errors.push(new TypeError(msg));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -412,7 +412,7 @@ export class RequestParser implements RequestParserDef {
     const operationDefinitions = getOperationDefinitions(ast);
 
     if (operationDefinitions.length > 1) {
-      return Promise.reject(new TypeError("@handl/request-parser expected one operation, but got multiple."));
+      return Promise.reject(new TypeError("@graphql-box/request-parser expected one operation, but got multiple."));
     }
 
     RequestParser._addOperationToContext(operationDefinitions, context);
@@ -499,7 +499,7 @@ export class RequestParser implements RequestParserDef {
 
 export default function init(userOptions: UserOptions): RequestParserInit {
   if (!isPlainObject(userOptions)) {
-    throw new TypeError("@handl/request-parser expected userOptions to be a plain object.");
+    throw new TypeError("@graphql-box/request-parser expected userOptions to be a plain object.");
   }
 
   return (clientOptions: ClientOptions) => RequestParser.init({ ...clientOptions, ...userOptions });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@handl/debug-manager >> CacheManager >> CACHE_ENTRY_ADDED >> correct data emitted 1`] = `
+exports[`@graphql-box/debug-manager >> CacheManager >> CACHE_ENTRY_ADDED >> correct data emitted 1`] = `
 Array [
   Object {
     "cacheType": "requestFieldPaths",
@@ -11,6 +11,7 @@ Array [
       "tag": undefined,
     },
     "context": Object {
+      "boxID": "123456789",
       "fieldTypeMap": Map {
         "query.organization" => Object {
           "hasArguments": true,
@@ -23,7 +24,6 @@ Array [
           "typeName": "Organization",
         },
       },
-      "handlID": "123456789",
       "operation": "query",
       "operationName": "",
       "queryFiltered": false,
@@ -57,6 +57,7 @@ Array [
       "tag": undefined,
     },
     "context": Object {
+      "boxID": "123456789",
       "fieldTypeMap": Map {
         "query.organization" => Object {
           "hasArguments": true,
@@ -69,7 +70,6 @@ Array [
           "typeName": "Organization",
         },
       },
-      "handlID": "123456789",
       "operation": "query",
       "operationName": "",
       "queryFiltered": false,
@@ -103,6 +103,7 @@ Array [
       "tag": undefined,
     },
     "context": Object {
+      "boxID": "123456789",
       "fieldTypeMap": Map {
         "query.organization" => Object {
           "hasArguments": true,
@@ -115,7 +116,6 @@ Array [
           "typeName": "Organization",
         },
       },
-      "handlID": "123456789",
       "operation": "query",
       "operationName": "",
       "queryFiltered": false,
@@ -165,11 +165,12 @@ Array [
 ]
 `;
 
-exports[`@handl/debug-manager >> CacheManager >> CACHE_ENTRY_QUERIED >> correct data emitted 1`] = `
+exports[`@graphql-box/debug-manager >> CacheManager >> CACHE_ENTRY_QUERIED >> correct data emitted 1`] = `
 Array [
   Object {
     "cacheType": "requestFieldPaths",
     "context": Object {
+      "boxID": "123456789",
       "fieldTypeMap": Map {
         "query.organization" => Object {
           "hasArguments": true,
@@ -182,7 +183,6 @@ Array [
           "typeName": "Organization",
         },
       },
-      "handlID": "123456789",
       "operation": "query",
       "operationName": "",
       "queryFiltered": false,
@@ -207,6 +207,7 @@ Array [
   Object {
     "cacheType": "dataEntities",
     "context": Object {
+      "boxID": "123456789",
       "fieldTypeMap": Map {
         "query.organization" => Object {
           "hasArguments": true,
@@ -219,7 +220,6 @@ Array [
           "typeName": "Organization",
         },
       },
-      "handlID": "123456789",
       "operation": "query",
       "operationName": "",
       "queryFiltered": false,

@@ -1,4 +1,4 @@
-import { PlainObjectMap } from "@handl/core";
+import { PlainObjectMap } from "@graphql-box/core";
 import { EMAIL_ADDED, EMAILS_DELETED } from "../../consts";
 import { EmailInput } from "../../defs";
 import { addEmail, deleteEmails, getInbox } from "../database";

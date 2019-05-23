@@ -7,7 +7,7 @@ import {
   RequestManagerDef,
   RequestManagerInit,
   RequestOptions,
-} from "@handl/core";
+} from "@graphql-box/core";
 import { isPlainObject, isString } from "lodash";
 import logFetch from "../debug/log-fetch";
 import {
@@ -27,7 +27,7 @@ export class FetchManager implements RequestManagerDef {
     const errors: TypeError[] = [];
 
     if (!isString(options.url)) {
-       errors.push(new TypeError("@handl/fetch-manager expected url to be a string."));
+       errors.push(new TypeError("@graphql-box/fetch-manager expected url to be a string."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -35,8 +35,8 @@ export class FetchManager implements RequestManagerDef {
     return new FetchManager(options);
   }
 
-  private static _getMessageContext({ handlID, operation }: RequestContext): MaybeRequestContext {
-    return { handlID, operation };
+  private static _getMessageContext({ boxID, operation }: RequestContext): MaybeRequestContext {
+    return { boxID, operation };
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: any): void {
@@ -57,7 +57,7 @@ export class FetchManager implements RequestManagerDef {
       if (responseData) {
         resolve({ headers, ...responseData });
       } else {
-        reject(new Error(`@handl/fetch-manager did not get a response for batched request ${hash}.`));
+        reject(new Error(`@graphql-box/fetch-manager did not get a response for batched request ${hash}.`));
       }
     });
   }
@@ -129,7 +129,7 @@ export class FetchManager implements RequestManagerDef {
     try {
       return new Promise(async (resolve: (value: MaybeRawResponseData) => void, reject) => {
         const fetchTimer = setTimeout(() => {
-          reject(new Error(`@handl/fetch-manager did not get a response within ${this._fetchTimeout}ms.`));
+          reject(new Error(`@graphql-box/fetch-manager did not get a response within ${this._fetchTimeout}ms.`));
         }, this._fetchTimeout);
 
         const url = `${this._url}?requestId=${hash}`;
@@ -208,7 +208,7 @@ export class FetchManager implements RequestManagerDef {
 
 export default function init(userOptions: UserOptions): RequestManagerInit {
   if (!isPlainObject(userOptions)) {
-    throw new TypeError("@handl/fetch-manager expected userOptions to be a plain object.");
+    throw new TypeError("@graphql-box/fetch-manager expected userOptions to be a plain object.");
   }
 
   return () => FetchManager.init(userOptions);

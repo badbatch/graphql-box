@@ -1,14 +1,14 @@
 import { handleMessage as handleCachemapMessage } from "@cachemap/core-worker";
-import Client from "@handl/client";
+import Client from "@graphql-box/client";
 import {
   MaybeRequestResult,
   MaybeRequestResultWithDehydratedCacheMetadata,
   RequestOptions,
-} from "@handl/core";
-import { dehydrateCacheMetadata } from "@handl/helpers";
+} from "@graphql-box/core";
+import { dehydrateCacheMetadata } from "@graphql-box/helpers";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
-import { CACHEMAP, HANDL, MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
+import { CACHEMAP, GRAPHQL_BOX, MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
 import {
   MessageContext,
   MessageRequestPayload,
@@ -28,7 +28,7 @@ async function handleRequest(
   const { _cacheMetadata, ...otherProps } = await client.request(request, options, context);
   const result: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
   if (_cacheMetadata) result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
-  postMessage({ context, method, result, type: HANDL });
+  postMessage({ context, method, result, type: GRAPHQL_BOX });
 }
 
 async function handleSubscription(
@@ -44,7 +44,7 @@ async function handleSubscription(
     forAwaitEach(subscribeResult, ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {
       const result: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
       if (_cacheMetadata) result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
-      postMessage({ context, method, result, type: HANDL });
+      postMessage({ context, method, result, type: GRAPHQL_BOX });
     });
   }
 }
@@ -65,7 +65,7 @@ export default async function registerWorker({ client }: RegisterWorkerOptions):
 
     const { type } = data as MessageRequestPayload;
 
-    if (type === HANDL) {
+    if (type === GRAPHQL_BOX) {
       handleMessage(data, client);
     } else if (type === CACHEMAP && client.cache) {
       handleCachemapMessage(data, client.cache);

@@ -1,4 +1,4 @@
-import { FieldTypeMap } from "@handl/core";
+import { FieldTypeMap } from "@graphql-box/core";
 
 export const singleTypeQuery: FieldTypeMap = new Map([
   ["query.organization", {

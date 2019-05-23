@@ -1,5 +1,5 @@
-import { MaybeRequestResult } from "@handl/core";
-import { EventAsyncIterator } from "@handl/helpers";
+import { MaybeRequestResult } from "@graphql-box/core";
+import { EventAsyncIterator } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 
 const eventEmitter = new EventEmitter();

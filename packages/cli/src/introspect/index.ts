@@ -1,4 +1,4 @@
-import { PlainObjectMap } from "@handl/core";
+import { PlainObjectMap } from "@graphql-box/core";
 import { outputFileSync } from "fs-extra";
 import { execute, introspectionQuery, parse } from "graphql";
 import "isomorphic-fetch";

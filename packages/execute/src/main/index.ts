@@ -5,7 +5,7 @@ import {
   RequestManagerDef,
   RequestManagerInit,
   ServerRequestOptions,
-} from "@handl/core";
+} from "@graphql-box/core";
 import {
   execute,
   ExecutionArgs,
@@ -22,7 +22,7 @@ export class Execute implements RequestManagerDef {
     const errors: TypeError[] = [];
 
     if (!(options.schema instanceof GraphQLSchema)) {
-      errors.push(new TypeError("@handl/execute expected options.schema to be a GraphQL schema."));
+      errors.push(new TypeError("@graphql-box/execute expected options.schema to be a GraphQL schema."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -46,12 +46,12 @@ export class Execute implements RequestManagerDef {
   public async execute(
     { ast, request }: RequestDataWithMaybeAST,
     options: ServerRequestOptions,
-    { handlID }: RequestContext,
+    { boxID }: RequestContext,
   ): Promise<MaybeRawResponseData> {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
 
     const executeArgs: ExecutionArgs = {
-      contextValue: { ...contextValue, handlID },
+      contextValue: { ...contextValue, boxID },
       document: ast || parse(request),
       fieldResolver: fieldResolver || this._fieldResolver,
       operationName,
@@ -70,7 +70,7 @@ export class Execute implements RequestManagerDef {
 
 export default function init(userOptions: UserOptions): RequestManagerInit {
   if (!isPlainObject(userOptions)) {
-    throw new TypeError("@handl/execute expected userOptions to be a plain object.");
+    throw new TypeError("@graphql-box/execute expected userOptions to be a plain object.");
   }
 
   return () => Execute.init(userOptions);

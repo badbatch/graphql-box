@@ -1,4 +1,4 @@
-import { PlainObjectMap } from "@handl/core";
+import { PlainObjectMap } from "@graphql-box/core";
 import { FetchMockStatic } from "fetch-mock";
 import { cloneDeepWith } from "lodash";
 import { URL } from "../../../consts";

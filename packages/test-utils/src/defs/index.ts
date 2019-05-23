@@ -1,4 +1,4 @@
-import { DehydratedCacheMetadata, PlainObjectMap, RawResponseDataWithMaybeCacheMetadata } from "@handl/core";
+import { DehydratedCacheMetadata, PlainObjectMap, RawResponseDataWithMaybeCacheMetadata } from "@graphql-box/core";
 
 export interface RequestAndOptions {
   options: PlainObjectMap;

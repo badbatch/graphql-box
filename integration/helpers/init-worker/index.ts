@@ -1,5 +1,5 @@
-import debugManager from "@handl/debug-manager";
-import WorkerClient from "@handl/worker-client";
+import debugManager from "@graphql-box/debug-manager";
+import WorkerClient from "@graphql-box/worker-client";
 import { log } from "..";
 import { InitWorkerClientOptions } from "../../defs";
 

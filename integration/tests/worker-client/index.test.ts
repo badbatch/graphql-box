@@ -1,8 +1,8 @@
-import { ExportCacheResult } from "@handl/cache-manager";
-import { MaybeRequestResultWithDehydratedCacheMetadata } from "@handl/core";
-import { dehydrateCacheMetadata } from "@handl/helpers";
-import { parsedRequests } from "@handl/test-utils";
-import WorkerClient from "@handl/worker-client";
+import { ExportCacheResult } from "@graphql-box/cache-manager";
+import { MaybeRequestResultWithDehydratedCacheMetadata } from "@graphql-box/core";
+import { dehydrateCacheMetadata } from "@graphql-box/helpers";
+import { parsedRequests } from "@graphql-box/test-utils";
+import WorkerClient from "@graphql-box/worker-client";
 import { expect, use } from "chai";
 import { matchSnapshot } from "chai-karma-snapshot";
 import { defaultOptions, log } from "../../helpers";

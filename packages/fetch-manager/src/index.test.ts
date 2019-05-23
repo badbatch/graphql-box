@@ -1,16 +1,16 @@
-import { MaybeRawResponseData, RequestManagerDef } from "@handl/core";
+import { MaybeRawResponseData, RequestManagerDef } from "@graphql-box/core";
 import {
   getRequestContext,
   getRequestData,
   parsedRequests,
   responses,
-} from "@handl/test-utils";
+} from "@graphql-box/test-utils";
 import fetchMock from "fetch-mock";
 import { FetchManager } from ".";
 
 const URL = "https://api.github.com/graphql";
 
-describe("@handl/fetch-manager >>", () => {
+describe("@graphql-box/fetch-manager >>", () => {
   let fetchManager: RequestManagerDef;
 
   describe("no batching >>", () => {

@@ -1,7 +1,7 @@
 import map from "@cachemap/map";
-import { hashRequest } from "@handl/helpers";
-import { githubIntrospection as introspection, parsedRequests, responses } from "@handl/test-utils";
-import { registerWorker } from "@handl/worker-client";
+import { hashRequest } from "@graphql-box/helpers";
+import { githubIntrospection as introspection, parsedRequests, responses } from "@graphql-box/test-utils";
+import { registerWorker } from "@graphql-box/worker-client";
 import fetchMock from "fetch-mock";
 import sinon from "sinon";
 import initClient from "../../helpers/init-client";

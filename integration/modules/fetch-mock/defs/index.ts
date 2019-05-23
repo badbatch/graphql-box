@@ -1,4 +1,4 @@
-import { PlainObjectMap } from "@handl/core";
+import { PlainObjectMap } from "@graphql-box/core";
 
 export type FetchMockMethods = "calls" | "resetHistory" | "restore";
 

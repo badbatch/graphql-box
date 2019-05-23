@@ -3,7 +3,7 @@ import {
   MaybeRawResponseData,
   PlainObjectMap,
   PlainObjectStringMap,
-} from "@handl/core";
+} from "@graphql-box/core";
 
 export interface UserOptions {
   /**
@@ -13,13 +13,13 @@ export interface UserOptions {
   batch?: boolean;
 
   /**
-   * How long handl should wait to batch requests
+   * How long client should wait to batch requests
    * before making a request.
    */
   batchInterval?: number;
 
   /**
-   * How long handl should wait for a server to
+   * How long client should wait for a server to
    * respond before timing out.
    */
   fetchTimeout?: number;
@@ -30,7 +30,7 @@ export interface UserOptions {
   headers?: PlainObjectStringMap;
 
   /**
-   * The endpoint that handl will use to communicate with the
+   * The endpoint that client will use to communicate with the
    * GraphQL server for queries and mutations.
    */
   url: string;

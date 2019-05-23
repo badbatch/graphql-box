@@ -1,5 +1,5 @@
 import { coreDefs } from "@cachemap/core";
-import { PlainObjectStringMap, SubscriptionsManagerInit } from "@handl/core";
+import { PlainObjectStringMap, SubscriptionsManagerInit } from "@graphql-box/core";
 import { GraphQLSchema, IntrospectionQuery } from "graphql";
 
 export interface InitClientOptions {

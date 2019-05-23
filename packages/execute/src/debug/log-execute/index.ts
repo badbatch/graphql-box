@@ -1,4 +1,4 @@
-import { RequestContext } from "@handl/core";
+import { RequestContext } from "@graphql-box/core";
 import { EXECUTE_EXECUTED } from "../../consts";
 
 export default function logExecute() {
