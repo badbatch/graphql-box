@@ -20,17 +20,17 @@ export interface RequestOptions {
   awaitDataCaching?: boolean;
 
   /**
-   * Whether to return the cache metadata along
-   * with the requested data.
-   */
-  returnCacheMetadata?: boolean;
-
-  /**
    * A list of query fragements to be inserted
    * into the main query, mutation or subscription
    * being requested.
    */
   fragments?: string[];
+
+  /**
+   * Whether to return the cache metadata along
+   * with the requested data.
+   */
+  returnCacheMetadata?: boolean;
 
   /**
    * An identifier that will be stored in a request's cache metadata.

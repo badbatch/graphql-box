@@ -21,7 +21,6 @@ import {
 } from "@graphql-box/core";
 import { hashRequest } from "@graphql-box/helpers";
 import { RequestParserDef } from "@graphql-box/request-parser";
-import { DocumentNode } from "graphql";
 import { isArray, isPlainObject, isString } from "lodash";
 import uuid from "uuid/v1";
 import logRequest from "../debug/log-request";
@@ -36,8 +35,12 @@ export default class Client {
       errors.push(new TypeError("@graphql-box/client expected options to ba a plain object."));
     }
 
-    if (this._areModulesInvalid(options)) {
-      errors.push(new TypeError("@graphql-box/client expected both options.cacheManager and options.requestParser."));
+    if (!options.cacheManager) {
+      errors.push(new TypeError("@graphql-box/client expected options.cacheManager."));
+    }
+
+    if (!options.requestParser) {
+      errors.push(new TypeError("@graphql-box/client expected options.requestParser."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -46,19 +49,13 @@ export default class Client {
       const typeIDKey = options.typeIDKey || DEFAULT_TYPE_ID_KEY;
 
       const constructorOptions: ConstructorOptions = {
+        cacheManager: await options.cacheManager({ typeIDKey }),
         requestManager: await options.requestManager(),
+        requestParser: await options.requestParser({ typeIDKey }),
       };
-
-      if (options.cacheManager) {
-        constructorOptions.cacheManager = await options.cacheManager({ typeIDKey });
-      }
 
       if (options.debugManager) {
         constructorOptions.debugManager = await options.debugManager();
-      }
-
-      if (options.requestParser) {
-        constructorOptions.requestParser = await options.requestParser({ typeIDKey });
       }
 
       if (options.subscriptionsManager) {
@@ -73,10 +70,6 @@ export default class Client {
 
   private static _areFragmentsInvalid(fragments?: string[]): boolean {
     return !!fragments && (!isArray(fragments) || !fragments.every((value) => isString(value)));
-  }
-
-  private static _areModulesInvalid(options: UserOptions): boolean {
-    return (!!options.cacheManager && !options.requestParser) || (!options.cacheManager && !!options.requestParser);
   }
 
   private static _resolve(
@@ -107,24 +100,23 @@ export default class Client {
     return errors;
   }
 
-  private _cacheManager: CacheManagerDef | null;
+  private _cacheManager: CacheManagerDef;
   private _debugManager: DebugManagerDef | null;
   private _queryTracker: QueryTracker = { active: [], pending: new Map() };
   private _requestManager: RequestManagerDef;
-  private _requestParser: RequestParserDef | null;
+  private _requestParser: RequestParserDef;
   private _subscriptionsManager: SubscriptionsManagerDef | null;
 
   constructor(options: ConstructorOptions) {
     const { cacheManager, debugManager, requestManager, requestParser, subscriptionsManager } = options;
-    this._cacheManager = cacheManager || null;
+    this._cacheManager = cacheManager;
     this._debugManager = debugManager || null;
     this._requestManager = requestManager;
-    this._requestParser = requestParser || null;
+    this._requestParser = requestParser;
     this._subscriptionsManager = subscriptionsManager || null;
   }
 
-  get cache(): Core | null {
-    if (!this._cacheManager) return null;
+  get cache(): Core {
     return this._cacheManager.cache;
   }
 
@@ -198,14 +190,12 @@ export default class Client {
 
       let responseData = { data };
 
-      if (this._cacheManager) {
-        responseData = await this._cacheManager.resolveRequest(
-          requestData as RequestData,
-          rawResponseData as RawResponseDataWithMaybeCacheMetadata,
-          options,
-          context,
-        );
-      }
+      responseData = await this._cacheManager.resolveRequest(
+        requestData as RequestData,
+        rawResponseData as RawResponseDataWithMaybeCacheMetadata,
+        options,
+        context,
+      );
 
       return Client._resolve(responseData, options, context);
     } catch (errors) {
@@ -219,31 +209,27 @@ export default class Client {
     context: RequestContext,
   ): Promise<MaybeRequestResult> {
     try {
-      if (this._cacheManager) {
-        const checkResult = await this._cacheManager.checkQueryResponseCacheEntry(requestData.hash, options, context);
+      const checkResult = await this._cacheManager.checkQueryResponseCacheEntry(requestData.hash, options, context);
 
-        if (checkResult) return Client._resolve(checkResult, options, context);
-      }
+      if (checkResult) return Client._resolve(checkResult, options, context);
 
       const pendingQuery = this._trackQuery(requestData, options, context);
       if (pendingQuery) return pendingQuery;
 
       let updatedRequestData: RequestDataWithMaybeAST = requestData;
 
-      if (this._cacheManager) {
-        const analyzeQueryResult = await this._cacheManager.analyzeQuery(
-          requestData as RequestData,
-          options,
-          context,
-        );
+      const analyzeQueryResult = await this._cacheManager.analyzeQuery(
+        requestData as RequestData,
+        options,
+        context,
+      );
 
-        const { response, updated } = analyzeQueryResult;
+      const { response, updated } = analyzeQueryResult;
 
-        if (response) {
-          return this._resolveQuery(requestData, response, options, context);
-        } else if (updated) {
-          updatedRequestData = updated;
-        }
+      if (response) {
+        return this._resolveQuery(requestData, response, options, context);
+      } else if (updated) {
+        updatedRequestData = updated;
       }
 
       const rawResponseData = await this._requestManager.execute(updatedRequestData, options, context);
@@ -253,15 +239,13 @@ export default class Client {
 
       let responseData = { data };
 
-      if (this._cacheManager) {
-        responseData = await this._cacheManager.resolveQuery(
-          requestData as RequestData,
-          updatedRequestData as RequestData,
-          rawResponseData as RawResponseDataWithMaybeCacheMetadata,
-          options,
-          context,
-        );
-      }
+      responseData = await this._cacheManager.resolveQuery(
+        requestData as RequestData,
+        updatedRequestData as RequestData,
+        rawResponseData as RawResponseDataWithMaybeCacheMetadata,
+        options,
+        context,
+      );
 
       return this._resolveQuery(requestData, responseData, options, context);
     } catch (errors) {
@@ -313,17 +297,9 @@ export default class Client {
     context: RequestContext,
   ): Promise<AsyncIterator<MaybeRequestResult | undefined> | MaybeRequestResult> {
     try {
-      let updatedRequest = request;
-      let ast: DocumentNode | undefined;
+      const { ast, request: updateRequest } = await this._requestParser.updateRequest(request, options, context);
 
-      if (this._requestParser) {
-        const updated = await this._requestParser.updateRequest(request, options, context);
-
-        updatedRequest = updated.request;
-        ast = updated.ast;
-      }
-
-      const requestData = { ast, hash: hashRequest(updatedRequest), request: updatedRequest };
+      const requestData = { ast, hash: hashRequest(updateRequest), request: updateRequest };
       return this._handleRequest(requestData, options, context);
     } catch (error) {
       return Promise.reject(error);
@@ -352,7 +328,7 @@ export default class Client {
   ): Promise<MaybeRequestResult> {
     this._resolvePendingRequests(requestData, responseData);
     this._queryTracker.active = this._queryTracker.active.filter((value) => value !== requestData.hash);
-    if (this._cacheManager) this._cacheManager.deletePartialQueryResponse(requestData.hash);
+    this._cacheManager.deletePartialQueryResponse(requestData.hash);
     return Client._resolve(responseData, options, context);
   }
 
@@ -369,14 +345,12 @@ export default class Client {
 
       let responseData = { data };
 
-      if (this._cacheManager) {
-        responseData = await this._cacheManager.resolveRequest(
-          requestData as RequestData,
-          rawResponseData as RawResponseDataWithMaybeCacheMetadata,
-          options,
-          context,
-        );
-      }
+      responseData = await this._cacheManager.resolveRequest(
+        requestData as RequestData,
+        rawResponseData as RawResponseDataWithMaybeCacheMetadata,
+        options,
+        context,
+      );
 
       return Client._resolve(responseData, options, context);
     } catch (errors) {

@@ -16,7 +16,7 @@ export interface UserOptions {
   /**
    * The curried function to initialize the cache manager.
    */
-  cacheManager?: CacheManagerInit;
+  cacheManager: CacheManagerInit;
 
   /**
    * The curried function to initialize the request manager.
@@ -31,7 +31,7 @@ export interface UserOptions {
   /**
    * The curried function to initialzie the request parser.
    */
-  requestParser?: RequestParserInit;
+  requestParser: RequestParserInit;
 
   /**
    * The curried function to initialize the subscriptions manager.
@@ -49,7 +49,7 @@ export interface ConstructorOptions {
   /**
    * The cache manager.
    */
-  cacheManager?: CacheManagerDef;
+  cacheManager: CacheManagerDef;
 
   /**
    * The debug manager.
@@ -64,7 +64,7 @@ export interface ConstructorOptions {
   /**
    * The GraphQL request parser.
    */
-  requestParser?: RequestParserDef;
+  requestParser: RequestParserDef;
 
   /**
    * The subscriptions manager.
