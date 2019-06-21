@@ -64,7 +64,9 @@ additional bloat. Start with the `@graphql-box/client` or `@graphql-box/server` 
 
 ## Usage
 
-// TODO
+* [Creating an instance of the Client](#creating-an-instance-of-the-client)
+* [Making a Client request for a query or mutation](#making-a-client-request-for-a-query-or-mutation)
+* [Making a Client request for a subscription](#making-a-client-request-for-a-subscription)
 
 ### Creating an instance of the Client
 
@@ -77,8 +79,8 @@ module is a curried function that returns an async function that initializes the
 `Client` to pass configuration options into each module. The cache manager, request manager and request parser are all
 mandatory modules. The rest are optional.
 
-The example below initializes the `Client` with a persisted cache with type cache control directives, debug manager with
-a logger, fetch manager with request batching enabled, and subscriptions manager.
+The example below initializes the `Client` with a persisted cache with type cache control directives, a debug manage
+with a logger, a fetch manager with request batching enabled, and a subscriptions manager.
 
 ```javascript
 import Cachemap from "@cachemap/core";
@@ -125,11 +127,182 @@ import introspection from "./introspection-query";
 })();
 ```
 
+#### cacheManager
+
+The `cacheManager` curried function returns an instance of the `CacheManager`. The `CacheManager` is a mandatory module.
+
+Before a request is sent, the `CacheManager` takes the request AST from the `Client` and checks if any of the request
+data is in one of its three caches, described below.
+
+If all the data is in the cache and the data cache control directives are valid, the `CacheManager` returns that to
+the `Client`, which returns it to the caller.
+
+If some of the data is in its cache, the `CacheManager` returns a new request AST with only the data it does not have
+and places the request data it does have in a temporary cache.
+
+When a response comes back, the `CacheManager` stores the data against the request AST. If it already had some of the
+data in its cache, the `CacheManager` merges that data with the response data and returns the result to the `Client`.
+
+##### Cache types
+
+The three caches are request, request field path, and data entity. The Request and request field path caches are only
+used for queries, while the data entity cache is used for queries, mutations and subscriptions.
+
+The request cache is just a request to response cache using a hash of the GraphQL query as the cache key. The request
+field path cache uses the GraphQL query paths to store each piece of data within the query using a hash of each query
+path as the cache key.
+
+The data entity cache only stores data of types that have a unique identifier, referred to within GraphQL Box as a
+`typeIDKey`, which default to `id`.
+
+##### cache
+
+The `CacheManager` uses the `@cachemap` [suite of packages](https://github.com/badbatch/cachemap) within the library
+for all unit and integration tests, but you can use any module you like as long as it adheres to the interface the
+`CacheManager` expects.
+
+##### cascadeCacheControl
+
+The concept of cascading cache control is if an entry has its own type cache control directives, these are used to
+generate its cacheability, otherwise it inherits its directives from its parent. The root response data object would
+inherit its directives from the response headers.
+
+##### typeCacheDirectives
+
+This is an object of GraphQL schema types to cache control directives, giving you fine-grained control of what gets
+cached and for how long. Each time the `CacheManager` stores a type's corresponding data it looks up that type in the
+`typeCacheDirectives` to find out how long it can cache the data for.
+
+For a full list of configuration options, see the `@graphql-box/cache-manager`
+[documentation](./packages/cache-manager/README.md).
+
+#### debugManager
+
+The `debugManager` curried function returns an instance of the `DebugManager`. The `DebugManager` is an optional module.
+
+The module allows you to monitor a range of events that happen within the lifecycle of a query, mutation or
+subscription, including cache entries being added or queried and request execution performance.
+
+You can track a single request from a client to the server and back through the `DebugManager` using the `boxID`. This
+identifier is unique for each client request and is included in each request payload to the server and is sent back
+in the response to the client.
+
+##### logger
+
+The `logger` is an object with a `log` function that gives you the flexibility to log data out to or send data to
+wherever you want.
+
+##### performance
+
+`performance` is an object with a `now` function. On the client, you should pass in `window.performance`;
+
+For a full list of configuration options, see the `@graphql-box/debug-manager`
+[documentation](./packages/debug-manager/README.md).
+
+#### requestManager
+
+On the client, the `requestManager` curried function must return an instance of the `FetchManager`. The `FetchManager`
+is a mandatory module.
+
+The `FetchManager` takes queries and mutations from the `Client`, sends them to the server, and returns the
+responses to the `Client`.
+
+It supports batching, which, if enabled through the `batch` flag, will group requests executed within a configurable
+time-frame into a single network request to the server.
+
+For a full list of configuration options, see the `@graphql-box/fetch-manager`
+[documentation](./packages/fetch-manager/README.md).
+
+#### requestParser
+
+The `requestParser` curried function returns an instance of the `RequestParser`. The `RequestParser` is a
+mandatory module.
+
+The `RequestParser` takes the request string, fragments and variables from the `Client`, parses them into a request
+AST, merges the fragments and variables into the AST, enriches the AST with type IDs and type names, generates metadata
+to help the `CacheManager`, and returns all of that to the `Client`.
+
+For a full list of configuration options, see the `@graphql-box/request-parser`
+[documentation](./packages/request-parser/README.md).
+
+#### subscriptionsManager
+
+On the client, the `subscriptionsManager` curried function return an instance of the `WebsocketManager`. The
+`WebsocketManager` is an optional module.
+
+The `WebsocketManager` takes subscriptions from the `Client` and sends them to the server through a websocket. When
+a subscription is resolved, the server sends the response back to the client through the websocket.
+
+For a full list of configuration options, see the `@graphql-box/websocket-manager`
+[documentation](./packages/websocket-manager/README.md).
+
+#### typeIDKey
+
+The property name that is used as the identifier for each type within the schema. This defaults to `"id"`.
+
 ### Making a Client request for a query or mutation
 
-// TODO
+You can execute a query or mutation using the `request` method. Pass the request string as the first argument and
+any variables or fragments as properties in the second argument.
+
+The `request` method returns a `data` object with the response and/or an `errors` array.
+
+```javascript
+const request = `
+  query ($login: String!) {
+    organization(login: $login) {
+      description
+      email
+      login
+      name
+      url
+    }
+  }
+`;
+
+(async () => {
+  const { data, errors } = await client.request(request, {
+    variables: { login: "facebook" },
+  });
+
+  // Do something...
+})();
+```
 
 ### Making a Client request for a subscription
+
+You can execute a subscription using the `subscribe` method. Pass the request string as the first argument and
+any variables or fragments as properties in the second argument.
+
+The `subscribe` method returns an async iterator. Each time the iterator's `next` function is invokes, it returns a
+`data` object with the response and/or an `errors` array.
+
+```javascript
+const subscription = `
+  subscription {
+    emailAdded {
+      emails {
+        from
+        message
+        subject
+        unread
+      }
+      total
+      unread
+    }
+  }
+`;
+
+(async () => {
+  const asyncIterator = await client.subscribe(subscription);
+
+  for await (const ({ data, errors }) of asyncIterator) {
+    // Do something...
+  }
+})();
+```
+
+### Creating an instance of the Server
 
 // TODO
 

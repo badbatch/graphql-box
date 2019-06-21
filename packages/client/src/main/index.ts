@@ -120,6 +120,10 @@ export default class Client {
     return this._cacheManager.cache;
   }
 
+  get debugger(): DebugManagerDef | null {
+    return this._debugManager;
+  }
+
   public async request(
     request: string,
     options: RequestOptions = {},
