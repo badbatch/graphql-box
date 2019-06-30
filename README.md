@@ -14,9 +14,9 @@ An extensible GraphQL client and server with modules for caching, request parsin
 * Save storage by automatically removing expired and infrequently accessed cache entries.
 * Store cache entries using LocalStorage, IndexedDB, Redis and more.
 * Export cache entries in a serializable format to be imported by another client.
-* Subscriptions made simple on the client and server.
+* Subscriptions made simple in the browser and on the server.
 * Free up the main thread by running the client in a web worker.
-* Stay on top of client and server with performance and monitoring hooks.
+* Stay on top of browser and server with performance and monitoring hooks.
 
 ## Installation
 
@@ -27,7 +27,8 @@ GraphQL Box is structured as a [monorepo](https://github.com/lerna/lerna), so ea
 yarn add @graphql-box/<package>
 ```
 
-So, for example, if you want a client, request parsing and a persisted cache you would install the following packages.
+So, for example, if you want a browser client, request parsing and a persisted cache you would install the
+following packages.
 
 ```bash
 yarn add @graphql-box/client @graphql-box/request-parser @graphql-box/cache-manager @graphql-box/fetch-manager
@@ -64,11 +65,14 @@ additional bloat. Start with the `@graphql-box/client` or `@graphql-box/server` 
 
 ## Usage
 
-* [Creating an instance of the Client](#creating-an-instance-of-the-client)
+* [Creating a browser instance of the Client](#creating-a-browser-instance-of-the-client)
 * [Making a Client request for a query or mutation](#making-a-client-request-for-a-query-or-mutation)
 * [Making a Client request for a subscription](#making-a-client-request-for-a-subscription)
+* [Creating an instance of the Server](#creating-an-instance-of-the-server)
+* [Handling a Server request for a query or mutation](#handling-a-server-request-for-a-query-or-mutation)
+* [Handling a Server message for a subscription](#handling-a-server-message-for-a-subscription)
 
-### Creating an instance of the Client
+### Creating a browser instance of the Client
 
 The `Client` is initialized using its async static `init` method, don't initialize it using the traditional class
 constructor. The reason for this is so the `Client` can wait for asynchronous tasks to complete before returning an
@@ -79,7 +83,7 @@ module is a curried function that returns an async function that initializes the
 `Client` to pass configuration options into each module. The cache manager, request manager and request parser are all
 mandatory modules. The rest are optional.
 
-The example below initializes the `Client` with a persisted cache with type cache control directives, a debug manage
+The example below initializes the `Client` with a persisted cache with type cache control directives, a debug manager
 with a logger, a fetch manager with request batching enabled, and a subscriptions manager.
 
 ```javascript
@@ -124,8 +128,17 @@ import introspection from "./introspection-query";
     subscriptionsManager: websocketManager({ websocket: new WebSocket("ws://localhost:3001/graphql") }),
     typeIDKey: DEFAULT_TYPE_ID_KEY,
   });
+
+  // Do something...
 })();
 ```
+
+* [cacheManager](#cachemanager)
+* [debugManager](#debugmanager)
+* [fetchManager](#fetchmanager)
+* [requestParser](#requestparser)
+* [websocketManager](#websocketmanager)
+* [typeIDKey](#typeidkey)
 
 #### cacheManager
 
@@ -173,8 +186,12 @@ This is an object of GraphQL schema types to cache control directives, giving yo
 cached and for how long. Each time the `CacheManager` stores a type's corresponding data it looks up that type in the
 `typeCacheDirectives` to find out how long it can cache the data for.
 
+---
+
 For a full list of configuration options, see the `@graphql-box/cache-manager`
 [documentation](./packages/cache-manager/README.md).
+
+---
 
 #### debugManager
 
@@ -194,15 +211,19 @@ wherever you want.
 
 ##### performance
 
-`performance` is an object with a `now` function. On the client, you should pass in `window.performance`;
+`performance` is an object with a `now` function. In the browser, you should pass in `window.performance`.
+
+---
 
 For a full list of configuration options, see the `@graphql-box/debug-manager`
 [documentation](./packages/debug-manager/README.md).
 
-#### requestManager
+---
 
-On the client, the `requestManager` curried function must return an instance of the `FetchManager`. The `FetchManager`
-is a mandatory module.
+#### fetchManager
+
+In the browser, the `requestManager` property accepts the `fetchManager` curried function that return an instance of
+the `FetchManager`. The `FetchManager` is a mandatory module.
 
 The `FetchManager` takes queries and mutations from the `Client`, sends them to the server, and returns the
 responses to the `Client`.
@@ -210,8 +231,12 @@ responses to the `Client`.
 It supports batching, which, if enabled through the `batch` flag, will group requests executed within a configurable
 time-frame into a single network request to the server.
 
+---
+
 For a full list of configuration options, see the `@graphql-box/fetch-manager`
 [documentation](./packages/fetch-manager/README.md).
+
+---
 
 #### requestParser
 
@@ -222,19 +247,36 @@ The `RequestParser` takes the request string, fragments and variables from the `
 AST, merges the fragments and variables into the AST, enriches the AST with type IDs and type names, generates metadata
 to help the `CacheManager`, and returns all of that to the `Client`.
 
+In the browser, the `RequestParser` uses the result of an introspection query of the GraphQL schema to parse
+each request.
+
+---
+
 For a full list of configuration options, see the `@graphql-box/request-parser`
 [documentation](./packages/request-parser/README.md).
 
-#### subscriptionsManager
+---
 
-On the client, the `subscriptionsManager` curried function return an instance of the `WebsocketManager`. The
-`WebsocketManager` is an optional module.
+#### websocketManager
+
+In the browser, the `subscriptionsManager` property accepts the `websocketManager` curried function that return an
+instance of the `WebsocketManager`. The `WebsocketManager` is an optional module.
 
 The `WebsocketManager` takes subscriptions from the `Client` and sends them to the server through a websocket. When
 a subscription is resolved, the server sends the response back to the client through the websocket.
 
+##### websocket
+
+The `WebsocketManager` accepts an instance of a `Websocket`. Passing in the instance gives you more flexibility around
+opening and closing the socket and dealing with errors. The `WebsocketManager` adds its own `onmessage` callback to the
+instance.
+
+---
+
 For a full list of configuration options, see the `@graphql-box/websocket-manager`
 [documentation](./packages/websocket-manager/README.md).
+
+---
 
 #### typeIDKey
 
@@ -304,7 +346,173 @@ const subscription = `
 
 ### Creating an instance of the Server
 
-// TODO
+The `Server` is initialized using its async static `init` method, don't initialize it using the traditional class
+constructor. The reason for this is so the `Server` can wait for asynchronous tasks to complete before returning an
+instance of itself.
+
+To initialize the `Server`, you just need to pass an instance of the `Client` into the `init` method. The difference
+with the `Client` initialized in the browser example above is the `requestManager` and `subscriptionsManager` properties
+accept their server-side equivalents.
+
+The example below initializes the `Server` with a persisted cache with type cache control directives, a debug manager
+with a logger, an execute module, and a subscribe module.
+
+```javascript
+import Cachemap from "@cachemap/core";
+import cacheManager from "@graphql-box/cache-manager";
+import Client from "@graphql-box/client";
+import { DEFAULT_TYPE_ID_KEY } from "@graphql-box/core";
+import debugManager from "@graphql-box/debug-manager";
+import execute from "@graphql-box/execute";
+import requestParser from "@graphql-box/request-parser";
+import Server from "@graphql-box/server";
+import subscribe from "@graphql-box/subscribe";
+import { makeExecutableSchema } from "graphql-tools";
+import { performance } from "perf_hooks";
+import { schemaResolvers, schemaTypeDefs } from "./schema";
+
+const schema = makeExecutableSchema({ typeDefs: schemaTypeDefs, resolvers: schemaResolvers });
+
+(async () => {
+  const server = Server.init({
+    client: await Client.init({
+      cacheManager: cacheManager({
+        cache: await Cachemap.init({
+          name: "cachemap",
+          reaper: reaper({ interval: 300000 }),
+          store: redis(),
+        }),
+        cascadeCacheControl: true,
+        typeCacheDirectives: {
+          Organization: "public, max-age=3",
+          Repository: "public, max-age=3",
+          RepositoryConnection: "public, max-age=1",
+          RepositoryOwner: "public, max-age=3",
+        },
+      }),
+      debugManager: debugManager({
+        logger: {
+          log: (...args) => {
+            console.log(...args);
+          },
+        },
+        name: "SERVER",
+        performance,
+      }),
+      requestManager: execute({ schema }),
+      requestParser: requestParser({ schema }),
+      subscriptionsManager: subscribe({ schema }),
+      typeIDKey: DEFAULT_TYPE_ID_KEY,
+    }),
+  });
+
+  // Do something...
+})();
+```
+
+Only the `Client` properties that differ from the browser example above are outlined below.
+
+* [debugManager:performance](#debugmanager:performance)
+* [execute](#execute)
+* [requestParser:schema](#requestparser:schema)
+* [subscribe](#subscribe)
+
+#### debugManager:performance
+
+`performance` is an object with a `now` function. On the server, you should pass in `performance` object exported
+from Node's `perf_hooks` module.
+
+---
+
+For a full list of configuration options, see the `@graphql-box/debug-manager`
+[documentation](./packages/debug-manager/README.md).
+
+---
+
+#### execute
+
+On the server, the `requestManager` property accepts the `execute` curried function that return an instance of
+the `Execute` module. `Execute` is a mandatory module.
+
+`Execute` is a wrapper around GraphQL's own execute function, which resolves queries and mutations against a schema,
+which needs to be passed into the curried function.
+
+The `schema` is made up of GraphQL type definitions of each data structure and a set of resolver functions.
+
+---
+
+For a full list of configuration options, see the `@graphql-box/execute`
+[documentation](./packages/execute/README.md).
+
+---
+
+#### requestParser:schema
+
+On the server, the `RequestParser` uses the the GraphQL schema rather than the result of an introspection query of the
+schema.
+
+---
+
+For a full list of configuration options, see the `@graphql-box/request-parser`
+[documentation](./packages/request-parser/README.md).
+
+---
+
+#### subscribe
+
+On the server, the `subscriptionsManager` property accepts the `subscribe` curried function that return an instance of
+the `Subscribe` module. `Subscribe` is an optional module.
+
+`Subscribe` is a wrapper around GraphQL's own subscribe function, which resolves subscriptions against a schema,
+which needs to be passed into the curried function.
+
+---
+
+For a full list of configuration options, see the `@graphql-box/subscribe`
+[documentation](./packages/subscribe/README.md).
+
+---
+
+### Handling a Server request for a query or mutation
+
+You can handle a query or mutation using the `request` method. The method returns a middleware function that can be
+used with web application frameworks such as `Express`.
+
+```javascript
+import express from "express";
+import http from "http";
+import initServer from "./server";
+
+(async () => {
+  const app = express();
+  const server = await initServer();
+  app.use("/graphql", server.request());
+  const server = http.createServer(app);
+  server.listen(3001);
+})();
+```
+
+### Handling a Server message for a subscription
+
+You can handle a subscription using the `message` method. The method returns a middleware function that can be
+used with websocket libraries such as `ws`.
+
+```javascript
+import express from "express";
+import http from "http";
+import WebSocket from "ws";
+import initServer from "./server";
+
+(async () => {
+  const app = express();
+  const server = http.createServer(app);
+  const wss = new WebSocket.Server({ path: "/graphql", server });
+
+  wss.on("connection", (ws) => {
+    ws.on("message", boxServer.message({ ws }));
+  });
+})();
+```
 
 ## Changelog
 
