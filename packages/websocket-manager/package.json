@@ -40,6 +40,6 @@
   "dependencies": {
     "@graphql-box/core": "^0.1.22",
     "@graphql-box/helpers": "^0.1.22",
-    "eventemitter3": "^3.1.2"
+    "eventemitter3": "^4.0.0"
   }
 }

@@ -41,7 +41,7 @@
     "@cachemap/core-worker": "^1.2.0",
     "@graphql-box/core": "^0.1.22",
     "@graphql-box/helpers": "^0.1.22",
-    "eventemitter3": "^3.1.2",
+    "eventemitter3": "^4.0.0",
     "iterall": "^1.2.2",
     "uuid": "^3.3.2"
   }

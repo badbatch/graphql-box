@@ -27,7 +27,7 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
     this._performance = performance;
   }
 
-  public emit(event: string, data: PlainObjectMap): boolean {
+  public emit(event: string | symbol, data: PlainObjectMap): boolean {
     const updatedData = { ...data, debuggerName: this._name };
     const hasListeners = super.emit(event, updatedData);
     this._log(event, updatedData);
