@@ -2,7 +2,7 @@ dist: trusty
 sudo: required
 language: node_js
 node_js:
-  - "10.5.0"
+  - "10.15.0"
 cache:
   yarn: true
   directories:
