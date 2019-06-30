@@ -29,7 +29,7 @@ describe("client", () => {
   const realDateNow = Date.now.bind(global.Date);
 
   before(() => {
-    global.Date.now = sinon.stub().returns(Date.parse("June 6, 1979"));
+    global.Date.now = sinon.stub().returns(Date.parse("June 6, 1979 GMT"));
   });
 
   after(() => {

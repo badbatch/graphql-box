@@ -7,7 +7,7 @@ import sinon from "sinon";
 import initClient from "../../helpers/init-client";
 import { mockRequest, registerFetchMockWorker } from "../../modules/fetch-mock";
 
-global.Date.now = sinon.stub().returns(Date.parse("June 6, 1979"));
+global.Date.now = sinon.stub().returns(Date.parse("June 6, 1979 GMT"));
 
 fetchMock.config.fallbackToNetwork = true;
 fetchMock.config.warnOnFallback = false;

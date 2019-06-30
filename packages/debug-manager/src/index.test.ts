@@ -18,7 +18,7 @@ describe("@graphql-box/debug-manager >>", () => {
   let debugManager: DebugManagerDef;
 
   beforeAll(() => {
-    global.Date.now = jest.fn().mockReturnValue(Date.parse("June 6, 1979"));
+    global.Date.now = jest.fn().mockReturnValue(Date.parse("June 6, 1979 GMT"));
   });
 
   afterAll(() => {

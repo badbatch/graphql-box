@@ -24,7 +24,7 @@ describe("@graphql-box/cache-manager >>", () => {
   let cacheManager: CacheManagerDef;
 
   beforeAll(() => {
-    global.Date.now = jest.fn().mockReturnValue(Date.parse("June 6, 1979"));
+    global.Date.now = jest.fn().mockReturnValue(Date.parse("June 6, 1979 GMT"));
   });
 
   afterAll(() => {

@@ -10,7 +10,7 @@ import sinon from "sinon";
 import WebSocket from "ws";
 import initServer from "../helpers/init-server";
 
-global.Date.now = sinon.stub().returns(Date.parse("June 6, 1979"));
+global.Date.now = sinon.stub().returns(Date.parse("June 6, 1979 GMT"));
 
 export default async function graphqlServer(): Promise<http.Server> {
   const boxServer = await BoxServer.init({

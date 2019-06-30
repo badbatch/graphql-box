@@ -40,7 +40,7 @@
     "compile:module": "lerna run compile:module --parallel",
     "compile:types": "lerna run compile:types --parallel",
     "cutoff": "cutoff-lerna",
-    "integration": "concurrently --kill-others \"yarn run integration:server\" \"yarn run integration:tests\"",
+    "integration": "concurrently --kill-others --success first \"yarn run integration:server\" \"yarn run integration:tests\"",
     "integration-update": "cross-env UPDATE=true PRUNE=true yarn run integration",
     "integration:tests": "cross-env BABEL_ENV=integration karma start --single-run --reporters mocha --browsers ChromeHeadless",
     "integration:debug": "cross-env BABEL_ENV=integration karma start --no-single-run --reporters progress --browsers Chrome",
