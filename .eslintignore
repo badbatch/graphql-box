@@ -1,6 +1,5 @@
 .repodog
 .vscode
 coverage
-node_modules
 lib
 node_modules
