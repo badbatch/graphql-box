@@ -13,7 +13,7 @@
     "url": "https://github.com/badbatch/graphql-box"
   },
   "engines": {
-    "node": "^10.15.0"
+    "node": "^10.16.0"
   },
   "keywords": [
     "graphql-box",
@@ -42,8 +42,8 @@
     "cutoff": "cutoff-lerna",
     "integration": "concurrently --kill-others --success first \"yarn run integration:server\" \"yarn run integration:tests\"",
     "integration-update": "cross-env UPDATE=true PRUNE=true yarn run integration",
-    "integration:tests": "cross-env BABEL_ENV=integration karma start --single-run --reporters mocha --browsers ChromeHeadless",
-    "integration:debug": "cross-env BABEL_ENV=integration karma start --no-single-run --reporters progress --browsers Chrome",
+    "integration:tests": "cross-env BABEL_ENV=integration karma start --single-run --reporters mocha --browsers ChromeHeadlessNoSandbox",
+    "integration:debug": "cross-env BABEL_ENV=integration karma start --no-single-run --reporters progress --browsers ChromeNoSandbox",
     "integration:server": "cross-env BABEL_ENV=main node ./integration/server/cli",
     "docs": "lerna run docs --parallel",
     "init": "yarn && yarn run bootstrap && yarn run build",

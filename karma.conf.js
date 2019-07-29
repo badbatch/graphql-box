@@ -5,6 +5,16 @@ const SNAPSHOTS_GLOB = '**/__snapshots__/**/*.md';
 const TESTS_GLOB = 'integration/tests/**/*.test.ts';
 const WORKER_PATH = 'integration/tests/worker-client/worker';
 
+const ChromeNoSandbox = {
+  base: 'Chrome',
+  flags: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-gpu',
+    '--remote-debugging-port=9222',
+  ],
+};
+
 module.exports = (config) => {
   config.set({
     autoWatch: true,
@@ -15,6 +25,16 @@ module.exports = (config) => {
     },
     colors: true,
     concurrency: Infinity,
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        ...ChromeNoSandbox,
+        flags: [
+          ...ChromeNoSandbox.flags,
+          '--headless',
+        ],
+      },
+      ChromeNoSandbox,
+    },
     files: [
       SNAPSHOTS_GLOB,
       TESTS_GLOB,

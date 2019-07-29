@@ -2,7 +2,7 @@ dist: trusty
 sudo: required
 language: node_js
 node_js:
-  - "10.15.0"
+  - "10.16.0"
 cache:
   yarn: true
   directories:
@@ -16,7 +16,6 @@ script:
   - yarn run lint
   - yarn run type-check
   - yarn run test
-  - yarn run integration
 before_depoly:
   - echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> .npmrc
 deploy:
