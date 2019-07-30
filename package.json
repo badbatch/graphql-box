@@ -40,6 +40,7 @@
     "compile:module": "lerna run compile:module --stream",
     "compile:types": "lerna run compile:types --stream",
     "cutoff": "cutoff-lerna",
+    "cutoff:post-version": "yarn run compile && yarn run docs",
     "integration": "concurrently --kill-others --success first \"yarn run integration:server\" \"yarn run integration:tests\"",
     "integration-update": "cross-env UPDATE=true PRUNE=true yarn run integration",
     "integration:tests": "cross-env BABEL_ENV=integration karma start --single-run --reporters mocha --browsers ChromeHeadlessNoSandbox",
