@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/helpers",
-  "version": "0.1.22",
+  "version": "1.0.0",
   "description": "The GraphQL Box helpers module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -38,7 +38,7 @@
     "lodash": "^4.17.5"
   },
   "dependencies": {
-    "@graphql-box/core": "^0.1.22",
+    "@graphql-box/core": "^1.0.0",
     "cacheability": "^2.0.4",
     "iterall": "^1.2.2",
     "md5": "^2.2.1"

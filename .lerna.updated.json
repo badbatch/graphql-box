@@ -1,0 +1,72 @@
+[
+  {
+    "name": "@graphql-box/cache-manager",
+    "private": false,
+    "version": "0.1.22"
+  },
+  {
+    "name": "@graphql-box/cli",
+    "private": false,
+    "version": "0.1.22"
+  },
+  {
+    "name": "@graphql-box/client",
+    "private": false,
+    "version": "0.1.22"
+  },
+  {
+    "name": "@graphql-box/core",
+    "private": false,
+    "version": "0.1.22"
+  },
+  {
+    "name": "@graphql-box/debug-manager",
+    "private": false,
+    "version": "0.1.22"
+  },
+  {
+    "name": "@graphql-box/execute",
+    "private": false,
+    "version": "0.1.22"
+  },
+  {
+    "name": "@graphql-box/fetch-manager",
+    "private": false,
+    "version": "0.1.22"
+  },
+  {
+    "name": "@graphql-box/helpers",
+    "private": false,
+    "version": "0.1.22"
+  },
+  {
+    "name": "@graphql-box/request-parser",
+    "private": false,
+    "version": "0.1.22"
+  },
+  {
+    "name": "@graphql-box/server",
+    "private": false,
+    "version": "0.1.22"
+  },
+  {
+    "name": "@graphql-box/subscribe",
+    "private": false,
+    "version": "0.1.22"
+  },
+  {
+    "name": "@graphql-box/test-utils",
+    "private": false,
+    "version": "0.1.22"
+  },
+  {
+    "name": "@graphql-box/websocket-manager",
+    "private": false,
+    "version": "0.1.22"
+  },
+  {
+    "name": "@graphql-box/worker-client",
+    "private": false,
+    "version": "0.1.22"
+  }
+]
