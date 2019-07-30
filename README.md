@@ -2,7 +2,7 @@
 
 An extensible GraphQL client and server with modules for caching, request parsing, subscriptions and more.
 
-[![Build Status](https://travis-ci.org/badbatch/graphql-box.svg?branch=master)](https://travis-ci.org/badbatch/graphql-box)
+[![Build Status](https://travis-ci.com/badbatch/graphql-box.svg?branch=master)](https://travis-ci.com/badbatch/graphql-box)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Summary
@@ -392,9 +392,9 @@ const schema = makeExecutableSchema({ typeDefs: schemaTypeDefs, resolvers: schem
 
 Only the `Client` properties that differ from the browser example above are outlined below.
 
-* [debugManager:performance](#debugmanager:performance)
+* [debugManager:performance](#debugmanagerperformance)
 * [execute](#execute)
-* [requestParser:schema](#requestparser:schema)
+* [requestParser:schema](#requestparserschema)
 * [subscribe](#subscribe)
 
 #### debugManager:performance
