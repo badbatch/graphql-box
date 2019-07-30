@@ -186,12 +186,8 @@ This is an object of GraphQL schema types to cache control directives, giving yo
 cached and for how long. Each time the `CacheManager` stores a type's corresponding data it looks up that type in the
 `typeCacheDirectives` to find out how long it can cache the data for.
 
----
-
-For a full list of configuration options, see the `@graphql-box/cache-manager`
+> For a full list of configuration options, see the `@graphql-box/cache-manager`
 [documentation](./packages/cache-manager/README.md).
-
----
 
 #### debugManager
 
@@ -213,12 +209,8 @@ wherever you want.
 
 `performance` is an object with a `now` function. In the browser, you should pass in `window.performance`.
 
----
-
-For a full list of configuration options, see the `@graphql-box/debug-manager`
+> For a full list of configuration options, see the `@graphql-box/debug-manager`
 [documentation](./packages/debug-manager/README.md).
-
----
 
 #### fetchManager
 
@@ -231,12 +223,8 @@ responses to the `Client`.
 It supports batching, which, if enabled through the `batch` flag, will group requests executed within a configurable
 time-frame into a single network request to the server.
 
----
-
-For a full list of configuration options, see the `@graphql-box/fetch-manager`
+> For a full list of configuration options, see the `@graphql-box/fetch-manager`
 [documentation](./packages/fetch-manager/README.md).
-
----
 
 #### requestParser
 
@@ -250,12 +238,8 @@ to help the `CacheManager`, and returns all of that to the `Client`.
 In the browser, the `RequestParser` uses the result of an introspection query of the GraphQL schema to parse
 each request.
 
----
-
-For a full list of configuration options, see the `@graphql-box/request-parser`
+> For a full list of configuration options, see the `@graphql-box/request-parser`
 [documentation](./packages/request-parser/README.md).
-
----
 
 #### websocketManager
 
@@ -271,12 +255,8 @@ The `WebsocketManager` accepts an instance of a `Websocket`. Passing in the inst
 opening and closing the socket and dealing with errors. The `WebsocketManager` adds its own `onmessage` callback to the
 instance.
 
----
-
-For a full list of configuration options, see the `@graphql-box/websocket-manager`
+> For a full list of configuration options, see the `@graphql-box/websocket-manager`
 [documentation](./packages/websocket-manager/README.md).
-
----
 
 #### typeIDKey
 
@@ -422,12 +402,8 @@ Only the `Client` properties that differ from the browser example above are outl
 `performance` is an object with a `now` function. On the server, you should pass in `performance` object exported
 from Node's `perf_hooks` module.
 
----
-
-For a full list of configuration options, see the `@graphql-box/debug-manager`
+> For a full list of configuration options, see the `@graphql-box/debug-manager`
 [documentation](./packages/debug-manager/README.md).
-
----
 
 #### execute
 
@@ -439,24 +415,16 @@ which needs to be passed into the curried function.
 
 The `schema` is made up of GraphQL type definitions of each data structure and a set of resolver functions.
 
----
-
-For a full list of configuration options, see the `@graphql-box/execute`
+> For a full list of configuration options, see the `@graphql-box/execute`
 [documentation](./packages/execute/README.md).
-
----
 
 #### requestParser:schema
 
 On the server, the `RequestParser` uses the the GraphQL schema rather than the result of an introspection query of the
 schema.
 
----
-
-For a full list of configuration options, see the `@graphql-box/request-parser`
+> For a full list of configuration options, see the `@graphql-box/request-parser`
 [documentation](./packages/request-parser/README.md).
-
----
 
 #### subscribe
 
@@ -466,12 +434,8 @@ the `Subscribe` module. `Subscribe` is an optional module.
 `Subscribe` is a wrapper around GraphQL's own subscribe function, which resolves subscriptions against a schema,
 which needs to be passed into the curried function.
 
----
-
-For a full list of configuration options, see the `@graphql-box/subscribe`
+> For a full list of configuration options, see the `@graphql-box/subscribe`
 [documentation](./packages/subscribe/README.md).
-
----
 
 ### Handling a Server request for a query or mutation
 
