@@ -24,7 +24,7 @@
 
 • **context**: *[MessageContext](messagecontext.md)*
 
-*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/worker-client/src/defs/index.ts#L45)*
+*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/defs/index.ts#L45)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **method**: *[MethodNames](../README.md#methodnames)*
 
-*Defined in [defs/index.ts:46](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/worker-client/src/defs/index.ts#L46)*
+*Defined in [defs/index.ts:46](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/defs/index.ts#L46)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **options**: *`RequestOptions`*
 
-*Defined in [defs/index.ts:47](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/worker-client/src/defs/index.ts#L47)*
+*Defined in [defs/index.ts:47](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/defs/index.ts#L47)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **request**: *string*
 
-*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/worker-client/src/defs/index.ts#L48)*
+*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/defs/index.ts#L48)*
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 • **type**: *"graphqlBox" | "cachemap"*
 
-*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/worker-client/src/defs/index.ts#L49)*
+*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/defs/index.ts#L49)*

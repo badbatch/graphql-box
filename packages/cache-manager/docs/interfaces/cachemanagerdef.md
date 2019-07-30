@@ -33,7 +33,7 @@
 
 • **cache**: *`Cachemap`*
 
-*Defined in [defs/index.ts:182](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/cache-manager/src/defs/index.ts#L182)*
+*Defined in [defs/index.ts:182](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L182)*
 
 ## Methods
 
@@ -41,7 +41,7 @@
 
 ▸ **analyzeQuery**(`requestData`: `RequestData`, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<AnalyzeQueryResult>`*
 
-*Defined in [defs/index.ts:183](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/cache-manager/src/defs/index.ts#L183)*
+*Defined in [defs/index.ts:183](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L183)*
 
 **Parameters:**
 
@@ -59,7 +59,7 @@ ___
 
 ▸ **checkCacheEntry**(`cacheType`: `CacheTypes`, `hash`: string, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<CheckCacheEntryResult | false>`*
 
-*Defined in [defs/index.ts:188](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/cache-manager/src/defs/index.ts#L188)*
+*Defined in [defs/index.ts:188](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L188)*
 
 **Parameters:**
 
@@ -78,7 +78,7 @@ ___
 
 ▸ **checkQueryResponseCacheEntry**(`hash`: string, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<ResponseData | false>`*
 
-*Defined in [defs/index.ts:194](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/cache-manager/src/defs/index.ts#L194)*
+*Defined in [defs/index.ts:194](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L194)*
 
 **Parameters:**
 
@@ -96,7 +96,7 @@ ___
 
 ▸ **deletePartialQueryResponse**(`hash`: string): *void*
 
-*Defined in [defs/index.ts:199](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/cache-manager/src/defs/index.ts#L199)*
+*Defined in [defs/index.ts:199](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L199)*
 
 **Parameters:**
 
@@ -112,7 +112,7 @@ ___
 
 ▸ **resolveQuery**(`requestData`: `RequestData`, `updatedRequestData`: `RequestData`, `responseData`: `RawResponseDataWithMaybeCacheMetadata`, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<ResponseData>`*
 
-*Defined in [defs/index.ts:202](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/cache-manager/src/defs/index.ts#L202)*
+*Defined in [defs/index.ts:202](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L202)*
 
 **Parameters:**
 
@@ -132,7 +132,7 @@ ___
 
 ▸ **resolveRequest**(`requestData`: `RequestData`, `responseData`: `RawResponseDataWithMaybeCacheMetadata`, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<ResponseData>`*
 
-*Defined in [defs/index.ts:209](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/cache-manager/src/defs/index.ts#L209)*
+*Defined in [defs/index.ts:209](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L209)*
 
 **Parameters:**
 

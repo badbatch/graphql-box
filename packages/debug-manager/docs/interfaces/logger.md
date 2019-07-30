@@ -20,7 +20,7 @@
 
 ▸ **log**(`message?`: any, ...`optionalParams`: any[]): *void*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/debug-manager/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/graphql-box/blob/22b398c/packages/debug-manager/src/defs/index.ts#L4)*
 
 **Parameters:**
 

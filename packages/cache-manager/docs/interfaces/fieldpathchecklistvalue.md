@@ -21,7 +21,7 @@
 
 • **hasData**: *boolean*
 
-*Defined in [defs/index.ts:78](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/cache-manager/src/defs/index.ts#L78)*
+*Defined in [defs/index.ts:78](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L78)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **typeName**? : *string | undefined*
 
-*Defined in [defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/cache-manager/src/defs/index.ts#L79)*
+*Defined in [defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L79)*

@@ -21,7 +21,7 @@
 
 • **schema**: *`GraphQLSchema`*
 
-*Defined in [defs/index.ts:43](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/request-parser/src/defs/index.ts#L43)*
+*Defined in [defs/index.ts:43](https://github.com/badbatch/graphql-box/blob/22b398c/packages/request-parser/src/defs/index.ts#L43)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **typeIDKey**: *string*
 
-*Defined in [defs/index.ts:44](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/request-parser/src/defs/index.ts#L44)*
+*Defined in [defs/index.ts:44](https://github.com/badbatch/graphql-box/blob/22b398c/packages/request-parser/src/defs/index.ts#L44)*

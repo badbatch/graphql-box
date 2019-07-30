@@ -21,7 +21,7 @@
 
 • **actions**: *[BatchResultActions](batchresultactions.md)*
 
-*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/fetch-manager/src/defs/index.ts#L50)*
+*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/defs/index.ts#L50)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **request**: *string*
 
-*Defined in [defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/fetch-manager/src/defs/index.ts#L51)*
+*Defined in [defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/defs/index.ts#L51)*

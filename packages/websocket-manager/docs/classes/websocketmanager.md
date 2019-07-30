@@ -29,7 +29,7 @@
 
 \+ **new WebsocketManager**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[WebsocketManager](websocketmanager.md)*
 
-*Defined in [main/index.ts:39](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/websocket-manager/src/main/index.ts#L39)*
+*Defined in [main/index.ts:39](https://github.com/badbatch/graphql-box/blob/22b398c/packages/websocket-manager/src/main/index.ts#L39)*
 
 **Parameters:**
 
@@ -45,7 +45,7 @@ Name | Type |
 
 ▸ **subscribe**(`__namedParameters`: object, `options`: `RequestOptions`, `context`: `RequestContext`, `subscriberResolver`: `SubscriberResolver`): *`Promise<AsyncIterator<MaybeRequestResult | undefined>>`*
 
-*Defined in [main/index.ts:47](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/websocket-manager/src/main/index.ts#L47)*
+*Defined in [main/index.ts:47](https://github.com/badbatch/graphql-box/blob/22b398c/packages/websocket-manager/src/main/index.ts#L47)*
 
 **Parameters:**
 
@@ -70,7 +70,7 @@ ___
 
 ▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *`Promise<WebsocketManager>`*
 
-*Defined in [main/index.ts:21](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/websocket-manager/src/main/index.ts#L21)*
+*Defined in [main/index.ts:21](https://github.com/badbatch/graphql-box/blob/22b398c/packages/websocket-manager/src/main/index.ts#L21)*
 
 **Parameters:**
 

@@ -1,3 +1,13 @@
+#### 1.0.1 (2019-07-30)
+
+##### Documentation Changes
+
+* **package documentation:**  adding typedoc docs to each package. ([c791e229](https://github.com/badbatch/graphql-box/commit/c791e2292ebced2e7dc0ef6ec60edf43f36d44c8))
+
+##### Bug Fixes
+
+* **package.json:**  add public publish config to each package. ([22b398cc](https://github.com/badbatch/graphql-box/commit/22b398cc0f312f31480fbb1259ab63553f771824))
+
 ## 1.0.0 (2019-07-30)
 
 ##### Breaking Changes

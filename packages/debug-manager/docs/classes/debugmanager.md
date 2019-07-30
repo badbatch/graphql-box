@@ -55,7 +55,7 @@
 
 \+ **new DebugManager**(`__namedParameters`: object): *[DebugManager](debugmanager.md)*
 
-*Defined in [main/index.ts:21](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/debug-manager/src/main/index.ts#L21)*
+*Defined in [main/index.ts:21](https://github.com/badbatch/graphql-box/blob/22b398c/packages/debug-manager/src/main/index.ts#L21)*
 
 **Parameters:**
 
@@ -119,7 +119,7 @@ ___
 
 *Overrides void*
 
-*Defined in [main/index.ts:30](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/debug-manager/src/main/index.ts#L30)*
+*Defined in [main/index.ts:30](https://github.com/badbatch/graphql-box/blob/22b398c/packages/debug-manager/src/main/index.ts#L30)*
 
 **Parameters:**
 
@@ -195,7 +195,7 @@ ___
 
 ▸ **now**(): *number*
 
-*Defined in [main/index.ts:37](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/debug-manager/src/main/index.ts#L37)*
+*Defined in [main/index.ts:37](https://github.com/badbatch/graphql-box/blob/22b398c/packages/debug-manager/src/main/index.ts#L37)*
 
 **Returns:** *number*
 
@@ -329,7 +329,7 @@ ___
 
 ▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *`Promise<DebugManager>`*
 
-*Defined in [main/index.ts:7](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/debug-manager/src/main/index.ts#L7)*
+*Defined in [main/index.ts:7](https://github.com/badbatch/graphql-box/blob/22b398c/packages/debug-manager/src/main/index.ts#L7)*
 
 **Parameters:**
 

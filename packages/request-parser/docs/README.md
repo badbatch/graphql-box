@@ -32,7 +32,7 @@
 
 Ƭ **RequestParserInit**: *function*
 
-*Defined in [defs/index.ts:60](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/request-parser/src/defs/index.ts#L60)*
+*Defined in [defs/index.ts:60](https://github.com/badbatch/graphql-box/blob/22b398c/packages/request-parser/src/defs/index.ts#L60)*
 
 #### Type declaration:
 
@@ -50,7 +50,7 @@ Name | Type |
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *[RequestParserInit](README.md#requestparserinit)*
 
-*Defined in [main/index.ts:500](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/request-parser/src/main/index.ts#L500)*
+*Defined in [main/index.ts:500](https://github.com/badbatch/graphql-box/blob/22b398c/packages/request-parser/src/main/index.ts#L500)*
 
 **Parameters:**
 

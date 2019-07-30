@@ -21,7 +21,7 @@
 
 • **dataTypeName**: *string | undefined*
 
-*Defined in [defs/index.ts:140](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/cache-manager/src/defs/index.ts#L140)*
+*Defined in [defs/index.ts:140](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L140)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **fieldTypeName**: *string | undefined*
 
-*Defined in [defs/index.ts:141](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/cache-manager/src/defs/index.ts#L141)*
+*Defined in [defs/index.ts:141](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L141)*

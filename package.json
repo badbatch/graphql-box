@@ -1,6 +1,6 @@
 {
   "name": "graphql-box",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An extensible GraphQL client and server with modules for caching, request parsing, subscriptions and more.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",

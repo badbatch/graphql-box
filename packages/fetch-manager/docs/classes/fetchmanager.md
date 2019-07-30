@@ -29,7 +29,7 @@
 
 \+ **new FetchManager**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[FetchManager](fetchmanager.md)*
 
-*Defined in [main/index.ts:71](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/fetch-manager/src/main/index.ts#L71)*
+*Defined in [main/index.ts:71](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/main/index.ts#L71)*
 
 **Parameters:**
 
@@ -45,7 +45,7 @@ Name | Type |
 
 ▸ **execute**(`__namedParameters`: object, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<MaybeRawResponseData>`*
 
-*Defined in [main/index.ts:83](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/fetch-manager/src/main/index.ts#L83)*
+*Defined in [main/index.ts:83](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/main/index.ts#L83)*
 
 **Parameters:**
 
@@ -68,7 +68,7 @@ ___
 
 ▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *`Promise<FetchManager>`*
 
-*Defined in [main/index.ts:26](https://github.com/badbatch/graphql-box/blob/43ddea2/packages/fetch-manager/src/main/index.ts#L26)*
+*Defined in [main/index.ts:26](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/main/index.ts#L26)*
 
 **Parameters:**
 
