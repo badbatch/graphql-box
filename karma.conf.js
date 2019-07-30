@@ -1,54 +1,64 @@
-const { resolve } = require('path');
-const createGraphqlServer = require('./karma/plugins/graphql-server');
-const webpackConfig = require('./webpack.config.test');
+const { join } = require('path');
+const webpack = require('./webpack.config');
+
+const SNAPSHOTS_GLOB = '**/__snapshots__/**/*.md';
+const TESTS_GLOB = 'integration/tests/**/*.test.ts';
+const WORKER_PATH = 'integration/tests/worker-client/worker';
+
+const ChromeNoSandbox = {
+  base: 'Chrome',
+  flags: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-gpu',
+    '--remote-debugging-port=9222',
+  ],
+};
 
 module.exports = (config) => {
   config.set({
     autoWatch: true,
     basePath: '',
     client: {
-      captureConsole: true,
+      captureConsole: false,
       mocha: { timeout: 0 },
     },
     colors: true,
     concurrency: Infinity,
-    coverageIstanbulReporter: {
-      dir: resolve(__dirname, 'coverage', 'web'),
-      fixWebpackSourcePaths: true,
-      reports: ['json', 'lcov', 'text-summary'],
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        ...ChromeNoSandbox,
+        flags: [
+          ...ChromeNoSandbox.flags,
+          '--headless',
+        ],
+      },
+      ChromeNoSandbox,
     },
     files: [
-      'test/specs/index.ts',
-      'src/worker.ts',
+      SNAPSHOTS_GLOB,
+      TESTS_GLOB,
+      `${WORKER_PATH}.ts`,
     ],
-    frameworks: ['mocha', 'chai', 'sinon', 'graphql-server'],
+    frameworks: ['mocha', 'chai', 'sinon', 'snapshot', 'mocha-snapshot'],
     logLevel: config.LOG_INFO,
     mime: {
       'text/x-typescript': ['ts', 'tsx'],
     },
-    plugins: [
-      'karma-chai',
-      'karma-chrome-launcher',
-      'karma-coverage-istanbul-reporter',
-      'karma-edge-launcher',
-      'karma-firefox-launcher',
-      'karma-ie-launcher',
-      'karma-mocha',
-      'karma-mocha-reporter',
-      'karma-safari-launcher',
-      'karma-sinon',
-      'karma-sourcemap-loader',
-      'karma-webpack',
-      { 'framework:graphql-server': ['factory', createGraphqlServer] },
-    ],
     port: 9876,
     preprocessors: {
-      'test/specs/index.ts': ['webpack', 'sourcemap'],
-      'src/worker.ts': ['webpack', 'sourcemap'],
+      [SNAPSHOTS_GLOB]: ['snapshot'],
+      [TESTS_GLOB]: ['webpack', 'sourcemap'],
+      [`${WORKER_PATH}.ts`]: ['webpack', 'sourcemap'],
     },
     proxies: {
-      '/worker-handl.worker.js': '/base/src/worker.ts',
+      '/worker.js': `/base/${WORKER_PATH}.js`,
     },
-    webpack: webpackConfig,
+    snapshot: {
+      pathResolver: (basePath, suiteName) => join(basePath, 'integration/tests/__snapshots__', `${suiteName}.md`),
+      prune: !!process.env.PRUNE,
+      update: !!process.env.UPDATE,
+    },
+    webpack,
   });
 };

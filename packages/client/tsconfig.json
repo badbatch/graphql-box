@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig.settings.json",
+  "compilerOptions": {
+    "outDir": "lib/types",
+    "rootDir": "src"
+  },
+  "include": [
+    "src/**/*",
+  ],
+  "references": [
+    { "path": "../cache-manager" },
+    { "path": "../core" },
+    { "path": "../debug-manager" },
+    { "path": "../fetch-manager" },
+    { "path": "../helpers" },
+    { "path": "../request-parser" },
+    { "path": "../websocket-manager" },
+    { "path": "../test-utils" },
+  ]
+}

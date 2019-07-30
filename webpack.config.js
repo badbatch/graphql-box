@@ -1,50 +1,38 @@
-const { resolve } = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const webpackConfig = require('./webpack.config.base');
-
-webpackConfig.module.rules.unshift({
-  include: [
-    resolve(__dirname, 'src'),
-  ],
-  test: /\.tsx?$/,
-  use: [{
-    loader: 'awesome-typescript-loader',
-    options: {
-      babelCore: '@babel/core',
-      transpileOnly: true,
-      useBabel: true,
-    },
-  }],
-});
-
-webpackConfig.plugins.push(
-  new webpack.SourceMapDevToolPlugin({
-    filename: '[name].js.map',
-    test: /\.(tsx?|jsx?)$/,
-  }),
-  new UglifyJsPlugin({
-    sourceMap: true,
-  }),
-  new BundleAnalyzerPlugin({
-    analyzerMode: 'disabled',
-    generateStatsFile: true,
-    statsFilename: './bundle/stats.json',
-  }),
-);
 
 module.exports = {
-  entry: {
-    handl: './src/index.ts',
-    'client-handl': './src/client-handl/index.ts',
-    'worker-handl': './src/worker-handl/index.ts',
-    'worker-handl.worker': './src/worker.ts',
+  devtool: false,
+  mode: 'development',
+  module: {
+    rules: [{
+      test: /\.tsx?$/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          configFile: './babel.config.js',
+        },
+      },
+    }, {
+      enforce: 'pre',
+      exclude: /node_modules\/(graphql-tools|deprecated-decorator)/,
+      test: /\.(tsx?|jsx?)$/,
+      use: {
+        loader: 'source-map-loader',
+      },
+    }],
   },
-  output: {
-    filename: '[name].js',
-    library: 'Handl',
-    libraryTarget: 'umd',
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      debug: true,
+    }),
+    new webpack.SourceMapDevToolPlugin({
+      moduleFilenameTemplate: 'webpack://[namespace]/[resource-path]?[loaders]',
+      test: /\.(tsx?|jsx?)$/,
+    }),
+  ],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.mjs', '.js', '.jsx', '.json'],
+    mainFields: ['browser', 'module', 'main'],
+    symlinks: false,
   },
-  ...webpackConfig,
 };

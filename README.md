@@ -1,555 +1,523 @@
-# handl
+# GraphQL Box
 
-An isomorphic GraphQL client and server with a three-tier cache and persisted storage.
+An extensible GraphQL client and server with modules for caching, request parsing, subscriptions and more.
 
-[![Build Status](https://travis-ci.org/bad-batch/handl.svg?branch=master)](https://travis-ci.org/bad-batch/handl)
-[![codecov](https://codecov.io/gh/bad-batch/handl/branch/master/graph/badge.svg)](https://codecov.io/gh/bad-batch/handl)
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=sonarqube%3Ahandl&metric=alert_status)](https://sonarcloud.io/dashboard?id=sonarqube%3Ahandl)
+[![Build Status](https://travis-ci.org/badbatch/graphql-box.svg?branch=master)](https://travis-ci.org/badbatch/graphql-box)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![npm version](https://badge.fury.io/js/handl.svg)](https://badge.fury.io/js/handl)
-[![dependencies Status](https://david-dm.org/bad-batch/handl/status.svg)](https://david-dm.org/bad-batch/handl)
-[![devDependencies Status](https://david-dm.org/bad-batch/handl/dev-status.svg)](https://david-dm.org/bad-batch/handl?type=dev)
-
-* [Summary](#summary)
-* [Installation](#installation)
-* [Compilation](#compilation)
-* [Web worker interface](#web-worker-interface)
-* [Documentation](#documentation)
-* [Usage](#usage)
 
 ## Summary
 
-* **Simple interface:** Make queries, mutations and subscriptions using the same method.
-* **Query filtering:** Only request the data that handl does not already have in its cache.
-* **Request batching:** Automatically aggregate queries and mutations into fewer requests.
-* **Three-tier cache:** Reduce server requests with response, query path and object entity caching.
-* **Cascading cache control:** Have fine-grained control of what gets cached using http cache-control directives.
-* **Cache pruning:** Save storage by automatically removing expired and infrequently accessed cache entries.
-* **Persisted storage:** Store cache entries on browser using LocalStorage and IndexedDB and on server using Redis.
-* **Cache sharing:** Export cache entries in a serializable format to be imported by another handl.
-* **Web worker interface:** Free up the main thread by running handl in a web worker.
+* Simple interface for making queries, mutations and subscriptions.
+* Automatically aggregate queries and mutations into fewer network requests.
+* Reduce server requests with response, query path and object entity caching.
+* Type level control of what gets cached using http cache-control directives.
+* Save storage by automatically removing expired and infrequently accessed cache entries.
+* Store cache entries using LocalStorage, IndexedDB, Redis and more.
+* Export cache entries in a serializable format to be imported by another client.
+* Subscriptions made simple in the browser and on the server.
+* Free up the main thread by running the client in a web worker.
+* Stay on top of browser and server with performance and monitoring hooks.
 
 ## Installation
 
+GraphQL Box is structured as a [monorepo](https://github.com/lerna/lerna), so each package is published to npm under the
+`@graphql-box` scope and can be installed in a project in the same way as any other npm package.
+
 ```bash
-npm install handl --save
+yarn add @graphql-box/<package>
 ```
 
-## Compilation
+So, for example, if you want a browser client, request parsing and a persisted cache you would install the
+following packages.
 
-The `WEB_ENV` environment variable must be set to `'true'` when you compile your browser bundle in order to exclude
-node modules.
+```bash
+yarn add @graphql-box/client @graphql-box/request-parser @graphql-box/cache-manager @graphql-box/fetch-manager
+  @cachemap/core @cachemap/reaper @cachemap/indexed-db
+```
 
-## Web worker interface
+If, however, you want a server with a persisted cache that supports requests and subscriptions, you would install the
+following packages.
 
-You can run handl in a web worker by using `WorkerHandl` as the handl interface in your bundle on the main
-thread and `{ worker-handl.worker: ./node_modules/handl/lib/browser/worker.js }` as the entry point for your
-bundle on the worker thread.
+```bash
+yarn add @graphql-box/server @graphql-box/client @graphql-box/request-parser @graphql-box/cache-manager
+  @graphql-box/execute @graphql-box/subscribe @cachemap/core @cachemap/reaper @cachemap/redis
+```
 
-## Documentation
+## Packages
 
-Please read the full API documentation on the handl [github pages](https://dylanaubrey.github.io/handl).
+GraphQL Box's multi-package structure allows you to compose your client and server of the modules you need, without
+additional bloat. Start with the `@graphql-box/client` or `@graphql-box/server` packages and build out from there.
+
+* [@graphql-box/cache-manager](packages/cache-manager)
+* [@graphql-box/cli](packages/cli)
+* [@graphql-box/client](packages/client)
+* [@graphql-box/core](packages/core)
+* [@graphql-box/debug-manager](packages/debug-manager)
+* [@graphql-box/execute](packages/execute)
+* [@graphql-box/fetch-manager](packages/fetch-manager)
+* [@graphql-box/helpers](packages/helpers)
+* [@graphql-box/request-parser](packages/request-parser)
+* [@graphql-box/server](packages/server)
+* [@graphql-box/subscribe](packages/subscribe)
+* [@graphql-box/test-utils](packages/test-utils)
+* [@graphql-box/websocket-manager](packages/websocket-manager)
+* [@graphql-box/worker-client](packages/worker-client)
 
 ## Usage
 
-* [Creating a client](#creating-a-client)
-* [Making queries, mutations or subscriptions](#making-queries-mutations-or-subscriptions)
-* [Introspecting the schema](#introspecting-the-schema)
-* [Creating a server](#creating-a-server)
-* [Routing queries, mutations and subscriptions](#routing-queries-mutations-and-subscriptions)
-* [Caching](#caching)
+* [Creating a browser instance of the Client](#creating-a-browser-instance-of-the-client)
+* [Making a Client request for a query or mutation](#making-a-client-request-for-a-query-or-mutation)
+* [Making a Client request for a subscription](#making-a-client-request-for-a-subscription)
+* [Creating an instance of the Server](#creating-an-instance-of-the-server)
+* [Handling a Server request for a query or mutation](#handling-a-server-request-for-a-query-or-mutation)
+* [Handling a Server message for a subscription](#handling-a-server-message-for-a-subscription)
 
-### Creating a client
+### Creating a browser instance of the Client
 
-Get started by creating an instance of `ClientHandl` and pass in whatever configuration options you require. The main
-options are detailed in the example below. For a full list, please read the [API documentation](https://bad-batch.github.io/handl).
+The `Client` is initialized using its async static `init` method, don't initialize it using the traditional class
+constructor. The reason for this is so the `Client` can wait for asynchronous tasks to complete before returning an
+instance of itself.
 
-```javascript
-// client-handl.js
+Each module you want to add to the `Client` is passed as a property into the `init` method. The default export of each
+module is a curried function that returns an async function that initializes the module. This allows you and the
+`Client` to pass configuration options into each module. The cache manager, request manager and request parser are all
+mandatory modules. The rest are optional.
 
-import { ClientHandl } from 'handl';
-import introspection from './introspection';
-
-export default async function clientHandl() {
-  try {
-    return ClientHandl.create({
-      // mandatory
-      introspection,
-      url: 'https://api.github.com/graphql',
-      // optional
-      batch: true,
-      cachemapOptions: { use: { client: 'indexedDB', server: 'redis' } },
-      fetchTimeout: 5000,
-      headers: { Authorization: 'bearer 3cdbb1ec-2189-11e8-b467-0ed5f89f718b' },
-      resourceKey: 'id',
-      subscriptions: { address: 'ws://api.github.com/graphql' },
-      typeCacheControls: { Query: 'max-age=60' },
-    });
-  } catch (error) {
-    // Handle error...
-  }
-}
-```
-
-`introspection` is the output of an introspection query to the GraphQL server that handl needs to communicate with.
-There are [several ways](#introspecting-the-schema) to generate this output. Handl uses the output to assist in
-parsing, filtering and caching.
-
-`url` is the endpoint that handl will use to communicate with the GraphQL server for queries and mutations.
-
-`batch` turns on batching of query and mutation requests. It is set to `false` by default because you need to use
-`ServerHandl` to receive these batched requests or write your own logic to unbatch the requests, execute them, and
-then re-batch the execution results to be sent back to `ClientHandl`.
-
-`cachemapOptions` are passed through to the [cachemap](https://github.com/dylanaubrey/cachemap) module, which is what
-handl uses for its persisted storage for each cache. The main properties you may want to change from their defaults
-are `use`, which allows you to specify the storage method, and `redisOptions`. which allows you to specify the
-database each cache should use.
-
-`fetchTimeout` is the amount of time handl should wait for a response before rejecting a request. It is set to
-`5000` milliseconds by default.
-
-`headers` are any additional headers you would like sent with every request.
-
-`resourceKey` is the name of the property thats value is used as the unique identifier for each resource/entity in
-the GraphQL schema. It is set to `'id'` by default.
-
-`subscriptions` is the configuration object passed to handl's socket manager. `address` is the only mandatory property.
-If no configuration object is passed in, then subscriptions are not enabled.
-
-`typeCacheControls` is an object of type names to cache control directives that enables type-level cache control.
-
-### Making queries, mutations or subscriptions
-
-Handl lets you execute queries, mutations and subscriptions anywhere in your application, so you can use it in your
-service layer, Redux thunks, React higher-order components... whatever works for you. Just import the `ClientHandl` instance
-you created in the above example and pass the request and any options you require into the `request` method.
-
-* [Query](#query)
-* [Mutation](#mutation)
-* [Subscription](#subscription)
-
-#### Query
+The example below initializes the `Client` with a persisted cache with type cache control directives, a debug manager
+with a logger, a fetch manager with request batching enabled, and a subscriptions manager.
 
 ```javascript
-// organization-query.js
+import Cachemap from "@cachemap/core";
+import indexedDB from "@cachemap/indexed-db";
+import reaper from "@cachemap/reaper";
+import cacheManager from "@graphql-box/cache-manager";
+import Client from "@graphql-box/client";
+import { DEFAULT_TYPE_ID_KEY } from "@graphql-box/core";
+import debugManager from "@graphql-box/debug-manager";
+import fetchManager from "@graphql-box/fetch-manager";
+import requestParser from "@graphql-box/request-parser";
+import introspection from "./introspection-query";
 
-export const organization = `
-  query ($login: String!, $first: Int!) {
-    organization(login: $login) {
-      description
-      login
-      name
-      repositories(first: $first) {
-        edges {
-          node {
-            ...repositoryFields
-          }
-        }
-      }
-    }
-  }
-`;
-```
-
-```javascript
-// repository-fields-fragment.js
-
-export const repositoryFields = `
-  fragment repositoryFields on Repository {
-    description
-    name
-  }
-`;
-```
-
-```javascript
-// query.js
-
-import clientHandl from './client-handl';
-import { organization } from './organization-query';
-import { repositoryFields } from './repository-fields-fragment';
-
-(async function makeQuery() {
-  try {
-    const handl = await clientHandl();
-
-    const { cacheMetadata, data, queryHash } = await handl.request(organization, {
-      fragments: [repositoryFields],
-      variables: { login: 'facebook', first: 20 },
-    });
-
-    // Do something with result...
-  } catch (error) {
-    // Handle error...
-  }
-}());
-```
-
-#### Mutation
-
-```javascript
-// add-star-mutation.js
-
-export const addStar = `
-  mutation ($input: AddStarInput!) {
-    addStar(input: $input) {
-      clientMutationId
-      starrable {
-        id
-        viewerHasStarred
-      }
-    }
-  }
-`;
-```
-
-```javascript
-// mutation.js
-
-import clientHandl from './client-handl';
-import { addStar } from './add-star-mutation';
-
-(async function makeMutation() {
-  try {
-    const handl = await clientHandl();
-
-    const { cacheMetadata, data } = await handl.request(addStar, {
-      variables: { input: { clientMutationId: '1', starrableId: 'MDEwOlJlcG9zaXRvcnkzODMwNzQyOA==' } },
-    });
-
-    // Do something with result...
-  } catch (error) {
-    // Handle error...
-  }
-}());
-```
-
-#### Subscription
-
-```javascript
-// favourite-added-subscription.js
-
-export const favouriteAdded = `
-  subscription {
-    favouriteAdded {
-      count
-      products {
-        displayName
-        longDescription
-        brand
-      }
-    }
-  }
-`;
-```
-
-```javascript
-// subscription.js
-
-import { forAwaitEach } from 'iterall';
-import clientHandl from './client-handl';
-import { favouriteAdded } from './favourite-added-subscription';
-
-(async function makeSubscription() {
-  try {
-    const handl = await clientHandl();
-    const asyncIterator = await handl.request(favouriteAdded);
-
-    forAwaitEach(asyncIterator, (result) => {
-      const { cacheMetadata, data } = result;
-      // Do something with result...
-    });
-  } catch (error) {
-    // Handle error...
-  }
-}());
-```
-
-`fragments` are groups of fields that can be reused between queries, mutations and subscriptions. Handl will
-automatically insert these into a request. Read more information about [fragments](http://graphql.org/learn/queries/#fragments).
-
-`variables` are arguments that can be passed to fields within a request. Handl will automatically insert these into a
-request. Read more information about [arguments](http://graphql.org/learn/queries/#arguments).
-
-`cacheMetadata` is a map of query paths to their cache control directives. This metadata is used by a handl when
-receiving data from another handl to allow it to cache the data correctly.
-
-`data` is the data requested in a query, mutation or subscription.
-
-`queryHash` is a hash of the query that was requested.
-
-`asyncIterator` is an asynchronous iterator that gets triggered each time a subscription result is returned. Read more
-about [async iterators](https://github.com/tc39/proposal-async-iteration) and the [iterall utilities library](https://github.com/leebyron/iterall).
-
-### Introspecting the schema
-
-If the GraphQL server that handl needs to communicate with is a third-party such as Github, it is common practice
-to allow users to run an introspection query of the server's schema via a `GET` request (GraphQL requests are `POST`).
-If it is not a third-party, GraphQL [provides an introspection query](http://graphql.org/graphql-js/utilities/)
-you can use on your schema. Either way, make an introspection query and write the response to a json file as part of a
-step in your build process.
-
-Handl provides a command line interface for introspecting a schema and writing the response to a json file. Just create
-an npm script like either of the examples below and then run them in your terminal like so `npm run introspect:url`. All
-paths are relative to the project root. If you are writing in Typescript and want to introspect a schema without having
-to compile your code to javascript, the CLI accepts an additional argument of `--tsconfig` with the value being the path
-to your `tsconfig.json` file. You will need `ts-node` installed as a devDependency to make use of this feature.
-
-```json
-"scripts": {
-  "introspect:schema": "introspect --schema \"test/schema/index.ts\" --output \".out/introspection.json\"",
-  "introspect:url": "introspect --url \"https://api.github.com/graphql\" --headers \"Authorization:bearer <TOKEN>\" --output \".out/introspection.json\"",
-}
-```
-
-### Creating a server
-
-Get started by creating an instance of `ServerHandl` and pass in whatever configuration options you require. The main
-options are detailed in the example below. For a full list, please read the [API documentation](https://dylanaubrey.github.io/handl).
-
-```javascript
-// server-handl.js
-
-import { ServerHandl } from 'handl';
-import schema from './graphql-schema';
-
-export default async function serverHandl() {
-  try {
-    return ServerHandl.create({
-      // mandatory
-      schema,
-      // optional
-      cachemapOptions: { use: { server: 'redis' } },
-      resourceKey: 'id',
-    });
-  } catch (error) {
-    // handle error...
-  }
-}
-```
-
-`schema` is the GraphQL schema that you want to execute queries and mutations against. It must be an instance
-of `GraphQLSchema`. Read more about [creating a GraphQL schema](http://graphql.org/graphql-js/).
-
-### Routing queries, mutations and subscriptions
-
-#### Query and mutation requests
-
-Requests to a server for queries and mutations can be routed using a express-compatible middleware. Just import the
-`ServerHandl` instance you created in the above example and create a `requestHandler` using the `request` method, and
-mount the middleware function on the path to which your GraphQL requests will be sent. The middleware will execute
-the request and send the response.
-
-#### Subscription messages
-
-For websocket messages to a server for subscriptions, use the `message` method to create a `messageHandler`. This
-function returns an event handler for the websocket's message event. The handler will create the subscription and
-send the responses.
-
-```javascript
-// app.js
-
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import express from 'express';
-import http from 'http';
-import serverHandl from './server-handl';
-
-(async function startServer() {
-  const app = express();
-  const handl = await serverHandl();
-  const requestHandler = handl.request();
-  const messageHandler = handl.message();
-
-  app.use(cors())
-    .use(bodyParser.urlencoded({ extended: true }))
-    .use(bodyParser.json())
-    .use('/graphql', requestHandler);
-
-  const server = http.createServer(app);
-  const wss = new WebSocket.Server({ path: '/graphql', server });
-
-  wss.on('connection', (ws, req) => {
-    ws.on('message', messageHandler(ws));
+(async () => {
+  const client = await Client.init({
+    cacheManager: cacheManager({
+      cache: await Cachemap.init({
+        name: "cachemap",
+        reaper: reaper({ interval: 300000 }),
+        store: indexedDB(),
+      }),
+      cascadeCacheControl: true,
+      typeCacheDirectives: {
+        Organization: "public, max-age=3",
+        Repository: "public, max-age=3",
+        RepositoryConnection: "public, max-age=1",
+        RepositoryOwner: "public, max-age=3",
+      },
+    }),
+    debugManager: debugManager({
+      logger: {
+        log: (...args) => {
+          console.log(...args);
+        },
+      },
+      name: "CLIENT",
+      performance: self.performance,
+    }),
+    requestManager: fetchManager({ batch: true, url: "http://localhost:3001/graphql" }),
+    requestParser: requestParser({ introspection }),
+    subscriptionsManager: websocketManager({ websocket: new WebSocket("ws://localhost:3001/graphql") }),
+    typeIDKey: DEFAULT_TYPE_ID_KEY,
   });
 
-  server.listen(3000);
-}())
+  // Do something...
+})();
 ```
 
-### Caching
+* [cacheManager](#cachemanager)
+* [debugManager](#debugmanager)
+* [fetchManager](#fetchmanager)
+* [requestParser](#requestparser)
+* [websocketManager](#websocketmanager)
+* [typeIDKey](#typeidkey)
 
-* [Cascading cache control](#cascading-cache-control)
-* [Single source of truth](#single-source-of-truth)
-* [The Metadata type](#the-metadata-type)
-* [Cache tiers](#cache-tiers)
+#### cacheManager
 
-Handl has three levels of caching for data returned from requests, based on whether the request was a query, mutation
-or subscription. What gets cached and for how long is determined by http cache control directives. These directives
-can be set per GraphQL object type in handl, in the response headers to a handl client, or in the response data
-generated by a GraphQL schema.
+The `cacheManager` curried function returns an instance of the `CacheManager`. The `CacheManager` is a mandatory module.
 
-#### Cascading cache control
+Before a request is sent, the `CacheManager` takes the request AST from the `Client` and checks if any of the request
+data is in one of its three caches, described below.
 
-Each entry in any of the three caches is assigned a cacheability through a mechanism of cascading cache
-control. If an entry has its own cache control directives, these are used to generate its cacheability,
-otherwise it inherits its directives from its parent. The root response data object inherits its directives from the
-response headers or the handl defaults.
+If all the data is in the cache and the data cache control directives are valid, the `CacheManager` returns that to
+the `Client`, which returns it to the caller.
 
-#### Single source of truth
+If some of the data is in its cache, the `CacheManager` returns a new request AST with only the data it does not have
+and places the request data it does have in a temporary cache.
 
-Cascading cache control works with the most common use-case for GraphQL as an aggregator of REST-based microservices.
-Each service will already be providing cache control directives in their responses, and this information can be mapped
-into the schema object types that represent the responses' data structures and passed on to handl. This keeps a
-microservice as the single source of truth for caching of its data.
+When a response comes back, the `CacheManager` stores the data against the request AST. If it already had some of the
+data in its cache, the `CacheManager` merges that data with the response data and returns the result to the `Client`.
 
-#### The Metadata type
+##### Cache types
 
-Handl provides a GraphQL object type to use for mapping cache control directives. Just create a `_metadata` field
-on the object type you want to associate cache control directives with and assign the field the `type` of `MetadataType`.
-In the object type's resolver, return `_metadata` as an object with a property of `cacheControl` and assign it the
-cache control directives.
+The three caches are request, request field path, and data entity. The Request and request field path caches are only
+used for queries, while the data entity cache is used for queries, mutations and subscriptions.
+
+The request cache is just a request to response cache using a hash of the GraphQL query as the cache key. The request
+field path cache uses the GraphQL query paths to store each piece of data within the query using a hash of each query
+path as the cache key.
+
+The data entity cache only stores data of types that have a unique identifier, referred to within GraphQL Box as a
+`typeIDKey`, which default to `id`.
+
+##### cache
+
+The `CacheManager` uses the `@cachemap` [suite of packages](https://github.com/badbatch/cachemap) within the library
+for all unit and integration tests, but you can use any module you like as long as it adheres to the interface the
+`CacheManager` expects.
+
+##### cascadeCacheControl
+
+The concept of cascading cache control is if an entry has its own type cache control directives, these are used to
+generate its cacheability, otherwise it inherits its directives from its parent. The root response data object would
+inherit its directives from the response headers.
+
+##### typeCacheDirectives
+
+This is an object of GraphQL schema types to cache control directives, giving you fine-grained control of what gets
+cached and for how long. Each time the `CacheManager` stores a type's corresponding data it looks up that type in the
+`typeCacheDirectives` to find out how long it can cache the data for.
+
+---
+
+For a full list of configuration options, see the `@graphql-box/cache-manager`
+[documentation](./packages/cache-manager/README.md).
+
+---
+
+#### debugManager
+
+The `debugManager` curried function returns an instance of the `DebugManager`. The `DebugManager` is an optional module.
+
+The module allows you to monitor a range of events that happen within the lifecycle of a query, mutation or
+subscription, including cache entries being added or queried and request execution performance.
+
+You can track a single request from a client to the server and back through the `DebugManager` using the `boxID`. This
+identifier is unique for each client request and is included in each request payload to the server and is sent back
+in the response to the client.
+
+##### logger
+
+The `logger` is an object with a `log` function that gives you the flexibility to log data out to or send data to
+wherever you want.
+
+##### performance
+
+`performance` is an object with a `now` function. In the browser, you should pass in `window.performance`.
+
+---
+
+For a full list of configuration options, see the `@graphql-box/debug-manager`
+[documentation](./packages/debug-manager/README.md).
+
+---
+
+#### fetchManager
+
+In the browser, the `requestManager` property accepts the `fetchManager` curried function that return an instance of
+the `FetchManager`. The `FetchManager` is a mandatory module.
+
+The `FetchManager` takes queries and mutations from the `Client`, sends them to the server, and returns the
+responses to the `Client`.
+
+It supports batching, which, if enabled through the `batch` flag, will group requests executed within a configurable
+time-frame into a single network request to the server.
+
+---
+
+For a full list of configuration options, see the `@graphql-box/fetch-manager`
+[documentation](./packages/fetch-manager/README.md).
+
+---
+
+#### requestParser
+
+The `requestParser` curried function returns an instance of the `RequestParser`. The `RequestParser` is a
+mandatory module.
+
+The `RequestParser` takes the request string, fragments and variables from the `Client`, parses them into a request
+AST, merges the fragments and variables into the AST, enriches the AST with type IDs and type names, generates metadata
+to help the `CacheManager`, and returns all of that to the `Client`.
+
+In the browser, the `RequestParser` uses the result of an introspection query of the GraphQL schema to parse
+each request.
+
+---
+
+For a full list of configuration options, see the `@graphql-box/request-parser`
+[documentation](./packages/request-parser/README.md).
+
+---
+
+#### websocketManager
+
+In the browser, the `subscriptionsManager` property accepts the `websocketManager` curried function that return an
+instance of the `WebsocketManager`. The `WebsocketManager` is an optional module.
+
+The `WebsocketManager` takes subscriptions from the `Client` and sends them to the server through a websocket. When
+a subscription is resolved, the server sends the response back to the client through the websocket.
+
+##### websocket
+
+The `WebsocketManager` accepts an instance of a `Websocket`. Passing in the instance gives you more flexibility around
+opening and closing the socket and dealing with errors. The `WebsocketManager` adds its own `onmessage` callback to the
+instance.
+
+---
+
+For a full list of configuration options, see the `@graphql-box/websocket-manager`
+[documentation](./packages/websocket-manager/README.md).
+
+---
+
+#### typeIDKey
+
+The property name that is used as the identifier for each type within the schema. This defaults to `"id"`.
+
+### Making a Client request for a query or mutation
+
+You can execute a query or mutation using the `request` method. Pass the request string as the first argument and
+any variables or fragments as properties in the second argument.
+
+The `request` method returns a `data` object with the response and/or an `errors` array.
 
 ```javascript
-// product-type.js
-
-import { MetadataType } from 'handl';
-import { GraphQLObjectType, GraphQLString } from 'graphql';
-
-export default new GraphQLObjectType({
-  fields: () => ({
-    _metadata: { type: metadataType },
-    brand: { type: GraphQLString },
-    description: { type: GraphQLString },
-    displayName: { type: GraphQLString },
-  }),
-  name: 'Product',
-});
-```
-
-```javascript
-// query-type.js
-
-import { GraphQLObjectType, GraphQLString } from 'graphql';
-import ProductType from './product-type';
-
-export default new GraphQLObjectType({
-  fields: () => ({
-    product: {
-      args: { id: { type: GraphQLString } },
-      resolve: async (obj, { id }) => {
-        const fetchResult = await fetch(`https://product-endpoint/${id}`);
-        const data = await fetchResult.json();
-        const cacheControl = fetchResult.headers.get('cache-control');
-
-        return {
-          _metadata: { cacheControl },
-          ...data,
-        };
-      },
-      type: ProductType,
-    },
-  }),
-  name: 'Query',
-});
-```
-
-#### Type cache controls
-
-You do not have to update your schema to get type-level cache control. Handl also offers the ability to assign cache
-control directives to each GraphQL object type in a schema by providing an object of type names to cache control
-directives to handl. This can be done when initializing handl or by using the `setTypeCacheControls` method.
-
-```javascript
-// client-handl.js
-
-import { ClientHandl } from 'handl';
-import introspection from './introspection';
-
-export default async function clientHandl() {
-  try {
-    return ClientHandl.create({
-      introspection,
-      url: 'https://api.github.com/graphql',
-      typeCacheControls: { Organization: 'max-age=60' },
-    });
-  } catch (error) {
-    // Handle error...
-  }
-}
-```
-
-```javascript
-// client.js
-
-import clientHandl from './client-handl';
-
-(async function setCacheControls() {
-  try {
-    const handl = await clientHandl();
-    handl.setTypeCacheControls({ Organization: 'max-age=60' });
-
-    // Do something else...
-  } catch (error) {
-    // Handle error...
-  }
-}());
-```
-
-#### Cache tiers
-
-##### Responses
-
-Each query's response data is cached against a hash of the query, unless it is instructed otherwise. So any time the
-same query is requested again, it will be served from the response cache, as long as the cache entry has not expired.
-
-##### Query paths
-
-As well as caching an entire query against its response data, handl also parses the query and breaks it down into its
-'paths' and the data for each path is cached against a hash of each path. So, if handl does not find a match in the
-response cache, it could still return the requested data from cache by building up a response from the query path cache.
-
-```javascript
-const parsedQuery = `
-  query {
-    organization(login: "facebook") {
+const request = `
+  query ($login: String!) {
+    organization(login: $login) {
       description
+      email
       login
       name
-      repositories(first: 20) {
-        edges {
-          node {
-            description
-            name
-            id
-          }
-        }
-      }
-      id
+      url
     }
   }
 `;
 
-const queryPaths = [
-  'organization({login:"facebook"})',
-  'organization({login:"facebook"}).repositories({first:20})',
-  'organization({login:"facebook"}).repositories({first:20}).edges.node',
-];
+(async () => {
+  const { data, errors } = await client.request(request, {
+    variables: { login: "facebook" },
+  });
+
+  // Do something...
+})();
 ```
 
-A query path is defined as an entity object (an object type with an ID) or a data type with arguments or directives.
-The query path is stored alongside its data except for when the data is part of a sub query path. So
-`organization({login:"facebook"})` would include data for the fields `description`, `login`, `name` and `id`, but not
-for the field `repositories`.
+### Making a Client request for a subscription
 
-##### Data entities
+You can execute a subscription using the `subscribe` method. Pass the request string as the first argument and
+any variables or fragments as properties in the second argument.
 
-Data entities are object types with an ID. Handl will check query, mutation and subscription responses for data
-entities and each one it finds is cached, unless instructed otherwise, against a combination of the object type name
-and ID. i.e. `typename:ID`. This is equivalent to a normalized cache and allows handl to resolve a request from cache
-even if the requested entity was previously returned for a different request at a different level in the query path.
+The `subscribe` method returns an async iterator. Each time the iterator's `next` function is invokes, it returns a
+`data` object with the response and/or an `errors` array.
+
+```javascript
+const subscription = `
+  subscription {
+    emailAdded {
+      emails {
+        from
+        message
+        subject
+        unread
+      }
+      total
+      unread
+    }
+  }
+`;
+
+(async () => {
+  const asyncIterator = await client.subscribe(subscription);
+
+  for await (const ({ data, errors }) of asyncIterator) {
+    // Do something...
+  }
+})();
+```
+
+### Creating an instance of the Server
+
+The `Server` is initialized using its async static `init` method, don't initialize it using the traditional class
+constructor. The reason for this is so the `Server` can wait for asynchronous tasks to complete before returning an
+instance of itself.
+
+To initialize the `Server`, you just need to pass an instance of the `Client` into the `init` method. The difference
+with the `Client` initialized in the browser example above is the `requestManager` and `subscriptionsManager` properties
+accept their server-side equivalents.
+
+The example below initializes the `Server` with a persisted cache with type cache control directives, a debug manager
+with a logger, an execute module, and a subscribe module.
+
+```javascript
+import Cachemap from "@cachemap/core";
+import cacheManager from "@graphql-box/cache-manager";
+import Client from "@graphql-box/client";
+import { DEFAULT_TYPE_ID_KEY } from "@graphql-box/core";
+import debugManager from "@graphql-box/debug-manager";
+import execute from "@graphql-box/execute";
+import requestParser from "@graphql-box/request-parser";
+import Server from "@graphql-box/server";
+import subscribe from "@graphql-box/subscribe";
+import { makeExecutableSchema } from "graphql-tools";
+import { performance } from "perf_hooks";
+import { schemaResolvers, schemaTypeDefs } from "./schema";
+
+const schema = makeExecutableSchema({ typeDefs: schemaTypeDefs, resolvers: schemaResolvers });
+
+(async () => {
+  const server = Server.init({
+    client: await Client.init({
+      cacheManager: cacheManager({
+        cache: await Cachemap.init({
+          name: "cachemap",
+          reaper: reaper({ interval: 300000 }),
+          store: redis(),
+        }),
+        cascadeCacheControl: true,
+        typeCacheDirectives: {
+          Organization: "public, max-age=3",
+          Repository: "public, max-age=3",
+          RepositoryConnection: "public, max-age=1",
+          RepositoryOwner: "public, max-age=3",
+        },
+      }),
+      debugManager: debugManager({
+        logger: {
+          log: (...args) => {
+            console.log(...args);
+          },
+        },
+        name: "SERVER",
+        performance,
+      }),
+      requestManager: execute({ schema }),
+      requestParser: requestParser({ schema }),
+      subscriptionsManager: subscribe({ schema }),
+      typeIDKey: DEFAULT_TYPE_ID_KEY,
+    }),
+  });
+
+  // Do something...
+})();
+```
+
+Only the `Client` properties that differ from the browser example above are outlined below.
+
+* [debugManager:performance](#debugmanager:performance)
+* [execute](#execute)
+* [requestParser:schema](#requestparser:schema)
+* [subscribe](#subscribe)
+
+#### debugManager:performance
+
+`performance` is an object with a `now` function. On the server, you should pass in `performance` object exported
+from Node's `perf_hooks` module.
+
+---
+
+For a full list of configuration options, see the `@graphql-box/debug-manager`
+[documentation](./packages/debug-manager/README.md).
+
+---
+
+#### execute
+
+On the server, the `requestManager` property accepts the `execute` curried function that return an instance of
+the `Execute` module. `Execute` is a mandatory module.
+
+`Execute` is a wrapper around GraphQL's own execute function, which resolves queries and mutations against a schema,
+which needs to be passed into the curried function.
+
+The `schema` is made up of GraphQL type definitions of each data structure and a set of resolver functions.
+
+---
+
+For a full list of configuration options, see the `@graphql-box/execute`
+[documentation](./packages/execute/README.md).
+
+---
+
+#### requestParser:schema
+
+On the server, the `RequestParser` uses the the GraphQL schema rather than the result of an introspection query of the
+schema.
+
+---
+
+For a full list of configuration options, see the `@graphql-box/request-parser`
+[documentation](./packages/request-parser/README.md).
+
+---
+
+#### subscribe
+
+On the server, the `subscriptionsManager` property accepts the `subscribe` curried function that return an instance of
+the `Subscribe` module. `Subscribe` is an optional module.
+
+`Subscribe` is a wrapper around GraphQL's own subscribe function, which resolves subscriptions against a schema,
+which needs to be passed into the curried function.
+
+---
+
+For a full list of configuration options, see the `@graphql-box/subscribe`
+[documentation](./packages/subscribe/README.md).
+
+---
+
+### Handling a Server request for a query or mutation
+
+You can handle a query or mutation using the `request` method. The method returns a middleware function that can be
+used with web application frameworks such as `Express`.
+
+```javascript
+import express from "express";
+import http from "http";
+import initServer from "./server";
+
+(async () => {
+  const app = express();
+  const server = await initServer();
+  app.use("/graphql", server.request());
+  const server = http.createServer(app);
+  server.listen(3001);
+})();
+```
+
+### Handling a Server message for a subscription
+
+You can handle a subscription using the `message` method. The method returns a middleware function that can be
+used with websocket libraries such as `ws`.
+
+```javascript
+import express from "express";
+import http from "http";
+import WebSocket from "ws";
+import initServer from "./server";
+
+(async () => {
+  const app = express();
+  const server = http.createServer(app);
+  const wss = new WebSocket.Server({ path: "/graphql", server });
+
+  wss.on("connection", (ws) => {
+    ws.on("message", boxServer.message({ ws }));
+  });
+})();
+```
+
+## Changelog
+
+Check out the [features, fixes and more](CHANGELOG.md) that go into each major, minor and patch version.
 
 ## License
 
-Handl is [MIT Licensed](LICENSE).
+GraphQL Box is [MIT Licensed](LICENSE).

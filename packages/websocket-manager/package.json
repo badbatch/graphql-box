@@ -1,0 +1,45 @@
+{
+  "name": "@graphql-box/websocket-manager",
+  "version": "0.1.22",
+  "description": "The GraphQL Box websocket manager module.",
+  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/badbatch/graphql-box",
+  "bugs": {
+    "url": "https://github.com/badbatch/graphql-box/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/badbatch/graphql-box"
+  },
+  "main": "lib/main/index.js",
+  "module": "lib/module/index.js",
+  "browser": "lib/browser/index.js",
+  "types": "lib/types/index.d.ts",
+  "keywords": [
+    "graphql-box",
+    "graphql",
+    "client",
+    "server",
+    "isomorphic"
+  ],
+  "scripts": {
+    "compile": "concurrently npm:compile:*",
+    "compile:browser": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js",
+    "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --config-file ../../babel.config.js",
+    "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --config-file ../../babel.config.js",
+    "compile:types": "tsc --build",
+    "docs": "typedoc --includes ./src/main --out ./docs --options ../../typedoc.js",
+    "watch": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js -w"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "^7.0.0",
+    "core-js": "^2.0",
+    "lodash": "^4.17.5"
+  },
+  "dependencies": {
+    "@graphql-box/core": "^0.1.22",
+    "@graphql-box/helpers": "^0.1.22",
+    "eventemitter3": "^4.0.0"
+  }
+}

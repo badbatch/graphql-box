@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig.settings.json",
+  "compilerOptions": {
+    "outDir": "lib/types",
+    "rootDir": "src"
+  },
+  "exclude": [
+    "**/*.test.ts"
+  ],
+  "include": [
+    "src/**/*",
+  ],
+  "references": [
+    { "path": "../core" },
+    { "path": "../helpers" },
+    { "path": "../test-utils" }
+  ]
+}

@@ -1,0 +1,801 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@graphql-box/request-parser >> mutation >> input type variable >> correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "mutation.addStar" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "AddStarPayload",
+    },
+    "mutation.addStar.starrable" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": true,
+      "isUnion": false,
+      "possibleTypes": Array [
+        Object {
+          "isEntity": true,
+          "typeName": "Repository",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "Topic",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "Gist",
+        },
+      ],
+      "typeIDValue": undefined,
+      "typeName": "Starrable",
+    },
+    "mutation.addStar.starrable.stargazers" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "StargazerConnection",
+    },
+    "mutation.addStar.starrable.stargazers.edges" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "StargazerEdge",
+    },
+    "mutation.addStar.starrable.stargazers.edges.node" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "User",
+    },
+  },
+  "operation": "mutation",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> mutation >> input type variable >> correct request 1`] = `
+"mutation {
+  addStar(input: {clientMutationId: \\"1\\", starrableId: \\"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=\\"}) {
+    clientMutationId
+    starrable {
+      viewerHasStarred
+      ... on Repository {
+        stargazers(first: 6) {
+          edges {
+            node {
+              name
+              login
+              id
+            }
+          }
+        }
+        id
+      }
+      __typename
+    }
+  }
+}
+"
+`;
+
+exports[`@graphql-box/request-parser >> query >> directive correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+    "query.organization.repositories" => Object {
+      "hasArguments": true,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryConnection",
+    },
+    "query.organization.repositories.edges" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryEdge",
+    },
+    "query.organization.repositories.edges.node" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Repository",
+    },
+    "query.organization.repositories.edges.node.owner" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": true,
+      "isUnion": false,
+      "possibleTypes": Array [
+        Object {
+          "isEntity": true,
+          "typeName": "Organization",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "User",
+        },
+      ],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryOwner",
+    },
+  },
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> directive correct request 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    repositories(first: 6) @include(if: true) {
+      edges {
+        node {
+          description
+          homepageUrl
+          name
+          owner {
+            login
+            url
+            ... on Organization {
+              name
+              id
+            }
+            __typename
+          }
+          id
+        }
+      }
+    }
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@graphql-box/request-parser >> query >> enum variable >> correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+    "query.organization.repositories" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryConnection",
+    },
+    "query.organization.repositories.edges" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryEdge",
+    },
+    "query.organization.repositories.edges.node" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Repository",
+    },
+    "query.organization.repositories.edges.node.owner" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": true,
+      "isUnion": false,
+      "possibleTypes": Array [
+        Object {
+          "isEntity": true,
+          "typeName": "Organization",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "User",
+        },
+      ],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryOwner",
+    },
+  },
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> enum variable >> correct request 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    repositories(first: 6, ownerAffiliations: [OWNER, COLLABORATOR]) {
+      edges {
+        node {
+          description
+          homepageUrl
+          name
+          owner {
+            login
+            url
+            ... on Organization {
+              name
+              id
+            }
+            __typename
+          }
+          id
+        }
+      }
+    }
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@graphql-box/request-parser >> query >> fragment option >> correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> fragment option >> correct request 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@graphql-box/request-parser >> query >> fragment spread >> correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> fragment spread >> correct request 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@graphql-box/request-parser >> query >> inline fragment >> correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> inline fragment >> correct request 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@graphql-box/request-parser >> query >> inline fragments >> union type >> correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.search" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "SearchResultItemConnection",
+    },
+    "query.search.edges" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "SearchResultItemEdge",
+    },
+    "query.search.edges.node" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": true,
+      "possibleTypes": Array [
+        Object {
+          "isEntity": true,
+          "typeName": "Issue",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "PullRequest",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "Repository",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "User",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "Organization",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "MarketplaceListing",
+        },
+      ],
+      "typeIDValue": undefined,
+      "typeName": "SearchResultItem",
+    },
+  },
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> inline fragments >> union type >> correct request 1`] = `
+"{
+  search(query: \\"react\\", first: 10, type: REPOSITORY) {
+    edges {
+      node {
+        ... on Organization {
+          description
+          login
+          organizationName: name
+          id
+        }
+        ... on Issue {
+          bodyText
+          number
+          title
+          id
+        }
+        ... on MarketplaceListing {
+          slug
+          shortDescription
+          howItWorks
+          id
+        }
+        ... on PullRequest {
+          bodyText
+          number
+          title
+          id
+        }
+        ... on Repository {
+          description
+          homepageUrl
+          name
+          id
+        }
+        __typename
+      }
+    }
+  }
+}
+"
+`;
+
+exports[`@graphql-box/request-parser >> query >> multiple variables >> correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+    "query.organization.repositories" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryConnection",
+    },
+    "query.organization.repositories.edges" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryEdge",
+    },
+    "query.organization.repositories.edges.node" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Repository",
+    },
+    "query.organization.repositories.edges.node.owner" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": true,
+      "isUnion": false,
+      "possibleTypes": Array [
+        Object {
+          "isEntity": true,
+          "typeName": "Organization",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "User",
+        },
+      ],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryOwner",
+    },
+  },
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> multiple variables >> correct request 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    repositories(first: 6) {
+      edges {
+        node {
+          description
+          homepageUrl
+          name
+          owner {
+            login
+            url
+            ... on Organization {
+              name
+              id
+            }
+            __typename
+          }
+          id
+        }
+      }
+    }
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@graphql-box/request-parser >> query >> no variable >> correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> no variable >> correct request 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@graphql-box/request-parser >> query >> operation name >> correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "operation": "query",
+  "operationName": "GetOrganization",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> operation name >> correct request 1`] = `
+"query GetOrganization {
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@graphql-box/request-parser >> query >> variable correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> variable correct request 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@graphql-box/request-parser >> subscription >> correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "subscription.emailAdded" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Inbox",
+    },
+    "subscription.emailAdded.emails" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Email",
+    },
+  },
+  "operation": "subscription",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> subscription >> correct request 1`] = `
+"subscription {
+  emailAdded {
+    emails {
+      from
+      message
+      subject
+      unread
+      id
+    }
+    total
+    unread
+    id
+  }
+}
+"
+`;
