@@ -469,11 +469,12 @@ import initServer from "./server";
 
 (async () => {
   const app = express();
-  const server = http.createServer(app);
-  const wss = new WebSocket.Server({ path: "/graphql", server });
+  const server = await initServer();
+  const httpServer = http.createServer(app);
+  const wss = new WebSocket.Server({ path: "/graphql", server: httpServer });
 
   wss.on("connection", (ws) => {
-    ws.on("message", boxServer.message({ ws }));
+    ws.on("message", server.message({ ws }));
   });
 })();
 ```
