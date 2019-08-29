@@ -1,9 +1,15 @@
 {
   "name": "graphql-box",
   "version": "1.0.1",
+  "private": true,
   "description": "An extensible GraphQL client and server with modules for caching, request parsing, subscriptions and more.",
-  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
-  "license": "MIT",
+  "keywords": [
+    "client",
+    "graphql",
+    "graphql-box",
+    "isomorphic",
+    "server"
+  ],
   "homepage": "https://github.com/badbatch/graphql-box",
   "bugs": {
     "url": "https://github.com/badbatch/graphql-box/issues"
@@ -12,23 +18,15 @@
     "type": "git",
     "url": "https://github.com/badbatch/graphql-box"
   },
-  "engines": {
-    "node": "^10.16.0"
-  },
-  "keywords": [
-    "graphql-box",
-    "graphql",
-    "client",
-    "server",
-    "isomorphic"
-  ],
-  "private": true,
+  "license": "MIT",
+  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "yarn run clean:libs && yarn run compile",
+    "build-references": "build-references",
     "clean": "yarn run clean:packages && yarn run clean:libs && yarn run clean:docs && yarn run clean:repo",
     "clean:docs": "lerna exec --parallel -- del-cli ./docs",
     "clean:libs": "lerna exec --parallel -- del-cli ./lib",
@@ -41,20 +39,22 @@
     "compile:types": "lerna run compile:types --stream",
     "cutoff": "cutoff-lerna",
     "cutoff:post-version": "yarn run compile && yarn run docs",
-    "integration": "concurrently --kill-others --success first \"yarn run integration:server\" \"yarn run integration:tests\"",
-    "integration-update": "cross-env UPDATE=true PRUNE=true yarn run integration",
-    "integration:tests": "cross-env BABEL_ENV=integration karma start --single-run --reporters mocha --browsers ChromeHeadlessNoSandbox",
-    "integration:debug": "cross-env BABEL_ENV=integration karma start --no-single-run --reporters progress --browsers ChromeNoSandbox",
-    "integration:server": "cross-env BABEL_ENV=main node ./integration/server/cli",
     "docs": "lerna run docs --parallel",
     "init": "yarn && yarn run bootstrap && yarn run build",
+    "integration": "concurrently --kill-others --success first \"yarn run integration:server\" \"yarn run integration:tests\"",
+    "integration-update": "cross-env UPDATE=true PRUNE=true yarn run integration",
+    "integration:debug": "cross-env BABEL_ENV=integration karma start --no-single-run --reporters progress --browsers ChromeNoSandbox",
+    "integration:server": "cross-env BABEL_ENV=main node ./integration/server/cli",
+    "integration:tests": "cross-env BABEL_ENV=integration karma start --single-run --reporters mocha --browsers ChromeHeadlessNoSandbox",
     "introspect:url": "node ./packages/cli/bin/introspect --url \"https://api.github.com/graphql\" --headers \"Authorization:bearer <TOKEN>\" --output \"test/introspections/github/index.json\"",
     "lint": "tslint --project ./tsconfig.json",
+    "new-monorepo": "new-monorepo",
     "new-package": "new-package",
     "new-package:post": "yarn run bootstrap",
     "publish-cutoff": "publish-lerna-cutoff",
     "test": "jest --logHeapUsage",
     "type-check": "tsc --noEmit",
+    "validate": "yarn run lint && yarn run type-check && yarn run test && yarn run integration",
     "watch": "cross-env NODE_ENV=development lerna run watch --parallel",
     "wipe": "yarn run wipe:packages && yarn run wipe:repo",
     "wipe:packages": "lerna exec --parallel -- del-cli ./yarn.lock ./node_modules",
@@ -74,7 +74,6 @@
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-syntax-import-meta": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.5.5",
-    "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.3.3",
     "@babel/register": "7.5.5",
@@ -84,6 +83,10 @@
     "@cachemap/map": "^1.3.1",
     "@cachemap/redis": "^1.3.1",
     "@playlyfe/gql": "^2.6.1",
+    "@repodog/build-references": "^0.2.27",
+    "@repodog/constants": "^0.2.26",
+    "@repodog/helpers": "^0.2.27",
+    "@repodog/new-monorepo": "^0.2.26",
     "@types/chai": "^4.1.7",
     "@types/cors": "^2.8.5",
     "@types/eventemitter3": "^2.0.2",
@@ -122,6 +125,7 @@
     "eslint-plugin-react": "^7.14.3",
     "express": "^4.17.1",
     "fetch-mock": "^7.3.9",
+    "fs-extra": "^8.1.0",
     "graphql": "^14.4.2",
     "graphql-tools": "^4.0.5",
     "husky": "3.0.2",
@@ -160,5 +164,8 @@
     "typescript": "^3.5.3",
     "webpack": "^4.38.0",
     "ws": "^7.1.1"
+  },
+  "engines": {
+    "node": "^10.16.0"
   }
 }
