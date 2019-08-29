@@ -5,7 +5,7 @@
     "rootDir": "src"
   },
   "include": [
-    "src/**/*",
+    "src/**/*"
   ],
   "references": [
     { "path": "../cache-manager" },
@@ -15,6 +15,6 @@
     { "path": "../helpers" },
     { "path": "../request-parser" },
     { "path": "../websocket-manager" },
-    { "path": "../test-utils" },
+    { "path": "../test-utils" }
   ]
 }

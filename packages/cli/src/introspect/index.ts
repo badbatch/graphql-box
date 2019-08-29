@@ -14,7 +14,7 @@ export default async function introspect(): Promise<void> {
 
   try {
     if (!schemaPath && !url) {
-      const message = "introspect requires either the 'schemaPath' or 'url' argument, but not neither.";
+      const message = "introspect requires either the 'schemaPath' or 'url' argument, but got neither.";
       return Promise.reject(new TypeError(message));
     }
 

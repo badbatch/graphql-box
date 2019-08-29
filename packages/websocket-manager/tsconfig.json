@@ -11,5 +11,5 @@
     { "path": "../core" },
     { "path": "../helpers" },
     { "path": "../test-utils" }
-  ],
+  ]
 }

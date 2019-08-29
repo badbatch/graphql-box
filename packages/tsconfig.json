@@ -2,13 +2,13 @@
   "extends": "./tsconfig.settings.json",
   "files": [],
   "references": [
-    { "path": "../cache-manager" },
-    { "path": "../client" },
-    { "path": "../core" },
-    { "path": "../debug-manager" },
-    { "path": "../fetch-manager" },
-    { "path": "../request-parser" },
-    { "path": "../websocket-manager" },
-    { "path": "../test-utils" }
-  ],
+    { "path": "./cache-manager" },
+    { "path": "./client" },
+    { "path": "./core" },
+    { "path": "./debug-manager" },
+    { "path": "./fetch-manager" },
+    { "path": "./request-parser" },
+    { "path": "./websocket-manager" },
+    { "path": "./test-utils" }
+  ]
 }
