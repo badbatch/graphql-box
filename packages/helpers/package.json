@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@graphql-box/core": "^1.0.0",
-    "cacheability": "^2.0.5",
+    "cacheability": "^2.0.7",
     "iterall": "^1.2.2",
     "md5": "^2.2.1"
   }
