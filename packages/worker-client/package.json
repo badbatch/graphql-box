@@ -53,6 +53,8 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@graphql-box/client": "^1.0.1",
+    "@graphql-box/debug-manager": "^1.0.1",
     "@graphql-box/test-utils": "^1.0.1"
   }
 }

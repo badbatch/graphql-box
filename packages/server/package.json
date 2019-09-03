@@ -48,6 +48,7 @@
     "iterall": "^1.2.2"
   },
   "devDependencies": {
+    "@graphql-box/client": "^1.0.1",
     "@graphql-box/test-utils": "^1.0.1"
   }
 }

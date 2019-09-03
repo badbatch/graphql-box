@@ -48,6 +48,7 @@
     "eventemitter3": "^4.0.0"
   },
   "devDependencies": {
+    "@graphql-box/cache-manager": "^1.0.1",
     "@graphql-box/test-utils": "^1.0.1"
   }
 }
