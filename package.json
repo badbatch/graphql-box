@@ -57,7 +57,7 @@
     "publish-cutoff": "publish-lerna-cutoff",
     "test": "jest --logHeapUsage",
     "type-check": "tsc --noEmit",
-    "validate": "yarn run lint && yarn run type-check && yarn run test && yarn run integration",
+    "validate": "yarn run build && yarn run lint && yarn run type-check && yarn run test && yarn run integration",
     "watch": "cross-env NODE_ENV=development lerna run watch --parallel",
     "wipe": "yarn run wipe:packages && yarn run wipe:repo",
     "wipe:packages": "lerna exec --parallel -- del-cli ./yarn.lock ./node_modules",

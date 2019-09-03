@@ -13,9 +13,7 @@ before_install:
 install:
   - yarn run init
 script:
-  - yarn run lint
-  - yarn run type-check
-  - yarn run test
+  - yarn run validate
 before_depoly:
   - echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> .npmrc
 deploy:
