@@ -50,11 +50,7 @@ export interface UpdateRequestResult {
 }
 
 export interface RequestParserDef {
-  updateRequest(
-    request: string,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<UpdateRequestResult>;
+  updateRequest(request: string, options: RequestOptions, context: RequestContext): Promise<UpdateRequestResult>;
 }
 
 export type RequestParserInit = (options: ClientOptions) => Promise<RequestParserDef>;

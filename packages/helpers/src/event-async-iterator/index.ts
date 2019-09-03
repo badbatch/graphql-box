@@ -36,7 +36,7 @@ export default class EventAsyncIterator {
     if (this._listening) {
       this._listening = false;
       this._removeEventListener();
-      this._pullQueue.forEach((resolve) => resolve({ value: undefined, done: true }));
+      this._pullQueue.forEach(resolve => resolve({ value: undefined, done: true }));
       this._pullQueue.length = 0;
       this._pushQueue.length = 0;
     }

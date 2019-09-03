@@ -32,5 +32,6 @@ export type InitOptions = UserOptions;
 
 export type ConstructorOptions = UserOptions;
 
-// tslint:disable-next-line:max-line-length
-export type GraphQLExecute = <TData = ExecutionResultDataDefault>(args: ExecutionArgs) => PromiseOrValue<ExecutionResult<TData>>;
+export type GraphQLExecute = <TData = ExecutionResultDataDefault>(
+  args: ExecutionArgs,
+) => PromiseOrValue<ExecutionResult<TData>>;

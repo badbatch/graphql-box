@@ -34,15 +34,15 @@ export default async function graphqlServer(): Promise<http.Server> {
   const server = http.createServer(app);
   const wss = new WebSocket.Server({ path: "/graphql", server });
 
-  wss.on("connection", (ws) => {
+  wss.on("connection", ws => {
     ws.on("message", boxServer.message({ awaitDataCaching: true, returnCacheMetadata: true, ws }));
 
-    ws.on("error", (error) => {
+    ws.on("error", error => {
       console.log(error);
     });
   });
 
-  wss.on("error", (error) => {
+  wss.on("error", error => {
     console.log(error);
   });
 
@@ -50,11 +50,11 @@ export default async function graphqlServer(): Promise<http.Server> {
     console.log("Server listening on port 3001...");
   });
 
-  server.on("error", (error) => {
+  server.on("error", error => {
     console.log(error);
   });
 
-  process.on("uncaughtException", (error) => {
+  process.on("uncaughtException", error => {
     console.log(error);
   });
 

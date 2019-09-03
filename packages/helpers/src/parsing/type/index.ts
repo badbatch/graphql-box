@@ -1,9 +1,4 @@
-import {
-  GraphQLField,
-  GraphQLList,
-  GraphQLNonNull,
-  GraphQLOutputType,
-} from "graphql";
+import { GraphQLField, GraphQLList, GraphQLNonNull, GraphQLOutputType } from "graphql";
 import { OF_TYPE } from "../../consts";
 import { GraphQLNullableOutputType } from "../../defs";
 

@@ -1,10 +1,5 @@
 import { MaybeRawResponseData, RequestManagerDef } from "@graphql-box/core";
-import {
-  getRequestContext,
-  getRequestData,
-  parsedRequests,
-  responses,
-} from "@graphql-box/test-utils";
+import { getRequestContext, getRequestData, parsedRequests, responses } from "@graphql-box/test-utils";
 import fetchMock from "fetch-mock";
 import { FetchManager } from ".";
 
@@ -24,12 +19,7 @@ describe("@graphql-box/fetch-manager >>", () => {
       const body = { data: responses.singleTypeQuery.data };
       const headers = { "cache-control": "public, max-age=5" };
       fetchMock.post("*", { body, headers });
-
-      response = await fetchManager.execute(
-        getRequestData(parsedRequests.singleTypeQuery),
-        {},
-        getRequestContext(),
-      );
+      response = await fetchManager.execute(getRequestData(parsedRequests.singleTypeQuery), {}, getRequestContext());
     });
 
     afterAll(() => {

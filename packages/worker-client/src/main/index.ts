@@ -72,10 +72,7 @@ export default class WorkerClient {
     return this._cache;
   }
 
-  public async request(
-    request: string,
-    options: RequestOptions = {},
-  ): Promise<MaybeRequestResult> {
+  public async request(request: string, options: RequestOptions = {}): Promise<MaybeRequestResult> {
     try {
       return this._request(request, options, this._getRequestContext(QUERY, request)) as MaybeRequestResult;
     } catch (error) {
@@ -88,11 +85,9 @@ export default class WorkerClient {
     options: RequestOptions = {},
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
     try {
-      return await this._subscribe(
-        request,
-        options,
-        this._getRequestContext(SUBSCRIPTION, request),
-      ) as AsyncIterator<MaybeRequestResult | undefined>;
+      return (await this._subscribe(request, options, this._getRequestContext(SUBSCRIPTION, request))) as AsyncIterator<
+        MaybeRequestResult | undefined
+      >;
     } catch (error) {
       return Promise.reject(error);
     }
@@ -132,7 +127,7 @@ export default class WorkerClient {
     } else if (method === SUBSCRIBE) {
       this._eventEmitter.emit(context.boxID, response);
     }
-  }
+  };
 
   @logRequest()
   private async _request(

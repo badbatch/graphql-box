@@ -63,8 +63,8 @@ export interface ConstructorOptions {
 }
 
 export interface PartialQueryResponse {
-  data: PlainObjectMap;
   cacheMetadata: CacheMetadata;
+  data: PlainObjectMap;
 }
 
 export type PartialQueryResponses = Map<string, PartialQueryResponse>;
@@ -114,10 +114,10 @@ export interface MergedCachedFieldData {
 export interface CachedAncestorFieldData {
   cacheability?: Cacheability;
   dataEntityData?: any;
-  requestFieldPathData?: any;
+  index?: number;
   requestFieldCacheKey?: string;
   requestFieldPath?: string;
-  index?: number;
+  requestFieldPathData?: any;
   typeName?: string;
 }
 
@@ -180,11 +180,7 @@ export interface CachemapOptions {
 
 export interface CacheManagerDef {
   cache: Cachemap;
-  analyzeQuery(
-    requestData: RequestData,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<AnalyzeQueryResult>;
+  analyzeQuery(requestData: RequestData, options: RequestOptions, context: RequestContext): Promise<AnalyzeQueryResult>;
   checkCacheEntry(
     cacheType: CacheTypes,
     hash: string,
@@ -196,9 +192,7 @@ export interface CacheManagerDef {
     options: RequestOptions,
     context: RequestContext,
   ): Promise<ResponseData | false>;
-  deletePartialQueryResponse(
-    hash: string,
-  ): void;
+  deletePartialQueryResponse(hash: string): void;
   resolveQuery(
     requestData: RequestData,
     updatedRequestData: RequestData,

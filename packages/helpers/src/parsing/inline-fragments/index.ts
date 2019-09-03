@@ -18,7 +18,7 @@ export function deleteInlineFragments(
     if (getKind(childFields[i]) === INLINE_FRAGMENT) {
       const inlineFragmentNode = childFields[i] as InlineFragmentNode;
 
-      if (castInlineFragments.some((inlineFragment) => inlineFragment === inlineFragmentNode)) {
+      if (castInlineFragments.some(inlineFragment => inlineFragment === inlineFragmentNode)) {
         childFields.splice(i, 1);
       }
     }
@@ -47,7 +47,7 @@ export function getInlineFragments({ selectionSet }: FieldNode): InlineFragmentN
 
 export function hasInlineFragments({ selectionSet }: FieldNode): boolean {
   if (!selectionSet) return false;
-  return selectionSet.selections.some((value) => getKind(value) === INLINE_FRAGMENT);
+  return selectionSet.selections.some(value => getKind(value) === INLINE_FRAGMENT);
 }
 
 export function setInlineFragments({ selectionSet }: FieldNode): void {
@@ -88,7 +88,8 @@ export function unwrapInlineFragments(
       const inlineFragmentNode = selectionNode as InlineFragmentNode;
 
       inlineFragmentType = inlineFragmentNode.typeCondition
-        ? getName(inlineFragmentNode.typeCondition) as string : undefined;
+        ? (getName(inlineFragmentNode.typeCondition) as string)
+        : undefined;
 
       const unwrappedFieldAndTypeName = unwrapInlineFragments(
         inlineFragmentNode.selectionSet.selections,

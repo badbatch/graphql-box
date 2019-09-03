@@ -45,5 +45,8 @@
     "fs-extra": "^8.1.0",
     "shelljs": "^0.8.3",
     "yargs": "^13.3.0"
+  },
+  "devDependencies": {
+    "@graphql-box/test-utils": "^1.0.1"
   }
 }

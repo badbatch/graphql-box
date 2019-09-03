@@ -7,15 +7,10 @@ const WORKER_PATH = 'integration/tests/worker-client/worker';
 
 const ChromeNoSandbox = {
   base: 'Chrome',
-  flags: [
-    '--no-sandbox',
-    '--disable-setuid-sandbox',
-    '--disable-gpu',
-    '--remote-debugging-port=9222',
-  ],
+  flags: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu', '--remote-debugging-port=9222'],
 };
 
-module.exports = (config) => {
+module.exports = config => {
   config.set({
     autoWatch: true,
     basePath: '',
@@ -28,18 +23,11 @@ module.exports = (config) => {
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
         ...ChromeNoSandbox,
-        flags: [
-          ...ChromeNoSandbox.flags,
-          '--headless',
-        ],
+        flags: [...ChromeNoSandbox.flags, '--headless'],
       },
       ChromeNoSandbox,
     },
-    files: [
-      SNAPSHOTS_GLOB,
-      TESTS_GLOB,
-      `${WORKER_PATH}.ts`,
-    ],
+    files: [SNAPSHOTS_GLOB, TESTS_GLOB, `${WORKER_PATH}.ts`],
     frameworks: ['mocha', 'chai', 'sinon', 'snapshot', 'mocha-snapshot'],
     logLevel: config.LOG_INFO,
     mime: {

@@ -8,7 +8,11 @@
     "src/**/*"
   ],
   "references": [
-    { "path": "../core" },
-    { "path": "../test-utils" }
+    {
+      "path": "../core"
+    },
+    {
+      "path": "../test-utils"
+    }
   ]
 }

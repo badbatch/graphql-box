@@ -9,9 +9,4 @@ import * as requestFieldTypeMaps from "./request-field-type-maps";
 import * as requestsAndOptions from "./requests-and-options";
 import * as responses from "./responses";
 
-export {
-  parsedRequests,
-  requestFieldTypeMaps,
-  requestsAndOptions,
-  responses,
-};
+export { parsedRequests, requestFieldTypeMaps, requestsAndOptions, responses };

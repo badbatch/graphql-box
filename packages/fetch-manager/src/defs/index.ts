@@ -1,9 +1,4 @@
-import {
-  DehydratedCacheMetadata,
-  MaybeRawResponseData,
-  PlainObjectMap,
-  PlainObjectStringMap,
-} from "@graphql-box/core";
+import { DehydratedCacheMetadata, MaybeRawResponseData, PlainObjectMap, PlainObjectStringMap } from "@graphql-box/core";
 
 export interface UserOptions {
   /**

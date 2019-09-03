@@ -131,9 +131,9 @@ export type FieldTypeMap = Map<string, FieldTypeInfo>;
 export type ValidOperations = "mutation" | "query" | "subscription";
 
 export interface RequestContext {
+  boxID: string;
   debugManager: DebugManagerDef | null;
   fieldTypeMap: FieldTypeMap;
-  boxID: string;
   operation: ValidOperations;
   operationName: string;
   queryFiltered: boolean;
@@ -141,9 +141,9 @@ export interface RequestContext {
 }
 
 export interface MaybeRequestContext {
+  boxID?: string;
   debugManager?: DebugManagerDef | null;
   fieldTypeMap?: FieldTypeMap;
-  boxID?: string;
   operation?: ValidOperations;
   operationName?: string;
   queryFiltered?: boolean;
@@ -226,9 +226,7 @@ export interface RequestManagerDef {
 
 export type RequestManagerInit = () => Promise<RequestManagerDef>;
 
-export type SubscriberResolver = (
-  rawResponseData: MaybeRawResponseData,
-) => Promise<MaybeRequestResult>;
+export type SubscriberResolver = (rawResponseData: MaybeRawResponseData) => Promise<MaybeRequestResult>;
 
 export interface SubscriptionsManagerDef {
   subscribe(

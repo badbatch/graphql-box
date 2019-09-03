@@ -1,13 +1,13 @@
 import Core from "@cachemap/core";
 import { CacheManagerDef } from "@graphql-box/cache-manager";
 import {
-  DebugManagerDef,
   DEFAULT_TYPE_ID_KEY,
+  DebugManagerDef,
+  MUTATION,
   MaybeRawResponseData,
   MaybeRequestContext,
   MaybeRequestResult,
   MaybeResponseData,
-  MUTATION,
   QUERY,
   RawResponseDataWithMaybeCacheMetadata,
   RequestContext,
@@ -69,7 +69,7 @@ export default class Client {
   }
 
   private static _areFragmentsInvalid(fragments?: string[]): boolean {
-    return !!fragments && (!isArray(fragments) || !fragments.every((value) => isString(value)));
+    return !!fragments && (!isArray(fragments) || !fragments.every(value => isString(value)));
   }
 
   private static _resolve(
@@ -154,11 +154,11 @@ export default class Client {
     if (errors.length) return Promise.reject(errors);
 
     try {
-      return await this._request(
+      return (await this._request(
         request,
         options,
         this._getRequestContext(SUBSCRIPTION, request, context),
-      ) as AsyncIterator<MaybeRequestResult | undefined>;
+      )) as AsyncIterator<MaybeRequestResult | undefined>;
     } catch (error) {
       return Promise.reject(error);
     }
@@ -221,12 +221,7 @@ export default class Client {
       if (pendingQuery) return pendingQuery;
 
       let updatedRequestData: RequestDataWithMaybeAST = requestData;
-
-      const analyzeQueryResult = await this._cacheManager.analyzeQuery(
-        requestData as RequestData,
-        options,
-        context,
-      );
+      const analyzeQueryResult = await this._cacheManager.analyzeQuery(requestData as RequestData, options, context);
 
       const { response, updated } = analyzeQueryResult;
 
@@ -310,10 +305,7 @@ export default class Client {
     }
   }
 
-  private _resolvePendingRequests(
-    { hash }: RequestDataWithMaybeAST,
-    responseData: MaybeResponseData,
-  ): void {
+  private _resolvePendingRequests({ hash }: RequestDataWithMaybeAST, responseData: MaybeResponseData): void {
     const pendingRequests = this._queryTracker.pending.get(hash);
     if (!pendingRequests) return;
 
@@ -331,7 +323,7 @@ export default class Client {
     context: RequestContext,
   ): Promise<MaybeRequestResult> {
     this._resolvePendingRequests(requestData, responseData);
-    this._queryTracker.active = this._queryTracker.active.filter((value) => value !== requestData.hash);
+    this._queryTracker.active = this._queryTracker.active.filter(value => value !== requestData.hash);
     this._cacheManager.deletePartialQueryResponse(requestData.hash);
     return Client._resolve(responseData, options, context);
   }

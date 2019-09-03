@@ -5,7 +5,7 @@ import { getKind } from "../kind";
 export function getOperationDefinitions({ definitions }: DocumentNode, name?: string): OperationDefinitionNode[] {
   const operationDefinitions: OperationDefinitionNode[] = [];
 
-  definitions.forEach((definition) => {
+  definitions.forEach(definition => {
     if (getKind(definition) === OPERATION_DEFINITION) {
       const operationDefinition = definition as OperationDefinitionNode;
       operationDefinitions.push(operationDefinition);
@@ -16,7 +16,7 @@ export function getOperationDefinitions({ definitions }: DocumentNode, name?: st
 
   const filterdOperationDefinitions: OperationDefinitionNode[] = [];
 
-  operationDefinitions.forEach((operationDefinition) => {
+  operationDefinitions.forEach(operationDefinition => {
     if (operationDefinition.operation === name) {
       filterdOperationDefinitions.push(operationDefinition);
     }

@@ -7,12 +7,7 @@ import { unwrapInlineFragments } from "../inline-fragments";
 import { getKind } from "../kind";
 import { getName } from "../name";
 
-export function addChildField(
-  node: ParentNode,
-  field: FieldNode,
-  schema: GraphQLSchema,
-  typeIDKey: string,
-): void {
+export function addChildField(node: ParentNode, field: FieldNode, schema: GraphQLSchema, typeIDKey: string): void {
   if (!node.selectionSet) return;
 
   const childFields = [...node.selectionSet.selections];
@@ -60,7 +55,7 @@ export function deleteChildFields(node: ParentNode, fields: FieldNode[] | FieldN
     } else if (getKind(childFields[i]) === FIELD) {
       const fieldNode = childFields[i] as FieldNode;
 
-      if (_fields.some((field) => field === fieldNode)) {
+      if (_fields.some(field => field === fieldNode)) {
         childFields.splice(i, 1);
       }
     }
@@ -75,8 +70,9 @@ export function getChildFields(node: ParentNode, name?: string): FieldAndTypeNam
   const fieldsAndTypeNames = unwrapInlineFragments(node.selectionSet.selections);
   if (!name) return fieldsAndTypeNames;
 
-  const filtered = fieldsAndTypeNames.filter(({ fieldNode }) =>
-    getName(fieldNode) === name || getKind(fieldNode) === name);
+  const filtered = fieldsAndTypeNames.filter(
+    ({ fieldNode }) => getName(fieldNode) === name || getKind(fieldNode) === name,
+  );
 
   return filtered;
 }

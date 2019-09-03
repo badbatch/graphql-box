@@ -24,7 +24,7 @@ function parseValue(valueNode: ValueNode): ParseValueResult {
     const listValueNode = valueNode;
     const arr: any[] = [];
 
-    listValueNode.values.forEach((value) => {
+    listValueNode.values.forEach(value => {
       arr.push(parseValue(value));
     });
 

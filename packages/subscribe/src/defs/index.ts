@@ -38,14 +38,14 @@ export type InitOptions = UserOptions;
 export type ConstructorOptions = UserOptions;
 
 export type GraphQLSubscribe = <TData = ExecutionResultDataDefault>(args: {
-  schema: GraphQLSchema;
-  document: DocumentNode;
-  rootValue?: any;
   contextValue?: any;
-  variableValues?: Maybe<{ [key: string]: any }>;
-  operationName?: Maybe<string>;
+  document: DocumentNode;
   fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
+  operationName?: Maybe<string>;
+  rootValue?: any;
+  schema: GraphQLSchema;
   subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
+  variableValues?: Maybe<{ [key: string]: any }>;
 }) => Promise<AsyncIterator<ExecutionResult<TData>> | ExecutionResult<TData>>;
 
 export interface SubscribeArgs extends ExecutionArgs {

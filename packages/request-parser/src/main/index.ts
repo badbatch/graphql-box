@@ -1,10 +1,16 @@
 import { PlainObjectMap, PossibleType, QUERY, RequestContext, RequestOptions, TYPE_NAME_KEY } from "@graphql-box/core";
 import {
+  DOCUMENT,
+  FIELD,
+  INLINE_FRAGMENT,
+  NAME,
+  OPERATION_DEFINITION,
+  VALUE,
+  VARIABLE,
+  VARIABLE_DEFINITION,
   addChildField,
   deleteFragmentDefinitions,
   deleteVariableDefinitions,
-  DOCUMENT,
-  FIELD,
   getAlias,
   getArguments,
   getChildFields,
@@ -20,18 +26,11 @@ import {
   hasFragmentSpreads,
   hasInlineFragments,
   hasVariableDefinitions,
-  INLINE_FRAGMENT,
-  NAME,
-  OPERATION_DEFINITION,
   setFragmentDefinitions,
   setInlineFragments,
-  VALUE,
-  VARIABLE,
-  VARIABLE_DEFINITION,
 } from "@graphql-box/helpers";
 import {
   ASTNode,
-  buildClientSchema,
   DocumentNode,
   FieldNode,
   GraphQLEnumType,
@@ -43,13 +42,14 @@ import {
   GraphQLUnionType,
   InlineFragmentNode,
   OperationDefinitionNode,
+  TypeInfo,
+  ValueNode,
+  VariableNode,
+  buildClientSchema,
   parse,
   parseValue,
   print,
-  TypeInfo,
   validate,
-  ValueNode,
-  VariableNode,
   visit,
 } from "graphql";
 import Maybe from "graphql/tsutils/Maybe";
@@ -81,7 +81,7 @@ export class RequestParser implements RequestParserDef {
 
     try {
       const constructorOptions: ConstructorOptions = {
-        schema: introspection ? buildClientSchema(introspection) : schema as GraphQLSchema,
+        schema: introspection ? buildClientSchema(introspection) : (schema as GraphQLSchema),
         typeIDKey,
       };
 
@@ -121,6 +121,15 @@ export class RequestParser implements RequestParserDef {
     return deleteVariableDefinitions(node);
   }
 
+  private static _getFragmentDefinitions(
+    node: DocumentNode,
+    { fragments }: RequestOptions,
+  ): FragmentDefinitionNodeMap | undefined {
+    if (!fragments && !hasFragmentDefinitions(node)) return undefined;
+
+    return getFragmentDefinitions(node);
+  }
+
   private static _mapFieldToType(
     data: MapFieldToTypeData,
     { variables }: RequestOptions,
@@ -129,14 +138,14 @@ export class RequestParser implements RequestParserDef {
     const { ancestors, fieldNode, isEntity, isInterface, isUnion, possibleTypes, typeIDKey, typeName } = data;
     const ancestorRequestFieldPath: string[] = [operation];
 
-    ancestors.forEach((ancestor) => {
+    ancestors.forEach(ancestor => {
       if (isPlainObject(ancestor) && getKind(ancestor as ASTNode) === FIELD) {
         const ancestorFieldNode = ancestor as FieldNode;
-        ancestorRequestFieldPath.push(getAlias(ancestorFieldNode) || getName(ancestorFieldNode) as string);
+        ancestorRequestFieldPath.push(getAlias(ancestorFieldNode) || (getName(ancestorFieldNode) as string));
       }
     });
 
-    const fieldName = getAlias(fieldNode) || getName(fieldNode) as string;
+    const fieldName = getAlias(fieldNode) || (getName(fieldNode) as string);
     ancestorRequestFieldPath.push(fieldName);
     const requestfieldPath = ancestorRequestFieldPath.join(".");
     const argumentsObjectMap = getArguments(fieldNode);
@@ -163,39 +172,29 @@ export class RequestParser implements RequestParserDef {
     });
   }
 
-  private static _getFragmentDefinitions(
-    node: DocumentNode,
-    { fragments }: RequestOptions,
-  ): FragmentDefinitionNodeMap | undefined {
-    if (!fragments && !hasFragmentDefinitions(node)) return undefined;
-
-    return getFragmentDefinitions(node);
-  }
-
   private static _parseArrayToInputString(values: any[], variableType: Maybe<GraphQLNamedType>): string {
     let inputString = "[";
 
     values.forEach((value, index, arr) => {
       if (!isPlainObject(value)) {
-        const sanitizedValue = isString(value) && !(variableType instanceof GraphQLEnumType)
-          ? `"${value}"` : `${value}`;
+        const sanitizedValue =
+          isString(value) && !(variableType instanceof GraphQLEnumType) ? `"${value}"` : `${value}`;
 
         inputString += sanitizedValue;
       } else {
         inputString += RequestParser._parseToInputString(value, variableType);
       }
 
-      if (index < arr.length - 1) { inputString += ","; }
+      if (index < arr.length - 1) {
+        inputString += ",";
+      }
     });
 
     inputString += "]";
     return inputString;
   }
 
-  private static _parseObjectToInputString(
-    obj: PlainObjectMap,
-    variableType: Maybe<GraphQLNamedType>,
-  ): string {
+  private static _parseObjectToInputString(obj: PlainObjectMap, variableType: Maybe<GraphQLNamedType>): string {
     let inputString = "{";
 
     Object.keys(obj).forEach((key, index, arr) => {
@@ -207,17 +206,16 @@ export class RequestParser implements RequestParserDef {
         inputString += RequestParser._parseToInputString(obj[key], variableType);
       }
 
-      if (index < arr.length - 1) { inputString += ","; }
+      if (index < arr.length - 1) {
+        inputString += ",";
+      }
     });
 
     inputString += "}";
     return inputString;
   }
 
-  private static _parseToInputString(
-    value: PlainObjectMap | any[],
-    variableType: Maybe<GraphQLNamedType>,
-  ): string {
+  private static _parseToInputString(value: PlainObjectMap | any[], variableType: Maybe<GraphQLNamedType>): string {
     if (isPlainObject(value)) {
       return RequestParser._parseObjectToInputString(value as PlainObjectMap, variableType);
     }
@@ -268,20 +266,17 @@ export class RequestParser implements RequestParserDef {
     }
   }
 
-  private _addFieldToNode(
-    node: FieldNode | InlineFragmentNode,
-    key: string,
-  ): void {
-      if (!hasChildFields(node, key)) {
-        const mockAST = parse(`{${key}}`);
-        const queryNode = getOperationDefinitions(mockAST, QUERY)[0];
-        const fieldsAndTypeNames = getChildFields(queryNode, key);
-        if (!fieldsAndTypeNames) return;
+  private _addFieldToNode(node: FieldNode | InlineFragmentNode, key: string): void {
+    if (!hasChildFields(node, key)) {
+      const mockAST = parse(`{${key}}`);
+      const queryNode = getOperationDefinitions(mockAST, QUERY)[0];
+      const fieldsAndTypeNames = getChildFields(queryNode, key);
+      if (!fieldsAndTypeNames) return;
 
-        const { fieldNode } = fieldsAndTypeNames[0];
-        addChildField(node, fieldNode, this._schema, key);
-      }
+      const { fieldNode } = fieldsAndTypeNames[0];
+      addChildField(node, fieldNode, this._schema, key);
     }
+  }
 
   private _getInlineFragmentType(
     node: InlineFragmentNode,
@@ -308,17 +303,15 @@ export class RequestParser implements RequestParserDef {
     const type = typeDef ? getType(typeDef) : undefined;
 
     if (
-      !type
-      || (!(type instanceof GraphQLObjectType)
-      && !(type instanceof GraphQLInterfaceType)
-      && !(type instanceof GraphQLUnionType))
-    ) return undefined;
-
-    if (
-      !(type instanceof GraphQLInterfaceType)
-      && !(type instanceof GraphQLUnionType)
-      && hasInlineFragments(node)
+      !type ||
+      (!(type instanceof GraphQLObjectType) &&
+        !(type instanceof GraphQLInterfaceType) &&
+        !(type instanceof GraphQLUnionType))
     ) {
+      return undefined;
+    }
+
+    if (!(type instanceof GraphQLInterfaceType) && !(type instanceof GraphQLUnionType) && hasInlineFragments(node)) {
       setInlineFragments(node);
     }
 
@@ -331,14 +324,16 @@ export class RequestParser implements RequestParserDef {
     if (type instanceof GraphQLInterfaceType || type instanceof GraphQLUnionType) {
       const possibleTypes = this._schema.getPossibleTypes(type);
 
-      possibleTypeDetails.push(...possibleTypes.map((possibleType) => {
-        const fields = possibleType.getFields();
+      possibleTypeDetails.push(
+        ...possibleTypes.map(possibleType => {
+          const fields = possibleType.getFields();
 
-        return {
-          isEntity: !!fields[this._typeIDKey],
-          typeName: possibleType.name,
-        };
-      }));
+          return {
+            isEntity: !!fields[this._typeIDKey],
+            typeName: possibleType.name,
+          };
+        }),
+      );
     }
 
     let isEntity = false;
@@ -382,11 +377,13 @@ export class RequestParser implements RequestParserDef {
     const type = this._getInlineFragmentType(node, typeInfo);
 
     if (
-      !type
-      || (!(type instanceof GraphQLObjectType)
-      && !(type instanceof GraphQLInterfaceType)
-      && !(type instanceof GraphQLUnionType))
-    ) return undefined;
+      !type ||
+      (!(type instanceof GraphQLObjectType) &&
+        !(type instanceof GraphQLInterfaceType) &&
+        !(type instanceof GraphQLUnionType))
+    ) {
+      return undefined;
+    }
 
     let isEntity = false;
 
@@ -451,13 +448,7 @@ export class RequestParser implements RequestParserDef {
           }
 
           if (kind === INLINE_FRAGMENT) {
-            return _this._updateInlineFragmentNode(
-              node as InlineFragmentNode,
-              ancestors,
-              typeInfo,
-              options,
-              context,
-            );
+            return _this._updateInlineFragmentNode(node as InlineFragmentNode, ancestors, typeInfo, options, context);
           }
 
           if (kind === VARIABLE) {
@@ -467,11 +458,7 @@ export class RequestParser implements RequestParserDef {
               variableTypes[variableName] = _this._schema.getType(getVariableDefinitionType(parent));
             }
 
-            return RequestParser._updateVariableNode(
-              node as VariableNode,
-              variableTypes[variableName],
-              options,
-            );
+            return RequestParser._updateVariableNode(node as VariableNode, variableTypes[variableName], options);
           }
 
           return undefined;

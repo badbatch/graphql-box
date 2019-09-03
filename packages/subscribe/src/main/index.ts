@@ -8,13 +8,7 @@ import {
 } from "@graphql-box/core";
 import { EventAsyncIterator } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
-import {
-  ExecutionResult,
-  GraphQLFieldResolver,
-  GraphQLSchema,
-  parse,
-  subscribe,
-} from "graphql";
+import { ExecutionResult, GraphQLFieldResolver, GraphQLSchema, parse, subscribe } from "graphql";
 import { ExecutionResultDataDefault } from "graphql/execution/execute";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";

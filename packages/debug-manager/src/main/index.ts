@@ -8,7 +8,7 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
     const errors: TypeError[] = [];
 
     if (!isString(options.name)) {
-       errors.push(new TypeError("@graphql-box/debug-manager expected options.name to be a string."));
+      errors.push(new TypeError("@graphql-box/debug-manager expected options.name to be a string."));
     }
 
     if (errors.length) return Promise.reject(errors);

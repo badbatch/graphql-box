@@ -1,5 +1,5 @@
 import { PlainObjectMap } from "@graphql-box/core";
-import { EMAIL_ADDED, EMAILS_DELETED } from "../../consts";
+import { EMAILS_DELETED, EMAIL_ADDED } from "../../consts";
 import { EmailInput } from "../../defs";
 import { addEmail, deleteEmails, getInbox } from "../database";
 import { publish, subscribe } from "../pubsub";

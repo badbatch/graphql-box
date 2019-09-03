@@ -19,14 +19,14 @@ export interface UserOptions {
   cacheManager: CacheManagerInit;
 
   /**
-   * The curried function to initialize the request manager.
-   */
-  requestManager: RequestManagerInit;
-
-  /**
    * The curried function to initialize the debug manager.
    */
   debugManager?: DebugManagerInit;
+
+  /**
+   * The curried function to initialize the request manager.
+   */
+  requestManager: RequestManagerInit;
 
   /**
    * The curried function to initialzie the request parser.

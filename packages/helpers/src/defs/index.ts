@@ -21,8 +21,8 @@ import {
   InlineFragmentNode,
   InputObjectTypeDefinitionNode,
   InputValueDefinitionNode,
-  InterfaceTypeDefinitionNode,
   IntValueNode,
+  InterfaceTypeDefinitionNode,
   NamedTypeNode,
   ObjectFieldNode,
   ObjectTypeDefinitionNode,
@@ -71,18 +71,9 @@ export type NamedASTNode =
   | InputObjectTypeDefinitionNode
   | DirectiveDefinitionNode;
 
-export type ParentNode =
-  | FieldNode
-  | InlineFragmentNode
-  | OperationDefinitionNode
-  | FragmentDefinitionNode;
+export type ParentNode = FieldNode | InlineFragmentNode | OperationDefinitionNode | FragmentDefinitionNode;
 
-export type ScalarValueNode =
-  | IntValueNode
-  | FloatValueNode
-  | StringValueNode
-  | BooleanValueNode
-  | EnumValueNode;
+export type ScalarValueNode = IntValueNode | FloatValueNode | StringValueNode | BooleanValueNode | EnumValueNode;
 
 export interface FieldAndTypeName {
   fieldNode: FieldNode;

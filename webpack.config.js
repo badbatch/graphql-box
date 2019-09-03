@@ -4,22 +4,25 @@ module.exports = {
   devtool: false,
   mode: 'development',
   module: {
-    rules: [{
-      test: /\.tsx?$/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          configFile: './babel.config.js',
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            configFile: './babel.config.js',
+          },
         },
       },
-    }, {
-      enforce: 'pre',
-      exclude: /node_modules\/(graphql-tools|deprecated-decorator)/,
-      test: /\.(tsx?|jsx?)$/,
-      use: {
-        loader: 'source-map-loader',
+      {
+        enforce: 'pre',
+        exclude: /node_modules\/(graphql-tools|deprecated-decorator)/,
+        test: /\.(tsx?|jsx?)$/,
+        use: {
+          loader: 'source-map-loader',
+        },
       },
-    }],
+    ],
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({

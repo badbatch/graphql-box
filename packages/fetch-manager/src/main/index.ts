@@ -14,8 +14,8 @@ import {
   ActiveBatch,
   ActiveBatchValue,
   BatchActionsObjectMap,
-  BatchedMaybeFetchData,
   BatchResultActions,
+  BatchedMaybeFetchData,
   ConstructorOptions,
   FetchOptions,
   InitOptions,
@@ -27,7 +27,7 @@ export class FetchManager implements RequestManagerDef {
     const errors: TypeError[] = [];
 
     if (!isString(options.url)) {
-       errors.push(new TypeError("@graphql-box/fetch-manager expected url to be a string."));
+      errors.push(new TypeError("@graphql-box/fetch-manager expected url to be a string."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -40,7 +40,7 @@ export class FetchManager implements RequestManagerDef {
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: any): void {
-    Object.keys(batchEntries).forEach((hash) => {
+    Object.keys(batchEntries).forEach(hash => {
       const { reject } = batchEntries[hash];
       reject(error);
     });
@@ -50,7 +50,7 @@ export class FetchManager implements RequestManagerDef {
     { batch, headers }: BatchedMaybeFetchData,
     batchEntries: BatchActionsObjectMap,
   ): void {
-    Object.keys(batchEntries).forEach((hash) => {
+    Object.keys(batchEntries).forEach(hash => {
       const responseData = batch[hash];
       const { reject, resolve } = batchEntries[hash];
 
@@ -96,12 +96,7 @@ export class FetchManager implements RequestManagerDef {
     }
   }
 
-  private _batchRequest(
-    request: string,
-    hash: string,
-    actions: BatchResultActions,
-    context: RequestContext,
-  ): void {
+  private _batchRequest(request: string, hash: string, actions: BatchResultActions, context: RequestContext): void {
     if (this._activeBatchTimer) {
       this._updateBatch(request, hash, actions, context);
     } else {
@@ -109,12 +104,7 @@ export class FetchManager implements RequestManagerDef {
     }
   }
 
-  private _createBatch(
-    request: string,
-    hash: string,
-    actions: BatchResultActions,
-    context: RequestContext,
-  ): void {
+  private _createBatch(request: string, hash: string, actions: BatchResultActions, context: RequestContext): void {
     this._activeBatch = new Map();
     this._activeBatch.set(hash, { actions, request });
     this._startBatchTimer(context);
@@ -148,7 +138,7 @@ export class FetchManager implements RequestManagerDef {
 
         resolve({
           headers: fetchResult.headers,
-          ...await fetchResult.json(),
+          ...(await fetchResult.json()),
         });
       });
     } catch (error) {
@@ -172,7 +162,7 @@ export class FetchManager implements RequestManagerDef {
 
     try {
       FetchManager._resolveFetchBatch(
-        await this._fetch(batchRequests, hashes.join("-"), { batch: true }, context) as BatchedMaybeFetchData,
+        (await this._fetch(batchRequests, hashes.join("-"), { batch: true }, context)) as BatchedMaybeFetchData,
         batchActions,
       );
     } catch (error) {

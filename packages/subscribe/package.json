@@ -44,5 +44,8 @@
     "@graphql-box/helpers": "^1.0.0",
     "eventemitter3": "^4.0.0",
     "iterall": "^1.2.2"
+  },
+  "devDependencies": {
+    "@graphql-box/test-utils": "^1.0.1"
   }
 }

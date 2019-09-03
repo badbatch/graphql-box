@@ -6,7 +6,8 @@ import { QueryResponseSet } from "../defs";
 export const singleTypeQuery: RawResponseDataWithMaybeCacheMetadata = {
   data: {
     organization: {
-      description: "We are working to build community through open source technology. NB: members must have two-factor auth.",
+      description:
+        "We are working to build community through open source technology. NB: members must have two-factor auth.",
       email: "",
       id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       login: "facebook",
@@ -21,7 +22,8 @@ export const singleTypeQuerySet: QueryResponseSet = {
   initial: {
     data: {
       organization: {
-        description: "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        description:
+          "We are working to build community through open source technology. NB: members must have two-factor auth.",
         id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         login: "facebook",
       },
@@ -30,7 +32,7 @@ export const singleTypeQuerySet: QueryResponseSet = {
   },
   partial: {
     cacheMetadata: {
-      "query": {
+      query: {
         cacheControl: {
           maxAge: 10,
           public: true,
@@ -49,7 +51,8 @@ export const singleTypeQuerySet: QueryResponseSet = {
     },
     data: {
       organization: {
-        description: "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        description:
+          "We are working to build community through open source technology. NB: members must have two-factor auth.",
         id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         login: "facebook",
       },
@@ -71,7 +74,8 @@ export const singleTypeQuerySet: QueryResponseSet = {
 export const nestedTypeQuery: RawResponseDataWithMaybeCacheMetadata = {
   data: {
     organization: {
-      description: "We are working to build community through open source technology. NB: members must have two-factor auth.",
+      description:
+        "We are working to build community through open source technology. NB: members must have two-factor auth.",
       email: "",
       id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       login: "facebook",
@@ -80,7 +84,8 @@ export const nestedTypeQuery: RawResponseDataWithMaybeCacheMetadata = {
         edges: [
           {
             node: {
-              description: "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
+              description:
+                "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
               homepageUrl: "",
               id: "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
               name: "codemod",
@@ -265,7 +270,7 @@ export const nestedTypeQuerySet: QueryResponseSet = {
   },
   partial: {
     cacheMetadata: {
-      "query": {
+      query: {
         cacheControl: {
           maxAge: 5,
           public: true,
@@ -399,14 +404,16 @@ export const nestedTypeQuerySet: QueryResponseSet = {
   updated: {
     data: {
       organization: {
-        description: "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        description:
+          "We are working to build community through open source technology. NB: members must have two-factor auth.",
         email: "",
         id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         repositories: {
           edges: [
             {
               node: {
-                description: "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
+                description:
+                  "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
                 homepageUrl: "",
                 id: "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
               },
@@ -637,7 +644,7 @@ export const nestedUnionQuerySet: QueryResponseSet = {
   },
   partial: {
     cacheMetadata: {
-      "query": {
+      query: {
         cacheControl: {
           maxAge: 5,
           public: true,

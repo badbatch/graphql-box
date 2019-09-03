@@ -1,10 +1,4 @@
-import {
-  cloneDeep,
-  isArray,
-  isEqual,
-  isObjectLike,
-  mergeWith,
-} from "lodash";
+import { cloneDeep, isArray, isEqual, isObjectLike, mergeWith } from "lodash";
 
 export default function mergeObjects<T>(obj: T, src: T, matcher: (key: string, value: any) => any): T {
   function mergeCustomizer(objValue: any, srcValue: any, key: string): any[] | undefined {
@@ -25,7 +19,7 @@ export default function mergeObjects<T>(obj: T, src: T, matcher: (key: string, v
         return;
       }
 
-      const objIndex = objValues.findIndex((val) => matcher(key, val) === match);
+      const objIndex = objValues.findIndex(val => matcher(key, val) === match);
 
       if (objIndex === -1) {
         objValues.push(value);

@@ -11,18 +11,14 @@ import {
 import { EventAsyncIterator } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { isPlainObject } from "lodash";
-import {
-  ConstructorOptions,
-  InitOptions,
-  UserOptions,
-} from "../defs";
+import { ConstructorOptions, InitOptions, UserOptions } from "../defs";
 
 export class WebsocketManager implements SubscriptionsManagerDef {
   public static async init(options: InitOptions): Promise<WebsocketManager> {
     const errors: TypeError[] = [];
 
     if (!options.websocket) {
-       errors.push(new TypeError("@graphql-box/websocket-manager expected options.websocket."));
+      errors.push(new TypeError("@graphql-box/websocket-manager expected options.websocket."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -55,11 +51,13 @@ export class WebsocketManager implements SubscriptionsManagerDef {
     }
 
     try {
-      this._websocket.send(JSON.stringify({
-        context: WebsocketManager._getMessageContext(context),
-        subscription: request,
-        subscriptionID: hash,
-      }));
+      this._websocket.send(
+        JSON.stringify({
+          context: WebsocketManager._getMessageContext(context),
+          subscription: request,
+          subscriptionID: hash,
+        }),
+      );
 
       this._subscriptions.set(hash, subscriberResolver);
       const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, hash);

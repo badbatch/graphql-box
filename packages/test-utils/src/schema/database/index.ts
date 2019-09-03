@@ -36,7 +36,7 @@ export function getInbox(): Inbox {
 }
 
 function getUnread(): number {
-  return inbox.emails.filter((email) => !!email.unread).length;
+  return inbox.emails.filter(email => !!email.unread).length;
 }
 
 export function addEmail(email: EmailInput): void {
@@ -54,7 +54,7 @@ export function addEmail(email: EmailInput): void {
 
 export function deleteEmails(id?: number): void {
   if (id) {
-    const index = inbox.emails.findIndex((email) => email.id === id);
+    const index = inbox.emails.findIndex(email => email.id === id);
     inbox.emails.splice(index, 1);
   } else {
     inbox.emails = [];

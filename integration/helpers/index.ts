@@ -5,7 +5,7 @@ export function log(...args: any[]): void {
 }
 
 export function onWebsocketOpen(websocket: WebSocket): Promise<void> {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     websocket.onopen = () => {
       resolve();
     };

@@ -352,7 +352,7 @@ describe("client", () => {
       try {
         asyncIterator = await client.subscribe(parsedRequests.nestedTypeSubscription, { ...defaultOptions });
 
-        subscriptionResponse = new Promise((resolve) => {
+        subscriptionResponse = new Promise(resolve => {
           if (isAsyncIterable(asyncIterator)) {
             forAwaitEach(asyncIterator, async ({ _cacheMetadata, data }: MaybeRequestResult) => {
               subResponse = { data };
@@ -383,10 +383,9 @@ describe("client", () => {
         fetchMock.config.warnOnFallback = false;
 
         try {
-          const { _cacheMetadata, data } = await client.request(
-            parsedRequests.nestedTypeMutation,
-            { ...defaultOptions },
-          );
+          const { _cacheMetadata, data } = await client.request(parsedRequests.nestedTypeMutation, {
+            ...defaultOptions,
+          });
 
           mutResponse = { data };
           if (_cacheMetadata) mutResponse._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);

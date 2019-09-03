@@ -1,22 +1,13 @@
 import { handleMessage as handleCachemapMessage } from "@cachemap/core-worker";
 import Client from "@graphql-box/client";
-import {
-  MaybeRequestResult,
-  MaybeRequestResultWithDehydratedCacheMetadata,
-  RequestOptions,
-} from "@graphql-box/core";
+import { MaybeRequestResult, MaybeRequestResultWithDehydratedCacheMetadata, RequestOptions } from "@graphql-box/core";
 import { dehydrateCacheMetadata } from "@graphql-box/helpers";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
 import { CACHEMAP, GRAPHQL_BOX, MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
-import {
-  MessageContext,
-  MessageRequestPayload,
-  MethodNames,
-  RegisterWorkerOptions,
-} from "../defs";
+import { MessageContext, MessageRequestPayload, MethodNames, RegisterWorkerOptions } from "../defs";
 
-const { addEventListener, postMessage } = self as unknown as DedicatedWorkerGlobalScope;
+const { addEventListener, postMessage } = (self as unknown) as DedicatedWorkerGlobalScope;
 
 async function handleRequest(
   request: string,

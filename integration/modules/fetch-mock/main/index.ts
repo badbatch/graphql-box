@@ -52,5 +52,5 @@ export default class FetchMockWorker {
     if (!pending) return;
 
     pending.resolve(rehydrateFetchMock(result));
-  }
+  };
 }

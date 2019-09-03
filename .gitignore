@@ -1,7 +1,7 @@
+*.log
+.DS_Store
+.env
+.eslintcache
 coverage/
 lib/
 node_modules/
-.env
-.eslintcache
-*.log
-.DS_Store

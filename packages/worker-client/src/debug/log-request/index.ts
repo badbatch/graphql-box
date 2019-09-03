@@ -10,9 +10,9 @@ export default function logRequest() {
     const method = descriptor.value;
     if (!method) return;
 
-    descriptor.value = async function (...args: any[]): Promise<any> {
+    descriptor.value = async function descriptorValue(...args: any[]): Promise<any> {
       try {
-        return new Promise(async (resolve) => {
+        return new Promise(async resolve => {
           const { debugManager, ...otherContext } = args[2] as RequestContext;
 
           if (!debugManager) {

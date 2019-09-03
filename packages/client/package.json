@@ -44,5 +44,13 @@
     "@graphql-box/core": "^1.0.0",
     "@graphql-box/helpers": "^1.0.0",
     "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@graphql-box/cache-manager": "^1.0.1",
+    "@graphql-box/debug-manager": "^1.0.1",
+    "@graphql-box/fetch-manager": "^1.0.1",
+    "@graphql-box/request-parser": "^1.0.1",
+    "@graphql-box/test-utils": "^1.0.1",
+    "@graphql-box/websocket-manager": "^1.0.1"
   }
 }

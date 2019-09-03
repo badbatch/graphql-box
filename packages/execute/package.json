@@ -41,5 +41,8 @@
   },
   "dependencies": {
     "@graphql-box/core": "^1.0.0"
+  },
+  "devDependencies": {
+    "@graphql-box/test-utils": "^1.0.1"
   }
 }

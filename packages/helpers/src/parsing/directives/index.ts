@@ -7,7 +7,7 @@ export function getDirectives(field: FieldNode): PlainObjectMap | undefined {
 
   const directives: PlainObjectMap = {};
 
-  field.directives.forEach((directive) => {
+  field.directives.forEach(directive => {
     let args: PlainObjectMap = {};
 
     if (directive.arguments && directive.arguments.length) {

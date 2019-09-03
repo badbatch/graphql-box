@@ -1,6 +1,4 @@
 {
-  "lerna": "^3.3.2",
-  "npmClient": "yarn",
-  "useWorkspaces": true,
+  "extends": "@repodog/lerna-config",
   "version": "1.0.1"
 }

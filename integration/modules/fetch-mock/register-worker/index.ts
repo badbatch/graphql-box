@@ -5,7 +5,7 @@ import { FetchMockMessageRequest } from "../defs";
 import { dehydrateFetchMock } from "../helpers";
 
 export default function registerFetchMockWorker(): void {
-  const { addEventListener, postMessage } = self as unknown as DedicatedWorkerGlobalScope;
+  const { addEventListener, postMessage } = (self as unknown) as DedicatedWorkerGlobalScope;
 
   function onMessage({ data }: MessageEvent): void {
     if (!isPlainObject(data)) return;

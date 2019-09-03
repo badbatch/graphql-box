@@ -6,13 +6,7 @@ import {
   RequestManagerInit,
   ServerRequestOptions,
 } from "@graphql-box/core";
-import {
-  execute,
-  ExecutionArgs,
-  GraphQLFieldResolver,
-  GraphQLSchema,
-  parse,
-} from "graphql";
+import { ExecutionArgs, GraphQLFieldResolver, GraphQLSchema, execute, parse } from "graphql";
 import { isPlainObject } from "lodash";
 import logExecute from "../debug/log-execute";
 import { ConstructorOptions, GraphQLExecute, InitOptions, UserOptions } from "../defs";

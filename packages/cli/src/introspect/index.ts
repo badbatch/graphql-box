@@ -9,7 +9,7 @@ import { IntrospectArgs, IntrospectionResult } from "../defs";
 
 export default async function introspect(): Promise<void> {
   const argv = yargs.option("headers", { type: "array" }).argv;
-  const { headers, output, schemaPath, url } = argv as unknown as IntrospectArgs;
+  const { headers, output, schemaPath, url } = (argv as unknown) as IntrospectArgs;
   let result: IntrospectionResult | undefined;
 
   try {

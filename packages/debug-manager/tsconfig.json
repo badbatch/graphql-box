@@ -8,8 +8,11 @@
     "src/**/*"
   ],
   "references": [
-    { "path": "../core" },
-    { "path": "../cache-manager" },
-    { "path": "../test-utils" }
+    {
+      "path": "../core"
+    },
+    {
+      "path": "../test-utils"
+    }
   ]
 }

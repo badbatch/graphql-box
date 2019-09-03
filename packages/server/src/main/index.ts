@@ -44,15 +44,15 @@ export default class Server {
     this._client = client;
   }
 
-  public request(options: ServerRequestOptions = {}): RequestHandler {
-    return (req: Request, res: Response) => {
-      this._requestHandler(req, res, options);
-    };
-  }
-
   public message(options: ServerSocketRequestOptions): MessageHandler {
     return (message: Data) => {
       this._messageHandler(message, options);
+    };
+  }
+
+  public request(options: ServerRequestOptions = {}): RequestHandler {
+    return (req: Request, res: Response) => {
+      this._requestHandler(req, res, options);
     };
   }
 
@@ -63,13 +63,15 @@ export default class Server {
   ): Promise<ResponseDataWithMaybeDehydratedCacheMetadataBatch> {
     const responses: ResponseDataWithMaybeDehydratedCacheMetadataBatch = {};
 
-    await Promise.all(Object.keys(requests).map(async (requestHash) => {
-      const request = requests[requestHash];
-      const { _cacheMetadata, ...otherProps } = await this._client.request(request, options, context);
+    await Promise.all(
+      Object.keys(requests).map(async requestHash => {
+        const request = requests[requestHash];
+        const { _cacheMetadata, ...otherProps } = await this._client.request(request, options, context);
 
-      responses[requestHash] = { ...otherProps };
-      if (_cacheMetadata) responses[requestHash]._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
-    }));
+        responses[requestHash] = { ...otherProps };
+        if (_cacheMetadata) responses[requestHash]._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+      }),
+    );
 
     return responses;
   }

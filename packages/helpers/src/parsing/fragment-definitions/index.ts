@@ -19,10 +19,10 @@ export function deleteFragmentDefinitions(documentNode: DocumentNode): DocumentN
   };
 }
 
-export  function getFragmentDefinitions({ definitions }: DocumentNode): FragmentDefinitionNodeMap | undefined {
+export function getFragmentDefinitions({ definitions }: DocumentNode): FragmentDefinitionNodeMap | undefined {
   const fragmentDefinitions: FragmentDefinitionNodeMap = {};
 
-  definitions.forEach((value) => {
+  definitions.forEach(value => {
     if (getKind(value) === FRAGMENT_DEFINITION) {
       const fragmentDefinitionNode = value as FragmentDefinitionNode;
       const name = getName(fragmentDefinitionNode);
@@ -38,7 +38,7 @@ export  function getFragmentDefinitions({ definitions }: DocumentNode): Fragment
 }
 
 export function hasFragmentDefinitions({ definitions }: DocumentNode): boolean {
-  return definitions.some((value) => getKind(value) === FRAGMENT_DEFINITION);
+  return definitions.some(value => getKind(value) === FRAGMENT_DEFINITION);
 }
 
 export function setFragmentDefinitions(fragmentDefinitions: FragmentDefinitionNodeMap, node: FieldNode): void {

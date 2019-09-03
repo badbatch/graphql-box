@@ -1,16 +1,11 @@
 import { MaybeRequestResult, SUBSCRIPTION } from "@graphql-box/core";
-import {
-  getRequestContext,
-  getRequestData,
-  parsedRequests,
-  responses,
-} from "@graphql-box/test-utils";
+import { getRequestContext, getRequestData, parsedRequests, responses } from "@graphql-box/test-utils";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { Server } from "mock-socket";
 import { WebsocketManager } from ".";
 
 function onOpen(websocket: WebSocket): Promise<void> {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     websocket.onopen = () => {
       resolve();
     };
@@ -27,7 +22,7 @@ describe("@graphql-box/websocket-manager >>", () => {
   beforeEach(() => {
     server = new Server(url);
 
-    server.on("connection", (socket) => {
+    server.on("connection", socket => {
       serverSocket = socket;
     });
   });
@@ -80,7 +75,7 @@ describe("@graphql-box/websocket-manager >>", () => {
         subscriptionResolver,
       );
 
-      const promise = new Promise((resolve) => {
+      const promise = new Promise(resolve => {
         if (isAsyncIterable(asyncIterator)) {
           forAwaitEach(asyncIterator, (value: MaybeRequestResult) => {
             response = value;
@@ -89,10 +84,12 @@ describe("@graphql-box/websocket-manager >>", () => {
         }
       });
 
-      serverSocket.send(JSON.stringify({
-        result: responses.nestedInterfaceSubscription,
-        subscriptionID: requestData.hash,
-      }));
+      serverSocket.send(
+        JSON.stringify({
+          result: responses.nestedInterfaceSubscription,
+          subscriptionID: requestData.hash,
+        }),
+      );
 
       await promise;
     });
