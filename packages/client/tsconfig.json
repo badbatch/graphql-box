@@ -9,12 +9,6 @@
   ],
   "references": [
     {
-      "path": "../core"
-    },
-    {
-      "path": "../helpers"
-    },
-    {
       "path": "../cache-manager"
     },
     {
@@ -31,6 +25,12 @@
     },
     {
       "path": "../websocket-manager"
+    },
+    {
+      "path": "../core"
+    },
+    {
+      "path": "../helpers"
     }
   ]
 }

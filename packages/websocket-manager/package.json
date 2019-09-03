@@ -28,6 +28,9 @@
   ],
   "scripts": {
     "compile": "concurrently npm:compile:*",
+    "compile-watch": "concurrently npm:compile-watch:*",
+    "compile-watch:main": "yarn run compile:main --watch",
+    "compile-watch:types": "yarn run compile:types --watch",
     "compile:browser": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js",
     "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --config-file ../../babel.config.js",
     "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --config-file ../../babel.config.js",
@@ -37,12 +40,12 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
+    "@graphql-box/core": "^1.0.0",
+    "@graphql-box/helpers": "^1.0.0",
     "core-js": "^2.0",
     "lodash": "^4.17.5"
   },
   "dependencies": {
-    "@graphql-box/core": "^1.0.0",
-    "@graphql-box/helpers": "^1.0.0",
     "eventemitter3": "^4.0.0"
   },
   "devDependencies": {
