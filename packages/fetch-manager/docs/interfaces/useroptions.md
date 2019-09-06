@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[UserOptions](useroptions.md) /
+[Globals](../README.md) › [UserOptions](useroptions.md)
 
 # Interface: UserOptions
 
@@ -24,7 +24,7 @@
 
 • **batch**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:13](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/defs/index.ts#L13)*
+*Defined in [defs/index.ts:8](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L8)*
 
 Whether a client should batch query and mutation
 requests.
@@ -35,7 +35,7 @@ ___
 
 • **batchInterval**? : *undefined | number*
 
-*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:14](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L14)*
 
 How long client should wait to batch requests
 before making a request.
@@ -46,7 +46,7 @@ ___
 
 • **fetchTimeout**? : *undefined | number*
 
-*Defined in [defs/index.ts:25](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/defs/index.ts#L25)*
+*Defined in [defs/index.ts:20](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L20)*
 
 How long client should wait for a server to
 respond before timing out.
@@ -55,9 +55,9 @@ ___
 
 ### `Optional` headers
 
-• **headers**? : *`PlainObjectStringMap`*
+• **headers**? : *PlainObjectStringMap*
 
-*Defined in [defs/index.ts:30](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/defs/index.ts#L30)*
+*Defined in [defs/index.ts:25](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L25)*
 
 Additional headers to be sent with every request.
 
@@ -67,7 +67,7 @@ ___
 
 • **url**: *string*
 
-*Defined in [defs/index.ts:36](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/defs/index.ts#L36)*
+*Defined in [defs/index.ts:31](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L31)*
 
 The endpoint that client will use to communicate with the
 GraphQL server for queries and mutations.

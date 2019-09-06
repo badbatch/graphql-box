@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[ResponseDataWithMaybeDehydratedCacheMetadataBatch](responsedatawithmaybedehydratedcachemetadatabatch.md) /
+[Globals](../README.md) › [ResponseDataWithMaybeDehydratedCacheMetadataBatch](responsedatawithmaybedehydratedcachemetadatabatch.md)
 
 # Interface: ResponseDataWithMaybeDehydratedCacheMetadataBatch
 
@@ -10,4 +10,4 @@
 
 ## Indexable
 
-● \[▪ **key**: *string*\]: `MaybeRequestResultWithDehydratedCacheMetadata`
+* \[ **key**: *string*\]: MaybeRequestResultWithDehydratedCacheMetadata

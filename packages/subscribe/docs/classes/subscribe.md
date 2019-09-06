@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[Subscribe](subscribe.md) /
+[Globals](../README.md) › [Subscribe](subscribe.md)
 
 # Class: Subscribe
 
@@ -25,7 +25,7 @@
 
 \+ **new Subscribe**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[Subscribe](subscribe.md)*
 
-*Defined in [main/index.ts:41](https://github.com/badbatch/graphql-box/blob/22b398c/packages/subscribe/src/main/index.ts#L41)*
+*Defined in [main/index.ts:35](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/subscribe/src/main/index.ts#L35)*
 
 **Parameters:**
 
@@ -39,9 +39,9 @@ Name | Type |
 
 ###  subscribe
 
-▸ **subscribe**(`__namedParameters`: object, `options`: `ServerRequestOptions`, `__namedParameters`: object, `subscriberResolver`: `SubscriberResolver`): *`Promise<AsyncIterator<MaybeRequestResult | undefined>>`*
+▸ **subscribe**(`__namedParameters`: object, `options`: ServerRequestOptions, `__namedParameters`: object, `subscriberResolver`: SubscriberResolver): *Promise‹AsyncIterator‹MaybeRequestResult | undefined››*
 
-*Defined in [main/index.ts:52](https://github.com/badbatch/graphql-box/blob/22b398c/packages/subscribe/src/main/index.ts#L52)*
+*Defined in [main/index.ts:46](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/subscribe/src/main/index.ts#L46)*
 
 **Parameters:**
 
@@ -49,11 +49,11 @@ Name | Type |
 
 Name | Type |
 ------ | ------ |
-`ast` | undefined \| `DocumentNode` |
+`ast` | undefined \| DocumentNode |
 `hash` | string |
 `request` | string |
 
-▪ **options**: *`ServerRequestOptions`*
+▪ **options**: *ServerRequestOptions*
 
 ▪ **__namedParameters**: *object*
 
@@ -61,17 +61,17 @@ Name | Type |
 ------ | ------ |
 `boxID` | string |
 
-▪ **subscriberResolver**: *`SubscriberResolver`*
+▪ **subscriberResolver**: *SubscriberResolver*
 
-**Returns:** *`Promise<AsyncIterator<MaybeRequestResult | undefined>>`*
+**Returns:** *Promise‹AsyncIterator‹MaybeRequestResult | undefined››*
 
 ___
 
 ### `Static` init
 
-▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *`Promise<Subscribe>`*
+▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *Promise‹[Subscribe](subscribe.md)›*
 
-*Defined in [main/index.ts:24](https://github.com/badbatch/graphql-box/blob/22b398c/packages/subscribe/src/main/index.ts#L24)*
+*Defined in [main/index.ts:18](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/subscribe/src/main/index.ts#L18)*
 
 **Parameters:**
 
@@ -79,4 +79,4 @@ Name | Type |
 ------ | ------ |
 `options` | [InitOptions](../README.md#initoptions) |
 
-**Returns:** *`Promise<Subscribe>`*
+**Returns:** *Promise‹[Subscribe](subscribe.md)›*

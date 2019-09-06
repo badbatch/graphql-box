@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[ConstructorOptions](constructoroptions.md) /
+[Globals](../README.md) › [ConstructorOptions](constructoroptions.md)
 
 # Interface: ConstructorOptions
 
@@ -22,9 +22,9 @@
 
 ###  cacheManager
 
-• **cacheManager**: *`CacheManagerDef`*
+• **cacheManager**: *CacheManagerDef*
 
-*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/22b398c/packages/client/src/defs/index.ts#L52)*
+*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/client/src/defs/index.ts#L52)*
 
 The cache manager.
 
@@ -32,9 +32,9 @@ ___
 
 ### `Optional` debugManager
 
-• **debugManager**? : *`DebugManagerDef`*
+• **debugManager**? : *DebugManagerDef*
 
-*Defined in [defs/index.ts:57](https://github.com/badbatch/graphql-box/blob/22b398c/packages/client/src/defs/index.ts#L57)*
+*Defined in [defs/index.ts:57](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/client/src/defs/index.ts#L57)*
 
 The debug manager.
 
@@ -42,9 +42,9 @@ ___
 
 ###  requestManager
 
-• **requestManager**: *`RequestManagerDef`*
+• **requestManager**: *RequestManagerDef*
 
-*Defined in [defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/22b398c/packages/client/src/defs/index.ts#L62)*
+*Defined in [defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/client/src/defs/index.ts#L62)*
 
 The request manager.
 
@@ -52,9 +52,9 @@ ___
 
 ###  requestParser
 
-• **requestParser**: *`RequestParserDef`*
+• **requestParser**: *RequestParserDef*
 
-*Defined in [defs/index.ts:67](https://github.com/badbatch/graphql-box/blob/22b398c/packages/client/src/defs/index.ts#L67)*
+*Defined in [defs/index.ts:67](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/client/src/defs/index.ts#L67)*
 
 The GraphQL request parser.
 
@@ -62,8 +62,8 @@ ___
 
 ### `Optional` subscriptionsManager
 
-• **subscriptionsManager**? : *`SubscriptionsManagerDef`*
+• **subscriptionsManager**? : *SubscriptionsManagerDef*
 
-*Defined in [defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/22b398c/packages/client/src/defs/index.ts#L72)*
+*Defined in [defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/client/src/defs/index.ts#L72)*
 
 The subscriptions manager.

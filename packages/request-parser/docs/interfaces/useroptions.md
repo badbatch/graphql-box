@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[UserOptions](useroptions.md) /
+[Globals](../README.md) › [UserOptions](useroptions.md)
 
 # Interface: UserOptions
 
@@ -19,9 +19,9 @@
 
 ### `Optional` introspection
 
-• **introspection**? : *`IntrospectionQuery`*
+• **introspection**? : *IntrospectionQuery*
 
-*Defined in [defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/22b398c/packages/request-parser/src/defs/index.ts#L24)*
+*Defined in [defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/request-parser/src/defs/index.ts#L24)*
 
 Output of an introspection query.
 
@@ -29,8 +29,8 @@ ___
 
 ### `Optional` schema
 
-• **schema**? : *`GraphQLSchema`*
+• **schema**? : *GraphQLSchema*
 
-*Defined in [defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/22b398c/packages/request-parser/src/defs/index.ts#L29)*
+*Defined in [defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/request-parser/src/defs/index.ts#L29)*
 
 A GraphQL schema.

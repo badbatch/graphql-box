@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[FetchOptions](fetchoptions.md) /
+[Globals](../README.md) › [FetchOptions](fetchoptions.md)
 
 # Interface: FetchOptions
 
@@ -20,4 +20,4 @@
 
 • **batch**: *boolean*
 
-*Defined in [defs/index.ts:44](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/defs/index.ts#L44)*
+*Defined in [defs/index.ts:39](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L39)*

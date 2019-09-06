@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[PendingQueryData](pendingquerydata.md) /
+[Globals](../README.md) › [PendingQueryData](pendingquerydata.md)
 
 # Interface: PendingQueryData
 
@@ -20,17 +20,17 @@
 
 ###  context
 
-• **context**: *`RequestContext`*
+• **context**: *RequestContext*
 
-*Defined in [defs/index.ts:78](https://github.com/badbatch/graphql-box/blob/22b398c/packages/client/src/defs/index.ts#L78)*
+*Defined in [defs/index.ts:78](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/client/src/defs/index.ts#L78)*
 
 ___
 
 ###  options
 
-• **options**: *`RequestOptions`*
+• **options**: *RequestOptions*
 
-*Defined in [defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/22b398c/packages/client/src/defs/index.ts#L79)*
+*Defined in [defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/client/src/defs/index.ts#L79)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 • **resolve**: *[PendingQueryResolver](../README.md#pendingqueryresolver)*
 
-*Defined in [defs/index.ts:80](https://github.com/badbatch/graphql-box/blob/22b398c/packages/client/src/defs/index.ts#L80)*
+*Defined in [defs/index.ts:80](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/client/src/defs/index.ts#L80)*

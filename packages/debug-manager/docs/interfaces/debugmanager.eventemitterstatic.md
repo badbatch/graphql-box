@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[DebugManager](../classes/debugmanager.md) / [EventEmitterStatic](debugmanager.eventemitterstatic.md) /
+[Globals](../README.md) › [DebugManager](../classes/debugmanager.md) › [EventEmitterStatic](debugmanager.eventemitterstatic.md)
 
 # Interface: EventEmitterStatic
 
@@ -18,7 +18,7 @@
 
 ###  constructor
 
-\+ **new EventEmitterStatic**<**EventTypes**>(): *`EventEmitter<EventTypes>`*
+\+ **new EventEmitterStatic**<**EventTypes**>(): *EventEmitter‹EventTypes›*
 
 Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:60
 
@@ -26,4 +26,4 @@ Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/even
 
 ▪ **EventTypes**: *string | symbol | object*
 
-**Returns:** *`EventEmitter<EventTypes>`*
+**Returns:** *EventEmitter‹EventTypes›*

@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[CheckCacheEntryResult](checkcacheentryresult.md) /
+[Globals](../README.md) › [CheckCacheEntryResult](checkcacheentryresult.md)
 
 # Interface: CheckCacheEntryResult
 
@@ -19,14 +19,14 @@
 
 ###  cacheability
 
-• **cacheability**: *`Cacheability`*
+• **cacheability**: *Cacheability*
 
-*Defined in [defs/index.ts:167](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L167)*
+*Defined in [defs/index.ts:167](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L167)*
 
 ___
 
 ###  entry
 
-• **entry**: *`PlainObjectMap` | any[]*
+• **entry**: *PlainObjectMap | any[]*
 
-*Defined in [defs/index.ts:168](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L168)*
+*Defined in [defs/index.ts:168](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L168)*

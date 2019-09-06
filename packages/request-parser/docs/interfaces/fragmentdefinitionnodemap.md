@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[FragmentDefinitionNodeMap](fragmentdefinitionnodemap.md) /
+[Globals](../README.md) › [FragmentDefinitionNodeMap](fragmentdefinitionnodemap.md)
 
 # Interface: FragmentDefinitionNodeMap
 
@@ -10,4 +10,4 @@
 
 ## Indexable
 
-● \[▪ **key**: *string*\]: `FragmentDefinitionNode`
+* \[ **key**: *string*\]: FragmentDefinitionNode

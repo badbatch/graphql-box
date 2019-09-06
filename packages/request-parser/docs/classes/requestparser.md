@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[RequestParser](requestparser.md) /
+[Globals](../README.md) › [RequestParser](requestparser.md)
 
 # Class: RequestParser
 
@@ -29,7 +29,7 @@
 
 \+ **new RequestParser**(`options`: [ConstructorOptions](../interfaces/constructoroptions.md)): *[RequestParser](requestparser.md)*
 
-*Defined in [main/index.ts:246](https://github.com/badbatch/graphql-box/blob/22b398c/packages/request-parser/src/main/index.ts#L246)*
+*Defined in [main/index.ts:244](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/request-parser/src/main/index.ts#L244)*
 
 **Parameters:**
 
@@ -43,29 +43,29 @@ Name | Type |
 
 ###  updateRequest
 
-▸ **updateRequest**(`request`: string, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<UpdateRequestResult>`*
+▸ **updateRequest**(`request`: string, `options`: RequestOptions, `context`: RequestContext): *Promise‹[UpdateRequestResult](../interfaces/updaterequestresult.md)›*
 
 *Implementation of [RequestParserDef](../interfaces/requestparserdef.md)*
 
-*Defined in [main/index.ts:254](https://github.com/badbatch/graphql-box/blob/22b398c/packages/request-parser/src/main/index.ts#L254)*
+*Defined in [main/index.ts:252](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/request-parser/src/main/index.ts#L252)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `request` | string |
-`options` | `RequestOptions` |
-`context` | `RequestContext` |
+`options` | RequestOptions |
+`context` | RequestContext |
 
-**Returns:** *`Promise<UpdateRequestResult>`*
+**Returns:** *Promise‹[UpdateRequestResult](../interfaces/updaterequestresult.md)›*
 
 ___
 
 ### `Static` init
 
-▸ **init**(`options`: [InitOptions](../interfaces/initoptions.md)): *`Promise<RequestParser>`*
+▸ **init**(`options`: [InitOptions](../interfaces/initoptions.md)): *Promise‹[RequestParser](requestparser.md)›*
 
-*Defined in [main/index.ts:71](https://github.com/badbatch/graphql-box/blob/22b398c/packages/request-parser/src/main/index.ts#L71)*
+*Defined in [main/index.ts:71](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/request-parser/src/main/index.ts#L71)*
 
 **Parameters:**
 
@@ -73,4 +73,4 @@ Name | Type |
 ------ | ------ |
 `options` | [InitOptions](../interfaces/initoptions.md) |
 
-**Returns:** *`Promise<RequestParser>`*
+**Returns:** *Promise‹[RequestParser](requestparser.md)›*

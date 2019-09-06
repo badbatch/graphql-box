@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[DebugManager](../classes/debugmanager.md) / [ListenerFn](debugmanager.listenerfn.md) /
+[Globals](../README.md) › [DebugManager](../classes/debugmanager.md) › [ListenerFn](debugmanager.listenerfn.md)
 
 # Interface: ListenerFn <**Args**>
 
@@ -14,7 +14,7 @@
 
 ## Callable
 
-▸ (...`args`: `Args`): *void*
+▸ (...`args`: Args): *void*
 
 Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:56
 
@@ -22,6 +22,6 @@ Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/even
 
 Name | Type |
 ------ | ------ |
-`...args` | `Args` |
+`...args` | Args |
 
 **Returns:** *void*

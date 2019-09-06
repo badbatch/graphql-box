@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[QueryResponseCacheEntry](queryresponsecacheentry.md) /
+[Globals](../README.md) › [QueryResponseCacheEntry](queryresponsecacheentry.md)
 
 # Interface: QueryResponseCacheEntry
 
@@ -19,14 +19,14 @@
 
 ###  cacheMetadata
 
-• **cacheMetadata**: *`DehydratedCacheMetadata`*
+• **cacheMetadata**: *DehydratedCacheMetadata*
 
-*Defined in [defs/index.ts:172](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L172)*
+*Defined in [defs/index.ts:172](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L172)*
 
 ___
 
 ###  data
 
-• **data**: *`PlainObjectMap`*
+• **data**: *PlainObjectMap*
 
-*Defined in [defs/index.ts:173](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L173)*
+*Defined in [defs/index.ts:173](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L173)*

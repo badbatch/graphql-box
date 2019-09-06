@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[CacheManager](cachemanager.md) /
+[Globals](../README.md) › [CacheManager](cachemanager.md)
 
 # Class: CacheManager
 
@@ -38,7 +38,7 @@
 
 \+ **new CacheManager**(`options`: [ConstructorOptions](../interfaces/constructoroptions.md)): *[CacheManager](cachemanager.md)*
 
-*Defined in [main/index.ts:316](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/main/index.ts#L316)*
+*Defined in [main/index.ts:305](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/main/index.ts#L305)*
 
 **Parameters:**
 
@@ -52,72 +52,72 @@ Name | Type |
 
 ###  cache
 
-• **get cache**(): *`Cachemap`*
+• **get cache**(): *Cachemap*
 
-*Defined in [main/index.ts:327](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/main/index.ts#L327)*
+*Defined in [main/index.ts:316](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/main/index.ts#L316)*
 
-**Returns:** *`Cachemap`*
+**Returns:** *Cachemap*
 
 ## Methods
 
 ###  analyzeQuery
 
-▸ **analyzeQuery**(`requestData`: `RequestData`, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<AnalyzeQueryResult>`*
+▸ **analyzeQuery**(`requestData`: RequestData, `options`: RequestOptions, `context`: RequestContext): *Promise‹[AnalyzeQueryResult](../interfaces/analyzequeryresult.md)›*
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [main/index.ts:331](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/main/index.ts#L331)*
+*Defined in [main/index.ts:320](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/main/index.ts#L320)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`requestData` | `RequestData` |
-`options` | `RequestOptions` |
-`context` | `RequestContext` |
+`requestData` | RequestData |
+`options` | RequestOptions |
+`context` | RequestContext |
 
-**Returns:** *`Promise<AnalyzeQueryResult>`*
+**Returns:** *Promise‹[AnalyzeQueryResult](../interfaces/analyzequeryresult.md)›*
 
 ___
 
 ###  checkCacheEntry
 
-▸ **checkCacheEntry**(`cacheType`: `CacheTypes`, `hash`: string, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<CheckCacheEntryResult | false>`*
+▸ **checkCacheEntry**(`cacheType`: CacheTypes, `hash`: string, `options`: RequestOptions, `context`: RequestContext): *Promise‹[CheckCacheEntryResult](../interfaces/checkcacheentryresult.md) | false›*
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [main/index.ts:360](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/main/index.ts#L360)*
+*Defined in [main/index.ts:349](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/main/index.ts#L349)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`cacheType` | `CacheTypes` |
+`cacheType` | CacheTypes |
 `hash` | string |
-`options` | `RequestOptions` |
-`context` | `RequestContext` |
+`options` | RequestOptions |
+`context` | RequestContext |
 
-**Returns:** *`Promise<CheckCacheEntryResult | false>`*
+**Returns:** *Promise‹[CheckCacheEntryResult](../interfaces/checkcacheentryresult.md) | false›*
 
 ___
 
 ###  checkQueryResponseCacheEntry
 
-▸ **checkQueryResponseCacheEntry**(`hash`: string, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<ResponseData | false>`*
+▸ **checkQueryResponseCacheEntry**(`hash`: string, `options`: RequestOptions, `context`: RequestContext): *Promise‹ResponseData | false›*
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [main/index.ts:369](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/main/index.ts#L369)*
+*Defined in [main/index.ts:358](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/main/index.ts#L358)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `hash` | string |
-`options` | `RequestOptions` |
-`context` | `RequestContext` |
+`options` | RequestOptions |
+`context` | RequestContext |
 
-**Returns:** *`Promise<ResponseData | false>`*
+**Returns:** *Promise‹ResponseData | false›*
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [main/index.ts:386](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/main/index.ts#L386)*
+*Defined in [main/index.ts:375](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/main/index.ts#L375)*
 
 **Parameters:**
 
@@ -141,52 +141,52 @@ ___
 
 ###  resolveQuery
 
-▸ **resolveQuery**(`requestData`: `RequestData`, `updatedRequestData`: `RequestData`, `rawResponseData`: `RawResponseDataWithMaybeCacheMetadata`, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<ResponseData>`*
+▸ **resolveQuery**(`requestData`: RequestData, `updatedRequestData`: RequestData, `rawResponseData`: RawResponseDataWithMaybeCacheMetadata, `options`: RequestOptions, `context`: RequestContext): *Promise‹ResponseData›*
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [main/index.ts:390](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/main/index.ts#L390)*
+*Defined in [main/index.ts:379](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/main/index.ts#L379)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`requestData` | `RequestData` |
-`updatedRequestData` | `RequestData` |
-`rawResponseData` | `RawResponseDataWithMaybeCacheMetadata` |
-`options` | `RequestOptions` |
-`context` | `RequestContext` |
+`requestData` | RequestData |
+`updatedRequestData` | RequestData |
+`rawResponseData` | RawResponseDataWithMaybeCacheMetadata |
+`options` | RequestOptions |
+`context` | RequestContext |
 
-**Returns:** *`Promise<ResponseData>`*
+**Returns:** *Promise‹ResponseData›*
 
 ___
 
 ###  resolveRequest
 
-▸ **resolveRequest**(`requestData`: `RequestData`, `rawResponseData`: `RawResponseDataWithMaybeCacheMetadata`, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<ResponseData>`*
+▸ **resolveRequest**(`requestData`: RequestData, `rawResponseData`: RawResponseDataWithMaybeCacheMetadata, `options`: RequestOptions, `context`: RequestContext): *Promise‹ResponseData›*
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [main/index.ts:428](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/main/index.ts#L428)*
+*Defined in [main/index.ts:416](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/main/index.ts#L416)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`requestData` | `RequestData` |
-`rawResponseData` | `RawResponseDataWithMaybeCacheMetadata` |
-`options` | `RequestOptions` |
-`context` | `RequestContext` |
+`requestData` | RequestData |
+`rawResponseData` | RawResponseDataWithMaybeCacheMetadata |
+`options` | RequestOptions |
+`context` | RequestContext |
 
-**Returns:** *`Promise<ResponseData>`*
+**Returns:** *Promise‹ResponseData›*
 
 ___
 
 ### `Static` init
 
-▸ **init**(`options`: [InitOptions](../interfaces/initoptions.md)): *`Promise<CacheManager>`*
+▸ **init**(`options`: [InitOptions](../interfaces/initoptions.md)): *Promise‹[CacheManager](cachemanager.md)›*
 
-*Defined in [main/index.ts:77](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/main/index.ts#L77)*
+*Defined in [main/index.ts:71](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/main/index.ts#L71)*
 
 **Parameters:**
 
@@ -194,4 +194,4 @@ Name | Type |
 ------ | ------ |
 `options` | [InitOptions](../interfaces/initoptions.md) |
 
-**Returns:** *`Promise<CacheManager>`*
+**Returns:** *Promise‹[CacheManager](cachemanager.md)›*

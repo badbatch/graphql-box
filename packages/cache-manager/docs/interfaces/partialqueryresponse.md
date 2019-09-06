@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[PartialQueryResponse](partialqueryresponse.md) /
+[Globals](../README.md) › [PartialQueryResponse](partialqueryresponse.md)
 
 # Interface: PartialQueryResponse
 
@@ -19,14 +19,14 @@
 
 ###  cacheMetadata
 
-• **cacheMetadata**: *`CacheMetadata`*
+• **cacheMetadata**: *CacheMetadata*
 
-*Defined in [defs/index.ts:67](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L67)*
+*Defined in [defs/index.ts:66](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L66)*
 
 ___
 
 ###  data
 
-• **data**: *`PlainObjectMap`*
+• **data**: *PlainObjectMap*
 
-*Defined in [defs/index.ts:66](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L66)*
+*Defined in [defs/index.ts:67](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L67)*

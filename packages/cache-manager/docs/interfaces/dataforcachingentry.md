@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[DataForCachingEntry](dataforcachingentry.md) /
+[Globals](../README.md) › [DataForCachingEntry](dataforcachingentry.md)
 
 # Interface: DataForCachingEntry
 
@@ -20,22 +20,22 @@
 
 ###  cacheability
 
-• **cacheability**: *`Cacheability`*
+• **cacheability**: *Cacheability*
 
-*Defined in [defs/index.ts:151](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L151)*
+*Defined in [defs/index.ts:151](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L151)*
 
 ___
 
 ###  data
 
-• **data**: *`PlainObjectMap`*
+• **data**: *PlainObjectMap*
 
-*Defined in [defs/index.ts:152](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L152)*
+*Defined in [defs/index.ts:152](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L152)*
 
 ___
 
 ###  fieldTypeInfo
 
-• **fieldTypeInfo**: *`FieldTypeInfo`*
+• **fieldTypeInfo**: *FieldTypeInfo*
 
-*Defined in [defs/index.ts:153](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L153)*
+*Defined in [defs/index.ts:153](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L153)*

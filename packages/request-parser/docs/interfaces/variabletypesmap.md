@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[VariableTypesMap](variabletypesmap.md) /
+[Globals](../README.md) › [VariableTypesMap](variabletypesmap.md)
 
 # Interface: VariableTypesMap
 
@@ -10,4 +10,4 @@
 
 ## Indexable
 
-● \[▪ **key**: *string*\]: `Maybe<GraphQLNamedType>`
+* \[ **key**: *string*\]: Maybe‹GraphQLNamedType›

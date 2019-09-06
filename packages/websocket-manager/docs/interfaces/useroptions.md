@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[UserOptions](useroptions.md) /
+[Globals](../README.md) › [UserOptions](useroptions.md)
 
 # Interface: UserOptions
 
@@ -18,9 +18,9 @@
 
 ###  websocket
 
-• **websocket**: *`WebSocket`*
+• **websocket**: *WebSocket*
 
-*Defined in [defs/index.ts:6](https://github.com/badbatch/graphql-box/blob/22b398c/packages/websocket-manager/src/defs/index.ts#L6)*
+*Defined in [defs/index.ts:6](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/websocket-manager/src/defs/index.ts#L6)*
 
 The WebSocket instance for managing a
 WebSocket connection.

@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[UserOptions](useroptions.md) /
+[Globals](../README.md) › [UserOptions](useroptions.md)
 
 # Interface: UserOptions
 
@@ -23,7 +23,7 @@
 
 • **execute**? : *[GraphQLExecute](../README.md#graphqlexecute)*
 
-*Defined in [defs/index.ts:10](https://github.com/badbatch/graphql-box/blob/22b398c/packages/execute/src/defs/index.ts#L10)*
+*Defined in [defs/index.ts:10](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/execute/src/defs/index.ts#L10)*
 
 A GraphQL execute function to use
 instead of the out-of-the-box function.
@@ -32,9 +32,9 @@ ___
 
 ### `Optional` fieldResolver
 
-• **fieldResolver**? : *`GraphQLFieldResolver<any, any>`*
+• **fieldResolver**? : *GraphQLFieldResolver‹any, any›*
 
-*Defined in [defs/index.ts:17](https://github.com/badbatch/graphql-box/blob/22b398c/packages/execute/src/defs/index.ts#L17)*
+*Defined in [defs/index.ts:17](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/execute/src/defs/index.ts#L17)*
 
 Set default GraphQL field resolver function to
 be passed on to GraphQL's execute and subscribe
@@ -46,7 +46,7 @@ ___
 
 • **rootValue**? : *any*
 
-*Defined in [defs/index.ts:23](https://github.com/badbatch/graphql-box/blob/22b398c/packages/execute/src/defs/index.ts#L23)*
+*Defined in [defs/index.ts:23](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/execute/src/defs/index.ts#L23)*
 
 Set default GraphQL root value to be passed on to
 GraphQL's execute and subscribe methods.
@@ -55,8 +55,8 @@ ___
 
 ###  schema
 
-• **schema**: *`GraphQLSchema`*
+• **schema**: *GraphQLSchema*
 
-*Defined in [defs/index.ts:28](https://github.com/badbatch/graphql-box/blob/22b398c/packages/execute/src/defs/index.ts#L28)*
+*Defined in [defs/index.ts:28](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/execute/src/defs/index.ts#L28)*
 
 The GraphQL schema.

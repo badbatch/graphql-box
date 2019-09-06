@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[RegisterWorkerOptions](registerworkeroptions.md) /
+[Globals](../README.md) › [RegisterWorkerOptions](registerworkeroptions.md)
 
 # Interface: RegisterWorkerOptions
 
@@ -18,6 +18,6 @@
 
 ###  client
 
-• **client**: *`Client`*
+• **client**: *Client*
 
-*Defined in [defs/index.ts:64](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/defs/index.ts#L64)*
+*Defined in [defs/index.ts:64](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/defs/index.ts#L64)*

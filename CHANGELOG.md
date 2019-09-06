@@ -1,3 +1,32 @@
+#### 1.0.2 (2019-09-06)
+
+##### Chores
+
+* **repo:**
+  *  update dependencies ([2d19c638](https://github.com/badbatch/graphql-box/commit/2d19c638bef31b43dd84e3e814b2bd26fd086be1))
+  *  update dependencies. ([151b16f6](https://github.com/badbatch/graphql-box/commit/151b16f607283e80e2e34ab92777d6a89b74c818))
+* **cachemap,cacheability:**  updgrade dependencies ([c5e15a53](https://github.com/badbatch/graphql-box/commit/c5e15a53d52da86d4f4446870c45345a57a18ce3))
+* **security:**  update vulnerable packages ([188296d6](https://github.com/badbatch/graphql-box/commit/188296d651e307f3c4459e0e49746ba4fa474ef0))
+
+##### New Features
+
+* **repo:**  install and configure repodog packages ([b01c5117](https://github.com/badbatch/graphql-box/commit/b01c5117f5ef18048a9b21926a3902390ea7e6cd))
+* **repodog:**  add repodog packages\ ([b6cf1fa1](https://github.com/badbatch/graphql-box/commit/b6cf1fa103b20f3bd19855392c6dbd54249f2ce5))
+
+##### Bug Fixes
+
+* **travis:**
+  *  remove integration tests from ci ([61b2303f](https://github.com/badbatch/graphql-box/commit/61b2303f6c04775257941046f3922692f53ce466))
+  *  update npm script calls ([055190a7](https://github.com/badbatch/graphql-box/commit/055190a77e280e153458f1a52e79c0a213e52ea6))
+* **typescript:**  add missing references ([7b5b8cb2](https://github.com/badbatch/graphql-box/commit/7b5b8cb29e0afa9d459d4b0433f40129f289fdb7))
+* **npm:**  include src folder in npm package ([309f3a6a](https://github.com/badbatch/graphql-box/commit/309f3a6acd546ff29e35ccafd1e835d8bfa3a980))
+* **tsconfig:**  sort formatting errors in json files ([42c25858](https://github.com/badbatch/graphql-box/commit/42c2585884a0ce748ee7cdbefef7a12c9b589d80))
+* **readme:**  correct code example. ([9b000e93](https://github.com/badbatch/graphql-box/commit/9b000e933118933cd603a63ccf89e77346c6d4ef))
+
+##### Refactors
+
+* **dependencies:**  make internal deps peer deps ([620b9e79](https://github.com/badbatch/graphql-box/commit/620b9e79ad18fb10bedc076b55447791255adb2e))
+
 #### 1.0.1 (2019-07-30)
 
 ##### Documentation Changes

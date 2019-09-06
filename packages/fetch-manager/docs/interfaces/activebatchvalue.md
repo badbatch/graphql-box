@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[ActiveBatchValue](activebatchvalue.md) /
+[Globals](../README.md) › [ActiveBatchValue](activebatchvalue.md)
 
 # Interface: ActiveBatchValue
 
@@ -21,7 +21,7 @@
 
 • **actions**: *[BatchResultActions](batchresultactions.md)*
 
-*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/defs/index.ts#L50)*
+*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L45)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **request**: *string*
 
-*Defined in [defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/defs/index.ts#L51)*
+*Defined in [defs/index.ts:46](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L46)*

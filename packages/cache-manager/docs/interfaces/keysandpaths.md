@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[KeysAndPaths](keysandpaths.md) /
+[Globals](../README.md) › [KeysAndPaths](keysandpaths.md)
 
 # Interface: KeysAndPaths
 
@@ -24,7 +24,7 @@
 
 • **hashedRequestFieldCacheKey**: *string*
 
-*Defined in [defs/index.ts:132](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L132)*
+*Defined in [defs/index.ts:132](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L132)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **propNameOrIndex**: *string | number*
 
-*Defined in [defs/index.ts:133](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L133)*
+*Defined in [defs/index.ts:133](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L133)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **requestFieldCacheKey**: *string*
 
-*Defined in [defs/index.ts:134](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L134)*
+*Defined in [defs/index.ts:134](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L134)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **requestFieldPath**: *string*
 
-*Defined in [defs/index.ts:135](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L135)*
+*Defined in [defs/index.ts:135](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L135)*
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 • **responseDataPath**: *string*
 
-*Defined in [defs/index.ts:136](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L136)*
+*Defined in [defs/index.ts:136](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L136)*

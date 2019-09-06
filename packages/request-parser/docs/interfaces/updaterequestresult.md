@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[UpdateRequestResult](updaterequestresult.md) /
+[Globals](../README.md) › [UpdateRequestResult](updaterequestresult.md)
 
 # Interface: UpdateRequestResult
 
@@ -19,9 +19,9 @@
 
 ###  ast
 
-• **ast**: *`DocumentNode`*
+• **ast**: *DocumentNode*
 
-*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/22b398c/packages/request-parser/src/defs/index.ts#L48)*
+*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/request-parser/src/defs/index.ts#L48)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **request**: *string*
 
-*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/22b398c/packages/request-parser/src/defs/index.ts#L49)*
+*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/request-parser/src/defs/index.ts#L49)*

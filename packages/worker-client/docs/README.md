@@ -1,4 +1,6 @@
-> **[Documentation](README.md)**
+**[Documentation](README.md)**
+
+[Globals](README.md)
 
 ## Index
 
@@ -47,7 +49,7 @@
 
 Ƭ **MethodNames**: *"request" | "subscribe"*
 
-*Defined in [defs/index.ts:34](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/defs/index.ts#L34)*
+*Defined in [defs/index.ts:34](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/defs/index.ts#L34)*
 
 ___
 
@@ -55,25 +57,25 @@ ___
 
 Ƭ **PendingResolver**: *function*
 
-*Defined in [defs/index.ts:36](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/defs/index.ts#L36)*
+*Defined in [defs/index.ts:36](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/defs/index.ts#L36)*
 
 #### Type declaration:
 
-▸ (`value`: `MaybeRequestResult`): *void*
+▸ (`value`: MaybeRequestResult): *void*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`value` | `MaybeRequestResult` |
+`value` | MaybeRequestResult |
 
 ___
 
 ###  PendingTracker
 
-Ƭ **PendingTracker**: *`Map<string, PendingData>`*
+Ƭ **PendingTracker**: *Map‹string, [PendingData](interfaces/pendingdata.md)›*
 
-*Defined in [defs/index.ts:42](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/defs/index.ts#L42)*
+*Defined in [defs/index.ts:42](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/defs/index.ts#L42)*
 
 ## Variables
 
@@ -81,7 +83,7 @@ ___
 
 • **CACHEMAP**: *"cachemap"* = "cachemap"
 
-*Defined in [consts/index.ts:9](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/consts/index.ts#L9)*
+*Defined in [consts/index.ts:9](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/consts/index.ts#L9)*
 
 ___
 
@@ -89,7 +91,7 @@ ___
 
 • **GRAPHQL_BOX**: *"graphqlBox"* = "graphqlBox"
 
-*Defined in [consts/index.ts:8](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/consts/index.ts#L8)*
+*Defined in [consts/index.ts:8](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/consts/index.ts#L8)*
 
 ___
 
@@ -97,7 +99,7 @@ ___
 
 • **MESSAGE**: *"message"* = "message"
 
-*Defined in [consts/index.ts:6](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/consts/index.ts#L6)*
+*Defined in [consts/index.ts:6](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/consts/index.ts#L6)*
 
 ___
 
@@ -105,7 +107,7 @@ ___
 
 • **REQUEST**: *"request"* = "request"
 
-*Defined in [consts/index.ts:3](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/consts/index.ts#L3)*
+*Defined in [consts/index.ts:3](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/consts/index.ts#L3)*
 
 ___
 
@@ -113,7 +115,7 @@ ___
 
 • **REQUEST_EXECUTED**: *"request_executed"* = "request_executed"
 
-*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/consts/index.ts#L1)*
+*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/consts/index.ts#L1)*
 
 ___
 
@@ -121,38 +123,38 @@ ___
 
 • **SUBSCRIBE**: *"subscribe"* = "subscribe"
 
-*Defined in [consts/index.ts:4](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/consts/index.ts#L4)*
+*Defined in [consts/index.ts:4](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/consts/index.ts#L4)*
 
 ___
 
 ###  addEventListener
 
-• **addEventListener**: *`addEventListener`*
+• **addEventListener**: *addEventListener*
 
-*Defined in [register-worker/index.ts:19](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/register-worker/index.ts#L19)*
+*Defined in [register-worker/index.ts:10](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/register-worker/index.ts#L10)*
 
 ___
 
 ###  postMessage
 
-• **postMessage**: *`postMessage`*
+• **postMessage**: *postMessage*
 
-*Defined in [register-worker/index.ts:19](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/register-worker/index.ts#L19)*
+*Defined in [register-worker/index.ts:10](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/register-worker/index.ts#L10)*
 
 ## Functions
 
 ###  handleMessage
 
-▸ **handleMessage**(`data`: [MessageRequestPayload](interfaces/messagerequestpayload.md), `client`: `Client`): *void*
+▸ **handleMessage**(`data`: [MessageRequestPayload](interfaces/messagerequestpayload.md), `client`: Client): *void*
 
-*Defined in [register-worker/index.ts:52](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/register-worker/index.ts#L52)*
+*Defined in [register-worker/index.ts:43](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/register-worker/index.ts#L43)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `data` | [MessageRequestPayload](interfaces/messagerequestpayload.md) |
-`client` | `Client` |
+`client` | Client |
 
 **Returns:** *void*
 
@@ -160,9 +162,9 @@ ___
 
 ###  handleRequest
 
-▸ **handleRequest**(`request`: string, `method`: [MethodNames](README.md#methodnames), `options`: `RequestOptions`, `context`: [MessageContext](interfaces/messagecontext.md), `client`: `Client`): *`Promise<void>`*
+▸ **handleRequest**(`request`: string, `method`: [MethodNames](README.md#methodnames), `options`: RequestOptions, `context`: [MessageContext](interfaces/messagecontext.md), `client`: Client): *Promise‹void›*
 
-*Defined in [register-worker/index.ts:21](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/register-worker/index.ts#L21)*
+*Defined in [register-worker/index.ts:12](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/register-worker/index.ts#L12)*
 
 **Parameters:**
 
@@ -170,19 +172,19 @@ Name | Type |
 ------ | ------ |
 `request` | string |
 `method` | [MethodNames](README.md#methodnames) |
-`options` | `RequestOptions` |
+`options` | RequestOptions |
 `context` | [MessageContext](interfaces/messagecontext.md) |
-`client` | `Client` |
+`client` | Client |
 
-**Returns:** *`Promise<void>`*
+**Returns:** *Promise‹void›*
 
 ___
 
 ###  handleSubscription
 
-▸ **handleSubscription**(`request`: string, `method`: [MethodNames](README.md#methodnames), `options`: `RequestOptions`, `context`: [MessageContext](interfaces/messagecontext.md), `client`: `Client`): *`Promise<void>`*
+▸ **handleSubscription**(`request`: string, `method`: [MethodNames](README.md#methodnames), `options`: RequestOptions, `context`: [MessageContext](interfaces/messagecontext.md), `client`: Client): *Promise‹void›*
 
-*Defined in [register-worker/index.ts:34](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/register-worker/index.ts#L34)*
+*Defined in [register-worker/index.ts:25](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/register-worker/index.ts#L25)*
 
 **Parameters:**
 
@@ -190,29 +192,29 @@ Name | Type |
 ------ | ------ |
 `request` | string |
 `method` | [MethodNames](README.md#methodnames) |
-`options` | `RequestOptions` |
+`options` | RequestOptions |
 `context` | [MessageContext](interfaces/messagecontext.md) |
-`client` | `Client` |
+`client` | Client |
 
-**Returns:** *`Promise<void>`*
+**Returns:** *Promise‹void›*
 
 ___
 
 ###  logRequest
 
-▸ **logRequest**(): *`(Anonymous function)`*
+▸ **logRequest**(): *(Anonymous function)*
 
-*Defined in [debug/log-request/index.ts:4](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/debug/log-request/index.ts#L4)*
+*Defined in [debug/log-request/index.ts:4](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/debug/log-request/index.ts#L4)*
 
-**Returns:** *`(Anonymous function)`*
+**Returns:** *(Anonymous function)*
 
 ___
 
 ###  registerWorker
 
-▸ **registerWorker**(`__namedParameters`: object): *`Promise<void>`*
+▸ **registerWorker**(`__namedParameters`: object): *Promise‹void›*
 
-*Defined in [register-worker/index.ts:62](https://github.com/badbatch/graphql-box/blob/22b398c/packages/worker-client/src/register-worker/index.ts#L62)*
+*Defined in [register-worker/index.ts:53](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/register-worker/index.ts#L53)*
 
 **Parameters:**
 
@@ -220,6 +222,6 @@ ___
 
 Name | Type |
 ------ | ------ |
-`client` | `Client` |
+`client` | Client |
 
-**Returns:** *`Promise<void>`*
+**Returns:** *Promise‹void›*

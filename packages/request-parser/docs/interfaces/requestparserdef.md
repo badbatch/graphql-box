@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[RequestParserDef](requestparserdef.md) /
+[Globals](../README.md) › [RequestParserDef](requestparserdef.md)
 
 # Interface: RequestParserDef
 
@@ -22,16 +22,16 @@
 
 ###  updateRequest
 
-▸ **updateRequest**(`request`: string, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<UpdateRequestResult>`*
+▸ **updateRequest**(`request`: string, `options`: RequestOptions, `context`: RequestContext): *Promise‹[UpdateRequestResult](updaterequestresult.md)›*
 
-*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/22b398c/packages/request-parser/src/defs/index.ts#L53)*
+*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/request-parser/src/defs/index.ts#L53)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `request` | string |
-`options` | `RequestOptions` |
-`context` | `RequestContext` |
+`options` | RequestOptions |
+`context` | RequestContext |
 
-**Returns:** *`Promise<UpdateRequestResult>`*
+**Returns:** *Promise‹[UpdateRequestResult](updaterequestresult.md)›*

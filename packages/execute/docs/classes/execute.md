@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[Execute](execute.md) /
+[Globals](../README.md) › [Execute](execute.md)
 
 # Class: Execute
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-* `RequestManagerDef`
+* RequestManagerDef
 
 ## Index
 
@@ -29,7 +29,7 @@
 
 \+ **new Execute**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[Execute](execute.md)*
 
-*Defined in [main/index.ts:36](https://github.com/badbatch/graphql-box/blob/22b398c/packages/execute/src/main/index.ts#L36)*
+*Defined in [main/index.ts:30](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/execute/src/main/index.ts#L30)*
 
 **Parameters:**
 
@@ -43,9 +43,9 @@ Name | Type |
 
 ###  execute
 
-▸ **execute**(`__namedParameters`: object, `options`: `ServerRequestOptions`, `__namedParameters`: object): *`Promise<MaybeRawResponseData>`*
+▸ **execute**(`__namedParameters`: object, `options`: ServerRequestOptions, `__namedParameters`: object): *Promise‹MaybeRawResponseData›*
 
-*Defined in [main/index.ts:46](https://github.com/badbatch/graphql-box/blob/22b398c/packages/execute/src/main/index.ts#L46)*
+*Defined in [main/index.ts:40](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/execute/src/main/index.ts#L40)*
 
 **Parameters:**
 
@@ -53,10 +53,10 @@ Name | Type |
 
 Name | Type |
 ------ | ------ |
-`ast` | undefined \| `DocumentNode` |
+`ast` | undefined \| DocumentNode |
 `request` | string |
 
-▪ **options**: *`ServerRequestOptions`*
+▪ **options**: *ServerRequestOptions*
 
 ▪ **__namedParameters**: *object*
 
@@ -64,15 +64,15 @@ Name | Type |
 ------ | ------ |
 `boxID` | string |
 
-**Returns:** *`Promise<MaybeRawResponseData>`*
+**Returns:** *Promise‹MaybeRawResponseData›*
 
 ___
 
 ### `Static` init
 
-▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *`Promise<Execute>`*
+▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *Promise‹[Execute](execute.md)›*
 
-*Defined in [main/index.ts:21](https://github.com/badbatch/graphql-box/blob/22b398c/packages/execute/src/main/index.ts#L21)*
+*Defined in [main/index.ts:15](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/execute/src/main/index.ts#L15)*
 
 **Parameters:**
 
@@ -80,4 +80,4 @@ Name | Type |
 ------ | ------ |
 `options` | [InitOptions](../README.md#initoptions) |
 
-**Returns:** *`Promise<Execute>`*
+**Returns:** *Promise‹[Execute](execute.md)›*

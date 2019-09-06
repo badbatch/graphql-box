@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[ExportCacheResult](exportcacheresult.md) /
+[Globals](../README.md) › [ExportCacheResult](exportcacheresult.md)
 
 # Interface: ExportCacheResult
 
@@ -19,14 +19,14 @@
 
 ###  entries
 
-• **entries**: *`Array<[string, any]>`*
+• **entries**: *Array‹[string, any]›*
 
-*Defined in [defs/index.ts:157](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L157)*
+*Defined in [defs/index.ts:157](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L157)*
 
 ___
 
 ###  metadata
 
-• **metadata**: *`Metadata`[]*
+• **metadata**: *Metadata[]*
 
-*Defined in [defs/index.ts:158](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L158)*
+*Defined in [defs/index.ts:158](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L158)*

@@ -1,4 +1,6 @@
-> **[Documentation](README.md)**
+**[Documentation](README.md)**
+
+[Globals](README.md)
 
 ## Index
 
@@ -24,7 +26,7 @@
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [defs/index.ts:17](https://github.com/badbatch/graphql-box/blob/22b398c/packages/server/src/defs/index.ts#L17)*
+*Defined in [defs/index.ts:17](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/server/src/defs/index.ts#L17)*
 
 ___
 
@@ -32,17 +34,17 @@ ___
 
 Ƭ **MessageHandler**: *function*
 
-*Defined in [defs/index.ts:21](https://github.com/badbatch/graphql-box/blob/22b398c/packages/server/src/defs/index.ts#L21)*
+*Defined in [defs/index.ts:21](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/server/src/defs/index.ts#L21)*
 
 #### Type declaration:
 
-▸ (`message`: `Data`): *void*
+▸ (`message`: Data): *void*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`message` | `Data` |
+`message` | Data |
 
 ___
 
@@ -50,16 +52,16 @@ ___
 
 Ƭ **RequestHandler**: *function*
 
-*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/22b398c/packages/server/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/server/src/defs/index.ts#L19)*
 
 #### Type declaration:
 
-▸ (`req`: `Request`, `res`: `Response`, ...`args`: any[]): *void*
+▸ (`req`: Request, `res`: Response, ...`args`: any[]): *void*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`req` | `Request` |
-`res` | `Response` |
+`req` | Request |
+`res` | Response |
 `...args` | any[] |

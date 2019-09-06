@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[IntrospectArgs](introspectargs.md) /
+[Globals](../README.md) › [IntrospectArgs](introspectargs.md)
 
 # Interface: IntrospectArgs
 
@@ -23,7 +23,7 @@
 
 • **headers**? : *string[]*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cli/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cli/src/defs/index.ts#L4)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **output**: *string*
 
-*Defined in [defs/index.ts:5](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cli/src/defs/index.ts#L5)*
+*Defined in [defs/index.ts:5](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cli/src/defs/index.ts#L5)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **schemaPath**? : *undefined | string*
 
-*Defined in [defs/index.ts:6](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cli/src/defs/index.ts#L6)*
+*Defined in [defs/index.ts:6](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cli/src/defs/index.ts#L6)*
 
 ___
 
@@ -47,4 +47,4 @@ ___
 
 • **url**? : *undefined | string*
 
-*Defined in [defs/index.ts:7](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cli/src/defs/index.ts#L7)*
+*Defined in [defs/index.ts:7](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cli/src/defs/index.ts#L7)*

@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[FetchManager](fetchmanager.md) /
+[Globals](../README.md) › [FetchManager](fetchmanager.md)
 
 # Class: FetchManager
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-* `RequestManagerDef`
+* RequestManagerDef
 
 ## Index
 
@@ -29,7 +29,7 @@
 
 \+ **new FetchManager**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[FetchManager](fetchmanager.md)*
 
-*Defined in [main/index.ts:71](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/main/index.ts#L71)*
+*Defined in [main/index.ts:71](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/main/index.ts#L71)*
 
 **Parameters:**
 
@@ -43,9 +43,9 @@ Name | Type |
 
 ###  execute
 
-▸ **execute**(`__namedParameters`: object, `options`: `RequestOptions`, `context`: `RequestContext`): *`Promise<MaybeRawResponseData>`*
+▸ **execute**(`__namedParameters`: object, `options`: RequestOptions, `context`: RequestContext): *Promise‹MaybeRawResponseData›*
 
-*Defined in [main/index.ts:83](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/main/index.ts#L83)*
+*Defined in [main/index.ts:83](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/main/index.ts#L83)*
 
 **Parameters:**
 
@@ -56,19 +56,19 @@ Name | Type |
 `hash` | string |
 `request` | string |
 
-▪ **options**: *`RequestOptions`*
+▪ **options**: *RequestOptions*
 
-▪ **context**: *`RequestContext`*
+▪ **context**: *RequestContext*
 
-**Returns:** *`Promise<MaybeRawResponseData>`*
+**Returns:** *Promise‹MaybeRawResponseData›*
 
 ___
 
 ### `Static` init
 
-▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *`Promise<FetchManager>`*
+▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *Promise‹[FetchManager](fetchmanager.md)›*
 
-*Defined in [main/index.ts:26](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/main/index.ts#L26)*
+*Defined in [main/index.ts:26](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/main/index.ts#L26)*
 
 **Parameters:**
 
@@ -76,4 +76,4 @@ Name | Type |
 ------ | ------ |
 `options` | [InitOptions](../README.md#initoptions) |
 
-**Returns:** *`Promise<FetchManager>`*
+**Returns:** *Promise‹[FetchManager](fetchmanager.md)›*

@@ -1,4 +1,6 @@
-> **[Documentation](README.md)**
+**[Documentation](README.md)**
+
+[Globals](README.md)
 
 ## Index
 
@@ -26,7 +28,7 @@
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [defs/index.ts:11](https://github.com/badbatch/graphql-box/blob/22b398c/packages/websocket-manager/src/defs/index.ts#L11)*
+*Defined in [defs/index.ts:11](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/websocket-manager/src/defs/index.ts#L11)*
 
 ___
 
@@ -34,15 +36,15 @@ ___
 
 Ƭ **InitOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [defs/index.ts:9](https://github.com/badbatch/graphql-box/blob/22b398c/packages/websocket-manager/src/defs/index.ts#L9)*
+*Defined in [defs/index.ts:9](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/websocket-manager/src/defs/index.ts#L9)*
 
 ## Functions
 
 ###  init
 
-▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *`SubscriptionsManagerInit`*
+▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *SubscriptionsManagerInit*
 
-*Defined in [main/index.ts:89](https://github.com/badbatch/graphql-box/blob/22b398c/packages/websocket-manager/src/main/index.ts#L89)*
+*Defined in [main/index.ts:87](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/websocket-manager/src/main/index.ts#L87)*
 
 **Parameters:**
 
@@ -50,20 +52,20 @@ Name | Type |
 ------ | ------ |
 `userOptions` | [UserOptions](interfaces/useroptions.md) |
 
-**Returns:** *`SubscriptionsManagerInit`*
+**Returns:** *SubscriptionsManagerInit*
 
 ___
 
 ###  onOpen
 
-▸ **onOpen**(`websocket`: `WebSocket`): *`Promise<void>`*
+▸ **onOpen**(`websocket`: WebSocket): *Promise‹void›*
 
-*Defined in [index.test.ts:12](https://github.com/badbatch/graphql-box/blob/22b398c/packages/websocket-manager/src/index.test.ts#L12)*
+*Defined in [index.test.ts:7](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/websocket-manager/src/index.test.ts#L7)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`websocket` | `WebSocket` |
+`websocket` | WebSocket |
 
-**Returns:** *`Promise<void>`*
+**Returns:** *Promise‹void›*

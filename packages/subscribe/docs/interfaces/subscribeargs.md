@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[SubscribeArgs](subscribeargs.md) /
+[Globals](../README.md) › [SubscribeArgs](subscribeargs.md)
 
 # Interface: SubscribeArgs
 
@@ -21,6 +21,7 @@
 * [rootValue](subscribeargs.md#optional-rootvalue)
 * [schema](subscribeargs.md#schema)
 * [subscribeFieldResolver](subscribeargs.md#optional-subscribefieldresolver)
+* [typeResolver](subscribeargs.md#optional-typeresolver)
 * [variableValues](subscribeargs.md#optional-variablevalues)
 
 ## Properties
@@ -31,37 +32,37 @@
 
 *Inherited from __type.contextValue*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/@types/graphql/execution/execute.d.ts:58
+Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/graphql/execution/execute.d.ts:63
 
 ___
 
 ###  document
 
-• **document**: *`DocumentNode`*
+• **document**: *DocumentNode*
 
 *Inherited from __type.document*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/@types/graphql/execution/execute.d.ts:56
+Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/graphql/execution/execute.d.ts:61
 
 ___
 
 ### `Optional` fieldResolver
 
-• **fieldResolver**? : *`Maybe<GraphQLFieldResolver<any, any>>`*
+• **fieldResolver**? : *Maybe‹GraphQLFieldResolver‹any, any››*
 
 *Inherited from __type.fieldResolver*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/@types/graphql/execution/execute.d.ts:61
+Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/graphql/execution/execute.d.ts:66
 
 ___
 
 ### `Optional` operationName
 
-• **operationName**? : *`Maybe<string>`*
+• **operationName**? : *Maybe‹string›*
 
 *Inherited from __type.operationName*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/@types/graphql/execution/execute.d.ts:60
+Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/graphql/execution/execute.d.ts:65
 
 ___
 
@@ -71,32 +72,42 @@ ___
 
 *Inherited from __type.rootValue*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/@types/graphql/execution/execute.d.ts:57
+Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/graphql/execution/execute.d.ts:62
 
 ___
 
 ###  schema
 
-• **schema**: *`GraphQLSchema`*
+• **schema**: *GraphQLSchema*
 
 *Inherited from __type.schema*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/@types/graphql/execution/execute.d.ts:55
+Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/graphql/execution/execute.d.ts:60
 
 ___
 
 ### `Optional` subscribeFieldResolver
 
-• **subscribeFieldResolver**? : *`Maybe<GraphQLFieldResolver<any, any>>`*
+• **subscribeFieldResolver**? : *Maybe‹GraphQLFieldResolver‹any, any››*
 
-*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/22b398c/packages/subscribe/src/defs/index.ts#L52)*
+*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/subscribe/src/defs/index.ts#L52)*
+
+___
+
+### `Optional` typeResolver
+
+• **typeResolver**? : *Maybe‹GraphQLTypeResolver‹any, any››*
+
+*Inherited from __type.typeResolver*
+
+Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/graphql/execution/execute.d.ts:67
 
 ___
 
 ### `Optional` variableValues
 
-• **variableValues**? : *`Maybe<object>`*
+• **variableValues**? : *Maybe‹object›*
 
 *Inherited from __type.variableValues*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/@types/graphql/execution/execute.d.ts:59
+Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/graphql/execution/execute.d.ts:64

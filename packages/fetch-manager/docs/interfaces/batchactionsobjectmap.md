@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[BatchActionsObjectMap](batchactionsobjectmap.md) /
+[Globals](../README.md) › [BatchActionsObjectMap](batchactionsobjectmap.md)
 
 # Interface: BatchActionsObjectMap
 
@@ -10,4 +10,4 @@
 
 ## Indexable
 
-● \[▪ **key**: *string*\]: [BatchResultActions](batchresultactions.md)
+* \[ **key**: *string*\]: [BatchResultActions](batchresultactions.md)

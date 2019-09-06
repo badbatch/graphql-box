@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[BatchResultActions](batchresultactions.md) /
+[Globals](../README.md) › [BatchResultActions](batchresultactions.md)
 
 # Interface: BatchResultActions
 
@@ -21,17 +21,17 @@
 
 • **reject**: *function*
 
-*Defined in [defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/defs/index.ts#L55)*
+*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L50)*
 
 #### Type declaration:
 
-▸ (`reason`: `Error` | `Error`[]): *void*
+▸ (`reason`: Error | Error[]): *void*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`reason` | `Error` \| `Error`[] |
+`reason` | Error \| Error[] |
 
 ___
 
@@ -39,14 +39,14 @@ ___
 
 • **resolve**: *function*
 
-*Defined in [defs/index.ts:56](https://github.com/badbatch/graphql-box/blob/22b398c/packages/fetch-manager/src/defs/index.ts#L56)*
+*Defined in [defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L51)*
 
 #### Type declaration:
 
-▸ (`value`: `MaybeRawResponseData`): *void*
+▸ (`value`: MaybeRawResponseData): *void*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`value` | `MaybeRawResponseData` |
+`value` | MaybeRawResponseData |

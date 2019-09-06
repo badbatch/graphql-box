@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[ConstructorOptions](constructoroptions.md) /
+[Globals](../README.md) › [ConstructorOptions](constructoroptions.md)
 
 # Interface: ConstructorOptions
 
@@ -22,9 +22,9 @@
 
 ###  cache
 
-• **cache**: *`Cachemap`*
+• **cache**: *Cachemap*
 
-*Defined in [defs/index.ts:58](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L58)*
+*Defined in [defs/index.ts:58](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L58)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **cascadeCacheControl**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:59](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L59)*
+*Defined in [defs/index.ts:59](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L59)*
 
 ___
 
@@ -40,15 +40,15 @@ ___
 
 • **fallbackOperationCacheability**? : *undefined | string*
 
-*Defined in [defs/index.ts:60](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L60)*
+*Defined in [defs/index.ts:60](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L60)*
 
 ___
 
 ### `Optional` typeCacheDirectives
 
-• **typeCacheDirectives**? : *`PlainObjectStringMap`*
+• **typeCacheDirectives**? : *PlainObjectStringMap*
 
-*Defined in [defs/index.ts:61](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L61)*
+*Defined in [defs/index.ts:61](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L61)*
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 • **typeIDKey**: *string*
 
-*Defined in [defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L62)*
+*Defined in [defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L62)*

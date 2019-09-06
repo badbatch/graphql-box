@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[MaybeRawFetchDataObjectMap](mayberawfetchdataobjectmap.md) /
+[Globals](../README.md) › [MaybeRawFetchDataObjectMap](mayberawfetchdataobjectmap.md)
 
 # Interface: MaybeRawFetchDataObjectMap
 
@@ -10,4 +10,4 @@
 
 ## Indexable
 
-● \[▪ **key**: *string*\]: [MaybeRawFetchData](mayberawfetchdata.md)
+* \[ **key**: *string*\]: [MaybeRawFetchData](mayberawfetchdata.md)

@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[CheckFieldPathChecklistResult](checkfieldpathchecklistresult.md) /
+[Globals](../README.md) › [CheckFieldPathChecklistResult](checkfieldpathchecklistresult.md)
 
 # Interface: CheckFieldPathChecklistResult
 
@@ -21,7 +21,7 @@
 
 • **hasData**: *boolean*
 
-*Defined in [defs/index.ts:83](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L83)*
+*Defined in [defs/index.ts:83](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L83)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **typeUnused**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:84](https://github.com/badbatch/graphql-box/blob/22b398c/packages/cache-manager/src/defs/index.ts#L84)*
+*Defined in [defs/index.ts:84](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L84)*
