@@ -1,6 +1,7 @@
 {
   "extends": "@repodog/tslint-config",
   "rules": {
+    "no-any": false,
     "no-submodule-imports": [
       true,
       "uuid/v1",

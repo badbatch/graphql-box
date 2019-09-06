@@ -46,11 +46,11 @@
     "lodash": "^4.17.5"
   },
   "dependencies": {
-    "@cachemap/core": "^1.4.0",
-    "@cachemap/core-worker": "^1.4.0",
+    "@cachemap/core": "^1.4.1",
+    "@cachemap/core-worker": "^1.4.1",
     "eventemitter3": "^4.0.0",
     "iterall": "^1.2.2",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "@graphql-box/client": "^1.0.1",

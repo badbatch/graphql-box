@@ -164,7 +164,7 @@ export interface RawResponseDataWithMaybeCacheMetadata {
 
 export interface MaybeRawResponseData {
   _cacheMetadata?: DehydratedCacheMetadata;
-  data?: PlainObjectMap;
+  data?: PlainObjectMap | null;
   errors?: Error | ReadonlyArray<Error>;
   headers?: Headers;
 }
@@ -176,7 +176,7 @@ export interface ResponseData {
 
 export interface MaybeResponseData {
   cacheMetadata?: CacheMetadata;
-  data?: PlainObjectMap;
+  data?: PlainObjectMap | null;
   errors?: Error | ReadonlyArray<Error>;
 }
 
@@ -202,7 +202,7 @@ export interface MaybeRequestResult {
   /**
    * The data requested in a query, mutation or subscription.
    */
-  data?: PlainObjectMap;
+  data?: PlainObjectMap | null;
 
   /**
    * Any errors thrown during the request.
@@ -212,7 +212,7 @@ export interface MaybeRequestResult {
 
 export interface MaybeRequestResultWithDehydratedCacheMetadata {
   _cacheMetadata?: DehydratedCacheMetadata;
-  data?: PlainObjectMap;
+  data?: PlainObjectMap | null;
   errors?: Error | ReadonlyArray<Error>;
 }
 

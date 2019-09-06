@@ -46,7 +46,7 @@
     "lodash": "^4.17.5"
   },
   "dependencies": {
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "@graphql-box/cache-manager": "^1.0.1",

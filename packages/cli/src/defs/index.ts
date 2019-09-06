@@ -8,6 +8,5 @@ export interface IntrospectArgs {
 }
 
 export interface IntrospectionResult {
-  data?: PlainObjectMap;
-  [key: string]: any;
+  data?: PlainObjectMap | null;
 }
