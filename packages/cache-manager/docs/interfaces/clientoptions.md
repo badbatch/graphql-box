@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [ClientOptions](clientoptions.md)
+[Documentation](../README.md) › [ClientOptions](clientoptions.md)
 
 # Interface: ClientOptions
 
@@ -20,4 +18,4 @@
 
 • **typeIDKey**: *string*
 
-*Defined in [defs/index.ts:46](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L46)*
+*Defined in [defs/index.ts:46](https://github.com/badbatch/graphql-box/blob/4864259/packages/cache-manager/src/defs/index.ts#L46)*

@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [CachemapOptions](cachemapoptions.md)
+[Documentation](../README.md) › [CachemapOptions](cachemapoptions.md)
 
 # Interface: CachemapOptions
 
@@ -21,7 +19,7 @@
 
 • **cacheHeaders**: *cachemapDefs.CacheHeaders*
 
-*Defined in [defs/index.ts:177](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L177)*
+*Defined in [defs/index.ts:177](https://github.com/badbatch/graphql-box/blob/4864259/packages/cache-manager/src/defs/index.ts#L177)*
 
 ___
 
@@ -29,4 +27,4 @@ ___
 
 • **tag**? : *any*
 
-*Defined in [defs/index.ts:178](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L178)*
+*Defined in [defs/index.ts:178](https://github.com/badbatch/graphql-box/blob/4864259/packages/cache-manager/src/defs/index.ts#L178)*

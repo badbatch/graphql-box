@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [BatchActionsObjectMap](batchactionsobjectmap.md)
+[Documentation](../README.md) › [BatchActionsObjectMap](batchactionsobjectmap.md)
 
 # Interface: BatchActionsObjectMap
 

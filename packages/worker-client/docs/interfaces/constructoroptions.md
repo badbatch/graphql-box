@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [ConstructorOptions](constructoroptions.md)
+[Documentation](../README.md) › [ConstructorOptions](constructoroptions.md)
 
 # Interface: ConstructorOptions
 
@@ -21,7 +19,7 @@
 
 • **debugManager**? : *DebugManagerDef*
 
-*Defined in [defs/index.ts:26](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/defs/index.ts#L26)*
+*Defined in [defs/index.ts:26](https://github.com/badbatch/graphql-box/blob/4864259/packages/worker-client/src/defs/index.ts#L26)*
 
 The debug manager.
 
@@ -31,6 +29,6 @@ ___
 
 • **worker**: *Worker*
 
-*Defined in [defs/index.ts:31](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/worker-client/src/defs/index.ts#L31)*
+*Defined in [defs/index.ts:31](https://github.com/badbatch/graphql-box/blob/4864259/packages/worker-client/src/defs/index.ts#L31)*
 
 The web worker instance.

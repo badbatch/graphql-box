@@ -1,6 +1,6 @@
-**[Documentation](README.md)**
+[Documentation](README.md)
 
-[Globals](README.md)
+# Documentation
 
 ## Index
 
@@ -82,7 +82,7 @@
 
 Ƭ **GraphQLNullableOutputType**: *GraphQLScalarType | GraphQLObjectType | GraphQLInterfaceType | GraphQLUnionType | GraphQLEnumType | GraphQLList‹any›*
 
-*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/defs/index.ts#L45)*
+*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/defs/index.ts#L45)*
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 Ƭ **NamedASTNode**: *OperationDefinitionNode | VariableNode | FieldNode | ArgumentNode | FragmentSpreadNode | FragmentDefinitionNode | ObjectFieldNode | DirectiveNode | NamedTypeNode | ScalarTypeDefinitionNode | ObjectTypeDefinitionNode | FieldDefinitionNode | InputValueDefinitionNode | InterfaceTypeDefinitionNode | UnionTypeDefinitionNode | EnumTypeDefinitionNode | EnumValueDefinitionNode | InputObjectTypeDefinitionNode | DirectiveDefinitionNode*
 
-*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/defs/index.ts#L53)*
+*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/defs/index.ts#L53)*
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 Ƭ **ParentNode**: *FieldNode | InlineFragmentNode | OperationDefinitionNode | FragmentDefinitionNode*
 
-*Defined in [defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/defs/index.ts#L74)*
+*Defined in [defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/defs/index.ts#L74)*
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 Ƭ **ParseValueResult**: *string | boolean | null | PlainObjectMap | any[]*
 
-*Defined in [parsing/arguments/index.ts:6](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/arguments/index.ts#L6)*
+*Defined in [parsing/arguments/index.ts:6](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/arguments/index.ts#L6)*
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 Ƭ **ScalarValueNode**: *IntValueNode | FloatValueNode | StringValueNode | BooleanValueNode | EnumValueNode*
 
-*Defined in [defs/index.ts:76](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/defs/index.ts#L76)*
+*Defined in [defs/index.ts:76](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/defs/index.ts#L76)*
 
 ## Variables
 
@@ -122,7 +122,7 @@ ___
 
 • **DOCUMENT**: *"Document"* = "Document"
 
-*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L1)*
+*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L1)*
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 • **FIELD**: *"Field"* = "Field"
 
-*Defined in [consts/index.ts:2](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L2)*
+*Defined in [consts/index.ts:2](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L2)*
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 • **FRAGMENT_DEFINITION**: *"FragmentDefinition"* = "FragmentDefinition"
 
-*Defined in [consts/index.ts:3](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L3)*
+*Defined in [consts/index.ts:3](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L3)*
 
 ___
 
@@ -146,7 +146,7 @@ ___
 
 • **FRAGMENT_SPREAD**: *"FragmentSpread"* = "FragmentSpread"
 
-*Defined in [consts/index.ts:4](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L4)*
+*Defined in [consts/index.ts:4](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L4)*
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 • **INLINE_FRAGMENT**: *"InlineFragment"* = "InlineFragment"
 
-*Defined in [consts/index.ts:5](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L5)*
+*Defined in [consts/index.ts:5](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L5)*
 
 ___
 
@@ -162,7 +162,7 @@ ___
 
 • **LIST_VALUE**: *"ListValue"* = "ListValue"
 
-*Defined in [consts/index.ts:6](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L6)*
+*Defined in [consts/index.ts:6](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L6)*
 
 ___
 
@@ -170,7 +170,7 @@ ___
 
 • **NAME**: *"name"* = "name"
 
-*Defined in [consts/index.ts:7](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L7)*
+*Defined in [consts/index.ts:7](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L7)*
 
 ___
 
@@ -178,7 +178,7 @@ ___
 
 • **OBJECT_VALUE**: *"ObjectValue"* = "ObjectValue"
 
-*Defined in [consts/index.ts:8](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L8)*
+*Defined in [consts/index.ts:8](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L8)*
 
 ___
 
@@ -186,7 +186,7 @@ ___
 
 • **OF_TYPE**: *"ofType"* = "ofType"
 
-*Defined in [consts/index.ts:9](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L9)*
+*Defined in [consts/index.ts:9](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L9)*
 
 ___
 
@@ -194,7 +194,7 @@ ___
 
 • **OPERATION_DEFINITION**: *"OperationDefinition"* = "OperationDefinition"
 
-*Defined in [consts/index.ts:10](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L10)*
+*Defined in [consts/index.ts:10](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L10)*
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 • **STRING**: *"String"* = "String"
 
-*Defined in [consts/index.ts:11](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L11)*
+*Defined in [consts/index.ts:11](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L11)*
 
 ___
 
@@ -210,7 +210,7 @@ ___
 
 • **TYPE**: *"type"* = "type"
 
-*Defined in [consts/index.ts:12](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L12)*
+*Defined in [consts/index.ts:12](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L12)*
 
 ___
 
@@ -218,7 +218,7 @@ ___
 
 • **VALUE**: *"value"* = "value"
 
-*Defined in [consts/index.ts:13](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L13)*
+*Defined in [consts/index.ts:13](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L13)*
 
 ___
 
@@ -226,7 +226,7 @@ ___
 
 • **VARIABLE**: *"Variable"* = "Variable"
 
-*Defined in [consts/index.ts:14](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L14)*
+*Defined in [consts/index.ts:14](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L14)*
 
 ___
 
@@ -234,7 +234,7 @@ ___
 
 • **VARIABLE_DEFINITION**: *"VariableDefinition"* = "VariableDefinition"
 
-*Defined in [consts/index.ts:15](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/consts/index.ts#L15)*
+*Defined in [consts/index.ts:15](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/consts/index.ts#L15)*
 
 ## Functions
 
@@ -242,7 +242,7 @@ ___
 
 ▸ **addChildField**(`node`: [ParentNode](README.md#parentnode), `field`: FieldNode, `schema`: GraphQLSchema, `typeIDKey`: string): *void*
 
-*Defined in [parsing/child-fields/index.ts:10](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/child-fields/index.ts#L10)*
+*Defined in [parsing/child-fields/index.ts:10](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/child-fields/index.ts#L10)*
 
 **Parameters:**
 
@@ -261,7 +261,7 @@ ___
 
 ▸ **dehydrateCacheMetadata**(`cacheMetadata`: CacheMetadata): *DehydratedCacheMetadata*
 
-*Defined in [cache-metadata/index.ts:4](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/cache-metadata/index.ts#L4)*
+*Defined in [cache-metadata/index.ts:4](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/cache-metadata/index.ts#L4)*
 
 **Parameters:**
 
@@ -277,14 +277,14 @@ ___
 
 ▸ **deleteChildFields**(`node`: [ParentNode](README.md#parentnode), `fields`: FieldNode[] | FieldNode): *void*
 
-*Defined in [parsing/child-fields/index.ts:45](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/child-fields/index.ts#L45)*
+*Defined in [parsing/child-fields/index.ts:45](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/child-fields/index.ts#L45)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `node` | [ParentNode](README.md#parentnode) |
-`fields` | FieldNode[] \| FieldNode |
+`fields` | FieldNode[] &#124; FieldNode |
 
 **Returns:** *void*
 
@@ -294,7 +294,7 @@ ___
 
 ▸ **deleteFragmentDefinitions**(`documentNode`: DocumentNode): *DocumentNode*
 
-*Defined in [parsing/fragment-definitions/index.ts:7](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/fragment-definitions/index.ts#L7)*
+*Defined in [parsing/fragment-definitions/index.ts:7](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/fragment-definitions/index.ts#L7)*
 
 **Parameters:**
 
@@ -310,14 +310,14 @@ ___
 
 ▸ **deleteInlineFragments**(`node`: [ParentNode](README.md#parentnode), `inlineFragments`: InlineFragmentNode[] | InlineFragmentNode): *void*
 
-*Defined in [parsing/inline-fragments/index.ts:8](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/inline-fragments/index.ts#L8)*
+*Defined in [parsing/inline-fragments/index.ts:8](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/inline-fragments/index.ts#L8)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `node` | [ParentNode](README.md#parentnode) |
-`inlineFragments` | InlineFragmentNode[] \| InlineFragmentNode |
+`inlineFragments` | InlineFragmentNode[] &#124; InlineFragmentNode |
 
 **Returns:** *void*
 
@@ -327,7 +327,7 @@ ___
 
 ▸ **deleteVariableDefinitions**(`operationDefinition`: OperationDefinitionNode): *OperationDefinitionNode*
 
-*Defined in [parsing/variable-definitions/index.ts:12](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/variable-definitions/index.ts#L12)*
+*Defined in [parsing/variable-definitions/index.ts:12](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/variable-definitions/index.ts#L12)*
 
 **Parameters:**
 
@@ -343,7 +343,7 @@ ___
 
 ▸ **getAlias**(`__namedParameters`: object): *string | undefined*
 
-*Defined in [parsing/alias/index.ts:3](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/alias/index.ts#L3)*
+*Defined in [parsing/alias/index.ts:3](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/alias/index.ts#L3)*
 
 **Parameters:**
 
@@ -351,7 +351,7 @@ ___
 
 Name | Type |
 ------ | ------ |
-`alias` | undefined \| NameNode |
+`alias` | undefined &#124; NameNode |
 
 **Returns:** *string | undefined*
 
@@ -361,13 +361,13 @@ ___
 
 ▸ **getArguments**(`field`: FieldNode | DirectiveNode): *PlainObjectMap | undefined*
 
-*Defined in [parsing/arguments/index.ts:39](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/arguments/index.ts#L39)*
+*Defined in [parsing/arguments/index.ts:39](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/arguments/index.ts#L39)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`field` | FieldNode \| DirectiveNode |
+`field` | FieldNode &#124; DirectiveNode |
 
 **Returns:** *PlainObjectMap | undefined*
 
@@ -377,14 +377,14 @@ ___
 
 ▸ **getChildFields**(`node`: [ParentNode](README.md#parentnode), `name?`: undefined | string): *[FieldAndTypeName](interfaces/fieldandtypename.md)[] | undefined*
 
-*Defined in [parsing/child-fields/index.ts:67](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/child-fields/index.ts#L67)*
+*Defined in [parsing/child-fields/index.ts:67](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/child-fields/index.ts#L67)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `node` | [ParentNode](README.md#parentnode) |
-`name?` | undefined \| string |
+`name?` | undefined &#124; string |
 
 **Returns:** *[FieldAndTypeName](interfaces/fieldandtypename.md)[] | undefined*
 
@@ -394,7 +394,7 @@ ___
 
 ▸ **getDirectives**(`field`: FieldNode): *PlainObjectMap | undefined*
 
-*Defined in [parsing/directives/index.ts:5](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/directives/index.ts#L5)*
+*Defined in [parsing/directives/index.ts:5](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/directives/index.ts#L5)*
 
 **Parameters:**
 
@@ -410,7 +410,7 @@ ___
 
 ▸ **getFragmentDefinitions**(`__namedParameters`: object): *[FragmentDefinitionNodeMap](interfaces/fragmentdefinitionnodemap.md) | undefined*
 
-*Defined in [parsing/fragment-definitions/index.ts:22](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/fragment-definitions/index.ts#L22)*
+*Defined in [parsing/fragment-definitions/index.ts:22](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/fragment-definitions/index.ts#L22)*
 
 **Parameters:**
 
@@ -418,7 +418,7 @@ ___
 
 Name | Type |
 ------ | ------ |
-`definitions` | ReadonlyArray‹FragmentDefinitionNode \| OperationDefinitionNode \| ScalarTypeDefinitionNode \| ObjectTypeDefinitionNode \| InterfaceTypeDefinitionNode \| UnionTypeDefinitionNode \| EnumTypeDefinitionNode \| InputObjectTypeDefinitionNode \| DirectiveDefinitionNode \| SchemaDefinitionNode \| object \| ScalarTypeExtensionNode \| ObjectTypeExtensionNode \| InterfaceTypeExtensionNode \| UnionTypeExtensionNode \| EnumTypeExtensionNode \| InputObjectTypeExtensionNode› |
+`definitions` | ReadonlyArray‹FragmentDefinitionNode &#124; OperationDefinitionNode &#124; ScalarTypeDefinitionNode &#124; ObjectTypeDefinitionNode &#124; InterfaceTypeDefinitionNode &#124; UnionTypeDefinitionNode &#124; EnumTypeDefinitionNode &#124; InputObjectTypeDefinitionNode &#124; DirectiveDefinitionNode &#124; SchemaDefinitionNode &#124; object &#124; ScalarTypeExtensionNode &#124; ObjectTypeExtensionNode &#124; InterfaceTypeExtensionNode &#124; UnionTypeExtensionNode &#124; EnumTypeExtensionNode &#124; InputObjectTypeExtensionNode› |
 
 **Returns:** *[FragmentDefinitionNodeMap](interfaces/fragmentdefinitionnodemap.md) | undefined*
 
@@ -428,7 +428,7 @@ ___
 
 ▸ **getInlineFragments**(`__namedParameters`: object): *InlineFragmentNode[]*
 
-*Defined in [parsing/inline-fragments/index.ts:30](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/inline-fragments/index.ts#L30)*
+*Defined in [parsing/inline-fragments/index.ts:30](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/inline-fragments/index.ts#L30)*
 
 **Parameters:**
 
@@ -436,7 +436,7 @@ ___
 
 Name | Type |
 ------ | ------ |
-`selectionSet` | undefined \| SelectionSetNode |
+`selectionSet` | undefined &#124; SelectionSetNode |
 
 **Returns:** *InlineFragmentNode[]*
 
@@ -446,7 +446,7 @@ ___
 
 ▸ **getKind**(`__namedParameters`: object): *string*
 
-*Defined in [parsing/kind/index.ts:3](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/kind/index.ts#L3)*
+*Defined in [parsing/kind/index.ts:3](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/kind/index.ts#L3)*
 
 **Parameters:**
 
@@ -454,7 +454,7 @@ ___
 
 Name | Type |
 ------ | ------ |
-`kind` | "Document" \| "Field" \| "FragmentDefinition" \| "FragmentSpread" \| "InlineFragment" \| "ListValue" \| "ObjectValue" \| "OperationDefinition" \| "Variable" \| "VariableDefinition" \| "Name" \| "Argument" \| "ObjectField" \| "Directive" \| "NamedType" \| "ScalarTypeDefinition" \| "ObjectTypeDefinition" \| "FieldDefinition" \| "InputValueDefinition" \| "InterfaceTypeDefinition" \| "UnionTypeDefinition" \| "EnumTypeDefinition" \| "EnumValueDefinition" \| "InputObjectTypeDefinition" \| "DirectiveDefinition" \| "IntValue" \| "FloatValue" \| "StringValue" \| "BooleanValue" \| "EnumValue" \| "NullValue" \| "SelectionSet" \| "ListType" \| "NonNullType" \| "SchemaDefinition" \| "OperationTypeDefinition" \| "SchemaExtension" \| "ScalarTypeExtension" \| "ObjectTypeExtension" \| "InterfaceTypeExtension" \| "UnionTypeExtension" \| "EnumTypeExtension" \| "InputObjectTypeExtension" |
+`kind` | "Document" &#124; "Field" &#124; "FragmentDefinition" &#124; "FragmentSpread" &#124; "InlineFragment" &#124; "ListValue" &#124; "ObjectValue" &#124; "OperationDefinition" &#124; "Variable" &#124; "VariableDefinition" &#124; "Name" &#124; "Argument" &#124; "ObjectField" &#124; "Directive" &#124; "NamedType" &#124; "ScalarTypeDefinition" &#124; "ObjectTypeDefinition" &#124; "FieldDefinition" &#124; "InputValueDefinition" &#124; "InterfaceTypeDefinition" &#124; "UnionTypeDefinition" &#124; "EnumTypeDefinition" &#124; "EnumValueDefinition" &#124; "InputObjectTypeDefinition" &#124; "DirectiveDefinition" &#124; "IntValue" &#124; "FloatValue" &#124; "StringValue" &#124; "BooleanValue" &#124; "EnumValue" &#124; "NullValue" &#124; "SelectionSet" &#124; "ListType" &#124; "NonNullType" &#124; "SchemaDefinition" &#124; "OperationTypeDefinition" &#124; "SchemaExtension" &#124; "ScalarTypeExtension" &#124; "ObjectTypeExtension" &#124; "InterfaceTypeExtension" &#124; "UnionTypeExtension" &#124; "EnumTypeExtension" &#124; "InputObjectTypeExtension" |
 
 **Returns:** *string*
 
@@ -464,7 +464,7 @@ ___
 
 ▸ **getName**(`node`: ASTNode): *string | undefined*
 
-*Defined in [parsing/name/index.ts:5](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/name/index.ts#L5)*
+*Defined in [parsing/name/index.ts:5](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/name/index.ts#L5)*
 
 **Parameters:**
 
@@ -480,7 +480,7 @@ ___
 
 ▸ **getOperationDefinitions**(`__namedParameters`: object, `name?`: undefined | string): *OperationDefinitionNode[]*
 
-*Defined in [parsing/operation-definitions/index.ts:5](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/operation-definitions/index.ts#L5)*
+*Defined in [parsing/operation-definitions/index.ts:5](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/operation-definitions/index.ts#L5)*
 
 **Parameters:**
 
@@ -488,7 +488,7 @@ ___
 
 Name | Type |
 ------ | ------ |
-`definitions` | ReadonlyArray‹FragmentDefinitionNode \| OperationDefinitionNode \| ScalarTypeDefinitionNode \| ObjectTypeDefinitionNode \| InterfaceTypeDefinitionNode \| UnionTypeDefinitionNode \| EnumTypeDefinitionNode \| InputObjectTypeDefinitionNode \| DirectiveDefinitionNode \| SchemaDefinitionNode \| object \| ScalarTypeExtensionNode \| ObjectTypeExtensionNode \| InterfaceTypeExtensionNode \| UnionTypeExtensionNode \| EnumTypeExtensionNode \| InputObjectTypeExtensionNode› |
+`definitions` | ReadonlyArray‹FragmentDefinitionNode &#124; OperationDefinitionNode &#124; ScalarTypeDefinitionNode &#124; ObjectTypeDefinitionNode &#124; InterfaceTypeDefinitionNode &#124; UnionTypeDefinitionNode &#124; EnumTypeDefinitionNode &#124; InputObjectTypeDefinitionNode &#124; DirectiveDefinitionNode &#124; SchemaDefinitionNode &#124; object &#124; ScalarTypeExtensionNode &#124; ObjectTypeExtensionNode &#124; InterfaceTypeExtensionNode &#124; UnionTypeExtensionNode &#124; EnumTypeExtensionNode &#124; InputObjectTypeExtensionNode› |
 
 ▪`Optional`  **name**: *undefined | string*
 
@@ -500,7 +500,7 @@ ___
 
 ▸ **getType**(`__namedParameters`: object): *GraphQLOutputType*
 
-*Defined in [parsing/type/index.ts:12](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/type/index.ts#L12)*
+*Defined in [parsing/type/index.ts:12](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/type/index.ts#L12)*
 
 **Parameters:**
 
@@ -508,7 +508,7 @@ ___
 
 Name | Type |
 ------ | ------ |
-`type` | GraphQLScalarType \| GraphQLObjectType‹any, any, object› \| GraphQLInterfaceType \| GraphQLUnionType \| GraphQLEnumType \| GraphQLList‹any› \| GraphQLNonNull‹GraphQLScalarType \| GraphQLObjectType‹any, any, object› \| GraphQLInterfaceType \| GraphQLUnionType \| GraphQLEnumType \| GraphQLList‹any›› |
+`type` | GraphQLScalarType &#124; GraphQLObjectType‹any, any, object› &#124; GraphQLInterfaceType &#124; GraphQLUnionType &#124; GraphQLEnumType &#124; GraphQLList‹any› &#124; GraphQLNonNull‹GraphQLScalarType &#124; GraphQLObjectType‹any, any, object› &#124; GraphQLInterfaceType &#124; GraphQLUnionType &#124; GraphQLEnumType &#124; GraphQLList‹any›› |
 
 **Returns:** *GraphQLOutputType*
 
@@ -518,7 +518,7 @@ ___
 
 ▸ **getTypeCondition**(`__namedParameters`: object): *NamedTypeNode | undefined*
 
-*Defined in [parsing/type-condition/index.ts:3](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/type-condition/index.ts#L3)*
+*Defined in [parsing/type-condition/index.ts:3](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/type-condition/index.ts#L3)*
 
 **Parameters:**
 
@@ -526,7 +526,7 @@ ___
 
 Name | Type |
 ------ | ------ |
-`typeCondition` | undefined \| NamedTypeNode |
+`typeCondition` | undefined &#124; NamedTypeNode |
 
 **Returns:** *NamedTypeNode | undefined*
 
@@ -536,7 +536,7 @@ ___
 
 ▸ **getVariableDefinitionType**(`__namedParameters`: object): *string*
 
-*Defined in [parsing/variable-definitions/index.ts:32](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/variable-definitions/index.ts#L32)*
+*Defined in [parsing/variable-definitions/index.ts:32](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/variable-definitions/index.ts#L32)*
 
 **Parameters:**
 
@@ -544,7 +544,7 @@ ___
 
 Name | Type |
 ------ | ------ |
-`type` | NamedTypeNode \| ListTypeNode \| NonNullTypeNode |
+`type` | NamedTypeNode &#124; ListTypeNode &#124; NonNullTypeNode |
 
 **Returns:** *string*
 
@@ -554,14 +554,14 @@ ___
 
 ▸ **hasChildFields**(`node`: [ParentNode](README.md#parentnode), `name?`: undefined | string): *boolean*
 
-*Defined in [parsing/child-fields/index.ts:80](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/child-fields/index.ts#L80)*
+*Defined in [parsing/child-fields/index.ts:80](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/child-fields/index.ts#L80)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `node` | [ParentNode](README.md#parentnode) |
-`name?` | undefined \| string |
+`name?` | undefined &#124; string |
 
 **Returns:** *boolean*
 
@@ -571,7 +571,7 @@ ___
 
 ▸ **hasFragmentDefinitions**(`__namedParameters`: object): *boolean*
 
-*Defined in [parsing/fragment-definitions/index.ts:40](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/fragment-definitions/index.ts#L40)*
+*Defined in [parsing/fragment-definitions/index.ts:40](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/fragment-definitions/index.ts#L40)*
 
 **Parameters:**
 
@@ -579,7 +579,7 @@ ___
 
 Name | Type |
 ------ | ------ |
-`definitions` | ReadonlyArray‹FragmentDefinitionNode \| OperationDefinitionNode \| ScalarTypeDefinitionNode \| ObjectTypeDefinitionNode \| InterfaceTypeDefinitionNode \| UnionTypeDefinitionNode \| EnumTypeDefinitionNode \| InputObjectTypeDefinitionNode \| DirectiveDefinitionNode \| SchemaDefinitionNode \| object \| ScalarTypeExtensionNode \| ObjectTypeExtensionNode \| InterfaceTypeExtensionNode \| UnionTypeExtensionNode \| EnumTypeExtensionNode \| InputObjectTypeExtensionNode› |
+`definitions` | ReadonlyArray‹FragmentDefinitionNode &#124; OperationDefinitionNode &#124; ScalarTypeDefinitionNode &#124; ObjectTypeDefinitionNode &#124; InterfaceTypeDefinitionNode &#124; UnionTypeDefinitionNode &#124; EnumTypeDefinitionNode &#124; InputObjectTypeDefinitionNode &#124; DirectiveDefinitionNode &#124; SchemaDefinitionNode &#124; object &#124; ScalarTypeExtensionNode &#124; ObjectTypeExtensionNode &#124; InterfaceTypeExtensionNode &#124; UnionTypeExtensionNode &#124; EnumTypeExtensionNode &#124; InputObjectTypeExtensionNode› |
 
 **Returns:** *boolean*
 
@@ -589,7 +589,7 @@ ___
 
 ▸ **hasFragmentSpreads**(`__namedParameters`: object): *boolean*
 
-*Defined in [parsing/fragment-spreads/index.ts:5](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/fragment-spreads/index.ts#L5)*
+*Defined in [parsing/fragment-spreads/index.ts:5](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/fragment-spreads/index.ts#L5)*
 
 **Parameters:**
 
@@ -597,7 +597,7 @@ ___
 
 Name | Type |
 ------ | ------ |
-`selectionSet` | undefined \| SelectionSetNode |
+`selectionSet` | undefined &#124; SelectionSetNode |
 
 **Returns:** *boolean*
 
@@ -607,7 +607,7 @@ ___
 
 ▸ **hasInlineFragments**(`__namedParameters`: object): *boolean*
 
-*Defined in [parsing/inline-fragments/index.ts:48](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/inline-fragments/index.ts#L48)*
+*Defined in [parsing/inline-fragments/index.ts:48](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/inline-fragments/index.ts#L48)*
 
 **Parameters:**
 
@@ -615,7 +615,7 @@ ___
 
 Name | Type |
 ------ | ------ |
-`selectionSet` | undefined \| SelectionSetNode |
+`selectionSet` | undefined &#124; SelectionSetNode |
 
 **Returns:** *boolean*
 
@@ -625,7 +625,7 @@ ___
 
 ▸ **hasVariableDefinitions**(`__namedParameters`: object): *boolean*
 
-*Defined in [parsing/variable-definitions/index.ts:19](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/variable-definitions/index.ts#L19)*
+*Defined in [parsing/variable-definitions/index.ts:19](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/variable-definitions/index.ts#L19)*
 
 **Parameters:**
 
@@ -633,7 +633,7 @@ ___
 
 Name | Type |
 ------ | ------ |
-`variableDefinitions` | undefined \| ReadonlyArray‹VariableDefinitionNode› |
+`variableDefinitions` | undefined &#124; ReadonlyArray‹VariableDefinitionNode› |
 
 **Returns:** *boolean*
 
@@ -643,7 +643,7 @@ ___
 
 ▸ **hashRequest**(`value`: string): *string*
 
-*Defined in [hash-request/index.ts:3](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/hash-request/index.ts#L3)*
+*Defined in [hash-request/index.ts:3](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/hash-request/index.ts#L3)*
 
 **Parameters:**
 
@@ -659,7 +659,7 @@ ___
 
 ▸ **iterateChildFields**(`field`: FieldNode, `data`: PlainObjectMap | any[], `callback`: function): *void*
 
-*Defined in [parsing/child-fields/index.ts:89](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/child-fields/index.ts#L89)*
+*Defined in [parsing/child-fields/index.ts:89](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/child-fields/index.ts#L89)*
 
 **Parameters:**
 
@@ -676,8 +676,8 @@ ___
 Name | Type |
 ------ | ------ |
 `childField` | FieldNode |
-`inlineFragmentType` | string \| undefined |
-`childIndex?` | undefined \| number |
+`inlineFragmentType` | string &#124; undefined |
+`childIndex?` | undefined &#124; number |
 
 **Returns:** *void*
 
@@ -687,7 +687,7 @@ ___
 
 ▸ **mergeObjects**<**T**>(`obj`: T, `src`: T, `matcher`: function): *T*
 
-*Defined in [merge-objects/index.ts:3](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/merge-objects/index.ts#L3)*
+*Defined in [merge-objects/index.ts:3](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/merge-objects/index.ts#L3)*
 
 **Type parameters:**
 
@@ -718,7 +718,7 @@ ___
 
 ▸ **parseValue**(`valueNode`: ValueNode): *[ParseValueResult](README.md#parsevalueresult)*
 
-*Defined in [parsing/arguments/index.ts:8](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/arguments/index.ts#L8)*
+*Defined in [parsing/arguments/index.ts:8](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/arguments/index.ts#L8)*
 
 **Parameters:**
 
@@ -734,7 +734,7 @@ ___
 
 ▸ **rehydrateCacheMetadata**(`dehydratedCacheMetadata`: DehydratedCacheMetadata, `cacheMetadata`: CacheMetadata): *CacheMetadata*
 
-*Defined in [cache-metadata/index.ts:14](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/cache-metadata/index.ts#L14)*
+*Defined in [cache-metadata/index.ts:14](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/cache-metadata/index.ts#L14)*
 
 **Parameters:**
 
@@ -751,7 +751,7 @@ ___
 
 ▸ **setFragmentDefinitions**(`fragmentDefinitions`: [FragmentDefinitionNodeMap](interfaces/fragmentdefinitionnodemap.md), `node`: FieldNode): *void*
 
-*Defined in [parsing/fragment-definitions/index.ts:44](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/fragment-definitions/index.ts#L44)*
+*Defined in [parsing/fragment-definitions/index.ts:44](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/fragment-definitions/index.ts#L44)*
 
 **Parameters:**
 
@@ -768,7 +768,7 @@ ___
 
 ▸ **setInlineFragments**(`__namedParameters`: object): *void*
 
-*Defined in [parsing/inline-fragments/index.ts:53](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/inline-fragments/index.ts#L53)*
+*Defined in [parsing/inline-fragments/index.ts:53](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/inline-fragments/index.ts#L53)*
 
 **Parameters:**
 
@@ -776,7 +776,7 @@ ___
 
 Name | Type |
 ------ | ------ |
-`selectionSet` | undefined \| SelectionSetNode |
+`selectionSet` | undefined &#124; SelectionSetNode |
 
 **Returns:** *void*
 
@@ -786,7 +786,7 @@ ___
 
 ▸ **unwrapInlineFragments**(`selectionNodes`: ReadonlyArray‹SelectionNode›, `maxDepth`: number, `depth`: number, `typeName?`: undefined | string): *[FieldAndTypeName](interfaces/fieldandtypename.md)[]*
 
-*Defined in [parsing/inline-fragments/index.ts:72](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/inline-fragments/index.ts#L72)*
+*Defined in [parsing/inline-fragments/index.ts:72](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/inline-fragments/index.ts#L72)*
 
 **Parameters:**
 
@@ -795,7 +795,7 @@ Name | Type | Default |
 `selectionNodes` | ReadonlyArray‹SelectionNode› | - |
 `maxDepth` | number | 1 |
 `depth` | number | 0 |
-`typeName?` | undefined \| string | - |
+`typeName?` | undefined &#124; string | - |
 
 **Returns:** *[FieldAndTypeName](interfaces/fieldandtypename.md)[]*
 
@@ -805,7 +805,7 @@ ___
 
 ▸ **unwrapOfType**(`type`: GraphQLOutputType): *GraphQLOutputType*
 
-*Defined in [parsing/type/index.ts:5](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/type/index.ts#L5)*
+*Defined in [parsing/type/index.ts:5](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/type/index.ts#L5)*
 
 **Parameters:**
 
@@ -821,7 +821,7 @@ ___
 
 ▸ **variableDefinitionTypeVisitor**(`node`: TypeNode): *NamedTypeNode*
 
-*Defined in [parsing/variable-definitions/index.ts:23](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/parsing/variable-definitions/index.ts#L23)*
+*Defined in [parsing/variable-definitions/index.ts:23](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/parsing/variable-definitions/index.ts#L23)*
 
 **Parameters:**
 

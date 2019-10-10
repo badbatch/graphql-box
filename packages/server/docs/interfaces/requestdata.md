@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [RequestData](requestdata.md)
+[Documentation](../README.md) › [RequestData](requestdata.md)
 
 # Interface: RequestData
 
@@ -22,7 +20,7 @@
 
 • **batched**: *boolean*
 
-*Defined in [defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/server/src/defs/index.ts#L24)*
+*Defined in [defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/4864259/packages/server/src/defs/index.ts#L24)*
 
 ___
 
@@ -30,7 +28,7 @@ ___
 
 • **context**: *MaybeRequestContext*
 
-*Defined in [defs/index.ts:25](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/server/src/defs/index.ts#L25)*
+*Defined in [defs/index.ts:25](https://github.com/badbatch/graphql-box/blob/4864259/packages/server/src/defs/index.ts#L25)*
 
 ___
 
@@ -38,4 +36,4 @@ ___
 
 • **request**: *string | PlainObjectStringMap*
 
-*Defined in [defs/index.ts:26](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/server/src/defs/index.ts#L26)*
+*Defined in [defs/index.ts:26](https://github.com/badbatch/graphql-box/blob/4864259/packages/server/src/defs/index.ts#L26)*

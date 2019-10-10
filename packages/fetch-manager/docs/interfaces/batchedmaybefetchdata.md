@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [BatchedMaybeFetchData](batchedmaybefetchdata.md)
+[Documentation](../README.md) › [BatchedMaybeFetchData](batchedmaybefetchdata.md)
 
 # Interface: BatchedMaybeFetchData
 
@@ -21,7 +19,7 @@
 
 • **batch**: *[MaybeRawFetchDataObjectMap](mayberawfetchdataobjectmap.md)*
 
-*Defined in [defs/index.ts:70](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L70)*
+*Defined in [defs/index.ts:70](https://github.com/badbatch/graphql-box/blob/4864259/packages/fetch-manager/src/defs/index.ts#L70)*
 
 ___
 
@@ -29,4 +27,4 @@ ___
 
 • **headers**: *Headers*
 
-*Defined in [defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L71)*
+*Defined in [defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/4864259/packages/fetch-manager/src/defs/index.ts#L71)*

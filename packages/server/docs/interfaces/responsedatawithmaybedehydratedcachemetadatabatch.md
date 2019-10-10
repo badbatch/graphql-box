@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [ResponseDataWithMaybeDehydratedCacheMetadataBatch](responsedatawithmaybedehydratedcachemetadatabatch.md)
+[Documentation](../README.md) › [ResponseDataWithMaybeDehydratedCacheMetadataBatch](responsedatawithmaybedehydratedcachemetadatabatch.md)
 
 # Interface: ResponseDataWithMaybeDehydratedCacheMetadataBatch
 

@@ -1,6 +1,6 @@
-**[Documentation](README.md)**
+[Documentation](README.md)
 
-[Globals](README.md)
+# Documentation
 
 ## Index
 
@@ -19,6 +19,6 @@
 
 ▸ **introspect**(): *Promise‹void›*
 
-*Defined in [introspect/index.ts:10](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cli/src/introspect/index.ts#L10)*
+*Defined in [introspect/index.ts:10](https://github.com/badbatch/graphql-box/blob/4864259/packages/cli/src/introspect/index.ts#L10)*
 
 **Returns:** *Promise‹void›*

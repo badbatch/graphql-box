@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [MaybeRawFetchData](mayberawfetchdata.md)
+[Documentation](../README.md) › [MaybeRawFetchData](mayberawfetchdata.md)
 
 # Interface: MaybeRawFetchData
 
@@ -23,7 +21,7 @@
 
 • **cacheMetadata**? : *DehydratedCacheMetadata*
 
-*Defined in [defs/index.ts:59](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L59)*
+*Defined in [defs/index.ts:59](https://github.com/badbatch/graphql-box/blob/4864259/packages/fetch-manager/src/defs/index.ts#L59)*
 
 ___
 
@@ -31,7 +29,7 @@ ___
 
 • **data**? : *PlainObjectMap*
 
-*Defined in [defs/index.ts:60](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L60)*
+*Defined in [defs/index.ts:60](https://github.com/badbatch/graphql-box/blob/4864259/packages/fetch-manager/src/defs/index.ts#L60)*
 
 ___
 
@@ -39,7 +37,7 @@ ___
 
 • **errors**? : *Error | Error[]*
 
-*Defined in [defs/index.ts:61](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L61)*
+*Defined in [defs/index.ts:61](https://github.com/badbatch/graphql-box/blob/4864259/packages/fetch-manager/src/defs/index.ts#L61)*
 
 ___
 
@@ -47,4 +45,4 @@ ___
 
 • **headers**: *Headers*
 
-*Defined in [defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L62)*
+*Defined in [defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/4864259/packages/fetch-manager/src/defs/index.ts#L62)*

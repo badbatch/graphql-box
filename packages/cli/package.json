@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The GraphQL Box CLI module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",

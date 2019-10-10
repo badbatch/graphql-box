@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [MaybeRawFetchDataObjectMap](mayberawfetchdataobjectmap.md)
+[Documentation](../README.md) › [MaybeRawFetchDataObjectMap](mayberawfetchdataobjectmap.md)
 
 # Interface: MaybeRawFetchDataObjectMap
 

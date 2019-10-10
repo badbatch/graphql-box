@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [TypeNames](typenames.md)
+[Documentation](../README.md) › [TypeNames](typenames.md)
 
 # Interface: TypeNames
 
@@ -21,7 +19,7 @@
 
 • **dataTypeName**: *string | undefined*
 
-*Defined in [defs/index.ts:140](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L140)*
+*Defined in [defs/index.ts:140](https://github.com/badbatch/graphql-box/blob/4864259/packages/cache-manager/src/defs/index.ts#L140)*
 
 ___
 
@@ -29,4 +27,4 @@ ___
 
 • **fieldTypeName**: *string | undefined*
 
-*Defined in [defs/index.ts:141](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L141)*
+*Defined in [defs/index.ts:141](https://github.com/badbatch/graphql-box/blob/4864259/packages/cache-manager/src/defs/index.ts#L141)*

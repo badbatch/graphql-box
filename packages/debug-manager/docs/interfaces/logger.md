@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [Logger](logger.md)
+[Documentation](../README.md) › [Logger](logger.md)
 
 # Interface: Logger
 
@@ -20,7 +18,7 @@
 
 ▸ **log**(`message?`: any, ...`optionalParams`: any[]): *void*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/debug-manager/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/graphql-box/blob/4864259/packages/debug-manager/src/defs/index.ts#L4)*
 
 **Parameters:**
 

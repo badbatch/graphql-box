@@ -1,3 +1,13 @@
+#### 1.0.3 (2019-10-10)
+
+##### Chores
+
+*  update dependencies ([48642596](https://github.com/badbatch/graphql-box/commit/4864259659debce420ada7176c54a8fe4f227951))
+
+##### Bug Fixes
+
+*  add sourcemaps to packages ([a3a44b75](https://github.com/badbatch/graphql-box/commit/a3a44b753a485c1e60996a14206419f7ea4810d4))
+
 #### 1.0.2 (2019-09-06)
 
 ##### Chores

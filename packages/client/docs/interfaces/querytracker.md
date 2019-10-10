@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [QueryTracker](querytracker.md)
+[Documentation](../README.md) › [QueryTracker](querytracker.md)
 
 # Interface: QueryTracker
 
@@ -21,7 +19,7 @@
 
 • **active**: *string[]*
 
-*Defined in [defs/index.ts:84](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/client/src/defs/index.ts#L84)*
+*Defined in [defs/index.ts:84](https://github.com/badbatch/graphql-box/blob/4864259/packages/client/src/defs/index.ts#L84)*
 
 ___
 
@@ -29,4 +27,4 @@ ___
 
 • **pending**: *Map‹string, [PendingQueryData](pendingquerydata.md)[]›*
 
-*Defined in [defs/index.ts:85](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/client/src/defs/index.ts#L85)*
+*Defined in [defs/index.ts:85](https://github.com/badbatch/graphql-box/blob/4864259/packages/client/src/defs/index.ts#L85)*

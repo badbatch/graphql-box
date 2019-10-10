@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [DebugManager](debugmanager.md)
+[Documentation](../README.md) › [DebugManager](debugmanager.md)
 
 # Class: DebugManager <**EventTypes**>
 
@@ -12,7 +10,7 @@
 
 * EventEmitter
 
-  * **DebugManager**
+  ↳ **DebugManager**
 
 ## Implements
 
@@ -55,7 +53,7 @@
 
 \+ **new DebugManager**(`__namedParameters`: object): *[DebugManager](debugmanager.md)*
 
-*Defined in [main/index.ts:21](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/debug-manager/src/main/index.ts#L21)*
+*Defined in [main/index.ts:21](https://github.com/badbatch/graphql-box/blob/4864259/packages/debug-manager/src/main/index.ts#L21)*
 
 **Parameters:**
 
@@ -63,7 +61,7 @@
 
 Name | Type |
 ------ | ------ |
-`logger` | undefined \| [Logger](../interfaces/logger.md) |
+`logger` | undefined &#124; [Logger](../interfaces/logger.md) |
 `name` | string |
 `performance` | [Performance](../interfaces/performance.md) |
 
@@ -119,13 +117,13 @@ ___
 
 *Overrides void*
 
-*Defined in [main/index.ts:30](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/debug-manager/src/main/index.ts#L30)*
+*Defined in [main/index.ts:30](https://github.com/badbatch/graphql-box/blob/4864259/packages/debug-manager/src/main/index.ts#L30)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`event` | string \| symbol |
+`event` | string &#124; symbol |
 `data` | PlainObjectMap |
 
 **Returns:** *boolean*
@@ -195,7 +193,7 @@ ___
 
 ▸ **now**(): *number*
 
-*Defined in [main/index.ts:37](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/debug-manager/src/main/index.ts#L37)*
+*Defined in [main/index.ts:37](https://github.com/badbatch/graphql-box/blob/4864259/packages/debug-manager/src/main/index.ts#L37)*
 
 **Returns:** *number*
 
@@ -220,7 +218,7 @@ Name | Type |
 `event` | T |
 `fn?` | EventEmitter.ListenerFn‹EventArgs‹EventTypes, T›› |
 `context?` | any |
-`once?` | undefined \| false \| true |
+`once?` | undefined &#124; false &#124; true |
 
 **Returns:** *this*
 
@@ -319,7 +317,7 @@ Name | Type |
 `event` | T |
 `fn?` | EventEmitter.ListenerFn‹EventArgs‹EventTypes, T›› |
 `context?` | any |
-`once?` | undefined \| false \| true |
+`once?` | undefined &#124; false &#124; true |
 
 **Returns:** *this*
 
@@ -329,7 +327,7 @@ ___
 
 ▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *Promise‹[DebugManager](debugmanager.md)›*
 
-*Defined in [main/index.ts:7](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/debug-manager/src/main/index.ts#L7)*
+*Defined in [main/index.ts:7](https://github.com/badbatch/graphql-box/blob/4864259/packages/debug-manager/src/main/index.ts#L7)*
 
 **Parameters:**
 

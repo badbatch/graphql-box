@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [VariableTypesMap](variabletypesmap.md)
+[Documentation](../README.md) › [VariableTypesMap](variabletypesmap.md)
 
 # Interface: VariableTypesMap
 

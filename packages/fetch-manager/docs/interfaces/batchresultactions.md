@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [BatchResultActions](batchresultactions.md)
+[Documentation](../README.md) › [BatchResultActions](batchresultactions.md)
 
 # Interface: BatchResultActions
 
@@ -21,7 +19,7 @@
 
 • **reject**: *function*
 
-*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L50)*
+*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/4864259/packages/fetch-manager/src/defs/index.ts#L50)*
 
 #### Type declaration:
 
@@ -31,7 +29,7 @@
 
 Name | Type |
 ------ | ------ |
-`reason` | Error \| Error[] |
+`reason` | Error &#124; Error[] |
 
 ___
 
@@ -39,7 +37,7 @@ ___
 
 • **resolve**: *function*
 
-*Defined in [defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/fetch-manager/src/defs/index.ts#L51)*
+*Defined in [defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/4864259/packages/fetch-manager/src/defs/index.ts#L51)*
 
 #### Type declaration:
 

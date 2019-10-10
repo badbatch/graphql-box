@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [DebugManager](../classes/debugmanager.md) › [ListenerFn](debugmanager.listenerfn.md)
+[Documentation](../README.md) › [DebugManager](../classes/debugmanager.md) › [ListenerFn](debugmanager.listenerfn.md)
 
 # Interface: ListenerFn <**Args**>
 

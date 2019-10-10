@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [SubscribeArgs](subscribeargs.md)
+[Documentation](../README.md) › [SubscribeArgs](subscribeargs.md)
 
 # Interface: SubscribeArgs
 
@@ -8,7 +6,7 @@
 
 * object
 
-  * **SubscribeArgs**
+  ↳ **SubscribeArgs**
 
 ## Index
 
@@ -90,7 +88,7 @@ ___
 
 • **subscribeFieldResolver**? : *Maybe‹GraphQLFieldResolver‹any, any››*
 
-*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/subscribe/src/defs/index.ts#L52)*
+*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/4864259/packages/subscribe/src/defs/index.ts#L52)*
 
 ___
 

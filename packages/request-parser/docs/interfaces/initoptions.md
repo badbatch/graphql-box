@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [InitOptions](initoptions.md)
+[Documentation](../README.md) › [InitOptions](initoptions.md)
 
 # Interface: InitOptions
 
@@ -22,7 +20,7 @@
 
 • **introspection**? : *IntrospectionQuery*
 
-*Defined in [defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/request-parser/src/defs/index.ts#L37)*
+*Defined in [defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/4864259/packages/request-parser/src/defs/index.ts#L37)*
 
 ___
 
@@ -30,7 +28,7 @@ ___
 
 • **schema**? : *GraphQLSchema*
 
-*Defined in [defs/index.ts:38](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/request-parser/src/defs/index.ts#L38)*
+*Defined in [defs/index.ts:38](https://github.com/badbatch/graphql-box/blob/4864259/packages/request-parser/src/defs/index.ts#L38)*
 
 ___
 
@@ -38,4 +36,4 @@ ___
 
 • **typeIDKey**: *string*
 
-*Defined in [defs/index.ts:39](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/request-parser/src/defs/index.ts#L39)*
+*Defined in [defs/index.ts:39](https://github.com/badbatch/graphql-box/blob/4864259/packages/request-parser/src/defs/index.ts#L39)*

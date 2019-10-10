@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [Execute](execute.md)
+[Documentation](../README.md) › [Execute](execute.md)
 
 # Class: Execute
 
@@ -29,7 +27,7 @@
 
 \+ **new Execute**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[Execute](execute.md)*
 
-*Defined in [main/index.ts:30](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/execute/src/main/index.ts#L30)*
+*Defined in [main/index.ts:30](https://github.com/badbatch/graphql-box/blob/4864259/packages/execute/src/main/index.ts#L30)*
 
 **Parameters:**
 
@@ -45,7 +43,7 @@ Name | Type |
 
 ▸ **execute**(`__namedParameters`: object, `options`: ServerRequestOptions, `__namedParameters`: object): *Promise‹MaybeRawResponseData›*
 
-*Defined in [main/index.ts:40](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/execute/src/main/index.ts#L40)*
+*Defined in [main/index.ts:40](https://github.com/badbatch/graphql-box/blob/4864259/packages/execute/src/main/index.ts#L40)*
 
 **Parameters:**
 
@@ -53,7 +51,7 @@ Name | Type |
 
 Name | Type |
 ------ | ------ |
-`ast` | undefined \| DocumentNode |
+`ast` | undefined &#124; DocumentNode |
 `request` | string |
 
 ▪ **options**: *ServerRequestOptions*
@@ -72,7 +70,7 @@ ___
 
 ▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *Promise‹[Execute](execute.md)›*
 
-*Defined in [main/index.ts:15](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/execute/src/main/index.ts#L15)*
+*Defined in [main/index.ts:15](https://github.com/badbatch/graphql-box/blob/4864259/packages/execute/src/main/index.ts#L15)*
 
 **Parameters:**
 

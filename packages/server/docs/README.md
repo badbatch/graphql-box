@@ -1,6 +1,6 @@
-**[Documentation](README.md)**
+[Documentation](README.md)
 
-[Globals](README.md)
+# Documentation
 
 ## Index
 
@@ -26,7 +26,7 @@
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [defs/index.ts:17](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/server/src/defs/index.ts#L17)*
+*Defined in [defs/index.ts:17](https://github.com/badbatch/graphql-box/blob/4864259/packages/server/src/defs/index.ts#L17)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 Ƭ **MessageHandler**: *function*
 
-*Defined in [defs/index.ts:21](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/server/src/defs/index.ts#L21)*
+*Defined in [defs/index.ts:21](https://github.com/badbatch/graphql-box/blob/4864259/packages/server/src/defs/index.ts#L21)*
 
 #### Type declaration:
 
@@ -52,7 +52,7 @@ ___
 
 Ƭ **RequestHandler**: *function*
 
-*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/server/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/4864259/packages/server/src/defs/index.ts#L19)*
 
 #### Type declaration:
 

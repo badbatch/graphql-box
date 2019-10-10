@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [InitOptions](initoptions.md)
+[Documentation](../README.md) › [InitOptions](initoptions.md)
 
 # Interface: InitOptions
 
@@ -24,7 +22,7 @@
 
 • **cache**: *Cachemap*
 
-*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L50)*
+*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/4864259/packages/cache-manager/src/defs/index.ts#L50)*
 
 ___
 
@@ -32,7 +30,7 @@ ___
 
 • **cascadeCacheControl**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L51)*
+*Defined in [defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/4864259/packages/cache-manager/src/defs/index.ts#L51)*
 
 ___
 
@@ -40,7 +38,7 @@ ___
 
 • **fallbackOperationCacheability**? : *undefined | string*
 
-*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L52)*
+*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/4864259/packages/cache-manager/src/defs/index.ts#L52)*
 
 ___
 
@@ -48,7 +46,7 @@ ___
 
 • **typeCacheDirectives**? : *PlainObjectStringMap*
 
-*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L53)*
+*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/4864259/packages/cache-manager/src/defs/index.ts#L53)*
 
 ___
 
@@ -56,4 +54,4 @@ ___
 
 • **typeIDKey**: *string*
 
-*Defined in [defs/index.ts:54](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L54)*
+*Defined in [defs/index.ts:54](https://github.com/badbatch/graphql-box/blob/4864259/packages/cache-manager/src/defs/index.ts#L54)*

@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [Server](server.md)
+[Documentation](../README.md) › [Server](server.md)
 
 # Class: Server
 
@@ -26,7 +24,7 @@
 
 \+ **new Server**(`__namedParameters`: object): *[Server](server.md)*
 
-*Defined in [main/index.ts:41](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/server/src/main/index.ts#L41)*
+*Defined in [main/index.ts:41](https://github.com/badbatch/graphql-box/blob/4864259/packages/server/src/main/index.ts#L41)*
 
 **Parameters:**
 
@@ -44,7 +42,7 @@ Name | Type |
 
 ▸ **message**(`options`: ServerSocketRequestOptions): *[MessageHandler](../README.md#messagehandler)*
 
-*Defined in [main/index.ts:47](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/server/src/main/index.ts#L47)*
+*Defined in [main/index.ts:47](https://github.com/badbatch/graphql-box/blob/4864259/packages/server/src/main/index.ts#L47)*
 
 **Parameters:**
 
@@ -60,7 +58,7 @@ ___
 
 ▸ **request**(`options`: ServerRequestOptions): *[RequestHandler](../README.md#requesthandler)*
 
-*Defined in [main/index.ts:53](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/server/src/main/index.ts#L53)*
+*Defined in [main/index.ts:53](https://github.com/badbatch/graphql-box/blob/4864259/packages/server/src/main/index.ts#L53)*
 
 **Parameters:**
 
@@ -76,7 +74,7 @@ ___
 
 ▸ **init**(`options`: [UserOptions](../interfaces/useroptions.md)): *Promise‹[Server](server.md)›*
 
-*Defined in [main/index.ts:25](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/server/src/main/index.ts#L25)*
+*Defined in [main/index.ts:25](https://github.com/badbatch/graphql-box/blob/4864259/packages/server/src/main/index.ts#L25)*
 
 **Parameters:**
 

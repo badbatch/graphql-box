@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [FieldCount](fieldcount.md)
+[Documentation](../README.md) › [FieldCount](fieldcount.md)
 
 # Interface: FieldCount
 
@@ -21,7 +19,7 @@
 
 • **missing**: *number*
 
-*Defined in [defs/index.ts:73](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L73)*
+*Defined in [defs/index.ts:73](https://github.com/badbatch/graphql-box/blob/4864259/packages/cache-manager/src/defs/index.ts#L73)*
 
 ___
 
@@ -29,4 +27,4 @@ ___
 
 • **total**: *number*
 
-*Defined in [defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/cache-manager/src/defs/index.ts#L74)*
+*Defined in [defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/4864259/packages/cache-manager/src/defs/index.ts#L74)*

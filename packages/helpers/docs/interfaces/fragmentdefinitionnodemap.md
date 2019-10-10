@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [FragmentDefinitionNodeMap](fragmentdefinitionnodemap.md)
+[Documentation](../README.md) › [FragmentDefinitionNodeMap](fragmentdefinitionnodemap.md)
 
 # Interface: FragmentDefinitionNodeMap
 

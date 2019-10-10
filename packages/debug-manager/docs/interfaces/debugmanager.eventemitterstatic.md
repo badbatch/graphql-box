@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [DebugManager](../classes/debugmanager.md) › [EventEmitterStatic](debugmanager.eventemitterstatic.md)
+[Documentation](../README.md) › [DebugManager](../classes/debugmanager.md) › [EventEmitterStatic](debugmanager.eventemitterstatic.md)
 
 # Interface: EventEmitterStatic
 

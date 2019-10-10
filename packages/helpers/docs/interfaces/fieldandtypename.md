@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [FieldAndTypeName](fieldandtypename.md)
+[Documentation](../README.md) › [FieldAndTypeName](fieldandtypename.md)
 
 # Interface: FieldAndTypeName
 
@@ -21,7 +19,7 @@
 
 • **fieldNode**: *FieldNode*
 
-*Defined in [defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/defs/index.ts#L79)*
+*Defined in [defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/defs/index.ts#L79)*
 
 ___
 
@@ -29,4 +27,4 @@ ___
 
 • **typeName**: *string | undefined*
 
-*Defined in [defs/index.ts:80](https://github.com/badbatch/graphql-box/blob/2d19c63/packages/helpers/src/defs/index.ts#L80)*
+*Defined in [defs/index.ts:80](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/defs/index.ts#L80)*
