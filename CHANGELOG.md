@@ -1,3 +1,9 @@
+#### 2.0.1 (2019-11-13)
+
+##### Bug Fixes
+
+*  update peer dependency versions ([31c24ca1](https://github.com/badbatch/graphql-box/commit/31c24ca125678b871581e987be0365626be506e0))
+
 ## 2.0.0 (2019-11-13)
 
 ##### Chores
