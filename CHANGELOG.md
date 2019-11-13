@@ -1,3 +1,9 @@
+## 2.0.0 (2019-11-13)
+
+##### Chores
+
+*  update dependencies, including core-js ([bdf74fbe](https://github.com/badbatch/graphql-box/commit/bdf74fbe6c4d3cb08eff844c6ecc45a3972e870e))
+
 #### 1.0.3 (2019-10-10)
 
 ##### Chores

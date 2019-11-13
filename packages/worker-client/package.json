@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/worker-client",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "The GraphQL Box web worker client module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -53,8 +53,8 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
-    "@graphql-box/client": "^1.0.1",
-    "@graphql-box/debug-manager": "^1.0.1",
-    "@graphql-box/test-utils": "^1.0.1"
+    "@graphql-box/client": "^2.0.0",
+    "@graphql-box/debug-manager": "^2.0.0",
+    "@graphql-box/test-utils": "^2.0.0"
   }
 }

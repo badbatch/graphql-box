@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/cache-manager",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "The GraphQL Box cache manager module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -50,6 +50,6 @@
     "cacheability": "^3.0.0"
   },
   "devDependencies": {
-    "@graphql-box/test-utils": "^1.0.1"
+    "@graphql-box/test-utils": "^2.0.0"
   }
 }

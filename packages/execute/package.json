@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/execute",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "The GraphQL Box execute module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -44,6 +44,6 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "@graphql-box/test-utils": "^1.0.1"
+    "@graphql-box/test-utils": "^2.0.0"
   }
 }
