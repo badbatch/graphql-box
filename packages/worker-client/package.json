@@ -31,23 +31,23 @@
     "compile-watch": "concurrently npm:compile-watch:*",
     "compile-watch:main": "yarn run compile:main --watch",
     "compile-watch:types": "yarn run compile:types --watch",
-    "compile:browser": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js",
+    "compile:browser": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js",
     "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
     "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
     "compile:types": "tsc --build",
     "docs": "typedoc --includes ./src/main --out ./docs --options ../../typedoc.js",
-    "watch": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js -w"
+    "watch": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js -w"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
     "@graphql-box/core": "^1.0.0",
     "@graphql-box/helpers": "^1.0.0",
-    "core-js": "^2.0",
+    "core-js": "> 4.0",
     "lodash": "^4.17.5"
   },
   "dependencies": {
-    "@cachemap/core": "^1.4.2",
-    "@cachemap/core-worker": "^1.4.2",
+    "@cachemap/core": "^2.0.0",
+    "@cachemap/core-worker": "^2.0.0",
     "eventemitter3": "^4.0.0",
     "iterall": "^1.2.2",
     "uuid": "^3.3.3"

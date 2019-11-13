@@ -4,7 +4,7 @@ import {
   MaybeRequestResultWithDehydratedCacheMetadata,
   PlainObjectStringMap,
 } from "@graphql-box/core";
-import { Request, Response } from "express";
+import { Request, Response } from "express-serve-static-core";
 import { Data } from "ws";
 
 export interface UserOptions {

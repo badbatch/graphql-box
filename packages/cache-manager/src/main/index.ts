@@ -608,7 +608,11 @@ export class CacheManager implements CacheManagerDef {
     const fieldNames = fieldsAndTypeNames.map(({ fieldNode }) => getName(fieldNode) as string);
 
     if (fieldNames.length === 2 && fieldNames.every(name => name === this._typeIDKey || name === TYPE_NAME_KEY)) {
-      deleteChildFields(field, fieldsAndTypeNames.map(({ fieldNode }) => fieldNode));
+      deleteChildFields(
+        field,
+        fieldsAndTypeNames.map(({ fieldNode }) => fieldNode),
+      );
+
       return true;
     }
 

@@ -31,23 +31,23 @@
     "compile-watch": "concurrently npm:compile-watch:*",
     "compile-watch:main": "yarn run compile:main --watch",
     "compile-watch:types": "yarn run compile:types --watch",
-    "compile:browser": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js",
+    "compile:browser": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js",
     "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
     "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
     "compile:types": "tsc --build",
     "docs": "typedoc --includes ./src/main --out ./docs --options ../../typedoc.js",
-    "watch": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js -w"
+    "watch": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js -w"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
     "@graphql-box/core": "^1.0.0",
     "@graphql-box/helpers": "^1.0.0",
-    "core-js": "^2.0",
+    "core-js": "> 4.0",
     "graphql": "^14.1.1",
     "lodash": "^4.17.5"
   },
   "dependencies": {
-    "cacheability": "^2.0.10"
+    "cacheability": "^3.0.0"
   },
   "devDependencies": {
     "@graphql-box/test-utils": "^1.0.1"

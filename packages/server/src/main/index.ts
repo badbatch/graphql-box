@@ -8,7 +8,7 @@ import {
   ServerSocketRequestOptions,
 } from "@graphql-box/core";
 import { dehydrateCacheMetadata } from "@graphql-box/helpers";
-import { Request, Response } from "express";
+import { Request, Response } from "express-serve-static-core";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
 import { Data } from "ws";
