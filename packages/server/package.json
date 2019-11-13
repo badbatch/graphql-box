@@ -38,8 +38,8 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
-    "@graphql-box/core": "^1.0.0",
-    "@graphql-box/helpers": "^1.0.0",
+    "@graphql-box/core": "> 3.0.0",
+    "@graphql-box/helpers": "> 3.0.0",
     "core-js": "> 4.0",
     "lodash": "^4.17.5",
     "ws": "^7.0.0"
