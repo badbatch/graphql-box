@@ -3,8 +3,8 @@ import { SUBSCRIPTION_EXECUTED } from "../../consts";
 
 export default function logSubscription() {
   return (
-    target: any,
-    propertyName: string,
+    _target: any,
+    _propertyName: string,
     descriptor: TypedPropertyDescriptor<(...args: any[]) => Promise<any>>,
   ): void => {
     const method = descriptor.value;

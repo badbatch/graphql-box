@@ -1,9 +1,9 @@
-import { coreDefs } from "@cachemap/core";
+import { StoreInit } from "@cachemap/core";
 import { PlainObjectStringMap, SubscriptionsManagerInit } from "@graphql-box/core";
 import { GraphQLSchema, IntrospectionQuery } from "graphql";
 
 export interface InitClientOptions {
-  cachemapStore: coreDefs.StoreInit;
+  cachemapStore: StoreInit;
   debuggerName?: string;
   introspection?: IntrospectionQuery;
   schema?: GraphQLSchema;
@@ -16,7 +16,7 @@ export interface InitWorkerClientOptions {
 }
 
 export interface InitServerOptions {
-  cachemapStore: coreDefs.StoreInit;
+  cachemapStore: StoreInit;
   debuggerName?: string;
   typeCacheDirectives: PlainObjectStringMap;
 }

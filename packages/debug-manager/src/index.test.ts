@@ -39,7 +39,7 @@ describe("@graphql-box/debug-manager >>", () => {
       });
 
       const cacheManager = await CacheManager.init({
-        cache: await Cachemap.init({
+        cache: new Cachemap({
           name: "cachemap",
           store: map(),
         }),
@@ -80,7 +80,7 @@ describe("@graphql-box/debug-manager >>", () => {
       jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
       const cacheManager = await CacheManager.init({
-        cache: await Cachemap.init({
+        cache: new Cachemap({
           name: "cachemap",
           store: map(),
         }),

@@ -3,8 +3,8 @@ import { CACHE_ENTRY_QUERIED } from "../../consts";
 
 export default function logCacheQuery() {
   return (
-    target: any,
-    propertyName: string,
+    _target: any,
+    _propertyName: string,
     descriptor: TypedPropertyDescriptor<(...args: any[]) => Promise<any>>,
   ): void => {
     const method = descriptor.value;

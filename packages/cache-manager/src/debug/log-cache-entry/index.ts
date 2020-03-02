@@ -3,8 +3,8 @@ import { CACHE_ENTRY_ADDED } from "../../consts";
 
 export default function logCacheEntry() {
   return (
-    target: any,
-    propertyName: string,
+    _target: any,
+    _propertyName: string,
     descriptor: TypedPropertyDescriptor<(...args: any[]) => Promise<any>>,
   ): void => {
     const method = descriptor.value;

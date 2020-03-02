@@ -6,13 +6,13 @@ import { publish, subscribe } from "../pubsub";
 
 const resolvers = {
   Mutation: {
-    addEmail: (obj: PlainObjectMap, { input }: { input: EmailInput }) => {
+    addEmail: (_obj: PlainObjectMap, { input }: { input: EmailInput }) => {
       addEmail(input);
       const result = getInbox();
       publish(EMAIL_ADDED, result);
       return result;
     },
-    deleteEmails: (obj: PlainObjectMap, { id }: { id?: number }) => {
+    deleteEmails: (_obj: PlainObjectMap, { id }: { id?: number }) => {
       deleteEmails(id);
       const result = getInbox();
       publish(EMAILS_DELETED, result);

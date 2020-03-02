@@ -42,7 +42,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
 
   public async subscribe(
     { hash, request }: RequestDataWithMaybeAST,
-    options: RequestOptions,
+    _options: RequestOptions,
     context: RequestContext,
     subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {

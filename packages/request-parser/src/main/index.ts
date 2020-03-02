@@ -369,10 +369,10 @@ export class RequestParser implements RequestParserDef {
 
   private _updateInlineFragmentNode(
     node: InlineFragmentNode,
-    ancestors: ReadonlyArray<any>,
+    _ancestors: ReadonlyArray<any>,
     typeInfo: TypeInfo,
-    options: RequestOptions,
-    context: RequestContext,
+    _options: RequestOptions,
+    _context: RequestContext,
   ): undefined {
     const type = this._getInlineFragmentType(node, typeInfo);
 
@@ -423,9 +423,9 @@ export class RequestParser implements RequestParserDef {
       const updatedAST = visit(ast, {
         enter(
           node: ASTNode,
-          key: string | number | undefined,
+          _key: string | number | undefined,
           parent: any | ReadonlyArray<any> | undefined,
-          path: ReadonlyArray<string | number>,
+          _path: ReadonlyArray<string | number>,
           ancestors: ReadonlyArray<any>,
         ): ValueNode | undefined {
           typeInfo.enter(node);

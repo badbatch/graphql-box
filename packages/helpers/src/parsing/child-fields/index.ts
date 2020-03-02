@@ -99,7 +99,7 @@ export function iterateChildFields(
       callback(fieldNode, typeName);
     });
   } else {
-    data.forEach((value, index) => {
+    data.forEach((_value, index) => {
       callback(field, undefined, index);
     });
   }

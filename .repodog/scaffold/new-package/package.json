@@ -35,9 +35,9 @@
     "docs": "typedoc --includes ./src/main --out ./docs --options ../../typedoc.js"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.0.0",
-    "@graphql-box/core": "^0.1.22",
-    "core-js": "> 4.0",
-    "lodash": "^4.17.5"
+    "@babel/runtime": "< 8",
+    "@graphql-box/core": "< 3",
+    "core-js": "< 4",
+    "lodash": "< 5"
   }
 }

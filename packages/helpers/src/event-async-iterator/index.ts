@@ -6,7 +6,7 @@ export default class EventAsyncIterator {
   private _eventEmitter: EventEmitter;
   private _eventName: string;
   private _listening: boolean = false;
-  private _pullQueue: Array<(value: IteratorResult<MaybeRequestResult | undefined>) => void> = [];
+  private _pullQueue: ((value: IteratorResult<MaybeRequestResult | undefined>) => void)[] = [];
   private _pushQueue: MaybeRequestResult[] = [];
 
   constructor(eventEmitter: EventEmitter, eventName: string) {
@@ -16,11 +16,12 @@ export default class EventAsyncIterator {
     this._addEventListener();
   }
 
-  public getIterator(): AsyncIterator<MaybeRequestResult | undefined> {
+  public getIterator(): AsyncIterableIterator<MaybeRequestResult | undefined> {
     return {
       next: this._next.bind(this),
       return: this._return.bind(this),
       throw: this._throw.bind(this),
+      // @ts-ignore
       [$$asyncIterator]() {
         return this;
       },

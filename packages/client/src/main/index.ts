@@ -22,7 +22,7 @@ import {
 import { hashRequest } from "@graphql-box/helpers";
 import { RequestParserDef } from "@graphql-box/request-parser";
 import { isArray, isPlainObject, isString } from "lodash";
-import uuid from "uuid/v1";
+import { v1 as uuid } from "uuid";
 import logRequest from "../debug/log-request";
 import logSubscription from "../debug/log-subscription";
 import { ConstructorOptions, PendingQueryData, PendingQueryResolver, QueryTracker, UserOptions } from "../defs";
@@ -75,7 +75,7 @@ export default class Client {
   private static _resolve(
     { cacheMetadata, data, errors }: MaybeResponseData,
     options: RequestOptions,
-    context: RequestContext,
+    _context: RequestContext,
   ): MaybeRequestResult {
     const result: MaybeRequestResult = { data, errors };
     if (options.returnCacheMetadata && cacheMetadata) result._cacheMetadata = cacheMetadata;

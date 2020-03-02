@@ -39,7 +39,7 @@ describe("@graphql-box/cache-manager >>", () => {
       describe("cascading cache control >>", () => {
         beforeAll(async () => {
           cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
+            cache: new Cachemap({
               name: "cachemap",
               store: map(),
             }),
@@ -69,7 +69,7 @@ describe("@graphql-box/cache-manager >>", () => {
       describe("type cache directives >>", () => {
         beforeAll(async () => {
           cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
+            cache: new Cachemap({
               name: "cachemap",
               store: map(),
             }),
@@ -107,7 +107,7 @@ describe("@graphql-box/cache-manager >>", () => {
       describe("cascading cache control >>", () => {
         beforeAll(async () => {
           cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
+            cache: new Cachemap({
               name: "cachemap",
               store: map(),
             }),
@@ -137,7 +137,7 @@ describe("@graphql-box/cache-manager >>", () => {
       describe("type cache directives >>", () => {
         beforeAll(async () => {
           cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
+            cache: new Cachemap({
               name: "cachemap",
               store: map(),
             }),
@@ -178,7 +178,7 @@ describe("@graphql-box/cache-manager >>", () => {
         describe("cascading cache control >>", () => {
           beforeAll(async () => {
             cacheManager = await CacheManager.init({
-              cache: await Cachemap.init({
+              cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
               }),
@@ -209,7 +209,7 @@ describe("@graphql-box/cache-manager >>", () => {
         describe("type cache directives >>", () => {
           beforeAll(async () => {
             cacheManager = await CacheManager.init({
-              cache: await Cachemap.init({
+              cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
               }),
@@ -244,7 +244,7 @@ describe("@graphql-box/cache-manager >>", () => {
         describe("cascading cache control >>", () => {
           beforeAll(async () => {
             cacheManager = await CacheManager.init({
-              cache: await Cachemap.init({
+              cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
               }),
@@ -275,7 +275,7 @@ describe("@graphql-box/cache-manager >>", () => {
         describe("type cache directives >>", () => {
           beforeAll(async () => {
             cacheManager = await CacheManager.init({
-              cache: await Cachemap.init({
+              cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
               }),
@@ -313,7 +313,7 @@ describe("@graphql-box/cache-manager >>", () => {
         describe("cascading cache control >>", () => {
           beforeAll(async () => {
             cacheManager = await CacheManager.init({
-              cache: await Cachemap.init({
+              cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
               }),
@@ -344,7 +344,7 @@ describe("@graphql-box/cache-manager >>", () => {
         describe("type cache directives >>", () => {
           beforeAll(async () => {
             cacheManager = await CacheManager.init({
-              cache: await Cachemap.init({
+              cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
               }),
@@ -385,7 +385,7 @@ describe("@graphql-box/cache-manager >>", () => {
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
             cacheManager = await CacheManager.init({
-              cache: await Cachemap.init({
+              cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
               }),
@@ -435,7 +435,7 @@ describe("@graphql-box/cache-manager >>", () => {
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
             cacheManager = await CacheManager.init({
-              cache: await Cachemap.init({
+              cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
               }),
@@ -489,7 +489,7 @@ describe("@graphql-box/cache-manager >>", () => {
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
             cacheManager = await CacheManager.init({
-              cache: await Cachemap.init({
+              cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
               }),
@@ -539,7 +539,7 @@ describe("@graphql-box/cache-manager >>", () => {
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
             cacheManager = await CacheManager.init({
-              cache: await Cachemap.init({
+              cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
               }),
@@ -596,7 +596,7 @@ describe("@graphql-box/cache-manager >>", () => {
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
             cacheManager = await CacheManager.init({
-              cache: await Cachemap.init({
+              cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
               }),
@@ -646,7 +646,7 @@ describe("@graphql-box/cache-manager >>", () => {
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
             cacheManager = await CacheManager.init({
-              cache: await Cachemap.init({
+              cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
               }),
@@ -703,7 +703,7 @@ describe("@graphql-box/cache-manager >>", () => {
       describe("single type >>", () => {
         beforeAll(async () => {
           cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
+            cache: new Cachemap({
               name: "cachemap",
               store: map(),
             }),
@@ -730,7 +730,7 @@ describe("@graphql-box/cache-manager >>", () => {
       describe("nested type with edges >>", () => {
         beforeAll(async () => {
           cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
+            cache: new Cachemap({
               name: "cachemap",
               store: map(),
             }),
@@ -757,7 +757,7 @@ describe("@graphql-box/cache-manager >>", () => {
       describe("nested union with edges >>", () => {
         beforeAll(async () => {
           cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
+            cache: new Cachemap({
               name: "cachemap",
               store: map(),
             }),
@@ -789,7 +789,7 @@ describe("@graphql-box/cache-manager >>", () => {
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
           cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
+            cache: new Cachemap({
               name: "cachemap",
               store: map(),
             }),
@@ -835,7 +835,7 @@ describe("@graphql-box/cache-manager >>", () => {
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
           cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
+            cache: new Cachemap({
               name: "cachemap",
               store: map(),
             }),
@@ -884,7 +884,7 @@ describe("@graphql-box/cache-manager >>", () => {
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
           cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
+            cache: new Cachemap({
               name: "cachemap",
               store: map(),
             }),
@@ -933,7 +933,7 @@ describe("@graphql-box/cache-manager >>", () => {
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
           cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
+            cache: new Cachemap({
               name: "cachemap",
               store: map(),
             }),
@@ -985,7 +985,7 @@ describe("@graphql-box/cache-manager >>", () => {
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
           cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
+            cache: new Cachemap({
               name: "cachemap",
               store: map(),
             }),
@@ -1040,7 +1040,7 @@ describe("@graphql-box/cache-manager >>", () => {
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
           cacheManager = await CacheManager.init({
-            cache: await Cachemap.init({
+            cache: new Cachemap({
               name: "cachemap",
               store: map(),
             }),

@@ -21,7 +21,7 @@ export default async function initClient({
 }: InitClientOptions): Promise<Client> {
   return Client.init({
     cacheManager: cacheManager({
-      cache: await Cachemap.init({
+      cache: new Cachemap({
         name: "cachemap",
         store: cachemapStore,
       }),

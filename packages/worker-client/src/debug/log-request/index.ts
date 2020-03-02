@@ -3,8 +3,8 @@ import { REQUEST_EXECUTED } from "../../consts";
 
 export default function logRequest() {
   return (
-    target: any,
-    propertyName: string,
+    _target: any,
+    _propertyName: string,
     descriptor: TypedPropertyDescriptor<(...args: any[]) => Promise<any>>,
   ): void => {
     const method = descriptor.value;

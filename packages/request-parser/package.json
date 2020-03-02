@@ -39,12 +39,12 @@
     "watch": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js -w"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.0.0",
-    "@graphql-box/core": "> 3.0.0",
-    "@graphql-box/helpers": "> 3.0.0",
-    "core-js": "> 4.0",
-    "graphql": "^14.1.1",
-    "lodash": "^4.17.5"
+    "@babel/runtime": "< 8",
+    "@graphql-box/core": "< 3",
+    "@graphql-box/helpers": "< 3",
+    "core-js": "< 4",
+    "graphql": "< 15",
+    "lodash": "< 5"
   },
   "devDependencies": {
     "@graphql-box/test-utils": "^2.0.0"

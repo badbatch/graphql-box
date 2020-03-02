@@ -82,7 +82,7 @@ export class FetchManager implements RequestManagerDef {
   @logFetch()
   public async execute(
     { hash, request }: RequestDataWithMaybeAST,
-    options: RequestOptions,
+    _options: RequestOptions,
     context: RequestContext,
   ): Promise<MaybeRawResponseData> {
     try {

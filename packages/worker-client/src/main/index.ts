@@ -11,7 +11,7 @@ import {
 import { EventAsyncIterator, rehydrateCacheMetadata } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { isPlainObject } from "lodash";
-import uuid from "uuid/v1";
+import { v1 as uuid } from "uuid";
 import { GRAPHQL_BOX, MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
 import logRequest from "../debug/log-request";
 import {

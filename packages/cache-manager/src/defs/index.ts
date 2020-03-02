@@ -1,4 +1,4 @@
-import Cachemap, { coreDefs as cachemapDefs } from "@cachemap/core";
+import Cachemap, { CacheHeaders, Metadata } from "@cachemap/core";
 import {
   CacheMetadata,
   CacheTypes,
@@ -154,8 +154,8 @@ export interface DataForCachingEntry {
 }
 
 export interface ExportCacheResult {
-  entries: Array<[string, any]>;
-  metadata: cachemapDefs.Metadata[];
+  entries: [string, any][];
+  metadata: Metadata[];
 }
 
 export interface AnalyzeQueryResult {
@@ -174,7 +174,7 @@ export interface QueryResponseCacheEntry {
 }
 
 export interface CachemapOptions {
-  cacheHeaders: cachemapDefs.CacheHeaders;
+  cacheHeaders: CacheHeaders;
   tag?: any;
 }
 
