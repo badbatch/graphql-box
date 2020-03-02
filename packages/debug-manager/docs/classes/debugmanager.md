@@ -53,7 +53,7 @@
 
 \+ **new DebugManager**(`__namedParameters`: object): *[DebugManager](debugmanager.md)*
 
-*Defined in [main/index.ts:21](https://github.com/badbatch/graphql-box/blob/4864259/packages/debug-manager/src/main/index.ts#L21)*
+*Defined in [packages/debug-manager/src/main/index.ts:21](https://github.com/badbatch/graphql-box/blob/d785ce9/packages/debug-manager/src/main/index.ts#L21)*
 
 **Parameters:**
 
@@ -71,9 +71,9 @@ Name | Type |
 
 ### `Static` EventEmitter
 
-▪ **EventEmitter**: *EventEmitterStatic*
+▪ **EventEmitter**: *[EventEmitterStatic](../interfaces/debugmanager.eventemitterstatic.md)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:64
+Defined in node_modules/eventemitter3/index.d.ts:64
 
 ___
 
@@ -81,19 +81,19 @@ ___
 
 ▪ **prefixed**: *string | boolean*
 
-*Inherited from void*
+*Inherited from [DebugManager](debugmanager.md).[prefixed](debugmanager.md#static-prefixed)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:9
+Defined in node_modules/eventemitter3/index.d.ts:9
 
 ## Methods
 
 ###  addListener
 
-▸ **addListener**<**T**>(`event`: T, `fn`: ListenerFn‹EventArgs‹EventTypes, T››, `context?`: any): *this*
+▸ **addListener**<**T**>(`event`: T, `fn`: [ListenerFn](../interfaces/debugmanager.listenerfn.md)‹EventArgs‹EventTypes, T››, `context?`: any): *this*
 
-*Inherited from void*
+*Inherited from [DebugManager](debugmanager.md).[addListener](debugmanager.md#addlistener)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:36
+Defined in node_modules/eventemitter3/index.d.ts:36
 
 **Type parameters:**
 
@@ -104,7 +104,7 @@ Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/even
 Name | Type |
 ------ | ------ |
 `event` | T |
-`fn` | ListenerFn‹EventArgs‹EventTypes, T›› |
+`fn` | [ListenerFn](../interfaces/debugmanager.listenerfn.md)‹EventArgs‹EventTypes, T›› |
 `context?` | any |
 
 **Returns:** *this*
@@ -117,7 +117,7 @@ ___
 
 *Overrides void*
 
-*Defined in [main/index.ts:30](https://github.com/badbatch/graphql-box/blob/4864259/packages/debug-manager/src/main/index.ts#L30)*
+*Defined in [packages/debug-manager/src/main/index.ts:30](https://github.com/badbatch/graphql-box/blob/d785ce9/packages/debug-manager/src/main/index.ts#L30)*
 
 **Parameters:**
 
@@ -134,9 +134,9 @@ ___
 
 ▸ **eventNames**(): *Array‹EventNames‹EventTypes››*
 
-*Inherited from void*
+*Inherited from [DebugManager](debugmanager.md).[eventNames](debugmanager.md#eventnames)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:15
+Defined in node_modules/eventemitter3/index.d.ts:15
 
 Return an array listing the events for which the emitter has registered
 listeners.
@@ -149,9 +149,9 @@ ___
 
 ▸ **listenerCount**(`event`: EventNames‹EventTypes›): *number*
 
-*Inherited from void*
+*Inherited from [DebugManager](debugmanager.md).[listenerCount](debugmanager.md#listenercount)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:25
+Defined in node_modules/eventemitter3/index.d.ts:25
 
 Return the number of listeners listening to a given event.
 
@@ -167,11 +167,11 @@ ___
 
 ###  listeners
 
-▸ **listeners**<**T**>(`event`: T): *Array‹ListenerFn‹EventArgs‹EventTypes, T›››*
+▸ **listeners**<**T**>(`event`: T): *Array‹[ListenerFn](../interfaces/debugmanager.listenerfn.md)‹EventArgs‹EventTypes, T›››*
 
-*Inherited from void*
+*Inherited from [DebugManager](debugmanager.md).[listeners](debugmanager.md#listeners)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:20
+Defined in node_modules/eventemitter3/index.d.ts:20
 
 Return the listeners registered for a given event.
 
@@ -185,7 +185,7 @@ Name | Type |
 ------ | ------ |
 `event` | T |
 
-**Returns:** *Array‹ListenerFn‹EventArgs‹EventTypes, T›››*
+**Returns:** *Array‹[ListenerFn](../interfaces/debugmanager.listenerfn.md)‹EventArgs‹EventTypes, T›››*
 
 ___
 
@@ -193,7 +193,7 @@ ___
 
 ▸ **now**(): *number*
 
-*Defined in [main/index.ts:37](https://github.com/badbatch/graphql-box/blob/4864259/packages/debug-manager/src/main/index.ts#L37)*
+*Defined in [packages/debug-manager/src/main/index.ts:37](https://github.com/badbatch/graphql-box/blob/d785ce9/packages/debug-manager/src/main/index.ts#L37)*
 
 **Returns:** *number*
 
@@ -203,9 +203,9 @@ ___
 
 ▸ **off**<**T**>(`event`: T, `fn?`: EventEmitter.ListenerFn‹EventArgs‹EventTypes, T››, `context?`: any, `once?`: undefined | false | true): *this*
 
-*Inherited from void*
+*Inherited from [DebugManager](debugmanager.md).[off](debugmanager.md#off)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:47
+Defined in node_modules/eventemitter3/index.d.ts:47
 
 **Type parameters:**
 
@@ -226,11 +226,11 @@ ___
 
 ###  on
 
-▸ **on**<**T**>(`event`: T, `fn`: ListenerFn‹EventArgs‹EventTypes, T››, `context?`: any): *this*
+▸ **on**<**T**>(`event`: T, `fn`: [ListenerFn](../interfaces/debugmanager.listenerfn.md)‹EventArgs‹EventTypes, T››, `context?`: any): *this*
 
-*Inherited from void*
+*Inherited from [DebugManager](debugmanager.md).[on](debugmanager.md#on)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:35
+Defined in node_modules/eventemitter3/index.d.ts:35
 
 Add a listener for a given event.
 
@@ -243,7 +243,7 @@ Add a listener for a given event.
 Name | Type |
 ------ | ------ |
 `event` | T |
-`fn` | ListenerFn‹EventArgs‹EventTypes, T›› |
+`fn` | [ListenerFn](../interfaces/debugmanager.listenerfn.md)‹EventArgs‹EventTypes, T›› |
 `context?` | any |
 
 **Returns:** *this*
@@ -252,11 +252,11 @@ ___
 
 ###  once
 
-▸ **once**<**T**>(`event`: T, `fn`: ListenerFn‹EventArgs‹EventTypes, T››, `context?`: any): *this*
+▸ **once**<**T**>(`event`: T, `fn`: [ListenerFn](../interfaces/debugmanager.listenerfn.md)‹EventArgs‹EventTypes, T››, `context?`: any): *this*
 
-*Inherited from void*
+*Inherited from [DebugManager](debugmanager.md).[once](debugmanager.md#once)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:41
+Defined in node_modules/eventemitter3/index.d.ts:41
 
 Add a one-time listener for a given event.
 
@@ -269,7 +269,7 @@ Add a one-time listener for a given event.
 Name | Type |
 ------ | ------ |
 `event` | T |
-`fn` | ListenerFn‹EventArgs‹EventTypes, T›› |
+`fn` | [ListenerFn](../interfaces/debugmanager.listenerfn.md)‹EventArgs‹EventTypes, T›› |
 `context?` | any |
 
 **Returns:** *this*
@@ -280,9 +280,9 @@ ___
 
 ▸ **removeAllListeners**(`event?`: EventNames‹EventTypes›): *this*
 
-*Inherited from void*
+*Inherited from [DebugManager](debugmanager.md).[removeAllListeners](debugmanager.md#removealllisteners)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:52
+Defined in node_modules/eventemitter3/index.d.ts:52
 
 Remove all listeners, or those of the specified event.
 
@@ -300,9 +300,9 @@ ___
 
 ▸ **removeListener**<**T**>(`event`: T, `fn?`: EventEmitter.ListenerFn‹EventArgs‹EventTypes, T››, `context?`: any, `once?`: undefined | false | true): *this*
 
-*Inherited from void*
+*Inherited from [DebugManager](debugmanager.md).[removeListener](debugmanager.md#removelistener)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:46
+Defined in node_modules/eventemitter3/index.d.ts:46
 
 Remove the listeners of a given event.
 
@@ -327,7 +327,7 @@ ___
 
 ▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *Promise‹[DebugManager](debugmanager.md)›*
 
-*Defined in [main/index.ts:7](https://github.com/badbatch/graphql-box/blob/4864259/packages/debug-manager/src/main/index.ts#L7)*
+*Defined in [packages/debug-manager/src/main/index.ts:7](https://github.com/badbatch/graphql-box/blob/d785ce9/packages/debug-manager/src/main/index.ts#L7)*
 
 **Parameters:**
 

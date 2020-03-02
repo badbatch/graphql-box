@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/websocket-manager",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "The GraphQL Box websocket manager module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",

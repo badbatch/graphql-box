@@ -14,7 +14,7 @@
 
 ▸ (...`args`: Args): *void*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:56
+Defined in node_modules/eventemitter3/index.d.ts:56
 
 **Parameters:**
 

@@ -18,7 +18,7 @@
 
 \+ **new EventEmitterStatic**<**EventTypes**>(): *EventEmitter‹EventTypes›*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/graphql-box/node_modules/eventemitter3/index.d.ts:60
+Defined in node_modules/eventemitter3/index.d.ts:60
 
 **Type parameters:**
 

@@ -22,7 +22,7 @@
 
 \+ **new EventAsyncIterator**(`eventEmitter`: EventEmitter, `eventName`: string): *[EventAsyncIterator](eventasynciterator.md)*
 
-*Defined in [event-async-iterator/index.ts:10](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/event-async-iterator/index.ts#L10)*
+*Defined in [packages/helpers/src/event-async-iterator/index.ts:10](https://github.com/badbatch/graphql-box/blob/d785ce9/packages/helpers/src/event-async-iterator/index.ts#L10)*
 
 **Parameters:**
 
@@ -37,8 +37,8 @@ Name | Type |
 
 ###  getIterator
 
-▸ **getIterator**(): *AsyncIterator‹MaybeRequestResult | undefined›*
+▸ **getIterator**(): *AsyncIterableIterator‹MaybeRequestResult | undefined›*
 
-*Defined in [event-async-iterator/index.ts:19](https://github.com/badbatch/graphql-box/blob/4864259/packages/helpers/src/event-async-iterator/index.ts#L19)*
+*Defined in [packages/helpers/src/event-async-iterator/index.ts:19](https://github.com/badbatch/graphql-box/blob/d785ce9/packages/helpers/src/event-async-iterator/index.ts#L19)*
 
-**Returns:** *AsyncIterator‹MaybeRequestResult | undefined›*
+**Returns:** *AsyncIterableIterator‹MaybeRequestResult | undefined›*

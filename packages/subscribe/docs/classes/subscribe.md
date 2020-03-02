@@ -23,7 +23,7 @@
 
 \+ **new Subscribe**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[Subscribe](subscribe.md)*
 
-*Defined in [main/index.ts:35](https://github.com/badbatch/graphql-box/blob/4864259/packages/subscribe/src/main/index.ts#L35)*
+*Defined in [packages/subscribe/src/main/index.ts:35](https://github.com/badbatch/graphql-box/blob/d785ce9/packages/subscribe/src/main/index.ts#L35)*
 
 **Parameters:**
 
@@ -39,7 +39,7 @@ Name | Type |
 
 ▸ **subscribe**(`__namedParameters`: object, `options`: ServerRequestOptions, `__namedParameters`: object, `subscriberResolver`: SubscriberResolver): *Promise‹AsyncIterator‹MaybeRequestResult | undefined››*
 
-*Defined in [main/index.ts:46](https://github.com/badbatch/graphql-box/blob/4864259/packages/subscribe/src/main/index.ts#L46)*
+*Defined in [packages/subscribe/src/main/index.ts:46](https://github.com/badbatch/graphql-box/blob/d785ce9/packages/subscribe/src/main/index.ts#L46)*
 
 **Parameters:**
 
@@ -69,7 +69,7 @@ ___
 
 ▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *Promise‹[Subscribe](subscribe.md)›*
 
-*Defined in [main/index.ts:18](https://github.com/badbatch/graphql-box/blob/4864259/packages/subscribe/src/main/index.ts#L18)*
+*Defined in [packages/subscribe/src/main/index.ts:18](https://github.com/badbatch/graphql-box/blob/d785ce9/packages/subscribe/src/main/index.ts#L18)*
 
 **Parameters:**
 
