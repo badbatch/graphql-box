@@ -101,7 +101,7 @@ import introspection from "./introspection-query";
 (async () => {
   const client = await Client.init({
     cacheManager: cacheManager({
-      cache: await Cachemap.init({
+      cache: new Cachemap({
         name: "cachemap",
         reaper: reaper({ interval: 300000 }),
         store: indexedDB(),
@@ -357,7 +357,7 @@ const schema = makeExecutableSchema({ typeDefs: schemaTypeDefs, resolvers: schem
   const server = Server.init({
     client: await Client.init({
       cacheManager: cacheManager({
-        cache: await Cachemap.init({
+        cache: new Cachemap({
           name: "cachemap",
           reaper: reaper({ interval: 300000 }),
           store: redis(),
