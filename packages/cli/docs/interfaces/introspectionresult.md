@@ -18,4 +18,4 @@
 
 • **data**? : *PlainObjectMap | null*
 
-*Defined in [defs/index.ts:11](https://github.com/badbatch/graphql-box/blob/d785ce9/packages/cli/src/defs/index.ts#L11)*
+*Defined in [defs/index.ts:11](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/cli/src/defs/index.ts#L11)*

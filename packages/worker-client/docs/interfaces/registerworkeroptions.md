@@ -18,4 +18,4 @@
 
 • **client**: *Client*
 
-*Defined in [defs/index.ts:64](https://github.com/badbatch/graphql-box/blob/d785ce9/packages/worker-client/src/defs/index.ts#L64)*
+*Defined in [defs/index.ts:64](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/worker-client/src/defs/index.ts#L64)*

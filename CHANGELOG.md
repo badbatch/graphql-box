@@ -1,3 +1,9 @@
+#### 2.0.3 (2020-03-05)
+
+##### New Features
+
+* **helpers:**  export types ([9a898ad5](https://github.com/badbatch/graphql-box/commit/9a898ad5f6cd96e058c6244c70ea1c3d20cb0e80))
+
 #### 2.0.2 (2020-03-02)
 
 ##### Chores
