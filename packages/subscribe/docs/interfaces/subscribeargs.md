@@ -30,7 +30,7 @@
 
 *Inherited from __type.contextValue*
 
-Defined in node_modules/graphql/execution/execute.d.ts:63
+Defined in node_modules/graphql/execution/execute.d.ts:69
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 *Inherited from __type.document*
 
-Defined in node_modules/graphql/execution/execute.d.ts:61
+Defined in node_modules/graphql/execution/execute.d.ts:67
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 *Inherited from __type.fieldResolver*
 
-Defined in node_modules/graphql/execution/execute.d.ts:66
+Defined in node_modules/graphql/execution/execute.d.ts:72
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 *Inherited from __type.operationName*
 
-Defined in node_modules/graphql/execution/execute.d.ts:65
+Defined in node_modules/graphql/execution/execute.d.ts:71
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 *Inherited from __type.rootValue*
 
-Defined in node_modules/graphql/execution/execute.d.ts:62
+Defined in node_modules/graphql/execution/execute.d.ts:68
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 *Inherited from __type.schema*
 
-Defined in node_modules/graphql/execution/execute.d.ts:60
+Defined in node_modules/graphql/execution/execute.d.ts:66
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 • **subscribeFieldResolver**? : *Maybe‹GraphQLFieldResolver‹any, any››*
 
-*Defined in [packages/subscribe/src/defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/subscribe/src/defs/index.ts#L52)*
+*Defined in [packages/subscribe/src/defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/7974018/packages/subscribe/src/defs/index.ts#L52)*
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 *Inherited from __type.typeResolver*
 
-Defined in node_modules/graphql/execution/execute.d.ts:67
+Defined in node_modules/graphql/execution/execute.d.ts:73
 
 ___
 
@@ -108,4 +108,4 @@ ___
 
 *Inherited from __type.variableValues*
 
-Defined in node_modules/graphql/execution/execute.d.ts:64
+Defined in node_modules/graphql/execution/execute.d.ts:70

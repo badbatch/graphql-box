@@ -1,3 +1,10 @@
+#### 2.0.4 (2021-05-12)
+
+##### Bug Fixes
+
+*  enabling request parser to pick up variable definition default ([7974018b](https://github.com/badbatch/graphql-box/commit/7974018b1443f43394a8f8220ba1975858a41798))
+*  update code examples in readme for cachemap use ([7743b405](https://github.com/badbatch/graphql-box/commit/7743b40523b8f6098accf87dbb4f58869f33dd4b))
+
 #### 2.0.3 (2020-03-05)
 
 ##### New Features

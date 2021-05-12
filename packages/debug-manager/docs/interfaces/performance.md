@@ -18,6 +18,6 @@
 
 ▸ **now**(): *number*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:33](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/debug-manager/src/defs/index.ts#L33)*
+*Defined in [packages/debug-manager/src/defs/index.ts:33](https://github.com/badbatch/graphql-box/blob/7974018/packages/debug-manager/src/defs/index.ts#L33)*
 
 **Returns:** *number*

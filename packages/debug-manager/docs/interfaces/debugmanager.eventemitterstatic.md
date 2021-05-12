@@ -16,12 +16,14 @@
 
 ###  constructor
 
-\+ **new EventEmitterStatic**<**EventTypes**>(): *EventEmitter‹EventTypes›*
+\+ **new EventEmitterStatic**‹**EventTypes**, **Context**›(): *EventEmitter‹EventTypes, Context›*
 
-Defined in node_modules/eventemitter3/index.d.ts:60
+Defined in node_modules/eventemitter3/index.d.ts:87
 
 **Type parameters:**
 
-▪ **EventTypes**: *string | symbol | object*
+▪ **EventTypes**: *[ValidEventTypes](../classes/debugmanager.md#static-valideventtypes)*
 
-**Returns:** *EventEmitter‹EventTypes›*
+▪ **Context**
+
+**Returns:** *EventEmitter‹EventTypes, Context›*

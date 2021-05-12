@@ -13,7 +13,7 @@
 * [cacheMetadata](mayberawfetchdata.md#optional-cachemetadata)
 * [data](mayberawfetchdata.md#optional-data)
 * [errors](mayberawfetchdata.md#optional-errors)
-* [headers](mayberawfetchdata.md#headers)
+* [headers](mayberawfetchdata.md#optional-headers)
 
 ## Properties
 
@@ -21,7 +21,7 @@
 
 • **cacheMetadata**? : *DehydratedCacheMetadata*
 
-*Defined in [defs/index.ts:59](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/fetch-manager/src/defs/index.ts#L59)*
+*Defined in [defs/index.ts:59](https://github.com/badbatch/graphql-box/blob/7974018/packages/fetch-manager/src/defs/index.ts#L59)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **data**? : *PlainObjectMap*
 
-*Defined in [defs/index.ts:60](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/fetch-manager/src/defs/index.ts#L60)*
+*Defined in [defs/index.ts:60](https://github.com/badbatch/graphql-box/blob/7974018/packages/fetch-manager/src/defs/index.ts#L60)*
 
 ___
 
@@ -37,12 +37,12 @@ ___
 
 • **errors**? : *Error | Error[]*
 
-*Defined in [defs/index.ts:61](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/fetch-manager/src/defs/index.ts#L61)*
+*Defined in [defs/index.ts:61](https://github.com/badbatch/graphql-box/blob/7974018/packages/fetch-manager/src/defs/index.ts#L61)*
 
 ___
 
-###  headers
+### `Optional` headers
 
-• **headers**: *Headers*
+• **headers**? : *Headers*
 
-*Defined in [defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/fetch-manager/src/defs/index.ts#L62)*
+*Defined in [defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/7974018/packages/fetch-manager/src/defs/index.ts#L62)*

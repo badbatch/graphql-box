@@ -27,7 +27,7 @@
 
 \+ **new RequestParser**(`options`: [ConstructorOptions](../interfaces/constructoroptions.md)): *[RequestParser](requestparser.md)*
 
-*Defined in [main/index.ts:244](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/request-parser/src/main/index.ts#L244)*
+*Defined in [main/index.ts:245](https://github.com/badbatch/graphql-box/blob/7974018/packages/request-parser/src/main/index.ts#L245)*
 
 **Parameters:**
 
@@ -45,7 +45,7 @@ Name | Type |
 
 *Implementation of [RequestParserDef](../interfaces/requestparserdef.md)*
 
-*Defined in [main/index.ts:252](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/request-parser/src/main/index.ts#L252)*
+*Defined in [main/index.ts:253](https://github.com/badbatch/graphql-box/blob/7974018/packages/request-parser/src/main/index.ts#L253)*
 
 **Parameters:**
 
@@ -63,7 +63,7 @@ ___
 
 ▸ **init**(`options`: [InitOptions](../interfaces/initoptions.md)): *Promise‹[RequestParser](requestparser.md)›*
 
-*Defined in [main/index.ts:71](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/request-parser/src/main/index.ts#L71)*
+*Defined in [main/index.ts:72](https://github.com/badbatch/graphql-box/blob/7974018/packages/request-parser/src/main/index.ts#L72)*
 
 **Parameters:**
 

@@ -29,7 +29,7 @@
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [packages/subscribe/src/defs/index.ts:38](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/subscribe/src/defs/index.ts#L38)*
+*Defined in [packages/subscribe/src/defs/index.ts:38](https://github.com/badbatch/graphql-box/blob/7974018/packages/subscribe/src/defs/index.ts#L38)*
 
 ___
 
@@ -37,11 +37,11 @@ ___
 
 Ƭ **GraphQLSubscribe**: *function*
 
-*Defined in [packages/subscribe/src/defs/index.ts:40](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/subscribe/src/defs/index.ts#L40)*
+*Defined in [packages/subscribe/src/defs/index.ts:40](https://github.com/badbatch/graphql-box/blob/7974018/packages/subscribe/src/defs/index.ts#L40)*
 
 #### Type declaration:
 
-▸ <**TData**>(`args`: object): *Promise‹AsyncIterator‹ExecutionResult‹TData›› | ExecutionResult‹TData››*
+▸ ‹**TData**›(`args`: object): *Promise‹AsyncIterator‹ExecutionResult‹TData›› | ExecutionResult‹TData››*
 
 **Type parameters:**
 
@@ -68,7 +68,7 @@ ___
 
 Ƭ **InitOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [packages/subscribe/src/defs/index.ts:36](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/subscribe/src/defs/index.ts#L36)*
+*Defined in [packages/subscribe/src/defs/index.ts:36](https://github.com/badbatch/graphql-box/blob/7974018/packages/subscribe/src/defs/index.ts#L36)*
 
 ## Functions
 
@@ -76,7 +76,7 @@ ___
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *SubscriptionsManagerInit*
 
-*Defined in [packages/subscribe/src/main/index.ts:82](https://github.com/badbatch/graphql-box/blob/9a898ad/packages/subscribe/src/main/index.ts#L82)*
+*Defined in [packages/subscribe/src/main/index.ts:82](https://github.com/badbatch/graphql-box/blob/7974018/packages/subscribe/src/main/index.ts#L82)*
 
 **Parameters:**
 

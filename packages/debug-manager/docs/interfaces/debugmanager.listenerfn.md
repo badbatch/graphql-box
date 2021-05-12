@@ -1,6 +1,6 @@
 [Documentation](../README.md) › [DebugManager](../classes/debugmanager.md) › [ListenerFn](debugmanager.listenerfn.md)
 
-# Interface: ListenerFn <**Args**>
+# Interface: ListenerFn ‹**Args**›
 
 ## Type parameters
 
@@ -14,7 +14,7 @@
 
 ▸ (...`args`: Args): *void*
 
-Defined in node_modules/eventemitter3/index.d.ts:56
+Defined in node_modules/eventemitter3/index.d.ts:83
 
 **Parameters:**
 
