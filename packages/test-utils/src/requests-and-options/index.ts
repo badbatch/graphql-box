@@ -15,6 +15,21 @@ export const queryWithoutVariable: RequestAndOptions = {
   `,
 };
 
+export const queryWithDefault: RequestAndOptions = {
+  options: {},
+  request: `
+    query ($login: String = "google") {
+      organization(login: $login) {
+        description
+        email
+        login
+        name
+        url
+      }
+    }
+  `,
+};
+
 export const queryWithOperationName: RequestAndOptions = {
   options: {},
   request: `
@@ -38,6 +53,25 @@ export const queryWithVariable: RequestAndOptions = {
   },
   request: `
     query ($login: String!) {
+      organization(login: $login) {
+        description
+        email
+        login
+        name
+        url
+      }
+    }
+  `,
+};
+
+export const queryWithVariableWithDefault: RequestAndOptions = {
+  options: {
+    variables: {
+      login: "facebook",
+    },
+  },
+  request: `
+    query ($login: String = "google") {
       organization(login: $login) {
         description
         email

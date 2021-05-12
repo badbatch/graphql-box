@@ -749,6 +749,80 @@ exports[`@graphql-box/request-parser >> query >> variable correct request 1`] = 
 "
 `;
 
+exports[`@graphql-box/request-parser >> query >> variable with default correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> variable with default correct request 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    description
+    email
+    login
+    name
+    url
+    id
+  }
+}
+"
+`;
+
+exports[`@graphql-box/request-parser >> query >> with default correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+  },
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> with default correct request 1`] = `
+"{
+  organization(login: \\"google\\") {
+    description
+    email
+    login
+    name
+    url
+    id
+  }
+}
+"
+`;
+
 exports[`@graphql-box/request-parser >> subscription >> correct context data 1`] = `
 Object {
   "boxID": "123456789",

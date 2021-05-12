@@ -36,5 +36,6 @@ export { getType } from "./parsing/type";
 export {
   deleteVariableDefinitions,
   hasVariableDefinitions,
+  getVariableDefinitionDefaultValue,
   getVariableDefinitionType,
 } from "./parsing/variable-definitions";

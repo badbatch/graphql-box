@@ -29,6 +29,18 @@ function variableDefinitionTypeVisitor(node: TypeNode): NamedTypeNode {
   return node as NamedTypeNode;
 }
 
+export function getVariableDefinitionDefaultValue({ defaultValue }: VariableDefinitionNode) {
+  if (!defaultValue) {
+    return undefined;
+  }
+
+  if (!("value" in defaultValue)) {
+    return undefined;
+  }
+
+  return defaultValue.value;
+}
+
 export function getVariableDefinitionType({ type }: VariableDefinitionNode): string {
   return getName(variableDefinitionTypeVisitor(type)) as string;
 }

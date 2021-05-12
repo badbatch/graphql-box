@@ -59,7 +59,7 @@ export interface MaybeRawFetchData {
   cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObjectMap;
   errors?: Error | Error[];
-  headers: Headers;
+  headers?: Headers;
 }
 
 export interface MaybeRawFetchDataObjectMap {

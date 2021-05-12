@@ -36,6 +36,27 @@ describe("@graphql-box/request-parser >>", () => {
     });
   });
 
+  describe("query >> with default", () => {
+    beforeAll(async () => {
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
+      const { options, request } = requestsAndOptions.queryWithDefault;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("correct request", () => {
+      expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("correct context data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
   describe("query >> operation name >>", () => {
     beforeAll(async () => {
       requestParser = await RequestParser.init({
@@ -65,6 +86,27 @@ describe("@graphql-box/request-parser >>", () => {
       });
 
       const { options, request } = requestsAndOptions.queryWithVariable;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("correct request", () => {
+      expect(updatedRequest.request).toMatchSnapshot();
+    });
+
+    it("correct context data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
+  describe("query >> variable with default", () => {
+    beforeAll(async () => {
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
+      const { options, request } = requestsAndOptions.queryWithVariableWithDefault;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });

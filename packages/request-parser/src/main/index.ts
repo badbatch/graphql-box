@@ -20,6 +20,7 @@ import {
   getName,
   getOperationDefinitions,
   getType,
+  getVariableDefinitionDefaultValue,
   getVariableDefinitionType,
   hasChildFields,
   hasFragmentDefinitions,
@@ -456,6 +457,19 @@ export class RequestParser implements RequestParserDef {
 
             if (getKind(parent) === VARIABLE_DEFINITION) {
               variableTypes[variableName] = _this._schema.getType(getVariableDefinitionType(parent));
+              const defaultValue = getVariableDefinitionDefaultValue(parent);
+
+              if (defaultValue) {
+                if (!options.variables) {
+                  options.variables = {};
+                }
+
+                if (!options.variables[variableName]) {
+                  options.variables[variableName] = defaultValue;
+                }
+              }
+
+              return undefined;
             }
 
             return RequestParser._updateVariableNode(node as VariableNode, variableTypes[variableName], options);
