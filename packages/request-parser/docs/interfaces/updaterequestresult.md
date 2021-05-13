@@ -19,7 +19,7 @@
 
 • **ast**: *DocumentNode*
 
-*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/7974018/packages/request-parser/src/defs/index.ts#L48)*
+*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/8c3dc0a/packages/request-parser/src/defs/index.ts#L48)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **request**: *string*
 
-*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/7974018/packages/request-parser/src/defs/index.ts#L49)*
+*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/8c3dc0a/packages/request-parser/src/defs/index.ts#L49)*

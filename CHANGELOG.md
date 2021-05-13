@@ -1,3 +1,9 @@
+#### 2.0.5 (2021-05-13)
+
+##### Bug Fixes
+
+*  default value parsing ([8c3dc0a5](https://github.com/badbatch/graphql-box/commit/8c3dc0a5fab17dead9aaca0bf9ade51762dc7088))
+
 #### 2.0.4 (2021-05-12)
 
 ##### Bug Fixes
