@@ -30,6 +30,28 @@ export const queryWithDefault: RequestAndOptions = {
   `,
 };
 
+export const queryWithNumberDefault: RequestAndOptions = {
+  options: {},
+  request: `
+    query ($login: String = "google", $first: Int = 20) {
+      organization(login: $login) {
+        description
+        email
+        login
+        name
+        repositories(first: $first) {
+          edges {
+            node {
+              description
+              name
+            }
+          }
+        }
+      }
+    }
+  `,
+};
+
 export const queryWithOperationName: RequestAndOptions = {
   options: {},
   request: `

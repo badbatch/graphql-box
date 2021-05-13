@@ -823,6 +823,81 @@ exports[`@graphql-box/request-parser >> query >> with default correct request 1`
 "
 `;
 
+exports[`@graphql-box/request-parser >> query >> with number default correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.organization" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+    "query.organization.repositories" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryConnection",
+    },
+    "query.organization.repositories.edges" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryEdge",
+    },
+    "query.organization.repositories.edges.node" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Repository",
+    },
+  },
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> with number default correct request 1`] = `
+"{
+  organization(login: \\"google\\") {
+    description
+    email
+    login
+    name
+    repositories(first: 20) {
+      edges {
+        node {
+          description
+          name
+          id
+        }
+      }
+    }
+    id
+  }
+}
+"
+`;
+
 exports[`@graphql-box/request-parser >> subscription >> correct context data 1`] = `
 Object {
   "boxID": "123456789",

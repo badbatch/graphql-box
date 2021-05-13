@@ -6,6 +6,7 @@ import {
   TypeNode,
   VariableDefinitionNode,
 } from "graphql";
+import { isBoolean } from "lodash";
 import { TYPE } from "../../consts";
 import { getName } from "../name";
 
@@ -38,7 +39,17 @@ export function getVariableDefinitionDefaultValue({ defaultValue }: VariableDefi
     return undefined;
   }
 
-  return defaultValue.value;
+  const { value } = defaultValue;
+
+  if (isBoolean(value)) {
+    return value;
+  }
+
+  try {
+    return JSON.parse(value);
+  } catch {
+    return value;
+  }
 }
 
 export function getVariableDefinitionType({ type }: VariableDefinitionNode): string {
