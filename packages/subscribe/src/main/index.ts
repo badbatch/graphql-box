@@ -1,5 +1,6 @@
 import {
   MaybeRequestResult,
+  PlainObjectMap,
   RequestContext,
   RequestDataWithMaybeAST,
   ServerRequestOptions,
@@ -27,6 +28,7 @@ export class Subscribe {
     return new Subscribe(options);
   }
 
+  private _contextValue: PlainObjectMap;
   private _eventEmitter: EventEmitter;
   private _fieldResolver?: GraphQLFieldResolver<any, any> | null;
   private _rootValue: any;
@@ -35,6 +37,7 @@ export class Subscribe {
   private _subscribeFieldResolver?: GraphQLFieldResolver<any, any> | null;
 
   constructor(options: ConstructorOptions) {
+    this._contextValue = options.contextValue || {};
     this._eventEmitter = new EventEmitter();
     this._fieldResolver = options.fieldResolver || null;
     this._rootValue = options.rootValue;
@@ -52,7 +55,7 @@ export class Subscribe {
     const { contextValue = {}, fieldResolver, operationName, rootValue, subscribeFieldResolver } = options;
 
     const subscribeArgs: SubscribeArgs = {
-      contextValue: { ...contextValue, boxID },
+      contextValue: { ...this._contextValue, ...contextValue, boxID },
       document: ast || parse(request),
       fieldResolver: fieldResolver || this._fieldResolver,
       operationName,

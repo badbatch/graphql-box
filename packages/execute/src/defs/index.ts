@@ -1,8 +1,15 @@
+import { PlainObjectMap } from "@graphql-box/core";
 import { ExecutionArgs, ExecutionResult, GraphQLFieldResolver, GraphQLSchema } from "graphql";
 import { ExecutionResultDataDefault } from "graphql/execution/execute";
 import { PromiseOrValue } from "graphql/jsutils/PromiseOrValue";
 
 export interface UserOptions {
+  /**
+   * Set GraphQL context value to be passed on to
+   * GraphQL's execute and subscribe methods.
+   */
+  contextValue?: PlainObjectMap;
+
   /**
    * A GraphQL execute function to use
    * instead of the out-of-the-box function.

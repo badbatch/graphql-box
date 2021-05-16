@@ -1,8 +1,15 @@
+import { PlainObjectMap } from "@graphql-box/core";
 import { DocumentNode, ExecutionResult, GraphQLFieldResolver, GraphQLSchema } from "graphql";
 import { ExecutionArgs, ExecutionResultDataDefault } from "graphql/execution/execute";
 import Maybe from "graphql/tsutils/Maybe";
 
 export interface UserOptions {
+  /**
+   * Set GraphQL context value to be passed on to
+   * GraphQL's execute and subscribe methods.
+   */
+  contextValue?: PlainObjectMap;
+
   /**
    * Set default GraphQL field resolver function to
    * be passed on to GraphQL's execute and subscribe

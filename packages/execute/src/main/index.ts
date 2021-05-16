@@ -1,5 +1,6 @@
 import {
   MaybeRawResponseData,
+  PlainObjectMap,
   RequestContext,
   RequestDataWithMaybeAST,
   RequestManagerDef,
@@ -24,12 +25,14 @@ export class Execute implements RequestManagerDef {
     return new Execute(options);
   }
 
+  private _contextValue: PlainObjectMap;
   private _execute: GraphQLExecute;
   private _fieldResolver?: GraphQLFieldResolver<any, any> | null;
   private _rootValue: any;
   private _schema: GraphQLSchema;
 
   constructor(options: ConstructorOptions) {
+    this._contextValue = options.contextValue || {};
     this._execute = options.execute || execute;
     this._fieldResolver = options.fieldResolver || null;
     this._rootValue = options.rootValue;
@@ -45,7 +48,7 @@ export class Execute implements RequestManagerDef {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
 
     const executeArgs: ExecutionArgs = {
-      contextValue: { ...contextValue, boxID },
+      contextValue: { ...this._contextValue, ...contextValue, boxID },
       document: ast || parse(request),
       fieldResolver: fieldResolver || this._fieldResolver,
       operationName,
