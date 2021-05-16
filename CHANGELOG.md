@@ -1,3 +1,9 @@
+#### 2.0.6 (2021-05-16)
+
+##### New Features
+
+*  allow context to be passed into init functions ([2aaf296a](https://github.com/badbatch/graphql-box/commit/2aaf296a18f4f5df64f3deff1f349f3e3d924efa))
+
 #### 2.0.5 (2021-05-13)
 
 ##### Bug Fixes

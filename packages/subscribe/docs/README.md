@@ -29,7 +29,7 @@
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [packages/subscribe/src/defs/index.ts:38](https://github.com/badbatch/graphql-box/blob/8c3dc0a/packages/subscribe/src/defs/index.ts#L38)*
+*Defined in [packages/subscribe/src/defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/2aaf296/packages/subscribe/src/defs/index.ts#L45)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 Ƭ **GraphQLSubscribe**: *function*
 
-*Defined in [packages/subscribe/src/defs/index.ts:40](https://github.com/badbatch/graphql-box/blob/8c3dc0a/packages/subscribe/src/defs/index.ts#L40)*
+*Defined in [packages/subscribe/src/defs/index.ts:47](https://github.com/badbatch/graphql-box/blob/2aaf296/packages/subscribe/src/defs/index.ts#L47)*
 
 #### Type declaration:
 
@@ -68,7 +68,7 @@ ___
 
 Ƭ **InitOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [packages/subscribe/src/defs/index.ts:36](https://github.com/badbatch/graphql-box/blob/8c3dc0a/packages/subscribe/src/defs/index.ts#L36)*
+*Defined in [packages/subscribe/src/defs/index.ts:43](https://github.com/badbatch/graphql-box/blob/2aaf296/packages/subscribe/src/defs/index.ts#L43)*
 
 ## Functions
 
@@ -76,7 +76,7 @@ ___
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *SubscriptionsManagerInit*
 
-*Defined in [packages/subscribe/src/main/index.ts:82](https://github.com/badbatch/graphql-box/blob/8c3dc0a/packages/subscribe/src/main/index.ts#L82)*
+*Defined in [packages/subscribe/src/main/index.ts:85](https://github.com/badbatch/graphql-box/blob/2aaf296/packages/subscribe/src/main/index.ts#L85)*
 
 **Parameters:**
 

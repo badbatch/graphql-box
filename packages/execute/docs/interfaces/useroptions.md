@@ -10,6 +10,7 @@
 
 ### Properties
 
+* [contextValue](useroptions.md#optional-contextvalue)
 * [execute](useroptions.md#optional-execute)
 * [fieldResolver](useroptions.md#optional-fieldresolver)
 * [rootValue](useroptions.md#optional-rootvalue)
@@ -17,11 +18,22 @@
 
 ## Properties
 
+### `Optional` contextValue
+
+• **contextValue**? : *PlainObjectMap*
+
+*Defined in [defs/index.ts:11](https://github.com/badbatch/graphql-box/blob/2aaf296/packages/execute/src/defs/index.ts#L11)*
+
+Set GraphQL context value to be passed on to
+GraphQL's execute and subscribe methods.
+
+___
+
 ### `Optional` execute
 
 • **execute**? : *[GraphQLExecute](../README.md#graphqlexecute)*
 
-*Defined in [defs/index.ts:10](https://github.com/badbatch/graphql-box/blob/8c3dc0a/packages/execute/src/defs/index.ts#L10)*
+*Defined in [defs/index.ts:17](https://github.com/badbatch/graphql-box/blob/2aaf296/packages/execute/src/defs/index.ts#L17)*
 
 A GraphQL execute function to use
 instead of the out-of-the-box function.
@@ -32,7 +44,7 @@ ___
 
 • **fieldResolver**? : *GraphQLFieldResolver‹any, any›*
 
-*Defined in [defs/index.ts:17](https://github.com/badbatch/graphql-box/blob/8c3dc0a/packages/execute/src/defs/index.ts#L17)*
+*Defined in [defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/2aaf296/packages/execute/src/defs/index.ts#L24)*
 
 Set default GraphQL field resolver function to
 be passed on to GraphQL's execute and subscribe
@@ -44,7 +56,7 @@ ___
 
 • **rootValue**? : *any*
 
-*Defined in [defs/index.ts:23](https://github.com/badbatch/graphql-box/blob/8c3dc0a/packages/execute/src/defs/index.ts#L23)*
+*Defined in [defs/index.ts:30](https://github.com/badbatch/graphql-box/blob/2aaf296/packages/execute/src/defs/index.ts#L30)*
 
 Set default GraphQL root value to be passed on to
 GraphQL's execute and subscribe methods.
@@ -55,6 +67,6 @@ ___
 
 • **schema**: *GraphQLSchema*
 
-*Defined in [defs/index.ts:28](https://github.com/badbatch/graphql-box/blob/8c3dc0a/packages/execute/src/defs/index.ts#L28)*
+*Defined in [defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/2aaf296/packages/execute/src/defs/index.ts#L35)*
 
 The GraphQL schema.
