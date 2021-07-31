@@ -12,6 +12,9 @@
       "path": "./client"
     },
     {
+      "path": "./connection-resolver"
+    },
+    {
       "path": "./core"
     },
     {
