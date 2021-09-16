@@ -10,13 +10,15 @@ export type Params = {
   totalResults: number;
 };
 
-export default (cursorCache: Cachemap, { edges, group, headers, page, totalPages, totalResults }: Params) => {
+export default async (cursorCache: Cachemap, { edges, group, headers, page, totalPages, totalResults }: Params) => {
   const cacheControl = headers.get("cache-control");
   const opts = cacheControl ? { cacheHeaders: { cacheControl } } : undefined;
 
-  edges.forEach(({ cursor, node }, index) => {
-    cursorCache.set(cursor, { node, index, group, page }, opts);
-  });
+  await Promise.all(
+    edges.map(async ({ cursor, node }, index) => {
+      await cursorCache.set(cursor, { node, index, group, page }, opts);
+    }),
+  );
 
-  cursorCache.set(`${group}-metadata`, { totalPages, totalResults }, opts);
+  await cursorCache.set(`${group}-metadata`, { totalPages, totalResults }, opts);
 };

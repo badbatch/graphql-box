@@ -7,6 +7,7 @@ import {
   CursorGroupMetadata,
 } from "../defs";
 import isCursorSupplied from "../helpers/isCursorSupplied";
+import retrieveCachedConnection from "../helpers/retrieveCachedConnection";
 import validateCursor from "../helpers/validateCursor";
 
 // type PageInfo {
@@ -51,14 +52,14 @@ export default ({
       const groupCursor = makeGroupCursor();
 
       if (isCursorSupplied(args)) {
-        const cursorsError = validateCursor(args, info, {
+        const cursorError = validateCursor(args, info, {
           cursorCache,
           groupCursor,
           resultsPerPage,
         });
 
-        if (cursorsError) {
-          throw cursorsError;
+        if (cursorError) {
+          throw cursorError;
         }
 
         const { cachedEdges, hasNextPage, hasPreviousPage, missingPages } = await retrieveCachedConnection(args, {

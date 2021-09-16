@@ -1,33 +1,33 @@
-import { ConnectionInputOptions, CursorCacheEntry, CursorGroupMetadata } from "../defs";
+import { ConnectionInputOptions, Context } from "../defs";
 import getCount from "./getCount";
 import getDirection from "./getDirection";
 import getIndexesOnLastPage from "./getIndexesOnLastPage";
 import isFirstPage from "./isFirstPage";
 import isLastPage from "./isLastPage";
 
-export type Context = {
-  entry: CursorCacheEntry;
-  metadata: CursorGroupMetadata;
-  resultsPerPage: number;
-};
-
-export const getStartIndex = (args: ConnectionInputOptions, { entry }: Context): number => {
+export const getStartIndex = (
+  args: ConnectionInputOptions,
+  { entry: { index, page } }: Pick<Context, "entry">,
+): number => {
   const count = getCount(args);
 
   return getDirection(args.before) === "forward"
-    ? entry.index + 1
-    : isFirstPage(entry.page) && entry.index - count < 0
+    ? index + 1
+    : isFirstPage(page) && index - count < 0
     ? 0
-    : entry.index - count;
+    : index - count;
 };
 
-export const getEndIndex = (args: ConnectionInputOptions, { entry, metadata, resultsPerPage }: Context): number => {
+export const getEndIndex = (
+  args: ConnectionInputOptions,
+  { entry: { index, page }, metadata: { totalPages, totalResults }, resultsPerPage }: Context,
+): number => {
   const count = getCount(args);
-  const indexesOnLastPage = getIndexesOnLastPage({ resultsPerPage, totalResults: metadata.totalResults });
+  const indexesOnLastPage = getIndexesOnLastPage({ resultsPerPage, totalResults });
 
   return getDirection(args.before) === "backward"
-    ? entry.index - 1
-    : isLastPage({ page: entry.page, totalPages: metadata.totalPages }) && entry.index + count > indexesOnLastPage
+    ? index - 1
+    : isLastPage({ page, totalPages }) && index + count > indexesOnLastPage
     ? indexesOnLastPage
-    : entry.index + count;
+    : index + count;
 };

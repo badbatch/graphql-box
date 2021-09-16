@@ -16,6 +16,11 @@ export type CursorGroupMetadata = {
   totalResults: number;
 };
 
+export type CachedEdges = {
+  edges: Edge[];
+  pageNumber: number;
+};
+
 export type Edge = {
   cursor: string;
   node: Record<string, any>;
@@ -80,9 +85,15 @@ export type ConnectionResolver = (
   info: GraphQLResolveInfo,
 ) => Promise<Connection>;
 
-export interface ConnectionInputOptions {
+export type ConnectionInputOptions = {
   after?: string;
   before?: string;
   first?: number;
   last?: number;
-}
+};
+
+export type Context = {
+  entry: CursorCacheEntry;
+  metadata: CursorGroupMetadata;
+  resultsPerPage: number;
+};
