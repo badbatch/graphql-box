@@ -148,63 +148,63 @@ describe("retrieveCachedConnection", () => {
         expect(missingPages.length).toBe(0);
       });
     });
-  });
 
-  describe("when 25 cursors covering multiple pages and going UP TO the last page are requested", () => {
-    test("when last page has full page of results", async () => {
-      const cursorCache = await generateCursorCache({
-        group: groupCursor,
-        pageRanges: ["1-10"],
-        resultsPerPage,
-        totalPages: 10,
-        totalResults: 100,
+    describe("when 25 cursors covering multiple pages and going UP TO the last page are requested", () => {
+      test("when last page has full page of results", async () => {
+        const cursorCache = await generateCursorCache({
+          group: groupCursor,
+          pageRanges: ["1-10"],
+          resultsPerPage,
+          totalPages: 10,
+          totalResults: 100,
+        });
+
+        const args = {
+          after: `${encode(`0::8`)}::${groupCursor}`,
+          first: 25,
+        };
+
+        const { cachedEdges, hasNextPage, hasPreviousPage, missingPages } = await retrieveCachedConnection(args, {
+          cursorCache,
+          groupCursor,
+          resultsPerPage,
+        });
+
+        expect(cachedEdges.length).toBe(25);
+        expect(decode(cachedEdges[0].node.id.split("::")[0])).toBe("1::8");
+        expect(decode(cachedEdges[cachedEdges.length - 1].node.id.split("::")[0])).toBe("5::10");
+        expect(hasPreviousPage).toBe(true);
+        expect(hasNextPage).toBe(true);
+        expect(missingPages.length).toBe(0);
       });
 
-      const args = {
-        after: `${encode(`0::8`)}::${groupCursor}`,
-        first: 25,
-      };
+      test("when last page has partial page of results", async () => {
+        const cursorCache = await generateCursorCache({
+          group: groupCursor,
+          pageRanges: ["1-10"],
+          resultsPerPage,
+          totalPages: 10,
+          totalResults: 96,
+        });
 
-      const { cachedEdges, hasNextPage, hasPreviousPage, missingPages } = await retrieveCachedConnection(args, {
-        cursorCache,
-        groupCursor,
-        resultsPerPage,
+        const args = {
+          after: `${encode(`0::8`)}::${groupCursor}`,
+          first: 25,
+        };
+
+        const { cachedEdges, hasNextPage, hasPreviousPage, missingPages } = await retrieveCachedConnection(args, {
+          cursorCache,
+          groupCursor,
+          resultsPerPage,
+        });
+
+        expect(cachedEdges.length).toBe(25);
+        expect(decode(cachedEdges[0].node.id.split("::")[0])).toBe("1::8");
+        expect(decode(cachedEdges[cachedEdges.length - 1].node.id.split("::")[0])).toBe("5::10");
+        expect(hasPreviousPage).toBe(true);
+        expect(hasNextPage).toBe(false);
+        expect(missingPages.length).toBe(0);
       });
-
-      expect(cachedEdges.length).toBe(25);
-      expect(decode(cachedEdges[0].node.id.split("::")[0])).toBe("1::8");
-      expect(decode(cachedEdges[cachedEdges.length - 1].node.id.split("::")[0])).toBe("5::10");
-      expect(hasPreviousPage).toBe(true);
-      expect(hasNextPage).toBe(true);
-      expect(missingPages.length).toBe(0);
-    });
-
-    test("when last page has partial page of results", async () => {
-      const cursorCache = await generateCursorCache({
-        group: groupCursor,
-        pageRanges: ["1-10"],
-        resultsPerPage,
-        totalPages: 10,
-        totalResults: 96,
-      });
-
-      const args = {
-        after: `${encode(`0::8`)}::${groupCursor}`,
-        first: 25,
-      };
-
-      const { cachedEdges, hasNextPage, hasPreviousPage, missingPages } = await retrieveCachedConnection(args, {
-        cursorCache,
-        groupCursor,
-        resultsPerPage,
-      });
-
-      expect(cachedEdges.length).toBe(25);
-      expect(decode(cachedEdges[0].node.id.split("::")[0])).toBe("1::8");
-      expect(decode(cachedEdges[cachedEdges.length - 1].node.id.split("::")[0])).toBe("5::10");
-      expect(hasPreviousPage).toBe(true);
-      expect(hasNextPage).toBe(true);
-      expect(missingPages.length).toBe(0);
     });
   });
 });

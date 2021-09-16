@@ -48,8 +48,12 @@ export const getEndIndex = (
         }
 
         const indexesRemainingAfterFirstPage = absEndIndex - indexesPerPage;
+        const pagesRemaining = indexesRemainingAfterFirstPage / resultsPerPage;
         const remainder = indexesRemainingAfterFirstPage % resultsPerPage;
-        const relEndIndex = remainder === 0 ? indexesPerPage : remainder - 1;
+
+        const relEndIndex =
+          remainder === 0 ? indexesPerPage : page + pagesRemaining > totalPages ? indexesOnLastPage : remainder - 1;
+
         return { absolute: absEndIndex, relative: relEndIndex };
       })();
 };
