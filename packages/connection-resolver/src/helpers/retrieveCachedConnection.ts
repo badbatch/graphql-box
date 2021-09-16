@@ -18,11 +18,12 @@ export default async (args: ConnectionInputOptions, { cursorCache, groupCursor, 
   const metadata = (await cursorCache.get(`${groupCursor}-metadata`)) as CursorGroupMetadata;
   const cursor = getCursor(args);
   const entry = (await cursorCache.get(cursor)) as CursorCacheEntry;
-  const startIndex = getStartIndex(args, { entry });
+  const startIndex = getStartIndex(args, { entry, resultsPerPage });
   const endIndex = getEndIndex(args, { entry, metadata, resultsPerPage });
   const promises: Promise<CachedEdges>[] = [];
+  const pageNumbersToRequest = getPageNumbersToRequest(args, { endIndex, entry, metadata, resultsPerPage, startIndex });
 
-  getPageNumbersToRequest(args, { endIndex, entry, metadata, resultsPerPage, startIndex }).forEach(pageNumber => {
+  pageNumbersToRequest.forEach(pageNumber => {
     promises.push(retrieveCachedEdgesByPage(cursorCache, { groupCursor, pageNumber }));
   });
 
@@ -30,7 +31,12 @@ export default async (args: ConnectionInputOptions, { cursorCache, groupCursor, 
 
   return {
     cachedEdges: getInRangeCachedEdges(cachedEdgesByPage, { endIndex, resultsPerPage, startIndex }),
-    hasNextPage: hasNextPage({ cachedEdgesByPage, endIndex, metadata, resultsPerPage }),
+    hasNextPage: hasNextPage({
+      cachedEdgesByPage,
+      endIndex,
+      metadata,
+      resultsPerPage,
+    }),
     hasPreviousPage: hasPreviousPage({ cachedEdgesByPage, startIndex }),
     missingPages: getPagesMissingFromCache(cachedEdgesByPage),
   };

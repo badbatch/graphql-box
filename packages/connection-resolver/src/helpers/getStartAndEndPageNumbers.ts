@@ -1,22 +1,22 @@
-import { ConnectionInputOptions, Context } from "../defs";
+import { ConnectionInputOptions, Context, Indexes } from "../defs";
 import getDirection from "./getDirection";
 import isLastPage from "./isLastPage";
 
 export type PageNumberContext = {
-  endIndex: number;
+  endIndex: Indexes;
   page: number;
-  startIndex: number;
+  startIndex: Indexes;
 };
 
 export const getStartPageNumber = (
   args: ConnectionInputOptions,
   { page, startIndex, resultsPerPage }: Omit<PageNumberContext, "endIndex"> & Omit<Context, "entry" | "metadata">,
 ) => {
-  if (getDirection(args.before) === "forward" || startIndex >= 0) {
+  if (getDirection(args.before) === "forward" || startIndex.absolute >= 0) {
     return page;
   }
 
-  const startPageNumber = page - Math.ceil(Math.abs(startIndex) / resultsPerPage);
+  const startPageNumber = page - Math.ceil(Math.abs(startIndex.absolute) / resultsPerPage);
   return startPageNumber <= 1 ? 1 : startPageNumber;
 };
 
@@ -29,10 +29,16 @@ export const getEndPageNumber = (
     resultsPerPage,
   }: Omit<PageNumberContext, "startIndex"> & Omit<Context, "entry">,
 ) => {
-  if (getDirection(args.before) === "backward" || isLastPage({ page, totalPages }) || endIndex <= resultsPerPage - 1) {
+  const indexesPerPage = resultsPerPage - 1;
+
+  if (
+    getDirection(args.before) === "backward" ||
+    isLastPage({ page, totalPages }) ||
+    endIndex.absolute <= indexesPerPage
+  ) {
     return page;
   }
 
-  const endPageNumber = page + Math.ceil((endIndex - (resultsPerPage - 1)) / resultsPerPage);
+  const endPageNumber = page + Math.ceil((endIndex.absolute - indexesPerPage) / resultsPerPage);
   return endPageNumber >= totalPages ? totalPages : endPageNumber;
 };

@@ -23,7 +23,17 @@ export default async ({ group, pageRanges, resultsPerPage, totalPages, totalResu
 
   await Promise.all(
     pages.map(async page => {
-      const edges = Array.from({ length: resultsPerPage }, (_v, i) => i).map(index => {
+      const isLastPage = page === pages[pages.length - 1];
+      let resultsOnCurrentPage;
+
+      if (isLastPage) {
+        const remainder = totalResults % resultsPerPage;
+        resultsOnCurrentPage = remainder === 0 ? resultsPerPage : remainder;
+      } else {
+        resultsOnCurrentPage = resultsPerPage;
+      }
+
+      const edges = Array.from({ length: resultsOnCurrentPage }, (_v, i) => i).map(index => {
         const id = encode(`${index}::${page}`);
         return { cursor: `${id}::${group}`, node: { id } };
       });

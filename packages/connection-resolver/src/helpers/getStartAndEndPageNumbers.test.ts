@@ -13,7 +13,7 @@ describe("getStartPageNumber", () => {
       },
       page: 3,
       resultsPerPage: 10,
-      startIndex: 5,
+      startIndex: { absolute: 5, relative: 5 },
     };
 
     expect(getStartPageNumber(args, ctx)).toBe(3);
@@ -32,7 +32,7 @@ describe("getStartPageNumber", () => {
         },
         page: 3,
         resultsPerPage: 10,
-        startIndex: 1,
+        startIndex: { absolute: 1, relative: 1 },
       };
 
       expect(getStartPageNumber(args, ctx)).toBe(3);
@@ -50,7 +50,7 @@ describe("getStartPageNumber", () => {
         },
         page: 3,
         resultsPerPage: 10,
-        startIndex: -35,
+        startIndex: { absolute: -35, relative: 5 },
       };
 
       expect(getStartPageNumber(args, ctx)).toBe(1);
@@ -68,7 +68,7 @@ describe("getStartPageNumber", () => {
         },
         page: 4,
         resultsPerPage: 10,
-        startIndex: -15,
+        startIndex: { absolute: -15, relative: 5 },
       };
 
       expect(getStartPageNumber(args, ctx)).toBe(2);
@@ -83,7 +83,7 @@ describe("getEndPageNumber", () => {
     };
 
     const ctx = {
-      endIndex: 5,
+      endIndex: { absolute: 5, relative: 5 },
       metadata: {
         totalPages: 5,
         totalResults: 50,
@@ -102,7 +102,7 @@ describe("getEndPageNumber", () => {
       };
 
       const ctx = {
-        endIndex: 5,
+        endIndex: { absolute: 5, relative: 5 },
         metadata: {
           totalPages: 5,
           totalResults: 50,
@@ -120,7 +120,7 @@ describe("getEndPageNumber", () => {
       };
 
       const ctx = {
-        endIndex: 9,
+        endIndex: { absolute: 9, relative: 9 },
         metadata: {
           totalPages: 5,
           totalResults: 50,
@@ -138,7 +138,7 @@ describe("getEndPageNumber", () => {
       };
 
       const ctx = {
-        endIndex: 37,
+        endIndex: { absolute: 37, relative: 6 },
         metadata: {
           totalPages: 5,
           totalResults: 50,
@@ -156,7 +156,7 @@ describe("getEndPageNumber", () => {
       };
 
       const ctx = {
-        endIndex: 22,
+        endIndex: { absolute: 22, relative: 4 },
         metadata: {
           totalPages: 5,
           totalResults: 50,

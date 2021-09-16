@@ -1,20 +1,18 @@
-import { CachedEdges, Edge } from "../defs";
+import { CachedEdges, Edge, Indexes } from "../defs";
 import { getCurrentPageEndIndex, getCurrentPageStartIndex } from "./getCurrentPageStartAndEndIndexes";
 
 export type Context = {
-  endIndex: number;
+  endIndex: Indexes;
   resultsPerPage: number;
-  startIndex: number;
+  startIndex: Indexes;
 };
 
 export default (cachedEdgesByPage: CachedEdges[], { endIndex, resultsPerPage, startIndex }: Context) => {
-  let decrementedEndIndex = endIndex;
-
   return cachedEdgesByPage.reduce((inRange, cachedEdgesPage, i) => {
     const currentPageStartIndex = getCurrentPageStartIndex({ startIndex, pageIndex: i });
 
     const currentPageEndIndex = getCurrentPageEndIndex({
-      endIndex: decrementedEndIndex,
+      endIndex,
       pageIndex: i,
       resultsPerPage,
       totalCachedPages: cachedEdgesByPage.length,
@@ -22,7 +20,6 @@ export default (cachedEdgesByPage: CachedEdges[], { endIndex, resultsPerPage, st
 
     const cachedEdges = cachedEdgesPage.edges.slice(currentPageStartIndex, currentPageEndIndex + 1);
     inRange.push(...cachedEdges);
-    decrementedEndIndex = decrementedEndIndex - (currentPageEndIndex + 1);
     return inRange;
   }, [] as Edge[]);
 };

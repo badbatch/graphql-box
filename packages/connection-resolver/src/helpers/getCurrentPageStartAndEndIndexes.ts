@@ -1,22 +1,19 @@
+import { Indexes } from "../defs";
+
 export type StartIndexContext = {
   pageIndex: number;
-  startIndex: number;
+  startIndex: Indexes;
 };
 
 export const getCurrentPageStartIndex = ({ pageIndex, startIndex }: StartIndexContext) =>
-  pageIndex === 0 ? startIndex : 0;
+  pageIndex === 0 ? startIndex.relative : 0;
 
 export type EndIndexContext = {
-  endIndex: number;
+  endIndex: Indexes;
   pageIndex: number;
   resultsPerPage: number;
   totalCachedPages: number;
 };
 
-export const getCurrentPageEndIndex = ({ endIndex, pageIndex, resultsPerPage, totalCachedPages }: EndIndexContext) => {
-  if (pageIndex === totalCachedPages - 1 || endIndex <= resultsPerPage - 1) {
-    return endIndex;
-  }
-
-  return resultsPerPage - 1;
-};
+export const getCurrentPageEndIndex = ({ endIndex, pageIndex, resultsPerPage, totalCachedPages }: EndIndexContext) =>
+  pageIndex === totalCachedPages - 1 ? endIndex.relative : resultsPerPage - 1;

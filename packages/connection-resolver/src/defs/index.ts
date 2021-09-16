@@ -26,6 +26,11 @@ export type Edge = {
   node: Record<string, any>;
 };
 
+export type Indexes = {
+  absolute: number;
+  relative: number;
+};
+
 export type PageInfo = {
   endCursor?: string;
   hasNextPage: boolean;

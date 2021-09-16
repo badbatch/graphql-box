@@ -1,10 +1,10 @@
 import { range } from "lodash";
-import { ConnectionInputOptions, Context } from "../defs";
+import { ConnectionInputOptions, Context, Indexes } from "../defs";
 import { getEndPageNumber, getStartPageNumber } from "./getStartAndEndPageNumbers";
 
 export type GetPageNumbersToRequestContext = {
-  endIndex: number;
-  startIndex: number;
+  endIndex: Indexes;
+  startIndex: Indexes;
 };
 
 export default (

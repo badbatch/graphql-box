@@ -7,7 +7,7 @@ describe("getPageNumbersToRequest", () => {
     };
 
     const ctx = {
-      endIndex: 22,
+      endIndex: { absolute: 22, relative: 5 },
       entry: {
         group: "group",
         index: 2,
@@ -19,7 +19,7 @@ describe("getPageNumbersToRequest", () => {
         totalResults: 50,
       },
       resultsPerPage: 10,
-      startIndex: 3,
+      startIndex: { absolute: 3, relative: 3 },
     };
 
     expect(getPageNumbersToRequest(args, ctx)).toEqual([2, 3, 4]);
@@ -31,7 +31,7 @@ describe("getPageNumbersToRequest", () => {
     };
 
     const ctx = {
-      endIndex: 4,
+      endIndex: { absolute: 4, relative: 4 },
       entry: {
         group: "group",
         index: 3,
@@ -44,7 +44,7 @@ describe("getPageNumbersToRequest", () => {
       },
       page: 4,
       resultsPerPage: 10,
-      startIndex: -5,
+      startIndex: { absolute: -5, relative: 6 },
     };
 
     expect(getPageNumbersToRequest(args, ctx)).toEqual([3, 4]);

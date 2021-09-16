@@ -21,7 +21,7 @@ describe("getStartIndex", () => {
       resultsPerPage: 10,
     };
 
-    expect(getStartIndex(args, ctx)).toBe(6);
+    expect(getStartIndex(args, ctx)).toEqual({ absolute: 6, relative: 6 });
   });
 
   describe("when the direction is backward", () => {
@@ -45,7 +45,7 @@ describe("getStartIndex", () => {
         resultsPerPage: 10,
       };
 
-      expect(getStartIndex(args, ctx)).toBe(0);
+      expect(getStartIndex(args, ctx)).toEqual({ absolute: 0, relative: 0 });
     });
 
     test("when on first page and count DOES NOT takes the start index negative", () => {
@@ -68,30 +68,55 @@ describe("getStartIndex", () => {
         resultsPerPage: 10,
       };
 
-      expect(getStartIndex(args, ctx)).toBe(2);
+      expect(getStartIndex(args, ctx)).toEqual({ absolute: 2, relative: 2 });
     });
 
-    test("when NOT on first page", () => {
-      const args = {
-        before: "abcdefg",
-        last: 15,
-      };
+    describe("when NOT on first page", () => {
+      test("when the start index is more than than or equal to 0", () => {
+        const args = {
+          before: "abcdefg",
+          last: 4,
+        };
 
-      const ctx = {
-        entry: {
-          group: "qwerty",
-          index: 4,
-          node: {},
-          page: 3,
-        },
-        metadata: {
-          totalPages: 5,
-          totalResults: 50,
-        },
-        resultsPerPage: 10,
-      };
+        const ctx = {
+          entry: {
+            group: "qwerty",
+            index: 7,
+            node: {},
+            page: 3,
+          },
+          metadata: {
+            totalPages: 5,
+            totalResults: 50,
+          },
+          resultsPerPage: 10,
+        };
 
-      expect(getStartIndex(args, ctx)).toBe(-11);
+        expect(getStartIndex(args, ctx)).toEqual({ absolute: 3, relative: 3 });
+      });
+
+      test("when the start index is less than 0", () => {
+        const args = {
+          before: "abcdefg",
+          last: 15,
+        };
+
+        const ctx = {
+          entry: {
+            group: "qwerty",
+            index: 4,
+            node: {},
+            page: 3,
+          },
+          metadata: {
+            totalPages: 5,
+            totalResults: 50,
+          },
+          resultsPerPage: 10,
+        };
+
+        expect(getStartIndex(args, ctx)).toEqual({ absolute: -11, relative: 9 });
+      });
     });
   });
 });
@@ -117,7 +142,7 @@ describe("getEndIndex", () => {
       resultsPerPage: 10,
     };
 
-    expect(getEndIndex(args, ctx)).toBe(4);
+    expect(getEndIndex(args, ctx)).toEqual({ absolute: 4, relative: 4 });
   });
 
   describe("when the direction is forward", () => {
@@ -141,7 +166,7 @@ describe("getEndIndex", () => {
         resultsPerPage: 10,
       };
 
-      expect(getEndIndex(args, ctx)).toBe(6);
+      expect(getEndIndex(args, ctx)).toEqual({ absolute: 6, relative: 6 });
     });
 
     test("when on last page and count DOES NOT take end index over last index", () => {
@@ -164,30 +189,55 @@ describe("getEndIndex", () => {
         resultsPerPage: 10,
       };
 
-      expect(getEndIndex(args, ctx)).toBe(4);
+      expect(getEndIndex(args, ctx)).toEqual({ absolute: 4, relative: 4 });
     });
 
-    test("when NOT on last page", () => {
-      const args = {
-        after: "abcdefg",
-        first: 20,
-      };
+    describe("when NOT on last page", () => {
+      test("when the end index is less than or equal to indexes per page", () => {
+        const args = {
+          after: "abcdefg",
+          first: 7,
+        };
 
-      const ctx = {
-        entry: {
-          group: "qwerty",
-          index: 2,
-          node: {},
-          page: 4,
-        },
-        metadata: {
-          totalPages: 6,
-          totalResults: 57,
-        },
-        resultsPerPage: 10,
-      };
+        const ctx = {
+          entry: {
+            group: "qwerty",
+            index: 2,
+            node: {},
+            page: 4,
+          },
+          metadata: {
+            totalPages: 6,
+            totalResults: 57,
+          },
+          resultsPerPage: 10,
+        };
 
-      expect(getEndIndex(args, ctx)).toBe(22);
+        expect(getEndIndex(args, ctx)).toEqual({ absolute: 9, relative: 9 });
+      });
+
+      test("when end index is greater than indexes per page", () => {
+        const args = {
+          after: "abcdefg",
+          first: 20,
+        };
+
+        const ctx = {
+          entry: {
+            group: "qwerty",
+            index: 2,
+            node: {},
+            page: 4,
+          },
+          metadata: {
+            totalPages: 6,
+            totalResults: 57,
+          },
+          resultsPerPage: 10,
+        };
+
+        expect(getEndIndex(args, ctx)).toEqual({ absolute: 22, relative: 2 });
+      });
     });
   });
 });

@@ -7,27 +7,49 @@ import isLastPage from "./isLastPage";
 
 export const getStartIndex = (
   args: ConnectionInputOptions,
-  { entry: { index, page } }: Pick<Context, "entry">,
-): number => {
+  { entry: { index, page }, resultsPerPage }: Pick<Context, "entry" | "resultsPerPage">,
+) => {
   const count = getCount(args);
 
   return getDirection(args.before) === "forward"
-    ? index + 1
+    ? { absolute: index + 1, relative: index + 1 }
     : isFirstPage(page) && index - count < 0
-    ? 0
-    : index - count;
+    ? { absolute: 0, relative: 0 }
+    : (() => {
+        const absStartIndex = index - count;
+
+        if (absStartIndex >= 0) {
+          return { absolute: absStartIndex, relative: absStartIndex };
+        }
+
+        const remainder = Math.abs(absStartIndex) % resultsPerPage;
+        const relStartIndex = remainder === 0 ? remainder : resultsPerPage - remainder;
+        return { absolute: absStartIndex, relative: relStartIndex };
+      })();
 };
 
 export const getEndIndex = (
   args: ConnectionInputOptions,
   { entry: { index, page }, metadata: { totalPages, totalResults }, resultsPerPage }: Context,
-): number => {
+) => {
   const count = getCount(args);
   const indexesOnLastPage = getIndexesOnLastPage({ resultsPerPage, totalResults });
 
   return getDirection(args.before) === "backward"
-    ? index - 1
+    ? { absolute: index - 1, relative: index - 1 }
     : isLastPage({ page, totalPages }) && index + count > indexesOnLastPage
-    ? indexesOnLastPage
-    : index + count;
+    ? { absolute: indexesOnLastPage, relative: indexesOnLastPage }
+    : (() => {
+        const absEndIndex = index + count;
+        const indexesPerPage = resultsPerPage - 1;
+
+        if (absEndIndex <= indexesPerPage) {
+          return { absolute: absEndIndex, relative: absEndIndex };
+        }
+
+        const indexesRemainingAfterFirstPage = absEndIndex - indexesPerPage;
+        const remainder = indexesRemainingAfterFirstPage % resultsPerPage;
+        const relEndIndex = remainder === 0 ? indexesPerPage : remainder - 1;
+        return { absolute: absEndIndex, relative: relEndIndex };
+      })();
 };
