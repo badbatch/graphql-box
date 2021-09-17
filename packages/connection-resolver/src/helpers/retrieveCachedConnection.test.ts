@@ -207,4 +207,146 @@ describe("retrieveCachedConnection", () => {
       });
     });
   });
+
+  describe.only("retrieving edges before a cursor", () => {
+    test("when 5 cursors on the same page are requested", async () => {
+      const cursorCache = await generateCursorCache({
+        group: groupCursor,
+        pageRanges: ["1-10"],
+        resultsPerPage,
+        totalPages: 10,
+        totalResults: 100,
+      });
+
+      const args = {
+        before: `${encode(`9::10`)}::${groupCursor}`,
+        last: 5,
+      };
+
+      const { cachedEdges, hasNextPage, hasPreviousPage, missingPages } = await retrieveCachedConnection(args, {
+        cursorCache,
+        groupCursor,
+        resultsPerPage,
+      });
+
+      expect(cachedEdges.length).toBe(5);
+      expect(decode(cachedEdges[0].node.id.split("::")[0])).toBe("4::10");
+      expect(decode(cachedEdges[cachedEdges.length - 1].node.id.split("::")[0])).toBe("8::10");
+      expect(hasPreviousPage).toBe(true);
+      expect(hasNextPage).toBe(true);
+      expect(missingPages.length).toBe(0);
+    });
+
+    test("when 15 cursors covering multiple pages are requested", async () => {
+      const cursorCache = await generateCursorCache({
+        group: groupCursor,
+        pageRanges: ["1-10"],
+        resultsPerPage,
+        totalPages: 10,
+        totalResults: 100,
+      });
+
+      const args = {
+        before: `${encode(`9::10`)}::${groupCursor}`,
+        last: 15,
+      };
+
+      const { cachedEdges, hasNextPage, hasPreviousPage, missingPages } = await retrieveCachedConnection(args, {
+        cursorCache,
+        groupCursor,
+        resultsPerPage,
+      });
+
+      expect(cachedEdges.length).toBe(15);
+      expect(decode(cachedEdges[0].node.id.split("::")[0])).toBe("4::9");
+      expect(decode(cachedEdges[cachedEdges.length - 1].node.id.split("::")[0])).toBe("8::10");
+      expect(hasPreviousPage).toBe(true);
+      expect(hasNextPage).toBe(true);
+      expect(missingPages.length).toBe(0);
+    });
+
+    test("when 15 cursors going under the first page are requested", async () => {
+      const cursorCache = await generateCursorCache({
+        group: groupCursor,
+        pageRanges: ["1-10"],
+        resultsPerPage,
+        totalPages: 10,
+        totalResults: 100,
+      });
+
+      const args = {
+        before: `${encode(`9::1`)}::${groupCursor}`,
+        last: 15,
+      };
+
+      const { cachedEdges, hasNextPage, hasPreviousPage, missingPages } = await retrieveCachedConnection(args, {
+        cursorCache,
+        groupCursor,
+        resultsPerPage,
+      });
+
+      expect(cachedEdges.length).toBe(9);
+      expect(decode(cachedEdges[0].node.id.split("::")[0])).toBe("0::1");
+      expect(decode(cachedEdges[cachedEdges.length - 1].node.id.split("::")[0])).toBe("8::1");
+      expect(hasPreviousPage).toBe(false);
+      expect(hasNextPage).toBe(true);
+      expect(missingPages.length).toBe(0);
+    });
+
+    test("when 35 cursors covering multiple pages and going UNDER the first page are requested", async () => {
+      const cursorCache = await generateCursorCache({
+        group: groupCursor,
+        pageRanges: ["1-10"],
+        resultsPerPage,
+        totalPages: 10,
+        totalResults: 100,
+      });
+
+      const args = {
+        before: `${encode(`7::3`)}::${groupCursor}`,
+        last: 35,
+      };
+
+      const { cachedEdges, hasNextPage, hasPreviousPage, missingPages } = await retrieveCachedConnection(args, {
+        cursorCache,
+        groupCursor,
+        resultsPerPage,
+      });
+
+      expect(cachedEdges.length).toBe(27);
+      expect(decode(cachedEdges[0].node.id.split("::")[0])).toBe("0::1");
+      expect(decode(cachedEdges[cachedEdges.length - 1].node.id.split("::")[0])).toBe("6::3");
+      expect(hasPreviousPage).toBe(false);
+      expect(hasNextPage).toBe(true);
+      expect(missingPages.length).toBe(0);
+    });
+
+    test("when 25 cursors covering multiple pages and going DOWN TO the first page are requested", async () => {
+      const cursorCache = await generateCursorCache({
+        group: groupCursor,
+        pageRanges: ["1-10"],
+        resultsPerPage,
+        totalPages: 10,
+        totalResults: 100,
+      });
+
+      const args = {
+        before: `${encode(`7::3`)}::${groupCursor}`,
+        last: 25,
+      };
+
+      const { cachedEdges, hasNextPage, hasPreviousPage, missingPages } = await retrieveCachedConnection(args, {
+        cursorCache,
+        groupCursor,
+        resultsPerPage,
+      });
+
+      expect(cachedEdges.length).toBe(25);
+      expect(decode(cachedEdges[0].node.id.split("::")[0])).toBe("2::1");
+      expect(decode(cachedEdges[cachedEdges.length - 1].node.id.split("::")[0])).toBe("6::3");
+      expect(hasPreviousPage).toBe(true);
+      expect(hasNextPage).toBe(true);
+      expect(missingPages.length).toBe(0);
+    });
+  });
 });

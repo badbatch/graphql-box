@@ -22,8 +22,10 @@ export const getStartIndex = (
           return { absolute: absStartIndex, relative: absStartIndex };
         }
 
-        const remainder = Math.abs(absStartIndex) % resultsPerPage;
-        const relStartIndex = remainder === 0 ? remainder : resultsPerPage - remainder;
+        const indexesRemainingAfterLastPage = Math.abs(absStartIndex);
+        const pagesRemaining = indexesRemainingAfterLastPage / resultsPerPage + 1;
+        const remainder = indexesRemainingAfterLastPage % resultsPerPage;
+        const relStartIndex = remainder === 0 ? 0 : page - pagesRemaining < 0 ? 0 : resultsPerPage - remainder;
         return { absolute: absStartIndex, relative: relStartIndex };
       })();
 };
