@@ -1,11 +1,7 @@
-import { GraphQLError, GraphQLResolveInfo } from "graphql";
-import {
-  Connection,
-  ConnectionAdapterUserOptions,
-  ConnectionInputOptions,
-  CursorCacheEntry,
-  CursorGroupMetadata,
-} from "../defs";
+import { GraphQLResolveInfo } from "graphql";
+import { Connection, ConnectionAdapterUserOptions, ConnectionInputOptions } from "../defs";
+import extractEdges from "../helpers/extractEdges";
+import { getEndCursor, getStartCursor } from "../helpers/getStartAndEndCursors";
 import isCursorSupplied from "../helpers/isCursorSupplied";
 import retrieveCachedConnection from "../helpers/retrieveCachedConnection";
 import validateCursor from "../helpers/validateCursor";
@@ -52,7 +48,7 @@ export default ({
       const groupCursor = makeGroupCursor();
 
       if (isCursorSupplied(args)) {
-        const cursorError = validateCursor(args, info, {
+        const cursorError = await validateCursor(args, info, {
           cursorCache,
           groupCursor,
           resultsPerPage,
@@ -62,11 +58,30 @@ export default ({
           throw cursorError;
         }
 
-        const { cachedEdges, hasNextPage, hasPreviousPage, missingPages } = await retrieveCachedConnection(args, {
+        const {
+          cachedEdges,
+          hasNextPage,
+          hasPreviousPage,
+          missingPages,
+          totalResults,
+        } = await retrieveCachedConnection(args, {
           cursorCache,
           groupCursor,
           resultsPerPage,
         });
+
+        if (!missingPages.length) {
+          return {
+            edges: extractEdges(cachedEdges),
+            pageInfo: {
+              endCursor: getEndCursor(cachedEdges),
+              hasNextPage,
+              hasPreviousPage,
+              startCursor: getStartCursor(cachedEdges),
+            },
+            totalResults,
+          };
+        }
 
         //   if (cachedEdges?.length && !missingPages?.length) {
         //     const startCursor = getStartCursor(cachedEdges);

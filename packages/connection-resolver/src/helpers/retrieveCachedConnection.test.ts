@@ -1,6 +1,6 @@
 import { decode, encode } from "js-base64";
-import extractEdges from "../__testUtils__/extractEdges";
 import generateCursorCache from "../__testUtils__/generateCursorCache";
+import extractEdges from "./extractEdges";
 import retrieveCachedConnection from "./retrieveCachedConnection";
 
 describe("retrieveCachedConnection", () => {

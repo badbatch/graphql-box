@@ -39,5 +39,6 @@ export default async (args: ConnectionInputOptions, { cursorCache, groupCursor, 
     }),
     hasPreviousPage: hasPreviousPage({ cachedEdgesByPage, startIndex }),
     missingPages: getPagesMissingFromCache(cachedEdgesByPage),
+    totalResults: metadata.totalResults,
   };
 };

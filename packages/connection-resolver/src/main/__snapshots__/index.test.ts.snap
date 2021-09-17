@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`connectionResolver when a cursor is supplied when there are NO missing pages in the cache 1`] = `
+Object {
+  "edges": Array [
+    Object {
+      "cursor": "MTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+      "node": Object {
+        "id": "MTo6MQ==",
+      },
+    },
+    Object {
+      "cursor": "Mjo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+      "node": Object {
+        "id": "Mjo6MQ==",
+      },
+    },
+    Object {
+      "cursor": "Mzo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+      "node": Object {
+        "id": "Mzo6MQ==",
+      },
+    },
+    Object {
+      "cursor": "NDo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+      "node": Object {
+        "id": "NDo6MQ==",
+      },
+    },
+    Object {
+      "cursor": "NTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+      "node": Object {
+        "id": "NTo6MQ==",
+      },
+    },
+  ],
+  "pageInfo": Object {
+    "endCursor": "NTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+    "hasNextPage": true,
+    "hasPreviousPage": true,
+    "startCursor": "MTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+  },
+  "totalResults": 100,
+}
+`;
