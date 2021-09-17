@@ -24,7 +24,7 @@ export default async ({ group, pageRanges, resultsPerPage, totalPages, totalResu
   await Promise.all(
     pages.map(async page => {
       const isLastPage = page === pages[pages.length - 1];
-      let resultsOnCurrentPage;
+      let resultsOnCurrentPage: number;
 
       if (isLastPage) {
         const remainder = totalResults % resultsPerPage;
