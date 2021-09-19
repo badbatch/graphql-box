@@ -34,12 +34,29 @@ Object {
       },
     },
   ],
+  "nodes": Array [
+    Object {
+      "id": "MTo6MQ==",
+    },
+    Object {
+      "id": "Mjo6MQ==",
+    },
+    Object {
+      "id": "Mzo6MQ==",
+    },
+    Object {
+      "id": "NDo6MQ==",
+    },
+    Object {
+      "id": "NTo6MQ==",
+    },
+  ],
   "pageInfo": Object {
     "endCursor": "NTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
     "hasNextPage": true,
     "hasPreviousPage": true,
     "startCursor": "MTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
   },
-  "totalResults": 100,
+  "totalCount": 100,
 }
 `;

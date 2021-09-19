@@ -1,8 +1,11 @@
 import { GraphQLResolveInfo } from "graphql";
 import { Connection, ConnectionAdapterUserOptions, ConnectionInputOptions } from "../defs";
+import cacheCursors from "../helpers/cacheCursors";
 import extractEdges from "../helpers/extractEdges";
+import extractNodes from "../helpers/extractNodes";
 import { getEndCursor, getStartCursor } from "../helpers/getStartAndEndCursors";
 import isCursorSupplied from "../helpers/isCursorSupplied";
+import makeEdges from "../helpers/makeEdges";
 import retrieveCachedConnection from "../helpers/retrieveCachedConnection";
 import validateCursor from "../helpers/validateCursor";
 
@@ -71,51 +74,37 @@ export default ({
         });
 
         if (!missingPages.length) {
+          const edges = extractEdges(cachedEdges);
+
           return {
-            edges: extractEdges(cachedEdges),
+            edges,
+            nodes: extractNodes(edges),
             pageInfo: {
               endCursor: getEndCursor(cachedEdges),
               hasNextPage,
               hasPreviousPage,
               startCursor: getStartCursor(cachedEdges),
             },
-            totalResults,
+            totalCount: totalResults,
           };
         }
 
-        //   if (cachedEdges?.length && !missingPages?.length) {
-        //     const startCursor = getStartCursor(cachedEdges);
-        //     const endCursor = getEndCursor(cachedEdges);
+        await Promise.all(
+          missingPages.map(async page => {
+            const { data: pageResultData, headers: pageResultHeaders } = await resourceResolver({ page });
 
-        //     return {
-        //       edges: cachedEdges,
-        //       pageInfo: {
-        //         endCursor,
-        //         hasNextPage: hasNextPage as boolean,
-        //         hasPreviousPage: hasPreviousPage as boolean,
-        //         startCursor,
-        //       },
-        //       totalResults,
-        //     };
-        //   }
-
-        //   if (missingPages?.length) {
-        //     const promises = missingPages.map(async page => {
-        //       const { data: pageResultData, headers: pageResultHeaders } = await resourceResolver({ page });
-
-        //       if (pageResultData) {
-        //         cacheCursors(cursorCache, {
-        //           edges: makeEdges(getters.nodes(pageResultData), node => makeIDCursor(node.id)),
-        //           group: groupCursor,
-        //           headers: pageResultHeaders,
-        //           page,
-        //           totalPages: getters.totalPages(pageResultData),
-        //           totalResults: getters.totalResults(pageResultData),
-        //         });
-        //       }
-        //     });
-
-        //     await Promise.all(promises);
+            if (pageResultData) {
+              cacheCursors(cursorCache, {
+                edges: makeEdges(getters.nodes(pageResultData), node => makeIDCursor(node.id)),
+                group: groupCursor,
+                headers: pageResultHeaders,
+                page,
+                totalPages: getters.totalPages(pageResultData),
+                totalResults: getters.totalResults(pageResultData),
+              });
+            }
+          }),
+        );
 
         //     const {
         //       cachedEdges: latestCachedEdges,

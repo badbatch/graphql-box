@@ -40,8 +40,9 @@ export type PageInfo = {
 
 export type Connection = {
   edges: Edge[];
+  nodes: Record<string, any>[];
   pageInfo: PageInfo;
-  totalResults: number;
+  totalCount: number;
 };
 
 export interface ResourceResponse extends Response {
