@@ -1,6 +1,5 @@
 import Cachemap from "@cachemap/core";
 import { GraphQLResolveInfo } from "graphql";
-import { JsonObject, JsonValue } from "type-fest";
 
 export type Direction = "backward" | "forward";
 
@@ -40,13 +39,14 @@ export type PageInfo = {
 
 export type Connection = {
   edges: Edge[];
+  errors: Error[];
   nodes: Record<string, any>[];
   pageInfo: PageInfo;
   totalCount: number;
 };
 
 export interface ResourceResponse extends Response {
-  data?: JsonValue;
+  data?: Record<string, any>;
   errors?: Error[];
 }
 
@@ -59,13 +59,13 @@ export type CreateResourceResolver = (
   info: GraphQLResolveInfo,
 ) => ResourceResolver;
 
-export type Node = JsonObject & { id: string | number };
+export type Node = Record<string, any> & { id: string | number };
 
 export interface Getters {
-  nodes: (obj: JsonValue) => Node[];
-  page: (obj: JsonValue) => number;
-  totalPages: (obj: JsonValue) => number;
-  totalResults: (obj: JsonValue) => number;
+  nodes: (obj: Record<string, any>) => Node[];
+  page: (obj: Record<string, any>) => number;
+  totalPages: (obj: Record<string, any>) => number;
+  totalResults: (obj: Record<string, any>) => number;
 }
 
 export interface ConnectionAdapterUserOptions {
@@ -81,6 +81,7 @@ export interface ConnectionAdapterUserOptions {
   createResourceResolver: CreateResourceResolver;
   cursorCache: Cachemap;
   getters: Getters;
+  resolver: (args: Connection) => Connection;
   resultsPerPage: number;
 }
 

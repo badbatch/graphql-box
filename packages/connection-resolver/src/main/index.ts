@@ -1,11 +1,10 @@
 import { GraphQLResolveInfo } from "graphql";
 import { Connection, ConnectionAdapterUserOptions, ConnectionInputOptions } from "../defs";
-import cacheCursors from "../helpers/cacheCursors";
 import extractEdges from "../helpers/extractEdges";
 import extractNodes from "../helpers/extractNodes";
 import { getEndCursor, getStartCursor } from "../helpers/getStartAndEndCursors";
 import isCursorSupplied from "../helpers/isCursorSupplied";
-import makeEdges from "../helpers/makeEdges";
+import requestAndCachePages from "../helpers/requestAndCachePages";
 import retrieveCachedConnection from "../helpers/retrieveCachedConnection";
 import validateCursor from "../helpers/validateCursor";
 
@@ -37,6 +36,7 @@ export default ({
   createMakeCursors,
   createResourceResolver,
   getters,
+  resolver,
   resultsPerPage,
 }: ConnectionAdapterUserOptions) => {
   return async (
@@ -58,7 +58,16 @@ export default ({
         });
 
         if (cursorError) {
-          throw cursorError;
+          return resolver({
+            edges: [],
+            errors: [cursorError],
+            nodes: [],
+            pageInfo: {
+              hasNextPage: false,
+              hasPreviousPage: false,
+            },
+            totalCount: 0,
+          });
         }
 
         const {
@@ -76,8 +85,9 @@ export default ({
         if (!missingPages.length) {
           const edges = extractEdges(cachedEdges);
 
-          return {
+          return resolver({
             edges,
+            errors: [],
             nodes: extractNodes(edges),
             pageInfo: {
               endCursor: getEndCursor(cachedEdges),
@@ -86,193 +96,33 @@ export default ({
               startCursor: getStartCursor(cachedEdges),
             },
             totalCount: totalResults,
-          };
+          });
         }
 
-        await Promise.all(
-          missingPages.map(async page => {
-            const { data: pageResultData, headers: pageResultHeaders } = await resourceResolver({ page });
+        const { cachedEdges: missingCachedPages, errors } = await requestAndCachePages(missingPages, {
+          cursorCache,
+          getters,
+          groupCursor,
+          makeIDCursor,
+          resourceResolver,
+        });
 
-            if (pageResultData) {
-              cacheCursors(cursorCache, {
-                edges: makeEdges(getters.nodes(pageResultData), node => makeIDCursor(node.id)),
-                group: groupCursor,
-                headers: pageResultHeaders,
-                page,
-                totalPages: getters.totalPages(pageResultData),
-                totalResults: getters.totalResults(pageResultData),
-              });
-            }
-          }),
-        );
+        const edges = extractEdges(cachedEdges, missingCachedPages);
 
-        //     const {
-        //       cachedEdges: latestCachedEdges,
-        //       hasNextPage: latestHasNextPage,
-        //       hasPreviousPage: latestHasPreviousPage,
-        //     } = await retrieveCachedConnection(cursorCache, {
-        //       count,
-        //       cursor,
-        //       direction,
-        //       resultsPerPage,
-        //       totalPages,
-        //       totalResults,
-        //     });
+        return resolver({
+          edges,
+          errors,
+          nodes: extractNodes(edges),
+          pageInfo: {
+            endCursor: getEndCursor(cachedEdges),
+            hasNextPage,
+            hasPreviousPage,
+            startCursor: getStartCursor(cachedEdges),
+          },
+          totalCount: totalResults,
+        });
 
-        //     if (latestCachedEdges?.length) {
-        //       const startCursor = getStartCursor(latestCachedEdges);
-        //       const endCursor = getEndCursor(latestCachedEdges);
-
-        //       return {
-        //         edges: latestCachedEdges,
-        //         pageInfo: {
-        //           endCursor,
-        //           hasNextPage: latestHasNextPage as boolean,
-        //           hasPreviousPage: latestHasPreviousPage as boolean,
-        //           startCursor,
-        //         },
-        //         totalResults,
-        //       };
-        //     }
-        //   }
-        // } else {
-        //   const page = 1;
-        //   // NOTE: Need to do something about negative scenarios
-        //   const { data, headers, errors } = await resourceResolver({ page });
-
-        //   if (!data || errors?.length) {
-        //     const reason = !data ? "No data returned" : `Errors returned`;
-
-        //     throw new GraphQLError(
-        //       `Failed to resolve connection. ${reason}.`,
-        //       fieldNodes,
-        //       undefined,
-        //       undefined,
-        //       undefined,
-        //       errors?.[0],
-        //     );
-        //   }
-
-        //   const nodes = getters.nodes(data);
-        //   const totalPages = getters.totalPages(data);
-        //   const totalResults = getters.totalResults(data);
-        //   const edges = makeEdges(nodes, node => makeIDCursor(node.id));
-        //   cacheCursors(cursorCache, { headers, edges, group: groupCursor, page, totalPages, totalResults });
-
-        //   if (first) {
-        //     if (first < nodes.length || nodes.length === totalResults) {
-        //       const indexesToRequest = (first < nodes.length ? first : nodes.length) - 1;
-        //       const requestedEdges = edges.slice(0, indexesToRequest);
-        //       const startCursor = getStartCursor(requestedEdges);
-        //       const endCursor = getEndCursor(requestedEdges);
-
-        //       return {
-        //         edges: requestedEdges,
-        //         pageInfo: {
-        //           endCursor,
-        //           startCursor,
-        //           ...calcHasPreviousNextPage({
-        //             edges,
-        //             endCursor,
-        //             page,
-        //             resultsPerPage,
-        //             startCursor,
-        //             totalPages,
-        //             totalResults,
-        //           }),
-        //         },
-        //         totalResults,
-        //       };
-        //     }
-
-        //     const { pageResults } = await requestOutstandingPages(
-        //       { count, direction, page: page + 1, results: nodes.length, resultsPerPage, totalPages, totalResults },
-        //       // NOTE: Need to do something about negative scenarios
-        //       ({ nextPage }) => resourceResolver({ page: nextPage }),
-        //     );
-
-        //     // NOTE: Need to do something with missingPages, not sure how to handle that
-
-        //     pageResults.forEach(({ data: pageResultData, headers: pageResultHeaders }) => {
-        //       cacheCursors(cursorCache, {
-        //         edges: makeEdges(getters.nodes(pageResultData), node => makeIDCursor(node.id)),
-        //         group: groupCursor,
-        //         headers: pageResultHeaders,
-        //         page,
-        //         totalPages: getters.totalPages(pageResultData),
-        //         totalResults: getters.totalResults(pageResultData),
-        //       });
-        //     });
-
-        //     const {
-        //       cachedEdges: latestCachedEdges,
-        //       hasNextPage: latestHasNextPage,
-        //       hasPreviousPage: latestHasPreviousPage,
-        //     } = await retrieveCachedConnection(cursorCache, {
-        //       count,
-        //       cursor: getStartCursor(edges),
-        //       direction,
-        //       resultsPerPage,
-        //       totalPages,
-        //       totalResults,
-        //     });
-
-        //     if (latestCachedEdges?.length) {
-        //       return {
-        //         edges: latestCachedEdges,
-        //         pageInfo: {
-        //           endCursor: getEndCursor(latestCachedEdges),
-        //           hasNextPage: latestHasNextPage as boolean,
-        //           hasPreviousPage: latestHasPreviousPage as boolean,
-        //           startCursor: getStartCursor(latestCachedEdges),
-        //         },
-        //         totalResults,
-        //       };
-        //     }
-        //   } else {
-        //     const { pageResults } = await requestOutstandingPages(
-        //       { count, direction, page: totalPages, results: 0, resultsPerPage, totalPages, totalResults },
-        //       // NOTE: Need to do something about negative scenarios
-        //       ({ nextPage }) => resourceResolver({ page: nextPage }),
-        //     );
-
-        //     pageResults.forEach(({ data: pageResultData, headers: pageResultHeaders }) => {
-        //       cacheCursors(cursorCache, {
-        //         edges: makeEdges(getters.nodes(pageResultData), node => makeIDCursor(node.id)),
-        //         group: groupCursor,
-        //         headers: pageResultHeaders,
-        //         page,
-        //         totalPages: getters.totalPages(pageResultData),
-        //         totalResults: getters.totalResults(pageResultData),
-        //       });
-        //     });
-
-        //     const {
-        //       cachedEdges: latestCachedEdges,
-        //       hasNextPage: latestHasNextPage,
-        //       hasPreviousPage: latestHasPreviousPage,
-        //     } = await retrieveCachedConnection(cursorCache, {
-        //       count,
-        //       cursor: getStartCursor(edges),
-        //       direction,
-        //       resultsPerPage,
-        //       totalPages,
-        //       totalResults,
-        //     });
-
-        //     if (latestCachedEdges?.length) {
-        //       return {
-        //         edges: latestCachedEdges,
-        //         pageInfo: {
-        //           endCursor: getEndCursor(latestCachedEdges),
-        //           hasNextPage: latestHasNextPage as boolean,
-        //           hasPreviousPage: latestHasPreviousPage as boolean,
-        //           startCursor: getStartCursor(latestCachedEdges),
-        //         },
-        //         totalResults,
-        //       };
-        //     }
-        //   }
+        // TODO
       }
     } catch (e) {
       throw e;
