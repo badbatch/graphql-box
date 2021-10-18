@@ -17,6 +17,9 @@
     "type": "git",
     "url": "https://github.com/badbatch/graphql-box"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "main": "lib/main/index.js",
