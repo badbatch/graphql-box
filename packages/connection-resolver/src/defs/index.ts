@@ -52,10 +52,10 @@ export interface ResourceResponse extends Response {
 
 export type ResourceResolver = (args: { page: number }) => Promise<ResourceResponse>;
 
-export type CreateResourceResolver = (
-  source: Record<string, any>,
-  args: Record<string, any>,
-  context: Record<string, any>,
+export type CreateResourceResolver<Src = Record<string, any>, Args = Record<string, any>, Cxt = Record<string, any>> = (
+  source: Record<string, any> & Src,
+  args: Record<string, any> & Args,
+  context: Record<string, any> & Cxt,
   info: GraphQLResolveInfo,
 ) => ResourceResolver;
 
