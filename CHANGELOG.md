@@ -1,3 +1,9 @@
+#### 2.1.2 (2021-10-18)
+
+##### Bug Fixes
+
+*  add main export from index ([8313ce90](https://github.com/badbatch/graphql-box/commit/8313ce905d5925ca0385a9b4147a7ad063619c21))
+
 #### 2.1.1 (2021-10-18)
 
 ##### Bug Fixes
