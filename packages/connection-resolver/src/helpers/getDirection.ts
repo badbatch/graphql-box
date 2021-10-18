@@ -1,1 +1,1 @@
-export default (before: string | undefined) => (before ? "backward" : "forward");
+export default (last: number | undefined) => (last ? "backward" : "forward");

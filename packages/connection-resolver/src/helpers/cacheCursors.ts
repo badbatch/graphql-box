@@ -15,9 +15,7 @@ export default async (cursorCache: Cachemap, { edges, group, headers, page, tota
   const opts = cacheControl ? { cacheHeaders: { cacheControl } } : undefined;
 
   await Promise.all(
-    edges.map(async ({ cursor, node }, index) => {
-      await cursorCache.set(cursor, { node, index, group, page }, opts);
-    }),
+    edges.map(async ({ cursor, node }, index) => cursorCache.set(cursor, { node, index, group, page }, opts)),
   );
 
   await cursorCache.set(`${group}-metadata`, { totalPages, totalResults }, opts);

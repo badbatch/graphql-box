@@ -9,7 +9,8 @@ describe("hasPreviousPage", () => {
       },
     ];
 
-    expect(hasPreviousPage({ cachedEdgesByPage, startIndex: 0 })).toBe(false);
+    const startIndex = { absolute: 0, relative: 0 };
+    expect(hasPreviousPage({ cachedEdgesByPage, startIndex })).toBe(false);
   });
 
   test("when start index is NOT 0", () => {
@@ -20,7 +21,8 @@ describe("hasPreviousPage", () => {
       },
     ];
 
-    expect(hasPreviousPage({ cachedEdgesByPage, startIndex: 4 })).toBe(true);
+    const startIndex = { absolute: 5, relative: 5 };
+    expect(hasPreviousPage({ cachedEdgesByPage, startIndex })).toBe(true);
   });
 
   test("when first page number is NOT 1", () => {
@@ -31,6 +33,7 @@ describe("hasPreviousPage", () => {
       },
     ];
 
-    expect(hasPreviousPage({ cachedEdgesByPage, startIndex: 0 })).toBe(true);
+    const startIndex = { absolute: 0, relative: 0 };
+    expect(hasPreviousPage({ cachedEdgesByPage, startIndex })).toBe(true);
   });
 });

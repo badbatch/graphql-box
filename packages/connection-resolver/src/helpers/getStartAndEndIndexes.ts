@@ -11,7 +11,7 @@ export const getStartIndex = (
 ) => {
   const count = getCount(args);
 
-  return getDirection(args.before) === "forward"
+  return getDirection(args.last) === "forward"
     ? { absolute: index + 1, relative: index + 1 }
     : isFirstPage(page) && index - count < 0
     ? { absolute: 0, relative: 0 }
@@ -37,7 +37,7 @@ export const getEndIndex = (
   const count = getCount(args);
   const indexesOnLastPage = getIndexesOnLastPage({ resultsPerPage, totalResults });
 
-  return getDirection(args.before) === "backward"
+  return getDirection(args.last) === "backward"
     ? { absolute: index - 1, relative: index - 1 }
     : isLastPage({ page, totalPages }) && index + count > indexesOnLastPage
     ? { absolute: indexesOnLastPage, relative: indexesOnLastPage }

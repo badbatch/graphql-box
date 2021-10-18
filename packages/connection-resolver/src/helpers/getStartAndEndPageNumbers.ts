@@ -12,7 +12,7 @@ export const getStartPageNumber = (
   args: ConnectionInputOptions,
   { page, startIndex, resultsPerPage }: Omit<PageNumberContext, "endIndex"> & Omit<Context, "entry" | "metadata">,
 ) => {
-  if (getDirection(args.before) === "forward" || startIndex.absolute >= 0) {
+  if (getDirection(args.last) === "forward" || startIndex.absolute >= 0) {
     return page;
   }
 
@@ -32,7 +32,7 @@ export const getEndPageNumber = (
   const indexesPerPage = resultsPerPage - 1;
 
   if (
-    getDirection(args.before) === "backward" ||
+    getDirection(args.last) === "backward" ||
     isLastPage({ page, totalPages }) ||
     endIndex.absolute <= indexesPerPage
   ) {

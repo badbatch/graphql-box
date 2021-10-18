@@ -393,3 +393,127 @@ Object {
   "totalCount": 100,
 }
 `;
+
+exports[`connectionResolver when the first [X] number are requested when there is a fresh cache and there are NO missing pages in the cache 1`] = `
+Object {
+  "edges": Array [
+    Object {
+      "cursor": "MDo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+      "node": Object {
+        "id": "MDo6MQ==",
+      },
+    },
+    Object {
+      "cursor": "MTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+      "node": Object {
+        "id": "MTo6MQ==",
+      },
+    },
+    Object {
+      "cursor": "Mjo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+      "node": Object {
+        "id": "Mjo6MQ==",
+      },
+    },
+    Object {
+      "cursor": "Mzo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+      "node": Object {
+        "id": "Mzo6MQ==",
+      },
+    },
+    Object {
+      "cursor": "NDo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+      "node": Object {
+        "id": "NDo6MQ==",
+      },
+    },
+  ],
+  "errors": Array [],
+  "nodes": Array [
+    Object {
+      "id": "MDo6MQ==",
+    },
+    Object {
+      "id": "MTo6MQ==",
+    },
+    Object {
+      "id": "Mjo6MQ==",
+    },
+    Object {
+      "id": "Mzo6MQ==",
+    },
+    Object {
+      "id": "NDo6MQ==",
+    },
+  ],
+  "pageInfo": Object {
+    "endCursor": "NDo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+    "hasNextPage": true,
+    "hasPreviousPage": false,
+    "startCursor": "MDo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
+  },
+  "totalCount": 100,
+}
+`;
+
+exports[`connectionResolver when the first [X] number are requested when there is a fresh cache and there are missing pages in the cache 1`] = `
+Object {
+  "edges": Array [
+    Object {
+      "cursor": "TURvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
+      "node": Object {
+        "id": "MDo6MQ==",
+      },
+    },
+    Object {
+      "cursor": "TVRvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
+      "node": Object {
+        "id": "MTo6MQ==",
+      },
+    },
+    Object {
+      "cursor": "TWpvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
+      "node": Object {
+        "id": "Mjo6MQ==",
+      },
+    },
+    Object {
+      "cursor": "TXpvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
+      "node": Object {
+        "id": "Mzo6MQ==",
+      },
+    },
+    Object {
+      "cursor": "TkRvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
+      "node": Object {
+        "id": "NDo6MQ==",
+      },
+    },
+  ],
+  "errors": Array [],
+  "nodes": Array [
+    Object {
+      "id": "MDo6MQ==",
+    },
+    Object {
+      "id": "MTo6MQ==",
+    },
+    Object {
+      "id": "Mjo6MQ==",
+    },
+    Object {
+      "id": "Mzo6MQ==",
+    },
+    Object {
+      "id": "NDo6MQ==",
+    },
+  ],
+  "pageInfo": Object {
+    "endCursor": "TkRvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
+    "hasNextPage": true,
+    "hasPreviousPage": false,
+    "startCursor": "TURvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
+  },
+  "totalCount": 100,
+}
+`;

@@ -132,6 +132,88 @@ describe("connectionResolver", () => {
 
       const info = {};
       expect(await connectionResolver({}, args, {}, info as GraphQLResolveInfo)).toMatchSnapshot();
+      expect(mock).toHaveBeenCalledTimes(1);
+      expect(mock).toHaveBeenCalledWith(2);
+    });
+  });
+
+  describe("when the first [X] number are requested", () => {
+    test("when there is a fresh cache and there are NO missing pages in the cache", async () => {
+      const createResourceResolver = (
+        _obj: Record<string, any>,
+        args: Record<string, any>,
+        { restClient }: Record<string, any>,
+      ) => {
+        return async ({ page }: { page: number }) => restClient({ ...removeConnectionInputOptions(args), page });
+      };
+
+      const groupCursor = encode(JSON.stringify({ query: "Hello world!" }));
+
+      const cursorCache = await generateCursorCache({
+        group: groupCursor,
+        pageRanges: ["1-10"],
+        resultsPerPage,
+        totalPages: 10,
+        totalResults: 100,
+      });
+
+      const connectionResolver = makeConnectionResolver({
+        createMakeCursors,
+        createResourceResolver,
+        cursorCache,
+        getters: (getters as unknown) as Getters,
+        resolver: result => result,
+        resultsPerPage,
+      });
+
+      const args = {
+        first: 5,
+        query: "Hello world!",
+      };
+
+      const info = {};
+      expect(await connectionResolver({}, args, {}, info as GraphQLResolveInfo)).toMatchSnapshot();
+    });
+
+    test("when there is a fresh cache and there are missing pages in the cache", async () => {
+      const pageResponse = generatePageResponse({ resultsPerPage, totalPages: 10, totalResults: 100 });
+      const mock = jest.fn().mockImplementation(page => pageResponse(page));
+
+      const createResourceResolver = (
+        _obj: Record<string, any>,
+        _args: Record<string, any>,
+        _context: Record<string, any>,
+        _info: GraphQLResolveInfo,
+      ) => async ({ page }: { page: number }) => mock(page);
+
+      const groupCursor = encode(JSON.stringify({ query: "Hello world!" }));
+
+      const cursorCache = await generateCursorCache({
+        group: groupCursor,
+        pageRanges: ["2-10"],
+        resultsPerPage,
+        totalPages: 10,
+        totalResults: 100,
+      });
+
+      const connectionResolver = makeConnectionResolver({
+        createMakeCursors,
+        createResourceResolver,
+        cursorCache,
+        getters: (getters as unknown) as Getters,
+        resolver: result => result,
+        resultsPerPage,
+      });
+
+      const args = {
+        first: 5,
+        query: "Hello world!",
+      };
+
+      const info = {};
+      expect(await connectionResolver({}, args, {}, info as GraphQLResolveInfo)).toMatchSnapshot();
+      expect(mock).toHaveBeenCalledTimes(1);
+      expect(mock).toHaveBeenCalledWith(1);
     });
   });
 });

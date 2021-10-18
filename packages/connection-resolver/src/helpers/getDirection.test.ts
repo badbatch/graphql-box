@@ -1,11 +1,11 @@
 import getDirection from "./getDirection";
 
 describe("getDirection", () => {
-  test("when before is provided", () => {
-    expect(getDirection("abcdefg")).toBe("backward");
+  test("when last is provided", () => {
+    expect(getDirection(5)).toBe("backward");
   });
 
-  test("when before is NOT provided", () => {
+  test("when last is NOT provided", () => {
     expect(getDirection(undefined)).toBe("forward");
   });
 });

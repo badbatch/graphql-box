@@ -16,6 +16,11 @@ export type HasNextPageParams = {
 export const hasPreviousPage = ({ cachedEdgesByPage, startIndex }: HasPreviousPageParams) =>
   cachedEdgesByPage[0].pageNumber !== 1 || startIndex.relative > 0;
 
-export const hasNextPage = ({ cachedEdgesByPage, endIndex, metadata, resultsPerPage }: HasNextPageParams) =>
-  cachedEdgesByPage[cachedEdgesByPage.length - 1].pageNumber !== metadata.totalPages ||
-  endIndex.relative < getIndexesOnLastPage({ resultsPerPage, totalResults: metadata.totalResults });
+export const hasNextPage = ({
+  cachedEdgesByPage,
+  endIndex,
+  metadata: { totalPages, totalResults },
+  resultsPerPage,
+}: HasNextPageParams) =>
+  cachedEdgesByPage[cachedEdgesByPage.length - 1].pageNumber !== totalPages ||
+  endIndex.relative < getIndexesOnLastPage({ resultsPerPage, totalResults });

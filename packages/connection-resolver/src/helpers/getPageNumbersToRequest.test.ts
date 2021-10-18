@@ -27,7 +27,7 @@ describe("getPageNumbersToRequest", () => {
 
   test("when direction is backward", () => {
     const args = {
-      before: "abcdefg",
+      last: 5,
     };
 
     const ctx = {

@@ -22,7 +22,7 @@ describe("getStartPageNumber", () => {
   describe("when the direction is backward", () => {
     test("when start index is greater or equal to zero", () => {
       const args = {
-        before: "abcdefg",
+        last: 5,
       };
 
       const ctx = {
@@ -40,7 +40,7 @@ describe("getStartPageNumber", () => {
 
     test("when start page number is less than or equal to 1", () => {
       const args = {
-        before: "abcdefg",
+        last: 5,
       };
 
       const ctx = {
@@ -58,7 +58,7 @@ describe("getStartPageNumber", () => {
 
     test("when start page number is NOT less than or equal to 1", () => {
       const args = {
-        before: "abcdefg",
+        last: 5,
       };
 
       const ctx = {
@@ -79,7 +79,7 @@ describe("getStartPageNumber", () => {
 describe("getEndPageNumber", () => {
   test("when the direction is backward", () => {
     const args = {
-      before: "abcdefg",
+      last: 5,
     };
 
     const ctx = {
