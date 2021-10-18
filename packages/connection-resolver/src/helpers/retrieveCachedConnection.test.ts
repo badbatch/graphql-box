@@ -237,8 +237,8 @@ describe("retrieveCachedConnection", () => {
         });
 
         const edges = extractEdges(cachedEdges);
-        expect(edges.length).toBe(19);
-        expect(decode(edges[0].node.id.split("::")[0])).toBe("1::8");
+        expect(edges.length).toBe(20);
+        expect(decode(edges[0].node.id.split("::")[0])).toBe("0::8");
         expect(decode(edges[edges.length - 1].node.id.split("::")[0])).toBe("9::10");
         expect(hasPreviousPage).toBe(true);
         expect(hasNextPage).toBe(false);
@@ -267,9 +267,9 @@ describe("retrieveCachedConnection", () => {
         });
 
         const edges = extractEdges(cachedEdges);
-        expect(edges.length).toBe(15);
-        expect(decode(edges[0].node.id.split("::")[0])).toBe("1::8");
-        expect(decode(edges[edges.length - 1].node.id.split("::")[0])).toBe("5::10");
+        expect(edges.length).toBe(20);
+        expect(decode(edges[0].node.id.split("::")[0])).toBe("0::8");
+        expect(decode(edges[edges.length - 1].node.id.split("::")[0])).toBe("9::10");
         expect(hasPreviousPage).toBe(true);
         expect(hasNextPage).toBe(true);
         expect(missingPages.length).toBe(1);
@@ -446,9 +446,9 @@ describe("retrieveCachedConnection", () => {
         });
 
         const edges = extractEdges(cachedEdges);
-        expect(edges.length).toBe(17);
+        expect(edges.length).toBe(20);
         expect(decode(edges[0].node.id.split("::")[0])).toBe("0::1");
-        expect(decode(edges[edges.length - 1].node.id.split("::")[0])).toBe("6::3");
+        expect(decode(edges[edges.length - 1].node.id.split("::")[0])).toBe("9::3");
         expect(hasPreviousPage).toBe(false);
         expect(hasNextPage).toBe(true);
         expect(missingPages.length).toBe(1);
@@ -476,9 +476,9 @@ describe("retrieveCachedConnection", () => {
         });
 
         const edges = extractEdges(cachedEdges);
-        expect(edges.length).toBe(15);
-        expect(decode(edges[0].node.id.split("::")[0])).toBe("2::1");
-        expect(decode(edges[edges.length - 1].node.id.split("::")[0])).toBe("6::3");
+        expect(edges.length).toBe(20);
+        expect(decode(edges[0].node.id.split("::")[0])).toBe("0::1");
+        expect(decode(edges[edges.length - 1].node.id.split("::")[0])).toBe("9::3");
         expect(hasPreviousPage).toBe(true);
         expect(hasNextPage).toBe(true);
         expect(missingPages.length).toBe(1);

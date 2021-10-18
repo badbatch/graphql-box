@@ -51,14 +51,14 @@ export default async (
     return new GraphQLError("Curser cannot be supplied without previously being provided.", fieldNodes);
   }
 
-  const cursor = getCursor({ after, before });
+  const cursor = getCursor({ after, before }) as string;
   const entry = (await cursorCache.get(cursor)) as CursorCacheEntry | undefined;
 
   if (!entry) {
     return new GraphQLError(`The cursor ${cursor} could not be found.`, fieldNodes);
   }
 
-  const direction = getDirection(before);
+  const direction = getDirection(last);
 
   if (isCursorLast({ direction, entry, resultsPerPage, ...metadata })) {
     return new GraphQLError(`The cursor ${cursor} is the last, you cannot go forward any further.`, fieldNodes);

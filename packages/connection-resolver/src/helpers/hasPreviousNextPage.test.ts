@@ -1,4 +1,4 @@
-import { hasNextPage, hasPreviousPage } from "./hasPreviousNextPage";
+import { hasPreviousPage } from "./hasPreviousNextPage";
 
 describe("hasPreviousPage", () => {
   test("when first page number is 1 and start index is 0", () => {
