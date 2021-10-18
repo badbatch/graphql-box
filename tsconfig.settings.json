@@ -1,3 +1,16 @@
 {
-  "extends": "@repodog/ts-config/tsconfig.root.json"
+  "extends": "@repodog/ts-config/tsconfig.root.json",
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2016.array.include",
+      "es2017.object",
+      "es2020",
+      "es6",
+      "esnext.asynciterable",
+      "scripthost",
+      "webworker"
+    ]
+  }
 }

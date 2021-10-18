@@ -1020,44 +1020,46 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cachemap/constants@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@cachemap/constants/-/constants-3.0.3.tgz#58240c8698d7d0c4d3c388f29f59179813f03d13"
-  integrity sha512-CN2uImd1i0leXdzDCpHIxVvI1sasjLGVdpZT7SzTRU6UDzrNgfcUBGj09Bor4ltn8nSP4ZjIeXXxYd2PhNMieA==
+"@cachemap/constants@^3.1.3":
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/@cachemap/constants/-/constants-3.1.3.tgz#6dd0c1491cef5f328da6ac29c09985552506e71e"
+  integrity sha512-jBTIjAK9eL5096C0r9XqANfQ9byiaSPlUF4tKJDo9BtYJpFZcJH1sYNvjb6KpuFbMoME2pzPYHE39Tntj1SDBg==
 
-"@cachemap/core-worker@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@cachemap/core-worker/-/core-worker-3.0.2.tgz#9e5ebea5fc5fef80b893d53e9edd0aa6c6b8fa26"
-  integrity sha512-/HTgjE5XecqvyEA+uh8tw3HkePdtBTWSSBGXWGoBfrU8JzQWuXxlC5/ZKaZxPLb57SimcFxvo04zalY4ySGAdg==
+"@cachemap/core-worker@^3.1.3":
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/@cachemap/core-worker/-/core-worker-3.1.3.tgz#d2b42fe8a23505dd33445a600b3f8214f0b776cd"
+  integrity sha512-NegVlx6DWJ+3/L511waiFlXnmVYzdA2LtI1YFlW0YuZO4zjGRcU7rJWsinvr5bCMNxab7gItiCbZI9PrfbE71Q==
   dependencies:
     cacheability "^3.0.1"
     uuid "^7.0.1"
 
-"@cachemap/core@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@cachemap/core/-/core-3.0.2.tgz#5c2b4e375dd1bfaa6e150454add38a557c654a8d"
-  integrity sha512-eK92dJ9HDfltV58z5WGHDstreAtEqqEjeHNi/EuyW1JuNlHKh0AB3YQY60ptO212KrmElF36mrq9Ggt/hesTdQ==
+"@cachemap/core@^3.1.4":
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/@cachemap/core/-/core-3.1.4.tgz#27ad5fc78869c28e352bd9d0c12cd47961b3ad09"
+  integrity sha512-TzWQa2xeDYl+EUYwitTMCNzrJF19Bi1tTlm6t1cppNOhOz3y6B4QIBslkSfxe/TMDkpjvMUYZDaKNodjrefomw==
   dependencies:
     cacheability "^3.0.1"
+    crypto-js "^4.0.0"
+    js-base64 "3.6.0"
     md5 "^2.2.1"
     object-sizeof "^1.5.3"
 
-"@cachemap/indexed-db@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@cachemap/indexed-db/-/indexed-db-3.0.2.tgz#bf9b03ad50a38363bd29ec24b1dc17483cb4d55d"
-  integrity sha512-lcefiomnBzDSuv55BniXHAlZF79e9asvLMpVpyAkYWKn1X7hgHLqOV4JwAYn3E6zD9eqy4pBQ+ECT7YcyiMVWg==
+"@cachemap/indexed-db@^3.1.3":
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/@cachemap/indexed-db/-/indexed-db-3.1.3.tgz#244f4e2032961407f679d3e97ba347523d9e85ca"
+  integrity sha512-jEQN4BDo6O9SlxCpWpzxr/MeTW+h0yGl88E3DSuXREyIQCKBWoA14BNyVjS/96lr/AsVDM5GGYdd8tDIIbSzcQ==
   dependencies:
     idb "^5.0.1"
 
-"@cachemap/map@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@cachemap/map/-/map-3.0.2.tgz#472e4530704915bf7c7ec8471013bc06098abb90"
-  integrity sha512-WPXf/w2catGjJU9bSHe0qOPH+zgCoELIISEQpqDLS5qtFk2Y1lrrbiz/Guaw2Ib/lqbb9a5gEG+bk/Z4yAExXw==
+"@cachemap/map@^3.1.3":
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/@cachemap/map/-/map-3.1.3.tgz#7261bc4c06a93204ad151acdf46663880c79028b"
+  integrity sha512-A/Cj0I/LCknCFUezRa37snq58E6Yd7q0qTW7u7hgMN0grOkfpNR58rMHs8rxySDXyK4rlrgb5XZ1apJSZE47gA==
 
-"@cachemap/redis@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@cachemap/redis/-/redis-3.0.2.tgz#913ed75a4e41cfc2a839ae7e404c1bfd6a7a78b3"
-  integrity sha512-r2e7cqzule3/o0tgpCfxgnZE+bMUqBvG895LYVchZcWA8Mx8npItAgH2SMPzVU4bREDT4XUPd07NKK20i3Z5sQ==
+"@cachemap/redis@^3.1.3":
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/@cachemap/redis/-/redis-3.1.3.tgz#e1073fc68cffc9d0272b9f8abd4a3c8f9747b12e"
+  integrity sha512-HEB++oxqYUvya9stuF/b9WSaA0wox/p3T4mxBPRZRecg3oQeS+OcBRw6+/Ha04nvDdAHprAArU8cGJwpEurElQ==
   dependencies:
     fakeredis "^2.0.0"
     redis "^3.0.2"
@@ -4848,6 +4850,11 @@ crypto-browserify@^3.11.0:
     randombytes "^2.0.0"
     randomfill "^1.0.3"
 
+crypto-js@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.0.0.tgz#2904ab2677a9d042856a2ea2ef80de92e4a36dcc"
+  integrity sha512-bzHZN8Pn+gS7DQA6n+iUmBfl0hO5DJq++QP3U6uTucDtk/0iGpXd/Gg7CGR0p8tJhofJyaKoWBuJI4eAO00BBg==
+
 cssom@^0.4.1:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/cssom/-/cssom-0.4.4.tgz#5a66cf93d2d0b661d80bf6a44fb65f5c2e4e0a10"
@@ -8130,6 +8137,16 @@ jquery@^3.4.1:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
+
+js-base64@3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.6.0.tgz#773e1de628f4f298d65a7e9842c50244751f5756"
+  integrity sha512-wVdUBYQeY2gY73RIlPrysvpYx+2vheGo8Y1SNQv/BzHToWpAZzJU7Z6uheKMAe+GLSBig5/Ps2nxg/8tRB73xg==
+
+js-base64@^3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.7.1.tgz#d5fa3ee5fe56a49db871516e70b0474238efcc68"
+  integrity sha512-XyYXEUTP3ykPPnGPoesMr4yBygopit99iXW52yT1EWrkzwzvtAor/pbf+EBuDkwqSty7K10LeTjCkUn8c166aQ==
 
 js-message@1.0.5:
   version "1.0.5"
@@ -12547,6 +12564,11 @@ type-fest@^0.8.1:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
+
+type-fest@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-1.1.1.tgz#210251e7f57357a1457269e6b34837fed067ac2c"
+  integrity sha512-RPDKc5KrIyKTP7Fk75LruUagqG6b+OTgXlCR2Z0aQDJFeIvL4/mhahSEtHmmVzXu4gmA0srkF/8FCH3WOWxTWA==
 
 type-is@~1.6.17, type-is@~1.6.18:
   version "1.6.18"

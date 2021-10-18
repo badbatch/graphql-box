@@ -2,7 +2,7 @@
 
 An extensible GraphQL client and server with modules for caching, request parsing, subscriptions and more.
 
-[![Build Status](https://travis-ci.com/badbatch/graphql-box.svg?branch=master)](https://travis-ci.com/badbatch/graphql-box)
+[![build-and-deploy](https://github.com/badbatch/graphql-box/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/badbatch/graphql-box/actions/workflows/build-and-deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Summary
