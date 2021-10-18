@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
-import { Connection, ConnectionAdapterUserOptions, ConnectionInputOptions } from "../defs";
+import { Connection, ConnectionInputOptions, ConnectionResolverUserOptions } from "../defs";
 import isCursorSupplied from "../helpers/isCursorSupplied";
 import requestAndCachePages from "../helpers/requestAndCachePages";
 import resolveConnection from "../helpers/resolveConnection";
@@ -12,7 +12,7 @@ export default ({
   getters,
   resolver,
   resultsPerPage,
-}: ConnectionAdapterUserOptions) => async (
+}: ConnectionResolverUserOptions) => async (
   source: Record<string, any>,
   args: Record<string, any> & ConnectionInputOptions,
   context: Record<string, any>,

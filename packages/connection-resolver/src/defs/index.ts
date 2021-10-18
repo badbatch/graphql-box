@@ -68,7 +68,7 @@ export interface Getters {
   totalResults: (obj: Record<string, any>) => number;
 }
 
-export interface ConnectionAdapterUserOptions {
+export interface ConnectionResolverUserOptions {
   createMakeCursors: (
     source: Record<string, any>,
     args: Record<string, any>,
