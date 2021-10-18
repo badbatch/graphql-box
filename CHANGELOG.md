@@ -1,3 +1,9 @@
+### 2.1.0 (2021-10-18)
+
+##### New Features
+
+*  connection resolver ([#69](https://github.com/badbatch/graphql-box/pull/69)) ([a2ab2503](https://github.com/badbatch/graphql-box/commit/a2ab2503bc985f44c56098283dfb065172d2f612))
+
 #### 2.0.6 (2021-05-16)
 
 ##### New Features
