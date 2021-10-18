@@ -26,7 +26,7 @@ export default async (
       if (pageResultData && !pageResultErrors?.length) {
         const edges = makeEdges(getters.nodes(pageResultData), node => makeIDCursor(node.id));
 
-        cacheCursors(cursorCache, {
+        await cacheCursors(cursorCache, {
           edges,
           group: groupCursor,
           headers: pageResultHeaders,
