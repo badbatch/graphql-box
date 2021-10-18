@@ -29,7 +29,7 @@
 
 \+ **new Client**(`options`: [ConstructorOptions](../interfaces/constructoroptions.md)): *[Client](client.md)*
 
-*Defined in [main/index.ts:108](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/client/src/main/index.ts#L108)*
+*Defined in [main/index.ts:108](https://github.com/badbatch/graphql-box/blob/7171508/packages/client/src/main/index.ts#L108)*
 
 **Parameters:**
 
@@ -45,7 +45,7 @@ Name | Type |
 
 • **get cache**(): *Core*
 
-*Defined in [main/index.ts:119](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/client/src/main/index.ts#L119)*
+*Defined in [main/index.ts:119](https://github.com/badbatch/graphql-box/blob/7171508/packages/client/src/main/index.ts#L119)*
 
 **Returns:** *Core*
 
@@ -55,7 +55,7 @@ ___
 
 • **get debugger**(): *DebugManagerDef | null*
 
-*Defined in [main/index.ts:123](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/client/src/main/index.ts#L123)*
+*Defined in [main/index.ts:123](https://github.com/badbatch/graphql-box/blob/7171508/packages/client/src/main/index.ts#L123)*
 
 **Returns:** *DebugManagerDef | null*
 
@@ -65,7 +65,7 @@ ___
 
 ▸ **request**(`request`: string, `options`: RequestOptions, `context`: MaybeRequestContext): *Promise‹MaybeRequestResult›*
 
-*Defined in [main/index.ts:127](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/client/src/main/index.ts#L127)*
+*Defined in [main/index.ts:127](https://github.com/badbatch/graphql-box/blob/7171508/packages/client/src/main/index.ts#L127)*
 
 **Parameters:**
 
@@ -83,7 +83,7 @@ ___
 
 ▸ **subscribe**(`request`: string, `options`: RequestOptions, `context`: MaybeRequestContext): *Promise‹AsyncIterator‹MaybeRequestResult | undefined››*
 
-*Defined in [main/index.ts:142](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/client/src/main/index.ts#L142)*
+*Defined in [main/index.ts:142](https://github.com/badbatch/graphql-box/blob/7171508/packages/client/src/main/index.ts#L142)*
 
 **Parameters:**
 
@@ -101,7 +101,7 @@ ___
 
 ▸ **init**(`options`: [UserOptions](../interfaces/useroptions.md)): *Promise‹[Client](client.md)›*
 
-*Defined in [main/index.ts:31](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/client/src/main/index.ts#L31)*
+*Defined in [main/index.ts:31](https://github.com/badbatch/graphql-box/blob/7171508/packages/client/src/main/index.ts#L31)*
 
 **Parameters:**
 

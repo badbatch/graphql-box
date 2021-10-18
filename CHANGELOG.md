@@ -1,3 +1,9 @@
+#### 2.1.1 (2021-10-18)
+
+##### Bug Fixes
+
+*  add public access to package ([7171508f](https://github.com/badbatch/graphql-box/commit/7171508f9f2074213d002e35e31d5c7e1752bd1c))
+
 ### 2.1.0 (2021-10-18)
 
 ##### New Features

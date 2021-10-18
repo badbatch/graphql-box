@@ -60,7 +60,7 @@
 
 Ƭ **CachedEdges**: *object*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:18](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L18)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:18](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L18)*
 
 #### Type declaration:
 
@@ -74,7 +74,7 @@ ___
 
 Ƭ **Connection**: *object*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:40](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L40)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:40](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L40)*
 
 #### Type declaration:
 
@@ -94,7 +94,7 @@ ___
 
 Ƭ **ConnectionInputOptions**: *object*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:95](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L95)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:95](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L95)*
 
 #### Type declaration:
 
@@ -112,7 +112,7 @@ ___
 
 Ƭ **ConnectionResolver**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:88](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L88)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:88](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L88)*
 
 #### Type declaration:
 
@@ -133,21 +133,21 @@ ___
 
 Ƭ **Context**: *object*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:102](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L102)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:102](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L102)*
 
-*Defined in [packages/connection-resolver/src/helpers/getInRangeCachedEdges.ts:4](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getInRangeCachedEdges.ts#L4)*
+*Defined in [packages/connection-resolver/src/helpers/getInRangeCachedEdges.ts:4](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getInRangeCachedEdges.ts#L4)*
 
-*Defined in [packages/connection-resolver/src/helpers/makeEntry.ts:5](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/makeEntry.ts#L5)*
+*Defined in [packages/connection-resolver/src/helpers/makeEntry.ts:5](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/makeEntry.ts#L5)*
 
-*Defined in [packages/connection-resolver/src/helpers/requestAndCachePages.ts:6](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/requestAndCachePages.ts#L6)*
+*Defined in [packages/connection-resolver/src/helpers/requestAndCachePages.ts:6](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/requestAndCachePages.ts#L6)*
 
-*Defined in [packages/connection-resolver/src/helpers/retrieveCachedEdgesByPage.ts:4](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/retrieveCachedEdgesByPage.ts#L4)*
+*Defined in [packages/connection-resolver/src/helpers/retrieveCachedEdgesByPage.ts:4](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/retrieveCachedEdgesByPage.ts#L4)*
 
-*Defined in [packages/connection-resolver/src/helpers/retrieveCachedConnection.ts:12](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/retrieveCachedConnection.ts#L12)*
+*Defined in [packages/connection-resolver/src/helpers/retrieveCachedConnection.ts:12](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/retrieveCachedConnection.ts#L12)*
 
-*Defined in [packages/connection-resolver/src/helpers/resolveConnection.ts:11](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/resolveConnection.ts#L11)*
+*Defined in [packages/connection-resolver/src/helpers/resolveConnection.ts:11](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/resolveConnection.ts#L11)*
 
-*Defined in [packages/connection-resolver/src/helpers/validateCursor.ts:9](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/validateCursor.ts#L9)*
+*Defined in [packages/connection-resolver/src/helpers/validateCursor.ts:9](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/validateCursor.ts#L9)*
 
 #### Type declaration:
 
@@ -163,7 +163,7 @@ ___
 
 Ƭ **CreateResourceResolver**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L55)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L55)*
 
 #### Type declaration:
 
@@ -184,7 +184,7 @@ ___
 
 Ƭ **CursorCacheEntry**: *object*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:6](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L6)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:6](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L6)*
 
 #### Type declaration:
 
@@ -202,7 +202,7 @@ ___
 
 Ƭ **CursorGroupMetadata**: *object*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:13](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L13)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:13](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L13)*
 
 #### Type declaration:
 
@@ -216,7 +216,7 @@ ___
 
 Ƭ **Direction**: *"backward" | "forward"*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:4](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L4)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:4](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L4)*
 
 ___
 
@@ -224,7 +224,7 @@ ___
 
 Ƭ **Edge**: *object*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:23](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L23)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:23](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L23)*
 
 #### Type declaration:
 
@@ -238,7 +238,7 @@ ___
 
 Ƭ **EndIndexContext**: *object*
 
-*Defined in [packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts:11](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts#L11)*
+*Defined in [packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts:11](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts#L11)*
 
 #### Type declaration:
 
@@ -256,7 +256,7 @@ ___
 
 Ƭ **GetPageNumbersToRequestContext**: *object*
 
-*Defined in [packages/connection-resolver/src/helpers/getPageNumbersToRequest.ts:5](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getPageNumbersToRequest.ts#L5)*
+*Defined in [packages/connection-resolver/src/helpers/getPageNumbersToRequest.ts:5](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getPageNumbersToRequest.ts#L5)*
 
 #### Type declaration:
 
@@ -270,7 +270,7 @@ ___
 
 Ƭ **HasNextPageParams**: *object*
 
-*Defined in [packages/connection-resolver/src/helpers/hasPreviousNextPage.ts:9](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/hasPreviousNextPage.ts#L9)*
+*Defined in [packages/connection-resolver/src/helpers/hasPreviousNextPage.ts:9](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/hasPreviousNextPage.ts#L9)*
 
 #### Type declaration:
 
@@ -288,7 +288,7 @@ ___
 
 Ƭ **HasPreviousPageParams**: *object*
 
-*Defined in [packages/connection-resolver/src/helpers/hasPreviousNextPage.ts:4](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/hasPreviousNextPage.ts#L4)*
+*Defined in [packages/connection-resolver/src/helpers/hasPreviousNextPage.ts:4](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/hasPreviousNextPage.ts#L4)*
 
 #### Type declaration:
 
@@ -302,7 +302,7 @@ ___
 
 Ƭ **Indexes**: *object*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:28](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L28)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:28](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L28)*
 
 #### Type declaration:
 
@@ -316,7 +316,7 @@ ___
 
 Ƭ **IndexesOnCurrentPageContext**: *object*
 
-*Defined in [packages/connection-resolver/src/helpers/getIndexesOnCurrentPage.ts:5](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getIndexesOnCurrentPage.ts#L5)*
+*Defined in [packages/connection-resolver/src/helpers/getIndexesOnCurrentPage.ts:5](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getIndexesOnCurrentPage.ts#L5)*
 
 #### Type declaration:
 
@@ -328,7 +328,7 @@ ___
 
 Ƭ **Node**: *Record‹string, any› & object*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L62)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L62)*
 
 ___
 
@@ -336,7 +336,7 @@ ___
 
 Ƭ **PageInfo**: *object*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:33](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L33)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:33](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L33)*
 
 #### Type declaration:
 
@@ -354,7 +354,7 @@ ___
 
 Ƭ **PageNumberContext**: *object*
 
-*Defined in [packages/connection-resolver/src/helpers/getStartAndEndPageNumbers.ts:5](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getStartAndEndPageNumbers.ts#L5)*
+*Defined in [packages/connection-resolver/src/helpers/getStartAndEndPageNumbers.ts:5](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getStartAndEndPageNumbers.ts#L5)*
 
 #### Type declaration:
 
@@ -370,19 +370,19 @@ ___
 
 Ƭ **Params**: *object*
 
-*Defined in [packages/connection-resolver/src/helpers/cacheCursors.ts:4](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/cacheCursors.ts#L4)*
+*Defined in [packages/connection-resolver/src/helpers/cacheCursors.ts:4](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/cacheCursors.ts#L4)*
 
-*Defined in [packages/connection-resolver/src/__testUtils__/generateCursorCache.ts:7](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/__testUtils__/generateCursorCache.ts#L7)*
+*Defined in [packages/connection-resolver/src/__testUtils__/generateCursorCache.ts:7](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/__testUtils__/generateCursorCache.ts#L7)*
 
-*Defined in [packages/connection-resolver/src/__testUtils__/generatePageResponse.ts:3](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/__testUtils__/generatePageResponse.ts#L3)*
+*Defined in [packages/connection-resolver/src/__testUtils__/generatePageResponse.ts:3](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/__testUtils__/generatePageResponse.ts#L3)*
 
-*Defined in [packages/connection-resolver/src/helpers/getResultsOnLastPage.ts:1](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getResultsOnLastPage.ts#L1)*
+*Defined in [packages/connection-resolver/src/helpers/getResultsOnLastPage.ts:1](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getResultsOnLastPage.ts#L1)*
 
-*Defined in [packages/connection-resolver/src/helpers/isLastPage.ts:1](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/isLastPage.ts#L1)*
+*Defined in [packages/connection-resolver/src/helpers/isLastPage.ts:1](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/isLastPage.ts#L1)*
 
-*Defined in [packages/connection-resolver/src/helpers/isCursorFirst.ts:3](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/isCursorFirst.ts#L3)*
+*Defined in [packages/connection-resolver/src/helpers/isCursorFirst.ts:3](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/isCursorFirst.ts#L3)*
 
-*Defined in [packages/connection-resolver/src/helpers/isCursorLast.ts:4](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/isCursorLast.ts#L4)*
+*Defined in [packages/connection-resolver/src/helpers/isCursorLast.ts:4](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/isCursorLast.ts#L4)*
 
 #### Type declaration:
 
@@ -402,7 +402,7 @@ ___
 
 Ƭ **RequestMissingPagesCallback**: *function*
 
-*Defined in [packages/connection-resolver/src/helpers/requestOutstandingPages.ts:11](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/requestOutstandingPages.ts#L11)*
+*Defined in [packages/connection-resolver/src/helpers/requestOutstandingPages.ts:11](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/requestOutstandingPages.ts#L11)*
 
 #### Type declaration:
 
@@ -422,7 +422,7 @@ ___
 
 Ƭ **RequestMissingPagesParams**: *object*
 
-*Defined in [packages/connection-resolver/src/helpers/requestOutstandingPages.ts:1](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/requestOutstandingPages.ts#L1)*
+*Defined in [packages/connection-resolver/src/helpers/requestOutstandingPages.ts:1](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/requestOutstandingPages.ts#L1)*
 
 #### Type declaration:
 
@@ -446,7 +446,7 @@ ___
 
 Ƭ **ResourceResolver**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L53)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L53)*
 
 #### Type declaration:
 
@@ -466,7 +466,7 @@ ___
 
 Ƭ **StartIndexContext**: *object*
 
-*Defined in [packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts:3](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts#L3)*
+*Defined in [packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts:3](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts#L3)*
 
 #### Type declaration:
 
@@ -480,7 +480,7 @@ ___
 
 • **connectionInputOptions**: *string[]* = ["after", "before", "first", "last"]
 
-*Defined in [packages/connection-resolver/src/helpers/removeConnectionInputOptions.ts:3](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/removeConnectionInputOptions.ts#L3)*
+*Defined in [packages/connection-resolver/src/helpers/removeConnectionInputOptions.ts:3](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/removeConnectionInputOptions.ts#L3)*
 
 ## Functions
 
@@ -488,7 +488,7 @@ ___
 
 ▸ **getCurrentPageEndIndex**(`__namedParameters`: object): *number*
 
-*Defined in [packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts:18](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts#L18)*
+*Defined in [packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts:18](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts#L18)*
 
 **Parameters:**
 
@@ -509,7 +509,7 @@ ___
 
 ▸ **getCurrentPageStartIndex**(`__namedParameters`: object): *number*
 
-*Defined in [packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts:8](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts#L8)*
+*Defined in [packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts:8](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getCurrentPageStartAndEndIndexes.ts#L8)*
 
 **Parameters:**
 
@@ -528,7 +528,7 @@ ___
 
 ▸ **getEndCursor**(`cachedEdges`: [CachedEdges](README.md#cachededges)[]): *string*
 
-*Defined in [packages/connection-resolver/src/helpers/getStartAndEndCursors.ts:5](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getStartAndEndCursors.ts#L5)*
+*Defined in [packages/connection-resolver/src/helpers/getStartAndEndCursors.ts:5](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getStartAndEndCursors.ts#L5)*
 
 **Parameters:**
 
@@ -544,7 +544,7 @@ ___
 
 ▸ **getEndIndex**(`args`: [ConnectionInputOptions](README.md#connectioninputoptions), `__namedParameters`: object): *object*
 
-*Defined in [packages/connection-resolver/src/helpers/getStartAndEndIndexes.ts:33](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getStartAndEndIndexes.ts#L33)*
+*Defined in [packages/connection-resolver/src/helpers/getStartAndEndIndexes.ts:33](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getStartAndEndIndexes.ts#L33)*
 
 **Parameters:**
 
@@ -570,7 +570,7 @@ ___
 
 ▸ **getEndPageNumber**(`args`: [ConnectionInputOptions](README.md#connectioninputoptions), `__namedParameters`: object): *number*
 
-*Defined in [packages/connection-resolver/src/helpers/getStartAndEndPageNumbers.ts:23](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getStartAndEndPageNumbers.ts#L23)*
+*Defined in [packages/connection-resolver/src/helpers/getStartAndEndPageNumbers.ts:23](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getStartAndEndPageNumbers.ts#L23)*
 
 **Parameters:**
 
@@ -593,7 +593,7 @@ ___
 
 ▸ **getStartCursor**(`cachedEdges`: [CachedEdges](README.md#cachededges)[]): *string*
 
-*Defined in [packages/connection-resolver/src/helpers/getStartAndEndCursors.ts:3](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getStartAndEndCursors.ts#L3)*
+*Defined in [packages/connection-resolver/src/helpers/getStartAndEndCursors.ts:3](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getStartAndEndCursors.ts#L3)*
 
 **Parameters:**
 
@@ -609,7 +609,7 @@ ___
 
 ▸ **getStartIndex**(`args`: [ConnectionInputOptions](README.md#connectioninputoptions), `__namedParameters`: object): *object*
 
-*Defined in [packages/connection-resolver/src/helpers/getStartAndEndIndexes.ts:8](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getStartAndEndIndexes.ts#L8)*
+*Defined in [packages/connection-resolver/src/helpers/getStartAndEndIndexes.ts:8](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getStartAndEndIndexes.ts#L8)*
 
 **Parameters:**
 
@@ -634,7 +634,7 @@ ___
 
 ▸ **getStartPageNumber**(`args`: [ConnectionInputOptions](README.md#connectioninputoptions), `__namedParameters`: object): *number*
 
-*Defined in [packages/connection-resolver/src/helpers/getStartAndEndPageNumbers.ts:11](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/getStartAndEndPageNumbers.ts#L11)*
+*Defined in [packages/connection-resolver/src/helpers/getStartAndEndPageNumbers.ts:11](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/getStartAndEndPageNumbers.ts#L11)*
 
 **Parameters:**
 
@@ -656,7 +656,7 @@ ___
 
 ▸ **hasNextPage**(`__namedParameters`: object): *boolean*
 
-*Defined in [packages/connection-resolver/src/helpers/hasPreviousNextPage.ts:19](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/hasPreviousNextPage.ts#L19)*
+*Defined in [packages/connection-resolver/src/helpers/hasPreviousNextPage.ts:19](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/hasPreviousNextPage.ts#L19)*
 
 **Parameters:**
 
@@ -677,7 +677,7 @@ ___
 
 ▸ **hasPreviousPage**(`__namedParameters`: object): *boolean*
 
-*Defined in [packages/connection-resolver/src/helpers/hasPreviousNextPage.ts:16](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/helpers/hasPreviousNextPage.ts#L16)*
+*Defined in [packages/connection-resolver/src/helpers/hasPreviousNextPage.ts:16](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/helpers/hasPreviousNextPage.ts#L16)*
 
 **Parameters:**
 

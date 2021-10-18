@@ -23,7 +23,7 @@
 
 • **createMakeCursors**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L72)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L72)*
 
 #### Type declaration:
 
@@ -52,7 +52,7 @@ ___
 
 • **createResourceResolver**: *[CreateResourceResolver](../README.md#createresourceresolver)*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:81](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L81)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:81](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L81)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • **cursorCache**: *Cachemap*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:82](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L82)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:82](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L82)*
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 • **getters**: *[Getters](getters.md)*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:83](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L83)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:83](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L83)*
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 • **resolver**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:84](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L84)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:84](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L84)*
 
 #### Type declaration:
 
@@ -94,4 +94,4 @@ ___
 
 • **resultsPerPage**: *number*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:85](https://github.com/badbatch/graphql-box/blob/9c9f902/packages/connection-resolver/src/defs/index.ts#L85)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:85](https://github.com/badbatch/graphql-box/blob/7171508/packages/connection-resolver/src/defs/index.ts#L85)*
