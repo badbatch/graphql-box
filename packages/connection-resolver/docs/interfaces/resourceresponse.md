@@ -1,6 +1,10 @@
 [Documentation](../README.md) › [ResourceResponse](resourceresponse.md)
 
-# Interface: ResourceResponse
+# Interface: ResourceResponse ‹**Resource**›
+
+## Type parameters
+
+▪ **Resource**: *[PlainObject](../README.md#plainobject)*
 
 ## Hierarchy
 
@@ -83,9 +87,9 @@ ___
 
 ### `Optional` data
 
-• **data**? : *[PlainObject](../README.md#plainobject)*
+• **data**? : *Resource*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L55)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/connection-resolver/src/defs/index.ts#L55)*
 
 ___
 
@@ -93,7 +97,7 @@ ___
 
 • **errors**? : *Error[]*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:56](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L56)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:56](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/connection-resolver/src/defs/index.ts#L56)*
 
 ___
 

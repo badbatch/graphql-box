@@ -1,3 +1,10 @@
+#### 2.1.5 (2021-10-19)
+
+##### Bug Fixes
+
+*  allow types to be passed in with options ([cfaf2586](https://github.com/badbatch/graphql-box/commit/cfaf2586328845cd8bd6c48bd763eb343d5c6a78))
+*  pass types into main function ([a43868f2](https://github.com/badbatch/graphql-box/commit/a43868f2e30a1095ef5e9d9a123c5de20c5568f5))
+
 #### 2.1.4 (2021-10-19)
 
 ##### Bug Fixes
