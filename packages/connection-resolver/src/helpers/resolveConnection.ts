@@ -1,5 +1,5 @@
 import Cachemap from "@cachemap/core";
-import { ConnectionInputOptions, Getters, PlainObject, ResourceResolver } from "../defs";
+import { ConnectionInputOptions, Getters, Node, PlainObject, ResourceResolver } from "../defs";
 import extractEdges from "./extractEdges";
 import extractNodes from "./extractNodes";
 import getInRangeCachedEdges from "./getInRangeCachedEdges";
@@ -8,18 +8,25 @@ import mergeCachedEdges from "./mergeCachedEdges";
 import requestAndCachePages from "./requestAndCachePages";
 import retrieveCachedConnection from "./retrieveCachedConnection";
 
-export type Context = {
+export type Context<Resource extends PlainObject, ResourceNode extends Node> = {
   cursorCache: Cachemap;
-  getters: Getters;
+  getters: Getters<Resource, ResourceNode>;
   groupCursor: string;
   makeIDCursor: (id: string | number) => string;
-  resourceResolver: ResourceResolver;
+  resourceResolver: ResourceResolver<Resource>;
   resultsPerPage: number;
 };
 
-export default async (
+const resolveConnection = async <Resource extends PlainObject, ResourceNode extends Node>(
   args: PlainObject & ConnectionInputOptions,
-  { cursorCache, getters, groupCursor, makeIDCursor, resourceResolver, resultsPerPage }: Context,
+  {
+    cursorCache,
+    getters,
+    groupCursor,
+    makeIDCursor,
+    resourceResolver,
+    resultsPerPage,
+  }: Context<Resource, ResourceNode>,
 ) => {
   const {
     cachedEdges,
@@ -51,7 +58,7 @@ export default async (
     };
   }
 
-  const { cachedEdges: missingCachedEdges, errors } = await requestAndCachePages(missingPages, {
+  const { cachedEdges: missingCachedEdges, errors } = await requestAndCachePages<Resource, ResourceNode>(missingPages, {
     cursorCache,
     getters,
     groupCursor,
@@ -80,3 +87,5 @@ export default async (
     totalCount: totalResults,
   };
 };
+
+export default resolveConnection;

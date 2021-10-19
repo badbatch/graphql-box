@@ -1,19 +1,19 @@
 import Cachemap from "@cachemap/core";
-import { Getters, ResourceResolver } from "../defs";
+import { Getters, Node, PlainObject, ResourceResolver } from "../defs";
 import cacheCursors from "./cacheCursors";
 import makeEdges from "./makeEdges";
 
-export type Context = {
+export type Context<Resource extends PlainObject, ResourceNode extends Node> = {
   cursorCache: Cachemap;
-  getters: Getters;
+  getters: Getters<Resource, ResourceNode>;
   groupCursor: string;
   makeIDCursor: (id: string | number) => string;
-  resourceResolver: ResourceResolver;
+  resourceResolver: ResourceResolver<Resource>;
 };
 
-export default async (
+const requestAndCachePages = async <Resource extends PlainObject, ResourceNode extends Node>(
   pages: number[],
-  { cursorCache, getters, groupCursor, makeIDCursor, resourceResolver }: Context,
+  { cursorCache, getters, groupCursor, makeIDCursor, resourceResolver }: Context<Resource, ResourceNode>,
 ) => {
   const errors: Error[] = [];
 
@@ -48,3 +48,5 @@ export default async (
 
   return { cachedEdges, errors };
 };
+
+export default requestAndCachePages;

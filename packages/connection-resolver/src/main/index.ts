@@ -74,7 +74,7 @@ const main = <
       );
     }
 
-    await requestAndCachePages([1], {
+    await requestAndCachePages<Resource, ResourceNode>([1], {
       cursorCache,
       getters,
       groupCursor,

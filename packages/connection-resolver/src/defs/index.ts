@@ -51,19 +51,21 @@ export type Connection = {
   totalCount: number;
 };
 
-export interface ResourceResponse extends Response {
-  data?: PlainObject;
+export interface ResourceResponse<Resource extends PlainObject> extends Response {
+  data?: Resource;
   errors?: Error[];
 }
 
-export type ResourceResolver = (args: { page: number }) => Promise<ResourceResponse>;
+export type ResourceResolver<Resource extends PlainObject> = (args: {
+  page: number;
+}) => Promise<ResourceResponse<Resource>>;
 
-export type CreateResourceResolver<Source extends PlainObject, Args extends PlainObject, Ctx extends PlainObject> = (
-  source: Source,
-  args: Args,
-  context: Ctx,
-  info: GraphQLResolveInfo,
-) => ResourceResolver;
+export type CreateResourceResolver<
+  Source extends PlainObject,
+  Args extends PlainObject,
+  Ctx extends PlainObject,
+  Resource extends PlainObject
+> = (source: Source, args: Args, context: Ctx, info: GraphQLResolveInfo) => ResourceResolver<Resource>;
 
 export interface Getters<Resource extends PlainObject, ResourceNode extends Node> {
   nodes: (obj: Resource) => ResourceNode[];
@@ -88,7 +90,7 @@ export interface ConnectionResolverUserOptions<
     makeGroupCursor: () => string;
     makeIDCursor: (id: string | number) => string;
   };
-  createResourceResolver: CreateResourceResolver<Source, Args, Ctx>;
+  createResourceResolver: CreateResourceResolver<Source, Args, Ctx, Resource>;
   cursorCache: Cachemap;
   getters: Getters<Resource, ResourceNode>;
   resolver?: (args: Connection) => Connection;
