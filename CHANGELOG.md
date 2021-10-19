@@ -1,3 +1,10 @@
+#### 2.1.3 (2021-10-19)
+
+##### Bug Fixes
+
+*  types for user options ([48579b3a](https://github.com/badbatch/graphql-box/commit/48579b3ad89bf946c7a22757ab6cf8ce4412b430))
+*  incorrect type name ([fe0eca9e](https://github.com/badbatch/graphql-box/commit/fe0eca9eff241005559cd1127a460bd964320e1f))
+
 #### 2.1.2 (2021-10-18)
 
 ##### Bug Fixes
