@@ -5,7 +5,7 @@ import { encode } from "js-base64";
 import makeConnectionResolver from ".";
 import generateCursorCache from "../__testUtils__/generateCursorCache";
 import generatePageResponse from "../__testUtils__/generatePageResponse";
-import { Getters, PlainObject } from "../defs";
+import { PlainObject } from "../defs";
 import removeConnectionInputOptions from "../helpers/removeConnectionInputOptions";
 
 describe("connectionResolver", () => {
@@ -14,11 +14,11 @@ describe("connectionResolver", () => {
     makeIDCursor: (id: string | number) => encode(`${id}::${JSON.stringify(removeConnectionInputOptions(args))}`),
   });
 
-  const getters: Getters = {
-    nodes: ({ results }) => results,
-    page: ({ page }) => page,
-    totalPages: ({ totalPages }) => totalPages,
-    totalResults: ({ totalResults }) => totalResults,
+  const getters = {
+    nodes: ({ results }: PlainObject) => results,
+    page: ({ page }: PlainObject) => page,
+    totalPages: ({ totalPages }: PlainObject) => totalPages,
+    totalResults: ({ totalResults }: PlainObject) => totalResults,
   };
 
   const resultsPerPage = 10;

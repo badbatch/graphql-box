@@ -58,33 +58,39 @@ export interface ResourceResponse extends Response {
 
 export type ResourceResolver = (args: { page: number }) => Promise<ResourceResponse>;
 
-export type CreateResourceResolver<Src = PlainObject, Args = PlainObject, Cxt = PlainObject> = (
-  source: PlainObject & Src,
-  args: PlainObject & Args,
-  context: PlainObject & Cxt,
+export type CreateResourceResolver<Source extends PlainObject, Args extends PlainObject, Ctx extends PlainObject> = (
+  source: Source,
+  args: Args,
+  context: Ctx,
   info: GraphQLResolveInfo,
 ) => ResourceResolver;
 
-export interface Getters {
-  nodes: (obj: PlainObject) => Node[];
-  page: (obj: PlainObject) => number;
-  totalPages: (obj: PlainObject) => number;
-  totalResults: (obj: PlainObject) => number;
+export interface Getters<Resource extends PlainObject, ResourceNode extends Node> {
+  nodes: (obj: Resource) => ResourceNode[];
+  page: (obj: Resource) => number;
+  totalPages: (obj: Resource) => number;
+  totalResults: (obj: Resource) => number;
 }
 
-export interface ConnectionResolverUserOptions {
+export interface ConnectionResolverUserOptions<
+  Source extends PlainObject,
+  Args extends PlainObject,
+  Ctx extends PlainObject,
+  Resource extends PlainObject,
+  ResourceNode extends Node
+> {
   createMakeCursors: (
-    source: PlainObject,
-    args: PlainObject,
-    context: PlainObject,
+    source: Source,
+    args: Args,
+    context: Ctx,
     info: GraphQLResolveInfo,
   ) => {
     makeGroupCursor: () => string;
     makeIDCursor: (id: string | number) => string;
   };
-  createResourceResolver: CreateResourceResolver;
+  createResourceResolver: CreateResourceResolver<Source, Args, Ctx>;
   cursorCache: Cachemap;
-  getters: Getters;
+  getters: Getters<Resource, ResourceNode>;
   resolver?: (args: Connection) => Connection;
   resultsPerPage: number;
 }

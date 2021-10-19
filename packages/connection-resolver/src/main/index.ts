@@ -1,21 +1,27 @@
 import { GraphQLResolveInfo } from "graphql";
-import { Connection, ConnectionInputOptions, ConnectionResolverUserOptions, PlainObject } from "../defs";
+import { Connection, ConnectionInputOptions, ConnectionResolverUserOptions, Node, PlainObject } from "../defs";
 import isCursorSupplied from "../helpers/isCursorSupplied";
 import requestAndCachePages from "../helpers/requestAndCachePages";
 import resolveConnection from "../helpers/resolveConnection";
 import validateCursor from "../helpers/validateCursor";
 
-export default ({
+const main = <
+  Source extends PlainObject,
+  Args extends PlainObject,
+  Ctx extends PlainObject,
+  Resource extends PlainObject,
+  ResourceNode extends Node
+>({
   cursorCache,
   createMakeCursors,
   createResourceResolver,
   getters,
   resolver = result => result,
   resultsPerPage,
-}: ConnectionResolverUserOptions) => async (
-  source: PlainObject,
-  args: PlainObject & ConnectionInputOptions,
-  context: PlainObject,
+}: ConnectionResolverUserOptions<Source, Args, Ctx, Resource, ResourceNode>) => async (
+  source: Source,
+  args: Args & ConnectionInputOptions,
+  context: Ctx,
   info: GraphQLResolveInfo,
 ): Promise<Connection> => {
   try {
@@ -90,3 +96,5 @@ export default ({
     throw e;
   }
 };
+
+export default main;
