@@ -1,3 +1,9 @@
+#### 2.1.4 (2021-10-19)
+
+##### Bug Fixes
+
+*  loosen up type restrictions on plain objects ([25fe9425](https://github.com/badbatch/graphql-box/commit/25fe9425bc0d9b51b59e785b1973fdd88436a50c))
+
 #### 2.1.3 (2021-10-19)
 
 ##### Bug Fixes

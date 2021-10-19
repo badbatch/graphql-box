@@ -83,9 +83,9 @@ ___
 
 ### `Optional` data
 
-• **data**? : *Record‹string, any›*
+• **data**? : *[PlainObject](../README.md#plainobject)*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/48579b3/packages/connection-resolver/src/defs/index.ts#L49)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L55)*
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 • **errors**? : *Error[]*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/48579b3/packages/connection-resolver/src/defs/index.ts#L50)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:56](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L56)*
 
 ___
 

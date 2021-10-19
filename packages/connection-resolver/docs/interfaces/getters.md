@@ -21,17 +21,17 @@
 
 • **nodes**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:65](https://github.com/badbatch/graphql-box/blob/48579b3/packages/connection-resolver/src/defs/index.ts#L65)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:69](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L69)*
 
 #### Type declaration:
 
-▸ (`obj`: Record‹string, any›): *[Node](../README.md#node)[]*
+▸ (`obj`: [PlainObject](../README.md#plainobject)): *[Node](../README.md#node)[]*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`obj` | Record‹string, any› |
+`obj` | [PlainObject](../README.md#plainobject) |
 
 ___
 
@@ -39,17 +39,17 @@ ___
 
 • **page**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:66](https://github.com/badbatch/graphql-box/blob/48579b3/packages/connection-resolver/src/defs/index.ts#L66)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:70](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L70)*
 
 #### Type declaration:
 
-▸ (`obj`: Record‹string, any›): *number*
+▸ (`obj`: [PlainObject](../README.md#plainobject)): *number*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`obj` | Record‹string, any› |
+`obj` | [PlainObject](../README.md#plainobject) |
 
 ___
 
@@ -57,17 +57,17 @@ ___
 
 • **totalPages**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:67](https://github.com/badbatch/graphql-box/blob/48579b3/packages/connection-resolver/src/defs/index.ts#L67)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L71)*
 
 #### Type declaration:
 
-▸ (`obj`: Record‹string, any›): *number*
+▸ (`obj`: [PlainObject](../README.md#plainobject)): *number*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`obj` | Record‹string, any› |
+`obj` | [PlainObject](../README.md#plainobject) |
 
 ___
 
@@ -75,14 +75,14 @@ ___
 
 • **totalResults**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:68](https://github.com/badbatch/graphql-box/blob/48579b3/packages/connection-resolver/src/defs/index.ts#L68)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L72)*
 
 #### Type declaration:
 
-▸ (`obj`: Record‹string, any›): *number*
+▸ (`obj`: [PlainObject](../README.md#plainobject)): *number*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`obj` | Record‹string, any› |
+`obj` | [PlainObject](../README.md#plainobject) |

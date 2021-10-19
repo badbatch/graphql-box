@@ -14,7 +14,7 @@
 * [createResourceResolver](connectionresolveruseroptions.md#createresourceresolver)
 * [cursorCache](connectionresolveruseroptions.md#cursorcache)
 * [getters](connectionresolveruseroptions.md#getters)
-* [resolver](connectionresolveruseroptions.md#resolver)
+* [resolver](connectionresolveruseroptions.md#optional-resolver)
 * [resultsPerPage](connectionresolveruseroptions.md#resultsperpage)
 
 ## Properties
@@ -23,19 +23,19 @@
 
 • **createMakeCursors**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/48579b3/packages/connection-resolver/src/defs/index.ts#L72)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:76](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L76)*
 
 #### Type declaration:
 
-▸ (`source`: Record‹string, any›, `args`: Record‹string, any›, `context`: Record‹string, any›, `info`: GraphQLResolveInfo): *object*
+▸ (`source`: [PlainObject](../README.md#plainobject), `args`: [PlainObject](../README.md#plainobject), `context`: [PlainObject](../README.md#plainobject), `info`: GraphQLResolveInfo): *object*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`source` | Record‹string, any› |
-`args` | Record‹string, any› |
-`context` | Record‹string, any› |
+`source` | [PlainObject](../README.md#plainobject) |
+`args` | [PlainObject](../README.md#plainobject) |
+`context` | [PlainObject](../README.md#plainobject) |
 `info` | GraphQLResolveInfo |
 
 * **makeGroupCursor**(): *function*
@@ -52,7 +52,7 @@ ___
 
 • **createResourceResolver**: *[CreateResourceResolver](../README.md#createresourceresolver)*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:81](https://github.com/badbatch/graphql-box/blob/48579b3/packages/connection-resolver/src/defs/index.ts#L81)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:85](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L85)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • **cursorCache**: *Cachemap*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:82](https://github.com/badbatch/graphql-box/blob/48579b3/packages/connection-resolver/src/defs/index.ts#L82)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:86](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L86)*
 
 ___
 
@@ -68,25 +68,15 @@ ___
 
 • **getters**: *[Getters](getters.md)*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:83](https://github.com/badbatch/graphql-box/blob/48579b3/packages/connection-resolver/src/defs/index.ts#L83)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:87](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L87)*
 
 ___
 
-###  resolver
+### `Optional` resolver
 
-• **resolver**: *function*
+• **resolver**? : *undefined | function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:84](https://github.com/badbatch/graphql-box/blob/48579b3/packages/connection-resolver/src/defs/index.ts#L84)*
-
-#### Type declaration:
-
-▸ (`args`: [Connection](../README.md#connection)): *[Connection](../README.md#connection)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`args` | [Connection](../README.md#connection) |
+*Defined in [packages/connection-resolver/src/defs/index.ts:88](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L88)*
 
 ___
 
@@ -94,4 +84,4 @@ ___
 
 • **resultsPerPage**: *number*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:85](https://github.com/badbatch/graphql-box/blob/48579b3/packages/connection-resolver/src/defs/index.ts#L85)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:89](https://github.com/badbatch/graphql-box/blob/25fe942/packages/connection-resolver/src/defs/index.ts#L89)*
