@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
-import { Connection, ConnectionInputOptions, ConnectionResolverUserOptions } from "../defs";
+import { Connection, ConnectionInputOptions, ConnectionResolverUserOptions, PlainObject } from "../defs";
 import isCursorSupplied from "../helpers/isCursorSupplied";
 import requestAndCachePages from "../helpers/requestAndCachePages";
 import resolveConnection from "../helpers/resolveConnection";
@@ -10,12 +10,12 @@ export default ({
   createMakeCursors,
   createResourceResolver,
   getters,
-  resolver,
+  resolver = result => result,
   resultsPerPage,
 }: ConnectionResolverUserOptions) => async (
-  source: Record<string, any>,
-  args: Record<string, any> & ConnectionInputOptions,
-  context: Record<string, any>,
+  source: PlainObject,
+  args: PlainObject & ConnectionInputOptions,
+  context: PlainObject,
   info: GraphQLResolveInfo,
 ): Promise<Connection> => {
   try {

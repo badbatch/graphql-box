@@ -1,3 +1,3 @@
-import { ConnectionInputOptions } from "../defs";
+import { ConnectionInputOptions, PlainObject } from "../defs";
 
-export default ({ after, before }: Record<string, any> & ConnectionInputOptions) => !!(after || before);
+export default ({ after, before }: PlainObject & ConnectionInputOptions) => !!(after || before);

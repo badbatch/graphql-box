@@ -11,7 +11,7 @@ describe("getPageNumbersToRequest", () => {
       entry: {
         group: "group",
         index: 2,
-        node: {},
+        node: { id: "123" },
         page: 2,
       },
       metadata: {
@@ -35,7 +35,7 @@ describe("getPageNumbersToRequest", () => {
       entry: {
         group: "group",
         index: 3,
-        node: {},
+        node: { id: "123" },
         page: 4,
       },
       metadata: {

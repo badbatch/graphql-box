@@ -5,11 +5,11 @@ import { encode } from "js-base64";
 import makeConnectionResolver from ".";
 import generateCursorCache from "../__testUtils__/generateCursorCache";
 import generatePageResponse from "../__testUtils__/generatePageResponse";
-import { Getters } from "../defs";
+import { Getters, PlainObject } from "../defs";
 import removeConnectionInputOptions from "../helpers/removeConnectionInputOptions";
 
 describe("connectionResolver", () => {
-  const createMakeCursors = (_source: Record<string, any>, args: Record<string, any>) => ({
+  const createMakeCursors = (_source: PlainObject, args: PlainObject) => ({
     makeGroupCursor: () => encode(JSON.stringify(removeConnectionInputOptions(args))),
     makeIDCursor: (id: string | number) => encode(`${id}::${JSON.stringify(removeConnectionInputOptions(args))}`),
   });
@@ -25,11 +25,7 @@ describe("connectionResolver", () => {
 
   describe("when a cursor is supplied", () => {
     test("when the cursor is invalid", async () => {
-      const createResourceResolver = (
-        _obj: Record<string, any>,
-        args: Record<string, any>,
-        { restClient }: Record<string, any>,
-      ) => {
+      const createResourceResolver = (_obj: PlainObject, args: PlainObject, { restClient }: PlainObject) => {
         return async ({ page }: { page: number }) => restClient({ ...removeConnectionInputOptions(args), page });
       };
 
@@ -41,7 +37,6 @@ describe("connectionResolver", () => {
           store: map(),
         }),
         getters,
-        resolver: result => result,
         resultsPerPage,
       });
 
@@ -57,11 +52,7 @@ describe("connectionResolver", () => {
     });
 
     test("when there are NO missing pages in the cache", async () => {
-      const createResourceResolver = (
-        _obj: Record<string, any>,
-        args: Record<string, any>,
-        { restClient }: Record<string, any>,
-      ) => {
+      const createResourceResolver = (_obj: PlainObject, args: PlainObject, { restClient }: PlainObject) => {
         return async ({ page }: { page: number }) => restClient({ ...removeConnectionInputOptions(args), page });
       };
 
@@ -79,8 +70,7 @@ describe("connectionResolver", () => {
         createMakeCursors,
         createResourceResolver,
         cursorCache,
-        getters: (getters as unknown) as Getters,
-        resolver: result => result,
+        getters,
         resultsPerPage,
       });
 
@@ -99,9 +89,9 @@ describe("connectionResolver", () => {
       const mock = jest.fn().mockImplementation(page => pageResponse(page));
 
       const createResourceResolver = (
-        _obj: Record<string, any>,
-        _args: Record<string, any>,
-        _context: Record<string, any>,
+        _obj: PlainObject,
+        _args: PlainObject,
+        _context: PlainObject,
         _info: GraphQLResolveInfo,
       ) => async ({ page }: { page: number }) => mock(page);
 
@@ -119,8 +109,7 @@ describe("connectionResolver", () => {
         createMakeCursors,
         createResourceResolver,
         cursorCache,
-        getters: (getters as unknown) as Getters,
-        resolver: result => result,
+        getters,
         resultsPerPage,
       });
 
@@ -139,11 +128,7 @@ describe("connectionResolver", () => {
 
   describe("when the first [X] number are requested", () => {
     test("when there is a fresh cache and there are NO missing pages in the cache", async () => {
-      const createResourceResolver = (
-        _obj: Record<string, any>,
-        args: Record<string, any>,
-        { restClient }: Record<string, any>,
-      ) => {
+      const createResourceResolver = (_obj: PlainObject, args: PlainObject, { restClient }: PlainObject) => {
         return async ({ page }: { page: number }) => restClient({ ...removeConnectionInputOptions(args), page });
       };
 
@@ -161,8 +146,7 @@ describe("connectionResolver", () => {
         createMakeCursors,
         createResourceResolver,
         cursorCache,
-        getters: (getters as unknown) as Getters,
-        resolver: result => result,
+        getters,
         resultsPerPage,
       });
 
@@ -180,9 +164,9 @@ describe("connectionResolver", () => {
       const mock = jest.fn().mockImplementation(page => pageResponse(page));
 
       const createResourceResolver = (
-        _obj: Record<string, any>,
-        _args: Record<string, any>,
-        _context: Record<string, any>,
+        _obj: PlainObject,
+        _args: PlainObject,
+        _context: PlainObject,
         _info: GraphQLResolveInfo,
       ) => async ({ page }: { page: number }) => mock(page);
 
@@ -200,8 +184,7 @@ describe("connectionResolver", () => {
         createMakeCursors,
         createResourceResolver,
         cursorCache,
-        getters: (getters as unknown) as Getters,
-        resolver: result => result,
+        getters,
         resultsPerPage,
       });
 
@@ -221,9 +204,9 @@ describe("connectionResolver", () => {
       const mock = jest.fn().mockImplementation(page => pageResponse(page));
 
       const createResourceResolver = (
-        _obj: Record<string, any>,
-        _args: Record<string, any>,
-        _context: Record<string, any>,
+        _obj: PlainObject,
+        _args: PlainObject,
+        _context: PlainObject,
         _info: GraphQLResolveInfo,
       ) => async ({ page }: { page: number }) => mock(page);
 
@@ -236,8 +219,7 @@ describe("connectionResolver", () => {
         createMakeCursors,
         createResourceResolver,
         cursorCache,
-        getters: (getters as unknown) as Getters,
-        resolver: result => result,
+        getters,
         resultsPerPage,
       });
 
@@ -255,11 +237,7 @@ describe("connectionResolver", () => {
 
   describe("when the last [X] number are requested", () => {
     test("when there is a fresh cache and there are NO missing pages in the cache", async () => {
-      const createResourceResolver = (
-        _obj: Record<string, any>,
-        args: Record<string, any>,
-        { restClient }: Record<string, any>,
-      ) => {
+      const createResourceResolver = (_obj: PlainObject, args: PlainObject, { restClient }: PlainObject) => {
         return async ({ page }: { page: number }) => restClient({ ...removeConnectionInputOptions(args), page });
       };
 
@@ -277,8 +255,7 @@ describe("connectionResolver", () => {
         createMakeCursors,
         createResourceResolver,
         cursorCache,
-        getters: (getters as unknown) as Getters,
-        resolver: result => result,
+        getters,
         resultsPerPage,
       });
 
@@ -296,9 +273,9 @@ describe("connectionResolver", () => {
       const mock = jest.fn().mockImplementation(page => pageResponse(page));
 
       const createResourceResolver = (
-        _obj: Record<string, any>,
-        _args: Record<string, any>,
-        _context: Record<string, any>,
+        _obj: PlainObject,
+        _args: PlainObject,
+        _context: PlainObject,
         _info: GraphQLResolveInfo,
       ) => async ({ page }: { page: number }) => mock(page);
 
@@ -316,8 +293,7 @@ describe("connectionResolver", () => {
         createMakeCursors,
         createResourceResolver,
         cursorCache,
-        getters: (getters as unknown) as Getters,
-        resolver: result => result,
+        getters,
         resultsPerPage,
       });
 
@@ -337,9 +313,9 @@ describe("connectionResolver", () => {
       const mock = jest.fn().mockImplementation(page => pageResponse(page));
 
       const createResourceResolver = (
-        _obj: Record<string, any>,
-        _args: Record<string, any>,
-        _context: Record<string, any>,
+        _obj: PlainObject,
+        _args: PlainObject,
+        _context: PlainObject,
         _info: GraphQLResolveInfo,
       ) => async ({ page }: { page: number }) => mock(page);
 
@@ -352,8 +328,7 @@ describe("connectionResolver", () => {
         createMakeCursors,
         createResourceResolver,
         cursorCache,
-        getters: (getters as unknown) as Getters,
-        resolver: result => result,
+        getters,
         resultsPerPage,
       });
 

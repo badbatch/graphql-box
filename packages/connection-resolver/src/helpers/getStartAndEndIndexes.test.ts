@@ -11,7 +11,7 @@ describe("getStartIndex", () => {
       entry: {
         group: "qwerty",
         index: 5,
-        node: {},
+        node: { id: "123" },
         page: 3,
       },
       metadata: {
@@ -35,7 +35,7 @@ describe("getStartIndex", () => {
         entry: {
           group: "qwerty",
           index: 3,
-          node: {},
+          node: { id: "123" },
           page: 1,
         },
         metadata: {
@@ -58,7 +58,7 @@ describe("getStartIndex", () => {
         entry: {
           group: "qwerty",
           index: 4,
-          node: {},
+          node: { id: "123" },
           page: 1,
         },
         metadata: {
@@ -82,7 +82,7 @@ describe("getStartIndex", () => {
           entry: {
             group: "qwerty",
             index: 7,
-            node: {},
+            node: { id: "123" },
             page: 3,
           },
           metadata: {
@@ -105,7 +105,7 @@ describe("getStartIndex", () => {
           entry: {
             group: "qwerty",
             index: 4,
-            node: {},
+            node: { id: "123" },
             page: 3,
           },
           metadata: {
@@ -132,7 +132,7 @@ describe("getEndIndex", () => {
       entry: {
         group: "qwerty",
         index: 5,
-        node: {},
+        node: { id: "123" },
         page: 3,
       },
       metadata: {
@@ -156,7 +156,7 @@ describe("getEndIndex", () => {
         entry: {
           group: "qwerty",
           index: 2,
-          node: {},
+          node: { id: "123" },
           page: 6,
         },
         metadata: {
@@ -179,7 +179,7 @@ describe("getEndIndex", () => {
         entry: {
           group: "qwerty",
           index: 2,
-          node: {},
+          node: { id: "123" },
           page: 6,
         },
         metadata: {
@@ -203,7 +203,7 @@ describe("getEndIndex", () => {
           entry: {
             group: "qwerty",
             index: 2,
-            node: {},
+            node: { id: "123" },
             page: 4,
           },
           metadata: {
@@ -226,7 +226,7 @@ describe("getEndIndex", () => {
           entry: {
             group: "qwerty",
             index: 2,
-            node: {},
+            node: { id: "123" },
             page: 4,
           },
           metadata: {

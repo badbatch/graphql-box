@@ -1,5 +1,5 @@
 import Cachemap from "@cachemap/core";
-import { ConnectionInputOptions, Getters, ResourceResolver } from "../defs";
+import { ConnectionInputOptions, Getters, PlainObject, ResourceResolver } from "../defs";
 import extractEdges from "./extractEdges";
 import extractNodes from "./extractNodes";
 import getInRangeCachedEdges from "./getInRangeCachedEdges";
@@ -18,7 +18,7 @@ export type Context = {
 };
 
 export default async (
-  args: Record<string, any> & ConnectionInputOptions,
+  args: PlainObject & ConnectionInputOptions,
   { cursorCache, getters, groupCursor, makeIDCursor, resourceResolver, resultsPerPage }: Context,
 ) => {
   const {

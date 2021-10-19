@@ -1,12 +1,18 @@
 import Cachemap from "@cachemap/core";
 import { GraphQLResolveInfo } from "graphql";
 
+export type PlainObject = {
+  [key: string]: any;
+};
+
+export type Node = PlainObject & { id: string };
+
 export type Direction = "backward" | "forward";
 
 export type CursorCacheEntry = {
   group: string;
   index: number;
-  node: Record<string, any>;
+  node: Node;
   page: number;
 };
 
@@ -22,7 +28,7 @@ export type CachedEdges = {
 
 export type Edge = {
   cursor: string;
-  node: Record<string, any>;
+  node: Node;
 };
 
 export type Indexes = {
@@ -40,39 +46,37 @@ export type PageInfo = {
 export type Connection = {
   edges: Edge[];
   errors: Error[];
-  nodes: Record<string, any>[];
+  nodes: Node[];
   pageInfo: PageInfo;
   totalCount: number;
 };
 
 export interface ResourceResponse extends Response {
-  data?: Record<string, any>;
+  data?: PlainObject;
   errors?: Error[];
 }
 
 export type ResourceResolver = (args: { page: number }) => Promise<ResourceResponse>;
 
-export type CreateResourceResolver<Src = Record<string, any>, Args = Record<string, any>, Cxt = Record<string, any>> = (
-  source: Record<string, any> & Src,
-  args: Record<string, any> & Args,
-  context: Record<string, any> & Cxt,
+export type CreateResourceResolver<Src = PlainObject, Args = PlainObject, Cxt = PlainObject> = (
+  source: PlainObject & Src,
+  args: PlainObject & Args,
+  context: PlainObject & Cxt,
   info: GraphQLResolveInfo,
 ) => ResourceResolver;
 
-export type Node = Record<string, any> & { id: string | number };
-
 export interface Getters {
-  nodes: (obj: Record<string, any>) => Node[];
-  page: (obj: Record<string, any>) => number;
-  totalPages: (obj: Record<string, any>) => number;
-  totalResults: (obj: Record<string, any>) => number;
+  nodes: (obj: PlainObject) => Node[];
+  page: (obj: PlainObject) => number;
+  totalPages: (obj: PlainObject) => number;
+  totalResults: (obj: PlainObject) => number;
 }
 
 export interface ConnectionResolverUserOptions {
   createMakeCursors: (
-    source: Record<string, any>,
-    args: Record<string, any>,
-    context: Record<string, any>,
+    source: PlainObject,
+    args: PlainObject,
+    context: PlainObject,
     info: GraphQLResolveInfo,
   ) => {
     makeGroupCursor: () => string;
@@ -81,14 +85,14 @@ export interface ConnectionResolverUserOptions {
   createResourceResolver: CreateResourceResolver;
   cursorCache: Cachemap;
   getters: Getters;
-  resolver: (args: Connection) => Connection;
+  resolver?: (args: Connection) => Connection;
   resultsPerPage: number;
 }
 
 export type ConnectionResolver = (
-  source: Record<string, any>,
-  args: Record<string, any> & ConnectionInputOptions,
-  context: Record<string, any>,
+  source: PlainObject,
+  args: PlainObject & ConnectionInputOptions,
+  context: PlainObject,
   info: GraphQLResolveInfo,
 ) => Promise<Connection>;
 
