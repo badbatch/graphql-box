@@ -35,7 +35,7 @@
 
 • **createMakeCursors**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:84](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/connection-resolver/src/defs/index.ts#L84)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:84](https://github.com/badbatch/graphql-box/blob/8635e1c/packages/connection-resolver/src/defs/index.ts#L84)*
 
 #### Type declaration:
 
@@ -64,7 +64,7 @@ ___
 
 • **createResourceResolver**: *[CreateResourceResolver](../README.md#createresourceresolver)‹Source, Args, Ctx, Resource›*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:93](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/connection-resolver/src/defs/index.ts#L93)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:93](https://github.com/badbatch/graphql-box/blob/8635e1c/packages/connection-resolver/src/defs/index.ts#L93)*
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 • **cursorCache**: *Cachemap*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:94](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/connection-resolver/src/defs/index.ts#L94)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:94](https://github.com/badbatch/graphql-box/blob/8635e1c/packages/connection-resolver/src/defs/index.ts#L94)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 • **getters**: *[Getters](getters.md)‹Resource, ResourceNode›*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:95](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/connection-resolver/src/defs/index.ts#L95)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:95](https://github.com/badbatch/graphql-box/blob/8635e1c/packages/connection-resolver/src/defs/index.ts#L95)*
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 • **resolver**? : *undefined | function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:96](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/connection-resolver/src/defs/index.ts#L96)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:96](https://github.com/badbatch/graphql-box/blob/8635e1c/packages/connection-resolver/src/defs/index.ts#L96)*
 
 ___
 
@@ -96,4 +96,4 @@ ___
 
 • **resultsPerPage**: *number*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:97](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/connection-resolver/src/defs/index.ts#L97)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:97](https://github.com/badbatch/graphql-box/blob/8635e1c/packages/connection-resolver/src/defs/index.ts#L97)*

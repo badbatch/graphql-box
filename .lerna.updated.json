@@ -1,7 +1,7 @@
 [
   {
     "name": "@graphql-box/connection-resolver",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "private": false,
     "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/connection-resolver"
   }

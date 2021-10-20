@@ -1,3 +1,9 @@
+#### 2.1.6 (2021-10-20)
+
+##### Bug Fixes
+
+*  change node type to include string or number id ([8635e1c2](https://github.com/badbatch/graphql-box/commit/8635e1c257592487057262679950197e3868aaa0))
+
 #### 2.1.5 (2021-10-19)
 
 ##### Bug Fixes

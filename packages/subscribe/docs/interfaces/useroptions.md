@@ -23,7 +23,7 @@
 
 • **contextValue**? : *PlainObjectMap*
 
-*Defined in [packages/subscribe/src/defs/index.ts:11](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/subscribe/src/defs/index.ts#L11)*
+*Defined in [packages/subscribe/src/defs/index.ts:11](https://github.com/badbatch/graphql-box/blob/8635e1c/packages/subscribe/src/defs/index.ts#L11)*
 
 Set GraphQL context value to be passed on to
 GraphQL's execute and subscribe methods.
@@ -34,7 +34,7 @@ ___
 
 • **fieldResolver**? : *GraphQLFieldResolver‹any, any›*
 
-*Defined in [packages/subscribe/src/defs/index.ts:18](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/subscribe/src/defs/index.ts#L18)*
+*Defined in [packages/subscribe/src/defs/index.ts:18](https://github.com/badbatch/graphql-box/blob/8635e1c/packages/subscribe/src/defs/index.ts#L18)*
 
 Set default GraphQL field resolver function to
 be passed on to GraphQL's execute and subscribe
@@ -46,7 +46,7 @@ ___
 
 • **rootValue**? : *any*
 
-*Defined in [packages/subscribe/src/defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/subscribe/src/defs/index.ts#L24)*
+*Defined in [packages/subscribe/src/defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/8635e1c/packages/subscribe/src/defs/index.ts#L24)*
 
 Set default GraphQL root value to be passed on to
 GraphQL's execute and subscribe methods.
@@ -57,7 +57,7 @@ ___
 
 • **schema**: *GraphQLSchema*
 
-*Defined in [packages/subscribe/src/defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/subscribe/src/defs/index.ts#L29)*
+*Defined in [packages/subscribe/src/defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/8635e1c/packages/subscribe/src/defs/index.ts#L29)*
 
 The GraphQL schema.
 
@@ -67,7 +67,7 @@ ___
 
 • **subscribe**? : *[GraphQLSubscribe](../README.md#graphqlsubscribe)*
 
-*Defined in [packages/subscribe/src/defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/subscribe/src/defs/index.ts#L35)*
+*Defined in [packages/subscribe/src/defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/8635e1c/packages/subscribe/src/defs/index.ts#L35)*
 
 A GraphQL subscribe function to use
 instead of the out-of-the-box function.
@@ -78,6 +78,6 @@ ___
 
 • **subscribeFieldResolver**? : *GraphQLFieldResolver‹any, any›*
 
-*Defined in [packages/subscribe/src/defs/index.ts:40](https://github.com/badbatch/graphql-box/blob/cfaf258/packages/subscribe/src/defs/index.ts#L40)*
+*Defined in [packages/subscribe/src/defs/index.ts:40](https://github.com/badbatch/graphql-box/blob/8635e1c/packages/subscribe/src/defs/index.ts#L40)*
 
 Set default GraphQL subscribe field resolver function.
