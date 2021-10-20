@@ -5,7 +5,7 @@ export type PlainObject = {
   [key: string]: any;
 };
 
-export type Node = PlainObject & { id: string };
+export type Node = PlainObject & { id: string | number };
 
 export type Direction = "backward" | "forward";
 
