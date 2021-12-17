@@ -1033,10 +1033,10 @@
     cacheability "^3.0.1"
     uuid "^7.0.1"
 
-"@cachemap/core@^3.1.4":
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/@cachemap/core/-/core-3.1.4.tgz#27ad5fc78869c28e352bd9d0c12cd47961b3ad09"
-  integrity sha512-TzWQa2xeDYl+EUYwitTMCNzrJF19Bi1tTlm6t1cppNOhOz3y6B4QIBslkSfxe/TMDkpjvMUYZDaKNodjrefomw==
+"@cachemap/core@^3.1.5":
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@cachemap/core/-/core-3.1.5.tgz#9f84a9728a05e4462f8218a03daaf7e9730787ad"
+  integrity sha512-3JtjbMr96j4THdV17wmSfWvnuHEw9MNcdupMSmqGo4z31PelXO0uUPexHEkmtVwfsAjqlgBX/iIIdWl9Fn8eow==
   dependencies:
     cacheability "^3.0.1"
     crypto-js "^4.0.0"
