@@ -19,6 +19,6 @@
 
 ▸ **introspect**(): *Promise‹void›*
 
-*Defined in [introspect/index.ts:10](https://github.com/badbatch/graphql-box/blob/8635e1c/packages/cli/src/introspect/index.ts#L10)*
+*Defined in [introspect/index.ts:10](https://github.com/badbatch/graphql-box/blob/3b7b4f2/packages/cli/src/introspect/index.ts#L10)*
 
 **Returns:** *Promise‹void›*
