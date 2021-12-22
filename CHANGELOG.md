@@ -1,3 +1,9 @@
+#### 2.1.8 (2021-12-22)
+
+##### Chores
+
+*  upgrade cachemap modules ([c4347cf6](https://github.com/badbatch/graphql-box/commit/c4347cf69f17b92eac7af28b2e1fbc047660a36d))
+
 #### 2.1.7 (2021-12-17)
 
 ##### Chores

@@ -10,16 +10,27 @@
 
 ### Properties
 
+* [cache](constructoroptions.md#cache)
 * [debugManager](constructoroptions.md#optional-debugmanager)
 * [worker](constructoroptions.md#worker)
 
 ## Properties
 
+###  cache
+
+• **cache**: *WorkerCachemap*
+
+*Defined in [defs/index.ts:32](https://github.com/badbatch/graphql-box/blob/c4347cf/packages/worker-client/src/defs/index.ts#L32)*
+
+The cache.
+
+___
+
 ### `Optional` debugManager
 
 • **debugManager**? : *DebugManagerDef*
 
-*Defined in [defs/index.ts:26](https://github.com/badbatch/graphql-box/blob/3b7b4f2/packages/worker-client/src/defs/index.ts#L26)*
+*Defined in [defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/c4347cf/packages/worker-client/src/defs/index.ts#L37)*
 
 The debug manager.
 
@@ -29,6 +40,6 @@ ___
 
 • **worker**: *Worker*
 
-*Defined in [defs/index.ts:31](https://github.com/badbatch/graphql-box/blob/3b7b4f2/packages/worker-client/src/defs/index.ts#L31)*
+*Defined in [defs/index.ts:42](https://github.com/badbatch/graphql-box/blob/c4347cf/packages/worker-client/src/defs/index.ts#L42)*
 
 The web worker instance.
