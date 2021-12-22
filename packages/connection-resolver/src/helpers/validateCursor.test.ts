@@ -8,6 +8,7 @@ describe("validateCursor", () => {
     cursorCache: new Cachemap({
       name: "GRAPHQL_BOX_CONNECTION_RESOLVER",
       store: map(),
+      type: "CONNECTION_RESOLVER",
     }),
     groupCursor: "abcdefg",
     resultsPerPage: 10,

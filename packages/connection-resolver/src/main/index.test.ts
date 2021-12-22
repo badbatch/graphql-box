@@ -35,6 +35,7 @@ describe("connectionResolver", () => {
         cursorCache: new Cachemap({
           name: "GRAPHQL_BOX_CONNECTION_RESOLVER",
           store: map(),
+          type: "CONNECTION_RESOLVER",
         }),
         getters,
         resultsPerPage,
@@ -213,6 +214,7 @@ describe("connectionResolver", () => {
       const cursorCache = new Cachemap({
         name: "cursorCache",
         store: map(),
+        type: "someType",
       });
 
       const connectionResolver = makeConnectionResolver({
@@ -322,6 +324,7 @@ describe("connectionResolver", () => {
       const cursorCache = new Cachemap({
         name: "cursorCache",
         store: map(),
+        type: "someType",
       });
 
       const connectionResolver = makeConnectionResolver({

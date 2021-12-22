@@ -42,6 +42,7 @@ describe("@graphql-box/debug-manager >>", () => {
         cache: new Cachemap({
           name: "cachemap",
           store: map(),
+          type: "someType",
         }),
         cascadeCacheControl: true,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -83,6 +84,7 @@ describe("@graphql-box/debug-manager >>", () => {
         cache: new Cachemap({
           name: "cachemap",
           store: map(),
+          type: "someType",
         }),
         cascadeCacheControl: true,
         typeIDKey: DEFAULT_TYPE_ID_KEY,

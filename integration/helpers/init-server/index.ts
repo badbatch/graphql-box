@@ -23,6 +23,7 @@ export default async function initServer({
       cache: new Cachemap({
         name: "cachemap",
         store: cachemapStore,
+        type: "someType",
       }),
       cascadeCacheControl: true,
       typeCacheDirectives,

@@ -16,6 +16,7 @@ export default async ({ group, pageRanges = [], resultsPerPage, totalPages, tota
   const cursorCache = new Cachemap({
     name: "cursorCache",
     store: map(),
+    type: "someType",
   });
 
   const headers = new Headers({ "Cache-Control": "max-age=60" });

@@ -1,3 +1,4 @@
+import WorkerCachemap from "@cachemap/core-worker";
 import debugManager from "@graphql-box/debug-manager";
 import WorkerClient from "@graphql-box/worker-client";
 import { log } from "..";
@@ -7,6 +8,7 @@ const { performance } = self;
 
 export default async function initWorkerClient({ worker }: InitWorkerClientOptions): Promise<WorkerClient> {
   return WorkerClient.init({
+    cache: new WorkerCachemap({ name: "test", type: "someType", worker }),
     debugManager: debugManager({
       logger: { log },
       name: "WORKER_CLIENT",

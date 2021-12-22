@@ -42,6 +42,7 @@ describe("@graphql-box/cache-manager >>", () => {
             cache: new Cachemap({
               name: "cachemap",
               store: map(),
+              type: "someType",
             }),
             cascadeCacheControl: true,
             typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -72,6 +73,7 @@ describe("@graphql-box/cache-manager >>", () => {
             cache: new Cachemap({
               name: "cachemap",
               store: map(),
+              type: "someType",
             }),
             typeCacheDirectives: {
               AddStarPayload: "no-cache, no-store",
@@ -110,6 +112,7 @@ describe("@graphql-box/cache-manager >>", () => {
             cache: new Cachemap({
               name: "cachemap",
               store: map(),
+              type: "someType",
             }),
             cascadeCacheControl: true,
             typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -140,6 +143,7 @@ describe("@graphql-box/cache-manager >>", () => {
             cache: new Cachemap({
               name: "cachemap",
               store: map(),
+              type: "someType",
             }),
             typeCacheDirectives: {
               Email: "public, max-age=5",
@@ -181,6 +185,7 @@ describe("@graphql-box/cache-manager >>", () => {
               cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
+                type: "someType",
               }),
               cascadeCacheControl: true,
               typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -212,6 +217,7 @@ describe("@graphql-box/cache-manager >>", () => {
               cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
+                type: "someType",
               }),
               typeCacheDirectives: {
                 Organization: "public, max-age=1",
@@ -247,6 +253,7 @@ describe("@graphql-box/cache-manager >>", () => {
               cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
+                type: "someType",
               }),
               cascadeCacheControl: true,
               typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -278,6 +285,7 @@ describe("@graphql-box/cache-manager >>", () => {
               cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
+                type: "someType",
               }),
               typeCacheDirectives: {
                 Organization: "public, max-age=3",
@@ -316,6 +324,7 @@ describe("@graphql-box/cache-manager >>", () => {
               cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
+                type: "someType",
               }),
               cascadeCacheControl: true,
               typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -347,6 +356,7 @@ describe("@graphql-box/cache-manager >>", () => {
               cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
+                type: "someType",
               }),
               typeCacheDirectives: {
                 SearchResultItem: "public, max-age=1",
@@ -388,6 +398,7 @@ describe("@graphql-box/cache-manager >>", () => {
               cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
+                type: "someType",
               }),
               cascadeCacheControl: true,
               typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -438,6 +449,7 @@ describe("@graphql-box/cache-manager >>", () => {
               cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
+                type: "someType",
               }),
               typeCacheDirectives: {
                 Organization: "public, max-age=1",
@@ -492,6 +504,7 @@ describe("@graphql-box/cache-manager >>", () => {
               cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
+                type: "someType",
               }),
               cascadeCacheControl: true,
               typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -542,6 +555,7 @@ describe("@graphql-box/cache-manager >>", () => {
               cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
+                type: "someType",
               }),
               typeCacheDirectives: {
                 Organization: "public, max-age=3",
@@ -599,6 +613,7 @@ describe("@graphql-box/cache-manager >>", () => {
               cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
+                type: "someType",
               }),
               cascadeCacheControl: true,
               typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -649,6 +664,7 @@ describe("@graphql-box/cache-manager >>", () => {
               cache: new Cachemap({
                 name: "cachemap",
                 store: map(),
+                type: "someType",
               }),
               typeCacheDirectives: {
                 SearchResultItem: "public, max-age=1",
@@ -706,6 +722,7 @@ describe("@graphql-box/cache-manager >>", () => {
             cache: new Cachemap({
               name: "cachemap",
               store: map(),
+              type: "someType",
             }),
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
@@ -733,6 +750,7 @@ describe("@graphql-box/cache-manager >>", () => {
             cache: new Cachemap({
               name: "cachemap",
               store: map(),
+              type: "someType",
             }),
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
@@ -760,6 +778,7 @@ describe("@graphql-box/cache-manager >>", () => {
             cache: new Cachemap({
               name: "cachemap",
               store: map(),
+              type: "someType",
             }),
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
@@ -792,6 +811,7 @@ describe("@graphql-box/cache-manager >>", () => {
             cache: new Cachemap({
               name: "cachemap",
               store: map(),
+              type: "someType",
             }),
             typeCacheDirectives: {
               Organization: "public, max-age=1",
@@ -838,6 +858,7 @@ describe("@graphql-box/cache-manager >>", () => {
             cache: new Cachemap({
               name: "cachemap",
               store: map(),
+              type: "someType",
             }),
             typeCacheDirectives: {
               Organization: "public, max-age=3",
@@ -887,6 +908,7 @@ describe("@graphql-box/cache-manager >>", () => {
             cache: new Cachemap({
               name: "cachemap",
               store: map(),
+              type: "someType",
             }),
             typeCacheDirectives: {
               SearchResultItem: "public, max-age=1",
@@ -936,6 +958,7 @@ describe("@graphql-box/cache-manager >>", () => {
             cache: new Cachemap({
               name: "cachemap",
               store: map(),
+              type: "someType",
             }),
             typeCacheDirectives: {
               Organization: "public, max-age=1",
@@ -988,6 +1011,7 @@ describe("@graphql-box/cache-manager >>", () => {
             cache: new Cachemap({
               name: "cachemap",
               store: map(),
+              type: "someType",
             }),
             typeCacheDirectives: {
               Organization: "public, max-age=3",
@@ -1043,6 +1067,7 @@ describe("@graphql-box/cache-manager >>", () => {
             cache: new Cachemap({
               name: "cachemap",
               store: map(),
+              type: "someType",
             }),
             typeCacheDirectives: {
               SearchResultItem: "public, max-age=1",

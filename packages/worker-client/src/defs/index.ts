@@ -1,3 +1,4 @@
+import WorkerCachemap from "@cachemap/core-worker";
 import Client from "@graphql-box/client";
 import {
   DebugManagerDef,
@@ -8,6 +9,11 @@ import {
 import { DebugManagerInit } from "@graphql-box/debug-manager";
 
 export interface UserOptions {
+  /**
+   * The cache.
+   */
+  cache: WorkerCachemap;
+
   /**
    * The curried function to initialize the debug manager.
    */
@@ -20,6 +26,11 @@ export interface UserOptions {
 }
 
 export interface ConstructorOptions {
+  /**
+   * The cache.
+   */
+  cache: WorkerCachemap;
+
   /**
    * The debug manager.
    */

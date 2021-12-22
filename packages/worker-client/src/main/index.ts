@@ -31,11 +31,16 @@ export default class WorkerClient {
       errors.push(new TypeError("@graphql-box/client expected options to ba a plain object."));
     }
 
+    if (!options.cache) {
+      errors.push(new TypeError("@graphql-box/client expected options.cache."));
+    }
+
     if (!options.worker) {
       errors.push(new TypeError("@graphql-box/client expected options.worker."));
     }
 
     const constructorOptions: ConstructorOptions = {
+      cache: options.cache,
       worker: options.worker,
     };
 
@@ -60,8 +65,8 @@ export default class WorkerClient {
   private _pending: PendingTracker = new Map();
   private _worker: Worker;
 
-  constructor({ debugManager, worker }: ConstructorOptions) {
-    this._cache = new WorkerCachemap({ worker });
+  constructor({ cache, debugManager, worker }: ConstructorOptions) {
+    this._cache = cache;
     this._debugManager = debugManager || null;
     this._eventEmitter = new EventEmitter();
     this._worker = worker;
