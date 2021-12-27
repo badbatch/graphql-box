@@ -1,3 +1,9 @@
+#### 2.1.9 (2021-12-27)
+
+##### Chores
+
+*  upgrade dependencies ([5ac2bea3](https://github.com/badbatch/graphql-box/commit/5ac2bea3c9d92157f4d87a3720a493134f774d13))
+
 #### 2.1.8 (2021-12-22)
 
 ##### Chores
