@@ -1,8 +1,8 @@
 [
   {
-    "name": "@graphql-box/worker-client",
-    "version": "2.1.2",
+    "name": "@graphql-box/connection-resolver",
+    "version": "0.1.7",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/worker-client"
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/connection-resolver"
   }
 ]

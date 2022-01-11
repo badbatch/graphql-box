@@ -1,3 +1,9 @@
+#### 2.1.10 (2022-01-11)
+
+##### Bug Fixes
+
+*  connection resolver obj types ([7c5a3cdc](https://github.com/badbatch/graphql-box/commit/7c5a3cdc34f9a9fd48f5c25480997dde6da9fe63))
+
 #### 2.1.9 (2021-12-27)
 
 ##### Chores
