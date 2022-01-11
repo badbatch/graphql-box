@@ -6,7 +6,7 @@ import resolveConnection from "../helpers/resolveConnection";
 import validateCursor from "../helpers/validateCursor";
 
 const main = <
-  Source extends PlainObject,
+  Source extends PlainObject | undefined,
   Args extends PlainObject,
   Ctx extends PlainObject,
   Resource extends PlainObject,

@@ -61,7 +61,7 @@ export type ResourceResolver<Resource extends PlainObject> = (args: {
 }) => Promise<ResourceResponse<Resource>>;
 
 export type CreateResourceResolver<
-  Source extends PlainObject,
+  Source extends PlainObject | undefined,
   Args extends PlainObject,
   Ctx extends PlainObject,
   Resource extends PlainObject
@@ -75,7 +75,7 @@ export interface Getters<Resource extends PlainObject, ResourceNode extends Node
 }
 
 export interface ConnectionResolverUserOptions<
-  Source extends PlainObject,
+  Source extends PlainObject | undefined,
   Args extends PlainObject,
   Ctx extends PlainObject,
   Resource extends PlainObject,
