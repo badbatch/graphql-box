@@ -712,6 +712,119 @@ exports[`@graphql-box/request-parser >> query >> operation name >> correct reque
 "
 `;
 
+exports[`@graphql-box/request-parser >> query >> union type inline fragments >> fragment spread >> correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.search" => Object {
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "SearchResultItemConnection",
+    },
+    "query.search.edges" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "SearchResultItemEdge",
+    },
+    "query.search.edges.node" => Object {
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": true,
+      "possibleTypes": Array [
+        Object {
+          "isEntity": true,
+          "typeName": "Issue",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "PullRequest",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "Repository",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "User",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "Organization",
+        },
+        Object {
+          "isEntity": true,
+          "typeName": "MarketplaceListing",
+        },
+      ],
+      "typeIDValue": undefined,
+      "typeName": "SearchResultItem",
+    },
+  },
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> union type inline fragments >> fragment spread >> correct request 1`] = `
+"{
+  search(query: \\"react\\", first: 10, type: REPOSITORY) {
+    edges {
+      node {
+        ... on Organization {
+          description
+          email
+          login
+          organizationName: name
+          url
+          id
+        }
+        ... on Issue {
+          bodyText
+          number
+          title
+          id
+        }
+        ... on MarketplaceListing {
+          slug
+          shortDescription
+          howItWorks
+          id
+        }
+        ... on PullRequest {
+          bodyText
+          number
+          title
+          id
+        }
+        ... on Repository {
+          description
+          homepageUrl
+          name
+          id
+        }
+        __typename
+      }
+    }
+  }
+}
+"
+`;
+
 exports[`@graphql-box/request-parser >> query >> variable correct context data 1`] = `
 Object {
   "boxID": "123456789",

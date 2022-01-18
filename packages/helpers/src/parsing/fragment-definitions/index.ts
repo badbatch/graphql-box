@@ -1,4 +1,4 @@
-import { DocumentNode, FieldNode, FragmentDefinitionNode, FragmentSpreadNode } from "graphql";
+import { DocumentNode, FieldNode, FragmentDefinitionNode, FragmentSpreadNode, InlineFragmentNode } from "graphql";
 import { FRAGMENT_DEFINITION, FRAGMENT_SPREAD } from "../../consts";
 import { FragmentDefinitionNodeMap } from "../../defs";
 import { getKind } from "../kind";
@@ -41,7 +41,10 @@ export function hasFragmentDefinitions({ definitions }: DocumentNode): boolean {
   return definitions.some(value => getKind(value) === FRAGMENT_DEFINITION);
 }
 
-export function setFragmentDefinitions(fragmentDefinitions: FragmentDefinitionNodeMap, node: FieldNode): void {
+export function setFragmentDefinitions(
+  fragmentDefinitions: FragmentDefinitionNodeMap,
+  node: FieldNode | InlineFragmentNode,
+): void {
   if (!node.selectionSet) return;
 
   const selections = [...node.selectionSet.selections];

@@ -304,6 +304,57 @@ export const queryWithFragmentSpread: RequestAndOptions = {
   `,
 };
 
+export const queryWithUnionInlineFragmentsAndFragmentSpread: RequestAndOptions = {
+  options: {
+    variables: {
+      first: 10,
+      query: "react",
+      type: "REPOSITORY",
+    },
+  },
+  request: `
+    fragment organizationFields on Organization {
+      description
+      email
+      login
+      organizationName: name
+      url
+    }
+
+    query ($query: String!, $first: Int!, $type: SearchType!) {
+      search(query: $query, first: $first, type: $type) {
+        edges {
+          node {
+            ... on Organization {
+              ...organizationFields
+            }
+            ... on Issue {
+              bodyText
+              number
+              title
+            }
+            ... on MarketplaceListing {
+              slug
+              shortDescription
+              howItWorks
+            }
+            ... on PullRequest {
+              bodyText
+              number
+              title
+            }
+            ... on Repository {
+              description
+              homepageUrl
+              name
+            }
+          }
+        }
+      }
+    }
+  `,
+};
+
 export const queryWithFragmentOption: RequestAndOptions = {
   options: {
     fragments: [

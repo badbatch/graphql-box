@@ -372,6 +372,7 @@ export class RequestParser implements RequestParserDef {
     node: InlineFragmentNode,
     _ancestors: ReadonlyArray<any>,
     typeInfo: TypeInfo,
+    fragmentDefinitions: FragmentDefinitionNodeMap | undefined,
     _options: RequestOptions,
     _context: RequestContext,
   ): undefined {
@@ -384,6 +385,10 @@ export class RequestParser implements RequestParserDef {
         !(type instanceof GraphQLUnionType))
     ) {
       return undefined;
+    }
+
+    if (fragmentDefinitions && hasFragmentSpreads(node)) {
+      setFragmentDefinitions(fragmentDefinitions, node);
     }
 
     let isEntity = false;
@@ -449,7 +454,14 @@ export class RequestParser implements RequestParserDef {
           }
 
           if (kind === INLINE_FRAGMENT) {
-            return _this._updateInlineFragmentNode(node as InlineFragmentNode, ancestors, typeInfo, options, context);
+            return _this._updateInlineFragmentNode(
+              node as InlineFragmentNode,
+              ancestors,
+              typeInfo,
+              fragmentDefinitions,
+              options,
+              context,
+            );
           }
 
           if (kind === VARIABLE) {
