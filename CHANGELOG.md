@@ -1,3 +1,9 @@
+#### 2.1.11 (2022-01-18)
+
+##### Bug Fixes
+
+*  request parser not replacing fragment spread within inline fragment ([1d38e3b8](https://github.com/badbatch/graphql-box/commit/1d38e3b892bcc34290cd8b10f0658f39d0afb853))
+
 #### 2.1.10 (2022-01-11)
 
 ##### Bug Fixes

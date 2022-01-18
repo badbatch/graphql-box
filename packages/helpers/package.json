@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/helpers",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "The GraphQL Box helpers module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
