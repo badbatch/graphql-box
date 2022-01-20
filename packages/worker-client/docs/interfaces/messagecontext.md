@@ -18,4 +18,4 @@
 
 • **boxID**: *string*
 
-*Defined in [defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/1d38e3b/packages/worker-client/src/defs/index.ts#L71)*
+*Defined in [defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/e7c44e1/packages/worker-client/src/defs/index.ts#L71)*

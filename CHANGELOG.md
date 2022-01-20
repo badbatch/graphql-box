@@ -1,3 +1,9 @@
+#### 2.1.12 (2022-01-20)
+
+##### Bug Fixes
+
+*  connection-resolver cursor calculation bug ([e7c44e17](https://github.com/badbatch/graphql-box/commit/e7c44e173ef365872943fbd896a7adef12574e5a))
+
 #### 2.1.11 (2022-01-18)
 
 ##### Bug Fixes
