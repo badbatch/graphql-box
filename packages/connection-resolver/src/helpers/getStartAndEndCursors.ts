@@ -1,9 +1,8 @@
-import { CachedEdges } from "../defs";
+import { Edge } from "../defs";
 
-export const getStartCursor = (cachedEdges: CachedEdges[]) => cachedEdges[0].edges[0].cursor;
+export const getStartCursor = (edges: Edge[]) => edges[0].cursor;
 
-export const getEndCursor = (cachedEdges: CachedEdges[]) => {
-  const lastCachedEdges = cachedEdges[cachedEdges.length - 1];
-  const lastCachedEdge = lastCachedEdges.edges[lastCachedEdges.edges.length - 1];
-  return lastCachedEdge.cursor;
+export const getEndCursor = (edges: Edge[]) => {
+  const lastEdge = edges[edges.length - 1];
+  return lastEdge.cursor;
 };

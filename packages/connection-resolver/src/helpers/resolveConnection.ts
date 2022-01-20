@@ -49,10 +49,10 @@ const resolveConnection = async <Resource extends PlainObject, ResourceNode exte
       errors: [],
       nodes: extractNodes(edges),
       pageInfo: {
-        endCursor: getEndCursor(cachedEdges),
+        endCursor: getEndCursor(edges),
         hasNextPage,
         hasPreviousPage,
-        startCursor: getStartCursor(cachedEdges),
+        startCursor: getStartCursor(edges),
       },
       totalCount: totalResults,
     };
@@ -79,10 +79,10 @@ const resolveConnection = async <Resource extends PlainObject, ResourceNode exte
     errors,
     nodes: extractNodes(edges),
     pageInfo: {
-      endCursor: getEndCursor(mergedCachedEdges),
+      endCursor: getEndCursor(edges),
       hasNextPage,
       hasPreviousPage,
-      startCursor: getStartCursor(mergedCachedEdges),
+      startCursor: getStartCursor(edges),
     },
     totalCount: totalResults,
   };
