@@ -36,7 +36,7 @@ import {
 import Cacheability from "cacheability";
 import { FieldNode, print } from "graphql";
 import { cloneDeep, get, isArray, isNumber, isObjectLike, isPlainObject, isUndefined, set, unset } from "lodash";
-import { CACHE_CONTROL, HEADER_CACHE_CONTROL, HEADER_NO_CACHE, METADATA, NO_CACHE } from "../consts";
+import { CACHE_CONTROL, HEADER_NO_CACHE, METADATA, NO_CACHE } from "../consts";
 import { logCacheEntry, logCacheQuery, logPartialCompiled } from "../debug";
 import {
   AnalyzeQueryResult,

@@ -1032,18 +1032,18 @@
   dependencies:
     eventemitter3 "4.0.7"
 
-"@cachemap/core-worker@3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@cachemap/core-worker/-/core-worker-3.2.0.tgz#c25939c407909590918e7a9a6043879706961d8c"
-  integrity sha512-VRu3LxKN7EGFXsH1ezaZ0meOvsd3p+pDlVtBwVmUj4YgP5M8aUpVbyQ4+cJe1PeWNx3IBV/WargLoHYpqMTnjw==
+"@cachemap/core-worker@3.2.1":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@cachemap/core-worker/-/core-worker-3.2.1.tgz#25e16d02ebbd23726a85232799dd3070ad591faf"
+  integrity sha512-mQ7Cx8HV2yfVQrn4asOr49du3aCRaXACzB3HM9/SmVq82aJx3Iy8Je3RyLgbvMHZz7ChD4jbpcmox9GMWgWg+g==
   dependencies:
     cacheability "^3.0.1"
     uuid "^7.0.1"
 
-"@cachemap/core@3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@cachemap/core/-/core-3.2.0.tgz#370da19dd157bdf213232249caa69ff6bfe2515f"
-  integrity sha512-4GsPnmMRz2mTGVsOY0b9ux3mDtcpRPIgjlBSUOcNSVmCwPmDhLyzsr0rFPqBcUy+jave20TbJy1zUTdlC00vwA==
+"@cachemap/core@3.2.1":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@cachemap/core/-/core-3.2.1.tgz#954bb34d5834f85f36a239c90ab796725c5cd4fb"
+  integrity sha512-2WxDnc6CA9hSuK6xTD3CXfg4+lW3vognJh4DVhlW4pWuzxBkGGChrj+naNMM2Rjt/oVAr9YfE9ZG7VA6qp9YIw==
   dependencies:
     cacheability "^3.0.1"
     crypto-js "^4.0.0"
@@ -4071,9 +4071,9 @@ camelcase@^5.0.0, camelcase@^5.3.1:
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
 caniuse-lite@^1.0.30001219:
-  version "1.0.30001228"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001228.tgz#bfdc5942cd3326fa51ee0b42fbef4da9d492a7fa"
-  integrity sha512-QQmLOGJ3DEgokHbMSA8cj2a+geXqmnpyOFT0lhQV6P3/YOJvGDEwoedcwxEQ30gJIwIIunHIicunJ2rzK5gB2A==
+  version "1.0.30001301"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001301.tgz"
+  integrity sha512-csfD/GpHMqgEL3V3uIgosvh+SVIQvCh43SNu9HRbP1lnxkKm1kjDG4f32PP571JplkLjfS+mg2p1gxR7MYrrIA==
 
 capture-exit@^2.0.0:
   version "2.0.0"
