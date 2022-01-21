@@ -20,7 +20,7 @@
 
 • **cacheability**? : *Cacheability*
 
-*Defined in [defs/index.ts:104](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/cache-manager/src/defs/index.ts#L104)*
+*Defined in [defs/index.ts:104](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/cache-manager/src/defs/index.ts#L104)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **dataEntityData**? : *any*
 
-*Defined in [defs/index.ts:105](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/cache-manager/src/defs/index.ts#L105)*
+*Defined in [defs/index.ts:105](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/cache-manager/src/defs/index.ts#L105)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **requestFieldPathData**? : *any*
 
-*Defined in [defs/index.ts:106](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/cache-manager/src/defs/index.ts#L106)*
+*Defined in [defs/index.ts:106](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/cache-manager/src/defs/index.ts#L106)*

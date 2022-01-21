@@ -19,7 +19,7 @@
 
 • **cacheHeaders**: *CacheHeaders*
 
-*Defined in [defs/index.ts:177](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/cache-manager/src/defs/index.ts#L177)*
+*Defined in [defs/index.ts:177](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/cache-manager/src/defs/index.ts#L177)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **tag**? : *any*
 
-*Defined in [defs/index.ts:178](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/cache-manager/src/defs/index.ts#L178)*
+*Defined in [defs/index.ts:178](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/cache-manager/src/defs/index.ts#L178)*

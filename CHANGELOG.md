@@ -1,3 +1,10 @@
+#### 2.2.2 (2022-01-21)
+
+##### Bug Fixes
+
+*  remove unused import ([cf51f3c4](https://github.com/badbatch/graphql-box/commit/cf51f3c477c16bdf46103a999317b09930c679e8))
+*  better derive operation cacheability from request paths ([047b41d0](https://github.com/badbatch/graphql-box/commit/047b41d0100c93e11dca4ff82e59d1c50c8c6657))
+
 #### 2.2.1 (2022-01-21)
 
 ##### Bug Fixes

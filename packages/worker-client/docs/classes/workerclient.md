@@ -28,7 +28,7 @@
 
 \+ **new WorkerClient**(`__namedParameters`: object): *[WorkerClient](workerclient.md)*
 
-*Defined in [main/index.ts:66](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/worker-client/src/main/index.ts#L66)*
+*Defined in [main/index.ts:66](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/worker-client/src/main/index.ts#L66)*
 
 **Parameters:**
 
@@ -48,7 +48,7 @@ Name | Type |
 
 • **get cache**(): *WorkerCachemap*
 
-*Defined in [main/index.ts:76](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/worker-client/src/main/index.ts#L76)*
+*Defined in [main/index.ts:76](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/worker-client/src/main/index.ts#L76)*
 
 **Returns:** *WorkerCachemap*
 
@@ -58,7 +58,7 @@ Name | Type |
 
 ▸ **request**(`request`: string, `options`: RequestOptions): *Promise‹MaybeRequestResult›*
 
-*Defined in [main/index.ts:80](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/worker-client/src/main/index.ts#L80)*
+*Defined in [main/index.ts:80](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/worker-client/src/main/index.ts#L80)*
 
 **Parameters:**
 
@@ -75,7 +75,7 @@ ___
 
 ▸ **subscribe**(`request`: string, `options`: RequestOptions): *Promise‹AsyncIterator‹MaybeRequestResult | undefined››*
 
-*Defined in [main/index.ts:88](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/worker-client/src/main/index.ts#L88)*
+*Defined in [main/index.ts:88](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/worker-client/src/main/index.ts#L88)*
 
 **Parameters:**
 
@@ -92,7 +92,7 @@ ___
 
 ▸ **init**(`options`: [UserOptions](../interfaces/useroptions.md)): *Promise‹[WorkerClient](workerclient.md)›*
 
-*Defined in [main/index.ts:27](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/worker-client/src/main/index.ts#L27)*
+*Defined in [main/index.ts:27](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/worker-client/src/main/index.ts#L27)*
 
 **Parameters:**
 
