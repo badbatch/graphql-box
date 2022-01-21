@@ -20,7 +20,7 @@
 
 • **introspection**? : *IntrospectionQuery*
 
-*Defined in [defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/e7c44e1/packages/request-parser/src/defs/index.ts#L37)*
+*Defined in [defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/313a3bd/packages/request-parser/src/defs/index.ts#L37)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **schema**? : *GraphQLSchema*
 
-*Defined in [defs/index.ts:38](https://github.com/badbatch/graphql-box/blob/e7c44e1/packages/request-parser/src/defs/index.ts#L38)*
+*Defined in [defs/index.ts:38](https://github.com/badbatch/graphql-box/blob/313a3bd/packages/request-parser/src/defs/index.ts#L38)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **typeIDKey**: *string*
 
-*Defined in [defs/index.ts:39](https://github.com/badbatch/graphql-box/blob/e7c44e1/packages/request-parser/src/defs/index.ts#L39)*
+*Defined in [defs/index.ts:39](https://github.com/badbatch/graphql-box/blob/313a3bd/packages/request-parser/src/defs/index.ts#L39)*

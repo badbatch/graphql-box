@@ -1,3 +1,9 @@
+### 2.2.0 (2022-01-21)
+
+##### New Features
+
+*  pass cache metadata into execute context ([313a3bd6](https://github.com/badbatch/graphql-box/commit/313a3bd602d11971dd9947d6a5cd9070e2a70676))
+
 #### 2.1.12 (2022-01-20)
 
 ##### Bug Fixes
