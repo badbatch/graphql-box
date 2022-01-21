@@ -1,4 +1,4 @@
-import { CacheMetadata, DehydratedCacheMetadata } from "@graphql-box/core";
+import { CacheMetadata, DehydratedCacheMetadata, ValidOperations } from "@graphql-box/core";
 import Cacheability from "cacheability";
 
 export function dehydrateCacheMetadata(cacheMetadata: CacheMetadata): DehydratedCacheMetadata {
@@ -22,6 +22,11 @@ export function rehydrateCacheMetadata(
   }, cacheMetadata);
 }
 
-export function setCacheMetadata(cacheMetadata: DehydratedCacheMetadata, key: string, headers: Headers) {
-  cacheMetadata[key] = new Cacheability({ headers }).metadata;
+export function setCacheMetadata(
+  cacheMetadata: DehydratedCacheMetadata,
+  key: string,
+  headers: Headers,
+  operation: ValidOperations = "query",
+) {
+  cacheMetadata[`${operation}.${key}`] = new Cacheability({ headers }).metadata;
 }
