@@ -1,4 +1,5 @@
 import {
+  DehydratedCacheMetadata,
   MaybeRawResponseData,
   PlainObjectMap,
   RequestContext,
@@ -46,9 +47,10 @@ export class Execute implements RequestManagerDef {
     { boxID }: RequestContext,
   ): Promise<MaybeRawResponseData> {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
+    const _cacheMetadata: DehydratedCacheMetadata = {};
 
     const executeArgs: ExecutionArgs = {
-      contextValue: { ...this._contextValue, ...contextValue, boxID },
+      contextValue: { ...this._contextValue, ...contextValue, boxID, cacheMetadata: _cacheMetadata },
       document: ast || parse(request),
       fieldResolver: fieldResolver || this._fieldResolver,
       operationName,
@@ -58,7 +60,7 @@ export class Execute implements RequestManagerDef {
 
     try {
       const { data, errors } = await this._execute(executeArgs);
-      return { data, errors };
+      return { _cacheMetadata, data, errors };
     } catch (error) {
       return Promise.reject(error);
     }

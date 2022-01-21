@@ -1,4 +1,4 @@
-export { dehydrateCacheMetadata, rehydrateCacheMetadata } from "./cache-metadata";
+export { dehydrateCacheMetadata, rehydrateCacheMetadata, setCacheMetadata } from "./cache-metadata";
 export * from "./consts";
 export * from "./defs";
 export { default as EventAsyncIterator } from "./event-async-iterator";

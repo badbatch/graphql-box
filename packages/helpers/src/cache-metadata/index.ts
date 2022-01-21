@@ -21,3 +21,7 @@ export function rehydrateCacheMetadata(
     return map;
   }, cacheMetadata);
 }
+
+export function setCacheMetadata(cacheMetadata: DehydratedCacheMetadata, key: string, headers: Headers) {
+  cacheMetadata[key] = new Cacheability({ headers }).metadata;
+}
