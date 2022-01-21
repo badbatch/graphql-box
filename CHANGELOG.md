@@ -1,3 +1,9 @@
+#### 2.2.1 (2022-01-21)
+
+##### Bug Fixes
+
+*  add operation into cache metadata ([b9b0d99f](https://github.com/badbatch/graphql-box/commit/b9b0d99fcaec440710bc5a210cf33800b74539eb))
+
 ### 2.2.0 (2022-01-21)
 
 ##### New Features

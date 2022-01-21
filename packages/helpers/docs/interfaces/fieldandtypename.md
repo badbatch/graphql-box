@@ -19,7 +19,7 @@
 
 • **fieldNode**: *FieldNode*
 
-*Defined in [packages/helpers/src/defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/313a3bd/packages/helpers/src/defs/index.ts#L79)*
+*Defined in [packages/helpers/src/defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/helpers/src/defs/index.ts#L79)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **typeName**: *string | undefined*
 
-*Defined in [packages/helpers/src/defs/index.ts:80](https://github.com/badbatch/graphql-box/blob/313a3bd/packages/helpers/src/defs/index.ts#L80)*
+*Defined in [packages/helpers/src/defs/index.ts:80](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/helpers/src/defs/index.ts#L80)*

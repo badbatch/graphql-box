@@ -27,7 +27,7 @@
 
 \+ **new Execute**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[Execute](execute.md)*
 
-*Defined in [main/index.ts:33](https://github.com/badbatch/graphql-box/blob/313a3bd/packages/execute/src/main/index.ts#L33)*
+*Defined in [main/index.ts:33](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/execute/src/main/index.ts#L33)*
 
 **Parameters:**
 
@@ -43,7 +43,7 @@ Name | Type |
 
 ▸ **execute**(`__namedParameters`: object, `options`: ServerRequestOptions, `__namedParameters`: object): *Promise‹MaybeRawResponseData›*
 
-*Defined in [main/index.ts:44](https://github.com/badbatch/graphql-box/blob/313a3bd/packages/execute/src/main/index.ts#L44)*
+*Defined in [main/index.ts:44](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/execute/src/main/index.ts#L44)*
 
 **Parameters:**
 
@@ -70,7 +70,7 @@ ___
 
 ▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *Promise‹[Execute](execute.md)›*
 
-*Defined in [main/index.ts:17](https://github.com/badbatch/graphql-box/blob/313a3bd/packages/execute/src/main/index.ts#L17)*
+*Defined in [main/index.ts:17](https://github.com/badbatch/graphql-box/blob/b9b0d99/packages/execute/src/main/index.ts#L17)*
 
 **Parameters:**
 
