@@ -66,6 +66,7 @@ import {
   TypeNames,
   UserOptions,
 } from "../defs";
+import deriveOpCacheability from "../helpers/deriveOpCacheability";
 
 export class CacheManager implements CacheManagerDef {
   public static async init(options: InitOptions): Promise<CacheManager> {
@@ -556,10 +557,19 @@ export class CacheManager implements CacheManagerDef {
     { operation }: RequestContext,
   ): CacheMetadata {
     const cacheMetadata = new Map();
-    const cacheControl = (headers && headers.get(HEADER_CACHE_CONTROL)) || this._fallbackOperationCacheability;
-    const cacheability = new Cacheability({ cacheControl });
+
+    const cacheability = deriveOpCacheability({
+      _cacheMetadata,
+      fallback: this._fallbackOperationCacheability,
+      headers,
+    });
+
     cacheMetadata.set(operation, cacheability);
-    if (_cacheMetadata) rehydrateCacheMetadata(_cacheMetadata, cacheMetadata);
+
+    if (_cacheMetadata) {
+      rehydrateCacheMetadata(_cacheMetadata, cacheMetadata);
+    }
+
     return cacheMetadata;
   }
 
