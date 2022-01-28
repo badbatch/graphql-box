@@ -1,3 +1,9 @@
+#### 2.2.3 (2022-01-28)
+
+##### Bug Fixes
+
+*  cache manager unsafe prop check of __typename ([72f19522](https://github.com/badbatch/graphql-box/commit/72f1952295410d171830af188ea84b7f122cc6ed))
+
 #### 2.2.2 (2022-01-21)
 
 ##### Bug Fixes

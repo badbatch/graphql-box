@@ -18,4 +18,4 @@
 
 • **batch**: *boolean*
 
-*Defined in [defs/index.ts:39](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/fetch-manager/src/defs/index.ts#L39)*
+*Defined in [defs/index.ts:39](https://github.com/badbatch/graphql-box/blob/72f1952/packages/fetch-manager/src/defs/index.ts#L39)*

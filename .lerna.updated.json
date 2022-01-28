@@ -1,31 +1,31 @@
 [
   {
     "name": "@graphql-box/cache-manager",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "private": false,
     "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/cache-manager"
   },
   {
     "name": "@graphql-box/client",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "private": false,
     "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/client"
   },
   {
     "name": "@graphql-box/debug-manager",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "private": false,
     "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/debug-manager"
   },
   {
     "name": "@graphql-box/server",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "private": false,
     "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/server"
   },
   {
     "name": "@graphql-box/worker-client",
-    "version": "2.1.4",
+    "version": "2.1.5",
     "private": false,
     "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/worker-client"
   }

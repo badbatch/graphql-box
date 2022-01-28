@@ -34,7 +34,7 @@
 
 Ƭ **RequestParserInit**: *function*
 
-*Defined in [defs/index.ts:56](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/request-parser/src/defs/index.ts#L56)*
+*Defined in [defs/index.ts:56](https://github.com/badbatch/graphql-box/blob/72f1952/packages/request-parser/src/defs/index.ts#L56)*
 
 #### Type declaration:
 
@@ -52,7 +52,7 @@ Name | Type |
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *[RequestParserInit](README.md#requestparserinit)*
 
-*Defined in [main/index.ts:513](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/request-parser/src/main/index.ts#L513)*
+*Defined in [main/index.ts:513](https://github.com/badbatch/graphql-box/blob/72f1952/packages/request-parser/src/main/index.ts#L513)*
 
 **Parameters:**
 

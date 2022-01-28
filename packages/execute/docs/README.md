@@ -33,7 +33,7 @@
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [defs/index.ts:40](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/execute/src/defs/index.ts#L40)*
+*Defined in [defs/index.ts:40](https://github.com/badbatch/graphql-box/blob/72f1952/packages/execute/src/defs/index.ts#L40)*
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 Ƭ **GraphQLExecute**: *function*
 
-*Defined in [defs/index.ts:42](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/execute/src/defs/index.ts#L42)*
+*Defined in [defs/index.ts:42](https://github.com/badbatch/graphql-box/blob/72f1952/packages/execute/src/defs/index.ts#L42)*
 
 #### Type declaration:
 
@@ -63,7 +63,7 @@ ___
 
 Ƭ **InitOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [defs/index.ts:38](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/execute/src/defs/index.ts#L38)*
+*Defined in [defs/index.ts:38](https://github.com/badbatch/graphql-box/blob/72f1952/packages/execute/src/defs/index.ts#L38)*
 
 ## Variables
 
@@ -71,7 +71,7 @@ ___
 
 • **EXECUTE_EXECUTED**: *"execute_executed"* = "execute_executed"
 
-*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/execute/src/consts/index.ts#L1)*
+*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/72f1952/packages/execute/src/consts/index.ts#L1)*
 
 ## Functions
 
@@ -79,7 +79,7 @@ ___
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *RequestManagerInit*
 
-*Defined in [main/index.ts:70](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/execute/src/main/index.ts#L70)*
+*Defined in [main/index.ts:70](https://github.com/badbatch/graphql-box/blob/72f1952/packages/execute/src/main/index.ts#L70)*
 
 **Parameters:**
 
@@ -95,6 +95,6 @@ ___
 
 ▸ **logExecute**(): *(Anonymous function)*
 
-*Defined in [debug/log-execute/index.ts:4](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/execute/src/debug/log-execute/index.ts#L4)*
+*Defined in [debug/log-execute/index.ts:4](https://github.com/badbatch/graphql-box/blob/72f1952/packages/execute/src/debug/log-execute/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*

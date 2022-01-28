@@ -88,7 +88,7 @@ ___
 
 • **subscribeFieldResolver**? : *Maybe‹GraphQLFieldResolver‹any, any››*
 
-*Defined in [packages/subscribe/src/defs/index.ts:59](https://github.com/badbatch/graphql-box/blob/cf51f3c/packages/subscribe/src/defs/index.ts#L59)*
+*Defined in [packages/subscribe/src/defs/index.ts:59](https://github.com/badbatch/graphql-box/blob/72f1952/packages/subscribe/src/defs/index.ts#L59)*
 
 ___
 
