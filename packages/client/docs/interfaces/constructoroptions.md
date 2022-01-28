@@ -22,7 +22,7 @@
 
 • **cacheManager**: *CacheManagerDef*
 
-*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/72f1952/packages/client/src/defs/index.ts#L52)*
+*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/client/src/defs/index.ts#L52)*
 
 The cache manager.
 
@@ -32,7 +32,7 @@ ___
 
 • **debugManager**? : *DebugManagerDef*
 
-*Defined in [defs/index.ts:57](https://github.com/badbatch/graphql-box/blob/72f1952/packages/client/src/defs/index.ts#L57)*
+*Defined in [defs/index.ts:57](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/client/src/defs/index.ts#L57)*
 
 The debug manager.
 
@@ -42,7 +42,7 @@ ___
 
 • **requestManager**: *RequestManagerDef*
 
-*Defined in [defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/72f1952/packages/client/src/defs/index.ts#L62)*
+*Defined in [defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/client/src/defs/index.ts#L62)*
 
 The request manager.
 
@@ -52,7 +52,7 @@ ___
 
 • **requestParser**: *RequestParserDef*
 
-*Defined in [defs/index.ts:67](https://github.com/badbatch/graphql-box/blob/72f1952/packages/client/src/defs/index.ts#L67)*
+*Defined in [defs/index.ts:67](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/client/src/defs/index.ts#L67)*
 
 The GraphQL request parser.
 
@@ -62,6 +62,6 @@ ___
 
 • **subscriptionsManager**? : *SubscriptionsManagerDef*
 
-*Defined in [defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/72f1952/packages/client/src/defs/index.ts#L72)*
+*Defined in [defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/client/src/defs/index.ts#L72)*
 
 The subscriptions manager.

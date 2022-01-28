@@ -6,6 +6,20 @@
 
 * **ResponseDataWithMaybeDehydratedCacheMetadataBatch**
 
-## Indexable
+## Index
+
+### Properties
+
+* [batch](responsedatawithmaybedehydratedcachemetadatabatch.md#batch)
+
+## Properties
+
+###  batch
+
+• **batch**: *object*
+
+*Defined in [defs/index.ts:30](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/server/src/defs/index.ts#L30)*
+
+#### Type declaration:
 
 * \[ **key**: *string*\]: MaybeRequestResultWithDehydratedCacheMetadata

@@ -1,3 +1,9 @@
+#### 2.2.4 (2022-01-28)
+
+##### Bug Fixes
+
+*  server not returning batched data in correct format ([f8ef82df](https://github.com/badbatch/graphql-box/commit/f8ef82dfb40ef8037d63ea3b63b6df7b73d3598b))
+
 #### 2.2.3 (2022-01-28)
 
 ##### Bug Fixes
