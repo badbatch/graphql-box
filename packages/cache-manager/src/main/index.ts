@@ -102,7 +102,7 @@ export class CacheManager implements CacheManagerDef {
       CacheManager._getFieldDataFromAncestor(requestFieldPathData, propNameOrIndex);
 
     const typeNames = {
-      dataTypeName: dataEntityData.__typename || requestFieldPathData.__typename,
+      dataTypeName: dataEntityData?.__typename || requestFieldPathData?.__typename,
       fieldTypeName: typeName,
     };
 
