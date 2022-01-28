@@ -61,15 +61,15 @@ export default class Server {
     options: ServerRequestOptions,
     context: MaybeRequestContext,
   ): Promise<ResponseDataWithMaybeDehydratedCacheMetadataBatch> {
-    const responses: ResponseDataWithMaybeDehydratedCacheMetadataBatch = {};
+    const responses: ResponseDataWithMaybeDehydratedCacheMetadataBatch = { batch: {} };
 
     await Promise.all(
       Object.keys(requests).map(async requestHash => {
         const request = requests[requestHash];
         const { _cacheMetadata, ...otherProps } = await this._client.request(request, options, context);
 
-        responses[requestHash] = { ...otherProps };
-        if (_cacheMetadata) responses[requestHash]._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+        responses.batch[requestHash] = { ...otherProps };
+        if (_cacheMetadata) responses.batch[requestHash]._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
       }),
     );
 

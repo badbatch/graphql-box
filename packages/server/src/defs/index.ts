@@ -27,5 +27,7 @@ export interface RequestData {
 }
 
 export interface ResponseDataWithMaybeDehydratedCacheMetadataBatch {
-  [key: string]: MaybeRequestResultWithDehydratedCacheMetadata;
+  batch: {
+    [key: string]: MaybeRequestResultWithDehydratedCacheMetadata;
+  };
 }
