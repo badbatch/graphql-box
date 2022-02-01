@@ -5,7 +5,6 @@
     "no-submodule-imports": [
       true,
       "uuid/v1",
-      "graphql/tsutils/Maybe",
       "graphql/execution/execute",
       "graphql/jsutils/PromiseOrValue"
     ]

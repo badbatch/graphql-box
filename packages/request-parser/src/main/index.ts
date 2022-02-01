@@ -1,4 +1,12 @@
-import { PlainObjectMap, PossibleType, QUERY, RequestContext, RequestOptions, TYPE_NAME_KEY } from "@graphql-box/core";
+import {
+  Maybe,
+  PlainObjectMap,
+  PossibleType,
+  QUERY,
+  RequestContext,
+  RequestOptions,
+  TYPE_NAME_KEY,
+} from "@graphql-box/core";
 import {
   DOCUMENT,
   FIELD,
@@ -53,7 +61,6 @@ import {
   validate,
   visit,
 } from "graphql";
-import Maybe from "graphql/tsutils/Maybe";
 import { get, isObjectLike, isPlainObject, isString } from "lodash";
 import {
   ClientOptions,

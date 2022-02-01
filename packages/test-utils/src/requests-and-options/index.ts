@@ -304,6 +304,38 @@ export const queryWithFragmentSpread: RequestAndOptions = {
   `,
 };
 
+export const queryWithDeferAndStream: RequestAndOptions = {
+  options: {
+    variables: {
+      login: "facebook",
+    },
+  },
+  request: `
+    fragment OrganizationFields on Organization {
+      description
+      email
+      login
+      name
+      url
+    }
+
+    query ($login: String!) {
+      organization(login: $login) {
+        ...OrganizationFields @defer(label: "organizationDefer")
+        repositories(first: $first) @stream(initialCount: 2, label: "repositoriesStream") {
+          edges {
+            node {
+              description
+              homepageUrl
+              name
+            }
+          }
+        }
+      }
+    }
+  `,
+};
+
 export const queryWithUnionInlineFragmentsAndFragmentSpread: RequestAndOptions = {
   options: {
     variables: {

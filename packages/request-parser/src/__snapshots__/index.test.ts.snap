@@ -28,11 +28,11 @@ Object {
         },
         Object {
           "isEntity": true,
-          "typeName": "Topic",
+          "typeName": "Gist",
         },
         Object {
           "isEntity": true,
-          "typeName": "Gist",
+          "typeName": "Topic",
         },
       ],
       "typeIDValue": undefined,
@@ -78,7 +78,9 @@ Object {
 
 exports[`@graphql-box/request-parser >> mutation >> input type variable >> correct request 1`] = `
 "mutation {
-  addStar(input: {clientMutationId: \\"1\\", starrableId: \\"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=\\"}) {
+  addStar(
+    input: {clientMutationId: \\"1\\", starrableId: \\"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=\\"}
+  ) {
     clientMutationId
     starrable {
       viewerHasStarred
@@ -97,8 +99,7 @@ exports[`@graphql-box/request-parser >> mutation >> input type variable >> corre
       __typename
     }
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> directive correct context data 1`] = `
@@ -155,11 +156,11 @@ Object {
       "possibleTypes": Array [
         Object {
           "isEntity": true,
-          "typeName": "Organization",
+          "typeName": "User",
         },
         Object {
           "isEntity": true,
-          "typeName": "User",
+          "typeName": "Organization",
         },
       ],
       "typeIDValue": undefined,
@@ -202,8 +203,7 @@ exports[`@graphql-box/request-parser >> query >> directive correct request 1`] =
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> enum variable >> correct context data 1`] = `
@@ -260,11 +260,11 @@ Object {
       "possibleTypes": Array [
         Object {
           "isEntity": true,
-          "typeName": "Organization",
+          "typeName": "User",
         },
         Object {
           "isEntity": true,
-          "typeName": "User",
+          "typeName": "Organization",
         },
       ],
       "typeIDValue": undefined,
@@ -307,8 +307,7 @@ exports[`@graphql-box/request-parser >> query >> enum variable >> correct reques
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> fragment option >> correct context data 1`] = `
@@ -344,8 +343,7 @@ exports[`@graphql-box/request-parser >> query >> fragment option >> correct requ
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> fragment spread >> correct context data 1`] = `
@@ -381,8 +379,7 @@ exports[`@graphql-box/request-parser >> query >> fragment spread >> correct requ
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> inline fragment >> correct context data 1`] = `
@@ -418,8 +415,7 @@ exports[`@graphql-box/request-parser >> query >> inline fragment >> correct requ
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> inline fragments >> union type >> correct context data 1`] = `
@@ -529,8 +525,7 @@ exports[`@graphql-box/request-parser >> query >> inline fragments >> union type 
       }
     }
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> multiple variables >> correct context data 1`] = `
@@ -587,11 +582,11 @@ Object {
       "possibleTypes": Array [
         Object {
           "isEntity": true,
-          "typeName": "Organization",
+          "typeName": "User",
         },
         Object {
           "isEntity": true,
-          "typeName": "User",
+          "typeName": "Organization",
         },
       ],
       "typeIDValue": undefined,
@@ -634,8 +629,7 @@ exports[`@graphql-box/request-parser >> query >> multiple variables >> correct r
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> no variable >> correct context data 1`] = `
@@ -671,8 +665,7 @@ exports[`@graphql-box/request-parser >> query >> no variable >> correct request 
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> operation name >> correct context data 1`] = `
@@ -708,8 +701,7 @@ exports[`@graphql-box/request-parser >> query >> operation name >> correct reque
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> union type inline fragments >> fragment spread >> correct context data 1`] = `
@@ -821,8 +813,7 @@ exports[`@graphql-box/request-parser >> query >> union type inline fragments >> 
       }
     }
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> variable correct context data 1`] = `
@@ -858,8 +849,7 @@ exports[`@graphql-box/request-parser >> query >> variable correct request 1`] = 
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> variable with default correct context data 1`] = `
@@ -895,8 +885,7 @@ exports[`@graphql-box/request-parser >> query >> variable with default correct r
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> with default correct context data 1`] = `
@@ -932,8 +921,7 @@ exports[`@graphql-box/request-parser >> query >> with default correct request 1`
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> with number default correct context data 1`] = `
@@ -1007,8 +995,7 @@ exports[`@graphql-box/request-parser >> query >> with number default correct req
     }
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> subscription >> correct context data 1`] = `
@@ -1058,6 +1045,5 @@ exports[`@graphql-box/request-parser >> subscription >> correct request 1`] = `
     unread
     id
   }
-}
-"
+}"
 `;

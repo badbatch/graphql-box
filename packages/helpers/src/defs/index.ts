@@ -1,3 +1,4 @@
+import { Maybe } from "@graphql-box/core";
 import {
   ArgumentNode,
   BooleanValueNode,
@@ -32,7 +33,6 @@ import {
   UnionTypeDefinitionNode,
   VariableNode,
 } from "graphql";
-import Maybe from "graphql/tsutils/Maybe";
 
 export interface FragmentDefinitionNodeMap {
   [key: string]: FragmentDefinitionNode;

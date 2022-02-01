@@ -34,7 +34,7 @@ export class Execute implements RequestManagerDef {
 
   constructor(options: ConstructorOptions) {
     this._contextValue = options.contextValue || {};
-    this._execute = options.execute || execute;
+    this._execute = options.execute || (execute as GraphQLExecute);
     this._fieldResolver = options.fieldResolver || null;
     this._rootValue = options.rootValue;
     this._schema = options.schema;

@@ -10,7 +10,6 @@ import {
 import { EventAsyncIterator } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { ExecutionResult, GraphQLFieldResolver, GraphQLSchema, parse, subscribe } from "graphql";
-import { ExecutionResultDataDefault } from "graphql/execution/execute";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
 import { ConstructorOptions, GraphQLSubscribe, InitOptions, SubscribeArgs, UserOptions } from "../defs";
@@ -42,7 +41,7 @@ export class Subscribe {
     this._fieldResolver = options.fieldResolver || null;
     this._rootValue = options.rootValue;
     this._schema = options.schema;
-    this._subscribe = options.subscribe || subscribe;
+    this._subscribe = options.subscribe || (subscribe as GraphQLSubscribe);
     this._subscribeFieldResolver = options.subscribeFieldResolver || null;
   }
 
@@ -68,7 +67,7 @@ export class Subscribe {
       const subscribeResult = await this._subscribe(subscribeArgs);
 
       if (isAsyncIterable(subscribeResult)) {
-        forAwaitEach(subscribeResult, async ({ data, errors }: ExecutionResult<ExecutionResultDataDefault>) => {
+        forAwaitEach(subscribeResult, async ({ data, errors }: ExecutionResult<PlainObjectMap<unknown>>) => {
           const resolvedResult = await subscriberResolver({ data, errors });
           this._eventEmitter.emit(hash, resolvedResult);
         });

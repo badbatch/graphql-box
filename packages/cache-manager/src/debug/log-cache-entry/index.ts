@@ -11,7 +11,7 @@ export default function logCacheEntry() {
     if (!method) return;
 
     descriptor.value = async function descriptorValue(...args: any[]): Promise<any> {
-      return new Promise(async resolve => {
+      return new Promise<void>(async resolve => {
         const { debugManager, ...otherContext } = args[5] as RequestContext;
 
         if (!debugManager) {

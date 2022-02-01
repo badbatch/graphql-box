@@ -1,7 +1,6 @@
-import { PlainObjectMap } from "@graphql-box/core";
+import { Maybe, PlainObjectMap } from "@graphql-box/core";
 import { DocumentNode, ExecutionResult, GraphQLFieldResolver, GraphQLSchema } from "graphql";
-import { ExecutionArgs, ExecutionResultDataDefault } from "graphql/execution/execute";
-import Maybe from "graphql/tsutils/Maybe";
+import { ExecutionArgs } from "graphql/execution/execute";
 
 export interface UserOptions {
   /**
@@ -44,7 +43,7 @@ export type InitOptions = UserOptions;
 
 export type ConstructorOptions = UserOptions;
 
-export type GraphQLSubscribe = <TData = ExecutionResultDataDefault>(args: {
+export type GraphQLSubscribe = <TData = PlainObjectMap<unknown>>(args: {
   contextValue?: any;
   document: DocumentNode;
   fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;

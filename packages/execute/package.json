@@ -40,7 +40,7 @@
     "@babel/runtime": "< 8",
     "@graphql-box/core": "< 3",
     "core-js": "< 4",
-    "graphql": "< 15",
+    "graphql": "< 17",
     "lodash": "< 5"
   },
   "devDependencies": {

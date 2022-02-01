@@ -3,8 +3,10 @@ import EventEmitter from "eventemitter3";
 import { DocumentNode, GraphQLFieldResolver } from "graphql";
 import WebSocket from "ws";
 
-export interface PlainObjectMap {
-  [key: string]: any;
+export type Maybe<T> = null | undefined | T;
+
+export interface PlainObjectMap<T = any> {
+  [key: string]: T;
 }
 
 export interface PlainObjectStringMap {

@@ -1,4 +1,4 @@
-import { PossibleType, RequestContext, RequestOptions } from "@graphql-box/core";
+import { Maybe, PossibleType, RequestContext, RequestOptions } from "@graphql-box/core";
 import {
   DocumentNode,
   FieldNode,
@@ -7,7 +7,6 @@ import {
   GraphQLSchema,
   IntrospectionQuery,
 } from "graphql";
-import Maybe from "graphql/tsutils/Maybe";
 
 export interface FragmentDefinitionNodeMap {
   [key: string]: FragmentDefinitionNode;

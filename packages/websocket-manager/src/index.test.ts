@@ -75,7 +75,7 @@ describe("@graphql-box/websocket-manager >>", () => {
         subscriptionResolver,
       );
 
-      const promise = new Promise(resolve => {
+      const promise = new Promise<void>(resolve => {
         if (isAsyncIterable(asyncIterator)) {
           forAwaitEach(asyncIterator, (value: MaybeRequestResult) => {
             response = value;
