@@ -1,14 +1,12 @@
-import { FieldNode, InlineFragmentNode, SelectionNode } from "graphql";
+import { FieldNode, FragmentDefinitionNode, InlineFragmentNode, NamedTypeNode, SelectionNode } from "graphql";
 import { castArray } from "lodash";
 import { FIELD, INLINE_FRAGMENT } from "../../consts";
 import { FieldAndTypeName, ParentNode } from "../../defs";
-import { getKind } from "../kind";
+import { getKind, isKind } from "../kind";
 import { getName } from "../name";
+import { getTypeCondition } from "../type-condition";
 
-export function deleteInlineFragments(
-  node: ParentNode,
-  inlineFragments: InlineFragmentNode[] | InlineFragmentNode,
-): void {
+export function deleteInlineFragments(node: ParentNode, inlineFragments: InlineFragmentNode[] | InlineFragmentNode) {
   if (!node.selectionSet) return;
 
   const castInlineFragments = castArray(inlineFragments);
@@ -27,7 +25,7 @@ export function deleteInlineFragments(
   node.selectionSet.selections = childFields;
 }
 
-export function getInlineFragments({ selectionSet }: FieldNode): InlineFragmentNode[] {
+export function getInlineFragments({ selectionSet }: FieldNode | InlineFragmentNode | FragmentDefinitionNode) {
   const inlineFragments: InlineFragmentNode[] = [];
   if (!selectionSet) return inlineFragments;
 
@@ -45,29 +43,50 @@ export function getInlineFragments({ selectionSet }: FieldNode): InlineFragmentN
   return inlineFragments;
 }
 
-export function hasInlineFragments({ selectionSet }: FieldNode): boolean {
+export function hasInlineFragments({ selectionSet }: FieldNode | InlineFragmentNode | FragmentDefinitionNode) {
   if (!selectionSet) return false;
   return selectionSet.selections.some(value => getKind(value) === INLINE_FRAGMENT);
 }
 
-export function setInlineFragments({ selectionSet }: FieldNode): void {
-  if (!selectionSet) return;
+export const setInlineFragments = (
+  { selectionSet }: FieldNode | InlineFragmentNode | FragmentDefinitionNode,
+  { exclude = [], include = [] }: { exclude?: string[]; include?: string[] } = {},
+) => {
+  let fragmentsSet = 0;
+
+  if (!selectionSet) {
+    return fragmentsSet;
+  }
+
   const selectionNodes = [...selectionSet.selections];
   let inlineFragmentSelectionNodes: ReadonlyArray<SelectionNode> = [];
 
   for (let i = selectionNodes.length - 1; i >= 0; i -= 1) {
     const selectionNode = selectionNodes[i];
-    const kind = getKind(selectionNode);
+    const isInlineFragment = isKind<InlineFragmentNode>(selectionNode, INLINE_FRAGMENT);
 
-    if (kind === INLINE_FRAGMENT) {
-      const inlineFragmentNode = selectionNode as InlineFragmentNode;
-      inlineFragmentSelectionNodes = inlineFragmentNode.selectionSet.selections;
+    if (!isInlineFragment) {
+      continue;
+    }
+
+    const isIncluded =
+      !!include.length &&
+      include.includes(getName(getTypeCondition(selectionNode) as NamedTypeNode) as NamedTypeNode["name"]["value"]);
+
+    const isExcluded =
+      (include.length && !isIncluded) ||
+      exclude.includes(getName(getTypeCondition(selectionNode) as NamedTypeNode) as NamedTypeNode["name"]["value"]);
+
+    if (isIncluded || !isExcluded) {
+      inlineFragmentSelectionNodes = selectionNode.selectionSet.selections;
       selectionNodes.splice(i, 1, ...inlineFragmentSelectionNodes);
+      fragmentsSet += 1;
     }
   }
 
   selectionSet.selections = selectionNodes;
-}
+  return fragmentsSet;
+};
 
 export function unwrapInlineFragments(
   selectionNodes: ReadonlyArray<SelectionNode>,

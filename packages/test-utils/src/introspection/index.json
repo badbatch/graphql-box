@@ -44072,6 +44072,78 @@
             "defaultValue": "\"No longer supported\""
           }
         ]
+      },
+      {
+        "name": "defer",
+        "description": "The @defer directive may be specified on a fragment spread to imply de-prioritization, that causes the fragment to be omitted in the initial response, and delivered as a subsequent response afterward.",
+        "locations": [
+          "FRAGMENT_SPREAD"
+        ],
+        "args": [
+          {
+            "name": "if",
+            "description": "When true fragment may be deferred, if omitted defaults to true.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "true"
+          },
+          {
+            "name": "label",
+            "description": "A unique label across all @defer and @stream directives in an operation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "name": "stream",
+        "description": "The @stream directive may be provided for a field of List type so that the backend can leverage technology such asynchronous iterators to provide a partial list in the initial response, and additional list items in subsequent responses.",
+        "locations": [
+          "LIST"
+        ],
+        "args": [
+          {
+            "name": "if",
+            "description": "When true field may be streamed, if omitted defaults to true.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "true"
+          },
+          {
+            "name": "label",
+            "description": "A unique label across all @defer and @stream directives in an operation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "initialCount",
+            "description": "The number of list items the server should return as part of the initial response.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ]
       }
     ]
   }

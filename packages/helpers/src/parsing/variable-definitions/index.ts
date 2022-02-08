@@ -1,25 +1,7 @@
-import {
-  ListTypeNode,
-  NamedTypeNode,
-  NonNullTypeNode,
-  OperationDefinitionNode,
-  TypeNode,
-  VariableDefinitionNode,
-} from "graphql";
+import { ListTypeNode, NamedTypeNode, NonNullTypeNode, TypeNode, VariableDefinitionNode } from "graphql";
 import { isBoolean } from "lodash";
 import { TYPE } from "../../consts";
 import { getName } from "../name";
-
-export function deleteVariableDefinitions(operationDefinition: OperationDefinitionNode): OperationDefinitionNode {
-  return {
-    ...operationDefinition,
-    variableDefinitions: undefined,
-  };
-}
-
-export function hasVariableDefinitions({ variableDefinitions }: OperationDefinitionNode): boolean {
-  return !!variableDefinitions && !!variableDefinitions.length;
-}
 
 function variableDefinitionTypeVisitor(node: TypeNode): NamedTypeNode {
   if (node.hasOwnProperty(TYPE)) {

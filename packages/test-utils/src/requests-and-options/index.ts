@@ -183,14 +183,15 @@ export const queryWithDirective: RequestAndOptions = {
     variables: {
       first: 6,
       login: "facebook",
+      withEmail: true,
       withRepos: true,
     },
   },
   request: `
-    query ($login: String!, $withRepos: Boolean!) {
+    query ($login: String!, $withEmail: Boolean!, $withRepos: Boolean!) {
       organization(login: $login) {
         description
-        email
+        email @include(if: $withEmail)
         login
         name
         repositories(first: $first) @include(if: $withRepos) {
@@ -304,38 +305,6 @@ export const queryWithFragmentSpread: RequestAndOptions = {
   `,
 };
 
-export const queryWithDeferAndStream: RequestAndOptions = {
-  options: {
-    variables: {
-      login: "facebook",
-    },
-  },
-  request: `
-    fragment OrganizationFields on Organization {
-      description
-      email
-      login
-      name
-      url
-    }
-
-    query ($login: String!) {
-      organization(login: $login) {
-        ...OrganizationFields @defer(label: "organizationDefer")
-        repositories(first: $first) @stream(initialCount: 2, label: "repositoriesStream") {
-          edges {
-            node {
-              description
-              homepageUrl
-              name
-            }
-          }
-        }
-      }
-    }
-  `,
-};
-
 export const queryWithUnionInlineFragmentsAndFragmentSpread: RequestAndOptions = {
   options: {
     variables: {
@@ -408,6 +377,66 @@ export const queryWithFragmentOption: RequestAndOptions = {
     query ($login: String!) {
       organization(login: $login) {
         ...organizationFields
+      }
+    }
+  `,
+};
+
+export const queryWithDefer: RequestAndOptions = {
+  options: {
+    variables: {
+      deferCondition: true,
+      first: 10,
+      login: "facebook",
+      streamCondition: true,
+    },
+  },
+  request: `
+    fragment OrganizationFieldsA on Organization {
+      email @include(if: true)
+      ...on Organization {
+        description
+      }
+      ...OrganizationFieldsC
+    }
+
+    fragment OrganizationFieldsB on Organization {
+      login
+      ...on Organization {
+        name
+      }
+    }
+
+    fragment OrganizationFieldsC on Organization {
+      isVerified
+      location
+    }
+
+    fragment RepositoryFields on Repository {
+      description
+      homepageUrl
+      name
+    }
+
+    query ($login: String!, $deferCondition: Boolean!, $streamCondition: Boolean!) {
+      organization(login: $login) {
+        ...OrganizationFieldsA @defer(if: $deferCondition, label: "organizationDefer")
+        ...OrganizationFieldsB
+        repositories(first: $first) {
+          edges {
+            node {
+              ...on Repository @include(if: true) {
+                licenseInfo {
+                  permissions {
+                    label @skip(if: true)
+                  }
+                }
+                ...RepositoryFields @skip(if: true) @defer(if: $deferCondition, label: "repositoryDefer")
+              }
+            }
+          }
+        }
+        url
       }
     }
   `,

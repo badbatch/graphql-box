@@ -4,6 +4,10 @@ export const singleTypeQuery: FieldTypeMap = new Map([
   [
     "query.organization",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: true,
       hasDirectives: false,
       isEntity: true,
@@ -20,6 +24,10 @@ export const nestedTypeQuery: FieldTypeMap = new Map([
   [
     "query.organization",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: true,
       hasDirectives: false,
       isEntity: true,
@@ -33,6 +41,10 @@ export const nestedTypeQuery: FieldTypeMap = new Map([
   [
     "query.organization.repositories",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: true,
       hasDirectives: false,
       isEntity: false,
@@ -46,6 +58,10 @@ export const nestedTypeQuery: FieldTypeMap = new Map([
   [
     "query.organization.repositories.edges",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: false,
       hasDirectives: false,
       isEntity: false,
@@ -59,6 +75,10 @@ export const nestedTypeQuery: FieldTypeMap = new Map([
   [
     "query.organization.repositories.edges.node",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: false,
       hasDirectives: false,
       isEntity: true,
@@ -72,6 +92,10 @@ export const nestedTypeQuery: FieldTypeMap = new Map([
   [
     "query.organization.repositories.edges.node.owner",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: false,
       hasDirectives: false,
       isEntity: true,
@@ -97,6 +121,10 @@ export const nestedUnionQuery: FieldTypeMap = new Map([
   [
     "query.search",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: true,
       hasDirectives: false,
       isEntity: false,
@@ -110,6 +138,10 @@ export const nestedUnionQuery: FieldTypeMap = new Map([
   [
     "query.search.edges",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: false,
       hasDirectives: false,
       isEntity: false,
@@ -123,6 +155,10 @@ export const nestedUnionQuery: FieldTypeMap = new Map([
   [
     "query.search.edges.node",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: false,
       hasDirectives: false,
       isEntity: false,
@@ -164,6 +200,10 @@ export const nestedInterfaceMutation: FieldTypeMap = new Map([
   [
     "mutation.addStar",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: true,
       hasDirectives: false,
       isEntity: false,
@@ -177,6 +217,10 @@ export const nestedInterfaceMutation: FieldTypeMap = new Map([
   [
     "mutation.addStar.starrable",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: false,
       hasDirectives: false,
       isEntity: true,
@@ -203,6 +247,10 @@ export const nestedInterfaceMutation: FieldTypeMap = new Map([
   [
     "mutation.addStar.starrable.stargazers",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: true,
       hasDirectives: false,
       isEntity: false,
@@ -216,6 +264,10 @@ export const nestedInterfaceMutation: FieldTypeMap = new Map([
   [
     "mutation.addStar.starrable.stargazers.edges",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: false,
       hasDirectives: false,
       isEntity: false,
@@ -229,6 +281,10 @@ export const nestedInterfaceMutation: FieldTypeMap = new Map([
   [
     "mutation.addStar.starrable.stargazers.edges.node",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: false,
       hasDirectives: false,
       isEntity: true,
@@ -245,6 +301,10 @@ export const nestedTypeSubscription: FieldTypeMap = new Map([
   [
     "subscription.emailAdded",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: false,
       hasDirectives: false,
       isEntity: true,
@@ -258,6 +318,10 @@ export const nestedTypeSubscription: FieldTypeMap = new Map([
   [
     "subscription.emailAdded.emails",
     {
+      directives: {
+        inherited: [],
+        own: [],
+      },
       hasArguments: false,
       hasDirectives: false,
       isEntity: true,

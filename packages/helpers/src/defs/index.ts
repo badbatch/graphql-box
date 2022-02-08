@@ -1,4 +1,4 @@
-import { Maybe } from "@graphql-box/core";
+import { PlainObjectMap } from "@graphql-box/core";
 import {
   ArgumentNode,
   BooleanValueNode,
@@ -15,7 +15,6 @@ import {
   GraphQLEnumType,
   GraphQLInterfaceType,
   GraphQLList,
-  GraphQLNamedType,
   GraphQLObjectType,
   GraphQLScalarType,
   GraphQLUnionType,
@@ -36,10 +35,6 @@ import {
 
 export interface FragmentDefinitionNodeMap {
   [key: string]: FragmentDefinitionNode;
-}
-
-export interface VariableTypesMap {
-  [key: string]: Maybe<GraphQLNamedType>;
 }
 
 export type GraphQLNullableOutputType =
@@ -78,4 +73,11 @@ export type ScalarValueNode = IntValueNode | FloatValueNode | StringValueNode | 
 export interface FieldAndTypeName {
   fieldNode: FieldNode;
   typeName: string | undefined;
+}
+
+export interface ParsedDirective {
+  args: PlainObjectMap;
+  name: string;
+  parentKind: string;
+  parentName: string;
 }

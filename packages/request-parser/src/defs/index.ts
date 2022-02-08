@@ -1,20 +1,6 @@
-import { Maybe, PossibleType, RequestContext, RequestOptions } from "@graphql-box/core";
-import {
-  DocumentNode,
-  FieldNode,
-  FragmentDefinitionNode,
-  GraphQLNamedType,
-  GraphQLSchema,
-  IntrospectionQuery,
-} from "graphql";
-
-export interface FragmentDefinitionNodeMap {
-  [key: string]: FragmentDefinitionNode;
-}
-
-export interface VariableTypesMap {
-  [key: string]: Maybe<GraphQLNamedType>;
-}
+import { FieldTypeMap, PossibleType, RequestContext, RequestOptions, ValidOperations } from "@graphql-box/core";
+import { ParsedDirective } from "@graphql-box/helpers";
+import { DocumentNode, FieldNode, FragmentDefinitionNode, GraphQLSchema, IntrospectionQuery } from "graphql";
 
 export interface UserOptions {
   /**
@@ -54,8 +40,21 @@ export interface RequestParserDef {
 
 export type RequestParserInit = (options: ClientOptions) => Promise<RequestParserDef>;
 
+export interface Ancestors {
+  ancestors: readonly any[];
+  key: string | number | undefined;
+}
+
+export interface FragmentDefinitionNodeMap {
+  [key: string]: FragmentDefinitionNode;
+}
+
 export interface MapFieldToTypeData {
   ancestors: ReadonlyArray<any>;
+  directives: {
+    inherited: string[];
+    own: string[];
+  };
   fieldNode: FieldNode;
   isEntity: boolean;
   isInterface: boolean;
@@ -63,4 +62,14 @@ export interface MapFieldToTypeData {
   possibleTypes: PossibleType[];
   typeIDKey: string;
   typeName: string;
+}
+
+export type PersistedFragmentSpread = [string, ParsedDirective[], ReadonlyArray<any>];
+
+export interface VisitorContext {
+  fieldTypeMap: FieldTypeMap;
+  hasDeferOrStream: boolean;
+  operation: ValidOperations;
+  operationName: string;
+  persistedFragmentSpreads: PersistedFragmentSpread[];
 }

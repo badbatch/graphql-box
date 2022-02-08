@@ -1,6 +1,6 @@
 import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
 import EventEmitter from "eventemitter3";
-import { DocumentNode, GraphQLFieldResolver } from "graphql";
+import { DocumentNode, GraphQLFieldResolver, GraphQLNamedType } from "graphql";
 import WebSocket from "ws";
 
 export type Maybe<T> = null | undefined | T;
@@ -117,7 +117,15 @@ export interface PossibleType {
   typeName: string;
 }
 
+export interface VariableTypesMap {
+  [key: string]: Maybe<GraphQLNamedType>;
+}
+
 export interface FieldTypeInfo {
+  directives: {
+    inherited: string[];
+    own: string[];
+  };
   hasArguments: boolean;
   hasDirectives: boolean;
   isEntity: boolean;
@@ -136,6 +144,7 @@ export interface RequestContext {
   boxID: string;
   debugManager: DebugManagerDef | null;
   fieldTypeMap: FieldTypeMap;
+  hasDeferOrStream?: boolean;
   operation: ValidOperations;
   operationName: string;
   queryFiltered: boolean;
