@@ -8,7 +8,9 @@ import { getKind } from "../kind";
 import { getName } from "../name";
 
 export function addChildField(node: ParentNode, field: FieldNode, schema: GraphQLSchema, typeIDKey: string): void {
-  if (!node.selectionSet) return;
+  if (!node.selectionSet) {
+    return;
+  }
 
   const childFields = [...node.selectionSet.selections];
   let added = false;
@@ -36,14 +38,18 @@ export function addChildField(node: ParentNode, field: FieldNode, schema: GraphQ
     }
   }
 
-  if (added) return;
+  if (added) {
+    return;
+  }
 
   childFields.push(field);
   node.selectionSet.selections = childFields;
 }
 
 export function deleteChildFields(node: ParentNode, fields: FieldNode[] | FieldNode): void {
-  if (!node.selectionSet) return;
+  if (!node.selectionSet) {
+    return;
+  }
 
   const _fields = castArray(fields);
   const childFields = [...node.selectionSet.selections];
@@ -65,10 +71,15 @@ export function deleteChildFields(node: ParentNode, fields: FieldNode[] | FieldN
 }
 
 export function getChildFields(node: ParentNode, name?: string): FieldAndTypeName[] | undefined {
-  if (!node.selectionSet) return undefined;
+  if (!node.selectionSet) {
+    return undefined;
+  }
 
   const fieldsAndTypeNames = unwrapInlineFragments(node.selectionSet.selections);
-  if (!name) return fieldsAndTypeNames;
+
+  if (!name) {
+    return fieldsAndTypeNames;
+  }
 
   const filtered = fieldsAndTypeNames.filter(
     ({ fieldNode }) => getName(fieldNode) === name || getKind(fieldNode) === name,
@@ -78,10 +89,15 @@ export function getChildFields(node: ParentNode, name?: string): FieldAndTypeNam
 }
 
 export function hasChildFields(node: ParentNode, name?: string): boolean {
-  if (!node.selectionSet) return false;
+  if (!node.selectionSet) {
+    return false;
+  }
 
   const fieldsAndTypeNames = unwrapInlineFragments(node.selectionSet.selections);
-  if (!name) return !!fieldsAndTypeNames.length;
+
+  if (!name) {
+    return !!fieldsAndTypeNames.length;
+  }
 
   return fieldsAndTypeNames.some(({ fieldNode }) => getName(fieldNode) === name || getKind(fieldNode) === name);
 }
@@ -93,7 +109,10 @@ export function iterateChildFields(
 ): void {
   if (!isArray(data)) {
     const fieldsAndTypeNames = getChildFields(field);
-    if (!fieldsAndTypeNames) return;
+
+    if (!fieldsAndTypeNames) {
+      return;
+    }
 
     fieldsAndTypeNames.forEach(({ fieldNode, typeName }) => {
       callback(fieldNode, typeName);

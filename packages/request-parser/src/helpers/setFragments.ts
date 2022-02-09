@@ -18,7 +18,7 @@ import {
   GraphQLUnionType,
   InlineFragmentNode,
 } from "graphql";
-import { FragmentDefinitionNodeMap } from "..";
+import { FragmentDefinitionNodeMap } from "../defs";
 import getFragmentSpreadsWithoutDirectives from "./getFragmentSpreadsWithoutDirectives";
 
 export type Params = {

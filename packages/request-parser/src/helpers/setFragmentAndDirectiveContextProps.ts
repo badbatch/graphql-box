@@ -2,7 +2,7 @@ import { RequestOptions } from "@graphql-box/core";
 import { ParsedDirective, getFragmentSpreadDirectives } from "@graphql-box/helpers";
 import { FieldNode, FragmentDefinitionNode, InlineFragmentNode } from "graphql";
 import { cloneDeep, isEmpty, keys } from "lodash";
-import { Ancestors, PersistedFragmentSpread, VisitorContext } from "..";
+import { Ancestors, PersistedFragmentSpread, VisitorContext } from "../defs";
 import enrichAncestors from "./enrichAncestors";
 import hasActiveDeferOrStreamDirective from "./hasActiveDeferOrStreamDirective";
 
