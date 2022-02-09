@@ -98,20 +98,15 @@ export function unwrapInlineFragments(
   let inlineFragmentType: string | undefined;
 
   for (const selectionNode of selectionNodes) {
-    const kind = getKind(selectionNode);
-
-    if (kind === FIELD) {
-      const fieldNode = selectionNode as FieldNode;
-      fieldAndTypeName.push({ fieldNode, typeName });
-    } else if (kind === INLINE_FRAGMENT && depth < maxDepth) {
-      const inlineFragmentNode = selectionNode as InlineFragmentNode;
-
-      inlineFragmentType = inlineFragmentNode.typeCondition
-        ? (getName(inlineFragmentNode.typeCondition) as string)
+    if (isKind<FieldNode>(selectionNode, FIELD)) {
+      fieldAndTypeName.push({ fieldNode: selectionNode, typeName });
+    } else if (isKind<InlineFragmentNode>(selectionNode, INLINE_FRAGMENT) && depth < maxDepth) {
+      inlineFragmentType = selectionNode.typeCondition
+        ? (getName(selectionNode.typeCondition) as NamedTypeNode["name"]["value"])
         : undefined;
 
       const unwrappedFieldAndTypeName = unwrapInlineFragments(
-        inlineFragmentNode.selectionSet.selections,
+        selectionNode.selectionSet.selections,
         maxDepth,
         depth + 1,
         inlineFragmentType,
