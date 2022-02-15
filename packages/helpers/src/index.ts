@@ -24,13 +24,20 @@ export {
   getFragmentDefinitions,
   setFragmentDefinitions,
 } from "./parsing/fragment-definitions";
-export { getFragmentSpreads, hasFragmentSpreads } from "./parsing/fragment-spreads";
+export {
+  deleteFragmentSpreads,
+  getFragmentSpreads,
+  getFragmentSpreadsWithoutDirectives,
+  hasFragmentSpreads,
+  resolveFragmentSpreads,
+} from "./parsing/fragment-spreads";
+export { resolveFragments, setFragments } from "./parsing/fragments";
 export {
   deleteInlineFragments,
   getInlineFragments,
   hasInlineFragments,
+  resolveInlineFragments,
   setInlineFragments,
-  unwrapInlineFragments,
 } from "./parsing/inline-fragments";
 export { getKind, isKind } from "./parsing/kind";
 export { getName } from "./parsing/name";

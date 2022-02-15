@@ -2,9 +2,9 @@ import { PlainObjectMap } from "@graphql-box/core";
 import { FieldNode, GraphQLInterfaceType, GraphQLObjectType, GraphQLSchema, InlineFragmentNode } from "graphql";
 import { castArray, isArray } from "lodash";
 import { FIELD, INLINE_FRAGMENT } from "../../consts";
-import { FieldAndTypeName, ParentNode } from "../../defs";
-import { unwrapInlineFragments } from "../inline-fragments";
-import { getKind } from "../kind";
+import { FieldAndTypeName, FragmentDefinitionNodeMap, ParentNode } from "../../defs";
+import { resolveFragments } from "../fragments";
+import { getKind, isKind } from "../kind";
 import { getName } from "../name";
 
 export function addChildField(node: ParentNode, field: FieldNode, schema: GraphQLSchema, typeIDKey: string): void {
@@ -16,11 +16,9 @@ export function addChildField(node: ParentNode, field: FieldNode, schema: GraphQ
   let added = false;
 
   for (const childField of childFields) {
-    if (getKind(childField) === INLINE_FRAGMENT) {
-      const inlineFragmentNode = childField as InlineFragmentNode;
-
-      if (inlineFragmentNode.typeCondition) {
-        const name = getName(inlineFragmentNode.typeCondition);
+    if (isKind<InlineFragmentNode>(childField, INLINE_FRAGMENT)) {
+      if (childField.typeCondition) {
+        const name = getName(childField.typeCondition);
 
         if (name) {
           const type = schema.getType(name);
@@ -29,7 +27,7 @@ export function addChildField(node: ParentNode, field: FieldNode, schema: GraphQ
             const fields = type.getFields();
 
             if (fields[typeIDKey]) {
-              addChildField(inlineFragmentNode, field, schema, typeIDKey);
+              addChildField(childField, field, schema, typeIDKey);
               added = true;
             }
           }
@@ -51,17 +49,16 @@ export function deleteChildFields(node: ParentNode, fields: FieldNode[] | FieldN
     return;
   }
 
-  const _fields = castArray(fields);
+  const castFields = castArray(fields);
   const childFields = [...node.selectionSet.selections];
 
   for (let i = childFields.length - 1; i >= 0; i -= 1) {
-    if (getKind(childFields[i]) === INLINE_FRAGMENT) {
-      const inlineFragmentNode = childFields[i] as InlineFragmentNode;
-      deleteChildFields(inlineFragmentNode, _fields);
-    } else if (getKind(childFields[i]) === FIELD) {
-      const fieldNode = childFields[i] as FieldNode;
+    const childField = childFields[i];
 
-      if (_fields.some(field => field === fieldNode)) {
+    if (isKind<InlineFragmentNode>(childField, INLINE_FRAGMENT)) {
+      deleteChildFields(childField, castFields);
+    } else if (isKind<FieldNode>(childField, FIELD)) {
+      if (castFields.some(field => field === childField)) {
         childFields.splice(i, 1);
       }
     }
@@ -70,12 +67,20 @@ export function deleteChildFields(node: ParentNode, fields: FieldNode[] | FieldN
   node.selectionSet.selections = childFields;
 }
 
-export function getChildFields(node: ParentNode, name?: string): FieldAndTypeName[] | undefined {
+export type ChildFieldOptions = {
+  fragmentDefinitions?: FragmentDefinitionNodeMap;
+  name?: string;
+};
+
+export function getChildFields(
+  node: ParentNode,
+  { fragmentDefinitions, name }: ChildFieldOptions = {},
+): FieldAndTypeName[] | undefined {
   if (!node.selectionSet) {
     return undefined;
   }
 
-  const fieldsAndTypeNames = unwrapInlineFragments(node.selectionSet.selections);
+  const fieldsAndTypeNames = resolveFragments(node.selectionSet.selections, fragmentDefinitions);
 
   if (!name) {
     return fieldsAndTypeNames;
@@ -88,12 +93,12 @@ export function getChildFields(node: ParentNode, name?: string): FieldAndTypeNam
   return filtered;
 }
 
-export function hasChildFields(node: ParentNode, name?: string): boolean {
+export function hasChildFields(node: ParentNode, { fragmentDefinitions, name }: ChildFieldOptions = {}): boolean {
   if (!node.selectionSet) {
     return false;
   }
 
-  const fieldsAndTypeNames = unwrapInlineFragments(node.selectionSet.selections);
+  const fieldsAndTypeNames = resolveFragments(node.selectionSet.selections, fragmentDefinitions);
 
   if (!name) {
     return !!fieldsAndTypeNames.length;
@@ -105,21 +110,28 @@ export function hasChildFields(node: ParentNode, name?: string): boolean {
 export function iterateChildFields(
   field: FieldNode,
   data: PlainObjectMap | any[],
-  callback: (childField: FieldNode, inlineFragmentType: string | undefined, childIndex?: number) => void,
+  fragmentDefinitions: FragmentDefinitionNodeMap | undefined,
+  callback: (
+    childField: FieldNode,
+    typeName: string | undefined,
+    fragmentKind: string | undefined,
+    fragmentName: string | undefined,
+    childIndex?: number,
+  ) => void,
 ): void {
   if (!isArray(data)) {
-    const fieldsAndTypeNames = getChildFields(field);
+    const fieldsAndTypeNames = getChildFields(field, { fragmentDefinitions });
 
     if (!fieldsAndTypeNames) {
       return;
     }
 
-    fieldsAndTypeNames.forEach(({ fieldNode, typeName }) => {
-      callback(fieldNode, typeName);
+    fieldsAndTypeNames.forEach(({ fieldNode, fragmentKind, fragmentName, typeName }) => {
+      callback(fieldNode, typeName, fragmentKind, fragmentName);
     });
   } else {
     data.forEach((_value, index) => {
-      callback(field, undefined, index);
+      callback(field, undefined, undefined, undefined, index);
     });
   }
 }

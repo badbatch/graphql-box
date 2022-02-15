@@ -837,6 +837,754 @@ export const nestedUnionQuerySet: QueryResponseSet = {
   },
 };
 
+export const deferQuery: RawResponseDataWithMaybeCacheMetadata = {
+  data: {
+    organization: {
+      description:
+        "We are working to build community through open source technology. NB: members must have two-factor auth.",
+      email: null,
+      id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      isVerified: true,
+      location: "Menlo Park, California",
+      login: "facebook",
+      name: "Meta",
+      repositories: {
+        edges: [
+          {
+            node: {
+              description: "A virtual machine for executing programs written in Hack.",
+              homepageUrl: "https://hhvm.com",
+              id: "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+              licenseInfo: {
+                id: "MDc6TGljZW5zZTA=",
+                permissions: [],
+              },
+              name: "hhvm",
+            },
+          },
+          {
+            node: {
+              description: "Python wrapper for RE2",
+              homepageUrl: "",
+              id: "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+              licenseInfo: {
+                id: "MDc6TGljZW5zZTU=",
+                permissions: [
+                  {
+                    label: "Commercial use",
+                  },
+                  {
+                    label: "Modification",
+                  },
+                  {
+                    label: "Distribution",
+                  },
+                  {
+                    label: "Private use",
+                  },
+                ],
+              },
+              name: "pyre2",
+            },
+          },
+          {
+            node: {
+              description: "Used to integrate Android apps with Facebook Platform.",
+              homepageUrl: "https://developers.facebook.com/docs/android",
+              id: "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+              licenseInfo: {
+                id: "MDc6TGljZW5zZTA=",
+                permissions: [],
+              },
+              name: "facebook-android-sdk",
+            },
+          },
+          {
+            node: {
+              description: "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+              homepageUrl: "https://developers.facebook.com/docs/ios",
+              id: "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+              licenseInfo: {
+                id: "MDc6TGljZW5zZTA=",
+                permissions: [],
+              },
+              name: "facebook-ios-sdk",
+            },
+          },
+          {
+            node: {
+              description: "An open-source C++ library developed and used at Facebook.",
+              homepageUrl: "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
+              id: "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+              licenseInfo: {
+                id: "MDc6TGljZW5zZTI=",
+                permissions: [
+                  {
+                    label: "Commercial use",
+                  },
+                  {
+                    label: "Modification",
+                  },
+                  {
+                    label: "Distribution",
+                  },
+                  {
+                    label: "Patent use",
+                  },
+                  {
+                    label: "Private use",
+                  },
+                ],
+              },
+              name: "folly",
+            },
+          },
+          {
+            node: {
+              description:
+                "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
+              homepageUrl: "https://github.com/facebook/nailgun",
+              id: "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
+              licenseInfo: {
+                id: "MDc6TGljZW5zZTA=",
+                permissions: [],
+              },
+              name: "nailgun",
+            },
+          },
+          {
+            node: {
+              description: "Watches files and records, or triggers actions, when they change. ",
+              homepageUrl: "https://facebook.github.io/watchman/",
+              id: "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+              licenseInfo: {
+                id: "MDc6TGljZW5zZTEz",
+                permissions: [
+                  {
+                    label: "Commercial use",
+                  },
+                  {
+                    label: "Modification",
+                  },
+                  {
+                    label: "Distribution",
+                  },
+                  {
+                    label: "Private use",
+                  },
+                ],
+              },
+              name: "watchman",
+            },
+          },
+          {
+            node: {
+              description: "A library that provides an embeddable, persistent key-value store for fast storage.",
+              homepageUrl: "http://rocksdb.org",
+              id: "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
+              licenseInfo: {
+                id: "MDc6TGljZW5zZTA=",
+                permissions: [],
+              },
+              name: "rocksdb",
+            },
+          },
+          {
+            node: {
+              description: "Utilities related to Chef",
+              homepageUrl: null,
+              id: "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
+              licenseInfo: {
+                id: "MDc6TGljZW5zZTI=",
+                permissions: [
+                  {
+                    label: "Commercial use",
+                  },
+                  {
+                    label: "Modification",
+                  },
+                  {
+                    label: "Distribution",
+                  },
+                  {
+                    label: "Patent use",
+                  },
+                  {
+                    label: "Private use",
+                  },
+                ],
+              },
+              name: "chef-utils",
+            },
+          },
+          {
+            node: {
+              description: "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
+              homepageUrl: "http://myrocks.io",
+              id: "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
+              licenseInfo: {
+                id: "MDc6TGljZW5zZTg=",
+                permissions: [
+                  {
+                    label: "Commercial use",
+                  },
+                  {
+                    label: "Modification",
+                  },
+                  {
+                    label: "Distribution",
+                  },
+                  {
+                    label: "Private use",
+                  },
+                ],
+              },
+              name: "mysql-5.6",
+            },
+          },
+        ],
+      },
+      url: "https://github.com/facebook",
+    },
+  },
+  headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+};
+
+export const deferQuerySet: QueryResponseSet = {
+  initial: {
+    data: {
+      organization: {
+        description:
+          "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        name: "Meta",
+        repositories: {
+          edges: [
+            {
+              node: {
+                description: "A virtual machine for executing programs written in Hack.",
+                homepageUrl: "https://hhvm.com",
+                id: "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+                name: "hhvm",
+              },
+            },
+            {
+              node: {
+                description: "Python wrapper for RE2",
+                homepageUrl: "",
+                id: "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTU=",
+                  permissions: [],
+                },
+                name: "pyre2",
+              },
+            },
+            {
+              node: {
+                description: "Used to integrate Android apps with Facebook Platform.",
+                homepageUrl: "https://developers.facebook.com/docs/android",
+                id: "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+                name: "facebook-android-sdk",
+              },
+            },
+            {
+              node: {
+                description: "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+                homepageUrl: "https://developers.facebook.com/docs/ios",
+                id: "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+                name: "facebook-ios-sdk",
+              },
+            },
+            {
+              node: {
+                description: "An open-source C++ library developed and used at Facebook.",
+                homepageUrl: "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
+                id: "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTI=",
+                  permissions: [],
+                },
+                name: "folly",
+              },
+            },
+            {
+              node: {
+                description:
+                  "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
+                homepageUrl: "https://github.com/facebook/nailgun",
+                id: "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+                name: "nailgun",
+              },
+            },
+            {
+              node: {
+                description: "Watches files and records, or triggers actions, when they change. ",
+                homepageUrl: "https://facebook.github.io/watchman/",
+                id: "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTEz",
+                  permissions: [],
+                },
+                name: "watchman",
+              },
+            },
+            {
+              node: {
+                description: "A library that provides an embeddable, persistent key-value store for fast storage.",
+                homepageUrl: "http://rocksdb.org",
+                id: "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+                name: "rocksdb",
+              },
+            },
+            {
+              node: {
+                description: "Utilities related to Chef",
+                homepageUrl: null,
+                id: "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTI=",
+                  permissions: [],
+                },
+                name: "chef-utils",
+              },
+            },
+            {
+              node: {
+                description: "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
+                homepageUrl: "http://myrocks.io",
+                id: "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTg=",
+                  permissions: [],
+                },
+                name: "mysql-5.6",
+              },
+            },
+          ],
+        },
+        url: "https://github.com/facebook",
+      },
+    },
+    headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+  },
+  partial: {
+    cacheMetadata: {
+      query: {
+        cacheControl: {
+          maxAge: 60,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297475260000,
+      },
+      "query.organization": {
+        cacheControl: {
+          maxAge: 60,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297475260000,
+      },
+      "query.organization.description": {
+        cacheControl: {
+          maxAge: 60,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297475260000,
+      },
+      "query.organization.repositories": {
+        cacheControl: {
+          maxAge: 60,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297475260000,
+      },
+      "query.organization.repositories.edges.node": {
+        cacheControl: {
+          maxAge: 60,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297475260000,
+      },
+      "query.organization.repositories.edges.node.description": {
+        cacheControl: {
+          maxAge: 60,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297475260000,
+      },
+      "query.organization.repositories.edges.node.homepageUrl": {
+        cacheControl: {
+          maxAge: 60,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297475260000,
+      },
+      "query.organization.repositories.edges.node.id": {
+        cacheControl: {
+          maxAge: 60,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297475260000,
+      },
+      "query.organization.repositories.edges.node.licenseInfo": {
+        cacheControl: {
+          maxAge: 60,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297475260000,
+      },
+      "query.organization.repositories.edges.node.name": {
+        cacheControl: {
+          maxAge: 60,
+          public: true,
+        },
+        etag: undefined,
+        ttl: 297475260000,
+      },
+    },
+    data: {
+      organization: {
+        description:
+          "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        name: "Meta",
+        repositories: {
+          edges: [
+            {
+              node: {
+                description: "A virtual machine for executing programs written in Hack.",
+                homepageUrl: "https://hhvm.com",
+                id: "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+                name: "hhvm",
+              },
+            },
+            {
+              node: {
+                description: "Python wrapper for RE2",
+                homepageUrl: "",
+                id: "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTU=",
+                  permissions: [],
+                },
+                name: "pyre2",
+              },
+            },
+            {
+              node: {
+                description: "Used to integrate Android apps with Facebook Platform.",
+                homepageUrl: "https://developers.facebook.com/docs/android",
+                id: "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+                name: "facebook-android-sdk",
+              },
+            },
+            {
+              node: {
+                description: "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+                homepageUrl: "https://developers.facebook.com/docs/ios",
+                id: "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+                name: "facebook-ios-sdk",
+              },
+            },
+            {
+              node: {
+                description: "An open-source C++ library developed and used at Facebook.",
+                homepageUrl: "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
+                id: "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTI=",
+                  permissions: [],
+                },
+                name: "folly",
+              },
+            },
+            {
+              node: {
+                description:
+                  "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
+                homepageUrl: "https://github.com/facebook/nailgun",
+                id: "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+                name: "nailgun",
+              },
+            },
+            {
+              node: {
+                description: "Watches files and records, or triggers actions, when they change. ",
+                homepageUrl: "https://facebook.github.io/watchman/",
+                id: "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTEz",
+                  permissions: [],
+                },
+                name: "watchman",
+              },
+            },
+            {
+              node: {
+                description: "A library that provides an embeddable, persistent key-value store for fast storage.",
+                homepageUrl: "http://rocksdb.org",
+                id: "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+                name: "rocksdb",
+              },
+            },
+            {
+              node: {
+                description: "Utilities related to Chef",
+                homepageUrl: null,
+                id: "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTI=",
+                  permissions: [],
+                },
+                name: "chef-utils",
+              },
+            },
+            {
+              node: {
+                description: "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
+                homepageUrl: "http://myrocks.io",
+                id: "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTg=",
+                  permissions: [],
+                },
+                name: "mysql-5.6",
+              },
+            },
+          ],
+        },
+        url: "https://github.com/facebook",
+      },
+    },
+  },
+  updated: {
+    data: {
+      organization: {
+        email: null,
+        id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        isVerified: true,
+        location: "Menlo Park, California",
+        login: "facebook",
+        repositories: {
+          edges: [
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTU=",
+                  permissions: [
+                    {
+                      label: "Commercial use",
+                    },
+                    {
+                      label: "Modification",
+                    },
+                    {
+                      label: "Distribution",
+                    },
+                    {
+                      label: "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTI=",
+                  permissions: [
+                    {
+                      label: "Commercial use",
+                    },
+                    {
+                      label: "Modification",
+                    },
+                    {
+                      label: "Distribution",
+                    },
+                    {
+                      label: "Patent use",
+                    },
+                    {
+                      label: "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTEz",
+                  permissions: [
+                    {
+                      label: "Commercial use",
+                    },
+                    {
+                      label: "Modification",
+                    },
+                    {
+                      label: "Distribution",
+                    },
+                    {
+                      label: "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTA=",
+                  permissions: [],
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTI=",
+                  permissions: [
+                    {
+                      label: "Commercial use",
+                    },
+                    {
+                      label: "Modification",
+                    },
+                    {
+                      label: "Distribution",
+                    },
+                    {
+                      label: "Patent use",
+                    },
+                    {
+                      label: "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+            {
+              node: {
+                id: "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
+                licenseInfo: {
+                  id: "MDc6TGljZW5zZTg=",
+                  permissions: [
+                    {
+                      label: "Commercial use",
+                    },
+                    {
+                      label: "Modification",
+                    },
+                    {
+                      label: "Distribution",
+                    },
+                    {
+                      label: "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+  },
+};
+
 export const nestedInterfaceMutation: RawResponseDataWithMaybeCacheMetadata = {
   data: {
     addStar: {

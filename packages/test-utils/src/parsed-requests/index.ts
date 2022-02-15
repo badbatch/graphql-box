@@ -212,6 +212,118 @@ export const nestedUnionQuerySet: ParsedQuerySet = {
   `,
 };
 
+export const deferQuery = `
+  {
+    organization(login: "facebook") {
+      ...OrganizationFieldsA @defer(if: true, label: "organizationDefer")
+      login
+      name
+      repositories(first: 10) {
+        edges {
+          node {
+            ... on Repository @include(if: true) {
+              licenseInfo {
+                permissions {
+                  label @skip(if: false)
+                }
+                id
+              }
+              ...RepositoryFields @skip(if: false) @defer(if: true, label: "repositoryDefer")
+              id
+            }
+          }
+        }
+      }
+      url
+      id
+    }
+  }
+
+  fragment OrganizationFieldsA on Organization {
+    email @include(if: true)
+    description
+    isVerified
+    location
+  }
+
+  fragment RepositoryFields on Repository {
+    description
+    homepageUrl
+    name
+  }
+`;
+
+export const deferQuerySet: ParsedQuerySet = {
+  full: deferQuery,
+  initial: `
+    {
+      organization(login: "facebook") {
+        ...OrganizationFieldsA @defer(if: true, label: "organizationDefer")
+        name
+        repositories(first: 10) {
+          edges {
+            node {
+              ... on Repository @include(if: true) {
+                licenseInfo {
+                  permissions {
+                    label @skip(if: true)
+                  }
+                  id
+                }
+                ...RepositoryFields @skip(if: false) @defer(if: true, label: "repositoryDefer")
+                id
+              }
+            }
+          }
+        }
+        url
+        id
+      }
+    }
+
+    fragment OrganizationFieldsA on Organization {
+      email @include(if: false)
+      description
+    }
+
+    fragment RepositoryFields on Repository {
+      description
+      homepageUrl
+      name
+    }
+  `,
+  updated: `
+    {
+      organization(login: "facebook") {
+        ...OrganizationFieldsA
+        login
+        repositories(first: 10) {
+          edges {
+            node {
+              ... on Repository @include(if: true) {
+                licenseInfo {
+                  permissions {
+                    label @skip(if: false)
+                  }
+                  id
+                }
+                id
+              }
+            }
+          }
+        }
+        id
+      }
+    }
+
+    fragment OrganizationFieldsA on Organization {
+      email @include(if: true)
+      isVerified
+      location
+    }
+  `,
+};
+
 export const nestedTypeMutation = `
   mutation {
     addEmail(input: { from: "delta@gmail.com", message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit", subject: "Hi, this is Delta" }) {

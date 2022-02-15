@@ -11,6 +11,7 @@ import {
   DOCUMENT,
   FIELD,
   FRAGMENT_DEFINITION,
+  FragmentDefinitionNodeMap,
   INLINE_FRAGMENT,
   NAME,
   ParsedDirective,
@@ -33,6 +34,7 @@ import {
   getVariableDefinitionType,
   hasChildFields,
   isKind,
+  setFragments,
 } from "@graphql-box/helpers";
 import {
   ASTNode,
@@ -63,7 +65,6 @@ import {
   Ancestors,
   ClientOptions,
   ConstructorOptions,
-  FragmentDefinitionNodeMap,
   InitOptions,
   MapFieldToTypeData,
   RequestParserDef,
@@ -77,7 +78,6 @@ import getPossibleTypeDetails from "../helpers/getPossibleTypeDetails";
 import isTypeEntity from "../helpers/isTypeEntity";
 import reorderDefinitions from "../helpers/reorderDefinitions";
 import setFragmentAndDirectiveContextProps from "../helpers/setFragmentAndDirectiveContextProps";
-import setFragments from "../helpers/setFragments";
 import toUpdateNode from "../helpers/toUpdateNode";
 
 export class RequestParser implements RequestParserDef {
@@ -267,10 +267,10 @@ export class RequestParser implements RequestParserDef {
   }
 
   private _addFieldToNode(node: FieldNode | InlineFragmentNode | FragmentDefinitionNode, key: string): void {
-    if (!hasChildFields(node, key)) {
+    if (!hasChildFields(node, { name: key })) {
       const mockAST = parse(`{${key}}`);
       const queryNode = getOperationDefinitions(mockAST, QUERY)[0];
-      const fieldsAndTypeNames = getChildFields(queryNode, key);
+      const fieldsAndTypeNames = getChildFields(queryNode, { name: key });
       if (!fieldsAndTypeNames) return;
 
       const { fieldNode } = fieldsAndTypeNames[0];

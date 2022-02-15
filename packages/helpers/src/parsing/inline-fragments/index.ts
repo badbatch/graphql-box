@@ -48,6 +48,38 @@ export function hasInlineFragments({ selectionSet }: FieldNode | InlineFragmentN
   return selectionSet.selections.some(value => getKind(value) === INLINE_FRAGMENT);
 }
 
+export function resolveInlineFragments(
+  selectionNodes: ReadonlyArray<SelectionNode>,
+  maxDepth: number = 1,
+  depth: number = 0,
+  typeName?: string,
+  fragmentKind?: string,
+): FieldAndTypeName[] {
+  let fieldAndTypeName: FieldAndTypeName[] = [];
+
+  for (const selectionNode of selectionNodes) {
+    if (isKind<FieldNode>(selectionNode, FIELD)) {
+      fieldAndTypeName.push({ fieldNode: selectionNode, fragmentKind, fragmentName: undefined, typeName });
+    } else if (isKind<InlineFragmentNode>(selectionNode, INLINE_FRAGMENT) && depth < maxDepth) {
+      const inlineFragmentTypeName = selectionNode.typeCondition
+        ? (getName(selectionNode.typeCondition) as NamedTypeNode["name"]["value"])
+        : undefined;
+
+      const resolvedFieldAndTypeName = resolveInlineFragments(
+        selectionNode.selectionSet.selections,
+        maxDepth,
+        depth + 1,
+        inlineFragmentTypeName,
+        INLINE_FRAGMENT,
+      );
+
+      fieldAndTypeName = fieldAndTypeName.concat(resolvedFieldAndTypeName);
+    }
+  }
+
+  return fieldAndTypeName;
+}
+
 export const setInlineFragments = (
   { selectionSet }: FieldNode | InlineFragmentNode | FragmentDefinitionNode,
   { exclude = [], include = [] }: { exclude?: string[]; include?: string[] } = {},
@@ -87,34 +119,3 @@ export const setInlineFragments = (
   selectionSet.selections = selectionNodes;
   return fragmentsSet;
 };
-
-export function unwrapInlineFragments(
-  selectionNodes: ReadonlyArray<SelectionNode>,
-  maxDepth: number = 1,
-  depth: number = 0,
-  typeName?: string,
-): FieldAndTypeName[] {
-  let fieldAndTypeName: FieldAndTypeName[] = [];
-  let inlineFragmentType: string | undefined;
-
-  for (const selectionNode of selectionNodes) {
-    if (isKind<FieldNode>(selectionNode, FIELD)) {
-      fieldAndTypeName.push({ fieldNode: selectionNode, typeName });
-    } else if (isKind<InlineFragmentNode>(selectionNode, INLINE_FRAGMENT) && depth < maxDepth) {
-      inlineFragmentType = selectionNode.typeCondition
-        ? (getName(selectionNode.typeCondition) as NamedTypeNode["name"]["value"])
-        : undefined;
-
-      const unwrappedFieldAndTypeName = unwrapInlineFragments(
-        selectionNode.selectionSet.selections,
-        maxDepth,
-        depth + 1,
-        inlineFragmentType,
-      );
-
-      fieldAndTypeName = fieldAndTypeName.concat(unwrappedFieldAndTypeName);
-    }
-  }
-
-  return fieldAndTypeName;
-}

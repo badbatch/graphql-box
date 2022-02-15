@@ -7,7 +7,8 @@ import {
   InlineFragmentNode,
   NamedTypeNode,
 } from "graphql";
-import { FIELD, ParsedDirective } from "../..";
+import { FIELD } from "../../consts";
+import { ParsedDirective } from "../../defs";
 import { getArguments } from "../arguments";
 import { getFragmentSpreads } from "../fragment-spreads";
 import { getKind, isKind } from "../kind";

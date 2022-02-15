@@ -1,6 +1,6 @@
 import { FieldTypeMap, PossibleType, RequestContext, RequestOptions, ValidOperations } from "@graphql-box/core";
 import { ParsedDirective } from "@graphql-box/helpers";
-import { DocumentNode, FieldNode, FragmentDefinitionNode, GraphQLSchema, IntrospectionQuery } from "graphql";
+import { DocumentNode, FieldNode, GraphQLSchema, IntrospectionQuery } from "graphql";
 
 export interface UserOptions {
   /**
@@ -43,10 +43,6 @@ export type RequestParserInit = (options: ClientOptions) => Promise<RequestParse
 export interface Ancestors {
   ancestors: readonly any[];
   key: string | number | undefined;
-}
-
-export interface FragmentDefinitionNodeMap {
-  [key: string]: FragmentDefinitionNode;
 }
 
 export interface MapFieldToTypeData {

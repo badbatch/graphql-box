@@ -72,6 +72,8 @@ export type ScalarValueNode = IntValueNode | FloatValueNode | StringValueNode | 
 
 export interface FieldAndTypeName {
   fieldNode: FieldNode;
+  fragmentKind: string | undefined;
+  fragmentName: string | undefined;
   typeName: string | undefined;
 }
 

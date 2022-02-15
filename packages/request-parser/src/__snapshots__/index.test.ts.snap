@@ -218,7 +218,7 @@ Object {
       "directives": Object {
         "inherited": Array [],
         "own": Array [
-          "skip({\\"if\\":true})",
+          "skip({\\"if\\":false})",
         ],
       },
       "hasArguments": false,
@@ -316,7 +316,7 @@ Object {
       "directives": Object {
         "inherited": Array [
           "include({\\"if\\":true})",
-          "skip({\\"if\\":true})",
+          "skip({\\"if\\":false})",
           "defer({\\"if\\":true,\\"label\\":\\"repositoryDefer\\"})",
         ],
         "own": Array [],
@@ -334,7 +334,7 @@ Object {
       "directives": Object {
         "inherited": Array [
           "include({\\"if\\":true})",
-          "skip({\\"if\\":true})",
+          "skip({\\"if\\":false})",
           "defer({\\"if\\":true,\\"label\\":\\"repositoryDefer\\"})",
         ],
         "own": Array [],
@@ -352,7 +352,7 @@ Object {
       "directives": Object {
         "inherited": Array [
           "include({\\"if\\":true})",
-          "skip({\\"if\\":true})",
+          "skip({\\"if\\":false})",
           "defer({\\"if\\":true,\\"label\\":\\"repositoryDefer\\"})",
         ],
         "own": Array [],
@@ -387,11 +387,11 @@ exports[`@graphql-box/request-parser >> query >> defer >> correct request 1`] = 
           ... on Repository @include(if: true) {
             licenseInfo {
               permissions {
-                label @skip(if: true)
+                label @skip(if: false)
               }
               id
             }
-            ...RepositoryFields @skip(if: true) @defer(if: true, label: \\"repositoryDefer\\")
+            ...RepositoryFields @skip(if: false) @defer(if: true, label: \\"repositoryDefer\\")
             id
           }
         }

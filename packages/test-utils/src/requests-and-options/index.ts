@@ -428,10 +428,10 @@ export const queryWithDefer: RequestAndOptions = {
               ...on Repository @include(if: true) {
                 licenseInfo {
                   permissions {
-                    label @skip(if: true)
+                    label @skip(if: false)
                   }
                 }
-                ...RepositoryFields @skip(if: true) @defer(if: $deferCondition, label: "repositoryDefer")
+                ...RepositoryFields @skip(if: false) @defer(if: $deferCondition, label: "repositoryDefer")
               }
             }
           }

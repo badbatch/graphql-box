@@ -12,6 +12,7 @@ import {
   RequestOptions,
   ResponseData,
 } from "@graphql-box/core";
+import { FragmentDefinitionNodeMap } from "@graphql-box/helpers";
 import Cacheability from "cacheability";
 
 export interface UserOptions {
@@ -62,6 +63,11 @@ export interface ConstructorOptions {
   typeIDKey: string;
 }
 
+export interface CacheManagerContext extends RequestContext {
+  fragmentDefinitions?: FragmentDefinitionNodeMap;
+  typeIDKey?: string;
+}
+
 export interface PartialQueryResponse {
   cacheMetadata: CacheMetadata;
   data: PlainObjectMap;
@@ -75,6 +81,8 @@ export interface FieldCount {
 }
 
 export interface FieldPathChecklistValue {
+  fragmentKind: string | undefined;
+  fragmentName: string | undefined;
   hasData: boolean;
   typeName?: string | undefined;
 }
@@ -100,12 +108,6 @@ export interface AncestorKeysAndPaths {
   responseDataPath?: string;
 }
 
-export interface CachedFieldData {
-  cacheability?: Cacheability;
-  dataEntityData?: any;
-  requestFieldPathData?: any;
-}
-
 export interface MergedCachedFieldData {
   cacheability?: Cacheability;
   data: any;
@@ -113,7 +115,9 @@ export interface MergedCachedFieldData {
 
 export interface CachedAncestorFieldData {
   cacheability?: Cacheability;
-  dataEntityData?: any;
+  entityData?: any;
+  fragmentKind?: string;
+  fragmentName?: string;
   index?: number;
   requestFieldCacheKey?: string;
   requestFieldPath?: string;
@@ -136,14 +140,18 @@ export interface KeysAndPaths {
   responseDataPath: string;
 }
 
-export interface TypeNames {
+export interface TypeNamesAndKind {
   dataTypeName: string | undefined;
   fieldTypeName: string | undefined;
+  fragmentKind: string | undefined;
+  fragmentName: string | undefined;
 }
+
+export type FragmentSpreadFieldCounter = Record<string, { hasData: number; total: number }>;
 
 export interface ResponseDataForCaching {
   cacheMetadata: CacheMetadata;
-  dataEntityData: PlainObjectMap;
+  entityData: PlainObjectMap;
   requestFieldPathData: PlainObjectMap;
 }
 
@@ -165,7 +173,7 @@ export interface AnalyzeQueryResult {
 
 export interface CheckCacheEntryResult {
   cacheability: Cacheability;
-  entry: PlainObjectMap | any[];
+  entry: any;
 }
 
 export interface QueryResponseCacheEntry {
