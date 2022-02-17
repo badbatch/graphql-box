@@ -16,10 +16,29 @@ async function handleRequest(
   context: MessageContext,
   client: Client,
 ): Promise<void> {
-  const { _cacheMetadata, ...otherProps } = await client.request(request, options, context);
-  const result: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
-  if (_cacheMetadata) result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
-  postMessage({ context, method, result, type: GRAPHQL_BOX });
+  const requestResult = await client.request(request, options, context);
+
+  if (!isAsyncIterable(requestResult)) {
+    const { _cacheMetadata, ...otherProps } = requestResult as MaybeRequestResult;
+    const result: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
+
+    if (_cacheMetadata) {
+      result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+    }
+
+    postMessage({ context, method, result, type: GRAPHQL_BOX });
+    return;
+  }
+
+  forAwaitEach(requestResult, ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {
+    const result: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
+
+    if (_cacheMetadata) {
+      result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+    }
+
+    postMessage({ context, method, result, type: GRAPHQL_BOX });
+  });
 }
 
 async function handleSubscription(
@@ -37,6 +56,8 @@ async function handleSubscription(
       if (_cacheMetadata) result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
       postMessage({ context, method, result, type: GRAPHQL_BOX });
     });
+  } else {
+    postMessage({ context, method, result: undefined, type: GRAPHQL_BOX });
   }
 }
 

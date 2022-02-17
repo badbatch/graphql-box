@@ -155,6 +155,7 @@ export interface MaybeRequestContext {
   boxID?: string;
   debugManager?: DebugManagerDef | null;
   fieldTypeMap?: FieldTypeMap;
+  hasDeferOrStream?: boolean;
   operation?: ValidOperations;
   operationName?: string;
   queryFiltered?: boolean;
@@ -232,10 +233,13 @@ export interface RequestManagerDef {
     requestData: RequestDataWithMaybeAST,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<MaybeRawResponseData>;
+    executeResolver: RequestResolver,
+  ): Promise<AsyncIterableIterator<MaybeRequestResult | undefined> | MaybeRawResponseData>;
 }
 
 export type RequestManagerInit = () => Promise<RequestManagerDef>;
+
+export type RequestResolver = (rawResponseData: MaybeRawResponseData) => Promise<MaybeRequestResult>;
 
 export type SubscriberResolver = (rawResponseData: MaybeRawResponseData) => Promise<MaybeRequestResult>;
 

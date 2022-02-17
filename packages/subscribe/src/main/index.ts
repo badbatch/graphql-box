@@ -73,7 +73,7 @@ export class Subscribe {
         });
       }
 
-      const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, hash);
+      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, hash);
       return eventAsyncIterator.getIterator();
     } catch (error) {
       return Promise.reject(error);

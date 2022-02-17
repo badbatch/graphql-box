@@ -60,7 +60,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
       );
 
       this._subscriptions.set(hash, subscriberResolver);
-      const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, hash);
+      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, hash);
       return eventAsyncIterator.getIterator();
     } catch (error) {
       return Promise.reject(error);

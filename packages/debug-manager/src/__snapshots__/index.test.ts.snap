@@ -14,6 +14,10 @@ Array [
       "boxID": "123456789",
       "fieldTypeMap": Map {
         "query.organization" => Object {
+          "directives": Object {
+            "inherited": Array [],
+            "own": Array [],
+          },
           "hasArguments": true,
           "hasDirectives": false,
           "isEntity": true,
@@ -24,10 +28,12 @@ Array [
           "typeName": "Organization",
         },
       },
+      "fragmentDefinitions": undefined,
       "operation": "query",
       "operationName": "",
       "queryFiltered": false,
       "request": "",
+      "typeIDKey": "id",
     },
     "debuggerName": "CLIENT",
     "hash": "5256db516a2438a7e5488a00413f4809",
@@ -60,6 +66,10 @@ Array [
       "boxID": "123456789",
       "fieldTypeMap": Map {
         "query.organization" => Object {
+          "directives": Object {
+            "inherited": Array [],
+            "own": Array [],
+          },
           "hasArguments": true,
           "hasDirectives": false,
           "isEntity": true,
@@ -70,10 +80,12 @@ Array [
           "typeName": "Organization",
         },
       },
+      "fragmentDefinitions": undefined,
       "operation": "query",
       "operationName": "",
       "queryFiltered": false,
       "request": "",
+      "typeIDKey": "id",
     },
     "debuggerName": "CLIENT",
     "hash": "Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
@@ -106,6 +118,10 @@ Array [
       "boxID": "123456789",
       "fieldTypeMap": Map {
         "query.organization" => Object {
+          "directives": Object {
+            "inherited": Array [],
+            "own": Array [],
+          },
           "hasArguments": true,
           "hasDirectives": false,
           "isEntity": true,
@@ -116,10 +132,12 @@ Array [
           "typeName": "Organization",
         },
       },
+      "fragmentDefinitions": undefined,
       "operation": "query",
       "operationName": "",
       "queryFiltered": false,
       "request": "",
+      "typeIDKey": "id",
     },
     "debuggerName": "CLIENT",
     "hash": "ea1cbc58eca798225b53f59d95ffb23a",
@@ -173,6 +191,10 @@ Array [
       "boxID": "123456789",
       "fieldTypeMap": Map {
         "query.organization" => Object {
+          "directives": Object {
+            "inherited": Array [],
+            "own": Array [],
+          },
           "hasArguments": true,
           "hasDirectives": false,
           "isEntity": true,
@@ -183,10 +205,12 @@ Array [
           "typeName": "Organization",
         },
       },
+      "fragmentDefinitions": undefined,
       "operation": "query",
       "operationName": "",
       "queryFiltered": false,
       "request": "",
+      "typeIDKey": "id",
     },
     "debuggerName": "CLIENT",
     "hash": "5256db516a2438a7e5488a00413f4809",
@@ -210,6 +234,10 @@ Array [
       "boxID": "123456789",
       "fieldTypeMap": Map {
         "query.organization" => Object {
+          "directives": Object {
+            "inherited": Array [],
+            "own": Array [],
+          },
           "hasArguments": true,
           "hasDirectives": false,
           "isEntity": true,
@@ -220,10 +248,12 @@ Array [
           "typeName": "Organization",
         },
       },
+      "fragmentDefinitions": undefined,
       "operation": "query",
       "operationName": "",
       "queryFiltered": false,
       "request": "",
+      "typeIDKey": "id",
     },
     "debuggerName": "CLIENT",
     "hash": "Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",

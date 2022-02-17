@@ -60,7 +60,7 @@ import {
   validate,
   visit,
 } from "graphql";
-import { get, isEmpty, isObjectLike, isPlainObject, isString, keys, merge } from "lodash";
+import { assign, get, isEmpty, isObjectLike, isPlainObject, isString, keys } from "lodash";
 import {
   Ancestors,
   ClientOptions,
@@ -534,7 +534,7 @@ export class RequestParser implements RequestParserDef {
       });
 
       const { persistedFragmentSpreads, ...rest } = visitorContext;
-      merge(context, rest);
+      assign(context, rest);
       return { ast: updatedAST, request: print(updatedAST) };
     } catch (error) {
       return Promise.reject(error);

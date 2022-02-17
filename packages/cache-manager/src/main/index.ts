@@ -30,7 +30,7 @@ import {
 } from "@graphql-box/helpers";
 import Cacheability from "cacheability";
 import { FieldNode, print } from "graphql";
-import { cloneDeep, get, isArray, isObjectLike, isPlainObject, isUndefined, set, unset } from "lodash";
+import { assign, cloneDeep, get, isArray, isObjectLike, isPlainObject, isUndefined, set, unset } from "lodash";
 import { CACHE_CONTROL, HEADER_NO_CACHE, METADATA, NO_CACHE } from "../consts";
 import { logCacheEntry, logCacheQuery, logPartialCompiled } from "../debug";
 import {
@@ -66,9 +66,6 @@ import filterQuery from "../helpers/filterQuery";
 import { getValidTypeIDValue } from "../helpers/validTypeIDValue";
 
 export class CacheManager implements CacheManagerDef {
-  get cache(): Cachemap {
-    return this._cache;
-  }
   public static async init(options: InitOptions): Promise<CacheManager> {
     const errors: TypeError[] = [];
 
@@ -239,6 +236,10 @@ export class CacheManager implements CacheManagerDef {
     this._typeIDKey = typeIDKey;
   }
 
+  get cache(): Cachemap {
+    return this._cache;
+  }
+
   public async analyzeQuery(
     requestData: RequestData,
     options: RequestOptions,
@@ -275,6 +276,8 @@ export class CacheManager implements CacheManagerDef {
 
     this._setPartialQueryResponse(hash, { cacheMetadata, data }, options, cacheManagerContext);
     const filteredAST = filterQuery(requestData, cachedResponseData, cacheManagerContext);
+    const { fragmentDefinitions, typeIDKey, ...rest } = cacheManagerContext;
+    assign(context, rest);
     const request = print(filteredAST);
     return { updated: { ast: filteredAST, hash: hashRequest(request), request } };
   }

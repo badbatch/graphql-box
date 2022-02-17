@@ -1,4 +1,8 @@
-import { MaybeRawResponseData, RequestManagerDef } from "@graphql-box/core";
+/**
+ * @jest-environment jsdom
+ */
+
+import { MaybeRawResponseData, RequestManagerDef, RequestResolver } from "@graphql-box/core";
 import { getRequestContext, getRequestData, parsedRequests, responses } from "@graphql-box/test-utils";
 import fetchMock from "fetch-mock";
 import { FetchManager } from ".";
@@ -19,7 +23,13 @@ describe("@graphql-box/fetch-manager >>", () => {
       const body = { data: responses.singleTypeQuery.data };
       const headers = { "cache-control": "public, max-age=5" };
       fetchMock.post("*", { body, headers });
-      response = await fetchManager.execute(getRequestData(parsedRequests.singleTypeQuery), {}, getRequestContext());
+
+      response = (await fetchManager.execute(
+        getRequestData(parsedRequests.singleTypeQuery),
+        {},
+        getRequestContext(),
+        ((async () => null) as unknown) as RequestResolver,
+      )) as MaybeRawResponseData;
     });
 
     afterAll(() => {
@@ -58,7 +68,14 @@ describe("@graphql-box/fetch-manager >>", () => {
 
         const headers = { "cache-control": "public, max-age=5" };
         fetchMock.post("*", { body, headers });
-        const promise = fetchManager.execute(requestData, {}, getRequestContext());
+
+        const promise = fetchManager.execute(
+          requestData,
+          {},
+          getRequestContext(),
+          ((async () => null) as unknown) as RequestResolver,
+        ) as MaybeRawResponseData;
+
         jest.runOnlyPendingTimers();
         response = await promise;
       });
@@ -102,8 +119,19 @@ describe("@graphql-box/fetch-manager >>", () => {
         fetchMock.post("*", { body, headers });
 
         const promises = [
-          fetchManager.execute(initialRequestData, {}, getRequestContext()),
-          fetchManager.execute(updatedRequestData, {}, getRequestContext()),
+          fetchManager.execute(
+            initialRequestData,
+            {},
+            getRequestContext(),
+            ((async () => null) as unknown) as RequestResolver,
+          ) as MaybeRawResponseData,
+
+          fetchManager.execute(
+            updatedRequestData,
+            {},
+            getRequestContext(),
+            ((async () => null) as unknown) as RequestResolver,
+          ) as MaybeRawResponseData,
         ];
 
         jest.runOnlyPendingTimers();

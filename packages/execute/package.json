@@ -39,9 +39,14 @@
   "peerDependencies": {
     "@babel/runtime": "< 8",
     "@graphql-box/core": "< 3",
+    "@graphql-box/helpers": "< 3",
     "core-js": "< 4",
     "graphql": "< 17",
     "lodash": "< 5"
+  },
+  "dependencies": {
+    "eventemitter3": "^4.0.0",
+    "iterall": "^1.3.0"
   },
   "devDependencies": {
     "@graphql-box/test-utils": "^2.0.0"
