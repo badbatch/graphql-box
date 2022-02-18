@@ -20,9 +20,13 @@
       "request": "launch",
       "name": "Jest - current file",
       "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      "runtimeVersion": "16.14.0",
       "args": [
         "${relativeFile}"
       ],
+      "env": {
+        "DEBUG": "true"
+      },
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
     },

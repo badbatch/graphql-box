@@ -15,4 +15,9 @@ export default (res: Response, requestResult: MaybeRequestResultWithDehydratedCa
   ].join("\r\n");
 
   res.write(data);
+
+  if ("flush" in res) {
+    // @ts-expect-error
+    res.flush();
+  }
 };

@@ -103,8 +103,8 @@ export class FetchManager implements RequestManagerDef {
           return fetchResult;
         }
 
-        forAwaitEach(fetchResult, async result => {
-          this._eventEmitter.emit(hash, await executeResolver(await parseFetchResult(result)));
+        forAwaitEach(fetchResult, async ({ body, headers }) => {
+          this._eventEmitter.emit(hash, await executeResolver({ headers, ...body }));
         });
 
         const eventAsyncIterator = new EventAsyncIterator<MaybeResponseData>(this._eventEmitter, hash);

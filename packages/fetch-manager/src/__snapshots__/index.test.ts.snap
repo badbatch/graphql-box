@@ -6,7 +6,7 @@ Array [
   Object {
     "body": "{\\"batched\\":true,\\"context\\":{\\"boxID\\":\\"123456789\\",\\"operation\\":\\"query\\"},\\"request\\":{\\"f666cc27cdcfcecacb340b64fcf27506\\":\\"\\\\n    {\\\\n      organization(login: \\\\\\"facebook\\\\\\") {\\\\n        description\\\\n        login\\\\n        id\\\\n      }\\\\n    }\\\\n  \\",\\"70a245971c9c179bc5c30c3925e4881c\\":\\"\\\\n    {\\\\n      organization(login: \\\\\\"facebook\\\\\\") {\\\\n        email\\\\n        name\\\\n        url\\\\n        id\\\\n      }\\\\n    }\\\\n  \\"}}",
     "headers": Headers {
-      "_headers": Object {
+      Symbol(map): Object {
         "content-type": Array [
           "application/json",
         ],
@@ -27,15 +27,15 @@ Object {
     },
   },
   "headers": Headers {
-    "_headers": Object {
-      "cache-control": Array [
-        "public, max-age=5",
-      ],
-      "content-length": Array [
+    Symbol(map): Object {
+      "Content-Length": Array [
         "414",
       ],
-      "content-type": Array [
+      "Content-Type": Array [
         "application/json",
+      ],
+      "cache-control": Array [
+        "public, max-age=5",
       ],
     },
   },
@@ -53,15 +53,15 @@ Object {
     },
   },
   "headers": Headers {
-    "_headers": Object {
-      "cache-control": Array [
-        "public, max-age=5",
-      ],
-      "content-length": Array [
+    Symbol(map): Object {
+      "Content-Length": Array [
         "414",
       ],
-      "content-type": Array [
+      "Content-Type": Array [
         "application/json",
+      ],
+      "cache-control": Array [
+        "public, max-age=5",
       ],
     },
   },
@@ -74,7 +74,7 @@ Array [
   Object {
     "body": "{\\"batched\\":true,\\"context\\":{\\"boxID\\":\\"123456789\\",\\"operation\\":\\"query\\"},\\"request\\":{\\"ea1cbc58eca798225b53f59d95ffb23a\\":\\"\\\\n  {\\\\n    organization(login: \\\\\\"facebook\\\\\\") {\\\\n      description\\\\n      email\\\\n      login\\\\n      name\\\\n      url\\\\n      id\\\\n    }\\\\n  }\\\\n\\"}}",
     "headers": Headers {
-      "_headers": Object {
+      Symbol(map): Object {
         "content-type": Array [
           "application/json",
         ],
@@ -98,28 +98,28 @@ Object {
     },
   },
   "headers": Headers {
-    "_headers": Object {
-      "cache-control": Array [
-        "public, max-age=5",
-      ],
-      "content-length": Array [
+    Symbol(map): Object {
+      "Content-Length": Array [
         "315",
       ],
-      "content-type": Array [
+      "Content-Type": Array [
         "application/json",
+      ],
+      "cache-control": Array [
+        "public, max-age=5",
       ],
     },
   },
 }
 `;
 
-exports[`@graphql-box/fetch-manager >> no batching >> correct request 1`] = `
+exports[`@graphql-box/fetch-manager >> no batching >> when batch is false >> correct request 1`] = `
 Array [
   "https://api.github.com/graphql?requestId=ea1cbc58eca798225b53f59d95ffb23a",
   Object {
     "body": "{\\"batched\\":false,\\"context\\":{\\"boxID\\":\\"123456789\\",\\"operation\\":\\"query\\"},\\"request\\":\\"\\\\n  {\\\\n    organization(login: \\\\\\"facebook\\\\\\") {\\\\n      description\\\\n      email\\\\n      login\\\\n      name\\\\n      url\\\\n      id\\\\n    }\\\\n  }\\\\n\\"}",
     "headers": Headers {
-      "_headers": Object {
+      Symbol(map): Object {
         "content-type": Array [
           "application/json",
         ],
@@ -130,7 +130,7 @@ Array [
 ]
 `;
 
-exports[`@graphql-box/fetch-manager >> no batching >> correct response data 1`] = `
+exports[`@graphql-box/fetch-manager >> no batching >> when batch is false >> correct response data 1`] = `
 Object {
   "data": Object {
     "organization": Object {
@@ -143,17 +143,404 @@ Object {
     },
   },
   "headers": Headers {
-    "_headers": Object {
-      "cache-control": Array [
-        "public, max-age=5",
-      ],
-      "content-length": Array [
+    Symbol(map): Object {
+      "Content-Length": Array [
         "268",
       ],
-      "content-type": Array [
+      "Content-Type": Array [
         "application/json",
+      ],
+      "cache-control": Array [
+        "public, max-age=5",
       ],
     },
   },
 }
+`;
+
+exports[`@graphql-box/fetch-manager >> no batching >> when context.hasDeferOrStream is true >> correct request 1`] = `
+Array [
+  "https://api.github.com/graphql?requestId=ea1cbc58eca798225b53f59d95ffb23a",
+  Object {
+    "body": "{\\"batched\\":false,\\"context\\":{\\"boxID\\":\\"123456789\\",\\"operation\\":\\"query\\"},\\"request\\":\\"\\\\n  {\\\\n    organization(login: \\\\\\"facebook\\\\\\") {\\\\n      description\\\\n      email\\\\n      login\\\\n      name\\\\n      url\\\\n      id\\\\n    }\\\\n  }\\\\n\\"}",
+    "headers": Headers {
+      Symbol(map): Object {
+        "content-type": Array [
+          "application/json",
+        ],
+      },
+    },
+    "method": "POST",
+  },
+]
+`;
+
+exports[`@graphql-box/fetch-manager >> no batching >> when context.hasDeferOrStream is true >> correct response data 1`] = `
+Object {
+  "data": Object {
+    "organization": Object {
+      "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+      "email": "",
+      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "login": "facebook",
+      "name": "Facebook",
+      "url": "https://github.com/facebook",
+    },
+  },
+  "headers": Headers {
+    Symbol(map): Object {
+      "Content-Length": Array [
+        "268",
+      ],
+      "Content-Type": Array [
+        "application/json",
+      ],
+      "cache-control": Array [
+        "public, max-age=5",
+      ],
+    },
+  },
+}
+`;
+
+exports[`@graphql-box/fetch-manager >> when content type multipart is returned >> correct request 1`] = `
+Array [
+  "https://api.github.com/graphql?requestId=acfdb67bc5e532a120ea43dae78b93e4",
+  Object {
+    "body": "{\\"batched\\":false,\\"context\\":{\\"boxID\\":\\"123456789\\",\\"operation\\":\\"query\\"},\\"request\\":\\"\\\\n  {\\\\n    organization(login: \\\\\\"facebook\\\\\\") {\\\\n      ...OrganizationFieldsA @defer(if: true, label: \\\\\\"organizationDefer\\\\\\")\\\\n      login\\\\n      name\\\\n      repositories(first: 10) {\\\\n        edges {\\\\n          node {\\\\n            ... on Repository @include(if: true) {\\\\n              licenseInfo {\\\\n                permissions {\\\\n                  label @skip(if: false)\\\\n                }\\\\n                id\\\\n              }\\\\n              ...RepositoryFields @skip(if: false) @defer(if: true, label: \\\\\\"repositoryDefer\\\\\\")\\\\n              id\\\\n            }\\\\n          }\\\\n        }\\\\n      }\\\\n      url\\\\n      id\\\\n    }\\\\n  }\\\\n\\\\n  fragment OrganizationFieldsA on Organization {\\\\n    email @include(if: true)\\\\n    description\\\\n    isVerified\\\\n    location\\\\n  }\\\\n\\\\n  fragment RepositoryFields on Repository {\\\\n    description\\\\n    homepageUrl\\\\n    name\\\\n  }\\\\n\\"}",
+    "headers": Headers {
+      Symbol(map): Object {
+        "content-type": Array [
+          "application/json",
+        ],
+      },
+    },
+    "method": "POST",
+  },
+]
+`;
+
+exports[`@graphql-box/fetch-manager >> when content type multipart is returned >> correct response data 1`] = `
+Array [
+  Object {
+    "data": Object {
+      "organization": Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "name": "Meta",
+        "repositories": Object {
+          "edges": Array [
+            Object {
+              "node": Object {
+                "description": "A virtual machine for executing programs written in Hack.",
+                "homepageUrl": "https://hhvm.com",
+                "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                  "permissions": Array [],
+                },
+                "name": "hhvm",
+              },
+            },
+            Object {
+              "node": Object {
+                "description": "Python wrapper for RE2",
+                "homepageUrl": "",
+                "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTU=",
+                  "permissions": Array [],
+                },
+                "name": "pyre2",
+              },
+            },
+            Object {
+              "node": Object {
+                "description": "Used to integrate Android apps with Facebook Platform.",
+                "homepageUrl": "https://developers.facebook.com/docs/android",
+                "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                  "permissions": Array [],
+                },
+                "name": "facebook-android-sdk",
+              },
+            },
+            Object {
+              "node": Object {
+                "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+                "homepageUrl": "https://developers.facebook.com/docs/ios",
+                "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                  "permissions": Array [],
+                },
+                "name": "facebook-ios-sdk",
+              },
+            },
+            Object {
+              "node": Object {
+                "description": "An open-source C++ library developed and used at Facebook.",
+                "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
+                "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTI=",
+                  "permissions": Array [],
+                },
+                "name": "folly",
+              },
+            },
+            Object {
+              "node": Object {
+                "description": "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
+                "homepageUrl": "https://github.com/facebook/nailgun",
+                "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                  "permissions": Array [],
+                },
+                "name": "nailgun",
+              },
+            },
+            Object {
+              "node": Object {
+                "description": "Watches files and records, or triggers actions, when they change. ",
+                "homepageUrl": "https://facebook.github.io/watchman/",
+                "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTEz",
+                  "permissions": Array [],
+                },
+                "name": "watchman",
+              },
+            },
+            Object {
+              "node": Object {
+                "description": "A library that provides an embeddable, persistent key-value store for fast storage.",
+                "homepageUrl": "http://rocksdb.org",
+                "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                  "permissions": Array [],
+                },
+                "name": "rocksdb",
+              },
+            },
+            Object {
+              "node": Object {
+                "description": "Utilities related to Chef",
+                "homepageUrl": null,
+                "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTI=",
+                  "permissions": Array [],
+                },
+                "name": "chef-utils",
+              },
+            },
+            Object {
+              "node": Object {
+                "description": "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
+                "homepageUrl": "http://myrocks.io",
+                "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTg=",
+                  "permissions": Array [],
+                },
+                "name": "mysql-5.6",
+              },
+            },
+          ],
+        },
+        "url": "https://github.com/facebook",
+      },
+    },
+    "hasNext": true,
+    "headers": Object {
+      "content-length": "2759",
+      "content-type": "application/json; charset=utf-8",
+    },
+  },
+  Object {
+    "data": Object {
+      "organization": Object {
+        "email": null,
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "isVerified": true,
+        "location": "Menlo Park, California",
+        "login": "facebook",
+        "repositories": Object {
+          "edges": Array [
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                  "permissions": Array [],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTU=",
+                  "permissions": Array [
+                    Object {
+                      "label": "Commercial use",
+                    },
+                    Object {
+                      "label": "Modification",
+                    },
+                    Object {
+                      "label": "Distribution",
+                    },
+                    Object {
+                      "label": "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                  "permissions": Array [],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                  "permissions": Array [],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTI=",
+                  "permissions": Array [
+                    Object {
+                      "label": "Commercial use",
+                    },
+                    Object {
+                      "label": "Modification",
+                    },
+                    Object {
+                      "label": "Distribution",
+                    },
+                    Object {
+                      "label": "Patent use",
+                    },
+                    Object {
+                      "label": "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                  "permissions": Array [],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTEz",
+                  "permissions": Array [
+                    Object {
+                      "label": "Commercial use",
+                    },
+                    Object {
+                      "label": "Modification",
+                    },
+                    Object {
+                      "label": "Distribution",
+                    },
+                    Object {
+                      "label": "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                  "permissions": Array [],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTI=",
+                  "permissions": Array [
+                    Object {
+                      "label": "Commercial use",
+                    },
+                    Object {
+                      "label": "Modification",
+                    },
+                    Object {
+                      "label": "Distribution",
+                    },
+                    Object {
+                      "label": "Patent use",
+                    },
+                    Object {
+                      "label": "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTg=",
+                  "permissions": Array [
+                    Object {
+                      "label": "Commercial use",
+                    },
+                    Object {
+                      "label": "Modification",
+                    },
+                    Object {
+                      "label": "Distribution",
+                    },
+                    Object {
+                      "label": "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "hasNext": false,
+    "headers": Object {
+      "content-length": "1778",
+      "content-type": "application/json; charset=utf-8",
+    },
+  },
+]
 `;

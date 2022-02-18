@@ -178,6 +178,7 @@ export interface MaybeRawResponseData {
   _cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObjectMap | null;
   errors?: Error | ReadonlyArray<Error>;
+  hasNext?: boolean;
   headers?: Headers;
 }
 
@@ -220,6 +221,11 @@ export interface MaybeRequestResult {
    * Any errors thrown during the request.
    */
   errors?: Error | ReadonlyArray<Error>;
+
+  /**
+   * Whether there are any more chunks to the response.
+   */
+  hasNext?: boolean;
 }
 
 export interface MaybeRequestResultWithDehydratedCacheMetadata {
