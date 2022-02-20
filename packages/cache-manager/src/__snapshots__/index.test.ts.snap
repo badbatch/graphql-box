@@ -14589,6 +14589,7 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -15916,6 +15917,7 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -17212,6 +17214,7 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -18464,6 +18467,7 @@ Object {
       ],
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -19685,6 +19689,7 @@ Object {
       ],
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -19941,6 +19946,7 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -20197,6 +20203,7 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -21263,6 +21270,7 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -22312,6 +22320,7 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -23292,6 +23301,7 @@ Object {
       ],
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -24255,6 +24265,7 @@ Object {
       ],
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -24414,6 +24425,7 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -24573,6 +24585,7 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -24901,6 +24914,7 @@ Object {
       },
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -25229,6 +25243,7 @@ Object {
       },
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -25474,6 +25489,7 @@ Object {
       "unread": 1,
     },
   },
+  "hasNext": undefined,
 }
 `;
 
@@ -25719,5 +25735,6 @@ Object {
       "unread": 1,
     },
   },
+  "hasNext": undefined,
 }
 `;

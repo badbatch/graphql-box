@@ -1,5 +1,5 @@
 import { ExportCacheResult } from "@graphql-box/cache-manager";
-import { MaybeRequestResultWithDehydratedCacheMetadata } from "@graphql-box/core";
+import { MaybeRequestResult, MaybeRequestResultWithDehydratedCacheMetadata } from "@graphql-box/core";
 import { dehydrateCacheMetadata } from "@graphql-box/helpers";
 import { parsedRequests } from "@graphql-box/test-utils";
 import WorkerClient from "@graphql-box/worker-client";
@@ -32,9 +32,15 @@ describe("worker-client", () => {
         const request = parsedRequests.singleTypeQuery;
 
         try {
-          const { _cacheMetadata, data } = await workerClient.request(request, { ...defaultOptions });
+          const { _cacheMetadata, data } = (await workerClient.request(request, {
+            ...defaultOptions,
+          })) as MaybeRequestResult;
+
           response = { data };
-          if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+
+          if (_cacheMetadata) {
+            response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          }
         } catch (errors) {
           log(errors);
         }
@@ -74,9 +80,12 @@ describe("worker-client", () => {
             workerClient.request(request, { ...defaultOptions }),
           ]);
 
-          const { _cacheMetadata, data } = result[1];
+          const { _cacheMetadata, data } = result[1] as MaybeRequestResult;
           response = { data };
-          if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+
+          if (_cacheMetadata) {
+            response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          }
         } catch (errors) {
           log(errors);
         }
@@ -124,9 +133,15 @@ describe("worker-client", () => {
         await fetchMockWorker.postMessage("resetHistory");
 
         try {
-          const { _cacheMetadata, data } = await workerClient.request(request, { ...defaultOptions });
+          const { _cacheMetadata, data } = (await workerClient.request(request, {
+            ...defaultOptions,
+          })) as MaybeRequestResult;
+
           response = { data };
-          if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+
+          if (_cacheMetadata) {
+            response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          }
         } catch (errors) {
           log(errors);
         }
@@ -174,9 +189,15 @@ describe("worker-client", () => {
         await fetchMockWorker.postMessage("resetHistory");
 
         try {
-          const { _cacheMetadata, data } = await workerClient.request(initial, { ...defaultOptions });
+          const { _cacheMetadata, data } = (await workerClient.request(initial, {
+            ...defaultOptions,
+          })) as MaybeRequestResult;
+
           response = { data };
-          if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+
+          if (_cacheMetadata) {
+            response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          }
         } catch (errors) {
           log(errors);
         }
@@ -224,9 +245,15 @@ describe("worker-client", () => {
         await fetchMockWorker.postMessage("resetHistory");
 
         try {
-          const { _cacheMetadata, data } = await workerClient.request(full, { ...defaultOptions });
+          const { _cacheMetadata, data } = (await workerClient.request(full, {
+            ...defaultOptions,
+          })) as MaybeRequestResult;
+
           response = { data };
-          if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+
+          if (_cacheMetadata) {
+            response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          }
         } catch (errors) {
           log(errors);
         }
