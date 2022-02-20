@@ -78,13 +78,9 @@ export default class WorkerClient {
     return this._cache;
   }
 
-  public async request(
-    request: string,
-    options: RequestOptions = {},
-    context: MaybeRequestContext = {},
-  ): Promise<MaybeRequestResult> {
+  public async request(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
     try {
-      return this._request(request, options, this._getRequestContext(QUERY, request, context)) as MaybeRequestResult;
+      return this._request(request, options, this._getRequestContext(QUERY, request, context));
     } catch (error) {
       return { errors: error };
     }
