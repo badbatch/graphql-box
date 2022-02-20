@@ -63,6 +63,7 @@ import { buildFieldKeysAndPaths } from "../helpers/buildKeysAndPaths";
 import deriveOpCacheability from "../helpers/deriveOpCacheability";
 import filterOutPropsWithArgsOrDirectives from "../helpers/filterOutPropsWithArgsOrDirectives";
 import filterQuery from "../helpers/filterQuery";
+import normalizeResponseData from "../helpers/normalizeResponseData";
 import { getValidTypeIDValue } from "../helpers/validTypeIDValue";
 
 export class CacheManager implements CacheManagerDef {
@@ -328,7 +329,8 @@ export class CacheManager implements CacheManagerDef {
     };
 
     const dataCaching: Promise<void>[] = [];
-    const { cacheMetadata, data } = await this._resolveRequest(
+
+    const { cacheMetadata, data, hasNext } = await this._resolveRequest(
       updatedRequestData,
       rawResponseData,
       options,
@@ -366,7 +368,7 @@ export class CacheManager implements CacheManagerDef {
       await Promise.all(dataCaching);
     }
 
-    return { cacheMetadata: responseCacheMetadata, data: responseData };
+    return { cacheMetadata: responseCacheMetadata, data: responseData, hasNext };
   }
 
   public async resolveRequest(
@@ -712,9 +714,10 @@ export class CacheManager implements CacheManagerDef {
     options: RequestOptions,
     context: CacheManagerContext,
   ): Promise<ResponseData> {
+    const normalizedResponseData = rawResponseData.path ? normalizeResponseData(rawResponseData) : rawResponseData;
     const dataCaching: Promise<void>[] = [];
-    const cacheMetadata = this._buildCacheMetadata(requestData, rawResponseData, options, context);
-    const { data } = rawResponseData;
+    const cacheMetadata = this._buildCacheMetadata(requestData, normalizedResponseData, options, context);
+    const { data, hasNext } = normalizedResponseData;
 
     dataCaching.push(
       this._setEntityAndRequestFieldPathCacheEntries(
@@ -729,7 +732,7 @@ export class CacheManager implements CacheManagerDef {
       await Promise.all(dataCaching);
     }
 
-    return { cacheMetadata, data };
+    return { cacheMetadata, data, hasNext };
   }
 
   private async _retrieveCachedEntityData(

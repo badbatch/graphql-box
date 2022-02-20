@@ -336,12 +336,13 @@ export default class Client {
     context: RequestContext,
   ): Promise<MaybeRequestResult> {
     try {
-      const { data, errors } = rawResponseData;
-      if (errors) return Client._resolve({ errors }, options, context);
+      const { errors } = rawResponseData;
 
-      let responseData = { data };
+      if (errors) {
+        return Client._resolve({ errors }, options, context);
+      }
 
-      responseData = await this._cacheManager.resolveRequest(
+      const responseData = await this._cacheManager.resolveRequest(
         requestData as RequestData,
         rawResponseData as RawResponseDataWithMaybeCacheMetadata,
         options,

@@ -171,7 +171,10 @@ export type CacheMetadata = Map<string, Cacheability>;
 export interface RawResponseDataWithMaybeCacheMetadata {
   _cacheMetadata?: DehydratedCacheMetadata;
   data: PlainObjectMap;
+  hasNext?: boolean;
   headers?: Headers;
+  label?: string;
+  path?: (string | number)[];
 }
 
 export interface MaybeRawResponseData {
@@ -180,11 +183,14 @@ export interface MaybeRawResponseData {
   errors?: Error | ReadonlyArray<Error>;
   hasNext?: boolean;
   headers?: Headers;
+  label?: string;
+  path?: (string | number)[];
 }
 
 export interface ResponseData {
   cacheMetadata: CacheMetadata;
   data: PlainObjectMap;
+  hasNext?: boolean;
 }
 
 export interface MaybeResponseData {
