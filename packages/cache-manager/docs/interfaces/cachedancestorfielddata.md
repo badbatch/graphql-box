@@ -11,7 +11,9 @@
 ### Properties
 
 * [cacheability](cachedancestorfielddata.md#optional-cacheability)
-* [dataEntityData](cachedancestorfielddata.md#optional-dataentitydata)
+* [entityData](cachedancestorfielddata.md#optional-entitydata)
+* [fragmentKind](cachedancestorfielddata.md#optional-fragmentkind)
+* [fragmentName](cachedancestorfielddata.md#optional-fragmentname)
 * [index](cachedancestorfielddata.md#optional-index)
 * [requestFieldCacheKey](cachedancestorfielddata.md#optional-requestfieldcachekey)
 * [requestFieldPath](cachedancestorfielddata.md#optional-requestfieldpath)
@@ -24,15 +26,31 @@
 
 • **cacheability**? : *Cacheability*
 
-*Defined in [defs/index.ts:115](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L115)*
+*Defined in [cache-manager/src/defs/index.ts:117](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L117)*
 
 ___
 
-### `Optional` dataEntityData
+### `Optional` entityData
 
-• **dataEntityData**? : *any*
+• **entityData**? : *any*
 
-*Defined in [defs/index.ts:116](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L116)*
+*Defined in [cache-manager/src/defs/index.ts:118](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L118)*
+
+___
+
+### `Optional` fragmentKind
+
+• **fragmentKind**? : *undefined | string*
+
+*Defined in [cache-manager/src/defs/index.ts:119](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L119)*
+
+___
+
+### `Optional` fragmentName
+
+• **fragmentName**? : *undefined | string*
+
+*Defined in [cache-manager/src/defs/index.ts:120](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L120)*
 
 ___
 
@@ -40,7 +58,7 @@ ___
 
 • **index**? : *undefined | number*
 
-*Defined in [defs/index.ts:117](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L117)*
+*Defined in [cache-manager/src/defs/index.ts:121](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L121)*
 
 ___
 
@@ -48,7 +66,7 @@ ___
 
 • **requestFieldCacheKey**? : *undefined | string*
 
-*Defined in [defs/index.ts:118](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L118)*
+*Defined in [cache-manager/src/defs/index.ts:122](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L122)*
 
 ___
 
@@ -56,7 +74,7 @@ ___
 
 • **requestFieldPath**? : *undefined | string*
 
-*Defined in [defs/index.ts:119](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L119)*
+*Defined in [cache-manager/src/defs/index.ts:123](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L123)*
 
 ___
 
@@ -64,7 +82,7 @@ ___
 
 • **requestFieldPathData**? : *any*
 
-*Defined in [defs/index.ts:120](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L120)*
+*Defined in [cache-manager/src/defs/index.ts:124](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L124)*
 
 ___
 
@@ -72,4 +90,4 @@ ___
 
 • **typeName**? : *undefined | string*
 
-*Defined in [defs/index.ts:121](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L121)*
+*Defined in [cache-manager/src/defs/index.ts:125](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L125)*

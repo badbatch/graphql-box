@@ -1,6 +1,10 @@
 [Documentation](../README.md) › [EventAsyncIterator](eventasynciterator.md)
 
-# Class: EventAsyncIterator
+# Class: EventAsyncIterator ‹**RequestResult**›
+
+## Type parameters
+
+▪ **RequestResult**
 
 ## Hierarchy
 
@@ -22,7 +26,7 @@
 
 \+ **new EventAsyncIterator**(`eventEmitter`: EventEmitter, `eventName`: string): *[EventAsyncIterator](eventasynciterator.md)*
 
-*Defined in [packages/helpers/src/event-async-iterator/index.ts:10](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/helpers/src/event-async-iterator/index.ts#L10)*
+*Defined in [event-async-iterator/index.ts:9](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/helpers/src/event-async-iterator/index.ts#L9)*
 
 **Parameters:**
 
@@ -37,8 +41,8 @@ Name | Type |
 
 ###  getIterator
 
-▸ **getIterator**(): *AsyncIterableIterator‹MaybeRequestResult | undefined›*
+▸ **getIterator**(): *AsyncIterableIterator‹RequestResult | undefined›*
 
-*Defined in [packages/helpers/src/event-async-iterator/index.ts:19](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/helpers/src/event-async-iterator/index.ts#L19)*
+*Defined in [event-async-iterator/index.ts:18](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/helpers/src/event-async-iterator/index.ts#L18)*
 
-**Returns:** *AsyncIterableIterator‹MaybeRequestResult | undefined›*
+**Returns:** *AsyncIterableIterator‹RequestResult | undefined›*

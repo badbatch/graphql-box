@@ -11,7 +11,7 @@
 ### Properties
 
 * [cacheMetadata](responsedataforcaching.md#cachemetadata)
-* [dataEntityData](responsedataforcaching.md#dataentitydata)
+* [entityData](responsedataforcaching.md#entitydata)
 * [requestFieldPathData](responsedataforcaching.md#requestfieldpathdata)
 
 ## Properties
@@ -20,15 +20,15 @@
 
 • **cacheMetadata**: *CacheMetadata*
 
-*Defined in [defs/index.ts:145](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L145)*
+*Defined in [cache-manager/src/defs/index.ts:153](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L153)*
 
 ___
 
-###  dataEntityData
+###  entityData
 
-• **dataEntityData**: *PlainObjectMap*
+• **entityData**: *PlainObjectMap*
 
-*Defined in [defs/index.ts:146](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L146)*
+*Defined in [cache-manager/src/defs/index.ts:154](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L154)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **requestFieldPathData**: *PlainObjectMap*
 
-*Defined in [defs/index.ts:147](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L147)*
+*Defined in [cache-manager/src/defs/index.ts:155](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L155)*

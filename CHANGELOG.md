@@ -1,3 +1,9 @@
+### 2.3.0 (2022-02-20)
+
+##### New Features
+
+*  defer stream support ([#77](https://github.com/badbatch/graphql-box/pull/77)) ([9b69bf3d](https://github.com/badbatch/graphql-box/commit/9b69bf3debd70c3294d3b9f9594b690f715cb722))
+
 #### 2.2.4 (2022-01-28)
 
 ##### Bug Fixes

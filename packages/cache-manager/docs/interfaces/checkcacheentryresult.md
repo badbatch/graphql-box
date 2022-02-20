@@ -19,12 +19,12 @@
 
 • **cacheability**: *Cacheability*
 
-*Defined in [defs/index.ts:167](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L167)*
+*Defined in [cache-manager/src/defs/index.ts:175](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L175)*
 
 ___
 
 ###  entry
 
-• **entry**: *PlainObjectMap | any[]*
+• **entry**: *any*
 
-*Defined in [defs/index.ts:168](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L168)*
+*Defined in [cache-manager/src/defs/index.ts:176](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L176)*

@@ -22,7 +22,7 @@
 
 ▸ **updateRequest**(`request`: string, `options`: RequestOptions, `context`: RequestContext): *Promise‹[UpdateRequestResult](updaterequestresult.md)›*
 
-*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/request-parser/src/defs/index.ts#L53)*
+*Defined in [defs/index.ts:38](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/request-parser/src/defs/index.ts#L38)*
 
 **Parameters:**
 

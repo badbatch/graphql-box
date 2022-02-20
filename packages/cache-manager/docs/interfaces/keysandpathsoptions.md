@@ -21,7 +21,7 @@
 
 • **index**? : *undefined | number*
 
-*Defined in [defs/index.ts:125](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L125)*
+*Defined in [cache-manager/src/defs/index.ts:129](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L129)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **requestFieldCacheKey**? : *undefined | string*
 
-*Defined in [defs/index.ts:126](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L126)*
+*Defined in [cache-manager/src/defs/index.ts:130](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L130)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **requestFieldPath**? : *undefined | string*
 
-*Defined in [defs/index.ts:127](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L127)*
+*Defined in [cache-manager/src/defs/index.ts:131](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L131)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **responseDataPath**? : *undefined | string*
 
-*Defined in [defs/index.ts:128](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L128)*
+*Defined in [cache-manager/src/defs/index.ts:132](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L132)*

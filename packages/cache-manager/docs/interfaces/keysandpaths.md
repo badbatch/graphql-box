@@ -22,7 +22,7 @@
 
 • **hashedRequestFieldCacheKey**: *string*
 
-*Defined in [defs/index.ts:132](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L132)*
+*Defined in [cache-manager/src/defs/index.ts:136](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L136)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **propNameOrIndex**: *string | number*
 
-*Defined in [defs/index.ts:133](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L133)*
+*Defined in [cache-manager/src/defs/index.ts:137](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L137)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **requestFieldCacheKey**: *string*
 
-*Defined in [defs/index.ts:134](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L134)*
+*Defined in [cache-manager/src/defs/index.ts:138](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L138)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **requestFieldPath**: *string*
 
-*Defined in [defs/index.ts:135](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L135)*
+*Defined in [cache-manager/src/defs/index.ts:139](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L139)*
 
 ___
 
@@ -54,4 +54,4 @@ ___
 
 • **responseDataPath**: *string*
 
-*Defined in [defs/index.ts:136](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/cache-manager/src/defs/index.ts#L136)*
+*Defined in [cache-manager/src/defs/index.ts:140](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/cache-manager/src/defs/index.ts#L140)*

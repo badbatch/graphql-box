@@ -11,6 +11,8 @@
 ### Properties
 
 * [fieldNode](fieldandtypename.md#fieldnode)
+* [fragmentKind](fieldandtypename.md#fragmentkind)
+* [fragmentName](fieldandtypename.md#fragmentname)
 * [typeName](fieldandtypename.md#typename)
 
 ## Properties
@@ -19,7 +21,23 @@
 
 • **fieldNode**: *FieldNode*
 
-*Defined in [packages/helpers/src/defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/helpers/src/defs/index.ts#L79)*
+*Defined in [defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/helpers/src/defs/index.ts#L74)*
+
+___
+
+###  fragmentKind
+
+• **fragmentKind**: *string | undefined*
+
+*Defined in [defs/index.ts:75](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/helpers/src/defs/index.ts#L75)*
+
+___
+
+###  fragmentName
+
+• **fragmentName**: *string | undefined*
+
+*Defined in [defs/index.ts:76](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/helpers/src/defs/index.ts#L76)*
 
 ___
 
@@ -27,4 +45,4 @@ ___
 
 • **typeName**: *string | undefined*
 
-*Defined in [packages/helpers/src/defs/index.ts:80](https://github.com/badbatch/graphql-box/blob/f8ef82d/packages/helpers/src/defs/index.ts#L80)*
+*Defined in [defs/index.ts:77](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/helpers/src/defs/index.ts#L77)*
