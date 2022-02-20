@@ -1,13 +1,12 @@
-import { MaybeRequestResult } from "@graphql-box/core";
 import EventEmitter from "eventemitter3";
 import { $$asyncIterator } from "iterall";
 
-export default class EventAsyncIterator {
+export default class EventAsyncIterator<RequestResult> {
   private _eventEmitter: EventEmitter;
   private _eventName: string;
   private _listening: boolean = false;
-  private _pullQueue: ((value: IteratorResult<MaybeRequestResult | undefined>) => void)[] = [];
-  private _pushQueue: MaybeRequestResult[] = [];
+  private _pullQueue: ((value: IteratorResult<RequestResult | undefined>) => void)[] = [];
+  private _pushQueue: RequestResult[] = [];
 
   constructor(eventEmitter: EventEmitter, eventName: string) {
     this._eventEmitter = eventEmitter;
@@ -16,7 +15,7 @@ export default class EventAsyncIterator {
     this._addEventListener();
   }
 
-  public getIterator(): AsyncIterableIterator<MaybeRequestResult | undefined> {
+  public getIterator(): AsyncIterableIterator<RequestResult | undefined> {
     return {
       next: this._next.bind(this),
       return: this._return.bind(this),
@@ -43,14 +42,14 @@ export default class EventAsyncIterator {
     }
   }
 
-  private _next(): Promise<IteratorResult<MaybeRequestResult | undefined>> {
+  private _next(): Promise<IteratorResult<RequestResult | undefined>> {
     return this._listening ? this._pullValue() : this._return();
   }
 
-  private _pullValue(): Promise<IteratorResult<MaybeRequestResult | undefined>> {
-    return new Promise((resolve: (value: IteratorResult<MaybeRequestResult | undefined>) => void) => {
+  private _pullValue(): Promise<IteratorResult<RequestResult | undefined>> {
+    return new Promise((resolve: (value: IteratorResult<RequestResult | undefined>) => void) => {
       if (this._pushQueue.length !== 0) {
-        const result = this._pushQueue.shift() as MaybeRequestResult;
+        const result = this._pushQueue.shift() as RequestResult;
         resolve({ done: false, value: result });
       } else {
         this._pullQueue.push(resolve);
@@ -58,9 +57,9 @@ export default class EventAsyncIterator {
     });
   }
 
-  private _pushValue(result: MaybeRequestResult): void {
+  private _pushValue(result: RequestResult): void {
     if (this._pullQueue.length !== 0) {
-      const resolver = this._pullQueue.shift() as (value: IteratorResult<MaybeRequestResult>) => void;
+      const resolver = this._pullQueue.shift() as (value: IteratorResult<RequestResult>) => void;
       resolver({ value: result, done: false });
     } else {
       this._pushQueue.push(result);
@@ -71,7 +70,7 @@ export default class EventAsyncIterator {
     this._eventEmitter.removeListener(this._eventName, this._pushValue);
   }
 
-  private _return(): Promise<IteratorResult<MaybeRequestResult | undefined>> {
+  private _return(): Promise<IteratorResult<RequestResult | undefined>> {
     this._emptyQueue();
     return Promise.resolve({ value: undefined, done: true });
   }

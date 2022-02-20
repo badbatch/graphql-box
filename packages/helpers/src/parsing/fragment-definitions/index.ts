@@ -1,14 +1,32 @@
 import { DocumentNode, FieldNode, FragmentDefinitionNode, FragmentSpreadNode, InlineFragmentNode } from "graphql";
+import { isEmpty } from "lodash";
 import { FRAGMENT_DEFINITION, FRAGMENT_SPREAD } from "../../consts";
 import { FragmentDefinitionNodeMap } from "../../defs";
-import { getKind } from "../kind";
+import { isKind } from "../kind";
 import { getName } from "../name";
 
-export function deleteFragmentDefinitions(documentNode: DocumentNode): DocumentNode {
+export function deleteFragmentDefinitions(
+  documentNode: DocumentNode,
+  { exclude = [], include = [] }: { exclude?: string[]; include?: string[] } = {},
+) {
   const definitions = [...documentNode.definitions];
 
   for (let i = definitions.length - 1; i >= 0; i -= 1) {
-    if (getKind(definitions[i]) === FRAGMENT_DEFINITION) {
+    const definitionNode = definitions[i];
+    const isFragmentDefinition = isKind<FragmentDefinitionNode>(definitions[i], FRAGMENT_DEFINITION);
+
+    if (!isFragmentDefinition) {
+      continue;
+    }
+
+    const isIncluded =
+      !!include.length && include.includes(getName(definitionNode) as FragmentDefinitionNode["name"]["value"]);
+
+    const isExcluded =
+      (include.length && !isIncluded) ||
+      exclude.includes(getName(definitionNode) as FragmentDefinitionNode["name"]["value"]);
+
+    if (isIncluded || !isExcluded) {
       definitions.splice(i, 1);
     }
   }
@@ -23,44 +41,61 @@ export function getFragmentDefinitions({ definitions }: DocumentNode): FragmentD
   const fragmentDefinitions: FragmentDefinitionNodeMap = {};
 
   definitions.forEach(value => {
-    if (getKind(value) === FRAGMENT_DEFINITION) {
-      const fragmentDefinitionNode = value as FragmentDefinitionNode;
-      const name = getName(fragmentDefinitionNode);
-      if (!name) return;
+    if (isKind<FragmentDefinitionNode>(value, FRAGMENT_DEFINITION)) {
+      const name = getName(value);
 
-      fragmentDefinitions[name] = fragmentDefinitionNode;
+      if (!name) {
+        return;
+      }
+
+      fragmentDefinitions[name] = value;
     }
   });
 
-  if (!Object.keys(fragmentDefinitions).length) return undefined;
+  if (isEmpty(fragmentDefinitions)) {
+    return undefined;
+  }
 
   return fragmentDefinitions;
 }
 
-export function hasFragmentDefinitions({ definitions }: DocumentNode): boolean {
-  return definitions.some(value => getKind(value) === FRAGMENT_DEFINITION);
-}
-
-export function setFragmentDefinitions(
+export const setFragmentDefinitions = (
   fragmentDefinitions: FragmentDefinitionNodeMap,
-  node: FieldNode | InlineFragmentNode,
-): void {
-  if (!node.selectionSet) return;
+  node: FieldNode | InlineFragmentNode | FragmentDefinitionNode,
+  { exclude = [], include = [] }: { exclude?: string[]; include?: string[] } = {},
+) => {
+  let fragmentsSet = 0;
+
+  if (!node.selectionSet) {
+    return fragmentsSet;
+  }
 
   const selections = [...node.selectionSet.selections];
 
   for (let i = selections.length - 1; i >= 0; i -= 1) {
-    if (getKind(selections[i]) === FRAGMENT_SPREAD) {
-      const fragmentSpread = selections[i] as FragmentSpreadNode;
-      const name = getName(fragmentSpread);
-      if (!name) continue;
+    const selectionNode = selections[i];
+    const isFragmentSpread = isKind<FragmentSpreadNode>(selectionNode, FRAGMENT_SPREAD);
 
+    if (!isFragmentSpread) {
+      continue;
+    }
+
+    const name = getName(selectionNode) as FragmentSpreadNode["name"]["value"];
+    const isIncluded = !!include.length && include.includes(name);
+    const isExcluded = (include.length && !isIncluded) || exclude.includes(name);
+
+    if (isIncluded || !isExcluded) {
       const { selectionSet } = fragmentDefinitions[name];
-      if (!selectionSet) continue;
+
+      if (!selectionSet) {
+        continue;
+      }
 
       selections.splice(i, 1, ...selectionSet.selections);
+      fragmentsSet += 1;
     }
   }
 
   node.selectionSet.selections = selections;
-}
+  return fragmentsSet;
+};

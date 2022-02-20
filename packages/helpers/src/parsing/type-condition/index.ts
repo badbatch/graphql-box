@@ -1,5 +1,5 @@
-import { InlineFragmentNode, NamedTypeNode } from "graphql";
+import { InlineFragmentNode } from "graphql";
 
-export function getTypeCondition({ typeCondition }: InlineFragmentNode): NamedTypeNode | undefined {
+export function getTypeCondition({ typeCondition }: InlineFragmentNode) {
   return typeCondition;
 }

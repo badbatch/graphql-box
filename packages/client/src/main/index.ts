@@ -21,6 +21,7 @@ import {
 } from "@graphql-box/core";
 import { hashRequest } from "@graphql-box/helpers";
 import { RequestParserDef } from "@graphql-box/request-parser";
+import { isAsyncIterable } from "iterall";
 import { isArray, isPlainObject, isString } from "lodash";
 import { v1 as uuid } from "uuid";
 import logRequest from "../debug/log-request";
@@ -124,26 +125,18 @@ export default class Client {
     return this._debugManager;
   }
 
-  public async request(
-    request: string,
-    options: RequestOptions = {},
-    context: MaybeRequestContext = {},
-  ): Promise<MaybeRequestResult> {
+  public async request(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
     const errors = Client._validateRequestArguments(request, options);
     if (errors.length) return { errors };
 
     try {
-      return this._request(request, options, this._getRequestContext(QUERY, request, context)) as MaybeRequestResult;
+      return this._request(request, options, this._getRequestContext(QUERY, request, context));
     } catch (error) {
       return { errors: error };
     }
   }
 
-  public async subscribe(
-    request: string,
-    options: RequestOptions = {},
-    context: MaybeRequestContext = {},
-  ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
+  public async subscribe(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
     const errors: Error[] = [];
 
     if (!this._subscriptionsManager) {
@@ -185,40 +178,48 @@ export default class Client {
     requestData: RequestDataWithMaybeAST,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<MaybeRequestResult> {
+  ) {
     try {
-      const rawResponseData = await this._requestManager.execute(requestData, options, context);
+      const resolver = async (rawResponseData: MaybeRawResponseData) => {
+        if (rawResponseData.errors) {
+          return Client._resolve(rawResponseData, options, context);
+        }
 
-      const { data, errors } = rawResponseData;
-      if (errors) return Promise.reject(errors);
+        const responseData = await this._cacheManager.resolveRequest(
+          requestData as RequestData,
+          rawResponseData as RawResponseDataWithMaybeCacheMetadata,
+          options,
+          context,
+        );
 
-      let responseData = { data };
+        return Client._resolve(responseData, options, context);
+      };
 
-      responseData = await this._cacheManager.resolveRequest(
-        requestData as RequestData,
-        rawResponseData as RawResponseDataWithMaybeCacheMetadata,
-        options,
-        context,
-      );
+      const executeResult = await this._requestManager.execute(requestData, options, context, resolver);
 
-      return Client._resolve(responseData, options, context);
+      if (isAsyncIterable(executeResult)) {
+        return executeResult;
+      }
+
+      return await resolver(executeResult);
     } catch (errors) {
       return Promise.reject(errors);
     }
   }
 
-  private async _handleQuery(
-    requestData: RequestDataWithMaybeAST,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<MaybeRequestResult> {
+  private async _handleQuery(requestData: RequestDataWithMaybeAST, options: RequestOptions, context: RequestContext) {
     try {
       const checkResult = await this._cacheManager.checkQueryResponseCacheEntry(requestData.hash, options, context);
 
-      if (checkResult) return Client._resolve(checkResult, options, context);
+      if (checkResult) {
+        return Client._resolve(checkResult, options, context);
+      }
 
       const pendingQuery = this._trackQuery(requestData, options, context);
-      if (pendingQuery) return pendingQuery;
+
+      if (pendingQuery) {
+        return pendingQuery;
+      }
 
       let updatedRequestData: RequestDataWithMaybeAST = requestData;
       const analyzeQueryResult = await this._cacheManager.analyzeQuery(requestData as RequestData, options, context);
@@ -231,32 +232,35 @@ export default class Client {
         updatedRequestData = updated;
       }
 
-      const rawResponseData = await this._requestManager.execute(updatedRequestData, options, context);
+      const resolver = async (rawResponseData: MaybeRawResponseData) => {
+        if (rawResponseData.errors) {
+          return this._resolveQuery(updatedRequestData, rawResponseData, options, context);
+        }
 
-      const { data, errors } = rawResponseData;
-      if (errors) return this._resolveQuery(updatedRequestData, { errors }, options, context);
+        const responseData = await this._cacheManager.resolveQuery(
+          requestData as RequestData,
+          updatedRequestData as RequestData,
+          rawResponseData as RawResponseDataWithMaybeCacheMetadata,
+          options,
+          context,
+        );
 
-      let responseData = { data };
+        return this._resolveQuery(requestData, responseData, options, context);
+      };
 
-      responseData = await this._cacheManager.resolveQuery(
-        requestData as RequestData,
-        updatedRequestData as RequestData,
-        rawResponseData as RawResponseDataWithMaybeCacheMetadata,
-        options,
-        context,
-      );
+      const executeResult = await this._requestManager.execute(updatedRequestData, options, context, resolver);
 
-      return this._resolveQuery(requestData, responseData, options, context);
+      if (isAsyncIterable(executeResult)) {
+        return executeResult;
+      }
+
+      return await resolver(executeResult);
     } catch (errors) {
       return this._resolveQuery(requestData, { errors }, options, context);
     }
   }
 
-  private _handleRequest(
-    requestData: RequestDataWithMaybeAST,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<AsyncIterator<MaybeRequestResult | undefined> | MaybeRequestResult> {
+  private _handleRequest(requestData: RequestDataWithMaybeAST, options: RequestOptions, context: RequestContext) {
     try {
       if (context.operation === QUERY) {
         return this._handleQuery(requestData, options, context);
@@ -277,7 +281,7 @@ export default class Client {
     requestData: RequestDataWithMaybeAST,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
+  ) {
     try {
       const resolver = async (responseData: MaybeRawResponseData) =>
         this._resolveSubscription(requestData, responseData, options, context);
@@ -290,11 +294,7 @@ export default class Client {
   }
 
   @logRequest()
-  private async _request(
-    request: string,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<AsyncIterator<MaybeRequestResult | undefined> | MaybeRequestResult> {
+  private async _request(request: string, options: RequestOptions, context: RequestContext) {
     try {
       const { ast, request: updateRequest } = await this._requestParser.updateRequest(request, options, context);
 
@@ -336,12 +336,13 @@ export default class Client {
     context: RequestContext,
   ): Promise<MaybeRequestResult> {
     try {
-      const { data, errors } = rawResponseData;
-      if (errors) return Client._resolve({ errors }, options, context);
+      const { errors } = rawResponseData;
 
-      let responseData = { data };
+      if (errors) {
+        return Client._resolve({ errors }, options, context);
+      }
 
-      responseData = await this._cacheManager.resolveRequest(
+      const responseData = await this._cacheManager.resolveRequest(
         requestData as RequestData,
         rawResponseData as RawResponseDataWithMaybeCacheMetadata,
         options,

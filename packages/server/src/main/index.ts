@@ -20,6 +20,7 @@ import {
   ResponseDataWithMaybeDehydratedCacheMetadataBatch,
   UserOptions,
 } from "../defs";
+import writeResponseChunk from "../helpers/writeResponseChunk";
 
 export default class Server {
   public static async init(options: UserOptions): Promise<Server> {
@@ -57,64 +58,104 @@ export default class Server {
   }
 
   private async _handleBatchRequest(
+    res: Response,
     requests: PlainObjectStringMap,
     options: ServerRequestOptions,
     context: MaybeRequestContext,
-  ): Promise<ResponseDataWithMaybeDehydratedCacheMetadataBatch> {
+  ) {
     const responses: ResponseDataWithMaybeDehydratedCacheMetadataBatch = { batch: {} };
 
     await Promise.all(
       Object.keys(requests).map(async requestHash => {
         const request = requests[requestHash];
-        const { _cacheMetadata, ...otherProps } = await this._client.request(request, options, context);
+
+        const { _cacheMetadata, ...otherProps } = (await this._client.request(
+          request,
+          options,
+          context,
+        )) as MaybeRequestResult;
 
         responses.batch[requestHash] = { ...otherProps };
-        if (_cacheMetadata) responses.batch[requestHash]._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+
+        if (_cacheMetadata) {
+          responses.batch[requestHash]._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+        }
       }),
     );
 
-    return responses;
+    res.status(200).send(responses);
   }
 
   private async _handleRequest(
+    res: Response,
     request: string,
     options: ServerRequestOptions,
     context: MaybeRequestContext,
-  ): Promise<MaybeRequestResultWithDehydratedCacheMetadata> {
-    const { _cacheMetadata, ...otherProps } = await this._client.request(request, options, context);
-    const response: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
-    if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
-    return response;
+  ) {
+    const requestResult = await this._client.request(request, options, context);
+
+    if (!isAsyncIterable(requestResult)) {
+      const { _cacheMetadata, ...otherProps } = requestResult as MaybeRequestResult;
+      const response: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
+
+      if (_cacheMetadata) {
+        response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+      }
+
+      res.status(200).send(response);
+      return;
+    }
+
+    res.setHeader("Content-Type", 'multipart/mixed; boundary="-"');
+
+    forAwaitEach(requestResult, ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {
+      const response: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
+
+      if (_cacheMetadata) {
+        response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+      }
+
+      writeResponseChunk(res, response);
+    });
+
+    res.write("\r\n-----\r\n");
+    res.end();
   }
 
   private async _messageHandler(message: Data, { ws, ...rest }: ServerSocketRequestOptions): Promise<void> {
     try {
       const { context, subscriptionID, subscription } = JSON.parse(message as string);
-      const subscribeResult = await this._client.request(subscription, rest, context);
+      const subscribeResult = await this._client.subscribe(subscription, rest, context);
 
       if (isAsyncIterable(subscribeResult)) {
         forAwaitEach(subscribeResult, ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {
           if (ws.readyState === ws.OPEN) {
             const result: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
-            if (_cacheMetadata) result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+
+            if (_cacheMetadata) {
+              result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+            }
+
             ws.send(JSON.stringify({ result, subscriptionID }));
           }
         });
+
+        return;
       }
+
+      ws.send(subscribeResult);
     } catch (error) {
       ws.send(error);
     }
   }
 
-  private async _requestHandler(req: Request, res: Response, options: ServerRequestOptions): Promise<void> {
+  private _requestHandler(req: Request, res: Response, options: ServerRequestOptions) {
     try {
       const { batched, context, request } = req.body as RequestData;
 
-      const result = batched
-        ? await this._handleBatchRequest(request as PlainObjectStringMap, options, context)
-        : await this._handleRequest(request as string, options, context);
-
-      res.status(200).send(result);
+      batched
+        ? this._handleBatchRequest(res, request as PlainObjectStringMap, options, context)
+        : this._handleRequest(res, request as string, options, context);
     } catch (error) {
       res.status(500).send(error);
     }

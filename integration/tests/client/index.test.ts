@@ -62,7 +62,7 @@ describe("client", () => {
         const request = parsedRequests.singleTypeQuery;
 
         try {
-          const { _cacheMetadata, data } = await client.request(request, { ...defaultOptions });
+          const { _cacheMetadata, data } = (await client.request(request, { ...defaultOptions })) as MaybeRequestResult;
           response = { data };
           if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         } catch (errors) {
@@ -112,7 +112,7 @@ describe("client", () => {
             client.request(request, { ...defaultOptions }),
           ]);
 
-          const { _cacheMetadata, data } = result[1];
+          const { _cacheMetadata, data } = result[1] as MaybeRequestResult;
           response = { data };
           if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         } catch (errors) {
@@ -169,7 +169,7 @@ describe("client", () => {
         fetchMock.resetHistory();
 
         try {
-          const { _cacheMetadata, data } = await client.request(request, { ...defaultOptions });
+          const { _cacheMetadata, data } = (await client.request(request, { ...defaultOptions })) as MaybeRequestResult;
           response = { data };
           if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         } catch (errors) {
@@ -226,7 +226,7 @@ describe("client", () => {
         fetchMock.resetHistory();
 
         try {
-          const { _cacheMetadata, data } = await client.request(initial, { ...defaultOptions });
+          const { _cacheMetadata, data } = (await client.request(initial, { ...defaultOptions })) as MaybeRequestResult;
           response = { data };
           if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         } catch (errors) {
@@ -294,9 +294,12 @@ describe("client", () => {
         fetchMock.resetHistory();
 
         try {
-          const { _cacheMetadata, data } = await client.request(full, { ...defaultOptions });
+          const { _cacheMetadata, data } = (await client.request(full, { ...defaultOptions })) as MaybeRequestResult;
           response = { data };
-          if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+
+          if (_cacheMetadata) {
+            response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          }
         } catch (errors) {
           log(errors);
         }
@@ -383,9 +386,9 @@ describe("client", () => {
         fetchMock.config.warnOnFallback = false;
 
         try {
-          const { _cacheMetadata, data } = await client.request(parsedRequests.nestedTypeMutation, {
+          const { _cacheMetadata, data } = (await client.request(parsedRequests.nestedTypeMutation, {
             ...defaultOptions,
-          });
+          })) as MaybeRequestResult;
 
           mutResponse = { data };
           if (_cacheMetadata) mutResponse._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);

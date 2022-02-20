@@ -1,10 +1,12 @@
 import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
 import EventEmitter from "eventemitter3";
-import { DocumentNode, GraphQLFieldResolver } from "graphql";
+import { DocumentNode, GraphQLFieldResolver, GraphQLNamedType } from "graphql";
 import WebSocket from "ws";
 
-export interface PlainObjectMap {
-  [key: string]: any;
+export type Maybe<T> = null | undefined | T;
+
+export interface PlainObjectMap<T = any> {
+  [key: string]: T;
 }
 
 export interface PlainObjectStringMap {
@@ -115,7 +117,15 @@ export interface PossibleType {
   typeName: string;
 }
 
+export interface VariableTypesMap {
+  [key: string]: Maybe<GraphQLNamedType>;
+}
+
 export interface FieldTypeInfo {
+  directives: {
+    inherited: string[];
+    own: string[];
+  };
   hasArguments: boolean;
   hasDirectives: boolean;
   isEntity: boolean;
@@ -134,6 +144,7 @@ export interface RequestContext {
   boxID: string;
   debugManager: DebugManagerDef | null;
   fieldTypeMap: FieldTypeMap;
+  hasDeferOrStream?: boolean;
   operation: ValidOperations;
   operationName: string;
   queryFiltered: boolean;
@@ -144,6 +155,7 @@ export interface MaybeRequestContext {
   boxID?: string;
   debugManager?: DebugManagerDef | null;
   fieldTypeMap?: FieldTypeMap;
+  hasDeferOrStream?: boolean;
   operation?: ValidOperations;
   operationName?: string;
   queryFiltered?: boolean;
@@ -159,25 +171,33 @@ export type CacheMetadata = Map<string, Cacheability>;
 export interface RawResponseDataWithMaybeCacheMetadata {
   _cacheMetadata?: DehydratedCacheMetadata;
   data: PlainObjectMap;
+  hasNext?: boolean;
   headers?: Headers;
+  label?: string;
+  path?: (string | number)[];
 }
 
 export interface MaybeRawResponseData {
   _cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObjectMap | null;
   errors?: Error | ReadonlyArray<Error>;
+  hasNext?: boolean;
   headers?: Headers;
+  label?: string;
+  path?: (string | number)[];
 }
 
 export interface ResponseData {
   cacheMetadata: CacheMetadata;
   data: PlainObjectMap;
+  hasNext?: boolean;
 }
 
 export interface MaybeResponseData {
   cacheMetadata?: CacheMetadata;
   data?: PlainObjectMap | null;
   errors?: Error | ReadonlyArray<Error>;
+  hasNext?: boolean;
 }
 
 export interface RequestDataWithMaybeAST {
@@ -208,6 +228,11 @@ export interface MaybeRequestResult {
    * Any errors thrown during the request.
    */
   errors?: Error | ReadonlyArray<Error>;
+
+  /**
+   * Whether there are any more chunks to the response.
+   */
+  hasNext?: boolean;
 }
 
 export interface MaybeRequestResultWithDehydratedCacheMetadata {
@@ -221,10 +246,13 @@ export interface RequestManagerDef {
     requestData: RequestDataWithMaybeAST,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<MaybeRawResponseData>;
+    executeResolver: RequestResolver,
+  ): Promise<AsyncIterableIterator<MaybeRequestResult | undefined> | MaybeRawResponseData>;
 }
 
 export type RequestManagerInit = () => Promise<RequestManagerDef>;
+
+export type RequestResolver = (rawResponseData: MaybeRawResponseData) => Promise<MaybeRequestResult>;
 
 export type SubscriberResolver = (rawResponseData: MaybeRawResponseData) => Promise<MaybeRequestResult>;
 

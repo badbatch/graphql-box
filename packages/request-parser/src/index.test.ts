@@ -13,10 +13,12 @@ import { RequestParser, RequestParserDef, UpdateRequestResult } from ".";
 describe("@graphql-box/request-parser >>", () => {
   let requestContext: RequestContext;
   let requestParser: RequestParserDef;
-  let updatedRequest: UpdateRequestResult;
+  let updatedRequest: UpdateRequestResult | undefined;
 
   describe("query >> no variable >>", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -28,7 +30,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -38,6 +40,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("query >> with default", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -49,7 +53,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -59,6 +63,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("query >> with number default", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -70,7 +76,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -80,6 +86,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("query >> operation name >>", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -91,7 +99,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -101,6 +109,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("query >> variable", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -112,7 +122,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -122,6 +132,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("query >> variable with default", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -133,7 +145,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -143,6 +155,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("query >> multiple variables >>", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -154,7 +168,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -164,6 +178,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("query >> enum variable >>", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -175,7 +191,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -185,6 +201,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("query >> directive", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -196,7 +214,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -206,6 +224,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("query >> inline fragment >>", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -217,7 +237,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -227,6 +247,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("query >> inline fragments >> union type >>", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -238,7 +260,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -248,6 +270,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("query >> fragment spread >>", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -259,7 +283,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -269,6 +293,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("query >> union type inline fragments >> fragment spread >>", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -280,7 +306,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -290,6 +316,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("query >> fragment option >>", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -301,7 +329,30 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
+    });
+
+    it("correct context data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
+  describe("query >> defer >>", () => {
+    beforeAll(async () => {
+      updatedRequest = undefined;
+
+      requestParser = await RequestParser.init({
+        introspection: githubIntrospection as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
+      const { options, request } = requestsAndOptions.queryWithDefer;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("correct request", () => {
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -311,6 +362,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("mutation >> input type variable >>", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -322,7 +375,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {
@@ -332,6 +385,8 @@ describe("@graphql-box/request-parser >>", () => {
 
   describe("subscription >>", () => {
     beforeAll(async () => {
+      updatedRequest = undefined;
+
       requestParser = await RequestParser.init({
         schema: makeExecutableSchema({ typeDefs: schemaTypeDefs, resolvers: schemaResolvers }),
         typeIDKey: DEFAULT_TYPE_ID_KEY,
@@ -343,7 +398,7 @@ describe("@graphql-box/request-parser >>", () => {
     });
 
     it("correct request", () => {
-      expect(updatedRequest.request).toMatchSnapshot();
+      expect(updatedRequest?.request).toMatchSnapshot();
     });
 
     it("correct context data", () => {

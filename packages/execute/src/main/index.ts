@@ -1,14 +1,19 @@
 import {
   DehydratedCacheMetadata,
   MaybeRawResponseData,
+  MaybeResponseData,
   PlainObjectMap,
   RequestContext,
   RequestDataWithMaybeAST,
   RequestManagerDef,
   RequestManagerInit,
+  RequestResolver,
   ServerRequestOptions,
 } from "@graphql-box/core";
+import { EventAsyncIterator } from "@graphql-box/helpers";
+import EventEmitter from "eventemitter3";
 import { ExecutionArgs, GraphQLFieldResolver, GraphQLSchema, execute, parse } from "graphql";
+import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
 import logExecute from "../debug/log-execute";
 import { ConstructorOptions, GraphQLExecute, InitOptions, UserOptions } from "../defs";
@@ -27,6 +32,7 @@ export class Execute implements RequestManagerDef {
   }
 
   private _contextValue: PlainObjectMap;
+  private _eventEmitter: EventEmitter;
   private _execute: GraphQLExecute;
   private _fieldResolver?: GraphQLFieldResolver<any, any> | null;
   private _rootValue: any;
@@ -34,7 +40,8 @@ export class Execute implements RequestManagerDef {
 
   constructor(options: ConstructorOptions) {
     this._contextValue = options.contextValue || {};
-    this._execute = options.execute || execute;
+    this._eventEmitter = new EventEmitter();
+    this._execute = options.execute || (execute as GraphQLExecute);
     this._fieldResolver = options.fieldResolver || null;
     this._rootValue = options.rootValue;
     this._schema = options.schema;
@@ -42,10 +49,11 @@ export class Execute implements RequestManagerDef {
 
   @logExecute()
   public async execute(
-    { ast, request }: RequestDataWithMaybeAST,
+    { ast, hash, request }: RequestDataWithMaybeAST,
     options: ServerRequestOptions,
     { boxID }: RequestContext,
-  ): Promise<MaybeRawResponseData> {
+    executeResolver: RequestResolver,
+  ) {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
 
@@ -59,8 +67,21 @@ export class Execute implements RequestManagerDef {
     };
 
     try {
-      const { data, errors } = await this._execute(executeArgs);
-      return { _cacheMetadata, data, errors };
+      const executeResult = await this._execute(executeArgs);
+
+      if (!isAsyncIterable(executeResult)) {
+        return { ...executeResult, _cacheMetadata };
+      }
+
+      forAwaitEach(executeResult, async result => {
+        this._eventEmitter.emit(
+          hash,
+          await executeResolver(({ _cacheMetadata, ...result } as unknown) as MaybeRawResponseData),
+        );
+      });
+
+      const eventAsyncIterator = new EventAsyncIterator<MaybeResponseData>(this._eventEmitter, hash);
+      return eventAsyncIterator.getIterator();
     } catch (error) {
       return Promise.reject(error);
     }

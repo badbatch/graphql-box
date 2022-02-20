@@ -16,8 +16,7 @@ import {
   requestFieldTypeMaps,
   responses,
 } from "@graphql-box/test-utils";
-import { CacheManager, CacheManagerDef } from ".";
-import { AnalyzeQueryResult } from "./defs";
+import { AnalyzeQueryResult, CacheManager, CacheManagerDef } from ".";
 
 describe("@graphql-box/cache-manager >>", () => {
   const realDateNow = Date.now.bind(global.Date);
@@ -31,7 +30,7 @@ describe("@graphql-box/cache-manager >>", () => {
     global.Date.now = realDateNow;
   });
 
-  describe("resolve >>", () => {
+  describe("resolveRequest >>", () => {
     let responseData: ResponseData;
     let requestData: RequestData;
 
@@ -709,6 +708,59 @@ describe("@graphql-box/cache-manager >>", () => {
           });
         });
       });
+
+      describe("defer >>", () => {
+        describe("cascading cache control >>", () => {
+          beforeAll(async () => {
+            // @ts-ignore
+            jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+
+            cacheManager = await CacheManager.init({
+              cache: new Cachemap({
+                name: "cachemap",
+                store: map(),
+                type: "someType",
+              }),
+              cascadeCacheControl: true,
+              typeIDKey: DEFAULT_TYPE_ID_KEY,
+            });
+
+            requestData = getRequestData(parsedRequests.deferQuerySet.initial);
+
+            responseData = await cacheManager.resolveQuery(
+              requestData,
+              requestData,
+              responses.deferQuerySet.initial,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery }),
+            );
+
+            const { cacheMetadata, data } = responses.deferQuerySet.partial;
+
+            // @ts-ignore
+            jest.spyOn(cacheManager._partialQueryResponses, "get").mockReturnValue({
+              cacheMetadata: rehydrateCacheMetadata(cacheMetadata as DehydratedCacheMetadata),
+              data,
+            });
+
+            responseData = await cacheManager.resolveQuery(
+              getRequestData(parsedRequests.deferQuerySet.full),
+              getRequestData(parsedRequests.deferQuerySet.updated),
+              responses.deferQuerySet.updated,
+              { awaitDataCaching: true },
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, queryFiltered: true }),
+            );
+          });
+
+          it("correct response data", () => {
+            expect(responseData).toMatchSnapshot();
+          });
+
+          it("correct cache data", async () => {
+            expect(await cacheManager.cache.export()).toMatchSnapshot();
+          });
+        });
+      });
     });
   });
 
@@ -787,6 +839,34 @@ describe("@graphql-box/cache-manager >>", () => {
             getRequestData(parsedRequests.nestedUnionQuery),
             { awaitDataCaching: true },
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery }),
+          );
+        });
+
+        it("correct request data", () => {
+          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          expect(otherProps).toMatchSnapshot();
+        });
+
+        it("no response data", () => {
+          expect(analyzeQueryResult.response).toBeUndefined();
+        });
+      });
+
+      describe("defer >>", () => {
+        beforeAll(async () => {
+          cacheManager = await CacheManager.init({
+            cache: new Cachemap({
+              name: "cachemap",
+              store: map(),
+              type: "someType",
+            }),
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          analyzeQueryResult = await cacheManager.analyzeQuery(
+            getRequestData(parsedRequests.deferQuery),
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery }),
           );
         });
 
@@ -946,6 +1026,51 @@ describe("@graphql-box/cache-manager >>", () => {
           expect(await cacheManager.cache.export()).toMatchSnapshot();
         });
       });
+
+      describe("defer >>", () => {
+        beforeAll(async () => {
+          // @ts-ignore
+          jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+
+          cacheManager = await CacheManager.init({
+            cache: new Cachemap({
+              name: "cachemap",
+              store: map(),
+              type: "someType",
+            }),
+            cascadeCacheControl: true,
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          const requestData = getRequestData(parsedRequests.deferQuery);
+
+          await cacheManager.resolveQuery(
+            requestData,
+            requestData,
+            responses.deferQuery,
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery }),
+          );
+
+          analyzeQueryResult = await cacheManager.analyzeQuery(
+            getRequestData(parsedRequests.deferQuery),
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery }),
+          );
+        });
+
+        it("no request data", () => {
+          expect(analyzeQueryResult.updated).toBeUndefined();
+        });
+
+        it("correct response data", () => {
+          expect(analyzeQueryResult.response).toMatchSnapshot();
+        });
+
+        it("correct cache data", async () => {
+          expect(await cacheManager.cache.export()).toMatchSnapshot();
+        });
+      });
     });
 
     describe("some matching data >>", () => {
@@ -1090,6 +1215,57 @@ describe("@graphql-box/cache-manager >>", () => {
             getRequestData(parsedRequests.nestedUnionQuery),
             { awaitDataCaching: true },
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery }),
+          );
+        });
+
+        it("correct request data", () => {
+          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          expect(otherProps).toMatchSnapshot();
+        });
+
+        it("no response data", () => {
+          expect(analyzeQueryResult.response).toBeUndefined();
+        });
+
+        it("correct cache data", async () => {
+          expect(await cacheManager.cache.export()).toMatchSnapshot();
+        });
+
+        it("correct partial data", () => {
+          // @ts-ignore
+          expect(cacheManager._partialQueryResponses).toMatchSnapshot();
+        });
+      });
+
+      describe("defer >>", () => {
+        beforeAll(async () => {
+          // @ts-ignore
+          jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+
+          cacheManager = await CacheManager.init({
+            cache: new Cachemap({
+              name: "cachemap",
+              store: map(),
+              type: "someType",
+            }),
+            cascadeCacheControl: true,
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          const requestData = getRequestData(parsedRequests.deferQuerySet.initial);
+
+          await cacheManager.resolveQuery(
+            requestData,
+            requestData,
+            responses.deferQuerySet.initial,
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery }),
+          );
+
+          analyzeQueryResult = await cacheManager.analyzeQuery(
+            getRequestData(parsedRequests.deferQuery),
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery }),
           );
         });
 

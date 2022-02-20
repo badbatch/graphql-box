@@ -5,6 +5,7 @@ export default function getRequestContext(props: PlainObjectMap = {}): RequestCo
     boxID: "123456789",
     debugManager: null,
     fieldTypeMap: new Map(),
+    hasDeferOrStream: false,
     operation: "query",
     operationName: "",
     queryFiltered: false,

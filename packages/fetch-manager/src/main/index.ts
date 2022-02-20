@@ -1,14 +1,20 @@
 import {
   MaybeRawResponseData,
   MaybeRequestContext,
+  MaybeResponseData,
   PlainObjectStringMap,
   RequestContext,
   RequestDataWithMaybeAST,
   RequestManagerDef,
   RequestManagerInit,
   RequestOptions,
+  RequestResolver,
 } from "@graphql-box/core";
+import { EventAsyncIterator } from "@graphql-box/helpers";
+import EventEmitter from "eventemitter3";
+import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject, isString } from "lodash";
+import { meros } from "meros/browser";
 import logFetch from "../debug/log-fetch";
 import {
   ActiveBatch,
@@ -21,6 +27,7 @@ import {
   InitOptions,
   UserOptions,
 } from "../defs";
+import parseFetchResult from "../helpers/parseFetchResult";
 
 export class FetchManager implements RequestManagerDef {
   public static async init(options: InitOptions): Promise<FetchManager> {
@@ -66,6 +73,7 @@ export class FetchManager implements RequestManagerDef {
   private _activeBatchTimer: NodeJS.Timer | undefined;
   private _batch: boolean;
   private _batchInterval: number;
+  private _eventEmitter: EventEmitter;
   private _fetchTimeout: number;
   private _headers: PlainObjectStringMap = { "content-type": "application/json" };
   private _url: string;
@@ -74,6 +82,7 @@ export class FetchManager implements RequestManagerDef {
     const { batch, batchInterval, fetchTimeout, headers = {}, url } = options;
     this._batch = batch || false;
     this._batchInterval = batchInterval || 100;
+    this._eventEmitter = new EventEmitter();
     this._fetchTimeout = fetchTimeout || 5000;
     this._headers = { ...this._headers, ...headers };
     this._url = url;
@@ -84,9 +93,23 @@ export class FetchManager implements RequestManagerDef {
     { hash, request }: RequestDataWithMaybeAST,
     _options: RequestOptions,
     context: RequestContext,
-  ): Promise<MaybeRawResponseData> {
+    executeResolver: RequestResolver,
+  ) {
     try {
-      if (!this._batch) return await this._fetch(request, hash, { batch: false }, context);
+      if (!this._batch || context.hasDeferOrStream) {
+        const fetchResult = await this._fetch(request, hash, { batch: false }, context);
+
+        if (!isAsyncIterable(fetchResult)) {
+          return fetchResult;
+        }
+
+        forAwaitEach(fetchResult, async ({ body, headers }) => {
+          this._eventEmitter.emit(hash, await executeResolver({ headers, ...body }));
+        });
+
+        const eventAsyncIterator = new EventAsyncIterator<MaybeResponseData>(this._eventEmitter, hash);
+        return eventAsyncIterator.getIterator();
+      }
 
       return new Promise((resolve: (value: MaybeRawResponseData) => void, reject) => {
         this._batchRequest(request, hash, { resolve, reject }, context);
@@ -115,9 +138,9 @@ export class FetchManager implements RequestManagerDef {
     hash: string,
     { batch }: FetchOptions,
     context: RequestContext,
-  ): Promise<MaybeRawResponseData | BatchedMaybeFetchData> {
+  ) {
     try {
-      return new Promise(async (resolve: (value: MaybeRawResponseData) => void, reject) => {
+      return new Promise(async (resolve: (value: MaybeRawResponseData | AsyncGenerator<Response>) => void, reject) => {
         const fetchTimer = setTimeout(() => {
           reject(new Error(`@graphql-box/fetch-manager did not get a response within ${this._fetchTimeout}ms.`));
         }, this._fetchTimeout);
@@ -132,14 +155,10 @@ export class FetchManager implements RequestManagerDef {
           }),
           headers: new Headers(this._headers),
           method: "POST",
-        });
+        }).then(meros);
 
         clearTimeout(fetchTimer);
-
-        resolve({
-          headers: fetchResult.headers,
-          ...(await fetchResult.json()),
-        });
+        resolve(isAsyncIterable(fetchResult) ? fetchResult : await parseFetchResult(fetchResult));
       });
     } catch (error) {
       return Promise.reject(error);

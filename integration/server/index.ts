@@ -2,7 +2,7 @@
 
 import map from "@cachemap/map";
 import BoxServer from "@graphql-box/server";
-import bodyParser from "body-parser";
+import { json, urlencoded } from "body-parser";
 import cors from "cors";
 import express from "express";
 import http from "http";
@@ -27,8 +27,8 @@ export default async function graphqlServer(): Promise<http.Server> {
 
   app
     .use(cors())
-    .use(bodyParser.urlencoded({ extended: true }))
-    .use(bodyParser.json())
+    .use(urlencoded({ extended: true }))
+    .use(json())
     .use("/graphql", boxServer.request({ awaitDataCaching: true, returnCacheMetadata: true }));
 
   const server = http.createServer(app);

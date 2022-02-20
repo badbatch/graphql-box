@@ -1,16 +1,16 @@
 import { PlainObjectMap } from "@graphql-box/core";
 import { outputFileSync } from "fs-extra";
-import { execute, introspectionQuery, parse } from "graphql";
+import { ExecutionResult, execute, getIntrospectionQuery, parse } from "graphql";
 import "isomorphic-fetch";
 import { resolve } from "path";
 import shell from "shelljs";
 import yargs from "yargs";
-import { IntrospectArgs, IntrospectionResult } from "../defs";
+import { IntrospectArgs } from "../defs";
 
 export default async function introspect(): Promise<void> {
   const argv = yargs.option("headers", { type: "array" }).argv;
   const { headers, output, schemaPath, url } = (argv as unknown) as IntrospectArgs;
-  let result: IntrospectionResult | undefined;
+  let result: ExecutionResult | undefined;
 
   try {
     if (!schemaPath && !url) {
@@ -29,7 +29,7 @@ export default async function introspect(): Promise<void> {
       let schema = require(resolve(rootDir, schemaPath));
       if (schema.default) schema = schema.default;
       shell.echo(">>>>>> introspect executing introspection query against schema");
-      result = await execute(schema, parse(introspectionQuery));
+      result = (await execute({ document: parse(getIntrospectionQuery()), schema })) as ExecutionResult;
     } else if (url) {
       let headersObj: PlainObjectMap | undefined;
 

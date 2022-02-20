@@ -9,6 +9,6 @@ export function publish(eventName: string, payload: any): void {
 }
 
 export function subscribe(eventName: string): AsyncIterator<MaybeRequestResult | undefined> {
-  const eventAsyncIterator = new EventAsyncIterator(eventEmitter, eventName);
+  const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(eventEmitter, eventName);
   return eventAsyncIterator.getIterator();
 }

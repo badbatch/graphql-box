@@ -6,6 +6,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "mutation.addStar" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
@@ -16,6 +20,10 @@ Object {
       "typeName": "AddStarPayload",
     },
     "mutation.addStar.starrable" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -28,17 +36,21 @@ Object {
         },
         Object {
           "isEntity": true,
-          "typeName": "Topic",
+          "typeName": "Gist",
         },
         Object {
           "isEntity": true,
-          "typeName": "Gist",
+          "typeName": "Topic",
         },
       ],
       "typeIDValue": undefined,
       "typeName": "Starrable",
     },
     "mutation.addStar.starrable.stargazers" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
@@ -49,6 +61,10 @@ Object {
       "typeName": "StargazerConnection",
     },
     "mutation.addStar.starrable.stargazers.edges" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
@@ -59,6 +75,10 @@ Object {
       "typeName": "StargazerEdge",
     },
     "mutation.addStar.starrable.stargazers.edges.node" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -69,6 +89,7 @@ Object {
       "typeName": "User",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "mutation",
   "operationName": "",
   "queryFiltered": false,
@@ -78,7 +99,9 @@ Object {
 
 exports[`@graphql-box/request-parser >> mutation >> input type variable >> correct request 1`] = `
 "mutation {
-  addStar(input: {clientMutationId: \\"1\\", starrableId: \\"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=\\"}) {
+  addStar(
+    input: {clientMutationId: \\"1\\", starrableId: \\"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=\\"}
+  ) {
     clientMutationId
     starrable {
       viewerHasStarred
@@ -97,16 +120,19 @@ exports[`@graphql-box/request-parser >> mutation >> input type variable >> corre
       __typename
     }
   }
-}
-"
+}"
 `;
 
-exports[`@graphql-box/request-parser >> query >> directive correct context data 1`] = `
+exports[`@graphql-box/request-parser >> query >> defer >> correct context data 1`] = `
 Object {
   "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -117,8 +143,12 @@ Object {
       "typeName": "Organization",
     },
     "query.organization.repositories" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
-      "hasDirectives": true,
+      "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
@@ -127,6 +157,10 @@ Object {
       "typeName": "RepositoryConnection",
     },
     "query.organization.repositories.edges" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
@@ -137,6 +171,321 @@ Object {
       "typeName": "RepositoryEdge",
     },
     "query.organization.repositories.edges.node" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Repository",
+    },
+    "query.organization.repositories.edges.node.licenseInfo" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "include({\\"if\\":true})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "License",
+    },
+    "query.organization.repositories.edges.node.licenseInfo.permissions" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "LicenseRule",
+    },
+    "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [
+          "skip({\\"if\\":false})",
+        ],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "String",
+    },
+    "query.organization.repositories.edges.node.id" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "include({\\"if\\":true})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "ID",
+    },
+    "query.organization.email" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"if\\":true,\\"label\\":\\"organizationDefer\\"})",
+        ],
+        "own": Array [
+          "include({\\"if\\":true})",
+        ],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "String",
+    },
+    "query.organization.description" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"if\\":true,\\"label\\":\\"organizationDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "String",
+    },
+    "query.organization.isVerified" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"if\\":true,\\"label\\":\\"organizationDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Boolean",
+    },
+    "query.organization.location" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"if\\":true,\\"label\\":\\"organizationDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "String",
+    },
+    "query.organization.repositories.edges.node.description" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "include({\\"if\\":true})",
+          "skip({\\"if\\":false})",
+          "defer({\\"if\\":true,\\"label\\":\\"repositoryDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "String",
+    },
+    "query.organization.repositories.edges.node.homepageUrl" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "include({\\"if\\":true})",
+          "skip({\\"if\\":false})",
+          "defer({\\"if\\":true,\\"label\\":\\"repositoryDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "URI",
+    },
+    "query.organization.repositories.edges.node.name" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "include({\\"if\\":true})",
+          "skip({\\"if\\":false})",
+          "defer({\\"if\\":true,\\"label\\":\\"repositoryDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "String",
+    },
+  },
+  "hasDeferOrStream": true,
+  "operation": "query",
+  "operationName": "",
+  "queryFiltered": false,
+  "request": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> defer >> correct request 1`] = `
+"{
+  organization(login: \\"facebook\\") {
+    ...OrganizationFieldsA @defer(if: true, label: \\"organizationDefer\\")
+    login
+    name
+    repositories(first: 10) {
+      edges {
+        node {
+          ... on Repository @include(if: true) {
+            licenseInfo {
+              permissions {
+                label @skip(if: false)
+              }
+              id
+            }
+            ...RepositoryFields @skip(if: false) @defer(if: true, label: \\"repositoryDefer\\")
+            id
+          }
+        }
+      }
+    }
+    url
+    id
+  }
+}
+
+fragment OrganizationFieldsA on Organization {
+  email @include(if: true)
+  description
+  isVerified
+  location
+}
+
+fragment RepositoryFields on Repository {
+  description
+  homepageUrl
+  name
+}"
+`;
+
+exports[`@graphql-box/request-parser >> query >> directive correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.organization" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Organization",
+    },
+    "query.organization.email" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [
+          "include({\\"if\\":true})",
+        ],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "String",
+    },
+    "query.organization.repositories" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [
+          "include({\\"if\\":true})",
+        ],
+      },
+      "hasArguments": true,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryConnection",
+    },
+    "query.organization.repositories.edges" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryEdge",
+    },
+    "query.organization.repositories.edges.node" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -147,6 +496,10 @@ Object {
       "typeName": "Repository",
     },
     "query.organization.repositories.edges.node.owner" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -155,17 +508,18 @@ Object {
       "possibleTypes": Array [
         Object {
           "isEntity": true,
-          "typeName": "Organization",
+          "typeName": "User",
         },
         Object {
           "isEntity": true,
-          "typeName": "User",
+          "typeName": "Organization",
         },
       ],
       "typeIDValue": undefined,
       "typeName": "RepositoryOwner",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
   "queryFiltered": false,
@@ -177,7 +531,7 @@ exports[`@graphql-box/request-parser >> query >> directive correct request 1`] =
 "{
   organization(login: \\"facebook\\") {
     description
-    email
+    email @include(if: true)
     login
     name
     repositories(first: 6) @include(if: true) {
@@ -202,8 +556,7 @@ exports[`@graphql-box/request-parser >> query >> directive correct request 1`] =
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> enum variable >> correct context data 1`] = `
@@ -212,6 +565,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -222,6 +579,10 @@ Object {
       "typeName": "Organization",
     },
     "query.organization.repositories" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
@@ -232,6 +593,10 @@ Object {
       "typeName": "RepositoryConnection",
     },
     "query.organization.repositories.edges" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
@@ -242,6 +607,10 @@ Object {
       "typeName": "RepositoryEdge",
     },
     "query.organization.repositories.edges.node" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -252,6 +621,10 @@ Object {
       "typeName": "Repository",
     },
     "query.organization.repositories.edges.node.owner" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -260,17 +633,18 @@ Object {
       "possibleTypes": Array [
         Object {
           "isEntity": true,
-          "typeName": "Organization",
+          "typeName": "User",
         },
         Object {
           "isEntity": true,
-          "typeName": "User",
+          "typeName": "Organization",
         },
       ],
       "typeIDValue": undefined,
       "typeName": "RepositoryOwner",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
   "queryFiltered": false,
@@ -307,8 +681,7 @@ exports[`@graphql-box/request-parser >> query >> enum variable >> correct reques
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> fragment option >> correct context data 1`] = `
@@ -317,6 +690,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -327,6 +704,7 @@ Object {
       "typeName": "Organization",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
   "queryFiltered": false,
@@ -344,8 +722,7 @@ exports[`@graphql-box/request-parser >> query >> fragment option >> correct requ
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> fragment spread >> correct context data 1`] = `
@@ -354,6 +731,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -364,6 +745,7 @@ Object {
       "typeName": "Organization",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
   "queryFiltered": false,
@@ -381,8 +763,7 @@ exports[`@graphql-box/request-parser >> query >> fragment spread >> correct requ
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> inline fragment >> correct context data 1`] = `
@@ -391,6 +772,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -401,6 +786,7 @@ Object {
       "typeName": "Organization",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
   "queryFiltered": false,
@@ -418,8 +804,7 @@ exports[`@graphql-box/request-parser >> query >> inline fragment >> correct requ
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> inline fragments >> union type >> correct context data 1`] = `
@@ -428,6 +813,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.search" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
@@ -438,6 +827,10 @@ Object {
       "typeName": "SearchResultItemConnection",
     },
     "query.search.edges" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
@@ -448,6 +841,10 @@ Object {
       "typeName": "SearchResultItemEdge",
     },
     "query.search.edges.node" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
@@ -483,6 +880,7 @@ Object {
       "typeName": "SearchResultItem",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
   "queryFiltered": false,
@@ -529,8 +927,7 @@ exports[`@graphql-box/request-parser >> query >> inline fragments >> union type 
       }
     }
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> multiple variables >> correct context data 1`] = `
@@ -539,6 +936,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -549,6 +950,10 @@ Object {
       "typeName": "Organization",
     },
     "query.organization.repositories" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
@@ -559,6 +964,10 @@ Object {
       "typeName": "RepositoryConnection",
     },
     "query.organization.repositories.edges" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
@@ -569,6 +978,10 @@ Object {
       "typeName": "RepositoryEdge",
     },
     "query.organization.repositories.edges.node" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -579,6 +992,10 @@ Object {
       "typeName": "Repository",
     },
     "query.organization.repositories.edges.node.owner" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -587,17 +1004,18 @@ Object {
       "possibleTypes": Array [
         Object {
           "isEntity": true,
-          "typeName": "Organization",
+          "typeName": "User",
         },
         Object {
           "isEntity": true,
-          "typeName": "User",
+          "typeName": "Organization",
         },
       ],
       "typeIDValue": undefined,
       "typeName": "RepositoryOwner",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
   "queryFiltered": false,
@@ -634,8 +1052,7 @@ exports[`@graphql-box/request-parser >> query >> multiple variables >> correct r
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> no variable >> correct context data 1`] = `
@@ -644,6 +1061,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -654,6 +1075,7 @@ Object {
       "typeName": "Organization",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
   "queryFiltered": false,
@@ -671,8 +1093,7 @@ exports[`@graphql-box/request-parser >> query >> no variable >> correct request 
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> operation name >> correct context data 1`] = `
@@ -681,6 +1102,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -691,6 +1116,7 @@ Object {
       "typeName": "Organization",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "GetOrganization",
   "queryFiltered": false,
@@ -708,8 +1134,7 @@ exports[`@graphql-box/request-parser >> query >> operation name >> correct reque
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> union type inline fragments >> fragment spread >> correct context data 1`] = `
@@ -718,6 +1143,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.search" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
@@ -728,6 +1157,10 @@ Object {
       "typeName": "SearchResultItemConnection",
     },
     "query.search.edges" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
@@ -738,6 +1171,10 @@ Object {
       "typeName": "SearchResultItemEdge",
     },
     "query.search.edges.node" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
@@ -773,6 +1210,7 @@ Object {
       "typeName": "SearchResultItem",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
   "queryFiltered": false,
@@ -821,8 +1259,7 @@ exports[`@graphql-box/request-parser >> query >> union type inline fragments >> 
       }
     }
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> variable correct context data 1`] = `
@@ -831,6 +1268,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -841,6 +1282,7 @@ Object {
       "typeName": "Organization",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
   "queryFiltered": false,
@@ -858,8 +1300,7 @@ exports[`@graphql-box/request-parser >> query >> variable correct request 1`] = 
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> variable with default correct context data 1`] = `
@@ -868,6 +1309,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -878,6 +1323,7 @@ Object {
       "typeName": "Organization",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
   "queryFiltered": false,
@@ -895,8 +1341,7 @@ exports[`@graphql-box/request-parser >> query >> variable with default correct r
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> with default correct context data 1`] = `
@@ -905,6 +1350,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -915,6 +1364,7 @@ Object {
       "typeName": "Organization",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
   "queryFiltered": false,
@@ -932,8 +1382,7 @@ exports[`@graphql-box/request-parser >> query >> with default correct request 1`
     url
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> query >> with number default correct context data 1`] = `
@@ -942,6 +1391,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
@@ -952,6 +1405,10 @@ Object {
       "typeName": "Organization",
     },
     "query.organization.repositories" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
@@ -962,6 +1419,10 @@ Object {
       "typeName": "RepositoryConnection",
     },
     "query.organization.repositories.edges" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
@@ -972,6 +1433,10 @@ Object {
       "typeName": "RepositoryEdge",
     },
     "query.organization.repositories.edges.node" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -982,6 +1447,7 @@ Object {
       "typeName": "Repository",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
   "queryFiltered": false,
@@ -1007,8 +1473,7 @@ exports[`@graphql-box/request-parser >> query >> with number default correct req
     }
     id
   }
-}
-"
+}"
 `;
 
 exports[`@graphql-box/request-parser >> subscription >> correct context data 1`] = `
@@ -1017,6 +1482,10 @@ Object {
   "debugManager": null,
   "fieldTypeMap": Map {
     "subscription.emailAdded" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -1027,6 +1496,10 @@ Object {
       "typeName": "Inbox",
     },
     "subscription.emailAdded.emails" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
@@ -1037,6 +1510,7 @@ Object {
       "typeName": "Email",
     },
   },
+  "hasDeferOrStream": false,
   "operation": "subscription",
   "operationName": "",
   "queryFiltered": false,
@@ -1058,6 +1532,5 @@ exports[`@graphql-box/request-parser >> subscription >> correct request 1`] = `
     unread
     id
   }
-}
-"
+}"
 `;

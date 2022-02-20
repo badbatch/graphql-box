@@ -1,6 +1,7 @@
 import WorkerCachemap from "@cachemap/core-worker";
 import {
   DebugManagerDef,
+  MaybeRequestContext,
   MaybeRequestResult,
   QUERY,
   RequestContext,
@@ -55,8 +56,8 @@ export default class WorkerClient {
     }
   }
 
-  private static _getMessageContext({ boxID }: RequestContext): MessageContext {
-    return { boxID };
+  private static _getMessageContext({ boxID, hasDeferOrStream = false }: RequestContext): MessageContext {
+    return { boxID, hasDeferOrStream };
   }
 
   private _cache: WorkerCachemap;
@@ -77,9 +78,9 @@ export default class WorkerClient {
     return this._cache;
   }
 
-  public async request(request: string, options: RequestOptions = {}): Promise<MaybeRequestResult> {
+  public async request(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
     try {
-      return this._request(request, options, this._getRequestContext(QUERY, request)) as MaybeRequestResult;
+      return this._request(request, options, this._getRequestContext(QUERY, request, context));
     } catch (error) {
       return { errors: error };
     }
@@ -102,7 +103,11 @@ export default class WorkerClient {
     this._worker.addEventListener(MESSAGE, this._onMessage);
   }
 
-  private _getRequestContext(operation: ValidOperations, request: string): RequestContext {
+  private _getRequestContext(
+    operation: ValidOperations,
+    request: string,
+    context: MaybeRequestContext = {},
+  ): RequestContext {
     return {
       boxID: uuid(),
       debugManager: this._debugManager,
@@ -111,6 +116,7 @@ export default class WorkerClient {
       operationName: "",
       queryFiltered: false,
       request,
+      ...context,
     };
   }
 
@@ -129,29 +135,38 @@ export default class WorkerClient {
       if (!pending) return;
 
       pending.resolve(response);
-    } else if (method === SUBSCRIBE) {
+    } else if (method === SUBSCRIBE || context.hasDeferOrStream) {
       this._eventEmitter.emit(context.boxID, response);
     }
   };
 
   @logRequest()
-  private async _request(
-    request: string,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<MaybeRequestResult> {
+  private async _request(request: string, options: RequestOptions, context: RequestContext) {
     try {
-      return new Promise((resolve: PendingResolver) => {
-        this._worker.postMessage({
-          context: WorkerClient._getMessageContext(context),
-          method: REQUEST,
-          options,
-          request,
-          type: GRAPHQL_BOX,
-        });
+      if (!context.hasDeferOrStream) {
+        return new Promise((resolve: PendingResolver) => {
+          this._worker.postMessage({
+            context: WorkerClient._getMessageContext(context),
+            method: REQUEST,
+            options,
+            request,
+            type: GRAPHQL_BOX,
+          });
 
-        this._pending.set(context.boxID, { resolve });
+          this._pending.set(context.boxID, { resolve });
+        });
+      }
+
+      this._worker.postMessage({
+        context: WorkerClient._getMessageContext(context),
+        method: REQUEST,
+        options,
+        request,
+        type: GRAPHQL_BOX,
       });
+
+      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, context.boxID);
+      return eventAsyncIterator.getIterator();
     } catch (errors) {
       return { errors };
     }
@@ -172,7 +187,7 @@ export default class WorkerClient {
         type: GRAPHQL_BOX,
       });
 
-      const eventAsyncIterator = new EventAsyncIterator(this._eventEmitter, context.boxID);
+      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, context.boxID);
       return eventAsyncIterator.getIterator();
     } catch (error) {
       return Promise.reject(error);
