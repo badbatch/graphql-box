@@ -1,3 +1,11 @@
+#### 2.4.1 (2022-02-22)
+
+##### Bug Fixes
+
+*  react provider export ([2a7ac368](https://github.com/badbatch/graphql-box/commit/2a7ac368decd7cdb0c1b0281e692eb1cf15ccbfa))
+*  update package json to include public access ([2c5fa193](https://github.com/badbatch/graphql-box/commit/2c5fa1939c582ebdce413d13db76a729b6a161de))
+*  js linting issue ([4e6e2d18](https://github.com/badbatch/graphql-box/commit/4e6e2d18e4e9a8b227614f62a41cfc0ca2e26dd1))
+
 ### 2.4.0 (2022-02-22)
 
 ##### New Features
