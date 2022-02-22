@@ -24,9 +24,9 @@ module.exports = {
       },
       {
         enforce: 'pre',
-        test: /\.mjs$/,
         include: /node_modules/,
-        type: "javascript/auto",
+        test: /\.mjs$/,
+        type: 'javascript/auto',
       },
     ],
   },
