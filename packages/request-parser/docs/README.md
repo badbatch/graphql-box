@@ -35,7 +35,7 @@
 
 Ƭ **PersistedFragmentSpread**: *[string, ParsedDirective[], ReadonlyArray‹any›]*
 
-*Defined in [defs/index.ts:63](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/request-parser/src/defs/index.ts#L63)*
+*Defined in [defs/index.ts:63](https://github.com/badbatch/graphql-box/blob/bf31fdc/packages/request-parser/src/defs/index.ts#L63)*
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 Ƭ **RequestParserInit**: *function*
 
-*Defined in [defs/index.ts:41](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/request-parser/src/defs/index.ts#L41)*
+*Defined in [defs/index.ts:41](https://github.com/badbatch/graphql-box/blob/bf31fdc/packages/request-parser/src/defs/index.ts#L41)*
 
 #### Type declaration:
 
@@ -61,7 +61,7 @@ Name | Type |
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *[RequestParserInit](README.md#requestparserinit)*
 
-*Defined in [main/index.ts:545](https://github.com/badbatch/graphql-box/blob/9b69bf3/packages/request-parser/src/main/index.ts#L545)*
+*Defined in [main/index.ts:545](https://github.com/badbatch/graphql-box/blob/bf31fdc/packages/request-parser/src/main/index.ts#L545)*
 
 **Parameters:**
 

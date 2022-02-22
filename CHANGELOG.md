@@ -1,3 +1,9 @@
+### 2.4.0 (2022-02-22)
+
+##### New Features
+
+*  add experimental react package ([bf31fdce](https://github.com/badbatch/graphql-box/commit/bf31fdcee08c8b022a3da10fdb723b495bd22c86))
+
 ### 2.3.0 (2022-02-20)
 
 ##### New Features
