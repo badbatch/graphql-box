@@ -30,6 +30,9 @@
       "path": "./helpers"
     },
     {
+      "path": "./react"
+    },
+    {
       "path": "./request-parser"
     },
     {

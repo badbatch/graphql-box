@@ -7,11 +7,15 @@ import execute from "@graphql-box/execute";
 import requestParser from "@graphql-box/request-parser";
 import subscribe from "@graphql-box/subscribe";
 import { schemaResolvers, schemaTypeDefs } from "@graphql-box/test-utils";
-import { makeExecutableSchema } from "graphql-tools";
+import { makeExecutableSchema } from "@graphql-tools/schema";
 import { performance } from "perf_hooks";
 import { InitServerOptions } from "../../defs";
 
-const schema = makeExecutableSchema({ typeDefs: schemaTypeDefs, resolvers: schemaResolvers });
+const schema = makeExecutableSchema({
+  parseOptions: { enableDeferStream: true },
+  resolvers: schemaResolvers,
+  typeDefs: schemaTypeDefs,
+});
 
 export default async function initServer({
   cachemapStore,

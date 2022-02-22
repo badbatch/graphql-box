@@ -6,8 +6,8 @@ import {
   schemaResolvers,
   schemaTypeDefs,
 } from "@graphql-box/test-utils";
+import { makeExecutableSchema } from "@graphql-tools/schema";
 import { IntrospectionQuery } from "graphql";
-import { makeExecutableSchema } from "graphql-tools";
 import { RequestParser, RequestParserDef, UpdateRequestResult } from ".";
 
 describe("@graphql-box/request-parser >>", () => {
@@ -388,7 +388,11 @@ describe("@graphql-box/request-parser >>", () => {
       updatedRequest = undefined;
 
       requestParser = await RequestParser.init({
-        schema: makeExecutableSchema({ typeDefs: schemaTypeDefs, resolvers: schemaResolvers }),
+        schema: makeExecutableSchema({
+          parseOptions: { enableDeferStream: true },
+          resolvers: schemaResolvers,
+          typeDefs: schemaTypeDefs,
+        }),
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 

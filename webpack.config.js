@@ -22,6 +22,12 @@ module.exports = {
           loader: 'source-map-loader',
         },
       },
+      {
+        enforce: 'pre',
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: "javascript/auto",
+      },
     ],
   },
   plugins: [

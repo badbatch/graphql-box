@@ -12,10 +12,10 @@ import {
   schemaTypeDefs,
 } from "@graphql-box/test-utils";
 import websocketManager from "@graphql-box/websocket-manager";
+import { makeExecutableSchema } from "@graphql-tools/schema";
 import { expect, use } from "chai";
 import { matchSnapshot } from "chai-karma-snapshot";
 import fetchMock from "fetch-mock";
-import { makeExecutableSchema } from "graphql-tools";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import sinon from "sinon";
 import { WS_URL } from "../../consts";
@@ -341,7 +341,11 @@ describe("client", () => {
 
         client = await initClient({
           cachemapStore: indexedDB(),
-          schema: makeExecutableSchema({ typeDefs: schemaTypeDefs, resolvers: schemaResolvers }),
+          schema: makeExecutableSchema({
+            parseOptions: { enableDeferStream: true },
+            resolvers: schemaResolvers,
+            typeDefs: schemaTypeDefs,
+          }),
           subscriptionsManager: websocketManager({ websocket }),
           typeCacheDirectives: {
             Email: "public, max-age=5",

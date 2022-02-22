@@ -347,7 +347,7 @@ import execute from "@graphql-box/execute";
 import requestParser from "@graphql-box/request-parser";
 import Server from "@graphql-box/server";
 import subscribe from "@graphql-box/subscribe";
-import { makeExecutableSchema } from "graphql-tools";
+import { makeExecutableSchema } from "@graphql-tools/schema";
 import { performance } from "perf_hooks";
 import { schemaResolvers, schemaTypeDefs } from "./schema";
 

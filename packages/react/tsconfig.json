@@ -1,0 +1,22 @@
+{
+  "extends": "../tsconfig.settings.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "outDir": "lib/types",
+    "rootDir": "src"
+  },
+  "exclude": [
+    "**/*.test.ts"
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "references": [
+    {
+      "path": "../core"
+    },
+    {
+      "path": "../test-utils"
+    }
+  ]
+}
