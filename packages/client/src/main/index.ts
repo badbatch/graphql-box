@@ -74,12 +74,16 @@ export default class Client {
   }
 
   private static _resolve(
-    { cacheMetadata, data, errors }: MaybeResponseData,
+    { cacheMetadata, ...rest }: MaybeResponseData,
     options: RequestOptions,
     _context: RequestContext,
   ): MaybeRequestResult {
-    const result: MaybeRequestResult = { data, errors };
-    if (options.returnCacheMetadata && cacheMetadata) result._cacheMetadata = cacheMetadata;
+    const result: MaybeRequestResult = { ...rest };
+
+    if (options.returnCacheMetadata && cacheMetadata) {
+      result._cacheMetadata = cacheMetadata;
+    }
+
     return result;
   }
 
