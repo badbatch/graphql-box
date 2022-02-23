@@ -1,3 +1,9 @@
+#### 2.4.3 (2022-02-23)
+
+##### Bug Fixes
+
+*  import casing issue ([892c06a9](https://github.com/badbatch/graphql-box/commit/892c06a9ea23e67f9faf47b8936d1230ad47c1bf))
+
 #### 2.4.2 (2022-02-23)
 
 ##### Bug Fixes
