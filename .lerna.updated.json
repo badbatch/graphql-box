@@ -1,25 +1,49 @@
 [
   {
+    "name": "@graphql-box/cache-manager",
+    "version": "2.3.0",
+    "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/cache-manager"
+  },
+  {
     "name": "@graphql-box/client",
-    "version": "2.3.2",
+    "version": "2.3.3",
     "private": false,
     "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/client"
   },
   {
+    "name": "@graphql-box/core",
+    "version": "2.1.0",
+    "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/core"
+  },
+  {
+    "name": "@graphql-box/debug-manager",
+    "version": "2.3.0",
+    "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/debug-manager"
+  },
+  {
+    "name": "@graphql-box/fetch-manager",
+    "version": "2.2.0",
+    "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/fetch-manager"
+  },
+  {
     "name": "@graphql-box/react",
-    "version": "2.4.4",
+    "version": "2.4.5",
     "private": false,
     "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/react"
   },
   {
     "name": "@graphql-box/server",
-    "version": "2.3.2",
+    "version": "2.3.3",
     "private": false,
     "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/server"
   },
   {
     "name": "@graphql-box/worker-client",
-    "version": "2.3.2",
+    "version": "2.3.3",
     "private": false,
     "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/worker-client"
   }

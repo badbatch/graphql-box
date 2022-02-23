@@ -18,7 +18,7 @@
 
 • **websocket**: *WebSocket*
 
-*Defined in [defs/index.ts:6](https://github.com/badbatch/graphql-box/blob/d6cf575/packages/websocket-manager/src/defs/index.ts#L6)*
+*Defined in [defs/index.ts:6](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/websocket-manager/src/defs/index.ts#L6)*
 
 The WebSocket instance for managing a
 WebSocket connection.

@@ -1,3 +1,9 @@
+#### 2.4.6 (2022-02-23)
+
+##### Bug Fixes
+
+*  pass path along and clean patch data on client ([dc19a432](https://github.com/badbatch/graphql-box/commit/dc19a4324df8505294804633252ed07dfbcf8f1f))
+
 #### 2.4.5 (2022-02-23)
 
 ##### Bug Fixes
