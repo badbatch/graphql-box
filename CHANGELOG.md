@@ -1,3 +1,9 @@
+#### 2.4.7 (2022-02-23)
+
+##### Bug Fixes
+
+*  expose path in useQuery hook ([4ea76f52](https://github.com/badbatch/graphql-box/commit/4ea76f52721ea9050fcc309484630b5c7d133bb2))
+
 #### 2.4.6 (2022-02-23)
 
 ##### Bug Fixes

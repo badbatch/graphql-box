@@ -42,7 +42,7 @@
 
 Ƭ **ActiveBatch**: *Map‹string, [ActiveBatchValue](interfaces/activebatchvalue.md)›*
 
-*Defined in [defs/index.ts:42](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/fetch-manager/src/defs/index.ts#L42)*
+*Defined in [defs/index.ts:42](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/fetch-manager/src/defs/index.ts#L42)*
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [defs/index.ts:36](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/fetch-manager/src/defs/index.ts#L36)*
+*Defined in [defs/index.ts:36](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/fetch-manager/src/defs/index.ts#L36)*
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 Ƭ **InitOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [defs/index.ts:34](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/fetch-manager/src/defs/index.ts#L34)*
+*Defined in [defs/index.ts:34](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/fetch-manager/src/defs/index.ts#L34)*
 
 ## Variables
 
@@ -66,7 +66,7 @@ ___
 
 • **FETCH_EXECUTED**: *"fetch_executed"* = "fetch_executed"
 
-*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/fetch-manager/src/consts/index.ts#L1)*
+*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/fetch-manager/src/consts/index.ts#L1)*
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 • **URL**: *"https://api.github.com/graphql"* = "https://api.github.com/graphql"
 
-*Defined in [index.test.ts:13](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/fetch-manager/src/index.test.ts#L13)*
+*Defined in [index.test.ts:13](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/fetch-manager/src/index.test.ts#L13)*
 
 ## Functions
 
@@ -82,7 +82,7 @@ ___
 
 ▸ **convertNullArrayEntriesToUndefined**(`data`: PlainObjectMap): *PlainObjectMap‹any›*
 
-*Defined in [helpers/cleanPatchResponse.ts:4](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/fetch-manager/src/helpers/cleanPatchResponse.ts#L4)*
+*Defined in [helpers/cleanPatchResponse.ts:4](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/fetch-manager/src/helpers/cleanPatchResponse.ts#L4)*
 
 **Parameters:**
 
@@ -98,7 +98,7 @@ ___
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *RequestManagerInit*
 
-*Defined in [main/index.ts:224](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/fetch-manager/src/main/index.ts#L224)*
+*Defined in [main/index.ts:224](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/fetch-manager/src/main/index.ts#L224)*
 
 **Parameters:**
 
@@ -114,6 +114,6 @@ ___
 
 ▸ **logFetch**(): *(Anonymous function)*
 
-*Defined in [debug/log-fetch/index.ts:4](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/fetch-manager/src/debug/log-fetch/index.ts#L4)*
+*Defined in [debug/log-fetch/index.ts:4](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/fetch-manager/src/debug/log-fetch/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*

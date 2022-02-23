@@ -20,4 +20,4 @@
 
 • **subscribeFieldResolver**? : *Maybe‹GraphQLFieldResolver‹any, any››*
 
-*Defined in [defs/index.ts:58](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/subscribe/src/defs/index.ts#L58)*
+*Defined in [defs/index.ts:58](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/subscribe/src/defs/index.ts#L58)*

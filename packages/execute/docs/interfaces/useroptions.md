@@ -22,7 +22,7 @@
 
 • **contextValue**? : *PlainObjectMap*
 
-*Defined in [defs/index.ts:10](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/execute/src/defs/index.ts#L10)*
+*Defined in [defs/index.ts:10](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/execute/src/defs/index.ts#L10)*
 
 Set GraphQL context value to be passed on to
 GraphQL's execute and subscribe methods.
@@ -33,7 +33,7 @@ ___
 
 • **execute**? : *[GraphQLExecute](../README.md#graphqlexecute)*
 
-*Defined in [defs/index.ts:16](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/execute/src/defs/index.ts#L16)*
+*Defined in [defs/index.ts:16](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/execute/src/defs/index.ts#L16)*
 
 A GraphQL execute function to use
 instead of the out-of-the-box function.
@@ -44,7 +44,7 @@ ___
 
 • **fieldResolver**? : *GraphQLFieldResolver‹any, any›*
 
-*Defined in [defs/index.ts:23](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/execute/src/defs/index.ts#L23)*
+*Defined in [defs/index.ts:23](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/execute/src/defs/index.ts#L23)*
 
 Set default GraphQL field resolver function to
 be passed on to GraphQL's execute and subscribe
@@ -56,7 +56,7 @@ ___
 
 • **rootValue**? : *any*
 
-*Defined in [defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/execute/src/defs/index.ts#L29)*
+*Defined in [defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/execute/src/defs/index.ts#L29)*
 
 Set default GraphQL root value to be passed on to
 GraphQL's execute and subscribe methods.
@@ -67,6 +67,6 @@ ___
 
 • **schema**: *GraphQLSchema*
 
-*Defined in [defs/index.ts:34](https://github.com/badbatch/graphql-box/blob/dc19a43/packages/execute/src/defs/index.ts#L34)*
+*Defined in [defs/index.ts:34](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/execute/src/defs/index.ts#L34)*
 
 The GraphQL schema.
