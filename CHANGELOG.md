@@ -1,3 +1,9 @@
+#### 2.4.5 (2022-02-23)
+
+##### Bug Fixes
+
+*  do not pass cache metadata to resolver when error ([d6cf5752](https://github.com/badbatch/graphql-box/commit/d6cf5752aa3c2b521ee8d4b5a7e1f68c2b45ca25))
+
 #### 2.4.4 (2022-02-23)
 
 ##### Bug Fixes
