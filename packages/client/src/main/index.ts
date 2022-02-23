@@ -76,9 +76,9 @@ export default class Client {
   private static _resolve(
     { cacheMetadata, ...rest }: MaybeResponseData,
     options: RequestOptions,
-    _context: RequestContext,
+    { boxID }: RequestContext,
   ): MaybeRequestResult {
-    const result: MaybeRequestResult = { ...rest };
+    const result: MaybeRequestResult = { ...rest, requestID: boxID };
 
     if (options.returnCacheMetadata && cacheMetadata) {
       result._cacheMetadata = cacheMetadata;
@@ -131,10 +131,13 @@ export default class Client {
 
   public async request(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
     const errors = Client._validateRequestArguments(request, options);
-    if (errors.length) return { errors };
+
+    if (errors.length) {
+      return { errors };
+    }
 
     try {
-      return this._request(request, options, this._getRequestContext(QUERY, request, context));
+      return this._request(request, options, this._buildRequestContext(QUERY, request, context));
     } catch (error) {
       return { errors: error };
     }
@@ -148,20 +151,23 @@ export default class Client {
     }
 
     errors.push(...Client._validateRequestArguments(request, options));
-    if (errors.length) return Promise.reject(errors);
+
+    if (errors.length) {
+      return Promise.reject(errors);
+    }
 
     try {
       return (await this._request(
         request,
         options,
-        this._getRequestContext(SUBSCRIPTION, request, context),
+        this._buildRequestContext(SUBSCRIPTION, request, context),
       )) as AsyncIterator<MaybeRequestResult | undefined>;
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  private _getRequestContext(
+  private _buildRequestContext(
     operation: ValidOperations,
     request: string,
     context: MaybeRequestContext,

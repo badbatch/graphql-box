@@ -124,15 +124,24 @@ export default class WorkerClient {
     if (!isPlainObject(data)) return;
 
     const { context, method, result, type } = data as MessageResponsePayload;
-    if (type !== GRAPHQL_BOX || !isPlainObject(result)) return;
+
+    if (type !== GRAPHQL_BOX || !isPlainObject(result)) {
+      return;
+    }
 
     const { _cacheMetadata, ...otherProps } = result;
-    const response: MaybeRequestResult = { ...otherProps };
-    if (_cacheMetadata) response._cacheMetadata = rehydrateCacheMetadata(_cacheMetadata);
+    const response: MaybeRequestResult = { ...otherProps, requestID: context.boxID };
+
+    if (_cacheMetadata) {
+      response._cacheMetadata = rehydrateCacheMetadata(_cacheMetadata);
+    }
 
     if (method === REQUEST) {
       const pending = this._pending.get(context.boxID);
-      if (!pending) return;
+
+      if (!pending) {
+        return;
+      }
 
       pending.resolve(response);
     } else if (method === SUBSCRIBE || context.hasDeferOrStream) {

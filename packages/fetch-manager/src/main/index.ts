@@ -1,7 +1,7 @@
 import {
   MaybeRawResponseData,
   MaybeRequestContext,
-  MaybeResponseData,
+  MaybeRequestResult,
   PlainObjectStringMap,
   RequestContext,
   RequestDataWithMaybeAST,
@@ -113,7 +113,7 @@ export class FetchManager implements RequestManagerDef {
           );
         });
 
-        const eventAsyncIterator = new EventAsyncIterator<MaybeResponseData>(this._eventEmitter, hash);
+        const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, hash);
         return eventAsyncIterator.getIterator();
       }
 

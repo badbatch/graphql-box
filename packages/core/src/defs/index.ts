@@ -237,9 +237,14 @@ export interface MaybeRequestResult {
   hasNext?: boolean;
 
   /**
-   * Key path for data returned in subsequent responeses for defer/stream requests
+   * Key path for data returned in subsequent responeses for defer/stream requests.
    */
   path?: (string | number)[];
+
+  /**
+   * Unique identifier for a given request.
+   */
+  requestID: string;
 }
 
 export interface MaybeRequestResultWithDehydratedCacheMetadata {

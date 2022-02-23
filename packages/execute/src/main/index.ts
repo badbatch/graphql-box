@@ -1,7 +1,7 @@
 import {
   DehydratedCacheMetadata,
   MaybeRawResponseData,
-  MaybeResponseData,
+  MaybeRequestResult,
   PlainObjectMap,
   RequestContext,
   RequestDataWithMaybeAST,
@@ -80,7 +80,7 @@ export class Execute implements RequestManagerDef {
         );
       });
 
-      const eventAsyncIterator = new EventAsyncIterator<MaybeResponseData>(this._eventEmitter, hash);
+      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, hash);
       return eventAsyncIterator.getIterator();
     } catch (error) {
       return Promise.reject(error);

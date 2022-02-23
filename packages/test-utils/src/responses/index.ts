@@ -1,4 +1,4 @@
-import { MaybeRequestResult, RawResponseDataWithMaybeCacheMetadata } from "@graphql-box/core";
+import { RawResponseDataWithMaybeCacheMetadata } from "@graphql-box/core";
 import { QueryResponseSet } from "../defs";
 
 /* tslint:disable max-line-length */
@@ -1645,7 +1645,7 @@ export const nestedInterfaceMutation: RawResponseDataWithMaybeCacheMetadata = {
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };
 
-export const nestedInterfaceSubscription: MaybeRequestResult = {
+export const nestedInterfaceSubscription: RawResponseDataWithMaybeCacheMetadata = {
   data: {
     __typename: "Repository",
     id: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
