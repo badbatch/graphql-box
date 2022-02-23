@@ -15,6 +15,7 @@ const schema = makeExecutableSchema({
   parseOptions: { enableDeferStream: true },
   resolvers: schemaResolvers,
   typeDefs: schemaTypeDefs,
+  updateResolversInPlace: true,
 });
 
 export default async function initServer({

@@ -345,6 +345,7 @@ describe("client", () => {
             parseOptions: { enableDeferStream: true },
             resolvers: schemaResolvers,
             typeDefs: schemaTypeDefs,
+            updateResolversInPlace: true,
           }),
           subscriptionsManager: websocketManager({ websocket }),
           typeCacheDirectives: {

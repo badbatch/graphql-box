@@ -392,6 +392,7 @@ describe("@graphql-box/request-parser >>", () => {
           parseOptions: { enableDeferStream: true },
           resolvers: schemaResolvers,
           typeDefs: schemaTypeDefs,
+          updateResolversInPlace: true,
         }),
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });

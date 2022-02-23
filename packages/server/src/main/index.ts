@@ -116,10 +116,12 @@ export default class Server {
       }
 
       writeResponseChunk(res, response);
-    });
 
-    res.write("\r\n-----\r\n");
-    res.end();
+      if (!otherProps.hasNext) {
+        res.write("\r\n-----\r\n");
+        res.end();
+      }
+    });
   }
 
   private async _messageHandler(message: Data, { ws, ...rest }: ServerSocketRequestOptions): Promise<void> {
