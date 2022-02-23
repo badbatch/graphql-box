@@ -2,7 +2,7 @@ import { MaybeRequestResult, PlainObjectMap, RequestOptions } from "@graphql-box
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { castArray } from "lodash";
 import { useState } from "react";
-import useGraphqlBoxClient from "../useGraphqlBoxClient";
+import useGraphQLBoxClient from "../useGraphQLBoxClient";
 
 export type State<Data extends PlainObjectMap> = {
   data: Data | null | undefined;
@@ -12,7 +12,7 @@ export type State<Data extends PlainObjectMap> = {
 };
 
 const useQuery = <Data extends PlainObjectMap>(query: string, { loading = false } = {}) => {
-  const graphqlBoxClient = useGraphqlBoxClient();
+  const graphqlBoxClient = useGraphQLBoxClient();
   const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading });
 
   const executeQuery = async (opts?: RequestOptions) => {
