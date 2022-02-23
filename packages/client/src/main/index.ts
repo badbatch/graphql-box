@@ -238,8 +238,8 @@ export default class Client {
 
       const resolver = async (rawResponseData: MaybeRawResponseData) => {
         if (rawResponseData.errors) {
-          const { errors, hasNext } = rawResponseData;
-          return this._resolveQuery(updatedRequestData, { errors, hasNext }, options, context);
+          const { errors, hasNext, path } = rawResponseData;
+          return this._resolveQuery(updatedRequestData, { errors, hasNext, path }, options, context);
         }
 
         const responseData = await this._cacheManager.resolveQuery(

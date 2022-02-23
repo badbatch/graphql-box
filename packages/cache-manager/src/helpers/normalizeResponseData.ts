@@ -5,5 +5,6 @@ export default ({ data, path, ...rest }: RawResponseDataWithMaybeCacheMetadata) 
   return {
     ...rest,
     data: set({}, path as (string | number)[], data),
+    path,
   };
 };

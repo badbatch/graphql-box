@@ -27,6 +27,7 @@ import {
   InitOptions,
   UserOptions,
 } from "../defs";
+import cleanPatchResponse from "../helpers/cleanPatchResponse";
 import parseFetchResult from "../helpers/parseFetchResult";
 
 export class FetchManager implements RequestManagerDef {
@@ -104,7 +105,12 @@ export class FetchManager implements RequestManagerDef {
         }
 
         forAwaitEach(fetchResult, async ({ body, headers }) => {
-          this._eventEmitter.emit(hash, await executeResolver({ headers, ...body }));
+          const responseData = { headers, ...body };
+
+          this._eventEmitter.emit(
+            hash,
+            await executeResolver(cleanPatchResponse(responseData as MaybeRawResponseData)),
+          );
         });
 
         const eventAsyncIterator = new EventAsyncIterator<MaybeResponseData>(this._eventEmitter, hash);

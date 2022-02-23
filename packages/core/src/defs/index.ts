@@ -191,6 +191,7 @@ export interface ResponseData {
   cacheMetadata: CacheMetadata;
   data: PlainObjectMap;
   hasNext?: boolean;
+  path?: (string | number)[];
 }
 
 export interface MaybeResponseData {
@@ -198,6 +199,7 @@ export interface MaybeResponseData {
   data?: PlainObjectMap | null;
   errors?: Error | ReadonlyArray<Error>;
   hasNext?: boolean;
+  path?: (string | number)[];
 }
 
 export interface RequestDataWithMaybeAST {
