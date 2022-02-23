@@ -1,3 +1,9 @@
+#### 2.4.2 (2022-02-23)
+
+##### Bug Fixes
+
+*  update when server ends response for stream ([fe1f2e5c](https://github.com/badbatch/graphql-box/commit/fe1f2e5cc14103771640a989b06285f3e7143a5b))
+
 #### 2.4.1 (2022-02-22)
 
 ##### Bug Fixes

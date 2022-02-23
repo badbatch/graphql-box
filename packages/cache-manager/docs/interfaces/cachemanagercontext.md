@@ -59,7 +59,7 @@ ___
 
 • **fragmentDefinitions**? : *FragmentDefinitionNodeMap*
 
-*Defined in [cache-manager/src/defs/index.ts:67](https://github.com/badbatch/graphql-box/blob/2a7ac36/packages/cache-manager/src/defs/index.ts#L67)*
+*Defined in [cache-manager/src/defs/index.ts:67](https://github.com/badbatch/graphql-box/blob/fe1f2e5/packages/cache-manager/src/defs/index.ts#L67)*
 
 ___
 
@@ -117,4 +117,4 @@ ___
 
 • **typeIDKey**? : *undefined | string*
 
-*Defined in [cache-manager/src/defs/index.ts:68](https://github.com/badbatch/graphql-box/blob/2a7ac36/packages/cache-manager/src/defs/index.ts#L68)*
+*Defined in [cache-manager/src/defs/index.ts:68](https://github.com/badbatch/graphql-box/blob/fe1f2e5/packages/cache-manager/src/defs/index.ts#L68)*
