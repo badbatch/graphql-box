@@ -21,7 +21,7 @@
 
 • **cacheMetadata**: *CacheMetadata*
 
-*Defined in [cache-manager/src/defs/index.ts:98](https://github.com/badbatch/graphql-box/blob/892c06a/packages/cache-manager/src/defs/index.ts#L98)*
+*Defined in [cache-manager/src/defs/index.ts:98](https://github.com/badbatch/graphql-box/blob/3468b42/packages/cache-manager/src/defs/index.ts#L98)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **data**: *PlainObjectMap*
 
-*Defined in [cache-manager/src/defs/index.ts:99](https://github.com/badbatch/graphql-box/blob/892c06a/packages/cache-manager/src/defs/index.ts#L99)*
+*Defined in [cache-manager/src/defs/index.ts:99](https://github.com/badbatch/graphql-box/blob/3468b42/packages/cache-manager/src/defs/index.ts#L99)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **fieldCount**: *[FieldCount](fieldcount.md)*
 
-*Defined in [cache-manager/src/defs/index.ts:100](https://github.com/badbatch/graphql-box/blob/892c06a/packages/cache-manager/src/defs/index.ts#L100)*
+*Defined in [cache-manager/src/defs/index.ts:100](https://github.com/badbatch/graphql-box/blob/3468b42/packages/cache-manager/src/defs/index.ts#L100)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **fieldPathChecklist**: *[FieldPathChecklist](../README.md#fieldpathchecklist)*
 
-*Defined in [cache-manager/src/defs/index.ts:101](https://github.com/badbatch/graphql-box/blob/892c06a/packages/cache-manager/src/defs/index.ts#L101)*
+*Defined in [cache-manager/src/defs/index.ts:101](https://github.com/badbatch/graphql-box/blob/3468b42/packages/cache-manager/src/defs/index.ts#L101)*

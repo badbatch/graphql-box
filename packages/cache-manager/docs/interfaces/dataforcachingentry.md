@@ -20,7 +20,7 @@
 
 • **cacheability**: *Cacheability*
 
-*Defined in [cache-manager/src/defs/index.ts:159](https://github.com/badbatch/graphql-box/blob/892c06a/packages/cache-manager/src/defs/index.ts#L159)*
+*Defined in [cache-manager/src/defs/index.ts:159](https://github.com/badbatch/graphql-box/blob/3468b42/packages/cache-manager/src/defs/index.ts#L159)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **data**: *PlainObjectMap*
 
-*Defined in [cache-manager/src/defs/index.ts:160](https://github.com/badbatch/graphql-box/blob/892c06a/packages/cache-manager/src/defs/index.ts#L160)*
+*Defined in [cache-manager/src/defs/index.ts:160](https://github.com/badbatch/graphql-box/blob/3468b42/packages/cache-manager/src/defs/index.ts#L160)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **fieldTypeInfo**: *FieldTypeInfo*
 
-*Defined in [cache-manager/src/defs/index.ts:161](https://github.com/badbatch/graphql-box/blob/892c06a/packages/cache-manager/src/defs/index.ts#L161)*
+*Defined in [cache-manager/src/defs/index.ts:161](https://github.com/badbatch/graphql-box/blob/3468b42/packages/cache-manager/src/defs/index.ts#L161)*

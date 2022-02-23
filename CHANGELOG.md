@@ -1,3 +1,9 @@
+#### 2.4.4 (2022-02-23)
+
+##### Bug Fixes
+
+*  hasNext not being passed through client correctly ([3468b420](https://github.com/badbatch/graphql-box/commit/3468b420dfd477cf5299e450e73f90e6611896f4))
+
 #### 2.4.3 (2022-02-23)
 
 ##### Bug Fixes
