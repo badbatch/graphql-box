@@ -235,6 +235,11 @@ export interface MaybeRequestResult {
    * Whether there are any more chunks to the response.
    */
   hasNext?: boolean;
+
+  /**
+   * Key path for data returned in subsequent responeses for defer/stream requests
+   */
+  path?: (string | number)[];
 }
 
 export interface MaybeRequestResultWithDehydratedCacheMetadata {
