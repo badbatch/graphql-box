@@ -29,9 +29,9 @@ const convertNullArrayEntriesToUndefined = (data: PlainObjectMap) => {
 };
 
 export default (responseData: MaybeRawResponseData) => {
-  const { data, path } = responseData;
+  const { data, paths } = responseData;
 
-  if (data && path) {
+  if (data && paths) {
     return {
       ...responseData,
       data: convertNullArrayEntriesToUndefined(data),

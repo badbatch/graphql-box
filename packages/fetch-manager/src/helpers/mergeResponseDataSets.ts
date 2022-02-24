@@ -3,7 +3,7 @@ import { castArray, merge } from "lodash";
 
 export default (responseDataSets: MaybeRawResponseData[]): MaybeRawResponseData => {
   return responseDataSets.reduce((acc, dataSet, index) => {
-    const { _cacheMetadata, data, errors, hasNext, headers, path } = dataSet;
+    const { _cacheMetadata, data, errors, hasNext, headers, paths } = dataSet;
 
     if (_cacheMetadata) {
       acc._cacheMetadata = acc._cacheMetadata ? { ...acc._cacheMetadata, ..._cacheMetadata } : _cacheMetadata;
@@ -31,12 +31,12 @@ export default (responseDataSets: MaybeRawResponseData[]): MaybeRawResponseData 
       acc.hasNext = hasNext;
     }
 
-    if (path) {
-      if (!acc.path) {
-        acc.path = [];
+    if (paths) {
+      if (!acc.paths) {
+        acc.paths = [];
       }
 
-      (acc.path as (string | number)[][]).push(path as (string | number)[]);
+      acc.paths.push(paths[0]);
     }
 
     return acc;

@@ -17,6 +17,7 @@ import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
 import logExecute from "../debug/log-execute";
 import { ConstructorOptions, GraphQLExecute, InitOptions, UserOptions } from "../defs";
+import normalizePath from "../helpers/normalizePath";
 
 export class Execute implements RequestManagerDef {
   public static async init(options: InitOptions): Promise<Execute> {
@@ -76,7 +77,7 @@ export class Execute implements RequestManagerDef {
       forAwaitEach(executeResult, async result => {
         this._eventEmitter.emit(
           hash,
-          await executeResolver(({ _cacheMetadata, ...result } as unknown) as MaybeRawResponseData),
+          await executeResolver(({ _cacheMetadata, ...normalizePath(result) } as unknown) as MaybeRawResponseData),
         );
       });
 

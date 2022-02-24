@@ -330,7 +330,7 @@ export class CacheManager implements CacheManagerDef {
 
     const dataCaching: Promise<void>[] = [];
 
-    const { cacheMetadata, data, hasNext, path } = await this._resolveRequest(
+    const { cacheMetadata, data, hasNext, paths } = await this._resolveRequest(
       updatedRequestData,
       rawResponseData,
       options,
@@ -340,7 +340,7 @@ export class CacheManager implements CacheManagerDef {
     let partialQueryResponse: PartialQueryResponse | undefined;
 
     if (cacheManagerContext.queryFiltered) {
-      if (!(rawResponseData.hasNext || rawResponseData.path)) {
+      if (!(rawResponseData.hasNext || rawResponseData.paths)) {
         dataCaching.push(
           this._setQueryResponseCacheEntry(
             updatedRequestData.hash,
@@ -351,7 +351,7 @@ export class CacheManager implements CacheManagerDef {
         );
       }
 
-      if (!rawResponseData.path) {
+      if (!rawResponseData.paths) {
         partialQueryResponse = this._getPartialQueryResponse(requestData.hash);
       }
     }
@@ -359,7 +359,7 @@ export class CacheManager implements CacheManagerDef {
     const responseCacheMetadata = CacheManager._mergeResponseCacheMetadata(cacheMetadata, partialQueryResponse);
     const responseData = this._mergeResponseData(data, partialQueryResponse);
 
-    if (!(rawResponseData.hasNext || rawResponseData.path)) {
+    if (!(rawResponseData.hasNext || rawResponseData.paths)) {
       dataCaching.push(
         this._setQueryResponseCacheEntry(
           requestData.hash,
@@ -374,7 +374,7 @@ export class CacheManager implements CacheManagerDef {
       await Promise.all(dataCaching);
     }
 
-    return { cacheMetadata: responseCacheMetadata, data: responseData, hasNext, path };
+    return { cacheMetadata: responseCacheMetadata, data: responseData, hasNext, paths };
   }
 
   public async resolveRequest(
@@ -723,10 +723,10 @@ export class CacheManager implements CacheManagerDef {
     options: RequestOptions,
     context: CacheManagerContext,
   ): Promise<ResponseData> {
-    const normalizedResponseData = rawResponseData.path ? normalizeResponseData(rawResponseData) : rawResponseData;
+    const normalizedResponseData = rawResponseData.paths ? normalizeResponseData(rawResponseData) : rawResponseData;
     const dataCaching: Promise<void>[] = [];
     const cacheMetadata = this._buildCacheMetadata(requestData, normalizedResponseData, options, context);
-    const { data, hasNext, path } = normalizedResponseData;
+    const { data, hasNext, paths } = normalizedResponseData;
 
     dataCaching.push(
       this._setEntityAndRequestFieldPathCacheEntries(
@@ -741,7 +741,7 @@ export class CacheManager implements CacheManagerDef {
       await Promise.all(dataCaching);
     }
 
-    return { cacheMetadata, data, hasNext, path };
+    return { cacheMetadata, data, hasNext, paths };
   }
 
   private async _retrieveCachedEntityData(

@@ -9,7 +9,7 @@ export type State<Data extends PlainObjectMap> = {
   errors: readonly Error[];
   hasNext?: boolean;
   loading: boolean;
-  path?: (string | number)[] | (string | number)[][];
+  paths?: string[];
   requestID: string;
 };
 
@@ -41,13 +41,13 @@ const useQuery = <Data extends PlainObjectMap>(query: string, { loading = false 
       return;
     }
 
-    forAwaitEach(requestResult, ({ data, errors, hasNext, path, requestID }: MaybeRequestResult) => {
+    forAwaitEach(requestResult, ({ data, errors, hasNext, paths, requestID }: MaybeRequestResult) => {
       setState({
         data: data as Data,
         errors: errors ? castArray(errors) : [],
         hasNext,
         loading: false,
-        path,
+        paths,
         requestID,
       });
     });

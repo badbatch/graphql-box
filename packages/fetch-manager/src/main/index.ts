@@ -123,7 +123,7 @@ export class FetchManager implements RequestManagerDef {
         forAwaitEach(fetchResult, async ({ body, headers }) => {
           const responseData = ({ headers, ...body } as unknown) as MaybeRawResponseData;
 
-          if (this._batchResponses && responseData.path) {
+          if (this._batchResponses && responseData.paths) {
             this._batchResponse(responseData, hash, executeResolver);
           } else {
             this._eventEmitter.emit(hash, await executeResolver(cleanPatchResponse(responseData)));
