@@ -19,7 +19,7 @@
 
 • **reject**: *function*
 
-*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/fetch-manager/src/defs/index.ts#L50)*
+*Defined in [defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/1dcbc7d/packages/fetch-manager/src/defs/index.ts#L62)*
 
 #### Type declaration:
 
@@ -37,7 +37,7 @@ ___
 
 • **resolve**: *function*
 
-*Defined in [defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/4ea76f5/packages/fetch-manager/src/defs/index.ts#L51)*
+*Defined in [defs/index.ts:63](https://github.com/badbatch/graphql-box/blob/1dcbc7d/packages/fetch-manager/src/defs/index.ts#L63)*
 
 #### Type declaration:
 

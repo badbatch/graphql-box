@@ -1,3 +1,10 @@
+### 2.5.0 (2022-02-24)
+
+##### New Features
+
+*  add response batching for defer/stream responses ([1dcbc7d7](https://github.com/badbatch/graphql-box/commit/1dcbc7d775604decc7f6be13270014be047dd3d4))
+*  return requestID on each request ([2a726470](https://github.com/badbatch/graphql-box/commit/2a7264703703c97bac46ef7ff8dec78ce4316746))
+
 #### 2.4.7 (2022-02-23)
 
 ##### Bug Fixes
