@@ -28,6 +28,7 @@ import {
   UserOptions,
 } from "../defs";
 import cleanPatchResponse from "../helpers/cleanPatchResponse";
+import mergeResponseDataSets from "../helpers/mergeResponseDataSets";
 import parseFetchResult from "../helpers/parseFetchResult";
 
 export class FetchManager implements RequestManagerDef {
@@ -70,21 +71,36 @@ export class FetchManager implements RequestManagerDef {
     });
   }
 
-  private _activeBatch: ActiveBatch | undefined;
-  private _activeBatchTimer: NodeJS.Timer | undefined;
-  private _batch: boolean;
-  private _batchInterval: number;
+  private _activeRequestBatch: ActiveBatch | undefined;
+  private _activeRequestBatchTimer: NodeJS.Timer | undefined;
+  private _activeResponseBatch: Set<MaybeRawResponseData> | undefined;
+  private _activeResponseBatchTimer: NodeJS.Timer | undefined;
+  private _batchRequests: boolean;
+  private _batchResponses: boolean;
   private _eventEmitter: EventEmitter;
   private _fetchTimeout: number;
   private _headers: PlainObjectStringMap = { "content-type": "application/json" };
+  private _requestBatchInterval: number;
+  private _responseBatchInterval: number;
   private _url: string;
 
   constructor(options: ConstructorOptions) {
-    const { batch, batchInterval, fetchTimeout, headers = {}, url } = options;
-    this._batch = batch || false;
-    this._batchInterval = batchInterval || 100;
+    const {
+      batchRequests,
+      batchResponses,
+      fetchTimeout,
+      headers = {},
+      requestBatchInterval,
+      responseBatchInterval,
+      url,
+    } = options;
+
+    this._batchRequests = batchRequests ?? false;
+    this._batchResponses = batchResponses ?? true;
+    this._requestBatchInterval = requestBatchInterval ?? 100;
+    this._responseBatchInterval = responseBatchInterval ?? 100;
     this._eventEmitter = new EventEmitter();
-    this._fetchTimeout = fetchTimeout || 5000;
+    this._fetchTimeout = fetchTimeout ?? 5000;
     this._headers = { ...this._headers, ...headers };
     this._url = url;
   }
@@ -97,7 +113,7 @@ export class FetchManager implements RequestManagerDef {
     executeResolver: RequestResolver,
   ) {
     try {
-      if (!this._batch || context.hasDeferOrStream) {
+      if (!this._batchRequests || context.hasDeferOrStream) {
         const fetchResult = await this._fetch(request, hash, { batch: false }, context);
 
         if (!isAsyncIterable(fetchResult)) {
@@ -105,12 +121,13 @@ export class FetchManager implements RequestManagerDef {
         }
 
         forAwaitEach(fetchResult, async ({ body, headers }) => {
-          const responseData = { headers, ...body };
+          const responseData = ({ headers, ...body } as unknown) as MaybeRawResponseData;
 
-          this._eventEmitter.emit(
-            hash,
-            await executeResolver(cleanPatchResponse(responseData as MaybeRawResponseData)),
-          );
+          if (this._batchResponses && responseData.path) {
+            this._batchResponse(responseData, hash, executeResolver);
+          } else {
+            this._eventEmitter.emit(hash, await executeResolver(cleanPatchResponse(responseData)));
+          }
         });
 
         const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, hash);
@@ -126,17 +143,36 @@ export class FetchManager implements RequestManagerDef {
   }
 
   private _batchRequest(request: string, hash: string, actions: BatchResultActions, context: RequestContext): void {
-    if (this._activeBatchTimer) {
-      this._updateBatch(request, hash, actions, context);
+    if (this._activeRequestBatchTimer) {
+      this._updateRequestBatch(request, hash, actions, context);
     } else {
-      this._createBatch(request, hash, actions, context);
+      this._createRequestBatch(request, hash, actions, context);
     }
   }
 
-  private _createBatch(request: string, hash: string, actions: BatchResultActions, context: RequestContext): void {
-    this._activeBatch = new Map();
-    this._activeBatch.set(hash, { actions, request });
-    this._startBatchTimer(context);
+  private _batchResponse(response: MaybeRawResponseData, hash: string, executeResolver: RequestResolver) {
+    if (this._activeResponseBatchTimer) {
+      this._updateResponseBatch(response, hash, executeResolver);
+    } else {
+      this._createResponseBatch(response, hash, executeResolver);
+    }
+  }
+
+  private _createRequestBatch(
+    request: string,
+    hash: string,
+    actions: BatchResultActions,
+    context: RequestContext,
+  ): void {
+    this._activeRequestBatch = new Map();
+    this._activeRequestBatch.set(hash, { actions, request });
+    this._startRequestBatchTimer(context);
+  }
+
+  private _createResponseBatch(response: MaybeRawResponseData, hash: string, executeResolver: RequestResolver) {
+    this._activeResponseBatch = new Set();
+    this._activeResponseBatch.add(response);
+    this._startResponseBatchTimer(hash, executeResolver);
   }
 
   private async _fetch(
@@ -195,29 +231,50 @@ export class FetchManager implements RequestManagerDef {
     }
   }
 
-  private _startBatchTimer(context: RequestContext): void {
-    this._activeBatchTimer = setTimeout(() => {
-      if (this._activeBatch) {
-        this._fetchBatch(this._activeBatch.entries(), context);
+  private _startRequestBatchTimer(context: RequestContext): void {
+    this._activeRequestBatchTimer = setTimeout(() => {
+      if (this._activeRequestBatch) {
+        this._fetchBatch(this._activeRequestBatch.entries(), context);
       }
 
-      this._activeBatchTimer = undefined;
-    }, this._batchInterval);
+      this._activeRequestBatchTimer = undefined;
+    }, this._requestBatchInterval);
   }
 
-  private _updateBatch(
+  private _startResponseBatchTimer(hash: string, executeResolver: RequestResolver) {
+    this._activeResponseBatchTimer = setTimeout(async () => {
+      if (this._activeResponseBatch) {
+        const responseData = mergeResponseDataSets(Array.from(this._activeResponseBatch));
+        this._eventEmitter.emit(hash, await executeResolver(cleanPatchResponse(responseData)));
+      }
+
+      this._activeResponseBatchTimer = undefined;
+    }, this._responseBatchInterval);
+  }
+
+  private _updateRequestBatch(
     request: string,
     requestHash: string,
     actions: BatchResultActions,
     context: RequestContext,
   ): void {
-    clearTimeout(this._activeBatchTimer as NodeJS.Timer);
+    clearTimeout(this._activeRequestBatchTimer as NodeJS.Timer);
 
-    if (this._activeBatch) {
-      this._activeBatch.set(requestHash, { actions, request });
+    if (this._activeRequestBatch) {
+      this._activeRequestBatch.set(requestHash, { actions, request });
     }
 
-    this._startBatchTimer(context);
+    this._startRequestBatchTimer(context);
+  }
+
+  private _updateResponseBatch(response: MaybeRawResponseData, hash: string, executeResolver: RequestResolver) {
+    clearTimeout(this._activeResponseBatchTimer as NodeJS.Timer);
+
+    if (this._activeResponseBatch) {
+      this._activeResponseBatch.add(response);
+    }
+
+    this._startResponseBatchTimer(hash, executeResolver);
   }
 }
 

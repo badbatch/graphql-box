@@ -54,7 +54,7 @@ describe("@graphql-box/fetch-manager >>", () => {
 
       beforeAll(async () => {
         fetchManager = await FetchManager.init({
-          batch: true,
+          batchRequests: true,
           url: URL,
         });
 
@@ -92,7 +92,7 @@ describe("@graphql-box/fetch-manager >>", () => {
         jest.useFakeTimers();
 
         fetchManager = await FetchManager.init({
-          batch: true,
+          batchRequests: true,
           fetchTimeout: 10000,
           url: URL,
         });
@@ -139,7 +139,7 @@ describe("@graphql-box/fetch-manager >>", () => {
         jest.useFakeTimers();
 
         fetchManager = await FetchManager.init({
-          batch: true,
+          batchRequests: true,
           fetchTimeout: 10000,
           url: URL,
         });

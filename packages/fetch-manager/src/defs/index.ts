@@ -2,16 +2,16 @@ import { DehydratedCacheMetadata, MaybeRawResponseData, PlainObjectMap, PlainObj
 
 export interface UserOptions {
   /**
-   * Whether a client should batch query and mutation
+   * Whether a client should batch requests query and mutation
    * requests.
    */
-  batch?: boolean;
+  batchRequests?: boolean;
 
   /**
-   * How long client should wait to batch requests
-   * before making a request.
+   * Whether a client should batch responses when receiving
+   * patches for requests using defer or stream.
    */
-  batchInterval?: number;
+  batchResponses?: boolean;
 
   /**
    * How long client should wait for a server to
@@ -23,6 +23,18 @@ export interface UserOptions {
    * Additional headers to be sent with every request.
    */
   headers?: PlainObjectStringMap;
+
+  /**
+   * How long client should wait to batch requests
+   * before making a request.
+   */
+  requestBatchInterval?: number;
+
+  /**
+   * How long client should wait to batch responses
+   * before returning a response.
+   */
+  responseBatchInterval?: number;
 
   /**
    * The endpoint that client will use to communicate with the

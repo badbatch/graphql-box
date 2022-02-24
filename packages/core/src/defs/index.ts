@@ -184,7 +184,7 @@ export interface MaybeRawResponseData {
   hasNext?: boolean;
   headers?: Headers;
   label?: string;
-  path?: (string | number)[];
+  path?: (string | number)[] | (string | number)[][];
 }
 
 export interface ResponseData {
@@ -199,7 +199,7 @@ export interface MaybeResponseData {
   data?: PlainObjectMap | null;
   errors?: Error | ReadonlyArray<Error>;
   hasNext?: boolean;
-  path?: (string | number)[];
+  path?: (string | number)[] | (string | number)[][];
 }
 
 export interface RequestDataWithMaybeAST {
@@ -239,7 +239,7 @@ export interface MaybeRequestResult {
   /**
    * Key path for data returned in subsequent responeses for defer/stream requests.
    */
-  path?: (string | number)[];
+  path?: (string | number)[] | (string | number)[][];
 
   /**
    * Unique identifier for a given request.

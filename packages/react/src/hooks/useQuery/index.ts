@@ -9,7 +9,7 @@ export type State<Data extends PlainObjectMap> = {
   errors: readonly Error[];
   hasNext?: boolean;
   loading: boolean;
-  path?: (string | number)[];
+  path?: (string | number)[] | (string | number)[][];
 };
 
 const useQuery = <Data extends PlainObjectMap>(query: string, { loading = false } = {}) => {
