@@ -19,7 +19,7 @@
 
 • **introspection**? : *IntrospectionQuery*
 
-*Defined in [defs/index.ts:9](https://github.com/badbatch/graphql-box/blob/5136da1/packages/request-parser/src/defs/index.ts#L9)*
+*Defined in [defs/index.ts:9](https://github.com/badbatch/graphql-box/blob/e36f8d4/packages/request-parser/src/defs/index.ts#L9)*
 
 Output of an introspection query.
 
@@ -29,6 +29,6 @@ ___
 
 • **schema**? : *GraphQLSchema*
 
-*Defined in [defs/index.ts:14](https://github.com/badbatch/graphql-box/blob/5136da1/packages/request-parser/src/defs/index.ts#L14)*
+*Defined in [defs/index.ts:14](https://github.com/badbatch/graphql-box/blob/e36f8d4/packages/request-parser/src/defs/index.ts#L14)*
 
 A GraphQL schema.

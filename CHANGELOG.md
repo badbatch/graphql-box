@@ -1,3 +1,9 @@
+#### 2.5.2 (2022-02-24)
+
+##### Refactors
+
+*  normalise path as paths with array of string key paths ([e36f8d48](https://github.com/badbatch/graphql-box/commit/e36f8d48dc0638a198bdae60dde5790525cb7433))
+
 #### 2.5.1 (2022-02-24)
 
 ##### Bug Fixes
