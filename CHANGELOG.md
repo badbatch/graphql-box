@@ -1,3 +1,9 @@
+#### 2.5.1 (2022-02-24)
+
+##### Bug Fixes
+
+*  pass requestID through useQuery to consumer ([5136da13](https://github.com/badbatch/graphql-box/commit/5136da131abf6e1447f2dda9aa528e41bbc59006))
+
 ### 2.5.0 (2022-02-24)
 
 ##### New Features
