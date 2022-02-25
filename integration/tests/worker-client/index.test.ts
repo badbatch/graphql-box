@@ -17,7 +17,7 @@ describe("worker-client", () => {
     let fetchMockWorker: FetchMockWorker;
     let worker: Worker;
     let workerClient: WorkerClient;
-    let response: MaybeRequestResultWithDehydratedCacheMetadata;
+    let response: Omit<MaybeRequestResultWithDehydratedCacheMetadata, "requestID">;
 
     describe("no match", () => {
       before(async () => {

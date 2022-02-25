@@ -17,7 +17,7 @@ import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
 import logExecute from "../debug/log-execute";
 import { ConstructorOptions, GraphQLExecute, InitOptions, UserOptions } from "../defs";
-import normalizePath from "../helpers/normalizePath";
+import standardizePath from "../helpers/standardizePath";
 
 export class Execute implements RequestManagerDef {
   public static async init(options: InitOptions): Promise<Execute> {
@@ -52,14 +52,14 @@ export class Execute implements RequestManagerDef {
   public async execute(
     { ast, hash, request }: RequestDataWithMaybeAST,
     options: ServerRequestOptions,
-    { boxID }: RequestContext,
+    context: RequestContext,
     executeResolver: RequestResolver,
   ) {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
 
     const executeArgs: ExecutionArgs = {
-      contextValue: { ...this._contextValue, ...contextValue, boxID, cacheMetadata: _cacheMetadata },
+      contextValue: { ...this._contextValue, ...contextValue, boxID: context.boxID, cacheMetadata: _cacheMetadata },
       document: ast || parse(request),
       fieldResolver: fieldResolver || this._fieldResolver,
       operationName,
@@ -74,10 +74,12 @@ export class Execute implements RequestManagerDef {
         return { ...executeResult, _cacheMetadata };
       }
 
+      context.normalizePatchResponseData = true;
+
       forAwaitEach(executeResult, async result => {
         this._eventEmitter.emit(
           hash,
-          await executeResolver(({ _cacheMetadata, ...normalizePath(result) } as unknown) as MaybeRawResponseData),
+          await executeResolver(({ _cacheMetadata, ...standardizePath(result) } as unknown) as MaybeRawResponseData),
         );
       });
 

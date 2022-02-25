@@ -145,6 +145,7 @@ export interface RequestContext {
   debugManager: DebugManagerDef | null;
   fieldTypeMap: FieldTypeMap;
   hasDeferOrStream?: boolean;
+  normalizePatchResponseData?: boolean;
   operation: ValidOperations;
   operationName: string;
   queryFiltered: boolean;
@@ -156,6 +157,7 @@ export interface MaybeRequestContext {
   debugManager?: DebugManagerDef | null;
   fieldTypeMap?: FieldTypeMap;
   hasDeferOrStream?: boolean;
+  normalizePatchResponseData?: boolean;
   operation?: ValidOperations;
   operationName?: string;
   queryFiltered?: boolean;
@@ -251,6 +253,9 @@ export interface MaybeRequestResultWithDehydratedCacheMetadata {
   _cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObjectMap | null;
   errors?: Error | ReadonlyArray<Error>;
+  hasNext?: boolean;
+  paths?: string[];
+  requestID: string;
 }
 
 export interface RequestManagerDef {

@@ -39,7 +39,7 @@ describe("client", () => {
   describe("request", () => {
     let cache: ExportCacheResult;
     let client: Client;
-    let response: MaybeRequestResultWithDehydratedCacheMetadata;
+    let response: Omit<MaybeRequestResultWithDehydratedCacheMetadata, "requestID">;
 
     describe("no match", () => {
       before(async () => {
@@ -64,7 +64,10 @@ describe("client", () => {
         try {
           const { _cacheMetadata, data } = (await client.request(request, { ...defaultOptions })) as MaybeRequestResult;
           response = { data };
-          if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+
+          if (_cacheMetadata) {
+            response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          }
         } catch (errors) {
           log(errors);
         }
@@ -330,8 +333,8 @@ describe("client", () => {
     let asyncIterator: AsyncIterator<MaybeRequestResult | undefined>;
     let cache: ExportCacheResult;
     let client: Client;
-    let mutResponse: MaybeRequestResultWithDehydratedCacheMetadata;
-    let subResponse: MaybeRequestResultWithDehydratedCacheMetadata;
+    let mutResponse: Omit<MaybeRequestResultWithDehydratedCacheMetadata, "requestID">;
+    let subResponse: Omit<MaybeRequestResultWithDehydratedCacheMetadata, "requestID">;
     let subscriptionResponse: Promise<void>;
 
     before(async () => {

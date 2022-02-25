@@ -63,7 +63,7 @@ import { buildFieldKeysAndPaths } from "../helpers/buildKeysAndPaths";
 import deriveOpCacheability from "../helpers/deriveOpCacheability";
 import filterOutPropsWithArgsOrDirectives from "../helpers/filterOutPropsWithArgsOrDirectives";
 import filterQuery from "../helpers/filterQuery";
-import normalizeResponseData from "../helpers/normalizeResponseData";
+import normalizePatchResponseData from "../helpers/normalizePatchResponseData";
 import { getValidTypeIDValue } from "../helpers/validTypeIDValue";
 
 export class CacheManager implements CacheManagerDef {
@@ -723,7 +723,11 @@ export class CacheManager implements CacheManagerDef {
     options: RequestOptions,
     context: CacheManagerContext,
   ): Promise<ResponseData> {
-    const normalizedResponseData = rawResponseData.paths ? normalizeResponseData(rawResponseData) : rawResponseData;
+    const normalizedResponseData =
+      rawResponseData.paths && context.normalizePatchResponseData
+        ? normalizePatchResponseData(rawResponseData)
+        : rawResponseData;
+
     const dataCaching: Promise<void>[] = [];
     const cacheMetadata = this._buildCacheMetadata(requestData, normalizedResponseData, options, context);
     const { data, hasNext, paths } = normalizedResponseData;
