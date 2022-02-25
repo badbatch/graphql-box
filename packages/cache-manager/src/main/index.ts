@@ -283,6 +283,77 @@ export class CacheManager implements CacheManagerDef {
     return { updated: { ast: filteredAST, hash: hashRequest(request), request } };
   }
 
+  public async cacheQuery(
+    requestData: RequestData,
+    updatedRequestData: RequestData,
+    rawResponseData: RawResponseDataWithMaybeCacheMetadata,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<ResponseData> {
+    const cacheManagerContext: CacheManagerContext = {
+      ...context,
+      fragmentDefinitions: getFragmentDefinitions(updatedRequestData.ast),
+      typeIDKey: this._typeIDKey,
+    };
+
+    const dataCaching: Promise<void>[] = [];
+
+    const { cacheMetadata, data, hasNext, paths } = await this._cacheResponse(
+      updatedRequestData,
+      rawResponseData,
+      options,
+      cacheManagerContext,
+    );
+
+    let partialQueryResponse: PartialQueryResponse | undefined;
+
+    if (cacheManagerContext.queryFiltered) {
+      dataCaching.push(
+        this._setQueryResponseCacheEntry(
+          updatedRequestData.hash,
+          { cacheMetadata, data },
+          options,
+          cacheManagerContext,
+        ),
+      );
+
+      partialQueryResponse = this._getPartialQueryResponse(requestData.hash);
+    }
+
+    const responseCacheMetadata = CacheManager._mergeResponseCacheMetadata(cacheMetadata, partialQueryResponse);
+    const responseData = this._mergeResponseData(data, partialQueryResponse);
+
+    dataCaching.push(
+      this._setQueryResponseCacheEntry(
+        requestData.hash,
+        { cacheMetadata: responseCacheMetadata, data: responseData },
+        options,
+        cacheManagerContext,
+      ),
+    );
+
+    if (options.awaitDataCaching) {
+      await Promise.all(dataCaching);
+    }
+
+    return { cacheMetadata: responseCacheMetadata, data: responseData, hasNext, paths };
+  }
+
+  public async cacheResponse(
+    requestData: RequestData,
+    rawResponseData: RawResponseDataWithMaybeCacheMetadata,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<ResponseData> {
+    const cacheManagerContext: CacheManagerContext = {
+      ...context,
+      fragmentDefinitions: getFragmentDefinitions(requestData.ast),
+      typeIDKey: this._typeIDKey,
+    };
+
+    return this._cacheResponse(requestData, rawResponseData, options, cacheManagerContext);
+  }
+
   public async checkCacheEntry(
     cacheType: CacheTypes,
     hash: string,
@@ -313,83 +384,6 @@ export class CacheManager implements CacheManagerDef {
 
   public deletePartialQueryResponse(hash: string): void {
     this._partialQueryResponses.delete(hash);
-  }
-
-  public async resolveQuery(
-    requestData: RequestData,
-    updatedRequestData: RequestData,
-    rawResponseData: RawResponseDataWithMaybeCacheMetadata,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<ResponseData> {
-    const cacheManagerContext: CacheManagerContext = {
-      ...context,
-      fragmentDefinitions: getFragmentDefinitions(updatedRequestData.ast),
-      typeIDKey: this._typeIDKey,
-    };
-
-    const dataCaching: Promise<void>[] = [];
-
-    const { cacheMetadata, data, hasNext, paths } = await this._resolveRequest(
-      updatedRequestData,
-      rawResponseData,
-      options,
-      cacheManagerContext,
-    );
-
-    let partialQueryResponse: PartialQueryResponse | undefined;
-
-    if (cacheManagerContext.queryFiltered) {
-      if (!(rawResponseData.hasNext || rawResponseData.paths)) {
-        dataCaching.push(
-          this._setQueryResponseCacheEntry(
-            updatedRequestData.hash,
-            { cacheMetadata, data },
-            options,
-            cacheManagerContext,
-          ),
-        );
-      }
-
-      if (!rawResponseData.paths) {
-        partialQueryResponse = this._getPartialQueryResponse(requestData.hash);
-      }
-    }
-
-    const responseCacheMetadata = CacheManager._mergeResponseCacheMetadata(cacheMetadata, partialQueryResponse);
-    const responseData = this._mergeResponseData(data, partialQueryResponse);
-
-    if (!(rawResponseData.hasNext || rawResponseData.paths)) {
-      dataCaching.push(
-        this._setQueryResponseCacheEntry(
-          requestData.hash,
-          { cacheMetadata: responseCacheMetadata, data: responseData },
-          options,
-          cacheManagerContext,
-        ),
-      );
-    }
-
-    if (options.awaitDataCaching) {
-      await Promise.all(dataCaching);
-    }
-
-    return { cacheMetadata: responseCacheMetadata, data: responseData, hasNext, paths };
-  }
-
-  public async resolveRequest(
-    requestData: RequestData,
-    rawResponseData: RawResponseDataWithMaybeCacheMetadata,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<ResponseData> {
-    const cacheManagerContext: CacheManagerContext = {
-      ...context,
-      fragmentDefinitions: getFragmentDefinitions(requestData.ast),
-      typeIDKey: this._typeIDKey,
-    };
-
-    return this._resolveRequest(requestData, rawResponseData, options, cacheManagerContext);
   }
 
   private async _analyzeFieldNode(
@@ -556,6 +550,37 @@ export class CacheManager implements CacheManagerDef {
     return cacheMetadata;
   }
 
+  private async _cacheResponse(
+    requestData: RequestData,
+    rawResponseData: RawResponseDataWithMaybeCacheMetadata,
+    options: RequestOptions,
+    context: CacheManagerContext,
+  ): Promise<ResponseData> {
+    const normalizedResponseData =
+      rawResponseData.paths && context.normalizePatchResponseData
+        ? normalizePatchResponseData(rawResponseData)
+        : rawResponseData;
+
+    const dataCaching: Promise<void>[] = [];
+    const cacheMetadata = this._buildCacheMetadata(requestData, normalizedResponseData, options, context);
+    const { data, hasNext, paths } = normalizedResponseData;
+
+    dataCaching.push(
+      this._setEntityAndRequestFieldPathCacheEntries(
+        requestData,
+        { cacheMetadata, entityData: cloneDeep(data), requestFieldPathData: cloneDeep(data) },
+        options,
+        context,
+      ),
+    );
+
+    if (options.awaitDataCaching) {
+      await Promise.all(dataCaching);
+    }
+
+    return { cacheMetadata, data, hasNext, paths };
+  }
+
   private async _checkCacheEntry(
     cacheType: CacheTypes,
     hash: string,
@@ -715,37 +740,6 @@ export class CacheManager implements CacheManagerDef {
       options,
       context,
     );
-  }
-
-  private async _resolveRequest(
-    requestData: RequestData,
-    rawResponseData: RawResponseDataWithMaybeCacheMetadata,
-    options: RequestOptions,
-    context: CacheManagerContext,
-  ): Promise<ResponseData> {
-    const normalizedResponseData =
-      rawResponseData.paths && context.normalizePatchResponseData
-        ? normalizePatchResponseData(rawResponseData)
-        : rawResponseData;
-
-    const dataCaching: Promise<void>[] = [];
-    const cacheMetadata = this._buildCacheMetadata(requestData, normalizedResponseData, options, context);
-    const { data, hasNext, paths } = normalizedResponseData;
-
-    dataCaching.push(
-      this._setEntityAndRequestFieldPathCacheEntries(
-        requestData,
-        { cacheMetadata, entityData: cloneDeep(data), requestFieldPathData: cloneDeep(data) },
-        options,
-        context,
-      ),
-    );
-
-    if (options.awaitDataCaching) {
-      await Promise.all(dataCaching);
-    }
-
-    return { cacheMetadata, data, hasNext, paths };
   }
 
   private async _retrieveCachedEntityData(

@@ -189,6 +189,19 @@ export interface CachemapOptions {
 export interface CacheManagerDef {
   cache: Cachemap;
   analyzeQuery(requestData: RequestData, options: RequestOptions, context: RequestContext): Promise<AnalyzeQueryResult>;
+  cacheQuery(
+    requestData: RequestData,
+    updatedRequestData: RequestData,
+    responseData: RawResponseDataWithMaybeCacheMetadata,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<ResponseData>;
+  cacheResponse(
+    requestData: RequestData,
+    responseData: RawResponseDataWithMaybeCacheMetadata,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<ResponseData>;
   checkCacheEntry(
     cacheType: CacheTypes,
     hash: string,
@@ -201,19 +214,6 @@ export interface CacheManagerDef {
     context: RequestContext,
   ): Promise<ResponseData | false>;
   deletePartialQueryResponse(hash: string): void;
-  resolveQuery(
-    requestData: RequestData,
-    updatedRequestData: RequestData,
-    responseData: RawResponseDataWithMaybeCacheMetadata,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<ResponseData>;
-  resolveRequest(
-    requestData: RequestData,
-    responseData: RawResponseDataWithMaybeCacheMetadata,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<ResponseData>;
 }
 
 export type CacheManagerInit = (options: ClientOptions) => Promise<CacheManagerDef>;

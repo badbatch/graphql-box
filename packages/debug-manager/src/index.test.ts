@@ -50,7 +50,7 @@ describe("@graphql-box/debug-manager >>", () => {
 
       const requestData = getRequestData(parsedRequests.singleTypeQuery);
 
-      await cacheManager.resolveQuery(
+      await cacheManager.cacheQuery(
         requestData,
         requestData,
         responses.singleTypeQuery,
@@ -92,7 +92,7 @@ describe("@graphql-box/debug-manager >>", () => {
 
       const requestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
 
-      await cacheManager.resolveQuery(
+      await cacheManager.cacheQuery(
         requestData,
         requestData,
         responses.singleTypeQuerySet.initial,

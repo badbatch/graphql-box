@@ -185,7 +185,7 @@ export default class Client {
           return Client._resolve(rawResponseData, options, context);
         }
 
-        const responseData = await this._cacheManager.resolveRequest(
+        const responseData = await this._cacheManager.cacheResponse(
           requestData as RequestData,
           rawResponseData as RawResponseDataWithMaybeCacheMetadata,
           options,
@@ -237,7 +237,7 @@ export default class Client {
           return this._resolveQuery(updatedRequestData, { errors, hasNext, paths }, options, context);
         }
 
-        const responseData = await this._cacheManager.resolveQuery(
+        const responseData = await this._cacheManager.cacheQuery(
           requestData as RequestData,
           updatedRequestData as RequestData,
           rawResponseData as RawResponseDataWithMaybeCacheMetadata,
@@ -337,7 +337,7 @@ export default class Client {
         return Client._resolve({ errors }, options, context);
       }
 
-      const responseData = await this._cacheManager.resolveRequest(
+      const responseData = await this._cacheManager.cacheResponse(
         requestData as RequestData,
         rawResponseData as RawResponseDataWithMaybeCacheMetadata,
         options,
