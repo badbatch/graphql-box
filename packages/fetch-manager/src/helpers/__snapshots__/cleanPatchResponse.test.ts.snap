@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cleanPatchResponse should merge the response data correctly 1`] = `
+Object {
+  "_cacheMetadata": Object {
+    "query": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.movie.releaseDates": Object {
+      "cacheControl": Object {
+        "maxAge": 28800,
+        "public": true,
+      },
+      "etag": "W/\\"570d27346fc74b9c6bbc404f6c60c5a5\\"",
+      "ttl": 1645814743457,
+    },
+    "query.movie.videos": Object {
+      "cacheControl": Object {
+        "maxAge": 28800,
+        "public": true,
+      },
+      "etag": "W/\\"ef7dc264044a1de7affcf190e991a577\\"",
+      "ttl": 1645814743204,
+    },
+    "query.search": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node.contentRatings": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node.releaseDates": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node.releaseDates.releaseDates": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node.videos": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+  },
+  "data": Object {
+    "search": Object {
+      "edges": Array [
+        undefined,
+        Object {
+          "node": Object {
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "PG",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "GB",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "PG",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "DK",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "15",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "NL",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "12",
+                  },
+                  Object {
+                    "certification": "12",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "BR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "14",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "PT",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "M/12",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "ES",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "16",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "DE",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "16",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "FR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "U",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
+    },
+  },
+  "hasNext": true,
+  "paths": Array [
+    "search.edges.1.node",
+  ],
+  "requestID": "0e9ad890-9628-11ec-9046-412e5b96757a",
+}
+`;

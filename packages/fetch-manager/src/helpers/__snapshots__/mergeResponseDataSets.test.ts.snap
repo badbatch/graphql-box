@@ -1,0 +1,1292 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mergeResponseDataSets should merge the response data correctly 1`] = `
+Object {
+  "_cacheMetadata": Object {
+    "query": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.movie.releaseDates": Object {
+      "cacheControl": Object {
+        "maxAge": 28800,
+        "public": true,
+      },
+      "ttl": 1645814744202,
+    },
+    "query.movie.videos": Object {
+      "cacheControl": Object {
+        "maxAge": 28800,
+        "public": true,
+      },
+      "ttl": 1645814744224,
+    },
+    "query.search": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node.contentRatings": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node.releaseDates": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node.releaseDates.releaseDates": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node.videos": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.pageInfo": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.tv.contentRatings": Object {
+      "cacheControl": Object {
+        "maxAge": 28800,
+        "public": true,
+      },
+      "ttl": 1645814744234,
+    },
+    "query.tv.videos": Object {
+      "cacheControl": Object {
+        "maxAge": 28800,
+        "public": true,
+      },
+      "etag": "W/\\"8266d1b1f6d14ed7d9db5d31bb242532\\"",
+      "ttl": 1645814744243,
+    },
+  },
+  "data": Object {
+    "search": Object {
+      "edges": Array [
+        Object {
+          "cursor": "NTc4Ojp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "578",
+            "posterPath": "/s2xcqSFfT6F7ZXHxowjxfG0yisT.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "PE",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "AR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "IN",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "A",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "BE",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "TH",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "FI",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "K-16",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "IT",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "T",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "HK",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "TR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "PT",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "M/16",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "GB",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "PG",
+                  },
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "SI",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "MX",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "HU",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "16",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "JP",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "ZA",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "NO",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "SU",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "16+",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "AU",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "M",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "UY",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "RU",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "18+",
+                  },
+                  Object {
+                    "certification": "18+",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "IS",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "PH",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "DE",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "16",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "XC",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "NL",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                  Object {
+                    "certification": "16",
+                  },
+                  Object {
+                    "certification": "16",
+                  },
+                  Object {
+                    "certification": "16",
+                  },
+                  Object {
+                    "certification": "16",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "FR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "12",
+                  },
+                  Object {
+                    "certification": "",
+                  },
+                  Object {
+                    "certification": "16",
+                  },
+                  Object {
+                    "certification": "16",
+                  },
+                  Object {
+                    "certification": "12",
+                  },
+                  Object {
+                    "certification": "12",
+                  },
+                  Object {
+                    "certification": "12",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "SE",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "15",
+                  },
+                  Object {
+                    "certification": "15",
+                  },
+                  Object {
+                    "certification": "15",
+                  },
+                  Object {
+                    "certification": "15",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "DK",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "15",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "PG-13",
+                  },
+                  Object {
+                    "certification": "",
+                  },
+                  Object {
+                    "certification": "PG",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "CL",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "BR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "14",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "IE",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "KR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "GR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "ES",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                  Object {
+                    "certification": "APTA",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "CZ",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "PL",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "AE",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "SG",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "CA",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "CO",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "EG",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+            ],
+            "title": "Jaws",
+            "videos": Array [
+              Object {
+                "id": "608786162c6b7b002a70fb25",
+                "key": "u1c_E-LuSxs",
+                "name": "Jaws | Final Face-Off With the Shark in 4K Ultra HD",
+                "site": "YouTube",
+                "type": "CLIP",
+              },
+              Object {
+                "id": "5ff14203a39d0b00418d7469",
+                "key": "352702348",
+                "name": "Jaws 35mm Grindhouse Trailer",
+                "site": "Vimeo",
+                "type": "TRAILER",
+              },
+              Object {
+                "id": "533ec654c3a3685448000428",
+                "key": "EhBrkC5g6GI",
+                "name": "Josh Olson on JAWS",
+                "site": "YouTube",
+                "type": "FEATURETTE",
+              },
+              Object {
+                "id": "53cd4cbbc3a3687775002dd0",
+                "key": "U1fu_sA7XhE",
+                "name": "Jaws Official Trailer #1 - Richard Dreyfuss, Steven Spielberg Movie (1975) HD",
+                "site": "YouTube",
+                "type": "TRAILER",
+              },
+              Object {
+                "id": "533ec654c3a3685448000427",
+                "key": "qSU5iaHIIjc",
+                "name": "Siskel & Ebert Jaws (1975) Review",
+                "site": "YouTube",
+                "type": "FEATURETTE",
+              },
+            ],
+            "voteAverage": 7.6,
+            "voteCount": 8135,
+          },
+        },
+        Object {
+          "cursor": "NTc5Ojp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "579",
+            "posterPath": "/cN3ijEwsn4kBaRuHfcJpAQJbeWe.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "PG",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "GB",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "PG",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "DK",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "15",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "NL",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "12",
+                  },
+                  Object {
+                    "certification": "12",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "BR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "14",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "PT",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "M/12",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "ES",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "16",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "DE",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "16",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "FR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "U",
+                  },
+                ],
+              },
+            ],
+            "title": "Jaws 2",
+            "videos": Array [
+              Object {
+                "id": "5e803baf76484100133d085e",
+                "key": "dwKJGclAo7o",
+                "name": "Jaws 2 Re-done Trailer",
+                "site": "YouTube",
+                "type": "TRAILER",
+              },
+              Object {
+                "id": "533ec654c3a368544800042d",
+                "key": "oDfZgGf8B5Y",
+                "name": "ABC Friday Night Movie open Jaws 2 1983",
+                "site": "YouTube",
+                "type": "FEATURETTE",
+              },
+            ],
+            "voteAverage": 5.9,
+            "voteCount": 1434,
+          },
+        },
+        Object {
+          "cursor": "MTc2OTI6OnsiaW5jbHVkZUFkdWx0IjpudWxsLCJxdWVyeSI6Imphd3MiLCJzZWFyY2hUeXBlIjoiTVVMVEkifQ==",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "17692",
+            "posterPath": "/kqDXj53F9paqVGJLGfHtz7giJ3s.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "DE",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "16",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "ES",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "12",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "PG",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "BR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "14",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "GB",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "PG",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "FR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "12",
+                  },
+                ],
+              },
+            ],
+            "title": "Jaws 3-D",
+            "videos": Array [
+              Object {
+                "id": "578a3b51925141601e0010e3",
+                "key": "tdZ5bXgFJRY",
+                "name": "Jaws 3-D (1983) (TV Spot)",
+                "site": "YouTube",
+                "type": "TRAILER",
+              },
+              Object {
+                "id": "533ec67cc3a3685448002d59",
+                "key": "zMlx33ov82c",
+                "name": "JAWS 3D MOVIE TRAILER HD",
+                "site": "YouTube",
+                "type": "TEASER",
+              },
+            ],
+            "voteAverage": 4.4,
+            "voteCount": 931,
+          },
+        },
+        Object {
+          "cursor": "NTgwOjp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "580",
+            "posterPath": "/kGiaOztahZV2x7bil7sbk7fb6ob.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "ES",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "16",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "GB",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "PG",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "PG-13",
+                  },
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "BR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "14",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "FR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "U",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "DE",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "16",
+                  },
+                ],
+              },
+            ],
+            "title": "Jaws: The Revenge",
+            "videos": Array [
+              Object {
+                "id": "533ec654c3a368544800042e",
+                "key": "WQDXfB1nBnk",
+                "name": "JAWS: The Revenge Trailer HQ",
+                "site": "YouTube",
+                "type": "TRAILER",
+              },
+            ],
+            "voteAverage": 4,
+            "voteCount": 752,
+          },
+        },
+        Object {
+          "cursor": "ODQwNjA6OnsiaW5jbHVkZUFkdWx0IjpudWxsLCJxdWVyeSI6Imphd3MiLCJzZWFyY2hUeXBlIjoiTVVMVEkifQ==",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "84060",
+            "posterPath": "/tq9swm2dKN0bNb48HArwSDGuF12.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "FR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "IT",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+            ],
+            "title": "Cruel Jaws",
+            "videos": Array [
+              Object {
+                "id": "5b037420c3a3686c92015af8",
+                "key": "ELmlKhFkaYQ",
+                "name": "CRUEL JAWS (1995) Trailer",
+                "site": "YouTube",
+                "type": "TRAILER",
+              },
+            ],
+            "voteAverage": 4.2,
+            "voteCount": 59,
+          },
+        },
+        Object {
+          "cursor": "NTQyNDc2Ojp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "542476",
+            "posterPath": "/8Lg3hV7ZbHn9nTsKFj0UWU1X2v2.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+            ],
+            "title": "Santa Jaws",
+            "videos": Array [
+              Object {
+                "id": "5fc087e66bdec3003b26acc2",
+                "key": "pxYdm_vHRSA",
+                "name": "Santa Jaws Trailer",
+                "site": "YouTube",
+                "type": "TRAILER",
+              },
+              Object {
+                "id": "5c61bcaec3a3684fabd647b4",
+                "key": "t2uZRQOeeWI",
+                "name": "Santa Jaws (2018) Carnage Count",
+                "site": "YouTube",
+                "type": "CLIP",
+              },
+            ],
+            "voteAverage": 4.5,
+            "voteCount": 14,
+          },
+        },
+        Object {
+          "cursor": "NTA5NjM6OnsiaW5jbHVkZUFkdWx0IjpudWxsLCJxdWVyeSI6Imphd3MiLCJzZWFyY2hUeXBlIjoiTVVMVEkifQ==",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "50963",
+            "posterPath": "/4lthj4OrIRtislto5oFNnTgBNuy.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "NR",
+                  },
+                ],
+              },
+            ],
+            "title": "Deep Jaws",
+            "videos": Array [],
+            "voteAverage": 1,
+            "voteCount": 1,
+          },
+        },
+        Object {
+          "cursor": "ODU1MTI6OnsiaW5jbHVkZUFkdWx0IjpudWxsLCJxdWVyeSI6Imphd3MiLCJzZWFyY2hUeXBlIjoiTVVMVEkifQ==",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "85512",
+            "posterPath": "/rMr9cwQAJst3dKZmxdA8rFS13aZ.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "DE",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "16",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "AU",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+            ],
+            "title": "Jaws of Satan",
+            "videos": Array [
+              Object {
+                "id": "5f9312a76331b20039f322d0",
+                "key": "TVFX0eBKmSw",
+                "name": "Jaws Of Satan (1981) \\"King Cobra\\" HD Trailer [1080p]",
+                "site": "YouTube",
+                "type": "TRAILER",
+              },
+            ],
+            "voteAverage": 5,
+            "voteCount": 22,
+          },
+        },
+        Object {
+          "cursor": "MTY3MDY1Ojp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "167065",
+            "posterPath": "/osyj5B7WrVn0Oc2oDWvDVoSCQ9y.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "G",
+                  },
+                ],
+              },
+            ],
+            "title": "The Making of Jaws",
+            "videos": Array [],
+            "voteAverage": 6.6,
+            "voteCount": 23,
+          },
+        },
+        Object {
+          "cursor": "MzI0MDg2Njo6eyJpbmNsdWRlQWR1bHQiOm51bGwsInF1ZXJ5IjoiamF3cyIsInNlYXJjaFR5cGUiOiJNVUxUSSJ9",
+          "node": Object {
+            "__typename": "Person",
+            "id": "3240866",
+            "name": "Jaws",
+            "profilePath": null,
+          },
+        },
+        Object {
+          "cursor": "OTc1NTk6OnsiaW5jbHVkZUFkdWx0IjpudWxsLCJxdWVyeSI6Imphd3MiLCJzZWFyY2hUeXBlIjoiTVVMVEkifQ==",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "97559",
+            "posterPath": "/nqROqLDEE5f185mW4OGC18GffUN.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "TR",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+            ],
+            "title": "Mako: The Jaws of Death",
+            "videos": Array [
+              Object {
+                "id": "533ec6dac3a368544800811c",
+                "key": "SCAXfuznbUk",
+                "name": "CBS Late Movie promo Mako: The Jaws of Death 1978",
+                "site": "YouTube",
+                "type": "TRAILER",
+              },
+            ],
+            "voteAverage": 4.1,
+            "voteCount": 9,
+          },
+        },
+        Object {
+          "cursor": "NDA1MTgwOjp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "405180",
+            "posterPath": null,
+            "releaseDates": Array [],
+            "title": "Moose Jaws",
+            "videos": Array [],
+            "voteAverage": 0,
+            "voteCount": 0,
+          },
+        },
+        Object {
+          "cursor": "MjA0NDczOjp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "204473",
+            "posterPath": "/lD38L3noqH82pJLVQrK7MP4uwhZ.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+            ],
+            "title": "Ghost Shark 2: Urban Jaws",
+            "videos": Array [
+              Object {
+                "id": "5e85bee55294e700134aa7e6",
+                "key": "h9n-_sc6As8",
+                "name": "GHOST SHARK 2: URBAN JAWS Official Trailer",
+                "site": "YouTube",
+                "type": "TRAILER",
+              },
+            ],
+            "voteAverage": 5,
+            "voteCount": 4,
+          },
+        },
+        Object {
+          "cursor": "NzIwMjE6OnsiaW5jbHVkZUFkdWx0IjpudWxsLCJxdWVyeSI6Imphd3MiLCJzZWFyY2hUeXBlIjoiTVVMVEkifQ==",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "72021",
+            "posterPath": "/4Cf8I4D9I05KeHpYRUzlILRTn2C.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "JP",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+            ],
+            "title": "Psycho Shark",
+            "videos": Array [
+              Object {
+                "id": "5efa31fda284eb0039914905",
+                "key": "HtMpg3VyBlg",
+                "name": "Jaws in Japan AKA Psycho Shark (2009) - Trailer",
+                "site": "YouTube",
+                "type": "TRAILER",
+              },
+            ],
+            "voteAverage": 3.8,
+            "voteCount": 11,
+          },
+        },
+        Object {
+          "cursor": "NjEzNDc2Ojp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "613476",
+            "posterPath": "/soCdTnnjJss5oc55ceCBZSP1zsF.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "NR",
+                  },
+                ],
+              },
+            ],
+            "title": "Saving Jaws",
+            "videos": Array [],
+            "voteAverage": 6.3,
+            "voteCount": 3,
+          },
+        },
+        Object {
+          "cursor": "MzYzMTQ0Ojp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "363144",
+            "posterPath": "/jKk6PlDSZffdTrGtg371JvAX2OS.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "GB",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+            ],
+            "title": "Inside Jaws: A Filmumentary",
+            "videos": Array [],
+            "voteAverage": 0,
+            "voteCount": 0,
+          },
+        },
+        Object {
+          "cursor": "NjQ1OTAwOjp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "645900",
+            "posterPath": "/zQ790ksu8IXI0NO3ORz8MOCMuUG.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "NR",
+                  },
+                ],
+              },
+            ],
+            "title": "Jaws",
+            "videos": Array [],
+            "voteAverage": 0,
+            "voteCount": 0,
+          },
+        },
+        Object {
+          "cursor": "NTE0NDkyOjp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "514492",
+            "posterPath": "/n29QyzfangOxBlNWtfukNXXu9YQ.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+            ],
+            "title": "Jaws",
+            "videos": Array [
+              Object {
+                "id": "60980a4db39e35003b1a2df4",
+                "key": "272344126",
+                "name": "JAWS (Full Short) ZAVEN NAJJAR",
+                "site": "Vimeo",
+                "type": "FEATURETTE",
+              },
+            ],
+            "voteAverage": 0,
+            "voteCount": 0,
+          },
+        },
+        Object {
+          "cursor": "Mjk0Mzc1Ojp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+          "node": Object {
+            "__typename": "Movie",
+            "id": "294375",
+            "posterPath": "/y4rfFsOV1fh5F553y32MCFLKcHl.jpg",
+            "releaseDates": Array [
+              Object {
+                "iso_3166_1": "US",
+                "releaseDates": Array [
+                  Object {
+                    "certification": "",
+                  },
+                ],
+              },
+            ],
+            "title": "Jaws of Steel",
+            "videos": Array [],
+            "voteAverage": 8,
+            "voteCount": 1,
+          },
+        },
+        Object {
+          "cursor": "MTI5Mzc1Ojp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+          "node": Object {
+            "__typename": "Tv",
+            "contentRatings": Array [
+              Object {
+                "iso_3166_1": "US",
+                "rating": "TV-14",
+              },
+            ],
+            "id": "129375",
+            "name": "The Croc that ate Jaws",
+            "posterPath": "/cnBDN0J5Fqua3qQAD54QI0ypAOK.jpg",
+            "videos": null,
+            "voteAverage": 0,
+            "voteCount": 0,
+          },
+        },
+      ],
+      "pageInfo": Object {
+        "endCursor": "MTI5Mzc1Ojp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+        "hasNextPage": true,
+        "hasPreviousPage": false,
+        "startCursor": "NTc4Ojp7ImluY2x1ZGVBZHVsdCI6bnVsbCwicXVlcnkiOiJqYXdzIiwic2VhcmNoVHlwZSI6Ik1VTFRJIn0=",
+      },
+      "totalCount": 91,
+    },
+  },
+  "hasNext": false,
+  "headers": undefined,
+  "paths": Array [
+    "search.edges.1.node",
+    "search.edges.3.node",
+    "search.edges.0.node",
+    "search.edges.0.node",
+    "search.edges.1.node",
+    "search.edges.3.node",
+    "search.edges.7.node",
+    "search.edges.4.node",
+    "search.edges.2.node",
+    "search.edges.5.node",
+    "search.edges.5.node",
+    "search.edges.14.node",
+    "search.edges.12.node",
+    "search.edges.6.node",
+    "search.edges.2.node",
+    "search.edges.8.node",
+    "search.edges.11.node",
+    "search.edges.4.node",
+    "search.edges.8.node",
+    "search.edges.6.node",
+    "search.edges.12.node",
+    "search.edges.7.node",
+    "search.edges.11.node",
+    "search.edges.13.node",
+    "search.edges.10.node",
+    "search.edges.10.node",
+    "search.edges.15.node",
+    "search.edges.15.node",
+    "search.edges.16.node",
+    "search.edges.17.node",
+    "search.edges.13.node",
+    "search.edges.14.node",
+    "search.edges.18.node",
+    "search.edges.17.node",
+    "search.edges.16.node",
+    "search.edges.18.node",
+    "search.edges.19.node",
+    "search.edges.19.node",
+  ],
+}
+`;

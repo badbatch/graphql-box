@@ -1,9 +1,10 @@
 import { MaybeRawResponseData } from "@graphql-box/core";
 import { castArray, merge } from "lodash";
+import cleanPatchResponse from "./cleanPatchResponse";
 
 export default (responseDataSets: MaybeRawResponseData[]): MaybeRawResponseData => {
   return responseDataSets.reduce((acc, dataSet, index) => {
-    const { _cacheMetadata, data, errors, hasNext, headers, paths } = dataSet;
+    const { _cacheMetadata, data, errors, hasNext, headers, paths } = cleanPatchResponse(dataSet);
 
     if (_cacheMetadata) {
       acc._cacheMetadata = acc._cacheMetadata ? { ...acc._cacheMetadata, ..._cacheMetadata } : _cacheMetadata;

@@ -245,7 +245,7 @@ export class FetchManager implements RequestManagerDef {
     this._activeResponseBatchTimer = setTimeout(async () => {
       if (this._activeResponseBatch) {
         const responseData = mergeResponseDataSets(Array.from(this._activeResponseBatch));
-        this._eventEmitter.emit(hash, await executeResolver(cleanPatchResponse(responseData)));
+        this._eventEmitter.emit(hash, await executeResolver(responseData));
       }
 
       this._activeResponseBatchTimer = undefined;
