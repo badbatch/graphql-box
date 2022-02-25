@@ -21,7 +21,7 @@
 
 • **fieldNode**: *FieldNode*
 
-*Defined in [defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/helpers/src/defs/index.ts#L74)*
+*Defined in [defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/27a200e/packages/helpers/src/defs/index.ts#L74)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **fragmentKind**: *string | undefined*
 
-*Defined in [defs/index.ts:75](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/helpers/src/defs/index.ts#L75)*
+*Defined in [defs/index.ts:75](https://github.com/badbatch/graphql-box/blob/27a200e/packages/helpers/src/defs/index.ts#L75)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **fragmentName**: *string | undefined*
 
-*Defined in [defs/index.ts:76](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/helpers/src/defs/index.ts#L76)*
+*Defined in [defs/index.ts:76](https://github.com/badbatch/graphql-box/blob/27a200e/packages/helpers/src/defs/index.ts#L76)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **typeName**: *string | undefined*
 
-*Defined in [defs/index.ts:77](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/helpers/src/defs/index.ts#L77)*
+*Defined in [defs/index.ts:77](https://github.com/badbatch/graphql-box/blob/27a200e/packages/helpers/src/defs/index.ts#L77)*

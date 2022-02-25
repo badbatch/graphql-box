@@ -1,3 +1,9 @@
+#### 2.5.4 (2022-02-25)
+
+##### Bug Fixes
+
+*  bugs in fetch manager helpers and add tests ([27a200e7](https://github.com/badbatch/graphql-box/commit/27a200e7e7518a184e11aa805ce52822cbc31540))
+
 #### 2.5.3 (2022-02-25)
 
 ##### Bug Fixes

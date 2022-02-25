@@ -19,7 +19,7 @@
 
 • **active**: *string[]*
 
-*Defined in [defs/index.ts:84](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/client/src/defs/index.ts#L84)*
+*Defined in [defs/index.ts:84](https://github.com/badbatch/graphql-box/blob/27a200e/packages/client/src/defs/index.ts#L84)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **pending**: *Map‹string, [PendingQueryData](pendingquerydata.md)[]›*
 
-*Defined in [defs/index.ts:85](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/client/src/defs/index.ts#L85)*
+*Defined in [defs/index.ts:85](https://github.com/badbatch/graphql-box/blob/27a200e/packages/client/src/defs/index.ts#L85)*
