@@ -1,3 +1,9 @@
+#### 2.5.5 (2022-02-25)
+
+##### Bug Fixes
+
+*  cache manager nomralizing already normalised client patches ([35d1f390](https://github.com/badbatch/graphql-box/commit/35d1f390ccbbcd7171f2dd723dd206c9223ab52b))
+
 #### 2.5.4 (2022-02-25)
 
 ##### Bug Fixes

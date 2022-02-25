@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/debug-manager",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "The GraphQL Box debug manager module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
