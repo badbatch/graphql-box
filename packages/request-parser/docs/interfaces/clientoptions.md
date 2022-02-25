@@ -18,4 +18,4 @@
 
 • **typeIDKey**: *string*
 
-*Defined in [defs/index.ts:18](https://github.com/badbatch/graphql-box/blob/e36f8d4/packages/request-parser/src/defs/index.ts#L18)*
+*Defined in [defs/index.ts:18](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/request-parser/src/defs/index.ts#L18)*

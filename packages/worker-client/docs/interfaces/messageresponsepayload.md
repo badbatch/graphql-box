@@ -21,7 +21,7 @@
 
 • **context**: *[MessageContext](messagecontext.md)*
 
-*Defined in [defs/index.ts:64](https://github.com/badbatch/graphql-box/blob/e36f8d4/packages/worker-client/src/defs/index.ts#L64)*
+*Defined in [defs/index.ts:64](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/worker-client/src/defs/index.ts#L64)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **method**: *[MethodNames](../README.md#methodnames)*
 
-*Defined in [defs/index.ts:65](https://github.com/badbatch/graphql-box/blob/e36f8d4/packages/worker-client/src/defs/index.ts#L65)*
+*Defined in [defs/index.ts:65](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/worker-client/src/defs/index.ts#L65)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **result**: *MaybeRequestResultWithDehydratedCacheMetadata*
 
-*Defined in [defs/index.ts:66](https://github.com/badbatch/graphql-box/blob/e36f8d4/packages/worker-client/src/defs/index.ts#L66)*
+*Defined in [defs/index.ts:66](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/worker-client/src/defs/index.ts#L66)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **type**: *"graphqlBox" | "cachemap"*
 
-*Defined in [defs/index.ts:67](https://github.com/badbatch/graphql-box/blob/e36f8d4/packages/worker-client/src/defs/index.ts#L67)*
+*Defined in [defs/index.ts:67](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/worker-client/src/defs/index.ts#L67)*

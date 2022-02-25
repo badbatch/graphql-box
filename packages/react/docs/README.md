@@ -24,7 +24,7 @@
 
 Ƭ **GraphQLBoxContext**: *object*
 
-*Defined in [contexts/GraphQLBox/Context.ts:4](https://github.com/badbatch/graphql-box/blob/e36f8d4/packages/react/src/contexts/GraphQLBox/Context.ts#L4)*
+*Defined in [contexts/GraphQLBox/Context.ts:4](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/react/src/contexts/GraphQLBox/Context.ts#L4)*
 
 #### Type declaration:
 
@@ -36,7 +36,7 @@ ___
 
 Ƭ **Props**: *object*
 
-*Defined in [contexts/GraphQLBox/Provider.tsx:5](https://github.com/badbatch/graphql-box/blob/e36f8d4/packages/react/src/contexts/GraphQLBox/Provider.tsx#L5)*
+*Defined in [contexts/GraphQLBox/Provider.tsx:5](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/react/src/contexts/GraphQLBox/Provider.tsx#L5)*
 
 #### Type declaration:
 
@@ -50,7 +50,7 @@ ___
 
 Ƭ **State**: *object*
 
-*Defined in [hooks/useQuery/index.ts:7](https://github.com/badbatch/graphql-box/blob/e36f8d4/packages/react/src/hooks/useQuery/index.ts#L7)*
+*Defined in [hooks/useQuery/index.ts:7](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/react/src/hooks/useQuery/index.ts#L7)*
 
 #### Type declaration:
 
@@ -72,7 +72,7 @@ ___
 
 • **defaultValue**: *object*
 
-*Defined in [contexts/GraphQLBox/Context.ts:8](https://github.com/badbatch/graphql-box/blob/e36f8d4/packages/react/src/contexts/GraphQLBox/Context.ts#L8)*
+*Defined in [contexts/GraphQLBox/Context.ts:8](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/react/src/contexts/GraphQLBox/Context.ts#L8)*
 
 #### Type declaration:
 
@@ -82,7 +82,7 @@ ___
 
 ▸ **useQuery**‹**Data**›(`query`: string, `__namedParameters`: object): *object*
 
-*Defined in [hooks/useQuery/index.ts:16](https://github.com/badbatch/graphql-box/blob/e36f8d4/packages/react/src/hooks/useQuery/index.ts#L16)*
+*Defined in [hooks/useQuery/index.ts:16](https://github.com/badbatch/graphql-box/blob/7c0d2fe/packages/react/src/hooks/useQuery/index.ts#L16)*
 
 **Type parameters:**
 

@@ -1,3 +1,9 @@
+#### 2.5.3 (2022-02-25)
+
+##### Bug Fixes
+
+*  bug in merging response data errors ([7c0d2fe9](https://github.com/badbatch/graphql-box/commit/7c0d2fe9eb6bfff131282c03cc4481409557bd20))
+
 #### 2.5.2 (2022-02-24)
 
 ##### Refactors
