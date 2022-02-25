@@ -556,10 +556,9 @@ export class CacheManager implements CacheManagerDef {
     options: RequestOptions,
     context: CacheManagerContext,
   ): Promise<ResponseData> {
-    const normalizedResponseData =
-      rawResponseData.paths && context.normalizePatchResponseData
-        ? normalizePatchResponseData(rawResponseData)
-        : rawResponseData;
+    const normalizedResponseData = context.normalizePatchResponseData
+      ? normalizePatchResponseData(rawResponseData)
+      : rawResponseData;
 
     const dataCaching: Promise<void>[] = [];
     const cacheMetadata = this._buildCacheMetadata(requestData, normalizedResponseData, options, context);
