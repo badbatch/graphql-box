@@ -13,9 +13,9 @@ export default (responseDataSets: MaybeRawResponseData[]): MaybeRawResponseData 
       acc.data = acc.data ? merge(acc.data, data) : data;
     }
 
-    const castErrors = castArray(errors);
+    if (errors) {
+      const castErrors = castArray(errors);
 
-    if (castErrors.length) {
       if (!acc.errors) {
         acc.errors = [];
       }
