@@ -1,6 +1,5 @@
 import { MaybeRequestResult, PlainObjectMap, RequestOptions } from "@graphql-box/core";
 import { forAwaitEach, isAsyncIterable } from "iterall";
-import { castArray } from "lodash";
 import { useState } from "react";
 import useGraphQLBoxClient from "../useGraphQLBoxClient";
 
@@ -33,7 +32,7 @@ const useQuery = <Data extends PlainObjectMap>(query: string, { loading = false 
 
       setState({
         data: data as Data,
-        errors: errors ? castArray(errors) : [],
+        errors: errors ?? [],
         loading: false,
         requestID,
       });
@@ -44,7 +43,7 @@ const useQuery = <Data extends PlainObjectMap>(query: string, { loading = false 
     forAwaitEach(requestResult, ({ data, errors, hasNext, paths, requestID }: MaybeRequestResult) => {
       setState({
         data: data as Data,
-        errors: errors ? castArray(errors) : [],
+        errors: errors ?? [],
         hasNext,
         loading: false,
         paths,

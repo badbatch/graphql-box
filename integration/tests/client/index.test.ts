@@ -361,7 +361,9 @@ describe("client", () => {
       }
 
       try {
-        asyncIterator = await client.subscribe(parsedRequests.nestedTypeSubscription, { ...defaultOptions });
+        asyncIterator = (await client.subscribe(parsedRequests.nestedTypeSubscription, {
+          ...defaultOptions,
+        })) as AsyncIterator<MaybeRequestResult | undefined>;
 
         subscriptionResponse = new Promise(resolve => {
           if (isAsyncIterable(asyncIterator)) {

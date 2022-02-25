@@ -1,5 +1,5 @@
 import { MaybeRawResponseData } from "@graphql-box/core";
-import { castArray, merge } from "lodash";
+import { merge } from "lodash";
 import cleanPatchResponse from "./cleanPatchResponse";
 
 export default (responseDataSets: MaybeRawResponseData[]): MaybeRawResponseData => {
@@ -14,14 +14,12 @@ export default (responseDataSets: MaybeRawResponseData[]): MaybeRawResponseData 
       acc.data = acc.data ? merge(acc.data, data) : data;
     }
 
-    if (errors) {
-      const castErrors = castArray(errors);
-
+    if (errors?.length) {
       if (!acc.errors) {
         acc.errors = [];
       }
 
-      (acc.errors as Error[]).push(...castErrors);
+      (acc.errors as Error[]).push(...errors);
     }
 
     if (index === 0) {

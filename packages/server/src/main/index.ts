@@ -10,7 +10,7 @@ import {
 import { dehydrateCacheMetadata } from "@graphql-box/helpers";
 import { Request, Response } from "express-serve-static-core";
 import { forAwaitEach, isAsyncIterable } from "iterall";
-import { isPlainObject } from "lodash";
+import { castArray, isPlainObject } from "lodash";
 import { Data } from "ws";
 import {
   ConstructorOptions,
@@ -147,7 +147,7 @@ export default class Server {
 
       ws.send(subscribeResult);
     } catch (error) {
-      ws.send(error);
+      ws.send({ errors: castArray(error) });
     }
   }
 
@@ -159,7 +159,7 @@ export default class Server {
         ? this._handleBatchRequest(res, request as PlainObjectStringMap, options, context)
         : this._handleRequest(res, request as string, options, context);
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500).send({ errors: castArray(error) });
     }
   }
 }

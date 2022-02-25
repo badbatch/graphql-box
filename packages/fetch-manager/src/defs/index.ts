@@ -59,7 +59,7 @@ export interface ActiveBatchValue {
 }
 
 export interface BatchResultActions {
-  reject: (reason: Error | Error[]) => void;
+  reject: (reason: Error) => void;
   resolve: (value: MaybeRawResponseData) => void;
 }
 
@@ -70,7 +70,7 @@ export interface BatchActionsObjectMap {
 export interface MaybeRawFetchData {
   cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObjectMap;
-  errors?: Error | Error[];
+  errors?: ReadonlyArray<Error>;
   headers?: Headers;
 }
 

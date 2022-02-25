@@ -11,7 +11,7 @@ import {
 } from "@graphql-box/core";
 import { EventAsyncIterator, rehydrateCacheMetadata } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
-import { isPlainObject } from "lodash";
+import { castArray, isPlainObject } from "lodash";
 import { v1 as uuid } from "uuid";
 import { GRAPHQL_BOX, MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
 import logRequest from "../debug/log-request";
@@ -79,24 +79,11 @@ export default class WorkerClient {
   }
 
   public async request(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
-    try {
-      return this._request(request, options, this._getRequestContext(QUERY, request, context));
-    } catch (error) {
-      return { errors: error };
-    }
+    return this._request(request, options, this._getRequestContext(QUERY, request, context));
   }
 
-  public async subscribe(
-    request: string,
-    options: RequestOptions = {},
-  ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
-    try {
-      return (await this._subscribe(request, options, this._getRequestContext(SUBSCRIPTION, request))) as AsyncIterator<
-        MaybeRequestResult | undefined
-      >;
-    } catch (error) {
-      return Promise.reject(error);
-    }
+  public async subscribe(request: string, options: RequestOptions = {}) {
+    return this._subscribe(request, options, this._getRequestContext(SUBSCRIPTION, request));
   }
 
   private _addEventListener(): void {
@@ -176,17 +163,13 @@ export default class WorkerClient {
 
       const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, context.boxID);
       return eventAsyncIterator.getIterator();
-    } catch (errors) {
-      return { errors };
+    } catch (error) {
+      return { errors: castArray(error) };
     }
   }
 
   @logRequest()
-  private async _subscribe(
-    request: string,
-    options: RequestOptions,
-    context: RequestContext,
-  ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
+  private async _subscribe(request: string, options: RequestOptions, context: RequestContext) {
     try {
       this._worker.postMessage({
         context: WorkerClient._getMessageContext(context),
@@ -199,7 +182,7 @@ export default class WorkerClient {
       const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, context.boxID);
       return eventAsyncIterator.getIterator();
     } catch (error) {
-      return Promise.reject(error);
+      return { errors: castArray(error) };
     }
   }
 }

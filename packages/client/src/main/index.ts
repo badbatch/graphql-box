@@ -22,7 +22,7 @@ import {
 import { hashRequest } from "@graphql-box/helpers";
 import { RequestParserDef } from "@graphql-box/request-parser";
 import { isAsyncIterable } from "iterall";
-import { isArray, isPlainObject, isString } from "lodash";
+import { castArray, isArray, isPlainObject, isString } from "lodash";
 import { v1 as uuid } from "uuid";
 import logRequest from "../debug/log-request";
 import logSubscription from "../debug/log-subscription";
@@ -130,20 +130,18 @@ export default class Client {
   }
 
   public async request(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
+    const requestContext = this._buildRequestContext(QUERY, request, context);
     const errors = Client._validateRequestArguments(request, options);
 
     if (errors.length) {
-      return { errors };
+      return Client._resolve({ errors }, options, requestContext);
     }
 
-    try {
-      return this._request(request, options, this._buildRequestContext(QUERY, request, context));
-    } catch (error) {
-      return { errors: error };
-    }
+    return this._request(request, options, requestContext);
   }
 
   public async subscribe(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
+    const requestContext = this._buildRequestContext(SUBSCRIPTION, request, context);
     const errors: Error[] = [];
 
     if (!this._subscriptionsManager) {
@@ -153,18 +151,10 @@ export default class Client {
     errors.push(...Client._validateRequestArguments(request, options));
 
     if (errors.length) {
-      return Promise.reject(errors);
+      return Client._resolve({ errors }, options, requestContext);
     }
 
-    try {
-      return (await this._request(
-        request,
-        options,
-        this._buildRequestContext(SUBSCRIPTION, request, context),
-      )) as AsyncIterator<MaybeRequestResult | undefined>;
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    return this._request(request, options, requestContext);
   }
 
   private _buildRequestContext(
@@ -212,8 +202,8 @@ export default class Client {
       }
 
       return await resolver(executeResult);
-    } catch (errors) {
-      return Promise.reject(errors);
+    } catch (error) {
+      return Client._resolve({ errors: [error] }, options, context);
     }
   }
 
@@ -233,7 +223,6 @@ export default class Client {
 
       let updatedRequestData: RequestDataWithMaybeAST = requestData;
       const analyzeQueryResult = await this._cacheManager.analyzeQuery(requestData as RequestData, options, context);
-
       const { response, updated } = analyzeQueryResult;
 
       if (response) {
@@ -266,26 +255,22 @@ export default class Client {
       }
 
       return await resolver(executeResult);
-    } catch (errors) {
-      return this._resolveQuery(requestData, { errors }, options, context);
+    } catch (error) {
+      return this._resolveQuery(requestData, { errors: castArray(error) }, options, context);
     }
   }
 
   private _handleRequest(requestData: RequestDataWithMaybeAST, options: RequestOptions, context: RequestContext) {
-    try {
-      if (context.operation === QUERY) {
-        return this._handleQuery(requestData, options, context);
-      } else if (context.operation === MUTATION) {
-        return this._handleMutation(requestData, options, context);
-      } else if (context.operation === SUBSCRIPTION) {
-        return this._handleSubscription(requestData, options, context);
-      }
-
-      const message = "@graphql-box/client expected the operation to be 'query', 'mutation' or 'subscription.";
-      return Promise.reject(new Error(message));
-    } catch (error) {
-      return Promise.reject(error);
+    if (context.operation === QUERY) {
+      return this._handleQuery(requestData, options, context);
+    } else if (context.operation === MUTATION) {
+      return this._handleMutation(requestData, options, context);
+    } else if (context.operation === SUBSCRIPTION) {
+      return this._handleSubscription(requestData, options, context);
     }
+
+    const message = "@graphql-box/client expected the operation to be 'query', 'mutation' or 'subscription.";
+    return Client._resolve({ errors: [new Error(message)] }, options, context);
   }
 
   private async _handleSubscription(
@@ -300,7 +285,7 @@ export default class Client {
       const subscriptionsManager = this._subscriptionsManager as SubscriptionsManagerDef;
       return await subscriptionsManager.subscribe(requestData, options, context, resolver);
     } catch (error) {
-      return Promise.reject(error);
+      return Client._resolve({ errors: [error] }, options, context);
     }
   }
 
@@ -308,11 +293,10 @@ export default class Client {
   private async _request(request: string, options: RequestOptions, context: RequestContext) {
     try {
       const { ast, request: updateRequest } = await this._requestParser.updateRequest(request, options, context);
-
       const requestData = { ast, hash: hashRequest(updateRequest), request: updateRequest };
       return this._handleRequest(requestData, options, context);
     } catch (error) {
-      return Promise.reject(error);
+      return Client._resolve({ errors: castArray(error) }, options, context);
     }
   }
 
@@ -361,8 +345,8 @@ export default class Client {
       );
 
       return Client._resolve(responseData, options, context);
-    } catch (errors) {
-      return Client._resolve({ errors }, options, context);
+    } catch (error) {
+      return Client._resolve({ errors: [error] }, options, context);
     }
   }
 
