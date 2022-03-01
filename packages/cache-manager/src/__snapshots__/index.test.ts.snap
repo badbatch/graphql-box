@@ -4,6 +4,318 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> d
 Object {
   "entries": Array [
     Array [
+      "queryResponses::acfdb67bc5e532a120ea43dae78b93e4",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.description": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.email": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.isVerified": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.location": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.description": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.homepageUrl": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.id": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.licenseInfo": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.licenseInfo.permissions.label": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.name": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+            "email": null,
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "isVerified": true,
+            "location": "Menlo Park, California",
+            "login": "facebook",
+            "name": "Meta",
+            "repositories": Object {
+              "edges": Array [
+                Object {
+                  "node": Object {
+                    "description": "A virtual machine for executing programs written in Hack.",
+                    "homepageUrl": "https://hhvm.com",
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "hhvm",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Python wrapper for RE2",
+                    "homepageUrl": "",
+                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTU=",
+                      "permissions": Array [
+                        Object {
+                          "label": "Commercial use",
+                        },
+                        Object {
+                          "label": "Modification",
+                        },
+                        Object {
+                          "label": "Distribution",
+                        },
+                        Object {
+                          "label": "Private use",
+                        },
+                      ],
+                    },
+                    "name": "pyre2",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate Android apps with Facebook Platform.",
+                    "homepageUrl": "https://developers.facebook.com/docs/android",
+                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "facebook-android-sdk",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+                    "homepageUrl": "https://developers.facebook.com/docs/ios",
+                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "facebook-ios-sdk",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "An open-source C++ library developed and used at Facebook.",
+                    "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTI=",
+                      "permissions": Array [
+                        Object {
+                          "label": "Commercial use",
+                        },
+                        Object {
+                          "label": "Modification",
+                        },
+                        Object {
+                          "label": "Distribution",
+                        },
+                        Object {
+                          "label": "Patent use",
+                        },
+                        Object {
+                          "label": "Private use",
+                        },
+                      ],
+                    },
+                    "name": "folly",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
+                    "homepageUrl": "https://github.com/facebook/nailgun",
+                    "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "nailgun",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Watches files and records, or triggers actions, when they change. ",
+                    "homepageUrl": "https://facebook.github.io/watchman/",
+                    "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTEz",
+                      "permissions": Array [
+                        Object {
+                          "label": "Commercial use",
+                        },
+                        Object {
+                          "label": "Modification",
+                        },
+                        Object {
+                          "label": "Distribution",
+                        },
+                        Object {
+                          "label": "Private use",
+                        },
+                      ],
+                    },
+                    "name": "watchman",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "A library that provides an embeddable, persistent key-value store for fast storage.",
+                    "homepageUrl": "http://rocksdb.org",
+                    "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "rocksdb",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Utilities related to Chef",
+                    "homepageUrl": null,
+                    "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTI=",
+                      "permissions": Array [
+                        Object {
+                          "label": "Commercial use",
+                        },
+                        Object {
+                          "label": "Modification",
+                        },
+                        Object {
+                          "label": "Distribution",
+                        },
+                        Object {
+                          "label": "Patent use",
+                        },
+                        Object {
+                          "label": "Private use",
+                        },
+                      ],
+                    },
+                    "name": "chef-utils",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
+                    "homepageUrl": "http://myrocks.io",
+                    "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTg=",
+                      "permissions": Array [
+                        Object {
+                          "label": "Commercial use",
+                        },
+                        Object {
+                          "label": "Modification",
+                        },
+                        Object {
+                          "label": "Distribution",
+                        },
+                        Object {
+                          "label": "Private use",
+                        },
+                      ],
+                    },
+                    "name": "mysql-5.6",
+                  },
+                },
+              ],
+            },
+            "url": "https://github.com/facebook",
+          },
+        },
+      },
+    ],
+    Array [
       "requestFieldPaths::8e2436bfa43bb534809fef5c22a63b29",
       null,
     ],
@@ -735,318 +1047,6 @@ Object {
         "login": "facebook",
         "name": "Meta",
         "url": "https://github.com/facebook",
-      },
-    ],
-    Array [
-      "queryResponses::acfdb67bc5e532a120ea43dae78b93e4",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.description": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.email": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.isVerified": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.location": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.description": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.homepageUrl": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.id": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.licenseInfo": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.licenseInfo.permissions.label": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.name": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-        },
-        "data": Object {
-          "organization": Object {
-            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-            "email": null,
-            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-            "isVerified": true,
-            "location": "Menlo Park, California",
-            "login": "facebook",
-            "name": "Meta",
-            "repositories": Object {
-              "edges": Array [
-                Object {
-                  "node": Object {
-                    "description": "A virtual machine for executing programs written in Hack.",
-                    "homepageUrl": "https://hhvm.com",
-                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "hhvm",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Python wrapper for RE2",
-                    "homepageUrl": "",
-                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTU=",
-                      "permissions": Array [
-                        Object {
-                          "label": "Commercial use",
-                        },
-                        Object {
-                          "label": "Modification",
-                        },
-                        Object {
-                          "label": "Distribution",
-                        },
-                        Object {
-                          "label": "Private use",
-                        },
-                      ],
-                    },
-                    "name": "pyre2",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Used to integrate Android apps with Facebook Platform.",
-                    "homepageUrl": "https://developers.facebook.com/docs/android",
-                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "facebook-android-sdk",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
-                    "homepageUrl": "https://developers.facebook.com/docs/ios",
-                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "facebook-ios-sdk",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "An open-source C++ library developed and used at Facebook.",
-                    "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
-                    "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTI=",
-                      "permissions": Array [
-                        Object {
-                          "label": "Commercial use",
-                        },
-                        Object {
-                          "label": "Modification",
-                        },
-                        Object {
-                          "label": "Distribution",
-                        },
-                        Object {
-                          "label": "Patent use",
-                        },
-                        Object {
-                          "label": "Private use",
-                        },
-                      ],
-                    },
-                    "name": "folly",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
-                    "homepageUrl": "https://github.com/facebook/nailgun",
-                    "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "nailgun",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Watches files and records, or triggers actions, when they change. ",
-                    "homepageUrl": "https://facebook.github.io/watchman/",
-                    "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTEz",
-                      "permissions": Array [
-                        Object {
-                          "label": "Commercial use",
-                        },
-                        Object {
-                          "label": "Modification",
-                        },
-                        Object {
-                          "label": "Distribution",
-                        },
-                        Object {
-                          "label": "Private use",
-                        },
-                      ],
-                    },
-                    "name": "watchman",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "A library that provides an embeddable, persistent key-value store for fast storage.",
-                    "homepageUrl": "http://rocksdb.org",
-                    "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "rocksdb",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Utilities related to Chef",
-                    "homepageUrl": null,
-                    "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTI=",
-                      "permissions": Array [
-                        Object {
-                          "label": "Commercial use",
-                        },
-                        Object {
-                          "label": "Modification",
-                        },
-                        Object {
-                          "label": "Distribution",
-                        },
-                        Object {
-                          "label": "Patent use",
-                        },
-                        Object {
-                          "label": "Private use",
-                        },
-                      ],
-                    },
-                    "name": "chef-utils",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
-                    "homepageUrl": "http://myrocks.io",
-                    "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTg=",
-                      "permissions": Array [
-                        Object {
-                          "label": "Commercial use",
-                        },
-                        Object {
-                          "label": "Modification",
-                        },
-                        Object {
-                          "label": "Distribution",
-                        },
-                        Object {
-                          "label": "Private use",
-                        },
-                      ],
-                    },
-                    "name": "mysql-5.6",
-                  },
-                },
-              ],
-            },
-            "url": "https://github.com/facebook",
-          },
-        },
       },
     ],
   ],
@@ -3513,6 +3513,152 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> n
 Object {
   "entries": Array [
     Array [
+      "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 3,
+              "public": true,
+            },
+            "ttl": 297475203000,
+          },
+          "query.organization.repositories": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+          "query.organization.repositories.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 2,
+              "public": true,
+            },
+            "ttl": 297475202000,
+          },
+          "query.organization.repositories.edges.node.owner": Object {
+            "cacheControl": Object {
+              "maxAge": 10,
+              "public": true,
+            },
+            "ttl": 297475210000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+            "email": "",
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "login": "facebook",
+            "name": "Facebook",
+            "repositories": Object {
+              "edges": Array [
+                Object {
+                  "node": Object {
+                    "description": "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
+                    "homepageUrl": "",
+                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+                    "name": "codemod",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "A virtual machine for executing programs written in Hack.",
+                    "homepageUrl": "https://hhvm.com",
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                    "name": "hhvm",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Python wrapper for RE2",
+                    "homepageUrl": "",
+                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                    "name": "pyre2",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": null,
+                    "homepageUrl": "http://ogp.me",
+                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+                    "name": "open-graph-protocol",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate Android apps with Facebook Platform.",
+                    "homepageUrl": "https://developers.facebook.com/docs/android",
+                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                    "name": "facebook-android-sdk",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+                    "homepageUrl": "https://developers.facebook.com/docs/ios",
+                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                    "name": "facebook-objc-sdk",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+              ],
+            },
+            "url": "https://github.com/facebook",
+          },
+        },
+      },
+    ],
+    Array [
       "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       Object {
         "__typename": "Organization",
@@ -3783,152 +3929,6 @@ Object {
         "login": "facebook",
         "name": "Facebook",
         "url": "https://github.com/facebook",
-      },
-    ],
-    Array [
-      "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-          "query.organization": Object {
-            "cacheControl": Object {
-              "maxAge": 3,
-              "public": true,
-            },
-            "ttl": 297475203000,
-          },
-          "query.organization.repositories": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-          "query.organization.repositories.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 2,
-              "public": true,
-            },
-            "ttl": 297475202000,
-          },
-          "query.organization.repositories.edges.node.owner": Object {
-            "cacheControl": Object {
-              "maxAge": 10,
-              "public": true,
-            },
-            "ttl": 297475210000,
-          },
-        },
-        "data": Object {
-          "organization": Object {
-            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-            "email": "",
-            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-            "login": "facebook",
-            "name": "Facebook",
-            "repositories": Object {
-              "edges": Array [
-                Object {
-                  "node": Object {
-                    "description": "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
-                    "homepageUrl": "",
-                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
-                    "name": "codemod",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "A virtual machine for executing programs written in Hack.",
-                    "homepageUrl": "https://hhvm.com",
-                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-                    "name": "hhvm",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Python wrapper for RE2",
-                    "homepageUrl": "",
-                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-                    "name": "pyre2",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": null,
-                    "homepageUrl": "http://ogp.me",
-                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
-                    "name": "open-graph-protocol",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Used to integrate Android apps with Facebook Platform.",
-                    "homepageUrl": "https://developers.facebook.com/docs/android",
-                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-                    "name": "facebook-android-sdk",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
-                    "homepageUrl": "https://developers.facebook.com/docs/ios",
-                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-                    "name": "facebook-objc-sdk",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-              ],
-            },
-            "url": "https://github.com/facebook",
-          },
-        },
       },
     ],
   ],
@@ -4562,6 +4562,130 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> n
 Object {
   "entries": Array [
     Array [
+      "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+          "query.search": Object {
+            "cacheControl": Object {
+              "maxAge": 3,
+              "public": true,
+            },
+            "ttl": 297475203000,
+          },
+          "query.search.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+        },
+        "data": Object {
+          "search": Object {
+            "edges": Array [
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+                  "homepageUrl": "https://reactjs.org",
+                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "Event-driven, non-blocking I/O with PHP.",
+                  "homepageUrl": "https://reactphp.org",
+                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "React background management framework | React全家桶后台管理框架",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "React docs in Chinese | React 中文文档翻译",
+                  "homepageUrl": "https://react.docschina.org/",
+                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "京东首页构建",
+                  "homepageUrl": null,
+                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "基于react的企业后台管理开发框架",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "Streams of values over time",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+                  "name": "ReactiveCocoa",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "A framework for building native apps with React.",
+                  "homepageUrl": "https://facebook.github.io/react-native/",
+                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+                  "name": "react-native",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "Declarative routing for React",
+                  "homepageUrl": "https://reacttraining.com/react-router/",
+                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+                  "name": "react-router",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "Set up a modern web app by running one command.",
+                  "homepageUrl": "https://facebook.github.io/create-react-app/",
+                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+                  "name": "create-react-app",
+                },
+              },
+            ],
+          },
+        },
+      },
+    ],
+    Array [
       "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       Object {
         "__typename": "Repository",
@@ -4816,130 +4940,6 @@ Object {
             },
           },
         ],
-      },
-    ],
-    Array [
-      "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-          "query.search": Object {
-            "cacheControl": Object {
-              "maxAge": 3,
-              "public": true,
-            },
-            "ttl": 297475203000,
-          },
-          "query.search.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-        },
-        "data": Object {
-          "search": Object {
-            "edges": Array [
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
-                  "homepageUrl": "https://reactjs.org",
-                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "Event-driven, non-blocking I/O with PHP.",
-                  "homepageUrl": "https://reactphp.org",
-                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "React background management framework | React全家桶后台管理框架",
-                  "homepageUrl": "",
-                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "React docs in Chinese | React 中文文档翻译",
-                  "homepageUrl": "https://react.docschina.org/",
-                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "京东首页构建",
-                  "homepageUrl": null,
-                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "基于react的企业后台管理开发框架",
-                  "homepageUrl": "",
-                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "Streams of values over time",
-                  "homepageUrl": "",
-                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
-                  "name": "ReactiveCocoa",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "A framework for building native apps with React.",
-                  "homepageUrl": "https://facebook.github.io/react-native/",
-                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
-                  "name": "react-native",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "Declarative routing for React",
-                  "homepageUrl": "https://reacttraining.com/react-router/",
-                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
-                  "name": "react-router",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "Set up a modern web app by running one command.",
-                  "homepageUrl": "https://facebook.github.io/create-react-app/",
-                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
-                  "name": "create-react-app",
-                },
-              },
-            ],
-          },
-        },
       },
     ],
   ],
@@ -5525,28 +5525,6 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> s
 Object {
   "entries": Array [
     Array [
-      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-        "email": "",
-        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "login": "facebook",
-        "name": "Facebook",
-        "url": "https://github.com/facebook",
-      },
-    ],
-    Array [
-      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-        "email": "",
-        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "login": "facebook",
-        "name": "Facebook",
-        "url": "https://github.com/facebook",
-      },
-    ],
-    Array [
       "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       Object {
         "cacheMetadata": Object {
@@ -5575,6 +5553,28 @@ Object {
             "url": "https://github.com/facebook",
           },
         },
+      },
+    ],
+    Array [
+      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
       },
     ],
   ],
@@ -5831,6 +5831,236 @@ Object {
 exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> defer >> correct cache data 1`] = `
 Object {
   "entries": Array [
+    Array [
+      "queryResponses::5697318c7216189e89e1a22c092c7202",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.description": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.email": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.description": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.homepageUrl": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.id": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.licenseInfo": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.licenseInfo.permissions": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.name": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "name": "Meta",
+            "repositories": Object {
+              "edges": Array [
+                Object {
+                  "node": Object {
+                    "description": "A virtual machine for executing programs written in Hack.",
+                    "homepageUrl": "https://hhvm.com",
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "hhvm",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Python wrapper for RE2",
+                    "homepageUrl": "",
+                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTU=",
+                      "permissions": Array [],
+                    },
+                    "name": "pyre2",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate Android apps with Facebook Platform.",
+                    "homepageUrl": "https://developers.facebook.com/docs/android",
+                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "facebook-android-sdk",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+                    "homepageUrl": "https://developers.facebook.com/docs/ios",
+                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "facebook-ios-sdk",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "An open-source C++ library developed and used at Facebook.",
+                    "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTI=",
+                      "permissions": Array [],
+                    },
+                    "name": "folly",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
+                    "homepageUrl": "https://github.com/facebook/nailgun",
+                    "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "nailgun",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Watches files and records, or triggers actions, when they change. ",
+                    "homepageUrl": "https://facebook.github.io/watchman/",
+                    "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTEz",
+                      "permissions": Array [],
+                    },
+                    "name": "watchman",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "A library that provides an embeddable, persistent key-value store for fast storage.",
+                    "homepageUrl": "http://rocksdb.org",
+                    "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "rocksdb",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Utilities related to Chef",
+                    "homepageUrl": null,
+                    "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTI=",
+                      "permissions": Array [],
+                    },
+                    "name": "chef-utils",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
+                    "homepageUrl": "http://myrocks.io",
+                    "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTg=",
+                      "permissions": Array [],
+                    },
+                    "name": "mysql-5.6",
+                  },
+                },
+              ],
+            },
+            "url": "https://github.com/facebook",
+          },
+        },
+      },
+    ],
     Array [
       "requestFieldPaths::f74e4a592c7d8fc365182d0273cfc927",
       "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -6332,236 +6562,6 @@ Object {
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "name": "Meta",
         "url": "https://github.com/facebook",
-      },
-    ],
-    Array [
-      "queryResponses::5697318c7216189e89e1a22c092c7202",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.description": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.email": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.description": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.homepageUrl": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.id": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.licenseInfo": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.licenseInfo.permissions": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.name": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-        },
-        "data": Object {
-          "organization": Object {
-            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-            "name": "Meta",
-            "repositories": Object {
-              "edges": Array [
-                Object {
-                  "node": Object {
-                    "description": "A virtual machine for executing programs written in Hack.",
-                    "homepageUrl": "https://hhvm.com",
-                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "hhvm",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Python wrapper for RE2",
-                    "homepageUrl": "",
-                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTU=",
-                      "permissions": Array [],
-                    },
-                    "name": "pyre2",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Used to integrate Android apps with Facebook Platform.",
-                    "homepageUrl": "https://developers.facebook.com/docs/android",
-                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "facebook-android-sdk",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
-                    "homepageUrl": "https://developers.facebook.com/docs/ios",
-                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "facebook-ios-sdk",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "An open-source C++ library developed and used at Facebook.",
-                    "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
-                    "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTI=",
-                      "permissions": Array [],
-                    },
-                    "name": "folly",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
-                    "homepageUrl": "https://github.com/facebook/nailgun",
-                    "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "nailgun",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Watches files and records, or triggers actions, when they change. ",
-                    "homepageUrl": "https://facebook.github.io/watchman/",
-                    "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTEz",
-                      "permissions": Array [],
-                    },
-                    "name": "watchman",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "A library that provides an embeddable, persistent key-value store for fast storage.",
-                    "homepageUrl": "http://rocksdb.org",
-                    "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "rocksdb",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Utilities related to Chef",
-                    "homepageUrl": null,
-                    "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTI=",
-                      "permissions": Array [],
-                    },
-                    "name": "chef-utils",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
-                    "homepageUrl": "http://myrocks.io",
-                    "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTg=",
-                      "permissions": Array [],
-                    },
-                    "name": "mysql-5.6",
-                  },
-                },
-              ],
-            },
-            "url": "https://github.com/facebook",
-          },
-        },
       },
     ],
   ],
@@ -8449,6 +8449,131 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> nes
 Object {
   "entries": Array [
     Array [
+      "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 3,
+              "public": true,
+            },
+            "ttl": 297475203000,
+          },
+          "query.organization.repositories": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+          "query.organization.repositories.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 2,
+              "public": true,
+            },
+            "ttl": 297475202000,
+          },
+          "query.organization.repositories.edges.node.owner": Object {
+            "cacheControl": Object {
+              "maxAge": 10,
+              "public": true,
+            },
+            "ttl": 297475210000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "login": "facebook",
+            "name": "Facebook",
+            "repositories": Object {
+              "edges": Array [
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+                    "name": "codemod",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                    "name": "hhvm",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                    "name": "pyre2",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+                    "name": "open-graph-protocol",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                    "name": "facebook-android-sdk",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                    "name": "facebook-objc-sdk",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    ],
+    Array [
       "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       Object {
         "__typename": "Organization",
@@ -8682,131 +8807,6 @@ Object {
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
         "name": "Facebook",
-      },
-    ],
-    Array [
-      "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-          "query.organization": Object {
-            "cacheControl": Object {
-              "maxAge": 3,
-              "public": true,
-            },
-            "ttl": 297475203000,
-          },
-          "query.organization.repositories": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-          "query.organization.repositories.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 2,
-              "public": true,
-            },
-            "ttl": 297475202000,
-          },
-          "query.organization.repositories.edges.node.owner": Object {
-            "cacheControl": Object {
-              "maxAge": 10,
-              "public": true,
-            },
-            "ttl": 297475210000,
-          },
-        },
-        "data": Object {
-          "organization": Object {
-            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-            "login": "facebook",
-            "name": "Facebook",
-            "repositories": Object {
-              "edges": Array [
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
-                    "name": "codemod",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-                    "name": "hhvm",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-                    "name": "pyre2",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
-                    "name": "open-graph-protocol",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-                    "name": "facebook-android-sdk",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-                    "name": "facebook-objc-sdk",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-              ],
-            },
-          },
-        },
       },
     ],
   ],
@@ -9450,6 +9450,110 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> nes
 Object {
   "entries": Array [
     Array [
+      "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+          "query.search": Object {
+            "cacheControl": Object {
+              "maxAge": 3,
+              "public": true,
+            },
+            "ttl": 297475203000,
+          },
+          "query.search.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+        },
+        "data": Object {
+          "search": Object {
+            "edges": Array [
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+                  "name": "ReactiveCocoa",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+                  "name": "react-native",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+                  "name": "react-router",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+                  "name": "create-react-app",
+                },
+              },
+            ],
+          },
+        },
+      },
+    ],
+    Array [
       "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       Object {
         "__typename": "Repository",
@@ -9664,110 +9768,6 @@ Object {
             },
           },
         ],
-      },
-    ],
-    Array [
-      "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-          "query.search": Object {
-            "cacheControl": Object {
-              "maxAge": 3,
-              "public": true,
-            },
-            "ttl": 297475203000,
-          },
-          "query.search.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-        },
-        "data": Object {
-          "search": Object {
-            "edges": Array [
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
-                  "name": "ReactiveCocoa",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
-                  "name": "react-native",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
-                  "name": "react-router",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
-                  "name": "create-react-app",
-                },
-              },
-            ],
-          },
-        },
       },
     ],
   ],
@@ -10355,22 +10355,6 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> sin
 Object {
   "entries": Array [
     Array [
-      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "login": "facebook",
-      },
-    ],
-    Array [
-      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "login": "facebook",
-      },
-    ],
-    Array [
       "queryResponses::f666cc27cdcfcecacb340b64fcf27506",
       Object {
         "cacheMetadata": Object {
@@ -10396,6 +10380,22 @@ Object {
             "login": "facebook",
           },
         },
+      },
+    ],
+    Array [
+      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+      },
+    ],
+    Array [
+      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
       },
     ],
   ],
@@ -10517,6 +10517,236 @@ Object {
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> defer >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
+    Array [
+      "queryResponses::5697318c7216189e89e1a22c092c7202",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.description": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.email": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.description": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.homepageUrl": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.id": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.licenseInfo": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.licenseInfo.permissions": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+          "query.organization.repositories.edges.node.name": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "name": "Meta",
+            "repositories": Object {
+              "edges": Array [
+                Object {
+                  "node": Object {
+                    "description": "A virtual machine for executing programs written in Hack.",
+                    "homepageUrl": "https://hhvm.com",
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "hhvm",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Python wrapper for RE2",
+                    "homepageUrl": "",
+                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTU=",
+                      "permissions": Array [],
+                    },
+                    "name": "pyre2",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate Android apps with Facebook Platform.",
+                    "homepageUrl": "https://developers.facebook.com/docs/android",
+                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "facebook-android-sdk",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+                    "homepageUrl": "https://developers.facebook.com/docs/ios",
+                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "facebook-ios-sdk",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "An open-source C++ library developed and used at Facebook.",
+                    "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTI=",
+                      "permissions": Array [],
+                    },
+                    "name": "folly",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
+                    "homepageUrl": "https://github.com/facebook/nailgun",
+                    "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "nailgun",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Watches files and records, or triggers actions, when they change. ",
+                    "homepageUrl": "https://facebook.github.io/watchman/",
+                    "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTEz",
+                      "permissions": Array [],
+                    },
+                    "name": "watchman",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "A library that provides an embeddable, persistent key-value store for fast storage.",
+                    "homepageUrl": "http://rocksdb.org",
+                    "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTA=",
+                      "permissions": Array [],
+                    },
+                    "name": "rocksdb",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Utilities related to Chef",
+                    "homepageUrl": null,
+                    "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTI=",
+                      "permissions": Array [],
+                    },
+                    "name": "chef-utils",
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
+                    "homepageUrl": "http://myrocks.io",
+                    "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
+                    "licenseInfo": Object {
+                      "id": "MDc6TGljZW5zZTg=",
+                      "permissions": Array [],
+                    },
+                    "name": "mysql-5.6",
+                  },
+                },
+              ],
+            },
+            "url": "https://github.com/facebook",
+          },
+        },
+      },
+    ],
     Array [
       "requestFieldPaths::f74e4a592c7d8fc365182d0273cfc927",
       "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -11152,336 +11382,6 @@ Object {
       },
     ],
     Array [
-      "queryResponses::5697318c7216189e89e1a22c092c7202",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.description": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.email": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.description": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.homepageUrl": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.id": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.licenseInfo": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.licenseInfo.permissions": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.name": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-        },
-        "data": Object {
-          "organization": Object {
-            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-            "name": "Meta",
-            "repositories": Object {
-              "edges": Array [
-                Object {
-                  "node": Object {
-                    "description": "A virtual machine for executing programs written in Hack.",
-                    "homepageUrl": "https://hhvm.com",
-                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "hhvm",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Python wrapper for RE2",
-                    "homepageUrl": "",
-                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTU=",
-                      "permissions": Array [],
-                    },
-                    "name": "pyre2",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Used to integrate Android apps with Facebook Platform.",
-                    "homepageUrl": "https://developers.facebook.com/docs/android",
-                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "facebook-android-sdk",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
-                    "homepageUrl": "https://developers.facebook.com/docs/ios",
-                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "facebook-ios-sdk",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "An open-source C++ library developed and used at Facebook.",
-                    "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
-                    "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTI=",
-                      "permissions": Array [],
-                    },
-                    "name": "folly",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
-                    "homepageUrl": "https://github.com/facebook/nailgun",
-                    "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "nailgun",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Watches files and records, or triggers actions, when they change. ",
-                    "homepageUrl": "https://facebook.github.io/watchman/",
-                    "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTEz",
-                      "permissions": Array [],
-                    },
-                    "name": "watchman",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "A library that provides an embeddable, persistent key-value store for fast storage.",
-                    "homepageUrl": "http://rocksdb.org",
-                    "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTA=",
-                      "permissions": Array [],
-                    },
-                    "name": "rocksdb",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Utilities related to Chef",
-                    "homepageUrl": null,
-                    "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTI=",
-                      "permissions": Array [],
-                    },
-                    "name": "chef-utils",
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
-                    "homepageUrl": "http://myrocks.io",
-                    "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
-                    "licenseInfo": Object {
-                      "id": "MDc6TGljZW5zZTg=",
-                      "permissions": Array [],
-                    },
-                    "name": "mysql-5.6",
-                  },
-                },
-              ],
-            },
-            "url": "https://github.com/facebook",
-          },
-        },
-      },
-    ],
-    Array [
-      "requestFieldPaths::8e2436bfa43bb534809fef5c22a63b29",
-      null,
-    ],
-    Array [
-      "requestFieldPaths::9c8be87f1ad84c7e9013cb9fe2988b4c",
-      true,
-    ],
-    Array [
-      "requestFieldPaths::37024abc303e7d1ed44502bb2bd66d5f",
-      "Menlo Park, California",
-    ],
-    Array [
-      "requestFieldPaths::6908180ab048d403650b005ae7ade2dc",
-      "Commercial use",
-    ],
-    Array [
-      "requestFieldPaths::c4148adabbeb7f2ea417b3f3f3ad691d",
-      "Modification",
-    ],
-    Array [
-      "requestFieldPaths::fa9df6ec6e2da25ec31f66fbcd45b8c3",
-      "Distribution",
-    ],
-    Array [
-      "requestFieldPaths::fb450dad1617aefebbc534ce93900b85",
-      "Private use",
-    ],
-    Array [
-      "requestFieldPaths::b0f80ee0c1cc14bbc2f422b698c8b76d",
-      "Commercial use",
-    ],
-    Array [
-      "requestFieldPaths::d3c03495fa7944adf07816631478d50b",
-      "Modification",
-    ],
-    Array [
-      "requestFieldPaths::811dc98a401a67afe6027fb24e5dfc6b",
-      "Distribution",
-    ],
-    Array [
-      "requestFieldPaths::48bdb3e3deb9e3fa37c838cb632dcd18",
-      "Patent use",
-    ],
-    Array [
-      "requestFieldPaths::e32bf432bcaf550dd23f16bee9626794",
-      "Private use",
-    ],
-    Array [
-      "requestFieldPaths::5662948d6c313401052d770e50f54925",
-      "Commercial use",
-    ],
-    Array [
-      "requestFieldPaths::e3e8fd012deb1e6e2eace90be35310bd",
-      "Modification",
-    ],
-    Array [
-      "requestFieldPaths::b5847858095c51938082b1b715ff49a3",
-      "Distribution",
-    ],
-    Array [
-      "requestFieldPaths::277cd636894d9cf482f89a20ed0f2d34",
-      "Private use",
-    ],
-    Array [
-      "requestFieldPaths::493f6b113ad1e51351eeb3487fddd1a1",
-      "Commercial use",
-    ],
-    Array [
-      "requestFieldPaths::57a7955a2f41cd69ecf2deb9d28448b2",
-      "Modification",
-    ],
-    Array [
-      "requestFieldPaths::ac831bdc8a1032b5d215f0b32c80faf2",
-      "Distribution",
-    ],
-    Array [
-      "requestFieldPaths::8ed66667572b2a4aedbd54e9b99736e1",
-      "Patent use",
-    ],
-    Array [
-      "requestFieldPaths::e0faee7d6b1ae84f5eedeba785f81228",
-      "Private use",
-    ],
-    Array [
-      "requestFieldPaths::ab6e962a9d05ec76a9dd0a055824dc97",
-      "Commercial use",
-    ],
-    Array [
-      "requestFieldPaths::4407813eca12eec4122b9de6fd2f8147",
-      "Modification",
-    ],
-    Array [
-      "requestFieldPaths::63bac521687053b9095d95bf154a994c",
-      "Distribution",
-    ],
-    Array [
-      "requestFieldPaths::1e1405f22b518c45f5ffc93be6d8eab7",
-      "Private use",
-    ],
-    Array [
       "queryResponses::ab77a79f516b16ad6fc88fb9ca44aed7",
       Object {
         "cacheMetadata": Object {
@@ -12071,6 +11971,106 @@ Object {
           },
         },
       },
+    ],
+    Array [
+      "requestFieldPaths::8e2436bfa43bb534809fef5c22a63b29",
+      null,
+    ],
+    Array [
+      "requestFieldPaths::9c8be87f1ad84c7e9013cb9fe2988b4c",
+      true,
+    ],
+    Array [
+      "requestFieldPaths::37024abc303e7d1ed44502bb2bd66d5f",
+      "Menlo Park, California",
+    ],
+    Array [
+      "requestFieldPaths::6908180ab048d403650b005ae7ade2dc",
+      "Commercial use",
+    ],
+    Array [
+      "requestFieldPaths::c4148adabbeb7f2ea417b3f3f3ad691d",
+      "Modification",
+    ],
+    Array [
+      "requestFieldPaths::fa9df6ec6e2da25ec31f66fbcd45b8c3",
+      "Distribution",
+    ],
+    Array [
+      "requestFieldPaths::fb450dad1617aefebbc534ce93900b85",
+      "Private use",
+    ],
+    Array [
+      "requestFieldPaths::b0f80ee0c1cc14bbc2f422b698c8b76d",
+      "Commercial use",
+    ],
+    Array [
+      "requestFieldPaths::d3c03495fa7944adf07816631478d50b",
+      "Modification",
+    ],
+    Array [
+      "requestFieldPaths::811dc98a401a67afe6027fb24e5dfc6b",
+      "Distribution",
+    ],
+    Array [
+      "requestFieldPaths::48bdb3e3deb9e3fa37c838cb632dcd18",
+      "Patent use",
+    ],
+    Array [
+      "requestFieldPaths::e32bf432bcaf550dd23f16bee9626794",
+      "Private use",
+    ],
+    Array [
+      "requestFieldPaths::5662948d6c313401052d770e50f54925",
+      "Commercial use",
+    ],
+    Array [
+      "requestFieldPaths::e3e8fd012deb1e6e2eace90be35310bd",
+      "Modification",
+    ],
+    Array [
+      "requestFieldPaths::b5847858095c51938082b1b715ff49a3",
+      "Distribution",
+    ],
+    Array [
+      "requestFieldPaths::277cd636894d9cf482f89a20ed0f2d34",
+      "Private use",
+    ],
+    Array [
+      "requestFieldPaths::493f6b113ad1e51351eeb3487fddd1a1",
+      "Commercial use",
+    ],
+    Array [
+      "requestFieldPaths::57a7955a2f41cd69ecf2deb9d28448b2",
+      "Modification",
+    ],
+    Array [
+      "requestFieldPaths::ac831bdc8a1032b5d215f0b32c80faf2",
+      "Distribution",
+    ],
+    Array [
+      "requestFieldPaths::8ed66667572b2a4aedbd54e9b99736e1",
+      "Patent use",
+    ],
+    Array [
+      "requestFieldPaths::e0faee7d6b1ae84f5eedeba785f81228",
+      "Private use",
+    ],
+    Array [
+      "requestFieldPaths::ab6e962a9d05ec76a9dd0a055824dc97",
+      "Commercial use",
+    ],
+    Array [
+      "requestFieldPaths::4407813eca12eec4122b9de6fd2f8147",
+      "Modification",
+    ],
+    Array [
+      "requestFieldPaths::63bac521687053b9095d95bf154a994c",
+      "Distribution",
+    ],
+    Array [
+      "requestFieldPaths::1e1405f22b518c45f5ffc93be6d8eab7",
+      "Private use",
     ],
   ],
   "metadata": Array [
@@ -14589,14 +14589,144 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested type with edges >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
+    Array [
+      "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.organization.repositories": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.organization.repositories.edges": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.organization.repositories.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.organization.repositories.edges.node.owner": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "login": "facebook",
+            "name": "Facebook",
+            "repositories": Object {
+              "edges": Array [
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+                    "name": "codemod",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                    "name": "hhvm",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                    "name": "pyre2",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+                    "name": "open-graph-protocol",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                    "name": "facebook-android-sdk",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                    "name": "facebook-objc-sdk",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    ],
     Array [
       "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       Object {
@@ -14861,138 +14991,6 @@ Object {
         "login": "facebook",
         "name": "Facebook",
         "url": "https://github.com/facebook",
-      },
-    ],
-    Array [
-      "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.organization": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.organization.repositories": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.organization.repositories.edges": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.organization.repositories.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.organization.repositories.edges.node.owner": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-        },
-        "data": Object {
-          "organization": Object {
-            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-            "login": "facebook",
-            "name": "Facebook",
-            "repositories": Object {
-              "edges": Array [
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
-                    "name": "codemod",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-                    "name": "hhvm",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-                    "name": "pyre2",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
-                    "name": "open-graph-protocol",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-                    "name": "facebook-android-sdk",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-                    "name": "facebook-objc-sdk",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-              ],
-            },
-          },
-        },
       },
     ],
     Array [
@@ -15918,14 +15916,137 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested type with edges >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
+    Array [
+      "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 3,
+              "public": true,
+            },
+            "ttl": 297475203000,
+          },
+          "query.organization.repositories": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+          "query.organization.repositories.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 2,
+              "public": true,
+            },
+            "ttl": 297475202000,
+          },
+          "query.organization.repositories.edges.node.owner": Object {
+            "cacheControl": Object {
+              "maxAge": 10,
+              "public": true,
+            },
+            "ttl": 297475210000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "login": "facebook",
+            "name": "Facebook",
+            "repositories": Object {
+              "edges": Array [
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+                    "name": "codemod",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                    "name": "hhvm",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                    "name": "pyre2",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+                    "name": "open-graph-protocol",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                    "name": "facebook-android-sdk",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                    "name": "facebook-objc-sdk",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    ],
     Array [
       "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       Object {
@@ -16190,131 +16311,6 @@ Object {
         "login": "facebook",
         "name": "Facebook",
         "url": "https://github.com/facebook",
-      },
-    ],
-    Array [
-      "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-          "query.organization": Object {
-            "cacheControl": Object {
-              "maxAge": 3,
-              "public": true,
-            },
-            "ttl": 297475203000,
-          },
-          "query.organization.repositories": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-          "query.organization.repositories.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 2,
-              "public": true,
-            },
-            "ttl": 297475202000,
-          },
-          "query.organization.repositories.edges.node.owner": Object {
-            "cacheControl": Object {
-              "maxAge": 10,
-              "public": true,
-            },
-            "ttl": 297475210000,
-          },
-        },
-        "data": Object {
-          "organization": Object {
-            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-            "login": "facebook",
-            "name": "Facebook",
-            "repositories": Object {
-              "edges": Array [
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
-                    "name": "codemod",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-                    "name": "hhvm",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-                    "name": "pyre2",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
-                    "name": "open-graph-protocol",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-                    "name": "facebook-android-sdk",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-                    "name": "facebook-objc-sdk",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-              ],
-            },
-          },
-        },
       },
     ],
     Array [
@@ -17216,14 +17212,123 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested union with edges >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
+    Array [
+      "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.search": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.search.edges": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.search.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+        },
+        "data": Object {
+          "search": Object {
+            "edges": Array [
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+                  "name": "ReactiveCocoa",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+                  "name": "react-native",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+                  "name": "react-router",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+                  "name": "create-react-app",
+                },
+              },
+            ],
+          },
+        },
+      },
+    ],
     Array [
       "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       Object {
@@ -17479,117 +17584,6 @@ Object {
             },
           },
         ],
-      },
-    ],
-    Array [
-      "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.search": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.search.edges": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.search.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-        },
-        "data": Object {
-          "search": Object {
-            "edges": Array [
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
-                  "name": "ReactiveCocoa",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
-                  "name": "react-native",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
-                  "name": "react-router",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
-                  "name": "create-react-app",
-                },
-              },
-            ],
-          },
-        },
       },
     ],
     Array [
@@ -18470,14 +18464,116 @@ Object {
       ],
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested union with edges >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
+    Array [
+      "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+          "query.search": Object {
+            "cacheControl": Object {
+              "maxAge": 3,
+              "public": true,
+            },
+            "ttl": 297475203000,
+          },
+          "query.search.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+        },
+        "data": Object {
+          "search": Object {
+            "edges": Array [
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+                  "name": "ReactiveCocoa",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+                  "name": "react-native",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+                  "name": "react-router",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+                  "name": "create-react-app",
+                },
+              },
+            ],
+          },
+        },
+      },
+    ],
     Array [
       "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       Object {
@@ -18733,110 +18829,6 @@ Object {
             },
           },
         ],
-      },
-    ],
-    Array [
-      "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-          "query.search": Object {
-            "cacheControl": Object {
-              "maxAge": 3,
-              "public": true,
-            },
-            "ttl": 297475203000,
-          },
-          "query.search.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-        },
-        "data": Object {
-          "search": Object {
-            "edges": Array [
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
-                  "name": "ReactiveCocoa",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
-                  "name": "react-native",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
-                  "name": "react-router",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
-                  "name": "create-react-app",
-                },
-              },
-            ],
-          },
-        },
       },
     ],
     Array [
@@ -19693,36 +19685,12 @@ Object {
       ],
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> single type >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
-    Array [
-      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-        "email": "",
-        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "login": "facebook",
-        "name": "Facebook",
-        "url": "https://github.com/facebook",
-      },
-    ],
-    Array [
-      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-        "email": "",
-        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "login": "facebook",
-        "name": "Facebook",
-        "url": "https://github.com/facebook",
-      },
-    ],
     Array [
       "queryResponses::f666cc27cdcfcecacb340b64fcf27506",
       Object {
@@ -19749,6 +19717,28 @@ Object {
             "login": "facebook",
           },
         },
+      },
+    ],
+    Array [
+      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
       },
     ],
     Array [
@@ -19951,36 +19941,12 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> single type >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
-    Array [
-      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-        "email": "",
-        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "login": "facebook",
-        "name": "Facebook",
-        "url": "https://github.com/facebook",
-      },
-    ],
-    Array [
-      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-        "email": "",
-        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "login": "facebook",
-        "name": "Facebook",
-        "url": "https://github.com/facebook",
-      },
-    ],
     Array [
       "queryResponses::f666cc27cdcfcecacb340b64fcf27506",
       Object {
@@ -20007,6 +19973,28 @@ Object {
             "login": "facebook",
           },
         },
+      },
+    ],
+    Array [
+      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
       },
     ],
     Array [
@@ -20209,14 +20197,165 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested type with edges >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
+    Array [
+      "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.organization.repositories": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.organization.repositories.edges": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.organization.repositories.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.organization.repositories.edges.node.owner": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+            "email": "",
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "login": "facebook",
+            "name": "Facebook",
+            "repositories": Object {
+              "edges": Array [
+                Object {
+                  "node": Object {
+                    "description": "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
+                    "homepageUrl": "",
+                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+                    "name": "codemod",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "A virtual machine for executing programs written in Hack.",
+                    "homepageUrl": "https://hhvm.com",
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                    "name": "hhvm",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Python wrapper for RE2",
+                    "homepageUrl": "",
+                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                    "name": "pyre2",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": null,
+                    "homepageUrl": "http://ogp.me",
+                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+                    "name": "open-graph-protocol",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate Android apps with Facebook Platform.",
+                    "homepageUrl": "https://developers.facebook.com/docs/android",
+                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                    "name": "facebook-android-sdk",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+                    "homepageUrl": "https://developers.facebook.com/docs/ios",
+                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                    "name": "facebook-objc-sdk",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+              ],
+            },
+            "url": "https://github.com/facebook",
+          },
+        },
+      },
+    ],
     Array [
       "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       Object {
@@ -20488,159 +20627,6 @@ Object {
         "login": "facebook",
         "name": "Facebook",
         "url": "https://github.com/facebook",
-      },
-    ],
-    Array [
-      "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.organization": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.organization.repositories": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.organization.repositories.edges": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.organization.repositories.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.organization.repositories.edges.node.owner": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-        },
-        "data": Object {
-          "organization": Object {
-            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-            "email": "",
-            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-            "login": "facebook",
-            "name": "Facebook",
-            "repositories": Object {
-              "edges": Array [
-                Object {
-                  "node": Object {
-                    "description": "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
-                    "homepageUrl": "",
-                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
-                    "name": "codemod",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "A virtual machine for executing programs written in Hack.",
-                    "homepageUrl": "https://hhvm.com",
-                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-                    "name": "hhvm",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Python wrapper for RE2",
-                    "homepageUrl": "",
-                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-                    "name": "pyre2",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": null,
-                    "homepageUrl": "http://ogp.me",
-                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
-                    "name": "open-graph-protocol",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Used to integrate Android apps with Facebook Platform.",
-                    "homepageUrl": "https://developers.facebook.com/docs/android",
-                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-                    "name": "facebook-android-sdk",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
-                    "homepageUrl": "https://developers.facebook.com/docs/ios",
-                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-                    "name": "facebook-objc-sdk",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-              ],
-            },
-            "url": "https://github.com/facebook",
-          },
-        },
       },
     ],
   ],
@@ -21277,14 +21263,158 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested type with edges >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
+    Array [
+      "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 3,
+              "public": true,
+            },
+            "ttl": 297475203000,
+          },
+          "query.organization.repositories": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+          "query.organization.repositories.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 2,
+              "public": true,
+            },
+            "ttl": 297475202000,
+          },
+          "query.organization.repositories.edges.node.owner": Object {
+            "cacheControl": Object {
+              "maxAge": 10,
+              "public": true,
+            },
+            "ttl": 297475210000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+            "email": "",
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "login": "facebook",
+            "name": "Facebook",
+            "repositories": Object {
+              "edges": Array [
+                Object {
+                  "node": Object {
+                    "description": "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
+                    "homepageUrl": "",
+                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
+                    "name": "codemod",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "A virtual machine for executing programs written in Hack.",
+                    "homepageUrl": "https://hhvm.com",
+                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                    "name": "hhvm",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Python wrapper for RE2",
+                    "homepageUrl": "",
+                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                    "name": "pyre2",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": null,
+                    "homepageUrl": "http://ogp.me",
+                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
+                    "name": "open-graph-protocol",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate Android apps with Facebook Platform.",
+                    "homepageUrl": "https://developers.facebook.com/docs/android",
+                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                    "name": "facebook-android-sdk",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+                Object {
+                  "node": Object {
+                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
+                    "homepageUrl": "https://developers.facebook.com/docs/ios",
+                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                    "name": "facebook-objc-sdk",
+                    "owner": Object {
+                      "__typename": "Organization",
+                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                      "login": "facebook",
+                      "name": "Facebook",
+                      "url": "https://github.com/facebook",
+                    },
+                  },
+                },
+              ],
+            },
+            "url": "https://github.com/facebook",
+          },
+        },
+      },
+    ],
     Array [
       "requestFieldPaths::21e8076c41db5f0c66930106377ebbdc",
       Object {
@@ -21556,152 +21686,6 @@ Object {
         "login": "facebook",
         "name": "Facebook",
         "url": "https://github.com/facebook",
-      },
-    ],
-    Array [
-      "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-          "query.organization": Object {
-            "cacheControl": Object {
-              "maxAge": 3,
-              "public": true,
-            },
-            "ttl": 297475203000,
-          },
-          "query.organization.repositories": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-          "query.organization.repositories.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 2,
-              "public": true,
-            },
-            "ttl": 297475202000,
-          },
-          "query.organization.repositories.edges.node.owner": Object {
-            "cacheControl": Object {
-              "maxAge": 10,
-              "public": true,
-            },
-            "ttl": 297475210000,
-          },
-        },
-        "data": Object {
-          "organization": Object {
-            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-            "email": "",
-            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-            "login": "facebook",
-            "name": "Facebook",
-            "repositories": Object {
-              "edges": Array [
-                Object {
-                  "node": Object {
-                    "description": "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
-                    "homepageUrl": "",
-                    "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
-                    "name": "codemod",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "A virtual machine for executing programs written in Hack.",
-                    "homepageUrl": "https://hhvm.com",
-                    "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-                    "name": "hhvm",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Python wrapper for RE2",
-                    "homepageUrl": "",
-                    "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-                    "name": "pyre2",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": null,
-                    "homepageUrl": "http://ogp.me",
-                    "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
-                    "name": "open-graph-protocol",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Used to integrate Android apps with Facebook Platform.",
-                    "homepageUrl": "https://developers.facebook.com/docs/android",
-                    "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-                    "name": "facebook-android-sdk",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-                Object {
-                  "node": Object {
-                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
-                    "homepageUrl": "https://developers.facebook.com/docs/ios",
-                    "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-                    "name": "facebook-objc-sdk",
-                    "owner": Object {
-                      "__typename": "Organization",
-                      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-                      "login": "facebook",
-                      "name": "Facebook",
-                      "url": "https://github.com/facebook",
-                    },
-                  },
-                },
-              ],
-            },
-            "url": "https://github.com/facebook",
-          },
-        },
       },
     ],
   ],
@@ -22328,14 +22312,143 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested union with edges >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
+    Array [
+      "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.search": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.search.edges": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+          "query.search.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 5,
+              "public": true,
+            },
+            "ttl": 297475205000,
+          },
+        },
+        "data": Object {
+          "search": Object {
+            "edges": Array [
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+                  "homepageUrl": "https://reactjs.org",
+                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "Event-driven, non-blocking I/O with PHP.",
+                  "homepageUrl": "https://reactphp.org",
+                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "React background management framework | React全家桶后台管理框架",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "React docs in Chinese | React 中文文档翻译",
+                  "homepageUrl": "https://react.docschina.org/",
+                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "京东首页构建",
+                  "homepageUrl": null,
+                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "基于react的企业后台管理开发框架",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "Streams of values over time",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+                  "name": "ReactiveCocoa",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "A framework for building native apps with React.",
+                  "homepageUrl": "https://facebook.github.io/react-native/",
+                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+                  "name": "react-native",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "Declarative routing for React",
+                  "homepageUrl": "https://reacttraining.com/react-router/",
+                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+                  "name": "react-router",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "Set up a modern web app by running one command.",
+                  "homepageUrl": "https://facebook.github.io/create-react-app/",
+                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+                  "name": "create-react-app",
+                },
+              },
+            ],
+          },
+        },
+      },
+    ],
     Array [
       "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       Object {
@@ -22591,137 +22704,6 @@ Object {
             },
           },
         ],
-      },
-    ],
-    Array [
-      "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.search": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.search.edges": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-          "query.search.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 5,
-              "public": true,
-            },
-            "ttl": 297475205000,
-          },
-        },
-        "data": Object {
-          "search": Object {
-            "edges": Array [
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
-                  "homepageUrl": "https://reactjs.org",
-                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "Event-driven, non-blocking I/O with PHP.",
-                  "homepageUrl": "https://reactphp.org",
-                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "React background management framework | React全家桶后台管理框架",
-                  "homepageUrl": "",
-                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "React docs in Chinese | React 中文文档翻译",
-                  "homepageUrl": "https://react.docschina.org/",
-                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "京东首页构建",
-                  "homepageUrl": null,
-                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "基于react的企业后台管理开发框架",
-                  "homepageUrl": "",
-                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "Streams of values over time",
-                  "homepageUrl": "",
-                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
-                  "name": "ReactiveCocoa",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "A framework for building native apps with React.",
-                  "homepageUrl": "https://facebook.github.io/react-native/",
-                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
-                  "name": "react-native",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "Declarative routing for React",
-                  "homepageUrl": "https://reacttraining.com/react-router/",
-                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
-                  "name": "react-router",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "Set up a modern web app by running one command.",
-                  "homepageUrl": "https://facebook.github.io/create-react-app/",
-                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
-                  "name": "create-react-app",
-                },
-              },
-            ],
-          },
-        },
       },
     ],
   ],
@@ -23310,14 +23292,136 @@ Object {
       ],
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested union with edges >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
+    Array [
+      "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+          "query.search": Object {
+            "cacheControl": Object {
+              "maxAge": 3,
+              "public": true,
+            },
+            "ttl": 297475203000,
+          },
+          "query.search.edges.node": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+        },
+        "data": Object {
+          "search": Object {
+            "edges": Array [
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+                  "homepageUrl": "https://reactjs.org",
+                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "Event-driven, non-blocking I/O with PHP.",
+                  "homepageUrl": "https://reactphp.org",
+                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "React background management framework | React全家桶后台管理框架",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "React docs in Chinese | React 中文文档翻译",
+                  "homepageUrl": "https://react.docschina.org/",
+                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "京东首页构建",
+                  "homepageUrl": null,
+                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "基于react的企业后台管理开发框架",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
+                  "name": "react",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "Streams of values over time",
+                  "homepageUrl": "",
+                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
+                  "name": "ReactiveCocoa",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "A framework for building native apps with React.",
+                  "homepageUrl": "https://facebook.github.io/react-native/",
+                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
+                  "name": "react-native",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "Declarative routing for React",
+                  "homepageUrl": "https://reacttraining.com/react-router/",
+                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
+                  "name": "react-router",
+                },
+              },
+              Object {
+                "node": Object {
+                  "__typename": "Repository",
+                  "description": "Set up a modern web app by running one command.",
+                  "homepageUrl": "https://facebook.github.io/create-react-app/",
+                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
+                  "name": "create-react-app",
+                },
+              },
+            ],
+          },
+        },
+      },
+    ],
     Array [
       "requestFieldPaths::cdc3bf99e25123eb11108f3ee0b11720",
       Object {
@@ -23573,130 +23677,6 @@ Object {
             },
           },
         ],
-      },
-    ],
-    Array [
-      "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
-      Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-          "query.search": Object {
-            "cacheControl": Object {
-              "maxAge": 3,
-              "public": true,
-            },
-            "ttl": 297475203000,
-          },
-          "query.search.edges.node": Object {
-            "cacheControl": Object {
-              "maxAge": 1,
-              "public": true,
-            },
-            "ttl": 297475201000,
-          },
-        },
-        "data": Object {
-          "search": Object {
-            "edges": Array [
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
-                  "homepageUrl": "https://reactjs.org",
-                  "id": "MDEwOlJlcG9zaXRvcnkxMDI3MDI1MA==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "Event-driven, non-blocking I/O with PHP.",
-                  "homepageUrl": "https://reactphp.org",
-                  "id": "MDEwOlJlcG9zaXRvcnk0Mjg3OTIx",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "React background management framework | React全家桶后台管理框架",
-                  "homepageUrl": "",
-                  "id": "MDEwOlJlcG9zaXRvcnk3NTM5NjU3NQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "React docs in Chinese | React 中文文档翻译",
-                  "homepageUrl": "https://react.docschina.org/",
-                  "id": "MDEwOlJlcG9zaXRvcnk5MDc1OTkzMA==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "京东首页构建",
-                  "homepageUrl": null,
-                  "id": "MDEwOlJlcG9zaXRvcnk3MjYyODI4NQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "基于react的企业后台管理开发框架",
-                  "homepageUrl": "",
-                  "id": "MDEwOlJlcG9zaXRvcnk3NzUxMzQxOQ==",
-                  "name": "react",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "Streams of values over time",
-                  "homepageUrl": "",
-                  "id": "MDEwOlJlcG9zaXRvcnkzNjA2NjI0",
-                  "name": "ReactiveCocoa",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "A framework for building native apps with React.",
-                  "homepageUrl": "https://facebook.github.io/react-native/",
-                  "id": "MDEwOlJlcG9zaXRvcnkyOTAyODc3NQ==",
-                  "name": "react-native",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "Declarative routing for React",
-                  "homepageUrl": "https://reacttraining.com/react-router/",
-                  "id": "MDEwOlJlcG9zaXRvcnkxOTg3MjQ1Ng==",
-                  "name": "react-router",
-                },
-              },
-              Object {
-                "node": Object {
-                  "__typename": "Repository",
-                  "description": "Set up a modern web app by running one command.",
-                  "homepageUrl": "https://facebook.github.io/create-react-app/",
-                  "id": "MDEwOlJlcG9zaXRvcnk2MzUzNzI0OQ==",
-                  "name": "create-react-app",
-                },
-              },
-            ],
-          },
-        },
       },
     ],
   ],
@@ -24275,36 +24255,12 @@ Object {
       ],
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> single type >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [
-    Array [
-      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-        "email": "",
-        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "login": "facebook",
-        "name": "Facebook",
-        "url": "https://github.com/facebook",
-      },
-    ],
-    Array [
-      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-        "email": "",
-        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "login": "facebook",
-        "name": "Facebook",
-        "url": "https://github.com/facebook",
-      },
-    ],
     Array [
       "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       Object {
@@ -24334,6 +24290,28 @@ Object {
             "url": "https://github.com/facebook",
           },
         },
+      },
+    ],
+    Array [
+      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
       },
     ],
   ],
@@ -24436,36 +24414,12 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> single type >> type cache directives >> correct cache data 1`] = `
 Object {
   "entries": Array [
-    Array [
-      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-        "email": "",
-        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "login": "facebook",
-        "name": "Facebook",
-        "url": "https://github.com/facebook",
-      },
-    ],
-    Array [
-      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-        "email": "",
-        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "login": "facebook",
-        "name": "Facebook",
-        "url": "https://github.com/facebook",
-      },
-    ],
     Array [
       "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       Object {
@@ -24495,6 +24449,28 @@ Object {
             "url": "https://github.com/facebook",
           },
         },
+      },
+    ],
+    Array [
+      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
+      },
+    ],
+    Array [
+      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "name": "Facebook",
+        "url": "https://github.com/facebook",
       },
     ],
   ],
@@ -24597,8 +24573,6 @@ Object {
       "url": "https://github.com/facebook",
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 

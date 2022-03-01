@@ -31,12 +31,14 @@ describe("@graphql-box/cache-manager >>", () => {
   });
 
   describe("resolveRequest >>", () => {
-    let responseData: ResponseData;
+    let responseData: ResponseData | undefined;
     let requestData: RequestData;
 
     describe("mutation >> nested interface >>", () => {
       describe("cascading cache control >>", () => {
         beforeAll(async () => {
+          responseData = undefined;
+
           cacheManager = await CacheManager.init({
             cache: new Cachemap({
               name: "cachemap",
@@ -68,6 +70,8 @@ describe("@graphql-box/cache-manager >>", () => {
 
       describe("type cache directives >>", () => {
         beforeAll(async () => {
+          responseData = undefined;
+
           cacheManager = await CacheManager.init({
             cache: new Cachemap({
               name: "cachemap",
@@ -107,6 +111,8 @@ describe("@graphql-box/cache-manager >>", () => {
     describe("subscription >> nested type >>", () => {
       describe("cascading cache control >>", () => {
         beforeAll(async () => {
+          responseData = undefined;
+
           cacheManager = await CacheManager.init({
             cache: new Cachemap({
               name: "cachemap",
@@ -138,6 +144,8 @@ describe("@graphql-box/cache-manager >>", () => {
 
       describe("type cache directives >>", () => {
         beforeAll(async () => {
+          responseData = undefined;
+
           cacheManager = await CacheManager.init({
             cache: new Cachemap({
               name: "cachemap",
@@ -173,13 +181,15 @@ describe("@graphql-box/cache-manager >>", () => {
   });
 
   describe("resolveQuery >>", () => {
-    let responseData: ResponseData;
+    let responseData: ResponseData | undefined;
     let requestData: RequestData;
 
     describe("not filtered >>", () => {
       describe("single type >>", () => {
         describe("cascading cache control >>", () => {
           beforeAll(async () => {
+            responseData = undefined;
+
             cacheManager = await CacheManager.init({
               cache: new Cachemap({
                 name: "cachemap",
@@ -212,6 +222,8 @@ describe("@graphql-box/cache-manager >>", () => {
 
         describe("type cache directives >>", () => {
           beforeAll(async () => {
+            responseData = undefined;
+
             cacheManager = await CacheManager.init({
               cache: new Cachemap({
                 name: "cachemap",
@@ -248,6 +260,8 @@ describe("@graphql-box/cache-manager >>", () => {
       describe("nested type with edges >>", () => {
         describe("cascading cache control >>", () => {
           beforeAll(async () => {
+            responseData = undefined;
+
             cacheManager = await CacheManager.init({
               cache: new Cachemap({
                 name: "cachemap",
@@ -280,6 +294,8 @@ describe("@graphql-box/cache-manager >>", () => {
 
         describe("type cache directives >>", () => {
           beforeAll(async () => {
+            responseData = undefined;
+
             cacheManager = await CacheManager.init({
               cache: new Cachemap({
                 name: "cachemap",
@@ -319,6 +335,8 @@ describe("@graphql-box/cache-manager >>", () => {
       describe("nested union with edges >>", () => {
         describe("cascading cache control >>", () => {
           beforeAll(async () => {
+            responseData = undefined;
+
             cacheManager = await CacheManager.init({
               cache: new Cachemap({
                 name: "cachemap",
@@ -351,6 +369,8 @@ describe("@graphql-box/cache-manager >>", () => {
 
         describe("type cache directives >>", () => {
           beforeAll(async () => {
+            responseData = undefined;
+
             cacheManager = await CacheManager.init({
               cache: new Cachemap({
                 name: "cachemap",
@@ -390,6 +410,7 @@ describe("@graphql-box/cache-manager >>", () => {
       describe("single type >>", () => {
         describe("cascading cache control >>", () => {
           beforeAll(async () => {
+            responseData = undefined;
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -405,7 +426,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
             requestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
 
-            responseData = await cacheManager.cacheQuery(
+            await cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.singleTypeQuerySet.initial,
@@ -441,6 +462,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
         describe("type cache directives >>", () => {
           beforeAll(async () => {
+            responseData = undefined;
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -458,7 +480,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
             requestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
 
-            responseData = await cacheManager.cacheQuery(
+            await cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.singleTypeQuerySet.initial,
@@ -496,6 +518,7 @@ describe("@graphql-box/cache-manager >>", () => {
       describe("nested type with edges >>", () => {
         describe("cascading cache control >>", () => {
           beforeAll(async () => {
+            responseData = undefined;
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -511,7 +534,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
             requestData = getRequestData(parsedRequests.nestedTypeQuerySet.initial);
 
-            responseData = await cacheManager.cacheQuery(
+            await cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.nestedTypeQuerySet.initial,
@@ -547,6 +570,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
         describe("type cache directives >>", () => {
           beforeAll(async () => {
+            responseData = undefined;
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -567,7 +591,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
             requestData = getRequestData(parsedRequests.nestedTypeQuerySet.initial);
 
-            responseData = await cacheManager.cacheQuery(
+            await cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.nestedTypeQuerySet.initial,
@@ -605,6 +629,7 @@ describe("@graphql-box/cache-manager >>", () => {
       describe("nested union with edges >>", () => {
         describe("cascading cache control >>", () => {
           beforeAll(async () => {
+            responseData = undefined;
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -620,7 +645,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
             requestData = getRequestData(parsedRequests.nestedUnionQuerySet.initial);
 
-            responseData = await cacheManager.cacheQuery(
+            await cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.nestedUnionQuerySet.initial,
@@ -656,6 +681,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
         describe("type cache directives >>", () => {
           beforeAll(async () => {
+            responseData = undefined;
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -674,7 +700,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
             requestData = getRequestData(parsedRequests.nestedUnionQuerySet.initial);
 
-            responseData = await cacheManager.cacheQuery(
+            await cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.nestedUnionQuerySet.initial,
@@ -712,6 +738,7 @@ describe("@graphql-box/cache-manager >>", () => {
       describe("defer >>", () => {
         describe("cascading cache control >>", () => {
           beforeAll(async () => {
+            responseData = undefined;
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -727,7 +754,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
             requestData = getRequestData(parsedRequests.deferQuerySet.initial);
 
-            responseData = await cacheManager.cacheQuery(
+            await cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.deferQuerySet.initial,
@@ -765,11 +792,13 @@ describe("@graphql-box/cache-manager >>", () => {
   });
 
   describe("analyzeQuery >>", () => {
-    let analyzeQueryResult: AnalyzeQueryResult;
+    let analyzeQueryResult: AnalyzeQueryResult | undefined;
 
     describe("no matching data >>", () => {
       describe("single type >>", () => {
         beforeAll(async () => {
+          analyzeQueryResult = undefined;
+
           cacheManager = await CacheManager.init({
             cache: new Cachemap({
               name: "cachemap",
@@ -787,17 +816,19 @@ describe("@graphql-box/cache-manager >>", () => {
         });
 
         it("correct request data", () => {
-          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          const { ast, ...otherProps } = analyzeQueryResult?.updated as RequestData;
           expect(otherProps).toMatchSnapshot();
         });
 
         it("no response data", () => {
-          expect(analyzeQueryResult.response).toBeUndefined();
+          expect(analyzeQueryResult?.response).toBeUndefined();
         });
       });
 
       describe("nested type with edges >>", () => {
         beforeAll(async () => {
+          analyzeQueryResult = undefined;
+
           cacheManager = await CacheManager.init({
             cache: new Cachemap({
               name: "cachemap",
@@ -815,17 +846,19 @@ describe("@graphql-box/cache-manager >>", () => {
         });
 
         it("correct request data", () => {
-          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          const { ast, ...otherProps } = analyzeQueryResult?.updated as RequestData;
           expect(otherProps).toMatchSnapshot();
         });
 
         it("no response data", () => {
-          expect(analyzeQueryResult.response).toBeUndefined();
+          expect(analyzeQueryResult?.response).toBeUndefined();
         });
       });
 
       describe("nested union with edges >>", () => {
         beforeAll(async () => {
+          analyzeQueryResult = undefined;
+
           cacheManager = await CacheManager.init({
             cache: new Cachemap({
               name: "cachemap",
@@ -843,17 +876,19 @@ describe("@graphql-box/cache-manager >>", () => {
         });
 
         it("correct request data", () => {
-          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          const { ast, ...otherProps } = analyzeQueryResult?.updated as RequestData;
           expect(otherProps).toMatchSnapshot();
         });
 
         it("no response data", () => {
-          expect(analyzeQueryResult.response).toBeUndefined();
+          expect(analyzeQueryResult?.response).toBeUndefined();
         });
       });
 
       describe("defer >>", () => {
         beforeAll(async () => {
+          analyzeQueryResult = undefined;
+
           cacheManager = await CacheManager.init({
             cache: new Cachemap({
               name: "cachemap",
@@ -871,12 +906,12 @@ describe("@graphql-box/cache-manager >>", () => {
         });
 
         it("correct request data", () => {
-          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          const { ast, ...otherProps } = analyzeQueryResult?.updated as RequestData;
           expect(otherProps).toMatchSnapshot();
         });
 
         it("no response data", () => {
-          expect(analyzeQueryResult.response).toBeUndefined();
+          expect(analyzeQueryResult?.response).toBeUndefined();
         });
       });
     });
@@ -884,6 +919,7 @@ describe("@graphql-box/cache-manager >>", () => {
     describe("entire matching data >>", () => {
       describe("single type >>", () => {
         beforeAll(async () => {
+          analyzeQueryResult = undefined;
           // @ts-ignore
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -917,11 +953,11 @@ describe("@graphql-box/cache-manager >>", () => {
         });
 
         it("no request data", () => {
-          expect(analyzeQueryResult.updated).toBeUndefined();
+          expect(analyzeQueryResult?.updated).toBeUndefined();
         });
 
         it("correct response data", () => {
-          expect(analyzeQueryResult.response).toMatchSnapshot();
+          expect(analyzeQueryResult?.response).toMatchSnapshot();
         });
 
         it("correct cache data", async () => {
@@ -931,6 +967,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
       describe("nested type with edges >>", () => {
         beforeAll(async () => {
+          analyzeQueryResult = undefined;
           // @ts-ignore
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -967,11 +1004,11 @@ describe("@graphql-box/cache-manager >>", () => {
         });
 
         it("no request data", () => {
-          expect(analyzeQueryResult.updated).toBeUndefined();
+          expect(analyzeQueryResult?.updated).toBeUndefined();
         });
 
         it("correct response data", () => {
-          expect(analyzeQueryResult.response).toMatchSnapshot();
+          expect(analyzeQueryResult?.response).toMatchSnapshot();
         });
 
         it("correct cache data", async () => {
@@ -981,6 +1018,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
       describe("nested union with edges >>", () => {
         beforeAll(async () => {
+          analyzeQueryResult = undefined;
           // @ts-ignore
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -1015,11 +1053,11 @@ describe("@graphql-box/cache-manager >>", () => {
         });
 
         it("no request data", () => {
-          expect(analyzeQueryResult.updated).toBeUndefined();
+          expect(analyzeQueryResult?.updated).toBeUndefined();
         });
 
         it("correct response data", () => {
-          expect(analyzeQueryResult.response).toMatchSnapshot();
+          expect(analyzeQueryResult?.response).toMatchSnapshot();
         });
 
         it("correct cache data", async () => {
@@ -1029,6 +1067,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
       describe("defer >>", () => {
         beforeAll(async () => {
+          analyzeQueryResult = undefined;
           // @ts-ignore
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -1060,11 +1099,11 @@ describe("@graphql-box/cache-manager >>", () => {
         });
 
         it("no request data", () => {
-          expect(analyzeQueryResult.updated).toBeUndefined();
+          expect(analyzeQueryResult?.updated).toBeUndefined();
         });
 
         it("correct response data", () => {
-          expect(analyzeQueryResult.response).toMatchSnapshot();
+          expect(analyzeQueryResult?.response).toMatchSnapshot();
         });
 
         it("correct cache data", async () => {
@@ -1076,6 +1115,7 @@ describe("@graphql-box/cache-manager >>", () => {
     describe("some matching data >>", () => {
       describe("single type >>", () => {
         beforeAll(async () => {
+          analyzeQueryResult = undefined;
           // @ts-ignore
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -1109,12 +1149,12 @@ describe("@graphql-box/cache-manager >>", () => {
         });
 
         it("correct request data", () => {
-          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          const { ast, ...otherProps } = analyzeQueryResult?.updated as RequestData;
           expect(otherProps).toMatchSnapshot();
         });
 
         it("no response data", () => {
-          expect(analyzeQueryResult.response).toBeUndefined();
+          expect(analyzeQueryResult?.response).toBeUndefined();
         });
 
         it("correct cache data", async () => {
@@ -1129,6 +1169,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
       describe("nested type with edges >", () => {
         beforeAll(async () => {
+          analyzeQueryResult = undefined;
           // @ts-ignore
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -1165,12 +1206,12 @@ describe("@graphql-box/cache-manager >>", () => {
         });
 
         it("correct request data", () => {
-          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          const { ast, ...otherProps } = analyzeQueryResult?.updated as RequestData;
           expect(otherProps).toMatchSnapshot();
         });
 
         it("no response data", () => {
-          expect(analyzeQueryResult.response).toBeUndefined();
+          expect(analyzeQueryResult?.response).toBeUndefined();
         });
 
         it("correct cache data", async () => {
@@ -1185,6 +1226,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
       describe("nested union with edges >>", () => {
         beforeAll(async () => {
+          analyzeQueryResult = undefined;
           // @ts-ignore
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -1219,12 +1261,12 @@ describe("@graphql-box/cache-manager >>", () => {
         });
 
         it("correct request data", () => {
-          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          const { ast, ...otherProps } = analyzeQueryResult?.updated as RequestData;
           expect(otherProps).toMatchSnapshot();
         });
 
         it("no response data", () => {
-          expect(analyzeQueryResult.response).toBeUndefined();
+          expect(analyzeQueryResult?.response).toBeUndefined();
         });
 
         it("correct cache data", async () => {
@@ -1239,6 +1281,7 @@ describe("@graphql-box/cache-manager >>", () => {
 
       describe("defer >>", () => {
         beforeAll(async () => {
+          analyzeQueryResult = undefined;
           // @ts-ignore
           jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -1270,12 +1313,12 @@ describe("@graphql-box/cache-manager >>", () => {
         });
 
         it("correct request data", () => {
-          const { ast, ...otherProps } = analyzeQueryResult.updated as RequestData;
+          const { ast, ...otherProps } = analyzeQueryResult?.updated as RequestData;
           expect(otherProps).toMatchSnapshot();
         });
 
         it("no response data", () => {
-          expect(analyzeQueryResult.response).toBeUndefined();
+          expect(analyzeQueryResult?.response).toBeUndefined();
         });
 
         it("correct cache data", async () => {
