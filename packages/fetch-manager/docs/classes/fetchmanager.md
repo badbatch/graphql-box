@@ -27,7 +27,7 @@
 
 \+ **new FetchManager**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[FetchManager](fetchmanager.md)*
 
-*Defined in [main/index.ts:85](https://github.com/badbatch/graphql-box/blob/bf369f2/packages/fetch-manager/src/main/index.ts#L85)*
+*Defined in [main/index.ts:85](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/fetch-manager/src/main/index.ts#L85)*
 
 **Parameters:**
 
@@ -41,9 +41,9 @@ Name | Type |
 
 ###  execute
 
-▸ **execute**(`__namedParameters`: object, `_options`: RequestOptions, `context`: RequestContext, `executeResolver`: RequestResolver): *Promise‹MaybeRawResponseData | AsyncIterableIterator‹undefined | MaybeRequestResult››*
+▸ **execute**(`__namedParameters`: object, `options`: RequestOptions, `context`: RequestContext, `executeResolver`: RequestResolver): *Promise‹MaybeRawResponseData | AsyncIterableIterator‹undefined | MaybeRequestResult››*
 
-*Defined in [main/index.ts:109](https://github.com/badbatch/graphql-box/blob/bf369f2/packages/fetch-manager/src/main/index.ts#L109)*
+*Defined in [main/index.ts:109](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/fetch-manager/src/main/index.ts#L109)*
 
 **Parameters:**
 
@@ -54,7 +54,7 @@ Name | Type |
 `hash` | string |
 `request` | string |
 
-▪ **_options**: *RequestOptions*
+▪ **options**: *RequestOptions*
 
 ▪ **context**: *RequestContext*
 
@@ -68,7 +68,7 @@ ___
 
 ▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *Promise‹[FetchManager](fetchmanager.md)›*
 
-*Defined in [main/index.ts:35](https://github.com/badbatch/graphql-box/blob/bf369f2/packages/fetch-manager/src/main/index.ts#L35)*
+*Defined in [main/index.ts:35](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/fetch-manager/src/main/index.ts#L35)*
 
 **Parameters:**
 

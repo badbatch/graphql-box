@@ -1,3 +1,9 @@
+#### 2.6.1 (2022-03-06)
+
+##### New Features
+
+*  enable batch config per request ([f0217fe5](https://github.com/badbatch/graphql-box/commit/f0217fe543fa9ebd49a1a52e6802d9e1de98e193))
+
 ### 2.6.0 (2022-03-06)
 
 ##### New Features
