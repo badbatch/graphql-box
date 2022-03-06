@@ -205,9 +205,9 @@ Object {
 
 exports[`@graphql-box/fetch-manager >> when content type multipart is returned >> correct request 1`] = `
 Array [
-  "https://api.github.com/graphql?requestId=acfdb67bc5e532a120ea43dae78b93e4",
+  "https://api.github.com/graphql?requestId=736da61e389d3e664e8cb26527eab248",
   Object {
-    "body": "{\\"batched\\":false,\\"context\\":{\\"boxID\\":\\"123456789\\",\\"operation\\":\\"query\\"},\\"request\\":\\"\\\\n  {\\\\n    organization(login: \\\\\\"facebook\\\\\\") {\\\\n      ...OrganizationFieldsA @defer(if: true, label: \\\\\\"organizationDefer\\\\\\")\\\\n      login\\\\n      name\\\\n      repositories(first: 10) {\\\\n        edges {\\\\n          node {\\\\n            ... on Repository @include(if: true) {\\\\n              licenseInfo {\\\\n                permissions {\\\\n                  label @skip(if: false)\\\\n                }\\\\n                id\\\\n              }\\\\n              ...RepositoryFields @skip(if: false) @defer(if: true, label: \\\\\\"repositoryDefer\\\\\\")\\\\n              id\\\\n            }\\\\n          }\\\\n        }\\\\n      }\\\\n      url\\\\n      id\\\\n    }\\\\n  }\\\\n\\\\n  fragment OrganizationFieldsA on Organization {\\\\n    email @include(if: true)\\\\n    description\\\\n    isVerified\\\\n    location\\\\n  }\\\\n\\\\n  fragment RepositoryFields on Repository {\\\\n    description\\\\n    homepageUrl\\\\n    name\\\\n  }\\\\n\\"}",
+    "body": "{\\"batched\\":false,\\"context\\":{\\"boxID\\":\\"123456789\\",\\"operation\\":\\"query\\"},\\"request\\":\\"\\\\n  {\\\\n    organization(login: \\\\\\"facebook\\\\\\") {\\\\n      ...OrganizationFieldsA @defer(if: true, label: \\\\\\"organizationDefer\\\\\\")\\\\n      login\\\\n      name\\\\n      repositories(first: 10) {\\\\n        edges {\\\\n          node {\\\\n            ... on Repository @include(if: true) {\\\\n              licenseInfo {\\\\n                permissions {\\\\n                  ...PermissionsFields @defer(if: true, label: \\\\\\"permissionsDefer\\\\\\")\\\\n                }\\\\n                id\\\\n              }\\\\n              ...RepositoryFields @skip(if: false) @defer(if: true, label: \\\\\\"repositoryDefer\\\\\\")\\\\n              id\\\\n            }\\\\n          }\\\\n        }\\\\n      }\\\\n      url\\\\n      id\\\\n    }\\\\n  }\\\\n\\\\n  fragment OrganizationFieldsA on Organization {\\\\n    email @include(if: true)\\\\n    description\\\\n    isVerified\\\\n    location\\\\n  }\\\\n\\\\n  fragment RepositoryFields on Repository {\\\\n    description\\\\n    homepageUrl\\\\n    name\\\\n  }\\\\n\\\\n  fragment PermissionsFields on LicenseRule {\\\\n    label @skip(if: false)\\\\n  }\\\\n\\"}",
     "headers": Headers {
       Symbol(map): Object {
         "content-type": Array [
@@ -225,149 +225,7 @@ Array [
   Object {
     "data": Object {
       "organization": Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "name": "Meta",
-        "repositories": Object {
-          "edges": Array [
-            Object {
-              "node": Object {
-                "description": "A virtual machine for executing programs written in Hack.",
-                "homepageUrl": "https://hhvm.com",
-                "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-                "licenseInfo": Object {
-                  "id": "MDc6TGljZW5zZTA=",
-                  "permissions": Array [],
-                },
-                "name": "hhvm",
-              },
-            },
-            Object {
-              "node": Object {
-                "description": "Python wrapper for RE2",
-                "homepageUrl": "",
-                "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-                "licenseInfo": Object {
-                  "id": "MDc6TGljZW5zZTU=",
-                  "permissions": Array [],
-                },
-                "name": "pyre2",
-              },
-            },
-            Object {
-              "node": Object {
-                "description": "Used to integrate Android apps with Facebook Platform.",
-                "homepageUrl": "https://developers.facebook.com/docs/android",
-                "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-                "licenseInfo": Object {
-                  "id": "MDc6TGljZW5zZTA=",
-                  "permissions": Array [],
-                },
-                "name": "facebook-android-sdk",
-              },
-            },
-            Object {
-              "node": Object {
-                "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
-                "homepageUrl": "https://developers.facebook.com/docs/ios",
-                "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-                "licenseInfo": Object {
-                  "id": "MDc6TGljZW5zZTA=",
-                  "permissions": Array [],
-                },
-                "name": "facebook-ios-sdk",
-              },
-            },
-            Object {
-              "node": Object {
-                "description": "An open-source C++ library developed and used at Facebook.",
-                "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
-                "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
-                "licenseInfo": Object {
-                  "id": "MDc6TGljZW5zZTI=",
-                  "permissions": Array [],
-                },
-                "name": "folly",
-              },
-            },
-            Object {
-              "node": Object {
-                "description": "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
-                "homepageUrl": "https://github.com/facebook/nailgun",
-                "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
-                "licenseInfo": Object {
-                  "id": "MDc6TGljZW5zZTA=",
-                  "permissions": Array [],
-                },
-                "name": "nailgun",
-              },
-            },
-            Object {
-              "node": Object {
-                "description": "Watches files and records, or triggers actions, when they change. ",
-                "homepageUrl": "https://facebook.github.io/watchman/",
-                "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
-                "licenseInfo": Object {
-                  "id": "MDc6TGljZW5zZTEz",
-                  "permissions": Array [],
-                },
-                "name": "watchman",
-              },
-            },
-            Object {
-              "node": Object {
-                "description": "A library that provides an embeddable, persistent key-value store for fast storage.",
-                "homepageUrl": "http://rocksdb.org",
-                "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
-                "licenseInfo": Object {
-                  "id": "MDc6TGljZW5zZTA=",
-                  "permissions": Array [],
-                },
-                "name": "rocksdb",
-              },
-            },
-            Object {
-              "node": Object {
-                "description": "Utilities related to Chef",
-                "homepageUrl": null,
-                "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
-                "licenseInfo": Object {
-                  "id": "MDc6TGljZW5zZTI=",
-                  "permissions": Array [],
-                },
-                "name": "chef-utils",
-              },
-            },
-            Object {
-              "node": Object {
-                "description": "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
-                "homepageUrl": "http://myrocks.io",
-                "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
-                "licenseInfo": Object {
-                  "id": "MDc6TGljZW5zZTg=",
-                  "permissions": Array [],
-                },
-                "name": "mysql-5.6",
-              },
-            },
-          ],
-        },
-        "url": "https://github.com/facebook",
-      },
-    },
-    "hasNext": true,
-    "headers": Object {
-      "content-length": "2759",
-      "content-type": "application/json; charset=utf-8",
-    },
-  },
-  Object {
-    "data": Object {
-      "organization": Object {
-        "email": null,
-        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        "isVerified": true,
-        "location": "Menlo Park, California",
         "login": "facebook",
         "repositories": Object {
           "edges": Array [
@@ -376,7 +234,6 @@ Array [
                 "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
                 "licenseInfo": Object {
                   "id": "MDc6TGljZW5zZTA=",
-                  "permissions": Array [],
                 },
               },
             },
@@ -385,20 +242,6 @@ Array [
                 "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                 "licenseInfo": Object {
                   "id": "MDc6TGljZW5zZTU=",
-                  "permissions": Array [
-                    Object {
-                      "label": "Commercial use",
-                    },
-                    Object {
-                      "label": "Modification",
-                    },
-                    Object {
-                      "label": "Distribution",
-                    },
-                    Object {
-                      "label": "Private use",
-                    },
-                  ],
                 },
               },
             },
@@ -407,7 +250,6 @@ Array [
                 "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
                 "licenseInfo": Object {
                   "id": "MDc6TGljZW5zZTA=",
-                  "permissions": Array [],
                 },
               },
             },
@@ -416,7 +258,6 @@ Array [
                 "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
                 "licenseInfo": Object {
                   "id": "MDc6TGljZW5zZTA=",
-                  "permissions": Array [],
                 },
               },
             },
@@ -425,23 +266,6 @@ Array [
                 "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
                 "licenseInfo": Object {
                   "id": "MDc6TGljZW5zZTI=",
-                  "permissions": Array [
-                    Object {
-                      "label": "Commercial use",
-                    },
-                    Object {
-                      "label": "Modification",
-                    },
-                    Object {
-                      "label": "Distribution",
-                    },
-                    Object {
-                      "label": "Patent use",
-                    },
-                    Object {
-                      "label": "Private use",
-                    },
-                  ],
                 },
               },
             },
@@ -450,7 +274,6 @@ Array [
                 "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
                 "licenseInfo": Object {
                   "id": "MDc6TGljZW5zZTA=",
-                  "permissions": Array [],
                 },
               },
             },
@@ -459,6 +282,58 @@ Array [
                 "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
                 "licenseInfo": Object {
                   "id": "MDc6TGljZW5zZTEz",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTI=",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTg=",
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "hasNext": true,
+    "headers": Object {},
+  },
+  Object {
+    "data": Object {
+      "organization": Object {
+        "email": null,
+        "isVerified": true,
+        "location": "Menlo Park, California",
+        "repositories": Object {
+          "edges": Array [
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
                   "permissions": Array [
                     Object {
                       "label": "Commercial use",
@@ -478,18 +353,21 @@ Array [
             },
             Object {
               "node": Object {
-                "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
                 "licenseInfo": Object {
-                  "id": "MDc6TGljZW5zZTA=",
                   "permissions": Array [],
                 },
               },
             },
             Object {
               "node": Object {
-                "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
                 "licenseInfo": Object {
-                  "id": "MDc6TGljZW5zZTI=",
+                  "permissions": Array [],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
                   "permissions": Array [
                     Object {
                       "label": "Commercial use",
@@ -512,9 +390,64 @@ Array [
             },
             Object {
               "node": Object {
-                "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
                 "licenseInfo": Object {
-                  "id": "MDc6TGljZW5zZTg=",
+                  "permissions": Array [],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [
+                    Object {
+                      "label": "Commercial use",
+                    },
+                    Object {
+                      "label": "Modification",
+                    },
+                    Object {
+                      "label": "Distribution",
+                    },
+                    Object {
+                      "label": "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [
+                    Object {
+                      "label": "Commercial use",
+                    },
+                    Object {
+                      "label": "Modification",
+                    },
+                    Object {
+                      "label": "Distribution",
+                    },
+                    Object {
+                      "label": "Patent use",
+                    },
+                    Object {
+                      "label": "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
                   "permissions": Array [
                     Object {
                       "label": "Commercial use",
@@ -537,10 +470,20 @@ Array [
       },
     },
     "hasNext": false,
-    "headers": Object {
-      "content-length": "1778",
-      "content-type": "application/json; charset=utf-8",
-    },
+    "headers": Object {},
+    "paths": Array [
+      "organisation",
+      "organisation.repositories.edges.0.node.licenseInfo.permissions",
+      "organisation.repositories.edges.1.node.licenseInfo.permissions",
+      "organisation.repositories.edges.2.node.licenseInfo.permissions",
+      "organisation.repositories.edges.3.node.licenseInfo.permissions",
+      "organisation.repositories.edges.4.node.licenseInfo.permissions",
+      "organisation.repositories.edges.5.node.licenseInfo.permissions",
+      "organisation.repositories.edges.6.node.licenseInfo.permissions",
+      "organisation.repositories.edges.7.node.licenseInfo.permissions",
+      "organisation.repositories.edges.8.node.licenseInfo.permissions",
+      "organisation.repositories.edges.9.node.licenseInfo.permissions",
+    ],
   },
 ]
 `;

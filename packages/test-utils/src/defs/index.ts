@@ -19,7 +19,7 @@ export interface PartialQueryResponse {
 export interface QueryResponseSet {
   initial: RawResponseDataWithMaybeCacheMetadata;
   partial: PartialQueryResponse;
-  updated: RawResponseDataWithMaybeCacheMetadata;
+  updated: RawResponseDataWithMaybeCacheMetadata | RawResponseDataWithMaybeCacheMetadata[];
 }
 
 export interface Inbox {

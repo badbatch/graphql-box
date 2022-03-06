@@ -224,7 +224,7 @@ export const deferQuery = `
             ... on Repository @include(if: true) {
               licenseInfo {
                 permissions {
-                  label @skip(if: false)
+                  ...PermissionsFields @defer(if: true, label: "permissionsDefer")
                 }
                 id
               }
@@ -251,6 +251,10 @@ export const deferQuery = `
     homepageUrl
     name
   }
+
+  fragment PermissionsFields on LicenseRule {
+    label @skip(if: false)
+  }
 `;
 
 export const deferQuerySet: ParsedQuerySet = {
@@ -266,7 +270,7 @@ export const deferQuerySet: ParsedQuerySet = {
               ... on Repository @include(if: true) {
                 licenseInfo {
                   permissions {
-                    label @skip(if: true)
+                    ...PermissionsFields @defer(if: true, label: "permissionsDefer")
                   }
                   id
                 }
@@ -291,11 +295,15 @@ export const deferQuerySet: ParsedQuerySet = {
       homepageUrl
       name
     }
+
+    fragment PermissionsFields on LicenseRule {
+      label @skip(if: true)
+    }
   `,
   updated: `
     {
       organization(login: "facebook") {
-        ...OrganizationFieldsA
+        ...OrganizationFieldsA @defer(if: true, label: "organizationDefer")
         login
         repositories(first: 10) {
           edges {
@@ -303,7 +311,7 @@ export const deferQuerySet: ParsedQuerySet = {
               ... on Repository @include(if: true) {
                 licenseInfo {
                   permissions {
-                    label @skip(if: false)
+                    ...PermissionsFields @defer(if: true, label: "permissionsDefer")
                   }
                   id
                 }
@@ -320,6 +328,10 @@ export const deferQuerySet: ParsedQuerySet = {
       email @include(if: true)
       isVerified
       location
+    }
+
+    fragment PermissionsFields on LicenseRule {
+      label @skip(if: false)
     }
   `,
 };

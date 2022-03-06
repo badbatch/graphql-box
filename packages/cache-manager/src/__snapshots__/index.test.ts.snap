@@ -4,7 +4,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> d
 Object {
   "entries": Array [
     Array [
-      "queryResponses::acfdb67bc5e532a120ea43dae78b93e4",
+      "queryResponses::ef8c61e72eb4bc59f2f3613910672394",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -15,13 +15,6 @@ Object {
             "ttl": 297475260000,
           },
           "query.organization": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.description": Object {
             "cacheControl": Object {
               "maxAge": 60,
               "public": true,
@@ -63,20 +56,6 @@ Object {
             },
             "ttl": 297475260000,
           },
-          "query.organization.repositories.edges.node.description": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
-          "query.organization.repositories.edges.node.homepageUrl": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
           "query.organization.repositories.edges.node.id": Object {
             "cacheControl": Object {
               "maxAge": 60,
@@ -98,41 +77,27 @@ Object {
             },
             "ttl": 297475260000,
           },
-          "query.organization.repositories.edges.node.name": Object {
-            "cacheControl": Object {
-              "maxAge": 60,
-              "public": true,
-            },
-            "ttl": 297475260000,
-          },
         },
         "data": Object {
           "organization": Object {
-            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
             "email": null,
             "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
             "isVerified": true,
             "location": "Menlo Park, California",
             "login": "facebook",
-            "name": "Meta",
             "repositories": Object {
               "edges": Array [
                 Object {
                   "node": Object {
-                    "description": "A virtual machine for executing programs written in Hack.",
-                    "homepageUrl": "https://hhvm.com",
                     "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTA=",
                       "permissions": Array [],
                     },
-                    "name": "hhvm",
                   },
                 },
                 Object {
                   "node": Object {
-                    "description": "Python wrapper for RE2",
-                    "homepageUrl": "",
                     "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTU=",
@@ -151,37 +116,28 @@ Object {
                         },
                       ],
                     },
-                    "name": "pyre2",
                   },
                 },
                 Object {
                   "node": Object {
-                    "description": "Used to integrate Android apps with Facebook Platform.",
-                    "homepageUrl": "https://developers.facebook.com/docs/android",
                     "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTA=",
                       "permissions": Array [],
                     },
-                    "name": "facebook-android-sdk",
                   },
                 },
                 Object {
                   "node": Object {
-                    "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
-                    "homepageUrl": "https://developers.facebook.com/docs/ios",
                     "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTA=",
                       "permissions": Array [],
                     },
-                    "name": "facebook-ios-sdk",
                   },
                 },
                 Object {
                   "node": Object {
-                    "description": "An open-source C++ library developed and used at Facebook.",
-                    "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
                     "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTI=",
@@ -203,25 +159,19 @@ Object {
                         },
                       ],
                     },
-                    "name": "folly",
                   },
                 },
                 Object {
                   "node": Object {
-                    "description": "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
-                    "homepageUrl": "https://github.com/facebook/nailgun",
                     "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTA=",
                       "permissions": Array [],
                     },
-                    "name": "nailgun",
                   },
                 },
                 Object {
                   "node": Object {
-                    "description": "Watches files and records, or triggers actions, when they change. ",
-                    "homepageUrl": "https://facebook.github.io/watchman/",
                     "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTEz",
@@ -240,25 +190,19 @@ Object {
                         },
                       ],
                     },
-                    "name": "watchman",
                   },
                 },
                 Object {
                   "node": Object {
-                    "description": "A library that provides an embeddable, persistent key-value store for fast storage.",
-                    "homepageUrl": "http://rocksdb.org",
                     "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTA=",
                       "permissions": Array [],
                     },
-                    "name": "rocksdb",
                   },
                 },
                 Object {
                   "node": Object {
-                    "description": "Utilities related to Chef",
-                    "homepageUrl": null,
                     "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTI=",
@@ -280,13 +224,10 @@ Object {
                         },
                       ],
                     },
-                    "name": "chef-utils",
                   },
                 },
                 Object {
                   "node": Object {
-                    "description": "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
-                    "homepageUrl": "http://myrocks.io",
                     "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTg=",
@@ -305,12 +246,10 @@ Object {
                         },
                       ],
                     },
-                    "name": "mysql-5.6",
                   },
                 },
               ],
             },
-            "url": "https://github.com/facebook",
           },
         },
       },
@@ -318,10 +257,6 @@ Object {
     Array [
       "requestFieldPaths::8e2436bfa43bb534809fef5c22a63b29",
       null,
-    ],
-    Array [
-      "requestFieldPaths::f74e4a592c7d8fc365182d0273cfc927",
-      "We are working to build community through open source technology. NB: members must have two-factor auth.",
     ],
     Array [
       "requestFieldPaths::9c8be87f1ad84c7e9013cb9fe2988b4c",
@@ -332,248 +267,128 @@ Object {
       "Menlo Park, California",
     ],
     Array [
-      "requestFieldPaths::86f67d9dac7d142d2a385be78e229de7",
-      "A virtual machine for executing programs written in Hack.",
-    ],
-    Array [
-      "requestFieldPaths::1d515cc075d13456fd2f5b58f9ecd3f9",
-      "https://hhvm.com",
-    ],
-    Array [
-      "requestFieldPaths::d62c5b36230529752bf7ae964d112e6e",
-      "hhvm",
-    ],
-    Array [
       "requestFieldPaths::528f5f4f5e427596e8b256172712bb3a",
       "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
     ],
     Array [
-      "requestFieldPaths::6908180ab048d403650b005ae7ade2dc",
+      "requestFieldPaths::33d2cce64eca1c9338de4522d945adec",
       "Commercial use",
     ],
     Array [
-      "requestFieldPaths::c4148adabbeb7f2ea417b3f3f3ad691d",
+      "requestFieldPaths::31f2baa6720061bea6e869bd398e3907",
       "Modification",
     ],
     Array [
-      "requestFieldPaths::fa9df6ec6e2da25ec31f66fbcd45b8c3",
+      "requestFieldPaths::3cac0e3cdf5eb61acd0ba08a1a0d7a04",
       "Distribution",
     ],
     Array [
-      "requestFieldPaths::fb450dad1617aefebbc534ce93900b85",
+      "requestFieldPaths::957058c33f359678efc409aa1465c6cc",
       "Private use",
-    ],
-    Array [
-      "requestFieldPaths::39c2d39326c046c41a9721aec814a1a2",
-      "Python wrapper for RE2",
-    ],
-    Array [
-      "requestFieldPaths::49efef474b81c29834ff6d74f2505e4d",
-      "",
-    ],
-    Array [
-      "requestFieldPaths::5f2ebf620fb9d104e7f280d43950f38e",
-      "pyre2",
     ],
     Array [
       "requestFieldPaths::4275a4f5ed409632911cddb588a1b022",
       "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
     ],
     Array [
-      "requestFieldPaths::d1a8cd79481793dbd56b07854947372b",
-      "Used to integrate Android apps with Facebook Platform.",
-    ],
-    Array [
-      "requestFieldPaths::e7ae58af39aaa57da13d258a588ad638",
-      "https://developers.facebook.com/docs/android",
-    ],
-    Array [
-      "requestFieldPaths::dd7f025ae14489f27e79f284108e3b34",
-      "facebook-android-sdk",
-    ],
-    Array [
       "requestFieldPaths::ad90785f017446b479ca3d285addeb56",
       "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-    ],
-    Array [
-      "requestFieldPaths::89dca00b5efcf75344545eea4e192002",
-      "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
-    ],
-    Array [
-      "requestFieldPaths::68215ef3f9262bfca7868e4e128f86fe",
-      "https://developers.facebook.com/docs/ios",
-    ],
-    Array [
-      "requestFieldPaths::853afac6d1bcb5b5649c88d09bb4b372",
-      "facebook-ios-sdk",
     ],
     Array [
       "requestFieldPaths::e9c3d37a8cc2e6e32572a62bac0ed793",
       "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
     ],
     Array [
-      "requestFieldPaths::b0f80ee0c1cc14bbc2f422b698c8b76d",
+      "requestFieldPaths::31283038af558a4fe62e4d092c48373f",
       "Commercial use",
     ],
     Array [
-      "requestFieldPaths::d3c03495fa7944adf07816631478d50b",
+      "requestFieldPaths::b490beed010c3dc42a96c60ca39a7cb4",
       "Modification",
     ],
     Array [
-      "requestFieldPaths::811dc98a401a67afe6027fb24e5dfc6b",
+      "requestFieldPaths::f8c89e57feca610819502ca0a796708d",
       "Distribution",
     ],
     Array [
-      "requestFieldPaths::48bdb3e3deb9e3fa37c838cb632dcd18",
+      "requestFieldPaths::8b8e4e3083287e81b78192de71d104cb",
       "Patent use",
     ],
     Array [
-      "requestFieldPaths::e32bf432bcaf550dd23f16bee9626794",
+      "requestFieldPaths::50ce282683b85510b6746a4e77321fa5",
       "Private use",
-    ],
-    Array [
-      "requestFieldPaths::8d52d0f322bfe4a7fa4aad6f87519e3d",
-      "An open-source C++ library developed and used at Facebook.",
-    ],
-    Array [
-      "requestFieldPaths::88ac00d786e2be0d1a038f6ff37e3790",
-      "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
-    ],
-    Array [
-      "requestFieldPaths::1f5cea2fb43826ca3db73c9932f239da",
-      "folly",
     ],
     Array [
       "requestFieldPaths::e7b3a5b4a5ae05b4e1d0af50e6743190",
       "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
     ],
     Array [
-      "requestFieldPaths::751519e52a671a9052844204a2dd67a1",
-      "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
-    ],
-    Array [
-      "requestFieldPaths::400ce62057b97b7a58971034f0f71ba2",
-      "https://github.com/facebook/nailgun",
-    ],
-    Array [
-      "requestFieldPaths::39dab0b40b2a0b3ca41fe61f058aa148",
-      "nailgun",
-    ],
-    Array [
       "requestFieldPaths::c11349ba91c27de05f2f1e749eee74d6",
       "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
     ],
     Array [
-      "requestFieldPaths::5662948d6c313401052d770e50f54925",
+      "requestFieldPaths::e822be1c1b0e0be9afd27f435510c840",
       "Commercial use",
     ],
     Array [
-      "requestFieldPaths::e3e8fd012deb1e6e2eace90be35310bd",
+      "requestFieldPaths::8ac2cd291716525e34bd70291f497818",
       "Modification",
     ],
     Array [
-      "requestFieldPaths::b5847858095c51938082b1b715ff49a3",
+      "requestFieldPaths::4bf66c64aaf6897e69d29fa048f6b99b",
       "Distribution",
     ],
     Array [
-      "requestFieldPaths::277cd636894d9cf482f89a20ed0f2d34",
+      "requestFieldPaths::7572a945d321514736f43ee7b7a70621",
       "Private use",
-    ],
-    Array [
-      "requestFieldPaths::6ac40d4cff7b8569235613772f47dc3e",
-      "Watches files and records, or triggers actions, when they change. ",
-    ],
-    Array [
-      "requestFieldPaths::419f1651e722a437f225e3288f385b00",
-      "https://facebook.github.io/watchman/",
-    ],
-    Array [
-      "requestFieldPaths::8230aca97ce1c3d04431fe58103c30a3",
-      "watchman",
     ],
     Array [
       "requestFieldPaths::2280608f4c06ecc0611b6d2a6f347483",
       "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
     ],
     Array [
-      "requestFieldPaths::2913c63e96252facf1b0833a40f72f6c",
-      "A library that provides an embeddable, persistent key-value store for fast storage.",
-    ],
-    Array [
-      "requestFieldPaths::1bdf14c2e24e45c0e903241570b03ad3",
-      "http://rocksdb.org",
-    ],
-    Array [
-      "requestFieldPaths::a7da5a870567ee0c4d781c852cfd4063",
-      "rocksdb",
-    ],
-    Array [
       "requestFieldPaths::3d8434852d5a161842951f6d7a4ca0d7",
       "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
     ],
     Array [
-      "requestFieldPaths::493f6b113ad1e51351eeb3487fddd1a1",
+      "requestFieldPaths::f34f851094dd3d9bee0a3a8fd1a1d1bd",
       "Commercial use",
     ],
     Array [
-      "requestFieldPaths::57a7955a2f41cd69ecf2deb9d28448b2",
+      "requestFieldPaths::a7088f0d11c1ee42990c938e0741419d",
       "Modification",
     ],
     Array [
-      "requestFieldPaths::ac831bdc8a1032b5d215f0b32c80faf2",
+      "requestFieldPaths::30d480644d40692416f2832ed0a7e671",
       "Distribution",
     ],
     Array [
-      "requestFieldPaths::8ed66667572b2a4aedbd54e9b99736e1",
+      "requestFieldPaths::9cf81cae89a2ecdc9b490a19af8c6093",
       "Patent use",
     ],
     Array [
-      "requestFieldPaths::e0faee7d6b1ae84f5eedeba785f81228",
+      "requestFieldPaths::757332502fbecfa04730b781a3ced407",
       "Private use",
-    ],
-    Array [
-      "requestFieldPaths::f57ef2ea0fc7b58c89f19cf48d4e7e7c",
-      "Utilities related to Chef",
-    ],
-    Array [
-      "requestFieldPaths::e3da5103e84a3327ba341da2b8b2abc5",
-      null,
-    ],
-    Array [
-      "requestFieldPaths::e4ae032de53206fc15a9054f8a849da4",
-      "chef-utils",
     ],
     Array [
       "requestFieldPaths::88f8fda6983d93c3cc08a128a7153f44",
       "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
     ],
     Array [
-      "requestFieldPaths::ab6e962a9d05ec76a9dd0a055824dc97",
+      "requestFieldPaths::a3175710e4100b8fcafd2a9fdf115e11",
       "Commercial use",
     ],
     Array [
-      "requestFieldPaths::4407813eca12eec4122b9de6fd2f8147",
+      "requestFieldPaths::968a1ae233718e55f638ebf90e43a229",
       "Modification",
     ],
     Array [
-      "requestFieldPaths::63bac521687053b9095d95bf154a994c",
+      "requestFieldPaths::27c71a6cd6b1cf560484b57264399c86",
       "Distribution",
     ],
     Array [
-      "requestFieldPaths::1e1405f22b518c45f5ffc93be6d8eab7",
+      "requestFieldPaths::08abad8e647c6ceb522b0b174581df83",
       "Private use",
-    ],
-    Array [
-      "requestFieldPaths::3ff13fe4757fdced20a8ada3c1378bf4",
-      "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
-    ],
-    Array [
-      "requestFieldPaths::1719f75cce56b38f7db1b9222657906c",
-      "http://myrocks.io",
-    ],
-    Array [
-      "requestFieldPaths::a3685797c55f32d1feabdc8cdc0d5dcb",
-      "mysql-5.6",
     ],
     Array [
       "requestFieldPaths::f47028c2ff66335ebec50045f8d19f8b",
@@ -628,13 +443,10 @@ Object {
     Array [
       "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
       Object {
-        "description": "A virtual machine for executing programs written in Hack.",
-        "homepageUrl": "https://hhvm.com",
         "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
         "licenseInfo": Object {
           "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTA=",
         },
-        "name": "hhvm",
       },
     ],
     Array [
@@ -644,13 +456,10 @@ Object {
     Array [
       "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
       Object {
-        "description": "Used to integrate Android apps with Facebook Platform.",
-        "homepageUrl": "https://developers.facebook.com/docs/android",
         "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
         "licenseInfo": Object {
           "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTA=",
         },
-        "name": "facebook-android-sdk",
       },
     ],
     Array [
@@ -660,13 +469,10 @@ Object {
     Array [
       "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
       Object {
-        "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
-        "homepageUrl": "https://developers.facebook.com/docs/ios",
         "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
         "licenseInfo": Object {
           "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTA=",
         },
-        "name": "facebook-ios-sdk",
       },
     ],
     Array [
@@ -676,13 +482,10 @@ Object {
     Array [
       "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
       Object {
-        "description": "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
-        "homepageUrl": "https://github.com/facebook/nailgun",
         "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
         "licenseInfo": Object {
           "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTA=",
         },
-        "name": "nailgun",
       },
     ],
     Array [
@@ -692,13 +495,10 @@ Object {
     Array [
       "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
       Object {
-        "description": "A library that provides an embeddable, persistent key-value store for fast storage.",
-        "homepageUrl": "http://rocksdb.org",
         "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
         "licenseInfo": Object {
           "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTA=",
         },
-        "name": "rocksdb",
       },
     ],
     Array [
@@ -897,13 +697,10 @@ Object {
     Array [
       "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
       Object {
-        "description": "Python wrapper for RE2",
-        "homepageUrl": "",
         "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
         "licenseInfo": Object {
           "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTU=",
         },
-        "name": "pyre2",
       },
     ],
     Array [
@@ -913,13 +710,10 @@ Object {
     Array [
       "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
       Object {
-        "description": "An open-source C++ library developed and used at Facebook.",
-        "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
         "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
         "licenseInfo": Object {
           "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTI=",
         },
-        "name": "folly",
       },
     ],
     Array [
@@ -929,13 +723,10 @@ Object {
     Array [
       "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
       Object {
-        "description": "Watches files and records, or triggers actions, when they change. ",
-        "homepageUrl": "https://facebook.github.io/watchman/",
         "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
         "licenseInfo": Object {
           "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTEz",
         },
-        "name": "watchman",
       },
     ],
     Array [
@@ -945,13 +736,10 @@ Object {
     Array [
       "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
       Object {
-        "description": "Utilities related to Chef",
-        "homepageUrl": null,
         "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
         "licenseInfo": Object {
           "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTI=",
         },
-        "name": "chef-utils",
       },
     ],
     Array [
@@ -961,13 +749,10 @@ Object {
     Array [
       "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
       Object {
-        "description": "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
-        "homepageUrl": "http://myrocks.io",
         "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
         "licenseInfo": Object {
           "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTg=",
         },
-        "name": "mysql-5.6",
       },
     ],
     Array [
@@ -1032,21 +817,16 @@ Object {
       Object {
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
-        "name": "Meta",
-        "url": "https://github.com/facebook",
       },
     ],
     Array [
       "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       Object {
-        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
         "email": null,
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "isVerified": true,
         "location": "Menlo Park, California",
         "login": "facebook",
-        "name": "Meta",
-        "url": "https://github.com/facebook",
       },
     ],
   ],
@@ -1304,26 +1084,6 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::49efef474b81c29834ff6d74f2505e4d",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 8,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
       "key": "requestFieldPaths::8e2436bfa43bb534809fef5c22a63b29",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
@@ -1364,127 +1124,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::d62c5b36230529752bf7ae964d112e6e",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 16,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::e3da5103e84a3327ba341da2b8b2abc5",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 16,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::5f2ebf620fb9d104e7f280d43950f38e",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 24,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::1f5cea2fb43826ca3db73c9932f239da",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 24,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::39dab0b40b2a0b3ca41fe61f058aa148",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 24,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::a7da5a870567ee0c4d781c852cfd4063",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 24,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::8230aca97ce1c3d04431fe58103c30a3",
+      "key": "requestFieldPaths::8b8e4e3083287e81b78192de71d104cb",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 32,
@@ -1504,7 +1144,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::e4ae032de53206fc15a9054f8a849da4",
+      "key": "requestFieldPaths::9cf81cae89a2ecdc9b490a19af8c6093",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 32,
@@ -1524,67 +1164,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::a3685797c55f32d1feabdc8cdc0d5dcb",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 32,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::48bdb3e3deb9e3fa37c838cb632dcd18",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 32,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::8ed66667572b2a4aedbd54e9b99736e1",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 32,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::c4148adabbeb7f2ea417b3f3f3ad691d",
+      "key": "requestFieldPaths::31f2baa6720061bea6e869bd398e3907",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1604,7 +1184,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::fa9df6ec6e2da25ec31f66fbcd45b8c3",
+      "key": "requestFieldPaths::3cac0e3cdf5eb61acd0ba08a1a0d7a04",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1624,7 +1204,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::fb450dad1617aefebbc534ce93900b85",
+      "key": "requestFieldPaths::957058c33f359678efc409aa1465c6cc",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1644,7 +1224,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::d3c03495fa7944adf07816631478d50b",
+      "key": "requestFieldPaths::b490beed010c3dc42a96c60ca39a7cb4",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1664,7 +1244,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::811dc98a401a67afe6027fb24e5dfc6b",
+      "key": "requestFieldPaths::f8c89e57feca610819502ca0a796708d",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1684,7 +1264,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::e32bf432bcaf550dd23f16bee9626794",
+      "key": "requestFieldPaths::50ce282683b85510b6746a4e77321fa5",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1704,7 +1284,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::e3e8fd012deb1e6e2eace90be35310bd",
+      "key": "requestFieldPaths::8ac2cd291716525e34bd70291f497818",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1724,7 +1304,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::b5847858095c51938082b1b715ff49a3",
+      "key": "requestFieldPaths::4bf66c64aaf6897e69d29fa048f6b99b",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1744,7 +1324,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::277cd636894d9cf482f89a20ed0f2d34",
+      "key": "requestFieldPaths::7572a945d321514736f43ee7b7a70621",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1764,7 +1344,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::57a7955a2f41cd69ecf2deb9d28448b2",
+      "key": "requestFieldPaths::a7088f0d11c1ee42990c938e0741419d",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1784,7 +1364,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::ac831bdc8a1032b5d215f0b32c80faf2",
+      "key": "requestFieldPaths::30d480644d40692416f2832ed0a7e671",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1804,7 +1384,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::e0faee7d6b1ae84f5eedeba785f81228",
+      "key": "requestFieldPaths::757332502fbecfa04730b781a3ced407",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1824,7 +1404,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::4407813eca12eec4122b9de6fd2f8147",
+      "key": "requestFieldPaths::968a1ae233718e55f638ebf90e43a229",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1844,7 +1424,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::63bac521687053b9095d95bf154a994c",
+      "key": "requestFieldPaths::27c71a6cd6b1cf560484b57264399c86",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1864,7 +1444,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::1e1405f22b518c45f5ffc93be6d8eab7",
+      "key": "requestFieldPaths::08abad8e647c6ceb522b0b174581df83",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -1884,7 +1464,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::1d515cc075d13456fd2f5b58f9ecd3f9",
+      "key": "requestFieldPaths::33d2cce64eca1c9338de4522d945adec",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 48,
@@ -1904,7 +1484,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::853afac6d1bcb5b5649c88d09bb4b372",
+      "key": "requestFieldPaths::31283038af558a4fe62e4d092c48373f",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 48,
@@ -1924,7 +1504,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::6908180ab048d403650b005ae7ade2dc",
+      "key": "requestFieldPaths::e822be1c1b0e0be9afd27f435510c840",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 48,
@@ -1944,7 +1524,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::b0f80ee0c1cc14bbc2f422b698c8b76d",
+      "key": "requestFieldPaths::f34f851094dd3d9bee0a3a8fd1a1d1bd",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 48,
@@ -1964,90 +1544,10 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::5662948d6c313401052d770e50f54925",
+      "key": "requestFieldPaths::a3175710e4100b8fcafd2a9fdf115e11",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 48,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::493f6b113ad1e51351eeb3487fddd1a1",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 48,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::ab6e962a9d05ec76a9dd0a055824dc97",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 48,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::1bdf14c2e24e45c0e903241570b03ad3",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 56,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::1719f75cce56b38f7db1b9222657906c",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 56,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -2068,66 +1568,6 @@ Object {
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 64,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::39c2d39326c046c41a9721aec814a1a2",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 64,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::dd7f025ae14489f27e79f284108e3b34",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 64,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::f57ef2ea0fc7b58c89f19cf48d4e7e7c",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 72,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -2344,46 +1784,6 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::400ce62057b97b7a58971034f0f71ba2",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 104,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::419f1651e722a437f225e3288f385b00",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 104,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
       "key": "requestFieldPaths::797eb598e5534ea0d78e4dcccba6eeb0",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
@@ -2444,26 +1844,6 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::68215ef3f9262bfca7868e4e128f86fe",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 112,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
       "key": "requestFieldPaths::088eb1ff1c15204f14e1edcc29b3afa4",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
@@ -2504,27 +1884,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::e7ae58af39aaa57da13d258a588ad638",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 128,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::d1a8cd79481793dbd56b07854947372b",
+      "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 152,
@@ -2544,190 +1904,10 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::86f67d9dac7d142d2a385be78e229de7",
+      "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 160,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::8d52d0f322bfe4a7fa4aad6f87519e3d",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 160,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::89dca00b5efcf75344545eea4e192002",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 184,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::88ac00d786e2be0d1a038f6ff37e3790",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 184,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::6ac40d4cff7b8569235613772f47dc3e",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 184,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::3ff13fe4757fdced20a8ada3c1378bf4",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 208,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::2913c63e96252facf1b0833a40f72f6c",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 232,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 288,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::f74e4a592c7d8fc365182d0273cfc927",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 288,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::751519e52a671a9052844204a2dd67a1",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 360,
+      "size": 328,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -2904,26 +2084,6 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 784,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
       "key": "requestFieldPaths::4674420bdc808ce429b93efb96675cc2",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
@@ -2944,110 +2104,10 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 480,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 504,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 616,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 680,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 696,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 704,
+      "size": 288,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -3067,7 +2127,7 @@ Object {
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 720,
+      "size": 288,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -3087,27 +2147,7 @@ Object {
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 736,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 0,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 752,
+      "size": 288,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -3127,7 +2167,7 @@ Object {
       "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 872,
+      "size": 288,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -3144,10 +2184,130 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "queryResponses::acfdb67bc5e532a120ea43dae78b93e4",
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 12976,
+      "size": 288,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 288,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 288,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 288,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 288,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "key": "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 288,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "key": "queryResponses::ef8c61e72eb4bc59f2f3613910672394",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 7464,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -3179,16 +2339,6 @@ Object {
       },
     },
     "query.organization.email" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.description" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
           "maxAge": 60,
@@ -3238,36 +2388,6 @@ Object {
         "ttl": 297475260000,
       },
     },
-    "query.organization.repositories.edges.node.description" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.repositories.edges.node.homepageUrl" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.repositories.edges.node.name" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
     "query.organization.repositories.edges.node.id" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -3301,31 +2421,24 @@ Object {
   },
   "data": Object {
     "organization": Object {
-      "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
       "email": null,
       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       "isVerified": true,
       "location": "Menlo Park, California",
       "login": "facebook",
-      "name": "Meta",
       "repositories": Object {
         "edges": Array [
           Object {
             "node": Object {
-              "description": "A virtual machine for executing programs written in Hack.",
-              "homepageUrl": "https://hhvm.com",
               "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
               "licenseInfo": Object {
                 "id": "MDc6TGljZW5zZTA=",
                 "permissions": Array [],
               },
-              "name": "hhvm",
             },
           },
           Object {
             "node": Object {
-              "description": "Python wrapper for RE2",
-              "homepageUrl": "",
               "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
               "licenseInfo": Object {
                 "id": "MDc6TGljZW5zZTU=",
@@ -3344,37 +2457,28 @@ Object {
                   },
                 ],
               },
-              "name": "pyre2",
             },
           },
           Object {
             "node": Object {
-              "description": "Used to integrate Android apps with Facebook Platform.",
-              "homepageUrl": "https://developers.facebook.com/docs/android",
               "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
               "licenseInfo": Object {
                 "id": "MDc6TGljZW5zZTA=",
                 "permissions": Array [],
               },
-              "name": "facebook-android-sdk",
             },
           },
           Object {
             "node": Object {
-              "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
-              "homepageUrl": "https://developers.facebook.com/docs/ios",
               "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
               "licenseInfo": Object {
                 "id": "MDc6TGljZW5zZTA=",
                 "permissions": Array [],
               },
-              "name": "facebook-ios-sdk",
             },
           },
           Object {
             "node": Object {
-              "description": "An open-source C++ library developed and used at Facebook.",
-              "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
               "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
               "licenseInfo": Object {
                 "id": "MDc6TGljZW5zZTI=",
@@ -3396,25 +2500,19 @@ Object {
                   },
                 ],
               },
-              "name": "folly",
             },
           },
           Object {
             "node": Object {
-              "description": "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
-              "homepageUrl": "https://github.com/facebook/nailgun",
               "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
               "licenseInfo": Object {
                 "id": "MDc6TGljZW5zZTA=",
                 "permissions": Array [],
               },
-              "name": "nailgun",
             },
           },
           Object {
             "node": Object {
-              "description": "Watches files and records, or triggers actions, when they change. ",
-              "homepageUrl": "https://facebook.github.io/watchman/",
               "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
               "licenseInfo": Object {
                 "id": "MDc6TGljZW5zZTEz",
@@ -3433,25 +2531,19 @@ Object {
                   },
                 ],
               },
-              "name": "watchman",
             },
           },
           Object {
             "node": Object {
-              "description": "A library that provides an embeddable, persistent key-value store for fast storage.",
-              "homepageUrl": "http://rocksdb.org",
               "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
               "licenseInfo": Object {
                 "id": "MDc6TGljZW5zZTA=",
                 "permissions": Array [],
               },
-              "name": "rocksdb",
             },
           },
           Object {
             "node": Object {
-              "description": "Utilities related to Chef",
-              "homepageUrl": null,
               "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
               "licenseInfo": Object {
                 "id": "MDc6TGljZW5zZTI=",
@@ -3473,13 +2565,10 @@ Object {
                   },
                 ],
               },
-              "name": "chef-utils",
             },
           },
           Object {
             "node": Object {
-              "description": "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
-              "homepageUrl": "http://myrocks.io",
               "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
               "licenseInfo": Object {
                 "id": "MDc6TGljZW5zZTg=",
@@ -3498,12 +2587,10 @@ Object {
                   },
                 ],
               },
-              "name": "mysql-5.6",
             },
           },
         ],
       },
-      "url": "https://github.com/facebook",
     },
   },
 }
@@ -5682,7 +4769,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> analyzeQuery >> no matching data >> defer >> correct request data 1`] = `
 Object {
-  "hash": "acfdb67bc5e532a120ea43dae78b93e4",
+  "hash": "736da61e389d3e664e8cb26527eab248",
   "request": "
   {
     organization(login: \\"facebook\\") {
@@ -5695,7 +4782,7 @@ Object {
             ... on Repository @include(if: true) {
               licenseInfo {
                 permissions {
-                  label @skip(if: false)
+                  ...PermissionsFields @defer(if: true, label: \\"permissionsDefer\\")
                 }
                 id
               }
@@ -5721,6 +4808,10 @@ Object {
     description
     homepageUrl
     name
+  }
+
+  fragment PermissionsFields on LicenseRule {
+    label @skip(if: false)
   }
 ",
 }
@@ -5832,7 +4923,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> def
 Object {
   "entries": Array [
     Array [
-      "queryResponses::5697318c7216189e89e1a22c092c7202",
+      "queryResponses::739e033e3a510f8bb159d8a769e9ebb0",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -5919,6 +5010,13 @@ Object {
             },
             "ttl": 297475260000,
           },
+          "query.organization.repositories.edges.node.licenseInfo.permissions.label": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
           "query.organization.repositories.edges.node.name": Object {
             "cacheControl": Object {
               "maxAge": 60,
@@ -5953,7 +5051,12 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTU=",
-                      "permissions": Array [],
+                      "permissions": Array [
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                      ],
                     },
                     "name": "pyre2",
                   },
@@ -5989,7 +5092,13 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTI=",
-                      "permissions": Array [],
+                      "permissions": Array [
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                      ],
                     },
                     "name": "folly",
                   },
@@ -6013,7 +5122,12 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTEz",
-                      "permissions": Array [],
+                      "permissions": Array [
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                      ],
                     },
                     "name": "watchman",
                   },
@@ -6037,7 +5151,13 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTI=",
-                      "permissions": Array [],
+                      "permissions": Array [
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                      ],
                     },
                     "name": "chef-utils",
                   },
@@ -6049,7 +5169,12 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTg=",
-                      "permissions": Array [],
+                      "permissions": Array [
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                      ],
                     },
                     "name": "mysql-5.6",
                   },
@@ -6240,20 +5365,6 @@ Object {
       },
     ],
     Array [
-      "requestFieldPaths::8e85bfe0af22ea8bdbb621999dad7f1c",
-      Object {
-        "id": "MDc6TGljZW5zZTU=",
-        "permissions": Array [],
-      },
-    ],
-    Array [
-      "dataEntities::License::MDc6TGljZW5zZTU=",
-      Object {
-        "id": "MDc6TGljZW5zZTU=",
-        "permissions": Array [],
-      },
-    ],
-    Array [
       "requestFieldPaths::45546355e14b864dccbc158d720f6fef",
       Object {
         "id": "MDc6TGljZW5zZTA=",
@@ -6268,37 +5379,9 @@ Object {
       },
     ],
     Array [
-      "requestFieldPaths::74006465e36647e8a2aebfe7834ea619",
-      Object {
-        "id": "MDc6TGljZW5zZTI=",
-        "permissions": Array [],
-      },
-    ],
-    Array [
-      "dataEntities::License::MDc6TGljZW5zZTI=",
-      Object {
-        "id": "MDc6TGljZW5zZTI=",
-        "permissions": Array [],
-      },
-    ],
-    Array [
       "requestFieldPaths::088eb1ff1c15204f14e1edcc29b3afa4",
       Object {
         "id": "MDc6TGljZW5zZTA=",
-        "permissions": Array [],
-      },
-    ],
-    Array [
-      "requestFieldPaths::26ccba4ed5c5ced31ba8709a973dcfa9",
-      Object {
-        "id": "MDc6TGljZW5zZTEz",
-        "permissions": Array [],
-      },
-    ],
-    Array [
-      "dataEntities::License::MDc6TGljZW5zZTEz",
-      Object {
-        "id": "MDc6TGljZW5zZTEz",
         "permissions": Array [],
       },
     ],
@@ -6310,24 +5393,114 @@ Object {
       },
     ],
     Array [
+      "requestFieldPaths::8e85bfe0af22ea8bdbb621999dad7f1c",
+      Object {
+        "id": "MDc6TGljZW5zZTU=",
+        "permissions": Array [
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+        ],
+      },
+    ],
+    Array [
+      "dataEntities::License::MDc6TGljZW5zZTU=",
+      Object {
+        "id": "MDc6TGljZW5zZTU=",
+        "permissions": Array [
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+        ],
+      },
+    ],
+    Array [
+      "requestFieldPaths::74006465e36647e8a2aebfe7834ea619",
+      Object {
+        "id": "MDc6TGljZW5zZTI=",
+        "permissions": Array [
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+        ],
+      },
+    ],
+    Array [
+      "dataEntities::License::MDc6TGljZW5zZTI=",
+      Object {
+        "id": "MDc6TGljZW5zZTI=",
+        "permissions": Array [
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+        ],
+      },
+    ],
+    Array [
+      "requestFieldPaths::26ccba4ed5c5ced31ba8709a973dcfa9",
+      Object {
+        "id": "MDc6TGljZW5zZTEz",
+        "permissions": Array [
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+        ],
+      },
+    ],
+    Array [
+      "dataEntities::License::MDc6TGljZW5zZTEz",
+      Object {
+        "id": "MDc6TGljZW5zZTEz",
+        "permissions": Array [
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+        ],
+      },
+    ],
+    Array [
       "requestFieldPaths::b23cee9634a602c2a080beac064d1a94",
       Object {
         "id": "MDc6TGljZW5zZTI=",
-        "permissions": Array [],
+        "permissions": Array [
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+        ],
       },
     ],
     Array [
       "requestFieldPaths::fb431ea6b8ec241e8856fb3309ad867c",
       Object {
         "id": "MDc6TGljZW5zZTg=",
-        "permissions": Array [],
+        "permissions": Array [
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+        ],
       },
     ],
     Array [
       "dataEntities::License::MDc6TGljZW5zZTg=",
       Object {
         "id": "MDc6TGljZW5zZTg=",
-        "permissions": Array [],
+        "permissions": Array [
+          Object {},
+          Object {},
+          Object {},
+          Object {},
+        ],
       },
     ],
     Array [
@@ -6344,22 +5517,6 @@ Object {
           "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTA=",
         },
         "name": "hhvm",
-      },
-    ],
-    Array [
-      "requestFieldPaths::31eb29c5824a45e100fe7a7809f126f4",
-      Object {},
-    ],
-    Array [
-      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-      Object {
-        "description": "Python wrapper for RE2",
-        "homepageUrl": "",
-        "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-        "licenseInfo": Object {
-          "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTU=",
-        },
-        "name": "pyre2",
       },
     ],
     Array [
@@ -6395,22 +5552,6 @@ Object {
       },
     ],
     Array [
-      "requestFieldPaths::856fdf8f3387bf0e99271b825b28a701",
-      Object {},
-    ],
-    Array [
-      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
-      Object {
-        "description": "An open-source C++ library developed and used at Facebook.",
-        "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
-        "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
-        "licenseInfo": Object {
-          "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTI=",
-        },
-        "name": "folly",
-      },
-    ],
-    Array [
       "requestFieldPaths::4aeab17f6788100ae8713e3148b0f0e7",
       Object {},
     ],
@@ -6427,22 +5568,6 @@ Object {
       },
     ],
     Array [
-      "requestFieldPaths::459af0e810a8e2997510dbdcef55a2af",
-      Object {},
-    ],
-    Array [
-      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
-      Object {
-        "description": "Watches files and records, or triggers actions, when they change. ",
-        "homepageUrl": "https://facebook.github.io/watchman/",
-        "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
-        "licenseInfo": Object {
-          "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTEz",
-        },
-        "name": "watchman",
-      },
-    ],
-    Array [
       "requestFieldPaths::0020964c0d914855876a80ee398ba365",
       Object {},
     ],
@@ -6456,6 +5581,54 @@ Object {
           "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTA=",
         },
         "name": "rocksdb",
+      },
+    ],
+    Array [
+      "requestFieldPaths::31eb29c5824a45e100fe7a7809f126f4",
+      Object {},
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+      Object {
+        "description": "Python wrapper for RE2",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+        "licenseInfo": Object {
+          "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTU=",
+        },
+        "name": "pyre2",
+      },
+    ],
+    Array [
+      "requestFieldPaths::856fdf8f3387bf0e99271b825b28a701",
+      Object {},
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+      Object {
+        "description": "An open-source C++ library developed and used at Facebook.",
+        "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
+        "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+        "licenseInfo": Object {
+          "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTI=",
+        },
+        "name": "folly",
+      },
+    ],
+    Array [
+      "requestFieldPaths::459af0e810a8e2997510dbdcef55a2af",
+      Object {},
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+      Object {
+        "description": "Watches files and records, or triggers actions, when they change. ",
+        "homepageUrl": "https://facebook.github.io/watchman/",
+        "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+        "licenseInfo": Object {
+          "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTEz",
+        },
+        "name": "watchman",
       },
     ],
     Array [
@@ -6602,7 +5775,7 @@ Object {
       "key": "dataEntities::License::MDc6TGljZW5zZTI=",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 112,
+      "size": 152,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -7419,26 +6592,6 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::8e85bfe0af22ea8bdbb621999dad7f1c",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 112,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
       "key": "requestFieldPaths::45546355e14b864dccbc158d720f6fef",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
@@ -7499,47 +6652,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::74006465e36647e8a2aebfe7834ea619",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 112,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
       "key": "requestFieldPaths::088eb1ff1c15204f14e1edcc29b3afa4",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 112,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::26ccba4ed5c5ced31ba8709a973dcfa9",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 112,
@@ -7579,106 +6692,6 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::b23cee9634a602c2a080beac064d1a94",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 112,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "requestFieldPaths::fb431ea6b8ec241e8856fb3309ad867c",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 112,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "dataEntities::License::MDc6TGljZW5zZTU=",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 112,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "dataEntities::License::MDc6TGljZW5zZTEz",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 112,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "key": "dataEntities::License::MDc6TGljZW5zZTg=",
-      "lastAccessed": 297475200000,
-      "lastUpdated": 297475200000,
-      "size": 112,
-      "tags": Array [],
-      "updatedCount": 0,
-    },
-    Object {
-      "accessedCount": 1,
-      "added": 297475200000,
-      "cacheability": Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
       "key": "requestFieldPaths::e7ae58af39aaa57da13d258a588ad638",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
@@ -7699,7 +6712,167 @@ Object {
           "ttl": 297475260000,
         },
       },
+      "key": "requestFieldPaths::8e85bfe0af22ea8bdbb621999dad7f1c",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 144,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "key": "requestFieldPaths::26ccba4ed5c5ced31ba8709a973dcfa9",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 144,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "key": "requestFieldPaths::fb431ea6b8ec241e8856fb3309ad867c",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 144,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "key": "dataEntities::License::MDc6TGljZW5zZTU=",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 144,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "key": "dataEntities::License::MDc6TGljZW5zZTEz",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 144,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "key": "dataEntities::License::MDc6TGljZW5zZTg=",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 144,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
       "key": "requestFieldPaths::d1a8cd79481793dbd56b07854947372b",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 152,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "key": "requestFieldPaths::74006465e36647e8a2aebfe7834ea619",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 152,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "key": "requestFieldPaths::b23cee9634a602c2a080beac064d1a94",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 152,
@@ -8159,10 +7332,10 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "queryResponses::5697318c7216189e89e1a22c092c7202",
+      "key": "queryResponses::739e033e3a510f8bb159d8a769e9ebb0",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 11040,
+      "size": 11576,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -8172,7 +7345,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> defer >> correct partial data 1`] = `
 Map {
-  "acfdb67bc5e532a120ea43dae78b93e4" => Object {
+  "736da61e389d3e664e8cb26527eab248" => Object {
     "cacheMetadata": Map {
       "query.organization" => Cacheability {
         "metadata": Object {
@@ -8301,7 +7474,12 @@ Map {
                 "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                 "licenseInfo": Object {
                   "id": "MDc6TGljZW5zZTU=",
-                  "permissions": Array [],
+                  "permissions": Array [
+                    Object {},
+                    Object {},
+                    Object {},
+                    Object {},
+                  ],
                 },
                 "name": "pyre2",
               },
@@ -8337,7 +7515,13 @@ Map {
                 "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
                 "licenseInfo": Object {
                   "id": "MDc6TGljZW5zZTI=",
-                  "permissions": Array [],
+                  "permissions": Array [
+                    Object {},
+                    Object {},
+                    Object {},
+                    Object {},
+                    Object {},
+                  ],
                 },
                 "name": "folly",
               },
@@ -8361,7 +7545,12 @@ Map {
                 "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
                 "licenseInfo": Object {
                   "id": "MDc6TGljZW5zZTEz",
-                  "permissions": Array [],
+                  "permissions": Array [
+                    Object {},
+                    Object {},
+                    Object {},
+                    Object {},
+                  ],
                 },
                 "name": "watchman",
               },
@@ -8385,7 +7574,13 @@ Map {
                 "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
                 "licenseInfo": Object {
                   "id": "MDc6TGljZW5zZTI=",
-                  "permissions": Array [],
+                  "permissions": Array [
+                    Object {},
+                    Object {},
+                    Object {},
+                    Object {},
+                    Object {},
+                  ],
                 },
                 "name": "chef-utils",
               },
@@ -8397,7 +7592,12 @@ Map {
                 "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
                 "licenseInfo": Object {
                   "id": "MDc6TGljZW5zZTg=",
-                  "permissions": Array [],
+                  "permissions": Array [
+                    Object {},
+                    Object {},
+                    Object {},
+                    Object {},
+                  ],
                 },
                 "name": "mysql-5.6",
               },
@@ -8413,7 +7613,7 @@ Map {
 
 exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> defer >> correct request data 1`] = `
 Object {
-  "hash": "9d409c077df16d3d09ad0412d23ec762",
+  "hash": "ef8c61e72eb4bc59f2f3613910672394",
   "request": "{
   organization(login: \\"facebook\\") {
     ...OrganizationFieldsA @defer(if: true, label: \\"organizationDefer\\")
@@ -8424,7 +7624,7 @@ Object {
           ... on Repository @include(if: true) {
             licenseInfo {
               permissions {
-                label @skip(if: false)
+                ...PermissionsFields @defer(if: true, label: \\"permissionsDefer\\")
               }
               id
             }
@@ -8441,6 +7641,10 @@ fragment OrganizationFieldsA on Organization {
   email @include(if: true)
   isVerified
   location
+}
+
+fragment PermissionsFields on LicenseRule {
+  label @skip(if: false)
 }",
 }
 `;
@@ -10518,7 +9722,7 @@ exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> defer >> casc
 Object {
   "entries": Array [
     Array [
-      "queryResponses::5697318c7216189e89e1a22c092c7202",
+      "queryResponses::739e033e3a510f8bb159d8a769e9ebb0",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -10605,6 +9809,13 @@ Object {
             },
             "ttl": 297475260000,
           },
+          "query.organization.repositories.edges.node.licenseInfo.permissions.label": Object {
+            "cacheControl": Object {
+              "maxAge": 60,
+              "public": true,
+            },
+            "ttl": 297475260000,
+          },
           "query.organization.repositories.edges.node.name": Object {
             "cacheControl": Object {
               "maxAge": 60,
@@ -10639,7 +9850,12 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTU=",
-                      "permissions": Array [],
+                      "permissions": Array [
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                      ],
                     },
                     "name": "pyre2",
                   },
@@ -10675,7 +9891,13 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTI=",
-                      "permissions": Array [],
+                      "permissions": Array [
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                      ],
                     },
                     "name": "folly",
                   },
@@ -10699,7 +9921,12 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTEz",
-                      "permissions": Array [],
+                      "permissions": Array [
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                      ],
                     },
                     "name": "watchman",
                   },
@@ -10723,7 +9950,13 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTI=",
-                      "permissions": Array [],
+                      "permissions": Array [
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                      ],
                     },
                     "name": "chef-utils",
                   },
@@ -10735,7 +9968,12 @@ Object {
                     "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
                     "licenseInfo": Object {
                       "id": "MDc6TGljZW5zZTg=",
-                      "permissions": Array [],
+                      "permissions": Array [
+                        Object {},
+                        Object {},
+                        Object {},
+                        Object {},
+                      ],
                     },
                     "name": "mysql-5.6",
                   },
@@ -10926,6 +10164,34 @@ Object {
       },
     ],
     Array [
+      "requestFieldPaths::45546355e14b864dccbc158d720f6fef",
+      Object {
+        "id": "MDc6TGljZW5zZTA=",
+        "permissions": Array [],
+      },
+    ],
+    Array [
+      "requestFieldPaths::53afadc74011e5412a8bc96b45ed82a0",
+      Object {
+        "id": "MDc6TGljZW5zZTA=",
+        "permissions": Array [],
+      },
+    ],
+    Array [
+      "requestFieldPaths::088eb1ff1c15204f14e1edcc29b3afa4",
+      Object {
+        "id": "MDc6TGljZW5zZTA=",
+        "permissions": Array [],
+      },
+    ],
+    Array [
+      "requestFieldPaths::65da55e7a8559146a53b9a4a7426c9cb",
+      Object {
+        "id": "MDc6TGljZW5zZTA=",
+        "permissions": Array [],
+      },
+    ],
+    Array [
       "requestFieldPaths::8e85bfe0af22ea8bdbb621999dad7f1c",
       Object {
         "id": "MDc6TGljZW5zZTU=",
@@ -10963,20 +10229,6 @@ Object {
             "label": "Private use",
           },
         ],
-      },
-    ],
-    Array [
-      "requestFieldPaths::45546355e14b864dccbc158d720f6fef",
-      Object {
-        "id": "MDc6TGljZW5zZTA=",
-        "permissions": Array [],
-      },
-    ],
-    Array [
-      "requestFieldPaths::53afadc74011e5412a8bc96b45ed82a0",
-      Object {
-        "id": "MDc6TGljZW5zZTA=",
-        "permissions": Array [],
       },
     ],
     Array [
@@ -11026,13 +10278,6 @@ Object {
       },
     ],
     Array [
-      "requestFieldPaths::088eb1ff1c15204f14e1edcc29b3afa4",
-      Object {
-        "id": "MDc6TGljZW5zZTA=",
-        "permissions": Array [],
-      },
-    ],
-    Array [
       "requestFieldPaths::26ccba4ed5c5ced31ba8709a973dcfa9",
       Object {
         "id": "MDc6TGljZW5zZTEz",
@@ -11070,13 +10315,6 @@ Object {
             "label": "Private use",
           },
         ],
-      },
-    ],
-    Array [
-      "requestFieldPaths::65da55e7a8559146a53b9a4a7426c9cb",
-      Object {
-        "id": "MDc6TGljZW5zZTA=",
-        "permissions": Array [],
       },
     ],
     Array [
@@ -11159,22 +10397,6 @@ Object {
       },
     ],
     Array [
-      "requestFieldPaths::31eb29c5824a45e100fe7a7809f126f4",
-      Object {},
-    ],
-    Array [
-      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-      Object {
-        "description": "Python wrapper for RE2",
-        "homepageUrl": "",
-        "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-        "licenseInfo": Object {
-          "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTU=",
-        },
-        "name": "pyre2",
-      },
-    ],
-    Array [
       "requestFieldPaths::c9d8027362b3cf4190ad1a07727a7698",
       Object {},
     ],
@@ -11207,22 +10429,6 @@ Object {
       },
     ],
     Array [
-      "requestFieldPaths::856fdf8f3387bf0e99271b825b28a701",
-      Object {},
-    ],
-    Array [
-      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
-      Object {
-        "description": "An open-source C++ library developed and used at Facebook.",
-        "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
-        "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
-        "licenseInfo": Object {
-          "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTI=",
-        },
-        "name": "folly",
-      },
-    ],
-    Array [
       "requestFieldPaths::4aeab17f6788100ae8713e3148b0f0e7",
       Object {},
     ],
@@ -11239,22 +10445,6 @@ Object {
       },
     ],
     Array [
-      "requestFieldPaths::459af0e810a8e2997510dbdcef55a2af",
-      Object {},
-    ],
-    Array [
-      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
-      Object {
-        "description": "Watches files and records, or triggers actions, when they change. ",
-        "homepageUrl": "https://facebook.github.io/watchman/",
-        "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
-        "licenseInfo": Object {
-          "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTEz",
-        },
-        "name": "watchman",
-      },
-    ],
-    Array [
       "requestFieldPaths::0020964c0d914855876a80ee398ba365",
       Object {},
     ],
@@ -11268,6 +10458,54 @@ Object {
           "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTA=",
         },
         "name": "rocksdb",
+      },
+    ],
+    Array [
+      "requestFieldPaths::31eb29c5824a45e100fe7a7809f126f4",
+      Object {},
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+      Object {
+        "description": "Python wrapper for RE2",
+        "homepageUrl": "",
+        "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+        "licenseInfo": Object {
+          "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTU=",
+        },
+        "name": "pyre2",
+      },
+    ],
+    Array [
+      "requestFieldPaths::856fdf8f3387bf0e99271b825b28a701",
+      Object {},
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+      Object {
+        "description": "An open-source C++ library developed and used at Facebook.",
+        "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
+        "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+        "licenseInfo": Object {
+          "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTI=",
+        },
+        "name": "folly",
+      },
+    ],
+    Array [
+      "requestFieldPaths::459af0e810a8e2997510dbdcef55a2af",
+      Object {},
+    ],
+    Array [
+      "dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+      Object {
+        "description": "Watches files and records, or triggers actions, when they change. ",
+        "homepageUrl": "https://facebook.github.io/watchman/",
+        "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+        "licenseInfo": Object {
+          "__cacheKey": "dataEntities::License::MDc6TGljZW5zZTEz",
+        },
+        "name": "watchman",
       },
     ],
     Array [
@@ -11382,7 +10620,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::ab77a79f516b16ad6fc88fb9ca44aed7",
+      "queryResponses::ef8c61e72eb4bc59f2f3613910672394",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -11647,7 +10885,7 @@ Object {
       },
     ],
     Array [
-      "queryResponses::acfdb67bc5e532a120ea43dae78b93e4",
+      "queryResponses::736da61e389d3e664e8cb26527eab248",
       Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -11985,91 +11223,91 @@ Object {
       "Menlo Park, California",
     ],
     Array [
-      "requestFieldPaths::6908180ab048d403650b005ae7ade2dc",
+      "requestFieldPaths::33d2cce64eca1c9338de4522d945adec",
       "Commercial use",
     ],
     Array [
-      "requestFieldPaths::c4148adabbeb7f2ea417b3f3f3ad691d",
+      "requestFieldPaths::31f2baa6720061bea6e869bd398e3907",
       "Modification",
     ],
     Array [
-      "requestFieldPaths::fa9df6ec6e2da25ec31f66fbcd45b8c3",
+      "requestFieldPaths::3cac0e3cdf5eb61acd0ba08a1a0d7a04",
       "Distribution",
     ],
     Array [
-      "requestFieldPaths::fb450dad1617aefebbc534ce93900b85",
+      "requestFieldPaths::957058c33f359678efc409aa1465c6cc",
       "Private use",
     ],
     Array [
-      "requestFieldPaths::b0f80ee0c1cc14bbc2f422b698c8b76d",
+      "requestFieldPaths::31283038af558a4fe62e4d092c48373f",
       "Commercial use",
     ],
     Array [
-      "requestFieldPaths::d3c03495fa7944adf07816631478d50b",
+      "requestFieldPaths::b490beed010c3dc42a96c60ca39a7cb4",
       "Modification",
     ],
     Array [
-      "requestFieldPaths::811dc98a401a67afe6027fb24e5dfc6b",
+      "requestFieldPaths::f8c89e57feca610819502ca0a796708d",
       "Distribution",
     ],
     Array [
-      "requestFieldPaths::48bdb3e3deb9e3fa37c838cb632dcd18",
+      "requestFieldPaths::8b8e4e3083287e81b78192de71d104cb",
       "Patent use",
     ],
     Array [
-      "requestFieldPaths::e32bf432bcaf550dd23f16bee9626794",
+      "requestFieldPaths::50ce282683b85510b6746a4e77321fa5",
       "Private use",
     ],
     Array [
-      "requestFieldPaths::5662948d6c313401052d770e50f54925",
+      "requestFieldPaths::e822be1c1b0e0be9afd27f435510c840",
       "Commercial use",
     ],
     Array [
-      "requestFieldPaths::e3e8fd012deb1e6e2eace90be35310bd",
+      "requestFieldPaths::8ac2cd291716525e34bd70291f497818",
       "Modification",
     ],
     Array [
-      "requestFieldPaths::b5847858095c51938082b1b715ff49a3",
+      "requestFieldPaths::4bf66c64aaf6897e69d29fa048f6b99b",
       "Distribution",
     ],
     Array [
-      "requestFieldPaths::277cd636894d9cf482f89a20ed0f2d34",
+      "requestFieldPaths::7572a945d321514736f43ee7b7a70621",
       "Private use",
     ],
     Array [
-      "requestFieldPaths::493f6b113ad1e51351eeb3487fddd1a1",
+      "requestFieldPaths::f34f851094dd3d9bee0a3a8fd1a1d1bd",
       "Commercial use",
     ],
     Array [
-      "requestFieldPaths::57a7955a2f41cd69ecf2deb9d28448b2",
+      "requestFieldPaths::a7088f0d11c1ee42990c938e0741419d",
       "Modification",
     ],
     Array [
-      "requestFieldPaths::ac831bdc8a1032b5d215f0b32c80faf2",
+      "requestFieldPaths::30d480644d40692416f2832ed0a7e671",
       "Distribution",
     ],
     Array [
-      "requestFieldPaths::8ed66667572b2a4aedbd54e9b99736e1",
+      "requestFieldPaths::9cf81cae89a2ecdc9b490a19af8c6093",
       "Patent use",
     ],
     Array [
-      "requestFieldPaths::e0faee7d6b1ae84f5eedeba785f81228",
+      "requestFieldPaths::757332502fbecfa04730b781a3ced407",
       "Private use",
     ],
     Array [
-      "requestFieldPaths::ab6e962a9d05ec76a9dd0a055824dc97",
+      "requestFieldPaths::a3175710e4100b8fcafd2a9fdf115e11",
       "Commercial use",
     ],
     Array [
-      "requestFieldPaths::4407813eca12eec4122b9de6fd2f8147",
+      "requestFieldPaths::968a1ae233718e55f638ebf90e43a229",
       "Modification",
     ],
     Array [
-      "requestFieldPaths::63bac521687053b9095d95bf154a994c",
+      "requestFieldPaths::27c71a6cd6b1cf560484b57264399c86",
       "Distribution",
     ],
     Array [
-      "requestFieldPaths::1e1405f22b518c45f5ffc93be6d8eab7",
+      "requestFieldPaths::08abad8e647c6ceb522b0b174581df83",
       "Private use",
     ],
   ],
@@ -13287,7 +12525,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::48bdb3e3deb9e3fa37c838cb632dcd18",
+      "key": "requestFieldPaths::8b8e4e3083287e81b78192de71d104cb",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 32,
@@ -13307,7 +12545,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::8ed66667572b2a4aedbd54e9b99736e1",
+      "key": "requestFieldPaths::9cf81cae89a2ecdc9b490a19af8c6093",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 32,
@@ -13327,7 +12565,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::c4148adabbeb7f2ea417b3f3f3ad691d",
+      "key": "requestFieldPaths::31f2baa6720061bea6e869bd398e3907",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13347,7 +12585,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::fa9df6ec6e2da25ec31f66fbcd45b8c3",
+      "key": "requestFieldPaths::3cac0e3cdf5eb61acd0ba08a1a0d7a04",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13367,7 +12605,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::fb450dad1617aefebbc534ce93900b85",
+      "key": "requestFieldPaths::957058c33f359678efc409aa1465c6cc",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13387,7 +12625,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::d3c03495fa7944adf07816631478d50b",
+      "key": "requestFieldPaths::b490beed010c3dc42a96c60ca39a7cb4",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13407,7 +12645,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::811dc98a401a67afe6027fb24e5dfc6b",
+      "key": "requestFieldPaths::f8c89e57feca610819502ca0a796708d",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13427,7 +12665,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::e32bf432bcaf550dd23f16bee9626794",
+      "key": "requestFieldPaths::50ce282683b85510b6746a4e77321fa5",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13447,7 +12685,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::e3e8fd012deb1e6e2eace90be35310bd",
+      "key": "requestFieldPaths::8ac2cd291716525e34bd70291f497818",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13467,7 +12705,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::b5847858095c51938082b1b715ff49a3",
+      "key": "requestFieldPaths::4bf66c64aaf6897e69d29fa048f6b99b",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13487,7 +12725,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::277cd636894d9cf482f89a20ed0f2d34",
+      "key": "requestFieldPaths::7572a945d321514736f43ee7b7a70621",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13507,7 +12745,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::57a7955a2f41cd69ecf2deb9d28448b2",
+      "key": "requestFieldPaths::a7088f0d11c1ee42990c938e0741419d",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13527,7 +12765,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::ac831bdc8a1032b5d215f0b32c80faf2",
+      "key": "requestFieldPaths::30d480644d40692416f2832ed0a7e671",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13547,7 +12785,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::e0faee7d6b1ae84f5eedeba785f81228",
+      "key": "requestFieldPaths::757332502fbecfa04730b781a3ced407",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13567,7 +12805,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::4407813eca12eec4122b9de6fd2f8147",
+      "key": "requestFieldPaths::968a1ae233718e55f638ebf90e43a229",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13587,7 +12825,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::63bac521687053b9095d95bf154a994c",
+      "key": "requestFieldPaths::27c71a6cd6b1cf560484b57264399c86",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13607,7 +12845,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::1e1405f22b518c45f5ffc93be6d8eab7",
+      "key": "requestFieldPaths::08abad8e647c6ceb522b0b174581df83",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 40,
@@ -13667,7 +12905,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::6908180ab048d403650b005ae7ade2dc",
+      "key": "requestFieldPaths::33d2cce64eca1c9338de4522d945adec",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 48,
@@ -13687,7 +12925,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::b0f80ee0c1cc14bbc2f422b698c8b76d",
+      "key": "requestFieldPaths::31283038af558a4fe62e4d092c48373f",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 48,
@@ -13707,7 +12945,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::5662948d6c313401052d770e50f54925",
+      "key": "requestFieldPaths::e822be1c1b0e0be9afd27f435510c840",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 48,
@@ -13727,7 +12965,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::493f6b113ad1e51351eeb3487fddd1a1",
+      "key": "requestFieldPaths::f34f851094dd3d9bee0a3a8fd1a1d1bd",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 48,
@@ -13747,7 +12985,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "requestFieldPaths::ab6e962a9d05ec76a9dd0a055824dc97",
+      "key": "requestFieldPaths::a3175710e4100b8fcafd2a9fdf115e11",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 48,
@@ -14167,7 +13405,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "queryResponses::ab77a79f516b16ad6fc88fb9ca44aed7",
+      "key": "queryResponses::ef8c61e72eb4bc59f2f3613910672394",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 8096,
@@ -14187,10 +13425,10 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "queryResponses::5697318c7216189e89e1a22c092c7202",
+      "key": "queryResponses::739e033e3a510f8bb159d8a769e9ebb0",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 11040,
+      "size": 11576,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -14207,7 +13445,7 @@ Object {
           "ttl": 297475260000,
         },
       },
-      "key": "queryResponses::acfdb67bc5e532a120ea43dae78b93e4",
+      "key": "queryResponses::736da61e389d3e664e8cb26527eab248",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
       "size": 13608,
@@ -14219,377 +13457,1765 @@ Object {
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> defer >> cascading cache control >> correct response data 1`] = `
-Object {
-  "cacheMetadata": Map {
-    "query" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
+Array [
+  Object {
+    "cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
         },
-        "etag": undefined,
-        "ttl": 297475260000,
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
       },
     },
-    "query.organization" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
+    "data": Object {
+      "organization": Object {
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+        "login": "facebook",
+        "repositories": Object {
+          "edges": Array [
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTU=",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTI=",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTEz",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTA=",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTI=",
+                },
+              },
+            },
+            Object {
+              "node": Object {
+                "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
+                "licenseInfo": Object {
+                  "id": "MDc6TGljZW5zZTg=",
+                },
+              },
+            },
+          ],
         },
-        "etag": undefined,
-        "ttl": 297475260000,
       },
     },
-    "query.organization.description" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.repositories" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.repositories.edges.node" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.repositories.edges.node.description" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.repositories.edges.node.homepageUrl" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.repositories.edges.node.id" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.repositories.edges.node.name" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.email" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.isVerified" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.location" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.repositories.edges" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
-    "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Cacheability {
-      "metadata": Object {
-        "cacheControl": Object {
-          "maxAge": 60,
-          "public": true,
-        },
-        "etag": undefined,
-        "ttl": 297475260000,
-      },
-    },
+    "hasNext": true,
+    "paths": undefined,
   },
-  "data": Object {
-    "organization": Object {
-      "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-      "email": null,
-      "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-      "isVerified": true,
-      "location": "Menlo Park, California",
-      "login": "facebook",
-      "name": "Meta",
-      "repositories": Object {
-        "edges": Array [
-          Object {
-            "node": Object {
-              "description": "A virtual machine for executing programs written in Hack.",
-              "homepageUrl": "https://hhvm.com",
-              "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-              "licenseInfo": Object {
-                "id": "MDc6TGljZW5zZTA=",
-                "permissions": Array [],
-              },
-              "name": "hhvm",
-            },
+  Object {
+    "cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
           },
-          Object {
-            "node": Object {
-              "description": "Python wrapper for RE2",
-              "homepageUrl": "",
-              "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-              "licenseInfo": Object {
-                "id": "MDc6TGljZW5zZTU=",
-                "permissions": Array [
-                  Object {
-                    "label": "Commercial use",
-                  },
-                  Object {
-                    "label": "Modification",
-                  },
-                  Object {
-                    "label": "Distribution",
-                  },
-                  Object {
-                    "label": "Private use",
-                  },
-                ],
-              },
-              "name": "pyre2",
-            },
-          },
-          Object {
-            "node": Object {
-              "description": "Used to integrate Android apps with Facebook Platform.",
-              "homepageUrl": "https://developers.facebook.com/docs/android",
-              "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-              "licenseInfo": Object {
-                "id": "MDc6TGljZW5zZTA=",
-                "permissions": Array [],
-              },
-              "name": "facebook-android-sdk",
-            },
-          },
-          Object {
-            "node": Object {
-              "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
-              "homepageUrl": "https://developers.facebook.com/docs/ios",
-              "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-              "licenseInfo": Object {
-                "id": "MDc6TGljZW5zZTA=",
-                "permissions": Array [],
-              },
-              "name": "facebook-ios-sdk",
-            },
-          },
-          Object {
-            "node": Object {
-              "description": "An open-source C++ library developed and used at Facebook.",
-              "homepageUrl": "https://groups.google.com/forum/?fromgroups#!forum/facebook-folly",
-              "id": "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
-              "licenseInfo": Object {
-                "id": "MDc6TGljZW5zZTI=",
-                "permissions": Array [
-                  Object {
-                    "label": "Commercial use",
-                  },
-                  Object {
-                    "label": "Modification",
-                  },
-                  Object {
-                    "label": "Distribution",
-                  },
-                  Object {
-                    "label": "Patent use",
-                  },
-                  Object {
-                    "label": "Private use",
-                  },
-                ],
-              },
-              "name": "folly",
-            },
-          },
-          Object {
-            "node": Object {
-              "description": "Nailgun is a client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead.",
-              "homepageUrl": "https://github.com/facebook/nailgun",
-              "id": "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
-              "licenseInfo": Object {
-                "id": "MDc6TGljZW5zZTA=",
-                "permissions": Array [],
-              },
-              "name": "nailgun",
-            },
-          },
-          Object {
-            "node": Object {
-              "description": "Watches files and records, or triggers actions, when they change. ",
-              "homepageUrl": "https://facebook.github.io/watchman/",
-              "id": "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
-              "licenseInfo": Object {
-                "id": "MDc6TGljZW5zZTEz",
-                "permissions": Array [
-                  Object {
-                    "label": "Commercial use",
-                  },
-                  Object {
-                    "label": "Modification",
-                  },
-                  Object {
-                    "label": "Distribution",
-                  },
-                  Object {
-                    "label": "Private use",
-                  },
-                ],
-              },
-              "name": "watchman",
-            },
-          },
-          Object {
-            "node": Object {
-              "description": "A library that provides an embeddable, persistent key-value store for fast storage.",
-              "homepageUrl": "http://rocksdb.org",
-              "id": "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
-              "licenseInfo": Object {
-                "id": "MDc6TGljZW5zZTA=",
-                "permissions": Array [],
-              },
-              "name": "rocksdb",
-            },
-          },
-          Object {
-            "node": Object {
-              "description": "Utilities related to Chef",
-              "homepageUrl": null,
-              "id": "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
-              "licenseInfo": Object {
-                "id": "MDc6TGljZW5zZTI=",
-                "permissions": Array [
-                  Object {
-                    "label": "Commercial use",
-                  },
-                  Object {
-                    "label": "Modification",
-                  },
-                  Object {
-                    "label": "Distribution",
-                  },
-                  Object {
-                    "label": "Patent use",
-                  },
-                  Object {
-                    "label": "Private use",
-                  },
-                ],
-              },
-              "name": "chef-utils",
-            },
-          },
-          Object {
-            "node": Object {
-              "description": "Facebook's branch of the Oracle MySQL v5.6 database. This includes MyRocks.",
-              "homepageUrl": "http://myrocks.io",
-              "id": "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
-              "licenseInfo": Object {
-                "id": "MDc6TGljZW5zZTg=",
-                "permissions": Array [
-                  Object {
-                    "label": "Commercial use",
-                  },
-                  Object {
-                    "label": "Modification",
-                  },
-                  Object {
-                    "label": "Distribution",
-                  },
-                  Object {
-                    "label": "Private use",
-                  },
-                ],
-              },
-              "name": "mysql-5.6",
-            },
-          },
-        ],
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
       },
-      "url": "https://github.com/facebook",
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
     },
+    "data": Object {
+      "organization": Object {
+        "email": null,
+        "isVerified": true,
+        "location": "Menlo Park, California",
+      },
+    },
+    "hasNext": true,
+    "paths": Array [
+      "organisation",
+    ],
   },
-}
+  Object {
+    "cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+    },
+    "data": Object {
+      "organization": Object {
+        "repositories": Object {
+          "edges": Array [
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [],
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "hasNext": true,
+    "paths": Array [
+      "organisation.repositories.edges.0.node.licenseInfo.permissions",
+    ],
+  },
+  Object {
+    "cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+    },
+    "data": Object {
+      "organization": Object {
+        "repositories": Object {
+          "edges": Array [
+            undefined,
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [
+                    Object {
+                      "label": "Commercial use",
+                    },
+                    Object {
+                      "label": "Modification",
+                    },
+                    Object {
+                      "label": "Distribution",
+                    },
+                    Object {
+                      "label": "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "hasNext": true,
+    "paths": Array [
+      "organisation.repositories.edges.1.node.licenseInfo.permissions",
+    ],
+  },
+  Object {
+    "cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+    },
+    "data": Object {
+      "organization": Object {
+        "repositories": Object {
+          "edges": Array [
+            undefined,
+            undefined,
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [],
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "hasNext": true,
+    "paths": Array [
+      "organisation.repositories.edges.2.node.licenseInfo.permissions",
+    ],
+  },
+  Object {
+    "cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+    },
+    "data": Object {
+      "organization": Object {
+        "repositories": Object {
+          "edges": Array [
+            undefined,
+            undefined,
+            undefined,
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [],
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "hasNext": true,
+    "paths": Array [
+      "organisation.repositories.edges.3.node.licenseInfo.permissions",
+    ],
+  },
+  Object {
+    "cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+    },
+    "data": Object {
+      "organization": Object {
+        "repositories": Object {
+          "edges": Array [
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [
+                    Object {
+                      "label": "Commercial use",
+                    },
+                    Object {
+                      "label": "Modification",
+                    },
+                    Object {
+                      "label": "Distribution",
+                    },
+                    Object {
+                      "label": "Patent use",
+                    },
+                    Object {
+                      "label": "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "hasNext": true,
+    "paths": Array [
+      "organisation.repositories.edges.4.node.licenseInfo.permissions",
+    ],
+  },
+  Object {
+    "cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+    },
+    "data": Object {
+      "organization": Object {
+        "repositories": Object {
+          "edges": Array [
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [],
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "hasNext": true,
+    "paths": Array [
+      "organisation.repositories.edges.5.node.licenseInfo.permissions",
+    ],
+  },
+  Object {
+    "cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+    },
+    "data": Object {
+      "organization": Object {
+        "repositories": Object {
+          "edges": Array [
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [
+                    Object {
+                      "label": "Commercial use",
+                    },
+                    Object {
+                      "label": "Modification",
+                    },
+                    Object {
+                      "label": "Distribution",
+                    },
+                    Object {
+                      "label": "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "hasNext": true,
+    "paths": Array [
+      "organisation.repositories.edges.6.node.licenseInfo.permissions",
+    ],
+  },
+  Object {
+    "cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+    },
+    "data": Object {
+      "organization": Object {
+        "repositories": Object {
+          "edges": Array [
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [],
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "hasNext": true,
+    "paths": Array [
+      "organisation.repositories.edges.7.node.licenseInfo.permissions",
+    ],
+  },
+  Object {
+    "cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+    },
+    "data": Object {
+      "organization": Object {
+        "repositories": Object {
+          "edges": Array [
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [
+                    Object {
+                      "label": "Commercial use",
+                    },
+                    Object {
+                      "label": "Modification",
+                    },
+                    Object {
+                      "label": "Distribution",
+                    },
+                    Object {
+                      "label": "Patent use",
+                    },
+                    Object {
+                      "label": "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "hasNext": true,
+    "paths": Array [
+      "organisation.repositories.edges.8.node.licenseInfo.permissions",
+    ],
+  },
+  Object {
+    "cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+    },
+    "data": Object {
+      "organization": Object {
+        "repositories": Object {
+          "edges": Array [
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            Object {
+              "node": Object {
+                "licenseInfo": Object {
+                  "permissions": Array [
+                    Object {
+                      "label": "Commercial use",
+                    },
+                    Object {
+                      "label": "Modification",
+                    },
+                    Object {
+                      "label": "Distribution",
+                    },
+                    Object {
+                      "label": "Private use",
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "hasNext": false,
+    "paths": Array [
+      "organisation.repositories.edges.9.node.licenseInfo.permissions",
+    ],
+  },
+]
 `;
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested type with edges >> cascading cache control >> correct cache data 1`] = `

@@ -214,22 +214,6 @@ Object {
       "typeIDValue": undefined,
       "typeName": "LicenseRule",
     },
-    "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [
-          "skip({\\"if\\":false})",
-        ],
-      },
-      "hasArguments": false,
-      "hasDirectives": true,
-      "isEntity": false,
-      "isInterface": false,
-      "isUnion": false,
-      "possibleTypes": Array [],
-      "typeIDValue": undefined,
-      "typeName": "String",
-    },
     "query.organization.repositories.edges.node.id" => Object {
       "directives": Object {
         "inherited": Array [
@@ -366,6 +350,24 @@ Object {
       "typeIDValue": undefined,
       "typeName": "String",
     },
+    "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"if\\":true,\\"label\\":\\"permissionsDefer\\"})",
+        ],
+        "own": Array [
+          "skip({\\"if\\":false})",
+        ],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "String",
+    },
   },
   "hasDeferOrStream": true,
   "operation": "query",
@@ -387,7 +389,7 @@ exports[`@graphql-box/request-parser >> query >> defer >> correct request 1`] = 
           ... on Repository @include(if: true) {
             licenseInfo {
               permissions {
-                label @skip(if: false)
+                ...PermissionsFields @defer(if: true, label: \\"permissionsDefer\\")
               }
               id
             }
@@ -413,6 +415,10 @@ fragment RepositoryFields on Repository {
   description
   homepageUrl
   name
+}
+
+fragment PermissionsFields on LicenseRule {
+  label @skip(if: false)
 }"
 `;
 

@@ -4,6 +4,7 @@ import {
   DEFAULT_TYPE_ID_KEY,
   DehydratedCacheMetadata,
   MUTATION,
+  RawResponseDataWithMaybeCacheMetadata,
   RequestData,
   ResponseData,
   SUBSCRIPTION,
@@ -445,7 +446,7 @@ describe("@graphql-box/cache-manager >>", () => {
             responseData = await cacheManager.cacheQuery(
               getRequestData(parsedRequests.singleTypeQuerySet.full),
               getRequestData(parsedRequests.singleTypeQuerySet.updated),
-              responses.singleTypeQuerySet.updated,
+              responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
               { awaitDataCaching: true },
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery, queryFiltered: true }),
             );
@@ -499,7 +500,7 @@ describe("@graphql-box/cache-manager >>", () => {
             responseData = await cacheManager.cacheQuery(
               getRequestData(parsedRequests.singleTypeQuerySet.full),
               getRequestData(parsedRequests.singleTypeQuerySet.updated),
-              responses.singleTypeQuerySet.updated,
+              responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
               { awaitDataCaching: true },
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery, queryFiltered: true }),
             );
@@ -553,7 +554,7 @@ describe("@graphql-box/cache-manager >>", () => {
             responseData = await cacheManager.cacheQuery(
               getRequestData(parsedRequests.nestedTypeQuerySet.full),
               getRequestData(parsedRequests.nestedTypeQuerySet.updated),
-              responses.nestedTypeQuerySet.updated,
+              responses.nestedTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
               { awaitDataCaching: true },
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery, queryFiltered: true }),
             );
@@ -610,7 +611,7 @@ describe("@graphql-box/cache-manager >>", () => {
             responseData = await cacheManager.cacheQuery(
               getRequestData(parsedRequests.nestedTypeQuerySet.full),
               getRequestData(parsedRequests.nestedTypeQuerySet.updated),
-              responses.nestedTypeQuerySet.updated,
+              responses.nestedTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
               { awaitDataCaching: true },
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery, queryFiltered: true }),
             );
@@ -664,7 +665,7 @@ describe("@graphql-box/cache-manager >>", () => {
             responseData = await cacheManager.cacheQuery(
               getRequestData(parsedRequests.nestedUnionQuerySet.full),
               getRequestData(parsedRequests.nestedUnionQuerySet.updated),
-              responses.nestedUnionQuerySet.updated,
+              responses.nestedUnionQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
               { awaitDataCaching: true },
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery, queryFiltered: true }),
             );
@@ -719,7 +720,7 @@ describe("@graphql-box/cache-manager >>", () => {
             responseData = await cacheManager.cacheQuery(
               getRequestData(parsedRequests.nestedUnionQuerySet.full),
               getRequestData(parsedRequests.nestedUnionQuerySet.updated),
-              responses.nestedUnionQuerySet.updated,
+              responses.nestedUnionQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
               { awaitDataCaching: true },
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery, queryFiltered: true }),
             );
@@ -737,8 +738,9 @@ describe("@graphql-box/cache-manager >>", () => {
 
       describe("defer >>", () => {
         describe("cascading cache control >>", () => {
+          const responseDataSet: ResponseData[] = [];
+
           beforeAll(async () => {
-            responseData = undefined;
             // @ts-ignore
             jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
@@ -759,7 +761,7 @@ describe("@graphql-box/cache-manager >>", () => {
               requestData,
               responses.deferQuerySet.initial,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery }),
+              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true }),
             );
 
             const { cacheMetadata, data } = responses.deferQuerySet.partial;
@@ -770,17 +772,34 @@ describe("@graphql-box/cache-manager >>", () => {
               data,
             });
 
-            responseData = await cacheManager.cacheQuery(
-              getRequestData(parsedRequests.deferQuerySet.full),
-              getRequestData(parsedRequests.deferQuerySet.updated),
-              responses.deferQuerySet.updated,
-              { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, queryFiltered: true }),
-            );
+            await new Promise((resolve: (value: void) => void) => {
+              const updateResponses = [...(responses.deferQuerySet.updated as RawResponseDataWithMaybeCacheMetadata[])];
+
+              const interval = setInterval(async () => {
+                const result = await cacheManager.cacheQuery(
+                  getRequestData(parsedRequests.deferQuerySet.full),
+                  getRequestData(parsedRequests.deferQuerySet.updated),
+                  updateResponses.shift() as RawResponseDataWithMaybeCacheMetadata,
+                  { awaitDataCaching: true },
+                  getRequestContext({
+                    fieldTypeMap: requestFieldTypeMaps.deferQuery,
+                    hasDeferOrStream: true,
+                    queryFiltered: true,
+                  }),
+                );
+
+                responseDataSet.push(result);
+
+                if (!updateResponses.length) {
+                  clearInterval(interval);
+                  resolve();
+                }
+              }, 50);
+            });
           });
 
           it("correct response data", () => {
-            expect(responseData).toMatchSnapshot();
+            expect(responseDataSet).toMatchSnapshot();
           });
 
           it("correct cache data", async () => {
@@ -901,7 +920,7 @@ describe("@graphql-box/cache-manager >>", () => {
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.deferQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true }),
           );
         });
 
@@ -1081,20 +1100,34 @@ describe("@graphql-box/cache-manager >>", () => {
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
 
-          const requestData = getRequestData(parsedRequests.deferQuery);
+          const requestData = getRequestData(parsedRequests.deferQuerySet.updated);
 
-          await cacheManager.cacheQuery(
-            requestData,
-            requestData,
-            responses.deferQuery,
-            { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery }),
-          );
+          await new Promise((resolve: (value: void) => void) => {
+            const updateResponses = [...(responses.deferQuerySet.updated as RawResponseDataWithMaybeCacheMetadata[])];
+
+            const interval = setInterval(async () => {
+              await cacheManager.cacheQuery(
+                requestData,
+                requestData,
+                updateResponses.shift() as RawResponseDataWithMaybeCacheMetadata,
+                { awaitDataCaching: true },
+                getRequestContext({
+                  fieldTypeMap: requestFieldTypeMaps.deferQuery,
+                  hasDeferOrStream: true,
+                }),
+              );
+
+              if (!updateResponses.length) {
+                clearInterval(interval);
+                resolve();
+              }
+            }, 50);
+          });
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
-            getRequestData(parsedRequests.deferQuery),
+            requestData,
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true }),
           );
         });
 
@@ -1302,13 +1335,13 @@ describe("@graphql-box/cache-manager >>", () => {
             requestData,
             responses.deferQuerySet.initial,
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true }),
           );
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.deferQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery }),
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true }),
           );
         });
 

@@ -358,7 +358,7 @@ export class CacheManager implements CacheManagerDef {
     options: RequestOptions,
     context: CacheManagerContext,
   ): Promise<void> {
-    if (hasChildFields(fieldNode)) {
+    if (hasChildFields(fieldNode, { fragmentDefinitions: context.fragmentDefinitions })) {
       await this._analyzeParentFieldNode(fieldNode, cachedAncestorFieldData, cachedResponseData, options, context);
     } else {
       await this._analyzeLeafFieldNode(fieldNode, cachedAncestorFieldData, cachedResponseData, options, context);
@@ -1146,7 +1146,7 @@ export class CacheManager implements CacheManagerDef {
         context,
       );
 
-      if (hasChildFields(field)) {
+      if (hasChildFields(field, { fragmentDefinitions: context.fragmentDefinitions })) {
         if (isEntity) {
           set(data, responseDataPath, { __cacheKey: `${REQUEST_FIELD_PATHS}::${hashedRequestFieldCacheKey}` });
         } else {

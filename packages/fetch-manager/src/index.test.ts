@@ -2,7 +2,14 @@
  * @jest-environment jsdom
  */
 
-import { MaybeRawResponseData, MaybeRequestResult, RequestManagerDef, RequestResolver } from "@graphql-box/core";
+import {
+  MaybeRawResponseData,
+  MaybeRequestResult,
+  PlainObjectMap,
+  RawResponseDataWithMaybeCacheMetadata,
+  RequestManagerDef,
+  RequestResolver,
+} from "@graphql-box/core";
 import { getRequestContext, getRequestData, parsedRequests, responses } from "@graphql-box/test-utils";
 import fetchMock from "fetch-mock";
 import { forAwaitEach } from "iterall";
@@ -121,6 +128,7 @@ describe("@graphql-box/fetch-manager >>", () => {
 
       afterAll(() => {
         fetchMock.restore();
+        jest.useRealTimers();
       });
 
       it("correct request", () => {
@@ -150,7 +158,9 @@ describe("@graphql-box/fetch-manager >>", () => {
         const body = {
           batch: {
             [initialRequestData.hash]: { data: responses.singleTypeQuerySet.initial.data },
-            [updatedRequestData.hash]: { data: responses.singleTypeQuerySet.updated.data },
+            [updatedRequestData.hash]: {
+              data: (responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata).data,
+            },
           },
         };
 
@@ -179,6 +189,7 @@ describe("@graphql-box/fetch-manager >>", () => {
 
       afterAll(() => {
         fetchMock.restore();
+        jest.useRealTimers();
       });
 
       it("correct request", () => {
@@ -202,13 +213,13 @@ describe("@graphql-box/fetch-manager >>", () => {
         url: URL,
       });
 
-      const body = [
-        { hasNext: true, data: responses.deferQuerySet.initial.data },
-        { hasNext: false, data: responses.deferQuerySet.updated.data },
-      ];
-
       const headers = { "Content-Type": 'multipart/mixed; boundary="-"' };
-      const mockResponse = new Response(createResponseChunks(body), { headers, status: 200 });
+
+      const mockResponse = new Response(createResponseChunks(responses.deferQuerySet.updated as PlainObjectMap[]), {
+        headers,
+        status: 200,
+      });
+
       mockFetch = jest.fn().mockResolvedValue(mockResponse);
       global.fetch = mockFetch;
 

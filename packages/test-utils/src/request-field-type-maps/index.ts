@@ -303,7 +303,7 @@ export const deferQuery: FieldTypeMap = new Map([
     "query.organization.repositories.edges.node.licenseInfo.permissions.label",
     {
       directives: {
-        inherited: [],
+        inherited: ['defer({"if":true,"label":"permissionsDefer"})'],
         own: ['skip({"if":false})'],
       },
       hasArguments: false,

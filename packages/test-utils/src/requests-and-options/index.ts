@@ -418,6 +418,10 @@ export const queryWithDefer: RequestAndOptions = {
       name
     }
 
+    fragment PermissionsFields on LicenseRule {
+      label @skip(if: false)
+    }
+
     query ($login: String!, $deferCondition: Boolean!, $streamCondition: Boolean!) {
       organization(login: $login) {
         ...OrganizationFieldsA @defer(if: $deferCondition, label: "organizationDefer")
@@ -428,7 +432,7 @@ export const queryWithDefer: RequestAndOptions = {
               ...on Repository @include(if: true) {
                 licenseInfo {
                   permissions {
-                    label @skip(if: false)
+                    ...PermissionsFields @defer(if: true, label: "permissionsDefer")
                   }
                 }
                 ...RepositoryFields @skip(if: false) @defer(if: $deferCondition, label: "repositoryDefer")

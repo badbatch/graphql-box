@@ -1079,7 +1079,7 @@ export const deferQuerySet: QueryResponseSet = {
                 id: "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                 licenseInfo: {
                   id: "MDc6TGljZW5zZTU=",
-                  permissions: [],
+                  permissions: [{}, {}, {}, {}],
                 },
                 name: "pyre2",
               },
@@ -1115,7 +1115,7 @@ export const deferQuerySet: QueryResponseSet = {
                 id: "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
                 licenseInfo: {
                   id: "MDc6TGljZW5zZTI=",
-                  permissions: [],
+                  permissions: [{}, {}, {}, {}, {}],
                 },
                 name: "folly",
               },
@@ -1140,7 +1140,7 @@ export const deferQuerySet: QueryResponseSet = {
                 id: "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
                 licenseInfo: {
                   id: "MDc6TGljZW5zZTEz",
-                  permissions: [],
+                  permissions: [{}, {}, {}, {}],
                 },
                 name: "watchman",
               },
@@ -1164,7 +1164,7 @@ export const deferQuerySet: QueryResponseSet = {
                 id: "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
                 licenseInfo: {
                   id: "MDc6TGljZW5zZTI=",
-                  permissions: [],
+                  permissions: [{}, {}, {}, {}, {}],
                 },
                 name: "chef-utils",
               },
@@ -1176,7 +1176,7 @@ export const deferQuerySet: QueryResponseSet = {
                 id: "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
                 licenseInfo: {
                   id: "MDc6TGljZW5zZTg=",
-                  permissions: [],
+                  permissions: [{}, {}, {}, {}],
                 },
                 name: "mysql-5.6",
               },
@@ -1298,7 +1298,7 @@ export const deferQuerySet: QueryResponseSet = {
                 id: "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
                 licenseInfo: {
                   id: "MDc6TGljZW5zZTU=",
-                  permissions: [],
+                  permissions: [{}, {}, {}, {}],
                 },
                 name: "pyre2",
               },
@@ -1334,7 +1334,7 @@ export const deferQuerySet: QueryResponseSet = {
                 id: "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
                 licenseInfo: {
                   id: "MDc6TGljZW5zZTI=",
-                  permissions: [],
+                  permissions: [{}, {}, {}, {}, {}],
                 },
                 name: "folly",
               },
@@ -1359,7 +1359,7 @@ export const deferQuerySet: QueryResponseSet = {
                 id: "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
                 licenseInfo: {
                   id: "MDc6TGljZW5zZTEz",
-                  permissions: [],
+                  permissions: [{}, {}, {}, {}],
                 },
                 name: "watchman",
               },
@@ -1383,7 +1383,7 @@ export const deferQuerySet: QueryResponseSet = {
                 id: "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
                 licenseInfo: {
                   id: "MDc6TGljZW5zZTI=",
-                  permissions: [],
+                  permissions: [{}, {}, {}, {}, {}],
                 },
                 name: "chef-utils",
               },
@@ -1395,7 +1395,7 @@ export const deferQuerySet: QueryResponseSet = {
                 id: "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
                 licenseInfo: {
                   id: "MDc6TGljZW5zZTg=",
-                  permissions: [],
+                  permissions: [{}, {}, {}, {}],
                 },
                 name: "mysql-5.6",
               },
@@ -1406,183 +1406,430 @@ export const deferQuerySet: QueryResponseSet = {
       },
     },
   },
-  updated: {
-    data: {
-      organization: {
-        email: null,
-        id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-        isVerified: true,
-        location: "Menlo Park, California",
-        login: "facebook",
-        repositories: {
-          edges: [
-            {
-              node: {
-                id: "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
-                licenseInfo: {
-                  id: "MDc6TGljZW5zZTA=",
-                  permissions: [],
+  updated: [
+    {
+      data: {
+        organization: {
+          id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+          login: "facebook",
+          repositories: {
+            edges: [
+              {
+                node: {
+                  id: "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
+                  licenseInfo: {
+                    id: "MDc6TGljZW5zZTA=",
+                  },
                 },
               },
-            },
-            {
-              node: {
-                id: "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
-                licenseInfo: {
-                  id: "MDc6TGljZW5zZTU=",
-                  permissions: [
-                    {
-                      label: "Commercial use",
-                    },
-                    {
-                      label: "Modification",
-                    },
-                    {
-                      label: "Distribution",
-                    },
-                    {
-                      label: "Private use",
-                    },
-                  ],
+              {
+                node: {
+                  id: "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
+                  licenseInfo: {
+                    id: "MDc6TGljZW5zZTU=",
+                  },
                 },
               },
-            },
-            {
-              node: {
-                id: "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
-                licenseInfo: {
-                  id: "MDc6TGljZW5zZTA=",
-                  permissions: [],
+              {
+                node: {
+                  id: "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
+                  licenseInfo: {
+                    id: "MDc6TGljZW5zZTA=",
+                  },
                 },
               },
-            },
-            {
-              node: {
-                id: "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
-                licenseInfo: {
-                  id: "MDc6TGljZW5zZTA=",
-                  permissions: [],
+              {
+                node: {
+                  id: "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
+                  licenseInfo: {
+                    id: "MDc6TGljZW5zZTA=",
+                  },
                 },
               },
-            },
-            {
-              node: {
-                id: "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
-                licenseInfo: {
-                  id: "MDc6TGljZW5zZTI=",
-                  permissions: [
-                    {
-                      label: "Commercial use",
-                    },
-                    {
-                      label: "Modification",
-                    },
-                    {
-                      label: "Distribution",
-                    },
-                    {
-                      label: "Patent use",
-                    },
-                    {
-                      label: "Private use",
-                    },
-                  ],
+              {
+                node: {
+                  id: "MDEwOlJlcG9zaXRvcnk0NTI0MTgx",
+                  licenseInfo: {
+                    id: "MDc6TGljZW5zZTI=",
+                  },
                 },
               },
-            },
-            {
-              node: {
-                id: "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
-                licenseInfo: {
-                  id: "MDc6TGljZW5zZTA=",
-                  permissions: [],
+              {
+                node: {
+                  id: "MDEwOlJlcG9zaXRvcnk2ODMzMzQ1",
+                  licenseInfo: {
+                    id: "MDc6TGljZW5zZTA=",
+                  },
                 },
               },
-            },
-            {
-              node: {
-                id: "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
-                licenseInfo: {
-                  id: "MDc6TGljZW5zZTEz",
-                  permissions: [
-                    {
-                      label: "Commercial use",
-                    },
-                    {
-                      label: "Modification",
-                    },
-                    {
-                      label: "Distribution",
-                    },
-                    {
-                      label: "Private use",
-                    },
-                  ],
+              {
+                node: {
+                  id: "MDEwOlJlcG9zaXRvcnk2OTMwNDg5",
+                  licenseInfo: {
+                    id: "MDc6TGljZW5zZTEz",
+                  },
                 },
               },
-            },
-            {
-              node: {
-                id: "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
-                licenseInfo: {
-                  id: "MDc6TGljZW5zZTA=",
-                  permissions: [],
+              {
+                node: {
+                  id: "MDEwOlJlcG9zaXRvcnk2OTM0Mzk1",
+                  licenseInfo: {
+                    id: "MDc6TGljZW5zZTA=",
+                  },
                 },
               },
-            },
-            {
-              node: {
-                id: "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
-                licenseInfo: {
-                  id: "MDc6TGljZW5zZTI=",
-                  permissions: [
-                    {
-                      label: "Commercial use",
-                    },
-                    {
-                      label: "Modification",
-                    },
-                    {
-                      label: "Distribution",
-                    },
-                    {
-                      label: "Patent use",
-                    },
-                    {
-                      label: "Private use",
-                    },
-                  ],
+              {
+                node: {
+                  id: "MDEwOlJlcG9zaXRvcnk4MzIyNjQ5",
+                  licenseInfo: {
+                    id: "MDc6TGljZW5zZTI=",
+                  },
                 },
               },
-            },
-            {
-              node: {
-                id: "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
-                licenseInfo: {
-                  id: "MDc6TGljZW5zZTg=",
-                  permissions: [
-                    {
-                      label: "Commercial use",
-                    },
-                    {
-                      label: "Modification",
-                    },
-                    {
-                      label: "Distribution",
-                    },
-                    {
-                      label: "Private use",
-                    },
-                  ],
+              {
+                node: {
+                  id: "MDEwOlJlcG9zaXRvcnk5NDU0Njc1",
+                  licenseInfo: {
+                    id: "MDc6TGljZW5zZTg=",
+                  },
                 },
               },
-            },
-          ],
+            ],
+          },
         },
       },
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
     },
-    headers: new Headers({ "Cache-Control": "public, max-age=60" }),
-  },
+    {
+      data: {
+        organization: {
+          email: null,
+          isVerified: true,
+          location: "Menlo Park, California",
+        },
+      },
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      paths: ["organisation"],
+    },
+    {
+      data: {
+        organization: {
+          repositories: {
+            edges: [
+              {
+                node: {
+                  licenseInfo: {
+                    permissions: [],
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      paths: ["organisation.repositories.edges.0.node.licenseInfo.permissions"],
+    },
+    {
+      data: {
+        organization: {
+          repositories: {
+            edges: [
+              undefined,
+              {
+                node: {
+                  licenseInfo: {
+                    permissions: [
+                      {
+                        label: "Commercial use",
+                      },
+                      {
+                        label: "Modification",
+                      },
+                      {
+                        label: "Distribution",
+                      },
+                      {
+                        label: "Private use",
+                      },
+                    ],
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      paths: ["organisation.repositories.edges.1.node.licenseInfo.permissions"],
+    },
+    {
+      data: {
+        organization: {
+          repositories: {
+            edges: [
+              undefined,
+              undefined,
+              {
+                node: {
+                  licenseInfo: {
+                    permissions: [],
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      paths: ["organisation.repositories.edges.2.node.licenseInfo.permissions"],
+    },
+    {
+      data: {
+        organization: {
+          repositories: {
+            edges: [
+              undefined,
+              undefined,
+              undefined,
+              {
+                node: {
+                  licenseInfo: {
+                    permissions: [],
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      paths: ["organisation.repositories.edges.3.node.licenseInfo.permissions"],
+    },
+    {
+      data: {
+        organization: {
+          repositories: {
+            edges: [
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              {
+                node: {
+                  licenseInfo: {
+                    permissions: [
+                      {
+                        label: "Commercial use",
+                      },
+                      {
+                        label: "Modification",
+                      },
+                      {
+                        label: "Distribution",
+                      },
+                      {
+                        label: "Patent use",
+                      },
+                      {
+                        label: "Private use",
+                      },
+                    ],
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      paths: ["organisation.repositories.edges.4.node.licenseInfo.permissions"],
+    },
+    {
+      data: {
+        organization: {
+          repositories: {
+            edges: [
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              {
+                node: {
+                  licenseInfo: {
+                    permissions: [],
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      paths: ["organisation.repositories.edges.5.node.licenseInfo.permissions"],
+    },
+    {
+      data: {
+        organization: {
+          repositories: {
+            edges: [
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              {
+                node: {
+                  licenseInfo: {
+                    permissions: [
+                      {
+                        label: "Commercial use",
+                      },
+                      {
+                        label: "Modification",
+                      },
+                      {
+                        label: "Distribution",
+                      },
+                      {
+                        label: "Private use",
+                      },
+                    ],
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      paths: ["organisation.repositories.edges.6.node.licenseInfo.permissions"],
+    },
+    {
+      data: {
+        organization: {
+          repositories: {
+            edges: [
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              {
+                node: {
+                  licenseInfo: {
+                    permissions: [],
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      paths: ["organisation.repositories.edges.7.node.licenseInfo.permissions"],
+    },
+    {
+      data: {
+        organization: {
+          repositories: {
+            edges: [
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              {
+                node: {
+                  licenseInfo: {
+                    permissions: [
+                      {
+                        label: "Commercial use",
+                      },
+                      {
+                        label: "Modification",
+                      },
+                      {
+                        label: "Distribution",
+                      },
+                      {
+                        label: "Patent use",
+                      },
+                      {
+                        label: "Private use",
+                      },
+                    ],
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      paths: ["organisation.repositories.edges.8.node.licenseInfo.permissions"],
+    },
+    {
+      data: {
+        organization: {
+          repositories: {
+            edges: [
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              {
+                node: {
+                  licenseInfo: {
+                    permissions: [
+                      {
+                        label: "Commercial use",
+                      },
+                      {
+                        label: "Modification",
+                      },
+                      {
+                        label: "Distribution",
+                      },
+                      {
+                        label: "Private use",
+                      },
+                    ],
+                  },
+                },
+              },
+            ],
+          },
+        },
+      },
+      hasNext: false,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      paths: ["organisation.repositories.edges.9.node.licenseInfo.permissions"],
+    },
+  ],
 };
 
 export const nestedInterfaceMutation: RawResponseDataWithMaybeCacheMetadata = {
