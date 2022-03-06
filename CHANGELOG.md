@@ -1,3 +1,16 @@
+### 2.6.0 (2022-03-06)
+
+##### New Features
+
+*  deal with defer response caching better ([bf369f2a](https://github.com/badbatch/graphql-box/commit/bf369f2a6a790ef8f3fa6e3efc00b4c082185674))
+*  update caching to deal with response chunks better ([0f151078](https://github.com/badbatch/graphql-box/commit/0f151078da3947d1a2a7c9c93fc10312340c1346))
+*  add setCacheMetadata to context, update subs ([90a3388c](https://github.com/badbatch/graphql-box/commit/90a3388cf603597ffc9333cf28da08046d00f3ff))
+
+##### Refactors
+
+*  rename cache manager methods for clarity ([a9878058](https://github.com/badbatch/graphql-box/commit/a987805887be152c7ccaf90dc1ae1159772fc065))
+*  standardize errors property ([fab408e7](https://github.com/badbatch/graphql-box/commit/fab408e7f78d9b0258cb8580c8d2358568ae453b))
+
 #### 2.5.5 (2022-02-25)
 
 ##### Bug Fixes
