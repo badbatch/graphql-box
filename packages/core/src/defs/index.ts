@@ -22,6 +22,12 @@ export interface RequestOptions {
   awaitDataCaching?: boolean;
 
   /**
+   * Whether to batch the request. This defaults to the
+   * batchRequest value set in @graphql-box/fetch-manager.
+   */
+  batch?: boolean;
+
+  /**
    * A list of query fragements to be inserted
    * into the main query, mutation or subscription
    * being requested.

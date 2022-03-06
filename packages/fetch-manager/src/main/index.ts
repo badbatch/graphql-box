@@ -108,12 +108,12 @@ export class FetchManager implements RequestManagerDef {
   @logFetch()
   public async execute(
     { hash, request }: RequestDataWithMaybeAST,
-    _options: RequestOptions,
+    options: RequestOptions,
     context: RequestContext,
     executeResolver: RequestResolver,
   ) {
     try {
-      if (!this._batchRequests || context.hasDeferOrStream) {
+      if (options.batch === false || !this._batchRequests || context.hasDeferOrStream) {
         const fetchResult = await this._fetch(request, hash, { batch: false }, context);
 
         if (!isAsyncIterable(fetchResult)) {
