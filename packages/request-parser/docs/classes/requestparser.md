@@ -19,7 +19,6 @@
 ### Methods
 
 * [updateRequest](requestparser.md#updaterequest)
-* [init](requestparser.md#static-init)
 
 ## Constructors
 
@@ -27,7 +26,7 @@
 
 \+ **new RequestParser**(`options`: [ConstructorOptions](../interfaces/constructoroptions.md)): *[RequestParser](requestparser.md)*
 
-*Defined in [main/index.ts:241](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/request-parser/src/main/index.ts#L241)*
+*Defined in [main/index.ts:217](https://github.com/badbatch/graphql-box/blob/cbed108/packages/request-parser/src/main/index.ts#L217)*
 
 **Parameters:**
 
@@ -45,7 +44,7 @@ Name | Type |
 
 *Implementation of [RequestParserDef](../interfaces/requestparserdef.md)*
 
-*Defined in [main/index.ts:249](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/request-parser/src/main/index.ts#L249)*
+*Defined in [main/index.ts:242](https://github.com/badbatch/graphql-box/blob/cbed108/packages/request-parser/src/main/index.ts#L242)*
 
 **Parameters:**
 
@@ -56,19 +55,3 @@ Name | Type |
 `context` | RequestContext |
 
 **Returns:** *Promise‹[UpdateRequestResult](../interfaces/updaterequestresult.md)›*
-
-___
-
-### `Static` init
-
-▸ **init**(`options`: [InitOptions](../interfaces/initoptions.md)): *Promise‹[RequestParser](requestparser.md)›*
-
-*Defined in [main/index.ts:84](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/request-parser/src/main/index.ts#L84)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`options` | [InitOptions](../interfaces/initoptions.md) |
-
-**Returns:** *Promise‹[RequestParser](requestparser.md)›*

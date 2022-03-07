@@ -22,7 +22,7 @@
 
 • **cache**: *Cachemap*
 
-*Defined in [cache-manager/src/defs/index.ts:59](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/defs/index.ts#L59)*
+*Defined in [cache-manager/src/defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/defs/index.ts#L51)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **cascadeCacheControl**? : *undefined | false | true*
 
-*Defined in [cache-manager/src/defs/index.ts:60](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/defs/index.ts#L60)*
+*Defined in [cache-manager/src/defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/defs/index.ts#L52)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **fallbackOperationCacheability**? : *undefined | string*
 
-*Defined in [cache-manager/src/defs/index.ts:61](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/defs/index.ts#L61)*
+*Defined in [cache-manager/src/defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/defs/index.ts#L53)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **typeCacheDirectives**? : *PlainObjectStringMap*
 
-*Defined in [cache-manager/src/defs/index.ts:62](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/defs/index.ts#L62)*
+*Defined in [cache-manager/src/defs/index.ts:54](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/defs/index.ts#L54)*
 
 ___
 
@@ -54,4 +54,4 @@ ___
 
 • **typeIDKey**: *string*
 
-*Defined in [cache-manager/src/defs/index.ts:63](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/defs/index.ts#L63)*
+*Defined in [cache-manager/src/defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/defs/index.ts#L55)*

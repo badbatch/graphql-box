@@ -55,7 +55,6 @@
 * [once](debugmanager.md#once)
 * [removeAllListeners](debugmanager.md#removealllisteners)
 * [removeListener](debugmanager.md#removelistener)
-* [init](debugmanager.md#static-init)
 
 ## Type aliases
 
@@ -111,19 +110,15 @@ interface EventTypes {
 
 ###  constructor
 
-\+ **new DebugManager**(`__namedParameters`: object): *[DebugManager](debugmanager.md)*
+\+ **new DebugManager**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[DebugManager](debugmanager.md)*
 
-*Defined in [packages/debug-manager/src/main/index.ts:21](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/debug-manager/src/main/index.ts#L21)*
+*Defined in [packages/debug-manager/src/main/index.ts:9](https://github.com/badbatch/graphql-box/blob/cbed108/packages/debug-manager/src/main/index.ts#L9)*
 
 **Parameters:**
 
-▪ **__namedParameters**: *object*
-
 Name | Type |
 ------ | ------ |
-`logger` | undefined &#124; [Logger](../interfaces/logger.md) |
-`name` | string |
-`performance` | [Performance](../interfaces/performance.md) |
+`options` | [ConstructorOptions](../README.md#constructoroptions) |
 
 **Returns:** *[DebugManager](debugmanager.md)*
 
@@ -177,7 +172,7 @@ ___
 
 *Overrides void*
 
-*Defined in [packages/debug-manager/src/main/index.ts:30](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/debug-manager/src/main/index.ts#L30)*
+*Defined in [packages/debug-manager/src/main/index.ts:28](https://github.com/badbatch/graphql-box/blob/cbed108/packages/debug-manager/src/main/index.ts#L28)*
 
 **Parameters:**
 
@@ -253,7 +248,7 @@ ___
 
 ▸ **now**(): *number*
 
-*Defined in [packages/debug-manager/src/main/index.ts:37](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/debug-manager/src/main/index.ts#L37)*
+*Defined in [packages/debug-manager/src/main/index.ts:35](https://github.com/badbatch/graphql-box/blob/cbed108/packages/debug-manager/src/main/index.ts#L35)*
 
 **Returns:** *number*
 
@@ -380,19 +375,3 @@ Name | Type |
 `once?` | undefined &#124; false &#124; true |
 
 **Returns:** *this*
-
-___
-
-### `Static` init
-
-▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *Promise‹[DebugManager](debugmanager.md)›*
-
-*Defined in [packages/debug-manager/src/main/index.ts:7](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/debug-manager/src/main/index.ts#L7)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`options` | [InitOptions](../README.md#initoptions) |
-
-**Returns:** *Promise‹[DebugManager](debugmanager.md)›*

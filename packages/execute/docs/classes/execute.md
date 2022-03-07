@@ -19,7 +19,6 @@
 ### Methods
 
 * [execute](execute.md#execute)
-* [init](execute.md#static-init)
 
 ## Constructors
 
@@ -27,7 +26,7 @@
 
 \+ **new Execute**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[Execute](execute.md)*
 
-*Defined in [main/index.ts:39](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/execute/src/main/index.ts#L39)*
+*Defined in [main/index.ts:27](https://github.com/badbatch/graphql-box/blob/cbed108/packages/execute/src/main/index.ts#L27)*
 
 **Parameters:**
 
@@ -43,7 +42,7 @@ Name | Type |
 
 ▸ **execute**(`__namedParameters`: object, `options`: ServerRequestOptions, `context`: RequestContext, `executeResolver`: RequestResolver): *Promise‹any›*
 
-*Defined in [main/index.ts:51](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/execute/src/main/index.ts#L51)*
+*Defined in [main/index.ts:49](https://github.com/badbatch/graphql-box/blob/cbed108/packages/execute/src/main/index.ts#L49)*
 
 **Parameters:**
 
@@ -62,19 +61,3 @@ Name | Type |
 ▪ **executeResolver**: *RequestResolver*
 
 **Returns:** *Promise‹any›*
-
-___
-
-### `Static` init
-
-▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *Promise‹[Execute](execute.md)›*
-
-*Defined in [main/index.ts:22](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/execute/src/main/index.ts#L22)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`options` | [InitOptions](../README.md#initoptions) |
-
-**Returns:** *Promise‹[Execute](execute.md)›*

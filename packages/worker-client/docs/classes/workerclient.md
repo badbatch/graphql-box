@@ -20,25 +20,20 @@
 
 * [request](workerclient.md#request)
 * [subscribe](workerclient.md#subscribe)
-* [init](workerclient.md#static-init)
 
 ## Constructors
 
 ###  constructor
 
-\+ **new WorkerClient**(`__namedParameters`: object): *[WorkerClient](workerclient.md)*
+\+ **new WorkerClient**(`options`: [UserOptions](../interfaces/useroptions.md)): *[WorkerClient](workerclient.md)*
 
-*Defined in [main/index.ts:67](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/worker-client/src/main/index.ts#L67)*
+*Defined in [main/index.ts:29](https://github.com/badbatch/graphql-box/blob/cbed108/packages/worker-client/src/main/index.ts#L29)*
 
 **Parameters:**
 
-▪ **__namedParameters**: *object*
-
 Name | Type |
 ------ | ------ |
-`cache` | CoreWorker‹› |
-`debugManager` | undefined &#124; DebugManagerDef‹› |
-`worker` | Worker |
+`options` | [UserOptions](../interfaces/useroptions.md) |
 
 **Returns:** *[WorkerClient](workerclient.md)*
 
@@ -48,7 +43,7 @@ Name | Type |
 
 • **get cache**(): *WorkerCachemap*
 
-*Defined in [main/index.ts:77](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/worker-client/src/main/index.ts#L77)*
+*Defined in [main/index.ts:57](https://github.com/badbatch/graphql-box/blob/cbed108/packages/worker-client/src/main/index.ts#L57)*
 
 **Returns:** *WorkerCachemap*
 
@@ -58,7 +53,7 @@ Name | Type |
 
 ▸ **request**(`request`: string, `options`: RequestOptions, `context`: MaybeRequestContext): *Promise‹MaybeRequestResult | AsyncIterableIterator‹undefined | MaybeRequestResult› | object›*
 
-*Defined in [main/index.ts:81](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/worker-client/src/main/index.ts#L81)*
+*Defined in [main/index.ts:61](https://github.com/badbatch/graphql-box/blob/cbed108/packages/worker-client/src/main/index.ts#L61)*
 
 **Parameters:**
 
@@ -76,7 +71,7 @@ ___
 
 ▸ **subscribe**(`request`: string, `options`: RequestOptions): *Promise‹AsyncIterableIterator‹undefined | MaybeRequestResult› | object›*
 
-*Defined in [main/index.ts:85](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/worker-client/src/main/index.ts#L85)*
+*Defined in [main/index.ts:65](https://github.com/badbatch/graphql-box/blob/cbed108/packages/worker-client/src/main/index.ts#L65)*
 
 **Parameters:**
 
@@ -86,19 +81,3 @@ Name | Type | Default |
 `options` | RequestOptions | {} |
 
 **Returns:** *Promise‹AsyncIterableIterator‹undefined | MaybeRequestResult› | object›*
-
-___
-
-### `Static` init
-
-▸ **init**(`options`: [UserOptions](../interfaces/useroptions.md)): *Promise‹[WorkerClient](workerclient.md)›*
-
-*Defined in [main/index.ts:28](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/worker-client/src/main/index.ts#L28)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`options` | [UserOptions](../interfaces/useroptions.md) |
-
-**Returns:** *Promise‹[WorkerClient](workerclient.md)›*

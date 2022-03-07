@@ -21,7 +21,7 @@
 
 • **cacheMetadata**? : *DehydratedCacheMetadata*
 
-*Defined in [defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/fetch-manager/src/defs/index.ts#L71)*
+*Defined in [defs/index.ts:69](https://github.com/badbatch/graphql-box/blob/cbed108/packages/fetch-manager/src/defs/index.ts#L69)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **data**? : *PlainObjectMap*
 
-*Defined in [defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/fetch-manager/src/defs/index.ts#L72)*
+*Defined in [defs/index.ts:70](https://github.com/badbatch/graphql-box/blob/cbed108/packages/fetch-manager/src/defs/index.ts#L70)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **errors**? : *ReadonlyArray‹Error›*
 
-*Defined in [defs/index.ts:73](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/fetch-manager/src/defs/index.ts#L73)*
+*Defined in [defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/cbed108/packages/fetch-manager/src/defs/index.ts#L71)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **headers**? : *Headers*
 
-*Defined in [defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/fetch-manager/src/defs/index.ts#L74)*
+*Defined in [defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/cbed108/packages/fetch-manager/src/defs/index.ts#L72)*

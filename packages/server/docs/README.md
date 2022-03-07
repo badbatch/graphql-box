@@ -16,25 +16,16 @@
 
 ### Type aliases
 
-* [ConstructorOptions](README.md#constructoroptions)
 * [MessageHandler](README.md#messagehandler)
 * [RequestHandler](README.md#requesthandler)
 
 ## Type aliases
 
-###  ConstructorOptions
-
-Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
-
-*Defined in [defs/index.ts:17](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/server/src/defs/index.ts#L17)*
-
-___
-
 ###  MessageHandler
 
 Ƭ **MessageHandler**: *function*
 
-*Defined in [defs/index.ts:21](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/server/src/defs/index.ts#L21)*
+*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/cbed108/packages/server/src/defs/index.ts#L19)*
 
 #### Type declaration:
 
@@ -52,7 +43,7 @@ ___
 
 Ƭ **RequestHandler**: *function*
 
-*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/server/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:17](https://github.com/badbatch/graphql-box/blob/cbed108/packages/server/src/defs/index.ts#L17)*
 
 #### Type declaration:
 

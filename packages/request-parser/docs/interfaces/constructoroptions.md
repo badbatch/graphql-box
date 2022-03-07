@@ -10,16 +10,25 @@
 
 ### Properties
 
-* [schema](constructoroptions.md#schema)
+* [introspection](constructoroptions.md#optional-introspection)
+* [schema](constructoroptions.md#optional-schema)
 * [typeIDKey](constructoroptions.md#typeidkey)
 
 ## Properties
 
-###  schema
+### `Optional` introspection
 
-• **schema**: *GraphQLSchema*
+• **introspection**? : *IntrospectionQuery*
 
-*Defined in [defs/index.ts:28](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/request-parser/src/defs/index.ts#L28)*
+*Defined in [defs/index.ts:22](https://github.com/badbatch/graphql-box/blob/cbed108/packages/request-parser/src/defs/index.ts#L22)*
+
+___
+
+### `Optional` schema
+
+• **schema**? : *GraphQLSchema*
+
+*Defined in [defs/index.ts:23](https://github.com/badbatch/graphql-box/blob/cbed108/packages/request-parser/src/defs/index.ts#L23)*
 
 ___
 
@@ -27,4 +36,4 @@ ___
 
 • **typeIDKey**: *string*
 
-*Defined in [defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/request-parser/src/defs/index.ts#L29)*
+*Defined in [defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/cbed108/packages/request-parser/src/defs/index.ts#L24)*

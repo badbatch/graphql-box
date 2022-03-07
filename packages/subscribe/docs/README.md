@@ -17,7 +17,6 @@
 
 * [ConstructorOptions](README.md#constructoroptions)
 * [GraphQLSubscribe](README.md#graphqlsubscribe)
-* [InitOptions](README.md#initoptions)
 
 ### Functions
 
@@ -29,7 +28,7 @@
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [defs/index.ts:44](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/subscribe/src/defs/index.ts#L44)*
+*Defined in [defs/index.ts:42](https://github.com/badbatch/graphql-box/blob/cbed108/packages/subscribe/src/defs/index.ts#L42)*
 
 ___
 
@@ -37,7 +36,7 @@ ___
 
 Ƭ **GraphQLSubscribe**: *function*
 
-*Defined in [defs/index.ts:46](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/subscribe/src/defs/index.ts#L46)*
+*Defined in [defs/index.ts:44](https://github.com/badbatch/graphql-box/blob/cbed108/packages/subscribe/src/defs/index.ts#L44)*
 
 #### Type declaration:
 
@@ -62,21 +61,13 @@ Name | Type |
 `subscribeFieldResolver?` | Maybe‹GraphQLFieldResolver‹any, any›› |
 `variableValues?` | Maybe‹object› |
 
-___
-
-###  InitOptions
-
-Ƭ **InitOptions**: *[UserOptions](interfaces/useroptions.md)*
-
-*Defined in [defs/index.ts:42](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/subscribe/src/defs/index.ts#L42)*
-
 ## Functions
 
 ###  init
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *SubscriptionsManagerInit*
 
-*Defined in [main/index.ts:99](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/subscribe/src/main/index.ts#L99)*
+*Defined in [main/index.ts:97](https://github.com/badbatch/graphql-box/blob/cbed108/packages/subscribe/src/main/index.ts#L97)*
 
 **Parameters:**
 

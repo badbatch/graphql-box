@@ -1,6 +1,6 @@
 {
   "name": "graphql-box",
-  "version": "2.6.1",
+  "version": "3.0.0",
   "private": true,
   "description": "An extensible GraphQL client and server with modules for caching, request parsing, subscriptions and more.",
   "keywords": [

@@ -28,7 +28,6 @@
 * [checkCacheEntry](cachemanager.md#checkcacheentry)
 * [checkQueryResponseCacheEntry](cachemanager.md#checkqueryresponsecacheentry)
 * [deletePartialQueryResponse](cachemanager.md#deletepartialqueryresponse)
-* [init](cachemanager.md#static-init)
 
 ## Constructors
 
@@ -36,7 +35,7 @@
 
 \+ **new CacheManager**(`options`: [ConstructorOptions](../interfaces/constructoroptions.md)): *[CacheManager](cachemanager.md)*
 
-*Defined in [cache-manager/src/main/index.ts:234](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/main/index.ts#L234)*
+*Defined in [cache-manager/src/main/index.ts:214](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/main/index.ts#L214)*
 
 **Parameters:**
 
@@ -52,7 +51,7 @@ Name | Type |
 
 • **get cache**(): *Cachemap*
 
-*Defined in [cache-manager/src/main/index.ts:245](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/main/index.ts#L245)*
+*Defined in [cache-manager/src/main/index.ts:239](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/main/index.ts#L239)*
 
 **Returns:** *Cachemap*
 
@@ -64,7 +63,7 @@ Name | Type |
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [cache-manager/src/main/index.ts:249](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/main/index.ts#L249)*
+*Defined in [cache-manager/src/main/index.ts:243](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/main/index.ts#L243)*
 
 **Parameters:**
 
@@ -84,7 +83,7 @@ ___
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [cache-manager/src/main/index.ts:291](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/main/index.ts#L291)*
+*Defined in [cache-manager/src/main/index.ts:285](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/main/index.ts#L285)*
 
 **Parameters:**
 
@@ -106,7 +105,7 @@ ___
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [cache-manager/src/main/index.ts:307](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/main/index.ts#L307)*
+*Defined in [cache-manager/src/main/index.ts:301](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/main/index.ts#L301)*
 
 **Parameters:**
 
@@ -127,7 +126,7 @@ ___
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [cache-manager/src/main/index.ts:322](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/main/index.ts#L322)*
+*Defined in [cache-manager/src/main/index.ts:316](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/main/index.ts#L316)*
 
 **Parameters:**
 
@@ -148,7 +147,7 @@ ___
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [cache-manager/src/main/index.ts:331](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/main/index.ts#L331)*
+*Defined in [cache-manager/src/main/index.ts:325](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/main/index.ts#L325)*
 
 **Parameters:**
 
@@ -168,7 +167,7 @@ ___
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [cache-manager/src/main/index.ts:350](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/main/index.ts#L350)*
+*Defined in [cache-manager/src/main/index.ts:344](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/main/index.ts#L344)*
 
 **Parameters:**
 
@@ -177,19 +176,3 @@ Name | Type |
 `hash` | string |
 
 **Returns:** *void*
-
-___
-
-### `Static` init
-
-▸ **init**(`options`: [InitOptions](../interfaces/initoptions.md)): *Promise‹[CacheManager](cachemanager.md)›*
-
-*Defined in [cache-manager/src/main/index.ts:74](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/cache-manager/src/main/index.ts#L74)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`options` | [InitOptions](../interfaces/initoptions.md) |
-
-**Returns:** *Promise‹[CacheManager](cachemanager.md)›*

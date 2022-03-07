@@ -18,7 +18,6 @@
 
 * [ConstructorOptions](README.md#constructoroptions)
 * [DebugManagerInit](README.md#debugmanagerinit)
-* [InitOptions](README.md#initoptions)
 
 ### Variables
 
@@ -34,7 +33,7 @@
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:28](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/debug-manager/src/defs/index.ts#L28)*
+*Defined in [packages/debug-manager/src/defs/index.ts:26](https://github.com/badbatch/graphql-box/blob/cbed108/packages/debug-manager/src/defs/index.ts#L26)*
 
 ___
 
@@ -42,19 +41,11 @@ ___
 
 Ƭ **DebugManagerInit**: *function*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:30](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/debug-manager/src/defs/index.ts#L30)*
+*Defined in [packages/debug-manager/src/defs/index.ts:28](https://github.com/badbatch/graphql-box/blob/cbed108/packages/debug-manager/src/defs/index.ts#L28)*
 
 #### Type declaration:
 
-▸ (): *Promise‹DebugManagerDef›*
-
-___
-
-###  InitOptions
-
-Ƭ **InitOptions**: *[UserOptions](interfaces/useroptions.md)*
-
-*Defined in [packages/debug-manager/src/defs/index.ts:26](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/debug-manager/src/defs/index.ts#L26)*
+▸ (): *DebugManagerDef*
 
 ## Variables
 
@@ -62,7 +53,7 @@ ___
 
 • **performance**: *Performance*
 
-*Defined in [packages/debug-manager/src/index.test.ts:14](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/debug-manager/src/index.test.ts#L14)*
+*Defined in [packages/debug-manager/src/index.test.ts:14](https://github.com/badbatch/graphql-box/blob/cbed108/packages/debug-manager/src/index.test.ts#L14)*
 
 ## Functions
 
@@ -70,7 +61,7 @@ ___
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *[DebugManagerInit](README.md#debugmanagerinit)*
 
-*Defined in [packages/debug-manager/src/main/index.ts:46](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/debug-manager/src/main/index.ts#L46)*
+*Defined in [packages/debug-manager/src/main/index.ts:44](https://github.com/badbatch/graphql-box/blob/cbed108/packages/debug-manager/src/main/index.ts#L44)*
 
 **Parameters:**
 

@@ -15,7 +15,6 @@
 ### Methods
 
 * [subscribe](subscribe.md#subscribe)
-* [init](subscribe.md#static-init)
 
 ## Constructors
 
@@ -23,7 +22,7 @@
 
 \+ **new Subscribe**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[Subscribe](subscribe.md)*
 
-*Defined in [main/index.ts:38](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/subscribe/src/main/index.ts#L38)*
+*Defined in [main/index.ts:26](https://github.com/badbatch/graphql-box/blob/cbed108/packages/subscribe/src/main/index.ts#L26)*
 
 **Parameters:**
 
@@ -39,7 +38,7 @@ Name | Type |
 
 ▸ **subscribe**(`__namedParameters`: object, `options`: ServerRequestOptions, `context`: RequestContext, `subscriberResolver`: SubscriberResolver): *Promise‹AsyncIterator‹MaybeRequestResult | undefined››*
 
-*Defined in [main/index.ts:50](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/subscribe/src/main/index.ts#L50)*
+*Defined in [main/index.ts:48](https://github.com/badbatch/graphql-box/blob/cbed108/packages/subscribe/src/main/index.ts#L48)*
 
 **Parameters:**
 
@@ -58,19 +57,3 @@ Name | Type |
 ▪ **subscriberResolver**: *SubscriberResolver*
 
 **Returns:** *Promise‹AsyncIterator‹MaybeRequestResult | undefined››*
-
-___
-
-### `Static` init
-
-▸ **init**(`options`: [InitOptions](../README.md#initoptions)): *Promise‹[Subscribe](subscribe.md)›*
-
-*Defined in [main/index.ts:20](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/subscribe/src/main/index.ts#L20)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`options` | [InitOptions](../README.md#initoptions) |
-
-**Returns:** *Promise‹[Subscribe](subscribe.md)›*

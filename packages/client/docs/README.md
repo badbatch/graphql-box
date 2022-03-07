@@ -10,7 +10,6 @@
 
 ### Interfaces
 
-* [ConstructorOptions](interfaces/constructoroptions.md)
 * [PendingQueryData](interfaces/pendingquerydata.md)
 * [QueryTracker](interfaces/querytracker.md)
 * [UserOptions](interfaces/useroptions.md)
@@ -35,7 +34,7 @@
 
 Ƭ **PendingQueryResolver**: *function*
 
-*Defined in [defs/index.ts:75](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/client/src/defs/index.ts#L75)*
+*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/cbed108/packages/client/src/defs/index.ts#L45)*
 
 #### Type declaration:
 
@@ -53,7 +52,7 @@ Name | Type |
 
 • **REQUEST_EXECUTED**: *"request_executed"* = "request_executed"
 
-*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/client/src/consts/index.ts#L1)*
+*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/cbed108/packages/client/src/consts/index.ts#L1)*
 
 ___
 
@@ -61,7 +60,7 @@ ___
 
 • **SUBSCRIPTION_EXECUTED**: *"subscription_executed"* = "subscription_executed"
 
-*Defined in [consts/index.ts:2](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/client/src/consts/index.ts#L2)*
+*Defined in [consts/index.ts:2](https://github.com/badbatch/graphql-box/blob/cbed108/packages/client/src/consts/index.ts#L2)*
 
 ## Functions
 
@@ -69,7 +68,7 @@ ___
 
 ▸ **logRequest**(): *(Anonymous function)*
 
-*Defined in [debug/log-request/index.ts:4](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/client/src/debug/log-request/index.ts#L4)*
+*Defined in [debug/log-request/index.ts:4](https://github.com/badbatch/graphql-box/blob/cbed108/packages/client/src/debug/log-request/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*
 
@@ -79,6 +78,6 @@ ___
 
 ▸ **logSubscription**(): *(Anonymous function)*
 
-*Defined in [debug/log-subscription/index.ts:4](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/client/src/debug/log-subscription/index.ts#L4)*
+*Defined in [debug/log-subscription/index.ts:4](https://github.com/badbatch/graphql-box/blob/cbed108/packages/client/src/debug/log-subscription/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*

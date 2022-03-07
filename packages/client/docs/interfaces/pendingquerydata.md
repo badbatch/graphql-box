@@ -20,7 +20,7 @@
 
 • **context**: *RequestContext*
 
-*Defined in [defs/index.ts:78](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/client/src/defs/index.ts#L78)*
+*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/cbed108/packages/client/src/defs/index.ts#L48)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **options**: *RequestOptions*
 
-*Defined in [defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/client/src/defs/index.ts#L79)*
+*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/cbed108/packages/client/src/defs/index.ts#L49)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **resolve**: *[PendingQueryResolver](../README.md#pendingqueryresolver)*
 
-*Defined in [defs/index.ts:80](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/client/src/defs/index.ts#L80)*
+*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/cbed108/packages/client/src/defs/index.ts#L50)*

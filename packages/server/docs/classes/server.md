@@ -16,23 +16,20 @@
 
 * [message](server.md#message)
 * [request](server.md#request)
-* [init](server.md#static-init)
 
 ## Constructors
 
 ###  constructor
 
-\+ **new Server**(`__namedParameters`: object): *[Server](server.md)*
+\+ **new Server**(`options`: [UserOptions](../interfaces/useroptions.md)): *[Server](server.md)*
 
-*Defined in [main/index.ts:42](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/server/src/main/index.ts#L42)*
+*Defined in [main/index.ts:25](https://github.com/badbatch/graphql-box/blob/cbed108/packages/server/src/main/index.ts#L25)*
 
 **Parameters:**
 
-▪ **__namedParameters**: *object*
-
 Name | Type |
 ------ | ------ |
-`client` | Client‹› |
+`options` | [UserOptions](../interfaces/useroptions.md) |
 
 **Returns:** *[Server](server.md)*
 
@@ -42,7 +39,7 @@ Name | Type |
 
 ▸ **message**(`options`: ServerSocketRequestOptions): *[MessageHandler](../README.md#messagehandler)*
 
-*Defined in [main/index.ts:48](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/server/src/main/index.ts#L48)*
+*Defined in [main/index.ts:45](https://github.com/badbatch/graphql-box/blob/cbed108/packages/server/src/main/index.ts#L45)*
 
 **Parameters:**
 
@@ -58,7 +55,7 @@ ___
 
 ▸ **request**(`options`: ServerRequestOptions): *[RequestHandler](../README.md#requesthandler)*
 
-*Defined in [main/index.ts:54](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/server/src/main/index.ts#L54)*
+*Defined in [main/index.ts:51](https://github.com/badbatch/graphql-box/blob/cbed108/packages/server/src/main/index.ts#L51)*
 
 **Parameters:**
 
@@ -67,19 +64,3 @@ Name | Type | Default |
 `options` | ServerRequestOptions | {} |
 
 **Returns:** *[RequestHandler](../README.md#requesthandler)*
-
-___
-
-### `Static` init
-
-▸ **init**(`options`: [UserOptions](../interfaces/useroptions.md)): *Promise‹[Server](server.md)›*
-
-*Defined in [main/index.ts:26](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/server/src/main/index.ts#L26)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`options` | [UserOptions](../interfaces/useroptions.md) |
-
-**Returns:** *Promise‹[Server](server.md)›*

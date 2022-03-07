@@ -1,3 +1,9 @@
+## 3.0.0 (2022-03-07)
+
+##### New Features
+
+*  move to sync initialisation, from async ([cbed1084](https://github.com/badbatch/graphql-box/commit/cbed108472ee1ec91e82836759e4d51223fde6f9))
+
 #### 2.6.1 (2022-03-06)
 
 ##### New Features

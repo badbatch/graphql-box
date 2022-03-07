@@ -13,7 +13,6 @@
 * [Ancestors](interfaces/ancestors.md)
 * [ClientOptions](interfaces/clientoptions.md)
 * [ConstructorOptions](interfaces/constructoroptions.md)
-* [InitOptions](interfaces/initoptions.md)
 * [MapFieldToTypeData](interfaces/mapfieldtotypedata.md)
 * [RequestParserDef](interfaces/requestparserdef.md)
 * [UpdateRequestResult](interfaces/updaterequestresult.md)
@@ -35,7 +34,7 @@
 
 Ƭ **PersistedFragmentSpread**: *[string, ParsedDirective[], ReadonlyArray‹any›]*
 
-*Defined in [defs/index.ts:63](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/request-parser/src/defs/index.ts#L63)*
+*Defined in [defs/index.ts:58](https://github.com/badbatch/graphql-box/blob/cbed108/packages/request-parser/src/defs/index.ts#L58)*
 
 ___
 
@@ -43,11 +42,11 @@ ___
 
 Ƭ **RequestParserInit**: *function*
 
-*Defined in [defs/index.ts:41](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/request-parser/src/defs/index.ts#L41)*
+*Defined in [defs/index.ts:36](https://github.com/badbatch/graphql-box/blob/cbed108/packages/request-parser/src/defs/index.ts#L36)*
 
 #### Type declaration:
 
-▸ (`options`: [ClientOptions](interfaces/clientoptions.md)): *Promise‹[RequestParserDef](interfaces/requestparserdef.md)›*
+▸ (`options`: [ClientOptions](interfaces/clientoptions.md)): *[RequestParserDef](interfaces/requestparserdef.md)*
 
 **Parameters:**
 
@@ -61,7 +60,7 @@ Name | Type |
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *[RequestParserInit](README.md#requestparserinit)*
 
-*Defined in [main/index.ts:544](https://github.com/badbatch/graphql-box/blob/f0217fe/packages/request-parser/src/main/index.ts#L544)*
+*Defined in [main/index.ts:537](https://github.com/badbatch/graphql-box/blob/cbed108/packages/request-parser/src/main/index.ts#L537)*
 
 **Parameters:**
 
