@@ -13,7 +13,6 @@ import { forAwaitEach, isAsyncIterable } from "iterall";
 import { castArray, isPlainObject } from "lodash";
 import { Data } from "ws";
 import {
-  ConstructorOptions,
   MessageHandler,
   RequestData,
   RequestHandler,
@@ -23,7 +22,9 @@ import {
 import writeResponseChunk from "../helpers/writeResponseChunk";
 
 export default class Server {
-  public static async init(options: UserOptions): Promise<Server> {
+  private _client: Client;
+
+  constructor(options: UserOptions) {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(options)) {
@@ -34,15 +35,11 @@ export default class Server {
       errors.push(new TypeError("@graphql-box/server expected options.client."));
     }
 
-    if (errors.length) return Promise.reject(errors);
+    if (errors.length) {
+      throw errors;
+    }
 
-    return new Server(options);
-  }
-
-  private _client: Client;
-
-  constructor({ client }: ConstructorOptions) {
-    this._client = client;
+    this._client = options.client;
   }
 
   public message(options: ServerSocketRequestOptions): MessageHandler {

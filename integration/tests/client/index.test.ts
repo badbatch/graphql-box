@@ -54,7 +54,7 @@ describe("client", () => {
         };
 
         try {
-          client = await initClient({
+          client = initClient({
             cachemapStore: indexedDB(),
             introspection,
             typeCacheDirectives,
@@ -102,7 +102,7 @@ describe("client", () => {
         };
 
         try {
-          client = await initClient({
+          client = initClient({
             cachemapStore: indexedDB(),
             introspection,
             typeCacheDirectives,
@@ -156,7 +156,7 @@ describe("client", () => {
         };
 
         try {
-          client = await initClient({
+          client = initClient({
             cachemapStore: indexedDB(),
             introspection,
             typeCacheDirectives,
@@ -213,7 +213,7 @@ describe("client", () => {
         };
 
         try {
-          client = await initClient({
+          client = initClient({
             cachemapStore: indexedDB(),
             introspection,
             typeCacheDirectives,
@@ -283,7 +283,7 @@ describe("client", () => {
         };
 
         try {
-          client = await initClient({
+          client = initClient({
             cachemapStore: indexedDB(),
             introspection,
             typeCacheDirectives,
@@ -346,7 +346,7 @@ describe("client", () => {
         const websocket = new WebSocket(WS_URL);
         await onWebsocketOpen(websocket);
 
-        client = await initClient({
+        client = initClient({
           cachemapStore: indexedDB(),
           schema: makeExecutableSchema({
             parseOptions: { enableDeferStream: true },

@@ -47,14 +47,6 @@ export interface ClientOptions {
   typeIDKey: string;
 }
 
-export interface InitOptions {
-  cache: Cachemap;
-  cascadeCacheControl?: boolean;
-  fallbackOperationCacheability?: string;
-  typeCacheDirectives?: PlainObjectStringMap;
-  typeIDKey: string;
-}
-
 export interface ConstructorOptions {
   cache: Cachemap;
   cascadeCacheControl?: boolean;
@@ -216,4 +208,4 @@ export interface CacheManagerDef {
   deletePartialQueryResponse(hash: string): void;
 }
 
-export type CacheManagerInit = (options: ClientOptions) => Promise<CacheManagerDef>;
+export type CacheManagerInit = (options: ClientOptions) => CacheManagerDef;

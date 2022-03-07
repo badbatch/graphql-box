@@ -7,7 +7,6 @@ An extensible GraphQL client and server with modules for caching, request parsin
 
 ## Summary
 
-* Simple interface for making queries, mutations and subscriptions.
 * Automatically aggregate queries and mutations into fewer network requests.
 * Reduce server requests with response, query path and object entity caching.
 * Type level control of what gets cached using http cache-control directives.
@@ -74,14 +73,12 @@ additional bloat. Start with the `@graphql-box/client` or `@graphql-box/server` 
 
 ### Creating a browser instance of the Client
 
-The `Client` is initialized using its async static `init` method, don't initialize it using the traditional class
-constructor. The reason for this is so the `Client` can wait for asynchronous tasks to complete before returning an
-instance of itself.
+The `Client` is initialized using the traditional class constructor. Each module you want to add to the `Client` is
+passed as a property into the constructor.
 
-Each module you want to add to the `Client` is passed as a property into the `init` method. The default export of each
-module is a curried function that returns an async function that initializes the module. This allows you and the
-`Client` to pass configuration options into each module. The cache manager, request manager and request parser are all
-mandatory modules. The rest are optional.
+The default export of each module is a curried function that returns a function that initializes the module. This allows
+you and the `Client` to pass configuration options into each module. The cache manager, request manager and request
+parser are all mandatory modules. The rest are optional.
 
 The example below initializes the `Client` with a persisted cache with type cache control directives, a debug manager
 with a logger, a fetch manager with request batching enabled, and a subscriptions manager.
@@ -98,39 +95,37 @@ import fetchManager from "@graphql-box/fetch-manager";
 import requestParser from "@graphql-box/request-parser";
 import introspection from "./introspection-query";
 
-(async () => {
-  const client = await Client.init({
-    cacheManager: cacheManager({
-      cache: new Cachemap({
-        name: "cachemap",
-        reaper: reaper({ interval: 300000 }),
-        store: indexedDB(),
-      }),
-      cascadeCacheControl: true,
-      typeCacheDirectives: {
-        Organization: "public, max-age=3",
-        Repository: "public, max-age=3",
-        RepositoryConnection: "public, max-age=1",
-        RepositoryOwner: "public, max-age=3",
-      },
+const client = new Client({
+  cacheManager: cacheManager({
+    cache: new Cachemap({
+      name: "cachemap",
+      reaper: reaper({ interval: 300000 }),
+      store: indexedDB(),
     }),
-    debugManager: debugManager({
-      logger: {
-        log: (...args) => {
-          console.log(...args);
-        },
+    cascadeCacheControl: true,
+    typeCacheDirectives: {
+      Organization: "public, max-age=3",
+      Repository: "public, max-age=3",
+      RepositoryConnection: "public, max-age=1",
+      RepositoryOwner: "public, max-age=3",
+    },
+  }),
+  debugManager: debugManager({
+    logger: {
+      log: (...args) => {
+        console.log(...args);
       },
-      name: "CLIENT",
-      performance: self.performance,
-    }),
-    requestManager: fetchManager({ batch: true, url: "http://localhost:3001/graphql" }),
-    requestParser: requestParser({ introspection }),
-    subscriptionsManager: websocketManager({ websocket: new WebSocket("ws://localhost:3001/graphql") }),
-    typeIDKey: DEFAULT_TYPE_ID_KEY,
-  });
+    },
+    name: "CLIENT",
+    performance: self.performance,
+  }),
+  requestManager: fetchManager({ batch: true, url: "http://localhost:3001/graphql" }),
+  requestParser: requestParser({ introspection }),
+  subscriptionsManager: websocketManager({ websocket: new WebSocket("ws://localhost:3001/graphql") }),
+  typeIDKey: DEFAULT_TYPE_ID_KEY,
+});
 
-  // Do something...
-})();
+// Do something...
 ```
 
 * [cacheManager](#cachemanager)
@@ -326,13 +321,11 @@ const subscription = `
 
 ### Creating an instance of the Server
 
-The `Server` is initialized using its async static `init` method, don't initialize it using the traditional class
-constructor. The reason for this is so the `Server` can wait for asynchronous tasks to complete before returning an
-instance of itself.
+The `Server` is initialized using the traditional class constructor. To initialize the `Server`, you just need to pass
+an instance of the `Client` into the constructor.
 
-To initialize the `Server`, you just need to pass an instance of the `Client` into the `init` method. The difference
-with the `Client` initialized in the browser example above is the `requestManager` and `subscriptionsManager` properties
-accept their server-side equivalents.
+The difference with the `Client` initialized in the browser example above is the `requestManager` and
+`subscriptionsManager` properties accept their server-side equivalents.
 
 The example below initializes the `Server` with a persisted cache with type cache control directives, a debug manager
 with a logger, an execute module, and a subscribe module.
@@ -353,41 +346,39 @@ import { schemaResolvers, schemaTypeDefs } from "./schema";
 
 const schema = makeExecutableSchema({ typeDefs: schemaTypeDefs, resolvers: schemaResolvers });
 
-(async () => {
-  const server = Server.init({
-    client: await Client.init({
-      cacheManager: cacheManager({
-        cache: new Cachemap({
-          name: "cachemap",
-          reaper: reaper({ interval: 300000 }),
-          store: redis(),
-        }),
-        cascadeCacheControl: true,
-        typeCacheDirectives: {
-          Organization: "public, max-age=3",
-          Repository: "public, max-age=3",
-          RepositoryConnection: "public, max-age=1",
-          RepositoryOwner: "public, max-age=3",
-        },
+const server = new Server({
+  client: new Client({
+    cacheManager: cacheManager({
+      cache: new Cachemap({
+        name: "cachemap",
+        reaper: reaper({ interval: 300000 }),
+        store: redis(),
       }),
-      debugManager: debugManager({
-        logger: {
-          log: (...args) => {
-            console.log(...args);
-          },
-        },
-        name: "SERVER",
-        performance,
-      }),
-      requestManager: execute({ schema }),
-      requestParser: requestParser({ schema }),
-      subscriptionsManager: subscribe({ schema }),
-      typeIDKey: DEFAULT_TYPE_ID_KEY,
+      cascadeCacheControl: true,
+      typeCacheDirectives: {
+        Organization: "public, max-age=3",
+        Repository: "public, max-age=3",
+        RepositoryConnection: "public, max-age=1",
+        RepositoryOwner: "public, max-age=3",
+      },
     }),
-  });
+    debugManager: debugManager({
+      logger: {
+        log: (...args) => {
+          console.log(...args);
+        },
+      },
+      name: "SERVER",
+      performance,
+    }),
+    requestManager: execute({ schema }),
+    requestParser: requestParser({ schema }),
+    subscriptionsManager: subscribe({ schema }),
+    typeIDKey: DEFAULT_TYPE_ID_KEY,
+  }),
+});
 
-  // Do something...
-})();
+// Do something...
 ```
 
 Only the `Client` properties that differ from the browser example above are outlined below.
@@ -447,13 +438,11 @@ import express from "express";
 import http from "http";
 import initServer from "./server";
 
-(async () => {
-  const app = express();
-  const server = await initServer();
-  app.use("/graphql", server.request());
-  const server = http.createServer(app);
-  server.listen(3001);
-})();
+const app = express();
+const server = initServer();
+app.use("/graphql", server.request());
+const server = http.createServer(app);
+server.listen(3001);
 ```
 
 ### Handling a Server message for a subscription
@@ -467,16 +456,14 @@ import http from "http";
 import WebSocket from "ws";
 import initServer from "./server";
 
-(async () => {
-  const app = express();
-  const server = await initServer();
-  const httpServer = http.createServer(app);
-  const wss = new WebSocket.Server({ path: "/graphql", server: httpServer });
+const app = express();
+const server = initServer();
+const httpServer = http.createServer(app);
+const wss = new WebSocket.Server({ path: "/graphql", server: httpServer });
 
-  wss.on("connection", (ws) => {
-    ws.on("message", server.message({ ws }));
-  });
-})();
+wss.on("connection", (ws) => {
+  ws.on("message", server.message({ ws }));
+});
 ```
 
 ## Changelog

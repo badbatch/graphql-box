@@ -43,8 +43,6 @@ export interface UserOptions {
   url: string;
 }
 
-export type InitOptions = UserOptions;
-
 export type ConstructorOptions = UserOptions;
 
 export interface FetchOptions {

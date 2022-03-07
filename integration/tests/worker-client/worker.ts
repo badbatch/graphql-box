@@ -36,7 +36,7 @@ const typeCacheDirectives = {
 };
 
 (async () => {
-  const client = await initClient({
+  const client = initClient({
     cachemapStore: map(),
     debuggerName: "WORKER",
     introspection,

@@ -11,15 +11,15 @@ import { InitClientOptions } from "../../defs";
 
 const { performance } = self;
 
-export default async function initClient({
+export default function initClient({
   cachemapStore,
   debuggerName = "CLIENT",
   introspection,
   schema,
   subscriptionsManager,
   typeCacheDirectives,
-}: InitClientOptions): Promise<Client> {
-  return Client.init({
+}: InitClientOptions): Client {
+  return new Client({
     cacheManager: cacheManager({
       cache: new Cachemap({
         name: "cachemap",

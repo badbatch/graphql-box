@@ -19,7 +19,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -42,7 +42,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -65,7 +65,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -88,7 +88,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -111,7 +111,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -134,7 +134,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -157,7 +157,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -180,7 +180,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -203,7 +203,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -226,7 +226,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -249,7 +249,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -272,7 +272,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -295,7 +295,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -318,7 +318,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -341,7 +341,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -364,7 +364,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -387,7 +387,7 @@ describe("@graphql-box/request-parser >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
-      requestParser = await RequestParser.init({
+      requestParser = new RequestParser({
         schema: makeExecutableSchema({
           parseOptions: { enableDeferStream: true },
           resolvers: schemaResolvers,

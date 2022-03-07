@@ -6,8 +6,8 @@ import { InitWorkerClientOptions } from "../../defs";
 
 const { performance } = self;
 
-export default async function initWorkerClient({ worker }: InitWorkerClientOptions): Promise<WorkerClient> {
-  return WorkerClient.init({
+export default function initWorkerClient({ worker }: InitWorkerClientOptions): WorkerClient {
+  return new WorkerClient({
     cache: new WorkerCachemap({ name: "test", type: "someType", worker }),
     debugManager: debugManager({
       logger: { log },

@@ -15,17 +15,20 @@ import { castArray, isPlainObject } from "lodash";
 import { v1 as uuid } from "uuid";
 import { GRAPHQL_BOX, MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
 import logRequest from "../debug/log-request";
-import {
-  ConstructorOptions,
-  MessageContext,
-  MessageResponsePayload,
-  PendingResolver,
-  PendingTracker,
-  UserOptions,
-} from "../defs";
+import { MessageContext, MessageResponsePayload, PendingResolver, PendingTracker, UserOptions } from "../defs";
 
 export default class WorkerClient {
-  public static async init(options: UserOptions): Promise<WorkerClient> {
+  private static _getMessageContext({ boxID, hasDeferOrStream = false }: RequestContext): MessageContext {
+    return { boxID, hasDeferOrStream };
+  }
+
+  private _cache: WorkerCachemap;
+  private _debugManager: DebugManagerDef | null;
+  private _eventEmitter: EventEmitter;
+  private _pending: PendingTracker = new Map();
+  private _worker: Worker;
+
+  constructor(options: UserOptions) {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(options)) {
@@ -40,37 +43,14 @@ export default class WorkerClient {
       errors.push(new TypeError("@graphql-box/client expected options.worker."));
     }
 
-    const constructorOptions: ConstructorOptions = {
-      cache: options.cache,
-      worker: options.worker,
-    };
-
-    try {
-      if (options.debugManager) {
-        constructorOptions.debugManager = await options.debugManager();
-      }
-
-      return new WorkerClient(constructorOptions);
-    } catch (error) {
-      return Promise.reject(error);
+    if (errors.length) {
+      throw errors;
     }
-  }
 
-  private static _getMessageContext({ boxID, hasDeferOrStream = false }: RequestContext): MessageContext {
-    return { boxID, hasDeferOrStream };
-  }
-
-  private _cache: WorkerCachemap;
-  private _debugManager: DebugManagerDef | null;
-  private _eventEmitter: EventEmitter;
-  private _pending: PendingTracker = new Map();
-  private _worker: Worker;
-
-  constructor({ cache, debugManager, worker }: ConstructorOptions) {
-    this._cache = cache;
-    this._debugManager = debugManager || null;
+    this._cache = options.cache;
+    this._debugManager = options.debugManager ? options.debugManager() : null;
     this._eventEmitter = new EventEmitter();
-    this._worker = worker;
+    this._worker = options.worker;
     this._addEventListener();
   }
 

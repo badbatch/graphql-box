@@ -11,21 +11,9 @@ import {
 import { EventAsyncIterator } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { isPlainObject } from "lodash";
-import { ConstructorOptions, InitOptions, UserOptions } from "../defs";
+import { ConstructorOptions, UserOptions } from "../defs";
 
 export class WebsocketManager implements SubscriptionsManagerDef {
-  public static async init(options: InitOptions): Promise<WebsocketManager> {
-    const errors: TypeError[] = [];
-
-    if (!options.websocket) {
-      errors.push(new TypeError("@graphql-box/websocket-manager expected options.websocket."));
-    }
-
-    if (errors.length) return Promise.reject(errors);
-
-    return new WebsocketManager(options);
-  }
-
   private static _getMessageContext({ boxID, operation }: RequestContext): MaybeRequestContext {
     return { boxID, operation };
   }
@@ -35,6 +23,16 @@ export class WebsocketManager implements SubscriptionsManagerDef {
   private _websocket: WebSocket;
 
   constructor(options: ConstructorOptions) {
+    const errors: TypeError[] = [];
+
+    if (!options.websocket) {
+      errors.push(new TypeError("@graphql-box/websocket-manager expected options.websocket."));
+    }
+
+    if (errors.length) {
+      throw errors;
+    }
+
     this._eventEmitter = new EventEmitter();
     options.websocket.onmessage = this._onMessage.bind(this);
     this._websocket = options.websocket;
@@ -89,5 +87,5 @@ export default function init(userOptions: UserOptions): SubscriptionsManagerInit
     throw new TypeError("@graphql-box/websocket-manager expected userOptions to be a plain object.");
   }
 
-  return () => WebsocketManager.init(userOptions);
+  return () => new WebsocketManager(userOptions);
 }

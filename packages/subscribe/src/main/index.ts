@@ -14,21 +14,9 @@ import EventEmitter from "eventemitter3";
 import { AsyncExecutionResult, GraphQLFieldResolver, GraphQLSchema, parse, subscribe } from "graphql";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
-import { ConstructorOptions, GraphQLSubscribe, InitOptions, SubscribeArgs, UserOptions } from "../defs";
+import { ConstructorOptions, GraphQLSubscribe, SubscribeArgs, UserOptions } from "../defs";
 
 export class Subscribe {
-  public static async init(options: InitOptions): Promise<Subscribe> {
-    const errors: TypeError[] = [];
-
-    if (!(options.schema instanceof GraphQLSchema)) {
-      errors.push(new TypeError("@graphql-box/subscribe expected options.schema to be a GraphQL schema."));
-    }
-
-    if (errors.length) return Promise.reject(errors);
-
-    return new Subscribe(options);
-  }
-
   private _contextValue: PlainObjectMap;
   private _eventEmitter: EventEmitter;
   private _fieldResolver?: GraphQLFieldResolver<any, any> | null;
@@ -38,6 +26,16 @@ export class Subscribe {
   private _subscribeFieldResolver?: GraphQLFieldResolver<any, any> | null;
 
   constructor(options: ConstructorOptions) {
+    const errors: TypeError[] = [];
+
+    if (!(options.schema instanceof GraphQLSchema)) {
+      errors.push(new TypeError("@graphql-box/subscribe expected options.schema to be a GraphQL schema."));
+    }
+
+    if (errors.length) {
+      throw errors;
+    }
+
     this._contextValue = options.contextValue || {};
     this._eventEmitter = new EventEmitter();
     this._fieldResolver = options.fieldResolver || null;
@@ -101,5 +99,5 @@ export default function init(userOptions: UserOptions): SubscriptionsManagerInit
     throw new TypeError("@graphql-box/subscribe expected userOptions to be a plain object.");
   }
 
-  return () => Subscribe.init(userOptions);
+  return () => new Subscribe(userOptions);
 }

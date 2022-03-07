@@ -16,21 +16,9 @@ import { ExecutionArgs, GraphQLFieldResolver, GraphQLSchema, execute, parse } fr
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
 import logExecute from "../debug/log-execute";
-import { ConstructorOptions, GraphQLExecute, InitOptions, UserOptions } from "../defs";
+import { ConstructorOptions, GraphQLExecute, UserOptions } from "../defs";
 
 export class Execute implements RequestManagerDef {
-  public static async init(options: InitOptions): Promise<Execute> {
-    const errors: TypeError[] = [];
-
-    if (!(options.schema instanceof GraphQLSchema)) {
-      errors.push(new TypeError("@graphql-box/execute expected options.schema to be a GraphQL schema."));
-    }
-
-    if (errors.length) return Promise.reject(errors);
-
-    return new Execute(options);
-  }
-
   private _contextValue: PlainObjectMap;
   private _eventEmitter: EventEmitter;
   private _execute: GraphQLExecute;
@@ -39,6 +27,16 @@ export class Execute implements RequestManagerDef {
   private _schema: GraphQLSchema;
 
   constructor(options: ConstructorOptions) {
+    const errors: TypeError[] = [];
+
+    if (!(options.schema instanceof GraphQLSchema)) {
+      errors.push(new TypeError("@graphql-box/execute expected options.schema to be a GraphQL schema."));
+    }
+
+    if (errors.length) {
+      throw errors;
+    }
+
     this._contextValue = options.contextValue || {};
     this._eventEmitter = new EventEmitter();
     this._execute = options.execute || (execute as GraphQLExecute);
@@ -100,5 +98,5 @@ export default function init(userOptions: UserOptions): RequestManagerInit {
     throw new TypeError("@graphql-box/execute expected userOptions to be a plain object.");
   }
 
-  return () => Execute.init(userOptions);
+  return () => new Execute(userOptions);
 }

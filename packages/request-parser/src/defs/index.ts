@@ -18,14 +18,9 @@ export interface ClientOptions {
   typeIDKey: string;
 }
 
-export interface InitOptions {
+export interface ConstructorOptions {
   introspection?: IntrospectionQuery;
   schema?: GraphQLSchema;
-  typeIDKey: string;
-}
-
-export interface ConstructorOptions {
-  schema: GraphQLSchema;
   typeIDKey: string;
 }
 
@@ -38,7 +33,7 @@ export interface RequestParserDef {
   updateRequest(request: string, options: RequestOptions, context: RequestContext): Promise<UpdateRequestResult>;
 }
 
-export type RequestParserInit = (options: ClientOptions) => Promise<RequestParserDef>;
+export type RequestParserInit = (options: ClientOptions) => RequestParserDef;
 
 export interface Ancestors {
   ancestors: readonly any[];

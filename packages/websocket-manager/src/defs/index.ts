@@ -6,6 +6,4 @@ export interface UserOptions {
   websocket: WebSocket;
 }
 
-export type InitOptions = UserOptions;
-
 export type ConstructorOptions = UserOptions;

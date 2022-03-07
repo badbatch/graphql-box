@@ -38,7 +38,7 @@ describe("@graphql-box/websocket-manager >>", () => {
       const websocket = new WebSocket(url);
       await onOpen(websocket);
 
-      websocketManager = await WebsocketManager.init({
+      websocketManager = new WebsocketManager({
         websocket,
       });
 
@@ -62,7 +62,7 @@ describe("@graphql-box/websocket-manager >>", () => {
       const websocket = new WebSocket(url);
       await onOpen(websocket);
 
-      websocketManager = await WebsocketManager.init({
+      websocketManager = new WebsocketManager({
         websocket,
       });
 

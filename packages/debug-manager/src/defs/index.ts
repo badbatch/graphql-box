@@ -23,11 +23,9 @@ export interface UserOptions {
   performance: Performance;
 }
 
-export type InitOptions = UserOptions;
-
 export type ConstructorOptions = UserOptions;
 
-export type DebugManagerInit = () => Promise<DebugManagerDef>;
+export type DebugManagerInit = () => DebugManagerDef;
 
 export interface Performance {
   now(): number;

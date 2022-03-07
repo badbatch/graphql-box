@@ -24,7 +24,7 @@ describe("worker-client", () => {
         try {
           worker = new Worker("worker.js");
           fetchMockWorker = new FetchMockWorker(worker);
-          workerClient = await initWorkerClient({ worker });
+          workerClient = initWorkerClient({ worker });
         } catch (errors) {
           log(errors);
         }
@@ -67,7 +67,7 @@ describe("worker-client", () => {
         try {
           worker = new Worker("worker.js");
           fetchMockWorker = new FetchMockWorker(worker);
-          workerClient = await initWorkerClient({ worker });
+          workerClient = initWorkerClient({ worker });
         } catch (errors) {
           log(errors);
         }
@@ -117,7 +117,7 @@ describe("worker-client", () => {
         try {
           worker = new Worker("worker.js");
           fetchMockWorker = new FetchMockWorker(worker);
-          workerClient = await initWorkerClient({ worker });
+          workerClient = initWorkerClient({ worker });
         } catch (errors) {
           log(errors);
         }
@@ -173,7 +173,7 @@ describe("worker-client", () => {
         try {
           worker = new Worker("worker.js");
           fetchMockWorker = new FetchMockWorker(worker);
-          workerClient = await initWorkerClient({ worker });
+          workerClient = initWorkerClient({ worker });
         } catch (errors) {
           log(errors);
         }
@@ -231,7 +231,7 @@ describe("worker-client", () => {
         try {
           worker = new Worker("worker.js");
           fetchMockWorker = new FetchMockWorker(worker);
-          workerClient = await initWorkerClient({ worker });
+          workerClient = initWorkerClient({ worker });
         } catch (errors) {
           log(errors);
         }

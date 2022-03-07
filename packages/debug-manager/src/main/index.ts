@@ -1,30 +1,28 @@
 import { DebugManagerDef, PlainObjectMap } from "@graphql-box/core";
 import EventEmitter from "eventemitter3";
 import { isPlainObject, isString } from "lodash";
-import { ConstructorOptions, DebugManagerInit, InitOptions, Logger, Performance, UserOptions } from "../defs";
+import { ConstructorOptions, DebugManagerInit, Logger, Performance, UserOptions } from "../defs";
 
 export class DebugManager extends EventEmitter implements DebugManagerDef {
-  public static async init(options: InitOptions): Promise<DebugManager> {
+  private _logger: Logger | null;
+  private _name: string;
+  private _performance: Performance;
+
+  constructor(options: ConstructorOptions) {
+    super();
     const errors: TypeError[] = [];
 
     if (!isString(options.name)) {
       errors.push(new TypeError("@graphql-box/debug-manager expected options.name to be a string."));
     }
 
-    if (errors.length) return Promise.reject(errors);
+    if (errors.length) {
+      throw errors;
+    }
 
-    return new DebugManager(options);
-  }
-
-  private _logger: Logger | null;
-  private _name: string;
-  private _performance: Performance;
-
-  constructor({ logger, name, performance }: ConstructorOptions) {
-    super();
-    this._logger = logger || null;
-    this._name = name;
-    this._performance = performance;
+    this._logger = options.logger || null;
+    this._name = options.name;
+    this._performance = options.performance;
   }
 
   public emit(event: string | symbol, data: PlainObjectMap): boolean {
@@ -48,5 +46,5 @@ export default function init(userOptions: UserOptions): DebugManagerInit {
     throw new TypeError("@graphql-box/debug-manager expected userOptions to be a plain object.");
   }
 
-  return () => DebugManager.init(userOptions);
+  return () => new DebugManager(userOptions);
 }

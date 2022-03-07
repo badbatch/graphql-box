@@ -49,7 +49,6 @@ import {
   FieldCount,
   FieldPathChecklist,
   FieldPathChecklistValue,
-  InitOptions,
   KeysAndPaths,
   MergedCachedFieldData,
   PartialQueryResponse,
@@ -71,25 +70,6 @@ import normalizePatchResponseData from "../helpers/normalizePatchResponseData";
 import { getValidTypeIDValue } from "../helpers/validTypeIDValue";
 
 export class CacheManager implements CacheManagerDef {
-  public static async init(options: InitOptions): Promise<CacheManager> {
-    const errors: TypeError[] = [];
-
-    if (!options.cache) {
-      errors.push(new TypeError("@graphql-box/cache-manager expected options.cache."));
-    }
-
-    if (!!options.typeCacheDirectives && !isPlainObject(options.typeCacheDirectives)) {
-      const message = "@graphql-box/cache-manager expected options.typeCacheDirectives to be a plain object.";
-      errors.push(new TypeError(message));
-    }
-
-    if (errors.length) {
-      return Promise.reject(errors);
-    }
-
-    return new CacheManager(options);
-  }
-
   private static _countFieldPathChecklist(fieldPathChecklist: FieldPathChecklist): FieldCount {
     const fieldCount: FieldCount = { missing: 0, total: 0 };
 
@@ -234,12 +214,26 @@ export class CacheManager implements CacheManagerDef {
   private _typeIDKey: string;
 
   constructor(options: ConstructorOptions) {
-    const { cache, cascadeCacheControl, fallbackOperationCacheability, typeCacheDirectives, typeIDKey } = options;
-    this._cache = cache;
-    this._cascadeCacheControl = cascadeCacheControl || false;
-    this._fallbackOperationCacheability = fallbackOperationCacheability || NO_CACHE;
-    this._typeCacheDirectives = typeCacheDirectives || {};
-    this._typeIDKey = typeIDKey;
+    const errors: TypeError[] = [];
+
+    if (!options.cache) {
+      errors.push(new TypeError("@graphql-box/cache-manager expected options.cache."));
+    }
+
+    if (!!options.typeCacheDirectives && !isPlainObject(options.typeCacheDirectives)) {
+      const message = "@graphql-box/cache-manager expected options.typeCacheDirectives to be a plain object.";
+      errors.push(new TypeError(message));
+    }
+
+    if (errors.length) {
+      throw errors;
+    }
+
+    this._cache = options.cache;
+    this._cascadeCacheControl = options.cascadeCacheControl || false;
+    this._fallbackOperationCacheability = options.fallbackOperationCacheability || NO_CACHE;
+    this._typeCacheDirectives = options.typeCacheDirectives || {};
+    this._typeIDKey = options.typeIDKey;
   }
 
   get cache(): Cachemap {
@@ -1175,5 +1169,5 @@ export default function init(userOptions: UserOptions): CacheManagerInit {
     throw new TypeError("@graphql-box/cache-manager expected userOptions to be a plain object.");
   }
 
-  return (clientOptions: ClientOptions) => CacheManager.init({ ...clientOptions, ...userOptions });
+  return (clientOptions: ClientOptions) => new CacheManager({ ...clientOptions, ...userOptions });
 }

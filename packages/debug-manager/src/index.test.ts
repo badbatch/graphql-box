@@ -29,7 +29,7 @@ describe("@graphql-box/debug-manager >>", () => {
     const response: PlainObjectMap[] = [];
 
     beforeAll(async () => {
-      debugManager = await DebugManager.init({ name: "CLIENT", performance });
+      debugManager = new DebugManager({ name: "CLIENT", performance });
 
       // @ts-ignore
       jest.spyOn(debugManager._performance, "now").mockReturnValue(0);
@@ -38,7 +38,7 @@ describe("@graphql-box/debug-manager >>", () => {
         response.push(payload);
       });
 
-      const cacheManager = await CacheManager.init({
+      const cacheManager = new CacheManager({
         cache: new Cachemap({
           name: "cachemap",
           store: map(),
@@ -68,7 +68,7 @@ describe("@graphql-box/debug-manager >>", () => {
     const response: PlainObjectMap[] = [];
 
     beforeAll(async () => {
-      debugManager = await DebugManager.init({ name: "CLIENT", performance });
+      debugManager = new DebugManager({ name: "CLIENT", performance });
 
       // @ts-ignore
       jest.spyOn(debugManager._performance, "now").mockReturnValue(0);
@@ -80,7 +80,7 @@ describe("@graphql-box/debug-manager >>", () => {
       // @ts-ignore
       jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
 
-      const cacheManager = await CacheManager.init({
+      const cacheManager = new CacheManager({
         cache: new Cachemap({
           name: "cachemap",
           store: map(),

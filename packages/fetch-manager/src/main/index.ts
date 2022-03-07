@@ -24,7 +24,6 @@ import {
   BatchedMaybeFetchData,
   ConstructorOptions,
   FetchOptions,
-  InitOptions,
   UserOptions,
 } from "../defs";
 import cleanPatchResponse from "../helpers/cleanPatchResponse";
@@ -32,18 +31,6 @@ import mergeResponseDataSets from "../helpers/mergeResponseDataSets";
 import parseFetchResult from "../helpers/parseFetchResult";
 
 export class FetchManager implements RequestManagerDef {
-  public static async init(options: InitOptions): Promise<FetchManager> {
-    const errors: TypeError[] = [];
-
-    if (!isString(options.url)) {
-      errors.push(new TypeError("@graphql-box/fetch-manager expected url to be a string."));
-    }
-
-    if (errors.length) return Promise.reject(errors);
-
-    return new FetchManager(options);
-  }
-
   private static _getMessageContext({ boxID, operation }: RequestContext): MaybeRequestContext {
     return { boxID, operation };
   }
@@ -85,24 +72,24 @@ export class FetchManager implements RequestManagerDef {
   private _url: string;
 
   constructor(options: ConstructorOptions) {
-    const {
-      batchRequests,
-      batchResponses,
-      fetchTimeout,
-      headers = {},
-      requestBatchInterval,
-      responseBatchInterval,
-      url,
-    } = options;
+    const errors: TypeError[] = [];
 
-    this._batchRequests = batchRequests ?? false;
-    this._batchResponses = batchResponses ?? true;
-    this._requestBatchInterval = requestBatchInterval ?? 100;
-    this._responseBatchInterval = responseBatchInterval ?? 100;
+    if (!isString(options.url)) {
+      errors.push(new TypeError("@graphql-box/fetch-manager expected url to be a string."));
+    }
+
+    if (errors.length) {
+      throw errors;
+    }
+
+    this._batchRequests = options.batchRequests ?? false;
+    this._batchResponses = options.batchResponses ?? true;
+    this._requestBatchInterval = options.requestBatchInterval ?? 100;
+    this._responseBatchInterval = options.responseBatchInterval ?? 100;
     this._eventEmitter = new EventEmitter();
-    this._fetchTimeout = fetchTimeout ?? 5000;
-    this._headers = { ...this._headers, ...headers };
-    this._url = url;
+    this._fetchTimeout = options.fetchTimeout ?? 5000;
+    this._headers = { ...this._headers, ...(options.headers ?? {}) };
+    this._url = options.url;
   }
 
   @logFetch()
@@ -283,5 +270,5 @@ export default function init(userOptions: UserOptions): RequestManagerInit {
     throw new TypeError("@graphql-box/fetch-manager expected userOptions to be a plain object.");
   }
 
-  return () => FetchManager.init(userOptions);
+  return () => new FetchManager(userOptions);
 }

@@ -1,16 +1,13 @@
-import { CacheManagerDef, CacheManagerInit } from "@graphql-box/cache-manager";
+import { CacheManagerInit } from "@graphql-box/cache-manager";
 import {
-  DebugManagerDef,
   MaybeRequestResult,
   RequestContext,
-  RequestManagerDef,
   RequestManagerInit,
   RequestOptions,
-  SubscriptionsManagerDef,
   SubscriptionsManagerInit,
 } from "@graphql-box/core";
 import { DebugManagerInit } from "@graphql-box/debug-manager";
-import { RequestParserDef, RequestParserInit } from "@graphql-box/request-parser";
+import { RequestParserInit } from "@graphql-box/request-parser";
 
 export interface UserOptions {
   /**
@@ -43,33 +40,6 @@ export interface UserOptions {
    * identifier for each type in the GraphQL schema.
    */
   typeIDKey?: string;
-}
-
-export interface ConstructorOptions {
-  /**
-   * The cache manager.
-   */
-  cacheManager: CacheManagerDef;
-
-  /**
-   * The debug manager.
-   */
-  debugManager?: DebugManagerDef;
-
-  /**
-   * The request manager.
-   */
-  requestManager: RequestManagerDef;
-
-  /**
-   * The GraphQL request parser.
-   */
-  requestParser: RequestParserDef;
-
-  /**
-   * The subscriptions manager.
-   */
-  subscriptionsManager?: SubscriptionsManagerDef;
 }
 
 export type PendingQueryResolver = (value: MaybeRequestResult) => void;

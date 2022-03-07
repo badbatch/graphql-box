@@ -18,12 +18,12 @@ const schema = makeExecutableSchema({
   updateResolversInPlace: true,
 });
 
-export default async function initServer({
+export default function initServer({
   cachemapStore,
   debuggerName = "SERVER",
   typeCacheDirectives,
-}: InitServerOptions): Promise<Client> {
-  return Client.init({
+}: InitServerOptions): Client {
+  return new Client({
     cacheManager: cacheManager({
       cache: new Cachemap({
         name: "cachemap",

@@ -27,7 +27,7 @@ describe("@graphql-box/fetch-manager >>", () => {
       let response: MaybeRawResponseData;
 
       beforeAll(async () => {
-        fetchManager = await FetchManager.init({
+        fetchManager = new FetchManager({
           url: URL,
         });
 
@@ -60,7 +60,7 @@ describe("@graphql-box/fetch-manager >>", () => {
       let response: MaybeRawResponseData;
 
       beforeAll(async () => {
-        fetchManager = await FetchManager.init({
+        fetchManager = new FetchManager({
           batchRequests: true,
           url: URL,
         });
@@ -98,7 +98,7 @@ describe("@graphql-box/fetch-manager >>", () => {
       beforeAll(async () => {
         jest.useFakeTimers();
 
-        fetchManager = await FetchManager.init({
+        fetchManager = new FetchManager({
           batchRequests: true,
           fetchTimeout: 10000,
           url: URL,
@@ -146,7 +146,7 @@ describe("@graphql-box/fetch-manager >>", () => {
       beforeAll(async () => {
         jest.useFakeTimers();
 
-        fetchManager = await FetchManager.init({
+        fetchManager = new FetchManager({
           batchRequests: true,
           fetchTimeout: 10000,
           url: URL,
@@ -209,7 +209,7 @@ describe("@graphql-box/fetch-manager >>", () => {
     let mockFetch: jest.Mock<any, any>;
 
     beforeAll(async () => {
-      fetchManager = await FetchManager.init({
+      fetchManager = new FetchManager({
         url: URL,
       });
 

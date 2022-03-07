@@ -14,8 +14,6 @@ export interface UserOptions {
   client: Client;
 }
 
-export type ConstructorOptions = UserOptions;
-
 export type RequestHandler = (req: Request, res: Response, ...args: any[]) => void;
 
 export type MessageHandler = (message: Data) => void;

@@ -12,9 +12,9 @@ import initServer from "../helpers/init-server";
 
 global.Date.now = sinon.stub().returns(Date.parse("June 6, 1979 GMT"));
 
-export default async function graphqlServer(): Promise<http.Server> {
-  const boxServer = await BoxServer.init({
-    client: await initServer({
+export default function graphqlServer(): http.Server {
+  const boxServer = new BoxServer({
+    client: initServer({
       cachemapStore: map(),
       typeCacheDirectives: {
         Email: "public, max-age=5",

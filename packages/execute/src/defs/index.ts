@@ -34,8 +34,6 @@ export interface UserOptions {
   schema: GraphQLSchema;
 }
 
-export type InitOptions = UserOptions;
-
 export type ConstructorOptions = UserOptions;
 
 export type GraphQLExecute = (

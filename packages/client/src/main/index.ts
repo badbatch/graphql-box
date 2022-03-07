@@ -26,49 +26,9 @@ import { castArray, isArray, isPlainObject, isString } from "lodash";
 import { v1 as uuid } from "uuid";
 import logRequest from "../debug/log-request";
 import logSubscription from "../debug/log-subscription";
-import { ConstructorOptions, PendingQueryData, PendingQueryResolver, QueryTracker, UserOptions } from "../defs";
+import { PendingQueryData, PendingQueryResolver, QueryTracker, UserOptions } from "../defs";
 
 export default class Client {
-  public static async init(options: UserOptions): Promise<Client> {
-    const errors: TypeError[] = [];
-
-    if (!isPlainObject(options)) {
-      errors.push(new TypeError("@graphql-box/client expected options to ba a plain object."));
-    }
-
-    if (!options.cacheManager) {
-      errors.push(new TypeError("@graphql-box/client expected options.cacheManager."));
-    }
-
-    if (!options.requestParser) {
-      errors.push(new TypeError("@graphql-box/client expected options.requestParser."));
-    }
-
-    if (errors.length) return Promise.reject(errors);
-
-    try {
-      const typeIDKey = options.typeIDKey || DEFAULT_TYPE_ID_KEY;
-
-      const constructorOptions: ConstructorOptions = {
-        cacheManager: await options.cacheManager({ typeIDKey }),
-        requestManager: await options.requestManager(),
-        requestParser: await options.requestParser({ typeIDKey }),
-      };
-
-      if (options.debugManager) {
-        constructorOptions.debugManager = await options.debugManager();
-      }
-
-      if (options.subscriptionsManager) {
-        constructorOptions.subscriptionsManager = await options.subscriptionsManager();
-      }
-
-      return new Client(constructorOptions);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
   private static _areFragmentsInvalid(fragments?: string[]): boolean {
     return !!fragments && (!isArray(fragments) || !fragments.every(value => isString(value)));
   }
@@ -112,13 +72,35 @@ export default class Client {
   private _requestParser: RequestParserDef;
   private _subscriptionsManager: SubscriptionsManagerDef | null;
 
-  constructor(options: ConstructorOptions) {
-    const { cacheManager, debugManager, requestManager, requestParser, subscriptionsManager } = options;
-    this._cacheManager = cacheManager;
-    this._debugManager = debugManager || null;
-    this._requestManager = requestManager;
-    this._requestParser = requestParser;
-    this._subscriptionsManager = subscriptionsManager || null;
+  constructor(options: UserOptions) {
+    const errors: TypeError[] = [];
+
+    if (!isPlainObject(options)) {
+      errors.push(new TypeError("@graphql-box/client expected options to ba a plain object."));
+    }
+
+    if (!options.cacheManager) {
+      errors.push(new TypeError("@graphql-box/client expected options.cacheManager."));
+    }
+
+    if (!options.requestParser) {
+      errors.push(new TypeError("@graphql-box/client expected options.requestParser."));
+    }
+
+    if (!options.requestManager) {
+      errors.push(new TypeError("@graphql-box/client expected options.requestManager."));
+    }
+
+    if (errors.length) {
+      throw errors;
+    }
+
+    const typeIDKey = options.typeIDKey || DEFAULT_TYPE_ID_KEY;
+    this._cacheManager = options.cacheManager({ typeIDKey });
+    this._debugManager = options.debugManager ? options.debugManager() : null;
+    this._requestManager = options.requestManager();
+    this._requestParser = options.requestParser({ typeIDKey });
+    this._subscriptionsManager = options.subscriptionsManager ? options.subscriptionsManager() : null;
   }
 
   get cache(): Core {

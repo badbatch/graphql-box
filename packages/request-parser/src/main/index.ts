@@ -65,7 +65,6 @@ import {
   Ancestors,
   ClientOptions,
   ConstructorOptions,
-  InitOptions,
   MapFieldToTypeData,
   RequestParserDef,
   RequestParserInit,
@@ -81,29 +80,6 @@ import setFragmentAndDirectiveContextProps from "../helpers/setFragmentAndDirect
 import toUpdateNode from "../helpers/toUpdateNode";
 
 export class RequestParser implements RequestParserDef {
-  public static async init(options: InitOptions): Promise<RequestParser> {
-    const { introspection, schema, typeIDKey } = options;
-    const errors: TypeError[] = [];
-
-    if (!isPlainObject(introspection) && !(schema instanceof GraphQLSchema)) {
-      const msg = "@graphql-box/request-parser expected introspection to be an object or schema to be a GraphQLSchema";
-      errors.push(new TypeError(msg));
-    }
-
-    if (errors.length) return Promise.reject(errors);
-
-    try {
-      const constructorOptions: ConstructorOptions = {
-        schema: introspection ? buildClientSchema(introspection) : (schema as GraphQLSchema),
-        typeIDKey,
-      };
-
-      return new RequestParser(constructorOptions);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
   private static _concatFragments(query: string, fragments: string[]): string {
     return [query, ...fragments].join("\n\n");
   }
@@ -241,9 +217,26 @@ export class RequestParser implements RequestParserDef {
   private _typeIDKey: string;
 
   constructor(options: ConstructorOptions) {
-    const { schema, typeIDKey } = options;
-    this._schema = schema;
-    this._typeIDKey = typeIDKey;
+    const errors: TypeError[] = [];
+
+    if (!isPlainObject(options.introspection) && !(options.schema instanceof GraphQLSchema)) {
+      const msg = "@graphql-box/request-parser expected introspection to be an object or schema to be a GraphQLSchema";
+      errors.push(new TypeError(msg));
+    }
+
+    if (errors.length) {
+      throw errors;
+    }
+
+    try {
+      this._schema = options.introspection
+        ? buildClientSchema(options.introspection)
+        : (options.schema as GraphQLSchema);
+    } catch (error) {
+      throw [error];
+    }
+
+    this._typeIDKey = options.typeIDKey;
   }
 
   public async updateRequest(
@@ -546,5 +539,5 @@ export default function init(userOptions: UserOptions): RequestParserInit {
     throw new TypeError("@graphql-box/request-parser expected userOptions to be a plain object.");
   }
 
-  return (clientOptions: ClientOptions) => RequestParser.init({ ...clientOptions, ...userOptions });
+  return (clientOptions: ClientOptions) => new RequestParser({ ...clientOptions, ...userOptions });
 }

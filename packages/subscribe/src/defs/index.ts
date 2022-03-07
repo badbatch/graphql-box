@@ -39,8 +39,6 @@ export interface UserOptions {
   subscribeFieldResolver?: GraphQLFieldResolver<any, any>;
 }
 
-export type InitOptions = UserOptions;
-
 export type ConstructorOptions = UserOptions;
 
 export type GraphQLSubscribe = <TData = PlainObjectMap<unknown>>(args: {
