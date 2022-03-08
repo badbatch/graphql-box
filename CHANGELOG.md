@@ -1,3 +1,9 @@
+### 3.1.0 (2022-03-08)
+
+##### New Features
+
+*  add request whitelisting ([6718c4a9](https://github.com/badbatch/graphql-box/commit/6718c4a9b5f5ddb3ff312966a5af9d16f5b25194))
+
 ## 3.0.0 (2022-03-07)
 
 ##### New Features

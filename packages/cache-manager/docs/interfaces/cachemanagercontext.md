@@ -23,6 +23,7 @@
 * [queryFiltered](cachemanagercontext.md#queryfiltered)
 * [request](cachemanagercontext.md#request)
 * [typeIDKey](cachemanagercontext.md#optional-typeidkey)
+* [whitelistHash](cachemanagercontext.md#whitelisthash)
 
 ## Properties
 
@@ -60,7 +61,7 @@ ___
 
 • **fragmentDefinitions**? : *FragmentDefinitionNodeMap*
 
-*Defined in [cache-manager/src/defs/index.ts:59](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/defs/index.ts#L59)*
+*Defined in [cache-manager/src/defs/index.ts:59](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/cache-manager/src/defs/index.ts#L59)*
 
 ___
 
@@ -128,4 +129,14 @@ ___
 
 • **typeIDKey**? : *undefined | string*
 
-*Defined in [cache-manager/src/defs/index.ts:60](https://github.com/badbatch/graphql-box/blob/cbed108/packages/cache-manager/src/defs/index.ts#L60)*
+*Defined in [cache-manager/src/defs/index.ts:60](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/cache-manager/src/defs/index.ts#L60)*
+
+___
+
+###  whitelistHash
+
+• **whitelistHash**: *string*
+
+*Inherited from [CacheManagerContext](cachemanagercontext.md).[whitelistHash](cachemanagercontext.md#whitelisthash)*
+
+Defined in core/lib/types/defs/index.d.ts:133

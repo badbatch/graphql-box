@@ -11,6 +11,7 @@
 ### Properties
 
 * [client](useroptions.md#client)
+* [requestWhitelist](useroptions.md#optional-requestwhitelist)
 
 ## Properties
 
@@ -18,6 +19,17 @@
 
 • **client**: *Client*
 
-*Defined in [defs/index.ts:14](https://github.com/badbatch/graphql-box/blob/cbed108/packages/server/src/defs/index.ts#L14)*
+*Defined in [defs/index.ts:10](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/server/src/defs/index.ts#L10)*
 
 The client.
+
+___
+
+### `Optional` requestWhitelist
+
+• **requestWhitelist**? : *string[]*
+
+*Defined in [defs/index.ts:16](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/server/src/defs/index.ts#L16)*
+
+List of request hashes that the server is allowed to
+operate on.
