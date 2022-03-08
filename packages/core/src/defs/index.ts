@@ -156,6 +156,7 @@ export interface RequestContext {
   operationName: string;
   queryFiltered: boolean;
   request: string;
+  whitelistHash: string;
 }
 
 export interface MaybeRequestContext {
@@ -168,6 +169,7 @@ export interface MaybeRequestContext {
   operationName?: string;
   queryFiltered?: boolean;
   request?: string;
+  whitelistHash?: string;
 }
 
 export interface DehydratedCacheMetadata {

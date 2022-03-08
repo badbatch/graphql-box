@@ -10,6 +10,7 @@ export default function getRequestContext(props: PlainObjectMap = {}): RequestCo
     operationName: "",
     queryFiltered: false,
     request: "",
+    whitelistHash: "",
     ...props,
   };
 }

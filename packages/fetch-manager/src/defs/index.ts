@@ -54,6 +54,7 @@ export type ActiveBatch = Map<string, ActiveBatchValue>;
 export interface ActiveBatchValue {
   actions: BatchResultActions;
   request: string;
+  whitelistHash: string;
 }
 
 export interface BatchResultActions {

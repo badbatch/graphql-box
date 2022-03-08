@@ -9,7 +9,7 @@ import {
   SUBSCRIPTION,
   ValidOperations,
 } from "@graphql-box/core";
-import { EventAsyncIterator, rehydrateCacheMetadata } from "@graphql-box/helpers";
+import { EventAsyncIterator, hashRequest, rehydrateCacheMetadata } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { castArray, isPlainObject } from "lodash";
 import { v1 as uuid } from "uuid";
@@ -83,6 +83,7 @@ export default class WorkerClient {
       operationName: "",
       queryFiltered: false,
       request,
+      whitelistHash: hashRequest(request),
       ...context,
     };
   }

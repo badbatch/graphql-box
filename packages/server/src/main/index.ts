@@ -3,7 +3,6 @@ import {
   MaybeRequestContext,
   MaybeRequestResult,
   MaybeRequestResultWithDehydratedCacheMetadata,
-  PlainObjectStringMap,
   ServerRequestOptions,
   ServerSocketRequestOptions,
 } from "@graphql-box/core";
@@ -23,6 +22,7 @@ import writeResponseChunk from "../helpers/writeResponseChunk";
 
 export default class Server {
   private _client: Client;
+  private _requestWhitelist: string[];
 
   constructor(options: UserOptions) {
     const errors: TypeError[] = [];
@@ -40,6 +40,7 @@ export default class Server {
     }
 
     this._client = options.client;
+    this._requestWhitelist = options.requestWhitelist ?? [];
   }
 
   public message(options: ServerSocketRequestOptions): MessageHandler {
@@ -56,7 +57,7 @@ export default class Server {
 
   private async _handleBatchRequest(
     res: Response,
-    requests: PlainObjectStringMap,
+    requests: Record<string, { request: string; whitelistHash: string }>,
     options: ServerRequestOptions,
     context: MaybeRequestContext,
   ) {
@@ -64,7 +65,16 @@ export default class Server {
 
     await Promise.all(
       Object.keys(requests).map(async requestHash => {
-        const request = requests[requestHash];
+        const { request, whitelistHash } = requests[requestHash];
+
+        if (this._requestWhitelist.length && !this._requestWhitelist.includes(whitelistHash)) {
+          responses.batch[requestHash] = {
+            errors: [new Error("The request is not whitelisted.")],
+            requestID: context.boxID as string,
+          };
+
+          return;
+        }
 
         const { _cacheMetadata, ...otherProps } = (await this._client.request(
           request,
@@ -89,6 +99,11 @@ export default class Server {
     options: ServerRequestOptions,
     context: MaybeRequestContext,
   ) {
+    if (this._requestWhitelist.length && !this._requestWhitelist.includes(context.whitelistHash as string)) {
+      res.status(400).send({ errors: [new Error("The request is not whitelisted.")] });
+      return;
+    }
+
     const requestResult = await this._client.request(request, options, context);
 
     if (!isAsyncIterable(requestResult)) {
@@ -153,7 +168,12 @@ export default class Server {
       const { batched, context, request } = req.body as RequestData;
 
       batched
-        ? this._handleBatchRequest(res, request as PlainObjectStringMap, options, context)
+        ? this._handleBatchRequest(
+            res,
+            request as Record<string, { request: string; whitelistHash: string }>,
+            options,
+            context,
+          )
         : this._handleRequest(res, request as string, options, context);
     } catch (error) {
       res.status(500).send({ errors: castArray(error) });

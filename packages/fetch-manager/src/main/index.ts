@@ -1,6 +1,5 @@
 import {
   MaybeRawResponseData,
-  MaybeRequestContext,
   MaybeRequestResult,
   PlainObjectStringMap,
   RequestContext,
@@ -31,8 +30,8 @@ import mergeResponseDataSets from "../helpers/mergeResponseDataSets";
 import parseFetchResult from "../helpers/parseFetchResult";
 
 export class FetchManager implements RequestManagerDef {
-  private static _getMessageContext({ boxID, operation }: RequestContext): MaybeRequestContext {
-    return { boxID, operation };
+  private static _getMessageContext({ boxID, operation, whitelistHash }: RequestContext, batch: boolean) {
+    return batch ? { boxID, operation } : { boxID, operation, whitelistHash };
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: any): void {
@@ -152,7 +151,7 @@ export class FetchManager implements RequestManagerDef {
     context: RequestContext,
   ): void {
     this._activeRequestBatch = new Map();
-    this._activeRequestBatch.set(hash, { actions, request });
+    this._activeRequestBatch.set(hash, { actions, request, whitelistHash: context.whitelistHash });
     this._startRequestBatchTimer(context);
   }
 
@@ -163,7 +162,7 @@ export class FetchManager implements RequestManagerDef {
   }
 
   private async _fetch(
-    request: string | PlainObjectStringMap,
+    request: string | Record<string, { request: string; whitelistHash: string }>,
     hash: string,
     { batch }: FetchOptions,
     context: RequestContext,
@@ -179,7 +178,7 @@ export class FetchManager implements RequestManagerDef {
         const fetchResult = await fetch(url, {
           body: JSON.stringify({
             batched: batch,
-            context: FetchManager._getMessageContext(context),
+            context: FetchManager._getMessageContext(context, batch),
             request,
           }),
           headers: new Headers(this._headers),
@@ -200,12 +199,16 @@ export class FetchManager implements RequestManagerDef {
   ): Promise<void> {
     const hashes: string[] = [];
     const batchActions: BatchActionsObjectMap = {};
-    const batchRequests: PlainObjectStringMap = {};
+    const batchRequests: Record<string, { request: string; whitelistHash: string }> = {};
 
-    for (const [requestHash, { actions, request }] of batchEntries) {
+    for (const [requestHash, { actions, request, whitelistHash }] of batchEntries) {
       hashes.push(requestHash);
       batchActions[requestHash] = actions;
-      batchRequests[requestHash] = request;
+
+      batchRequests[requestHash] = {
+        request,
+        whitelistHash,
+      };
     }
 
     try {
@@ -248,7 +251,7 @@ export class FetchManager implements RequestManagerDef {
     clearTimeout(this._activeRequestBatchTimer as NodeJS.Timer);
 
     if (this._activeRequestBatch) {
-      this._activeRequestBatch.set(requestHash, { actions, request });
+      this._activeRequestBatch.set(requestHash, { actions, request, whitelistHash: context.whitelistHash });
     }
 
     this._startRequestBatchTimer(context);

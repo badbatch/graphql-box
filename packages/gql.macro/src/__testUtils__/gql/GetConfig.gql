@@ -1,0 +1,13 @@
+query GetConfig {
+  config {
+    images {
+      baseUrl
+      secureBaseUrl
+      backdropSizes
+      logoSizes
+      posterSizes
+      profileSizes
+      stillSizes
+    }
+  }
+}

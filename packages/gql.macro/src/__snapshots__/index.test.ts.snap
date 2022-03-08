@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`gql.macro when the macro is a tag call should transform the macro reference correctly 1`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.default = void 0;
+const GET_CONFIG = \\"query GetConfig {\\\\n  config {\\\\n    images {\\\\n      baseUrl\\\\n      secureBaseUrl\\\\n      backdropSizes\\\\n      logoSizes\\\\n      posterSizes\\\\n      profileSizes\\\\n      stillSizes\\\\n    }\\\\n  }\\\\n}\\\\n\\";
+var _default = GET_CONFIG;
+exports.default = _default;"
+`;

@@ -27,6 +27,9 @@
       "path": "./fetch-manager"
     },
     {
+      "path": "./gql.macro"
+    },
+    {
       "path": "./helpers"
     },
     {

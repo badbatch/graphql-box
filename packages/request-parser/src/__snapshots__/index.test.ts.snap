@@ -94,6 +94,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -374,6 +375,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -530,6 +532,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -655,6 +658,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -715,6 +719,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -756,6 +761,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -797,6 +803,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -891,6 +898,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -1026,6 +1034,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -1086,6 +1095,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -1127,6 +1137,7 @@ Object {
   "operationName": "GetOrganization",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -1221,6 +1232,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -1293,6 +1305,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -1334,6 +1347,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -1375,6 +1389,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -1458,6 +1473,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 
@@ -1521,6 +1537,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "whitelistHash": "",
 }
 `;
 

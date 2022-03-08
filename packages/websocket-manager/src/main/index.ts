@@ -1,5 +1,4 @@
 import {
-  MaybeRequestContext,
   MaybeRequestResult,
   RequestContext,
   RequestDataWithMaybeAST,
@@ -14,8 +13,8 @@ import { isPlainObject } from "lodash";
 import { ConstructorOptions, UserOptions } from "../defs";
 
 export class WebsocketManager implements SubscriptionsManagerDef {
-  private static _getMessageContext({ boxID, operation }: RequestContext): MaybeRequestContext {
-    return { boxID, operation };
+  private static _getMessageContext({ boxID, operation, whitelistHash }: RequestContext) {
+    return { boxID, operation, whitelistHash };
   }
 
   private _eventEmitter: EventEmitter;

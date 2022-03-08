@@ -4,16 +4,10 @@
     "outDir": "lib/types",
     "rootDir": "src"
   },
-  "exclude": [
-    "**/*.test.ts"
-  ],
   "include": [
-    "src/**/*"
+    "src"
   ],
   "references": [
-    {
-      "path": "../test-utils"
-    },
     {
       "path": "../core"
     },

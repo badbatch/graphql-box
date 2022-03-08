@@ -120,6 +120,7 @@
     "@repodog/typedoc-config": "^0.3.24",
     "@repodog/types": "^0.3.26",
     "@testing-library/react-hooks": "7.0.2",
+    "@types/babel-plugin-macros": "2.8.5",
     "@types/chai": "^4.2.10",
     "@types/cors": "^2.8.6",
     "@types/eventemitter3": "^2.0.2",

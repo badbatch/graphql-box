@@ -152,6 +152,7 @@ export default class Client {
       operationName: "",
       queryFiltered: false,
       request,
+      whitelistHash: hashRequest(request),
       ...context,
     };
   }
