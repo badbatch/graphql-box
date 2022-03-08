@@ -72,9 +72,11 @@ import {
   UserOptions,
   VisitorContext,
 } from "../defs";
+import getMaxDepthFromChart from "../helpers/getMaxDepthFromChart";
 import getPersistedFragmentSpreadNames from "../helpers/getPersistedFragmentSpreadNames";
 import getPossibleTypeDetails from "../helpers/getPossibleTypeDetails";
 import isTypeEntity from "../helpers/isTypeEntity";
+import makeDepthChart from "../helpers/makeDepthChart";
 import reorderDefinitions from "../helpers/reorderDefinitions";
 import setFragmentAndDirectiveContextProps from "../helpers/setFragmentAndDirectiveContextProps";
 import toUpdateNode from "../helpers/toUpdateNode";
@@ -213,6 +215,7 @@ export class RequestParser implements RequestParserDef {
     return parseValue(sanitizedValue);
   }
 
+  private _maxFieldDepth: number;
   private _schema: GraphQLSchema;
   private _typeIDKey: string;
 
@@ -227,6 +230,8 @@ export class RequestParser implements RequestParserDef {
     if (errors.length) {
       throw errors;
     }
+
+    this._maxFieldDepth = options.maxFieldDepth ?? Infinity;
 
     try {
       this._schema = options.introspection
@@ -415,6 +420,8 @@ export class RequestParser implements RequestParserDef {
     const fragmentDefinitions = getFragmentDefinitions(ast);
     const variableTypes: VariableTypesMap = {};
 
+    const ancestorsList: ASTNode[][] = [];
+
     const visitorContext: VisitorContext = {
       fieldTypeMap: context.fieldTypeMap,
       hasDeferOrStream: false,
@@ -435,6 +442,10 @@ export class RequestParser implements RequestParserDef {
           typeInfo.enter(node);
 
           if (isKind<FieldNode>(node, FIELD)) {
+            if (!hasChildFields(node, { fragmentDefinitions })) {
+              ancestorsList.push([...ancestors, node]);
+            }
+
             const [parentNode] = ancestors.slice(-2);
 
             if (isKind<FragmentDefinitionNode>(parentNode, FRAGMENT_DEFINITION)) {
@@ -524,6 +535,17 @@ export class RequestParser implements RequestParserDef {
           return undefined;
         },
       });
+
+      const depthChart = makeDepthChart(ancestorsList);
+      const maxDepth = getMaxDepthFromChart(depthChart);
+
+      if (maxDepth > this._maxFieldDepth) {
+        return Promise.reject(
+          new Error(
+            `@graphql-box/request-parser >> request field depth of ${maxDepth} exceeded max field depth of ${this._maxFieldDepth}`,
+          ),
+        );
+      }
 
       const { persistedFragmentSpreads, ...rest } = visitorContext;
       assign(context, rest);

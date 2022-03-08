@@ -9,6 +9,11 @@ export interface UserOptions {
   introspection?: IntrospectionQuery;
 
   /**
+   * The maximum request field depth.
+   */
+  maxFieldDepth?: number;
+
+  /**
    * A GraphQL schema.
    */
   schema?: GraphQLSchema;
@@ -20,6 +25,7 @@ export interface ClientOptions {
 
 export interface ConstructorOptions {
   introspection?: IntrospectionQuery;
+  maxFieldDepth?: number;
   schema?: GraphQLSchema;
   typeIDKey: string;
 }
