@@ -25,7 +25,7 @@
 
 Ƭ **MessageHandler**: *function*
 
-*Defined in [defs/index.ts:21](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/server/src/defs/index.ts#L21)*
+*Defined in [defs/index.ts:21](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/server/src/defs/index.ts#L21)*
 
 #### Type declaration:
 
@@ -43,7 +43,7 @@ ___
 
 Ƭ **RequestHandler**: *function*
 
-*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/server/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/server/src/defs/index.ts#L19)*
 
 #### Type declaration:
 

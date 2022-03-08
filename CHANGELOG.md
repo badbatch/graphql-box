@@ -1,3 +1,9 @@
+#### 3.1.1 (2022-03-08)
+
+##### Bug Fixes
+
+*  gql.macro export bug ([5221a9eb](https://github.com/badbatch/graphql-box/commit/5221a9eb7662969f5ba2a5e79234973f0f5191d7))
+
 ### 3.1.0 (2022-03-08)
 
 ##### New Features

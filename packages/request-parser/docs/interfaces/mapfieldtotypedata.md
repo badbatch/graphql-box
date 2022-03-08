@@ -26,7 +26,7 @@
 
 • **ancestors**: *ReadonlyArray‹any›*
 
-*Defined in [defs/index.ts:44](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/request-parser/src/defs/index.ts#L44)*
+*Defined in [defs/index.ts:44](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/request-parser/src/defs/index.ts#L44)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 • **directives**: *object*
 
-*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/request-parser/src/defs/index.ts#L45)*
+*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/request-parser/src/defs/index.ts#L45)*
 
 #### Type declaration:
 
@@ -48,7 +48,7 @@ ___
 
 • **fieldNode**: *FieldNode*
 
-*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/request-parser/src/defs/index.ts#L49)*
+*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/request-parser/src/defs/index.ts#L49)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • **isEntity**: *boolean*
 
-*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/request-parser/src/defs/index.ts#L50)*
+*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/request-parser/src/defs/index.ts#L50)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • **isInterface**: *boolean*
 
-*Defined in [defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/request-parser/src/defs/index.ts#L51)*
+*Defined in [defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/request-parser/src/defs/index.ts#L51)*
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 • **isUnion**: *boolean*
 
-*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/request-parser/src/defs/index.ts#L52)*
+*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/request-parser/src/defs/index.ts#L52)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 • **possibleTypes**: *PossibleType[]*
 
-*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/request-parser/src/defs/index.ts#L53)*
+*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/request-parser/src/defs/index.ts#L53)*
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 • **typeIDKey**: *string*
 
-*Defined in [defs/index.ts:54](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/request-parser/src/defs/index.ts#L54)*
+*Defined in [defs/index.ts:54](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/request-parser/src/defs/index.ts#L54)*
 
 ___
 
@@ -96,4 +96,4 @@ ___
 
 • **typeName**: *string*
 
-*Defined in [defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/6718c4a/packages/request-parser/src/defs/index.ts#L55)*
+*Defined in [defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/request-parser/src/defs/index.ts#L55)*
