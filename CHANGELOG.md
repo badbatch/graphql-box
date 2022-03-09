@@ -1,3 +1,9 @@
+#### 3.2.1 (2022-03-09)
+
+##### Bug Fixes
+
+*  default server context to empty obj ([4e410c88](https://github.com/badbatch/graphql-box/commit/4e410c88a5f75341d924ed8713c7f5ab9976f7eb))
+
 ### 3.2.0 (2022-03-09)
 
 ##### New Features
