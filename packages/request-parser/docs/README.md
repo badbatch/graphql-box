@@ -12,7 +12,6 @@
 
 * [Ancestors](interfaces/ancestors.md)
 * [ClientOptions](interfaces/clientoptions.md)
-* [ConstructorOptions](interfaces/constructoroptions.md)
 * [MapFieldToTypeData](interfaces/mapfieldtotypedata.md)
 * [RequestParserDef](interfaces/requestparserdef.md)
 * [UpdateRequestResult](interfaces/updaterequestresult.md)
@@ -21,6 +20,7 @@
 
 ### Type aliases
 
+* [ConstructorOptions](README.md#constructoroptions)
 * [PersistedFragmentSpread](README.md#persistedfragmentspread)
 * [RequestParserInit](README.md#requestparserinit)
 
@@ -30,11 +30,19 @@
 
 ## Type aliases
 
+###  ConstructorOptions
+
+Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md) & [ClientOptions](interfaces/clientoptions.md)*
+
+*Defined in [defs/index.ts:36](https://github.com/badbatch/graphql-box/blob/45189bc/packages/request-parser/src/defs/index.ts#L36)*
+
+___
+
 ###  PersistedFragmentSpread
 
 Ƭ **PersistedFragmentSpread**: *[string, ParsedDirective[], ReadonlyArray‹any›]*
 
-*Defined in [defs/index.ts:58](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/request-parser/src/defs/index.ts#L58)*
+*Defined in [defs/index.ts:69](https://github.com/badbatch/graphql-box/blob/45189bc/packages/request-parser/src/defs/index.ts#L69)*
 
 ___
 
@@ -42,7 +50,7 @@ ___
 
 Ƭ **RequestParserInit**: *function*
 
-*Defined in [defs/index.ts:36](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/request-parser/src/defs/index.ts#L36)*
+*Defined in [defs/index.ts:47](https://github.com/badbatch/graphql-box/blob/45189bc/packages/request-parser/src/defs/index.ts#L47)*
 
 #### Type declaration:
 
@@ -60,7 +68,7 @@ Name | Type |
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *[RequestParserInit](README.md#requestparserinit)*
 
-*Defined in [main/index.ts:537](https://github.com/badbatch/graphql-box/blob/5221a9e/packages/request-parser/src/main/index.ts#L537)*
+*Defined in [main/index.ts:578](https://github.com/badbatch/graphql-box/blob/45189bc/packages/request-parser/src/main/index.ts#L578)*
 
 **Parameters:**
 

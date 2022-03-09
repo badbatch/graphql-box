@@ -1,3 +1,11 @@
+### 3.2.0 (2022-03-09)
+
+##### New Features
+
+*  add server request timeout feature ([45189bc1](https://github.com/badbatch/graphql-box/commit/45189bc126a380e332a6c614bd168be2b396e76c))
+*  add max request depth and cmoplexity features ([3331b345](https://github.com/badbatch/graphql-box/commit/3331b34524fcd359753df60c744c9e0ed32ffb9c))
+*  ability to set request depth limit in request parser ([0861dffc](https://github.com/badbatch/graphql-box/commit/0861dffc2887c6aded49792c1260190744f8114f))
+
 #### 3.1.1 (2022-03-08)
 
 ##### Bug Fixes
