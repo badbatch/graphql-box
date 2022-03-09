@@ -157,7 +157,7 @@ export default class Server {
 
   private async _messageHandler(message: Data, { ws, ...rest }: ServerSocketRequestOptions): Promise<void> {
     try {
-      const { context, subscriptionID, subscription } = JSON.parse(message as string);
+      const { context = {}, subscriptionID, subscription } = JSON.parse(message as string);
 
       const requestTimer = setTimeout(() => {
         throw new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`);
@@ -190,7 +190,7 @@ export default class Server {
 
   private _requestHandler(req: Request, res: Response, options: ServerRequestOptions) {
     try {
-      const { batched, context, request } = req.body as RequestData;
+      const { batched, context = {}, request } = req.body as RequestData;
 
       batched
         ? this._handleBatchRequest(
