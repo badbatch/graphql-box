@@ -45,6 +45,7 @@ import {
   GraphQLEnumType,
   GraphQLInterfaceType,
   GraphQLNamedType,
+  GraphQLOutputType,
   GraphQLSchema,
   GraphQLUnionType,
   InlineFragmentNode,
@@ -72,6 +73,7 @@ import {
   UserOptions,
   VisitorContext,
 } from "../defs";
+import calcTypeComplexity from "../helpers/calcTypeComplexity";
 import getMaxDepthFromChart from "../helpers/getMaxDepthFromChart";
 import getPersistedFragmentSpreadNames from "../helpers/getPersistedFragmentSpreadNames";
 import getPossibleTypeDetails from "../helpers/getPossibleTypeDetails";
@@ -216,7 +218,9 @@ export class RequestParser implements RequestParserDef {
   }
 
   private _maxFieldDepth: number;
+  private _maxTypeComplexity: number;
   private _schema: GraphQLSchema;
+  private _typeComplexityMap: Record<string, number> | null;
   private _typeIDKey: string;
 
   constructor(options: ConstructorOptions) {
@@ -232,6 +236,7 @@ export class RequestParser implements RequestParserDef {
     }
 
     this._maxFieldDepth = options.maxFieldDepth ?? Infinity;
+    this._maxTypeComplexity = options.maxTypeComplexity ?? Infinity;
 
     try {
       this._schema = options.introspection
@@ -241,6 +246,7 @@ export class RequestParser implements RequestParserDef {
       throw [error];
     }
 
+    this._typeComplexityMap = options.typeComplexityMap ?? null;
     this._typeIDKey = options.typeIDKey;
   }
 
@@ -421,6 +427,7 @@ export class RequestParser implements RequestParserDef {
     const variableTypes: VariableTypesMap = {};
 
     const ancestorsList: ASTNode[][] = [];
+    const fieldTypeList: Maybe<GraphQLOutputType>[] = [];
 
     const visitorContext: VisitorContext = {
       fieldTypeMap: context.fieldTypeMap,
@@ -446,6 +453,7 @@ export class RequestParser implements RequestParserDef {
               ancestorsList.push([...ancestors, node]);
             }
 
+            fieldTypeList.push(typeInfo.getType());
             const [parentNode] = ancestors.slice(-2);
 
             if (isKind<FragmentDefinitionNode>(parentNode, FRAGMENT_DEFINITION)) {
@@ -536,8 +544,7 @@ export class RequestParser implements RequestParserDef {
         },
       });
 
-      const depthChart = makeDepthChart(ancestorsList);
-      const maxDepth = getMaxDepthFromChart(depthChart);
+      const maxDepth = getMaxDepthFromChart(makeDepthChart(ancestorsList));
 
       if (maxDepth > this._maxFieldDepth) {
         return Promise.reject(
@@ -545,6 +552,18 @@ export class RequestParser implements RequestParserDef {
             `@graphql-box/request-parser >> request field depth of ${maxDepth} exceeded max field depth of ${this._maxFieldDepth}`,
           ),
         );
+      }
+
+      if (this._typeComplexityMap) {
+        const typeComplexity = calcTypeComplexity(fieldTypeList, this._typeComplexityMap);
+
+        if (typeComplexity > this._maxTypeComplexity) {
+          return Promise.reject(
+            new Error(
+              `@graphql-box/request-parser >> request type complexity of ${typeComplexity} exceeded max type complexity of ${this._maxTypeComplexity}`,
+            ),
+          );
+        }
       }
 
       const { persistedFragmentSpreads, ...rest } = visitorContext;

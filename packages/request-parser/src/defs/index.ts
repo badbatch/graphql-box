@@ -9,26 +9,31 @@ export interface UserOptions {
   introspection?: IntrospectionQuery;
 
   /**
-   * The maximum request field depth.
+   * The maximum request field depth per request.
    */
   maxFieldDepth?: number;
+
+  /**
+   * The maximum type cost per request.
+   */
+  maxTypeComplexity?: number;
 
   /**
    * A GraphQL schema.
    */
   schema?: GraphQLSchema;
+
+  /**
+   * The cost of requesting a type.
+   */
+  typeComplexityMap?: Record<string, number>;
 }
 
 export interface ClientOptions {
   typeIDKey: string;
 }
 
-export interface ConstructorOptions {
-  introspection?: IntrospectionQuery;
-  maxFieldDepth?: number;
-  schema?: GraphQLSchema;
-  typeIDKey: string;
-}
+export type ConstructorOptions = UserOptions & ClientOptions;
 
 export interface UpdateRequestResult {
   ast: DocumentNode;
