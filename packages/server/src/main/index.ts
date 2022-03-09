@@ -22,6 +22,7 @@ import writeResponseChunk from "../helpers/writeResponseChunk";
 
 export default class Server {
   private _client: Client;
+  private _requestTimeout: number;
   private _requestWhitelist: string[];
 
   constructor(options: UserOptions) {
@@ -40,6 +41,7 @@ export default class Server {
     }
 
     this._client = options.client;
+    this._requestTimeout = options.requestTimeout ?? 10000;
     this._requestWhitelist = options.requestWhitelist ?? [];
   }
 
@@ -76,16 +78,28 @@ export default class Server {
           return;
         }
 
-        const { _cacheMetadata, ...otherProps } = (await this._client.request(
-          request,
-          options,
-          context,
-        )) as MaybeRequestResult;
+        try {
+          const requestTimer = setTimeout(() => {
+            throw new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`);
+          }, this._requestTimeout);
 
-        responses.batch[requestHash] = { ...otherProps };
+          const { _cacheMetadata, ...otherProps } = (await this._client.request(
+            request,
+            options,
+            context,
+          )) as MaybeRequestResult;
 
-        if (_cacheMetadata) {
-          responses.batch[requestHash]._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          clearTimeout(requestTimer);
+          responses.batch[requestHash] = { ...otherProps };
+
+          if (_cacheMetadata) {
+            responses.batch[requestHash]._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          }
+        } catch (error) {
+          responses.batch[requestHash] = {
+            errors: [error],
+            requestID: context.boxID as string,
+          };
         }
       }),
     );
@@ -104,7 +118,12 @@ export default class Server {
       return;
     }
 
+    const requestTimer = setTimeout(() => {
+      throw new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`);
+    }, this._requestTimeout);
+
     const requestResult = await this._client.request(request, options, context);
+    clearTimeout(requestTimer);
 
     if (!isAsyncIterable(requestResult)) {
       const { _cacheMetadata, ...otherProps } = requestResult as MaybeRequestResult;
@@ -139,7 +158,13 @@ export default class Server {
   private async _messageHandler(message: Data, { ws, ...rest }: ServerSocketRequestOptions): Promise<void> {
     try {
       const { context, subscriptionID, subscription } = JSON.parse(message as string);
+
+      const requestTimer = setTimeout(() => {
+        throw new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`);
+      }, this._requestTimeout);
+
       const subscribeResult = await this._client.subscribe(subscription, rest, context);
+      clearTimeout(requestTimer);
 
       if (isAsyncIterable(subscribeResult)) {
         forAwaitEach(subscribeResult, ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {

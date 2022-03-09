@@ -10,6 +10,11 @@ export interface UserOptions {
   client: Client;
 
   /**
+   * Time the server has to process a request before timing out.
+   */
+  requestTimeout?: number;
+
+  /**
    * List of request hashes that the server is allowed to
    * operate on.
    */
