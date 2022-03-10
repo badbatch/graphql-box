@@ -14,7 +14,7 @@ export type GqlConfig = {
 const macroHandler: MacroHandler = ({ config, references: { default: paths }, state }) => {
   if (paths?.length) {
     const { cwd } = state;
-    const { basePath = cwd, requestWhitelistPath = `${cwd}/requestWhitelist.json` } = (config ?? {}) as GqlConfig;
+    const { basePath = cwd, requestWhitelistPath = `${cwd}/requestWhitelist.txt` } = (config ?? {}) as GqlConfig;
     const whitelist: string[] = [];
 
     paths.forEach(path => {
