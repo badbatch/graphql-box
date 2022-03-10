@@ -1,6 +1,7 @@
 import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
 import EventEmitter from "eventemitter3";
 import { DocumentNode, GraphQLFieldResolver, GraphQLNamedType } from "graphql";
+import { ErrorObject } from "serialize-error";
 import WebSocket from "ws";
 
 export type Maybe<T> = null | undefined | T;
@@ -177,6 +178,16 @@ export interface DehydratedCacheMetadata {
 }
 
 export type CacheMetadata = Map<string, Cacheability>;
+
+export interface MaybeRawFetchData {
+  _cacheMetadata?: DehydratedCacheMetadata;
+  data?: PlainObjectMap;
+  errors?: ErrorObject[];
+  hasNext?: boolean;
+  headers?: Headers;
+  label?: string;
+  paths?: string[];
+}
 
 export interface RawResponseDataWithMaybeCacheMetadata {
   _cacheMetadata?: DehydratedCacheMetadata;

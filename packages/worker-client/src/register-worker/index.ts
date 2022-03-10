@@ -1,7 +1,7 @@
 import { handleMessage as handleCachemapMessage } from "@cachemap/core-worker";
 import Client from "@graphql-box/client";
 import { MaybeRequestResult, MaybeRequestResultWithDehydratedCacheMetadata, RequestOptions } from "@graphql-box/core";
-import { dehydrateCacheMetadata } from "@graphql-box/helpers";
+import { dehydrateCacheMetadata, serializeErrors } from "@graphql-box/helpers";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
 import { CACHEMAP, GRAPHQL_BOX, MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
@@ -26,7 +26,7 @@ async function handleRequest(
       result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
     }
 
-    postMessage({ context, method, result, type: GRAPHQL_BOX });
+    postMessage({ context, method, result: serializeErrors(result), type: GRAPHQL_BOX });
     return;
   }
 
@@ -37,7 +37,7 @@ async function handleRequest(
       result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
     }
 
-    postMessage({ context, method, result, type: GRAPHQL_BOX });
+    postMessage({ context, method, result: serializeErrors(result), type: GRAPHQL_BOX });
   });
 }
 
@@ -50,15 +50,20 @@ async function handleSubscription(
 ): Promise<void> {
   const subscribeResult = await client.subscribe(request, options, context);
 
-  if (isAsyncIterable(subscribeResult)) {
-    forAwaitEach(subscribeResult, ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {
-      const result: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
-      if (_cacheMetadata) result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
-      postMessage({ context, method, result, type: GRAPHQL_BOX });
-    });
-  } else {
-    postMessage({ context, method, result: undefined, type: GRAPHQL_BOX });
+  if (!isAsyncIterable(subscribeResult)) {
+    postMessage({ context, method, result: serializeErrors(subscribeResult as MaybeRequestResult), type: GRAPHQL_BOX });
+    return;
   }
+
+  forAwaitEach(subscribeResult, ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {
+    const result: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
+
+    if (_cacheMetadata) {
+      result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+    }
+
+    postMessage({ context, method, result: serializeErrors(result), type: GRAPHQL_BOX });
+  });
 }
 
 export function handleMessage(data: MessageRequestPayload, client: Client): void {
@@ -73,7 +78,9 @@ export function handleMessage(data: MessageRequestPayload, client: Client): void
 
 export default async function registerWorker({ client }: RegisterWorkerOptions): Promise<void> {
   function onMessage({ data }: MessageEvent): void {
-    if (!isPlainObject(data)) return;
+    if (!isPlainObject(data)) {
+      return;
+    }
 
     const { type } = data as MessageRequestPayload;
 

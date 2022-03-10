@@ -1,4 +1,5 @@
 import {
+  MaybeRawFetchData,
   MaybeRawResponseData,
   MaybeRequestResult,
   PlainObjectStringMap,
@@ -9,7 +10,7 @@ import {
   RequestOptions,
   RequestResolver,
 } from "@graphql-box/core";
-import { EventAsyncIterator } from "@graphql-box/helpers";
+import { EventAsyncIterator, deserializeErrors } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject, isString } from "lodash";
@@ -50,7 +51,7 @@ export class FetchManager implements RequestManagerDef {
       const { reject, resolve } = batchEntries[hash];
 
       if (responseData) {
-        resolve({ headers, ...responseData });
+        resolve(deserializeErrors({ headers, ...responseData }));
       } else {
         reject(new Error(`@graphql-box/fetch-manager did not get a response for batched request ${hash}.`));
       }
@@ -59,7 +60,7 @@ export class FetchManager implements RequestManagerDef {
 
   private _activeRequestBatch: ActiveBatch | undefined;
   private _activeRequestBatchTimer: NodeJS.Timer | undefined;
-  private _activeResponseBatch: Set<MaybeRawResponseData> | undefined;
+  private _activeResponseBatch: Set<MaybeRawFetchData> | undefined;
   private _activeResponseBatchTimer: NodeJS.Timer | undefined;
   private _batchRequests: boolean;
   private _batchResponses: boolean;
@@ -103,16 +104,16 @@ export class FetchManager implements RequestManagerDef {
         const fetchResult = await this._fetch(request, hash, { batch: false }, context);
 
         if (!isAsyncIterable(fetchResult)) {
-          return fetchResult;
+          return deserializeErrors(fetchResult);
         }
 
         forAwaitEach(fetchResult, async ({ body, headers }) => {
-          const responseData = ({ headers, ...body } as unknown) as MaybeRawResponseData;
+          const responseData = ({ headers, ...body } as unknown) as MaybeRawFetchData;
 
           if (this._batchResponses && responseData.paths) {
             this._batchResponse(responseData, hash, executeResolver);
           } else {
-            this._eventEmitter.emit(hash, await executeResolver(cleanPatchResponse(responseData)));
+            this._eventEmitter.emit(hash, await executeResolver(deserializeErrors(cleanPatchResponse(responseData))));
           }
         });
 
@@ -136,7 +137,7 @@ export class FetchManager implements RequestManagerDef {
     }
   }
 
-  private _batchResponse(response: MaybeRawResponseData, hash: string, executeResolver: RequestResolver) {
+  private _batchResponse(response: MaybeRawFetchData, hash: string, executeResolver: RequestResolver) {
     if (this._activeResponseBatchTimer) {
       this._updateResponseBatch(response, hash, executeResolver);
     } else {
@@ -155,7 +156,7 @@ export class FetchManager implements RequestManagerDef {
     this._startRequestBatchTimer(context);
   }
 
-  private _createResponseBatch(response: MaybeRawResponseData, hash: string, executeResolver: RequestResolver) {
+  private _createResponseBatch(response: MaybeRawFetchData, hash: string, executeResolver: RequestResolver) {
     this._activeResponseBatch = new Set();
     this._activeResponseBatch.add(response);
     this._startResponseBatchTimer(hash, executeResolver);
@@ -168,7 +169,7 @@ export class FetchManager implements RequestManagerDef {
     context: RequestContext,
   ) {
     try {
-      return new Promise(async (resolve: (value: MaybeRawResponseData | AsyncGenerator<Response>) => void, reject) => {
+      return new Promise(async (resolve: (value: MaybeRawFetchData | AsyncGenerator<Response>) => void, reject) => {
         const fetchTimer = setTimeout(() => {
           reject(new Error(`@graphql-box/fetch-manager did not get a response within ${this._fetchTimeout}ms.`));
         }, this._fetchTimeout);
@@ -235,7 +236,7 @@ export class FetchManager implements RequestManagerDef {
     this._activeResponseBatchTimer = setTimeout(async () => {
       if (this._activeResponseBatch) {
         const responseData = mergeResponseDataSets(Array.from(this._activeResponseBatch));
-        this._eventEmitter.emit(hash, await executeResolver(responseData));
+        this._eventEmitter.emit(hash, await executeResolver(deserializeErrors(responseData)));
       }
 
       this._activeResponseBatchTimer = undefined;
@@ -257,7 +258,7 @@ export class FetchManager implements RequestManagerDef {
     this._startRequestBatchTimer(context);
   }
 
-  private _updateResponseBatch(response: MaybeRawResponseData, hash: string, executeResolver: RequestResolver) {
+  private _updateResponseBatch(response: MaybeRawFetchData, hash: string, executeResolver: RequestResolver) {
     clearTimeout(this._activeResponseBatchTimer as NodeJS.Timer);
 
     if (this._activeResponseBatch) {

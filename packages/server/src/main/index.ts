@@ -6,7 +6,7 @@ import {
   ServerRequestOptions,
   ServerSocketRequestOptions,
 } from "@graphql-box/core";
-import { dehydrateCacheMetadata } from "@graphql-box/helpers";
+import { dehydrateCacheMetadata, serializeErrors } from "@graphql-box/helpers";
 import { Request, Response } from "express-serve-static-core";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { castArray, isPlainObject } from "lodash";
@@ -70,10 +70,10 @@ export default class Server {
         const { request, whitelistHash } = requests[requestHash];
 
         if (this._requestWhitelist.length && !this._requestWhitelist.includes(whitelistHash)) {
-          responses.batch[requestHash] = {
+          responses.batch[requestHash] = serializeErrors({
             errors: [new Error("The request is not whitelisted.")],
             requestID: context.boxID as string,
-          };
+          });
 
           return;
         }
@@ -90,16 +90,16 @@ export default class Server {
           )) as MaybeRequestResult;
 
           clearTimeout(requestTimer);
-          responses.batch[requestHash] = { ...otherProps };
+          responses.batch[requestHash] = serializeErrors({ ...otherProps });
 
           if (_cacheMetadata) {
             responses.batch[requestHash]._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
           }
         } catch (error) {
-          responses.batch[requestHash] = {
-            errors: [error],
+          responses.batch[requestHash] = serializeErrors({
+            errors: castArray(error),
             requestID: context.boxID as string,
-          };
+          });
         }
       }),
     );
@@ -114,7 +114,7 @@ export default class Server {
     context: MaybeRequestContext,
   ) {
     if (this._requestWhitelist.length && !this._requestWhitelist.includes(context.whitelistHash as string)) {
-      res.status(400).send({ errors: [new Error("The request is not whitelisted.")] });
+      res.status(400).send(serializeErrors({ errors: [new Error("The request is not whitelisted.")] }));
       return;
     }
 
@@ -133,7 +133,7 @@ export default class Server {
         response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
       }
 
-      res.status(200).send(response);
+      res.status(200).send(serializeErrors(response));
       return;
     }
 
@@ -146,7 +146,7 @@ export default class Server {
         response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
       }
 
-      writeResponseChunk(res, response);
+      writeResponseChunk(res, serializeErrors(response));
 
       if (!otherProps.hasNext) {
         res.write("\r\n-----\r\n");
@@ -166,25 +166,24 @@ export default class Server {
       const subscribeResult = await this._client.subscribe(subscription, rest, context);
       clearTimeout(requestTimer);
 
-      if (isAsyncIterable(subscribeResult)) {
-        forAwaitEach(subscribeResult, ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {
-          if (ws.readyState === ws.OPEN) {
-            const result: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
-
-            if (_cacheMetadata) {
-              result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
-            }
-
-            ws.send(JSON.stringify({ result, subscriptionID }));
-          }
-        });
-
+      if (!isAsyncIterable(subscribeResult)) {
+        ws.send(serializeErrors(subscribeResult as MaybeRequestResult));
         return;
       }
 
-      ws.send(subscribeResult);
+      forAwaitEach(subscribeResult, ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {
+        if (ws.readyState === ws.OPEN) {
+          const result: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
+
+          if (_cacheMetadata) {
+            result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          }
+
+          ws.send(JSON.stringify({ result: serializeErrors(result), subscriptionID }));
+        }
+      });
     } catch (error) {
-      ws.send({ errors: castArray(error) });
+      ws.send(serializeErrors({ errors: castArray(error) }));
     }
   }
 
@@ -201,7 +200,7 @@ export default class Server {
           )
         : this._handleRequest(res, request as string, options, context);
     } catch (error) {
-      res.status(500).send({ errors: castArray(error) });
+      res.status(500).send(serializeErrors({ errors: castArray(error) }));
     }
   }
 }

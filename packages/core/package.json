@@ -37,6 +37,9 @@
     "compile:types": "tsc --build",
     "watch": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js -w"
   },
+  "dependencies": {
+    "serialize-error": "8.1.0"
+  },
   "peerDependencies": {
     "@babel/runtime": "< 8",
     "core-js": "< 4",

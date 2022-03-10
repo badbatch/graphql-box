@@ -45,4 +45,5 @@ export { getOperationDefinitions } from "./parsing/operation-definitions";
 export { getTypeCondition } from "./parsing/type-condition";
 export { getType } from "./parsing/type";
 export { getVariableDefinitionDefaultValue, getVariableDefinitionType } from "./parsing/variable-definitions";
+export { deserializeErrors, serializeErrors } from "./serializeErrors";
 export { default as standardizePath } from "./standardizePath";

@@ -47,6 +47,7 @@
   "dependencies": {
     "cacheability": "^3.0.1",
     "iterall": "^1.3.0",
-    "md5": "^2.2.1"
+    "md5": "^2.2.1",
+    "serialize-error": "8.1.0"
   }
 }

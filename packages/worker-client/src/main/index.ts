@@ -9,7 +9,7 @@ import {
   SUBSCRIPTION,
   ValidOperations,
 } from "@graphql-box/core";
-import { EventAsyncIterator, hashRequest, rehydrateCacheMetadata } from "@graphql-box/helpers";
+import { EventAsyncIterator, deserializeErrors, hashRequest, rehydrateCacheMetadata } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { castArray, isPlainObject } from "lodash";
 import { v1 as uuid } from "uuid";
@@ -89,7 +89,9 @@ export default class WorkerClient {
   }
 
   private _onMessage = async ({ data }: MessageEvent): Promise<void> => {
-    if (!isPlainObject(data)) return;
+    if (!isPlainObject(data)) {
+      return;
+    }
 
     const { context, method, result, type } = data as MessageResponsePayload;
 
@@ -98,7 +100,7 @@ export default class WorkerClient {
     }
 
     const { _cacheMetadata, ...otherProps } = result;
-    const response: MaybeRequestResult = { ...otherProps, requestID: context.boxID };
+    const response: MaybeRequestResult = deserializeErrors({ ...otherProps, requestID: context.boxID });
 
     if (_cacheMetadata) {
       response._cacheMetadata = rehydrateCacheMetadata(_cacheMetadata);

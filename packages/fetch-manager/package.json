@@ -38,17 +38,18 @@
     "docs": "typedoc --includes ./src/main --out ./docs --options ../../typedoc.js",
     "watch": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js -w"
   },
+  "dependencies": {
+    "eventemitter3": "^4.0.0",
+    "iterall": "^1.3.0",
+    "meros": "^1.1.4",
+    "serialize-error": "8.1.0"
+  },
   "peerDependencies": {
     "@babel/runtime": "< 8",
     "@graphql-box/core": "< 4",
     "core-js": "< 4",
     "isomorphic-fetch": "< 3",
     "lodash": "< 5"
-  },
-  "dependencies": {
-    "eventemitter3": "^4.0.0",
-    "iterall": "^1.3.0",
-    "meros": "^1.1.4"
   },
   "devDependencies": {
     "@graphql-box/test-utils": "^3.0.0"

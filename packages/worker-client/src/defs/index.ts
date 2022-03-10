@@ -1,6 +1,6 @@
 import WorkerCachemap from "@cachemap/core-worker";
 import Client from "@graphql-box/client";
-import { MaybeRequestResult, MaybeRequestResultWithDehydratedCacheMetadata, RequestOptions } from "@graphql-box/core";
+import { MaybeRawFetchData, MaybeRequestResult, RequestOptions } from "@graphql-box/core";
 import { DebugManagerInit } from "@graphql-box/debug-manager";
 
 export interface UserOptions {
@@ -41,7 +41,7 @@ export interface MessageRequestPayload {
 export interface MessageResponsePayload {
   context: MessageContext;
   method: MethodNames;
-  result: MaybeRequestResultWithDehydratedCacheMetadata;
+  result: MaybeRawFetchData;
   type: "graphqlBox" | "cachemap";
 }
 

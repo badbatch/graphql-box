@@ -1,8 +1,9 @@
-import { MaybeRawResponseData } from "@graphql-box/core";
+import { MaybeRawFetchData } from "@graphql-box/core";
 import { merge } from "lodash";
+import { ErrorObject } from "serialize-error";
 import cleanPatchResponse from "./cleanPatchResponse";
 
-export default (responseDataSets: MaybeRawResponseData[]): MaybeRawResponseData => {
+export default (responseDataSets: MaybeRawFetchData[]): MaybeRawFetchData => {
   return responseDataSets.reduce((acc, dataSet, index) => {
     const { _cacheMetadata, data, errors, hasNext, headers, paths } = cleanPatchResponse(dataSet);
 
@@ -19,7 +20,7 @@ export default (responseDataSets: MaybeRawResponseData[]): MaybeRawResponseData 
         acc.errors = [];
       }
 
-      (acc.errors as Error[]).push(...errors);
+      (acc.errors as ErrorObject[]).push(...errors);
     }
 
     if (index === 0) {

@@ -7,7 +7,7 @@ import {
   SubscriptionsManagerDef,
   SubscriptionsManagerInit,
 } from "@graphql-box/core";
-import { EventAsyncIterator } from "@graphql-box/helpers";
+import { EventAsyncIterator, deserializeErrors } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { isPlainObject } from "lodash";
 import { ConstructorOptions, UserOptions } from "../defs";
@@ -70,13 +70,19 @@ export class WebsocketManager implements SubscriptionsManagerDef {
 
   private async _onMessage(ev: MessageEvent): Promise<void> {
     const parsedData = JSON.parse(ev.data);
-    if (!parsedData) return;
+
+    if (!parsedData) {
+      return;
+    }
 
     const { result, subscriptionID } = parsedData;
     const subscriberResolver = this._subscriptions.get(subscriptionID);
-    if (!subscriberResolver) return;
 
-    const resolvedResult = await subscriberResolver(result);
+    if (!subscriberResolver) {
+      return;
+    }
+
+    const resolvedResult = await subscriberResolver(deserializeErrors(result));
     this._eventEmitter.emit(subscriptionID, resolvedResult);
   }
 }

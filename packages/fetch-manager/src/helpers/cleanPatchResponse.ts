@@ -1,4 +1,4 @@
-import { MaybeRawResponseData, PlainObjectMap } from "@graphql-box/core";
+import { MaybeRawFetchData, PlainObjectMap } from "@graphql-box/core";
 import { isObjectLike, keys } from "lodash";
 
 const convertNullArrayEntriesToUndefined = (data: PlainObjectMap) => {
@@ -31,7 +31,7 @@ const convertNullArrayEntriesToUndefined = (data: PlainObjectMap) => {
   return converter(data);
 };
 
-export default (responseData: MaybeRawResponseData) => {
+export default (responseData: MaybeRawFetchData) => {
   const { data, paths } = responseData;
 
   if (data && paths) {

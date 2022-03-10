@@ -1,4 +1,4 @@
-import { DehydratedCacheMetadata, MaybeRawResponseData, PlainObjectMap, PlainObjectStringMap } from "@graphql-box/core";
+import { MaybeRawFetchData, MaybeRawResponseData, PlainObjectStringMap } from "@graphql-box/core";
 
 export interface UserOptions {
   /**
@@ -64,13 +64,6 @@ export interface BatchResultActions {
 
 export interface BatchActionsObjectMap {
   [key: string]: BatchResultActions;
-}
-
-export interface MaybeRawFetchData {
-  cacheMetadata?: DehydratedCacheMetadata;
-  data?: PlainObjectMap;
-  errors?: ReadonlyArray<Error>;
-  headers?: Headers;
 }
 
 export interface MaybeRawFetchDataObjectMap {
