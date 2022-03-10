@@ -1,5 +1,7 @@
 import { appendFileSync } from "fs";
 
 export default (requestWhitelistPath: string, whitelist: string[]) => {
-  appendFileSync(requestWhitelistPath, whitelist.join("\r\n"));
+  whitelist.forEach(entry => {
+    appendFileSync(requestWhitelistPath, entry);
+  });
 };
