@@ -1,8 +1,56 @@
 [
   {
-    "name": "@graphql-box/server",
+    "name": "@graphql-box/client",
     "version": "3.2.0",
     "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/client"
+  },
+  {
+    "name": "@graphql-box/core",
+    "version": "3.1.0",
+    "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/core"
+  },
+  {
+    "name": "@graphql-box/fetch-manager",
+    "version": "3.1.0",
+    "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/fetch-manager"
+  },
+  {
+    "name": "@graphql-box/gql.macro",
+    "version": "3.1.1",
+    "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/gql.macro"
+  },
+  {
+    "name": "@graphql-box/helpers",
+    "version": "3.1.0",
+    "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/helpers"
+  },
+  {
+    "name": "@graphql-box/react",
+    "version": "3.2.0",
+    "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/react"
+  },
+  {
+    "name": "@graphql-box/server",
+    "version": "3.2.1",
+    "private": false,
     "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/server"
+  },
+  {
+    "name": "@graphql-box/websocket-manager",
+    "version": "3.1.0",
+    "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/websocket-manager"
+  },
+  {
+    "name": "@graphql-box/worker-client",
+    "version": "3.2.0",
+    "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/worker-client"
   }
 ]

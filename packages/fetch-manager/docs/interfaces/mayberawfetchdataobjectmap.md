@@ -8,4 +8,4 @@
 
 ## Indexable
 
-* \[ **key**: *string*\]: [MaybeRawFetchData](mayberawfetchdata.md)
+* \[ **key**: *string*\]: MaybeRawFetchData

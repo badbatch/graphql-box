@@ -26,7 +26,7 @@
 
 \+ **new RequestParser**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[RequestParser](requestparser.md)*
 
-*Defined in [main/index.ts:224](https://github.com/badbatch/graphql-box/blob/4e410c8/packages/request-parser/src/main/index.ts#L224)*
+*Defined in [main/index.ts:224](https://github.com/badbatch/graphql-box/blob/5f479b8/packages/request-parser/src/main/index.ts#L224)*
 
 **Parameters:**
 
@@ -44,7 +44,7 @@ Name | Type |
 
 *Implementation of [RequestParserDef](../interfaces/requestparserdef.md)*
 
-*Defined in [main/index.ts:253](https://github.com/badbatch/graphql-box/blob/4e410c8/packages/request-parser/src/main/index.ts#L253)*
+*Defined in [main/index.ts:253](https://github.com/badbatch/graphql-box/blob/5f479b8/packages/request-parser/src/main/index.ts#L253)*
 
 **Parameters:**
 

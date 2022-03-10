@@ -1,3 +1,10 @@
+### 3.3.0 (2022-03-10)
+
+##### Bug Fixes
+
+*  ensure errors passed in responses are serialized ([5f479b82](https://github.com/badbatch/graphql-box/commit/5f479b82f882f0698e42fc8f8b8601fc116fb59e))
+*  bug in writing whitelist to file ([2cafabb5](https://github.com/badbatch/graphql-box/commit/2cafabb56df90740fe0ce29154c0dee13ede177b))
+
 #### 3.2.1 (2022-03-09)
 
 ##### Bug Fixes

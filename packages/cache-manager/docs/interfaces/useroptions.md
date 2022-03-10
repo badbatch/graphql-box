@@ -21,7 +21,7 @@
 
 • **cache**: *Cachemap*
 
-*Defined in [cache-manager/src/defs/index.ts:23](https://github.com/badbatch/graphql-box/blob/4e410c8/packages/cache-manager/src/defs/index.ts#L23)*
+*Defined in [cache-manager/src/defs/index.ts:23](https://github.com/badbatch/graphql-box/blob/5f479b8/packages/cache-manager/src/defs/index.ts#L23)*
 
 The cache to use for storing query responses, data entities,
 and request field paths.
@@ -32,7 +32,7 @@ ___
 
 • **cascadeCacheControl**? : *undefined | false | true*
 
-*Defined in [cache-manager/src/defs/index.ts:30](https://github.com/badbatch/graphql-box/blob/4e410c8/packages/cache-manager/src/defs/index.ts#L30)*
+*Defined in [cache-manager/src/defs/index.ts:30](https://github.com/badbatch/graphql-box/blob/5f479b8/packages/cache-manager/src/defs/index.ts#L30)*
 
 Whether to cascade cache control directives down to
 child nodes if a child node does not have its down
@@ -44,7 +44,7 @@ ___
 
 • **fallbackOperationCacheability**? : *undefined | string*
 
-*Defined in [cache-manager/src/defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/4e410c8/packages/cache-manager/src/defs/index.ts#L37)*
+*Defined in [cache-manager/src/defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/5f479b8/packages/cache-manager/src/defs/index.ts#L37)*
 
 The cache control directive to apply to an operation
 when none is provided in the response headers or the
@@ -56,7 +56,7 @@ ___
 
 • **typeCacheDirectives**? : *PlainObjectStringMap*
 
-*Defined in [cache-manager/src/defs/index.ts:43](https://github.com/badbatch/graphql-box/blob/4e410c8/packages/cache-manager/src/defs/index.ts#L43)*
+*Defined in [cache-manager/src/defs/index.ts:43](https://github.com/badbatch/graphql-box/blob/5f479b8/packages/cache-manager/src/defs/index.ts#L43)*
 
 An object map of GraphQL schema types to cache-control
 directives used for caching object types.
