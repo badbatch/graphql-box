@@ -34,7 +34,7 @@
 
 Ƭ **PendingQueryResolver**: *function*
 
-*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/5db63dc/packages/client/src/defs/index.ts#L45)*
+*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/3c77089/packages/client/src/defs/index.ts#L45)*
 
 #### Type declaration:
 
@@ -52,7 +52,7 @@ Name | Type |
 
 • **REQUEST_EXECUTED**: *"request_executed"* = "request_executed"
 
-*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/5db63dc/packages/client/src/consts/index.ts#L1)*
+*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/3c77089/packages/client/src/consts/index.ts#L1)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • **SUBSCRIPTION_EXECUTED**: *"subscription_executed"* = "subscription_executed"
 
-*Defined in [consts/index.ts:2](https://github.com/badbatch/graphql-box/blob/5db63dc/packages/client/src/consts/index.ts#L2)*
+*Defined in [consts/index.ts:2](https://github.com/badbatch/graphql-box/blob/3c77089/packages/client/src/consts/index.ts#L2)*
 
 ## Functions
 
@@ -68,7 +68,7 @@ ___
 
 ▸ **logRequest**(): *(Anonymous function)*
 
-*Defined in [debug/log-request/index.ts:4](https://github.com/badbatch/graphql-box/blob/5db63dc/packages/client/src/debug/log-request/index.ts#L4)*
+*Defined in [debug/log-request/index.ts:4](https://github.com/badbatch/graphql-box/blob/3c77089/packages/client/src/debug/log-request/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*
 
@@ -78,6 +78,6 @@ ___
 
 ▸ **logSubscription**(): *(Anonymous function)*
 
-*Defined in [debug/log-subscription/index.ts:4](https://github.com/badbatch/graphql-box/blob/5db63dc/packages/client/src/debug/log-subscription/index.ts#L4)*
+*Defined in [debug/log-subscription/index.ts:4](https://github.com/badbatch/graphql-box/blob/3c77089/packages/client/src/debug/log-subscription/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*

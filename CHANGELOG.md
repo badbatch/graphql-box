@@ -1,3 +1,9 @@
+#### 3.3.2 (2022-03-10)
+
+##### Bug Fixes
+
+*  change way requestWhitelist is written ([3c770898](https://github.com/badbatch/graphql-box/commit/3c77089866c8a1e362fff3863b613b0427eac1ea))
+
 #### 3.3.1 (2022-03-10)
 
 ##### Bug Fixes
