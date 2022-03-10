@@ -18,7 +18,7 @@
 
 • **batch**: *object*
 
-*Defined in [defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/5f479b8/packages/server/src/defs/index.ts#L35)*
+*Defined in [defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/5db63dc/packages/server/src/defs/index.ts#L35)*
 
 #### Type declaration:
 

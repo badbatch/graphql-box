@@ -1,3 +1,9 @@
+#### 3.3.1 (2022-03-10)
+
+##### Bug Fixes
+
+*  text file line breaks ([5db63dcf](https://github.com/badbatch/graphql-box/commit/5db63dcfc0c2de8e50a09e95cae895026f87adbb))
+
 ### 3.3.0 (2022-03-10)
 
 ##### Bug Fixes
