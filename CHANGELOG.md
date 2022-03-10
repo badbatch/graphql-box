@@ -1,3 +1,9 @@
+#### 3.3.3 (2022-03-10)
+
+##### Bug Fixes
+
+*  add back eol ([b5ddbc46](https://github.com/badbatch/graphql-box/commit/b5ddbc46f083ac60c2ed43cbf2f0e887601c34ba))
+
 #### 3.3.2 (2022-03-10)
 
 ##### Bug Fixes

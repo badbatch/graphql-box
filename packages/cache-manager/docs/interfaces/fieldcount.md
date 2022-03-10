@@ -19,7 +19,7 @@
 
 • **missing**: *number*
 
-*Defined in [cache-manager/src/defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/3c77089/packages/cache-manager/src/defs/index.ts#L71)*
+*Defined in [cache-manager/src/defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/b5ddbc4/packages/cache-manager/src/defs/index.ts#L71)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **total**: *number*
 
-*Defined in [cache-manager/src/defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/3c77089/packages/cache-manager/src/defs/index.ts#L72)*
+*Defined in [cache-manager/src/defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/b5ddbc4/packages/cache-manager/src/defs/index.ts#L72)*
