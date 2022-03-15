@@ -9,6 +9,8 @@ import {
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { IntrospectionQuery } from "graphql";
 import { RequestParser, RequestParserDef, UpdateRequestResult } from ".";
+import theMovieDbIntrospection from "./__testUtils__/introspection/index.json";
+import { getMoviePreviewQuery } from "./__testUtils__/requestsAndOptions";
 
 describe("@graphql-box/request-parser >>", () => {
   let requestContext: RequestContext;
@@ -278,6 +280,29 @@ describe("@graphql-box/request-parser >>", () => {
       });
 
       const { options, request } = requestsAndOptions.queryWithFragmentSpread;
+      requestContext = getRequestContext();
+      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+    });
+
+    it("correct request", () => {
+      expect(updatedRequest?.request).toMatchSnapshot();
+    });
+
+    it("correct context data", () => {
+      expect(requestContext).toMatchSnapshot();
+    });
+  });
+
+  describe("query >> fragment spreads >> within fragment spreads >>", () => {
+    beforeAll(async () => {
+      updatedRequest = undefined;
+
+      requestParser = new RequestParser({
+        introspection: (theMovieDbIntrospection as unknown) as IntrospectionQuery,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
+      const { options, request } = getMoviePreviewQuery;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
