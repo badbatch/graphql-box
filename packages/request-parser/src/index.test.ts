@@ -5,12 +5,11 @@ import {
   requestsAndOptions,
   schemaResolvers,
   schemaTypeDefs,
+  theMovieDbIntrospection,
 } from "@graphql-box/test-utils";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { IntrospectionQuery } from "graphql";
 import { RequestParser, RequestParserDef, UpdateRequestResult } from ".";
-import theMovieDbIntrospection from "./__testUtils__/introspection/index.json";
-import { getMoviePreviewQuery } from "./__testUtils__/requestsAndOptions";
 
 describe("@graphql-box/request-parser >>", () => {
   let requestContext: RequestContext;
@@ -302,7 +301,7 @@ describe("@graphql-box/request-parser >>", () => {
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
-      const { options, request } = getMoviePreviewQuery;
+      const { options, request } = requestsAndOptions.getMoviePreviewQuery;
       requestContext = getRequestContext();
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
