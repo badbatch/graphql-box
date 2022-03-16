@@ -1,41 +1,24 @@
 import { RequestOptions } from "@graphql-box/core";
 import { ParsedDirective, getFragmentSpreadDirectives } from "@graphql-box/helpers";
 import { FieldNode, FragmentDefinitionNode, InlineFragmentNode } from "graphql";
-import { cloneDeep, isEmpty, keys } from "lodash";
-import { Ancestors, PersistedFragmentSpread, VisitorContext } from "../defs";
-import enrichAncestors from "./enrichAncestors";
+import { isEmpty } from "lodash";
+import { Ancestors, VisitorContext } from "../defs";
+import groupFragmentSpreadDirectives from "./groupFragmentSpreadDirectives";
 import hasActiveDeferOrStreamDirective from "./hasActiveDeferOrStreamDirective";
+import updatePersistedFragmentSpreads from "./updatePersistedFragmentSpreads";
 
 export default (
   node: FieldNode | InlineFragmentNode | FragmentDefinitionNode,
-  { ancestors, key }: Ancestors,
+  ancestors: Ancestors,
   options: RequestOptions,
   context: VisitorContext,
   parsedDirectives: ParsedDirective[] = [],
 ) => {
   const parsedFragmentSpreadDirectives = getFragmentSpreadDirectives(node, options);
-
-  const groupedFragmentSpreadDirectives = parsedFragmentSpreadDirectives.reduce(
-    (acc: { [key: string]: ParsedDirective[] }, { parentName, ...rest }) => {
-      if (!acc[parentName]) {
-        acc[parentName] = [];
-      }
-
-      acc[parentName].push({ parentName, ...rest });
-      return acc;
-    },
-    {},
-  );
+  const groupedFragmentSpreadDirectives = groupFragmentSpreadDirectives(parsedFragmentSpreadDirectives);
 
   if (!isEmpty(groupedFragmentSpreadDirectives)) {
-    context.persistedFragmentSpreads = [
-      ...context.persistedFragmentSpreads,
-      ...(keys(groupedFragmentSpreadDirectives).map(propName => [
-        propName,
-        groupedFragmentSpreadDirectives[propName],
-        enrichAncestors(cloneDeep(ancestors), key as number),
-      ]) as PersistedFragmentSpread[]),
-    ];
+    updatePersistedFragmentSpreads(groupedFragmentSpreadDirectives, ancestors, context);
   }
 
   const hasDeferOrStream = hasActiveDeferOrStreamDirective([...parsedDirectives, ...parsedFragmentSpreadDirectives]);

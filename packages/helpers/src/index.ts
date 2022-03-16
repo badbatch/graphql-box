@@ -18,6 +18,7 @@ export {
   getFieldDirectives,
   getFragmentSpreadDirectives,
   getInlineFragmentDirectives,
+  parseDirectiveArguments,
 } from "./parsing/directives";
 export {
   deleteFragmentDefinitions,

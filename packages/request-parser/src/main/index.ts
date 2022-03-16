@@ -11,6 +11,7 @@ import {
   DOCUMENT,
   FIELD,
   FRAGMENT_DEFINITION,
+  FRAGMENT_SPREAD,
   FragmentDefinitionNodeMap,
   INLINE_FRAGMENT,
   NAME,
@@ -38,10 +39,11 @@ import {
 } from "@graphql-box/helpers";
 import {
   ASTNode,
-  DefinitionNode,
+  // DefinitionNode,
   DocumentNode,
   FieldNode,
   FragmentDefinitionNode,
+  FragmentSpreadNode,
   GraphQLEnumType,
   GraphQLInterfaceType,
   GraphQLNamedType,
@@ -74,14 +76,18 @@ import {
   VisitorContext,
 } from "../defs";
 import calcTypeComplexity from "../helpers/calcTypeComplexity";
+import findAncestorFragmentDefinition from "../helpers/findAncestorFragmentDefinition";
 import getMaxDepthFromChart from "../helpers/getMaxDepthFromChart";
 import getPersistedFragmentSpreadNames from "../helpers/getPersistedFragmentSpreadNames";
 import getPossibleTypeDetails from "../helpers/getPossibleTypeDetails";
+import isAncestorFragmentDefinition from "../helpers/isAncestorFragmentDefinition";
 import isTypeEntity from "../helpers/isTypeEntity";
 import makeDepthChart from "../helpers/makeDepthChart";
 import reorderDefinitions from "../helpers/reorderDefinitions";
 import setFragmentAndDirectiveContextProps from "../helpers/setFragmentAndDirectiveContextProps";
+import sliceAncestorsFromFragmentDefinition from "../helpers/sliceAncestorsFromFragmentDefinition";
 import toUpdateNode from "../helpers/toUpdateNode";
+import updateFragmentSpreadNode from "../helpers/updateFragmentSpreadNode";
 
 export class RequestParser implements RequestParserDef {
   private static _concatFragments(query: string, fragments: string[]): string {
@@ -315,7 +321,7 @@ export class RequestParser implements RequestParserDef {
         ...inheritedFragmentSpreadDirective,
       ])
     ) {
-      return undefined;
+      return;
     }
 
     setFragments({ fragmentDefinitions, node, type });
@@ -357,27 +363,20 @@ export class RequestParser implements RequestParserDef {
     if (type instanceof GraphQLInterfaceType || type instanceof GraphQLUnionType) {
       this._addFieldToNode(node, TYPE_NAME_KEY);
     }
-
-    return undefined;
   }
 
   private _updateFragmentDefinitionNode(
     node: FragmentDefinitionNode,
-    { ancestors, key }: Ancestors,
     _typeInfo: TypeInfo,
     fragmentDefinitions: FragmentDefinitionNodeMap | undefined,
-    options: RequestOptions,
-    context: VisitorContext,
   ) {
     const type = this._getFragmentType(node);
 
     if (!toUpdateNode(type)) {
-      return undefined;
+      return;
     }
 
     setFragments({ fragmentDefinitions, node, type });
-    setFragmentAndDirectiveContextProps(node, { ancestors, key }, options, context);
-    return undefined;
   }
 
   private _updateInlineFragmentNode(
@@ -391,7 +390,7 @@ export class RequestParser implements RequestParserDef {
     const type = this._getFragmentType(node);
 
     if (!toUpdateNode(type)) {
-      return undefined;
+      return;
     }
 
     setFragments({ fragmentDefinitions, node, type });
@@ -400,8 +399,6 @@ export class RequestParser implements RequestParserDef {
     if (isTypeEntity(type, this._typeIDKey)) {
       this._addFieldToNode(node, this._typeIDKey);
     }
-
-    return undefined;
   }
 
   private async _updateRequest(
@@ -419,15 +416,15 @@ export class RequestParser implements RequestParserDef {
       );
     }
 
-    reorderDefinitions(ast.definitions as DefinitionNode[]);
+    reorderDefinitions(ast);
 
     const _this = this;
     const typeInfo = new TypeInfo(this._schema);
     const fragmentDefinitions = getFragmentDefinitions(ast);
     const variableTypes: VariableTypesMap = {};
 
-    const ancestorsList: ASTNode[][] = [];
-    const fieldTypeList: Maybe<GraphQLOutputType>[] = [];
+    const depthChartAncestorsList: ASTNode[][] = [];
+    const complexityTypeList: Maybe<GraphQLOutputType>[] = [];
 
     const visitorContext: VisitorContext = {
       fieldTypeMap: context.fieldTypeMap,
@@ -447,33 +444,55 @@ export class RequestParser implements RequestParserDef {
           ancestors: ReadonlyArray<any>,
         ) {
           typeInfo.enter(node);
+          const [parentNode] = ancestors.slice(-2);
 
           if (isKind<FieldNode>(node, FIELD)) {
-            if (!hasChildFields(node, { fragmentDefinitions })) {
-              ancestorsList.push([...ancestors, node]);
+            complexityTypeList.push(typeInfo.getType());
+
+            if (isAncestorFragmentDefinition(ancestors)) {
+              const fragmentDefinitionNode = findAncestorFragmentDefinition(ancestors) as FragmentDefinitionNode;
+
+              const matches = visitorContext.persistedFragmentSpreads.filter(
+                ([name]) => name === (getName(fragmentDefinitionNode) as FragmentDefinitionNode["name"]["value"]),
+              );
+
+              matches.forEach(match => {
+                const fragmentAncestors = [...match[2], ...sliceAncestorsFromFragmentDefinition(ancestors)];
+
+                if (!hasChildFields(node, { fragmentDefinitions })) {
+                  depthChartAncestorsList.push([...fragmentAncestors, node]);
+                }
+
+                _this._updateFieldNode(
+                  node,
+                  { ancestors: fragmentAncestors, key },
+                  typeInfo,
+                  fragmentDefinitions,
+                  options,
+                  visitorContext,
+                  isKind<FragmentDefinitionNode>(parentNode, FRAGMENT_DEFINITION) ? match[1] : undefined,
+                );
+              });
+            } else {
+              if (!hasChildFields(node, { fragmentDefinitions })) {
+                depthChartAncestorsList.push([...ancestors, node]);
+              }
+
+              _this._updateFieldNode(node, { ancestors, key }, typeInfo, fragmentDefinitions, options, visitorContext);
             }
 
-            fieldTypeList.push(typeInfo.getType());
-            const [parentNode] = ancestors.slice(-2);
+            return undefined;
+          }
 
+          if (isKind<FragmentSpreadNode>(node, FRAGMENT_SPREAD)) {
             if (isKind<FragmentDefinitionNode>(parentNode, FRAGMENT_DEFINITION)) {
               const matches = visitorContext.persistedFragmentSpreads.filter(
                 ([name]) => name === (getName(parentNode) as FragmentDefinitionNode["name"]["value"]),
               );
 
               matches.forEach(match => {
-                _this._updateFieldNode(
-                  node,
-                  { ancestors: [...match[2], ancestors[ancestors.length - 1]], key },
-                  typeInfo,
-                  fragmentDefinitions,
-                  options,
-                  visitorContext,
-                  match[1],
-                );
+                updateFragmentSpreadNode(node, { ancestors: [...match[2]], key: undefined }, options, visitorContext);
               });
-            } else {
-              _this._updateFieldNode(node, { ancestors, key }, typeInfo, fragmentDefinitions, options, visitorContext);
             }
 
             return undefined;
@@ -492,14 +511,7 @@ export class RequestParser implements RequestParserDef {
           }
 
           if (isKind<FragmentDefinitionNode>(node, FRAGMENT_DEFINITION)) {
-            _this._updateFragmentDefinitionNode(
-              node,
-              { ancestors, key },
-              typeInfo,
-              fragmentDefinitions,
-              options,
-              visitorContext,
-            );
+            _this._updateFragmentDefinitionNode(node, typeInfo, fragmentDefinitions);
           }
 
           if (isKind<VariableNode>(node, VARIABLE)) {
@@ -544,7 +556,7 @@ export class RequestParser implements RequestParserDef {
         },
       });
 
-      const maxDepth = getMaxDepthFromChart(makeDepthChart(ancestorsList));
+      const maxDepth = getMaxDepthFromChart(makeDepthChart(depthChartAncestorsList));
 
       if (maxDepth > this._maxFieldDepth) {
         return Promise.reject(
@@ -555,7 +567,7 @@ export class RequestParser implements RequestParserDef {
       }
 
       if (this._typeComplexityMap) {
-        const typeComplexity = calcTypeComplexity(fieldTypeList, this._typeComplexityMap);
+        const typeComplexity = calcTypeComplexity(complexityTypeList, this._typeComplexityMap);
 
         if (typeComplexity > this._maxTypeComplexity) {
           return Promise.reject(
@@ -566,8 +578,8 @@ export class RequestParser implements RequestParserDef {
         }
       }
 
-      const { persistedFragmentSpreads, ...rest } = visitorContext;
-      assign(context, rest);
+      const { persistedFragmentSpreads, fieldTypeMap, ...rest } = visitorContext;
+      assign(context, { ...rest, fieldTypeMap: new Map([...fieldTypeMap.entries()].sort()) });
       return { ast: updatedAST, request: print(updatedAST) };
     } catch (error) {
       return Promise.reject(error);

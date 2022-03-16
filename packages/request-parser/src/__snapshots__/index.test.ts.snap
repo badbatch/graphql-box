@@ -143,102 +143,12 @@ Object {
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
-    "query.organization.repositories" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
-      },
-      "hasArguments": true,
-      "hasDirectives": false,
-      "isEntity": false,
-      "isInterface": false,
-      "isUnion": false,
-      "possibleTypes": Array [],
-      "typeIDValue": undefined,
-      "typeName": "RepositoryConnection",
-    },
-    "query.organization.repositories.edges" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
-      },
-      "hasArguments": false,
-      "hasDirectives": false,
-      "isEntity": false,
-      "isInterface": false,
-      "isUnion": false,
-      "possibleTypes": Array [],
-      "typeIDValue": undefined,
-      "typeName": "RepositoryEdge",
-    },
-    "query.organization.repositories.edges.node" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
-      },
-      "hasArguments": false,
-      "hasDirectives": false,
-      "isEntity": true,
-      "isInterface": false,
-      "isUnion": false,
-      "possibleTypes": Array [],
-      "typeIDValue": undefined,
-      "typeName": "Repository",
-    },
-    "query.organization.repositories.edges.node.licenseInfo" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "include({\\"if\\":true})",
-        ],
-        "own": Array [],
-      },
-      "hasArguments": false,
-      "hasDirectives": true,
-      "isEntity": true,
-      "isInterface": false,
-      "isUnion": false,
-      "possibleTypes": Array [],
-      "typeIDValue": undefined,
-      "typeName": "License",
-    },
-    "query.organization.repositories.edges.node.licenseInfo.permissions" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
-      },
-      "hasArguments": false,
-      "hasDirectives": false,
-      "isEntity": false,
-      "isInterface": false,
-      "isUnion": false,
-      "possibleTypes": Array [],
-      "typeIDValue": undefined,
-      "typeName": "LicenseRule",
-    },
-    "query.organization.repositories.edges.node.id" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "include({\\"if\\":true})",
-        ],
-        "own": Array [],
-      },
-      "hasArguments": false,
-      "hasDirectives": true,
-      "isEntity": false,
-      "isInterface": false,
-      "isUnion": false,
-      "possibleTypes": Array [],
-      "typeIDValue": undefined,
-      "typeName": "ID",
-    },
-    "query.organization.email" => Object {
+    "query.organization.description" => Object {
       "directives": Object {
         "inherited": Array [
           "defer({\\"if\\":true,\\"label\\":\\"organizationDefer\\"})",
         ],
-        "own": Array [
-          "include({\\"if\\":true})",
-        ],
+        "own": Array [],
       },
       "hasArguments": false,
       "hasDirectives": true,
@@ -249,12 +159,14 @@ Object {
       "typeIDValue": undefined,
       "typeName": "String",
     },
-    "query.organization.description" => Object {
+    "query.organization.email" => Object {
       "directives": Object {
         "inherited": Array [
           "defer({\\"if\\":true,\\"label\\":\\"organizationDefer\\"})",
         ],
-        "own": Array [],
+        "own": Array [
+          "include({\\"if\\":true})",
+        ],
       },
       "hasArguments": false,
       "hasDirectives": true,
@@ -297,6 +209,48 @@ Object {
       "typeIDValue": undefined,
       "typeName": "String",
     },
+    "query.organization.repositories" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryConnection",
+    },
+    "query.organization.repositories.edges" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "RepositoryEdge",
+    },
+    "query.organization.repositories.edges.node" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Repository",
+    },
     "query.organization.repositories.edges.node.description" => Object {
       "directives": Object {
         "inherited": Array [
@@ -333,12 +287,10 @@ Object {
       "typeIDValue": undefined,
       "typeName": "URI",
     },
-    "query.organization.repositories.edges.node.name" => Object {
+    "query.organization.repositories.edges.node.id" => Object {
       "directives": Object {
         "inherited": Array [
           "include({\\"if\\":true})",
-          "skip({\\"if\\":false})",
-          "defer({\\"if\\":true,\\"label\\":\\"repositoryDefer\\"})",
         ],
         "own": Array [],
       },
@@ -349,7 +301,37 @@ Object {
       "isUnion": false,
       "possibleTypes": Array [],
       "typeIDValue": undefined,
-      "typeName": "String",
+      "typeName": "ID",
+    },
+    "query.organization.repositories.edges.node.licenseInfo" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "include({\\"if\\":true})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "License",
+    },
+    "query.organization.repositories.edges.node.licenseInfo.permissions" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "LicenseRule",
     },
     "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Object {
       "directives": Object {
@@ -359,6 +341,24 @@ Object {
         "own": Array [
           "skip({\\"if\\":false})",
         ],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "String",
+    },
+    "query.organization.repositories.edges.node.name" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "include({\\"if\\":true})",
+          "skip({\\"if\\":false})",
+          "defer({\\"if\\":true,\\"label\\":\\"repositoryDefer\\"})",
+        ],
+        "own": Array [],
       },
       "hasArguments": false,
       "hasDirectives": true,
@@ -773,6 +773,698 @@ exports[`@graphql-box/request-parser >> query >> fragment spread >> correct requ
     login
     name
     url
+    id
+  }
+}"
+`;
+
+exports[`@graphql-box/request-parser >> query >> fragment spreads >> within fragment spreads >> correct context data 1`] = `
+Object {
+  "boxID": "123456789",
+  "debugManager": null,
+  "fieldTypeMap": Map {
+    "query.movie" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": true,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": "12345",
+      "typeName": "Movie",
+    },
+    "query.movie.backdrops" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieBackdropsDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Image",
+    },
+    "query.movie.belongsToCollection" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Collection",
+    },
+    "query.movie.belongsToCollection.name" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieCollectionDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "String",
+    },
+    "query.movie.belongsToCollection.overview" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieCollectionDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "String",
+    },
+    "query.movie.belongsToCollection.parts" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieCollectionDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Movie",
+    },
+    "query.movie.belongsToCollection.parts.posterPath" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieCollectionPartsDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "String",
+    },
+    "query.movie.belongsToCollection.parts.releaseDates" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieReleaseDatesDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "ReleaseDates",
+    },
+    "query.movie.belongsToCollection.parts.releaseDates.releaseDates" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "ReleaseDate",
+    },
+    "query.movie.belongsToCollection.parts.title" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieCollectionPartsDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "String",
+    },
+    "query.movie.belongsToCollection.parts.videos" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieVideosDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Video",
+    },
+    "query.movie.belongsToCollection.parts.voteAverage" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieCollectionPartsDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Float",
+    },
+    "query.movie.belongsToCollection.parts.voteCount" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieCollectionPartsDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Int",
+    },
+    "query.movie.cast" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieCastDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Cast",
+    },
+    "query.movie.crew" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieCrewDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Crew",
+    },
+    "query.movie.recommendations" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieRecommendationsDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": true,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": "12345",
+      "typeName": "MovieConnection",
+    },
+    "query.movie.recommendations.edges" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "MovieEdge",
+    },
+    "query.movie.recommendations.edges.node" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Movie",
+    },
+    "query.movie.recommendations.edges.node.releaseDates" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieReleaseDatesDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "ReleaseDates",
+    },
+    "query.movie.recommendations.edges.node.releaseDates.releaseDates" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "ReleaseDate",
+    },
+    "query.movie.recommendations.edges.node.videos" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieVideosDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Video",
+    },
+    "query.movie.recommendations.pageInfo" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "PageInfo",
+    },
+    "query.movie.reviews" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieReviewsDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": true,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": "12345",
+      "typeName": "ReviewConnection",
+    },
+    "query.movie.reviews.edges" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "ReviewEdge",
+    },
+    "query.movie.reviews.edges.node" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Review",
+    },
+    "query.movie.reviews.pageInfo" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "PageInfo",
+    },
+    "query.movie.similarMovies" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieSimilarDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": true,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": "12345",
+      "typeName": "MovieConnection",
+    },
+    "query.movie.similarMovies.edges" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "MovieEdge",
+    },
+    "query.movie.similarMovies.edges.node" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Movie",
+    },
+    "query.movie.similarMovies.edges.node.releaseDates" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieReleaseDatesDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "ReleaseDates",
+    },
+    "query.movie.similarMovies.edges.node.releaseDates.releaseDates" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "ReleaseDate",
+    },
+    "query.movie.similarMovies.edges.node.videos" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"MovieVideosDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Video",
+    },
+    "query.movie.similarMovies.pageInfo" => Object {
+      "directives": Object {
+        "inherited": Array [],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": false,
+      "isEntity": false,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "PageInfo",
+    },
+    "query.movie.videos" => Object {
+      "directives": Object {
+        "inherited": Array [
+          "defer({\\"label\\":\\"VideosDefer\\"})",
+        ],
+        "own": Array [],
+      },
+      "hasArguments": false,
+      "hasDirectives": true,
+      "isEntity": true,
+      "isInterface": false,
+      "isUnion": false,
+      "possibleTypes": Array [],
+      "typeIDValue": undefined,
+      "typeName": "Video",
+    },
+  },
+  "hasDeferOrStream": true,
+  "operation": "query",
+  "operationName": "GetMoviePreview",
+  "queryFiltered": false,
+  "request": "",
+  "whitelistHash": "",
+}
+`;
+
+exports[`@graphql-box/request-parser >> query >> fragment spreads >> within fragment spreads >> correct request 1`] = `
+"query GetMoviePreview {
+  movie(id: \\"12345\\") {
+    backdropPath
+    belongsToCollection {
+      ...MovieCollection @defer(label: \\"MovieCollectionDefer\\")
+      id
+    }
+    homepage
+    overview
+    popularity
+    posterPath
+    releaseDate
+    runtime
+    status
+    tagline
+    title
+    voteAverage
+    voteCount
+    ...MovieBackdrops @defer(label: \\"MovieBackdropsDefer\\")
+    ...MovieCast @defer(label: \\"MovieCastDefer\\")
+    ...MovieCrew @defer(label: \\"MovieCrewDefer\\")
+    ...MovieRecommendations @defer(label: \\"MovieRecommendationsDefer\\")
+    ...MovieReviews @defer(label: \\"MovieReviewsDefer\\")
+    ...MovieSimilar @defer(label: \\"MovieSimilarDefer\\")
+    ...MovieVideos @defer(label: \\"VideosDefer\\")
+    id
+  }
+}
+
+fragment MovieBackdrops on Movie {
+  backdrops {
+    filePath
+    fileType
+    height
+    width
+  }
+}
+
+fragment MovieCollection on Collection {
+  name
+  overview
+  parts {
+    ...MovieBrief @defer(label: \\"MovieCollectionPartsDefer\\")
+    id
+  }
+}
+
+fragment MovieRecommendations on Movie {
+  recommendations(first: 10) {
+    edges {
+      cursor
+      node {
+        posterPath
+        title
+        voteAverage
+        voteCount
+        ...MovieReleaseDates @defer(label: \\"MovieReleaseDatesDefer\\")
+        ...MovieVideos @defer(label: \\"MovieVideosDefer\\")
+        id
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+  }
+}
+
+fragment MovieSimilar on Movie {
+  similarMovies(first: 10) {
+    edges {
+      cursor
+      node {
+        posterPath
+        title
+        voteAverage
+        voteCount
+        ...MovieReleaseDates @defer(label: \\"MovieReleaseDatesDefer\\")
+        ...MovieVideos @defer(label: \\"MovieVideosDefer\\")
+        id
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+  }
+}
+
+fragment MovieBrief on Movie {
+  posterPath
+  title
+  voteAverage
+  voteCount
+  ...MovieReleaseDates @defer(label: \\"MovieReleaseDatesDefer\\")
+  ...MovieVideos @defer(label: \\"MovieVideosDefer\\")
+}
+
+fragment MovieCast on Movie {
+  cast {
+    character
+    name
+    profilePath
+    id
+  }
+}
+
+fragment MovieCrew on Movie {
+  crew {
+    department
+    gender
+    job
+    name
+    profilePath
+    id
+  }
+}
+
+fragment MovieReviews on Movie {
+  reviews(first: 10) {
+    edges {
+      cursor
+      node {
+        author
+        content
+        id
+      }
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+  }
+}
+
+fragment MovieReleaseDates on Movie {
+  releaseDates {
+    releaseDates {
+      certification
+    }
+  }
+}
+
+fragment MovieVideos on Movie {
+  videos {
+    name
+    key
+    site
+    type
     id
   }
 }"
