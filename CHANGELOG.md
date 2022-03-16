@@ -1,3 +1,13 @@
+#### 3.3.4 (2022-03-16)
+
+##### Chores
+
+*  save work in progress ([313c8d48](https://github.com/badbatch/graphql-box/commit/313c8d48eb230a40951d44f4bb8f1741952d9c03))
+
+##### Bug Fixes
+
+*  parsing of fragments with nested fields ([54b16811](https://github.com/badbatch/graphql-box/commit/54b1681161f9b5d61cac4018c0cf83ece42530d6))
+
 #### 3.3.3 (2022-03-10)
 
 ##### Bug Fixes
