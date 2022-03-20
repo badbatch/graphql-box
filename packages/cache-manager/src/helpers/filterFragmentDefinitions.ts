@@ -34,6 +34,10 @@ export default (
     return deleted > 0 && deleted === total ? [...names, key] : names;
   }, []);
 
+  if (!definitionsToDelete.length) {
+    return ast;
+  }
+
   return deleteFragmentDefinitions(ast, {
     include: definitionsToDelete,
   });

@@ -336,6 +336,252 @@ export const deferQuerySet: ParsedQuerySet = {
   `,
 };
 
+export const getMoviePreviewQuery = `
+  query GetMoviePreview {
+    movie(id: "671") {
+      backdropPath
+      belongsToCollection {
+        ...MovieCollection @defer(label: "MovieCollectionDefer")
+        id
+      }
+      homepage
+      overview
+      popularity
+      posterPath
+      releaseDate
+      runtime
+      status
+      tagline
+      title
+      voteAverage
+      voteCount
+      ...MovieBackdrops @defer(label: "MovieBackdropsDefer")
+      ...MovieCast @defer(label: "MovieCastDefer")
+      ...MovieCrew @defer(label: "MovieCrewDefer")
+      ...MovieRecommendations @defer(label: "MovieRecommendationsDefer")
+      ...MovieReviews @defer(label: "MovieReviewsDefer")
+      ...MovieSimilar @defer(label: "MovieSimilarDefer")
+      ...MovieVideos @defer(label: "VideosDefer")
+      id
+    }
+  }
+
+  fragment MovieBackdrops on Movie {
+    backdrops {
+      filePath
+      fileType
+      height
+      width
+    }
+  }
+
+  fragment MovieCollection on Collection {
+    name
+    overview
+    parts {
+      ...MovieBrief @defer(label: "MovieCollectionPartsDefer")
+      id
+    }
+  }
+
+  fragment MovieRecommendations on Movie {
+    recommendations(first: 10) {
+      edges {
+        cursor
+        node {
+          posterPath
+          title
+          voteAverage
+          voteCount
+          ...MovieReleaseDates @defer(label: "MovieReleaseDatesDefer")
+          ...MovieVideos @defer(label: "MovieVideosDefer")
+          id
+        }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+
+  fragment MovieSimilar on Movie {
+    similarMovies(first: 10) {
+      edges {
+        cursor
+        node {
+          posterPath
+          title
+          voteAverage
+          voteCount
+          ...MovieReleaseDates @defer(label: "MovieReleaseDatesDefer")
+          ...MovieVideos @defer(label: "MovieVideosDefer")
+          id
+        }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+
+  fragment MovieBrief on Movie {
+    posterPath
+    title
+    voteAverage
+    voteCount
+    ...MovieReleaseDates @defer(label: "MovieReleaseDatesDefer")
+    ...MovieVideos @defer(label: "MovieVideosDefer")
+  }
+
+  fragment MovieCast on Movie {
+    cast {
+      character
+      name
+      profilePath
+      id
+    }
+  }
+
+  fragment MovieCrew on Movie {
+    crew {
+      department
+      gender
+      job
+      name
+      profilePath
+      id
+    }
+  }
+
+  fragment MovieReviews on Movie {
+    reviews(first: 10) {
+      edges {
+        cursor
+        node {
+          author
+          content
+          id
+        }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+    }
+  }
+
+  fragment MovieReleaseDates on Movie {
+    releaseDates {
+      releaseDates {
+        certification
+      }
+    }
+  }
+
+  fragment MovieVideos on Movie {
+    videos {
+      name
+      key
+      site
+      type
+      id
+    }
+  }
+`;
+
+export const getSearchResultsQuery = `
+  query GetSearchResults {
+    search(
+      after: null
+      before: null
+      first: 20
+      includeAdult: null
+      last: null
+      query: "harry potter"
+      searchType: MULTI
+    ) {
+      edges {
+        cursor
+        node {
+          ... on Movie {
+            posterPath
+            title
+            voteAverage
+            voteCount
+            ...MovieReleaseDates @defer(label: "MovieReleaseDatesDefer")
+            ...MovieVideos @defer(label: "MovieVideosDefer")
+            id
+          }
+          ... on Person {
+            name
+            profilePath
+            id
+          }
+          ... on Tv {
+            name
+            posterPath
+            voteAverage
+            voteCount
+            ...TvContentRatings @defer(label: "TvContentRatingsDefer")
+            ...TvVideos @defer(label: "TvVideosDefer")
+            id
+          }
+          __typename
+        }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      totalCount
+    }
+  }
+
+  fragment MovieReleaseDates on Movie {
+    releaseDates {
+      releaseDates {
+        certification
+      }
+    }
+  }
+
+  fragment MovieVideos on Movie {
+    videos {
+      name
+      key
+      site
+      type
+      id
+    }
+  }
+
+  fragment TvContentRatings on Tv {
+    contentRatings {
+      rating
+    }
+  }
+
+  fragment TvVideos on Tv {
+    videos {
+      name
+      key
+      site
+      type
+      id
+    }
+  }
+`;
+
 export const nestedTypeMutation = `
   mutation {
     addEmail(input: { from: "delta@gmail.com", message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit", subject: "Hi, this is Delta" }) {

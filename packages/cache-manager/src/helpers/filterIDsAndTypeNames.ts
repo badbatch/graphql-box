@@ -1,9 +1,12 @@
 import { TYPE_NAME_KEY } from "@graphql-box/core";
 import { deleteChildFields, getChildFields, getName } from "@graphql-box/helpers";
-import { FieldNode, FragmentDefinitionNode } from "graphql";
+import { FieldNode, FragmentDefinitionNode, OperationDefinitionNode } from "graphql";
 import { CacheManagerContext } from "../defs";
 
-export default (field: FieldNode | FragmentDefinitionNode, { fragmentDefinitions, typeIDKey }: CacheManagerContext) => {
+export default (
+  field: FieldNode | FragmentDefinitionNode | OperationDefinitionNode,
+  { fragmentDefinitions, typeIDKey }: CacheManagerContext,
+) => {
   const fieldsAndTypeNames = getChildFields(field, { fragmentDefinitions });
 
   if (!fieldsAndTypeNames || fieldsAndTypeNames.length > 3) {

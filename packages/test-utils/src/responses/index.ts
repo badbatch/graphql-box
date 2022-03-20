@@ -1,5 +1,6 @@
 import { RawResponseDataWithMaybeCacheMetadata } from "@graphql-box/core";
 import { QueryResponseSet } from "../defs";
+import searchResultsQuery from "./theMovieDb/searchResultsQuery.json";
 
 /* tslint:disable max-line-length */
 
@@ -1830,6 +1831,11 @@ export const deferQuerySet: QueryResponseSet = {
       paths: ["organisation.repositories.edges.9.node.licenseInfo.permissions"],
     },
   ],
+};
+
+export const getSearchResultsQuery: RawResponseDataWithMaybeCacheMetadata = {
+  data: searchResultsQuery,
+  headers: new Headers({ "Cache-Control": "public, max-age=60" }),
 };
 
 export const nestedInterfaceMutation: RawResponseDataWithMaybeCacheMetadata = {

@@ -1,6 +1,6 @@
 import { TYPE_NAME_KEY } from "@graphql-box/core";
 import { FRAGMENT_SPREAD, deleteChildFields, getChildFields, getName, hasChildFields } from "@graphql-box/helpers";
-import { FieldNode, FragmentDefinitionNode } from "graphql";
+import { FieldNode, FragmentDefinitionNode, OperationDefinitionNode } from "graphql";
 import { CacheManagerContext, FieldPathChecklist, FragmentSpreadFieldCounter } from "../defs";
 import { buildFieldKeysAndPaths } from "./buildKeysAndPaths";
 import checkFieldPathChecklist from "./checkFieldPathChecklist";
@@ -10,7 +10,7 @@ import filterIDsAndTypeNames from "./filterIDsAndTypeNames";
 import filterInlineFragments from "./filterInlineFragments";
 
 const filterField = (
-  field: FieldNode | FragmentDefinitionNode,
+  field: FieldNode | FragmentDefinitionNode | OperationDefinitionNode,
   fieldPathChecklist: FieldPathChecklist,
   fragmentSpreadChecklist: FragmentSpreadCheckist,
   ancestorRequestFieldPath: string,

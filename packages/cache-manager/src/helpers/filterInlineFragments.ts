@@ -1,8 +1,11 @@
 import { deleteInlineFragments, getChildFields, getInlineFragments, getName } from "@graphql-box/helpers";
-import { FieldNode, FragmentDefinitionNode } from "graphql";
+import { FieldNode, FragmentDefinitionNode, OperationDefinitionNode } from "graphql";
 import { CacheManagerContext } from "..";
 
-export default (field: FieldNode | FragmentDefinitionNode, { fragmentDefinitions, typeIDKey }: CacheManagerContext) => {
+export default (
+  field: FieldNode | FragmentDefinitionNode | OperationDefinitionNode,
+  { fragmentDefinitions, typeIDKey }: CacheManagerContext,
+) => {
   const inlineFragments = getInlineFragments(field);
   let filtered = false;
 

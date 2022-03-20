@@ -1,4 +1,11 @@
-import { FieldNode, FragmentDefinitionNode, InlineFragmentNode, NamedTypeNode, SelectionNode } from "graphql";
+import {
+  FieldNode,
+  FragmentDefinitionNode,
+  InlineFragmentNode,
+  NamedTypeNode,
+  OperationDefinitionNode,
+  SelectionNode,
+} from "graphql";
 import { castArray } from "lodash";
 import { FIELD, INLINE_FRAGMENT } from "../../consts";
 import { FieldAndTypeName, ParentNode } from "../../defs";
@@ -25,7 +32,9 @@ export function deleteInlineFragments(node: ParentNode, inlineFragments: InlineF
   node.selectionSet.selections = childFields;
 }
 
-export function getInlineFragments({ selectionSet }: FieldNode | InlineFragmentNode | FragmentDefinitionNode) {
+export function getInlineFragments({
+  selectionSet,
+}: FieldNode | InlineFragmentNode | FragmentDefinitionNode | OperationDefinitionNode) {
   const inlineFragments: InlineFragmentNode[] = [];
   if (!selectionSet) return inlineFragments;
 

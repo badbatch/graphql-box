@@ -6,7 +6,8 @@ import createFragmentSpreadChecklist from "./createFragmentSpreadChecklist";
 import filterField from "./filterField";
 import filterFragmentDefinitions from "./filterFragmentDefinitions";
 
-export default ({ ast }: RequestData, { fieldPathChecklist }: CachedResponseData, context: CacheManagerContext) => {
+export default (requestData: RequestData, { fieldPathChecklist }: CachedResponseData, context: CacheManagerContext) => {
+  const { ast } = requestData;
   const queryNode = getOperationDefinitions(ast, context.operation)[0];
   const { fragmentDefinitions } = context;
   const fieldsAndTypeNames = getChildFields(queryNode, { fragmentDefinitions });
@@ -15,7 +16,7 @@ export default ({ ast }: RequestData, { fieldPathChecklist }: CachedResponseData
     return ast;
   }
 
-  const fragmentSpreadChecklist = createFragmentSpreadChecklist(ast);
+  const fragmentSpreadChecklist = createFragmentSpreadChecklist(requestData);
 
   for (let i = fieldsAndTypeNames.length - 1; i >= 0; i -= 1) {
     const { fieldNode } = fieldsAndTypeNames[i];

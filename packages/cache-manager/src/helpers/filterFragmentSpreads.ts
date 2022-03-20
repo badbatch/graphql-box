@@ -1,11 +1,11 @@
 import { deleteFragmentSpreads } from "@graphql-box/helpers";
-import { FieldNode, FragmentDefinitionNode } from "graphql";
+import { FieldNode, FragmentDefinitionNode, OperationDefinitionNode } from "graphql";
 import { isEmpty, keys } from "lodash";
 import { FragmentSpreadFieldCounter } from "../defs";
 import { FragmentSpreadCheckist } from "./createFragmentSpreadChecklist";
 
 export default (
-  field: FieldNode | FragmentDefinitionNode,
+  field: FieldNode | FragmentDefinitionNode | OperationDefinitionNode,
   fragmentSpreadFieldCounter: FragmentSpreadFieldCounter,
   fragmentSpreadChecklist: FragmentSpreadCheckist,
   ancestorRequestFieldPath: string,
@@ -15,7 +15,6 @@ export default (
   }
 
   keys(fragmentSpreadFieldCounter).forEach(key => {
-    fragmentSpreadChecklist[key].total += 1;
     fragmentSpreadChecklist[key].paths.push(ancestorRequestFieldPath);
 
     const { hasData, total } = fragmentSpreadFieldCounter[key];
