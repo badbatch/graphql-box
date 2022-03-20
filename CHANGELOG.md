@@ -1,3 +1,13 @@
+#### 3.3.5 (2022-03-20)
+
+##### Bug Fixes
+
+*  bug in fragment spread counter in cache manager ([8e1deb19](https://github.com/badbatch/graphql-box/commit/8e1deb19ce0f24f90747e43ba340c8d322d11b0d))
+
+##### Refactors
+
+*  move movieDb test data to test utils package ([9f367108](https://github.com/badbatch/graphql-box/commit/9f367108084eb998f00e6a7074bd6f5643b0575d))
+
 #### 3.3.4 (2022-03-16)
 
 ##### Chores
