@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@graphql-box/client": "^3.0.0",
+    "@graphql-box/worker-client": "^3.0.0",
     "@graphql-box/test-utils": "^3.0.0"
   }
 }
