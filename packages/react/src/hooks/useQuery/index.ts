@@ -40,7 +40,9 @@ const useQuery = <Data extends PlainObjectMap>(query: string, { loading = false 
       return;
     }
 
-    forAwaitEach(requestResult, ({ data, errors, hasNext, paths, requestID }: MaybeRequestResult) => {
+    forAwaitEach(requestResult, result => {
+      const { data, errors, hasNext, paths, requestID } = result as MaybeRequestResult;
+
       setState({
         data: data as Data,
         errors: errors ?? [],
