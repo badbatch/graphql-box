@@ -1,3 +1,10 @@
+#### 3.3.6 (2022-03-22)
+
+##### Bug Fixes
+
+*  type regression on useQuery ([c173ad28](https://github.com/badbatch/graphql-box/commit/c173ad28df98c2bb04cc81efa8f307e6d2d1228e))
+*  allow worker client to be passed into provider ([4c649b14](https://github.com/badbatch/graphql-box/commit/4c649b14eb7bba7952a2e99e147bab91b7246664))
+
 #### 3.3.5 (2022-03-20)
 
 ##### Bug Fixes
