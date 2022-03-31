@@ -1,3 +1,9 @@
+#### 3.3.7 (2022-03-31)
+
+##### Chores
+
+*  upgrade cachemap modules ([16e36359](https://github.com/badbatch/graphql-box/commit/16e363595c60fd82c69d7e2256ca53323bae152d))
+
 #### 3.3.6 (2022-03-22)
 
 ##### Bug Fixes
