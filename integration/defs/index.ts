@@ -1,4 +1,4 @@
-import { StoreInit } from "@cachemap/core";
+import { StoreInit } from "@cachemap/types";
 import { PlainObjectStringMap, SubscriptionsManagerInit } from "@graphql-box/core";
 import { GraphQLSchema, IntrospectionQuery } from "graphql";
 

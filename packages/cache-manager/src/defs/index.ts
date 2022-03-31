@@ -1,4 +1,5 @@
-import Cachemap, { CacheHeaders, Metadata } from "@cachemap/core";
+import Cachemap, { CacheHeaders } from "@cachemap/core";
+import { Metadata } from "@cachemap/types";
 import {
   CacheMetadata,
   CacheTypes,

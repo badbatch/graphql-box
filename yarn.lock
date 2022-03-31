@@ -1247,56 +1247,63 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cachemap/constants@3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@cachemap/constants/-/constants-3.2.0.tgz#89740beceade5722eb602531eafde132a563e021"
-  integrity sha512-h6slA21QxyGsCMtX+JKXhwKHm6LFstfUQg7T1pS4ltIBfaNdk7FZ/kh+EqnKuZEtu+AmnfXFDFrexXjE0gI3mw==
+"@cachemap/constants@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@cachemap/constants/-/constants-4.0.0.tgz#70f8f57f95c01999c98642bfde1b673b84959a18"
+  integrity sha512-X3SMo2E9iyfzfFhtVxrJxrohK8U6onU2fp4mhAmjmXr5xmlZB+DVo/6CtIbRM5PPDRsODEqbhVxjW8yagLdnTA==
 
-"@cachemap/controller@3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@cachemap/controller/-/controller-3.2.0.tgz#056750ea296241d7491ce61f24abf8e9103deaf4"
-  integrity sha512-v8B/Y2qDJI+Y/LitbgrykSO885o8HXLG/55GUuxRTDLxleVOzOBmFibzoSIafSfwYKyFeyMBx/mnoOJbJMLM1g==
+"@cachemap/controller@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@cachemap/controller/-/controller-4.0.0.tgz#1352c28da7dba1ede6379f7311287721059fdccc"
+  integrity sha512-Ftyoe2Si2hOJlHwGDx5T9+wPw7OerOyA2b36GJC7RJCpqkIaOZ9xKAEONcoGF9IM5w2UX6THzEznA1xba2OzRA==
   dependencies:
     eventemitter3 "4.0.7"
 
-"@cachemap/core-worker@3.2.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@cachemap/core-worker/-/core-worker-3.2.1.tgz#25e16d02ebbd23726a85232799dd3070ad591faf"
-  integrity sha512-mQ7Cx8HV2yfVQrn4asOr49du3aCRaXACzB3HM9/SmVq82aJx3Iy8Je3RyLgbvMHZz7ChD4jbpcmox9GMWgWg+g==
+"@cachemap/core-worker@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@cachemap/core-worker/-/core-worker-4.0.0.tgz#cf160193f7d9db13498376460f9a424ce39ecc06"
+  integrity sha512-j+5BeqIalOOR/sj23Ba7QrInlYVy9s2q76qGj2wZYY37C8fe/0r/G9nsUJBbie18v3bs3LW41Iaqgbohpkg2UA==
   dependencies:
     cacheability "^3.0.1"
+    eventemitter3 "4.0.7"
     uuid "^7.0.1"
 
-"@cachemap/core@3.2.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@cachemap/core/-/core-3.2.1.tgz#954bb34d5834f85f36a239c90ab796725c5cd4fb"
-  integrity sha512-2WxDnc6CA9hSuK6xTD3CXfg4+lW3vognJh4DVhlW4pWuzxBkGGChrj+naNMM2Rjt/oVAr9YfE9ZG7VA6qp9YIw==
+"@cachemap/core@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@cachemap/core/-/core-4.0.0.tgz#8e185c80f6dcb8b60a6f7d5ad04c5c457471925e"
+  integrity sha512-/t6qjJiQ6dHGeam5BFfoMnsHkgp4EOxyKmAniX7wImJYtZwXP6F0xSZ8Aw+GafUsdooLPWu+QxVIXSDdBiRQnQ==
   dependencies:
     cacheability "^3.0.1"
     crypto-js "^4.0.0"
+    eventemitter3 "4.0.7"
     js-base64 "3.6.0"
     md5 "^2.2.1"
     object-sizeof "^1.5.3"
 
-"@cachemap/indexed-db@3.1.3":
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/@cachemap/indexed-db/-/indexed-db-3.1.3.tgz#244f4e2032961407f679d3e97ba347523d9e85ca"
-  integrity sha512-jEQN4BDo6O9SlxCpWpzxr/MeTW+h0yGl88E3DSuXREyIQCKBWoA14BNyVjS/96lr/AsVDM5GGYdd8tDIIbSzcQ==
+"@cachemap/indexed-db@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@cachemap/indexed-db/-/indexed-db-4.0.0.tgz#35c102bb3dfa657bcc7468d87bc31105a5b4427e"
+  integrity sha512-CMlVW3ymJg1z2U+NOYHbOLwawQ9sZn0njQ4rQymNKt89evjuwX/1eoKbTsOmT8c/JH4RrDUsHA03Fzb5Kd2xGA==
   dependencies:
     idb "^5.0.1"
 
-"@cachemap/map@3.1.3":
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/@cachemap/map/-/map-3.1.3.tgz#7261bc4c06a93204ad151acdf46663880c79028b"
-  integrity sha512-A/Cj0I/LCknCFUezRa37snq58E6Yd7q0qTW7u7hgMN0grOkfpNR58rMHs8rxySDXyK4rlrgb5XZ1apJSZE47gA==
+"@cachemap/map@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@cachemap/map/-/map-4.0.0.tgz#ef50ad509eb2a83a6790e3f564be62faabf0d974"
+  integrity sha512-9sgSVLoG5V0Q5BmDG0EzBz1Qo26wN6+M4JTitsK6teoFUaTExQCUlrR0CIVhJh6MEnATXBJfWW3/dTTVBgutbQ==
 
-"@cachemap/redis@3.1.3":
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/@cachemap/redis/-/redis-3.1.3.tgz#e1073fc68cffc9d0272b9f8abd4a3c8f9747b12e"
-  integrity sha512-HEB++oxqYUvya9stuF/b9WSaA0wox/p3T4mxBPRZRecg3oQeS+OcBRw6+/Ha04nvDdAHprAArU8cGJwpEurElQ==
+"@cachemap/redis@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@cachemap/redis/-/redis-4.0.0.tgz#f2ff0be7d042fa1c24c1914481d90c1b37c5764d"
+  integrity sha512-8tmd8AfzFReHiSyzv4h9yAcj+RWUHMgc67T+m/LofDXFNGadsKtYaf/8wHart+jkj7RspWlumAIJHLtkTuc0QA==
   dependencies:
     fakeredis "^2.0.0"
     redis "^3.0.2"
+
+"@cachemap/types@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@cachemap/types/-/types-4.0.0.tgz#a192e0f5b7565732686cd8c0b9aea8b58a3670c9"
+  integrity sha512-M7S93c7Ju9gxPuGn2oSbhXgusWvL7ZcV2NCn0KadgZNOCgd58HzZldSSWYP15LD7ZNuu5SigVwTgGLRVlb+6Jw==
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
