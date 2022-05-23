@@ -1,3 +1,9 @@
+### 3.4.0 (2022-05-23)
+
+##### New Features
+
+*  add query and mutation methods and hooks for all ops ([cd7213d5](https://github.com/badbatch/graphql-box/commit/cd7213d5f713765aaff25ab00c2a696de56eb35b))
+
 #### 3.3.7 (2022-03-31)
 
 ##### Chores
