@@ -1,3 +1,9 @@
+#### 3.4.2 (2022-05-23)
+
+##### Bug Fixes
+
+*  expose type for connection listings component ([fae8a390](https://github.com/badbatch/graphql-box/commit/fae8a390c3c1d053183a925280fb57d54c980afd))
+
 #### 3.4.1 (2022-05-23)
 
 ##### Bug Fixes
