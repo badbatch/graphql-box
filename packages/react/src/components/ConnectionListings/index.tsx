@@ -113,7 +113,7 @@ export default <Item extends PlainObjectMap>(props: ListingsProps<Item>) => {
   return children({
     hasNextPage,
     lastItemRef,
-    listings: formatListings<Item>(listings),
+    listings: formatListings<Item>(listings, requestPath),
     loading,
   });
 };
