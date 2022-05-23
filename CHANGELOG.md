@@ -1,3 +1,9 @@
+#### 3.4.1 (2022-05-23)
+
+##### Bug Fixes
+
+*  connection listings format helper bug ([d57a12a8](https://github.com/badbatch/graphql-box/commit/d57a12a81f71689a3a1dce31674df8b973f8b740))
+
 ### 3.4.0 (2022-05-23)
 
 ##### New Features
