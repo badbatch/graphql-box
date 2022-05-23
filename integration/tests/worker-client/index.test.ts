@@ -32,7 +32,7 @@ describe("worker-client", () => {
         const request = parsedRequests.singleTypeQuery;
 
         try {
-          const { _cacheMetadata, data } = (await workerClient.request(request, {
+          const { _cacheMetadata, data } = (await workerClient.query(request, {
             ...defaultOptions,
           })) as MaybeRequestResult;
 
@@ -76,8 +76,8 @@ describe("worker-client", () => {
 
         try {
           const result = await Promise.all([
-            workerClient.request(request, { ...defaultOptions }),
-            workerClient.request(request, { ...defaultOptions }),
+            workerClient.query(request, { ...defaultOptions }),
+            workerClient.query(request, { ...defaultOptions }),
           ]);
 
           const { _cacheMetadata, data } = result[1] as MaybeRequestResult;
@@ -125,7 +125,7 @@ describe("worker-client", () => {
         const request = parsedRequests.singleTypeQuery;
 
         try {
-          await workerClient.request(request, { ...defaultOptions });
+          await workerClient.query(request, { ...defaultOptions });
         } catch (errors) {
           log(errors);
         }
@@ -133,7 +133,7 @@ describe("worker-client", () => {
         await fetchMockWorker.postMessage("resetHistory");
 
         try {
-          const { _cacheMetadata, data } = (await workerClient.request(request, {
+          const { _cacheMetadata, data } = (await workerClient.query(request, {
             ...defaultOptions,
           })) as MaybeRequestResult;
 
@@ -181,7 +181,7 @@ describe("worker-client", () => {
         const { full, initial } = parsedRequests.singleTypeQuerySet;
 
         try {
-          await workerClient.request(full, { ...defaultOptions });
+          await workerClient.query(full, { ...defaultOptions });
         } catch (errors) {
           log(errors);
         }
@@ -189,7 +189,7 @@ describe("worker-client", () => {
         await fetchMockWorker.postMessage("resetHistory");
 
         try {
-          const { _cacheMetadata, data } = (await workerClient.request(initial, {
+          const { _cacheMetadata, data } = (await workerClient.query(initial, {
             ...defaultOptions,
           })) as MaybeRequestResult;
 
@@ -237,7 +237,7 @@ describe("worker-client", () => {
         }
 
         try {
-          await workerClient.request(initial, { ...defaultOptions });
+          await workerClient.query(initial, { ...defaultOptions });
         } catch (errors) {
           log(errors);
         }
@@ -245,7 +245,7 @@ describe("worker-client", () => {
         await fetchMockWorker.postMessage("resetHistory");
 
         try {
-          const { _cacheMetadata, data } = (await workerClient.request(full, {
+          const { _cacheMetadata, data } = (await workerClient.query(full, {
             ...defaultOptions,
           })) as MaybeRequestResult;
 

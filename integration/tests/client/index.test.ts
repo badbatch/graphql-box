@@ -66,7 +66,7 @@ describe("client", () => {
         const request = parsedRequests.singleTypeQuery;
 
         try {
-          const { _cacheMetadata, data } = (await client.request(request, { ...defaultOptions })) as MaybeRequestResult;
+          const { _cacheMetadata, data } = (await client.query(request, { ...defaultOptions })) as MaybeRequestResult;
           response = { data };
 
           if (_cacheMetadata) {
@@ -115,8 +115,8 @@ describe("client", () => {
 
         try {
           const result = await Promise.all([
-            client.request(request, { ...defaultOptions }),
-            client.request(request, { ...defaultOptions }),
+            client.query(request, { ...defaultOptions }),
+            client.query(request, { ...defaultOptions }),
           ]);
 
           const { _cacheMetadata, data } = result[1] as MaybeRequestResult;
@@ -168,7 +168,7 @@ describe("client", () => {
         const request = parsedRequests.singleTypeQuery;
 
         try {
-          await client.request(request, { ...defaultOptions });
+          await client.query(request, { ...defaultOptions });
         } catch (errors) {
           log(errors);
         }
@@ -176,7 +176,7 @@ describe("client", () => {
         fetchMock.resetHistory();
 
         try {
-          const { _cacheMetadata, data } = (await client.request(request, { ...defaultOptions })) as MaybeRequestResult;
+          const { _cacheMetadata, data } = (await client.query(request, { ...defaultOptions })) as MaybeRequestResult;
           response = { data };
           if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         } catch (errors) {
@@ -225,7 +225,7 @@ describe("client", () => {
         const { full, initial } = parsedRequests.singleTypeQuerySet;
 
         try {
-          await client.request(full, { ...defaultOptions });
+          await client.query(full, { ...defaultOptions });
         } catch (errors) {
           log(errors);
         }
@@ -233,7 +233,7 @@ describe("client", () => {
         fetchMock.resetHistory();
 
         try {
-          const { _cacheMetadata, data } = (await client.request(initial, { ...defaultOptions })) as MaybeRequestResult;
+          const { _cacheMetadata, data } = (await client.query(initial, { ...defaultOptions })) as MaybeRequestResult;
           response = { data };
           if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         } catch (errors) {
@@ -293,7 +293,7 @@ describe("client", () => {
         }
 
         try {
-          await client.request(initial, { ...defaultOptions });
+          await client.query(initial, { ...defaultOptions });
         } catch (errors) {
           log(errors);
         }
@@ -301,7 +301,7 @@ describe("client", () => {
         fetchMock.resetHistory();
 
         try {
-          const { _cacheMetadata, data } = (await client.request(full, { ...defaultOptions })) as MaybeRequestResult;
+          const { _cacheMetadata, data } = (await client.query(full, { ...defaultOptions })) as MaybeRequestResult;
           response = { data };
 
           if (_cacheMetadata) {
@@ -400,7 +400,7 @@ describe("client", () => {
         fetchMock.config.warnOnFallback = false;
 
         try {
-          const { _cacheMetadata, data } = (await client.request(parsedRequests.nestedTypeMutation, {
+          const { _cacheMetadata, data } = (await client.mutate(parsedRequests.nestedTypeMutation, {
             ...defaultOptions,
           })) as MaybeRequestResult;
 

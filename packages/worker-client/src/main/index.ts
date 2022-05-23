@@ -1,6 +1,7 @@
 import WorkerCachemap from "@cachemap/core-worker";
 import {
   DebugManagerDef,
+  MUTATION,
   MaybeRequestContext,
   MaybeRequestResult,
   QUERY,
@@ -56,6 +57,14 @@ export default class WorkerClient {
 
   get cache(): WorkerCachemap {
     return this._cache;
+  }
+
+  public async mutate(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
+    return this._request(request, options, this._getRequestContext(MUTATION, request, context));
+  }
+
+  public async query(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
+    return this._request(request, options, this._getRequestContext(QUERY, request, context));
   }
 
   public async request(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {

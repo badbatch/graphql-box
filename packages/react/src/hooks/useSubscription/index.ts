@@ -12,11 +12,11 @@ export type State<Data extends PlainObjectMap> = {
   requestID: string;
 };
 
-const useQuery = <Data extends PlainObjectMap>(query: string, { loading = false } = {}) => {
+const useSubscription = <Data extends PlainObjectMap>(subscription: string, { loading = false } = {}) => {
   const graphqlBoxClient = useGraphQLBoxClient();
   const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading, requestID: "" });
 
-  const executeQuery = async (opts?: RequestOptions) => {
+  const execute = async (opts?: RequestOptions) => {
     setState({
       data: undefined,
       errors: [],
@@ -25,13 +25,13 @@ const useQuery = <Data extends PlainObjectMap>(query: string, { loading = false 
       requestID: "",
     });
 
-    const requestResult = await graphqlBoxClient.request(query, opts);
+    const subscribeResult = await graphqlBoxClient.subscribe(subscription, opts);
 
-    if (!isAsyncIterable(requestResult)) {
-      const { data, errors, requestID } = requestResult as MaybeRequestResult;
+    if (!isAsyncIterable(subscribeResult)) {
+      const { errors, requestID } = subscribeResult as MaybeRequestResult;
 
       setState({
-        data: data as Data,
+        data: undefined,
         errors: errors ?? [],
         loading: false,
         requestID,
@@ -40,7 +40,7 @@ const useQuery = <Data extends PlainObjectMap>(query: string, { loading = false 
       return;
     }
 
-    forAwaitEach(requestResult, result => {
+    forAwaitEach(subscribeResult, result => {
       const { data, errors, hasNext, paths, requestID } = result as MaybeRequestResult;
 
       setState({
@@ -54,7 +54,7 @@ const useQuery = <Data extends PlainObjectMap>(query: string, { loading = false 
     });
   };
 
-  return { executeQuery, ...state };
+  return { execute, ...state };
 };
 
-export default useQuery;
+export default useSubscription;

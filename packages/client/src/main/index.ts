@@ -111,6 +111,28 @@ export default class Client {
     return this._debugManager;
   }
 
+  public async mutate(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
+    const requestContext = this._buildRequestContext(MUTATION, request, context);
+    const errors = Client._validateRequestArguments(request, options);
+
+    if (errors.length) {
+      return Client._resolve({ errors }, options, requestContext);
+    }
+
+    return this._request(request, options, requestContext);
+  }
+
+  public async query(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
+    const requestContext = this._buildRequestContext(QUERY, request, context);
+    const errors = Client._validateRequestArguments(request, options);
+
+    if (errors.length) {
+      return Client._resolve({ errors }, options, requestContext);
+    }
+
+    return this._request(request, options, requestContext);
+  }
+
   public async request(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
     const requestContext = this._buildRequestContext(QUERY, request, context);
     const errors = Client._validateRequestArguments(request, options);
