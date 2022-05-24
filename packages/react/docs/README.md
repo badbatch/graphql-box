@@ -38,7 +38,7 @@
 
 Ƭ **ConnectionResponse**: *object*
 
-*Defined in [components/ConnectionListings/types.ts:11](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/components/ConnectionListings/types.ts#L11)*
+*Defined in [components/ConnectionListings/types.ts:11](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/components/ConnectionListings/types.ts#L11)*
 
 #### Type declaration:
 
@@ -56,7 +56,7 @@ ___
 
 Ƭ **ConnectionVariables**: *object*
 
-*Defined in [components/ConnectionListings/types.ts:4](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/components/ConnectionListings/types.ts#L4)*
+*Defined in [components/ConnectionListings/types.ts:4](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/components/ConnectionListings/types.ts#L4)*
 
 #### Type declaration:
 
@@ -74,7 +74,7 @@ ___
 
 Ƭ **Edge**: *object*
 
-*Defined in [components/ConnectionListings/types.ts:19](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/components/ConnectionListings/types.ts#L19)*
+*Defined in [components/ConnectionListings/types.ts:19](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/components/ConnectionListings/types.ts#L19)*
 
 #### Type declaration:
 
@@ -88,7 +88,7 @@ ___
 
 Ƭ **GraphQLBoxContext**: *object*
 
-*Defined in [contexts/GraphQLBox/Context.ts:5](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/contexts/GraphQLBox/Context.ts#L5)*
+*Defined in [contexts/GraphQLBox/Context.ts:5](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/contexts/GraphQLBox/Context.ts#L5)*
 
 #### Type declaration:
 
@@ -100,7 +100,7 @@ ___
 
 Ƭ **ListingsChildrenProps**: *object*
 
-*Defined in [components/ConnectionListings/types.ts:24](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/components/ConnectionListings/types.ts#L24)*
+*Defined in [components/ConnectionListings/types.ts:24](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/components/ConnectionListings/types.ts#L24)*
 
 #### Type declaration:
 
@@ -118,7 +118,7 @@ ___
 
 Ƭ **ListingsData**: *object*
 
-*Defined in [components/ConnectionListings/types.ts:44](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/components/ConnectionListings/types.ts#L44)*
+*Defined in [components/ConnectionListings/types.ts:44](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/components/ConnectionListings/types.ts#L44)*
 
 #### Type declaration:
 
@@ -132,7 +132,7 @@ ___
 
 Ƭ **ListingsProps**: *object*
 
-*Defined in [components/ConnectionListings/types.ts:31](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/components/ConnectionListings/types.ts#L31)*
+*Defined in [components/ConnectionListings/types.ts:31](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/components/ConnectionListings/types.ts#L31)*
 
 #### Type declaration:
 
@@ -164,7 +164,7 @@ ___
 
 Ƭ **PageInfo**: *object*
 
-*Defined in [components/ConnectionListings/types.ts:49](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/components/ConnectionListings/types.ts#L49)*
+*Defined in [components/ConnectionListings/types.ts:49](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/components/ConnectionListings/types.ts#L49)*
 
 #### Type declaration:
 
@@ -184,7 +184,7 @@ ___
 
 Ƭ **Props**: *object*
 
-*Defined in [contexts/GraphQLBox/Provider.tsx:6](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/contexts/GraphQLBox/Provider.tsx#L6)*
+*Defined in [contexts/GraphQLBox/Provider.tsx:6](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/contexts/GraphQLBox/Provider.tsx#L6)*
 
 #### Type declaration:
 
@@ -198,9 +198,9 @@ ___
 
 Ƭ **State**: *object*
 
-*Defined in [hooks/useRequest/index.ts:6](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/hooks/useRequest/index.ts#L6)*
+*Defined in [hooks/useRequest/index.ts:6](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/hooks/useRequest/index.ts#L6)*
 
-*Defined in [hooks/useSubscription/index.ts:6](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/hooks/useSubscription/index.ts#L6)*
+*Defined in [hooks/useSubscription/index.ts:6](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/hooks/useSubscription/index.ts#L6)*
 
 #### Type declaration:
 
@@ -222,7 +222,7 @@ ___
 
 • **defaultValue**: *object*
 
-*Defined in [contexts/GraphQLBox/Context.ts:9](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/contexts/GraphQLBox/Context.ts#L9)*
+*Defined in [contexts/GraphQLBox/Context.ts:9](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/contexts/GraphQLBox/Context.ts#L9)*
 
 #### Type declaration:
 
@@ -232,7 +232,7 @@ ___
 
 • **useMutation**: *[useRequest](README.md#const-userequest)* = useRequest
 
-*Defined in [index.ts:4](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/index.ts#L4)*
+*Defined in [index.ts:4](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/index.ts#L4)*
 
 ___
 
@@ -240,7 +240,7 @@ ___
 
 • **useQuery**: *[useRequest](README.md#const-userequest)* = useRequest
 
-*Defined in [index.ts:3](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/index.ts#L3)*
+*Defined in [index.ts:3](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/index.ts#L3)*
 
 ## Functions
 
@@ -248,7 +248,7 @@ ___
 
 ▸ **useRequest**‹**Data**›(`request`: string, `__namedParameters`: object): *object*
 
-*Defined in [hooks/useRequest/index.ts:15](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/hooks/useRequest/index.ts#L15)*
+*Defined in [hooks/useRequest/index.ts:15](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/hooks/useRequest/index.ts#L15)*
 
 **Type parameters:**
 
@@ -274,7 +274,7 @@ ___
 
 ▸ **useSubscription**‹**Data**›(`subscription`: string, `__namedParameters`: object): *object*
 
-*Defined in [hooks/useSubscription/index.ts:15](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/hooks/useSubscription/index.ts#L15)*
+*Defined in [hooks/useSubscription/index.ts:15](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/hooks/useSubscription/index.ts#L15)*
 
 **Type parameters:**
 
@@ -300,16 +300,16 @@ Name | Type | Default |
 
 ### ▪ **initialListingsData**: *object*
 
-*Defined in [components/ConnectionListings/index.tsx:11](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/components/ConnectionListings/index.tsx#L11)*
+*Defined in [components/ConnectionListings/index.tsx:11](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/components/ConnectionListings/index.tsx#L11)*
 
 ###  hasNextPage
 
 • **hasNextPage**: *boolean* = true
 
-*Defined in [components/ConnectionListings/index.tsx:12](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/components/ConnectionListings/index.tsx#L12)*
+*Defined in [components/ConnectionListings/index.tsx:12](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/components/ConnectionListings/index.tsx#L12)*
 
 ###  listings
 
 • **listings**: *Map‹any, any›* = new Map()
 
-*Defined in [components/ConnectionListings/index.tsx:13](https://github.com/badbatch/graphql-box/blob/d57a12a/packages/react/src/components/ConnectionListings/index.tsx#L13)*
+*Defined in [components/ConnectionListings/index.tsx:13](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/react/src/components/ConnectionListings/index.tsx#L13)*

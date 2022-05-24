@@ -1,3 +1,9 @@
+#### 3.4.3 (2022-05-24)
+
+##### Bug Fixes
+
+*  bug compiling code due to type import export issue ([34eeb1de](https://github.com/badbatch/graphql-box/commit/34eeb1de07da2e85c4f5ea4a1884d6849e300281))
+
 #### 3.4.2 (2022-05-23)
 
 ##### Bug Fixes
