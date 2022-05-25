@@ -15,6 +15,7 @@ import EventEmitter from "eventemitter3";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject, isString } from "lodash";
 import { meros } from "meros/browser";
+import { GRAPHQL_ERROR } from "../consts";
 import logFetch from "../debug/log-fetch";
 import {
   ActiveBatch,
@@ -102,18 +103,36 @@ export class FetchManager implements RequestManagerDef {
     try {
       if (options.batch === false || !this._batchRequests || context.hasDeferOrStream) {
         const fetchResult = await this._fetch(request, hash, { batch: false }, context);
+        const { debugManager } = context;
 
         if (!isAsyncIterable(fetchResult)) {
-          return deserializeErrors(fetchResult);
+          const deserialized = deserializeErrors(fetchResult) as MaybeRawResponseData;
+
+          if (deserialized?.errors) {
+            debugManager?.emit(GRAPHQL_ERROR, deserialized.errors, "error");
+          }
+
+          return deserialized;
         }
 
         forAwaitEach(fetchResult, async ({ body, headers }) => {
           const responseData = ({ headers, ...body } as unknown) as MaybeRawFetchData;
 
+          const decoratedExecuteResolver = (result: MaybeRawResponseData) => {
+            if (result.errors) {
+              debugManager?.emit(GRAPHQL_ERROR, result.errors, "error");
+            }
+
+            return executeResolver(result);
+          };
+
           if (this._batchResponses && responseData.paths) {
-            this._batchResponse(responseData, hash, executeResolver);
+            this._batchResponse(responseData, hash, decoratedExecuteResolver);
           } else {
-            this._eventEmitter.emit(hash, await executeResolver(deserializeErrors(cleanPatchResponse(responseData))));
+            this._eventEmitter.emit(
+              hash,
+              await decoratedExecuteResolver(deserializeErrors(cleanPatchResponse(responseData))),
+            );
           }
         });
 

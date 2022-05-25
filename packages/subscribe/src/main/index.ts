@@ -53,12 +53,14 @@ export class Subscribe {
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
     const { contextValue = {}, fieldResolver, operationName, rootValue, subscribeFieldResolver } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
+    const { boxID, debugManager } = context;
 
     const subscribeArgs: SubscribeArgs = {
       contextValue: {
         ...this._contextValue,
         ...contextValue,
-        boxID: context.boxID,
+        boxID,
+        debugManager,
         setCacheMetadata: setCacheMetadata(_cacheMetadata),
       },
       document: ast || parse(request),
@@ -75,6 +77,10 @@ export class Subscribe {
       if (isAsyncIterable(subscribeResult)) {
         forAwaitEach(subscribeResult, async (result: AsyncExecutionResult) => {
           context.normalizePatchResponseData = !!("path" in result);
+
+          if (result.errors) {
+            debugManager?.emit("GRAPHQL_ERROR", result.errors, "error");
+          }
 
           this._eventEmitter.emit(
             hash,

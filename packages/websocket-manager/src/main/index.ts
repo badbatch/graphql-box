@@ -47,6 +47,8 @@ export class WebsocketManager implements SubscriptionsManagerDef {
       return Promise.reject(new Error("@graphql-box/websocket-manager expected the websocket to be open."));
     }
 
+    const { debugManager } = context;
+
     try {
       this._websocket.send(
         JSON.stringify({
@@ -56,7 +58,14 @@ export class WebsocketManager implements SubscriptionsManagerDef {
         }),
       );
 
-      this._subscriptions.set(hash, subscriberResolver);
+      this._subscriptions.set(hash, result => {
+        if (result.errors) {
+          debugManager?.emit("GRAPHQL_ERROR", result.errors, "error");
+        }
+
+        return subscriberResolver(result);
+      });
+
       const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, hash);
       return eventAsyncIterator.getIterator();
     } catch (error) {

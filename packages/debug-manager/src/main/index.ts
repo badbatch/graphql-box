@@ -1,7 +1,7 @@
 import { DebugManagerDef, PlainObjectMap } from "@graphql-box/core";
 import EventEmitter from "eventemitter3";
 import { isPlainObject, isString } from "lodash";
-import { ConstructorOptions, DebugManagerInit, Logger, Performance, UserOptions } from "../defs";
+import { ConstructorOptions, DebugManagerInit, LogLevel, Logger, Performance, UserOptions } from "../defs";
 
 export class DebugManager extends EventEmitter implements DebugManagerDef {
   private _logger: Logger | null;
@@ -25,10 +25,10 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
     this._performance = options.performance;
   }
 
-  public emit(event: string | symbol, data: PlainObjectMap): boolean {
+  public emit(event: string | symbol, data: PlainObjectMap, logLevel: LogLevel = "info"): boolean {
     const updatedData = { ...data, debuggerName: this._name };
-    const hasListeners = super.emit(event, updatedData);
-    this._log(event, updatedData);
+    const hasListeners = super.emit(event, updatedData, logLevel);
+    this._log(event, updatedData, logLevel);
     return hasListeners;
   }
 
@@ -36,8 +36,8 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
     return this._performance.now();
   }
 
-  private _log(message: any, data: PlainObjectMap): void {
-    if (this._logger) this._logger.log(message, data);
+  private _log(message: any, data: PlainObjectMap, logLevel?: LogLevel): void {
+    if (this._logger) this._logger.log(message, data, logLevel);
   }
 }
 

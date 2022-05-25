@@ -15,6 +15,7 @@ import EventEmitter from "eventemitter3";
 import { ExecutionArgs, GraphQLFieldResolver, GraphQLSchema, execute, parse } from "graphql";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
+import { GRAPHQL_ERROR } from "../consts";
 import logExecute from "../debug/log-execute";
 import { ConstructorOptions, GraphQLExecute, UserOptions } from "../defs";
 
@@ -54,12 +55,14 @@ export class Execute implements RequestManagerDef {
   ) {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
+    const { boxID, debugManager } = context;
 
     const executeArgs: ExecutionArgs = {
       contextValue: {
         ...this._contextValue,
         ...contextValue,
-        boxID: context.boxID,
+        boxID,
+        debugManager,
         setCacheMetadata: setCacheMetadata(_cacheMetadata),
       },
       document: ast || parse(request),
@@ -73,11 +76,19 @@ export class Execute implements RequestManagerDef {
       const executeResult = await this._execute(executeArgs);
 
       if (!isAsyncIterable(executeResult)) {
+        if (executeResult.errors) {
+          debugManager?.emit(GRAPHQL_ERROR, executeResult.errors, "error");
+        }
+
         return { ...executeResult, _cacheMetadata };
       }
 
       forAwaitEach(executeResult, async result => {
         context.normalizePatchResponseData = !!("path" in result);
+
+        if (result.errors) {
+          debugManager?.emit(GRAPHQL_ERROR, result.errors, "error");
+        }
 
         this._eventEmitter.emit(
           hash,

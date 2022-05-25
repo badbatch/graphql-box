@@ -27,6 +27,8 @@ export type ConstructorOptions = UserOptions;
 
 export type DebugManagerInit = () => DebugManagerDef;
 
+export type LogLevel = "error" | "warn" | "info" | "http" | "verbose" | "debug" | "silly";
+
 export interface Performance {
   now(): number;
 }
