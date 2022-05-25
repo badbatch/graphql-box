@@ -1,3 +1,9 @@
+#### 3.5.1 (2022-05-25)
+
+##### Bug Fixes
+
+*  connection resolver unsafe prop access bug ([505b1895](https://github.com/badbatch/graphql-box/commit/505b1895105a4e7f99035de01e4add021ca01ff7))
+
 ### 3.5.0 (2022-05-25)
 
 ##### New Features
