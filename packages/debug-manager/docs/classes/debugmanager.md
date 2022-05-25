@@ -112,7 +112,7 @@ interface EventTypes {
 
 \+ **new DebugManager**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[DebugManager](debugmanager.md)*
 
-*Defined in [packages/debug-manager/src/main/index.ts:9](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/debug-manager/src/main/index.ts#L9)*
+*Defined in [packages/debug-manager/src/main/index.ts:9](https://github.com/badbatch/graphql-box/blob/db0ab9f/packages/debug-manager/src/main/index.ts#L9)*
 
 **Parameters:**
 
@@ -168,18 +168,19 @@ ___
 
 ###  emit
 
-▸ **emit**(`event`: string | symbol, `data`: PlainObjectMap): *boolean*
+▸ **emit**(`event`: string | symbol, `data`: PlainObjectMap, `logLevel`: [LogLevel](../README.md#loglevel)): *boolean*
 
 *Overrides void*
 
-*Defined in [packages/debug-manager/src/main/index.ts:28](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/debug-manager/src/main/index.ts#L28)*
+*Defined in [packages/debug-manager/src/main/index.ts:28](https://github.com/badbatch/graphql-box/blob/db0ab9f/packages/debug-manager/src/main/index.ts#L28)*
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`event` | string &#124; symbol |
-`data` | PlainObjectMap |
+Name | Type | Default |
+------ | ------ | ------ |
+`event` | string &#124; symbol | - |
+`data` | PlainObjectMap | - |
+`logLevel` | [LogLevel](../README.md#loglevel) | "info" |
 
 **Returns:** *boolean*
 
@@ -248,7 +249,7 @@ ___
 
 ▸ **now**(): *number*
 
-*Defined in [packages/debug-manager/src/main/index.ts:35](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/debug-manager/src/main/index.ts#L35)*
+*Defined in [packages/debug-manager/src/main/index.ts:35](https://github.com/badbatch/graphql-box/blob/db0ab9f/packages/debug-manager/src/main/index.ts#L35)*
 
 **Returns:** *number*
 

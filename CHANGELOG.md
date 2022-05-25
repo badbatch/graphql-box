@@ -1,3 +1,9 @@
+### 3.5.0 (2022-05-25)
+
+##### New Features
+
+*  add logs for all graphql errors on client and server ([db0ab9fc](https://github.com/badbatch/graphql-box/commit/db0ab9fc1298c93768ca2ecb461c4f37a95c15ec))
+
 #### 3.4.3 (2022-05-24)
 
 ##### Bug Fixes

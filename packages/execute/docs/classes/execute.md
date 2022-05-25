@@ -26,7 +26,7 @@
 
 \+ **new Execute**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[Execute](execute.md)*
 
-*Defined in [main/index.ts:27](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/execute/src/main/index.ts#L27)*
+*Defined in [main/index.ts:28](https://github.com/badbatch/graphql-box/blob/db0ab9f/packages/execute/src/main/index.ts#L28)*
 
 **Parameters:**
 
@@ -42,7 +42,7 @@ Name | Type |
 
 ▸ **execute**(`__namedParameters`: object, `options`: ServerRequestOptions, `context`: RequestContext, `executeResolver`: RequestResolver): *Promise‹any›*
 
-*Defined in [main/index.ts:49](https://github.com/badbatch/graphql-box/blob/34eeb1d/packages/execute/src/main/index.ts#L49)*
+*Defined in [main/index.ts:50](https://github.com/badbatch/graphql-box/blob/db0ab9f/packages/execute/src/main/index.ts#L50)*
 
 **Parameters:**
 
