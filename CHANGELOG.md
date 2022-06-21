@@ -1,3 +1,9 @@
+#### 3.5.2 (2022-06-21)
+
+##### Bug Fixes
+
+*  add requestPath into variables hash in connection listings ([e00219a0](https://github.com/badbatch/graphql-box/commit/e00219a0fbf39d8e39d562b4650c1b957c8c398a))
+
 #### 3.5.1 (2022-05-25)
 
 ##### Bug Fixes
