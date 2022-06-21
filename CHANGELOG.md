@@ -1,3 +1,9 @@
+#### 3.5.3 (2022-06-21)
+
+##### Bug Fixes
+
+*  connection listings request path change bug ([9d329e09](https://github.com/badbatch/graphql-box/commit/9d329e092487bcef46cef0bd667479c78665be40))
+
 #### 3.5.2 (2022-06-21)
 
 ##### Bug Fixes
