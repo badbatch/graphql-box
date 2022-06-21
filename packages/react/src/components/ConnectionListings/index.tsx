@@ -6,6 +6,7 @@ import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import useRequest from "../../hooks/useRequest";
 import buildDependencyKey from "./helpers/buildDependencyKey";
 import formatListings from "./helpers/formatListings";
+import hasRequestPathChanged from "./helpers/hasRequestPathChanged";
 import { ConnectionResponse, ConnectionVariables, ListingsData, ListingsProps, PageInfo } from "./types";
 
 const initialListingsData = {
@@ -51,7 +52,7 @@ export default <Item extends PlainObjectMap>(props: ListingsProps<Item>) => {
   );
 
   useEffect(() => {
-    if (variablesHash !== prevVariablesHashes.current.get(queryHash)) {
+    if (variablesHash !== prevVariablesHashes.current.get(queryHash) || hasRequestPathChanged(requestPath, data)) {
       const newConnectionVariables = { ...connectionVariables, after: undefined };
       execute({ variables: { ...variables, ...newConnectionVariables } });
 
@@ -102,7 +103,11 @@ export default <Item extends PlainObjectMap>(props: ListingsProps<Item>) => {
     }
   }, [dependenciesKey, loading]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (variablesHash !== prevVariablesHashes.current.get(queryHash) && loading && renderLoader) {
+  if (
+    ((variablesHash !== prevVariablesHashes.current.get(queryHash) && loading) ||
+      hasRequestPathChanged(requestPath, data)) &&
+    renderLoader
+  ) {
     return renderLoader();
   }
 
