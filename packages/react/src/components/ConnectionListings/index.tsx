@@ -42,7 +42,7 @@ export default <Item extends PlainObjectMap>(props: ListingsProps<Item>) => {
 
   const prevVariablesHashes = useRef<Map<string, string | undefined>>(new Map());
   const queryHash = encode(query);
-  const variablesHash = encode(JSON.stringify(variables));
+  const variablesHash = encode(JSON.stringify({ ...variables, requestPath }));
 
   const dependenciesKey = buildDependencyKey(
     requestID,
