@@ -19,7 +19,7 @@
 
 • **cacheability**: *Cacheability*
 
-*Defined in [cache-manager/src/defs/index.ts:168](https://github.com/badbatch/graphql-box/blob/9d329e0/packages/cache-manager/src/defs/index.ts#L168)*
+*Defined in [cache-manager/src/defs/index.ts:168](https://github.com/badbatch/graphql-box/blob/c5fe32a/packages/cache-manager/src/defs/index.ts#L168)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **entry**: *any*
 
-*Defined in [cache-manager/src/defs/index.ts:169](https://github.com/badbatch/graphql-box/blob/9d329e0/packages/cache-manager/src/defs/index.ts#L169)*
+*Defined in [cache-manager/src/defs/index.ts:169](https://github.com/badbatch/graphql-box/blob/c5fe32a/packages/cache-manager/src/defs/index.ts#L169)*

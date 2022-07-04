@@ -1,8 +1,8 @@
 [
   {
-    "name": "@graphql-box/react",
-    "version": "3.5.1",
+    "name": "@graphql-box/server",
+    "version": "3.5.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/react"
+    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/server"
   }
 ]

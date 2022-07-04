@@ -1,3 +1,9 @@
+#### 3.5.4 (2022-07-04)
+
+##### Bug Fixes
+
+*  deal with server timeout errors better ([c5fe32a4](https://github.com/badbatch/graphql-box/commit/c5fe32a4a76b8070fd8e10d79c087ed3a8d530ea))
+
 #### 3.5.3 (2022-06-21)
 
 ##### Bug Fixes
