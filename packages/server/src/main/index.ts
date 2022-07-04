@@ -71,7 +71,7 @@ export default class Server {
 
         if (this._requestWhitelist.length && !this._requestWhitelist.includes(whitelistHash)) {
           responses.batch[requestHash] = serializeErrors({
-            errors: [new Error("The request is not whitelisted.")],
+            errors: [new Error("@graphql-box/server: The request is not whitelisted.")],
             requestID: context.boxID as string,
           });
 
@@ -80,7 +80,10 @@ export default class Server {
 
         try {
           const requestTimer = setTimeout(() => {
-            throw new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`);
+            responses.batch[requestHash] = serializeErrors({
+              errors: [new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`)],
+              requestID: context.boxID as string,
+            });
           }, this._requestTimeout);
 
           const { _cacheMetadata, ...otherProps } = (await this._client.request(
@@ -119,7 +122,11 @@ export default class Server {
     }
 
     const requestTimer = setTimeout(() => {
-      throw new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`);
+      res.status(408).send(
+        serializeErrors({
+          errors: [new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`)],
+        }),
+      );
     }, this._requestTimeout);
 
     const requestResult = await this._client.request(request, options, context);
@@ -160,7 +167,11 @@ export default class Server {
       const { context = {}, subscriptionID, subscription } = JSON.parse(message as string);
 
       const requestTimer = setTimeout(() => {
-        throw new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`);
+        ws.send(
+          serializeErrors({
+            errors: [new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`)],
+          }),
+        );
       }, this._requestTimeout);
 
       const subscribeResult = await this._client.subscribe(subscription, rest, context);
