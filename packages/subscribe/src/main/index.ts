@@ -9,7 +9,7 @@ import {
   SubscriberResolver,
   SubscriptionsManagerInit,
 } from "@graphql-box/core";
-import { EventAsyncIterator, setCacheMetadata, standardizePath } from "@graphql-box/helpers";
+import { EventAsyncIterator, getFragmentDefinitions, setCacheMetadata, standardizePath } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { AsyncExecutionResult, GraphQLFieldResolver, GraphQLSchema, parse, subscribe } from "graphql";
 import { forAwaitEach, isAsyncIterable } from "iterall";
@@ -54,6 +54,7 @@ export class Subscribe {
     const { contextValue = {}, fieldResolver, operationName, rootValue, subscribeFieldResolver } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
     const { boxID, debugManager } = context;
+    const document = ast || parse(request);
 
     const subscribeArgs: SubscribeArgs = {
       contextValue: {
@@ -61,9 +62,10 @@ export class Subscribe {
         ...contextValue,
         boxID,
         debugManager,
+        fragmentDefinitions: getFragmentDefinitions(document),
         setCacheMetadata: setCacheMetadata(_cacheMetadata),
       },
-      document: ast || parse(request),
+      document,
       fieldResolver: fieldResolver || this._fieldResolver,
       operationName,
       rootValue: rootValue || this._rootValue,

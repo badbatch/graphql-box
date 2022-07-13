@@ -10,7 +10,7 @@ import {
   RequestResolver,
   ServerRequestOptions,
 } from "@graphql-box/core";
-import { EventAsyncIterator, setCacheMetadata, standardizePath } from "@graphql-box/helpers";
+import { EventAsyncIterator, getFragmentDefinitions, setCacheMetadata, standardizePath } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { ExecutionArgs, GraphQLFieldResolver, GraphQLSchema, execute, parse } from "graphql";
 import { forAwaitEach, isAsyncIterable } from "iterall";
@@ -56,6 +56,7 @@ export class Execute implements RequestManagerDef {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
     const { boxID, debugManager } = context;
+    const document = ast || parse(request);
 
     const executeArgs: ExecutionArgs = {
       contextValue: {
@@ -63,9 +64,10 @@ export class Execute implements RequestManagerDef {
         ...contextValue,
         boxID,
         debugManager,
+        fragmentDefinitions: getFragmentDefinitions(document),
         setCacheMetadata: setCacheMetadata(_cacheMetadata),
       },
-      document: ast || parse(request),
+      document,
       fieldResolver: fieldResolver || this._fieldResolver,
       operationName,
       rootValue: rootValue || this._rootValue,
