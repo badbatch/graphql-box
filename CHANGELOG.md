@@ -1,3 +1,9 @@
+### 3.6.0 (2022-07-13)
+
+##### New Features
+
+*  add fragment defintions to execute context ([4b3e24fb](https://github.com/badbatch/graphql-box/commit/4b3e24fb8e7ab8106eead2448c188d52a4b8f78a))
+
 #### 3.5.4 (2022-07-04)
 
 ##### Bug Fixes
