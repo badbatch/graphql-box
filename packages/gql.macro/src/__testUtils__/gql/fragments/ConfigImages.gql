@@ -1,0 +1,11 @@
+fragment ConfigImages on Config {
+  images {
+    baseUrl
+    secureBaseUrl
+    backdropSizes
+    logoSizes
+    posterSizes
+    profileSizes
+    stillSizes
+  }
+}

@@ -28,7 +28,7 @@ describe("gql.macro", () => {
       const sourceFile = `
         import gql from "./packages/gql.macro/src/macro";
 
-        const GET_CONFIG = gql\`./__testUtils__/gql/GetConfig.gql\`;
+        const GET_CONFIG = gql\`./__testUtils__/gql/queries/GetConfig.gql\`;
         export default GET_CONFIG;
       `;
 

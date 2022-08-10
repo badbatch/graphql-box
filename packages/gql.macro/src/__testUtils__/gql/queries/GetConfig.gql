@@ -1,0 +1,7 @@
+#import "../fragments/ConfigImages.gql"
+
+query GetConfig {
+  config {
+    ...ConfigImages
+  }
+}
