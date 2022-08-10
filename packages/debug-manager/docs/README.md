@@ -34,7 +34,7 @@
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:26](https://github.com/badbatch/graphql-box/blob/4b3e24f/packages/debug-manager/src/defs/index.ts#L26)*
+*Defined in [packages/debug-manager/src/defs/index.ts:26](https://github.com/badbatch/graphql-box/blob/bd9b7ae/packages/debug-manager/src/defs/index.ts#L26)*
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 Ƭ **DebugManagerInit**: *function*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:28](https://github.com/badbatch/graphql-box/blob/4b3e24f/packages/debug-manager/src/defs/index.ts#L28)*
+*Defined in [packages/debug-manager/src/defs/index.ts:28](https://github.com/badbatch/graphql-box/blob/bd9b7ae/packages/debug-manager/src/defs/index.ts#L28)*
 
 #### Type declaration:
 
@@ -54,7 +54,7 @@ ___
 
 Ƭ **LogLevel**: *"error" | "warn" | "info" | "http" | "verbose" | "debug" | "silly"*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:30](https://github.com/badbatch/graphql-box/blob/4b3e24f/packages/debug-manager/src/defs/index.ts#L30)*
+*Defined in [packages/debug-manager/src/defs/index.ts:30](https://github.com/badbatch/graphql-box/blob/bd9b7ae/packages/debug-manager/src/defs/index.ts#L30)*
 
 ## Variables
 
@@ -62,7 +62,7 @@ ___
 
 • **performance**: *Performance*
 
-*Defined in [packages/debug-manager/src/index.test.ts:14](https://github.com/badbatch/graphql-box/blob/4b3e24f/packages/debug-manager/src/index.test.ts#L14)*
+*Defined in [packages/debug-manager/src/index.test.ts:14](https://github.com/badbatch/graphql-box/blob/bd9b7ae/packages/debug-manager/src/index.test.ts#L14)*
 
 ## Functions
 
@@ -70,7 +70,7 @@ ___
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *[DebugManagerInit](README.md#debugmanagerinit)*
 
-*Defined in [packages/debug-manager/src/main/index.ts:44](https://github.com/badbatch/graphql-box/blob/4b3e24f/packages/debug-manager/src/main/index.ts#L44)*
+*Defined in [packages/debug-manager/src/main/index.ts:44](https://github.com/badbatch/graphql-box/blob/bd9b7ae/packages/debug-manager/src/main/index.ts#L44)*
 
 **Parameters:**
 

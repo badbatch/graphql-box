@@ -18,7 +18,7 @@
 
 ▸ **log**(`message?`: any, ...`optionalParams`: any[]): *void*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:4](https://github.com/badbatch/graphql-box/blob/4b3e24f/packages/debug-manager/src/defs/index.ts#L4)*
+*Defined in [packages/debug-manager/src/defs/index.ts:4](https://github.com/badbatch/graphql-box/blob/bd9b7ae/packages/debug-manager/src/defs/index.ts#L4)*
 
 **Parameters:**
 

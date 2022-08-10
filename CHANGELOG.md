@@ -1,3 +1,9 @@
+### 3.7.0 (2022-08-10)
+
+##### New Features
+
+*  gql macro support for schema language comment imports ([bd9b7ae3](https://github.com/badbatch/graphql-box/commit/bd9b7ae3441b6d9384f0cde28922999bd258eeed))
+
 ### 3.6.0 (2022-07-13)
 
 ##### New Features

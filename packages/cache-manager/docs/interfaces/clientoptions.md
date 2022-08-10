@@ -18,4 +18,4 @@
 
 • **typeIDKey**: *string*
 
-*Defined in [cache-manager/src/defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/4b3e24f/packages/cache-manager/src/defs/index.ts#L48)*
+*Defined in [cache-manager/src/defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/bd9b7ae/packages/cache-manager/src/defs/index.ts#L48)*
