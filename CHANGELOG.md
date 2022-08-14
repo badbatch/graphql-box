@@ -1,3 +1,9 @@
+### 3.8.0 (2022-08-14)
+
+##### New Features
+
+*  enable imports within imports to be resolved ([7e0d83be](https://github.com/badbatch/graphql-box/commit/7e0d83be8c92b499897942b037a655532e12277a))
+
 ### 3.7.0 (2022-08-10)
 
 ##### New Features
