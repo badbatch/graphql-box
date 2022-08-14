@@ -4,6 +4,7 @@ import { hashRequest } from "@graphql-box/helpers";
 import { MacroError, MacroHandler } from "babel-plugin-macros";
 import { readFileSync } from "fs";
 import { parse, resolve } from "path";
+import resolveImports from "../helpers/resolveImports";
 import writeFile from "../helpers/writeFile";
 
 export type GqlConfig = {
@@ -24,27 +25,8 @@ const macroHandler: MacroHandler = ({ config, references: { default: paths }, st
         const quasiPath = (targetPath.get("quasi") as unknown) as NodePath<TemplateLiteral>;
         const gqlPath = quasiPath.evaluate().value as string;
         const fullGqlPath = resolve(basePath, gqlPath);
-        let rawGql = readFileSync(fullGqlPath, { encoding: "utf8" });
-
-        if (rawGql.startsWith("#import")) {
-          const lines = rawGql.split("\n");
-          const importLines = lines.filter(line => line.startsWith("#import"));
-          const fragments: string[] = [];
-
-          importLines.forEach(line => {
-            const match = line.match(/#import "(.+)"/);
-
-            if (match) {
-              const { dir } = parse(fullGqlPath);
-              const rawGqlFragment = readFileSync(resolve(dir, match[1]), { encoding: "utf8" });
-              fragments.push(rawGqlFragment);
-            }
-          });
-
-          lines.splice(0, importLines.length);
-          rawGql = [...lines, ...fragments].join("\n");
-        }
-
+        const { dir } = parse(fullGqlPath);
+        const rawGql = resolveImports(readFileSync(fullGqlPath, { encoding: "utf8" }), dir);
         whitelist.push(hashRequest(rawGql));
         targetPath.replaceWith(stringLiteral(rawGql));
       } else {
