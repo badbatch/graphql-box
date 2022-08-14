@@ -4,7 +4,7 @@ import {
   MaybeRequestResult,
   PlainObjectMap,
   RequestContext,
-  RequestDataWithMaybeAST,
+  RequestData,
   RequestManagerDef,
   RequestManagerInit,
   RequestResolver,
@@ -12,7 +12,7 @@ import {
 } from "@graphql-box/core";
 import { EventAsyncIterator, getFragmentDefinitions, setCacheMetadata, standardizePath } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
-import { ExecutionArgs, GraphQLFieldResolver, GraphQLSchema, execute, parse } from "graphql";
+import { ExecutionArgs, GraphQLFieldResolver, GraphQLSchema, execute } from "graphql";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
 import { GRAPHQL_ERROR } from "../consts";
@@ -48,7 +48,7 @@ export class Execute implements RequestManagerDef {
 
   @logExecute()
   public async execute(
-    { ast, hash, request }: RequestDataWithMaybeAST,
+    { ast, hash }: RequestData,
     options: ServerRequestOptions,
     context: RequestContext,
     executeResolver: RequestResolver,
@@ -56,7 +56,6 @@ export class Execute implements RequestManagerDef {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
     const { boxID, debugManager } = context;
-    const document = ast || parse(request);
 
     const executeArgs: ExecutionArgs = {
       contextValue: {
@@ -64,10 +63,10 @@ export class Execute implements RequestManagerDef {
         ...contextValue,
         boxID,
         debugManager,
-        fragmentDefinitions: getFragmentDefinitions(document),
+        fragmentDefinitions: getFragmentDefinitions(ast),
         setCacheMetadata: setCacheMetadata(_cacheMetadata),
       },
-      document,
+      document: ast,
       fieldResolver: fieldResolver || this._fieldResolver,
       operationName,
       rootValue: rootValue || this._rootValue,

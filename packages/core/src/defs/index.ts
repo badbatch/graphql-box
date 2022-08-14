@@ -223,12 +223,6 @@ export interface MaybeResponseData {
   paths?: string[];
 }
 
-export interface RequestDataWithMaybeAST {
-  ast?: DocumentNode;
-  hash: string;
-  request: string;
-}
-
 export interface RequestData {
   ast: DocumentNode;
   hash: string;
@@ -279,7 +273,7 @@ export interface MaybeRequestResultWithDehydratedCacheMetadata {
 
 export interface RequestManagerDef {
   execute(
-    requestData: RequestDataWithMaybeAST,
+    requestData: RequestData,
     options: RequestOptions,
     context: RequestContext,
     executeResolver: RequestResolver,
@@ -294,7 +288,7 @@ export type SubscriberResolver = (rawResponseData: MaybeRawResponseData) => Prom
 
 export interface SubscriptionsManagerDef {
   subscribe(
-    requestData: RequestDataWithMaybeAST,
+    requestData: RequestData,
     options: RequestOptions,
     context: RequestContext,
     subscriberResolver: SubscriberResolver,

@@ -1,7 +1,7 @@
 import {
   MaybeRequestResult,
   RequestContext,
-  RequestDataWithMaybeAST,
+  RequestData,
   RequestOptions,
   SubscriberResolver,
   SubscriptionsManagerDef,
@@ -38,7 +38,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
   }
 
   public async subscribe(
-    { hash, request }: RequestDataWithMaybeAST,
+    { hash, request }: RequestData,
     _options: RequestOptions,
     context: RequestContext,
     subscriberResolver: SubscriberResolver,

@@ -4,14 +4,14 @@ import {
   MaybeRequestResult,
   PlainObjectMap,
   RequestContext,
-  RequestDataWithMaybeAST,
+  RequestData,
   ServerRequestOptions,
   SubscriberResolver,
   SubscriptionsManagerInit,
 } from "@graphql-box/core";
 import { EventAsyncIterator, getFragmentDefinitions, setCacheMetadata, standardizePath } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
-import { AsyncExecutionResult, GraphQLFieldResolver, GraphQLSchema, parse, subscribe } from "graphql";
+import { AsyncExecutionResult, GraphQLFieldResolver, GraphQLSchema, subscribe } from "graphql";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
 import { ConstructorOptions, GraphQLSubscribe, SubscribeArgs, UserOptions } from "../defs";
@@ -46,7 +46,7 @@ export class Subscribe {
   }
 
   public async subscribe(
-    { ast, hash, request }: RequestDataWithMaybeAST,
+    { ast, hash }: RequestData,
     options: ServerRequestOptions,
     context: RequestContext,
     subscriberResolver: SubscriberResolver,
@@ -54,7 +54,6 @@ export class Subscribe {
     const { contextValue = {}, fieldResolver, operationName, rootValue, subscribeFieldResolver } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
     const { boxID, debugManager } = context;
-    const document = ast || parse(request);
 
     const subscribeArgs: SubscribeArgs = {
       contextValue: {
@@ -62,10 +61,10 @@ export class Subscribe {
         ...contextValue,
         boxID,
         debugManager,
-        fragmentDefinitions: getFragmentDefinitions(document),
+        fragmentDefinitions: getFragmentDefinitions(ast),
         setCacheMetadata: setCacheMetadata(_cacheMetadata),
       },
-      document,
+      document: ast,
       fieldResolver: fieldResolver || this._fieldResolver,
       operationName,
       rootValue: rootValue || this._rootValue,

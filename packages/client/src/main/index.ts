@@ -12,7 +12,6 @@ import {
   RawResponseDataWithMaybeCacheMetadata,
   RequestContext,
   RequestData,
-  RequestDataWithMaybeAST,
   RequestManagerDef,
   RequestOptions,
   SUBSCRIPTION,
@@ -179,11 +178,7 @@ export default class Client {
     };
   }
 
-  private async _handleMutation(
-    requestData: RequestDataWithMaybeAST,
-    options: RequestOptions,
-    context: RequestContext,
-  ) {
+  private async _handleMutation(requestData: RequestData, options: RequestOptions, context: RequestContext) {
     try {
       const resolver = async (rawResponseData: MaybeRawResponseData) => {
         if (rawResponseData.errors) {
@@ -212,7 +207,7 @@ export default class Client {
     }
   }
 
-  private async _handleQuery(requestData: RequestDataWithMaybeAST, options: RequestOptions, context: RequestContext) {
+  private async _handleQuery(requestData: RequestData, options: RequestOptions, context: RequestContext) {
     try {
       const checkResult = await this._cacheManager.checkQueryResponseCacheEntry(requestData.hash, options, context);
 
@@ -226,7 +221,7 @@ export default class Client {
         return pendingQuery;
       }
 
-      let updatedRequestData: RequestDataWithMaybeAST = requestData;
+      let updatedRequestData: RequestData = requestData;
       const analyzeQueryResult = await this._cacheManager.analyzeQuery(requestData as RequestData, options, context);
       const { response, updated } = analyzeQueryResult;
 
@@ -265,7 +260,7 @@ export default class Client {
     }
   }
 
-  private _handleRequest(requestData: RequestDataWithMaybeAST, options: RequestOptions, context: RequestContext) {
+  private _handleRequest(requestData: RequestData, options: RequestOptions, context: RequestContext) {
     if (context.operation === QUERY) {
       return this._handleQuery(requestData, options, context);
     } else if (context.operation === MUTATION) {
@@ -278,11 +273,7 @@ export default class Client {
     return Client._resolve({ errors: [new Error(message)] }, options, context);
   }
 
-  private async _handleSubscription(
-    requestData: RequestDataWithMaybeAST,
-    options: RequestOptions,
-    context: RequestContext,
-  ) {
+  private async _handleSubscription(requestData: RequestData, options: RequestOptions, context: RequestContext) {
     try {
       const resolver = async (responseData: MaybeRawResponseData) =>
         this._resolveSubscription(requestData, responseData, options, context);
@@ -305,7 +296,7 @@ export default class Client {
     }
   }
 
-  private _resolvePendingRequests({ hash }: RequestDataWithMaybeAST, responseData: MaybeResponseData): void {
+  private _resolvePendingRequests({ hash }: RequestData, responseData: MaybeResponseData): void {
     const pendingRequests = this._queryTracker.pending.get(hash);
     if (!pendingRequests) return;
 
@@ -317,7 +308,7 @@ export default class Client {
   }
 
   private async _resolveQuery(
-    requestData: RequestDataWithMaybeAST,
+    requestData: RequestData,
     responseData: MaybeResponseData,
     options: RequestOptions,
     context: RequestContext,
@@ -330,7 +321,7 @@ export default class Client {
 
   @logSubscription()
   private async _resolveSubscription(
-    requestData: RequestDataWithMaybeAST,
+    requestData: RequestData,
     rawResponseData: MaybeRawResponseData,
     options: RequestOptions,
     context: RequestContext,
@@ -363,7 +354,7 @@ export default class Client {
   }
 
   private _trackQuery(
-    { hash }: RequestDataWithMaybeAST,
+    { hash }: RequestData,
     options: RequestOptions,
     context: RequestContext,
   ): Promise<MaybeRequestResult> | void {
