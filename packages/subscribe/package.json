@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/subscribe",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "The GraphQL Box subscribe module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",

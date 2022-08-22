@@ -1,3 +1,9 @@
+### 3.9.0 (2022-08-22)
+
+##### New Features
+
+*  enable field match query tracker ([#89](https://github.com/badbatch/graphql-box/pull/89)) ([f858dbf2](https://github.com/badbatch/graphql-box/commit/f858dbf29685e4e91da0b6d5628aabda14428f4d))
+
 ### 3.8.0 (2022-08-14)
 
 ##### New Features

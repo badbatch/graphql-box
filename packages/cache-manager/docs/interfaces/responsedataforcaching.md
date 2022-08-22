@@ -20,7 +20,7 @@
 
 • **cacheMetadata**: *CacheMetadata*
 
-*Defined in [cache-manager/src/defs/index.ts:146](https://github.com/badbatch/graphql-box/blob/7e0d83b/packages/cache-manager/src/defs/index.ts#L146)*
+*Defined in [cache-manager/src/defs/index.ts:131](https://github.com/badbatch/graphql-box/blob/f858dbf/packages/cache-manager/src/defs/index.ts#L131)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **entityData**: *PlainObjectMap*
 
-*Defined in [cache-manager/src/defs/index.ts:147](https://github.com/badbatch/graphql-box/blob/7e0d83b/packages/cache-manager/src/defs/index.ts#L147)*
+*Defined in [cache-manager/src/defs/index.ts:132](https://github.com/badbatch/graphql-box/blob/f858dbf/packages/cache-manager/src/defs/index.ts#L132)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **requestFieldPathData**: *PlainObjectMap*
 
-*Defined in [cache-manager/src/defs/index.ts:148](https://github.com/badbatch/graphql-box/blob/7e0d83b/packages/cache-manager/src/defs/index.ts#L148)*
+*Defined in [cache-manager/src/defs/index.ts:133](https://github.com/badbatch/graphql-box/blob/f858dbf/packages/cache-manager/src/defs/index.ts#L133)*
