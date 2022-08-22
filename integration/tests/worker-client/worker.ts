@@ -19,6 +19,11 @@ mockRequest(fetchMock, {
 });
 
 mockRequest(fetchMock, {
+  data: responses.nestedTypeQuery.data,
+  hash: hashRequest(parsedRequests.nestedTypeQuery),
+});
+
+mockRequest(fetchMock, {
   data: responses.nestedTypeQuerySet.initial.data,
   hash: hashRequest(parsedRequests.nestedTypeQuerySet.initial),
 });

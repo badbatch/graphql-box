@@ -62,7 +62,7 @@ describe("worker-client", () => {
       });
     });
 
-    describe("query tracker match", () => {
+    describe("query tracker exact match", () => {
       before(async () => {
         try {
           worker = new Worker("worker.js");
@@ -78,6 +78,54 @@ describe("worker-client", () => {
           const result = await Promise.all([
             workerClient.query(request, { ...defaultOptions }),
             workerClient.query(request, { ...defaultOptions }),
+          ]);
+
+          const { _cacheMetadata, data } = result[1] as MaybeRequestResult;
+          response = { data };
+
+          if (_cacheMetadata) {
+            response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          }
+        } catch (errors) {
+          log(errors);
+        }
+
+        cache = await workerClient.cache.export();
+      });
+
+      after(async () => {
+        await fetchMockWorker.postMessage("resetHistory");
+        await workerClient.cache.clear();
+      });
+
+      it("one request", async () => {
+        const calls = await fetchMockWorker.postMessage("calls", { returnValue: true });
+        expect(calls).to.have.lengthOf(1);
+      });
+
+      it("correct response data", () => {
+        expect(response).to.matchSnapshot();
+      });
+
+      it("correct cache data", () => {
+        expect(cache).to.matchSnapshot();
+      });
+    });
+
+    describe("query tracker partial match", () => {
+      before(async () => {
+        try {
+          worker = new Worker("worker.js");
+          fetchMockWorker = new FetchMockWorker(worker);
+          workerClient = initWorkerClient({ worker });
+        } catch (errors) {
+          log(errors);
+        }
+
+        try {
+          const result = await Promise.all([
+            workerClient.query(parsedRequests.nestedTypeQuery, { ...defaultOptions }),
+            workerClient.query(parsedRequests.singleTypeQuery, { ...defaultOptions }),
           ]);
 
           const { _cacheMetadata, data } = result[1] as MaybeRequestResult;
