@@ -1,5 +1,5 @@
 import { RequestContext } from "@graphql-box/core";
-import { FETCH_EXECUTED } from "../../consts";
+import { FETCH_EXECUTED, FETCH_RESOLVED } from "../../consts";
 
 export default function logFetch() {
   return (
@@ -21,12 +21,20 @@ export default function logFetch() {
           }
 
           const startTime = debugManager.now();
+
+          debugManager.emit(FETCH_EXECUTED, {
+            context: otherContext,
+            options: args[1],
+            requestData: args[0],
+            stats: { startTime },
+          });
+
           const result = await method.apply(this, args);
           const endTime = debugManager.now();
           const duration = endTime - startTime;
           resolve(result);
 
-          debugManager.emit(FETCH_EXECUTED, {
+          debugManager.emit(FETCH_RESOLVED, {
             context: otherContext,
             options: args[1],
             requestData: args[0],

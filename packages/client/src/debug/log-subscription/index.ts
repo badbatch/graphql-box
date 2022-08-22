@@ -1,5 +1,5 @@
 import { RequestContext } from "@graphql-box/core";
-import { SUBSCRIPTION_EXECUTED } from "../../consts";
+import { SUBSCRIPTION_EXECUTED, SUBSCRIPTION_RESOLVED } from "../../consts";
 
 export default function logSubscription() {
   return (
@@ -21,12 +21,21 @@ export default function logSubscription() {
           }
 
           const startTime = debugManager.now();
+
+          debugManager.emit(SUBSCRIPTION_EXECUTED, {
+            context: otherContext,
+            options: args[2],
+            rawResponseData: args[1],
+            requestData: args[0],
+            stats: { startTime },
+          });
+
           const result = await method.apply(this, args);
           const endTime = debugManager.now();
           const duration = endTime - startTime;
           resolve(result);
 
-          debugManager.emit(SUBSCRIPTION_EXECUTED, {
+          debugManager.emit(SUBSCRIPTION_RESOLVED, {
             context: otherContext,
             options: args[2],
             rawResponseData: args[1],
