@@ -1,8 +1,8 @@
-import { PlainObjectMap } from "@graphql-box/core";
+import { FragmentDefinitionNodeMap, PlainObjectMap } from "@graphql-box/core";
 import { FieldNode, GraphQLInterfaceType, GraphQLObjectType, GraphQLSchema, InlineFragmentNode } from "graphql";
 import { castArray, isArray } from "lodash";
 import { FIELD, INLINE_FRAGMENT } from "../../consts";
-import { FieldAndTypeName, FragmentDefinitionNodeMap, ParentNode } from "../../defs";
+import { FieldAndTypeName, ParentNode } from "../../defs";
 import { resolveFragments } from "../fragments";
 import { getKind, isKind } from "../kind";
 import { getName } from "../name";

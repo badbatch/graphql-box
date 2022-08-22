@@ -1,6 +1,6 @@
 import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
 import EventEmitter from "eventemitter3";
-import { DocumentNode, GraphQLFieldResolver, GraphQLNamedType } from "graphql";
+import { DocumentNode, FragmentDefinitionNode, GraphQLFieldResolver, GraphQLNamedType } from "graphql";
 import { ErrorObject } from "serialize-error";
 import WebSocket from "ws";
 
@@ -145,6 +145,10 @@ export interface FieldTypeInfo {
 
 export type FieldTypeMap = Map<string, FieldTypeInfo>;
 
+export interface FragmentDefinitionNodeMap {
+  [key: string]: FragmentDefinitionNode;
+}
+
 export type ValidOperations = "mutation" | "query" | "subscription";
 
 export interface RequestContext {
@@ -223,12 +227,6 @@ export interface MaybeResponseData {
   paths?: string[];
 }
 
-export interface RequestDataWithMaybeAST {
-  ast?: DocumentNode;
-  hash: string;
-  request: string;
-}
-
 export interface RequestData {
   ast: DocumentNode;
   hash: string;
@@ -279,7 +277,7 @@ export interface MaybeRequestResultWithDehydratedCacheMetadata {
 
 export interface RequestManagerDef {
   execute(
-    requestData: RequestDataWithMaybeAST,
+    requestData: RequestData,
     options: RequestOptions,
     context: RequestContext,
     executeResolver: RequestResolver,
@@ -294,7 +292,7 @@ export type SubscriberResolver = (rawResponseData: MaybeRawResponseData) => Prom
 
 export interface SubscriptionsManagerDef {
   subscribe(
-    requestData: RequestDataWithMaybeAST,
+    requestData: RequestData,
     options: RequestOptions,
     context: RequestContext,
     subscriberResolver: SubscriberResolver,

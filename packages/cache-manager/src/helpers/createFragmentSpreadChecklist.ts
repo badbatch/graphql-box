@@ -1,6 +1,6 @@
 import { RequestData } from "@graphql-box/core";
-import { getFragmentDefinitions } from "@graphql-box/helpers";
 import { keys } from "lodash";
+import { CacheManagerContext } from "../defs";
 
 export type FragmentSpreadCheckist = {
   [key: string]: {
@@ -10,8 +10,8 @@ export type FragmentSpreadCheckist = {
   };
 };
 
-export default ({ ast, request }: RequestData) =>
-  keys(getFragmentDefinitions(ast) ?? {}).reduce((acc: FragmentSpreadCheckist, name) => {
+export default ({ request }: RequestData, { fragmentDefinitions }: CacheManagerContext) =>
+  keys(fragmentDefinitions ?? {}).reduce((acc: FragmentSpreadCheckist, name) => {
     acc[name] = { deleted: 0, paths: [], total: (request.match(new RegExp(`\\.\\.\\.${name}`, "g")) || []).length };
     return acc;
   }, {});

@@ -1,3 +1,4 @@
+export { buildKey, buildRequestFieldCacheKey, buildFieldKeysAndPaths } from "./buildKeysAndPaths";
 export { dehydrateCacheMetadata, rehydrateCacheMetadata, setCacheMetadata } from "./cache-metadata";
 export * from "./consts";
 export * from "./defs";
@@ -5,6 +6,7 @@ export { default as EventAsyncIterator } from "./event-async-iterator";
 export { default as hashRequest } from "./hash-request";
 export { default as mergeObjects } from "./merge-objects";
 export { getAlias } from "./parsing/alias";
+export { getAliasOrName } from "./parsing/alias-or-name";
 export { getArguments } from "./parsing/arguments";
 export {
   addChildField,

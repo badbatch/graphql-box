@@ -20,6 +20,43 @@ export const singleTypeQuery: FieldTypeMap = new Map([
   ],
 ]);
 
+export const singleTypeQueryWithDirective: FieldTypeMap = new Map([
+  [
+    "query.organization",
+    {
+      directives: {
+        inherited: [],
+        own: [],
+      },
+      hasArguments: true,
+      hasDirectives: false,
+      isEntity: true,
+      isInterface: false,
+      isUnion: false,
+      possibleTypes: [],
+      typeIDValue: undefined,
+      typeName: "Organization",
+    },
+  ],
+  [
+    "query.organization.email",
+    {
+      directives: {
+        inherited: [],
+        own: ['include({"if":true})'],
+      },
+      hasArguments: false,
+      hasDirectives: true,
+      isEntity: false,
+      isInterface: false,
+      isUnion: false,
+      possibleTypes: [],
+      typeIDValue: undefined,
+      typeName: "String",
+    },
+  ],
+]);
+
 export const nestedTypeQuery: FieldTypeMap = new Map([
   [
     "query.organization",
@@ -44,6 +81,120 @@ export const nestedTypeQuery: FieldTypeMap = new Map([
       directives: {
         inherited: [],
         own: [],
+      },
+      hasArguments: true,
+      hasDirectives: false,
+      isEntity: false,
+      isInterface: false,
+      isUnion: false,
+      possibleTypes: [],
+      typeIDValue: undefined,
+      typeName: "RepositoryConnection",
+    },
+  ],
+  [
+    "query.organization.repositories.edges",
+    {
+      directives: {
+        inherited: [],
+        own: [],
+      },
+      hasArguments: false,
+      hasDirectives: false,
+      isEntity: false,
+      isInterface: false,
+      isUnion: false,
+      possibleTypes: [],
+      typeIDValue: undefined,
+      typeName: "RepositoryEdge",
+    },
+  ],
+  [
+    "query.organization.repositories.edges.node",
+    {
+      directives: {
+        inherited: [],
+        own: [],
+      },
+      hasArguments: false,
+      hasDirectives: false,
+      isEntity: true,
+      isInterface: false,
+      isUnion: false,
+      possibleTypes: [],
+      typeIDValue: undefined,
+      typeName: "Repository",
+    },
+  ],
+  [
+    "query.organization.repositories.edges.node.owner",
+    {
+      directives: {
+        inherited: [],
+        own: [],
+      },
+      hasArguments: false,
+      hasDirectives: false,
+      isEntity: true,
+      isInterface: true,
+      isUnion: false,
+      possibleTypes: [
+        {
+          isEntity: true,
+          typeName: "Organization",
+        },
+        {
+          isEntity: true,
+          typeName: "User",
+        },
+      ],
+      typeIDValue: undefined,
+      typeName: "RepositoryOwner",
+    },
+  ],
+]);
+
+export const nestedTypeQueryWithDirectives: FieldTypeMap = new Map([
+  [
+    "query.organization",
+    {
+      directives: {
+        inherited: [],
+        own: [],
+      },
+      hasArguments: true,
+      hasDirectives: false,
+      isEntity: true,
+      isInterface: false,
+      isUnion: false,
+      possibleTypes: [],
+      typeIDValue: undefined,
+      typeName: "Organization",
+    },
+  ],
+  [
+    "query.organization.email",
+    {
+      directives: {
+        inherited: [],
+        own: ['include({"if":true})'],
+      },
+      hasArguments: false,
+      hasDirectives: true,
+      isEntity: false,
+      isInterface: false,
+      isUnion: false,
+      possibleTypes: [],
+      typeIDValue: undefined,
+      typeName: "String",
+    },
+  ],
+  [
+    "query.organization.repositories",
+    {
+      directives: {
+        inherited: [],
+        own: ['skip({"if":false})'],
       },
       hasArguments: true,
       hasDirectives: false,

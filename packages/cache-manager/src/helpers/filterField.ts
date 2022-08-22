@@ -1,8 +1,14 @@
 import { TYPE_NAME_KEY } from "@graphql-box/core";
-import { FRAGMENT_SPREAD, deleteChildFields, getChildFields, getName, hasChildFields } from "@graphql-box/helpers";
+import {
+  FRAGMENT_SPREAD,
+  buildFieldKeysAndPaths,
+  deleteChildFields,
+  getChildFields,
+  getName,
+  hasChildFields,
+} from "@graphql-box/helpers";
 import { FieldNode, FragmentDefinitionNode, OperationDefinitionNode } from "graphql";
 import { CacheManagerContext, FieldPathChecklist, FragmentSpreadFieldCounter } from "../defs";
-import { buildFieldKeysAndPaths } from "./buildKeysAndPaths";
 import checkFieldPathChecklist from "./checkFieldPathChecklist";
 import { FragmentSpreadCheckist } from "./createFragmentSpreadChecklist";
 import filterFragmentSpreads from "./filterFragmentSpreads";

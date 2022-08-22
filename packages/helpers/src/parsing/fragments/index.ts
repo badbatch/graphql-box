@@ -1,3 +1,4 @@
+import { FragmentDefinitionNodeMap } from "@graphql-box/core";
 import {
   FieldNode,
   FragmentDefinitionNode,
@@ -11,7 +12,7 @@ import {
   SelectionNode,
 } from "graphql";
 import { FIELD, FRAGMENT_SPREAD, INLINE_FRAGMENT } from "../../consts";
-import { FieldAndTypeName, FragmentDefinitionNodeMap, ParsedDirective } from "../../defs";
+import { FieldAndTypeName, ParsedDirective } from "../../defs";
 import { getInlineFragmentDirectives } from "../directives";
 import { setFragmentDefinitions } from "../fragment-definitions";
 import { getFragmentSpreadsWithoutDirectives, hasFragmentSpreads } from "../fragment-spreads";

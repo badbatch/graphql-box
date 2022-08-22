@@ -93,7 +93,7 @@ describe("client", () => {
       });
     });
 
-    describe("query tracker match", () => {
+    describe("query tracker exact match", () => {
       before(async () => {
         mockRequest(fetchMock, { data: responses.singleTypeQuery.data });
 
@@ -122,6 +122,61 @@ describe("client", () => {
           const { _cacheMetadata, data } = result[1] as MaybeRequestResult;
           response = { data };
           if (_cacheMetadata) response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+        } catch (errors) {
+          log(errors);
+        }
+
+        cache = await (client.cache as Core).export();
+      });
+
+      after(async () => {
+        fetchMock.restore();
+        await (client.cache as Core).clear();
+      });
+
+      it("one request", () => {
+        expect(fetchMock.calls()).to.have.lengthOf(1);
+      });
+
+      it("correct response data", () => {
+        expect(response).to.matchSnapshot();
+      });
+
+      it("correct cache data", () => {
+        expect(cache).to.matchSnapshot();
+      });
+    });
+
+    describe("query tracker partial match", () => {
+      before(async () => {
+        mockRequest(fetchMock, { data: responses.nestedTypeQuery.data });
+
+        const typeCacheDirectives = {
+          Organization: "public, max-age=1",
+        };
+
+        try {
+          client = initClient({
+            cachemapStore: indexedDB(),
+            introspection,
+            typeCacheDirectives,
+          });
+        } catch (errors) {
+          log(errors);
+        }
+
+        try {
+          const result = await Promise.all([
+            client.query(parsedRequests.nestedTypeQuery, { ...defaultOptions }),
+            client.query(parsedRequests.singleTypeQuery, { ...defaultOptions }),
+          ]);
+
+          const { _cacheMetadata, data } = result[1] as MaybeRequestResult;
+          response = { data };
+
+          if (_cacheMetadata) {
+            response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          }
         } catch (errors) {
           log(errors);
         }

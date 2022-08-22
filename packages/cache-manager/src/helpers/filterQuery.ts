@@ -1,7 +1,11 @@
 import { RequestData } from "@graphql-box/core";
-import { deleteChildFields, getChildFields, getOperationDefinitions } from "@graphql-box/helpers";
+import {
+  buildFieldKeysAndPaths,
+  deleteChildFields,
+  getChildFields,
+  getOperationDefinitions,
+} from "@graphql-box/helpers";
 import { CacheManagerContext, CachedResponseData } from "../defs";
-import { buildFieldKeysAndPaths } from "./buildKeysAndPaths";
 import createFragmentSpreadChecklist from "./createFragmentSpreadChecklist";
 import filterField from "./filterField";
 import filterFragmentDefinitions from "./filterFragmentDefinitions";
@@ -16,7 +20,7 @@ export default (requestData: RequestData, { fieldPathChecklist }: CachedResponse
     return ast;
   }
 
-  const fragmentSpreadChecklist = createFragmentSpreadChecklist(requestData);
+  const fragmentSpreadChecklist = createFragmentSpreadChecklist(requestData, context);
 
   for (let i = fieldsAndTypeNames.length - 1; i >= 0; i -= 1) {
     const { fieldNode } = fieldsAndTypeNames[i];

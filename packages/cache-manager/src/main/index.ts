@@ -18,6 +18,8 @@ import {
 } from "@graphql-box/core";
 import {
   FRAGMENT_SPREAD,
+  KeysAndPaths,
+  buildFieldKeysAndPaths,
   dehydrateCacheMetadata,
   getChildFields,
   getFragmentDefinitions,
@@ -49,7 +51,6 @@ import {
   FieldCount,
   FieldPathChecklist,
   FieldPathChecklistValue,
-  KeysAndPaths,
   MergedCachedFieldData,
   PartialQueryResponse,
   PartialQueryResponses,
@@ -58,7 +59,6 @@ import {
   TypeNamesAndKind,
   UserOptions,
 } from "../defs";
-import { buildFieldKeysAndPaths } from "../helpers/buildKeysAndPaths";
 import deriveOpCacheability from "../helpers/deriveOpCacheability";
 import filterOutPropsWithArgsOrDirectives from "../helpers/filterOutPropsWithArgsOrDirectives";
 import filterQuery from "../helpers/filterQuery";
@@ -284,14 +284,14 @@ export class CacheManager implements CacheManagerDef {
 
   public async cacheQuery(
     requestData: RequestData,
-    updatedRequestData: RequestData,
+    updatedRequestData: RequestData | undefined,
     rawResponseData: RawResponseDataWithMaybeCacheMetadata,
     options: RequestOptions,
     context: RequestContext,
   ): Promise<ResponseData> {
     const cacheManagerContext: CacheManagerContext = {
       ...context,
-      fragmentDefinitions: getFragmentDefinitions(updatedRequestData.ast),
+      fragmentDefinitions: getFragmentDefinitions((updatedRequestData ?? requestData).ast),
       typeIDKey: this._typeIDKey,
     };
 
@@ -343,6 +343,15 @@ export class CacheManager implements CacheManagerDef {
 
   public deletePartialQueryResponse(hash: string): void {
     this._partialQueryResponses.delete(hash);
+  }
+
+  public async setQueryResponseCacheEntry(
+    requestData: RequestData,
+    responseData: ResponseData,
+    options: RequestOptions,
+    context: CacheManagerContext,
+  ): Promise<void> {
+    return this._setQueryResponseCacheEntry(requestData.hash, responseData, options, context);
   }
 
   private async _analyzeFieldNode(

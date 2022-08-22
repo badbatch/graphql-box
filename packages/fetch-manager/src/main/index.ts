@@ -4,7 +4,7 @@ import {
   MaybeRequestResult,
   PlainObjectStringMap,
   RequestContext,
-  RequestDataWithMaybeAST,
+  RequestData,
   RequestManagerDef,
   RequestManagerInit,
   RequestOptions,
@@ -95,7 +95,7 @@ export class FetchManager implements RequestManagerDef {
 
   @logFetch()
   public async execute(
-    { hash, request }: RequestDataWithMaybeAST,
+    { hash, request }: RequestData,
     options: RequestOptions,
     context: RequestContext,
     executeResolver: RequestResolver,

@@ -12,7 +12,6 @@ import {
   RawResponseDataWithMaybeCacheMetadata,
   RequestContext,
   RequestData,
-  RequestDataWithMaybeAST,
   RequestManagerDef,
   RequestOptions,
   SUBSCRIPTION,
@@ -27,6 +26,9 @@ import { v1 as uuid } from "uuid";
 import logRequest from "../debug/log-request";
 import logSubscription from "../debug/log-subscription";
 import { PendingQueryData, PendingQueryResolver, QueryTracker, UserOptions } from "../defs";
+import filterResponseData from "../helpers/filterResponseData";
+import isDataRequestedInActiveQuery from "../helpers/isDataRequestedInActiveQuery";
+import isQueryActive from "../helpers/isQueryActive";
 
 export default class Client {
   private static _areFragmentsInvalid(fragments?: string[]): boolean {
@@ -179,19 +181,16 @@ export default class Client {
     };
   }
 
-  private async _handleMutation(
-    requestData: RequestDataWithMaybeAST,
-    options: RequestOptions,
-    context: RequestContext,
-  ) {
+  private async _handleMutation(requestData: RequestData, options: RequestOptions, context: RequestContext) {
     try {
       const resolver = async (rawResponseData: MaybeRawResponseData) => {
-        if (rawResponseData.errors) {
-          return Client._resolve(rawResponseData, options, context);
+        if (rawResponseData.errors?.length) {
+          const { errors, hasNext, paths } = rawResponseData;
+          return Client._resolve({ errors, hasNext, paths }, options, context);
         }
 
         const responseData = await this._cacheManager.cacheResponse(
-          requestData as RequestData,
+          requestData,
           rawResponseData as RawResponseDataWithMaybeCacheMetadata,
           options,
           context,
@@ -212,7 +211,7 @@ export default class Client {
     }
   }
 
-  private async _handleQuery(requestData: RequestDataWithMaybeAST, options: RequestOptions, context: RequestContext) {
+  private async _handleQuery(requestData: RequestData, options: RequestOptions, context: RequestContext) {
     try {
       const checkResult = await this._cacheManager.checkQueryResponseCacheEntry(requestData.hash, options, context);
 
@@ -226,8 +225,8 @@ export default class Client {
         return pendingQuery;
       }
 
-      let updatedRequestData: RequestDataWithMaybeAST = requestData;
-      const analyzeQueryResult = await this._cacheManager.analyzeQuery(requestData as RequestData, options, context);
+      let updatedRequestData: RequestData | undefined;
+      const analyzeQueryResult = await this._cacheManager.analyzeQuery(requestData, options, context);
       const { response, updated } = analyzeQueryResult;
 
       if (response) {
@@ -237,14 +236,14 @@ export default class Client {
       }
 
       const resolver = async (rawResponseData: MaybeRawResponseData) => {
-        if (rawResponseData.errors) {
+        if (rawResponseData.errors?.length) {
           const { errors, hasNext, paths } = rawResponseData;
-          return this._resolveQuery(updatedRequestData, { errors, hasNext, paths }, options, context);
+          return this._resolveQuery(updatedRequestData ?? requestData, { errors, hasNext, paths }, options, context);
         }
 
         const responseData = await this._cacheManager.cacheQuery(
-          requestData as RequestData,
-          updatedRequestData as RequestData,
+          requestData,
+          updatedRequestData,
           rawResponseData as RawResponseDataWithMaybeCacheMetadata,
           options,
           context,
@@ -253,7 +252,12 @@ export default class Client {
         return this._resolveQuery(requestData, responseData, options, context);
       };
 
-      const executeResult = await this._requestManager.execute(updatedRequestData, options, context, resolver);
+      const executeResult = await this._requestManager.execute(
+        updatedRequestData ?? requestData,
+        options,
+        context,
+        resolver,
+      );
 
       if (isAsyncIterable(executeResult)) {
         return executeResult;
@@ -265,7 +269,7 @@ export default class Client {
     }
   }
 
-  private _handleRequest(requestData: RequestDataWithMaybeAST, options: RequestOptions, context: RequestContext) {
+  private _handleRequest(requestData: RequestData, options: RequestOptions, context: RequestContext) {
     if (context.operation === QUERY) {
       return this._handleQuery(requestData, options, context);
     } else if (context.operation === MUTATION) {
@@ -278,11 +282,7 @@ export default class Client {
     return Client._resolve({ errors: [new Error(message)] }, options, context);
   }
 
-  private async _handleSubscription(
-    requestData: RequestDataWithMaybeAST,
-    options: RequestOptions,
-    context: RequestContext,
-  ) {
+  private async _handleSubscription(requestData: RequestData, options: RequestOptions, context: RequestContext) {
     try {
       const resolver = async (responseData: MaybeRawResponseData) =>
         this._resolveSubscription(requestData, responseData, options, context);
@@ -292,6 +292,14 @@ export default class Client {
     } catch (error) {
       return Client._resolve({ errors: [error] }, options, context);
     }
+  }
+
+  private _isDataRequestedInActiveQuery(requestData: RequestData, context: RequestContext) {
+    if (isQueryActive(this._queryTracker.active, requestData)) {
+      return requestData.hash;
+    }
+
+    return isDataRequestedInActiveQuery(this._queryTracker.active, requestData, context);
   }
 
   @logRequest()
@@ -305,45 +313,71 @@ export default class Client {
     }
   }
 
-  private _resolvePendingRequests({ hash }: RequestDataWithMaybeAST, responseData: MaybeResponseData): void {
-    const pendingRequests = this._queryTracker.pending.get(hash);
-    if (!pendingRequests) return;
+  private _resolvePendingRequests(
+    activeRquestData: RequestData,
+    activeResponseData: MaybeResponseData,
+    activeContext: RequestContext,
+  ): void {
+    const pendingRequests = this._queryTracker.pending.get(activeRquestData.hash);
 
-    pendingRequests.forEach(({ context, options, resolve }) => {
-      resolve(Client._resolve(responseData, options, context));
+    if (!pendingRequests) {
+      return;
+    }
+
+    pendingRequests.forEach(async ({ context, options, requestData, resolve }) => {
+      if (activeRquestData.hash === requestData.hash || activeResponseData.errors?.length) {
+        resolve(Client._resolve(activeResponseData, options, context));
+      } else if (activeResponseData.data && activeResponseData.cacheMetadata) {
+        const filteredResponseData = filterResponseData(
+          requestData,
+          activeRquestData,
+          {
+            ...requestData,
+            cacheMetadata: activeResponseData.cacheMetadata,
+            data: activeResponseData.data,
+          },
+          { active: activeContext, pending: context },
+        );
+
+        await this._cacheManager.setQueryResponseCacheEntry(requestData, filteredResponseData, options, context);
+        resolve(Client._resolve(filteredResponseData, options, context));
+      }
     });
 
-    this._queryTracker.pending.delete(hash);
+    this._queryTracker.pending.delete(activeRquestData.hash);
   }
 
   private async _resolveQuery(
-    requestData: RequestDataWithMaybeAST,
+    requestData: RequestData,
     responseData: MaybeResponseData,
     options: RequestOptions,
     context: RequestContext,
   ): Promise<MaybeRequestResult> {
-    this._resolvePendingRequests(requestData, responseData);
-    this._queryTracker.active = this._queryTracker.active.filter(value => value !== requestData.hash);
+    this._resolvePendingRequests(requestData, responseData, context);
+
+    this._queryTracker.active = this._queryTracker.active.filter(
+      ({ requestData: activeRequestData }) => activeRequestData.hash !== requestData.hash,
+    );
+
     this._cacheManager.deletePartialQueryResponse(requestData.hash);
     return Client._resolve(responseData, options, context);
   }
 
   @logSubscription()
   private async _resolveSubscription(
-    requestData: RequestDataWithMaybeAST,
+    requestData: RequestData,
     rawResponseData: MaybeRawResponseData,
     options: RequestOptions,
     context: RequestContext,
   ): Promise<MaybeRequestResult> {
     try {
-      const { errors } = rawResponseData;
-
-      if (errors) {
-        return Client._resolve({ errors }, options, context);
+      if (rawResponseData.errors?.length) {
+        const { errors, hasNext, paths } = rawResponseData;
+        return Client._resolve({ errors, hasNext, paths }, options, context);
       }
 
       const responseData = await this._cacheManager.cacheResponse(
-        requestData as RequestData,
+        requestData,
         rawResponseData as RawResponseDataWithMaybeCacheMetadata,
         options,
         context,
@@ -357,22 +391,28 @@ export default class Client {
 
   private _setPendingQuery(requestHash: string, data: PendingQueryData): void {
     let pending = this._queryTracker.pending.get(requestHash);
-    if (!pending) pending = [];
+
+    if (!pending) {
+      pending = [];
+    }
+
     pending.push(data);
     this._queryTracker.pending.set(requestHash, pending);
   }
 
   private _trackQuery(
-    { hash }: RequestDataWithMaybeAST,
+    requestData: RequestData,
     options: RequestOptions,
     context: RequestContext,
   ): Promise<MaybeRequestResult> | void {
-    if (this._queryTracker.active.includes(hash)) {
+    const matchingRequestHash = this._isDataRequestedInActiveQuery(requestData, context);
+
+    if (matchingRequestHash) {
       return new Promise((resolve: PendingQueryResolver) => {
-        this._setPendingQuery(hash, { context, options, resolve });
+        this._setPendingQuery(matchingRequestHash, { context, options, requestData, resolve });
       });
     }
 
-    this._queryTracker.active.push(hash);
+    this._queryTracker.active.push({ requestData, options, context });
   }
 }

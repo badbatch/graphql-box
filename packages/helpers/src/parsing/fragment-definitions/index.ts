@@ -1,7 +1,7 @@
+import { FragmentDefinitionNodeMap } from "@graphql-box/core";
 import { DocumentNode, FieldNode, FragmentDefinitionNode, FragmentSpreadNode, InlineFragmentNode } from "graphql";
 import { isEmpty } from "lodash";
 import { FRAGMENT_DEFINITION, FRAGMENT_SPREAD } from "../../consts";
-import { FragmentDefinitionNodeMap } from "../../defs";
 import { isKind } from "../kind";
 import { getName } from "../name";
 
