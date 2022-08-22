@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/client",
-  "version": "3.6.1",
+  "version": "3.6.2",
   "description": "The GraphQL Box client module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
