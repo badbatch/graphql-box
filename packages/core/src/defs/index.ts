@@ -1,6 +1,6 @@
 import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
 import EventEmitter from "eventemitter3";
-import { DocumentNode, GraphQLFieldResolver, GraphQLNamedType } from "graphql";
+import { DocumentNode, FragmentDefinitionNode, GraphQLFieldResolver, GraphQLNamedType } from "graphql";
 import { ErrorObject } from "serialize-error";
 import WebSocket from "ws";
 
@@ -144,6 +144,10 @@ export interface FieldTypeInfo {
 }
 
 export type FieldTypeMap = Map<string, FieldTypeInfo>;
+
+export interface FragmentDefinitionNodeMap {
+  [key: string]: FragmentDefinitionNode;
+}
 
 export type ValidOperations = "mutation" | "query" | "subscription";
 

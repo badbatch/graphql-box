@@ -1,9 +1,8 @@
 import { PlainObjectMap } from "@graphql-box/core";
-import { getName, resolveFragments } from "@graphql-box/helpers";
+import { KeysAndPaths, buildFieldKeysAndPaths, getName, resolveFragments } from "@graphql-box/helpers";
 import { FieldNode, SelectionNode } from "graphql";
 import { keys } from "lodash";
-import { CacheManagerContext, KeysAndPaths } from "../defs";
-import { buildFieldKeysAndPaths } from "./buildKeysAndPaths";
+import { CacheManagerContext } from "../defs";
 
 export default (
   fieldData: PlainObjectMap,

@@ -1,3 +1,4 @@
+import { FragmentDefinitionNodeMap } from "@graphql-box/core";
 import {
   FieldNode,
   FragmentDefinitionNode,
@@ -9,7 +10,7 @@ import {
 } from "graphql";
 import { castArray } from "lodash";
 import { FIELD, FRAGMENT_SPREAD, INLINE_FRAGMENT } from "../../consts";
-import { FieldAndTypeName, FragmentDefinitionNodeMap, ParentNode } from "../../defs";
+import { FieldAndTypeName, ParentNode } from "../../defs";
 import { isKind } from "../kind";
 import { getName } from "../name";
 

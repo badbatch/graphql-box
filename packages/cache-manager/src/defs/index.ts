@@ -5,6 +5,7 @@ import {
   CacheTypes,
   DehydratedCacheMetadata,
   FieldTypeInfo,
+  FragmentDefinitionNodeMap,
   PlainObjectMap,
   PlainObjectStringMap,
   RawResponseDataWithMaybeCacheMetadata,
@@ -13,7 +14,6 @@ import {
   RequestOptions,
   ResponseData,
 } from "@graphql-box/core";
-import { FragmentDefinitionNodeMap } from "@graphql-box/helpers";
 import Cacheability from "cacheability";
 
 export interface UserOptions {
@@ -118,21 +118,6 @@ export interface CachedAncestorFieldData {
   typeName?: string;
 }
 
-export interface KeysAndPathsOptions {
-  index?: number;
-  requestFieldCacheKey?: string;
-  requestFieldPath?: string;
-  responseDataPath?: string;
-}
-
-export interface KeysAndPaths {
-  hashedRequestFieldCacheKey: string;
-  propNameOrIndex: string | number;
-  requestFieldCacheKey: string;
-  requestFieldPath: string;
-  responseDataPath: string;
-}
-
 export interface TypeNamesAndKind {
   dataTypeName: string | undefined;
   fieldTypeName: string | undefined;
@@ -184,7 +169,7 @@ export interface CacheManagerDef {
   analyzeQuery(requestData: RequestData, options: RequestOptions, context: RequestContext): Promise<AnalyzeQueryResult>;
   cacheQuery(
     requestData: RequestData,
-    updatedRequestData: RequestData,
+    updatedRequestData: RequestData | undefined,
     responseData: RawResponseDataWithMaybeCacheMetadata,
     options: RequestOptions,
     context: RequestContext,
@@ -207,6 +192,12 @@ export interface CacheManagerDef {
     context: RequestContext,
   ): Promise<ResponseData | false>;
   deletePartialQueryResponse(hash: string): void;
+  setQueryResponseCacheEntry(
+    requestData: RequestData,
+    responseData: ResponseData,
+    options: RequestOptions,
+    context: CacheManagerContext,
+  ): Promise<void>;
 }
 
 export type CacheManagerInit = (options: ClientOptions) => CacheManagerDef;

@@ -1,4 +1,4 @@
-import { deleteFragmentDefinitions, getFragmentDefinitions } from "@graphql-box/helpers";
+import { deleteFragmentDefinitions } from "@graphql-box/helpers";
 import { DocumentNode } from "graphql";
 import { keys } from "lodash";
 import { CacheManagerContext, FieldPathChecklist } from "../defs";
@@ -22,7 +22,7 @@ export default (
     [],
   );
 
-  const fragmentDefinitions = getFragmentDefinitions(ast) ?? {};
+  const { fragmentDefinitions = {} } = context;
 
   definitionsToFilter.forEach(({ name, path }) => {
     const fragmentDefinition = fragmentDefinitions[name];

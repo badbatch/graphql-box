@@ -33,10 +33,6 @@ import {
   VariableNode,
 } from "graphql";
 
-export interface FragmentDefinitionNodeMap {
-  [key: string]: FragmentDefinitionNode;
-}
-
 export type GraphQLNullableOutputType =
   | GraphQLScalarType
   | GraphQLObjectType
@@ -82,4 +78,19 @@ export interface ParsedDirective {
   name: string;
   parentKind: string;
   parentName: string;
+}
+
+export interface KeysAndPaths {
+  hashedRequestFieldCacheKey: string;
+  propNameOrIndex: string | number;
+  requestFieldCacheKey: string;
+  requestFieldPath: string;
+  responseDataPath: string;
+}
+
+export interface KeysAndPathsOptions {
+  index?: number;
+  requestFieldCacheKey?: string;
+  requestFieldPath?: string;
+  responseDataPath?: string;
 }

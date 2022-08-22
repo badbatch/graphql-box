@@ -2185,6 +2185,7 @@ exports[`@graphql-box/request-parser >> query >> with number default correct req
         }
       }
     }
+    url
     id
   }
 }"

@@ -1,4 +1,5 @@
 import {
+  FragmentDefinitionNodeMap,
   Maybe,
   PlainObjectMap,
   QUERY,
@@ -12,7 +13,6 @@ import {
   FIELD,
   FRAGMENT_DEFINITION,
   FRAGMENT_SPREAD,
-  FragmentDefinitionNodeMap,
   INLINE_FRAGMENT,
   NAME,
   ParsedDirective,

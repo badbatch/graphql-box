@@ -1,8 +1,11 @@
-import { FieldTypeInfo, PlainObjectMap } from "@graphql-box/core";
-import { getAlias, getArguments, getName, hashRequest } from "@graphql-box/helpers";
+import { FieldTypeInfo, PlainObjectMap, RequestContext } from "@graphql-box/core";
 import { FieldNode } from "graphql";
 import { isNumber } from "lodash";
-import { CacheManagerContext, KeysAndPaths, KeysAndPathsOptions } from "../defs";
+import { KeysAndPaths, KeysAndPathsOptions } from "../defs";
+import hashRequest from "../hash-request";
+import { getAliasOrName } from "../parsing/alias-or-name";
+import { getArguments } from "../parsing/arguments";
+import { getName } from "../parsing/name";
 
 export const buildKey = (path: string, key: string | number) => {
   const paths: (string | number)[] = [];
@@ -42,23 +45,23 @@ export const buildRequestFieldCacheKey = (
 export const buildFieldKeysAndPaths = (
   field: FieldNode,
   options: KeysAndPathsOptions,
-  context: CacheManagerContext,
+  context: RequestContext,
 ): KeysAndPaths => {
-  const name = getName(field) as FieldNode["name"]["value"];
   const { index, requestFieldCacheKey = "", requestFieldPath = "", responseDataPath = "" } = options;
-  const fieldAliasOrName = getAlias(field) || name;
-  const updatedRequestFieldPath = isNumber(index) ? requestFieldPath : buildKey(requestFieldPath, fieldAliasOrName);
+  const name = getName(field) as FieldNode["name"]["value"];
+  const fieldAliasOrName = getAliasOrName(field);
+  const updatedRequestFieldPath = isNumber(index) ? requestFieldPath : buildKey(requestFieldPath, name);
   const fieldTypeInfo = context.fieldTypeMap.get(updatedRequestFieldPath);
 
   const updatedRequestFieldCacheKey = buildRequestFieldCacheKey(
-    name,
+    fieldAliasOrName,
     requestFieldCacheKey,
     getArguments(field),
     fieldTypeInfo?.directives,
     index,
   );
 
-  const propNameOrIndex = isNumber(index) ? index : fieldAliasOrName;
+  const propNameOrIndex = isNumber(index) ? index : name;
   const updatedResponseDataPath = buildKey(responseDataPath, propNameOrIndex);
 
   return {

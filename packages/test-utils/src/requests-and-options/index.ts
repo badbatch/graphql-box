@@ -47,6 +47,7 @@ export const queryWithNumberDefault: RequestAndOptions = {
             }
           }
         }
+        url
       }
     }
   `,

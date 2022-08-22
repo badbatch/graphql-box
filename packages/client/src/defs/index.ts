@@ -1,7 +1,10 @@
 import { CacheManagerInit } from "@graphql-box/cache-manager";
 import {
+  CacheMetadata,
   MaybeRequestResult,
+  PlainObjectMap,
   RequestContext,
+  RequestData,
   RequestManagerInit,
   RequestOptions,
   SubscriptionsManagerInit,
@@ -47,10 +50,22 @@ export type PendingQueryResolver = (value: MaybeRequestResult) => void;
 export interface PendingQueryData {
   context: RequestContext;
   options: RequestOptions;
+  requestData: RequestData;
   resolve: PendingQueryResolver;
 }
 
+export interface ActiveQueryData {
+  context: RequestContext;
+  options: RequestOptions;
+  requestData: RequestData;
+}
+
 export interface QueryTracker {
-  active: string[];
+  active: ActiveQueryData[];
   pending: Map<string, PendingQueryData[]>;
+}
+
+export interface FilteredDataAndCacheMetadata {
+  filteredCacheMetadata: CacheMetadata;
+  filteredData: PlainObjectMap;
 }

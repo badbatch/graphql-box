@@ -15,6 +15,64 @@ export const singleTypeQuery = `
   }
 `;
 
+export const singleTypeQueryWithAlias = `
+  {
+    organization(login: "facebook") {
+      description
+      email
+      login
+      name: fullName
+      url
+      id
+    }
+  }
+`;
+
+export const singleTypeQueryWithDirective = `
+  {
+    organization(login: "facebook") {
+      description
+      email @include(if: true)
+      login
+      name
+      url
+      id
+    }
+  }
+`;
+
+export const singleTypeQueryWithInlineFragment = `
+  {
+    organization(login: "facebook") {
+      description
+      id
+      ... on Organisation {
+        email
+        login
+        name
+        url
+      }
+    }
+  }
+`;
+
+export const singleTypeQueryWithFragmentSpread = `
+  {
+    organization(login: "facebook") {
+      description
+      id
+      ...OrganizationDetails
+    }
+  }
+
+  fragment OrganizationDetails on Organisation {
+    email
+    login
+    name
+    url
+  }
+`;
+
 export const singleTypeQuerySet: ParsedQuerySet = {
   full: singleTypeQuery,
   initial: `
@@ -37,6 +95,32 @@ export const singleTypeQuerySet: ParsedQuerySet = {
     }
   `,
 };
+
+export const nestedTypeQueryBasic = `
+  {
+    organization(login: "facebook") {
+      email
+      login
+      name
+      repositories(first: 6) {
+        edges {
+          node {
+            description
+            homepageUrl
+            name
+            owner {
+              url
+              id
+              __typename
+            }
+            id
+          }
+        }
+      }
+      id
+    }
+  }
+`;
 
 export const nestedTypeQuery = `
   {
@@ -67,6 +151,86 @@ export const nestedTypeQuery = `
       url
       id
     }
+  }
+`;
+
+export const nestedTypeQueryWithDirectives = `
+  {
+    organization(login: "facebook") {
+      description
+      email @include(if: true)
+      login
+      name
+      repositories(first: 6) @skip(if: false) {
+        edges {
+          node {
+            description
+            homepageUrl
+            name
+            id
+            owner {
+              login
+              url
+              ... on Organization {
+                name
+                id
+              }
+              __typename
+            }
+          }
+        }
+      }
+      url
+      id
+    }
+  }
+`;
+
+export const nestedTypeQueryWithFragments = `
+  {
+    organization(login: "facebook") {
+      ...OrganizationFields
+      login
+      name
+      repositories(first: 6) {
+        edges {
+          node {
+            ... on Repository {
+              ...RepositoryFieldsA
+              id
+            }
+          }
+        }
+      }
+      url
+      id
+    }
+  }
+
+  fragment OrganizationFields on Organization {
+    email
+    description
+    isVerified
+    location
+  }
+
+  fragment RepositoryFieldsB on Repository {
+    owner {
+      login
+      url
+      ... on Organization {
+        name
+        id
+      }
+      __typename
+    }
+  }
+
+  fragment RepositoryFieldsA on Repository {
+    description
+    homepageUrl
+    name
+    ...RepositoryFieldsB
   }
 `;
 
