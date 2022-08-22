@@ -12,7 +12,9 @@ export default function logCacheEntry() {
 
     descriptor.value = async function descriptorValue(...args: any[]): Promise<any> {
       return new Promise<void>(async resolve => {
-        const { debugManager, ...otherContext } = args[5] as RequestContext;
+        const { debugManager, requestFieldCacheKey, ...otherContext } = args[5] as RequestContext & {
+          requestFieldCacheKey?: string;
+        };
 
         if (!debugManager) {
           await method.apply(this, args);
@@ -26,7 +28,7 @@ export default function logCacheEntry() {
         const duration = endTime - startTime;
         resolve();
 
-        debugManager.emit(CACHE_ENTRY_ADDED, {
+        const payload = {
           cachemapOptions: args[3],
           cacheType: args[0],
           context: otherContext,
@@ -34,7 +36,10 @@ export default function logCacheEntry() {
           options: args[4],
           stats: { duration, endTime, startTime },
           value: args[2],
-        });
+          ...(requestFieldCacheKey ? { decryptedCacheKey: requestFieldCacheKey } : {}),
+        };
+
+        debugManager.emit(CACHE_ENTRY_ADDED, payload);
       });
     };
   };

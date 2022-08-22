@@ -23,6 +23,7 @@ import { RequestParserDef } from "@graphql-box/request-parser";
 import { isAsyncIterable } from "iterall";
 import { castArray, isArray, isPlainObject, isString } from "lodash";
 import { v1 as uuid } from "uuid";
+import logPendingQuery from "../debug/log-pending-query";
 import logRequest from "../debug/log-request";
 import logSubscription from "../debug/log-subscription";
 import { PendingQueryData, PendingQueryResolver, QueryTracker, UserOptions } from "../defs";
@@ -389,6 +390,7 @@ export default class Client {
     }
   }
 
+  @logPendingQuery()
   private _setPendingQuery(requestHash: string, data: PendingQueryData): void {
     let pending = this._queryTracker.pending.get(requestHash);
 
