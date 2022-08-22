@@ -24,7 +24,9 @@
 
 * [LOG_NAME](README.md#const-log_name)
 * [REQUEST_EXECUTED](README.md#const-request_executed)
+* [REQUEST_RESOLVED](README.md#const-request_resolved)
 * [SUBSCRIPTION_EXECUTED](README.md#const-subscription_executed)
+* [SUBSCRIPTION_RESOLVED](README.md#const-subscription_resolved)
 
 ### Functions
 
@@ -40,7 +42,7 @@
 
 Ƭ **PendingQueryResolver**: *function*
 
-*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/f858dbf/packages/client/src/defs/index.ts#L48)*
+*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/6a2398d/packages/client/src/defs/index.ts#L48)*
 
 #### Type declaration:
 
@@ -58,7 +60,7 @@ Name | Type |
 
 • **LOG_NAME**: *"isDataRequestedInActiveQuery"* = "isDataRequestedInActiveQuery"
 
-*Defined in [helpers/isDataRequestedInActiveQuery.ts:16](https://github.com/badbatch/graphql-box/blob/f858dbf/packages/client/src/helpers/isDataRequestedInActiveQuery.ts#L16)*
+*Defined in [helpers/isDataRequestedInActiveQuery.ts:16](https://github.com/badbatch/graphql-box/blob/6a2398d/packages/client/src/helpers/isDataRequestedInActiveQuery.ts#L16)*
 
 ___
 
@@ -66,7 +68,15 @@ ___
 
 • **REQUEST_EXECUTED**: *"request_executed"* = "request_executed"
 
-*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/f858dbf/packages/client/src/consts/index.ts#L1)*
+*Defined in [consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/6a2398d/packages/client/src/consts/index.ts#L1)*
+
+___
+
+### `Const` REQUEST_RESOLVED
+
+• **REQUEST_RESOLVED**: *"request_resolved"* = "request_resolved"
+
+*Defined in [consts/index.ts:2](https://github.com/badbatch/graphql-box/blob/6a2398d/packages/client/src/consts/index.ts#L2)*
 
 ___
 
@@ -74,7 +84,15 @@ ___
 
 • **SUBSCRIPTION_EXECUTED**: *"subscription_executed"* = "subscription_executed"
 
-*Defined in [consts/index.ts:2](https://github.com/badbatch/graphql-box/blob/f858dbf/packages/client/src/consts/index.ts#L2)*
+*Defined in [consts/index.ts:3](https://github.com/badbatch/graphql-box/blob/6a2398d/packages/client/src/consts/index.ts#L3)*
+
+___
+
+### `Const` SUBSCRIPTION_RESOLVED
+
+• **SUBSCRIPTION_RESOLVED**: *"subscription_resolved"* = "subscription_resolved"
+
+*Defined in [consts/index.ts:4](https://github.com/badbatch/graphql-box/blob/6a2398d/packages/client/src/consts/index.ts#L4)*
 
 ## Functions
 
@@ -82,7 +100,7 @@ ___
 
 ▸ **filterDataAndCacheMetadata**(`pendingFieldNode`: FieldNode, `activeFieldNode`: FieldNode, `activeResponseData`: MaybeResponseData, `__namedParameters`: object, `fragmentDefinitions`: object, `keyAndPathOptions`: object, `contexts`: object): *void*
 
-*Defined in [helpers/filterResponseData.ts:24](https://github.com/badbatch/graphql-box/blob/f858dbf/packages/client/src/helpers/filterResponseData.ts#L24)*
+*Defined in [helpers/filterResponseData.ts:24](https://github.com/badbatch/graphql-box/blob/6a2398d/packages/client/src/helpers/filterResponseData.ts#L24)*
 
 **Parameters:**
 
@@ -128,7 +146,7 @@ ___
 
 ▸ **logRequest**(): *(Anonymous function)*
 
-*Defined in [debug/log-request/index.ts:4](https://github.com/badbatch/graphql-box/blob/f858dbf/packages/client/src/debug/log-request/index.ts#L4)*
+*Defined in [debug/log-request/index.ts:4](https://github.com/badbatch/graphql-box/blob/6a2398d/packages/client/src/debug/log-request/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*
 
@@ -138,7 +156,7 @@ ___
 
 ▸ **logSubscription**(): *(Anonymous function)*
 
-*Defined in [debug/log-subscription/index.ts:4](https://github.com/badbatch/graphql-box/blob/f858dbf/packages/client/src/debug/log-subscription/index.ts#L4)*
+*Defined in [debug/log-subscription/index.ts:4](https://github.com/badbatch/graphql-box/blob/6a2398d/packages/client/src/debug/log-subscription/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*
 
@@ -148,7 +166,7 @@ ___
 
 ▸ **newNodeFieldsPartOfActiveNode**(`activeNode`: ParentNode, `newNode`: ParentNode, `fragmentDefinitions`: object, `keyAndPathOptions`: object, `contexts`: object): *boolean*
 
-*Defined in [helpers/isDataRequestedInActiveQuery.ts:55](https://github.com/badbatch/graphql-box/blob/f858dbf/packages/client/src/helpers/isDataRequestedInActiveQuery.ts#L55)*
+*Defined in [helpers/isDataRequestedInActiveQuery.ts:55](https://github.com/badbatch/graphql-box/blob/6a2398d/packages/client/src/helpers/isDataRequestedInActiveQuery.ts#L55)*
 
 **Parameters:**
 
@@ -185,7 +203,7 @@ ___
 
 ▸ **parentNodeIncludes**(`activeNode`: ParentNode, `newNode`: ParentNode, `fragmentDefinitions`: object, `contexts`: object): *boolean*
 
-*Defined in [helpers/isDataRequestedInActiveQuery.ts:18](https://github.com/badbatch/graphql-box/blob/f858dbf/packages/client/src/helpers/isDataRequestedInActiveQuery.ts#L18)*
+*Defined in [helpers/isDataRequestedInActiveQuery.ts:18](https://github.com/badbatch/graphql-box/blob/6a2398d/packages/client/src/helpers/isDataRequestedInActiveQuery.ts#L18)*
 
 **Parameters:**
 
