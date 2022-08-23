@@ -1,6 +1,6 @@
 import { FieldTypeInfo, PlainObjectMap, RequestContext } from "@graphql-box/core";
 import { FieldNode } from "graphql";
-import { isNumber } from "lodash";
+import { isNumber, pickBy } from "lodash";
 import { KeysAndPaths, KeysAndPathsOptions } from "../defs";
 import hashRequest from "../hash-request";
 import { getAliasOrName } from "../parsing/alias-or-name";
@@ -28,7 +28,7 @@ export const buildRequestFieldCacheKey = (
   let key = `${isNumber(index) ? index : name}`;
 
   if (args) {
-    key = `${key}(${JSON.stringify(args)})`;
+    key = `${key}(${JSON.stringify(pickBy(args, value => value !== undefined && value !== null))})`;
   }
 
   if (directives?.inherited?.length) {
