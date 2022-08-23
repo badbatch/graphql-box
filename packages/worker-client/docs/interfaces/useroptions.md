@@ -20,7 +20,7 @@
 
 • **cache**: *WorkerCachemap*
 
-*Defined in [defs/index.ts:10](https://github.com/badbatch/graphql-box/blob/7a747f5/packages/worker-client/src/defs/index.ts#L10)*
+*Defined in [defs/index.ts:10](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/worker-client/src/defs/index.ts#L10)*
 
 The cache.
 
@@ -30,7 +30,7 @@ ___
 
 • **debugManager**? : *DebugManagerInit*
 
-*Defined in [defs/index.ts:15](https://github.com/badbatch/graphql-box/blob/7a747f5/packages/worker-client/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/worker-client/src/defs/index.ts#L15)*
 
 The curried function to initialize the debug manager.
 
@@ -40,6 +40,6 @@ ___
 
 • **worker**: *Worker*
 
-*Defined in [defs/index.ts:20](https://github.com/badbatch/graphql-box/blob/7a747f5/packages/worker-client/src/defs/index.ts#L20)*
+*Defined in [defs/index.ts:20](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/worker-client/src/defs/index.ts#L20)*
 
 The web worker instance.

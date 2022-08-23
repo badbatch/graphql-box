@@ -30,7 +30,7 @@
 
 \+ **new Client**(`options`: [UserOptions](../interfaces/useroptions.md)): *[Client](client.md)*
 
-*Defined in [main/index.ts:76](https://github.com/badbatch/graphql-box/blob/7a747f5/packages/client/src/main/index.ts#L76)*
+*Defined in [main/index.ts:76](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/client/src/main/index.ts#L76)*
 
 **Parameters:**
 
@@ -46,7 +46,7 @@ Name | Type |
 
 • **get cache**(): *Core*
 
-*Defined in [main/index.ts:109](https://github.com/badbatch/graphql-box/blob/7a747f5/packages/client/src/main/index.ts#L109)*
+*Defined in [main/index.ts:109](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/client/src/main/index.ts#L109)*
 
 **Returns:** *Core*
 
@@ -56,7 +56,7 @@ ___
 
 • **get debugger**(): *DebugManagerDef | null*
 
-*Defined in [main/index.ts:113](https://github.com/badbatch/graphql-box/blob/7a747f5/packages/client/src/main/index.ts#L113)*
+*Defined in [main/index.ts:113](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/client/src/main/index.ts#L113)*
 
 **Returns:** *DebugManagerDef | null*
 
@@ -66,7 +66,7 @@ ___
 
 ▸ **mutate**(`request`: string, `options`: RequestOptions, `context`: MaybeRequestContext): *Promise‹MaybeRequestResult | AsyncIterator‹undefined | MaybeRequestResult, any, undefined››*
 
-*Defined in [main/index.ts:117](https://github.com/badbatch/graphql-box/blob/7a747f5/packages/client/src/main/index.ts#L117)*
+*Defined in [main/index.ts:117](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/client/src/main/index.ts#L117)*
 
 **Parameters:**
 
@@ -84,7 +84,7 @@ ___
 
 ▸ **query**(`request`: string, `options`: RequestOptions, `context`: MaybeRequestContext): *Promise‹MaybeRequestResult | AsyncIterator‹undefined | MaybeRequestResult, any, undefined››*
 
-*Defined in [main/index.ts:128](https://github.com/badbatch/graphql-box/blob/7a747f5/packages/client/src/main/index.ts#L128)*
+*Defined in [main/index.ts:128](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/client/src/main/index.ts#L128)*
 
 **Parameters:**
 
@@ -102,7 +102,7 @@ ___
 
 ▸ **request**(`request`: string, `options`: RequestOptions, `context`: MaybeRequestContext): *Promise‹MaybeRequestResult | AsyncIterator‹undefined | MaybeRequestResult, any, undefined››*
 
-*Defined in [main/index.ts:139](https://github.com/badbatch/graphql-box/blob/7a747f5/packages/client/src/main/index.ts#L139)*
+*Defined in [main/index.ts:139](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/client/src/main/index.ts#L139)*
 
 **Parameters:**
 
@@ -120,7 +120,7 @@ ___
 
 ▸ **subscribe**(`request`: string, `options`: RequestOptions, `context`: MaybeRequestContext): *Promise‹MaybeRequestResult | AsyncIterator‹undefined | MaybeRequestResult, any, undefined››*
 
-*Defined in [main/index.ts:150](https://github.com/badbatch/graphql-box/blob/7a747f5/packages/client/src/main/index.ts#L150)*
+*Defined in [main/index.ts:150](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/client/src/main/index.ts#L150)*
 
 **Parameters:**
 

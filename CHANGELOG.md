@@ -1,3 +1,9 @@
+#### 3.9.3 (2022-08-23)
+
+##### Bug Fixes
+
+*  filter out empty args when creatinig cache key ([3fa1e6dd](https://github.com/badbatch/graphql-box/commit/3fa1e6ddaf5d1f7ae465fd80a653f565a49f9d96))
+
 #### 3.9.2 (2022-08-22)
 
 ##### Bug Fixes
