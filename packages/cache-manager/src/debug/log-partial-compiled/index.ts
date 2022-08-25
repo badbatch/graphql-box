@@ -1,5 +1,4 @@
-import { RequestContext } from "@graphql-box/core";
-import { PARTIAL_QUERY_COMPILED } from "../../consts";
+import { PARTIAL_QUERY_COMPILED, RequestContext } from "@graphql-box/core";
 
 export default function logPartialCompiled() {
   return (
@@ -12,7 +11,7 @@ export default function logPartialCompiled() {
 
     descriptor.value = async function descriptorValue(...args: any[]): Promise<any> {
       return new Promise<void>(async resolve => {
-        const { debugManager, ...otherContext } = args[3] as RequestContext;
+        const { debugManager, requestID, ...otherContext } = args[3] as RequestContext;
 
         if (!debugManager) {
           await method.apply(this, args);
@@ -31,6 +30,7 @@ export default function logPartialCompiled() {
           hash: args[0],
           options: args[2],
           partialQueryResponse: args[1],
+          requestID,
           stats: { duration, endTime, startTime },
         });
       });

@@ -2,7 +2,6 @@
 
 exports[`@graphql-box/request-parser >> mutation >> input type variable >> correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "mutation.addStar" => Object {
@@ -94,6 +93,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -126,7 +126,6 @@ exports[`@graphql-box/request-parser >> mutation >> input type variable >> corre
 
 exports[`@graphql-box/request-parser >> query >> defer >> correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
@@ -375,6 +374,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -426,7 +426,6 @@ fragment PermissionsFields on LicenseRule {
 
 exports[`@graphql-box/request-parser >> query >> directive correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
@@ -532,6 +531,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -570,7 +570,6 @@ exports[`@graphql-box/request-parser >> query >> directive correct request 1`] =
 
 exports[`@graphql-box/request-parser >> query >> enum variable >> correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
@@ -658,6 +657,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -696,7 +696,6 @@ exports[`@graphql-box/request-parser >> query >> enum variable >> correct reques
 
 exports[`@graphql-box/request-parser >> query >> fragment option >> correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
@@ -719,6 +718,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -738,7 +738,6 @@ exports[`@graphql-box/request-parser >> query >> fragment option >> correct requ
 
 exports[`@graphql-box/request-parser >> query >> fragment spread >> correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
@@ -761,6 +760,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -780,7 +780,6 @@ exports[`@graphql-box/request-parser >> query >> fragment spread >> correct requ
 
 exports[`@graphql-box/request-parser >> query >> fragment spreads >> within fragment spreads >> correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.movie" => Object {
@@ -1305,6 +1304,7 @@ Object {
   "operationName": "GetMoviePreview",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -1472,7 +1472,6 @@ fragment MovieVideos on Movie {
 
 exports[`@graphql-box/request-parser >> query >> inline fragment >> correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
@@ -1495,6 +1494,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -1514,7 +1514,6 @@ exports[`@graphql-box/request-parser >> query >> inline fragment >> correct requ
 
 exports[`@graphql-box/request-parser >> query >> inline fragments >> union type >> correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.search" => Object {
@@ -1590,6 +1589,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -1638,7 +1638,6 @@ exports[`@graphql-box/request-parser >> query >> inline fragments >> union type 
 
 exports[`@graphql-box/request-parser >> query >> multiple variables >> correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
@@ -1726,6 +1725,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -1764,7 +1764,6 @@ exports[`@graphql-box/request-parser >> query >> multiple variables >> correct r
 
 exports[`@graphql-box/request-parser >> query >> no variable >> correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
@@ -1787,6 +1786,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -1806,7 +1806,6 @@ exports[`@graphql-box/request-parser >> query >> no variable >> correct request 
 
 exports[`@graphql-box/request-parser >> query >> operation name >> correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
@@ -1829,6 +1828,7 @@ Object {
   "operationName": "GetOrganization",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -1848,7 +1848,6 @@ exports[`@graphql-box/request-parser >> query >> operation name >> correct reque
 
 exports[`@graphql-box/request-parser >> query >> union type inline fragments >> fragment spread >> correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.search" => Object {
@@ -1924,6 +1923,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -1974,7 +1974,6 @@ exports[`@graphql-box/request-parser >> query >> union type inline fragments >> 
 
 exports[`@graphql-box/request-parser >> query >> variable correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
@@ -1997,6 +1996,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -2016,7 +2016,6 @@ exports[`@graphql-box/request-parser >> query >> variable correct request 1`] = 
 
 exports[`@graphql-box/request-parser >> query >> variable with default correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
@@ -2039,6 +2038,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -2058,7 +2058,6 @@ exports[`@graphql-box/request-parser >> query >> variable with default correct r
 
 exports[`@graphql-box/request-parser >> query >> with default correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
@@ -2081,6 +2080,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -2100,7 +2100,6 @@ exports[`@graphql-box/request-parser >> query >> with default correct request 1`
 
 exports[`@graphql-box/request-parser >> query >> with number default correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "query.organization" => Object {
@@ -2165,6 +2164,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;
@@ -2193,7 +2193,6 @@ exports[`@graphql-box/request-parser >> query >> with number default correct req
 
 exports[`@graphql-box/request-parser >> subscription >> correct context data 1`] = `
 Object {
-  "boxID": "123456789",
   "debugManager": null,
   "fieldTypeMap": Map {
     "subscription.emailAdded" => Object {
@@ -2230,6 +2229,7 @@ Object {
   "operationName": "",
   "queryFiltered": false,
   "request": "",
+  "requestID": "123456789",
   "whitelistHash": "",
 }
 `;

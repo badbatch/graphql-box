@@ -46,8 +46,8 @@ export interface MessageResponsePayload {
 }
 
 export interface MessageContext {
-  boxID: string;
   hasDeferOrStream: boolean;
+  requestID: string;
 }
 
 export interface RegisterWorkerOptions {

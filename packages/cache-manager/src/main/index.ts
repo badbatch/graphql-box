@@ -906,10 +906,10 @@ export class CacheManager implements CacheManagerDef {
     context: CacheManagerContext,
   ) {
     const responseChunks = this._responseChunksAwaitingCaching.get(
-      context.boxID,
+      context.requestID,
     ) as RawResponseDataWithMaybeCacheMetadata[];
 
-    this._responseChunksAwaitingCaching.delete(context.boxID);
+    this._responseChunksAwaitingCaching.delete(context.requestID);
     return mergeResponseDataSets([...responseChunks, normalizedResponseData]);
   }
 
@@ -1170,12 +1170,12 @@ export class CacheManager implements CacheManagerDef {
     normalizedResponseData: RawResponseDataWithMaybeCacheMetadata,
     context: CacheManagerContext,
   ) {
-    const responseChunks = this._responseChunksAwaitingCaching.get(context.boxID);
+    const responseChunks = this._responseChunksAwaitingCaching.get(context.requestID);
 
     if (responseChunks) {
-      this._responseChunksAwaitingCaching.set(context.boxID, [...responseChunks, normalizedResponseData]);
+      this._responseChunksAwaitingCaching.set(context.requestID, [...responseChunks, normalizedResponseData]);
     } else {
-      this._responseChunksAwaitingCaching.set(context.boxID, [normalizedResponseData]);
+      this._responseChunksAwaitingCaching.set(context.requestID, [normalizedResponseData]);
     }
   }
 }

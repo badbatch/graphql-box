@@ -1,7 +1,13 @@
 import Cachemap from "@cachemap/core";
 import map from "@cachemap/map";
-import { CACHE_ENTRY_ADDED, CACHE_ENTRY_QUERIED, CacheManager } from "@graphql-box/cache-manager";
-import { DEFAULT_TYPE_ID_KEY, DebugManagerDef, PlainObjectMap } from "@graphql-box/core";
+import { CacheManager } from "@graphql-box/cache-manager";
+import {
+  CACHE_ENTRY_ADDED,
+  CACHE_ENTRY_QUERIED,
+  DEFAULT_TYPE_ID_KEY,
+  DebugManagerDef,
+  PlainObjectMap,
+} from "@graphql-box/core";
 import {
   getRequestContext,
   getRequestData,

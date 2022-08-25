@@ -191,7 +191,7 @@ The `debugManager` curried function returns an instance of the `DebugManager`. T
 The module allows you to monitor a range of events that happen within the lifecycle of a query, mutation or
 subscription, including cache entries being added or queried and request execution performance.
 
-You can track a single request from a client to the server and back through the `DebugManager` using the `boxID`. This
+You can track a single request from a client to the server and back through the `DebugManager` using the `requestID`. This
 identifier is unique for each client request and is included in each request payload to the server and is sent back
 in the response to the client.
 

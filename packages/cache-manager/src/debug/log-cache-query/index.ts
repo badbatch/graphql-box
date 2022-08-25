@@ -1,5 +1,4 @@
-import { RequestContext } from "@graphql-box/core";
-import { CACHE_ENTRY_QUERIED } from "../../consts";
+import { CACHE_ENTRY_QUERIED, RequestContext } from "@graphql-box/core";
 
 export default function logCacheQuery() {
   return (
@@ -13,7 +12,7 @@ export default function logCacheQuery() {
     descriptor.value = async function descriptorValue(...args: any[]): Promise<any> {
       try {
         return new Promise(async resolve => {
-          const { debugManager, requestFieldCacheKey, ...otherContext } = args[3] as RequestContext & {
+          const { debugManager, requestFieldCacheKey, requestID, ...otherContext } = args[3] as RequestContext & {
             requestFieldCacheKey?: string;
           };
 
@@ -33,6 +32,7 @@ export default function logCacheQuery() {
             context: otherContext,
             hash: args[1],
             options: args[2],
+            requestID,
             result,
             stats: { duration, endTime, startTime },
             ...(requestFieldCacheKey ? { decryptedCacheKey: requestFieldCacheKey } : {}),

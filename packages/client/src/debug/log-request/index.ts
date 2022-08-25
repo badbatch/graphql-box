@@ -1,5 +1,4 @@
-import { RequestContext } from "@graphql-box/core";
-import { REQUEST_EXECUTED, REQUEST_RESOLVED } from "../../consts";
+import { REQUEST_EXECUTED, REQUEST_RESOLVED, RequestContext } from "@graphql-box/core";
 
 export default function logRequest() {
   return (
@@ -13,7 +12,7 @@ export default function logRequest() {
     descriptor.value = async function descriptorValue(...args: any[]): Promise<any> {
       try {
         return new Promise(async resolve => {
-          const { debugManager, ...otherContext } = args[2] as RequestContext;
+          const { debugManager, requestID, ...otherContext } = args[2] as RequestContext;
 
           if (!debugManager) {
             resolve(await method.apply(this, args));
@@ -26,6 +25,7 @@ export default function logRequest() {
             context: otherContext,
             options: args[1],
             request: args[0],
+            requestID,
             stats: { startTime },
           });
 
@@ -38,6 +38,7 @@ export default function logRequest() {
             context: otherContext,
             options: args[1],
             request: args[0],
+            requestID,
             result,
             stats: { duration, endTime, startTime },
           });

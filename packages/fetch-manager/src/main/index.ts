@@ -1,4 +1,5 @@
 import {
+  GRAPHQL_ERROR,
   MaybeRawFetchData,
   MaybeRawResponseData,
   MaybeRequestResult,
@@ -15,7 +16,6 @@ import EventEmitter from "eventemitter3";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject, isString } from "lodash";
 import { meros } from "meros/browser";
-import { GRAPHQL_ERROR } from "../consts";
 import logFetch from "../debug/log-fetch";
 import {
   ActiveBatch,
@@ -32,8 +32,8 @@ import mergeResponseDataSets from "../helpers/mergeResponseDataSets";
 import parseFetchResult from "../helpers/parseFetchResult";
 
 export class FetchManager implements RequestManagerDef {
-  private static _getMessageContext({ boxID, operation, whitelistHash }: RequestContext, batch: boolean) {
-    return batch ? { boxID, operation } : { boxID, operation, whitelistHash };
+  private static _getMessageContext({ operation, requestID, whitelistHash }: RequestContext, batch: boolean) {
+    return batch ? { operation, requestID } : { operation, requestID, whitelistHash };
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: any): void {

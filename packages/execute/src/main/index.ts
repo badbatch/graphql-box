@@ -1,5 +1,6 @@
 import {
   DehydratedCacheMetadata,
+  GRAPHQL_ERROR,
   MaybeRawResponseData,
   MaybeRequestResult,
   PlainObjectMap,
@@ -15,7 +16,6 @@ import EventEmitter from "eventemitter3";
 import { ExecutionArgs, GraphQLFieldResolver, GraphQLSchema, execute } from "graphql";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject } from "lodash";
-import { GRAPHQL_ERROR } from "../consts";
 import logExecute from "../debug/log-execute";
 import { ConstructorOptions, GraphQLExecute, UserOptions } from "../defs";
 
@@ -55,15 +55,15 @@ export class Execute implements RequestManagerDef {
   ) {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
-    const { boxID, debugManager } = context;
+    const { debugManager, requestID } = context;
 
     const executeArgs: ExecutionArgs = {
       contextValue: {
         ...this._contextValue,
         ...contextValue,
-        boxID,
         debugManager,
         fragmentDefinitions: getFragmentDefinitions(ast),
+        requestID,
         setCacheMetadata: setCacheMetadata(_cacheMetadata),
       },
       document: ast,

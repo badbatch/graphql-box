@@ -10,14 +10,14 @@
 
 ### Properties
 
-* [boxID](messagecontext.md#boxid)
+* [requestID](messagecontext.md#boxid)
 * [hasDeferOrStream](messagecontext.md#hasdeferorstream)
 
 ## Properties
 
-###  boxID
+###  requestID
 
-• **boxID**: *string*
+• **requestID**: *string*
 
 *Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/worker-client/src/defs/index.ts#L49)*
 

@@ -1,9 +1,19 @@
 import { DebugManagerDef, PlainObjectMap } from "@graphql-box/core";
 import EventEmitter from "eventemitter3";
 import { isPlainObject, isString } from "lodash";
-import { ConstructorOptions, DebugManagerInit, LogLevel, Logger, Performance, UserOptions } from "../defs";
+import {
+  ConstructorOptions,
+  DebugManagerInit,
+  DebugManagerLocation,
+  LogLevel,
+  Logger,
+  Performance,
+  UserOptions,
+} from "../defs";
+import deriveLogOrder from "../helpers/deriveLogOrder";
 
 export class DebugManager extends EventEmitter implements DebugManagerDef {
+  private _location: DebugManagerLocation;
   private _logger: Logger | null;
   private _name: string;
   private _performance: Performance;
@@ -20,13 +30,21 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
       throw errors;
     }
 
-    this._logger = options.logger || null;
+    this._logger = options.logger ?? null;
     this._name = options.name;
     this._performance = options.performance;
+    this._location = options.location ?? "client";
   }
 
   public emit(event: string | symbol, data: PlainObjectMap, logLevel: LogLevel = "info"): boolean {
-    const updatedData = { ...data, debuggerName: this._name };
+    const updatedData = {
+      ...data,
+      debuggerName: this._name,
+      logGroup: this._deriveLogGroup(),
+      logOrder: deriveLogOrder(event),
+      timestamp: this._performance.now(),
+    };
+
     const hasListeners = super.emit(event, updatedData, logLevel);
     this._log(event, updatedData, logLevel);
     return hasListeners;
@@ -36,8 +54,23 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
     return this._performance.now();
   }
 
+  private _deriveLogGroup() {
+    switch (this._location) {
+      case "server":
+        return 3;
+
+      case "workerClient":
+        return 1;
+
+      default:
+        return 2;
+    }
+  }
+
   private _log(message: any, data: PlainObjectMap, logLevel?: LogLevel): void {
-    if (this._logger) this._logger.log(message, data, logLevel);
+    if (this._logger) {
+      this._logger.log(message, data, logLevel);
+    }
   }
 }
 

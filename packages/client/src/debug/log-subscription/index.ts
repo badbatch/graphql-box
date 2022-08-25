@@ -1,5 +1,4 @@
-import { RequestContext } from "@graphql-box/core";
-import { SUBSCRIPTION_EXECUTED, SUBSCRIPTION_RESOLVED } from "../../consts";
+import { RequestContext, RequestData, SUBSCRIPTION_EXECUTED, SUBSCRIPTION_RESOLVED } from "@graphql-box/core";
 
 export default function logSubscription() {
   return (
@@ -13,7 +12,8 @@ export default function logSubscription() {
     descriptor.value = async function descriptorValue(...args: any[]): Promise<any> {
       try {
         return new Promise(async resolve => {
-          const { debugManager, ...otherContext } = args[3] as RequestContext;
+          const { ast, ...rest } = args[0] as RequestData;
+          const { debugManager, requestID, ...otherContext } = args[3] as RequestContext;
 
           if (!debugManager) {
             resolve(await method.apply(this, args));
@@ -26,7 +26,8 @@ export default function logSubscription() {
             context: otherContext,
             options: args[2],
             rawResponseData: args[1],
-            requestData: args[0],
+            requestData: rest,
+            requestID,
             stats: { startTime },
           });
 
@@ -39,7 +40,8 @@ export default function logSubscription() {
             context: otherContext,
             options: args[2],
             rawResponseData: args[1],
-            requestData: args[0],
+            requestData: rest,
+            requestID,
             result,
             stats: { duration, endTime, startTime },
           });

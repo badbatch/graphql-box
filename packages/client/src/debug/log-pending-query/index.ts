@@ -1,4 +1,4 @@
-import { PENDING_QUERY_ADDED } from "../../consts";
+import { PENDING_QUERY_ADDED } from "@graphql-box/core";
 import { PendingQueryData } from "../../defs";
 
 export default function logPendingQuery() {
@@ -10,7 +10,7 @@ export default function logPendingQuery() {
       try {
         const { context, options, requestData } = args[1] as PendingQueryData;
         const { hash } = requestData;
-        const { debugManager, ...otherContext } = context;
+        const { debugManager, requestID, ...otherContext } = context;
 
         if (!debugManager) {
           return method.apply(this, args);
@@ -23,6 +23,7 @@ export default function logPendingQuery() {
           context: otherContext,
           options,
           pendingRequestHash: hash,
+          requestID,
         });
 
         return result;

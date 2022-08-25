@@ -12,7 +12,7 @@
 
 ### Properties
 
-* [boxID](cachemanagercontext.md#boxid)
+* [requestID](cachemanagercontext.md#requestid)
 * [debugManager](cachemanagercontext.md#debugmanager)
 * [fieldTypeMap](cachemanagercontext.md#fieldtypemap)
 * [fragmentDefinitions](cachemanagercontext.md#optional-fragmentdefinitions)
@@ -27,11 +27,11 @@
 
 ## Properties
 
-###  boxID
+###  requestID
 
-• **boxID**: *string*
+• **requestID**: *string*
 
-*Inherited from [CacheManagerContext](cachemanagercontext.md).[boxID](cachemanagercontext.md#boxid)*
+*Inherited from [CacheManagerContext](cachemanagercontext.md).[requestID](cachemanagercontext.md#boxid)*
 
 Defined in core/lib/types/defs/index.d.ts:128
 

@@ -19,8 +19,8 @@ import logRequest from "../debug/log-request";
 import { MessageContext, MessageResponsePayload, PendingResolver, PendingTracker, UserOptions } from "../defs";
 
 export default class WorkerClient {
-  private static _getMessageContext({ boxID, hasDeferOrStream = false }: RequestContext): MessageContext {
-    return { boxID, hasDeferOrStream };
+  private static _getMessageContext({ hasDeferOrStream = false, requestID }: RequestContext): MessageContext {
+    return { hasDeferOrStream, requestID };
   }
 
   private _cache: WorkerCachemap;
@@ -85,13 +85,13 @@ export default class WorkerClient {
     context: MaybeRequestContext = {},
   ): RequestContext {
     return {
-      boxID: uuid(),
       debugManager: this._debugManager,
       fieldTypeMap: new Map(),
       operation,
       operationName: "",
       queryFiltered: false,
       request,
+      requestID: uuid(),
       whitelistHash: hashRequest(request),
       ...context,
     };
@@ -109,14 +109,14 @@ export default class WorkerClient {
     }
 
     const { _cacheMetadata, ...otherProps } = result;
-    const response: MaybeRequestResult = deserializeErrors({ ...otherProps, requestID: context.boxID });
+    const response: MaybeRequestResult = deserializeErrors({ ...otherProps, requestID: context.requestID });
 
     if (_cacheMetadata) {
       response._cacheMetadata = rehydrateCacheMetadata(_cacheMetadata);
     }
 
     if (method === REQUEST) {
-      const pending = this._pending.get(context.boxID);
+      const pending = this._pending.get(context.requestID);
 
       if (!pending) {
         return;
@@ -124,7 +124,7 @@ export default class WorkerClient {
 
       pending.resolve(response);
     } else if (method === SUBSCRIBE || context.hasDeferOrStream) {
-      this._eventEmitter.emit(context.boxID, response);
+      this._eventEmitter.emit(context.requestID, response);
     }
   };
 
@@ -141,7 +141,7 @@ export default class WorkerClient {
             type: GRAPHQL_BOX,
           });
 
-          this._pending.set(context.boxID, { resolve });
+          this._pending.set(context.requestID, { resolve });
         });
       }
 
@@ -153,7 +153,7 @@ export default class WorkerClient {
         type: GRAPHQL_BOX,
       });
 
-      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, context.boxID);
+      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, context.requestID);
       return eventAsyncIterator.getIterator();
     } catch (error) {
       return { errors: castArray(error) };
@@ -171,7 +171,7 @@ export default class WorkerClient {
         type: GRAPHQL_BOX,
       });
 
-      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, context.boxID);
+      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, context.requestID);
       return eventAsyncIterator.getIterator();
     } catch (error) {
       return { errors: castArray(error) };

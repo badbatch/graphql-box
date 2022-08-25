@@ -1,4 +1,5 @@
 import {
+  GRAPHQL_ERROR,
   MaybeRequestResult,
   RequestContext,
   RequestData,
@@ -13,8 +14,8 @@ import { isPlainObject } from "lodash";
 import { ConstructorOptions, UserOptions } from "../defs";
 
 export class WebsocketManager implements SubscriptionsManagerDef {
-  private static _getMessageContext({ boxID, operation, whitelistHash }: RequestContext) {
-    return { boxID, operation, whitelistHash };
+  private static _getMessageContext({ operation, requestID, whitelistHash }: RequestContext) {
+    return { operation, requestID, whitelistHash };
   }
 
   private _eventEmitter: EventEmitter;
@@ -60,7 +61,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
 
       this._subscriptions.set(hash, result => {
         if (result.errors) {
-          debugManager?.emit("GRAPHQL_ERROR", result.errors, "error");
+          debugManager?.emit(GRAPHQL_ERROR, result.errors, "error");
         }
 
         return subscriberResolver(result);

@@ -6,6 +6,11 @@ export interface Logger {
 
 export interface UserOptions {
   /**
+   * Where the debug manager is being used.
+   */
+  location?: DebugManagerLocation;
+
+  /**
    * The logger to use.
    */
   logger?: Logger;
@@ -26,6 +31,8 @@ export interface UserOptions {
 export type ConstructorOptions = UserOptions;
 
 export type DebugManagerInit = () => DebugManagerDef;
+
+export type DebugManagerLocation = "client" | "server" | "worker" | "workerClient";
 
 export type LogLevel = "error" | "warn" | "info" | "http" | "verbose" | "debug" | "silly";
 

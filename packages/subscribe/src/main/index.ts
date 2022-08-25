@@ -1,5 +1,6 @@
 import {
   DehydratedCacheMetadata,
+  GRAPHQL_ERROR,
   MaybeRawResponseData,
   MaybeRequestResult,
   PlainObjectMap,
@@ -53,15 +54,15 @@ export class Subscribe {
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
     const { contextValue = {}, fieldResolver, operationName, rootValue, subscribeFieldResolver } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
-    const { boxID, debugManager } = context;
+    const { debugManager, requestID } = context;
 
     const subscribeArgs: SubscribeArgs = {
       contextValue: {
         ...this._contextValue,
         ...contextValue,
-        boxID,
         debugManager,
         fragmentDefinitions: getFragmentDefinitions(ast),
+        requestID,
         setCacheMetadata: setCacheMetadata(_cacheMetadata),
       },
       document: ast,
@@ -80,7 +81,7 @@ export class Subscribe {
           context.normalizePatchResponseData = !!("path" in result);
 
           if (result.errors) {
-            debugManager?.emit("GRAPHQL_ERROR", result.errors, "error");
+            debugManager?.emit(GRAPHQL_ERROR, result.errors, "error");
           }
 
           this._eventEmitter.emit(

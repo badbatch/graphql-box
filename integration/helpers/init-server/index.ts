@@ -2,7 +2,7 @@ import Cachemap from "@cachemap/core";
 import cacheManager from "@graphql-box/cache-manager";
 import Client from "@graphql-box/client";
 import { DEFAULT_TYPE_ID_KEY } from "@graphql-box/core";
-import debugManager from "@graphql-box/debug-manager";
+import debugManager, { DebugManagerLocation } from "@graphql-box/debug-manager";
 import execute from "@graphql-box/execute";
 import requestParser from "@graphql-box/request-parser";
 import subscribe from "@graphql-box/subscribe";
@@ -30,6 +30,7 @@ export default function initServer({ cachemapStore, debuggerName = "SERVER", typ
       typeCacheDirectives,
     }),
     debugManager: debugManager({
+      location: debuggerName.toLowerCase() as DebugManagerLocation,
       name: debuggerName,
       performance,
     }),

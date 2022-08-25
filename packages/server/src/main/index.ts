@@ -72,7 +72,7 @@ export default class Server {
         if (this._requestWhitelist.length && !this._requestWhitelist.includes(whitelistHash)) {
           responses.batch[requestHash] = serializeErrors({
             errors: [new Error("@graphql-box/server: The request is not whitelisted.")],
-            requestID: context.boxID as string,
+            requestID: context.requestID as string,
           });
 
           return;
@@ -82,7 +82,7 @@ export default class Server {
           const requestTimer = setTimeout(() => {
             responses.batch[requestHash] = serializeErrors({
               errors: [new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`)],
-              requestID: context.boxID as string,
+              requestID: context.requestID as string,
             });
           }, this._requestTimeout);
 
@@ -101,7 +101,7 @@ export default class Server {
         } catch (error) {
           responses.batch[requestHash] = serializeErrors({
             errors: castArray(error),
-            requestID: context.boxID as string,
+            requestID: context.requestID as string,
           });
         }
       }),

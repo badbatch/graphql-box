@@ -152,7 +152,6 @@ export interface FragmentDefinitionNodeMap {
 export type ValidOperations = "mutation" | "query" | "subscription";
 
 export interface RequestContext {
-  boxID: string;
   debugManager: DebugManagerDef | null;
   fieldTypeMap: FieldTypeMap;
   hasDeferOrStream?: boolean;
@@ -161,11 +160,11 @@ export interface RequestContext {
   operationName: string;
   queryFiltered: boolean;
   request: string;
+  requestID: string;
   whitelistHash: string;
 }
 
 export interface MaybeRequestContext {
-  boxID?: string;
   debugManager?: DebugManagerDef | null;
   fieldTypeMap?: FieldTypeMap;
   hasDeferOrStream?: boolean;
@@ -174,6 +173,7 @@ export interface MaybeRequestContext {
   operationName?: string;
   queryFiltered?: boolean;
   request?: string;
+  requestID?: string;
   whitelistHash?: string;
 }
 

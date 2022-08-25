@@ -8,6 +8,7 @@ import {
   MaybeRequestContext,
   MaybeRequestResult,
   MaybeResponseData,
+  PENDING_QUERY_RESOLVED,
   QUERY,
   RawResponseDataWithMaybeCacheMetadata,
   RequestContext,
@@ -39,9 +40,9 @@ export default class Client {
   private static _resolve(
     { cacheMetadata, ...rest }: MaybeResponseData,
     options: RequestOptions,
-    { boxID }: RequestContext,
+    { requestID }: RequestContext,
   ): MaybeRequestResult {
-    const result: MaybeRequestResult = { ...rest, requestID: boxID };
+    const result: MaybeRequestResult = { ...rest, requestID };
 
     if (options.returnCacheMetadata && cacheMetadata) {
       result._cacheMetadata = cacheMetadata;
@@ -170,13 +171,13 @@ export default class Client {
     context: MaybeRequestContext,
   ): RequestContext {
     return {
-      boxID: uuid(),
       debugManager: this._debugManager,
       fieldTypeMap: new Map(),
       operation,
       operationName: "",
       queryFiltered: false,
       request,
+      requestID: uuid(),
       whitelistHash: hashRequest(request),
       ...context,
     };
@@ -326,7 +327,18 @@ export default class Client {
     }
 
     pendingRequests.forEach(async ({ context, options, requestData, resolve }) => {
+      const { debugManager, requestID, ...otherContext } = context;
+
       if (activeRquestData.hash === requestData.hash || activeResponseData.errors?.length) {
+        debugManager?.emit(PENDING_QUERY_RESOLVED, {
+          activeRequestHash: activeRquestData.hash,
+          context: otherContext,
+          options,
+          pendingRequestHash: requestData.hash,
+          requestID,
+          result: activeResponseData,
+        });
+
         resolve(Client._resolve(activeResponseData, options, context));
       } else if (activeResponseData.data && activeResponseData.cacheMetadata) {
         const filteredResponseData = filterResponseData(
@@ -339,6 +351,15 @@ export default class Client {
           },
           { active: activeContext, pending: context },
         );
+
+        debugManager?.emit(PENDING_QUERY_RESOLVED, {
+          activeRequestHash: activeRquestData.hash,
+          context: otherContext,
+          options,
+          pendingRequestHash: requestData.hash,
+          requestID,
+          result: filteredResponseData,
+        });
 
         await this._cacheManager.setQueryResponseCacheEntry(requestData, filteredResponseData, options, context);
         resolve(Client._resolve(filteredResponseData, options, context));
