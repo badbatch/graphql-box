@@ -21,7 +21,7 @@
 
 • **args**: *PlainObjectMap*
 
-*Defined in [packages/helpers/src/defs/index.ts:77](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/helpers/src/defs/index.ts#L77)*
+*Defined in [packages/helpers/src/defs/index.ts:77](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/helpers/src/defs/index.ts#L77)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [packages/helpers/src/defs/index.ts:78](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/helpers/src/defs/index.ts#L78)*
+*Defined in [packages/helpers/src/defs/index.ts:78](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/helpers/src/defs/index.ts#L78)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **parentKind**: *string*
 
-*Defined in [packages/helpers/src/defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/helpers/src/defs/index.ts#L79)*
+*Defined in [packages/helpers/src/defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/helpers/src/defs/index.ts#L79)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **parentName**: *string*
 
-*Defined in [packages/helpers/src/defs/index.ts:80](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/helpers/src/defs/index.ts#L80)*
+*Defined in [packages/helpers/src/defs/index.ts:80](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/helpers/src/defs/index.ts#L80)*

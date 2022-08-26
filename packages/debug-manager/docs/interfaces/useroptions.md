@@ -10,17 +10,28 @@
 
 ### Properties
 
+* [location](useroptions.md#optional-location)
 * [logger](useroptions.md#optional-logger)
 * [name](useroptions.md#name)
 * [performance](useroptions.md#performance)
 
 ## Properties
 
+### `Optional` location
+
+• **location**? : *[DebugManagerLocation](../README.md#debugmanagerlocation)*
+
+*Defined in [packages/debug-manager/src/defs/index.ts:11](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/debug-manager/src/defs/index.ts#L11)*
+
+Where the debug manager is being used.
+
+___
+
 ### `Optional` logger
 
 • **logger**? : *[Logger](logger.md)*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:11](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/debug-manager/src/defs/index.ts#L11)*
+*Defined in [packages/debug-manager/src/defs/index.ts:16](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/debug-manager/src/defs/index.ts#L16)*
 
 The logger to use.
 
@@ -30,7 +41,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:17](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/debug-manager/src/defs/index.ts#L17)*
+*Defined in [packages/debug-manager/src/defs/index.ts:22](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/debug-manager/src/defs/index.ts#L22)*
 
 The name of the debug manager. This is used
 to distinguish the logs of multiple debug managers.
@@ -41,7 +52,7 @@ ___
 
 • **performance**: *[Performance](performance.md)*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:23](https://github.com/badbatch/graphql-box/blob/3fa1e6d/packages/debug-manager/src/defs/index.ts#L23)*
+*Defined in [packages/debug-manager/src/defs/index.ts:28](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/debug-manager/src/defs/index.ts#L28)*
 
 The performance object to use for measuring method
 execution speeds.

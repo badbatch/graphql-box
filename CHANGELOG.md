@@ -1,3 +1,9 @@
+### 3.10.0 (2022-08-26)
+
+##### Bug Fixes
+
+*  various logging improvements/fixes ([35dc44a9](https://github.com/badbatch/graphql-box/commit/35dc44a9244534c5df3bf3499bd18d51f6bd1cb1))
+
 #### 3.9.3 (2022-08-23)
 
 ##### Bug Fixes
