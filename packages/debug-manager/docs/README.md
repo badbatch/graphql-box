@@ -18,7 +18,7 @@
 
 * [ConstructorOptions](README.md#constructoroptions)
 * [DebugManagerInit](README.md#debugmanagerinit)
-* [DebugManagerLocation](README.md#debugmanagerlocation)
+* [Environment](README.md#environment)
 * [LogLevel](README.md#loglevel)
 
 ### Variables
@@ -35,7 +35,7 @@
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:31](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/debug-manager/src/defs/index.ts#L31)*
+*Defined in [packages/debug-manager/src/defs/index.ts:31](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/defs/index.ts#L31)*
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 Ƭ **DebugManagerInit**: *function*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:33](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/debug-manager/src/defs/index.ts#L33)*
+*Defined in [packages/debug-manager/src/defs/index.ts:33](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/defs/index.ts#L33)*
 
 #### Type declaration:
 
@@ -51,11 +51,11 @@ ___
 
 ___
 
-###  DebugManagerLocation
+###  Environment
 
-Ƭ **DebugManagerLocation**: *"client" | "server" | "worker" | "workerClient"*
+Ƭ **Environment**: *"client" | "server" | "worker" | "workerClient"*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/debug-manager/src/defs/index.ts#L35)*
+*Defined in [packages/debug-manager/src/defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/defs/index.ts#L35)*
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 Ƭ **LogLevel**: *"error" | "warn" | "info" | "http" | "verbose" | "debug" | "silly"*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/debug-manager/src/defs/index.ts#L37)*
+*Defined in [packages/debug-manager/src/defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/defs/index.ts#L37)*
 
 ## Variables
 
@@ -71,7 +71,7 @@ ___
 
 • **performance**: *Performance*
 
-*Defined in [packages/debug-manager/src/index.test.ts:20](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/debug-manager/src/index.test.ts#L20)*
+*Defined in [packages/debug-manager/src/index.test.ts:20](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/index.test.ts#L20)*
 
 ## Functions
 
@@ -79,7 +79,7 @@ ___
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *[DebugManagerInit](README.md#debugmanagerinit)*
 
-*Defined in [packages/debug-manager/src/main/index.ts:77](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/debug-manager/src/main/index.ts#L77)*
+*Defined in [packages/debug-manager/src/main/index.ts:70](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/main/index.ts#L70)*
 
 **Parameters:**
 

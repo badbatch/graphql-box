@@ -27,7 +27,7 @@
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [defs/index.ts:9](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/websocket-manager/src/defs/index.ts#L9)*
+*Defined in [defs/index.ts:9](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/websocket-manager/src/defs/index.ts#L9)*
 
 ## Functions
 
@@ -35,7 +35,7 @@
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *SubscriptionsManagerInit*
 
-*Defined in [main/index.ts:100](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/websocket-manager/src/main/index.ts#L100)*
+*Defined in [main/index.ts:100](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/websocket-manager/src/main/index.ts#L100)*
 
 **Parameters:**
 
@@ -51,7 +51,7 @@ ___
 
 ▸ **onOpen**(`websocket`: WebSocket): *Promise‹void›*
 
-*Defined in [index.test.ts:7](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/websocket-manager/src/index.test.ts#L7)*
+*Defined in [index.test.ts:7](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/websocket-manager/src/index.test.ts#L7)*
 
 **Parameters:**
 

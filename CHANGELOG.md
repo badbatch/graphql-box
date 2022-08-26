@@ -1,3 +1,9 @@
+#### 3.10.1 (2022-08-26)
+
+##### Refactors
+
+*  change log prop to environment ([cd605b6c](https://github.com/badbatch/graphql-box/commit/cd605b6c51173e0c93b2f5fba71dfdf75385b558))
+
 ### 3.10.0 (2022-08-26)
 
 ##### Bug Fixes

@@ -89,7 +89,7 @@ ___
 
 • **data**? : *Resource*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/connection-resolver/src/defs/index.ts#L55)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/connection-resolver/src/defs/index.ts#L55)*
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 • **errors**? : *Error[]*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:56](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/connection-resolver/src/defs/index.ts#L56)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:56](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/connection-resolver/src/defs/index.ts#L56)*
 
 ___
 

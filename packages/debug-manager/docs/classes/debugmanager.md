@@ -112,7 +112,7 @@ interface EventTypes {
 
 \+ **new DebugManager**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[DebugManager](debugmanager.md)*
 
-*Defined in [packages/debug-manager/src/main/index.ts:19](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/debug-manager/src/main/index.ts#L19)*
+*Defined in [packages/debug-manager/src/main/index.ts:11](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/main/index.ts#L11)*
 
 **Parameters:**
 
@@ -172,7 +172,7 @@ ___
 
 *Overrides void*
 
-*Defined in [packages/debug-manager/src/main/index.ts:39](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/debug-manager/src/main/index.ts#L39)*
+*Defined in [packages/debug-manager/src/main/index.ts:31](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/main/index.ts#L31)*
 
 **Parameters:**
 
@@ -249,7 +249,7 @@ ___
 
 ▸ **now**(): *number*
 
-*Defined in [packages/debug-manager/src/main/index.ts:53](https://github.com/badbatch/graphql-box/blob/35dc44a/packages/debug-manager/src/main/index.ts#L53)*
+*Defined in [packages/debug-manager/src/main/index.ts:46](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/main/index.ts#L46)*
 
 **Returns:** *number*
 
