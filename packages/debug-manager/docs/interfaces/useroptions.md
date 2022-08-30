@@ -11,7 +11,7 @@
 ### Properties
 
 * [environment](useroptions.md#optional-environment)
-* [logger](useroptions.md#optional-logger)
+* [log](useroptions.md#optional-log)
 * [name](useroptions.md#name)
 * [performance](useroptions.md#performance)
 
@@ -21,19 +21,19 @@
 
 • **environment**? : *[Environment](../README.md#environment)*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:11](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/defs/index.ts#L11)*
+*Defined in [packages/debug-manager/src/defs/index.ts:9](https://github.com/badbatch/graphql-box/blob/692888f/packages/debug-manager/src/defs/index.ts#L9)*
 
 Where the debug manager is being used.
 
 ___
 
-### `Optional` logger
+### `Optional` log
 
-• **logger**? : *[Logger](logger.md)*
+• **log**? : *[Log](../README.md#log)*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:16](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/defs/index.ts#L16)*
+*Defined in [packages/debug-manager/src/defs/index.ts:14](https://github.com/badbatch/graphql-box/blob/692888f/packages/debug-manager/src/defs/index.ts#L14)*
 
-The logger to use.
+The callback to pass log messages to your logger.
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:22](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/defs/index.ts#L22)*
+*Defined in [packages/debug-manager/src/defs/index.ts:20](https://github.com/badbatch/graphql-box/blob/692888f/packages/debug-manager/src/defs/index.ts#L20)*
 
 The name of the debug manager. This is used
 to distinguish the logs of multiple debug managers.
@@ -52,7 +52,7 @@ ___
 
 • **performance**: *[Performance](performance.md)*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:28](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/defs/index.ts#L28)*
+*Defined in [packages/debug-manager/src/defs/index.ts:26](https://github.com/badbatch/graphql-box/blob/692888f/packages/debug-manager/src/defs/index.ts#L26)*
 
 The performance object to use for measuring method
 execution speeds.

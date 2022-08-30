@@ -49,6 +49,7 @@
 * [eventNames](debugmanager.md#eventnames)
 * [listenerCount](debugmanager.md#listenercount)
 * [listeners](debugmanager.md#listeners)
+* [log](debugmanager.md#log)
 * [now](debugmanager.md#now)
 * [off](debugmanager.md#off)
 * [on](debugmanager.md#on)
@@ -112,7 +113,7 @@ interface EventTypes {
 
 \+ **new DebugManager**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[DebugManager](debugmanager.md)*
 
-*Defined in [packages/debug-manager/src/main/index.ts:11](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/main/index.ts#L11)*
+*Defined in [packages/debug-manager/src/main/index.ts:18](https://github.com/badbatch/graphql-box/blob/692888f/packages/debug-manager/src/main/index.ts#L18)*
 
 **Parameters:**
 
@@ -168,19 +169,24 @@ ___
 
 ###  emit
 
-▸ **emit**(`event`: string | symbol, `data`: PlainObjectMap, `logLevel`: [LogLevel](../README.md#loglevel)): *boolean*
+▸ **emit**‹**T**›(`event`: T, ...`args`: EventEmitter.EventArgs‹EventTypes, T›): *boolean*
 
-*Overrides void*
+*Inherited from [DebugManager](debugmanager.md).[emit](debugmanager.md#emit)*
 
-*Defined in [packages/debug-manager/src/main/index.ts:31](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/main/index.ts#L31)*
+Defined in node_modules/eventemitter3/index.d.ts:32
+
+Calls each of the listeners registered for a given event.
+
+**Type parameters:**
+
+▪ **T**: *EventEmitter.EventNames‹EventTypes›*
 
 **Parameters:**
 
-Name | Type | Default |
------- | ------ | ------ |
-`event` | string &#124; symbol | - |
-`data` | PlainObjectMap | - |
-`logLevel` | [LogLevel](../README.md#loglevel) | "info" |
+Name | Type |
+------ | ------ |
+`event` | T |
+`...args` | EventEmitter.EventArgs‹EventTypes, T› |
 
 **Returns:** *boolean*
 
@@ -245,11 +251,29 @@ Name | Type |
 
 ___
 
+###  log
+
+▸ **log**(`message`: string, `data`: LogData, `logLevel`: LogLevel): *void*
+
+*Defined in [packages/debug-manager/src/main/index.ts:38](https://github.com/badbatch/graphql-box/blob/692888f/packages/debug-manager/src/main/index.ts#L38)*
+
+**Parameters:**
+
+Name | Type | Default |
+------ | ------ | ------ |
+`message` | string | - |
+`data` | LogData | - |
+`logLevel` | LogLevel | "info" |
+
+**Returns:** *void*
+
+___
+
 ###  now
 
 ▸ **now**(): *number*
 
-*Defined in [packages/debug-manager/src/main/index.ts:46](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/debug-manager/src/main/index.ts#L46)*
+*Defined in [packages/debug-manager/src/main/index.ts:71](https://github.com/badbatch/graphql-box/blob/692888f/packages/debug-manager/src/main/index.ts#L71)*
 
 **Returns:** *number*
 

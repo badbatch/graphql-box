@@ -26,7 +26,7 @@
 
 \+ **new FetchManager**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[FetchManager](fetchmanager.md)*
 
-*Defined in [main/index.ts:73](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/fetch-manager/src/main/index.ts#L73)*
+*Defined in [main/index.ts:73](https://github.com/badbatch/graphql-box/blob/692888f/packages/fetch-manager/src/main/index.ts#L73)*
 
 **Parameters:**
 
@@ -40,9 +40,9 @@ Name | Type |
 
 ###  execute
 
-▸ **execute**(`__namedParameters`: object, `options`: RequestOptions, `context`: RequestContext, `executeResolver`: RequestResolver): *Promise‹MaybeRawResponseData | AsyncIterableIterator‹undefined | MaybeRequestResult››*
+▸ **execute**(`__namedParameters`: object, `options`: RequestOptions, `context`: RequestContext, `executeResolver`: RequestResolver): *Promise‹MaybeRawResponseData | object | AsyncIterableIterator‹undefined | MaybeRequestResult››*
 
-*Defined in [main/index.ts:97](https://github.com/badbatch/graphql-box/blob/cd605b6/packages/fetch-manager/src/main/index.ts#L97)*
+*Defined in [main/index.ts:97](https://github.com/badbatch/graphql-box/blob/692888f/packages/fetch-manager/src/main/index.ts#L97)*
 
 **Parameters:**
 
@@ -59,4 +59,4 @@ Name | Type |
 
 ▪ **executeResolver**: *RequestResolver*
 
-**Returns:** *Promise‹MaybeRawResponseData | AsyncIterableIterator‹undefined | MaybeRequestResult››*
+**Returns:** *Promise‹MaybeRawResponseData | object | AsyncIterableIterator‹undefined | MaybeRequestResult››*

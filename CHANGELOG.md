@@ -1,3 +1,9 @@
+### 3.11.0 (2022-08-30)
+
+##### Refactors
+
+*  change logging to make it fit for purpose ([692888fc](https://github.com/badbatch/graphql-box/commit/692888fc7d26d169c58492413487e9ed10080951))
+
 #### 3.10.1 (2022-08-26)
 
 ##### Refactors
