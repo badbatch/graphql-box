@@ -14,7 +14,7 @@ export default function initWorkerClient({ worker }: InitWorkerClientOptions): W
     cache: new WorkerCachemap({ name: "test", type: "someType", worker }),
     debugManager: debugManager({
       environment: camelCase(name) as Environment,
-      logger: { log },
+      log,
       name,
       performance,
     }),

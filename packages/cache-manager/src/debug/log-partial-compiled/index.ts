@@ -11,7 +11,7 @@ export default function logPartialCompiled() {
 
     descriptor.value = async function descriptorValue(...args: any[]): Promise<any> {
       return new Promise<void>(async resolve => {
-        const { debugManager, requestID, ...otherContext } = args[3] as RequestContext;
+        const { debugManager, ...otherContext } = args[3] as RequestContext;
 
         if (!debugManager) {
           await method.apply(this, args);
@@ -25,12 +25,11 @@ export default function logPartialCompiled() {
         const duration = endTime - startTime;
         resolve();
 
-        debugManager.emit(PARTIAL_QUERY_COMPILED, {
+        debugManager.log(PARTIAL_QUERY_COMPILED, {
           context: otherContext,
-          hash: args[0],
           options: args[2],
-          partialQueryResponse: args[1],
-          requestID,
+          requestHash: args[0],
+          result: args[1],
           stats: { duration, endTime, startTime },
         });
       });

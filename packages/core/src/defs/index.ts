@@ -2,6 +2,7 @@ import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
 import EventEmitter from "eventemitter3";
 import { DocumentNode, FragmentDefinitionNode, GraphQLFieldResolver, GraphQLNamedType } from "graphql";
 import { ErrorObject } from "serialize-error";
+import { JsonValue } from "type-fest";
 import WebSocket from "ws";
 
 export type Maybe<T> = null | undefined | T;
@@ -115,7 +116,30 @@ export interface ServerSocketRequestOptions extends ServerRequestOptions {
 
 export type CacheTypes = "dataEntities" | "queryResponses" | "requestFieldPaths";
 
+export type CacheHeaders = Headers | { cacheControl?: string; etag?: string };
+
+export interface CachemapOptions {
+  cacheHeaders: CacheHeaders;
+  tag?: any;
+}
+
+export type LogData = {
+  cachemapOptions?: CachemapOptions;
+  context: Omit<RequestContext, "debugManager">;
+  options?: RequestOptions;
+  result?: MaybeRequestResult & { cacheMetadata?: CacheMetadata };
+  stats?: {
+    duratioin: number;
+    endTime: number;
+    startTime: number;
+  };
+  value?: JsonValue;
+};
+
+export type LogLevel = "error" | "warn" | "info" | "http" | "verbose" | "debug" | "silly";
+
 export interface DebugManagerDef extends EventEmitter {
+  log(message: string, data: PlainObjectMap, logLevel?: LogLevel): void;
   now(): number;
 }
 

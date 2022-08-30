@@ -1,4 +1,5 @@
 import { FETCH_EXECUTED, FETCH_RESOLVED, RequestContext, RequestData } from "@graphql-box/core";
+import { isAsyncIterable } from "iterall";
 
 export default function logFetch() {
   return (
@@ -12,8 +13,8 @@ export default function logFetch() {
     descriptor.value = async function descriptorValue(...args: any[]): Promise<any> {
       try {
         return new Promise(async resolve => {
-          const { ast, ...rest } = args[0] as RequestData;
-          const { debugManager, requestID, ...otherContext } = args[2] as RequestContext;
+          const { hash } = args[0] as RequestData;
+          const { debugManager, ...otherContext } = args[2] as RequestContext;
 
           if (!debugManager) {
             resolve(await method.apply(this, args));
@@ -22,11 +23,10 @@ export default function logFetch() {
 
           const startTime = debugManager.now();
 
-          debugManager.emit(FETCH_EXECUTED, {
+          debugManager.log(FETCH_EXECUTED, {
             context: otherContext,
             options: args[1],
-            requestData: rest,
-            requestID,
+            requestHash: hash,
             stats: { startTime },
           });
 
@@ -35,12 +35,17 @@ export default function logFetch() {
           const duration = endTime - startTime;
           resolve(result);
 
-          debugManager.emit(FETCH_RESOLVED, {
+          if (isAsyncIterable(result)) {
+            return;
+          }
+
+          const { headers, ...otherResult } = result;
+
+          debugManager.log(FETCH_RESOLVED, {
             context: otherContext,
             options: args[1],
-            requestData: rest,
-            requestID,
-            result,
+            requestHash: hash,
+            result: otherResult,
             stats: { duration, endTime, startTime },
           });
         });

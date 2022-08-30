@@ -1,6 +1,6 @@
 import {
   DehydratedCacheMetadata,
-  GRAPHQL_ERROR,
+  EXECUTE_RESOLVED,
   MaybeRawResponseData,
   MaybeRequestResult,
   PlainObjectMap,
@@ -55,7 +55,7 @@ export class Execute implements RequestManagerDef {
   ) {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
-    const { debugManager, requestID } = context;
+    const { debugManager, requestID, ...otherContext } = context;
 
     const executeArgs: ExecutionArgs = {
       contextValue: {
@@ -77,24 +77,26 @@ export class Execute implements RequestManagerDef {
       const executeResult = await this._execute(executeArgs);
 
       if (!isAsyncIterable(executeResult)) {
-        if (executeResult.errors) {
-          debugManager?.emit(GRAPHQL_ERROR, executeResult.errors, "error");
-        }
-
         return { ...executeResult, _cacheMetadata };
       }
 
       forAwaitEach(executeResult, async result => {
         context.normalizePatchResponseData = !!("path" in result);
 
-        if (result.errors) {
-          debugManager?.emit(GRAPHQL_ERROR, result.errors, "error");
-        }
+        const enrichedResult = ({
+          _cacheMetadata,
+          ...standardizePath(result),
+        } as unknown) as MaybeRawResponseData;
 
-        this._eventEmitter.emit(
-          hash,
-          await executeResolver(({ _cacheMetadata, ...standardizePath(result) } as unknown) as MaybeRawResponseData),
-        );
+        debugManager?.log(EXECUTE_RESOLVED, {
+          context: { requestID, ...otherContext },
+          options,
+          requestHash: hash,
+          result: enrichedResult,
+          stats: { endTime: debugManager?.now() },
+        });
+
+        this._eventEmitter.emit(hash, await executeResolver(enrichedResult));
       });
 
       const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, hash);

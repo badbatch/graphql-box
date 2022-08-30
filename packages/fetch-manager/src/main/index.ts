@@ -1,5 +1,5 @@
 import {
-  GRAPHQL_ERROR,
+  FETCH_RESOLVED,
   MaybeRawFetchData,
   MaybeRawResponseData,
   MaybeRequestResult,
@@ -103,25 +103,25 @@ export class FetchManager implements RequestManagerDef {
     try {
       if (options.batch === false || !this._batchRequests || context.hasDeferOrStream) {
         const fetchResult = await this._fetch(request, hash, { batch: false }, context);
-        const { debugManager } = context;
+        const { debugManager, ...otherContext } = context;
 
         if (!isAsyncIterable(fetchResult)) {
-          const deserialized = deserializeErrors(fetchResult) as MaybeRawResponseData;
-
-          if (deserialized?.errors) {
-            debugManager?.emit(GRAPHQL_ERROR, deserialized.errors, "error");
-          }
-
-          return deserialized;
+          return deserializeErrors(fetchResult);
         }
 
         forAwaitEach(fetchResult, async ({ body, headers }) => {
           const responseData = ({ headers, ...body } as unknown) as MaybeRawFetchData;
 
           const decoratedExecuteResolver = (result: MaybeRawResponseData) => {
-            if (result.errors) {
-              debugManager?.emit(GRAPHQL_ERROR, result.errors, "error");
-            }
+            const { headers: resultHeaders, ...otherResult } = result;
+
+            debugManager?.log(FETCH_RESOLVED, {
+              context: otherContext,
+              options,
+              requestHash: hash,
+              result: otherResult,
+              stats: { endTime: debugManager?.now() },
+            });
 
             return executeResolver(result);
           };

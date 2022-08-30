@@ -1,6 +1,5 @@
 import {
   DehydratedCacheMetadata,
-  GRAPHQL_ERROR,
   MaybeRawResponseData,
   MaybeRequestResult,
   PlainObjectMap,
@@ -79,10 +78,6 @@ export class Subscribe {
       if (isAsyncIterable(subscribeResult)) {
         forAwaitEach(subscribeResult, async (result: AsyncExecutionResult) => {
           context.normalizePatchResponseData = !!("path" in result);
-
-          if (result.errors) {
-            debugManager?.emit(GRAPHQL_ERROR, result.errors, "error");
-          }
 
           this._eventEmitter.emit(
             hash,

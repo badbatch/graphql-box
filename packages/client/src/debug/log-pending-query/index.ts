@@ -10,7 +10,7 @@ export default function logPendingQuery() {
       try {
         const { context, options, requestData } = args[1] as PendingQueryData;
         const { hash } = requestData;
-        const { debugManager, requestID, ...otherContext } = context;
+        const { debugManager, ...otherContext } = context;
 
         if (!debugManager) {
           return method.apply(this, args);
@@ -18,12 +18,11 @@ export default function logPendingQuery() {
 
         const result = method.apply(this, args);
 
-        debugManager.emit(PENDING_QUERY_ADDED, {
+        debugManager.log(PENDING_QUERY_ADDED, {
           activeRequestHash: args[0],
           context: otherContext,
           options,
           pendingRequestHash: hash,
-          requestID,
         });
 
         return result;

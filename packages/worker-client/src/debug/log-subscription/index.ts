@@ -1,5 +1,4 @@
-import { RequestContext, RequestData, SUBSCRIPTION_EXECUTED, SUBSCRIPTION_RESOLVED } from "@graphql-box/core";
-import { isAsyncIterable } from "iterall";
+import { RequestContext, SUBSCRIPTION_EXECUTED } from "@graphql-box/core";
 
 export default function logSubscription() {
   return (
@@ -13,7 +12,6 @@ export default function logSubscription() {
     descriptor.value = async function descriptorValue(...args: any[]): Promise<any> {
       try {
         return new Promise(async resolve => {
-          const { hash } = args[0] as RequestData;
           const { debugManager, ...otherContext } = args[2] as RequestContext;
 
           if (!debugManager) {
@@ -26,26 +24,12 @@ export default function logSubscription() {
           debugManager.log(SUBSCRIPTION_EXECUTED, {
             context: otherContext,
             options: args[1],
-            requestHash: hash,
+            request: args[0],
             stats: { startTime },
           });
 
           const result = await method.apply(this, args);
-          const endTime = debugManager.now();
-          const duration = endTime - startTime;
           resolve(result);
-
-          if (isAsyncIterable(result)) {
-            return;
-          }
-
-          debugManager.log(SUBSCRIPTION_RESOLVED, {
-            context: otherContext,
-            options: args[1],
-            requestHash: hash,
-            result,
-            stats: { duration, endTime, startTime },
-          });
         });
       } catch (error) {
         return Promise.reject(error);

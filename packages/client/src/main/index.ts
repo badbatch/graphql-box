@@ -10,12 +10,14 @@ import {
   MaybeResponseData,
   PENDING_QUERY_RESOLVED,
   QUERY,
+  REQUEST_RESOLVED,
   RawResponseDataWithMaybeCacheMetadata,
   RequestContext,
   RequestData,
   RequestManagerDef,
   RequestOptions,
   SUBSCRIPTION,
+  SUBSCRIPTION_RESOLVED,
   SubscriptionsManagerDef,
   ValidOperations,
 } from "@graphql-box/core";
@@ -183,6 +185,7 @@ export default class Client {
     };
   }
 
+  @logRequest()
   private async _handleMutation(requestData: RequestData, options: RequestOptions, context: RequestContext) {
     try {
       const resolver = async (rawResponseData: MaybeRawResponseData) => {
@@ -201,7 +204,23 @@ export default class Client {
         return Client._resolve(responseData, options, context);
       };
 
-      const executeResult = await this._requestManager.execute(requestData, options, context, resolver);
+      const { debugManager, ...otherContext } = context;
+
+      const decoratedResolver = async (rawResponseData: MaybeRawResponseData) => {
+        const result = await resolver(rawResponseData);
+
+        debugManager?.log(REQUEST_RESOLVED, {
+          context: otherContext,
+          options,
+          requestHash: requestData.hash,
+          result,
+          stats: { endTime: debugManager?.now() },
+        });
+
+        return result;
+      };
+
+      const executeResult = await this._requestManager.execute(requestData, options, context, decoratedResolver);
 
       if (isAsyncIterable(executeResult)) {
         return executeResult;
@@ -213,6 +232,7 @@ export default class Client {
     }
   }
 
+  @logRequest()
   private async _handleQuery(requestData: RequestData, options: RequestOptions, context: RequestContext) {
     try {
       const checkResult = await this._cacheManager.checkQueryResponseCacheEntry(requestData.hash, options, context);
@@ -254,11 +274,27 @@ export default class Client {
         return this._resolveQuery(requestData, responseData, options, context);
       };
 
+      const { debugManager, ...otherContext } = context;
+
+      const decoratedResolver = async (rawResponseData: MaybeRawResponseData) => {
+        const result = await resolver(rawResponseData);
+
+        debugManager?.log(REQUEST_RESOLVED, {
+          context: otherContext,
+          options,
+          requestHash: requestData.hash,
+          result,
+          stats: { endTime: debugManager?.now() },
+        });
+
+        return result;
+      };
+
       const executeResult = await this._requestManager.execute(
         updatedRequestData ?? requestData,
         options,
         context,
-        resolver,
+        decoratedResolver,
       );
 
       if (isAsyncIterable(executeResult)) {
@@ -284,10 +320,23 @@ export default class Client {
     return Client._resolve({ errors: [new Error(message)] }, options, context);
   }
 
+  @logSubscription()
   private async _handleSubscription(requestData: RequestData, options: RequestOptions, context: RequestContext) {
     try {
-      const resolver = async (responseData: MaybeRawResponseData) =>
-        this._resolveSubscription(requestData, responseData, options, context);
+      const resolver = async (responseData: MaybeRawResponseData) => {
+        const result = await this._resolveSubscription(requestData, responseData, options, context);
+        const { debugManager, ...otherContext } = context;
+
+        debugManager?.log(SUBSCRIPTION_RESOLVED, {
+          context: otherContext,
+          options,
+          requestHash: requestData.hash,
+          result,
+          stats: { endTime: debugManager?.now() },
+        });
+
+        return result;
+      };
 
       const subscriptionsManager = this._subscriptionsManager as SubscriptionsManagerDef;
       return await subscriptionsManager.subscribe(requestData, options, context, resolver);
@@ -304,7 +353,6 @@ export default class Client {
     return isDataRequestedInActiveQuery(this._queryTracker.active, requestData, context);
   }
 
-  @logRequest()
   private async _request(request: string, options: RequestOptions, context: RequestContext) {
     try {
       const { ast, request: updateRequest } = await this._requestParser.updateRequest(request, options, context);
@@ -327,15 +375,14 @@ export default class Client {
     }
 
     pendingRequests.forEach(async ({ context, options, requestData, resolve }) => {
-      const { debugManager, requestID, ...otherContext } = context;
+      const { debugManager, ...otherContext } = context;
 
       if (activeRquestData.hash === requestData.hash || activeResponseData.errors?.length) {
-        debugManager?.emit(PENDING_QUERY_RESOLVED, {
+        debugManager?.log(PENDING_QUERY_RESOLVED, {
           activeRequestHash: activeRquestData.hash,
           context: otherContext,
           options,
           pendingRequestHash: requestData.hash,
-          requestID,
           result: activeResponseData,
         });
 
@@ -352,12 +399,11 @@ export default class Client {
           { active: activeContext, pending: context },
         );
 
-        debugManager?.emit(PENDING_QUERY_RESOLVED, {
+        debugManager?.log(PENDING_QUERY_RESOLVED, {
           activeRequestHash: activeRquestData.hash,
           context: otherContext,
           options,
           pendingRequestHash: requestData.hash,
-          requestID,
           result: filteredResponseData,
         });
 
@@ -385,7 +431,6 @@ export default class Client {
     return Client._resolve(responseData, options, context);
   }
 
-  @logSubscription()
   private async _resolveSubscription(
     requestData: RequestData,
     rawResponseData: MaybeRawResponseData,

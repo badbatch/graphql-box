@@ -2,6 +2,7 @@ import Cachemap from "@cachemap/core";
 import {
   CacheMetadata,
   CacheTypes,
+  CachemapOptions,
   DATA_ENTITIES,
   FieldTypeInfo,
   PlainObjectMap,
@@ -43,7 +44,6 @@ import {
   CacheManagerInit,
   CachedAncestorFieldData,
   CachedResponseData,
-  CachemapOptions,
   CheckCacheEntryResult,
   ClientOptions,
   ConstructorOptions,

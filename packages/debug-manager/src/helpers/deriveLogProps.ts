@@ -13,8 +13,9 @@ import {
   SUBSCRIPTION_EXECUTED,
   SUBSCRIPTION_RESOLVED,
 } from "@graphql-box/core";
+import { Environment } from "../defs";
 
-export default (event: string | symbol) => {
+export const deriveLogOrder = (event: string | symbol) => {
   switch (event) {
     case REQUEST_EXECUTED:
     case SUBSCRIPTION_EXECUTED:
@@ -49,5 +50,18 @@ export default (event: string | symbol) => {
 
     default:
       return 0;
+  }
+};
+
+export const deriveLogGroup = (environment: Environment) => {
+  switch (environment) {
+    case "server":
+      return 3;
+
+    case "workerClient":
+      return 1;
+
+    default:
+      return 2;
   }
 };

@@ -39,7 +39,7 @@ export const parentNodeIncludes = (
     if (
       !activeNodeFieldsAndTypeNames.find(({ fieldNode: activeFieldNode }) => getAliasOrName(activeFieldNode) === name)
     ) {
-      contexts.new.debugManager?.emit(
+      contexts.new.debugManager?.log(
         LOG_NAME,
         { message: `Active parent node ${getName(activeNode)} is missing field ${name}` },
         "debug",
@@ -99,7 +99,7 @@ export const newNodeFieldsPartOfActiveNode = (
     if (activeKeysAndPaths.requestFieldCacheKey !== newKeysAndPaths.requestFieldCacheKey) {
       let message = `${newKeysAndPaths.requestFieldPath} active and new request field cache keys do not match.`;
       message += `Active is ${activeKeysAndPaths.requestFieldCacheKey}. New is ${newKeysAndPaths.requestFieldCacheKey}`;
-      contexts.new.debugManager?.emit(LOG_NAME, { message }, "debug");
+      contexts.new.debugManager?.log(LOG_NAME, { message }, "debug");
       return false;
     }
 

@@ -1,8 +1,6 @@
-import { DebugManagerDef } from "@graphql-box/core";
+import { DebugManagerDef, LogLevel, PlainObjectMap } from "@graphql-box/core";
 
-export interface Logger {
-  log(message?: any, ...optionalParams: any[]): void;
-}
+export type Log = (message: string, data: PlainObjectMap, level?: LogLevel) => void;
 
 export interface UserOptions {
   /**
@@ -11,9 +9,9 @@ export interface UserOptions {
   environment?: Environment;
 
   /**
-   * The logger to use.
+   * The callback to pass log messages to your logger.
    */
-  logger?: Logger;
+  log?: Log;
 
   /**
    * The name of the debug manager. This is used
@@ -33,8 +31,6 @@ export type ConstructorOptions = UserOptions;
 export type DebugManagerInit = () => DebugManagerDef;
 
 export type Environment = "client" | "server" | "worker" | "workerClient";
-
-export type LogLevel = "error" | "warn" | "info" | "http" | "verbose" | "debug" | "silly";
 
 export interface Performance {
   now(): number;

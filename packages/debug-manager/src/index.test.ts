@@ -40,8 +40,10 @@ describe("@graphql-box/debug-manager >>", () => {
       // @ts-ignore
       jest.spyOn(debugManager._performance, "now").mockReturnValue(0);
 
-      debugManager.on(CACHE_ENTRY_ADDED, (payload: PlainObjectMap) => {
-        response.push(payload);
+      debugManager.on("LOG", (message: string, payload: PlainObjectMap) => {
+        if (message === CACHE_ENTRY_ADDED) {
+          response.push({ message, ...payload });
+        }
       });
 
       const cacheManager = new CacheManager({
@@ -79,8 +81,10 @@ describe("@graphql-box/debug-manager >>", () => {
       // @ts-ignore
       jest.spyOn(debugManager._performance, "now").mockReturnValue(0);
 
-      debugManager.on(CACHE_ENTRY_QUERIED, (payload: PlainObjectMap) => {
-        response.push(payload);
+      debugManager.on("LOG", (message: string, payload: PlainObjectMap) => {
+        if (message === CACHE_ENTRY_QUERIED) {
+          response.push({ message, ...payload });
+        }
       });
 
       // @ts-ignore

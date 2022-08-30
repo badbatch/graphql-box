@@ -5,9 +5,11 @@ import {
   MaybeRequestContext,
   MaybeRequestResult,
   QUERY,
+  REQUEST_RESOLVED,
   RequestContext,
   RequestOptions,
   SUBSCRIPTION,
+  SUBSCRIPTION_RESOLVED,
   ValidOperations,
 } from "@graphql-box/core";
 import { EventAsyncIterator, deserializeErrors, hashRequest, rehydrateCacheMetadata } from "@graphql-box/helpers";
@@ -16,6 +18,7 @@ import { castArray, isPlainObject } from "lodash";
 import { v1 as uuid } from "uuid";
 import { GRAPHQL_BOX, MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
 import logRequest from "../debug/log-request";
+import logSubscription from "../debug/log-subscription";
 import { MessageContext, MessageResponsePayload, PendingResolver, PendingTracker, UserOptions } from "../defs";
 
 export default class WorkerClient {
@@ -115,7 +118,23 @@ export default class WorkerClient {
       response._cacheMetadata = rehydrateCacheMetadata(_cacheMetadata);
     }
 
-    if (method === REQUEST) {
+    if (method === SUBSCRIBE) {
+      this._debugManager?.log(SUBSCRIPTION_RESOLVED, {
+        context,
+        result: response,
+        stats: { endTime: this._debugManager?.now() },
+      });
+
+      this._eventEmitter.emit(context.requestID, response);
+    } else if (context.hasDeferOrStream) {
+      this._debugManager?.log(REQUEST_RESOLVED, {
+        context,
+        result: response,
+        stats: { endTime: this._debugManager?.now() },
+      });
+
+      this._eventEmitter.emit(context.requestID, response);
+    } else {
       const pending = this._pending.get(context.requestID);
 
       if (!pending) {
@@ -123,8 +142,6 @@ export default class WorkerClient {
       }
 
       pending.resolve(response);
-    } else if (method === SUBSCRIBE || context.hasDeferOrStream) {
-      this._eventEmitter.emit(context.requestID, response);
     }
   };
 
@@ -160,7 +177,7 @@ export default class WorkerClient {
     }
   }
 
-  @logRequest()
+  @logSubscription()
   private async _subscribe(request: string, options: RequestOptions, context: RequestContext) {
     try {
       this._worker.postMessage({

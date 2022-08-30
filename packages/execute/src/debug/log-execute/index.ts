@@ -1,4 +1,5 @@
 import { EXECUTE_EXECUTED, EXECUTE_RESOLVED, RequestContext, RequestData } from "@graphql-box/core";
+import { isAsyncIterable } from "iterall";
 
 export default function logExecute() {
   return (
@@ -12,8 +13,8 @@ export default function logExecute() {
     descriptor.value = async function descriptorValue(...args: any[]): Promise<any> {
       try {
         return new Promise(async resolve => {
-          const { ast, ...rest } = args[0] as RequestData;
-          const { debugManager, requestID, ...otherContext } = args[2] as RequestContext;
+          const { hash } = args[0] as RequestData;
+          const { debugManager, ...otherContext } = args[2] as RequestContext;
 
           if (!debugManager) {
             resolve(await method.apply(this, args));
@@ -22,11 +23,10 @@ export default function logExecute() {
 
           const startTime = debugManager.now();
 
-          debugManager.emit(EXECUTE_EXECUTED, {
+          debugManager.log(EXECUTE_EXECUTED, {
             context: otherContext,
             options: args[1],
-            requestData: rest,
-            requestID,
+            requestHash: hash,
             stats: { startTime },
           });
 
@@ -35,11 +35,14 @@ export default function logExecute() {
           const duration = endTime - startTime;
           resolve(result);
 
-          debugManager.emit(EXECUTE_RESOLVED, {
+          if (isAsyncIterable(result)) {
+            return;
+          }
+
+          debugManager.log(EXECUTE_RESOLVED, {
             context: otherContext,
             options: args[1],
-            requestData: rest,
-            requestID,
+            requestHash: hash,
             result,
             stats: { duration, endTime, startTime },
           });

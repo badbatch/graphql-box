@@ -1,4 +1,4 @@
-import Cachemap, { CacheHeaders } from "@cachemap/core";
+import Cachemap from "@cachemap/core";
 import { Metadata } from "@cachemap/types";
 import {
   CacheMetadata,
@@ -157,11 +157,6 @@ export interface CheckCacheEntryResult {
 export interface QueryResponseCacheEntry {
   cacheMetadata: DehydratedCacheMetadata;
   data: PlainObjectMap;
-}
-
-export interface CachemapOptions {
-  cacheHeaders: CacheHeaders;
-  tag?: any;
 }
 
 export interface CacheManagerDef {

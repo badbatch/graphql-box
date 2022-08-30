@@ -1,12 +1,19 @@
-import { DebugManagerDef, PlainObjectMap } from "@graphql-box/core";
+import { DebugManagerDef, LogData, LogLevel } from "@graphql-box/core";
 import EventEmitter from "eventemitter3";
-import { isPlainObject, isString } from "lodash";
-import { ConstructorOptions, DebugManagerInit, Environment, LogLevel, Logger, Performance, UserOptions } from "../defs";
-import deriveLogOrder from "../helpers/deriveLogOrder";
+import { isPlainObject, isString, pickBy } from "lodash";
+import { ConstructorOptions, DebugManagerInit, Environment, Log, Performance, UserOptions } from "../defs";
+import { deriveLogGroup, deriveLogOrder } from "../helpers/deriveLogProps";
+import transformCachemapOptions from "../helpers/transformCachemapOptions";
+import transformContext from "../helpers/transformContext";
+import transformError from "../helpers/transformError";
+import transformOptions from "../helpers/transformOptions";
+import transformResult from "../helpers/transformResult";
+import transformStats from "../helpers/transformStats";
+import transformValue from "../helpers/transformValue";
 
 export class DebugManager extends EventEmitter implements DebugManagerDef {
   private _environment: Environment;
-  private _logger: Logger | null;
+  private _log: Log | null;
   private _name: string;
   private _performance: Performance;
 
@@ -22,48 +29,47 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
       throw errors;
     }
 
-    this._logger = options.logger ?? null;
+    this._log = options.log ?? null;
     this._name = options.name;
     this._performance = options.performance;
     this._environment = options.environment ?? "client";
   }
 
-  public emit(event: string | symbol, data: PlainObjectMap, logLevel: LogLevel = "info"): boolean {
+  public log(message: string, data: LogData, logLevel: LogLevel = "info"): void {
+    const { cachemapOptions, context, options, result, stats, value, ...rest } = data;
+
     const updatedData = {
-      ...data,
-      debuggerName: this._name,
-      environment: this._environment,
-      logGroup: this._deriveLogGroup(),
-      logOrder: deriveLogOrder(event),
-      timestamp: this._performance.now(),
+      labels: pickBy(
+        {
+          environment: this._environment,
+          logGroup: deriveLogGroup(this._environment),
+          logOrder: deriveLogOrder(logLevel),
+          ...transformCachemapOptions(cachemapOptions),
+          ...transformContext(context),
+          ...transformOptions(options),
+          ...transformResult(result),
+          ...transformStats(stats),
+          ...transformValue(value),
+          ...rest,
+        },
+        val => val !== undefined && val !== null && val !== "",
+      ),
+      log: {
+        level: logLevel.toUpperCase(),
+        logger: this._name,
+      },
+      ...transformError(result),
     };
 
-    const hasListeners = super.emit(event, updatedData, logLevel);
-    this._log(event, updatedData, logLevel);
-    return hasListeners;
+    this.emit("LOG", message, updatedData);
+
+    if (this._log) {
+      this._log(message, updatedData, logLevel);
+    }
   }
 
   public now(): number {
     return this._performance.now();
-  }
-
-  private _deriveLogGroup() {
-    switch (this._environment) {
-      case "server":
-        return 3;
-
-      case "workerClient":
-        return 1;
-
-      default:
-        return 2;
-    }
-  }
-
-  private _log(message: any, data: PlainObjectMap, logLevel?: LogLevel): void {
-    if (this._logger) {
-      this._logger.log(message, data, logLevel);
-    }
   }
 }
 

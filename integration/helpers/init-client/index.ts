@@ -31,7 +31,7 @@ export default function initClient({
     }),
     debugManager: debugManager({
       environment: debuggerName.toLowerCase() as Environment,
-      logger: { log },
+      log,
       name: debuggerName,
       performance,
     }),
