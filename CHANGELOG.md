@@ -1,3 +1,9 @@
+#### 3.11.1 (2022-08-31)
+
+##### Bug Fixes
+
+*  add defensive coding into transformer ([f1482f8d](https://github.com/badbatch/graphql-box/commit/f1482f8dd629e118c752b4a3fba072ad3e575fbb))
+
 ### 3.11.0 (2022-08-30)
 
 ##### Refactors
