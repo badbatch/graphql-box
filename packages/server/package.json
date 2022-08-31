@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/server",
-  "version": "3.8.2",
+  "version": "3.8.3",
   "description": "The GraphQL Box server module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",

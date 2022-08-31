@@ -113,7 +113,7 @@ interface EventTypes {
 
 \+ **new DebugManager**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[DebugManager](debugmanager.md)*
 
-*Defined in [packages/debug-manager/src/main/index.ts:17](https://github.com/badbatch/graphql-box/blob/e94b582f/packages/debug-manager/src/main/index.ts#L17)*
+*Defined in [packages/debug-manager/src/main/index.ts:17](https://github.com/badbatch/graphql-box/blob/6465c5cc/packages/debug-manager/src/main/index.ts#L17)*
 
 **Parameters:**
 
@@ -255,7 +255,7 @@ ___
 
 ▸ **log**(`message`: string, `data`: LogData, `logLevel`: LogLevel): *void*
 
-*Defined in [packages/debug-manager/src/main/index.ts:37](https://github.com/badbatch/graphql-box/blob/e94b582f/packages/debug-manager/src/main/index.ts#L37)*
+*Defined in [packages/debug-manager/src/main/index.ts:37](https://github.com/badbatch/graphql-box/blob/6465c5cc/packages/debug-manager/src/main/index.ts#L37)*
 
 **Parameters:**
 
@@ -273,7 +273,7 @@ ___
 
 ▸ **now**(): *number*
 
-*Defined in [packages/debug-manager/src/main/index.ts:69](https://github.com/badbatch/graphql-box/blob/e94b582f/packages/debug-manager/src/main/index.ts#L69)*
+*Defined in [packages/debug-manager/src/main/index.ts:69](https://github.com/badbatch/graphql-box/blob/6465c5cc/packages/debug-manager/src/main/index.ts#L69)*
 
 **Returns:** *number*
 

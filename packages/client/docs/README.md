@@ -39,7 +39,7 @@
 
 Ƭ **PendingQueryResolver**: *function*
 
-*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/e94b582f/packages/client/src/defs/index.ts#L48)*
+*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/6465c5cc/packages/client/src/defs/index.ts#L48)*
 
 #### Type declaration:
 
@@ -57,7 +57,7 @@ Name | Type |
 
 • **LOG_NAME**: *"isDataRequestedInActiveQuery"* = "isDataRequestedInActiveQuery"
 
-*Defined in [helpers/isDataRequestedInActiveQuery.ts:16](https://github.com/badbatch/graphql-box/blob/e94b582f/packages/client/src/helpers/isDataRequestedInActiveQuery.ts#L16)*
+*Defined in [helpers/isDataRequestedInActiveQuery.ts:16](https://github.com/badbatch/graphql-box/blob/6465c5cc/packages/client/src/helpers/isDataRequestedInActiveQuery.ts#L16)*
 
 ## Functions
 
@@ -65,7 +65,7 @@ Name | Type |
 
 ▸ **filterDataAndCacheMetadata**(`pendingFieldNode`: FieldNode, `activeFieldNode`: FieldNode, `activeResponseData`: MaybeResponseData, `__namedParameters`: object, `fragmentDefinitions`: object, `keyAndPathOptions`: object, `contexts`: object): *void*
 
-*Defined in [helpers/filterResponseData.ts:24](https://github.com/badbatch/graphql-box/blob/e94b582f/packages/client/src/helpers/filterResponseData.ts#L24)*
+*Defined in [helpers/filterResponseData.ts:24](https://github.com/badbatch/graphql-box/blob/6465c5cc/packages/client/src/helpers/filterResponseData.ts#L24)*
 
 **Parameters:**
 
@@ -111,7 +111,7 @@ ___
 
 ▸ **logPendingQuery**(): *(Anonymous function)*
 
-*Defined in [debug/log-pending-query/index.ts:4](https://github.com/badbatch/graphql-box/blob/e94b582f/packages/client/src/debug/log-pending-query/index.ts#L4)*
+*Defined in [debug/log-pending-query/index.ts:4](https://github.com/badbatch/graphql-box/blob/6465c5cc/packages/client/src/debug/log-pending-query/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*
 
@@ -121,7 +121,7 @@ ___
 
 ▸ **logRequest**(): *(Anonymous function)*
 
-*Defined in [debug/log-request/index.ts:4](https://github.com/badbatch/graphql-box/blob/e94b582f/packages/client/src/debug/log-request/index.ts#L4)*
+*Defined in [debug/log-request/index.ts:4](https://github.com/badbatch/graphql-box/blob/6465c5cc/packages/client/src/debug/log-request/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*
 
@@ -131,7 +131,7 @@ ___
 
 ▸ **logSubscription**(): *(Anonymous function)*
 
-*Defined in [debug/log-subscription/index.ts:4](https://github.com/badbatch/graphql-box/blob/e94b582f/packages/client/src/debug/log-subscription/index.ts#L4)*
+*Defined in [debug/log-subscription/index.ts:4](https://github.com/badbatch/graphql-box/blob/6465c5cc/packages/client/src/debug/log-subscription/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*
 
@@ -141,7 +141,7 @@ ___
 
 ▸ **newNodeFieldsPartOfActiveNode**(`activeNode`: ParentNode, `newNode`: ParentNode, `fragmentDefinitions`: object, `keyAndPathOptions`: object, `contexts`: object): *boolean*
 
-*Defined in [helpers/isDataRequestedInActiveQuery.ts:58](https://github.com/badbatch/graphql-box/blob/e94b582f/packages/client/src/helpers/isDataRequestedInActiveQuery.ts#L58)*
+*Defined in [helpers/isDataRequestedInActiveQuery.ts:58](https://github.com/badbatch/graphql-box/blob/6465c5cc/packages/client/src/helpers/isDataRequestedInActiveQuery.ts#L58)*
 
 **Parameters:**
 
@@ -178,7 +178,7 @@ ___
 
 ▸ **parentNodeIncludes**(`activeNode`: ParentNode, `newNode`: ParentNode, `fragmentDefinitions`: object, `contexts`: object): *boolean*
 
-*Defined in [helpers/isDataRequestedInActiveQuery.ts:18](https://github.com/badbatch/graphql-box/blob/e94b582f/packages/client/src/helpers/isDataRequestedInActiveQuery.ts#L18)*
+*Defined in [helpers/isDataRequestedInActiveQuery.ts:18](https://github.com/badbatch/graphql-box/blob/6465c5cc/packages/client/src/helpers/isDataRequestedInActiveQuery.ts#L18)*
 
 **Parameters:**
 

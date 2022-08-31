@@ -1,3 +1,9 @@
+#### 3.11.3 (2022-08-31)
+
+##### Bug Fixes
+
+*  broken snapshot ([6465c5cc](https://github.com/badbatch/graphql-box/commit/6465c5cc3d0a8be391bd744e8aceedf9a85270d9))
+
 #### 3.11.2 (2022-08-31)
 
 ##### Bug Fixes
