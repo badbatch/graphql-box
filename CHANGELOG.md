@@ -1,3 +1,9 @@
+#### 3.11.2 (2022-08-31)
+
+##### Bug Fixes
+
+*  sort minor logging enhancements ([e94b582f](https://github.com/badbatch/graphql-box/commit/e94b582ffd64fe73848d3026ea5a2aa0d64ae647))
+
 #### 3.11.1 (2022-08-31)
 
 ##### Bug Fixes
