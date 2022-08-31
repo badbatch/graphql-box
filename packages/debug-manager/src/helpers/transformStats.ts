@@ -5,10 +5,10 @@ export default (stats?: LogData["stats"]) => {
     return {};
   }
 
-  const { duratioin, endTime, startTime } = stats;
+  const { duration, endTime, startTime } = stats;
 
   return {
-    duratioin,
+    duration,
     endTime,
     startTime,
   };

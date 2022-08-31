@@ -9,7 +9,6 @@ import transformError from "../helpers/transformError";
 import transformOptions from "../helpers/transformOptions";
 import transformResult from "../helpers/transformResult";
 import transformStats from "../helpers/transformStats";
-import transformValue from "../helpers/transformValue";
 
 export class DebugManager extends EventEmitter implements DebugManagerDef {
   private _environment: Environment;
@@ -36,20 +35,19 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
   }
 
   public log(message: string, data: LogData, logLevel: LogLevel = "info"): void {
-    const { cachemapOptions, context, options, result, stats, value, ...rest } = data;
+    const { cachemapOptions, context, options, result, stats, ...rest } = data;
 
     const updatedData = {
       labels: pickBy(
         {
           environment: this._environment,
           logGroup: deriveLogGroup(this._environment),
-          logOrder: deriveLogOrder(logLevel),
+          logOrder: deriveLogOrder(message),
           ...transformCachemapOptions(cachemapOptions),
           ...transformContext(context),
           ...transformOptions(options),
           ...transformResult(result),
           ...transformStats(stats),
-          ...transformValue(value),
           ...rest,
         },
         val => val !== undefined && val !== null && val !== "",

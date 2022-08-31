@@ -129,7 +129,7 @@ export type LogData = {
   options?: RequestOptions;
   result?: MaybeRequestResult & { cacheMetadata?: CacheMetadata };
   stats?: {
-    duratioin: number;
+    duration: number;
     endTime: number;
     startTime: number;
   };

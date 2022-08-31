@@ -5,10 +5,6 @@ export default (options?: RequestOptions) => {
     return {};
   }
 
-  const { fragments, variables, ...rest } = options;
-
-  return {
-    ...rest,
-    ...(variables ? { variables: JSON.stringify(variables) } : {}),
-  };
+  const { fragments, ...rest } = options;
+  return rest;
 };

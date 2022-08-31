@@ -15,7 +15,7 @@ import {
   requestFieldTypeMaps,
   responses,
 } from "@graphql-box/test-utils";
-import { DebugManager } from ".";
+import { DebugManager, serializeLog } from ".";
 
 const { performance } = window;
 
@@ -42,7 +42,7 @@ describe("@graphql-box/debug-manager >>", () => {
 
       debugManager.on("LOG", (message: string, payload: PlainObjectMap) => {
         if (message === CACHE_ENTRY_ADDED) {
-          response.push({ message, ...payload });
+          response.push(serializeLog({ message, ...payload }));
         }
       });
 
@@ -83,7 +83,7 @@ describe("@graphql-box/debug-manager >>", () => {
 
       debugManager.on("LOG", (message: string, payload: PlainObjectMap) => {
         if (message === CACHE_ENTRY_QUERIED) {
-          response.push({ message, ...payload });
+          response.push(serializeLog({ message, ...payload }));
         }
       });
 

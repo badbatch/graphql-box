@@ -12,10 +12,10 @@ export default (result?: MaybeRequestResult & { cacheMetadata?: CacheMetadata })
   const { _cacheMetadata, cacheMetadata, errors, ...rest } = result;
 
   return {
-    result: JSON.stringify({
+    result: {
       ...(_cacheMetadata ? { _cacheMetadata: parseCacheMetadata(_cacheMetadata) } : {}),
       ...(cacheMetadata ? { cacheMetadata: parseCacheMetadata(cacheMetadata) } : {}),
       ...rest,
-    }),
+    },
   };
 };
