@@ -126,7 +126,7 @@ export interface CachemapOptions {
 export type LogData = {
   cachemapOptions?: CachemapOptions;
   context?: Omit<RequestContext, "debugManager">;
-  options?: RequestOptions;
+  options?: RequestOptions | ServerRequestOptions;
   result?: MaybeRequestResult & { cacheMetadata?: CacheMetadata };
   stats?: {
     duration: number;
