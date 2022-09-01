@@ -1,3 +1,9 @@
+#### 3.11.4 (2022-09-01)
+
+##### Bug Fixes
+
+*  cater for server options being different ([2fa13c7a](https://github.com/badbatch/graphql-box/commit/2fa13c7ade88baf5a4d623c9218cb4d35995cf5a))
+
 #### 3.11.3 (2022-08-31)
 
 ##### Bug Fixes
