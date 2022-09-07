@@ -38,7 +38,7 @@
 
 Ƭ **ActiveBatch**: *Map‹string, [ActiveBatchValue](interfaces/activebatchvalue.md)›*
 
-*Defined in [defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/fetch-manager/src/defs/index.ts#L55)*
+*Defined in [defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/defs/index.ts#L55)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/fetch-manager/src/defs/index.ts#L53)*
+*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/defs/index.ts#L53)*
 
 ## Variables
 
@@ -54,7 +54,7 @@ ___
 
 • **URL**: *"https://api.github.com/graphql"* = "https://api.github.com/graphql"
 
-*Defined in [index.test.ts:20](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/fetch-manager/src/index.test.ts#L20)*
+*Defined in [index.test.ts:20](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/index.test.ts#L20)*
 
 ## Functions
 
@@ -62,7 +62,7 @@ ___
 
 ▸ **convertNullArrayEntriesToUndefined**(`data`: PlainObjectMap): *PlainObjectMap‹any›*
 
-*Defined in [helpers/cleanPatchResponse.ts:4](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/fetch-manager/src/helpers/cleanPatchResponse.ts#L4)*
+*Defined in [helpers/cleanPatchResponse.ts:4](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/helpers/cleanPatchResponse.ts#L4)*
 
 **Parameters:**
 
@@ -76,9 +76,9 @@ ___
 
 ###  init
 
-▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *RequestManagerInit*
+▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *(Anonymous function)*
 
-*Defined in [main/index.ts:303](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/fetch-manager/src/main/index.ts#L303)*
+*Defined in [main/index.ts:304](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/main/index.ts#L304)*
 
 **Parameters:**
 
@@ -86,7 +86,7 @@ Name | Type |
 ------ | ------ |
 `userOptions` | [UserOptions](interfaces/useroptions.md) |
 
-**Returns:** *RequestManagerInit*
+**Returns:** *(Anonymous function)*
 
 ___
 
@@ -94,6 +94,6 @@ ___
 
 ▸ **logFetch**(): *(Anonymous function)*
 
-*Defined in [debug/log-fetch/index.ts:4](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/fetch-manager/src/debug/log-fetch/index.ts#L4)*
+*Defined in [debug/log-fetch/index.ts:4](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/debug/log-fetch/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*

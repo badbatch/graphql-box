@@ -22,7 +22,7 @@
 
 • **fieldTypeMap**: *FieldTypeMap*
 
-*Defined in [defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/request-parser/src/defs/index.ts#L72)*
+*Defined in [defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/request-parser/src/defs/index.ts#L72)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **hasDeferOrStream**: *boolean*
 
-*Defined in [defs/index.ts:73](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/request-parser/src/defs/index.ts#L73)*
+*Defined in [defs/index.ts:73](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/request-parser/src/defs/index.ts#L73)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **operation**: *ValidOperations*
 
-*Defined in [defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/request-parser/src/defs/index.ts#L74)*
+*Defined in [defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/request-parser/src/defs/index.ts#L74)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **operationName**: *string*
 
-*Defined in [defs/index.ts:75](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/request-parser/src/defs/index.ts#L75)*
+*Defined in [defs/index.ts:75](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/request-parser/src/defs/index.ts#L75)*
 
 ___
 
@@ -54,4 +54,4 @@ ___
 
 • **persistedFragmentSpreads**: *[PersistedFragmentSpread](../README.md#persistedfragmentspread)[]*
 
-*Defined in [defs/index.ts:76](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/request-parser/src/defs/index.ts#L76)*
+*Defined in [defs/index.ts:76](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/request-parser/src/defs/index.ts#L76)*

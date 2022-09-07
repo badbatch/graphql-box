@@ -28,7 +28,7 @@
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/execute/src/defs/index.ts#L37)*
+*Defined in [defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/execute/src/defs/index.ts#L37)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 Ƭ **GraphQLExecute**: *function*
 
-*Defined in [defs/index.ts:39](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/execute/src/defs/index.ts#L39)*
+*Defined in [defs/index.ts:39](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/execute/src/defs/index.ts#L39)*
 
 #### Type declaration:
 
@@ -52,9 +52,9 @@ Name | Type |
 
 ###  init
 
-▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *RequestManagerInit*
+▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *(Anonymous function)*
 
-*Defined in [main/index.ts:110](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/execute/src/main/index.ts#L110)*
+*Defined in [main/index.ts:108](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/execute/src/main/index.ts#L108)*
 
 **Parameters:**
 
@@ -62,7 +62,7 @@ Name | Type |
 ------ | ------ |
 `userOptions` | [UserOptions](interfaces/useroptions.md) |
 
-**Returns:** *RequestManagerInit*
+**Returns:** *(Anonymous function)*
 
 ___
 
@@ -70,6 +70,6 @@ ___
 
 ▸ **logExecute**(): *(Anonymous function)*
 
-*Defined in [debug/log-execute/index.ts:4](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/execute/src/debug/log-execute/index.ts#L4)*
+*Defined in [debug/log-execute/index.ts:4](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/execute/src/debug/log-execute/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*

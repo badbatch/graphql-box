@@ -1,3 +1,9 @@
+#### 3.12.1 (2022-09-07)
+
+##### Refactors
+
+*  decouple execute and fetch manager types ([be6f26db](https://github.com/badbatch/graphql-box/commit/be6f26dbab50b572c76c01544d5da460bcd315f4))
+
 ### 3.12.0 (2022-09-07)
 
 ##### New Features
