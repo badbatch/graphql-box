@@ -12,12 +12,13 @@ import { forAwaitEach, isAsyncIterable } from "iterall";
 import { castArray, isPlainObject } from "lodash";
 import { Data } from "ws";
 import {
+  LogData,
   MessageHandler,
-  RequestData,
   RequestHandler,
   ResponseDataWithMaybeDehydratedCacheMetadataBatch,
   UserOptions,
 } from "../defs";
+import isRequestBatched from "../helpers/isRequestBatched";
 import writeResponseChunk from "../helpers/writeResponseChunk";
 
 export default class Server {
@@ -45,6 +46,12 @@ export default class Server {
     this._requestWhitelist = options.requestWhitelist ?? [];
   }
 
+  public log(): RequestHandler {
+    return (req: Request, res: Response) => {
+      this._logHandler(req, res);
+    };
+  }
+
   public message(options: ServerSocketRequestOptions): MessageHandler {
     return (message: Data) => {
       this._messageHandler(message, options);
@@ -59,18 +66,27 @@ export default class Server {
 
   private async _handleBatchRequest(
     res: Response,
-    requests: Record<string, { request: string; whitelistHash: string }>,
+    requests: Record<
+      string,
+      {
+        context: MaybeRequestContext;
+        request: string;
+      }
+    >,
     options: ServerRequestOptions,
-    context: MaybeRequestContext,
   ) {
-    const responses: ResponseDataWithMaybeDehydratedCacheMetadataBatch = { batch: {} };
+    const response: ResponseDataWithMaybeDehydratedCacheMetadataBatch = { responses: {} };
 
     await Promise.all(
       Object.keys(requests).map(async requestHash => {
-        const { request, whitelistHash } = requests[requestHash];
+        const { request, context } = requests[requestHash];
 
-        if (this._requestWhitelist.length && !this._requestWhitelist.includes(whitelistHash)) {
-          responses.batch[requestHash] = serializeErrors({
+        if (
+          this._requestWhitelist.length &&
+          context.whitelistHash &&
+          !this._requestWhitelist.includes(context.whitelistHash)
+        ) {
+          response.responses[requestHash] = serializeErrors({
             errors: [new Error("@graphql-box/server: The request is not whitelisted.")],
             requestID: context.requestID as string,
           });
@@ -80,7 +96,7 @@ export default class Server {
 
         try {
           const requestTimer = setTimeout(() => {
-            responses.batch[requestHash] = serializeErrors({
+            response.responses[requestHash] = serializeErrors({
               errors: [new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`)],
               requestID: context.requestID as string,
             });
@@ -93,13 +109,13 @@ export default class Server {
           )) as MaybeRequestResult;
 
           clearTimeout(requestTimer);
-          responses.batch[requestHash] = serializeErrors({ ...otherProps });
+          response.responses[requestHash] = serializeErrors({ ...otherProps });
 
           if (_cacheMetadata) {
-            responses.batch[requestHash]._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+            response.responses[requestHash]._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
           }
         } catch (error) {
-          responses.batch[requestHash] = serializeErrors({
+          response.responses[requestHash] = serializeErrors({
             errors: castArray(error),
             requestID: context.requestID as string,
           });
@@ -107,7 +123,13 @@ export default class Server {
       }),
     );
 
-    res.status(200).send(responses);
+    res.status(200).send(response);
+  }
+
+  private _handleLogs(logs: LogData[]) {
+    logs.forEach(({ data, logLevel, message }) => {
+      this._client?.debugger?.handleLog(message, data, logLevel);
+    });
   }
 
   private async _handleRequest(
@@ -162,6 +184,24 @@ export default class Server {
     });
   }
 
+  private _logHandler({ body }: Request, res: Response) {
+    try {
+      let logs: LogData[] = [];
+
+      if (body.batched) {
+        logs = body.requests;
+      } else {
+        const { batched, ...rest } = body;
+        logs = [rest];
+      }
+
+      this._handleLogs(logs);
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).send(serializeErrors({ errors: castArray(error) }));
+    }
+  }
+
   private async _messageHandler(message: Data, { ws, ...rest }: ServerSocketRequestOptions): Promise<void> {
     try {
       const { context = {}, subscriptionID, subscription } = JSON.parse(message as string);
@@ -198,18 +238,11 @@ export default class Server {
     }
   }
 
-  private _requestHandler(req: Request, res: Response, options: ServerRequestOptions) {
+  private _requestHandler({ body }: Request, res: Response, options: ServerRequestOptions) {
     try {
-      const { batched, context = {}, request } = req.body as RequestData;
-
-      batched
-        ? this._handleBatchRequest(
-            res,
-            request as Record<string, { request: string; whitelistHash: string }>,
-            options,
-            context,
-          )
-        : this._handleRequest(res, request as string, options, context);
+      isRequestBatched(body)
+        ? this._handleBatchRequest(res, body.requests, options)
+        : this._handleRequest(res, body.request, options, body.context);
     } catch (error) {
       res.status(500).send(serializeErrors({ errors: castArray(error) }));
     }

@@ -35,7 +35,7 @@ export default function initClient({
       name: debuggerName,
       performance,
     }),
-    requestManager: fetchManager({ url: URL }),
+    requestManager: fetchManager({ apiUrl: URL }),
     requestParser: requestParser({ introspection, schema }),
     subscriptionsManager,
     typeIDKey: DEFAULT_TYPE_ID_KEY,

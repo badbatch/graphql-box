@@ -34,6 +34,14 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
     this._environment = options.environment ?? "client";
   }
 
+  public handleLog(message: string, data: LogData, logLevel: LogLevel = "info") {
+    this.emit("LOG", message, data);
+
+    if (this._log) {
+      this._log(message, data, logLevel);
+    }
+  }
+
   public log(message: string, data: LogData, logLevel: LogLevel = "info"): void {
     const { cachemapOptions, context, options, result, stats, ...rest } = data;
 

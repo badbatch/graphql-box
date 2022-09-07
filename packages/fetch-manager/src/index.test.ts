@@ -28,7 +28,7 @@ describe("@graphql-box/fetch-manager >>", () => {
 
       beforeAll(async () => {
         fetchManager = new FetchManager({
-          url: URL,
+          apiUrl: URL,
         });
 
         const body = { data: responses.singleTypeQuery.data };
@@ -61,8 +61,8 @@ describe("@graphql-box/fetch-manager >>", () => {
 
       beforeAll(async () => {
         fetchManager = new FetchManager({
+          apiUrl: URL,
           batchRequests: true,
-          url: URL,
         });
 
         const body = { data: responses.singleTypeQuery.data };
@@ -99,15 +99,15 @@ describe("@graphql-box/fetch-manager >>", () => {
         jest.useFakeTimers();
 
         fetchManager = new FetchManager({
+          apiUrl: URL,
           batchRequests: true,
           fetchTimeout: 10000,
-          url: URL,
         });
 
         const requestData = getRequestData(parsedRequests.singleTypeQuery);
 
         const body = {
-          batch: {
+          responses: {
             [requestData.hash]: { data: responses.singleTypeQuery.data },
           },
         };
@@ -147,16 +147,16 @@ describe("@graphql-box/fetch-manager >>", () => {
         jest.useFakeTimers();
 
         fetchManager = new FetchManager({
+          apiUrl: URL,
           batchRequests: true,
           fetchTimeout: 10000,
-          url: URL,
         });
 
         const initialRequestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
         const updatedRequestData = getRequestData(parsedRequests.singleTypeQuerySet.updated);
 
         const body = {
-          batch: {
+          responses: {
             [initialRequestData.hash]: { data: responses.singleTypeQuerySet.initial.data },
             [updatedRequestData.hash]: {
               data: (responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata).data,
@@ -210,7 +210,7 @@ describe("@graphql-box/fetch-manager >>", () => {
 
     beforeAll(async () => {
       fetchManager = new FetchManager({
-        url: URL,
+        apiUrl: URL,
       });
 
       const headers = { "Content-Type": 'multipart/mixed; boundary="-"' };

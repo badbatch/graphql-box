@@ -1,6 +1,13 @@
 import { MaybeRawFetchData, MaybeRawResponseData, PlainObjectStringMap } from "@graphql-box/core";
+import { JsonValue } from "type-fest";
 
 export interface UserOptions {
+  /**
+   * The endpoint that client will use to communicate with the
+   * GraphQL server for queries and mutations.
+   */
+  apiUrl?: string;
+
   /**
    * Whether a client should batch requests query and mutation
    * requests.
@@ -25,6 +32,12 @@ export interface UserOptions {
   headers?: PlainObjectStringMap;
 
   /**
+   * The endpoint that client will use to send logs
+   * to the server.
+   */
+  logUrl?: string;
+
+  /**
    * How long client should wait to batch requests
    * before making a request.
    */
@@ -35,26 +48,15 @@ export interface UserOptions {
    * before returning a response.
    */
   responseBatchInterval?: number;
-
-  /**
-   * The endpoint that client will use to communicate with the
-   * GraphQL server for queries and mutations.
-   */
-  url: string;
 }
 
 export type ConstructorOptions = UserOptions;
-
-export interface FetchOptions {
-  batch: boolean;
-}
 
 export type ActiveBatch = Map<string, ActiveBatchValue>;
 
 export interface ActiveBatchValue {
   actions: BatchResultActions;
-  request: string;
-  whitelistHash: string;
+  body: JsonValue;
 }
 
 export interface BatchResultActions {
@@ -71,6 +73,6 @@ export interface MaybeRawFetchDataObjectMap {
 }
 
 export interface BatchedMaybeFetchData {
-  batch: MaybeRawFetchDataObjectMap;
   headers: Headers;
+  responses: MaybeRawFetchDataObjectMap;
 }

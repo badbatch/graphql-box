@@ -139,6 +139,7 @@ export type LogData = {
 export type LogLevel = "error" | "warn" | "info" | "http" | "verbose" | "debug" | "silly";
 
 export interface DebugManagerDef extends EventEmitter {
+  handleLog(message: string, data: PlainObjectMap, logLevel?: LogLevel): void;
   log(message: string, data: PlainObjectMap, logLevel?: LogLevel): void;
   now(): number;
 }

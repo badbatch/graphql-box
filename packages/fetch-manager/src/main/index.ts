@@ -1,8 +1,10 @@
 import {
   FETCH_RESOLVED,
+  LogLevel,
   MaybeRawFetchData,
   MaybeRawResponseData,
   MaybeRequestResult,
+  PlainObjectMap,
   PlainObjectStringMap,
   RequestContext,
   RequestData,
@@ -16,6 +18,8 @@ import EventEmitter from "eventemitter3";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isPlainObject, isString } from "lodash";
 import { meros } from "meros/browser";
+import { JsonValue } from "type-fest";
+import { v1 as uuid } from "uuid";
 import logFetch from "../debug/log-fetch";
 import {
   ActiveBatch,
@@ -24,7 +28,6 @@ import {
   BatchResultActions,
   BatchedMaybeFetchData,
   ConstructorOptions,
-  FetchOptions,
   UserOptions,
 } from "../defs";
 import cleanPatchResponse from "../helpers/cleanPatchResponse";
@@ -44,11 +47,11 @@ export class FetchManager implements RequestManagerDef {
   }
 
   private static _resolveFetchBatch(
-    { batch, headers }: BatchedMaybeFetchData,
+    { headers, responses }: BatchedMaybeFetchData,
     batchEntries: BatchActionsObjectMap,
   ): void {
     Object.keys(batchEntries).forEach(hash => {
-      const responseData = batch[hash];
+      const responseData = responses[hash];
       const { reject, resolve } = batchEntries[hash];
 
       if (responseData) {
@@ -63,34 +66,36 @@ export class FetchManager implements RequestManagerDef {
   private _activeRequestBatchTimer: NodeJS.Timer | undefined;
   private _activeResponseBatch: Set<MaybeRawFetchData> | undefined;
   private _activeResponseBatchTimer: NodeJS.Timer | undefined;
+  private _apiUrl: string | undefined;
   private _batchRequests: boolean;
   private _batchResponses: boolean;
   private _eventEmitter: EventEmitter;
   private _fetchTimeout: number;
   private _headers: PlainObjectStringMap = { "content-type": "application/json" };
+  private _logUrl: string | undefined;
   private _requestBatchInterval: number;
   private _responseBatchInterval: number;
-  private _url: string;
 
   constructor(options: ConstructorOptions) {
     const errors: TypeError[] = [];
 
-    if (!isString(options.url)) {
-      errors.push(new TypeError("@graphql-box/fetch-manager expected url to be a string."));
+    if (!isString(options.apiUrl) && !isString(options.logUrl)) {
+      errors.push(new TypeError("@graphql-box/fetch-manager expected apiUrl or logUrl to be a string."));
     }
 
     if (errors.length) {
       throw errors;
     }
 
+    this._apiUrl = options.apiUrl;
     this._batchRequests = options.batchRequests ?? false;
     this._batchResponses = options.batchResponses ?? true;
-    this._requestBatchInterval = options.requestBatchInterval ?? 100;
-    this._responseBatchInterval = options.responseBatchInterval ?? 100;
     this._eventEmitter = new EventEmitter();
     this._fetchTimeout = options.fetchTimeout ?? 5000;
     this._headers = { ...this._headers, ...(options.headers ?? {}) };
-    this._url = options.url;
+    this._logUrl = options.logUrl;
+    this._requestBatchInterval = options.requestBatchInterval ?? 100;
+    this._responseBatchInterval = options.responseBatchInterval ?? 100;
   }
 
   @logFetch()
@@ -101,8 +106,15 @@ export class FetchManager implements RequestManagerDef {
     executeResolver: RequestResolver,
   ) {
     try {
+      const url = this._apiUrl as string;
+
       if (options.batch === false || !this._batchRequests || context.hasDeferOrStream) {
-        const fetchResult = await this._fetch(request, hash, { batch: false }, context);
+        const fetchResult = await this._fetch(`${url}?requestId=${hash}`, {
+          batched: false,
+          context: FetchManager._getMessageContext(context, false),
+          request,
+        });
+
         const { debugManager, ...otherContext } = context;
 
         if (!isAsyncIterable(fetchResult)) {
@@ -141,18 +153,43 @@ export class FetchManager implements RequestManagerDef {
       }
 
       return new Promise((resolve: (value: MaybeRawResponseData) => void, reject) => {
-        this._batchRequest(request, hash, { resolve, reject }, context);
+        this._batchRequest(
+          url,
+          {
+            context: FetchManager._getMessageContext(context, true),
+            request,
+          },
+          hash,
+          { resolve, reject },
+        );
       });
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  private _batchRequest(request: string, hash: string, actions: BatchResultActions, context: RequestContext): void {
+  public async log(message: string, data: PlainObjectMap, logLevel?: LogLevel) {
+    try {
+      const url = this._logUrl as string;
+      const hash = uuid();
+
+      if (!this._batchRequests) {
+        return this._fetch(`${url}?requestId=${hash}`, { batched: false, message, data, logLevel });
+      }
+
+      return new Promise((resolve: (value: MaybeRawResponseData) => void, reject) => {
+        this._batchRequest(url, { message, data, logLevel }, hash, { resolve, reject });
+      });
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private _batchRequest(url: string, body: JsonValue, hash: string, actions: BatchResultActions): void {
     if (this._activeRequestBatchTimer) {
-      this._updateRequestBatch(request, hash, actions, context);
+      this._updateRequestBatch(url, body, hash, actions);
     } else {
-      this._createRequestBatch(request, hash, actions, context);
+      this._createRequestBatch(url, body, hash, actions);
     }
   }
 
@@ -164,15 +201,10 @@ export class FetchManager implements RequestManagerDef {
     }
   }
 
-  private _createRequestBatch(
-    request: string,
-    hash: string,
-    actions: BatchResultActions,
-    context: RequestContext,
-  ): void {
+  private _createRequestBatch(url: string, body: JsonValue, hash: string, actions: BatchResultActions): void {
     this._activeRequestBatch = new Map();
-    this._activeRequestBatch.set(hash, { actions, request, whitelistHash: context.whitelistHash });
-    this._startRequestBatchTimer(context);
+    this._activeRequestBatch.set(hash, { actions, body });
+    this._startRequestBatchTimer(url);
   }
 
   private _createResponseBatch(response: MaybeRawFetchData, hash: string, executeResolver: RequestResolver) {
@@ -181,26 +213,15 @@ export class FetchManager implements RequestManagerDef {
     this._startResponseBatchTimer(hash, executeResolver);
   }
 
-  private async _fetch(
-    request: string | Record<string, { request: string; whitelistHash: string }>,
-    hash: string,
-    { batch }: FetchOptions,
-    context: RequestContext,
-  ) {
+  private async _fetch(url: string, body: JsonValue) {
     try {
       return new Promise(async (resolve: (value: MaybeRawFetchData | AsyncGenerator<Response>) => void, reject) => {
         const fetchTimer = setTimeout(() => {
           reject(new Error(`@graphql-box/fetch-manager did not get a response within ${this._fetchTimeout}ms.`));
         }, this._fetchTimeout);
 
-        const url = `${this._url}?requestId=${hash}`;
-
         const fetchResult = await fetch(url, {
-          body: JSON.stringify({
-            batched: batch,
-            context: FetchManager._getMessageContext(context, batch),
-            request,
-          }),
+          body: JSON.stringify(body),
           headers: new Headers(this._headers),
           method: "POST",
         }).then(meros);
@@ -213,27 +234,23 @@ export class FetchManager implements RequestManagerDef {
     }
   }
 
-  private async _fetchBatch(
-    batchEntries: IterableIterator<[string, ActiveBatchValue]>,
-    context: RequestContext,
-  ): Promise<void> {
+  private async _fetchBatch(url: string, batchEntries: IterableIterator<[string, ActiveBatchValue]>): Promise<void> {
     const hashes: string[] = [];
     const batchActions: BatchActionsObjectMap = {};
-    const batchRequests: Record<string, { request: string; whitelistHash: string }> = {};
+    const batchRequests: Record<string, JsonValue> = {};
 
-    for (const [requestHash, { actions, request, whitelistHash }] of batchEntries) {
+    for (const [requestHash, { actions, body }] of batchEntries) {
       hashes.push(requestHash);
       batchActions[requestHash] = actions;
-
-      batchRequests[requestHash] = {
-        request,
-        whitelistHash,
-      };
+      batchRequests[requestHash] = body;
     }
 
     try {
       FetchManager._resolveFetchBatch(
-        (await this._fetch(batchRequests, hashes.join("-"), { batch: true }, context)) as BatchedMaybeFetchData,
+        (await this._fetch(`${url}?requestId=${hashes.join("-")}`, {
+          batched: true,
+          requests: batchRequests,
+        })) as BatchedMaybeFetchData,
         batchActions,
       );
     } catch (error) {
@@ -241,10 +258,10 @@ export class FetchManager implements RequestManagerDef {
     }
   }
 
-  private _startRequestBatchTimer(context: RequestContext): void {
+  private _startRequestBatchTimer(url: string): void {
     this._activeRequestBatchTimer = setTimeout(() => {
       if (this._activeRequestBatch) {
-        this._fetchBatch(this._activeRequestBatch.entries(), context);
+        this._fetchBatch(url, this._activeRequestBatch.entries());
       }
 
       this._activeRequestBatchTimer = undefined;
@@ -262,19 +279,14 @@ export class FetchManager implements RequestManagerDef {
     }, this._responseBatchInterval);
   }
 
-  private _updateRequestBatch(
-    request: string,
-    requestHash: string,
-    actions: BatchResultActions,
-    context: RequestContext,
-  ): void {
+  private _updateRequestBatch(url: string, body: JsonValue, hash: string, actions: BatchResultActions): void {
     clearTimeout(this._activeRequestBatchTimer as NodeJS.Timer);
 
     if (this._activeRequestBatch) {
-      this._activeRequestBatch.set(requestHash, { actions, request, whitelistHash: context.whitelistHash });
+      this._activeRequestBatch.set(hash, { actions, body });
     }
 
-    this._startRequestBatchTimer(context);
+    this._startRequestBatchTimer(url);
   }
 
   private _updateResponseBatch(response: MaybeRawFetchData, hash: string, executeResolver: RequestResolver) {
