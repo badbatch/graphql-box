@@ -55,7 +55,7 @@ export type ConstructorOptions = UserOptions;
 export type ActiveBatch = Map<string, ActiveBatchValue>;
 
 export interface ActiveBatchValue {
-  actions: BatchResultActions;
+  actions: BatchResultActions | undefined;
   body: JsonValue;
 }
 

@@ -8,8 +8,6 @@ import {
   PlainObjectStringMap,
   RequestContext,
   RequestData,
-  RequestManagerDef,
-  RequestManagerInit,
   RequestOptions,
   RequestResolver,
 } from "@graphql-box/core";
@@ -34,7 +32,7 @@ import cleanPatchResponse from "../helpers/cleanPatchResponse";
 import mergeResponseDataSets from "../helpers/mergeResponseDataSets";
 import parseFetchResult from "../helpers/parseFetchResult";
 
-export class FetchManager implements RequestManagerDef {
+export class FetchManager {
   private static _getMessageContext({ operation, requestID, whitelistHash }: RequestContext, batch: boolean) {
     return batch ? { operation, requestID } : { operation, requestID, whitelistHash };
   }
@@ -168,24 +166,23 @@ export class FetchManager implements RequestManagerDef {
     }
   }
 
-  public async log(message: string, data: PlainObjectMap, logLevel?: LogLevel) {
+  public log(message: string, data: PlainObjectMap, logLevel?: LogLevel) {
     try {
       const url = this._logUrl as string;
       const hash = uuid();
 
       if (!this._batchRequests) {
-        return this._fetch(`${url}?requestId=${hash}`, { batched: false, message, data, logLevel });
+        this._fetch(`${url}?requestId=${hash}`, { batched: false, message, data, logLevel });
+        return;
       }
 
-      return new Promise((resolve: (value: MaybeRawResponseData) => void, reject) => {
-        this._batchRequest(url, { message, data, logLevel }, hash, { resolve, reject });
-      });
-    } catch (error) {
-      return Promise.reject(error);
+      this._batchRequest(url, { message, data, logLevel }, hash);
+    } catch {
+      // no catch
     }
   }
 
-  private _batchRequest(url: string, body: JsonValue, hash: string, actions: BatchResultActions): void {
+  private _batchRequest(url: string, body: JsonValue, hash: string, actions?: BatchResultActions): void {
     if (this._activeRequestBatchTimer) {
       this._updateRequestBatch(url, body, hash, actions);
     } else {
@@ -201,7 +198,7 @@ export class FetchManager implements RequestManagerDef {
     }
   }
 
-  private _createRequestBatch(url: string, body: JsonValue, hash: string, actions: BatchResultActions): void {
+  private _createRequestBatch(url: string, body: JsonValue, hash: string, actions?: BatchResultActions): void {
     this._activeRequestBatch = new Map();
     this._activeRequestBatch.set(hash, { actions, body });
     this._startRequestBatchTimer(url);
@@ -241,7 +238,11 @@ export class FetchManager implements RequestManagerDef {
 
     for (const [requestHash, { actions, body }] of batchEntries) {
       hashes.push(requestHash);
-      batchActions[requestHash] = actions;
+
+      if (actions) {
+        batchActions[requestHash] = actions;
+      }
+
       batchRequests[requestHash] = body;
     }
 
@@ -279,7 +280,7 @@ export class FetchManager implements RequestManagerDef {
     }, this._responseBatchInterval);
   }
 
-  private _updateRequestBatch(url: string, body: JsonValue, hash: string, actions: BatchResultActions): void {
+  private _updateRequestBatch(url: string, body: JsonValue, hash: string, actions?: BatchResultActions): void {
     clearTimeout(this._activeRequestBatchTimer as NodeJS.Timer);
 
     if (this._activeRequestBatch) {
@@ -300,7 +301,7 @@ export class FetchManager implements RequestManagerDef {
   }
 }
 
-export default function init(userOptions: UserOptions): RequestManagerInit {
+export default function init(userOptions: UserOptions) {
   if (!isPlainObject(userOptions)) {
     throw new TypeError("@graphql-box/fetch-manager expected userOptions to be a plain object.");
   }

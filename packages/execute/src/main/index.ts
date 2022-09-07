@@ -6,8 +6,6 @@ import {
   PlainObjectMap,
   RequestContext,
   RequestData,
-  RequestManagerDef,
-  RequestManagerInit,
   RequestResolver,
   ServerRequestOptions,
 } from "@graphql-box/core";
@@ -19,7 +17,7 @@ import { isPlainObject } from "lodash";
 import logExecute from "../debug/log-execute";
 import { ConstructorOptions, GraphQLExecute, UserOptions } from "../defs";
 
-export class Execute implements RequestManagerDef {
+export class Execute {
   private _contextValue: PlainObjectMap;
   private _eventEmitter: EventEmitter;
   private _execute: GraphQLExecute;
@@ -107,7 +105,7 @@ export class Execute implements RequestManagerDef {
   }
 }
 
-export default function init(userOptions: UserOptions): RequestManagerInit {
+export default function init(userOptions: UserOptions) {
   if (!isPlainObject(userOptions)) {
     throw new TypeError("@graphql-box/execute expected userOptions to be a plain object.");
   }
