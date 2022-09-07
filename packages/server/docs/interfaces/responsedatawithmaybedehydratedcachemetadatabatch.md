@@ -10,15 +10,15 @@
 
 ### Properties
 
-* [batch](responsedatawithmaybedehydratedcachemetadatabatch.md#batch)
+* [responses](responsedatawithmaybedehydratedcachemetadatabatch.md#responses)
 
 ## Properties
 
-###  batch
+###  responses
 
-• **batch**: *object*
+• **responses**: *object*
 
-*Defined in [defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/2fa13c7a/packages/server/src/defs/index.ts#L35)*
+*Defined in [defs/index.ts:57](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/server/src/defs/index.ts#L57)*
 
 #### Type declaration:
 

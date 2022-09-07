@@ -1,3 +1,9 @@
+### 3.12.0 (2022-09-07)
+
+##### New Features
+
+*  add log methods to fetch manager and server ([67c318bd](https://github.com/badbatch/graphql-box/commit/67c318bd7186602730e32ca787c021d48e525e31))
+
 #### 3.11.4 (2022-09-01)
 
 ##### Bug Fixes

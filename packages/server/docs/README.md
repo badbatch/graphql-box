@@ -10,6 +10,8 @@
 
 ### Interfaces
 
+* [BatchRequestData](interfaces/batchrequestdata.md)
+* [LogData](interfaces/logdata.md)
 * [RequestData](interfaces/requestdata.md)
 * [ResponseDataWithMaybeDehydratedCacheMetadataBatch](interfaces/responsedatawithmaybedehydratedcachemetadatabatch.md)
 * [UserOptions](interfaces/useroptions.md)
@@ -25,7 +27,7 @@
 
 Ƭ **MessageHandler**: *function*
 
-*Defined in [defs/index.ts:26](https://github.com/badbatch/graphql-box/blob/2fa13c7a/packages/server/src/defs/index.ts#L26)*
+*Defined in [defs/index.ts:31](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/server/src/defs/index.ts#L31)*
 
 #### Type declaration:
 
@@ -43,7 +45,7 @@ ___
 
 Ƭ **RequestHandler**: *function*
 
-*Defined in [defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/2fa13c7a/packages/server/src/defs/index.ts#L24)*
+*Defined in [defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/server/src/defs/index.ts#L29)*
 
 #### Type declaration:
 

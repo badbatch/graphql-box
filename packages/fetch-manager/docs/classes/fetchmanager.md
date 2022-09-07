@@ -19,6 +19,7 @@
 ### Methods
 
 * [execute](fetchmanager.md#execute)
+* [log](fetchmanager.md#log)
 
 ## Constructors
 
@@ -26,7 +27,7 @@
 
 \+ **new FetchManager**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[FetchManager](fetchmanager.md)*
 
-*Defined in [main/index.ts:73](https://github.com/badbatch/graphql-box/blob/2fa13c7a/packages/fetch-manager/src/main/index.ts#L73)*
+*Defined in [main/index.ts:77](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/fetch-manager/src/main/index.ts#L77)*
 
 **Parameters:**
 
@@ -42,7 +43,7 @@ Name | Type |
 
 ▸ **execute**(`__namedParameters`: object, `options`: RequestOptions, `context`: RequestContext, `executeResolver`: RequestResolver): *Promise‹MaybeRawResponseData | object | AsyncIterableIterator‹undefined | MaybeRequestResult››*
 
-*Defined in [main/index.ts:97](https://github.com/badbatch/graphql-box/blob/2fa13c7a/packages/fetch-manager/src/main/index.ts#L97)*
+*Defined in [main/index.ts:102](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/fetch-manager/src/main/index.ts#L102)*
 
 **Parameters:**
 
@@ -60,3 +61,21 @@ Name | Type |
 ▪ **executeResolver**: *RequestResolver*
 
 **Returns:** *Promise‹MaybeRawResponseData | object | AsyncIterableIterator‹undefined | MaybeRequestResult››*
+
+___
+
+###  log
+
+▸ **log**(`message`: string, `data`: PlainObjectMap, `logLevel?`: LogLevel): *Promise‹MaybeRawResponseData | MaybeRawFetchData | AsyncGenerator‹Response, any, unknown››*
+
+*Defined in [main/index.ts:171](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/fetch-manager/src/main/index.ts#L171)*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`message` | string |
+`data` | PlainObjectMap |
+`logLevel?` | LogLevel |
+
+**Returns:** *Promise‹MaybeRawResponseData | MaybeRawFetchData | AsyncGenerator‹Response, any, unknown››*

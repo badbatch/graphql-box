@@ -11,8 +11,7 @@
 ### Properties
 
 * [actions](activebatchvalue.md#actions)
-* [request](activebatchvalue.md#request)
-* [whitelistHash](activebatchvalue.md#whitelisthash)
+* [body](activebatchvalue.md#body)
 
 ## Properties
 
@@ -20,20 +19,12 @@
 
 • **actions**: *[BatchResultActions](batchresultactions.md)*
 
-*Defined in [defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/2fa13c7a/packages/fetch-manager/src/defs/index.ts#L55)*
+*Defined in [defs/index.ts:58](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/fetch-manager/src/defs/index.ts#L58)*
 
 ___
 
-###  request
+###  body
 
-• **request**: *string*
+• **body**: *JsonValue*
 
-*Defined in [defs/index.ts:56](https://github.com/badbatch/graphql-box/blob/2fa13c7a/packages/fetch-manager/src/defs/index.ts#L56)*
-
-___
-
-###  whitelistHash
-
-• **whitelistHash**: *string*
-
-*Defined in [defs/index.ts:57](https://github.com/badbatch/graphql-box/blob/2fa13c7a/packages/fetch-manager/src/defs/index.ts#L57)*
+*Defined in [defs/index.ts:59](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/fetch-manager/src/defs/index.ts#L59)*

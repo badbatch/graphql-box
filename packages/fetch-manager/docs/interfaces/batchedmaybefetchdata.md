@@ -10,21 +10,21 @@
 
 ### Properties
 
-* [batch](batchedmaybefetchdata.md#batch)
 * [headers](batchedmaybefetchdata.md#headers)
+* [responses](batchedmaybefetchdata.md#responses)
 
 ## Properties
-
-###  batch
-
-• **batch**: *[MaybeRawFetchDataObjectMap](mayberawfetchdataobjectmap.md)*
-
-*Defined in [defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/2fa13c7a/packages/fetch-manager/src/defs/index.ts#L74)*
-
-___
 
 ###  headers
 
 • **headers**: *Headers*
 
-*Defined in [defs/index.ts:75](https://github.com/badbatch/graphql-box/blob/2fa13c7a/packages/fetch-manager/src/defs/index.ts#L75)*
+*Defined in [defs/index.ts:76](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/fetch-manager/src/defs/index.ts#L76)*
+
+___
+
+###  responses
+
+• **responses**: *[MaybeRawFetchDataObjectMap](mayberawfetchdataobjectmap.md)*
+
+*Defined in [defs/index.ts:77](https://github.com/badbatch/graphql-box/blob/67c318bd/packages/fetch-manager/src/defs/index.ts#L77)*
