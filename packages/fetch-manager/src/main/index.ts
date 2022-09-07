@@ -32,8 +32,8 @@ import mergeResponseDataSets from "../helpers/mergeResponseDataSets";
 import parseFetchResult from "../helpers/parseFetchResult";
 
 export default class FetchManager {
-  private static _getMessageContext({ operation, requestID, whitelistHash }: RequestContext, batch: boolean) {
-    return batch ? { operation, requestID } : { operation, requestID, whitelistHash };
+  private static _getMessageContext({ operation, requestID, whitelistHash }: RequestContext) {
+    return { operation, requestID, whitelistHash };
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: any): void {
@@ -59,8 +59,8 @@ export default class FetchManager {
     });
   }
 
-  private _activeRequestBatch: ActiveBatch | undefined;
-  private _activeRequestBatchTimer: NodeJS.Timer | undefined;
+  private _activeRequestBatch: Record<string, ActiveBatch> = {};
+  private _activeRequestBatchTimer: Record<string, NodeJS.Timer> = {};
   private _activeResponseBatch: Set<MaybeRawFetchData> | undefined;
   private _activeResponseBatchTimer: NodeJS.Timer | undefined;
   private _apiUrl: string | undefined;
@@ -108,7 +108,7 @@ export default class FetchManager {
       if (options.batch === false || !this._batchRequests || context.hasDeferOrStream) {
         const fetchResult = await this._fetch(`${url}?requestId=${hash}`, {
           batched: false,
-          context: FetchManager._getMessageContext(context, false),
+          context: FetchManager._getMessageContext(context),
           request,
         });
 
@@ -153,7 +153,7 @@ export default class FetchManager {
         this._batchRequest(
           url,
           {
-            context: FetchManager._getMessageContext(context, true),
+            context: FetchManager._getMessageContext(context),
             request,
           },
           hash,
@@ -182,7 +182,7 @@ export default class FetchManager {
   }
 
   private _batchRequest(url: string, body: JsonValue, hash: string, actions?: BatchResultActions): void {
-    if (this._activeRequestBatchTimer) {
+    if (this._activeRequestBatchTimer[url]) {
       this._updateRequestBatch(url, body, hash, actions);
     } else {
       this._createRequestBatch(url, body, hash, actions);
@@ -198,8 +198,8 @@ export default class FetchManager {
   }
 
   private _createRequestBatch(url: string, body: JsonValue, hash: string, actions?: BatchResultActions): void {
-    this._activeRequestBatch = new Map();
-    this._activeRequestBatch.set(hash, { actions, body });
+    this._activeRequestBatch[url] = new Map();
+    this._activeRequestBatch[url].set(hash, { actions, body });
     this._startRequestBatchTimer(url);
   }
 
@@ -259,12 +259,13 @@ export default class FetchManager {
   }
 
   private _startRequestBatchTimer(url: string): void {
-    this._activeRequestBatchTimer = setTimeout(() => {
-      if (this._activeRequestBatch) {
-        this._fetchBatch(url, this._activeRequestBatch.entries());
+    this._activeRequestBatchTimer[url] = setTimeout(() => {
+      if (this._activeRequestBatch[url]) {
+        this._fetchBatch(url, this._activeRequestBatch[url].entries());
+        delete this._activeRequestBatch[url];
       }
 
-      this._activeRequestBatchTimer = undefined;
+      delete this._activeRequestBatchTimer[url];
     }, this._requestBatchInterval);
   }
 
@@ -280,10 +281,10 @@ export default class FetchManager {
   }
 
   private _updateRequestBatch(url: string, body: JsonValue, hash: string, actions?: BatchResultActions): void {
-    clearTimeout(this._activeRequestBatchTimer as NodeJS.Timer);
+    clearTimeout(this._activeRequestBatchTimer[url]);
 
-    if (this._activeRequestBatch) {
-      this._activeRequestBatch.set(hash, { actions, body });
+    if (this._activeRequestBatch[url]) {
+      this._activeRequestBatch[url].set(hash, { actions, body });
     }
 
     this._startRequestBatchTimer(url);
