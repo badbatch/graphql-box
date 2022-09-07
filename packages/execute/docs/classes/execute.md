@@ -20,15 +20,15 @@
 
 ###  constructor
 
-\+ **new Execute**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[Execute](execute.md)*
+\+ **new Execute**(`options`: [UserOptions](../interfaces/useroptions.md)): *[Execute](execute.md)*
 
-*Defined in [main/index.ts:26](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/execute/src/main/index.ts#L26)*
+*Defined in [main/index.ts:25](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/execute/src/main/index.ts#L25)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`options` | [ConstructorOptions](../README.md#constructoroptions) |
+`options` | [UserOptions](../interfaces/useroptions.md) |
 
 **Returns:** *[Execute](execute.md)*
 
@@ -38,7 +38,7 @@ Name | Type |
 
 ▸ **execute**(`__namedParameters`: object, `options`: ServerRequestOptions, `context`: RequestContext, `executeResolver`: RequestResolver): *Promise‹any›*
 
-*Defined in [main/index.ts:48](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/execute/src/main/index.ts#L48)*
+*Defined in [main/index.ts:47](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/execute/src/main/index.ts#L47)*
 
 **Parameters:**
 

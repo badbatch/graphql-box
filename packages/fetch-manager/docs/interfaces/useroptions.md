@@ -25,7 +25,7 @@
 
 • **apiUrl**? : *undefined | string*
 
-*Defined in [defs/index.ts:9](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/defs/index.ts#L9)*
+*Defined in [defs/index.ts:9](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/fetch-manager/src/defs/index.ts#L9)*
 
 The endpoint that client will use to communicate with the
 GraphQL server for queries and mutations.
@@ -36,7 +36,7 @@ ___
 
 • **batchRequests**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:15](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/fetch-manager/src/defs/index.ts#L15)*
 
 Whether a client should batch requests query and mutation
 requests.
@@ -47,7 +47,7 @@ ___
 
 • **batchResponses**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:21](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/defs/index.ts#L21)*
+*Defined in [defs/index.ts:21](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/fetch-manager/src/defs/index.ts#L21)*
 
 Whether a client should batch responses when receiving
 patches for requests using defer or stream.
@@ -58,7 +58,7 @@ ___
 
 • **fetchTimeout**? : *undefined | number*
 
-*Defined in [defs/index.ts:27](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/defs/index.ts#L27)*
+*Defined in [defs/index.ts:27](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/fetch-manager/src/defs/index.ts#L27)*
 
 How long client should wait for a server to
 respond before timing out.
@@ -69,7 +69,7 @@ ___
 
 • **headers**? : *PlainObjectStringMap*
 
-*Defined in [defs/index.ts:32](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/defs/index.ts#L32)*
+*Defined in [defs/index.ts:32](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/fetch-manager/src/defs/index.ts#L32)*
 
 Additional headers to be sent with every request.
 
@@ -79,7 +79,7 @@ ___
 
 • **logUrl**? : *undefined | string*
 
-*Defined in [defs/index.ts:38](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/defs/index.ts#L38)*
+*Defined in [defs/index.ts:38](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/fetch-manager/src/defs/index.ts#L38)*
 
 The endpoint that client will use to send logs
 to the server.
@@ -90,7 +90,7 @@ ___
 
 • **requestBatchInterval**? : *undefined | number*
 
-*Defined in [defs/index.ts:44](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/defs/index.ts#L44)*
+*Defined in [defs/index.ts:44](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/fetch-manager/src/defs/index.ts#L44)*
 
 How long client should wait to batch requests
 before making a request.
@@ -101,7 +101,7 @@ ___
 
 • **responseBatchInterval**? : *undefined | number*
 
-*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/fetch-manager/src/defs/index.ts#L50)*
+*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/fetch-manager/src/defs/index.ts#L50)*
 
 How long client should wait to batch responses
 before returning a response.

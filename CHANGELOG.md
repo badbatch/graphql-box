@@ -1,3 +1,9 @@
+### 3.13.0 (2022-09-07)
+
+##### Refactors
+
+*  change the way fetch manager and execute are initialised ([f07703b6](https://github.com/badbatch/graphql-box/commit/f07703b652250ed4866153e2dbd9fd39465ed557))
+
 #### 3.12.1 (2022-09-07)
 
 ##### Refactors

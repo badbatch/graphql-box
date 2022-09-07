@@ -20,7 +20,7 @@
 
 • **client**: *Client*
 
-*Defined in [defs/index.ts:15](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/server/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/server/src/defs/index.ts#L15)*
 
 The client.
 
@@ -30,7 +30,7 @@ ___
 
 • **requestTimeout**? : *undefined | number*
 
-*Defined in [defs/index.ts:20](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/server/src/defs/index.ts#L20)*
+*Defined in [defs/index.ts:20](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/server/src/defs/index.ts#L20)*
 
 Time the server has to process a request before timing out.
 
@@ -40,7 +40,7 @@ ___
 
 • **requestWhitelist**? : *string[]*
 
-*Defined in [defs/index.ts:26](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/server/src/defs/index.ts#L26)*
+*Defined in [defs/index.ts:26](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/server/src/defs/index.ts#L26)*
 
 List of request hashes that the server is allowed to
 operate on.

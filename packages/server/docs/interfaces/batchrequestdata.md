@@ -19,7 +19,7 @@
 
 • **batched**: *boolean*
 
-*Defined in [defs/index.ts:46](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/server/src/defs/index.ts#L46)*
+*Defined in [defs/index.ts:46](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/server/src/defs/index.ts#L46)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **requests**: *Record‹string, object›*
 
-*Defined in [defs/index.ts:47](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/server/src/defs/index.ts#L47)*
+*Defined in [defs/index.ts:47](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/server/src/defs/index.ts#L47)*

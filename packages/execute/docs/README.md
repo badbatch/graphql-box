@@ -14,29 +14,19 @@
 
 ### Type aliases
 
-* [ConstructorOptions](README.md#constructoroptions)
 * [GraphQLExecute](README.md#graphqlexecute)
 
 ### Functions
 
-* [init](README.md#init)
 * [logExecute](README.md#logexecute)
 
 ## Type aliases
-
-###  ConstructorOptions
-
-Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
-
-*Defined in [defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/execute/src/defs/index.ts#L37)*
-
-___
 
 ###  GraphQLExecute
 
 Ƭ **GraphQLExecute**: *function*
 
-*Defined in [defs/index.ts:39](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/execute/src/defs/index.ts#L39)*
+*Defined in [defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/execute/src/defs/index.ts#L37)*
 
 #### Type declaration:
 
@@ -50,26 +40,10 @@ Name | Type |
 
 ## Functions
 
-###  init
-
-▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *(Anonymous function)*
-
-*Defined in [main/index.ts:108](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/execute/src/main/index.ts#L108)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`userOptions` | [UserOptions](interfaces/useroptions.md) |
-
-**Returns:** *(Anonymous function)*
-
-___
-
 ###  logExecute
 
 ▸ **logExecute**(): *(Anonymous function)*
 
-*Defined in [debug/log-execute/index.ts:4](https://github.com/badbatch/graphql-box/blob/be6f26db/packages/execute/src/debug/log-execute/index.ts#L4)*
+*Defined in [debug/log-execute/index.ts:4](https://github.com/badbatch/graphql-box/blob/f07703b6/packages/execute/src/debug/log-execute/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*
