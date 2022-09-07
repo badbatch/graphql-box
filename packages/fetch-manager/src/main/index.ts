@@ -14,7 +14,7 @@ import {
 import { EventAsyncIterator, deserializeErrors } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { forAwaitEach, isAsyncIterable } from "iterall";
-import { isPlainObject, isString } from "lodash";
+import { isString } from "lodash";
 import { meros } from "meros/browser";
 import { JsonValue } from "type-fest";
 import { v1 as uuid } from "uuid";
@@ -25,14 +25,13 @@ import {
   BatchActionsObjectMap,
   BatchResultActions,
   BatchedMaybeFetchData,
-  ConstructorOptions,
   UserOptions,
 } from "../defs";
 import cleanPatchResponse from "../helpers/cleanPatchResponse";
 import mergeResponseDataSets from "../helpers/mergeResponseDataSets";
 import parseFetchResult from "../helpers/parseFetchResult";
 
-export class FetchManager {
+export default class FetchManager {
   private static _getMessageContext({ operation, requestID, whitelistHash }: RequestContext, batch: boolean) {
     return batch ? { operation, requestID } : { operation, requestID, whitelistHash };
   }
@@ -74,7 +73,7 @@ export class FetchManager {
   private _requestBatchInterval: number;
   private _responseBatchInterval: number;
 
-  constructor(options: ConstructorOptions) {
+  constructor(options: UserOptions) {
     const errors: TypeError[] = [];
 
     if (!isString(options.apiUrl) && !isString(options.logUrl)) {
@@ -299,12 +298,4 @@ export class FetchManager {
 
     this._startResponseBatchTimer(hash, executeResolver);
   }
-}
-
-export default function init(userOptions: UserOptions) {
-  if (!isPlainObject(userOptions)) {
-    throw new TypeError("@graphql-box/fetch-manager expected userOptions to be a plain object.");
-  }
-
-  return () => new FetchManager(userOptions);
 }

@@ -50,8 +50,6 @@ export interface UserOptions {
   responseBatchInterval?: number;
 }
 
-export type ConstructorOptions = UserOptions;
-
 export type ActiveBatch = Map<string, ActiveBatchValue>;
 
 export interface ActiveBatchValue {

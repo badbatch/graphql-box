@@ -34,8 +34,6 @@ export interface UserOptions {
   schema: GraphQLSchema;
 }
 
-export type ConstructorOptions = UserOptions;
-
 export type GraphQLExecute = (
   args: ExecutionArgs,
 ) => PromiseOrValue<ExecutionResult | AsyncGenerator<AsyncExecutionResult, void, void>>;

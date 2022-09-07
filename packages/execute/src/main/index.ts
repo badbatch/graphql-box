@@ -13,11 +13,10 @@ import { EventAsyncIterator, getFragmentDefinitions, setCacheMetadata, standardi
 import EventEmitter from "eventemitter3";
 import { ExecutionArgs, GraphQLFieldResolver, GraphQLSchema, execute } from "graphql";
 import { forAwaitEach, isAsyncIterable } from "iterall";
-import { isPlainObject } from "lodash";
 import logExecute from "../debug/log-execute";
-import { ConstructorOptions, GraphQLExecute, UserOptions } from "../defs";
+import { GraphQLExecute, UserOptions } from "../defs";
 
-export class Execute {
+export default class Execute {
   private _contextValue: PlainObjectMap;
   private _eventEmitter: EventEmitter;
   private _execute: GraphQLExecute;
@@ -25,7 +24,7 @@ export class Execute {
   private _rootValue: any;
   private _schema: GraphQLSchema;
 
-  constructor(options: ConstructorOptions) {
+  constructor(options: UserOptions) {
     const errors: TypeError[] = [];
 
     if (!(options.schema instanceof GraphQLSchema)) {
@@ -103,12 +102,4 @@ export class Execute {
       return Promise.reject(error);
     }
   }
-}
-
-export default function init(userOptions: UserOptions) {
-  if (!isPlainObject(userOptions)) {
-    throw new TypeError("@graphql-box/execute expected userOptions to be a plain object.");
-  }
-
-  return () => new Execute(userOptions);
 }

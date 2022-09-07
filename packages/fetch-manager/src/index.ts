@@ -1,2 +1,2 @@
 export * from "./defs";
-export { default, FetchManager } from "./main";
+export { default } from "./main";

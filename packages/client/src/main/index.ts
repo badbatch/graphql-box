@@ -104,7 +104,7 @@ export default class Client {
     const typeIDKey = options.typeIDKey || DEFAULT_TYPE_ID_KEY;
     this._cacheManager = options.cacheManager({ typeIDKey });
     this._debugManager = options.debugManager ? options.debugManager() : null;
-    this._requestManager = options.requestManager();
+    this._requestManager = options.requestManager;
     this._requestParser = options.requestParser({ typeIDKey });
     this._subscriptionsManager = options.subscriptionsManager ? options.subscriptionsManager() : null;
   }

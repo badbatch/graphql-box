@@ -3,7 +3,7 @@ import cacheManager from "@graphql-box/cache-manager";
 import Client from "@graphql-box/client";
 import { DEFAULT_TYPE_ID_KEY } from "@graphql-box/core";
 import debugManager, { Environment } from "@graphql-box/debug-manager";
-import fetchManager from "@graphql-box/fetch-manager";
+import FetchManager from "@graphql-box/fetch-manager";
 import requestParser from "@graphql-box/request-parser";
 import { log } from "..";
 import { URL } from "../../consts";
@@ -35,7 +35,7 @@ export default function initClient({
       name: debuggerName,
       performance,
     }),
-    requestManager: fetchManager({ apiUrl: URL }),
+    requestManager: new FetchManager({ apiUrl: URL }),
     requestParser: requestParser({ introspection, schema }),
     subscriptionsManager,
     typeIDKey: DEFAULT_TYPE_ID_KEY,

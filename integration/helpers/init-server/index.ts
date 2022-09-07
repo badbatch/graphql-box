@@ -3,7 +3,7 @@ import cacheManager from "@graphql-box/cache-manager";
 import Client from "@graphql-box/client";
 import { DEFAULT_TYPE_ID_KEY } from "@graphql-box/core";
 import debugManager, { Environment } from "@graphql-box/debug-manager";
-import execute from "@graphql-box/execute";
+import Execute from "@graphql-box/execute";
 import requestParser from "@graphql-box/request-parser";
 import subscribe from "@graphql-box/subscribe";
 import { schemaResolvers, schemaTypeDefs } from "@graphql-box/test-utils";
@@ -34,7 +34,7 @@ export default function initServer({ cachemapStore, debuggerName = "SERVER", typ
       name: debuggerName,
       performance,
     }),
-    requestManager: execute({ schema }),
+    requestManager: new Execute({ schema }),
     requestParser: requestParser({ schema }),
     subscriptionsManager: subscribe({ schema }),
     typeIDKey: DEFAULT_TYPE_ID_KEY,

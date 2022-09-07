@@ -5,7 +5,7 @@ import {
   PlainObjectMap,
   RequestContext,
   RequestData,
-  RequestManagerInit,
+  RequestManagerDef,
   RequestOptions,
   SubscriptionsManagerInit,
 } from "@graphql-box/core";
@@ -24,9 +24,9 @@ export interface UserOptions {
   debugManager?: DebugManagerInit;
 
   /**
-   * The curried function to initialize the request manager.
+   * The request manager.
    */
-  requestManager: RequestManagerInit;
+  requestManager: RequestManagerDef;
 
   /**
    * The curried function to initialzie the request parser.

@@ -14,7 +14,7 @@ import { getRequestContext, getRequestData, parsedRequests, responses } from "@g
 import fetchMock from "fetch-mock";
 import { forAwaitEach } from "iterall";
 import { Response } from "undici";
-import { FetchManager } from ".";
+import FetchManager from ".";
 import createResponseChunks from "./__testUtils__/createResponseChunks";
 
 const URL = "https://api.github.com/graphql";
