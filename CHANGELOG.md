@@ -1,3 +1,9 @@
+#### 3.13.1 (2022-09-07)
+
+##### Bug Fixes
+
+*  fetch bugs related to api and log requests ([e26041be](https://github.com/badbatch/graphql-box/commit/e26041be37997d554133fdf93b981a18e02fd54f))
+
 ### 3.13.0 (2022-09-07)
 
 ##### Refactors
