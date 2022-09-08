@@ -1,3 +1,9 @@
+#### 3.13.3 (2022-09-08)
+
+##### New Features
+
+*  enable fetch batch max ([0289bea5](https://github.com/badbatch/graphql-box/commit/0289bea566be33799ccc2ba94f161cc902a7ce98))
+
 #### 3.13.2 (2022-09-08)
 
 ##### Bug Fixes
