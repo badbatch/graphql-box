@@ -19,7 +19,7 @@
 
 • **actions**: *[BatchResultActions](batchresultactions.md) | undefined*
 
-*Defined in [defs/index.ts:56](https://github.com/badbatch/graphql-box/blob/e26041be/packages/fetch-manager/src/defs/index.ts#L56)*
+*Defined in [defs/index.ts:56](https://github.com/badbatch/graphql-box/blob/85ed3ddc/packages/fetch-manager/src/defs/index.ts#L56)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **body**: *JsonValue*
 
-*Defined in [defs/index.ts:57](https://github.com/badbatch/graphql-box/blob/e26041be/packages/fetch-manager/src/defs/index.ts#L57)*
+*Defined in [defs/index.ts:57](https://github.com/badbatch/graphql-box/blob/85ed3ddc/packages/fetch-manager/src/defs/index.ts#L57)*

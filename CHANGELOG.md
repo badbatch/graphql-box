@@ -1,3 +1,9 @@
+#### 3.13.2 (2022-09-08)
+
+##### Bug Fixes
+
+*  log handler bug ([85ed3ddc](https://github.com/badbatch/graphql-box/commit/85ed3ddcd187d889fc00dbc972dae26287b37a71))
+
 #### 3.13.1 (2022-09-07)
 
 ##### Bug Fixes
