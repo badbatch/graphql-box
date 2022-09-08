@@ -71,6 +71,7 @@ export default class FetchManager {
   private _headers: PlainObjectStringMap = { "content-type": "application/json" };
   private _logUrl: string | undefined;
   private _requestBatchInterval: number;
+  private _requestBatchMax: number;
   private _responseBatchInterval: number;
 
   constructor(options: UserOptions) {
@@ -92,6 +93,7 @@ export default class FetchManager {
     this._headers = { ...this._headers, ...(options.headers ?? {}) };
     this._logUrl = options.logUrl;
     this._requestBatchInterval = options.requestBatchInterval ?? 100;
+    this._requestBatchMax = options.requestBatchMax ?? 20;
     this._responseBatchInterval = options.responseBatchInterval ?? 100;
   }
 
@@ -182,10 +184,15 @@ export default class FetchManager {
   }
 
   private _batchRequest(url: string, body: JsonValue, hash: string, actions?: BatchResultActions): void {
-    if (this._activeRequestBatchTimer[url]) {
-      this._updateRequestBatch(url, body, hash, actions);
-    } else {
+    if (!this._activeRequestBatch[url]) {
       this._createRequestBatch(url, body, hash, actions);
+    } else if (this._activeRequestBatch[url].size >= this._requestBatchMax) {
+      clearTimeout(this._activeRequestBatchTimer[url]);
+      this._fetchBatch(url, this._activeRequestBatch[url].entries());
+      delete this._activeRequestBatch[url];
+      this._createRequestBatch(url, body, hash, actions);
+    } else {
+      this._updateRequestBatch(url, body, hash, actions);
     }
   }
 

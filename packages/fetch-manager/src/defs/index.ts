@@ -44,6 +44,11 @@ export interface UserOptions {
   requestBatchInterval?: number;
 
   /**
+   * The maximum number of requests in a single batch
+   */
+  requestBatchMax?: number;
+
+  /**
    * How long client should wait to batch responses
    * before returning a response.
    */
