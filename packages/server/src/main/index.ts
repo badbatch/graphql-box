@@ -189,7 +189,7 @@ export default class Server {
       let logs: LogData[] = [];
 
       if (body.batched) {
-        logs = body.requests;
+        logs = Object.values(body.requests);
       } else {
         const { batched, ...rest } = body;
         logs = [rest];
