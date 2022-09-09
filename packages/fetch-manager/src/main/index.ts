@@ -230,7 +230,12 @@ export default class FetchManager {
         }).then(meros);
 
         clearTimeout(fetchTimer);
-        resolve(isAsyncIterable(fetchResult) ? fetchResult : await parseFetchResult(fetchResult));
+
+        if (isAsyncIterable(fetchResult) || fetchResult.status === 204) {
+          resolve(fetchResult as Response | AsyncGenerator<Response>);
+        } else {
+          resolve(await parseFetchResult(fetchResult));
+        }
       });
     } catch (error) {
       return Promise.reject(error);
