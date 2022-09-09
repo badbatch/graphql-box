@@ -39,7 +39,7 @@
 
 Ƭ **ConstructorOptions**: *[UserOptions](interfaces/useroptions.md)*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/0289bea5/packages/debug-manager/src/defs/index.ts#L29)*
+*Defined in [packages/debug-manager/src/defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/debug-manager/src/defs/index.ts#L29)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 Ƭ **DebugManagerInit**: *function*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:31](https://github.com/badbatch/graphql-box/blob/0289bea5/packages/debug-manager/src/defs/index.ts#L31)*
+*Defined in [packages/debug-manager/src/defs/index.ts:31](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/debug-manager/src/defs/index.ts#L31)*
 
 #### Type declaration:
 
@@ -59,7 +59,7 @@ ___
 
 Ƭ **Environment**: *"client" | "server" | "worker" | "workerClient"*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:33](https://github.com/badbatch/graphql-box/blob/0289bea5/packages/debug-manager/src/defs/index.ts#L33)*
+*Defined in [packages/debug-manager/src/defs/index.ts:33](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/debug-manager/src/defs/index.ts#L33)*
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 Ƭ **Log**: *function*
 
-*Defined in [packages/debug-manager/src/defs/index.ts:3](https://github.com/badbatch/graphql-box/blob/0289bea5/packages/debug-manager/src/defs/index.ts#L3)*
+*Defined in [packages/debug-manager/src/defs/index.ts:3](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/debug-manager/src/defs/index.ts#L3)*
 
 #### Type declaration:
 
@@ -87,7 +87,7 @@ ___
 
 Ƭ **TransformedOptions**: *object*
 
-*Defined in [packages/debug-manager/src/helpers/transformOptions.ts:6](https://github.com/badbatch/graphql-box/blob/0289bea5/packages/debug-manager/src/helpers/transformOptions.ts#L6)*
+*Defined in [packages/debug-manager/src/helpers/transformOptions.ts:6](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/debug-manager/src/helpers/transformOptions.ts#L6)*
 
 #### Type declaration:
 
@@ -109,7 +109,7 @@ ___
 
 • **defaultPropNames**: *string[]* = ["labels.result", "labels.variables", "labels.value"]
 
-*Defined in [packages/debug-manager/src/helpers/serializeLog.ts:4](https://github.com/badbatch/graphql-box/blob/0289bea5/packages/debug-manager/src/helpers/serializeLog.ts#L4)*
+*Defined in [packages/debug-manager/src/helpers/serializeLog.ts:4](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/debug-manager/src/helpers/serializeLog.ts#L4)*
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 • **performance**: *Performance*
 
-*Defined in [packages/debug-manager/src/index.test.ts:20](https://github.com/badbatch/graphql-box/blob/0289bea5/packages/debug-manager/src/index.test.ts#L20)*
+*Defined in [packages/debug-manager/src/index.test.ts:20](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/debug-manager/src/index.test.ts#L20)*
 
 ## Functions
 
@@ -125,7 +125,7 @@ ___
 
 ▸ **deriveLogGroup**(`environment`: [Environment](README.md#environment)): *1 | 2 | 3*
 
-*Defined in [packages/debug-manager/src/helpers/deriveLogProps.ts:56](https://github.com/badbatch/graphql-box/blob/0289bea5/packages/debug-manager/src/helpers/deriveLogProps.ts#L56)*
+*Defined in [packages/debug-manager/src/helpers/deriveLogProps.ts:56](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/debug-manager/src/helpers/deriveLogProps.ts#L56)*
 
 **Parameters:**
 
@@ -141,7 +141,7 @@ ___
 
 ▸ **deriveLogOrder**(`event`: string | symbol): *1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0*
 
-*Defined in [packages/debug-manager/src/helpers/deriveLogProps.ts:18](https://github.com/badbatch/graphql-box/blob/0289bea5/packages/debug-manager/src/helpers/deriveLogProps.ts#L18)*
+*Defined in [packages/debug-manager/src/helpers/deriveLogProps.ts:18](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/debug-manager/src/helpers/deriveLogProps.ts#L18)*
 
 **Parameters:**
 
@@ -157,7 +157,7 @@ ___
 
 ▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *[DebugManagerInit](README.md#debugmanagerinit)*
 
-*Defined in [packages/debug-manager/src/main/index.ts:82](https://github.com/badbatch/graphql-box/blob/0289bea5/packages/debug-manager/src/main/index.ts#L82)*
+*Defined in [packages/debug-manager/src/main/index.ts:82](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/debug-manager/src/main/index.ts#L82)*
 
 **Parameters:**
 
@@ -173,7 +173,7 @@ ___
 
 ▸ **isServerRequestOptions**(`options`: RequestOptions | ServerRequestOptions): *options is ServerRequestOptions*
 
-*Defined in [packages/debug-manager/src/helpers/transformOptions.ts:3](https://github.com/badbatch/graphql-box/blob/0289bea5/packages/debug-manager/src/helpers/transformOptions.ts#L3)*
+*Defined in [packages/debug-manager/src/helpers/transformOptions.ts:3](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/debug-manager/src/helpers/transformOptions.ts#L3)*
 
 **Parameters:**
 

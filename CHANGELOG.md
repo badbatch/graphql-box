@@ -1,3 +1,9 @@
+#### 3.13.4 (2022-09-09)
+
+##### Bug Fixes
+
+*  stop trying to parse body when 204 ([4e42c8bb](https://github.com/badbatch/graphql-box/commit/4e42c8bbc114de5954259b0efad498bac9e0d1ac))
+
 #### 3.13.3 (2022-09-08)
 
 ##### New Features
