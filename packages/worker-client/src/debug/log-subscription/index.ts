@@ -1,4 +1,5 @@
 import { RequestContext, SUBSCRIPTION_EXECUTED } from "@graphql-box/core";
+import operationNameRegex from "../../helpers/operationNameRegex";
 
 export default function logSubscription() {
   return (
@@ -19,10 +20,11 @@ export default function logSubscription() {
             return;
           }
 
+          const derivedOperationName = operationNameRegex(args[0]);
           const startTime = debugManager.now();
 
           debugManager.log(SUBSCRIPTION_EXECUTED, {
-            context: otherContext,
+            context: { ...otherContext, operationName: derivedOperationName },
             options: args[1],
             request: args[0],
             stats: { startTime },

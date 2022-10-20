@@ -49,7 +49,7 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
       labels: pickBy(
         {
           environment: this._environment,
-          logGroup: deriveLogGroup(this._environment),
+          logGroup: deriveLogGroup(this._environment, message),
           logOrder: deriveLogOrder(message),
           ...transformCachemapOptions(cachemapOptions),
           ...transformContext(context),

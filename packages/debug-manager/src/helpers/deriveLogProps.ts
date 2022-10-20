@@ -10,13 +10,15 @@ import {
   PENDING_QUERY_RESOLVED,
   REQUEST_EXECUTED,
   REQUEST_RESOLVED,
+  RESOLVER_EXECUTED,
+  RESOLVER_RESOLVED,
   SUBSCRIPTION_EXECUTED,
   SUBSCRIPTION_RESOLVED,
 } from "@graphql-box/core";
 import { Environment } from "../defs";
 
-export const deriveLogOrder = (event: string | symbol) => {
-  switch (event) {
+export const deriveLogOrder = (message: string) => {
+  switch (message) {
     case REQUEST_EXECUTED:
     case SUBSCRIPTION_EXECUTED:
       return 1;
@@ -34,34 +36,49 @@ export const deriveLogOrder = (event: string | symbol) => {
     case FETCH_EXECUTED:
       return 5;
 
-    case EXECUTE_RESOLVED:
-    case FETCH_RESOLVED:
+    case RESOLVER_EXECUTED:
       return 6;
 
-    case CACHE_ENTRY_ADDED:
+    case RESOLVER_RESOLVED:
       return 7;
 
-    case PENDING_QUERY_RESOLVED:
+    case EXECUTE_RESOLVED:
+    case FETCH_RESOLVED:
       return 8;
+
+    case CACHE_ENTRY_ADDED:
+      return 9;
+
+    case PENDING_QUERY_RESOLVED:
+      return 10;
 
     case REQUEST_RESOLVED:
     case SUBSCRIPTION_RESOLVED:
-      return 9;
+      return 11;
 
     default:
       return 0;
   }
 };
 
-export const deriveLogGroup = (environment: Environment) => {
-  switch (environment) {
-    case "server":
-      return 3;
-
-    case "workerClient":
+export const deriveLogGroup = (environment: Environment, message: string) => {
+  switch (true) {
+    case environment === "workerClient" && deriveLogOrder(message) <= 5:
       return 1;
 
-    default:
+    case (environment === "client" || environment === "worker") && deriveLogOrder(message) <= 5:
       return 2;
+
+    case environment === "server":
+      return 3;
+
+    case (environment === "client" || environment === "worker") && deriveLogOrder(message) > 5:
+      return 4;
+
+    case environment === "workerClient" && deriveLogOrder(message) > 5:
+      return 5;
+
+    default:
+      return 0;
   }
 };

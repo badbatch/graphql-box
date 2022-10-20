@@ -1,5 +1,6 @@
 import { REQUEST_EXECUTED, REQUEST_RESOLVED, RequestContext } from "@graphql-box/core";
 import { isAsyncIterable } from "iterall";
+import operationNameRegex from "../../helpers/operationNameRegex";
 
 export default function logRequest() {
   return (
@@ -20,10 +21,11 @@ export default function logRequest() {
             return;
           }
 
+          const derivedOperationName = operationNameRegex(args[0]);
           const startTime = debugManager.now();
 
           debugManager.log(REQUEST_EXECUTED, {
-            context: otherContext,
+            context: { ...otherContext, operationName: derivedOperationName },
             options: args[1],
             request: args[0],
             stats: { startTime },
@@ -39,7 +41,7 @@ export default function logRequest() {
           }
 
           debugManager.log(REQUEST_RESOLVED, {
-            context: otherContext,
+            context: { ...otherContext, operationName: derivedOperationName },
             options: args[1],
             request: args[0],
             result,
