@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/react",
-  "version": "3.10.3",
+  "version": "3.11.0",
   "description": "The GraphQL Box React module.",
   "keywords": [
     "graphql-box",

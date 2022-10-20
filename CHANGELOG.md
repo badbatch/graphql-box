@@ -1,3 +1,9 @@
+### 3.14.0 (2022-10-20)
+
+##### Bug Fixes
+
+*  update logging to improve categorizing ([204add77](https://github.com/badbatch/graphql-box/commit/204add77e94c54067f3ecc85b32bc8218aca698c))
+
 #### 3.13.4 (2022-09-09)
 
 ##### Bug Fixes

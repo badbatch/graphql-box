@@ -21,7 +21,7 @@
 
 • **headers**? : *string[]*
 
-*Defined in [defs/index.ts:2](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/cli/src/defs/index.ts#L2)*
+*Defined in [defs/index.ts:2](https://github.com/badbatch/graphql-box/blob/204add77/packages/cli/src/defs/index.ts#L2)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **output**: *string*
 
-*Defined in [defs/index.ts:3](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/cli/src/defs/index.ts#L3)*
+*Defined in [defs/index.ts:3](https://github.com/badbatch/graphql-box/blob/204add77/packages/cli/src/defs/index.ts#L3)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **schemaPath**? : *undefined | string*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/cli/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/graphql-box/blob/204add77/packages/cli/src/defs/index.ts#L4)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **url**? : *undefined | string*
 
-*Defined in [defs/index.ts:5](https://github.com/badbatch/graphql-box/blob/4e42c8bb/packages/cli/src/defs/index.ts#L5)*
+*Defined in [defs/index.ts:5](https://github.com/badbatch/graphql-box/blob/204add77/packages/cli/src/defs/index.ts#L5)*
