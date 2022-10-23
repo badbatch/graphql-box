@@ -123,6 +123,13 @@ export interface CachemapOptions {
   tag?: any;
 }
 
+export type ExecutionContext = {
+  debugManager: DebugManagerDef;
+  fragmentDefinitions: FragmentDefinitionNodeMap;
+  requestID: string;
+  setCacheMetadata: (key: string, headers: Headers, operation: ValidOperations) => void;
+};
+
 export type LogData = {
   cachemapOptions?: CachemapOptions;
   context?: Omit<RequestContext, "debugManager">;

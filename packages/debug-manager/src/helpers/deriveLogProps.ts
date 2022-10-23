@@ -12,6 +12,7 @@ import {
   REQUEST_RESOLVED,
   RESOLVER_EXECUTED,
   RESOLVER_RESOLVED,
+  SERVER_REQUEST_RECEIVED,
   SUBSCRIPTION_EXECUTED,
   SUBSCRIPTION_RESOLVED,
 } from "@graphql-box/core";
@@ -32,29 +33,34 @@ export const deriveLogOrder = (message: string) => {
     case PARTIAL_QUERY_COMPILED:
       return 4;
 
-    case EXECUTE_EXECUTED:
     case FETCH_EXECUTED:
       return 5;
 
-    case RESOLVER_EXECUTED:
+    case SERVER_REQUEST_RECEIVED:
       return 6;
 
-    case RESOLVER_RESOLVED:
+    case EXECUTE_EXECUTED:
       return 7;
+
+    case RESOLVER_EXECUTED:
+      return 8;
+
+    case RESOLVER_RESOLVED:
+      return 9;
 
     case EXECUTE_RESOLVED:
     case FETCH_RESOLVED:
-      return 8;
+      return 10;
 
     case CACHE_ENTRY_ADDED:
-      return 9;
+      return 11;
 
     case PENDING_QUERY_RESOLVED:
-      return 10;
+      return 12;
 
     case REQUEST_RESOLVED:
     case SUBSCRIPTION_RESOLVED:
-      return 11;
+      return 13;
 
     default:
       return 0;

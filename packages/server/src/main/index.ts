@@ -3,6 +3,7 @@ import {
   MaybeRequestContext,
   MaybeRequestResult,
   MaybeRequestResultWithDehydratedCacheMetadata,
+  SERVER_REQUEST_RECEIVED,
   ServerRequestOptions,
   ServerSocketRequestOptions,
 } from "@graphql-box/core";
@@ -14,6 +15,7 @@ import { Data } from "ws";
 import {
   LogData,
   MessageHandler,
+  RequestData,
   RequestHandler,
   ResponseDataWithMaybeDehydratedCacheMetadataBatch,
   UserOptions,
@@ -126,9 +128,12 @@ export default class Server {
     res.status(200).send(response);
   }
 
-  private _handleLogs(logs: LogData[]) {
+  private _handleLogs(logs: LogData[], req: Request) {
+    const hostname = req.hostname;
+
     logs.forEach(({ data, logLevel, message }) => {
-      this._client?.debugger?.handleLog(message, data, logLevel);
+      const { context } = data;
+      this._client?.debugger?.handleLog(message, { ...data, context: { ...context, hostname } }, logLevel);
     });
   }
 
@@ -184,9 +189,10 @@ export default class Server {
     });
   }
 
-  private _logHandler({ body }: Request, res: Response) {
+  private _logHandler(req: Request, res: Response) {
     try {
       let logs: LogData[] = [];
+      const { body } = req;
 
       if (body.batched) {
         logs = Object.values(body.requests);
@@ -195,7 +201,7 @@ export default class Server {
         logs = [rest];
       }
 
-      this._handleLogs(logs);
+      this._handleLogs(logs, req);
       res.status(204).send();
     } catch (error) {
       res.status(500).send(serializeErrors({ errors: castArray(error) }));
@@ -238,11 +244,23 @@ export default class Server {
     }
   }
 
-  private _requestHandler({ body }: Request, res: Response, options: ServerRequestOptions) {
+  private _requestHandler({ body, headers }: Request, res: Response, options: ServerRequestOptions) {
     try {
-      isRequestBatched(body)
-        ? this._handleBatchRequest(res, body.requests, options)
-        : this._handleRequest(res, body.request, options, body.context);
+      if (isRequestBatched(body)) {
+        const { requests } = body;
+
+        (async () => {
+          Object.values(requests).forEach(({ context, request }) => {
+            this._client.debugger?.log(SERVER_REQUEST_RECEIVED, { body, context, headers, request });
+          });
+        })();
+
+        this._handleBatchRequest(res, body.requests, options);
+      } else {
+        const { context, request } = body as RequestData;
+        this._client.debugger?.log(SERVER_REQUEST_RECEIVED, { body, context, headers, request });
+        this._handleRequest(res, body.request, options, body.context);
+      }
     } catch (error) {
       res.status(500).send(serializeErrors({ errors: castArray(error) }));
     }

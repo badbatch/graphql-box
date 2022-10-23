@@ -23,7 +23,6 @@ export default (options?: RequestOptions | ServerRequestOptions): TransformedOpt
     const { awaitDataCaching, returnCacheMetadata, tag } = options;
 
     transformedOptions = {
-      ...transformedOptions,
       awaitDataCaching,
       returnCacheMetadata,
       tag,
@@ -32,7 +31,6 @@ export default (options?: RequestOptions | ServerRequestOptions): TransformedOpt
     const { awaitDataCaching, batch, returnCacheMetadata, tag, variables } = options;
 
     transformedOptions = {
-      ...transformedOptions,
       awaitDataCaching,
       batch,
       returnCacheMetadata,
