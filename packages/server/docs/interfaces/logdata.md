@@ -20,7 +20,7 @@
 
 • **data**: *PlainObjectMap*
 
-*Defined in [defs/index.ts:34](https://github.com/badbatch/graphql-box/blob/75cbc234/packages/server/src/defs/index.ts#L34)*
+*Defined in [defs/index.ts:34](https://github.com/badbatch/graphql-box/blob/8ceb40cb/packages/server/src/defs/index.ts#L34)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **logLevel**? : *LogLevel*
 
-*Defined in [defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/75cbc234/packages/server/src/defs/index.ts#L35)*
+*Defined in [defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/8ceb40cb/packages/server/src/defs/index.ts#L35)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **message**: *string*
 
-*Defined in [defs/index.ts:36](https://github.com/badbatch/graphql-box/blob/75cbc234/packages/server/src/defs/index.ts#L36)*
+*Defined in [defs/index.ts:36](https://github.com/badbatch/graphql-box/blob/8ceb40cb/packages/server/src/defs/index.ts#L36)*

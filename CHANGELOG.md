@@ -1,3 +1,9 @@
+#### 3.15.2 (2022-10-24)
+
+##### Refactors
+
+*  change debug manager initialisation ([8ceb40cb](https://github.com/badbatch/graphql-box/commit/8ceb40cb41424cea8f4731edab0ae54e255250be))
+
 #### 3.15.1 (2022-10-24)
 
 ##### Bug Fixes
