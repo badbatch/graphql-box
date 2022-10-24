@@ -1,7 +1,7 @@
 import { DebugManagerDef, LogData, LogLevel } from "@graphql-box/core";
 import EventEmitter from "eventemitter3";
-import { isPlainObject, isString, pickBy } from "lodash";
-import { ConstructorOptions, DebugManagerInit, Environment, Log, Performance, UserOptions } from "../defs";
+import { isString, pickBy } from "lodash";
+import { Environment, Log, Performance, UserOptions } from "../defs";
 import { deriveLogGroup, deriveLogOrder } from "../helpers/deriveLogProps";
 import transformCachemapOptions from "../helpers/transformCachemapOptions";
 import transformContext from "../helpers/transformContext";
@@ -10,13 +10,13 @@ import transformOptions from "../helpers/transformOptions";
 import transformResult from "../helpers/transformResult";
 import transformStats from "../helpers/transformStats";
 
-export class DebugManager extends EventEmitter implements DebugManagerDef {
+export default class DebugManager extends EventEmitter implements DebugManagerDef {
   private _environment: Environment;
   private _log: Log | null;
   private _name: string;
   private _performance: Performance;
 
-  constructor(options: ConstructorOptions) {
+  constructor(options: UserOptions) {
     super();
     const errors: TypeError[] = [];
 
@@ -77,12 +77,4 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
   public now(): number {
     return this._performance.now();
   }
-}
-
-export default function init(userOptions: UserOptions): DebugManagerInit {
-  if (!isPlainObject(userOptions)) {
-    throw new TypeError("@graphql-box/debug-manager expected userOptions to be a plain object.");
-  }
-
-  return () => new DebugManager(userOptions);
 }

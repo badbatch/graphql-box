@@ -1,6 +1,7 @@
 import { CacheManagerInit } from "@graphql-box/cache-manager";
 import {
   CacheMetadata,
+  DebugManagerDef,
   MaybeRequestResult,
   PlainObjectMap,
   RequestContext,
@@ -9,7 +10,6 @@ import {
   RequestOptions,
   SubscriptionsManagerInit,
 } from "@graphql-box/core";
-import { DebugManagerInit } from "@graphql-box/debug-manager";
 import { RequestParserInit } from "@graphql-box/request-parser";
 
 export interface UserOptions {
@@ -21,7 +21,7 @@ export interface UserOptions {
   /**
    * The curried function to initialize the debug manager.
    */
-  debugManager?: DebugManagerInit;
+  debugManager?: DebugManagerDef;
 
   /**
    * The request manager.

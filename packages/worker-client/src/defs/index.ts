@@ -1,7 +1,6 @@
 import WorkerCachemap from "@cachemap/core-worker";
 import Client from "@graphql-box/client";
-import { MaybeRawFetchData, MaybeRequestResult, RequestOptions } from "@graphql-box/core";
-import { DebugManagerInit } from "@graphql-box/debug-manager";
+import { DebugManagerDef, MaybeRawFetchData, MaybeRequestResult, RequestOptions } from "@graphql-box/core";
 
 export interface UserOptions {
   /**
@@ -10,9 +9,9 @@ export interface UserOptions {
   cache: WorkerCachemap;
 
   /**
-   * The curried function to initialize the debug manager.
+   * The debug manager.
    */
-  debugManager?: DebugManagerInit;
+  debugManager?: DebugManagerDef;
 
   /**
    * The web worker instance.

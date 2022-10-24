@@ -15,7 +15,7 @@ import {
   requestFieldTypeMaps,
   responses,
 } from "@graphql-box/test-utils";
-import { DebugManager } from ".";
+import DebugManager from ".";
 
 const { performance } = window;
 

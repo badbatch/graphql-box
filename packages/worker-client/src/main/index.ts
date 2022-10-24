@@ -52,7 +52,7 @@ export default class WorkerClient {
     }
 
     this._cache = options.cache;
-    this._debugManager = options.debugManager ? options.debugManager() : null;
+    this._debugManager = options.debugManager ?? null;
     this._eventEmitter = new EventEmitter();
     this._worker = options.worker;
     this._addEventListener();

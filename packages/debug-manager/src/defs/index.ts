@@ -1,4 +1,4 @@
-import { DebugManagerDef, LogLevel, PlainObjectMap } from "@graphql-box/core";
+import { LogLevel, PlainObjectMap } from "@graphql-box/core";
 
 export type Log = (message: string, data: PlainObjectMap, level?: LogLevel) => void;
 
@@ -25,10 +25,6 @@ export interface UserOptions {
    */
   performance: Performance;
 }
-
-export type ConstructorOptions = UserOptions;
-
-export type DebugManagerInit = () => DebugManagerDef;
 
 export type Environment = "client" | "server" | "worker" | "workerClient";
 

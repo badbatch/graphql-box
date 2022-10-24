@@ -1,5 +1,5 @@
 import WorkerCachemap from "@cachemap/core-worker";
-import debugManager, { Environment } from "@graphql-box/debug-manager";
+import DebugManager, { Environment } from "@graphql-box/debug-manager";
 import WorkerClient from "@graphql-box/worker-client";
 import { camelCase } from "lodash";
 import { log } from "..";
@@ -12,7 +12,7 @@ export default function initWorkerClient({ worker }: InitWorkerClientOptions): W
 
   return new WorkerClient({
     cache: new WorkerCachemap({ name: "test", type: "someType", worker }),
-    debugManager: debugManager({
+    debugManager: new DebugManager({
       environment: camelCase(name) as Environment,
       log,
       name,
