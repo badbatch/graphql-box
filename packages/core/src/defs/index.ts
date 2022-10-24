@@ -127,7 +127,7 @@ export type ExecutionContext = {
   debugManager: DebugManagerDef;
   fragmentDefinitions: FragmentDefinitionNodeMap;
   requestID: string;
-  setCacheMetadata: (key: string, headers: Headers, operation: ValidOperations) => void;
+  setCacheMetadata: (key: string, headers: Headers, operation?: ValidOperations) => void;
 };
 
 export type LogData = {
