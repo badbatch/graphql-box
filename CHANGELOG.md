@@ -1,3 +1,9 @@
+#### 3.15.1 (2022-10-24)
+
+##### Bug Fixes
+
+*  optional argument ([75cbc234](https://github.com/badbatch/graphql-box/commit/75cbc2344891abd1bea78af5ac2cb325a463db9e))
+
 ### 3.15.0 (2022-10-23)
 
 ##### New Features
