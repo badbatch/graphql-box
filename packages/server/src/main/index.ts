@@ -128,12 +128,9 @@ export default class Server {
     res.status(200).send(response);
   }
 
-  private _handleLogs(logs: LogData[], req: Request) {
-    const hostname = req.hostname;
-
+  private _handleLogs(logs: LogData[]) {
     logs.forEach(({ data, logLevel, message }) => {
-      const { context } = data;
-      this._client?.debugger?.handleLog(message, { ...data, context: { ...context, hostname } }, logLevel);
+      this._client?.debugger?.handleLog(message, data, logLevel);
     });
   }
 
@@ -201,7 +198,7 @@ export default class Server {
         logs = [rest];
       }
 
-      this._handleLogs(logs, req);
+      this._handleLogs(logs);
       res.status(204).send();
     } catch (error) {
       res.status(500).send(serializeErrors({ errors: castArray(error) }));
