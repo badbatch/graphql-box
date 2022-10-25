@@ -18,4 +18,4 @@
 
 • **resolve**: *[PendingResolver](../README.md#pendingresolver)*
 
-*Defined in [defs/index.ts:27](https://github.com/badbatch/graphql-box/blob/8ceb40cb/packages/worker-client/src/defs/index.ts#L27)*
+*Defined in [defs/index.ts:27](https://github.com/badbatch/graphql-box/blob/c1bd2514/packages/worker-client/src/defs/index.ts#L27)*

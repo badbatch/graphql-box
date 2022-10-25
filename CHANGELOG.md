@@ -1,3 +1,9 @@
+#### 3.15.3 (2022-10-25)
+
+##### Bug Fixes
+
+*  remove logging prop ([c1bd2514](https://github.com/badbatch/graphql-box/commit/c1bd251485bf28373f34e471b0474dfa66adda75))
+
 #### 3.15.2 (2022-10-24)
 
 ##### Refactors
