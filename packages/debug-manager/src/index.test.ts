@@ -25,6 +25,8 @@ describe("@graphql-box/debug-manager >>", () => {
 
   beforeAll(() => {
     global.Date.now = jest.fn().mockReturnValue(Date.parse("June 6, 1979 GMT"));
+    // @ts-ignore
+    jest.spyOn(global.navigator, "userAgent", "get").mockReturnValue("mock-userAgent");
   });
 
   afterAll(() => {

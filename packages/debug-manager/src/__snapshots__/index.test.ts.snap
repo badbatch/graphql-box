@@ -22,7 +22,7 @@ Array [
       "startTime": 0,
       "typeIDKey": "id",
       "url": "http://localhost/",
-      "userAgent": "Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/15.2.1",
+      "userAgent": "mock-userAgent",
       "value": Object {
         "cacheMetadata": Object {
           "query": Object {
@@ -81,7 +81,7 @@ Array [
       "startTime": 0,
       "typeIDKey": "id",
       "url": "http://localhost/",
-      "userAgent": "Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/15.2.1",
+      "userAgent": "mock-userAgent",
       "value": Object {
         "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
         "email": "",
@@ -117,7 +117,7 @@ Array [
       "startTime": 0,
       "typeIDKey": "id",
       "url": "http://localhost/",
-      "userAgent": "Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/15.2.1",
+      "userAgent": "mock-userAgent",
       "value": Object {
         "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
         "email": "",
@@ -163,7 +163,7 @@ Array [
       "startTime": 0,
       "typeIDKey": "id",
       "url": "http://localhost/",
-      "userAgent": "Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/15.2.1",
+      "userAgent": "mock-userAgent",
     },
     "log": Object {
       "level": "INFO",
@@ -195,7 +195,7 @@ Array [
       "startTime": 0,
       "typeIDKey": "id",
       "url": "http://localhost/",
-      "userAgent": "Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/15.2.1",
+      "userAgent": "mock-userAgent",
     },
     "log": Object {
       "level": "INFO",
