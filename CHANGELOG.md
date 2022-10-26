@@ -1,3 +1,9 @@
+#### 3.15.4 (2022-10-26)
+
+##### New Features
+
+*  set env specific labels ([a50a8075](https://github.com/badbatch/graphql-box/commit/a50a80757b0499d1ebc32592d03f91e72c9e2d94))
+
 #### 3.15.3 (2022-10-25)
 
 ##### Bug Fixes
