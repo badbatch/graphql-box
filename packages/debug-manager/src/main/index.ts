@@ -3,6 +3,7 @@ import EventEmitter from "eventemitter3";
 import { isString, pickBy } from "lodash";
 import { Environment, Log, Performance, UserOptions } from "../defs";
 import { deriveLogGroup, deriveLogOrder } from "../helpers/deriveLogProps";
+import getEnvSpecificLabels from "../helpers/getEnvSpecificLabels";
 import transformCachemapOptions from "../helpers/transformCachemapOptions";
 import transformContext from "../helpers/transformContext";
 import transformError from "../helpers/transformError";
@@ -56,6 +57,7 @@ export default class DebugManager extends EventEmitter implements DebugManagerDe
           ...transformOptions(options),
           ...transformResult(result),
           ...transformStats(stats),
+          ...getEnvSpecificLabels(this._environment),
           ...rest,
         },
         val => val !== undefined && val !== null && val !== "",

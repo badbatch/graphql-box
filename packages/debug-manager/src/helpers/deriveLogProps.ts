@@ -20,47 +20,45 @@ import { Environment } from "../defs";
 
 export const deriveLogOrder = (message: string) => {
   switch (message) {
-    case REQUEST_EXECUTED:
-    case SUBSCRIPTION_EXECUTED:
+    case SERVER_REQUEST_RECEIVED:
       return 1;
 
-    case PENDING_QUERY_ADDED:
+    case REQUEST_EXECUTED:
+    case SUBSCRIPTION_EXECUTED:
       return 2;
 
-    case CACHE_ENTRY_QUERIED:
+    case PENDING_QUERY_ADDED:
       return 3;
 
-    case PARTIAL_QUERY_COMPILED:
+    case CACHE_ENTRY_QUERIED:
       return 4;
 
-    case FETCH_EXECUTED:
+    case PARTIAL_QUERY_COMPILED:
       return 5;
 
-    case SERVER_REQUEST_RECEIVED:
+    case FETCH_EXECUTED:
+    case EXECUTE_EXECUTED:
       return 6;
 
-    case EXECUTE_EXECUTED:
+    case RESOLVER_EXECUTED:
       return 7;
 
-    case RESOLVER_EXECUTED:
-      return 8;
-
     case RESOLVER_RESOLVED:
-      return 9;
+      return 8;
 
     case EXECUTE_RESOLVED:
     case FETCH_RESOLVED:
-      return 10;
+      return 9;
 
     case CACHE_ENTRY_ADDED:
-      return 11;
+      return 10;
 
     case PENDING_QUERY_RESOLVED:
-      return 12;
+      return 11;
 
     case REQUEST_RESOLVED:
     case SUBSCRIPTION_RESOLVED:
-      return 13;
+      return 12;
 
     default:
       return 0;
