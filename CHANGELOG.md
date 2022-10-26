@@ -1,3 +1,9 @@
+#### 3.15.5 (2022-10-26)
+
+##### Bug Fixes
+
+*  useragent changing in pipeline tests ([1f1b3ae4](https://github.com/badbatch/graphql-box/commit/1f1b3ae424cd47271d1f3ea86a1c2d1aa5ae0666))
+
 #### 3.15.4 (2022-10-26)
 
 ##### New Features

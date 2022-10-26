@@ -19,7 +19,7 @@
 
 • **hasDeferOrStream**: *boolean*
 
-*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/a50a8075/packages/worker-client/src/defs/index.ts#L48)*
+*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/1f1b3ae4/packages/worker-client/src/defs/index.ts#L48)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **requestID**: *string*
 
-*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/a50a8075/packages/worker-client/src/defs/index.ts#L49)*
+*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/1f1b3ae4/packages/worker-client/src/defs/index.ts#L49)*
