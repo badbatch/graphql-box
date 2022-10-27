@@ -67,19 +67,19 @@ export const deriveLogOrder = (message: string) => {
 
 export const deriveLogGroup = (environment: Environment, message: string) => {
   switch (true) {
-    case environment === "workerClient" && deriveLogOrder(message) <= 5:
+    case environment === "workerClient" && deriveLogOrder(message) <= 6:
       return 1;
 
-    case (environment === "client" || environment === "worker") && deriveLogOrder(message) <= 5:
+    case (environment === "client" || environment === "worker") && deriveLogOrder(message) <= 6:
       return 2;
 
     case environment === "server":
       return 3;
 
-    case (environment === "client" || environment === "worker") && deriveLogOrder(message) > 5:
+    case (environment === "client" || environment === "worker") && deriveLogOrder(message) > 6:
       return 4;
 
-    case environment === "workerClient" && deriveLogOrder(message) > 5:
+    case environment === "workerClient" && deriveLogOrder(message) > 6:
       return 5;
 
     default:
