@@ -26,7 +26,7 @@
 
 Ƭ **GraphQLExecute**: *function*
 
-*Defined in [defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/1f1b3ae4/packages/execute/src/defs/index.ts#L37)*
+*Defined in [defs/index.ts:37](https://github.com/badbatch/graphql-box/blob/05751bfd/packages/execute/src/defs/index.ts#L37)*
 
 #### Type declaration:
 
@@ -44,6 +44,6 @@ Name | Type |
 
 ▸ **logExecute**(): *(Anonymous function)*
 
-*Defined in [debug/log-execute/index.ts:4](https://github.com/badbatch/graphql-box/blob/1f1b3ae4/packages/execute/src/debug/log-execute/index.ts#L4)*
+*Defined in [debug/log-execute/index.ts:4](https://github.com/badbatch/graphql-box/blob/05751bfd/packages/execute/src/debug/log-execute/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*

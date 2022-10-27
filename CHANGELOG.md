@@ -1,3 +1,9 @@
+#### 3.15.6 (2022-10-27)
+
+##### Bug Fixes
+
+*  error in logging order ([05751bfd](https://github.com/badbatch/graphql-box/commit/05751bfd148902927cc87ed7511dfa6c0d2665ae))
+
 #### 3.15.5 (2022-10-26)
 
 ##### Bug Fixes
