@@ -274,12 +274,12 @@ export class CacheManager implements CacheManagerDef {
       return { response: { cacheMetadata, data } };
     }
 
-    this._setPartialQueryResponse(hash, { cacheMetadata, data }, options, cacheManagerContext);
     const filteredAST = filterQuery(requestData, cachedResponseData, cacheManagerContext);
+    const filteredRequest = print(filteredAST);
     const { fragmentDefinitions, typeIDKey, ...rest } = cacheManagerContext;
-    assign(context, rest);
-    const request = print(filteredAST);
-    return { updated: { ast: filteredAST, hash: hashRequest(request), request } };
+    assign(context, { ...rest, filteredRequest });
+    this._setPartialQueryResponse(hash, { cacheMetadata, data }, options, context);
+    return { updated: { ast: filteredAST, hash: hashRequest(filteredRequest), request: filteredRequest } };
   }
 
   public async cacheQuery(

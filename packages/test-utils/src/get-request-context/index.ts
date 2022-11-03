@@ -4,6 +4,7 @@ export default function getRequestContext(props: PlainObjectMap = {}): RequestCo
   return {
     debugManager: null,
     fieldTypeMap: new Map(),
+    filteredRequest: "",
     hasDeferOrStream: false,
     operation: "query",
     operationName: "",

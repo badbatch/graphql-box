@@ -186,6 +186,7 @@ export type ValidOperations = "mutation" | "query" | "subscription";
 export interface RequestContext {
   debugManager: DebugManagerDef | null;
   fieldTypeMap: FieldTypeMap;
+  filteredRequest: string;
   hasDeferOrStream?: boolean;
   normalizePatchResponseData?: boolean;
   operation: ValidOperations;
@@ -199,6 +200,7 @@ export interface RequestContext {
 export interface MaybeRequestContext {
   debugManager?: DebugManagerDef | null;
   fieldTypeMap?: FieldTypeMap;
+  filteredRequest?: string;
   hasDeferOrStream?: boolean;
   normalizePatchResponseData?: boolean;
   operation?: ValidOperations;

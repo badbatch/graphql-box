@@ -175,6 +175,7 @@ export default class Client {
     return {
       debugManager: this._debugManager,
       fieldTypeMap: new Map(),
+      filteredRequest: "",
       operation,
       operationName: "",
       queryFiltered: false,
