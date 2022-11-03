@@ -1,3 +1,9 @@
+#### 3.15.7 (2022-11-03)
+
+##### New Features
+
+*  add filtered request onto context ([7c48d653](https://github.com/badbatch/graphql-box/commit/7c48d653cb8a5396c5a6a7ee5f8f74df012eb1e0))
+
 #### 3.15.6 (2022-10-27)
 
 ##### Bug Fixes
