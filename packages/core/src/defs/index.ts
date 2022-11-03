@@ -191,25 +191,14 @@ export interface RequestContext {
   normalizePatchResponseData?: boolean;
   operation: ValidOperations;
   operationName: string;
+  parsedRequest: string;
   queryFiltered: boolean;
   request: string;
   requestID: string;
   whitelistHash: string;
 }
 
-export interface MaybeRequestContext {
-  debugManager?: DebugManagerDef | null;
-  fieldTypeMap?: FieldTypeMap;
-  filteredRequest?: string;
-  hasDeferOrStream?: boolean;
-  normalizePatchResponseData?: boolean;
-  operation?: ValidOperations;
-  operationName?: string;
-  queryFiltered?: boolean;
-  request?: string;
-  requestID?: string;
-  whitelistHash?: string;
-}
+export type MaybeRequestContext = Partial<RequestContext>;
 
 export interface DehydratedCacheMetadata {
   [key: string]: CacheabilityMetadata;

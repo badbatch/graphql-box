@@ -178,6 +178,7 @@ export default class Client {
       filteredRequest: "",
       operation,
       operationName: "",
+      parsedRequest: "",
       queryFiltered: false,
       request,
       requestID: uuid(),
@@ -358,7 +359,7 @@ export default class Client {
     try {
       const { ast, request: updateRequest } = await this._requestParser.updateRequest(request, options, context);
       const requestData = { ast, hash: hashRequest(updateRequest), request: updateRequest };
-      return this._handleRequest(requestData, options, context);
+      return this._handleRequest(requestData, options, { ...context, parsedRequest: updateRequest });
     } catch (error) {
       return Client._resolve({ errors: castArray(error) }, options, context);
     }

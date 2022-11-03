@@ -8,6 +8,7 @@ export default function getRequestContext(props: PlainObjectMap = {}): RequestCo
     hasDeferOrStream: false,
     operation: "query",
     operationName: "",
+    parsedRequest: "",
     queryFiltered: false,
     request: "",
     requestID: "123456789",

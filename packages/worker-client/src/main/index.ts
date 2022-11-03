@@ -93,6 +93,7 @@ export default class WorkerClient {
       filteredRequest: "",
       operation,
       operationName: "",
+      parsedRequest: "",
       queryFiltered: false,
       request,
       requestID: uuid(),
