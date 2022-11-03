@@ -20,6 +20,7 @@
 * [normalizePatchResponseData](cachemanagercontext.md#optional-normalizepatchresponsedata)
 * [operation](cachemanagercontext.md#operation)
 * [operationName](cachemanagercontext.md#operationname)
+* [parsedRequest](cachemanagercontext.md#parsedrequest)
 * [queryFiltered](cachemanagercontext.md#queryfiltered)
 * [request](cachemanagercontext.md#request)
 * [requestID](cachemanagercontext.md#requestid)
@@ -62,7 +63,7 @@ ___
 
 • **fragmentDefinitions**? : *FragmentDefinitionNodeMap*
 
-*Defined in [cache-manager/src/defs/index.ts:60](https://github.com/badbatch/graphql-box/blob/7c48d653/packages/cache-manager/src/defs/index.ts#L60)*
+*Defined in [cache-manager/src/defs/index.ts:60](https://github.com/badbatch/graphql-box/blob/fc60c6e3/packages/cache-manager/src/defs/index.ts#L60)*
 
 ___
 
@@ -106,13 +107,23 @@ Defined in core/lib/types/defs/index.d.ts:166
 
 ___
 
+###  parsedRequest
+
+• **parsedRequest**: *string*
+
+*Inherited from [CacheManagerContext](cachemanagercontext.md).[parsedRequest](cachemanagercontext.md#parsedrequest)*
+
+Defined in core/lib/types/defs/index.d.ts:167
+
+___
+
 ###  queryFiltered
 
 • **queryFiltered**: *boolean*
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[queryFiltered](cachemanagercontext.md#queryfiltered)*
 
-Defined in core/lib/types/defs/index.d.ts:167
+Defined in core/lib/types/defs/index.d.ts:168
 
 ___
 
@@ -122,7 +133,7 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[request](cachemanagercontext.md#request)*
 
-Defined in core/lib/types/defs/index.d.ts:168
+Defined in core/lib/types/defs/index.d.ts:169
 
 ___
 
@@ -132,7 +143,7 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[requestID](cachemanagercontext.md#requestid)*
 
-Defined in core/lib/types/defs/index.d.ts:169
+Defined in core/lib/types/defs/index.d.ts:170
 
 ___
 
@@ -140,7 +151,7 @@ ___
 
 • **typeIDKey**? : *undefined | string*
 
-*Defined in [cache-manager/src/defs/index.ts:61](https://github.com/badbatch/graphql-box/blob/7c48d653/packages/cache-manager/src/defs/index.ts#L61)*
+*Defined in [cache-manager/src/defs/index.ts:61](https://github.com/badbatch/graphql-box/blob/fc60c6e3/packages/cache-manager/src/defs/index.ts#L61)*
 
 ___
 
@@ -150,4 +161,4 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[whitelistHash](cachemanagercontext.md#whitelisthash)*
 
-Defined in core/lib/types/defs/index.d.ts:170
+Defined in core/lib/types/defs/index.d.ts:171

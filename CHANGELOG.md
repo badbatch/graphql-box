@@ -1,3 +1,9 @@
+#### 3.15.8 (2022-11-03)
+
+##### New Features
+
+*  add parsed request to context for logging ([fc60c6e3](https://github.com/badbatch/graphql-box/commit/fc60c6e3161c97a3e92dc2d3988091b4131897f5))
+
 #### 3.15.7 (2022-11-03)
 
 ##### New Features
