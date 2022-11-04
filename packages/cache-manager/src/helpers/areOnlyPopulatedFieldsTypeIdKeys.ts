@@ -3,7 +3,7 @@ import { isArray, isPlainObject } from "lodash";
 
 const checkValue = (value: any, typeIDKey: string): boolean => {
   if (isArray(value)) {
-    return value.reduce((accB, entry) => {
+    return value.reduce((accB: boolean, entry) => {
       if (!accB) {
         return false;
       }
@@ -26,7 +26,7 @@ const recursivelyCheckProps = (data: PlainObjectMap, typeIDKey: string): boolean
     return true;
   }
 
-  return keys.reduce((accA, key) => {
+  return keys.reduce((accA: boolean, key) => {
     if (!accA) {
       return false;
     }
