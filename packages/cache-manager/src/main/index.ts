@@ -59,6 +59,7 @@ import {
   TypeNamesAndKind,
   UserOptions,
 } from "../defs";
+import areOnlyPopulatedFieldsTypeIdKeys from "../helpers/areOnlyPopulatedFieldsTypeIdKeys";
 import deriveOpCacheability from "../helpers/deriveOpCacheability";
 import filterOutPropsWithArgsOrDirectives from "../helpers/filterOutPropsWithArgsOrDirectives";
 import filterQuery from "../helpers/filterQuery";
@@ -260,7 +261,10 @@ export class CacheManager implements CacheManagerDef {
     const cachedResponseData = await this._retrieveCachedResponseData(requestData, options, cacheManagerContext);
     const { cacheMetadata, data, fieldCount } = cachedResponseData;
 
-    if (fieldCount.missing === fieldCount.total) {
+    // Second half of check is required for the scenario where the only matching data is
+    // the typeIDKey field, i.e. "id", in which case there is no point settings a partial
+    // query reponse because we request the typeIDKey field with every request.
+    if (fieldCount.missing === fieldCount.total || areOnlyPopulatedFieldsTypeIdKeys(data, this._typeIDKey)) {
       return { updated: requestData };
     }
 

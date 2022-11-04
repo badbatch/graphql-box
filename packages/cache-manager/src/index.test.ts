@@ -1200,6 +1200,60 @@ describe("@graphql-box/cache-manager >>", () => {
         });
       });
 
+      describe("single type with just ID match >>", () => {
+        beforeAll(async () => {
+          analyzeQueryResult = undefined;
+          // @ts-ignore
+          jest.spyOn(CacheManager, "_isValid").mockReturnValue(true);
+
+          cacheManager = new CacheManager({
+            cache: new Cachemap({
+              name: "cachemap",
+              store: map(),
+              type: "someType",
+            }),
+            typeCacheDirectives: {
+              Organization: "public, max-age=1",
+            },
+            typeIDKey: DEFAULT_TYPE_ID_KEY,
+          });
+
+          const requestData = getRequestData(parsedRequests.singleTypeQuerySmallA);
+
+          await cacheManager.cacheQuery(
+            requestData,
+            requestData,
+            responses.singleTypeQuerySmallA,
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
+          );
+
+          analyzeQueryResult = await cacheManager.analyzeQuery(
+            getRequestData(parsedRequests.singleTypeQuerySmallB),
+            { awaitDataCaching: true },
+            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
+          );
+        });
+
+        it("correct request data", () => {
+          const { ast, ...otherProps } = analyzeQueryResult?.updated as RequestData;
+          expect(otherProps).toMatchSnapshot();
+        });
+
+        it("no response data", () => {
+          expect(analyzeQueryResult?.response).toBeUndefined();
+        });
+
+        it("correct cache data", async () => {
+          expect(await cacheManager.cache.export()).toMatchSnapshot();
+        });
+
+        it("correct partial data", () => {
+          // @ts-ignore
+          expect(cacheManager._partialQueryResponses).toMatchSnapshot();
+        });
+      });
+
       describe("nested type with edges >", () => {
         beforeAll(async () => {
           analyzeQueryResult = undefined;

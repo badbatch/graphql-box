@@ -19,6 +19,18 @@ export const singleTypeQuery: RawResponseDataWithMaybeCacheMetadata = {
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };
 
+export const singleTypeQuerySmallA: RawResponseDataWithMaybeCacheMetadata = {
+  data: {
+    organization: {
+      description:
+        "We are working to build community through open source technology. NB: members must have two-factor auth.",
+      email: "",
+      id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+    },
+  },
+  headers: new Headers({ "Cache-Control": "public, max-age=5" }),
+};
+
 export const singleTypeQuerySet: QueryResponseSet = {
   initial: {
     data: {

@@ -35193,6 +35193,137 @@ Object {
 }
 `;
 
+exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> single type with just ID match >> correct cache data 1`] = `
+Object {
+  "entries": Array [
+    Array [
+      "queryResponses::fe7ca217a961a692d575fe9973836699",
+      Object {
+        "cacheMetadata": Object {
+          "query": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+          "query.organization": Object {
+            "cacheControl": Object {
+              "maxAge": 1,
+              "public": true,
+            },
+            "ttl": 297475201000,
+          },
+        },
+        "data": Object {
+          "organization": Object {
+            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+            "email": "",
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+          },
+        },
+      },
+    ],
+    Array [
+      "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      },
+    ],
+    Array [
+      "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      Object {
+        "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+        "email": "",
+        "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      },
+    ],
+  ],
+  "metadata": Array [
+    Object {
+      "accessedCount": 1,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475201000,
+        },
+      },
+      "key": "requestFieldPaths::5256db516a2438a7e5488a00413f4809",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 456,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 1,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475201000,
+        },
+      },
+      "key": "dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 456,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+    Object {
+      "accessedCount": 0,
+      "added": 297475200000,
+      "cacheability": Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 1,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475201000,
+        },
+      },
+      "key": "queryResponses::fe7ca217a961a692d575fe9973836699",
+      "lastAccessed": 297475200000,
+      "lastUpdated": 297475200000,
+      "size": 984,
+      "tags": Array [],
+      "updatedCount": 0,
+    },
+  ],
+}
+`;
+
+exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> single type with just ID match >> correct partial data 1`] = `Map {}`;
+
+exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> single type with just ID match >> correct request data 1`] = `
+Object {
+  "hash": "0f87f523d8cf0a8e383850d601aa3f86",
+  "request": "
+  {
+    organization(login: \\"facebook\\") {
+      login
+      name
+      url
+      id
+    }
+  }
+",
+}
+`;
+
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> defer >> cascading cache control >> correct cache data 1`] = `
 Object {
   "entries": Array [

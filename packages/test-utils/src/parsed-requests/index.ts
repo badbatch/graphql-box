@@ -15,6 +15,27 @@ export const singleTypeQuery = `
   }
 `;
 
+export const singleTypeQuerySmallA = `
+  {
+    organization(login: "facebook") {
+      description
+      email
+      id
+    }
+  }
+`;
+
+export const singleTypeQuerySmallB = `
+  {
+    organization(login: "facebook") {
+      login
+      name
+      url
+      id
+    }
+  }
+`;
+
 export const singleTypeQueryWithAlias = `
   {
     organization(login: "facebook") {
