@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/fetch-manager",
-  "version": "3.8.5",
+  "version": "3.8.6",
   "description": "The GraphQL Box fetch manager module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",

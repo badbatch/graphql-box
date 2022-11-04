@@ -1,3 +1,10 @@
+#### 3.15.9 (2022-11-04)
+
+##### Bug Fixes
+
+*  lint and type errors ([a215d380](https://github.com/badbatch/graphql-box/commit/a215d380baa559c3d3b701254efaea4e4a36de0f))
+*  stop setting partial response when only ids are found ([ec5da906](https://github.com/badbatch/graphql-box/commit/ec5da906a7e5b2e6ee5a91c4202d8ddaea842046))
+
 #### 3.15.8 (2022-11-03)
 
 ##### New Features
