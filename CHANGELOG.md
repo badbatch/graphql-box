@@ -1,3 +1,9 @@
+## 4.0.0 (2022-11-08)
+
+##### Refactors
+
+*  change remaining packages to class constructor initializer ([72586b55](https://github.com/badbatch/graphql-box/commit/72586b55578f1e16169585b99b6999ea38342770))
+
 #### 3.15.9 (2022-11-04)
 
 ##### Bug Fixes

@@ -15,15 +15,14 @@
 * [requestManager](useroptions.md#requestmanager)
 * [requestParser](useroptions.md#requestparser)
 * [subscriptionsManager](useroptions.md#optional-subscriptionsmanager)
-* [typeIDKey](useroptions.md#optional-typeidkey)
 
 ## Properties
 
 ###  cacheManager
 
-• **cacheManager**: *CacheManagerInit*
+• **cacheManager**: *CacheManagerDef*
 
-*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/a215d380/packages/client/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/72586b55/packages/client/src/defs/index.ts#L19)*
 
 The curried function to initialize the cache manager.
 
@@ -33,7 +32,7 @@ ___
 
 • **debugManager**? : *DebugManagerDef*
 
-*Defined in [defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/a215d380/packages/client/src/defs/index.ts#L24)*
+*Defined in [defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/72586b55/packages/client/src/defs/index.ts#L24)*
 
 The curried function to initialize the debug manager.
 
@@ -43,7 +42,7 @@ ___
 
 • **requestManager**: *RequestManagerDef*
 
-*Defined in [defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/a215d380/packages/client/src/defs/index.ts#L29)*
+*Defined in [defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/72586b55/packages/client/src/defs/index.ts#L29)*
 
 The request manager.
 
@@ -51,9 +50,9 @@ ___
 
 ###  requestParser
 
-• **requestParser**: *RequestParserInit*
+• **requestParser**: *RequestParserDef*
 
-*Defined in [defs/index.ts:34](https://github.com/badbatch/graphql-box/blob/a215d380/packages/client/src/defs/index.ts#L34)*
+*Defined in [defs/index.ts:34](https://github.com/badbatch/graphql-box/blob/72586b55/packages/client/src/defs/index.ts#L34)*
 
 The curried function to initialzie the request parser.
 
@@ -61,19 +60,8 @@ ___
 
 ### `Optional` subscriptionsManager
 
-• **subscriptionsManager**? : *SubscriptionsManagerInit*
+• **subscriptionsManager**? : *SubscriptionsManagerDef*
 
-*Defined in [defs/index.ts:39](https://github.com/badbatch/graphql-box/blob/a215d380/packages/client/src/defs/index.ts#L39)*
+*Defined in [defs/index.ts:39](https://github.com/badbatch/graphql-box/blob/72586b55/packages/client/src/defs/index.ts#L39)*
 
 The curried function to initialize the subscriptions manager.
-
-___
-
-### `Optional` typeIDKey
-
-• **typeIDKey**? : *undefined | string*
-
-*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/a215d380/packages/client/src/defs/index.ts#L45)*
-
-The name of the property thats value is used as the unique
-identifier for each type in the GraphQL schema.

@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/client",
-  "version": "3.12.7",
+  "version": "4.0.0",
   "description": "The GraphQL Box client module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -50,11 +50,11 @@
     "uuid": "^7.0.1"
   },
   "devDependencies": {
-    "@graphql-box/cache-manager": "^3.0.0",
-    "@graphql-box/debug-manager": "^3.0.0",
-    "@graphql-box/fetch-manager": "^3.0.0",
-    "@graphql-box/request-parser": "^3.0.0",
-    "@graphql-box/test-utils": "^3.0.0",
-    "@graphql-box/websocket-manager": "^3.0.0"
+    "@graphql-box/cache-manager": "^4.0.0",
+    "@graphql-box/debug-manager": "^4.0.0",
+    "@graphql-box/fetch-manager": "^4.0.0",
+    "@graphql-box/request-parser": "^4.0.0",
+    "@graphql-box/test-utils": "^4.0.0",
+    "@graphql-box/websocket-manager": "^4.0.0"
   }
 }

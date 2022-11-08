@@ -22,7 +22,7 @@
 
 • **hashedRequestFieldCacheKey**: *string*
 
-*Defined in [packages/helpers/src/defs/index.ts:84](https://github.com/badbatch/graphql-box/blob/a215d380/packages/helpers/src/defs/index.ts#L84)*
+*Defined in [packages/helpers/src/defs/index.ts:84](https://github.com/badbatch/graphql-box/blob/72586b55/packages/helpers/src/defs/index.ts#L84)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **propNameOrIndex**: *string | number*
 
-*Defined in [packages/helpers/src/defs/index.ts:85](https://github.com/badbatch/graphql-box/blob/a215d380/packages/helpers/src/defs/index.ts#L85)*
+*Defined in [packages/helpers/src/defs/index.ts:85](https://github.com/badbatch/graphql-box/blob/72586b55/packages/helpers/src/defs/index.ts#L85)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • **requestFieldCacheKey**: *string*
 
-*Defined in [packages/helpers/src/defs/index.ts:86](https://github.com/badbatch/graphql-box/blob/a215d380/packages/helpers/src/defs/index.ts#L86)*
+*Defined in [packages/helpers/src/defs/index.ts:86](https://github.com/badbatch/graphql-box/blob/72586b55/packages/helpers/src/defs/index.ts#L86)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **requestFieldPath**: *string*
 
-*Defined in [packages/helpers/src/defs/index.ts:87](https://github.com/badbatch/graphql-box/blob/a215d380/packages/helpers/src/defs/index.ts#L87)*
+*Defined in [packages/helpers/src/defs/index.ts:87](https://github.com/badbatch/graphql-box/blob/72586b55/packages/helpers/src/defs/index.ts#L87)*
 
 ___
 
@@ -54,4 +54,4 @@ ___
 
 • **responseDataPath**: *string*
 
-*Defined in [packages/helpers/src/defs/index.ts:88](https://github.com/badbatch/graphql-box/blob/a215d380/packages/helpers/src/defs/index.ts#L88)*
+*Defined in [packages/helpers/src/defs/index.ts:88](https://github.com/badbatch/graphql-box/blob/72586b55/packages/helpers/src/defs/index.ts#L88)*

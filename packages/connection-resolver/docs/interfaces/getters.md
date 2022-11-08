@@ -27,7 +27,7 @@
 
 • **nodes**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/a215d380/packages/connection-resolver/src/defs/index.ts#L71)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/72586b55/packages/connection-resolver/src/defs/index.ts#L71)*
 
 #### Type declaration:
 
@@ -45,7 +45,7 @@ ___
 
 • **page**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/a215d380/packages/connection-resolver/src/defs/index.ts#L72)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/72586b55/packages/connection-resolver/src/defs/index.ts#L72)*
 
 #### Type declaration:
 
@@ -63,7 +63,7 @@ ___
 
 • **totalPages**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:73](https://github.com/badbatch/graphql-box/blob/a215d380/packages/connection-resolver/src/defs/index.ts#L73)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:73](https://github.com/badbatch/graphql-box/blob/72586b55/packages/connection-resolver/src/defs/index.ts#L73)*
 
 #### Type declaration:
 
@@ -81,7 +81,7 @@ ___
 
 • **totalResults**: *function*
 
-*Defined in [packages/connection-resolver/src/defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/a215d380/packages/connection-resolver/src/defs/index.ts#L74)*
+*Defined in [packages/connection-resolver/src/defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/72586b55/packages/connection-resolver/src/defs/index.ts#L74)*
 
 #### Type declaration:
 

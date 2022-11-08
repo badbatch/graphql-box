@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/react",
-  "version": "3.12.7",
+  "version": "4.0.0",
   "description": "The GraphQL Box React module.",
   "keywords": [
     "graphql-box",
@@ -49,8 +49,8 @@
     "react-dom": "< 18"
   },
   "devDependencies": {
-    "@graphql-box/client": "^3.0.0",
-    "@graphql-box/worker-client": "^3.0.0",
-    "@graphql-box/test-utils": "^3.0.0"
+    "@graphql-box/client": "^4.0.0",
+    "@graphql-box/worker-client": "^4.0.0",
+    "@graphql-box/test-utils": "^4.0.0"
   }
 }

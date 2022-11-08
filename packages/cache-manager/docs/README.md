@@ -18,8 +18,6 @@
 * [CachedResponseData](interfaces/cachedresponsedata.md)
 * [CheckCacheEntryResult](interfaces/checkcacheentryresult.md)
 * [CheckFieldPathChecklistResult](interfaces/checkfieldpathchecklistresult.md)
-* [ClientOptions](interfaces/clientoptions.md)
-* [ConstructorOptions](interfaces/constructoroptions.md)
 * [DataForCachingEntry](interfaces/dataforcachingentry.md)
 * [ExportCacheResult](interfaces/exportcacheresult.md)
 * [FieldCount](interfaces/fieldcount.md)
@@ -33,7 +31,6 @@
 
 ### Type aliases
 
-* [CacheManagerInit](README.md#cachemanagerinit)
 * [FieldPathChecklist](README.md#fieldpathchecklist)
 * [FragmentSpreadCheckist](README.md#fragmentspreadcheckist)
 * [FragmentSpreadFieldCounter](README.md#fragmentspreadfieldcounter)
@@ -53,7 +50,6 @@
 * [checkValue](README.md#const-checkvalue)
 * [filterField](README.md#const-filterfield)
 * [getValidTypeIDValue](README.md#const-getvalidtypeidvalue)
-* [init](README.md#init)
 * [logCacheEntry](README.md#logcacheentry)
 * [logCacheQuery](README.md#logcachequery)
 * [logPartialCompiled](README.md#logpartialcompiled)
@@ -61,29 +57,11 @@
 
 ## Type aliases
 
-###  CacheManagerInit
-
-Ƭ **CacheManagerInit**: *function*
-
-*Defined in [cache-manager/src/defs/index.ts:198](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/defs/index.ts#L198)*
-
-#### Type declaration:
-
-▸ (`options`: [ClientOptions](interfaces/clientoptions.md)): *[CacheManagerDef](interfaces/cachemanagerdef.md)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`options` | [ClientOptions](interfaces/clientoptions.md) |
-
-___
-
 ###  FieldPathChecklist
 
 Ƭ **FieldPathChecklist**: *Map‹string, [FieldPathChecklistValue](interfaces/fieldpathchecklistvalue.md)[]›*
 
-*Defined in [cache-manager/src/defs/index.ts:88](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/defs/index.ts#L88)*
+*Defined in [cache-manager/src/defs/index.ts:82](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/defs/index.ts#L82)*
 
 ___
 
@@ -91,7 +69,7 @@ ___
 
 Ƭ **FragmentSpreadCheckist**: *object*
 
-*Defined in [cache-manager/src/helpers/createFragmentSpreadChecklist.ts:5](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/helpers/createFragmentSpreadChecklist.ts#L5)*
+*Defined in [cache-manager/src/helpers/createFragmentSpreadChecklist.ts:5](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/helpers/createFragmentSpreadChecklist.ts#L5)*
 
 #### Type declaration:
 
@@ -109,7 +87,7 @@ ___
 
 Ƭ **FragmentSpreadFieldCounter**: *Record‹string, object›*
 
-*Defined in [cache-manager/src/defs/index.ts:128](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/defs/index.ts#L128)*
+*Defined in [cache-manager/src/defs/index.ts:122](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/defs/index.ts#L122)*
 
 ___
 
@@ -117,7 +95,7 @@ ___
 
 Ƭ **Params**: *object*
 
-*Defined in [cache-manager/src/helpers/deriveOpCacheability.ts:6](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/helpers/deriveOpCacheability.ts#L6)*
+*Defined in [cache-manager/src/helpers/deriveOpCacheability.ts:6](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/helpers/deriveOpCacheability.ts#L6)*
 
 #### Type declaration:
 
@@ -133,7 +111,7 @@ ___
 
 Ƭ **PartialQueryResponses**: *Map‹string, [PartialQueryResponse](interfaces/partialqueryresponse.md)›*
 
-*Defined in [cache-manager/src/defs/index.ts:69](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/defs/index.ts#L69)*
+*Defined in [cache-manager/src/defs/index.ts:63](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/defs/index.ts#L63)*
 
 ## Variables
 
@@ -141,7 +119,7 @@ ___
 
 • **CACHE_CONTROL**: *"cacheControl"* = "cacheControl"
 
-*Defined in [cache-manager/src/consts/index.ts:2](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/consts/index.ts#L2)*
+*Defined in [cache-manager/src/consts/index.ts:2](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/consts/index.ts#L2)*
 
 ___
 
@@ -149,7 +127,7 @@ ___
 
 • **HEADER_CACHE_CONTROL**: *"cache-control"* = "cache-control"
 
-*Defined in [cache-manager/src/consts/index.ts:5](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/consts/index.ts#L5)*
+*Defined in [cache-manager/src/consts/index.ts:5](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/consts/index.ts#L5)*
 
 ___
 
@@ -157,7 +135,7 @@ ___
 
 • **HEADER_NO_CACHE**: *"no-cache"* = "no-cache"
 
-*Defined in [cache-manager/src/consts/index.ts:6](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/consts/index.ts#L6)*
+*Defined in [cache-manager/src/consts/index.ts:6](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/consts/index.ts#L6)*
 
 ___
 
@@ -165,7 +143,7 @@ ___
 
 • **METADATA**: *"metadata"* = "metadata"
 
-*Defined in [cache-manager/src/consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/consts/index.ts#L1)*
+*Defined in [cache-manager/src/consts/index.ts:1](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/consts/index.ts#L1)*
 
 ___
 
@@ -173,7 +151,7 @@ ___
 
 • **NO_CACHE**: *"noCache"* = "noCache"
 
-*Defined in [cache-manager/src/consts/index.ts:3](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/consts/index.ts#L3)*
+*Defined in [cache-manager/src/consts/index.ts:3](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/consts/index.ts#L3)*
 
 ## Functions
 
@@ -181,7 +159,7 @@ ___
 
 ▸ **checkValue**(`value`: any, `typeIDKey`: string): *boolean*
 
-*Defined in [cache-manager/src/helpers/areOnlyPopulatedFieldsTypeIdKeys.ts:4](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/helpers/areOnlyPopulatedFieldsTypeIdKeys.ts#L4)*
+*Defined in [cache-manager/src/helpers/areOnlyPopulatedFieldsTypeIdKeys.ts:4](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/helpers/areOnlyPopulatedFieldsTypeIdKeys.ts#L4)*
 
 **Parameters:**
 
@@ -198,7 +176,7 @@ ___
 
 ▸ **filterField**(`field`: FieldNode | FragmentDefinitionNode | OperationDefinitionNode, `fieldPathChecklist`: [FieldPathChecklist](README.md#fieldpathchecklist), `fragmentSpreadChecklist`: [FragmentSpreadCheckist](README.md#fragmentspreadcheckist), `ancestorRequestFieldPath`: string, `context`: [CacheManagerContext](interfaces/cachemanagercontext.md)): *boolean*
 
-*Defined in [cache-manager/src/helpers/filterField.ts:18](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/helpers/filterField.ts#L18)*
+*Defined in [cache-manager/src/helpers/filterField.ts:18](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/helpers/filterField.ts#L18)*
 
 **Parameters:**
 
@@ -218,7 +196,7 @@ ___
 
 ▸ **getValidTypeIDValue**(`requestFieldPathData`: any, `__namedParameters`: object, `typeIDKey`: string): *string | number | undefined*
 
-*Defined in [cache-manager/src/helpers/validTypeIDValue.ts:4](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/helpers/validTypeIDValue.ts#L4)*
+*Defined in [cache-manager/src/helpers/validTypeIDValue.ts:4](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/helpers/validTypeIDValue.ts#L4)*
 
 **Parameters:**
 
@@ -236,27 +214,11 @@ Name | Type |
 
 ___
 
-###  init
-
-▸ **init**(`userOptions`: [UserOptions](interfaces/useroptions.md)): *[CacheManagerInit](README.md#cachemanagerinit)*
-
-*Defined in [cache-manager/src/main/index.ts:1187](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/main/index.ts#L1187)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`userOptions` | [UserOptions](interfaces/useroptions.md) |
-
-**Returns:** *[CacheManagerInit](README.md#cachemanagerinit)*
-
-___
-
 ###  logCacheEntry
 
 ▸ **logCacheEntry**(): *(Anonymous function)*
 
-*Defined in [cache-manager/src/debug/log-cache-entry/index.ts:3](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/debug/log-cache-entry/index.ts#L3)*
+*Defined in [cache-manager/src/debug/log-cache-entry/index.ts:3](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/debug/log-cache-entry/index.ts#L3)*
 
 **Returns:** *(Anonymous function)*
 
@@ -266,7 +228,7 @@ ___
 
 ▸ **logCacheQuery**(): *(Anonymous function)*
 
-*Defined in [cache-manager/src/debug/log-cache-query/index.ts:3](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/debug/log-cache-query/index.ts#L3)*
+*Defined in [cache-manager/src/debug/log-cache-query/index.ts:3](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/debug/log-cache-query/index.ts#L3)*
 
 **Returns:** *(Anonymous function)*
 
@@ -276,7 +238,7 @@ ___
 
 ▸ **logPartialCompiled**(): *(Anonymous function)*
 
-*Defined in [cache-manager/src/debug/log-partial-compiled/index.ts:3](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/debug/log-partial-compiled/index.ts#L3)*
+*Defined in [cache-manager/src/debug/log-partial-compiled/index.ts:3](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/debug/log-partial-compiled/index.ts#L3)*
 
 **Returns:** *(Anonymous function)*
 
@@ -286,7 +248,7 @@ ___
 
 ▸ **recursivelyCheckProps**(`data`: PlainObjectMap, `typeIDKey`: string): *boolean*
 
-*Defined in [cache-manager/src/helpers/areOnlyPopulatedFieldsTypeIdKeys.ts:22](https://github.com/badbatch/graphql-box/blob/a215d380/packages/cache-manager/src/helpers/areOnlyPopulatedFieldsTypeIdKeys.ts#L22)*
+*Defined in [cache-manager/src/helpers/areOnlyPopulatedFieldsTypeIdKeys.ts:22](https://github.com/badbatch/graphql-box/blob/72586b55/packages/cache-manager/src/helpers/areOnlyPopulatedFieldsTypeIdKeys.ts#L22)*
 
 **Parameters:**
 
