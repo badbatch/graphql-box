@@ -2,7 +2,7 @@ import { MaybeRequestResult, SUBSCRIPTION } from "@graphql-box/core";
 import { getRequestContext, getRequestData, parsedRequests, responses } from "@graphql-box/test-utils";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { Server } from "mock-socket";
-import { WebsocketManager } from ".";
+import WebsocketManager from ".";
 
 function onOpen(websocket: WebSocket): Promise<void> {
   return new Promise(resolve => {

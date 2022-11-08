@@ -1,4 +1,4 @@
-import { CacheManagerInit } from "@graphql-box/cache-manager";
+import { CacheManagerDef } from "@graphql-box/cache-manager";
 import {
   CacheMetadata,
   DebugManagerDef,
@@ -8,15 +8,15 @@ import {
   RequestData,
   RequestManagerDef,
   RequestOptions,
-  SubscriptionsManagerInit,
+  SubscriptionsManagerDef,
 } from "@graphql-box/core";
-import { RequestParserInit } from "@graphql-box/request-parser";
+import { RequestParserDef } from "@graphql-box/request-parser";
 
 export interface UserOptions {
   /**
    * The curried function to initialize the cache manager.
    */
-  cacheManager: CacheManagerInit;
+  cacheManager: CacheManagerDef;
 
   /**
    * The curried function to initialize the debug manager.
@@ -31,18 +31,12 @@ export interface UserOptions {
   /**
    * The curried function to initialzie the request parser.
    */
-  requestParser: RequestParserInit;
+  requestParser: RequestParserDef;
 
   /**
    * The curried function to initialize the subscriptions manager.
    */
-  subscriptionsManager?: SubscriptionsManagerInit;
-
-  /**
-   * The name of the property thats value is used as the unique
-   * identifier for each type in the GraphQL schema.
-   */
-  typeIDKey?: string;
+  subscriptionsManager?: SubscriptionsManagerDef;
 }
 
 export type PendingQueryResolver = (value: MaybeRequestResult) => void;

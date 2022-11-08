@@ -1,4 +1,5 @@
 import {
+  DEFAULT_TYPE_ID_KEY,
   FragmentDefinitionNodeMap,
   Maybe,
   PlainObjectMap,
@@ -66,11 +67,8 @@ import {
 import { assign, get, isEmpty, isObjectLike, isPlainObject, isString, keys } from "lodash";
 import {
   Ancestors,
-  ClientOptions,
-  ConstructorOptions,
   MapFieldToTypeData,
   RequestParserDef,
-  RequestParserInit,
   UpdateRequestResult,
   UserOptions,
   VisitorContext,
@@ -89,7 +87,7 @@ import sliceAncestorsFromFragmentDefinition from "../helpers/sliceAncestorsFromF
 import toUpdateNode from "../helpers/toUpdateNode";
 import updateFragmentSpreadNode from "../helpers/updateFragmentSpreadNode";
 
-export class RequestParser implements RequestParserDef {
+export default class RequestParser implements RequestParserDef {
   private static _concatFragments(query: string, fragments: string[]): string {
     return [query, ...fragments].join("\n\n");
   }
@@ -229,7 +227,7 @@ export class RequestParser implements RequestParserDef {
   private _typeComplexityMap: Record<string, number> | null;
   private _typeIDKey: string;
 
-  constructor(options: ConstructorOptions) {
+  constructor(options: UserOptions) {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(options.introspection) && !(options.schema instanceof GraphQLSchema)) {
@@ -253,7 +251,7 @@ export class RequestParser implements RequestParserDef {
     }
 
     this._typeComplexityMap = options.typeComplexityMap ?? null;
-    this._typeIDKey = options.typeIDKey;
+    this._typeIDKey = options.typeIDKey ?? DEFAULT_TYPE_ID_KEY;
   }
 
   public async updateRequest(
@@ -585,12 +583,4 @@ export class RequestParser implements RequestParserDef {
       return Promise.reject(error);
     }
   }
-}
-
-export default function init(userOptions: UserOptions): RequestParserInit {
-  if (!isPlainObject(userOptions)) {
-    throw new TypeError("@graphql-box/request-parser expected userOptions to be a plain object.");
-  }
-
-  return (clientOptions: ClientOptions) => new RequestParser({ ...clientOptions, ...userOptions });
 }

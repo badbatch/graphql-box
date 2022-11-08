@@ -11,10 +11,6 @@ The GraphQL Box connection resolver module.
 yarn add @graphql-box/connection-resolver
 ```
 
-## Usage
-
-Read the GraphQL Box [usage guide](../../README.md#usage).
-
 ## Documentation
 
 Read the module API [documentation](docs/README.md).

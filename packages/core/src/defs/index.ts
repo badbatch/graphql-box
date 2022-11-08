@@ -307,8 +307,6 @@ export interface RequestManagerDef {
   ): Promise<AsyncIterableIterator<MaybeRequestResult | undefined> | MaybeRawResponseData>;
 }
 
-export type RequestManagerInit = () => RequestManagerDef;
-
 export type RequestResolver = (rawResponseData: MaybeRawResponseData) => Promise<MaybeRequestResult>;
 
 export type SubscriberResolver = (rawResponseData: MaybeRawResponseData) => Promise<MaybeRequestResult>;
@@ -321,5 +319,3 @@ export interface SubscriptionsManagerDef {
     subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>>;
 }
-
-export type SubscriptionsManagerInit = () => SubscriptionsManagerDef;

@@ -27,13 +27,13 @@ export interface UserOptions {
    * The cost of requesting a type.
    */
   typeComplexityMap?: Record<string, number>;
-}
 
-export interface ClientOptions {
-  typeIDKey: string;
+  /**
+   * The name of the property thats value is used as the unique
+   * identifier for each type in the GraphQL schema.
+   */
+  typeIDKey?: string;
 }
-
-export type ConstructorOptions = UserOptions & ClientOptions;
 
 export interface UpdateRequestResult {
   ast: DocumentNode;
@@ -43,8 +43,6 @@ export interface UpdateRequestResult {
 export interface RequestParserDef {
   updateRequest(request: string, options: RequestOptions, context: RequestContext): Promise<UpdateRequestResult>;
 }
-
-export type RequestParserInit = (options: ClientOptions) => RequestParserDef;
 
 export interface Ancestors {
   ancestors: readonly any[];

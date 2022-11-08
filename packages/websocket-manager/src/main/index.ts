@@ -5,14 +5,12 @@ import {
   RequestOptions,
   SubscriberResolver,
   SubscriptionsManagerDef,
-  SubscriptionsManagerInit,
 } from "@graphql-box/core";
 import { EventAsyncIterator, deserializeErrors } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
-import { isPlainObject } from "lodash";
-import { ConstructorOptions, UserOptions } from "../defs";
+import { UserOptions } from "../defs";
 
-export class WebsocketManager implements SubscriptionsManagerDef {
+export default class WebsocketManager implements SubscriptionsManagerDef {
   private static _getMessageContext({ operation, requestID, whitelistHash }: RequestContext) {
     return { operation, requestID, whitelistHash };
   }
@@ -21,7 +19,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
   private _subscriptions: Map<string, SubscriberResolver> = new Map();
   private _websocket: WebSocket;
 
-  constructor(options: ConstructorOptions) {
+  constructor(options: UserOptions) {
     const errors: TypeError[] = [];
 
     if (!options.websocket) {
@@ -88,12 +86,4 @@ export class WebsocketManager implements SubscriptionsManagerDef {
     const resolvedResult = await subscriberResolver(deserializeErrors(result));
     this._eventEmitter.emit(subscriptionID, resolvedResult);
   }
-}
-
-export default function init(userOptions: UserOptions): SubscriptionsManagerInit {
-  if (!isPlainObject(userOptions)) {
-    throw new TypeError("@graphql-box/websocket-manager expected userOptions to be a plain object.");
-  }
-
-  return () => new WebsocketManager(userOptions);
 }

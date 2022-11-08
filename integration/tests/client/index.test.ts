@@ -15,7 +15,7 @@ import {
   schemaResolvers,
   schemaTypeDefs,
 } from "@graphql-box/test-utils";
-import websocketManager from "@graphql-box/websocket-manager";
+import WebsocketManager from "@graphql-box/websocket-manager";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { expect, use } from "chai";
 import { matchSnapshot } from "chai-karma-snapshot";
@@ -409,7 +409,7 @@ describe("client", () => {
             typeDefs: schemaTypeDefs,
             updateResolversInPlace: true,
           }),
-          subscriptionsManager: websocketManager({ websocket }),
+          subscriptionsManager: new WebsocketManager({ websocket }),
           typeCacheDirectives: {
             Email: "public, max-age=5",
             Inbox: "public, max-age=1",

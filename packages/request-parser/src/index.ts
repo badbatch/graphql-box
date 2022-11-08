@@ -1,2 +1,2 @@
 export * from "./defs";
-export { default, RequestParser } from "./main";
+export { default } from "./main";

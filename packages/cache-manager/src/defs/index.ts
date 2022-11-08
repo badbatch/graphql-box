@@ -42,18 +42,12 @@ export interface UserOptions {
    * directives used for caching object types.
    */
   typeCacheDirectives?: PlainObjectStringMap;
-}
 
-export interface ClientOptions {
-  typeIDKey: string;
-}
-
-export interface ConstructorOptions {
-  cache: Cachemap;
-  cascadeCacheControl?: boolean;
-  fallbackOperationCacheability?: string;
-  typeCacheDirectives?: PlainObjectStringMap;
-  typeIDKey: string;
+  /**
+   * The name of the property thats value is used as the unique
+   * identifier for each type in the GraphQL schema.
+   */
+  typeIDKey?: string;
 }
 
 export interface CacheManagerContext extends RequestContext {
@@ -194,5 +188,3 @@ export interface CacheManagerDef {
     context: CacheManagerContext,
   ): Promise<void>;
 }
-
-export type CacheManagerInit = (options: ClientOptions) => CacheManagerDef;

@@ -1,7 +1,6 @@
 import Core from "@cachemap/core";
 import { CacheManagerDef } from "@graphql-box/cache-manager";
 import {
-  DEFAULT_TYPE_ID_KEY,
   DebugManagerDef,
   MUTATION,
   MaybeRawResponseData,
@@ -101,12 +100,11 @@ export default class Client {
       throw errors;
     }
 
-    const typeIDKey = options.typeIDKey || DEFAULT_TYPE_ID_KEY;
-    this._cacheManager = options.cacheManager({ typeIDKey });
+    this._cacheManager = options.cacheManager;
     this._debugManager = options.debugManager ?? null;
     this._requestManager = options.requestManager;
-    this._requestParser = options.requestParser({ typeIDKey });
-    this._subscriptionsManager = options.subscriptionsManager ? options.subscriptionsManager() : null;
+    this._requestParser = options.requestParser;
+    this._subscriptionsManager = options.subscriptionsManager ?? null;
   }
 
   get cache(): Core {

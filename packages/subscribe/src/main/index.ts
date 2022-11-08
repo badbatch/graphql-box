@@ -7,16 +7,14 @@ import {
   RequestData,
   ServerRequestOptions,
   SubscriberResolver,
-  SubscriptionsManagerInit,
 } from "@graphql-box/core";
 import { EventAsyncIterator, getFragmentDefinitions, setCacheMetadata, standardizePath } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { AsyncExecutionResult, GraphQLFieldResolver, GraphQLSchema, subscribe } from "graphql";
 import { forAwaitEach, isAsyncIterable } from "iterall";
-import { isPlainObject } from "lodash";
-import { ConstructorOptions, GraphQLSubscribe, SubscribeArgs, UserOptions } from "../defs";
+import { GraphQLSubscribe, SubscribeArgs, UserOptions } from "../defs";
 
-export class Subscribe {
+export default class Subscribe {
   private _contextValue: PlainObjectMap;
   private _eventEmitter: EventEmitter;
   private _fieldResolver?: GraphQLFieldResolver<any, any> | null;
@@ -25,7 +23,7 @@ export class Subscribe {
   private _subscribe: GraphQLSubscribe;
   private _subscribeFieldResolver?: GraphQLFieldResolver<any, any> | null;
 
-  constructor(options: ConstructorOptions) {
+  constructor(options: UserOptions) {
     const errors: TypeError[] = [];
 
     if (!(options.schema instanceof GraphQLSchema)) {
@@ -95,12 +93,4 @@ export class Subscribe {
       return Promise.reject(error);
     }
   }
-}
-
-export default function init(userOptions: UserOptions): SubscriptionsManagerInit {
-  if (!isPlainObject(userOptions)) {
-    throw new TypeError("@graphql-box/subscribe expected userOptions to be a plain object.");
-  }
-
-  return () => new Subscribe(userOptions);
 }

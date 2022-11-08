@@ -1,2 +1,2 @@
 export * from "./defs";
-export { default, Subscribe } from "./main";
+export { default } from "./main";

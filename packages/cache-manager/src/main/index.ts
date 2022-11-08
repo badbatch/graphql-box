@@ -4,6 +4,7 @@ import {
   CacheTypes,
   CachemapOptions,
   DATA_ENTITIES,
+  DEFAULT_TYPE_ID_KEY,
   FieldTypeInfo,
   PlainObjectMap,
   PlainObjectStringMap,
@@ -41,12 +42,9 @@ import {
   AncestorKeysAndPaths,
   CacheManagerContext,
   CacheManagerDef,
-  CacheManagerInit,
   CachedAncestorFieldData,
   CachedResponseData,
   CheckCacheEntryResult,
-  ClientOptions,
-  ConstructorOptions,
   DataForCachingEntry,
   FieldCount,
   FieldPathChecklist,
@@ -70,7 +68,7 @@ import mergeResponseDataSets from "../helpers/mergeResponseDataSets";
 import normalizePatchResponseData from "../helpers/normalizePatchResponseData";
 import { getValidTypeIDValue } from "../helpers/validTypeIDValue";
 
-export class CacheManager implements CacheManagerDef {
+export default class CacheManager implements CacheManagerDef {
   private static _countFieldPathChecklist(fieldPathChecklist: FieldPathChecklist): FieldCount {
     const fieldCount: FieldCount = { missing: 0, total: 0 };
 
@@ -214,7 +212,7 @@ export class CacheManager implements CacheManagerDef {
   private _typeCacheDirectives: PlainObjectStringMap;
   private _typeIDKey: string;
 
-  constructor(options: ConstructorOptions) {
+  constructor(options: UserOptions) {
     const errors: TypeError[] = [];
 
     if (!options.cache) {
@@ -234,7 +232,7 @@ export class CacheManager implements CacheManagerDef {
     this._cascadeCacheControl = options.cascadeCacheControl || false;
     this._fallbackOperationCacheability = options.fallbackOperationCacheability || NO_CACHE;
     this._typeCacheDirectives = options.typeCacheDirectives || {};
-    this._typeIDKey = options.typeIDKey;
+    this._typeIDKey = options.typeIDKey ?? DEFAULT_TYPE_ID_KEY;
   }
 
   get cache(): Cachemap {
@@ -1182,12 +1180,4 @@ export class CacheManager implements CacheManagerDef {
       this._responseChunksAwaitingCaching.set(context.requestID, [normalizedResponseData]);
     }
   }
-}
-
-export default function init(userOptions: UserOptions): CacheManagerInit {
-  if (!isPlainObject(userOptions)) {
-    throw new TypeError("@graphql-box/cache-manager expected userOptions to be a plain object.");
-  }
-
-  return (clientOptions: ClientOptions) => new CacheManager({ ...clientOptions, ...userOptions });
 }

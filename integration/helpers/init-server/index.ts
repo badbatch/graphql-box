@@ -1,11 +1,10 @@
 import Cachemap from "@cachemap/core";
-import cacheManager from "@graphql-box/cache-manager";
+import CacheManager from "@graphql-box/cache-manager";
 import Client from "@graphql-box/client";
-import { DEFAULT_TYPE_ID_KEY } from "@graphql-box/core";
 import DebugManager, { Environment } from "@graphql-box/debug-manager";
 import Execute from "@graphql-box/execute";
-import requestParser from "@graphql-box/request-parser";
-import subscribe from "@graphql-box/subscribe";
+import RequestParser from "@graphql-box/request-parser";
+import Subscribe from "@graphql-box/subscribe";
 import { schemaResolvers, schemaTypeDefs } from "@graphql-box/test-utils";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { performance } from "perf_hooks";
@@ -20,7 +19,7 @@ const schema = makeExecutableSchema({
 
 export default function initServer({ cachemapStore, debuggerName = "SERVER", typeCacheDirectives }: InitServerOptions) {
   return new Client({
-    cacheManager: cacheManager({
+    cacheManager: new CacheManager({
       cache: new Cachemap({
         name: "cachemap",
         store: cachemapStore,
@@ -35,8 +34,7 @@ export default function initServer({ cachemapStore, debuggerName = "SERVER", typ
       performance,
     }),
     requestManager: new Execute({ schema }),
-    requestParser: requestParser({ schema }),
-    subscriptionsManager: subscribe({ schema }),
-    typeIDKey: DEFAULT_TYPE_ID_KEY,
+    requestParser: new RequestParser({ schema }),
+    subscriptionsManager: new Subscribe({ schema }),
   });
 }

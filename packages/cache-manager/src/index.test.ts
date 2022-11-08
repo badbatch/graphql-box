@@ -17,7 +17,7 @@ import {
   requestFieldTypeMaps,
   responses,
 } from "@graphql-box/test-utils";
-import { AnalyzeQueryResult, CacheManager, CacheManagerDef } from ".";
+import CacheManager, { AnalyzeQueryResult, CacheManagerDef } from ".";
 
 describe("@graphql-box/cache-manager >>", () => {
   const realDateNow = Date.now.bind(global.Date);

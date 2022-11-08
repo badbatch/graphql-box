@@ -1,6 +1,6 @@
 import Cachemap from "@cachemap/core";
 import map from "@cachemap/map";
-import { CacheManager } from "@graphql-box/cache-manager";
+import CacheManager from "@graphql-box/cache-manager";
 import {
   CACHE_ENTRY_ADDED,
   CACHE_ENTRY_QUERIED,

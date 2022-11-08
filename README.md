@@ -7,7 +7,7 @@ An extensible GraphQL client and server with modules for caching, request parsin
 
 ## Summary
 
-* Automatically aggregate queries and mutations into fewer network requests.
+* Ability to batch queries and mutations into fewer network requests.
 * Reduce server requests with response, query path and object entity caching.
 * Type level control of what gets cached using http cache-control directives.
 * Save storage by automatically removing expired and infrequently accessed cache entries.
@@ -47,20 +47,23 @@ yarn add @graphql-box/server @graphql-box/client @graphql-box/request-parser @gr
 GraphQL Box's multi-package structure allows you to compose your client and server of the modules you need, without
 additional bloat. Start with the `@graphql-box/client` or `@graphql-box/server` packages and build out from there.
 
-* [@graphql-box/cache-manager](packages/cache-manager)
-* [@graphql-box/cli](packages/cli)
-* [@graphql-box/client](packages/client)
-* [@graphql-box/core](packages/core)
-* [@graphql-box/debug-manager](packages/debug-manager)
-* [@graphql-box/execute](packages/execute)
-* [@graphql-box/fetch-manager](packages/fetch-manager)
-* [@graphql-box/helpers](packages/helpers)
-* [@graphql-box/request-parser](packages/request-parser)
-* [@graphql-box/server](packages/server)
-* [@graphql-box/subscribe](packages/subscribe)
-* [@graphql-box/test-utils](packages/test-utils)
-* [@graphql-box/websocket-manager](packages/websocket-manager)
-* [@graphql-box/worker-client](packages/worker-client)
+* [@graphql-box/cache-manager](packages/cache-manager/README.md)
+* [@graphql-box/cli](packages/cli/README.md)
+* [@graphql-box/client](packages/client/README.md)
+* [@graphql-box/connection-resolver](packages/connection-resolver/README.md)
+* [@graphql-box/core](packages/core/README.md)
+* [@graphql-box/debug-manager](packages/debug-manager/README.md)
+* [@graphql-box/execute](packages/execute/README.md)
+* [@graphql-box/fetch-manager](packages/fetch-manager/README.md)
+* [@graphql-box/gql.macro](packages/gql.macro/README.md)
+* [@graphql-box/helpers](packages/helpers/README.md)
+* [@graphql-box/react](packages/react/README.md)
+* [@graphql-box/request-parser](packages/request-parser/README.md)
+* [@graphql-box/server](packages/server/README.md)
+* [@graphql-box/subscribe](packages/subscribe/README.md)
+* [@graphql-box/test-utils](packages/test-utils/README.md)
+* [@graphql-box/websocket-manager](packages/websocket-manager/README.md)
+* [@graphql-box/worker-client](packages/worker-client/README.md)
 
 ## Usage
 
@@ -76,9 +79,7 @@ additional bloat. Start with the `@graphql-box/client` or `@graphql-box/server` 
 The `Client` is initialized using the traditional class constructor. Each module you want to add to the `Client` is
 passed as a property into the constructor.
 
-The default export of each module is a curried function that returns a function that initializes the module. This allows
-you and the `Client` to pass configuration options into each module. The cache manager, request manager and request
-parser are all mandatory modules. The rest are optional.
+The cache manager, request manager and request parser are all mandatory modules. The rest are optional.
 
 The example below initializes the `Client` with a persisted cache with type cache control directives, a debug manager
 with a logger, a fetch manager with request batching enabled, and a subscriptions manager.
@@ -87,16 +88,23 @@ with a logger, a fetch manager with request batching enabled, and a subscription
 import Cachemap from "@cachemap/core";
 import indexedDB from "@cachemap/indexed-db";
 import reaper from "@cachemap/reaper";
-import cacheManager from "@graphql-box/cache-manager";
+import CacheManager from "@graphql-box/cache-manager";
 import Client from "@graphql-box/client";
 import { DEFAULT_TYPE_ID_KEY } from "@graphql-box/core";
-import debugManager from "@graphql-box/debug-manager";
-import fetchManager from "@graphql-box/fetch-manager";
-import requestParser from "@graphql-box/request-parser";
+import DebugManager from "@graphql-box/debug-manager";
+import FetchManager from "@graphql-box/fetch-manager";
+import RequestParser from "@graphql-box/request-parser";
+import WebsocketManager from "@graphql-box/websocket-manager";
 import introspection from "./introspection-query";
 
+const requestManager = new FetchManager({
+  apiUrl: '/api/graphql',
+  batchRequests: true,
+  logUrl: '/log/graphql',
+});
+
 const client = new Client({
-  cacheManager: cacheManager({
+  cacheManager: new CacheManager({
     cache: new Cachemap({
       name: "cachemap",
       reaper: reaper({ interval: 300000 }),
@@ -110,34 +118,29 @@ const client = new Client({
       RepositoryOwner: "public, max-age=3",
     },
   }),
-  debugManager: debugManager({
-    logger: {
-      log: (...args) => {
-        console.log(...args);
-      },
+  debugManager: new DebugManager({
+    environment: 'client',
+    log: (message, data, logLevel) => {
+      requestManager.log(message, data, logLevel);
     },
     name: "CLIENT",
     performance: self.performance,
   }),
-  requestManager: fetchManager({ batch: true, url: "http://localhost:3001/graphql" }),
-  requestParser: requestParser({ introspection }),
-  subscriptionsManager: websocketManager({ websocket: new WebSocket("ws://localhost:3001/graphql") }),
-  typeIDKey: DEFAULT_TYPE_ID_KEY,
+  requestManager,
+  requestParser: new RequestParser({ introspection }),
+  subscriptionsManager: new WebsocketManager({ websocket: new WebSocket("ws://localhost:3001/graphql") }),
 });
 
 // Do something...
 ```
 
-* [cacheManager](#cachemanager)
-* [debugManager](#debugmanager)
-* [fetchManager](#fetchmanager)
-* [requestParser](#requestparser)
-* [websocketManager](#websocketmanager)
-* [typeIDKey](#typeidkey)
+* [CacheManager](#cachemanager)
+* [DebugManager](#debugmanager)
+* [FetchManager](#fetchmanager)
+* [RequestParser](#requestparser)
+* [WebsocketManager](#websocketmanager)
 
-#### cacheManager
-
-The `cacheManager` curried function returns an instance of the `CacheManager`. The `CacheManager` is a mandatory module.
+#### CacheManager
 
 Before a request is sent, the `CacheManager` takes the request AST from the `Client` and checks if any of the request
 data is in one of its three caches, described below.
@@ -184,9 +187,7 @@ cached and for how long. Each time the `CacheManager` stores a type's correspond
 > For a full list of configuration options, see the `@graphql-box/cache-manager`
 [documentation](./packages/cache-manager/README.md).
 
-#### debugManager
-
-The `debugManager` curried function returns an instance of the `DebugManager`. The `DebugManager` is an optional module.
+#### DebugManager
 
 The module allows you to monitor a range of events that happen within the lifecycle of a query, mutation or
 subscription, including cache entries being added or queried and request execution performance.
@@ -195,10 +196,15 @@ You can track a single request from a client to the server and back through the 
 identifier is unique for each client request and is included in each request payload to the server and is sent back
 in the response to the client.
 
-##### logger
+##### environment
 
-The `logger` is an object with a `log` function that gives you the flexibility to log data out to or send data to
-wherever you want.
+Can have a value of `"client"`, `"server"`, `"worker"` or `"workerClient"`. This is used to group log messages.
+
+##### log
+
+The `log` function gives you the flexibility to log data out to or send data to wherever you want. On the client, the
+`FetchManager` instance has a `log` method that will send logs to the server where they are handled in the same way as
+logs generated on the server.
 
 ##### performance
 
@@ -207,10 +213,7 @@ wherever you want.
 > For a full list of configuration options, see the `@graphql-box/debug-manager`
 [documentation](./packages/debug-manager/README.md).
 
-#### fetchManager
-
-In the browser, the `requestManager` property accepts the `fetchManager` curried function that return an instance of
-the `FetchManager`. The `FetchManager` is a mandatory module.
+#### FetchManager
 
 The `FetchManager` takes queries and mutations from the `Client`, sends them to the server, and returns the
 responses to the `Client`.
@@ -221,10 +224,7 @@ time-frame into a single network request to the server.
 > For a full list of configuration options, see the `@graphql-box/fetch-manager`
 [documentation](./packages/fetch-manager/README.md).
 
-#### requestParser
-
-The `requestParser` curried function returns an instance of the `RequestParser`. The `RequestParser` is a
-mandatory module.
+#### RequestParser
 
 The `RequestParser` takes the request string, fragments and variables from the `Client`, parses them into a request
 AST, merges the fragments and variables into the AST, enriches the AST with type IDs and type names, generates metadata
@@ -236,10 +236,7 @@ each request.
 > For a full list of configuration options, see the `@graphql-box/request-parser`
 [documentation](./packages/request-parser/README.md).
 
-#### websocketManager
-
-In the browser, the `subscriptionsManager` property accepts the `websocketManager` curried function that return an
-instance of the `WebsocketManager`. The `WebsocketManager` is an optional module.
+#### WebsocketManager
 
 The `WebsocketManager` takes subscriptions from the `Client` and sends them to the server through a websocket. When
 a subscription is resolved, the server sends the response back to the client through the websocket.
@@ -252,10 +249,6 @@ instance.
 
 > For a full list of configuration options, see the `@graphql-box/websocket-manager`
 [documentation](./packages/websocket-manager/README.md).
-
-#### typeIDKey
-
-The property name that is used as the identifier for each type within the schema. This defaults to `"id"`.
 
 ### Making a Client request for a query or mutation
 
@@ -332,14 +325,14 @@ with a logger, an execute module, and a subscribe module.
 
 ```javascript
 import Cachemap from "@cachemap/core";
-import cacheManager from "@graphql-box/cache-manager";
+import CacheManager from "@graphql-box/cache-manager";
 import Client from "@graphql-box/client";
 import { DEFAULT_TYPE_ID_KEY } from "@graphql-box/core";
-import debugManager from "@graphql-box/debug-manager";
-import execute from "@graphql-box/execute";
-import requestParser from "@graphql-box/request-parser";
+import DebugManager from "@graphql-box/debug-manager";
+import Execute from "@graphql-box/execute";
+import RequestParser from "@graphql-box/request-parser";
 import Server from "@graphql-box/server";
-import subscribe from "@graphql-box/subscribe";
+import Subscribe from "@graphql-box/subscribe";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { performance } from "perf_hooks";
 import { schemaResolvers, schemaTypeDefs } from "./schema";
@@ -348,7 +341,7 @@ const schema = makeExecutableSchema({ typeDefs: schemaTypeDefs, resolvers: schem
 
 const server = new Server({
   client: new Client({
-    cacheManager: cacheManager({
+    cacheManager: new CacheManager({
       cache: new Cachemap({
         name: "cachemap",
         reaper: reaper({ interval: 300000 }),
@@ -362,19 +355,17 @@ const server = new Server({
         RepositoryOwner: "public, max-age=3",
       },
     }),
-    debugManager: debugManager({
-      logger: {
-        log: (...args) => {
-          console.log(...args);
-        },
+    debugManager: new DebugManager({
+      environment: 'server',
+      log: (...args) => {
+        console.log(...args);
       },
       name: "SERVER",
       performance,
     }),
-    requestManager: execute({ schema }),
-    requestParser: requestParser({ schema }),
-    subscriptionsManager: subscribe({ schema }),
-    typeIDKey: DEFAULT_TYPE_ID_KEY,
+    requestManager: new Execute({ schema }),
+    requestParser: new RequestParser({ schema }),
+    subscriptionsManager: new Subscribe({ schema }),
   }),
 });
 
@@ -388,7 +379,7 @@ Only the `Client` properties that differ from the browser example above are outl
 * [requestParser:schema](#requestparserschema)
 * [subscribe](#subscribe)
 
-#### debugManager:performance
+#### DebugManager:performance
 
 `performance` is an object with a `now` function. On the server, you should pass in `performance` object exported
 from Node's `perf_hooks` module.
@@ -396,20 +387,17 @@ from Node's `perf_hooks` module.
 > For a full list of configuration options, see the `@graphql-box/debug-manager`
 [documentation](./packages/debug-manager/README.md).
 
-#### execute
-
-On the server, the `requestManager` property accepts the `execute` curried function that return an instance of
-the `Execute` module. `Execute` is a mandatory module.
+#### Execute
 
 `Execute` is a wrapper around GraphQL's own execute function, which resolves queries and mutations against a schema,
-which needs to be passed into the curried function.
+which needs to be passed into the class constructor.
 
 The `schema` is made up of GraphQL type definitions of each data structure and a set of resolver functions.
 
 > For a full list of configuration options, see the `@graphql-box/execute`
 [documentation](./packages/execute/README.md).
 
-#### requestParser:schema
+#### RequestParser:schema
 
 On the server, the `RequestParser` uses the the GraphQL schema rather than the result of an introspection query of the
 schema.
@@ -417,13 +405,10 @@ schema.
 > For a full list of configuration options, see the `@graphql-box/request-parser`
 [documentation](./packages/request-parser/README.md).
 
-#### subscribe
-
-On the server, the `subscriptionsManager` property accepts the `subscribe` curried function that return an instance of
-the `Subscribe` module. `Subscribe` is an optional module.
+#### Subscribe
 
 `Subscribe` is a wrapper around GraphQL's own subscribe function, which resolves subscriptions against a schema,
-which needs to be passed into the curried function.
+which needs to be passed into the class constructor.
 
 > For a full list of configuration options, see the `@graphql-box/subscribe`
 [documentation](./packages/subscribe/README.md).
@@ -436,13 +421,30 @@ used with web application frameworks such as `Express`.
 ```javascript
 import express from "express";
 import http from "http";
-import initServer from "./server";
+import initGraphqlServer from "./initGraphqlServer";
 
 const app = express();
-const server = initServer();
-app.use("/graphql", server.request());
-const server = http.createServer(app);
-server.listen(3001);
+const graphqlServer = initGraphqlServer();
+app.use("api/graphql", graphqlServer.request());
+const httpServer = http.createServer(app);
+httpServer.listen(3001);
+```
+
+### Handling a Server request for a log
+
+You can handle a log request using the `log` method. The method returns a middleware function that can be
+used with web application frameworks such as `Express`.
+
+```javascript
+import express from "express";
+import http from "http";
+import initGraphqlServer from "./initGraphqlServer";
+
+const app = express();
+const graphqlServer = initGraphqlServer();
+app.post('/log/graphql', graphqlServer.log());
+const httpServer = http.createServer(app);
+httpServer.listen(3001);
 ```
 
 ### Handling a Server message for a subscription
@@ -454,15 +456,15 @@ used with websocket libraries such as `ws`.
 import express from "express";
 import http from "http";
 import WebSocket from "ws";
-import initServer from "./server";
+import initGraphqlServer from "./initGraphqlServer";
 
 const app = express();
-const server = initServer();
+const graphqlServer = initGraphqlServer();
 const httpServer = http.createServer(app);
-const wss = new WebSocket.Server({ path: "/graphql", server: httpServer });
+const wss = new WebSocket.Server({ path: "api/graphql", server: httpServer });
 
 wss.on("connection", (ws) => {
-  ws.on("message", server.message({ ws }));
+  ws.on("message", graphqlServer.message({ ws }));
 });
 ```
 

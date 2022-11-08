@@ -1,10 +1,9 @@
 import Cachemap from "@cachemap/core";
-import cacheManager from "@graphql-box/cache-manager";
+import CacheManager from "@graphql-box/cache-manager";
 import Client from "@graphql-box/client";
-import { DEFAULT_TYPE_ID_KEY } from "@graphql-box/core";
 import DebugManager, { Environment } from "@graphql-box/debug-manager";
 import FetchManager from "@graphql-box/fetch-manager";
-import requestParser from "@graphql-box/request-parser";
+import RequestParser from "@graphql-box/request-parser";
 import { log } from "..";
 import { URL } from "../../consts";
 import { InitClientOptions } from "../../defs";
@@ -20,7 +19,7 @@ export default function initClient({
   typeCacheDirectives,
 }: InitClientOptions): Client {
   return new Client({
-    cacheManager: cacheManager({
+    cacheManager: new CacheManager({
       cache: new Cachemap({
         name: "cachemap",
         store: cachemapStore,
@@ -36,8 +35,7 @@ export default function initClient({
       performance,
     }),
     requestManager: new FetchManager({ apiUrl: URL }),
-    requestParser: requestParser({ introspection, schema }),
+    requestParser: new RequestParser({ introspection, schema }),
     subscriptionsManager,
-    typeIDKey: DEFAULT_TYPE_ID_KEY,
   });
 }

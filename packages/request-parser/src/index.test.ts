@@ -9,7 +9,7 @@ import {
 } from "@graphql-box/test-utils";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { IntrospectionQuery } from "graphql";
-import { RequestParser, RequestParserDef, UpdateRequestResult } from ".";
+import RequestParser, { RequestParserDef, UpdateRequestResult } from ".";
 
 describe("@graphql-box/request-parser >>", () => {
   let requestContext: RequestContext;

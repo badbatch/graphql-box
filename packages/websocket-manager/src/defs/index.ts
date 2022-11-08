@@ -5,5 +5,3 @@ export interface UserOptions {
    */
   websocket: WebSocket;
 }
-
-export type ConstructorOptions = UserOptions;
