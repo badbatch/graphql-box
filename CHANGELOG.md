@@ -1,3 +1,9 @@
+#### 4.0.1 (2022-11-08)
+
+##### Chores
+
+*  add directory field to repository object in package json ([f1852d90](https://github.com/badbatch/graphql-box/commit/f1852d90eeed9fdf5cdc607f25a6f9b5a10f2368))
+
 ## 4.0.0 (2022-11-08)
 
 ##### Refactors

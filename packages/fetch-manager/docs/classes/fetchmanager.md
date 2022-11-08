@@ -23,7 +23,7 @@
 
 \+ **new FetchManager**(`options`: [UserOptions](../interfaces/useroptions.md)): *[FetchManager](fetchmanager.md)*
 
-*Defined in [main/index.ts:75](https://github.com/badbatch/graphql-box/blob/72586b55/packages/fetch-manager/src/main/index.ts#L75)*
+*Defined in [main/index.ts:75](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/fetch-manager/src/main/index.ts#L75)*
 
 **Parameters:**
 
@@ -39,7 +39,7 @@ Name | Type |
 
 ▸ **execute**(`__namedParameters`: object, `options`: RequestOptions, `context`: RequestContext, `executeResolver`: RequestResolver): *Promise‹MaybeRawResponseData | object | AsyncIterableIterator‹undefined | MaybeRequestResult››*
 
-*Defined in [main/index.ts:101](https://github.com/badbatch/graphql-box/blob/72586b55/packages/fetch-manager/src/main/index.ts#L101)*
+*Defined in [main/index.ts:101](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/fetch-manager/src/main/index.ts#L101)*
 
 **Parameters:**
 
@@ -64,7 +64,7 @@ ___
 
 ▸ **log**(`message`: string, `data`: PlainObjectMap, `logLevel?`: LogLevel): *void*
 
-*Defined in [main/index.ts:170](https://github.com/badbatch/graphql-box/blob/72586b55/packages/fetch-manager/src/main/index.ts#L170)*
+*Defined in [main/index.ts:170](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/fetch-manager/src/main/index.ts#L170)*
 
 **Parameters:**
 

@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/request-parser",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "The GraphQL Box request parser module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",

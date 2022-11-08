@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/connection-resolver",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "The GraphQL Box connection manager module.",
   "keywords": [
     "graphql-box",

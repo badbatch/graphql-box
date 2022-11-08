@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/gql.macro",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "The GraphQL Box graphql file import module.",
   "keywords": [
     "graphql-box",

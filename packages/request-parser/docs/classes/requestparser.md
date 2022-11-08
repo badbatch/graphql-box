@@ -26,7 +26,7 @@
 
 \+ **new RequestParser**(`options`: [UserOptions](../interfaces/useroptions.md)): *[RequestParser](requestparser.md)*
 
-*Defined in [main/index.ts:228](https://github.com/badbatch/graphql-box/blob/72586b55/packages/request-parser/src/main/index.ts#L228)*
+*Defined in [main/index.ts:228](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/request-parser/src/main/index.ts#L228)*
 
 **Parameters:**
 
@@ -44,7 +44,7 @@ Name | Type |
 
 *Implementation of [RequestParserDef](../interfaces/requestparserdef.md)*
 
-*Defined in [main/index.ts:257](https://github.com/badbatch/graphql-box/blob/72586b55/packages/request-parser/src/main/index.ts#L257)*
+*Defined in [main/index.ts:257](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/request-parser/src/main/index.ts#L257)*
 
 **Parameters:**
 
