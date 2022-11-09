@@ -1,4 +1,4 @@
-# GraphQL Box
+# <img alt="GraphQLBox logo" src="./assets/graphql-box-logo.png" style="margin-bottom:-6px" width="30"/> GraphQL<span style="color:#98c1d9;font-weight:bold">Box</span>
 
 An extensible GraphQL client and server with modules for caching, request parsing, subscriptions and more.
 
