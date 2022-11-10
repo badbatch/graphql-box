@@ -37,6 +37,7 @@ import {
   hasChildFields,
   isKind,
   setFragments,
+  unwrapOfType,
 } from "@graphql-box/helpers";
 import {
   ASTNode,
@@ -445,7 +446,11 @@ export default class RequestParser implements RequestParserDef {
           const [parentNode] = ancestors.slice(-2);
 
           if (isKind<FieldNode>(node, FIELD)) {
-            complexityTypeList.push(typeInfo.getType());
+            const outputType = typeInfo.getType();
+
+            if (outputType) {
+              complexityTypeList.push(unwrapOfType(outputType));
+            }
 
             if (isAncestorFragmentDefinition(ancestors)) {
               const fragmentDefinitionNode = findAncestorFragmentDefinition(ancestors) as FragmentDefinitionNode;
@@ -564,8 +569,10 @@ export default class RequestParser implements RequestParserDef {
         );
       }
 
+      let typeComplexity: number | null = null;
+
       if (this._typeComplexityMap) {
-        const typeComplexity = calcTypeComplexity(complexityTypeList, this._typeComplexityMap);
+        typeComplexity = calcTypeComplexity(complexityTypeList, this._typeComplexityMap);
 
         if (typeComplexity > this._maxTypeComplexity) {
           return Promise.reject(
@@ -577,7 +584,14 @@ export default class RequestParser implements RequestParserDef {
       }
 
       const { persistedFragmentSpreads, fieldTypeMap, ...rest } = visitorContext;
-      assign(context, { ...rest, fieldTypeMap: new Map([...fieldTypeMap.entries()].sort()), requestDepth: maxDepth });
+
+      assign(context, {
+        ...rest,
+        fieldTypeMap: new Map([...fieldTypeMap.entries()].sort()),
+        requestComplexity: typeComplexity,
+        requestDepth: maxDepth,
+      });
+
       return { ast: updatedAST, request: print(updatedAST) };
     } catch (error) {
       return Promise.reject(error);

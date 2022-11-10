@@ -179,6 +179,7 @@ export default class Client {
       parsedRequest: "",
       queryFiltered: false,
       request,
+      requestComplexity: null,
       requestDepth: null,
       requestID: uuid(),
       whitelistHash: hashRequest(request),

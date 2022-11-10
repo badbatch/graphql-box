@@ -2,7 +2,7 @@ import { GraphQLField, GraphQLList, GraphQLNonNull, GraphQLOutputType } from "gr
 import { OF_TYPE } from "../../consts";
 import { GraphQLNullableOutputType } from "../../defs";
 
-function unwrapOfType(type: GraphQLOutputType): GraphQLOutputType {
+export function unwrapOfType(type: GraphQLOutputType): GraphQLOutputType {
   if (!type.hasOwnProperty(OF_TYPE)) return type;
 
   const listOrNonNullType = type as GraphQLList<any> | GraphQLNonNull<GraphQLNullableOutputType>;

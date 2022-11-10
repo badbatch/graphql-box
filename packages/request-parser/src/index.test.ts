@@ -1,4 +1,4 @@
-import { DEFAULT_TYPE_ID_KEY, MUTATION, RequestContext, SUBSCRIPTION } from "@graphql-box/core";
+import { MUTATION, RequestContext, SUBSCRIPTION } from "@graphql-box/core";
 import {
   getRequestContext,
   githubIntrospection,
@@ -22,7 +22,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithoutVariable;
@@ -45,7 +44,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithDefault;
@@ -68,7 +66,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithNumberDefault;
@@ -91,7 +88,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithOperationName;
@@ -114,7 +110,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithVariable;
@@ -137,7 +132,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithVariableWithDefault;
@@ -160,7 +154,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithVariables;
@@ -183,7 +176,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithEnumVariable;
@@ -206,7 +198,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithDirective;
@@ -229,7 +220,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithInlineFragment;
@@ -252,7 +242,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithUnionInlineFragments;
@@ -275,7 +264,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithFragmentSpread;
@@ -298,7 +286,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: (theMovieDbIntrospection as unknown) as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.getMoviePreviewQuery;
@@ -321,7 +308,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithUnionInlineFragmentsAndFragmentSpread;
@@ -344,7 +330,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithFragmentOption;
@@ -367,7 +352,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.queryWithDefer;
@@ -390,7 +374,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.nestedInterfaceMutation;
@@ -418,7 +401,6 @@ describe("@graphql-box/request-parser >>", () => {
           typeDefs: schemaTypeDefs,
           updateResolversInPlace: true,
         }),
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       const { options, request } = requestsAndOptions.nestedTypeSubscription;
@@ -435,14 +417,13 @@ describe("@graphql-box/request-parser >>", () => {
     });
   });
 
-  describe("maxFieldDepth >> exceeded", () => {
+  describe("maxFieldDepth >> exceeded >>", () => {
     beforeAll(async () => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
         introspection: githubIntrospection as IntrospectionQuery,
         maxFieldDepth: 2,
-        typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
 
       requestContext = getRequestContext();
@@ -453,6 +434,33 @@ describe("@graphql-box/request-parser >>", () => {
 
       await expect(requestParser.updateRequest(request, options, requestContext)).rejects.toThrow(
         "@graphql-box/request-parser >> request field depth of 7 exceeded max field depth of 2",
+      );
+    });
+  });
+
+  describe("maxTypeComplexity >> exceeded >>", () => {
+    beforeAll(async () => {
+      updatedRequest = undefined;
+
+      requestParser = new RequestParser({
+        introspection: githubIntrospection as IntrospectionQuery,
+        maxTypeComplexity: 9,
+        typeComplexityMap: {
+          LicenseRule: 3,
+          Organization: 1,
+          Repository: 1,
+          RepositoryConnection: 5,
+        },
+      });
+
+      requestContext = getRequestContext();
+    });
+
+    it("throws correct error", async () => {
+      const { options, request } = requestsAndOptions.queryWithDefer;
+
+      await expect(requestParser.updateRequest(request, options, requestContext)).rejects.toThrow(
+        "@graphql-box/request-parser >> request type complexity of 10 exceeded max type complexity of 9",
       );
     });
   });
