@@ -36,7 +36,7 @@
 
 \+ **new CacheManager**(`options`: [UserOptions](../interfaces/useroptions.md)): *[CacheManager](cachemanager.md)*
 
-*Defined in [cache-manager/src/main/index.ts:213](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/cache-manager/src/main/index.ts#L213)*
+*Defined in [cache-manager/src/main/index.ts:213](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/cache-manager/src/main/index.ts#L213)*
 
 **Parameters:**
 
@@ -52,7 +52,7 @@ Name | Type |
 
 • **get cache**(): *Cachemap*
 
-*Defined in [cache-manager/src/main/index.ts:238](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/cache-manager/src/main/index.ts#L238)*
+*Defined in [cache-manager/src/main/index.ts:238](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/cache-manager/src/main/index.ts#L238)*
 
 **Returns:** *Cachemap*
 
@@ -64,7 +64,7 @@ Name | Type |
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [cache-manager/src/main/index.ts:242](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/cache-manager/src/main/index.ts#L242)*
+*Defined in [cache-manager/src/main/index.ts:242](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/cache-manager/src/main/index.ts#L242)*
 
 **Parameters:**
 
@@ -84,7 +84,7 @@ ___
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [cache-manager/src/main/index.ts:287](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/cache-manager/src/main/index.ts#L287)*
+*Defined in [cache-manager/src/main/index.ts:287](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/cache-manager/src/main/index.ts#L287)*
 
 **Parameters:**
 
@@ -106,7 +106,7 @@ ___
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [cache-manager/src/main/index.ts:303](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/cache-manager/src/main/index.ts#L303)*
+*Defined in [cache-manager/src/main/index.ts:303](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/cache-manager/src/main/index.ts#L303)*
 
 **Parameters:**
 
@@ -125,7 +125,7 @@ ___
 
 ▸ **checkCacheEntry**(`cacheType`: CacheTypes, `hash`: string, `options`: RequestOptions, `context`: RequestContext & object): *Promise‹[CheckCacheEntryResult](../interfaces/checkcacheentryresult.md) | false›*
 
-*Defined in [cache-manager/src/main/index.ts:318](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/cache-manager/src/main/index.ts#L318)*
+*Defined in [cache-manager/src/main/index.ts:318](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/cache-manager/src/main/index.ts#L318)*
 
 **Parameters:**
 
@@ -146,7 +146,7 @@ ___
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [cache-manager/src/main/index.ts:327](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/cache-manager/src/main/index.ts#L327)*
+*Defined in [cache-manager/src/main/index.ts:327](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/cache-manager/src/main/index.ts#L327)*
 
 **Parameters:**
 
@@ -166,7 +166,7 @@ ___
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [cache-manager/src/main/index.ts:346](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/cache-manager/src/main/index.ts#L346)*
+*Defined in [cache-manager/src/main/index.ts:346](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/cache-manager/src/main/index.ts#L346)*
 
 **Parameters:**
 
@@ -184,7 +184,7 @@ ___
 
 *Implementation of [CacheManagerDef](../interfaces/cachemanagerdef.md)*
 
-*Defined in [cache-manager/src/main/index.ts:350](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/cache-manager/src/main/index.ts#L350)*
+*Defined in [cache-manager/src/main/index.ts:350](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/cache-manager/src/main/index.ts#L350)*
 
 **Parameters:**
 

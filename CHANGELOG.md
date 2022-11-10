@@ -1,3 +1,19 @@
+### 4.1.0 (2022-11-10)
+
+##### Documentation Changes
+
+*  add logo to readme ([242f3876](https://github.com/badbatch/graphql-box/commit/242f387653ef7140ed14ff41689d6edb14b4ef79))
+
+##### New Features
+
+*  add request complexity to context and add tests ([1c5407ab](https://github.com/badbatch/graphql-box/commit/1c5407abe01adc45d1edd43b55bf674968c4f34c))
+*  addd requestDepth to context for logging and add tests ([899a8b76](https://github.com/badbatch/graphql-box/commit/899a8b763de2a3361a36d50c6dd1134c032d6d72))
+
+##### Bug Fixes
+
+*  re add logo ([7cfb8465](https://github.com/badbatch/graphql-box/commit/7cfb8465ed4f8df445a2b6e3db98e5016e86eaaa))
+*  remove logo as styles not applied ([f5db28a9](https://github.com/badbatch/graphql-box/commit/f5db28a9c7d1a9520bcd5dcccf38b475e1f37ae6))
+
 #### 4.0.1 (2022-11-08)
 
 ##### Chores

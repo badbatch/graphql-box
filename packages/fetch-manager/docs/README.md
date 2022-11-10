@@ -36,7 +36,7 @@
 
 Ƭ **ActiveBatch**: *Map‹string, [ActiveBatchValue](interfaces/activebatchvalue.md)›*
 
-*Defined in [defs/index.ts:58](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/fetch-manager/src/defs/index.ts#L58)*
+*Defined in [defs/index.ts:58](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/fetch-manager/src/defs/index.ts#L58)*
 
 ## Variables
 
@@ -44,7 +44,7 @@
 
 • **URL**: *"https://api.github.com/graphql"* = "https://api.github.com/graphql"
 
-*Defined in [index.test.ts:20](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/fetch-manager/src/index.test.ts#L20)*
+*Defined in [index.test.ts:20](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/fetch-manager/src/index.test.ts#L20)*
 
 ## Functions
 
@@ -52,7 +52,7 @@
 
 ▸ **convertNullArrayEntriesToUndefined**(`data`: PlainObjectMap): *PlainObjectMap‹any›*
 
-*Defined in [helpers/cleanPatchResponse.ts:4](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/fetch-manager/src/helpers/cleanPatchResponse.ts#L4)*
+*Defined in [helpers/cleanPatchResponse.ts:4](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/fetch-manager/src/helpers/cleanPatchResponse.ts#L4)*
 
 **Parameters:**
 
@@ -68,6 +68,6 @@ ___
 
 ▸ **logFetch**(): *(Anonymous function)*
 
-*Defined in [debug/log-fetch/index.ts:4](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/fetch-manager/src/debug/log-fetch/index.ts#L4)*
+*Defined in [debug/log-fetch/index.ts:4](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/fetch-manager/src/debug/log-fetch/index.ts#L4)*
 
 **Returns:** *(Anonymous function)*

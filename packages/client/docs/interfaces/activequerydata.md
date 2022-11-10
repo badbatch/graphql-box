@@ -20,7 +20,7 @@
 
 • **context**: *RequestContext*
 
-*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/client/src/defs/index.ts#L52)*
+*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/client/src/defs/index.ts#L52)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **options**: *RequestOptions*
 
-*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/client/src/defs/index.ts#L53)*
+*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/client/src/defs/index.ts#L53)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **requestData**: *RequestData*
 
-*Defined in [defs/index.ts:54](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/client/src/defs/index.ts#L54)*
+*Defined in [defs/index.ts:54](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/client/src/defs/index.ts#L54)*

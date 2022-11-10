@@ -19,7 +19,7 @@
 
 • **response**? : *ResponseData*
 
-*Defined in [cache-manager/src/defs/index.ts:142](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/cache-manager/src/defs/index.ts#L142)*
+*Defined in [cache-manager/src/defs/index.ts:142](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/cache-manager/src/defs/index.ts#L142)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **updated**? : *RequestData*
 
-*Defined in [cache-manager/src/defs/index.ts:143](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/cache-manager/src/defs/index.ts#L143)*
+*Defined in [cache-manager/src/defs/index.ts:143](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/cache-manager/src/defs/index.ts#L143)*

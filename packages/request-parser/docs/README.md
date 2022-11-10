@@ -27,4 +27,4 @@
 
 Ƭ **PersistedFragmentSpread**: *[string, ParsedDirective[], ReadonlyArray‹any›]*
 
-*Defined in [defs/index.ts:67](https://github.com/badbatch/graphql-box/blob/f1852d90/packages/request-parser/src/defs/index.ts#L67)*
+*Defined in [defs/index.ts:67](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/request-parser/src/defs/index.ts#L67)*
