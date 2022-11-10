@@ -11,6 +11,7 @@ export default function getRequestContext(props: PlainObjectMap = {}): RequestCo
     parsedRequest: "",
     queryFiltered: false,
     request: "",
+    requestDepth: null,
     requestID: "123456789",
     whitelistHash: "",
     ...props,

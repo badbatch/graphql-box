@@ -577,7 +577,7 @@ export default class RequestParser implements RequestParserDef {
       }
 
       const { persistedFragmentSpreads, fieldTypeMap, ...rest } = visitorContext;
-      assign(context, { ...rest, fieldTypeMap: new Map([...fieldTypeMap.entries()].sort()) });
+      assign(context, { ...rest, fieldTypeMap: new Map([...fieldTypeMap.entries()].sort()), requestDepth: maxDepth });
       return { ast: updatedAST, request: print(updatedAST) };
     } catch (error) {
       return Promise.reject(error);

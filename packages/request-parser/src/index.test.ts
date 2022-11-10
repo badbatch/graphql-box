@@ -434,4 +434,26 @@ describe("@graphql-box/request-parser >>", () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
+
+  describe("maxFieldDepth >> exceeded", () => {
+    beforeAll(async () => {
+      updatedRequest = undefined;
+
+      requestParser = new RequestParser({
+        introspection: githubIntrospection as IntrospectionQuery,
+        maxFieldDepth: 2,
+        typeIDKey: DEFAULT_TYPE_ID_KEY,
+      });
+
+      requestContext = getRequestContext();
+    });
+
+    it("throws correct error", async () => {
+      const { options, request } = requestsAndOptions.queryWithDefer;
+
+      await expect(requestParser.updateRequest(request, options, requestContext)).rejects.toThrow(
+        "@graphql-box/request-parser >> request field depth of 7 exceeded max field depth of 2",
+      );
+    });
+  });
 });

@@ -194,6 +194,7 @@ export interface RequestContext {
   parsedRequest: string;
   queryFiltered: boolean;
   request: string;
+  requestDepth: number | null;
   requestID: string;
   whitelistHash: string;
 }
