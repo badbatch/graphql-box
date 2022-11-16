@@ -33,16 +33,13 @@ So, for example, if you want a browser client, request parsing and a persisted c
 following packages.
 
 ```bash
-yarn add @graphql-box/client @graphql-box/request-parser @graphql-box/cache-manager @graphql-box/fetch-manager
-  @cachemap/core @cachemap/reaper @cachemap/indexed-db
+yarn add @graphql-box/core @graphql-box/client @graphql-box/request-parser @graphql-box/cache-manager @graphql-box/debug-manager @graphql-box/fetch-manager @graphql-box/helpers @cachemap/core @cachemap/reaper @cachemap/indexed-db @cachemap/constants @cachemap/types
 ```
 
-If, however, you want a server with a persisted cache that supports requests and subscriptions, you would install the
-following packages.
+If, however, you want a server with a persisted cache, you would install the following packages.
 
 ```bash
-yarn add @graphql-box/server @graphql-box/client @graphql-box/request-parser @graphql-box/cache-manager
-  @graphql-box/execute @graphql-box/subscribe @cachemap/core @cachemap/reaper @cachemap/redis
+npm install @graphql-box/core @graphql-box/server @graphql-box/client @graphql-box/request-parser @graphql-box/cache-manager @graphql-box/debug-manager @graphql-box/execute @graphql-box/helpers @cachemap/core @cachemap/reaper @cachemap/redis @cachemap/constants @cachemap/types
 ```
 
 ## Packages
@@ -109,9 +106,9 @@ const requestManager = new FetchManager({
 const client = new Client({
   cacheManager: new CacheManager({
     cache: new Cachemap({
-      name: "cachemap",
+      name: "client-cache",
       reaper: reaper({ interval: 300000 }),
-      store: indexedDB(),
+      store: indexedDB(/* configure */),
     }),
     cascadeCacheControl: true,
     typeCacheDirectives: {
@@ -131,7 +128,7 @@ const client = new Client({
   }),
   requestManager,
   requestParser: new RequestParser({ introspection }),
-  subscriptionsManager: new WebsocketManager({ websocket: new WebSocket("ws://localhost:3001/graphql") }),
+  subscriptionsManager: new WebsocketManager({ websocket: new WebSocket("ws://localhost:3001/api/graphql") }),
 });
 
 // Do something...
@@ -328,6 +325,8 @@ with a logger, an execute module, and a subscribe module.
 
 ```javascript
 import Cachemap from "@cachemap/core";
+import reaper from "@cachemap/reaper";
+import redis from "@cachemap/redis";
 import CacheManager from "@graphql-box/cache-manager";
 import Client from "@graphql-box/client";
 import { DEFAULT_TYPE_ID_KEY } from "@graphql-box/core";
@@ -346,9 +345,9 @@ const server = new Server({
   client: new Client({
     cacheManager: new CacheManager({
       cache: new Cachemap({
-        name: "cachemap",
+        name: "server-cache",
         reaper: reaper({ interval: 300000 }),
-        store: redis(),
+        store: redis(/* configure */),
       }),
       cascadeCacheControl: true,
       typeCacheDirectives: {
