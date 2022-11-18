@@ -37,21 +37,11 @@ jobs:
       - name: Run unit tests
         run: yarn run test
 
-      - name: Get branch name
-        id: get_branch_name
-        run: echo ::set-output name=BRANCH_NAME::${GITHUB_REF/refs\/heads\//}
-
-      - name: Get tag
-        id: get_tag
-        run: echo ::set-output name=TAG::${GITHUB_REF/refs\/tags\//}
-
-      - name: Log branch name and tag
-        run: |
-          echo "Branch name is ${{ steps.get_branch_name.outputs.BRANCH_NAME }}"
-          echo "Tag is ${{ steps.get_tag.outputs.TAG }}"
+      - name: Run integration tests
+        run: yarn run integration
 
       - name: Publish packages
-        if: steps.get_branch_name.outputs.BRANCH_NAME == 'master' && steps.get_tag.outputs.TAG != ''
+        if: github.ref_type == 'tag'
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
