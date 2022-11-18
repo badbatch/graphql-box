@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`serializeErrors >> should serialise the error correctly 1`] = `
+Object {
+  "extensions": Object {},
+  "locations": Array [
+    Object {
+      "column": 60,
+      "line": 1,
+    },
+  ],
+  "message": "Oops",
+  "name": "GraphQLError",
+  "nodes": Array [
+    Object {
+      "arguments": Array [],
+      "directives": Array [],
+      "kind": "Field",
+      "loc": Object {
+        "end": 147,
+        "start": 59,
+      },
+      "name": Object {
+        "kind": "Name",
+        "loc": Object {
+          "end": 71,
+          "start": 59,
+        },
+        "value": "releaseDates",
+      },
+      "selectionSet": Object {
+        "kind": "SelectionSet",
+        "loc": Object {
+          "end": 147,
+          "start": 72,
+        },
+        "selections": Array [
+          Object {
+            "arguments": Array [],
+            "directives": Array [],
+            "kind": "Field",
+            "loc": Object {
+              "end": 90,
+              "start": 80,
+            },
+            "name": Object {
+              "kind": "Name",
+              "loc": Object {
+                "end": 90,
+                "start": 80,
+              },
+              "value": "iso_3166_1",
+            },
+          },
+          Object {
+            "arguments": Array [],
+            "directives": Array [],
+            "kind": "Field",
+            "loc": Object {
+              "end": 141,
+              "start": 97,
+            },
+            "name": Object {
+              "kind": "Name",
+              "loc": Object {
+                "end": 109,
+                "start": 97,
+              },
+              "value": "releaseDates",
+            },
+            "selectionSet": Object {
+              "kind": "SelectionSet",
+              "loc": Object {
+                "end": 141,
+                "start": 110,
+              },
+              "selections": Array [
+                Object {
+                  "arguments": Array [],
+                  "directives": Array [],
+                  "kind": "Field",
+                  "loc": Object {
+                    "end": 133,
+                    "start": 120,
+                  },
+                  "name": Object {
+                    "kind": "Name",
+                    "loc": Object {
+                      "end": 133,
+                      "start": 120,
+                    },
+                    "value": "certification",
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "originalError": Object {
+    "message": "Oops",
+    "stack": "Error: Oops
+    at Object.resolveMovieReleaseDates [as releaseDates] (/Users/dylan.aubrey/workspaces/dollygrip/graphql/resolvers/dist/cjs/index.js:1380:11)
+    at executeField (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:542:20)
+    at executeFields (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:458:20)
+    at collectAndExecuteSubfields (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:1225:21)
+    at completeObjectValue (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:1193:10)
+    at completeValue (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:716:12)
+    at /Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:547:9
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Promise.all (index 0)
+    at async Execute.execute (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/@graphql-box/execute/lib/main/main/index.js:88:29)",
+  },
+  "path": Array [
+    "movie",
+    "releaseDates",
+  ],
+  "positions": Array [
+    59,
+  ],
+  "source": Object {
+    "body": "query GetMovieCertifications {\\\\n  movie(id: \\"675054\\") {\\\\n    releaseDates {\\\\n      iso_3166_1\\\\n      releaseDates {\\\\n        certification\\\\n      }\\\\n    }\\\\n    id\\\\n  }\\\\n}",
+    "locationOffset": Object {
+      "column": 1,
+      "line": 1,
+    },
+    "name": "GraphQL request",
+  },
+  "stack": "Error: Oops
+    at Object.resolveMovieReleaseDates [as releaseDates] (/Users/dylan.aubrey/workspaces/dollygrip/graphql/resolvers/dist/cjs/index.js:1380:11)
+    at executeField (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:542:20)
+    at executeFields (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:458:20)
+    at collectAndExecuteSubfields (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:1225:21)
+    at completeObjectValue (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:1193:10)
+    at completeValue (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:716:12)
+    at /Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:547:9
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Promise.all (index 0)
+    at async Execute.execute (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/@graphql-box/execute/lib/main/main/index.js:88:29)",
+}
+`;

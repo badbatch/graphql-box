@@ -1,23 +1,71 @@
+import { DeserializedGraphqlError } from "@graphql-box/core";
+import { GraphQLError, Source } from "graphql";
+import { isArray, isObject, isPlainObject } from "lodash";
 import { ErrorObject, deserializeError, serializeError } from "serialize-error";
 
-export const deserializeErrors = <Type extends { errors?: ErrorObject[] }>({ errors, ...rest }: Type) => {
+export const deserializedGraphqlError = (obj: DeserializedGraphqlError) => {
+  const originalError = new Error(obj.originalError.message);
+  originalError.stack = obj.originalError.stack;
+
+  const graphqlError = new GraphQLError(
+    obj.message,
+    obj.nodes,
+    new Source(obj.source.body, obj.source.name, obj.source.locationOffset),
+    obj.positions,
+    obj.path,
+    originalError,
+  );
+
+  graphqlError.stack = obj.stack;
+  return graphqlError;
+};
+
+export const deserializeErrors = <Type extends { errors?: (DeserializedGraphqlError | ErrorObject)[] }>({
+  errors,
+  ...rest
+}: Type) => {
   if (!errors) {
-    return rest;
+    return rest as Type & { errors?: Error[] | readonly Error[] };
   }
 
-  return {
+  const output = {
     ...rest,
-    errors: errors.map(error => deserializeError(error)),
+    errors: errors.map(error =>
+      error.name === "GraphQLError"
+        ? deserializedGraphqlError(error as DeserializedGraphqlError)
+        : deserializeError(error),
+    ),
   };
+
+  return output as Type & { errors: Error[] | readonly Error[] };
+};
+
+export const serializeGraphqlError = (error: GraphQLError) => {
+  const cloneOwnProperties = (instance: any) =>
+    Object.getOwnPropertyNames(instance).reduce((obj: Record<string, any>, name) => {
+      const value = instance[name];
+
+      if (isObject(value) && !isArray(value) && !isPlainObject(value)) {
+        obj[name] = cloneOwnProperties(value);
+      } else {
+        obj[name] = instance[name];
+      }
+
+      return obj;
+    }, {});
+
+  return cloneOwnProperties(error);
 };
 
 export const serializeErrors = <Type extends { errors?: Error[] | readonly Error[] }>({ errors, ...rest }: Type) => {
   if (!errors) {
-    return rest;
+    return rest as Type & { errors?: (DeserializedGraphqlError | ErrorObject)[] };
   }
 
-  return {
+  const output = {
     ...rest,
-    errors: errors.map(error => serializeError(error)),
+    errors: errors.map(error => (error instanceof GraphQLError ? serializeGraphqlError(error) : serializeError(error))),
   };
+
+  return output as Type & { errors: (DeserializedGraphqlError | ErrorObject)[] };
 };
