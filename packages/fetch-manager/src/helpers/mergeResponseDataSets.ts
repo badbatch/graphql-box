@@ -1,4 +1,4 @@
-import { MaybeRawFetchData } from "@graphql-box/core";
+import { DeserializedGraphqlError, MaybeRawFetchData } from "@graphql-box/core";
 import { merge } from "lodash";
 import { ErrorObject } from "serialize-error";
 import cleanPatchResponse from "./cleanPatchResponse";
@@ -20,7 +20,7 @@ export default (responseDataSets: MaybeRawFetchData[]): MaybeRawFetchData => {
         acc.errors = [];
       }
 
-      (acc.errors as ErrorObject[]).push(...errors);
+      (acc.errors as (DeserializedGraphqlError | ErrorObject)[]).push(...errors);
     }
 
     if (index === 0) {

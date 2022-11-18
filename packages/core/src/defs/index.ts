@@ -1,6 +1,13 @@
 import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
 import EventEmitter from "eventemitter3";
-import { DocumentNode, FragmentDefinitionNode, GraphQLFieldResolver, GraphQLNamedType } from "graphql";
+import {
+  ASTNode,
+  DocumentNode,
+  FragmentDefinitionNode,
+  GraphQLErrorExtensions,
+  GraphQLFieldResolver,
+  GraphQLNamedType,
+} from "graphql";
 import { ErrorObject } from "serialize-error";
 import { JsonValue } from "type-fest";
 import WebSocket from "ws";
@@ -208,10 +215,29 @@ export interface DehydratedCacheMetadata {
 
 export type CacheMetadata = Map<string, Cacheability>;
 
+export type DeserializedGraphqlError = {
+  extensions: GraphQLErrorExtensions;
+  message: string;
+  name: "GraphQLError";
+  nodes: ASTNode | ASTNode[];
+  originalError: ErrorObject;
+  path: string[];
+  positions: number[];
+  source: {
+    body: string;
+    locationOffset: {
+      column: number;
+      line: number;
+    };
+    name: string;
+  };
+  stack: string;
+};
+
 export interface MaybeRawFetchData {
   _cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObjectMap;
-  errors?: ErrorObject[];
+  errors?: (DeserializedGraphqlError | ErrorObject)[];
   hasNext?: boolean;
   headers?: Headers;
   label?: string;
