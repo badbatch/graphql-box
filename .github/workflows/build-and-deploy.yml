@@ -9,8 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.14.0]
+        node-version: [16.18.0]
     steps:
+      - name: Log build trigger
+        run: echo ${github.ref}
+
       - name: Checkout repo
         uses: actions/checkout@v2
 
@@ -25,14 +28,16 @@ jobs:
           export PATH=$HOME/.yarn/bin:$PATH
 
       - name: Install dependencies and build packages
-        run:  |
-          yarn run init
-          yarn run build
+        run: yarn run init
+
+      - name: Build packages
+        run: yarn run build
 
       - name: Lint packages
-        run: |
-          yarn run lint
-          yarn run type-check
+        run: yarn run lint
+
+      - name: Type check packages
+        run: yarn run type-check
 
       - name: Run unit tests
         run: yarn run test
