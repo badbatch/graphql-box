@@ -27,7 +27,7 @@ jobs:
           curl -o- -L https://yarnpkg.com/install.sh | bash
           export PATH=$HOME/.yarn/bin:$PATH
 
-      - name: Install dependencies and build packages
+      - name: Install dependencies
         run: yarn run init
 
       - name: Build packages
