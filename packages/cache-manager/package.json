@@ -41,8 +41,8 @@
   },
   "peerDependencies": {
     "@babel/runtime": "< 8",
-    "@graphql-box/core": "< 4",
-    "@graphql-box/helpers": "< 4",
+    "@graphql-box/core": "< 5",
+    "@graphql-box/helpers": "< 5",
     "core-js": "< 4",
     "graphql": "< 17",
     "lodash": "< 5"
