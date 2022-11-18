@@ -1,3 +1,39 @@
+#### 4.1.1 (2022-11-18)
+
+##### Chores
+
+* **deps:**
+  *  bump loader-utils from 1.4.0 to 1.4.2 ([4c16daf2](https://github.com/badbatch/graphql-box/commit/4c16daf20c31a1b36e43c554250991235199e6a3))
+  *  bump follow-redirects from 1.14.1 to 1.15.2 ([70818d49](https://github.com/badbatch/graphql-box/commit/70818d499f16525f7db497825a70a83aae7fbf6b))
+  *  bump terser from 4.8.0 to 4.8.1 ([0b339fc8](https://github.com/badbatch/graphql-box/commit/0b339fc893c7bb1eb2418ceb0fe86bcce00fa191))
+  *  bump async from 2.6.3 to 2.6.4 ([45cb572e](https://github.com/badbatch/graphql-box/commit/45cb572ebbf5cf096013d01a723d537a1cdc3db8))
+  *  bump url-parse from 1.5.1 to 1.5.10 ([36f88f4a](https://github.com/badbatch/graphql-box/commit/36f88f4a0720bd21f26073bcbe56378a02ec8f62))
+  *  bump trim-off-newlines from 1.0.1 to 1.0.3 ([e9f55b59](https://github.com/badbatch/graphql-box/commit/e9f55b59dafa3e1925aa7632f708f98928a1e05f))
+  *  bump shelljs from 0.8.4 to 0.8.5 ([75bd7ad5](https://github.com/badbatch/graphql-box/commit/75bd7ad5e1db871ed1115452f36f1cc4a00cd562))
+* **deps-dev:**
+  *  bump undici from 4.14.1 to 5.8.2 ([2a2a6a30](https://github.com/badbatch/graphql-box/commit/2a2a6a30da68516bc4d623f5766ab81474275036))
+  *  bump karma from 4.4.1 to 6.3.16 ([39a9f57c](https://github.com/badbatch/graphql-box/commit/39a9f57c06da5ec328c2a287ee98a13087bf1e9b))
+
+##### Documentation Changes
+
+*  update readme ([867d774f](https://github.com/badbatch/graphql-box/commit/867d774f27ebcb59bb7a0d0be7c0130354976fdf))
+
+##### New Features
+
+*  export graphql serialise/deserialise from helers ([461d7216](https://github.com/badbatch/graphql-box/commit/461d72161298ce9b78f84328bb7fabde20072776))
+
+##### Bug Fixes
+
+*  update serialize error to cater for graphql error structure ([1db0a372](https://github.com/badbatch/graphql-box/commit/1db0a3722b7a12a2953a167efd556ae709b2974b))
+*  mismatch peer deps ([99455d9e](https://github.com/badbatch/graphql-box/commit/99455d9e4b7e17a9f7decc491da02c90c7dc7927))
+*  typo in workflow ([4195cde3](https://github.com/badbatch/graphql-box/commit/4195cde3353f064ee3bf36cafe37fa55025fcf20))
+*  syntax error ([a7c32bf6](https://github.com/badbatch/graphql-box/commit/a7c32bf6d5a17e22b29d7574ba5f020336a5cc92))
+*  update pipleine and node version ([fae20462](https://github.com/badbatch/graphql-box/commit/fae204626fb8b910cda16f4b4544ccf087013e1c))
+
+##### Refactors
+
+*  update workflow ([ec8fb8eb](https://github.com/badbatch/graphql-box/commit/ec8fb8ebc19a7300e9b107f2cfb7df677da77f4e))
+
 ### 4.1.0 (2022-11-10)
 
 ##### Documentation Changes

@@ -19,7 +19,7 @@
 
 • **cacheMetadata**: *DehydratedCacheMetadata*
 
-*Defined in [cache-manager/src/defs/index.ts:152](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/cache-manager/src/defs/index.ts#L152)*
+*Defined in [cache-manager/src/defs/index.ts:152](https://github.com/badbatch/graphql-box/blob/d5028cd3/packages/cache-manager/src/defs/index.ts#L152)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **data**: *PlainObjectMap*
 
-*Defined in [cache-manager/src/defs/index.ts:153](https://github.com/badbatch/graphql-box/blob/1c5407ab/packages/cache-manager/src/defs/index.ts#L153)*
+*Defined in [cache-manager/src/defs/index.ts:153](https://github.com/badbatch/graphql-box/blob/d5028cd3/packages/cache-manager/src/defs/index.ts#L153)*
