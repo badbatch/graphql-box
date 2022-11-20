@@ -22,7 +22,7 @@
 
 \+ **new Subscribe**(`options`: [UserOptions](../interfaces/useroptions.md)): *[Subscribe](subscribe.md)*
 
-*Defined in [main/index.ts:24](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/subscribe/src/main/index.ts#L24)*
+*Defined in [main/index.ts:24](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/subscribe/src/main/index.ts#L24)*
 
 **Parameters:**
 
@@ -38,7 +38,7 @@ Name | Type |
 
 ▸ **subscribe**(`__namedParameters`: object, `options`: ServerRequestOptions, `context`: RequestContext, `subscriberResolver`: SubscriberResolver): *Promise‹AsyncIterator‹MaybeRequestResult | undefined››*
 
-*Defined in [main/index.ts:46](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/subscribe/src/main/index.ts#L46)*
+*Defined in [main/index.ts:46](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/subscribe/src/main/index.ts#L46)*
 
 **Parameters:**
 

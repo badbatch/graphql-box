@@ -23,7 +23,7 @@
 
 • **introspection**? : *IntrospectionQuery*
 
-*Defined in [defs/index.ts:9](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/request-parser/src/defs/index.ts#L9)*
+*Defined in [defs/index.ts:9](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/request-parser/src/defs/index.ts#L9)*
 
 Output of an introspection query.
 
@@ -33,7 +33,7 @@ ___
 
 • **maxFieldDepth**? : *undefined | number*
 
-*Defined in [defs/index.ts:14](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/request-parser/src/defs/index.ts#L14)*
+*Defined in [defs/index.ts:14](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/request-parser/src/defs/index.ts#L14)*
 
 The maximum request field depth per request.
 
@@ -43,7 +43,7 @@ ___
 
 • **maxTypeComplexity**? : *undefined | number*
 
-*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/request-parser/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/request-parser/src/defs/index.ts#L19)*
 
 The maximum type cost per request.
 
@@ -53,7 +53,7 @@ ___
 
 • **schema**? : *GraphQLSchema*
 
-*Defined in [defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/request-parser/src/defs/index.ts#L24)*
+*Defined in [defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/request-parser/src/defs/index.ts#L24)*
 
 A GraphQL schema.
 
@@ -63,7 +63,7 @@ ___
 
 • **typeComplexityMap**? : *Record‹string, number›*
 
-*Defined in [defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/request-parser/src/defs/index.ts#L29)*
+*Defined in [defs/index.ts:29](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/request-parser/src/defs/index.ts#L29)*
 
 The cost of requesting a type.
 
@@ -73,7 +73,7 @@ ___
 
 • **typeIDKey**? : *undefined | string*
 
-*Defined in [defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/request-parser/src/defs/index.ts#L35)*
+*Defined in [defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/request-parser/src/defs/index.ts#L35)*
 
 The name of the property thats value is used as the unique
 identifier for each type in the GraphQL schema.

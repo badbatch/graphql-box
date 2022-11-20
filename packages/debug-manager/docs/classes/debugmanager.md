@@ -114,7 +114,7 @@ interface EventTypes {
 
 \+ **new DebugManager**(`options`: [UserOptions](../interfaces/useroptions.md)): *[DebugManager](debugmanager.md)*
 
-*Defined in [packages/debug-manager/src/main/index.ts:18](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/debug-manager/src/main/index.ts#L18)*
+*Defined in [packages/debug-manager/src/main/index.ts:19](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/debug-manager/src/main/index.ts#L19)*
 
 **Parameters:**
 
@@ -210,16 +210,16 @@ ___
 
 ###  handleLog
 
-▸ **handleLog**(`message`: string, `data`: LogData, `logLevel`: LogLevel): *void*
+▸ **handleLog**(`message`: string, `data`: LogEntry, `logLevel`: LogLevel): *void*
 
-*Defined in [packages/debug-manager/src/main/index.ts:38](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/debug-manager/src/main/index.ts#L38)*
+*Defined in [packages/debug-manager/src/main/index.ts:39](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/debug-manager/src/main/index.ts#L39)*
 
 **Parameters:**
 
 Name | Type | Default |
 ------ | ------ | ------ |
 `message` | string | - |
-`data` | LogData | - |
+`data` | LogEntry | - |
 `logLevel` | LogLevel | "info" |
 
 **Returns:** *void*
@@ -274,7 +274,7 @@ ___
 
 ▸ **log**(`message`: string, `data`: LogData, `logLevel`: LogLevel): *void*
 
-*Defined in [packages/debug-manager/src/main/index.ts:46](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/debug-manager/src/main/index.ts#L46)*
+*Defined in [packages/debug-manager/src/main/index.ts:51](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/debug-manager/src/main/index.ts#L51)*
 
 **Parameters:**
 
@@ -292,7 +292,7 @@ ___
 
 ▸ **now**(): *number*
 
-*Defined in [packages/debug-manager/src/main/index.ts:79](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/debug-manager/src/main/index.ts#L79)*
+*Defined in [packages/debug-manager/src/main/index.ts:84](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/debug-manager/src/main/index.ts#L84)*
 
 **Returns:** *number*
 

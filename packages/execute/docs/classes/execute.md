@@ -22,7 +22,7 @@
 
 \+ **new Execute**(`options`: [UserOptions](../interfaces/useroptions.md)): *[Execute](execute.md)*
 
-*Defined in [main/index.ts:25](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/execute/src/main/index.ts#L25)*
+*Defined in [main/index.ts:25](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/execute/src/main/index.ts#L25)*
 
 **Parameters:**
 
@@ -38,7 +38,7 @@ Name | Type |
 
 ▸ **execute**(`__namedParameters`: object, `options`: ServerRequestOptions, `context`: RequestContext, `executeResolver`: RequestResolver): *Promise‹any›*
 
-*Defined in [main/index.ts:47](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/execute/src/main/index.ts#L47)*
+*Defined in [main/index.ts:47](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/execute/src/main/index.ts#L47)*
 
 **Parameters:**
 

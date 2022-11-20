@@ -1,3 +1,9 @@
+#### 4.1.3 (2022-11-20)
+
+##### Bug Fixes
+
+*  serialise/deserialise errors passed in logs to server ([3146a3b1](https://github.com/badbatch/graphql-box/commit/3146a3b14b32e0fe91bc8b16d42c2be198b69152))
+
 #### 4.1.2 (2022-11-20)
 
 ##### Bug Fixes

@@ -26,7 +26,7 @@
 
 \+ **new WebsocketManager**(`options`: [UserOptions](../interfaces/useroptions.md)): *[WebsocketManager](websocketmanager.md)*
 
-*Defined in [main/index.ts:20](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/websocket-manager/src/main/index.ts#L20)*
+*Defined in [main/index.ts:20](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/websocket-manager/src/main/index.ts#L20)*
 
 **Parameters:**
 
@@ -42,7 +42,7 @@ Name | Type |
 
 ▸ **subscribe**(`__namedParameters`: object, `_options`: RequestOptions, `context`: RequestContext, `subscriberResolver`: SubscriberResolver): *Promise‹AsyncIterator‹MaybeRequestResult | undefined››*
 
-*Defined in [main/index.ts:38](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/websocket-manager/src/main/index.ts#L38)*
+*Defined in [main/index.ts:38](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/websocket-manager/src/main/index.ts#L38)*
 
 **Parameters:**
 
