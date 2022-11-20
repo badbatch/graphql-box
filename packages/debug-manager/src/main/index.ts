@@ -1,4 +1,5 @@
-import { DebugManagerDef, LogData, LogLevel } from "@graphql-box/core";
+import { DebugManagerDef, LogData, LogEntry, LogLevel } from "@graphql-box/core";
+import { deserializeError } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { isString, pickBy } from "lodash";
 import { Environment, Log, Performance, UserOptions } from "../defs";
@@ -35,7 +36,11 @@ export default class DebugManager extends EventEmitter implements DebugManagerDe
     this._environment = options.environment ?? "client";
   }
 
-  public handleLog(message: string, data: LogData, logLevel: LogLevel = "info") {
+  public handleLog(message: string, data: LogEntry, logLevel: LogLevel = "info") {
+    if (data.err && !(data.err instanceof Error)) {
+      data.err = deserializeError(data.err);
+    }
+
     this.emit("LOG", message, data);
 
     if (this._log) {
@@ -66,7 +71,7 @@ export default class DebugManager extends EventEmitter implements DebugManagerDe
         level: logLevel.toUpperCase(),
         logger: this._name,
       },
-      ...transformError(result),
+      ...transformError(this._environment, result),
     };
 
     this.emit("LOG", message, updatedData);

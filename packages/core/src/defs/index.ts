@@ -9,7 +9,7 @@ import {
   GraphQLNamedType,
 } from "graphql";
 import { ErrorObject } from "serialize-error";
-import { JsonValue } from "type-fest";
+import { JsonObject, JsonValue } from "type-fest";
 import WebSocket from "ws";
 
 export type Maybe<T> = null | undefined | T;
@@ -137,6 +137,26 @@ export type ExecutionContext = {
   setCacheMetadata: (key: string, headers: Headers, operation?: ValidOperations) => void;
 };
 
+export type GraphqlEnv = "client" | "server" | "worker" | "workerClient";
+
+export type GraphqlStep =
+  | "cache_entry_added"
+  | "cache_entry_queried"
+  | "execute_executed"
+  | "execute_resolved"
+  | "fetch_executed"
+  | "fetch_resolved"
+  | "partial_query_compiled"
+  | "pending_query_added"
+  | "pending_query_resolved"
+  | "request_executed"
+  | "request_resolved"
+  | "resolver_executed"
+  | "resolver_resolved"
+  | "server_request_received"
+  | "subscription_executed"
+  | "subscription_resolved";
+
 export type LogData = {
   cachemapOptions?: CachemapOptions;
   context?: Omit<RequestContext, "debugManager">;
@@ -151,6 +171,50 @@ export type LogData = {
 };
 
 export type LogLevel = "error" | "warn" | "info" | "http" | "verbose" | "debug" | "silly";
+
+export type LogEntry = {
+  "@timestamp": string;
+  ecs: {
+    version: string;
+  };
+  err?: Error | (DeserializedGraphqlError | ErrorObject);
+  id: string;
+  labels: {
+    cacheType: string;
+    duration: number;
+    endTime: number;
+    environment: GraphqlEnv;
+    hasDeferOrStream: boolean;
+    logGroup: number;
+    logOrder: number;
+    nodeVersion?: string;
+    operation: ValidOperations;
+    operationName: string;
+    osPlatform?: string;
+    path?: string;
+    port?: string;
+    protocol?: string;
+    queryFiltered: boolean;
+    queryString?: string;
+    request: string;
+    requestComplexity?: number;
+    requestDepth?: number;
+    requestHash: string;
+    requestID: string;
+    result: string;
+    returnCacheMetadata: boolean;
+    startTime: number;
+    url?: string;
+    userAgent?: string;
+    variables: JsonObject;
+    whitelistHash: string;
+  };
+  log: {
+    level: LogLevel;
+    logger: string;
+  };
+  message: GraphqlStep;
+};
 
 export interface DebugManagerDef extends EventEmitter {
   handleLog(message: string, data: PlainObjectMap, logLevel?: LogLevel): void;

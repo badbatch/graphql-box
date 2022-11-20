@@ -48,5 +48,12 @@ export { getOperationDefinitions } from "./parsing/operation-definitions";
 export { getTypeCondition } from "./parsing/type-condition";
 export { getType, unwrapOfType } from "./parsing/type";
 export { getVariableDefinitionDefaultValue, getVariableDefinitionType } from "./parsing/variable-definitions";
-export { deserializeErrors, deserializedGraphqlError, serializeErrors, serializeGraphqlError } from "./serializeErrors";
+export {
+  deserializeError,
+  deserializeErrors,
+  deserializedGraphqlError,
+  serializeError,
+  serializeErrors,
+  serializeGraphqlError,
+} from "./serializeErrors";
 export { default as standardizePath } from "./standardizePath";
