@@ -19,7 +19,7 @@
 
 • **filteredCacheMetadata**: *CacheMetadata*
 
-*Defined in [defs/index.ts:63](https://github.com/badbatch/graphql-box/blob/d5028cd3/packages/client/src/defs/index.ts#L63)*
+*Defined in [defs/index.ts:63](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/client/src/defs/index.ts#L63)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **filteredData**: *PlainObjectMap*
 
-*Defined in [defs/index.ts:64](https://github.com/badbatch/graphql-box/blob/d5028cd3/packages/client/src/defs/index.ts#L64)*
+*Defined in [defs/index.ts:64](https://github.com/badbatch/graphql-box/blob/0f66f3fd/packages/client/src/defs/index.ts#L64)*

@@ -1,104 +1,87 @@
 [
   {
     "name": "@graphql-box/cache-manager",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/cache-manager"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/cli",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/cli"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/client",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/client"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/connection-resolver",
-    "version": "4.0.1",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/connection-resolver"
+    "version": "4.0.2"
   },
   {
     "name": "@graphql-box/core",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/core"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/debug-manager",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/debug-manager"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/execute",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/execute"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/fetch-manager",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/fetch-manager"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/gql.macro",
-    "version": "4.0.1",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/gql.macro"
+    "version": "4.0.2"
   },
   {
     "name": "@graphql-box/helpers",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/helpers"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/react",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/react"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/request-parser",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/request-parser"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/server",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/server"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/subscribe",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/subscribe"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/test-utils",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/test-utils"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/websocket-manager",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/websocket-manager"
+    "version": "4.1.1"
   },
   {
     "name": "@graphql-box/worker-client",
-    "version": "4.1.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/graphql-box/packages/worker-client"
+    "version": "4.1.1"
   }
 ]

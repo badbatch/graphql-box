@@ -1,3 +1,9 @@
+#### 4.1.2 (2022-11-20)
+
+##### Bug Fixes
+
+*  github workflow not triggering on tag push ([0f66f3fd](https://github.com/badbatch/graphql-box/commit/0f66f3fd310129d56706ee7ca8441597f9154496))
+
 #### 4.1.1 (2022-11-18)
 
 ##### Chores
