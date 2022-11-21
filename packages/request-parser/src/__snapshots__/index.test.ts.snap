@@ -3,6 +3,7 @@
 exports[`@graphql-box/request-parser >> mutation >> input type variable >> correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "mutation.addStar" => Object {
       "directives": Object {
@@ -128,9 +129,10 @@ exports[`@graphql-box/request-parser >> mutation >> input type variable >> corre
 }"
 `;
 
-exports[`@graphql-box/request-parser >> query >> defer >> correct context data 1`] = `
+exports[`@graphql-box/request-parser >> query >> defer >> when experimentalDeferStreamSupport flag is true >> correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": true,
   "fieldTypeMap": Map {
     "query.organization" => Object {
       "directives": Object {
@@ -387,7 +389,7 @@ Object {
 }
 `;
 
-exports[`@graphql-box/request-parser >> query >> defer >> correct request 1`] = `
+exports[`@graphql-box/request-parser >> query >> defer >> when experimentalDeferStreamSupport flag is true >> correct request 1`] = `
 "{
   organization(login: \\"facebook\\") {
     ...OrganizationFieldsA @defer(if: true, label: \\"organizationDefer\\")
@@ -435,6 +437,7 @@ fragment PermissionsFields on LicenseRule {
 exports[`@graphql-box/request-parser >> query >> directive correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => Object {
       "directives": Object {
@@ -583,6 +586,7 @@ exports[`@graphql-box/request-parser >> query >> directive correct request 1`] =
 exports[`@graphql-box/request-parser >> query >> enum variable >> correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => Object {
       "directives": Object {
@@ -713,6 +717,7 @@ exports[`@graphql-box/request-parser >> query >> enum variable >> correct reques
 exports[`@graphql-box/request-parser >> query >> fragment option >> correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => Object {
       "directives": Object {
@@ -759,6 +764,7 @@ exports[`@graphql-box/request-parser >> query >> fragment option >> correct requ
 exports[`@graphql-box/request-parser >> query >> fragment spread >> correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => Object {
       "directives": Object {
@@ -805,6 +811,7 @@ exports[`@graphql-box/request-parser >> query >> fragment spread >> correct requ
 exports[`@graphql-box/request-parser >> query >> fragment spreads >> within fragment spreads >> correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": true,
   "fieldTypeMap": Map {
     "query.movie" => Object {
       "directives": Object {
@@ -1501,6 +1508,7 @@ fragment MovieVideos on Movie {
 exports[`@graphql-box/request-parser >> query >> inline fragment >> correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => Object {
       "directives": Object {
@@ -1547,6 +1555,7 @@ exports[`@graphql-box/request-parser >> query >> inline fragment >> correct requ
 exports[`@graphql-box/request-parser >> query >> inline fragments >> union type >> correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.search" => Object {
       "directives": Object {
@@ -1675,6 +1684,7 @@ exports[`@graphql-box/request-parser >> query >> inline fragments >> union type 
 exports[`@graphql-box/request-parser >> query >> multiple variables >> correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => Object {
       "directives": Object {
@@ -1805,6 +1815,7 @@ exports[`@graphql-box/request-parser >> query >> multiple variables >> correct r
 exports[`@graphql-box/request-parser >> query >> no variable >> correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => Object {
       "directives": Object {
@@ -1851,6 +1862,7 @@ exports[`@graphql-box/request-parser >> query >> no variable >> correct request 
 exports[`@graphql-box/request-parser >> query >> operation name >> correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => Object {
       "directives": Object {
@@ -1897,6 +1909,7 @@ exports[`@graphql-box/request-parser >> query >> operation name >> correct reque
 exports[`@graphql-box/request-parser >> query >> union type inline fragments >> fragment spread >> correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.search" => Object {
       "directives": Object {
@@ -2027,6 +2040,7 @@ exports[`@graphql-box/request-parser >> query >> union type inline fragments >> 
 exports[`@graphql-box/request-parser >> query >> variable correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => Object {
       "directives": Object {
@@ -2073,6 +2087,7 @@ exports[`@graphql-box/request-parser >> query >> variable correct request 1`] = 
 exports[`@graphql-box/request-parser >> query >> variable with default correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => Object {
       "directives": Object {
@@ -2119,6 +2134,7 @@ exports[`@graphql-box/request-parser >> query >> variable with default correct r
 exports[`@graphql-box/request-parser >> query >> with default correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => Object {
       "directives": Object {
@@ -2165,6 +2181,7 @@ exports[`@graphql-box/request-parser >> query >> with default correct request 1`
 exports[`@graphql-box/request-parser >> query >> with number default correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => Object {
       "directives": Object {
@@ -2262,6 +2279,7 @@ exports[`@graphql-box/request-parser >> query >> with number default correct req
 exports[`@graphql-box/request-parser >> subscription >> correct context data 1`] = `
 Object {
   "debugManager": null,
+  "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "subscription.emailAdded" => Object {
       "directives": Object {

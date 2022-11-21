@@ -289,7 +289,7 @@ describe("@graphql-box/request-parser >>", () => {
       });
 
       const { options, request } = requestsAndOptions.getMoviePreviewQuery;
-      requestContext = getRequestContext();
+      requestContext = getRequestContext({ experimentalDeferStreamSupport: true });
       updatedRequest = await requestParser.updateRequest(request, options, requestContext);
     });
 
@@ -347,24 +347,46 @@ describe("@graphql-box/request-parser >>", () => {
   });
 
   describe("query >> defer >>", () => {
-    beforeAll(async () => {
-      updatedRequest = undefined;
+    describe("when experimentalDeferStreamSupport flag is true >>", () => {
+      beforeAll(async () => {
+        updatedRequest = undefined;
 
-      requestParser = new RequestParser({
-        introspection: githubIntrospection as IntrospectionQuery,
+        requestParser = new RequestParser({
+          introspection: githubIntrospection as IntrospectionQuery,
+        });
+
+        const { options, request } = requestsAndOptions.queryWithDefer;
+        requestContext = getRequestContext({ experimentalDeferStreamSupport: true });
+        updatedRequest = await requestParser.updateRequest(request, options, requestContext);
       });
 
-      const { options, request } = requestsAndOptions.queryWithDefer;
-      requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      it("correct request", () => {
+        expect(updatedRequest?.request).toMatchSnapshot();
+      });
+
+      it("correct context data", () => {
+        expect(requestContext).toMatchSnapshot();
+      });
     });
 
-    it("correct request", () => {
-      expect(updatedRequest?.request).toMatchSnapshot();
-    });
+    describe("when experimentalDeferStreamSupport flag is false >>", () => {
+      beforeAll(async () => {
+        updatedRequest = undefined;
 
-    it("correct context data", () => {
-      expect(requestContext).toMatchSnapshot();
+        requestParser = new RequestParser({
+          introspection: githubIntrospection as IntrospectionQuery,
+        });
+
+        requestContext = getRequestContext();
+      });
+
+      it("throws correct error", async () => {
+        const { options, request } = requestsAndOptions.queryWithDefer;
+
+        await expect(requestParser.updateRequest(request, options, requestContext)).rejects.toThrow(
+          "@graphql-box/request-parser >> to use defer/stream directives, please set the experimentalDeferStreamSupport flag to true",
+        );
+      });
     });
   });
 
@@ -426,7 +448,7 @@ describe("@graphql-box/request-parser >>", () => {
         maxFieldDepth: 2,
       });
 
-      requestContext = getRequestContext();
+      requestContext = getRequestContext({ experimentalDeferStreamSupport: true });
     });
 
     it("throws correct error", async () => {
@@ -453,7 +475,7 @@ describe("@graphql-box/request-parser >>", () => {
         },
       });
 
-      requestContext = getRequestContext();
+      requestContext = getRequestContext({ experimentalDeferStreamSupport: true });
     });
 
     it("throws correct error", async () => {
