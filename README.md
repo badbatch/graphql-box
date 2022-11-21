@@ -11,7 +11,7 @@ An extensible GraphQL client and server with modules for caching, request parsin
 ## Summary
 
 * Ability to batch queries and mutations into fewer network requests.
-* Reduce server requests with response, query path and object entity caching.
+* Reduce server requests with response, request path, and object entity caching.
 * Type level control of what gets cached using http cache-control directives.
 * Save storage by automatically removing expired and infrequently accessed cache entries.
 * Store cache entries using LocalStorage, IndexedDB, Redis and more.
@@ -19,6 +19,8 @@ An extensible GraphQL client and server with modules for caching, request parsin
 * Subscriptions made simple in the browser and on the server.
 * Free up the main thread by running the client in a web worker.
 * Stay on top of browser and server with performance and monitoring hooks.
+
+> GraphQLBox has experimental support for `@defer` and `@stream` directives behind the `experimentalDeferStreamSupport` flag. The library currently supports the version of defer/stream outlined in the [RFC](https://github.com/graphql/graphql-wg/blob/main/rfcs/DeferStream.md) that is available in version `16.1.0-experimental-stream-defer.6` of the `graphql` npm package, but work on support for the latest defer/stream spec is in progress.
 
 ## Installation
 
