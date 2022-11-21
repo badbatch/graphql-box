@@ -1,3 +1,14 @@
+#### 4.1.4 (2022-11-21)
+
+##### Documentation Changes
+
+*  remove defer/stream blurb ([4de19b11](https://github.com/badbatch/graphql-box/commit/4de19b114b365c27912ae38ee813d66902f1c718))
+*  add defer/stream info to readme ([63bfb459](https://github.com/badbatch/graphql-box/commit/63bfb459c722b78ad6ccac56131dbc6aa37d153b))
+
+##### New Features
+
+*  add flag for defer stream ([a4449dc8](https://github.com/badbatch/graphql-box/commit/a4449dc8a52bf0d89d7ebb399b16d9c8d1b9180e))
+
 #### 4.1.3 (2022-11-20)
 
 ##### Bug Fixes

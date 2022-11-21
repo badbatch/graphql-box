@@ -10,6 +10,7 @@
 
 ### Properties
 
+* [experimentalDeferStreamSupport](visitorcontext.md#experimentaldeferstreamsupport)
 * [fieldTypeMap](visitorcontext.md#fieldtypemap)
 * [hasDeferOrStream](visitorcontext.md#hasdeferorstream)
 * [operation](visitorcontext.md#operation)
@@ -18,11 +19,19 @@
 
 ## Properties
 
+###  experimentalDeferStreamSupport
+
+• **experimentalDeferStreamSupport**: *boolean*
+
+*Defined in [defs/index.ts:70](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/request-parser/src/defs/index.ts#L70)*
+
+___
+
 ###  fieldTypeMap
 
 • **fieldTypeMap**: *FieldTypeMap*
 
-*Defined in [defs/index.ts:70](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/request-parser/src/defs/index.ts#L70)*
+*Defined in [defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/request-parser/src/defs/index.ts#L71)*
 
 ___
 
@@ -30,7 +39,7 @@ ___
 
 • **hasDeferOrStream**: *boolean*
 
-*Defined in [defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/request-parser/src/defs/index.ts#L71)*
+*Defined in [defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/request-parser/src/defs/index.ts#L72)*
 
 ___
 
@@ -38,7 +47,7 @@ ___
 
 • **operation**: *ValidOperations*
 
-*Defined in [defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/request-parser/src/defs/index.ts#L72)*
+*Defined in [defs/index.ts:73](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/request-parser/src/defs/index.ts#L73)*
 
 ___
 
@@ -46,7 +55,7 @@ ___
 
 • **operationName**: *string*
 
-*Defined in [defs/index.ts:73](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/request-parser/src/defs/index.ts#L73)*
+*Defined in [defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/request-parser/src/defs/index.ts#L74)*
 
 ___
 
@@ -54,4 +63,4 @@ ___
 
 • **persistedFragmentSpreads**: *[PersistedFragmentSpread](../README.md#persistedfragmentspread)[]*
 
-*Defined in [defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/request-parser/src/defs/index.ts#L74)*
+*Defined in [defs/index.ts:75](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/request-parser/src/defs/index.ts#L75)*

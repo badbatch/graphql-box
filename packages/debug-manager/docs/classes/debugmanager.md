@@ -114,7 +114,7 @@ interface EventTypes {
 
 \+ **new DebugManager**(`options`: [UserOptions](../interfaces/useroptions.md)): *[DebugManager](debugmanager.md)*
 
-*Defined in [packages/debug-manager/src/main/index.ts:19](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/debug-manager/src/main/index.ts#L19)*
+*Defined in [packages/debug-manager/src/main/index.ts:19](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/debug-manager/src/main/index.ts#L19)*
 
 **Parameters:**
 
@@ -212,7 +212,7 @@ ___
 
 ▸ **handleLog**(`message`: string, `data`: LogEntry, `logLevel`: LogLevel): *void*
 
-*Defined in [packages/debug-manager/src/main/index.ts:39](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/debug-manager/src/main/index.ts#L39)*
+*Defined in [packages/debug-manager/src/main/index.ts:39](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/debug-manager/src/main/index.ts#L39)*
 
 **Parameters:**
 
@@ -274,7 +274,7 @@ ___
 
 ▸ **log**(`message`: string, `data`: LogData, `logLevel`: LogLevel): *void*
 
-*Defined in [packages/debug-manager/src/main/index.ts:51](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/debug-manager/src/main/index.ts#L51)*
+*Defined in [packages/debug-manager/src/main/index.ts:51](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/debug-manager/src/main/index.ts#L51)*
 
 **Parameters:**
 
@@ -292,7 +292,7 @@ ___
 
 ▸ **now**(): *number*
 
-*Defined in [packages/debug-manager/src/main/index.ts:84](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/debug-manager/src/main/index.ts#L84)*
+*Defined in [packages/debug-manager/src/main/index.ts:84](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/debug-manager/src/main/index.ts#L84)*
 
 **Returns:** *number*
 

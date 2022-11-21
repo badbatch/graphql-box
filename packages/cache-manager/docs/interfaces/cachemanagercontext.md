@@ -13,6 +13,7 @@
 ### Properties
 
 * [debugManager](cachemanagercontext.md#debugmanager)
+* [experimentalDeferStreamSupport](cachemanagercontext.md#experimentaldeferstreamsupport)
 * [fieldTypeMap](cachemanagercontext.md#fieldtypemap)
 * [filteredRequest](cachemanagercontext.md#filteredrequest)
 * [fragmentDefinitions](cachemanagercontext.md#optional-fragmentdefinitions)
@@ -41,13 +42,23 @@ Defined in core/lib/types/defs/index.d.ts:205
 
 ___
 
+###  experimentalDeferStreamSupport
+
+• **experimentalDeferStreamSupport**: *boolean*
+
+*Inherited from [CacheManagerContext](cachemanagercontext.md).[experimentalDeferStreamSupport](cachemanagercontext.md#experimentaldeferstreamsupport)*
+
+Defined in core/lib/types/defs/index.d.ts:206
+
+___
+
 ###  fieldTypeMap
 
 • **fieldTypeMap**: *FieldTypeMap*
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[fieldTypeMap](cachemanagercontext.md#fieldtypemap)*
 
-Defined in core/lib/types/defs/index.d.ts:206
+Defined in core/lib/types/defs/index.d.ts:207
 
 ___
 
@@ -57,7 +68,7 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[filteredRequest](cachemanagercontext.md#filteredrequest)*
 
-Defined in core/lib/types/defs/index.d.ts:207
+Defined in core/lib/types/defs/index.d.ts:208
 
 ___
 
@@ -65,7 +76,7 @@ ___
 
 • **fragmentDefinitions**? : *FragmentDefinitionNodeMap*
 
-*Defined in [cache-manager/src/defs/index.ts:54](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/cache-manager/src/defs/index.ts#L54)*
+*Defined in [cache-manager/src/defs/index.ts:54](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/cache-manager/src/defs/index.ts#L54)*
 
 ___
 
@@ -75,7 +86,7 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[hasDeferOrStream](cachemanagercontext.md#optional-hasdeferorstream)*
 
-Defined in core/lib/types/defs/index.d.ts:208
+Defined in core/lib/types/defs/index.d.ts:209
 
 ___
 
@@ -85,7 +96,7 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[normalizePatchResponseData](cachemanagercontext.md#optional-normalizepatchresponsedata)*
 
-Defined in core/lib/types/defs/index.d.ts:209
+Defined in core/lib/types/defs/index.d.ts:210
 
 ___
 
@@ -95,7 +106,7 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[operation](cachemanagercontext.md#operation)*
 
-Defined in core/lib/types/defs/index.d.ts:210
+Defined in core/lib/types/defs/index.d.ts:211
 
 ___
 
@@ -105,7 +116,7 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[operationName](cachemanagercontext.md#operationname)*
 
-Defined in core/lib/types/defs/index.d.ts:211
+Defined in core/lib/types/defs/index.d.ts:212
 
 ___
 
@@ -115,7 +126,7 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[parsedRequest](cachemanagercontext.md#parsedrequest)*
 
-Defined in core/lib/types/defs/index.d.ts:212
+Defined in core/lib/types/defs/index.d.ts:213
 
 ___
 
@@ -125,7 +136,7 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[queryFiltered](cachemanagercontext.md#queryfiltered)*
 
-Defined in core/lib/types/defs/index.d.ts:213
+Defined in core/lib/types/defs/index.d.ts:214
 
 ___
 
@@ -135,7 +146,7 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[request](cachemanagercontext.md#request)*
 
-Defined in core/lib/types/defs/index.d.ts:214
+Defined in core/lib/types/defs/index.d.ts:215
 
 ___
 
@@ -145,7 +156,7 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[requestComplexity](cachemanagercontext.md#requestcomplexity)*
 
-Defined in core/lib/types/defs/index.d.ts:215
+Defined in core/lib/types/defs/index.d.ts:216
 
 ___
 
@@ -155,7 +166,7 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[requestDepth](cachemanagercontext.md#requestdepth)*
 
-Defined in core/lib/types/defs/index.d.ts:216
+Defined in core/lib/types/defs/index.d.ts:217
 
 ___
 
@@ -165,7 +176,7 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[requestID](cachemanagercontext.md#requestid)*
 
-Defined in core/lib/types/defs/index.d.ts:217
+Defined in core/lib/types/defs/index.d.ts:218
 
 ___
 
@@ -173,7 +184,7 @@ ___
 
 • **typeIDKey**? : *undefined | string*
 
-*Defined in [cache-manager/src/defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/cache-manager/src/defs/index.ts#L55)*
+*Defined in [cache-manager/src/defs/index.ts:55](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/cache-manager/src/defs/index.ts#L55)*
 
 ___
 
@@ -183,4 +194,4 @@ ___
 
 *Inherited from [CacheManagerContext](cachemanagercontext.md).[whitelistHash](cachemanagercontext.md#whitelisthash)*
 
-Defined in core/lib/types/defs/index.d.ts:218
+Defined in core/lib/types/defs/index.d.ts:219

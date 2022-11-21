@@ -21,7 +21,7 @@
 
 • **context**: *RequestContext*
 
-*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/client/src/defs/index.ts#L45)*
+*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/client/src/defs/index.ts#L50)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **options**: *RequestOptions*
 
-*Defined in [defs/index.ts:46](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/client/src/defs/index.ts#L46)*
+*Defined in [defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/client/src/defs/index.ts#L51)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **requestData**: *RequestData*
 
-*Defined in [defs/index.ts:47](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/client/src/defs/index.ts#L47)*
+*Defined in [defs/index.ts:52](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/client/src/defs/index.ts#L52)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **resolve**: *[PendingQueryResolver](../README.md#pendingqueryresolver)*
 
-*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/client/src/defs/index.ts#L48)*
+*Defined in [defs/index.ts:53](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/client/src/defs/index.ts#L53)*

@@ -21,7 +21,7 @@
 
 • **fragmentKind**: *string | undefined*
 
-*Defined in [cache-manager/src/defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/cache-manager/src/defs/index.ts#L71)*
+*Defined in [cache-manager/src/defs/index.ts:71](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/cache-manager/src/defs/index.ts#L71)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **fragmentName**: *string | undefined*
 
-*Defined in [cache-manager/src/defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/cache-manager/src/defs/index.ts#L72)*
+*Defined in [cache-manager/src/defs/index.ts:72](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/cache-manager/src/defs/index.ts#L72)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **hasData**: *boolean*
 
-*Defined in [cache-manager/src/defs/index.ts:73](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/cache-manager/src/defs/index.ts#L73)*
+*Defined in [cache-manager/src/defs/index.ts:73](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/cache-manager/src/defs/index.ts#L73)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **typeName**? : *string | undefined*
 
-*Defined in [cache-manager/src/defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/cache-manager/src/defs/index.ts#L74)*
+*Defined in [cache-manager/src/defs/index.ts:74](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/cache-manager/src/defs/index.ts#L74)*

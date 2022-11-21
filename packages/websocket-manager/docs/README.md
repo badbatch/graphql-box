@@ -22,7 +22,7 @@
 
 ▸ **onOpen**(`websocket`: WebSocket): *Promise‹void›*
 
-*Defined in [index.test.ts:7](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/websocket-manager/src/index.test.ts#L7)*
+*Defined in [index.test.ts:7](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/websocket-manager/src/index.test.ts#L7)*
 
 **Parameters:**
 

@@ -21,7 +21,7 @@
 
 • **context**: *[MessageContext](messagecontext.md)*
 
-*Defined in [defs/index.ts:41](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/worker-client/src/defs/index.ts#L41)*
+*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/worker-client/src/defs/index.ts#L48)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **method**: *[MethodNames](../README.md#methodnames)*
 
-*Defined in [defs/index.ts:42](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/worker-client/src/defs/index.ts#L42)*
+*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/worker-client/src/defs/index.ts#L49)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **result**: *MaybeRawFetchData*
 
-*Defined in [defs/index.ts:43](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/worker-client/src/defs/index.ts#L43)*
+*Defined in [defs/index.ts:50](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/worker-client/src/defs/index.ts#L50)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **type**: *"graphqlBox" | "cachemap"*
 
-*Defined in [defs/index.ts:44](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/worker-client/src/defs/index.ts#L44)*
+*Defined in [defs/index.ts:51](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/worker-client/src/defs/index.ts#L51)*

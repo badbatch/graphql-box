@@ -23,7 +23,7 @@
 
 Ƭ **GraphQLSubscribe**: *function*
 
-*Defined in [defs/index.ts:42](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/subscribe/src/defs/index.ts#L42)*
+*Defined in [defs/index.ts:42](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/subscribe/src/defs/index.ts#L42)*
 
 #### Type declaration:
 

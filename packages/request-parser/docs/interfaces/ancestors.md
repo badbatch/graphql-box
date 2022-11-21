@@ -19,7 +19,7 @@
 
 • **ancestors**: *keyof any[]*
 
-*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/request-parser/src/defs/index.ts#L48)*
+*Defined in [defs/index.ts:48](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/request-parser/src/defs/index.ts#L48)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **key**: *string | number | undefined*
 
-*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/3146a3b1/packages/request-parser/src/defs/index.ts#L49)*
+*Defined in [defs/index.ts:49](https://github.com/badbatch/graphql-box/blob/e966cb9b/packages/request-parser/src/defs/index.ts#L49)*
