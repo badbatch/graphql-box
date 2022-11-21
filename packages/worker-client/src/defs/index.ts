@@ -14,6 +14,11 @@ export interface UserOptions {
   debugManager?: DebugManagerDef;
 
   /**
+   * Enable support for defer and stream directives.
+   */
+  experimentalDeferStreamSupport?: boolean;
+
+  /**
    * The web worker instance.
    */
   worker: Worker;
@@ -21,7 +26,9 @@ export interface UserOptions {
 
 export type MethodNames = "request" | "subscribe";
 
-export type PendingResolver = (value: MaybeRequestResult) => void;
+export type PendingResolver = (
+  value: MaybeRequestResult | AsyncIterableIterator<MaybeRequestResult | undefined>,
+) => void;
 
 export interface PendingData {
   resolve: PendingResolver;

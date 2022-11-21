@@ -426,6 +426,7 @@ export default class RequestParser implements RequestParserDef {
     const complexityTypeList: Maybe<GraphQLOutputType>[] = [];
 
     const visitorContext: VisitorContext = {
+      experimentalDeferStreamSupport: context.experimentalDeferStreamSupport,
       fieldTypeMap: context.fieldTypeMap,
       hasDeferOrStream: false,
       operation: operationDefinitions[0].operation,

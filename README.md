@@ -11,7 +11,7 @@ An extensible GraphQL client and server with modules for caching, request parsin
 ## Summary
 
 * Ability to batch queries and mutations into fewer network requests.
-* Reduce server requests with response, query path and object entity caching.
+* Reduce server requests with response, request path, and object entity caching.
 * Type level control of what gets cached using http cache-control directives.
 * Save storage by automatically removing expired and infrequently accessed cache entries.
 * Store cache entries using LocalStorage, IndexedDB, Redis and more.

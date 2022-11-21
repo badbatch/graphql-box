@@ -29,5 +29,11 @@ export default (node: FragmentSpreadNode, ancestors: Ancestors, options: Request
 
   if (hasDeferOrStream) {
     context.hasDeferOrStream = true;
+
+    if (!context.experimentalDeferStreamSupport) {
+      throw new Error(
+        "@graphql-box/request-parser >> to use defer/stream directives, please set the experimentalDeferStreamSupport flag to true",
+      );
+    }
   }
 };

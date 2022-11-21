@@ -256,6 +256,7 @@ export type ValidOperations = "mutation" | "query" | "subscription";
 
 export interface RequestContext {
   debugManager: DebugManagerDef | null;
+  experimentalDeferStreamSupport: boolean;
   fieldTypeMap: FieldTypeMap;
   filteredRequest: string;
   hasDeferOrStream?: boolean;

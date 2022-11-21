@@ -72,6 +72,7 @@ export default class Client {
 
   private _cacheManager: CacheManagerDef;
   private _debugManager: DebugManagerDef | null;
+  private _experimentalDeferStreamSupport: boolean;
   private _queryTracker: QueryTracker = { active: [], pending: new Map() };
   private _requestManager: RequestManagerDef;
   private _requestParser: RequestParserDef;
@@ -102,6 +103,7 @@ export default class Client {
 
     this._cacheManager = options.cacheManager;
     this._debugManager = options.debugManager ?? null;
+    this._experimentalDeferStreamSupport = options.experimentalDeferStreamSupport ?? false;
     this._requestManager = options.requestManager;
     this._requestParser = options.requestParser;
     this._subscriptionsManager = options.subscriptionsManager ?? null;
@@ -172,6 +174,7 @@ export default class Client {
   ): RequestContext {
     return {
       debugManager: this._debugManager,
+      experimentalDeferStreamSupport: this._experimentalDeferStreamSupport,
       fieldTypeMap: new Map(),
       filteredRequest: "",
       operation,

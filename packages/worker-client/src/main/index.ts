@@ -29,6 +29,7 @@ export default class WorkerClient {
   private _cache: WorkerCachemap;
   private _debugManager: DebugManagerDef | null;
   private _eventEmitter: EventEmitter;
+  private _experimentalDeferStreamSupport: boolean;
   private _pending: PendingTracker = new Map();
   private _worker: Worker;
 
@@ -54,6 +55,7 @@ export default class WorkerClient {
     this._cache = options.cache;
     this._debugManager = options.debugManager ?? null;
     this._eventEmitter = new EventEmitter();
+    this._experimentalDeferStreamSupport = options.experimentalDeferStreamSupport ?? false;
     this._worker = options.worker;
     this._addEventListener();
   }
@@ -89,6 +91,7 @@ export default class WorkerClient {
   ): RequestContext {
     return {
       debugManager: this._debugManager,
+      experimentalDeferStreamSupport: this._experimentalDeferStreamSupport,
       fieldTypeMap: new Map(),
       filteredRequest: "",
       operation,
@@ -131,6 +134,13 @@ export default class WorkerClient {
 
       this._eventEmitter.emit(context.requestID, response);
     } else if (context.hasDeferOrStream) {
+      const pending = this._pending.get(context.requestID);
+
+      if (pending) {
+        const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, context.requestID);
+        pending.resolve(eventAsyncIterator.getIterator());
+      }
+
       this._debugManager?.log(REQUEST_RESOLVED, {
         context,
         result: response,
@@ -145,6 +155,12 @@ export default class WorkerClient {
         return;
       }
 
+      this._debugManager?.log(REQUEST_RESOLVED, {
+        context,
+        result: response,
+        stats: { endTime: this._debugManager?.now() },
+      });
+
       pending.resolve(response);
     }
   };
@@ -152,30 +168,17 @@ export default class WorkerClient {
   @logRequest()
   private async _request(request: string, options: RequestOptions, context: RequestContext) {
     try {
-      if (!context.hasDeferOrStream) {
-        return new Promise((resolve: PendingResolver) => {
-          this._worker.postMessage({
-            context: WorkerClient._getMessageContext(context),
-            method: REQUEST,
-            options,
-            request,
-            type: GRAPHQL_BOX,
-          });
-
-          this._pending.set(context.requestID, { resolve });
+      return await new Promise((resolve: PendingResolver) => {
+        this._worker.postMessage({
+          context: WorkerClient._getMessageContext(context),
+          method: REQUEST,
+          options,
+          request,
+          type: GRAPHQL_BOX,
         });
-      }
 
-      this._worker.postMessage({
-        context: WorkerClient._getMessageContext(context),
-        method: REQUEST,
-        options,
-        request,
-        type: GRAPHQL_BOX,
+        this._pending.set(context.requestID, { resolve });
       });
-
-      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, context.requestID);
-      return eventAsyncIterator.getIterator();
     } catch (error) {
       return { errors: castArray(error) };
     }

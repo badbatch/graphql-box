@@ -67,6 +67,7 @@ export interface MapFieldToTypeData {
 export type PersistedFragmentSpread = [string, ParsedDirective[], ReadonlyArray<any>];
 
 export interface VisitorContext {
+  experimentalDeferStreamSupport: boolean;
   fieldTypeMap: FieldTypeMap;
   hasDeferOrStream: boolean;
   operation: ValidOperations;

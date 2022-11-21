@@ -25,5 +25,11 @@ export default (
 
   if (hasDeferOrStream) {
     context.hasDeferOrStream = true;
+
+    if (!context.experimentalDeferStreamSupport) {
+      throw new Error(
+        "@graphql-box/request-parser >> to use defer/stream directives, please set the experimentalDeferStreamSupport flag to true",
+      );
+    }
   }
 };

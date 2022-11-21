@@ -24,6 +24,11 @@ export interface UserOptions {
   debugManager?: DebugManagerDef;
 
   /**
+   * Enable support for defer and stream directives.
+   */
+  experimentalDeferStreamSupport?: boolean;
+
+  /**
    * The request manager.
    */
   requestManager: RequestManagerDef;

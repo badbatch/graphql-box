@@ -3,6 +3,7 @@ import { PlainObjectMap, RequestContext } from "@graphql-box/core";
 export default function getRequestContext(props: PlainObjectMap = {}): RequestContext {
   return {
     debugManager: null,
+    experimentalDeferStreamSupport: false,
     fieldTypeMap: new Map(),
     filteredRequest: "",
     hasDeferOrStream: false,
