@@ -7,14 +7,13 @@ export const deserializedGraphqlError = (obj: DeserializedGraphqlError) => {
   const originalError = new Error(obj.originalError.message);
   originalError.stack = obj.originalError.stack;
 
-  const graphqlError = new GraphQLError(
-    obj.message,
-    obj.nodes,
-    new Source(obj.source.body, obj.source.name, obj.source.locationOffset),
-    obj.positions,
-    obj.path,
+  const graphqlError = new GraphQLError(obj.message, {
+    nodes: obj.nodes,
     originalError,
-  );
+    path: obj.path,
+    positions: obj.positions,
+    source: new Source(obj.source.body, obj.source.name, obj.source.locationOffset),
+  });
 
   graphqlError.stack = obj.stack;
   return graphqlError;

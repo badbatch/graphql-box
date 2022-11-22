@@ -10,7 +10,7 @@ import {
 } from "@graphql-box/core";
 import { EventAsyncIterator, getFragmentDefinitions, setCacheMetadata, standardizePath } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
-import { AsyncExecutionResult, GraphQLFieldResolver, GraphQLSchema, subscribe } from "graphql";
+import { ExecutionResult, GraphQLFieldResolver, GraphQLSchema, subscribe } from "graphql";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { GraphQLSubscribe, SubscribeArgs, UserOptions } from "../defs";
 
@@ -74,7 +74,7 @@ export default class Subscribe {
       const subscribeResult = await this._subscribe(subscribeArgs);
 
       if (isAsyncIterable(subscribeResult)) {
-        forAwaitEach(subscribeResult, async (result: AsyncExecutionResult) => {
+        forAwaitEach(subscribeResult, async (result: ExecutionResult) => {
           context.normalizePatchResponseData = !!("path" in result);
 
           this._eventEmitter.emit(

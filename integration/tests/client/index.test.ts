@@ -404,7 +404,6 @@ describe("client", () => {
         client = initClient({
           cachemapStore: indexedDB(),
           schema: makeExecutableSchema({
-            parseOptions: { enableDeferStream: true },
             resolvers: schemaResolvers,
             typeDefs: schemaTypeDefs,
             updateResolversInPlace: true,

@@ -20,52 +20,56 @@ export default async (
   if (after && !first && !last) {
     return new GraphQLError(
       "Invalid connection argument combination. `after` must be used in combination with `first`.",
-      fieldNodes,
+      { nodes: fieldNodes },
     );
   }
 
   if (after && last) {
     return new GraphQLError(
       "Invalid connection argument combination. `after` cannot be used in combination with `last`.",
-      fieldNodes,
+      { nodes: fieldNodes },
     );
   }
 
   if (before && !last && !first) {
     return new GraphQLError(
       "Invalid connection argument combination. `before` must be used in combination with `last`.",
-      fieldNodes,
+      { nodes: fieldNodes },
     );
   }
 
   if (before && first) {
     return new GraphQLError(
       "Invalid connection argument combination. `before` cannot be used in combination with `first`.",
-      fieldNodes,
+      { nodes: fieldNodes },
     );
   }
 
   const metadata = (await cursorCache.get(`${groupCursor}-metadata`)) as CursorGroupMetadata | undefined;
 
   if (!metadata) {
-    return new GraphQLError("Curser cannot be supplied without previously being provided.", fieldNodes);
+    return new GraphQLError("Curser cannot be supplied without previously being provided.", { nodes: fieldNodes });
   }
 
   const cursor = getCursor({ after, before }) as string;
   const entry = (await cursorCache.get(cursor)) as CursorCacheEntry | undefined;
 
   if (!entry) {
-    return new GraphQLError(`The cursor ${cursor} could not be found.`, fieldNodes);
+    return new GraphQLError(`The cursor ${cursor} could not be found.`, { nodes: fieldNodes });
   }
 
   const direction = getDirection(last);
 
   if (isCursorLast({ direction, entry, resultsPerPage, ...metadata })) {
-    return new GraphQLError(`The cursor ${cursor} is the last, you cannot go forward any further.`, fieldNodes);
+    return new GraphQLError(`The cursor ${cursor} is the last, you cannot go forward any further.`, {
+      nodes: fieldNodes,
+    });
   }
 
   if (isCursorFirst({ direction, entry })) {
-    return new GraphQLError(`The cursor ${cursor} is the first, you cannot go backward any further.`, fieldNodes);
+    return new GraphQLError(`The cursor ${cursor} is the first, you cannot go backward any further.`, {
+      nodes: fieldNodes,
+    });
   }
 
   return undefined;

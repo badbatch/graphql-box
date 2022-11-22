@@ -11,7 +11,6 @@ import { performance } from "perf_hooks";
 import { InitServerOptions } from "../../defs";
 
 const schema = makeExecutableSchema({
-  parseOptions: { enableDeferStream: true },
   resolvers: schemaResolvers,
   typeDefs: schemaTypeDefs,
   updateResolversInPlace: true,
