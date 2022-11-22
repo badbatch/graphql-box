@@ -7029,10 +7029,10 @@ graphql@0.9.6, graphql@^0.9.5, graphql@^0.9.6:
   dependencies:
     iterall "^1.0.0"
 
-graphql@16.1.0-experimental-stream-defer.6:
-  version "16.1.0-experimental-stream-defer.6"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.1.0-experimental-stream-defer.6.tgz#8f00e27b11cf2c71ddec0350c663270cd3230659"
-  integrity sha512-qNedUtVDai94Ptxz7IXHoQR/GU27cuC/SfAU2CogIEfOflr7tW52GTnAF9SDa2i8gneowK0Ye5vyeQUJpGRvAQ==
+graphql@17.0.0-alpha.2:
+  version "17.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-17.0.0-alpha.2.tgz#c8be4605f7beb47abb70f67fead4854aab22152d"
+  integrity sha512-aRAd/BQ5hSO0+l7x+sHBfJVUp2JUOjPTE/iwJ3BhtYNH/MC7n4gjlZbKvnBVFZZAczyMS3vezS4teEZivoqIzw==
 
 growl@1.10.5:
   version "1.10.5"

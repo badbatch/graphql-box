@@ -41,7 +41,7 @@
     "@babel/runtime": "< 8",
     "@graphql-box/core": "< 5",
     "core-js": "< 4",
-    "graphql": "< 17",
+    "graphql": "<= 17",
     "isomorphic-fetch": "< 4",
     "lodash": "< 5"
   },
