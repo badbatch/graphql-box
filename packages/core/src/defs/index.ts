@@ -3,10 +3,13 @@ import EventEmitter from "eventemitter3";
 import {
   ASTNode,
   DocumentNode,
+  ExecutionResult,
   FragmentDefinitionNode,
   GraphQLErrorExtensions,
   GraphQLFieldResolver,
   GraphQLNamedType,
+  InitialIncrementalExecutionResult,
+  SubsequentIncrementalExecutionResult,
 } from "graphql";
 import { ErrorObject } from "serialize-error";
 import { JsonObject, JsonValue } from "type-fest";
@@ -177,7 +180,7 @@ export type LogEntry = {
   ecs: {
     version: string;
   };
-  err?: Error | (DeserializedGraphqlError | ErrorObject);
+  err?: Error | (SerializedGraphqlError | ErrorObject);
   id: string;
   labels: {
     cacheType: string;
@@ -280,7 +283,7 @@ export interface DehydratedCacheMetadata {
 
 export type CacheMetadata = Map<string, Cacheability>;
 
-export type DeserializedGraphqlError = {
+export type SerializedGraphqlError = {
   extensions: GraphQLErrorExtensions;
   message: string;
   name: "GraphQLError";
@@ -302,7 +305,7 @@ export type DeserializedGraphqlError = {
 export interface MaybeRawFetchData {
   _cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObjectMap;
-  errors?: (DeserializedGraphqlError | ErrorObject)[];
+  errors?: (SerializedGraphqlError | ErrorObject)[];
   hasNext?: boolean;
   headers?: Headers;
   label?: string;
@@ -391,16 +394,78 @@ export interface MaybeRequestResultWithDehydratedCacheMetadata {
   requestID: string;
 }
 
+/************************************************************************ */
+
+export type FetchResult = ExecutionResult & {
+  _cacheMetadata: DehydratedCacheMetadata;
+  errors?: (SerializedGraphqlError | ErrorObject)[];
+  headers: Headers;
+};
+
+export type BatchedFetchResult = {
+  headers: Headers;
+  responses: {
+    [key: string]: Omit<FetchResult, "headers">;
+  };
+};
+
+export type InitialIncrementalFetchResult = InitialIncrementalExecutionResult & {
+  _cacheMetadata: DehydratedCacheMetadata;
+  errors?: (SerializedGraphqlError | ErrorObject)[];
+  headers: Headers;
+};
+
+export type IncrementalFetchResult = (
+  | (InitialIncrementalExecutionResult & { errors?: (SerializedGraphqlError | ErrorObject)[] })
+  | SubsequentIncrementalExecutionResult
+) & {
+  _cacheMetadata: DehydratedCacheMetadata;
+  headers: Headers;
+};
+
+export type FetchExecuteResolver = (
+  value: IncrementalFetchResult,
+) => Promise<RequestManagerResult | IncrementalRequestManagerResult>;
+
+/************************************************************************ */
+
+export type ExecuteResult = ExecutionResult & {
+  _cacheMetadata: CacheMetadata;
+};
+
+export type IncrementalExecuteResult = (InitialIncrementalExecutionResult | SubsequentIncrementalExecutionResult) & {
+  _cacheMetadata: CacheMetadata;
+};
+
+/************************************************************************ */
+
+export type RequestManagerResult = ExecutionResult & {
+  _cacheMetadata: CacheMetadata;
+  headers?: Headers;
+};
+
+export type IncrementalRequestManagerResult = (
+  | InitialIncrementalExecutionResult
+  | SubsequentIncrementalExecutionResult
+) & {
+  _cacheMetadata: CacheMetadata;
+  headers?: Headers;
+};
+
+export type RequestManagerExecuteResolver = (
+  value: RequestManagerResult | IncrementalRequestManagerResult,
+) => Promise<RequestManagerResult | IncrementalRequestManagerResult>;
+
 export interface RequestManagerDef {
   execute(
     requestData: RequestData,
     options: RequestOptions,
     context: RequestContext,
-    executeResolver: RequestResolver,
-  ): Promise<AsyncIterableIterator<MaybeRequestResult | undefined> | MaybeRawResponseData>;
+    executeResolver: RequestManagerExecuteResolver,
+  ): Promise<AsyncIterableIterator<IncrementalRequestManagerResult | undefined> | RequestManagerResult>;
 }
 
-export type RequestResolver = (rawResponseData: MaybeRawResponseData) => Promise<MaybeRequestResult>;
+/************************************************************************ */
 
 export type SubscriberResolver = (rawResponseData: MaybeRawResponseData) => Promise<MaybeRequestResult>;
 

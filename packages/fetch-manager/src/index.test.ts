@@ -3,12 +3,12 @@
  */
 
 import {
-  MaybeRawResponseData,
-  MaybeRequestResult,
+  IncrementalRequestManagerResult,
   PlainObjectMap,
   RawResponseDataWithMaybeCacheMetadata,
   RequestManagerDef,
-  RequestResolver,
+  RequestManagerExecuteResolver,
+  RequestManagerResult,
 } from "@graphql-box/core";
 import { getRequestContext, getRequestData, parsedRequests, responses } from "@graphql-box/test-utils";
 import fetchMock from "fetch-mock";
@@ -24,14 +24,14 @@ describe("@graphql-box/fetch-manager >>", () => {
 
   describe("no batching >>", () => {
     describe("when batch is false >>", () => {
-      let response: MaybeRawResponseData;
+      let response: RequestManagerResult;
 
       beforeAll(async () => {
         fetchManager = new FetchManager({
           apiUrl: URL,
         });
 
-        const body = { data: responses.singleTypeQuery.data };
+        const body = { _cacheMetadata: {}, data: responses.singleTypeQuery.data };
         const headers = { "cache-control": "public, max-age=5" };
         fetchMock.post("*", { body, headers });
 
@@ -39,8 +39,8 @@ describe("@graphql-box/fetch-manager >>", () => {
           getRequestData(parsedRequests.singleTypeQuery),
           {},
           getRequestContext(),
-          ((async () => null) as unknown) as RequestResolver,
-        )) as MaybeRawResponseData;
+          ((async () => null) as unknown) as RequestManagerExecuteResolver,
+        )) as RequestManagerResult;
       });
 
       afterAll(() => {
@@ -57,7 +57,7 @@ describe("@graphql-box/fetch-manager >>", () => {
     });
 
     describe("when context.hasDeferOrStream is true >>", () => {
-      let response: MaybeRawResponseData;
+      let response: RequestManagerResult;
 
       beforeAll(async () => {
         fetchManager = new FetchManager({
@@ -65,7 +65,7 @@ describe("@graphql-box/fetch-manager >>", () => {
           batchRequests: true,
         });
 
-        const body = { data: responses.singleTypeQuery.data };
+        const body = { _cacheMetadata: {}, data: responses.singleTypeQuery.data };
         const headers = { "cache-control": "public, max-age=5" };
         fetchMock.post("*", { body, headers });
 
@@ -73,8 +73,8 @@ describe("@graphql-box/fetch-manager >>", () => {
           getRequestData(parsedRequests.singleTypeQuery),
           {},
           getRequestContext({ hasDeferOrStream: true }),
-          ((async () => null) as unknown) as RequestResolver,
-        )) as MaybeRawResponseData;
+          ((async () => null) as unknown) as RequestManagerExecuteResolver,
+        )) as RequestManagerResult;
       });
 
       afterAll(() => {
@@ -93,7 +93,7 @@ describe("@graphql-box/fetch-manager >>", () => {
 
   describe("batching >>", () => {
     describe("single request >>", () => {
-      let response: MaybeRawResponseData;
+      let response: RequestManagerResult;
 
       beforeAll(async () => {
         jest.useFakeTimers();
@@ -108,7 +108,7 @@ describe("@graphql-box/fetch-manager >>", () => {
 
         const body = {
           responses: {
-            [requestData.hash]: { data: responses.singleTypeQuery.data },
+            [requestData.hash]: { _cacheMetadata: {}, data: responses.singleTypeQuery.data },
           },
         };
 
@@ -119,8 +119,8 @@ describe("@graphql-box/fetch-manager >>", () => {
           requestData,
           {},
           getRequestContext(),
-          ((async () => null) as unknown) as RequestResolver,
-        ) as Promise<MaybeRawResponseData>;
+          ((async () => null) as unknown) as RequestManagerExecuteResolver,
+        ) as Promise<RequestManagerResult>;
 
         jest.runOnlyPendingTimers();
         response = await promise;
@@ -141,7 +141,7 @@ describe("@graphql-box/fetch-manager >>", () => {
     });
 
     describe("multiple requests >>", () => {
-      let response: MaybeRawResponseData[];
+      let response: RequestManagerResult[];
 
       beforeAll(async () => {
         jest.useFakeTimers();
@@ -157,8 +157,9 @@ describe("@graphql-box/fetch-manager >>", () => {
 
         const body = {
           responses: {
-            [initialRequestData.hash]: { data: responses.singleTypeQuerySet.initial.data },
+            [initialRequestData.hash]: { _cacheMetadata: {}, data: responses.singleTypeQuerySet.initial.data },
             [updatedRequestData.hash]: {
+              _cacheMetadata: {},
               data: (responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata).data,
             },
           },
@@ -172,15 +173,15 @@ describe("@graphql-box/fetch-manager >>", () => {
             initialRequestData,
             {},
             getRequestContext(),
-            ((async () => null) as unknown) as RequestResolver,
-          ) as Promise<MaybeRawResponseData>,
+            ((async () => null) as unknown) as RequestManagerExecuteResolver,
+          ) as Promise<RequestManagerResult>,
 
           fetchManager.execute(
             updatedRequestData,
             {},
             getRequestContext(),
-            ((async () => null) as unknown) as RequestResolver,
-          ) as Promise<MaybeRawResponseData>,
+            ((async () => null) as unknown) as RequestManagerExecuteResolver,
+          ) as Promise<RequestManagerResult>,
         ];
 
         jest.runOnlyPendingTimers();
@@ -204,7 +205,7 @@ describe("@graphql-box/fetch-manager >>", () => {
   });
 
   describe("when content type multipart is returned >>", () => {
-    const results: (MaybeRequestResult | undefined)[] = [];
+    const results: (IncrementalRequestManagerResult | undefined)[] = [];
     const actualFetch = global.fetch;
     let mockFetch: jest.Mock<any, any>;
 
@@ -213,7 +214,7 @@ describe("@graphql-box/fetch-manager >>", () => {
         apiUrl: URL,
       });
 
-      const headers = { "Content-Type": 'multipart/mixed; boundary="-"' };
+      const headers = { "Cache-Control": "public, max-age=60", "Content-Type": 'multipart/mixed; boundary="-"' };
 
       const mockResponse = new Response(createResponseChunks(responses.deferQuerySet.updated as PlainObjectMap[]), {
         headers,
@@ -227,8 +228,8 @@ describe("@graphql-box/fetch-manager >>", () => {
         getRequestData(parsedRequests.deferQuery),
         {},
         getRequestContext({ hasDeferOrStream: true }),
-        (async data => data) as RequestResolver,
-      )) as AsyncIterableIterator<MaybeRequestResult | undefined>;
+        (async data => data) as RequestManagerExecuteResolver,
+      )) as AsyncIterableIterator<IncrementalRequestManagerResult | undefined>;
 
       await new Promise((resolve: (value: void) => void) => {
         forAwaitEach(executeResult, async result => {

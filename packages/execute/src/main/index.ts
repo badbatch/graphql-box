@@ -1,18 +1,23 @@
 import {
-  DehydratedCacheMetadata,
+  CacheMetadata,
   EXECUTE_RESOLVED,
-  MaybeRawResponseData,
-  MaybeRequestResult,
   PlainObjectMap,
   RequestContext,
   RequestData,
-  RequestResolver,
+  RequestManagerExecuteResolver,
+  IncrementalRequestManagerResult,
+  RequestManagerResult,
   ServerRequestOptions,
 } from "@graphql-box/core";
-import { EventAsyncIterator, getFragmentDefinitions, setCacheMetadata, standardizePath } from "@graphql-box/helpers";
+import {
+  EventAsyncIterator,
+  areIncrementalExecutionResults,
+  getFragmentDefinitions,
+  setCacheMetadata,
+} from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { ExecutionArgs, GraphQLFieldResolver, GraphQLSchema, execute } from "graphql";
-import { forAwaitEach, isAsyncIterable } from "iterall";
+import { forAwaitEach } from "iterall";
 import logExecute from "../debug/log-execute";
 import { GraphQLExecute, UserOptions } from "../defs";
 
@@ -48,10 +53,10 @@ export default class Execute {
     { ast, hash }: RequestData,
     options: ServerRequestOptions,
     context: RequestContext,
-    executeResolver: RequestResolver,
-  ) {
+    executeResolver: RequestManagerExecuteResolver,
+  ): Promise<RequestManagerResult | AsyncIterableIterator<IncrementalRequestManagerResult | undefined>> {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
-    const _cacheMetadata: DehydratedCacheMetadata = {};
+    const _cacheMetadata: CacheMetadata = new Map();
     const { debugManager, requestID, ...otherContext } = context;
 
     const executeArgs: ExecutionArgs = {
@@ -73,31 +78,29 @@ export default class Execute {
     try {
       const executeResult = await this._execute(executeArgs);
 
-      if (!isAsyncIterable(executeResult)) {
+      if (!areIncrementalExecutionResults(executeResult)) {
         return { ...executeResult, _cacheMetadata };
       }
 
-      forAwaitEach(executeResult, async result => {
-        context.normalizePatchResponseData = !!("path" in result);
-
-        const enrichedResult = ({
-          _cacheMetadata,
-          ...standardizePath(result),
-        } as unknown) as MaybeRawResponseData;
-
+      forAwaitEach(executeResult.subsequentResults, async result => {
         debugManager?.log(EXECUTE_RESOLVED, {
           context: { requestID, ...otherContext },
           options,
           requestHash: hash,
-          result: enrichedResult,
+          result: { ...result, _cacheMetadata },
           stats: { endTime: debugManager?.now() },
         });
 
-        this._eventEmitter.emit(hash, await executeResolver(enrichedResult));
+        this._eventEmitter.emit(hash, await executeResolver({ ...result, _cacheMetadata }));
       });
 
-      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, hash);
-      return eventAsyncIterator.getIterator();
+      return await new Promise(
+        async (resolve: (value: AsyncIterableIterator<IncrementalRequestManagerResult | undefined>) => void) => {
+          const eventAsyncIterator = new EventAsyncIterator<IncrementalRequestManagerResult>(this._eventEmitter, hash);
+          resolve(eventAsyncIterator.getIterator());
+          this._eventEmitter.emit(hash, await executeResolver({ ...executeResult.initialResult, _cacheMetadata }));
+        },
+      );
     } catch (error) {
       return Promise.reject(error);
     }

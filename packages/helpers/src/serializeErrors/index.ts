@@ -1,9 +1,9 @@
-import { DeserializedGraphqlError } from "@graphql-box/core";
+import { SerializedGraphqlError } from "@graphql-box/core";
 import { GraphQLError, Source } from "graphql";
 import { isArray, isObject, isPlainObject } from "lodash";
 import { ErrorObject, deserializeError as deserialize, serializeError as serialize } from "serialize-error";
 
-export const deserializedGraphqlError = (obj: DeserializedGraphqlError) => {
+export const deserializedGraphqlError = (obj: SerializedGraphqlError) => {
   const originalError = new Error(obj.originalError.message);
   originalError.stack = obj.originalError.stack;
 
@@ -19,10 +19,10 @@ export const deserializedGraphqlError = (obj: DeserializedGraphqlError) => {
   return graphqlError;
 };
 
-export const deserializeError = (error: DeserializedGraphqlError | ErrorObject) =>
-  error.name === "GraphQLError" ? deserializedGraphqlError(error as DeserializedGraphqlError) : deserialize(error);
+export const deserializeError = (error: SerializedGraphqlError | ErrorObject) =>
+  error.name === "GraphQLError" ? deserializedGraphqlError(error as SerializedGraphqlError) : deserialize(error);
 
-export const deserializeErrors = <Type extends { errors?: (DeserializedGraphqlError | ErrorObject)[] }>({
+export const deserializeErrors = <Type extends { errors?: (SerializedGraphqlError | ErrorObject)[] }>({
   errors,
   ...rest
 }: Type) => {
@@ -60,7 +60,7 @@ export const serializeError = (error: Error) =>
 
 export const serializeErrors = <Type extends { errors?: Error[] | readonly Error[] }>({ errors, ...rest }: Type) => {
   if (!errors) {
-    return rest as Type & { errors?: (DeserializedGraphqlError | ErrorObject)[] };
+    return rest as Type & { errors?: (SerializedGraphqlError | ErrorObject)[] };
   }
 
   const output = {
@@ -68,5 +68,5 @@ export const serializeErrors = <Type extends { errors?: Error[] | readonly Error
     errors: errors.map(error => serializeError(error)),
   };
 
-  return output as Type & { errors: (DeserializedGraphqlError | ErrorObject)[] };
+  return output as Type & { errors: (SerializedGraphqlError | ErrorObject)[] };
 };

@@ -1,4 +1,10 @@
-import { DehydratedCacheMetadata, PlainObjectMap, RawResponseDataWithMaybeCacheMetadata } from "@graphql-box/core";
+import {
+  DehydratedCacheMetadata,
+  FetchResult,
+  IncrementalFetchResult,
+  PlainObjectMap,
+  RawResponseDataWithMaybeCacheMetadata,
+} from "@graphql-box/core";
 
 export interface RequestAndOptions {
   options: PlainObjectMap;
@@ -21,6 +27,16 @@ export interface QueryResponseSet {
   partial: PartialQueryResponse;
   updated: RawResponseDataWithMaybeCacheMetadata | RawResponseDataWithMaybeCacheMetadata[];
 }
+
+/************************************************************************ */
+
+export type IncrementalFetchResultSet = {
+  initial: FetchResult;
+  partial: PartialQueryResponse;
+  updated: Omit<IncrementalFetchResult, "headers">[];
+};
+
+/************************************************************************ */
 
 export interface Inbox {
   emails: Email[];

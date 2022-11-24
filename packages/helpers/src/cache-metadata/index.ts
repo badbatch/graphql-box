@@ -22,10 +22,10 @@ export function rehydrateCacheMetadata(
   }, cacheMetadata);
 }
 
-export const setCacheMetadata = (cacheMetadata: DehydratedCacheMetadata) => (
+export const setCacheMetadata = (cacheMetadata: CacheMetadata) => (
   key: string,
   headers: Headers,
   operation: ValidOperations = "query",
 ) => {
-  cacheMetadata[`${operation}.${key}`] = new Cacheability({ headers }).metadata;
+  cacheMetadata.set(`${operation}.${key}`, new Cacheability({ headers }));
 };

@@ -1,0 +1,2102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mergeIncrementalResults should merge the results correctly 1`] = `
+Object {
+  "_cacheMetadata": Object {
+    "query": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.movie.releaseDates": Object {
+      "cacheControl": Object {
+        "maxAge": 28800,
+        "public": true,
+      },
+      "ttl": 1645814744202,
+    },
+    "query.movie.videos": Object {
+      "cacheControl": Object {
+        "maxAge": 28800,
+        "public": true,
+      },
+      "ttl": 1645814744224,
+    },
+    "query.search": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node.contentRatings": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node.releaseDates": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node.releaseDates.releaseDates": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.search.edges.node.videos": Object {
+      "cacheControl": Object {
+        "maxAge": 600,
+        "public": true,
+      },
+      "ttl": 1645786542679,
+    },
+    "query.tv.contentRatings": Object {
+      "cacheControl": Object {
+        "maxAge": 28800,
+        "public": true,
+      },
+      "ttl": 1645814744234,
+    },
+    "query.tv.videos": Object {
+      "cacheControl": Object {
+        "maxAge": 28800,
+        "public": true,
+      },
+      "etag": "W/\\"8266d1b1f6d14ed7d9db5d31bb242532\\"",
+      "ttl": 1645814744243,
+    },
+  },
+  "hasNext": false,
+  "headers": Headers {
+    Symbol(map): Object {},
+  },
+  "incremental": Array [
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [
+                  Object {
+                    "id": "5e803baf76484100133d085e",
+                    "key": "dwKJGclAo7o",
+                    "name": "Jaws 2 Re-done Trailer",
+                    "site": "YouTube",
+                    "type": "TRAILER",
+                  },
+                  Object {
+                    "id": "533ec654c3a368544800042d",
+                    "key": "oDfZgGf8B5Y",
+                    "name": "ABC Friday Night Movie open Jaws 2 1983",
+                    "site": "YouTube",
+                    "type": "FEATURETTE",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [
+                  Object {
+                    "id": "533ec654c3a368544800042e",
+                    "key": "WQDXfB1nBnk",
+                    "name": "JAWS: The Revenge Trailer HQ",
+                    "site": "YouTube",
+                    "type": "TRAILER",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        3,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            Object {
+              "node": Object {
+                "videos": Array [
+                  Object {
+                    "id": "608786162c6b7b002a70fb25",
+                    "key": "u1c_E-LuSxs",
+                    "name": "Jaws | Final Face-Off With the Shark in 4K Ultra HD",
+                    "site": "YouTube",
+                    "type": "CLIP",
+                  },
+                  Object {
+                    "id": "5ff14203a39d0b00418d7469",
+                    "key": "352702348",
+                    "name": "Jaws 35mm Grindhouse Trailer",
+                    "site": "Vimeo",
+                    "type": "TRAILER",
+                  },
+                  Object {
+                    "id": "533ec654c3a3685448000428",
+                    "key": "EhBrkC5g6GI",
+                    "name": "Josh Olson on JAWS",
+                    "site": "YouTube",
+                    "type": "FEATURETTE",
+                  },
+                  Object {
+                    "id": "53cd4cbbc3a3687775002dd0",
+                    "key": "U1fu_sA7XhE",
+                    "name": "Jaws Official Trailer #1 - Richard Dreyfuss, Steven Spielberg Movie (1975) HD",
+                    "site": "YouTube",
+                    "type": "TRAILER",
+                  },
+                  Object {
+                    "id": "533ec654c3a3685448000427",
+                    "key": "qSU5iaHIIjc",
+                    "name": "Siskel & Ebert Jaws (1975) Review",
+                    "site": "YouTube",
+                    "type": "FEATURETTE",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        0,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "PE",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "AR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "IN",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "A",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "BE",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "TH",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "FI",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "K-16",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "IT",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "T",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "HK",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "TR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "PT",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "M/16",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "GB",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "PG",
+                      },
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "SI",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "MX",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "HU",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "16",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "JP",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "ZA",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "NO",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "SU",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "16+",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "AU",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "M",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "UY",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "RU",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "18+",
+                      },
+                      Object {
+                        "certification": "18+",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "IS",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "PH",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "DE",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "16",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "XC",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "NL",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                      Object {
+                        "certification": "16",
+                      },
+                      Object {
+                        "certification": "16",
+                      },
+                      Object {
+                        "certification": "16",
+                      },
+                      Object {
+                        "certification": "16",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "FR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "12",
+                      },
+                      Object {
+                        "certification": "",
+                      },
+                      Object {
+                        "certification": "16",
+                      },
+                      Object {
+                        "certification": "16",
+                      },
+                      Object {
+                        "certification": "12",
+                      },
+                      Object {
+                        "certification": "12",
+                      },
+                      Object {
+                        "certification": "12",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "SE",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "15",
+                      },
+                      Object {
+                        "certification": "15",
+                      },
+                      Object {
+                        "certification": "15",
+                      },
+                      Object {
+                        "certification": "15",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "DK",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "15",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "PG-13",
+                      },
+                      Object {
+                        "certification": "",
+                      },
+                      Object {
+                        "certification": "PG",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "CL",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "BR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "14",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "IE",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "KR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "GR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "ES",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                      Object {
+                        "certification": "APTA",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "CZ",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "PL",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "AE",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "SG",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "CA",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "CO",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "EG",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        0,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "PG",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "GB",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "PG",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "DK",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "15",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "NL",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "12",
+                      },
+                      Object {
+                        "certification": "12",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "BR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "14",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "PT",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "M/12",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "ES",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "16",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "DE",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "16",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "FR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "U",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "ES",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "16",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "GB",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "PG",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "PG-13",
+                      },
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "BR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "14",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "FR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "U",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "DE",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "16",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        3,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "DE",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "16",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "AU",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        7,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "FR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "IT",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        4,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [
+                  Object {
+                    "id": "578a3b51925141601e0010e3",
+                    "key": "tdZ5bXgFJRY",
+                    "name": "Jaws 3-D (1983) (TV Spot)",
+                    "site": "YouTube",
+                    "type": "TRAILER",
+                  },
+                  Object {
+                    "id": "533ec67cc3a3685448002d59",
+                    "key": "zMlx33ov82c",
+                    "name": "JAWS 3D MOVIE TRAILER HD",
+                    "site": "YouTube",
+                    "type": "TEASER",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        2,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [
+                  Object {
+                    "id": "5fc087e66bdec3003b26acc2",
+                    "key": "pxYdm_vHRSA",
+                    "name": "Santa Jaws Trailer",
+                    "site": "YouTube",
+                    "type": "TRAILER",
+                  },
+                  Object {
+                    "id": "5c61bcaec3a3684fabd647b4",
+                    "key": "t2uZRQOeeWI",
+                    "name": "Santa Jaws (2018) Carnage Count",
+                    "site": "YouTube",
+                    "type": "CLIP",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        5,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        5,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "NR",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        6,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "DE",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "16",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "ES",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "12",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "PG",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "BR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "14",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "GB",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "PG",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "FR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "12",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        2,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        8,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [
+                  Object {
+                    "id": "5b037420c3a3686c92015af8",
+                    "key": "ELmlKhFkaYQ",
+                    "name": "CRUEL JAWS (1995) Trailer",
+                    "site": "YouTube",
+                    "type": "TRAILER",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        4,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "G",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        8,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "NR",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        6,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [
+                  Object {
+                    "id": "5e85bee55294e700134aa7e6",
+                    "key": "h9n-_sc6As8",
+                    "name": "GHOST SHARK 2: URBAN JAWS Official Trailer",
+                    "site": "YouTube",
+                    "type": "TRAILER",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [
+                  Object {
+                    "id": "5f9312a76331b20039f322d0",
+                    "key": "TVFX0eBKmSw",
+                    "name": "Jaws Of Satan (1981) \\"King Cobra\\" HD Trailer [1080p]",
+                    "site": "YouTube",
+                    "type": "TRAILER",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        7,
+        "node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [
+                  Object {
+                    "id": "5efa31fda284eb0039914905",
+                    "key": "HtMpg3VyBlg",
+                    "name": "Jaws in Japan AKA Psycho Shark (2009) - Trailer",
+                    "site": "YouTube",
+                    "type": "TRAILER",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "TR",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [
+                  Object {
+                    "id": "533ec6dac3a368544800811c",
+                    "key": "SCAXfuznbUk",
+                    "name": "CBS Late Movie promo Mako: The Jaws of Death 1978",
+                    "site": "YouTube",
+                    "type": "TRAILER",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "GB",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "NR",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [
+                  Object {
+                    "id": "60980a4db39e35003b1a2df4",
+                    "key": "272344126",
+                    "name": "JAWS (Full Short) ZAVEN NAJJAR",
+                    "site": "Vimeo",
+                    "type": "FEATURETTE",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "JP",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "releaseDates": Array [
+                  Object {
+                    "iso_3166_1": "US",
+                    "releaseDates": Array [
+                      Object {
+                        "certification": "",
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": Array [],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "contentRatings": Array [
+                  Object {
+                    "iso_3166_1": "US",
+                    "rating": "TV-14",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+    Object {
+      "data": Object {
+        "search": Object {
+          "edges": Array [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "node": Object {
+                "videos": null,
+              },
+            },
+          ],
+        },
+      },
+      "label": "mockLabel",
+      "path": Array [
+        "search",
+        "edges",
+        1,
+        ".node",
+      ],
+    },
+  ],
+}
+`;

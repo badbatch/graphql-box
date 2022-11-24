@@ -19,6 +19,7 @@ Array [
 
 exports[`@graphql-box/fetch-manager >> batching >> multiple requests >> correct response data 1`] = `
 Object {
+  "_cacheMetadata": Map {},
   "data": Object {
     "organization": Object {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -29,7 +30,7 @@ Object {
   "headers": Headers {
     Symbol(map): Object {
       "Content-Length": Array [
-        "418",
+        "458",
       ],
       "Content-Type": Array [
         "application/json",
@@ -44,6 +45,7 @@ Object {
 
 exports[`@graphql-box/fetch-manager >> batching >> multiple requests >> correct response data 2`] = `
 Object {
+  "_cacheMetadata": Map {},
   "data": Object {
     "organization": Object {
       "email": "",
@@ -55,7 +57,7 @@ Object {
   "headers": Headers {
     Symbol(map): Object {
       "Content-Length": Array [
-        "418",
+        "458",
       ],
       "Content-Type": Array [
         "application/json",
@@ -87,6 +89,7 @@ Array [
 
 exports[`@graphql-box/fetch-manager >> batching >> single request >> correct response data 1`] = `
 Object {
+  "_cacheMetadata": Map {},
   "data": Object {
     "organization": Object {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -100,7 +103,7 @@ Object {
   "headers": Headers {
     Symbol(map): Object {
       "Content-Length": Array [
-        "319",
+        "339",
       ],
       "Content-Type": Array [
         "application/json",
@@ -132,6 +135,7 @@ Array [
 
 exports[`@graphql-box/fetch-manager >> no batching >> when batch is false >> correct response data 1`] = `
 Object {
+  "_cacheMetadata": Map {},
   "data": Object {
     "organization": Object {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -145,7 +149,7 @@ Object {
   "headers": Headers {
     Symbol(map): Object {
       "Content-Length": Array [
-        "268",
+        "288",
       ],
       "Content-Type": Array [
         "application/json",
@@ -177,6 +181,7 @@ Array [
 
 exports[`@graphql-box/fetch-manager >> no batching >> when context.hasDeferOrStream is true >> correct response data 1`] = `
 Object {
+  "_cacheMetadata": Map {},
   "data": Object {
     "organization": Object {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -190,7 +195,7 @@ Object {
   "headers": Headers {
     Symbol(map): Object {
       "Content-Length": Array [
-        "268",
+        "288",
       ],
       "Content-Type": Array [
         "application/json",
@@ -223,6 +228,58 @@ Array [
 exports[`@graphql-box/fetch-manager >> when content type multipart is returned >> correct response data 1`] = `
 Array [
   Object {
+    "_cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+    },
     "data": Object {
       "organization": Object {
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
@@ -314,175 +371,501 @@ Array [
       },
     },
     "hasNext": true,
-    "headers": Object {},
+    "headers": Headers {
+      Symbol(map): Object {
+        "content-length": Array [
+          "1498",
+        ],
+        "content-type": Array [
+          "application/json; charset=utf-8",
+        ],
+      },
+    },
   },
   Object {
-    "data": Object {
-      "organization": Object {
-        "email": null,
-        "isVerified": true,
-        "location": "Menlo Park, California",
-        "repositories": Object {
-          "edges": Array [
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [],
-                },
-              },
-            },
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [
-                    Object {
-                      "label": "Commercial use",
-                    },
-                    Object {
-                      "label": "Modification",
-                    },
-                    Object {
-                      "label": "Distribution",
-                    },
-                    Object {
-                      "label": "Private use",
-                    },
-                  ],
-                },
-              },
-            },
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [],
-                },
-              },
-            },
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [],
-                },
-              },
-            },
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [
-                    Object {
-                      "label": "Commercial use",
-                    },
-                    Object {
-                      "label": "Modification",
-                    },
-                    Object {
-                      "label": "Distribution",
-                    },
-                    Object {
-                      "label": "Patent use",
-                    },
-                    Object {
-                      "label": "Private use",
-                    },
-                  ],
-                },
-              },
-            },
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [],
-                },
-              },
-            },
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [
-                    Object {
-                      "label": "Commercial use",
-                    },
-                    Object {
-                      "label": "Modification",
-                    },
-                    Object {
-                      "label": "Distribution",
-                    },
-                    Object {
-                      "label": "Private use",
-                    },
-                  ],
-                },
-              },
-            },
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [],
-                },
-              },
-            },
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [
-                    Object {
-                      "label": "Commercial use",
-                    },
-                    Object {
-                      "label": "Modification",
-                    },
-                    Object {
-                      "label": "Distribution",
-                    },
-                    Object {
-                      "label": "Patent use",
-                    },
-                    Object {
-                      "label": "Private use",
-                    },
-                  ],
-                },
-              },
-            },
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [
-                    Object {
-                      "label": "Commercial use",
-                    },
-                    Object {
-                      "label": "Modification",
-                    },
-                    Object {
-                      "label": "Distribution",
-                    },
-                    Object {
-                      "label": "Private use",
-                    },
-                  ],
-                },
-              },
-            },
-          ],
+    "_cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
         },
       },
     },
     "hasNext": false,
-    "headers": Object {},
-    "paths": Array [
-      "organisation",
-      "organisation.repositories.edges.0.node.licenseInfo.permissions",
-      "organisation.repositories.edges.1.node.licenseInfo.permissions",
-      "organisation.repositories.edges.2.node.licenseInfo.permissions",
-      "organisation.repositories.edges.3.node.licenseInfo.permissions",
-      "organisation.repositories.edges.4.node.licenseInfo.permissions",
-      "organisation.repositories.edges.5.node.licenseInfo.permissions",
-      "organisation.repositories.edges.6.node.licenseInfo.permissions",
-      "organisation.repositories.edges.7.node.licenseInfo.permissions",
-      "organisation.repositories.edges.8.node.licenseInfo.permissions",
-      "organisation.repositories.edges.9.node.licenseInfo.permissions",
+    "headers": Headers {
+      Symbol(map): Object {
+        "content-length": Array [
+          "355",
+        ],
+        "content-type": Array [
+          "application/json; charset=utf-8",
+        ],
+      },
+    },
+    "incremental": Array [
+      Object {
+        "data": Object {
+          "organization": Object {
+            "email": null,
+            "isVerified": true,
+            "location": "Menlo Park, California",
+          },
+        },
+        "label": "organizationDefer",
+        "path": Array [
+          "organisation",
+        ],
+      },
+      Object {
+        "data": Object {
+          "organization": Object {
+            "repositories": Object {
+              "edges": Array [
+                Object {
+                  "node": Object {
+                    "licenseInfo": Object {
+                      "permissions": Array [],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organisation",
+          "repositories",
+          "edges",
+          0,
+          "node",
+          "licenseInfo",
+          "permissions",
+        ],
+      },
+      Object {
+        "data": Object {
+          "organization": Object {
+            "repositories": Object {
+              "edges": Array [
+                null,
+                Object {
+                  "node": Object {
+                    "licenseInfo": Object {
+                      "permissions": Array [
+                        Object {
+                          "label": "Commercial use",
+                        },
+                        Object {
+                          "label": "Modification",
+                        },
+                        Object {
+                          "label": "Distribution",
+                        },
+                        Object {
+                          "label": "Private use",
+                        },
+                      ],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organisation",
+          "repositories",
+          "edges",
+          1,
+          "node",
+          "licenseInfo",
+          "permissions",
+        ],
+      },
+      Object {
+        "data": Object {
+          "organization": Object {
+            "repositories": Object {
+              "edges": Array [
+                null,
+                null,
+                Object {
+                  "node": Object {
+                    "licenseInfo": Object {
+                      "permissions": Array [],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organisation",
+          "repositories",
+          "edges",
+          2,
+          "node",
+          "licenseInfo",
+          "permissions",
+        ],
+      },
+      Object {
+        "data": Object {
+          "organization": Object {
+            "repositories": Object {
+              "edges": Array [
+                null,
+                null,
+                null,
+                Object {
+                  "node": Object {
+                    "licenseInfo": Object {
+                      "permissions": Array [],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organisation",
+          "repositories",
+          "edges",
+          3,
+          "node",
+          "licenseInfo",
+          "permissions",
+        ],
+      },
+      Object {
+        "data": Object {
+          "organization": Object {
+            "repositories": Object {
+              "edges": Array [
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "node": Object {
+                    "licenseInfo": Object {
+                      "permissions": Array [
+                        Object {
+                          "label": "Commercial use",
+                        },
+                        Object {
+                          "label": "Modification",
+                        },
+                        Object {
+                          "label": "Distribution",
+                        },
+                        Object {
+                          "label": "Patent use",
+                        },
+                        Object {
+                          "label": "Private use",
+                        },
+                      ],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organisation",
+          "repositories",
+          "edges",
+          4,
+          "node",
+          "licenseInfo",
+          "permissions",
+        ],
+      },
+      Object {
+        "data": Object {
+          "organization": Object {
+            "repositories": Object {
+              "edges": Array [
+                null,
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "node": Object {
+                    "licenseInfo": Object {
+                      "permissions": Array [],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organisation",
+          "repositories",
+          "edges",
+          5,
+          "node",
+          "licenseInfo",
+          "permissions",
+        ],
+      },
+      Object {
+        "data": Object {
+          "organization": Object {
+            "repositories": Object {
+              "edges": Array [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "node": Object {
+                    "licenseInfo": Object {
+                      "permissions": Array [
+                        Object {
+                          "label": "Commercial use",
+                        },
+                        Object {
+                          "label": "Modification",
+                        },
+                        Object {
+                          "label": "Distribution",
+                        },
+                        Object {
+                          "label": "Private use",
+                        },
+                      ],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organisation",
+          "repositories",
+          "edges",
+          6,
+          "node",
+          "licenseInfo",
+          "permissions",
+        ],
+      },
+      Object {
+        "data": Object {
+          "organization": Object {
+            "repositories": Object {
+              "edges": Array [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "node": Object {
+                    "licenseInfo": Object {
+                      "permissions": Array [],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organisation",
+          "repositories",
+          "edges",
+          7,
+          "node",
+          "licenseInfo",
+          "permissions",
+        ],
+      },
+      Object {
+        "data": Object {
+          "organization": Object {
+            "repositories": Object {
+              "edges": Array [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "node": Object {
+                    "licenseInfo": Object {
+                      "permissions": Array [
+                        Object {
+                          "label": "Commercial use",
+                        },
+                        Object {
+                          "label": "Modification",
+                        },
+                        Object {
+                          "label": "Distribution",
+                        },
+                        Object {
+                          "label": "Patent use",
+                        },
+                        Object {
+                          "label": "Private use",
+                        },
+                      ],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organisation",
+          "repositories",
+          "edges",
+          8,
+          "node",
+          "licenseInfo",
+          "permissions",
+        ],
+      },
+      Object {
+        "data": Object {
+          "organization": Object {
+            "repositories": Object {
+              "edges": Array [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "node": Object {
+                    "licenseInfo": Object {
+                      "permissions": Array [
+                        Object {
+                          "label": "Commercial use",
+                        },
+                        Object {
+                          "label": "Modification",
+                        },
+                        Object {
+                          "label": "Distribution",
+                        },
+                        Object {
+                          "label": "Private use",
+                        },
+                      ],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organisation",
+          "repositories",
+          "edges",
+          9,
+          "node",
+          "licenseInfo",
+          "permissions",
+        ],
+      },
     ],
   },
 ]

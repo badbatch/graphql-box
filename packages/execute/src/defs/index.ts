@@ -1,5 +1,11 @@
 import { PlainObjectMap } from "@graphql-box/core";
-import { ExecutionArgs, ExecutionResult, GraphQLFieldResolver, GraphQLSchema } from "graphql";
+import {
+  ExecutionArgs,
+  ExecutionResult,
+  ExperimentalIncrementalExecutionResults,
+  GraphQLFieldResolver,
+  GraphQLSchema,
+} from "graphql";
 import { PromiseOrValue } from "graphql/jsutils/PromiseOrValue";
 
 export interface UserOptions {
@@ -36,4 +42,4 @@ export interface UserOptions {
 
 export type GraphQLExecute = (
   args: ExecutionArgs,
-) => PromiseOrValue<ExecutionResult | AsyncGenerator<ExecutionResult, void, void>>;
+) => PromiseOrValue<ExecutionResult | ExperimentalIncrementalExecutionResults>;

@@ -1,17 +1,20 @@
 import {
+  BatchedFetchResult,
   FETCH_RESOLVED,
+  FetchExecuteResolver,
+  FetchResult,
+  IncrementalFetchResult,
+  IncrementalRequestManagerResult,
   LogLevel,
-  MaybeRawFetchData,
-  MaybeRawResponseData,
-  MaybeRequestResult,
   PlainObjectMap,
   PlainObjectStringMap,
   RequestContext,
   RequestData,
+  RequestManagerExecuteResolver,
+  RequestManagerResult,
   RequestOptions,
-  RequestResolver,
 } from "@graphql-box/core";
-import { EventAsyncIterator, deserializeErrors } from "@graphql-box/helpers";
+import { EventAsyncIterator, deserializeErrors, rehydrateCacheMetadata } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { isString } from "lodash";
@@ -19,16 +22,8 @@ import { meros } from "meros/browser";
 import { JsonValue } from "type-fest";
 import { v1 as uuid } from "uuid";
 import logFetch from "../debug/log-fetch";
-import {
-  ActiveBatch,
-  ActiveBatchValue,
-  BatchActionsObjectMap,
-  BatchResultActions,
-  BatchedMaybeFetchData,
-  UserOptions,
-} from "../defs";
-import cleanPatchResponse from "../helpers/cleanPatchResponse";
-import mergeResponseDataSets from "../helpers/mergeResponseDataSets";
+import { ActiveBatch, ActiveBatchValue, BatchActionsObjectMap, BatchResultActions, Part, UserOptions } from "../defs";
+import mergeIncrementalResults from "../helpers/mergeIncrementalResults";
 import parseFetchResult from "../helpers/parseFetchResult";
 
 export default class FetchManager {
@@ -44,15 +39,21 @@ export default class FetchManager {
   }
 
   private static _resolveFetchBatch(
-    { headers, responses }: BatchedMaybeFetchData,
+    { headers, responses }: BatchedFetchResult,
     batchEntries: BatchActionsObjectMap,
   ): void {
     Object.keys(batchEntries).forEach(hash => {
-      const responseData = responses[hash];
+      const fetchResult = responses[hash];
       const { reject, resolve } = batchEntries[hash];
 
-      if (responseData) {
-        resolve(deserializeErrors({ headers, ...responseData }));
+      if (fetchResult) {
+        resolve(
+          deserializeErrors({
+            headers,
+            ...fetchResult,
+            _cacheMetadata: rehydrateCacheMetadata(fetchResult._cacheMetadata),
+          }),
+        );
       } else {
         reject(new Error(`@graphql-box/fetch-manager did not get a response for batched request ${hash}.`));
       }
@@ -61,7 +62,7 @@ export default class FetchManager {
 
   private _activeRequestBatch: Record<string, ActiveBatch> = {};
   private _activeRequestBatchTimer: Record<string, NodeJS.Timer> = {};
-  private _activeResponseBatch: Set<MaybeRawFetchData> | undefined;
+  private _activeResponseBatch: Set<IncrementalFetchResult> | undefined;
   private _activeResponseBatchTimer: NodeJS.Timer | undefined;
   private _apiUrl: string | undefined;
   private _batchRequests: boolean;
@@ -102,8 +103,8 @@ export default class FetchManager {
     { hash, request }: RequestData,
     options: RequestOptions,
     context: RequestContext,
-    executeResolver: RequestResolver,
-  ) {
+    executeResolver: RequestManagerExecuteResolver,
+  ): Promise<RequestManagerResult | AsyncIterableIterator<IncrementalRequestManagerResult | undefined>> {
     try {
       const url = this._apiUrl as string;
 
@@ -117,41 +118,43 @@ export default class FetchManager {
         const { debugManager, ...otherContext } = context;
 
         if (!isAsyncIterable(fetchResult)) {
-          return deserializeErrors(fetchResult);
+          const rmResult = deserializeErrors(await parseFetchResult<FetchResult>(fetchResult));
+          return { ...rmResult, _cacheMetadata: rehydrateCacheMetadata(rmResult._cacheMetadata) };
         }
 
-        forAwaitEach(fetchResult, async ({ body, headers }) => {
-          const responseData = ({ headers, ...body } as unknown) as MaybeRawFetchData;
-
-          const decoratedExecuteResolver = (result: MaybeRawResponseData) => {
-            const { headers: resultHeaders, ...otherResult } = result;
+        forAwaitEach(fetchResult, async part => {
+          const decoratedExecuteResolver: FetchExecuteResolver = result => {
+            const { _cacheMetadata, headers, ...otherResult } = result;
+            const cacheMetadata = rehydrateCacheMetadata(_cacheMetadata);
 
             debugManager?.log(FETCH_RESOLVED, {
               context: otherContext,
               options,
               requestHash: hash,
-              result: otherResult,
+              result: { ...otherResult, _cacheMetadata: cacheMetadata },
               stats: { endTime: debugManager?.now() },
             });
 
-            return executeResolver(result);
+            return executeResolver({ ...otherResult, _cacheMetadata: cacheMetadata, headers });
           };
 
-          if (this._batchResponses && responseData.paths) {
-            this._batchResponse(responseData, hash, decoratedExecuteResolver);
+          const incrementalResult = {
+            ...(part.body as Omit<IncrementalFetchResult, "headers">),
+            headers: new Headers(part.headers),
+          };
+
+          if (this._batchResponses && "incremental" in incrementalResult) {
+            this._batchResponse(incrementalResult, hash, decoratedExecuteResolver);
           } else {
-            this._eventEmitter.emit(
-              hash,
-              await decoratedExecuteResolver(deserializeErrors(cleanPatchResponse(responseData))),
-            );
+            this._eventEmitter.emit(hash, await decoratedExecuteResolver(incrementalResult));
           }
         });
 
-        const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, hash);
+        const eventAsyncIterator = new EventAsyncIterator<IncrementalRequestManagerResult>(this._eventEmitter, hash);
         return eventAsyncIterator.getIterator();
       }
 
-      return new Promise((resolve: (value: MaybeRawResponseData) => void, reject) => {
+      return await new Promise((resolve: (value: RequestManagerResult) => void, reject) => {
         this._batchRequest(
           url,
           {
@@ -196,11 +199,15 @@ export default class FetchManager {
     }
   }
 
-  private _batchResponse(response: MaybeRawFetchData, hash: string, executeResolver: RequestResolver) {
+  private _batchResponse(
+    incrementalResult: IncrementalFetchResult,
+    hash: string,
+    executeResolver: FetchExecuteResolver,
+  ) {
     if (this._activeResponseBatchTimer) {
-      this._updateResponseBatch(response, hash, executeResolver);
+      this._updateResponseBatch(incrementalResult, hash, executeResolver);
     } else {
-      this._createResponseBatch(response, hash, executeResolver);
+      this._createResponseBatch(incrementalResult, hash, executeResolver);
     }
   }
 
@@ -210,15 +217,22 @@ export default class FetchManager {
     this._startRequestBatchTimer(url);
   }
 
-  private _createResponseBatch(response: MaybeRawFetchData, hash: string, executeResolver: RequestResolver) {
+  private _createResponseBatch(
+    incrementalResult: IncrementalFetchResult,
+    hash: string,
+    executeResolver: FetchExecuteResolver,
+  ) {
     this._activeResponseBatch = new Set();
-    this._activeResponseBatch.add(response);
+    this._activeResponseBatch.add(incrementalResult);
     this._startResponseBatchTimer(hash, executeResolver);
   }
 
-  private async _fetch(url: string, body: JsonValue) {
+  private async _fetch(
+    url: string,
+    body: JsonValue,
+  ): Promise<Response | AsyncGenerator<Part<Omit<IncrementalFetchResult, "headers">, string>>> {
     try {
-      return new Promise(async (resolve: (value: MaybeRawFetchData | AsyncGenerator<Response>) => void, reject) => {
+      return new Promise(async (resolve, reject) => {
         const fetchTimer = setTimeout(() => {
           reject(new Error(`@graphql-box/fetch-manager did not get a response within ${this._fetchTimeout}ms.`));
         }, this._fetchTimeout);
@@ -227,15 +241,10 @@ export default class FetchManager {
           body: JSON.stringify(body),
           headers: new Headers(this._headers),
           method: "POST",
-        }).then(meros);
+        }).then(res => meros<Omit<IncrementalFetchResult, "headers">>(res));
 
         clearTimeout(fetchTimer);
-
-        if (isAsyncIterable(fetchResult) || fetchResult.status === 204) {
-          resolve(fetchResult as Response | AsyncGenerator<Response>);
-        } else {
-          resolve(await parseFetchResult(fetchResult));
-        }
+        resolve(fetchResult);
       });
     } catch (error) {
       return Promise.reject(error);
@@ -259,10 +268,12 @@ export default class FetchManager {
 
     try {
       FetchManager._resolveFetchBatch(
-        (await this._fetch(`${url}?requestId=${hashes.join("-")}`, {
-          batched: true,
-          requests: batchRequests,
-        })) as BatchedMaybeFetchData,
+        await parseFetchResult<BatchedFetchResult>(
+          (await this._fetch(`${url}?requestId=${hashes.join("-")}`, {
+            batched: true,
+            requests: batchRequests,
+          })) as Response,
+        ),
         batchActions,
       );
     } catch (error) {
@@ -281,11 +292,17 @@ export default class FetchManager {
     }, this._requestBatchInterval);
   }
 
-  private _startResponseBatchTimer(hash: string, executeResolver: RequestResolver) {
+  private _startResponseBatchTimer(hash: string, executeResolver: FetchExecuteResolver) {
     this._activeResponseBatchTimer = setTimeout(async () => {
       if (this._activeResponseBatch) {
-        const responseData = mergeResponseDataSets(Array.from(this._activeResponseBatch));
-        this._eventEmitter.emit(hash, await executeResolver(deserializeErrors(responseData)));
+        const incrementalFetchResult = mergeIncrementalResults(Array.from(this._activeResponseBatch));
+
+        this._eventEmitter.emit(
+          hash,
+          await executeResolver(
+            "errors" in incrementalFetchResult ? deserializeErrors(incrementalFetchResult) : incrementalFetchResult,
+          ),
+        );
       }
 
       this._activeResponseBatchTimer = undefined;
@@ -302,11 +319,15 @@ export default class FetchManager {
     this._startRequestBatchTimer(url);
   }
 
-  private _updateResponseBatch(response: MaybeRawFetchData, hash: string, executeResolver: RequestResolver) {
+  private _updateResponseBatch(
+    incrementalResult: IncrementalFetchResult,
+    hash: string,
+    executeResolver: FetchExecuteResolver,
+  ) {
     clearTimeout(this._activeResponseBatchTimer as NodeJS.Timer);
 
     if (this._activeResponseBatch) {
-      this._activeResponseBatch.add(response);
+      this._activeResponseBatch.add(incrementalResult);
     }
 
     this._startResponseBatchTimer(hash, executeResolver);

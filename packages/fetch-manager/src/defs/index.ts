@@ -1,4 +1,4 @@
-import { MaybeRawFetchData, MaybeRawResponseData, PlainObjectStringMap } from "@graphql-box/core";
+import { PlainObjectStringMap, RequestManagerResult } from "@graphql-box/core";
 import { JsonValue } from "type-fest";
 
 export interface UserOptions {
@@ -64,18 +64,13 @@ export interface ActiveBatchValue {
 
 export interface BatchResultActions {
   reject: (reason: Error) => void;
-  resolve: (value: MaybeRawResponseData) => void;
+  resolve: (value: RequestManagerResult) => void;
 }
 
 export interface BatchActionsObjectMap {
   [key: string]: BatchResultActions;
 }
 
-export interface MaybeRawFetchDataObjectMap {
-  [key: string]: MaybeRawFetchData;
-}
-
-export interface BatchedMaybeFetchData {
-  headers: Headers;
-  responses: MaybeRawFetchDataObjectMap;
-}
+export type Part<Body, Fallback> =
+  | { body: Fallback; headers: Record<string, string>; json: false }
+  | { body: Body; headers: Record<string, string>; json: true };
