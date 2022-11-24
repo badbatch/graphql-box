@@ -1,4 +1,4 @@
-import { MaybeRequestResult, SUBSCRIPTION } from "@graphql-box/core";
+import { SUBSCRIPTION, SubscriptionsManagerResult } from "@graphql-box/core";
 import { getRequestContext, getRequestData, parsedRequests, responses } from "@graphql-box/test-utils";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { Server } from "mock-socket";
@@ -32,7 +32,7 @@ describe("@graphql-box/websocket-manager >>", () => {
   });
 
   describe("subscribe >> return value >>", () => {
-    let response: AsyncIterator<MaybeRequestResult | undefined>;
+    let response: AsyncIterableIterator<SubscriptionsManagerResult | undefined>;
 
     beforeEach(async () => {
       const websocket = new WebSocket(url);
@@ -56,7 +56,7 @@ describe("@graphql-box/websocket-manager >>", () => {
   });
 
   describe("async iterator >> message received >>", () => {
-    let response: MaybeRequestResult;
+    let response: SubscriptionsManagerResult;
 
     beforeEach(async () => {
       const websocket = new WebSocket(url);
@@ -77,8 +77,11 @@ describe("@graphql-box/websocket-manager >>", () => {
 
       const promise = new Promise<void>(resolve => {
         if (isAsyncIterable(asyncIterator)) {
-          forAwaitEach(asyncIterator, (value: MaybeRequestResult) => {
-            response = value;
+          forAwaitEach(asyncIterator, value => {
+            if (value) {
+              response = value;
+            }
+
             resolve();
           });
         }
@@ -86,7 +89,10 @@ describe("@graphql-box/websocket-manager >>", () => {
 
       serverSocket.send(
         JSON.stringify({
-          result: responses.nestedInterfaceSubscription,
+          result: {
+            _cacheMetadata: {},
+            ...responses.nestedInterfaceSubscription,
+          },
           subscriptionID: requestData.hash,
         }),
       );
@@ -95,7 +101,10 @@ describe("@graphql-box/websocket-manager >>", () => {
     });
 
     it("correct data", () => {
-      expect(response).toEqual(responses.nestedInterfaceSubscription);
+      expect(response).toEqual({
+        _cacheMetadata: new Map(),
+        ...responses.nestedInterfaceSubscription,
+      });
     });
   });
 });

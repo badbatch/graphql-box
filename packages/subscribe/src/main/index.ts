@@ -1,18 +1,17 @@
 import {
-  DehydratedCacheMetadata,
-  MaybeRawResponseData,
-  MaybeRequestResult,
+  CacheMetadata,
   PlainObjectMap,
   RequestContext,
   RequestData,
   ServerRequestOptions,
-  SubscriberResolver,
+  SubscriptionsManagerResult,
+  SubscriptionsManagerSubscribeResolver,
 } from "@graphql-box/core";
-import { EventAsyncIterator, getFragmentDefinitions, setCacheMetadata, standardizePath } from "@graphql-box/helpers";
+import { EventAsyncIterator, getFragmentDefinitions, setCacheMetadata } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
-import { ExecutionResult, GraphQLFieldResolver, GraphQLSchema, subscribe } from "graphql";
+import { ExecutionArgs, GraphQLFieldResolver, GraphQLSchema, subscribe } from "graphql";
 import { forAwaitEach, isAsyncIterable } from "iterall";
-import { GraphQLSubscribe, SubscribeArgs, UserOptions } from "../defs";
+import { GraphQLSubscribe, UserOptions } from "../defs";
 
 export default class Subscribe {
   private _contextValue: PlainObjectMap;
@@ -47,13 +46,13 @@ export default class Subscribe {
     { ast, hash }: RequestData,
     options: ServerRequestOptions,
     context: RequestContext,
-    subscriberResolver: SubscriberResolver,
-  ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
+    subscriberResolver: SubscriptionsManagerSubscribeResolver,
+  ): Promise<AsyncIterableIterator<SubscriptionsManagerResult | undefined>> {
     const { contextValue = {}, fieldResolver, operationName, rootValue, subscribeFieldResolver } = options;
-    const _cacheMetadata: DehydratedCacheMetadata = {};
+    const _cacheMetadata: CacheMetadata = new Map();
     const { debugManager, requestID } = context;
 
-    const subscribeArgs: SubscribeArgs = {
+    const subscribeArgs: ExecutionArgs = {
       contextValue: {
         ...this._contextValue,
         ...contextValue,
@@ -74,21 +73,31 @@ export default class Subscribe {
       const subscribeResult = await this._subscribe(subscribeArgs);
 
       if (isAsyncIterable(subscribeResult)) {
-        forAwaitEach(subscribeResult, async (result: ExecutionResult) => {
-          context.normalizePatchResponseData = !!("path" in result);
-
+        forAwaitEach(subscribeResult, async result => {
           this._eventEmitter.emit(
             hash,
-            await subscriberResolver(({
+            await subscriberResolver({
               _cacheMetadata,
-              ...standardizePath(result),
-            } as unknown) as MaybeRawResponseData),
+              ...result,
+            }),
           );
         });
       }
 
-      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, hash);
-      return eventAsyncIterator.getIterator();
+      return await new Promise(async resolve => {
+        const eventAsyncIterator = new EventAsyncIterator<SubscriptionsManagerResult>(this._eventEmitter, hash);
+        resolve(eventAsyncIterator.getIterator());
+
+        if (!isAsyncIterable(subscribeResult)) {
+          this._eventEmitter.emit(
+            hash,
+            await subscriberResolver({
+              _cacheMetadata,
+              ...subscribeResult,
+            }),
+          );
+        }
+      });
     } catch (error) {
       return Promise.reject(error);
     }

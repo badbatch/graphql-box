@@ -1,12 +1,13 @@
 import {
-  MaybeRequestResult,
   RequestContext,
   RequestData,
   RequestOptions,
-  SubscriberResolver,
   SubscriptionsManagerDef,
+  SubscriptionsManagerResult,
+  SubscriptionsManagerSubscribeResolver,
+  WebsocketResult,
 } from "@graphql-box/core";
-import { EventAsyncIterator, deserializeErrors } from "@graphql-box/helpers";
+import { EventAsyncIterator, deserializeErrors, rehydrateCacheMetadata } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { UserOptions } from "../defs";
 
@@ -16,7 +17,7 @@ export default class WebsocketManager implements SubscriptionsManagerDef {
   }
 
   private _eventEmitter: EventEmitter;
-  private _subscriptions: Map<string, SubscriberResolver> = new Map();
+  private _subscriptions: Map<string, SubscriptionsManagerSubscribeResolver> = new Map();
   private _websocket: WebSocket;
 
   constructor(options: UserOptions) {
@@ -39,8 +40,8 @@ export default class WebsocketManager implements SubscriptionsManagerDef {
     { hash, request }: RequestData,
     _options: RequestOptions,
     context: RequestContext,
-    subscriberResolver: SubscriberResolver,
-  ): Promise<AsyncIterator<MaybeRequestResult | undefined>> {
+    subscriberResolver: SubscriptionsManagerSubscribeResolver,
+  ): Promise<AsyncIterableIterator<SubscriptionsManagerResult | undefined>> {
     if (!this._isSocketOpen()) {
       return Promise.reject(new Error("@graphql-box/websocket-manager expected the websocket to be open."));
     }
@@ -58,7 +59,7 @@ export default class WebsocketManager implements SubscriptionsManagerDef {
         return subscriberResolver(result);
       });
 
-      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, hash);
+      const eventAsyncIterator = new EventAsyncIterator<SubscriptionsManagerResult>(this._eventEmitter, hash);
       return eventAsyncIterator.getIterator();
     } catch (error) {
       return Promise.reject(error);
@@ -70,20 +71,24 @@ export default class WebsocketManager implements SubscriptionsManagerDef {
   }
 
   private async _onMessage(ev: MessageEvent): Promise<void> {
-    const parsedData = JSON.parse(ev.data);
+    const websocketResult = JSON.parse(ev.data) as WebsocketResult | undefined;
 
-    if (!parsedData) {
+    if (!websocketResult) {
       return;
     }
 
-    const { result, subscriptionID } = parsedData;
+    const { result, subscriptionID } = websocketResult;
     const subscriberResolver = this._subscriptions.get(subscriptionID);
 
     if (!subscriberResolver) {
       return;
     }
 
-    const resolvedResult = await subscriberResolver(deserializeErrors(result));
-    this._eventEmitter.emit(subscriptionID, resolvedResult);
+    this._eventEmitter.emit(
+      subscriptionID,
+      await subscriberResolver(
+        deserializeErrors({ ...result, _cacheMetadata: rehydrateCacheMetadata(result._cacheMetadata) }),
+      ),
+    );
   }
 }

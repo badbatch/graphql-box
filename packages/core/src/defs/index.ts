@@ -467,13 +467,37 @@ export interface RequestManagerDef {
 
 /************************************************************************ */
 
-export type SubscriberResolver = (rawResponseData: MaybeRawResponseData) => Promise<MaybeRequestResult>;
+export type SubscribeResult = ExecutionResult & {
+  _cacheMetadata: CacheMetadata;
+};
+
+/************************************************************************ */
+
+export type WebsocketResult = {
+  result: ExecutionResult & {
+    _cacheMetadata: DehydratedCacheMetadata;
+    errors?: (SerializedGraphqlError | ErrorObject)[];
+  };
+  subscriptionID: string;
+};
+
+/************************************************************************ */
+
+export type SubscriptionsManagerResult = ExecutionResult & {
+  _cacheMetadata: CacheMetadata;
+};
+
+/************************************************************************ */
+
+export type SubscriptionsManagerSubscribeResolver = (
+  value: SubscriptionsManagerResult,
+) => Promise<SubscriptionsManagerResult>;
 
 export interface SubscriptionsManagerDef {
   subscribe(
     requestData: RequestData,
     options: RequestOptions,
     context: RequestContext,
-    subscriberResolver: SubscriberResolver,
-  ): Promise<AsyncIterator<MaybeRequestResult | undefined>>;
+    subscriberResolver: SubscriptionsManagerSubscribeResolver,
+  ): Promise<AsyncIterableIterator<SubscriptionsManagerResult | undefined>>;
 }

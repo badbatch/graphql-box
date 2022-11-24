@@ -1,6 +1,7 @@
-import { Maybe, PlainObjectMap } from "@graphql-box/core";
-import { DocumentNode, ExecutionResult, GraphQLFieldResolver, GraphQLSchema } from "graphql";
+import { PlainObjectMap } from "@graphql-box/core";
+import { ExecutionResult, GraphQLFieldResolver, GraphQLSchema } from "graphql";
 import { ExecutionArgs } from "graphql/execution/execute";
+import { PromiseOrValue } from "graphql/jsutils/PromiseOrValue";
 
 export interface UserOptions {
   /**
@@ -39,17 +40,6 @@ export interface UserOptions {
   subscribeFieldResolver?: GraphQLFieldResolver<any, any>;
 }
 
-export type GraphQLSubscribe = <TData = PlainObjectMap<unknown>>(args: {
-  contextValue?: any;
-  document: DocumentNode;
-  fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
-  operationName?: Maybe<string>;
-  rootValue?: any;
-  schema: GraphQLSchema;
-  subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
-  variableValues?: Maybe<{ [key: string]: any }>;
-}) => Promise<AsyncIterator<ExecutionResult<TData>> | ExecutionResult<TData>>;
-
-export interface SubscribeArgs extends ExecutionArgs {
-  subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
-}
+export type GraphQLSubscribe = (
+  args: ExecutionArgs,
+) => PromiseOrValue<AsyncGenerator<ExecutionResult, void, void> | ExecutionResult>;

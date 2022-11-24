@@ -1,11 +1,11 @@
 import {
   CacheMetadata,
   EXECUTE_RESOLVED,
+  IncrementalRequestManagerResult,
   PlainObjectMap,
   RequestContext,
   RequestData,
   RequestManagerExecuteResolver,
-  IncrementalRequestManagerResult,
   RequestManagerResult,
   ServerRequestOptions,
 } from "@graphql-box/core";
