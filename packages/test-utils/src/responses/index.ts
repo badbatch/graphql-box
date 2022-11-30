@@ -1741,10 +1741,7 @@ export const nestedInterfaceMutation: MockRequestManagerResult = {
 };
 
 export const nestedInterfaceSubscription: MockSubscriptionsManagerResult = {
-  _cacheMetadata: {
-    subscription: "public, max-age=5",
-    "subscription.stargazers": "public, max-age=5",
-  },
+  _cacheMetadata: {},
   data: {
     __typename: "Repository",
     id: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",

@@ -89,10 +89,7 @@ describe("@graphql-box/websocket-manager >>", () => {
 
       serverSocket.send(
         JSON.stringify({
-          result: {
-            _cacheMetadata: {},
-            ...responses.nestedInterfaceSubscription,
-          },
+          result: responses.nestedInterfaceSubscription,
           subscriptionID: requestData.hash,
         }),
       );
@@ -102,8 +99,8 @@ describe("@graphql-box/websocket-manager >>", () => {
 
     it("correct data", () => {
       expect(response).toEqual({
-        _cacheMetadata: new Map(),
         ...responses.nestedInterfaceSubscription,
+        _cacheMetadata: new Map(),
       });
     });
   });
