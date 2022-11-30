@@ -1,6 +1,6 @@
 /* tslint:disable:max-line-length */
 
-import { ParsedQuerySet } from "../defs";
+import { ParsedRequestSet } from "../defs";
 
 export const singleTypeQuery = `
   {
@@ -94,7 +94,7 @@ export const singleTypeQueryWithFragmentSpread = `
   }
 `;
 
-export const singleTypeQuerySet: ParsedQuerySet = {
+export const singleTypeQuerySet: ParsedRequestSet = {
   full: singleTypeQuery,
   initial: `
     {
@@ -255,7 +255,7 @@ export const nestedTypeQueryWithFragments = `
   }
 `;
 
-export const nestedTypeQuerySet: ParsedQuerySet = {
+export const nestedTypeQuerySet: ParsedRequestSet = {
   full: nestedTypeQuery,
   initial: `
     {
@@ -345,7 +345,7 @@ export const nestedUnionQuery = `
   }
 `;
 
-export const nestedUnionQuerySet: ParsedQuerySet = {
+export const nestedUnionQuerySet: ParsedRequestSet = {
   full: nestedUnionQuery,
   initial: `
     {
@@ -442,7 +442,7 @@ export const deferQuery = `
   }
 `;
 
-export const deferQuerySet: ParsedQuerySet = {
+export const deferQuerySet: ParsedRequestSet = {
   full: deferQuery,
   initial: `
     {

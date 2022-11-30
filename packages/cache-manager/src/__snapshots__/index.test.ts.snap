@@ -6,7 +6,7 @@ Object {
     Array [
       "queryResponses::ef8c61e72eb4bc59f2f3613910672394",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 60,
@@ -2317,7 +2317,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> defer >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query.organization" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -2602,7 +2602,7 @@ Object {
     Array [
       "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -3476,7 +3476,7 @@ Object {
       "key": "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 7560,
+      "size": 7568,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -3486,7 +3486,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> nested type with edges >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query.organization" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -3651,7 +3651,7 @@ Object {
     Array [
       "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -4477,7 +4477,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> nested union with edges >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query.search" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -4614,7 +4614,7 @@ Object {
     Array [
       "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -4722,7 +4722,7 @@ Object {
       "key": "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 1176,
+      "size": 1184,
       "tags": Array [],
       "updatedCount": 1,
     },
@@ -4732,7 +4732,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> single type >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query.organization" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -4925,7 +4925,7 @@ Object {
     Array [
       "queryResponses::739e033e3a510f8bb159d8a769e9ebb0",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 60,
@@ -7346,7 +7346,7 @@ Object {
 exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> defer >> correct partial data 1`] = `
 Map {
   "736da61e389d3e664e8cb26527eab248" => Object {
-    "cacheMetadata": Map {
+    "_cacheMetadata": Map {
       "query.organization" => Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -7655,7 +7655,7 @@ Object {
     Array [
       "queryResponses::a96956d85861f66cd0ac5d4fff3cadb5",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 60,
@@ -32924,7 +32924,7 @@ Object {
 exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fragment spreads >> within fragment spreads >> correct partial data 1`] = `
 Map {
   "5411232a38b7b7aee8ea65fa1eb01b64" => Object {
-    "cacheMetadata": Map {
+    "_cacheMetadata": Map {
       "query.movie" => Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -33130,7 +33130,7 @@ Object {
     Array [
       "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -33957,7 +33957,7 @@ Object {
 exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> nested type with edges > correct partial data 1`] = `
 Map {
   "2a0b8ac261139c6615fcf79f54ef01bd" => Object {
-    "cacheMetadata": Map {
+    "_cacheMetadata": Map {
       "query.organization" => Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -34131,7 +34131,7 @@ Object {
     Array [
       "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -34898,7 +34898,7 @@ Object {
 exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> nested union with edges >> correct partial data 1`] = `
 Map {
   "6b4da6c8224569c09b25b81c57f6ec26" => Object {
-    "cacheMetadata": Map {
+    "_cacheMetadata": Map {
       "query.search" => Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -35036,7 +35036,7 @@ Object {
     Array [
       "queryResponses::f666cc27cdcfcecacb340b64fcf27506",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -35146,7 +35146,7 @@ Object {
 exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> single type >> correct partial data 1`] = `
 Map {
   "ea1cbc58eca798225b53f59d95ffb23a" => Object {
-    "cacheMetadata": Map {
+    "_cacheMetadata": Map {
       "query.organization" => Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -35199,7 +35199,7 @@ Object {
     Array [
       "queryResponses::fe7ca217a961a692d575fe9973836699",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -35330,7 +35330,7 @@ Object {
     Array [
       "queryResponses::739e033e3a510f8bb159d8a769e9ebb0",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 60,
@@ -36228,7 +36228,7 @@ Object {
     Array [
       "queryResponses::ef8c61e72eb4bc59f2f3613910672394",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 60,
@@ -36493,7 +36493,7 @@ Object {
     Array [
       "queryResponses::736da61e389d3e664e8cb26527eab248",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 60,
@@ -39065,7 +39065,7 @@ Object {
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> defer >> cascading cache control >> correct response data 1`] = `
 Array [
   Object {
-    "cacheMetadata": Map {
+    "_cacheMetadata": Map {
       "query" => Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -39258,10 +39258,9 @@ Array [
       },
     },
     "hasNext": true,
-    "paths": undefined,
   },
   Object {
-    "cacheMetadata": Map {
+    "_cacheMetadata": Map {
       "query" => Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -39313,310 +39312,23 @@ Array [
         },
       },
     },
-    "data": Object {
-      "organization": Object {
-        "email": null,
-        "isVerified": true,
-        "location": "Menlo Park, California",
-      },
-    },
     "hasNext": true,
-    "paths": Array [
-      "organisation",
+    "incremental": Array [
+      Object {
+        "data": Object {
+          "email": null,
+          "isVerified": true,
+          "location": "Menlo Park, California",
+        },
+        "label": "organizationDefer",
+        "path": Array [
+          "organization",
+        ],
+      },
     ],
   },
   Object {
-    "cacheMetadata": Map {
-      "query" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.email" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.isVerified" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.location" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.id" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-    },
-    "data": Object {
-      "organization": Object {
-        "repositories": Object {
-          "edges": Array [
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [],
-                },
-              },
-            },
-          ],
-        },
-      },
-    },
-    "hasNext": true,
-    "paths": Array [
-      "organisation.repositories.edges.0.node.licenseInfo.permissions",
-    ],
-  },
-  Object {
-    "cacheMetadata": Map {
-      "query" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.email" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.isVerified" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.location" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.id" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-    },
-    "data": Object {
-      "organization": Object {
-        "repositories": Object {
-          "edges": Array [
-            undefined,
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [
-                    Object {
-                      "label": "Commercial use",
-                    },
-                    Object {
-                      "label": "Modification",
-                    },
-                    Object {
-                      "label": "Distribution",
-                    },
-                    Object {
-                      "label": "Private use",
-                    },
-                  ],
-                },
-              },
-            },
-          ],
-        },
-      },
-    },
-    "hasNext": true,
-    "paths": Array [
-      "organisation.repositories.edges.1.node.licenseInfo.permissions",
-    ],
-  },
-  Object {
-    "cacheMetadata": Map {
+    "_cacheMetadata": Map {
       "query" => Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -39728,166 +39440,28 @@ Array [
         },
       },
     },
-    "data": Object {
-      "organization": Object {
-        "repositories": Object {
-          "edges": Array [
-            undefined,
-            undefined,
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [],
-                },
-              },
-            },
-          ],
-        },
-      },
-    },
     "hasNext": true,
-    "paths": Array [
-      "organisation.repositories.edges.2.node.licenseInfo.permissions",
+    "incremental": Array [
+      Object {
+        "data": Object {
+          "node": Object {
+            "licenseInfo": Object {
+              "permissions": Array [],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organization",
+          "repositories",
+          "edges",
+          0,
+        ],
+      },
     ],
   },
   Object {
-    "cacheMetadata": Map {
-      "query" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.email" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.isVerified" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.location" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.id" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-    },
-    "data": Object {
-      "organization": Object {
-        "repositories": Object {
-          "edges": Array [
-            undefined,
-            undefined,
-            undefined,
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [],
-                },
-              },
-            },
-          ],
-        },
-      },
-    },
-    "hasNext": true,
-    "paths": Array [
-      "organisation.repositories.edges.3.node.licenseInfo.permissions",
-    ],
-  },
-  Object {
-    "cacheMetadata": Map {
+    "_cacheMetadata": Map {
       "query" => Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -40009,48 +39583,41 @@ Array [
         },
       },
     },
-    "data": Object {
-      "organization": Object {
-        "repositories": Object {
-          "edges": Array [
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [
-                    Object {
-                      "label": "Commercial use",
-                    },
-                    Object {
-                      "label": "Modification",
-                    },
-                    Object {
-                      "label": "Distribution",
-                    },
-                    Object {
-                      "label": "Patent use",
-                    },
-                    Object {
-                      "label": "Private use",
-                    },
-                  ],
-                },
-              },
-            },
-          ],
-        },
-      },
-    },
     "hasNext": true,
-    "paths": Array [
-      "organisation.repositories.edges.4.node.licenseInfo.permissions",
+    "incremental": Array [
+      Object {
+        "data": Object {
+          "node": Object {
+            "licenseInfo": Object {
+              "permissions": Array [
+                Object {
+                  "label": "Commercial use",
+                },
+                Object {
+                  "label": "Modification",
+                },
+                Object {
+                  "label": "Distribution",
+                },
+                Object {
+                  "label": "Private use",
+                },
+              ],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organization",
+          "repositories",
+          "edges",
+          1,
+        ],
+      },
     ],
   },
   Object {
-    "cacheMetadata": Map {
+    "_cacheMetadata": Map {
       "query" => Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -40162,195 +39729,28 @@ Array [
         },
       },
     },
-    "data": Object {
-      "organization": Object {
-        "repositories": Object {
-          "edges": Array [
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [],
-                },
-              },
-            },
-          ],
-        },
-      },
-    },
     "hasNext": true,
-    "paths": Array [
-      "organisation.repositories.edges.5.node.licenseInfo.permissions",
+    "incremental": Array [
+      Object {
+        "data": Object {
+          "node": Object {
+            "licenseInfo": Object {
+              "permissions": Array [],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organization",
+          "repositories",
+          "edges",
+          2,
+        ],
+      },
     ],
   },
   Object {
-    "cacheMetadata": Map {
-      "query" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.email" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.isVerified" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.location" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-      "query.organization.repositories.edges.node.id" => Cacheability {
-        "metadata": Object {
-          "cacheControl": Object {
-            "maxAge": 60,
-            "public": true,
-          },
-          "etag": undefined,
-          "ttl": 297475260000,
-        },
-      },
-    },
-    "data": Object {
-      "organization": Object {
-        "repositories": Object {
-          "edges": Array [
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [
-                    Object {
-                      "label": "Commercial use",
-                    },
-                    Object {
-                      "label": "Modification",
-                    },
-                    Object {
-                      "label": "Distribution",
-                    },
-                    Object {
-                      "label": "Private use",
-                    },
-                  ],
-                },
-              },
-            },
-          ],
-        },
-      },
-    },
-    "hasNext": true,
-    "paths": Array [
-      "organisation.repositories.edges.6.node.licenseInfo.permissions",
-    ],
-  },
-  Object {
-    "cacheMetadata": Map {
+    "_cacheMetadata": Map {
       "query" => Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -40462,35 +39862,28 @@ Array [
         },
       },
     },
-    "data": Object {
-      "organization": Object {
-        "repositories": Object {
-          "edges": Array [
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [],
-                },
-              },
-            },
-          ],
-        },
-      },
-    },
     "hasNext": true,
-    "paths": Array [
-      "organisation.repositories.edges.7.node.licenseInfo.permissions",
+    "incremental": Array [
+      Object {
+        "data": Object {
+          "node": Object {
+            "licenseInfo": Object {
+              "permissions": Array [],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organization",
+          "repositories",
+          "edges",
+          3,
+        ],
+      },
     ],
   },
   Object {
-    "cacheMetadata": Map {
+    "_cacheMetadata": Map {
       "query" => Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -40612,52 +40005,177 @@ Array [
         },
       },
     },
-    "data": Object {
-      "organization": Object {
-        "repositories": Object {
-          "edges": Array [
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [
-                    Object {
-                      "label": "Commercial use",
-                    },
-                    Object {
-                      "label": "Modification",
-                    },
-                    Object {
-                      "label": "Distribution",
-                    },
-                    Object {
-                      "label": "Patent use",
-                    },
-                    Object {
-                      "label": "Private use",
-                    },
-                  ],
+    "hasNext": true,
+    "incremental": Array [
+      Object {
+        "data": Object {
+          "node": Object {
+            "licenseInfo": Object {
+              "permissions": Array [
+                Object {
+                  "label": "Commercial use",
                 },
-              },
+                Object {
+                  "label": "Modification",
+                },
+                Object {
+                  "label": "Distribution",
+                },
+                Object {
+                  "label": "Patent use",
+                },
+                Object {
+                  "label": "Private use",
+                },
+              ],
             },
-          ],
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organization",
+          "repositories",
+          "edges",
+          4,
+        ],
+      },
+    ],
+  },
+  Object {
+    "_cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
         },
       },
     },
     "hasNext": true,
-    "paths": Array [
-      "organisation.repositories.edges.8.node.licenseInfo.permissions",
+    "incremental": Array [
+      Object {
+        "data": Object {
+          "node": Object {
+            "licenseInfo": Object {
+              "permissions": Array [],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organization",
+          "repositories",
+          "edges",
+          5,
+        ],
+      },
     ],
   },
   Object {
-    "cacheMetadata": Map {
+    "_cacheMetadata": Map {
       "query" => Cacheability {
         "metadata": Object {
           "cacheControl": Object {
@@ -40779,46 +40297,485 @@ Array [
         },
       },
     },
-    "data": Object {
-      "organization": Object {
-        "repositories": Object {
-          "edges": Array [
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            Object {
-              "node": Object {
-                "licenseInfo": Object {
-                  "permissions": Array [
-                    Object {
-                      "label": "Commercial use",
-                    },
-                    Object {
-                      "label": "Modification",
-                    },
-                    Object {
-                      "label": "Distribution",
-                    },
-                    Object {
-                      "label": "Private use",
-                    },
-                  ],
+    "hasNext": true,
+    "incremental": Array [
+      Object {
+        "data": Object {
+          "node": Object {
+            "licenseInfo": Object {
+              "permissions": Array [
+                Object {
+                  "label": "Commercial use",
                 },
-              },
+                Object {
+                  "label": "Modification",
+                },
+                Object {
+                  "label": "Distribution",
+                },
+                Object {
+                  "label": "Private use",
+                },
+              ],
             },
-          ],
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organization",
+          "repositories",
+          "edges",
+          6,
+        ],
+      },
+    ],
+  },
+  Object {
+    "_cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+    },
+    "hasNext": true,
+    "incremental": Array [
+      Object {
+        "data": Object {
+          "node": Object {
+            "licenseInfo": Object {
+              "permissions": Array [],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organization",
+          "repositories",
+          "edges",
+          7,
+        ],
+      },
+    ],
+  },
+  Object {
+    "_cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+    },
+    "hasNext": true,
+    "incremental": Array [
+      Object {
+        "data": Object {
+          "node": Object {
+            "licenseInfo": Object {
+              "permissions": Array [
+                Object {
+                  "label": "Commercial use",
+                },
+                Object {
+                  "label": "Modification",
+                },
+                Object {
+                  "label": "Distribution",
+                },
+                Object {
+                  "label": "Patent use",
+                },
+                Object {
+                  "label": "Private use",
+                },
+              ],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organization",
+          "repositories",
+          "edges",
+          8,
+        ],
+      },
+    ],
+  },
+  Object {
+    "_cacheMetadata": Map {
+      "query" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.email" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.isVerified" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.location" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
+        },
+      },
+      "query.organization.repositories.edges.node.id" => Cacheability {
+        "metadata": Object {
+          "cacheControl": Object {
+            "maxAge": 60,
+            "public": true,
+          },
+          "etag": undefined,
+          "ttl": 297475260000,
         },
       },
     },
     "hasNext": false,
-    "paths": Array [
-      "organisation.repositories.edges.9.node.licenseInfo.permissions",
+    "incremental": Array [
+      Object {
+        "data": Object {
+          "node": Object {
+            "licenseInfo": Object {
+              "permissions": Array [
+                Object {
+                  "label": "Commercial use",
+                },
+                Object {
+                  "label": "Modification",
+                },
+                Object {
+                  "label": "Distribution",
+                },
+                Object {
+                  "label": "Private use",
+                },
+              ],
+            },
+          },
+        },
+        "label": "permissionsDefer",
+        "path": Array [
+          "organization",
+          "repositories",
+          "edges",
+          9,
+        ],
+      },
     ],
   },
 ]
@@ -40830,7 +40787,7 @@ Object {
     Array [
       "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 5,
@@ -41228,7 +41185,7 @@ Object {
     Array [
       "queryResponses::e7d453e539306bbae7174ecd79493270",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 5,
@@ -41324,7 +41281,7 @@ Object {
     Array [
       "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 5,
@@ -41365,7 +41322,7 @@ Object {
               "maxAge": 5,
               "public": true,
             },
-            "ttl": 297471605000,
+            "ttl": 297475205000,
           },
         },
         "data": Object {
@@ -41972,7 +41929,7 @@ Object {
       "key": "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 7832,
+      "size": 7840,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -41982,7 +41939,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested type with edges >> cascading cache control >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -42030,7 +41987,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 297471605000,
+        "ttl": 297475205000,
       },
     },
     "query.organization.repositories.edges" => Cacheability {
@@ -42157,7 +42114,7 @@ Object {
     Array [
       "queryResponses::be1bbc00eeda0bcc9ee00a28d5681833",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -42548,7 +42505,7 @@ Object {
     Array [
       "queryResponses::e7d453e539306bbae7174ecd79493270",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -42637,7 +42594,7 @@ Object {
     Array [
       "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -42671,7 +42628,7 @@ Object {
               "maxAge": 5,
               "public": true,
             },
-            "ttl": 297471605000,
+            "ttl": 297475205000,
           },
         },
         "data": Object {
@@ -43288,7 +43245,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested type with edges >> type cache directives >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -43336,7 +43293,7 @@ Object {
           "public": true,
         },
         "etag": undefined,
-        "ttl": 297471605000,
+        "ttl": 297475205000,
       },
     },
   },
@@ -43453,7 +43410,7 @@ Object {
     Array [
       "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 5,
@@ -43821,7 +43778,7 @@ Object {
     Array [
       "queryResponses::187cd490f45b73275b5b309f76900cde",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 5,
@@ -43942,7 +43899,7 @@ Object {
     Array [
       "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 5,
@@ -44558,7 +44515,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested union with edges >> cascading cache control >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -44705,7 +44662,7 @@ Object {
     Array [
       "queryResponses::5974c4c676ef2f7fcabc8da288c397c1",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -45066,7 +45023,7 @@ Object {
     Array [
       "queryResponses::187cd490f45b73275b5b309f76900cde",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -45180,7 +45137,7 @@ Object {
     Array [
       "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -45789,7 +45746,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> nested union with edges >> type cache directives >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -45926,7 +45883,7 @@ Object {
     Array [
       "queryResponses::f666cc27cdcfcecacb340b64fcf27506",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 5,
@@ -45976,7 +45933,7 @@ Object {
     Array [
       "queryResponses::70a245971c9c179bc5c30c3925e4881c",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 5,
@@ -46005,7 +45962,7 @@ Object {
     Array [
       "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 5,
@@ -46131,7 +46088,7 @@ Object {
       "key": "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 1176,
+      "size": 1184,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -46141,7 +46098,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> single type >> cascading cache control >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -46182,7 +46139,7 @@ Object {
     Array [
       "queryResponses::f666cc27cdcfcecacb340b64fcf27506",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -46232,7 +46189,7 @@ Object {
     Array [
       "queryResponses::70a245971c9c179bc5c30c3925e4881c",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -46261,7 +46218,7 @@ Object {
     Array [
       "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -46387,7 +46344,7 @@ Object {
       "key": "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 1176,
+      "size": 1184,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -46397,7 +46354,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> filtered >> single type >> type cache directives >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -46438,7 +46395,7 @@ Object {
     Array [
       "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 5,
@@ -47319,7 +47276,7 @@ Object {
       "key": "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 7832,
+      "size": 7840,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -47329,7 +47286,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested type with edges >> cascading cache control >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -47504,7 +47461,7 @@ Object {
     Array [
       "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -48378,7 +48335,7 @@ Object {
       "key": "queryResponses::2a0b8ac261139c6615fcf79f54ef01bd",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 7560,
+      "size": 7568,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -48388,7 +48345,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested type with edges >> type cache directives >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -48553,7 +48510,7 @@ Object {
     Array [
       "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 5,
@@ -49386,7 +49343,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested union with edges >> cascading cache control >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -49533,7 +49490,7 @@ Object {
     Array [
       "queryResponses::6b4da6c8224569c09b25b81c57f6ec26",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -50359,7 +50316,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> nested union with edges >> type cache directives >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -50496,7 +50453,7 @@ Object {
     Array [
       "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 5,
@@ -50604,7 +50561,7 @@ Object {
       "key": "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 1176,
+      "size": 1184,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -50614,7 +50571,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> single type >> cascading cache control >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -50655,7 +50612,7 @@ Object {
     Array [
       "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 1,
@@ -50763,7 +50720,7 @@ Object {
       "key": "queryResponses::ea1cbc58eca798225b53f59d95ffb23a",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 1176,
+      "size": 1184,
       "tags": Array [],
       "updatedCount": 0,
     },
@@ -50773,7 +50730,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveQuery >> not filtered >> single type >> type cache directives >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "query" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -51015,7 +50972,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveRequest >> mutation >> nested interface >> cascading cache control >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "mutation" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -51133,8 +51090,6 @@ Object {
       },
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
@@ -51345,7 +51300,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveRequest >> mutation >> nested interface >> type cache directives >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "mutation" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -51463,8 +51418,6 @@ Object {
       },
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
@@ -51641,7 +51594,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveRequest >> subscription >> nested type >> cascading cache control >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "subscription" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -51710,8 +51663,6 @@ Object {
       "unread": 1,
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;
 
@@ -51888,7 +51839,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> resolveRequest >> subscription >> nested type >> type cache directives >> correct response data 1`] = `
 Object {
-  "cacheMetadata": Map {
+  "_cacheMetadata": Map {
     "subscription" => Cacheability {
       "metadata": Object {
         "cacheControl": Object {
@@ -51957,7 +51908,5 @@ Object {
       "unread": 1,
     },
   },
-  "hasNext": undefined,
-  "paths": undefined,
 }
 `;

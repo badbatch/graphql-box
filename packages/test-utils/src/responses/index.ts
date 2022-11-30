@@ -1,10 +1,15 @@
-import { InitialIncrementalFetchResult, RawResponseDataWithMaybeCacheMetadata } from "@graphql-box/core";
-import { IncrementalFetchResultSet, QueryResponseSet } from "../defs";
+import {
+  MockIncrementalRequestManagerResultSet,
+  MockRequestManagerResult,
+  MockRequestManagerResultSet,
+  MockSubscriptionsManagerResult,
+} from "../defs";
 import searchResultsQuery from "./theMovieDb/searchResultsQuery.json";
 
 /* tslint:disable max-line-length */
 
-export const singleTypeQuery: RawResponseDataWithMaybeCacheMetadata = {
+export const singleTypeQuery: MockRequestManagerResult = {
+  _cacheMetadata: {},
   data: {
     organization: {
       description:
@@ -19,7 +24,8 @@ export const singleTypeQuery: RawResponseDataWithMaybeCacheMetadata = {
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };
 
-export const singleTypeQuerySmallA: RawResponseDataWithMaybeCacheMetadata = {
+export const singleTypeQuerySmallA: MockRequestManagerResult = {
+  _cacheMetadata: {},
   data: {
     organization: {
       description:
@@ -31,8 +37,9 @@ export const singleTypeQuerySmallA: RawResponseDataWithMaybeCacheMetadata = {
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };
 
-export const singleTypeQuerySet: QueryResponseSet = {
+export const singleTypeQuerySet: MockRequestManagerResultSet = {
   initial: {
+    _cacheMetadata: {},
     data: {
       organization: {
         description:
@@ -44,23 +51,9 @@ export const singleTypeQuerySet: QueryResponseSet = {
     headers: new Headers({ "Cache-Control": "public, max-age=5" }),
   },
   partial: {
-    cacheMetadata: {
-      query: {
-        cacheControl: {
-          maxAge: 10,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297471605000,
-      },
-      "query.organization": {
-        cacheControl: {
-          maxAge: 10,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297471605000,
-      },
+    _cacheMetadata: {
+      query: "public, max-age=5",
+      "query.organization": "public, max-age=5",
     },
     data: {
       organization: {
@@ -72,6 +65,7 @@ export const singleTypeQuerySet: QueryResponseSet = {
     },
   },
   updated: {
+    _cacheMetadata: {},
     data: {
       organization: {
         email: "",
@@ -84,7 +78,8 @@ export const singleTypeQuerySet: QueryResponseSet = {
   },
 };
 
-export const nestedTypeQuery: RawResponseDataWithMaybeCacheMetadata = {
+export const nestedTypeQuery: MockRequestManagerResult = {
+  _cacheMetadata: {},
   data: {
     organization: {
       description:
@@ -194,8 +189,9 @@ export const nestedTypeQuery: RawResponseDataWithMaybeCacheMetadata = {
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };
 
-export const nestedTypeQuerySet: QueryResponseSet = {
+export const nestedTypeQuerySet: MockRequestManagerResultSet = {
   initial: {
+    _cacheMetadata: {},
     data: {
       organization: {
         id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
@@ -282,47 +278,12 @@ export const nestedTypeQuerySet: QueryResponseSet = {
     headers: new Headers({ "Cache-Control": "public, max-age=5" }),
   },
   partial: {
-    cacheMetadata: {
-      query: {
-        cacheControl: {
-          maxAge: 5,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297471605000,
-      },
-      "query.organization": {
-        cacheControl: {
-          maxAge: 5,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297471605000,
-      },
-      "query.organization.repositories": {
-        cacheControl: {
-          maxAge: 5,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297471605000,
-      },
-      "query.organization.repositories.edges.node": {
-        cacheControl: {
-          maxAge: 5,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297471605000,
-      },
-      "query.organization.repositories.edges.node.owner": {
-        cacheControl: {
-          maxAge: 5,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297471605000,
-      },
+    _cacheMetadata: {
+      query: "public, max-age=5",
+      "query.organization": "public, max-age=5",
+      "query.organization.repositories": "public, max-age=5",
+      "query.organization.repositories.edges.node": "public, max-age=5",
+      "query.organization.repositories.edges.node.owner": "public, max-age=5",
     },
     data: {
       organization: {
@@ -415,6 +376,7 @@ export const nestedTypeQuerySet: QueryResponseSet = {
     },
   },
   updated: {
+    _cacheMetadata: {},
     data: {
       organization: {
         description:
@@ -475,7 +437,8 @@ export const nestedTypeQuerySet: QueryResponseSet = {
   },
 };
 
-export const nestedUnionQuery: RawResponseDataWithMaybeCacheMetadata = {
+export const nestedUnionQuery: MockRequestManagerResult = {
+  _cacheMetadata: {},
   data: {
     search: {
       edges: [
@@ -575,8 +538,9 @@ export const nestedUnionQuery: RawResponseDataWithMaybeCacheMetadata = {
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };
 
-export const nestedUnionQuerySet: QueryResponseSet = {
+export const nestedUnionQuerySet: MockRequestManagerResultSet = {
   initial: {
+    _cacheMetadata: {},
     data: {
       search: {
         edges: [
@@ -656,31 +620,10 @@ export const nestedUnionQuerySet: QueryResponseSet = {
     headers: new Headers({ "Cache-Control": "public, max-age=5" }),
   },
   partial: {
-    cacheMetadata: {
-      query: {
-        cacheControl: {
-          maxAge: 5,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297471605000,
-      },
-      "query.search": {
-        cacheControl: {
-          maxAge: 5,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297471605000,
-      },
-      "query.search.edges.node": {
-        cacheControl: {
-          maxAge: 5,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297471605000,
-      },
+    _cacheMetadata: {
+      query: "public, max-age=5",
+      "query.search": "public, max-age=5",
+      "query.search.edges.node": "public, max-age=5",
     },
     data: {
       search: {
@@ -760,6 +703,7 @@ export const nestedUnionQuerySet: QueryResponseSet = {
     },
   },
   updated: {
+    _cacheMetadata: {},
     data: {
       search: {
         edges: [
@@ -850,7 +794,19 @@ export const nestedUnionQuerySet: QueryResponseSet = {
   },
 };
 
-export const deferQuery: RawResponseDataWithMaybeCacheMetadata = {
+export const deferQuery: MockRequestManagerResult = {
+  _cacheMetadata: {
+    query: "public, max-age=60",
+    "query.organization": "public, max-age=60",
+    "query.organization.description": "public, max-age=60",
+    "query.organization.repositories": "public, max-age=60",
+    "query.organization.repositories.edges.node": "public, max-age=60",
+    "query.organization.repositories.edges.node.description": "public, max-age=60",
+    "query.organization.repositories.edges.node.homepageUrl": "public, max-age=60",
+    "query.organization.repositories.edges.node.id": "public, max-age=60",
+    "query.organization.repositories.edges.node.licenseInfo": "public, max-age=60",
+    "query.organization.repositories.edges.node.name": "public, max-age=60",
+  },
   data: {
     organization: {
       description:
@@ -1063,90 +1019,9 @@ export const deferQuery: RawResponseDataWithMaybeCacheMetadata = {
   headers: new Headers({ "Cache-Control": "public, max-age=60" }),
 };
 
-export const deferQuerySet: IncrementalFetchResultSet = {
+export const deferQuerySet: MockIncrementalRequestManagerResultSet = {
   initial: {
-    _cacheMetadata: {
-      query: {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.description": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories.edges.node": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories.edges.node.description": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories.edges.node.homepageUrl": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories.edges.node.id": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories.edges.node.licenseInfo": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories.edges.node.name": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-    },
+    _cacheMetadata: {},
     data: {
       organization: {
         description:
@@ -1284,87 +1159,17 @@ export const deferQuerySet: IncrementalFetchResultSet = {
     headers: new Headers({ "Cache-Control": "public, max-age=60" }),
   },
   partial: {
-    cacheMetadata: {
-      query: {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.description": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories.edges.node": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories.edges.node.description": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories.edges.node.homepageUrl": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories.edges.node.id": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories.edges.node.licenseInfo": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
-      "query.organization.repositories.edges.node.name": {
-        cacheControl: {
-          maxAge: 60,
-          public: true,
-        },
-        etag: undefined,
-        ttl: 297475260000,
-      },
+    _cacheMetadata: {
+      query: "public, max-age=60",
+      "query.organization": "public, max-age=60",
+      "query.organization.description": "public, max-age=60",
+      "query.organization.repositories": "public, max-age=60",
+      "query.organization.repositories.edges.node": "public, max-age=60",
+      "query.organization.repositories.edges.node.description": "public, max-age=60",
+      "query.organization.repositories.edges.node.homepageUrl": "public, max-age=60",
+      "query.organization.repositories.edges.node.id": "public, max-age=60",
+      "query.organization.repositories.edges.node.licenseInfo": "public, max-age=60",
+      "query.organization.repositories.edges.node.name": "public, max-age=60",
     },
     data: {
       organization: {
@@ -1502,49 +1307,9 @@ export const deferQuerySet: IncrementalFetchResultSet = {
     },
   },
   updated: [
-    ({
-      _cacheMetadata: {
-        query: {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-      },
+    {
+      _cacheMetadata: {},
+      // @ts-ignore
       data: {
         organization: {
           id: "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
@@ -1636,931 +1401,286 @@ export const deferQuerySet: IncrementalFetchResultSet = {
         },
       },
       hasNext: true,
-    } as unknown) as Omit<InitialIncrementalFetchResult, "headers">,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+    },
     {
-      _cacheMetadata: {
-        query: {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-      },
+      _cacheMetadata: {},
       hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
       incremental: [
         {
           data: {
-            organization: {
-              email: null,
-              isVerified: true,
-              location: "Menlo Park, California",
-            },
+            email: null,
+            isVerified: true,
+            location: "Menlo Park, California",
           },
           label: "organizationDefer",
-          path: ["organisation"],
+          path: ["organization"],
         },
       ],
     },
     {
-      _cacheMetadata: {
-        query: {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-      },
+      _cacheMetadata: {},
       hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
       incremental: [
         {
           data: {
-            organization: {
-              repositories: {
-                edges: [
+            node: {
+              licenseInfo: {
+                permissions: [],
+              },
+            },
+          },
+          label: "permissionsDefer",
+          path: ["organization", "repositories", "edges", 0],
+        },
+      ],
+    },
+    {
+      _cacheMetadata: {},
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      incremental: [
+        {
+          data: {
+            node: {
+              licenseInfo: {
+                permissions: [
                   {
-                    node: {
-                      licenseInfo: {
-                        permissions: [],
-                      },
-                    },
+                    label: "Commercial use",
+                  },
+                  {
+                    label: "Modification",
+                  },
+                  {
+                    label: "Distribution",
+                  },
+                  {
+                    label: "Private use",
                   },
                 ],
               },
             },
           },
           label: "permissionsDefer",
-          path: ["organisation", "repositories", "edges", 0, "node", "licenseInfo", "permissions"],
+          path: ["organization", "repositories", "edges", 1],
         },
       ],
     },
     {
-      _cacheMetadata: {
-        query: {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions.label": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-      },
+      _cacheMetadata: {},
       hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
       incremental: [
         {
           data: {
-            organization: {
-              repositories: {
-                edges: [
-                  null,
+            node: {
+              licenseInfo: {
+                permissions: [],
+              },
+            },
+          },
+          label: "permissionsDefer",
+          path: ["organization", "repositories", "edges", 2],
+        },
+      ],
+    },
+    {
+      _cacheMetadata: {},
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      incremental: [
+        {
+          data: {
+            node: {
+              licenseInfo: {
+                permissions: [],
+              },
+            },
+          },
+          label: "permissionsDefer",
+          path: ["organization", "repositories", "edges", 3],
+        },
+      ],
+    },
+    {
+      _cacheMetadata: {},
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      incremental: [
+        {
+          data: {
+            node: {
+              licenseInfo: {
+                permissions: [
                   {
-                    node: {
-                      licenseInfo: {
-                        permissions: [
-                          {
-                            label: "Commercial use",
-                          },
-                          {
-                            label: "Modification",
-                          },
-                          {
-                            label: "Distribution",
-                          },
-                          {
-                            label: "Private use",
-                          },
-                        ],
-                      },
-                    },
+                    label: "Commercial use",
+                  },
+                  {
+                    label: "Modification",
+                  },
+                  {
+                    label: "Distribution",
+                  },
+                  {
+                    label: "Patent use",
+                  },
+                  {
+                    label: "Private use",
                   },
                 ],
               },
             },
           },
           label: "permissionsDefer",
-          path: ["organisation", "repositories", "edges", 1, "node", "licenseInfo", "permissions"],
+          path: ["organization", "repositories", "edges", 4],
         },
       ],
     },
     {
-      _cacheMetadata: {
-        query: {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-      },
+      _cacheMetadata: {},
       hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
       incremental: [
         {
           data: {
-            organization: {
-              repositories: {
-                edges: [
-                  null,
-                  null,
+            node: {
+              licenseInfo: {
+                permissions: [],
+              },
+            },
+          },
+          label: "permissionsDefer",
+          path: ["organization", "repositories", "edges", 5],
+        },
+      ],
+    },
+    {
+      _cacheMetadata: {},
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      incremental: [
+        {
+          data: {
+            node: {
+              licenseInfo: {
+                permissions: [
                   {
-                    node: {
-                      licenseInfo: {
-                        permissions: [],
-                      },
-                    },
+                    label: "Commercial use",
+                  },
+                  {
+                    label: "Modification",
+                  },
+                  {
+                    label: "Distribution",
+                  },
+                  {
+                    label: "Private use",
                   },
                 ],
               },
             },
           },
           label: "permissionsDefer",
-          path: ["organisation", "repositories", "edges", 2, "node", "licenseInfo", "permissions"],
+          path: ["organization", "repositories", "edges", 6],
         },
       ],
     },
     {
-      _cacheMetadata: {
-        query: {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-      },
+      _cacheMetadata: {},
       hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
       incremental: [
         {
           data: {
-            organization: {
-              repositories: {
-                edges: [
-                  null,
-                  null,
-                  null,
+            node: {
+              licenseInfo: {
+                permissions: [],
+              },
+            },
+          },
+          label: "permissionsDefer",
+          path: ["organization", "repositories", "edges", 7],
+        },
+      ],
+    },
+    {
+      _cacheMetadata: {},
+      hasNext: true,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
+      incremental: [
+        {
+          data: {
+            node: {
+              licenseInfo: {
+                permissions: [
                   {
-                    node: {
-                      licenseInfo: {
-                        permissions: [],
-                      },
-                    },
+                    label: "Commercial use",
+                  },
+                  {
+                    label: "Modification",
+                  },
+                  {
+                    label: "Distribution",
+                  },
+                  {
+                    label: "Patent use",
+                  },
+                  {
+                    label: "Private use",
                   },
                 ],
               },
             },
           },
           label: "permissionsDefer",
-          path: ["organisation", "repositories", "edges", 3, "node", "licenseInfo", "permissions"],
+          path: ["organization", "repositories", "edges", 8],
         },
       ],
     },
     {
-      _cacheMetadata: {
-        query: {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions.label": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-      },
-      hasNext: true,
-      incremental: [
-        {
-          data: {
-            organization: {
-              repositories: {
-                edges: [
-                  null,
-                  null,
-                  null,
-                  null,
-                  {
-                    node: {
-                      licenseInfo: {
-                        permissions: [
-                          {
-                            label: "Commercial use",
-                          },
-                          {
-                            label: "Modification",
-                          },
-                          {
-                            label: "Distribution",
-                          },
-                          {
-                            label: "Patent use",
-                          },
-                          {
-                            label: "Private use",
-                          },
-                        ],
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-          },
-          label: "permissionsDefer",
-          path: ["organisation", "repositories", "edges", 4, "node", "licenseInfo", "permissions"],
-        },
-      ],
-    },
-    {
-      _cacheMetadata: {
-        query: {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-      },
-      hasNext: true,
-      incremental: [
-        {
-          data: {
-            organization: {
-              repositories: {
-                edges: [
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  {
-                    node: {
-                      licenseInfo: {
-                        permissions: [],
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-          },
-          label: "permissionsDefer",
-          path: ["organisation", "repositories", "edges", 5, "node", "licenseInfo", "permissions"],
-        },
-      ],
-    },
-    {
-      _cacheMetadata: {
-        query: {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions.label": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-      },
-      hasNext: true,
-      incremental: [
-        {
-          data: {
-            organization: {
-              repositories: {
-                edges: [
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  {
-                    node: {
-                      licenseInfo: {
-                        permissions: [
-                          {
-                            label: "Commercial use",
-                          },
-                          {
-                            label: "Modification",
-                          },
-                          {
-                            label: "Distribution",
-                          },
-                          {
-                            label: "Private use",
-                          },
-                        ],
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-          },
-          label: "permissionsDefer",
-          path: ["organisation", "repositories", "edges", 6, "node", "licenseInfo", "permissions"],
-        },
-      ],
-    },
-    {
-      _cacheMetadata: {
-        query: {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-      },
-      hasNext: true,
-      incremental: [
-        {
-          data: {
-            organization: {
-              repositories: {
-                edges: [
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  {
-                    node: {
-                      licenseInfo: {
-                        permissions: [],
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-          },
-          label: "permissionsDefer",
-          path: ["organisation", "repositories", "edges", 7, "node", "licenseInfo", "permissions"],
-        },
-      ],
-    },
-    {
-      _cacheMetadata: {
-        query: {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions.label": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-      },
-      hasNext: true,
-      incremental: [
-        {
-          data: {
-            organization: {
-              repositories: {
-                edges: [
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  {
-                    node: {
-                      licenseInfo: {
-                        permissions: [
-                          {
-                            label: "Commercial use",
-                          },
-                          {
-                            label: "Modification",
-                          },
-                          {
-                            label: "Distribution",
-                          },
-                          {
-                            label: "Patent use",
-                          },
-                          {
-                            label: "Private use",
-                          },
-                        ],
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-          },
-          label: "permissionsDefer",
-          path: ["organisation", "repositories", "edges", 8, "node", "licenseInfo", "permissions"],
-        },
-      ],
-    },
-    {
-      _cacheMetadata: {
-        query: {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-        "query.organization.repositories.edges.node.licenseInfo.permissions.label": {
-          cacheControl: {
-            maxAge: 60,
-            public: true,
-          },
-          ttl: 297475260000,
-        },
-      },
+      _cacheMetadata: {},
       hasNext: false,
+      headers: new Headers({ "Cache-Control": "public, max-age=60" }),
       incremental: [
         {
           data: {
-            organization: {
-              repositories: {
-                edges: [
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
+            node: {
+              licenseInfo: {
+                permissions: [
                   {
-                    node: {
-                      licenseInfo: {
-                        permissions: [
-                          {
-                            label: "Commercial use",
-                          },
-                          {
-                            label: "Modification",
-                          },
-                          {
-                            label: "Distribution",
-                          },
-                          {
-                            label: "Private use",
-                          },
-                        ],
-                      },
-                    },
+                    label: "Commercial use",
+                  },
+                  {
+                    label: "Modification",
+                  },
+                  {
+                    label: "Distribution",
+                  },
+                  {
+                    label: "Private use",
                   },
                 ],
               },
             },
           },
           label: "permissionsDefer",
-          path: ["organisation", "repositories", "edges", 9, "node", "licenseInfo", "permissions"],
+          path: ["organization", "repositories", "edges", 9],
         },
       ],
     },
   ],
 };
 
-export const getSearchResultsQuery: RawResponseDataWithMaybeCacheMetadata = {
+export const getSearchResultsQuery: MockRequestManagerResult = {
+  _cacheMetadata: {},
   data: searchResultsQuery,
   headers: new Headers({ "Cache-Control": "public, max-age=60" }),
 };
 
-export const nestedInterfaceMutation: RawResponseDataWithMaybeCacheMetadata = {
+export const nestedInterfaceMutation: MockRequestManagerResult = {
+  _cacheMetadata: {},
   data: {
     addStar: {
       clientMutationId: "1",
@@ -2620,7 +1740,11 @@ export const nestedInterfaceMutation: RawResponseDataWithMaybeCacheMetadata = {
   headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };
 
-export const nestedInterfaceSubscription: RawResponseDataWithMaybeCacheMetadata = {
+export const nestedInterfaceSubscription: MockSubscriptionsManagerResult = {
+  _cacheMetadata: {
+    subscription: "public, max-age=5",
+    "subscription.stargazers": "public, max-age=5",
+  },
   data: {
     __typename: "Repository",
     id: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
@@ -2674,7 +1798,10 @@ export const nestedInterfaceSubscription: RawResponseDataWithMaybeCacheMetadata 
   },
 };
 
-export const nestedTypeSubscription: RawResponseDataWithMaybeCacheMetadata = {
+export const nestedTypeSubscription: MockSubscriptionsManagerResult = {
+  _cacheMetadata: {
+    subscription: "public, max-age=5",
+  },
   data: {
     emailAdded: {
       emails: [
@@ -2712,5 +1839,4 @@ export const nestedTypeSubscription: RawResponseDataWithMaybeCacheMetadata = {
       unread: 1,
     },
   },
-  headers: new Headers({ "Cache-Control": "public, max-age=5" }),
 };

@@ -10,4 +10,5 @@ export { default as githubIntrospection } from "./introspection/github.json";
 export { default as theMovieDbIntrospection } from "./introspection/theMovieDb.json";
 export { default as schemaResolvers } from "./schema/resolvers";
 export { default as schemaTypeDefs } from "./schema/type-defs";
+export { default as transformResultCacheMetadata } from "./transformResultCacheMetadata";
 export * from "./defs";

@@ -2,17 +2,20 @@ import Cachemap from "@cachemap/core";
 import { Metadata } from "@cachemap/types";
 import {
   CacheMetadata,
+  CacheResult,
   CacheTypes,
-  DehydratedCacheMetadata,
   FieldTypeInfo,
   FragmentDefinitionNodeMap,
+  IncrementalRequestManagerResult,
+  IncrementalRequestResult,
   PlainObjectMap,
   PlainObjectStringMap,
-  RawResponseDataWithMaybeCacheMetadata,
   RequestContext,
   RequestData,
+  RequestManagerResult,
   RequestOptions,
-  ResponseData,
+  RequestResult,
+  SubscriptionsManagerResult,
 } from "@graphql-box/core";
 import Cacheability from "cacheability";
 
@@ -55,12 +58,7 @@ export interface CacheManagerContext extends RequestContext {
   typeIDKey?: string;
 }
 
-export interface PartialQueryResponse {
-  cacheMetadata: CacheMetadata;
-  data: PlainObjectMap;
-}
-
-export type PartialQueryResponses = Map<string, PartialQueryResponse>;
+export type PartialQueryResponses = Map<string, CacheResult>;
 
 export interface FieldCount {
   missing: number;
@@ -139,7 +137,7 @@ export interface ExportCacheResult {
 }
 
 export interface AnalyzeQueryResult {
-  response?: ResponseData;
+  response?: CacheResult;
   updated?: RequestData;
 }
 
@@ -148,27 +146,22 @@ export interface CheckCacheEntryResult {
   entry: any;
 }
 
-export interface QueryResponseCacheEntry {
-  cacheMetadata: DehydratedCacheMetadata;
-  data: PlainObjectMap;
-}
-
 export interface CacheManagerDef {
   cache: Cachemap;
   analyzeQuery(requestData: RequestData, options: RequestOptions, context: RequestContext): Promise<AnalyzeQueryResult>;
   cacheQuery(
     requestData: RequestData,
     updatedRequestData: RequestData | undefined,
-    responseData: RawResponseDataWithMaybeCacheMetadata,
+    result: RequestManagerResult | IncrementalRequestManagerResult,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<ResponseData>;
+  ): Promise<RequestResult | IncrementalRequestResult>;
   cacheResponse(
     requestData: RequestData,
-    responseData: RawResponseDataWithMaybeCacheMetadata,
+    result: RequestManagerResult | IncrementalRequestManagerResult | SubscriptionsManagerResult,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<ResponseData>;
+  ): Promise<RequestResult | IncrementalRequestResult>;
   checkCacheEntry(
     cacheType: CacheTypes,
     hash: string,
@@ -179,11 +172,11 @@ export interface CacheManagerDef {
     hash: string,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<ResponseData | false>;
+  ): Promise<CacheResult | false>;
   deletePartialQueryResponse(hash: string): void;
   setQueryResponseCacheEntry(
     requestData: RequestData,
-    responseData: ResponseData,
+    responseData: CacheResult,
     options: RequestOptions,
     context: CacheManagerContext,
   ): Promise<void>;

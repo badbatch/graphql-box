@@ -1,21 +1,26 @@
 import Cachemap from "@cachemap/core";
 import {
   CacheMetadata,
+  CacheResult,
   CacheTypes,
   CachemapOptions,
   DATA_ENTITIES,
   DEFAULT_TYPE_ID_KEY,
   FieldTypeInfo,
+  IncrementalRequestManagerResult,
+  IncrementalRequestResult,
   PlainObjectMap,
   PlainObjectStringMap,
   QUERY,
   QUERY_RESPONSES,
   REQUEST_FIELD_PATHS,
-  RawResponseDataWithMaybeCacheMetadata,
   RequestContext,
   RequestData,
+  RequestManagerResult,
   RequestOptions,
-  ResponseData,
+  RequestResult,
+  SerializedCacheResult,
+  SubscriptionsManagerResult,
   TYPE_NAME_KEY,
 } from "@graphql-box/core";
 import {
@@ -50,22 +55,22 @@ import {
   FieldPathChecklist,
   FieldPathChecklistValue,
   MergedCachedFieldData,
-  PartialQueryResponse,
   PartialQueryResponses,
-  QueryResponseCacheEntry,
   ResponseDataForCaching,
   TypeNamesAndKind,
   UserOptions,
 } from "../defs";
 import areOnlyPopulatedFieldsTypeIdKeys from "../helpers/areOnlyPopulatedFieldsTypeIdKeys";
 import deriveOpCacheability from "../helpers/deriveOpCacheability";
+import filterOutHeaders from "../helpers/filterOutHeaders";
 import filterOutPropsWithArgsOrDirectives from "../helpers/filterOutPropsWithArgsOrDirectives";
 import filterQuery from "../helpers/filterQuery";
+import getResultData from "../helpers/getResultData";
+import isIncrementalResult from "../helpers/isIncrementalResult";
 import isLastResponseChunk from "../helpers/isLastResponseChunk";
 import isNotLastResponseChunk from "../helpers/isNotLastResponseChunk";
-import isNotResponseChunk from "../helpers/isNotResponseChunk";
-import mergeResponseDataSets from "../helpers/mergeResponseDataSets";
-import normalizePatchResponseData from "../helpers/normalizePatchResponseData";
+import mergeResults from "../helpers/mergeResults";
+import normalizeIncrementalResult from "../helpers/normalizeIncrementalResult";
 import { getValidTypeIDValue } from "../helpers/validTypeIDValue";
 
 export default class CacheManager implements CacheManagerDef {
@@ -119,13 +124,13 @@ export default class CacheManager implements CacheManagerDef {
 
   private static _mergeResponseCacheMetadata(
     cacheMetadata: CacheMetadata,
-    partialQueryResponse?: PartialQueryResponse,
+    partialQueryResponse?: CacheResult,
   ): CacheMetadata {
     if (!partialQueryResponse) {
       return cacheMetadata;
     }
 
-    return new Map([...partialQueryResponse.cacheMetadata, ...cacheMetadata]);
+    return new Map([...partialQueryResponse._cacheMetadata, ...cacheMetadata]);
   }
 
   private static _setCachedData(
@@ -208,7 +213,7 @@ export default class CacheManager implements CacheManagerDef {
   private _cascadeCacheControl: boolean;
   private _fallbackOperationCacheability: string;
   private _partialQueryResponses: PartialQueryResponses = new Map();
-  private _responseChunksAwaitingCaching: Map<string, RawResponseDataWithMaybeCacheMetadata[]> = new Map();
+  private _responseChunksAwaitingCaching: Map<string, RequestManagerResult[]> = new Map();
   private _typeCacheDirectives: PlainObjectStringMap;
   private _typeIDKey: string;
 
@@ -267,52 +272,57 @@ export default class CacheManager implements CacheManagerDef {
     }
 
     if (!fieldCount.missing) {
-      const dataCaching = this._setQueryResponseCacheEntry(hash, { cacheMetadata, data }, options, cacheManagerContext);
+      const dataCaching = this._setQueryResponseCacheEntry(
+        hash,
+        { _cacheMetadata: cacheMetadata, data },
+        options,
+        cacheManagerContext,
+      );
 
       if (options.awaitDataCaching) {
         await dataCaching;
       }
 
-      return { response: { cacheMetadata, data } };
+      return { response: { _cacheMetadata: cacheMetadata, data } };
     }
 
     const filteredAST = filterQuery(requestData, cachedResponseData, cacheManagerContext);
     const filteredRequest = print(filteredAST);
     const { fragmentDefinitions, typeIDKey, ...rest } = cacheManagerContext;
     assign(context, { ...rest, filteredRequest });
-    this._setPartialQueryResponse(hash, { cacheMetadata, data }, options, context);
+    this._setPartialQueryResponse(hash, { _cacheMetadata: cacheMetadata, data }, options, context);
     return { updated: { ast: filteredAST, hash: hashRequest(filteredRequest), request: filteredRequest } };
   }
 
   public async cacheQuery(
     requestData: RequestData,
     updatedRequestData: RequestData | undefined,
-    rawResponseData: RawResponseDataWithMaybeCacheMetadata,
+    result: RequestManagerResult | IncrementalRequestManagerResult,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<ResponseData> {
+  ): Promise<RequestResult | IncrementalRequestResult> {
     const cacheManagerContext: CacheManagerContext = {
       ...context,
       fragmentDefinitions: getFragmentDefinitions((updatedRequestData ?? requestData).ast),
       typeIDKey: this._typeIDKey,
     };
 
-    return this._cacheResponse(requestData, updatedRequestData, rawResponseData, options, cacheManagerContext);
+    return this._cacheResponse(requestData, updatedRequestData, result, options, cacheManagerContext);
   }
 
   public async cacheResponse(
     requestData: RequestData,
-    rawResponseData: RawResponseDataWithMaybeCacheMetadata,
+    result: RequestManagerResult | IncrementalRequestManagerResult | SubscriptionsManagerResult,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<ResponseData> {
+  ): Promise<RequestResult | IncrementalRequestResult> {
     const cacheManagerContext: CacheManagerContext = {
       ...context,
       fragmentDefinitions: getFragmentDefinitions(requestData.ast),
       typeIDKey: this._typeIDKey,
     };
 
-    return this._cacheResponse(requestData, undefined, rawResponseData, options, cacheManagerContext);
+    return this._cacheResponse(requestData, undefined, result, options, cacheManagerContext);
   }
 
   public async checkCacheEntry(
@@ -328,17 +338,17 @@ export default class CacheManager implements CacheManagerDef {
     hash: string,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<ResponseData | false> {
+  ): Promise<CacheResult | false> {
     const result = await this._checkCacheEntry(QUERY_RESPONSES, hash, options, context);
 
     if (!result) {
       return false;
     }
 
-    const { cacheMetadata, data } = result.entry as QueryResponseCacheEntry;
+    const { _cacheMetadata, data } = result.entry as SerializedCacheResult;
 
     return {
-      cacheMetadata: rehydrateCacheMetadata(cacheMetadata),
+      _cacheMetadata: rehydrateCacheMetadata(_cacheMetadata),
       data,
     };
   }
@@ -349,7 +359,7 @@ export default class CacheManager implements CacheManagerDef {
 
   public async setQueryResponseCacheEntry(
     requestData: RequestData,
-    responseData: ResponseData,
+    responseData: CacheResult,
     options: RequestOptions,
     context: CacheManagerContext,
   ): Promise<void> {
@@ -496,15 +506,16 @@ export default class CacheManager implements CacheManagerDef {
 
   private _buildCacheMetadata(
     { ast }: RequestData,
-    { data, ...otherProps }: RawResponseDataWithMaybeCacheMetadata,
+    result: RequestManagerResult | IncrementalRequestManagerResult | SubscriptionsManagerResult,
     options: RequestOptions,
     context: CacheManagerContext,
   ): CacheMetadata {
-    const cacheMetadata = this._createCacheMetadata({ data, ...otherProps }, context);
+    const cacheMetadata = this._deriveCacheMetadata(result, context);
     const queryNode = getOperationDefinitions(ast, context.operation)[0];
     const fieldsAndTypeNames = getChildFields(queryNode);
+    const data = getResultData(result);
 
-    if (!fieldsAndTypeNames) {
+    if (!fieldsAndTypeNames || !data) {
       return cacheMetadata;
     }
 
@@ -512,7 +523,7 @@ export default class CacheManager implements CacheManagerDef {
       this._setFieldCacheability(
         fieldNode,
         { requestFieldPath: context.operation },
-        { cacheMetadata, data },
+        { _cacheMetadata: cacheMetadata, data },
         options,
         context,
       ),
@@ -524,29 +535,31 @@ export default class CacheManager implements CacheManagerDef {
   private async _cacheResponse(
     requestData: RequestData,
     updatedRequestData: RequestData | undefined,
-    rawResponseData: RawResponseDataWithMaybeCacheMetadata,
+    result: RequestManagerResult | IncrementalRequestManagerResult | SubscriptionsManagerResult,
     options: RequestOptions,
     context: CacheManagerContext,
-  ): Promise<ResponseData> {
-    const normalizedResponseData = normalizePatchResponseData(rawResponseData, context);
-    let responseDataForCaching: RawResponseDataWithMaybeCacheMetadata | undefined = normalizedResponseData;
+  ): Promise<RequestResult | IncrementalRequestResult> {
+    let resultForCaching: RequestManagerResult | SubscriptionsManagerResult | undefined;
 
-    if (isNotLastResponseChunk(rawResponseData, context)) {
-      this._setResponseChunksAwaitingCaching(normalizedResponseData, context);
-      responseDataForCaching = undefined;
+    if (isIncrementalResult(result)) {
+      if (isNotLastResponseChunk(result)) {
+        this._setResponseChunksAwaitingCaching(normalizeIncrementalResult(result), context);
+      }
+
+      if (isLastResponseChunk(result)) {
+        resultForCaching = this._retrieveResponseDataForCaching(normalizeIncrementalResult(result), context);
+      }
+    } else {
+      resultForCaching = result;
     }
 
-    if (isLastResponseChunk(rawResponseData, context)) {
-      responseDataForCaching = this._retrieveResponseDataForCaching(normalizedResponseData, context);
-    }
+    const awaitDataCaching: Promise<void>[] = [];
 
-    const dataCaching: Promise<void>[] = [];
+    if (resultForCaching?.data) {
+      let { data } = resultForCaching;
+      let cacheMetadata = this._buildCacheMetadata(requestData, resultForCaching, options, context);
 
-    if (responseDataForCaching) {
-      const { data } = responseDataForCaching;
-      const cacheMetadata = this._buildCacheMetadata(requestData, responseDataForCaching, options, context);
-
-      dataCaching.push(
+      awaitDataCaching.push(
         this._setEntityAndRequestFieldPathCacheEntries(
           requestData,
           {
@@ -559,52 +572,46 @@ export default class CacheManager implements CacheManagerDef {
         ),
       );
 
-      let queryCacheMetadata: CacheMetadata | undefined;
-      let queryData: PlainObjectMap | undefined;
-
       if (context.operation === QUERY) {
-        let partialQueryResponse: PartialQueryResponse | undefined;
+        let partialQueryResponse: CacheResult | undefined;
 
         if (context.queryFiltered && updatedRequestData) {
-          dataCaching.push(
-            this._setQueryResponseCacheEntry(updatedRequestData.hash, { cacheMetadata, data }, options, context),
+          awaitDataCaching.push(
+            this._setQueryResponseCacheEntry(
+              updatedRequestData.hash,
+              { _cacheMetadata: cacheMetadata, data },
+              options,
+              context,
+            ),
           );
 
           partialQueryResponse = this._getPartialQueryResponse(requestData.hash);
         }
 
-        queryCacheMetadata = CacheManager._mergeResponseCacheMetadata(cacheMetadata, partialQueryResponse);
-        queryData = this._mergeResponseData(data, partialQueryResponse);
+        cacheMetadata = CacheManager._mergeResponseCacheMetadata(cacheMetadata, partialQueryResponse);
+        data = this._mergeResponseData(data, partialQueryResponse);
 
-        dataCaching.push(
-          this._setQueryResponseCacheEntry(
-            requestData.hash,
-            { cacheMetadata: queryCacheMetadata, data: queryData },
-            options,
-            context,
-          ),
+        awaitDataCaching.push(
+          this._setQueryResponseCacheEntry(requestData.hash, { _cacheMetadata: cacheMetadata, data }, options, context),
         );
       }
 
       if (options.awaitDataCaching) {
-        await Promise.all(dataCaching);
+        await Promise.all(awaitDataCaching);
       }
 
-      if (isNotResponseChunk(normalizedResponseData, context) && queryCacheMetadata && queryData) {
+      if (!isIncrementalResult(result) && cacheMetadata && data) {
         return {
-          cacheMetadata: queryCacheMetadata,
-          data: queryData,
+          ...filterOutHeaders(resultForCaching),
+          _cacheMetadata: cacheMetadata,
+          data,
         };
       }
     }
 
-    const { data, hasNext, paths } = normalizedResponseData;
-
     return {
-      cacheMetadata: this._buildCacheMetadata(requestData, normalizedResponseData, options, context),
-      data,
-      hasNext,
-      paths,
+      ...filterOutHeaders(result),
+      _cacheMetadata: this._buildCacheMetadata(requestData, result, options, context),
     };
   }
 
@@ -633,22 +640,21 @@ export default class CacheManager implements CacheManagerDef {
     }
   }
 
-  private _createCacheMetadata(
-    { _cacheMetadata, headers }: RawResponseDataWithMaybeCacheMetadata,
+  private _deriveCacheMetadata(
+    result: RequestManagerResult | IncrementalRequestManagerResult | SubscriptionsManagerResult,
     { operation }: CacheManagerContext,
   ): CacheMetadata {
-    const cacheMetadata = new Map();
+    const cacheMetadata = result._cacheMetadata ? new Map([...result._cacheMetadata]) : new Map();
 
-    const cacheability = deriveOpCacheability({
-      _cacheMetadata,
-      fallback: this._fallbackOperationCacheability,
-      headers,
-    });
-
-    cacheMetadata.set(operation, cacheability);
-
-    if (_cacheMetadata) {
-      rehydrateCacheMetadata(_cacheMetadata, cacheMetadata);
+    if (!cacheMetadata.has(operation)) {
+      cacheMetadata.set(
+        operation,
+        deriveOpCacheability({
+          cacheMetadata,
+          fallback: this._fallbackOperationCacheability,
+          headers: "headers" in result ? result.headers : undefined,
+        }),
+      );
     }
 
     return cacheMetadata;
@@ -668,7 +674,7 @@ export default class CacheManager implements CacheManagerDef {
     }
   }
 
-  private _getPartialQueryResponse(hash: string): PartialQueryResponse | undefined {
+  private _getPartialQueryResponse(hash: string): CacheResult | undefined {
     const partialQueryResponse = this._partialQueryResponses.get(hash);
     this._partialQueryResponses.delete(hash);
     return partialQueryResponse;
@@ -704,10 +710,7 @@ export default class CacheManager implements CacheManagerDef {
     });
   }
 
-  private _mergeResponseData(
-    responseData: PlainObjectMap,
-    partialQueryResponse?: PartialQueryResponse,
-  ): PlainObjectMap {
+  private _mergeResponseData(responseData: PlainObjectMap, partialQueryResponse?: CacheResult): PlainObjectMap {
     if (!partialQueryResponse) {
       return responseData;
     }
@@ -904,15 +907,12 @@ export default class CacheManager implements CacheManagerDef {
   }
 
   private _retrieveResponseDataForCaching(
-    normalizedResponseData: RawResponseDataWithMaybeCacheMetadata,
+    normalizedIncrementalResult: RequestManagerResult,
     context: CacheManagerContext,
   ) {
-    const responseChunks = this._responseChunksAwaitingCaching.get(
-      context.requestID,
-    ) as RawResponseDataWithMaybeCacheMetadata[];
-
+    const responseChunks = this._responseChunksAwaitingCaching.get(context.requestID) ?? [];
     this._responseChunksAwaitingCaching.delete(context.requestID);
-    return mergeResponseDataSets([...responseChunks, normalizedResponseData]);
+    return mergeResults([...responseChunks, normalizedIncrementalResult]);
   }
 
   @logCacheEntry()
@@ -1030,7 +1030,7 @@ export default class CacheManager implements CacheManagerDef {
   private _setFieldCacheability(
     field: FieldNode,
     ancestorKeysAndPaths: AncestorKeysAndPaths,
-    { cacheMetadata, data }: ResponseData,
+    { _cacheMetadata, data }: CacheResult,
     options: RequestOptions,
     context: CacheManagerContext,
   ): void {
@@ -1044,7 +1044,7 @@ export default class CacheManager implements CacheManagerDef {
       return;
     }
 
-    this._setFieldTypeCacheDirective(cacheMetadata, { ancestorRequestFieldPath, requestFieldPath }, context);
+    this._setFieldTypeCacheDirective(_cacheMetadata, { ancestorRequestFieldPath, requestFieldPath }, context);
 
     if (isObjectLike(fieldData)) {
       iterateChildFields(
@@ -1061,7 +1061,7 @@ export default class CacheManager implements CacheManagerDef {
           this._setFieldCacheability(
             childField,
             { index: childIndex, requestFieldPath, responseDataPath },
-            { cacheMetadata, data },
+            { _cacheMetadata, data },
             options,
             context,
           );
@@ -1097,7 +1097,7 @@ export default class CacheManager implements CacheManagerDef {
   @logPartialCompiled()
   private async _setPartialQueryResponse(
     hash: string,
-    partialQueryResponse: PartialQueryResponse,
+    partialQueryResponse: CacheResult,
     _options: RequestOptions,
     _context: CacheManagerContext,
   ): Promise<void> {
@@ -1106,18 +1106,18 @@ export default class CacheManager implements CacheManagerDef {
 
   private async _setQueryResponseCacheEntry(
     hash: string,
-    { cacheMetadata, data }: ResponseData,
+    { _cacheMetadata, data }: CacheResult,
     options: RequestOptions,
     context: CacheManagerContext,
   ): Promise<void> {
-    const dehydratedCacheMetadata = dehydrateCacheMetadata(cacheMetadata);
-    const cacheControl = CacheManager._getOperationCacheControl(cacheMetadata, context.operation);
-
-    await this._setCacheEntry(
+    return this._setCacheEntry(
       QUERY_RESPONSES,
       hash,
-      { cacheMetadata: dehydratedCacheMetadata, data },
-      { cacheHeaders: { cacheControl }, tag: options.tag },
+      { _cacheMetadata: dehydrateCacheMetadata(_cacheMetadata), data },
+      {
+        cacheHeaders: { cacheControl: CacheManager._getOperationCacheControl(_cacheMetadata, context.operation) },
+        tag: options.tag,
+      },
       options,
       context,
     );
@@ -1169,15 +1169,15 @@ export default class CacheManager implements CacheManagerDef {
   }
 
   private _setResponseChunksAwaitingCaching(
-    normalizedResponseData: RawResponseDataWithMaybeCacheMetadata,
+    normalizedIncrementalResult: RequestManagerResult,
     context: CacheManagerContext,
   ) {
     const responseChunks = this._responseChunksAwaitingCaching.get(context.requestID);
 
     if (responseChunks) {
-      this._responseChunksAwaitingCaching.set(context.requestID, [...responseChunks, normalizedResponseData]);
+      this._responseChunksAwaitingCaching.set(context.requestID, [...responseChunks, normalizedIncrementalResult]);
     } else {
-      this._responseChunksAwaitingCaching.set(context.requestID, [normalizedResponseData]);
+      this._responseChunksAwaitingCaching.set(context.requestID, [normalizedIncrementalResult]);
     }
   }
 }

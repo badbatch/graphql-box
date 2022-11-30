@@ -1,9 +1,9 @@
 import {
-  DehydratedCacheMetadata,
-  FetchResult,
-  IncrementalFetchResult,
+  CacheResult,
+  IncrementalRequestManagerResult,
   PlainObjectMap,
-  RawResponseDataWithMaybeCacheMetadata,
+  RequestManagerResult,
+  SubscriptionsManagerResult,
 } from "@graphql-box/core";
 
 export interface RequestAndOptions {
@@ -11,29 +11,38 @@ export interface RequestAndOptions {
   request: string;
 }
 
-export interface ParsedQuerySet {
+export interface ParsedRequestSet {
   full: string;
   initial: string;
   updated: string;
 }
 
-export interface PartialQueryResponse {
-  cacheMetadata: DehydratedCacheMetadata;
-  data: PlainObjectMap;
+export type MockRequestManagerResult = Omit<RequestManagerResult, "_cacheMetadata"> & {
+  _cacheMetadata: Record<string, string>;
+};
+
+export type MockSubscriptionsManagerResult = Omit<SubscriptionsManagerResult, "_cacheMetadata"> & {
+  _cacheMetadata: Record<string, string>;
+};
+
+export type MockCacheResult = Omit<CacheResult, "_cacheMetadata"> & {
+  _cacheMetadata: Record<string, string>;
+};
+
+export type MockIncrementalRequestManagerResult = Omit<IncrementalRequestManagerResult, "_cacheMetadata"> & {
+  _cacheMetadata: Record<string, string>;
+};
+
+export interface MockRequestManagerResultSet {
+  initial: MockRequestManagerResult;
+  partial: MockCacheResult;
+  updated: MockRequestManagerResult;
 }
 
-export interface QueryResponseSet {
-  initial: RawResponseDataWithMaybeCacheMetadata;
-  partial: PartialQueryResponse;
-  updated: RawResponseDataWithMaybeCacheMetadata | RawResponseDataWithMaybeCacheMetadata[];
-}
-
-/************************************************************************ */
-
-export type IncrementalFetchResultSet = {
-  initial: FetchResult;
-  partial: PartialQueryResponse;
-  updated: Omit<IncrementalFetchResult, "headers">[];
+export type MockIncrementalRequestManagerResultSet = {
+  initial: MockRequestManagerResult;
+  partial: MockCacheResult;
+  updated: MockIncrementalRequestManagerResult[];
 };
 
 /************************************************************************ */

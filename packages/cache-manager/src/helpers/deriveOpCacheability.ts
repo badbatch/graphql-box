@@ -1,17 +1,16 @@
-import { DehydratedCacheMetadata } from "@graphql-box/core";
+import { CacheMetadata } from "@graphql-box/core";
 import Cacheability from "cacheability";
-import { isEmpty } from "lodash";
 import { HEADER_CACHE_CONTROL } from "../consts";
 
 export type Params = {
-  _cacheMetadata?: DehydratedCacheMetadata;
+  cacheMetadata: CacheMetadata;
   fallback: string;
   headers?: Headers;
 };
 
-export default ({ _cacheMetadata, fallback, headers }: Params): Cacheability => {
-  if (_cacheMetadata && !isEmpty(_cacheMetadata)) {
-    const [first, ...rest] = Object.values(_cacheMetadata);
+export default ({ cacheMetadata, fallback, headers }: Params): Cacheability => {
+  if (!!cacheMetadata.size) {
+    const [first, ...rest] = Object.values(cacheMetadata);
 
     return new Cacheability({
       metadata: rest.reduce((acc, metadata) => {

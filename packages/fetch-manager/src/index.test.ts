@@ -5,7 +5,6 @@
 import {
   IncrementalRequestManagerResult,
   PlainObjectMap,
-  RawResponseDataWithMaybeCacheMetadata,
   RequestManagerDef,
   RequestManagerExecuteResolver,
   RequestManagerResult,
@@ -160,7 +159,7 @@ describe("@graphql-box/fetch-manager >>", () => {
             [initialRequestData.hash]: { _cacheMetadata: {}, data: responses.singleTypeQuerySet.initial.data },
             [updatedRequestData.hash]: {
               _cacheMetadata: {},
-              data: (responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata).data,
+              data: responses.singleTypeQuerySet.updated.data,
             },
           },
         };

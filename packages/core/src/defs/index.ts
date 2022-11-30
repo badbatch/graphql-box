@@ -396,6 +396,18 @@ export interface MaybeRequestResultWithDehydratedCacheMetadata {
 
 /************************************************************************ */
 
+export type CacheResult = {
+  _cacheMetadata: CacheMetadata;
+  data: PlainObjectMap;
+};
+
+export type SerializedCacheResult = {
+  _cacheMetadata: DehydratedCacheMetadata;
+  data: PlainObjectMap;
+};
+
+/************************************************************************ */
+
 export type FetchResult = ExecutionResult & {
   _cacheMetadata: DehydratedCacheMetadata;
   errors?: (SerializedGraphqlError | ErrorObject)[];
@@ -487,8 +499,6 @@ export type SubscriptionsManagerResult = ExecutionResult & {
   _cacheMetadata: CacheMetadata;
 };
 
-/************************************************************************ */
-
 export type SubscriptionsManagerSubscribeResolver = (
   value: SubscriptionsManagerResult,
 ) => Promise<SubscriptionsManagerResult>;
@@ -501,3 +511,13 @@ export interface SubscriptionsManagerDef {
     subscriberResolver: SubscriptionsManagerSubscribeResolver,
   ): Promise<AsyncIterableIterator<SubscriptionsManagerResult | undefined>>;
 }
+
+/************************************************************************ */
+
+export type RequestResult = ExecutionResult & {
+  _cacheMetadata: CacheMetadata;
+};
+
+export type IncrementalRequestResult = (InitialIncrementalExecutionResult | SubsequentIncrementalExecutionResult) & {
+  _cacheMetadata: CacheMetadata;
+};

@@ -1,5 +1,3 @@
-import { RawResponseDataWithMaybeCacheMetadata } from "@graphql-box/core";
-import { CacheManagerContext } from "..";
+import { IncrementalRequestManagerResult } from "@graphql-box/core";
 
-export default (rawResponseData: RawResponseDataWithMaybeCacheMetadata, context: CacheManagerContext) =>
-  context.hasDeferOrStream && !rawResponseData.hasNext && rawResponseData.paths;
+export default (result: IncrementalRequestManagerResult) => !result.hasNext;
