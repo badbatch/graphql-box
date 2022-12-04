@@ -1,11 +1,12 @@
 import {
+  CacheManagerResult,
+  CacheResult,
   FragmentDefinitionNodeMap,
-  MaybeResponseData,
   PlainObjectMap,
   QUERY,
   RequestContext,
   RequestData,
-  ResponseData,
+  RequestManagerResult,
 } from "@graphql-box/core";
 import {
   KeysAndPathsOptions,
@@ -24,7 +25,7 @@ import { FilteredDataAndCacheMetadata } from "../defs";
 export const filterDataAndCacheMetadata = (
   pendingFieldNode: FieldNode,
   activeFieldNode: FieldNode,
-  activeResponseData: MaybeResponseData,
+  activeResult: CacheResult | CacheManagerResult | RequestManagerResult,
   { filteredData, filteredCacheMetadata }: FilteredDataAndCacheMetadata,
   fragmentDefinitions: { active?: FragmentDefinitionNodeMap; pending?: FragmentDefinitionNodeMap },
   keyAndPathOptions: { active: KeysAndPathsOptions; pending: KeysAndPathsOptions },
@@ -37,7 +38,7 @@ export const filterDataAndCacheMetadata = (
     return;
   }
 
-  const rawFieldData = get(activeResponseData.data, activeKeysAndPaths.responseDataPath);
+  const rawFieldData = get(activeResult.data, activeKeysAndPaths.responseDataPath);
   let activeFieldData = rawFieldData;
 
   if (isPlainObject(activeFieldData)) {
@@ -47,7 +48,7 @@ export const filterDataAndCacheMetadata = (
   }
 
   set(filteredData, pendingKeysAndPaths.responseDataPath, activeFieldData);
-  const cacheability = activeResponseData.cacheMetadata?.get(activeKeysAndPaths.requestFieldPath);
+  const cacheability = activeResult._cacheMetadata?.get(activeKeysAndPaths.requestFieldPath);
 
   if (cacheability) {
     filteredCacheMetadata.set(pendingKeysAndPaths.requestFieldPath, cacheability);
@@ -88,7 +89,7 @@ export const filterDataAndCacheMetadata = (
       filterDataAndCacheMetadata(
         pendingChildFieldNode,
         activeChildFieldNode,
-        activeResponseData,
+        activeResult,
         { filteredData, filteredCacheMetadata },
         fragmentDefinitions,
         {
@@ -104,7 +105,7 @@ export const filterDataAndCacheMetadata = (
 export default (
   pendingRequestDatat: RequestData,
   activeRequestDatat: RequestData,
-  { data, cacheMetadata, ...rest }: ResponseData,
+  activeResult: CacheResult | CacheManagerResult | RequestManagerResult,
   { active, pending }: { active: RequestContext; pending: RequestContext },
 ) => {
   const pendingQueryNode = getOperationDefinitions(pendingRequestDatat.ast, QUERY)[0];
@@ -134,7 +135,7 @@ export default (
     filterDataAndCacheMetadata(
       pendingFieldNode,
       activeFieldNode,
-      { data, cacheMetadata, ...rest },
+      activeResult,
       { filteredData, filteredCacheMetadata },
       {
         active: activeQueryFragmentDefinitions,
@@ -149,8 +150,8 @@ export default (
   });
 
   return {
-    ...rest,
-    cacheMetadata: filteredCacheMetadata,
+    ...activeResult,
+    _cacheMetadata: filteredCacheMetadata,
     data: filteredData,
   };
 };

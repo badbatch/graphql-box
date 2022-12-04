@@ -2,11 +2,7 @@ import Core from "@cachemap/core";
 import indexedDB from "@cachemap/indexed-db";
 import { ExportCacheResult } from "@graphql-box/cache-manager";
 import Client from "@graphql-box/client";
-import {
-  MaybeRequestResult,
-  MaybeRequestResultWithDehydratedCacheMetadata,
-  RawResponseDataWithMaybeCacheMetadata,
-} from "@graphql-box/core";
+import { MaybeRequestResult, MaybeRequestResultWithDehydratedCacheMetadata } from "@graphql-box/core";
 import { dehydrateCacheMetadata, hashRequest } from "@graphql-box/helpers";
 import {
   githubIntrospection as introspection,
@@ -326,7 +322,7 @@ describe("client", () => {
         });
 
         mockRequest(fetchMock, {
-          data: (responses.nestedTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata).data,
+          data: responses.nestedTypeQuerySet.updated.data,
           hash: hashRequest(updated),
         });
 

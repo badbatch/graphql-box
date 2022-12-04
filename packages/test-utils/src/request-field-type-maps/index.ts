@@ -885,7 +885,7 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
     "query.movie.belongsToCollection.parts.releaseDates",
     {
       directives: {
-        inherited: ['defer({"label":"MovieReleaseDatesDefer"})'],
+        inherited: ['defer({"label":"MovieReleaseDatesDefer3"})'],
         own: [],
       },
       hasArguments: false,
@@ -936,7 +936,7 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
     "query.movie.belongsToCollection.parts.videos",
     {
       directives: {
-        inherited: ['defer({"label":"MovieVideosDefer"})'],
+        inherited: ['defer({"label":"MovieVideosDefer3"})'],
         own: [],
       },
       hasArguments: false,
@@ -1259,7 +1259,7 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
     "query.movie.similarMovies.edges.node.releaseDates",
     {
       directives: {
-        inherited: ['defer({"label":"MovieReleaseDatesDefer"})'],
+        inherited: ['defer({"label":"MovieReleaseDatesDefer2"})'],
         own: [],
       },
       hasArguments: false,
@@ -1293,7 +1293,7 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
     "query.movie.similarMovies.edges.node.videos",
     {
       directives: {
-        inherited: ['defer({"label":"MovieVideosDefer"})'],
+        inherited: ['defer({"label":"MovieVideosDefer2"})'],
         own: [],
       },
       hasArguments: false,

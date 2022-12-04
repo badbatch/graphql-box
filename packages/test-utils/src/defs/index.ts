@@ -17,12 +17,14 @@ export interface ParsedRequestSet {
   updated: string;
 }
 
-export type MockRequestManagerResult = Omit<RequestManagerResult, "_cacheMetadata"> & {
+export type MockRequestManagerResult = Omit<RequestManagerResult, "_cacheMetadata" | "data"> & {
   _cacheMetadata: Record<string, string>;
+  data: PlainObjectMap;
 };
 
-export type MockSubscriptionsManagerResult = Omit<SubscriptionsManagerResult, "_cacheMetadata"> & {
+export type MockSubscriptionsManagerResult = Omit<SubscriptionsManagerResult, "_cacheMetadata" | "data"> & {
   _cacheMetadata: Record<string, string>;
+  data: PlainObjectMap;
 };
 
 export type MockCacheResult = Omit<CacheResult, "_cacheMetadata"> & {

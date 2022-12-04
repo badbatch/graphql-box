@@ -10,6 +10,7 @@ import {
   VariableTypesMap,
 } from "@graphql-box/core";
 import {
+  DIRECTIVE,
   DOCUMENT,
   FIELD,
   FRAGMENT_DEFINITION,
@@ -42,6 +43,7 @@ import {
 import {
   ASTNode,
   // DefinitionNode,
+  DirectiveNode,
   DocumentNode,
   FieldNode,
   FragmentDefinitionNode,
@@ -54,6 +56,7 @@ import {
   GraphQLUnionType,
   InlineFragmentNode,
   NamedTypeNode,
+  StringValueNode,
   TypeInfo,
   ValueNode,
   VariableDefinitionNode,
@@ -418,12 +421,12 @@ export default class RequestParser implements RequestParserDef {
     reorderDefinitions(ast);
 
     const _this = this;
-    const typeInfo = new TypeInfo(this._schema);
-    const fragmentDefinitions = getFragmentDefinitions(ast);
-    const variableTypes: VariableTypesMap = {};
-
-    const depthChartAncestorsList: ASTNode[][] = [];
     const complexityTypeList: Maybe<GraphQLOutputType>[] = [];
+    const depthChartAncestorsList: ASTNode[][] = [];
+    const directiveLabels: Record<string, number> = {};
+    const fragmentDefinitions = getFragmentDefinitions(ast);
+    const typeInfo = new TypeInfo(this._schema);
+    const variableTypes: VariableTypesMap = {};
 
     const visitorContext: VisitorContext = {
       experimentalDeferStreamSupport: context.experimentalDeferStreamSupport,
@@ -545,6 +548,44 @@ export default class RequestParser implements RequestParserDef {
         },
         leave(node: ASTNode) {
           typeInfo.leave(node);
+
+          // The request parser inlines as many fragments as it can, which can lead
+          // to defer/stream directives appearing more than once in a request. Each
+          // defer/stream label must be unique, so to resolve this issue, the request
+          // parser appends an incremented verison number to duplicate labels, i.e.
+          // the second instance of AmazingDefer becomes AmazingDefer2 and so on.
+          if (isKind<DirectiveNode>(node, DIRECTIVE)) {
+            const args = getArguments(node);
+
+            if (args && "label" in args) {
+              if (args.label in directiveLabels) {
+                directiveLabels[args.label] += 1;
+
+                return {
+                  ...node,
+                  arguments: node.arguments?.map(arg => {
+                    if (getName(arg) !== "label") {
+                      return arg;
+                    }
+
+                    if (!isKind<StringValueNode>(arg.value, "StringValue")) {
+                      return arg;
+                    }
+
+                    return {
+                      ...arg,
+                      value: {
+                        ...arg.value,
+                        value: `${arg.value.value}${directiveLabels[args.label]}`,
+                      },
+                    };
+                  }),
+                };
+              }
+
+              directiveLabels[args.label] = 1;
+            }
+          }
 
           if (isKind<DocumentNode>(node, DOCUMENT)) {
             return deleteFragmentDefinitions(node, {

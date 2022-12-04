@@ -32923,7 +32923,7 @@ Object {
 
 exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fragment spreads >> within fragment spreads >> correct partial data 1`] = `
 Map {
-  "5411232a38b7b7aee8ea65fa1eb01b64" => Object {
+  "0c00583b7093a00be45c4cf7fba9d2f5" => Object {
     "_cacheMetadata": Map {
       "query.movie" => Cacheability {
         "metadata": Object {
@@ -32969,7 +32969,7 @@ Map {
 
 exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fragment spreads >> within fragment spreads >> correct request data 1`] = `
 Object {
-  "hash": "195ba3c632b1377933acfbe568193ff4",
+  "hash": "a30447dde4792354cb2af58f047be698",
   "request": "query GetMoviePreview {
   movie(id: \\"671\\") {
     backdropPath
@@ -33044,8 +33044,8 @@ fragment MovieSimilar on Movie {
         title
         voteAverage
         voteCount
-        ...MovieReleaseDates @defer(label: \\"MovieReleaseDatesDefer\\")
-        ...MovieVideos @defer(label: \\"MovieVideosDefer\\")
+        ...MovieReleaseDates @defer(label: \\"MovieReleaseDatesDefer2\\")
+        ...MovieVideos @defer(label: \\"MovieVideosDefer2\\")
         id
       }
     }

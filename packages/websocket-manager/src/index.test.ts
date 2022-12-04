@@ -1,4 +1,4 @@
-import { SUBSCRIPTION, SubscriptionsManagerResult } from "@graphql-box/core";
+import { RequestResult, SUBSCRIPTION } from "@graphql-box/core";
 import { getRequestContext, getRequestData, parsedRequests, responses } from "@graphql-box/test-utils";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { Server } from "mock-socket";
@@ -32,7 +32,7 @@ describe("@graphql-box/websocket-manager >>", () => {
   });
 
   describe("subscribe >> return value >>", () => {
-    let response: AsyncIterableIterator<SubscriptionsManagerResult | undefined>;
+    let response: AsyncIterableIterator<RequestResult | undefined>;
 
     beforeEach(async () => {
       const websocket = new WebSocket(url);
@@ -56,7 +56,7 @@ describe("@graphql-box/websocket-manager >>", () => {
   });
 
   describe("async iterator >> message received >>", () => {
-    let response: SubscriptionsManagerResult;
+    let response: RequestResult;
 
     beforeEach(async () => {
       const websocket = new WebSocket(url);

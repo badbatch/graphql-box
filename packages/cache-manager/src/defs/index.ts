@@ -1,20 +1,20 @@
 import Cachemap from "@cachemap/core";
 import { Metadata } from "@cachemap/types";
 import {
+  CacheManagerResult,
   CacheMetadata,
   CacheResult,
   CacheTypes,
   FieldTypeInfo,
   FragmentDefinitionNodeMap,
+  IncrementalCacheManagerResult,
   IncrementalRequestManagerResult,
-  IncrementalRequestResult,
   PlainObjectMap,
   PlainObjectStringMap,
   RequestContext,
   RequestData,
   RequestManagerResult,
   RequestOptions,
-  RequestResult,
   SubscriptionsManagerResult,
 } from "@graphql-box/core";
 import Cacheability from "cacheability";
@@ -155,13 +155,13 @@ export interface CacheManagerDef {
     result: RequestManagerResult | IncrementalRequestManagerResult,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<RequestResult | IncrementalRequestResult>;
+  ): Promise<CacheManagerResult | IncrementalCacheManagerResult>;
   cacheResponse(
     requestData: RequestData,
     result: RequestManagerResult | IncrementalRequestManagerResult | SubscriptionsManagerResult,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<RequestResult | IncrementalRequestResult>;
+  ): Promise<CacheManagerResult | IncrementalCacheManagerResult>;
   checkCacheEntry(
     cacheType: CacheTypes,
     hash: string,

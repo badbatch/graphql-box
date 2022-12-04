@@ -2,7 +2,7 @@
 
 exports[`filterResponseData when there are no fragments or directives or aliases in the pending query should return the correct data 1`] = `
 Object {
-  "cacheMetadata": Map {},
+  "_cacheMetadata": Map {},
   "data": Object {
     "organization": Object {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -25,7 +25,7 @@ Object {
 
 exports[`filterResponseData when there is a directive in the pending query when the directives do not match should return the correct data 1`] = `
 Object {
-  "cacheMetadata": Map {},
+  "_cacheMetadata": Map {},
   "data": Object {
     "organization": Object {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -47,7 +47,7 @@ Object {
 
 exports[`filterResponseData when there is a directive in the pending query when the directives match should return the correct data 1`] = `
 Object {
-  "cacheMetadata": Map {},
+  "_cacheMetadata": Map {},
   "data": Object {
     "organization": Object {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -70,7 +70,7 @@ Object {
 
 exports[`filterResponseData when there is a fragment spread in the new query should return the correct data 1`] = `
 Object {
-  "cacheMetadata": Map {},
+  "_cacheMetadata": Map {},
   "data": Object {
     "organization": Object {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -93,7 +93,7 @@ Object {
 
 exports[`filterResponseData when there is a inline fragment in the pending query should return the correct data 1`] = `
 Object {
-  "cacheMetadata": Map {},
+  "_cacheMetadata": Map {},
   "data": Object {
     "organization": Object {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -116,7 +116,7 @@ Object {
 
 exports[`filterResponseData when there is an alias in the pending query should return the correct data 1`] = `
 Object {
-  "cacheMetadata": Map {},
+  "_cacheMetadata": Map {},
   "data": Object {
     "organization": Object {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
@@ -139,7 +139,7 @@ Object {
 
 exports[`filterResponseData when there is are fragments in the active query should return the correct data 1`] = `
 Object {
-  "cacheMetadata": Map {},
+  "_cacheMetadata": Map {},
   "data": Object {
     "organization": Object {
       "email": "",

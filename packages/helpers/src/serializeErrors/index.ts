@@ -19,7 +19,7 @@ export const deserializedGraphqlError = (obj: SerializedGraphqlError) => {
   return graphqlError;
 };
 
-export const deserializeError = (error: SerializedGraphqlError | ErrorObject) =>
+export const deserializeError = (error: SerializedGraphqlError | ErrorObject): Error | GraphQLError =>
   error.name === "GraphQLError" ? deserializedGraphqlError(error as SerializedGraphqlError) : deserialize(error);
 
 export const deserializeErrors = <Type extends { errors?: (SerializedGraphqlError | ErrorObject)[] }>({
@@ -55,7 +55,7 @@ export const serializeGraphqlError = (error: GraphQLError) => {
   return cloneOwnProperties(error);
 };
 
-export const serializeError = (error: Error) =>
+export const serializeError = (error: Error | GraphQLError): SerializedGraphqlError | ErrorObject =>
   error instanceof GraphQLError ? serializeGraphqlError(error) : serialize(error);
 
 export const serializeErrors = <Type extends { errors?: Error[] | readonly Error[] }>({ errors, ...rest }: Type) => {

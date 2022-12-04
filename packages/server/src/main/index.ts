@@ -1,10 +1,12 @@
 import Client from "@graphql-box/client";
 import {
+  CacheMetadata,
+  IncrementalServerResponse,
   MaybeRequestContext,
   MaybeRequestResult,
-  MaybeRequestResultWithDehydratedCacheMetadata,
   SERVER_REQUEST_RECEIVED,
   ServerRequestOptions,
+  ServerResponse,
   ServerSocketRequestOptions,
 } from "@graphql-box/core";
 import { dehydrateCacheMetadata, serializeErrors } from "@graphql-box/helpers";
@@ -157,29 +159,34 @@ export default class Server {
     clearTimeout(requestTimer);
 
     if (!isAsyncIterable(requestResult)) {
-      const { _cacheMetadata, ...otherProps } = requestResult as MaybeRequestResult;
-      const response: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
+      const { requestID, ...rest } = requestResult;
 
-      if (_cacheMetadata) {
-        response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
-      }
+      const serverResult =
+        "_cacheMetadata" in rest
+          ? { ...rest, _cacheMetadata: dehydrateCacheMetadata(rest._cacheMetadata as CacheMetadata) }
+          : (rest as ServerResponse);
 
-      res.status(200).send(serializeErrors(response));
+      res.status(200).send(serializeErrors(serverResult));
       return;
     }
 
     res.setHeader("Content-Type", 'multipart/mixed; boundary="-"');
 
-    forAwaitEach(requestResult, ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {
-      const response: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
-
-      if (_cacheMetadata) {
-        response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+    forAwaitEach(requestResult, result => {
+      if (!result) {
+        return;
       }
 
-      writeResponseChunk(res, serializeErrors(response));
+      const { requestID, ...rest } = result;
 
-      if (!otherProps.hasNext) {
+      const serverResult =
+        "_cacheMetadata" in rest
+          ? { ...rest, _cacheMetadata: dehydrateCacheMetadata(rest._cacheMetadata as CacheMetadata) }
+          : (rest as IncrementalServerResponse);
+
+      writeResponseChunk(res, "errors" in serverResult ? serializeErrors(serverResult) : serverResult);
+
+      if ("hasNext" in result && !result.hasNext) {
         res.write("\r\n-----\r\n");
         res.end();
       }
@@ -205,7 +212,7 @@ export default class Server {
     }
   }
 
-  private async _messageHandler(message: Data, { ws, ...rest }: ServerSocketRequestOptions): Promise<void> {
+  private async _messageHandler(message: Data, { ws, ...options }: ServerSocketRequestOptions): Promise<void> {
     try {
       const { context = {}, subscriptionID, subscription } = JSON.parse(message as string);
 
@@ -217,23 +224,28 @@ export default class Server {
         );
       }, this._requestTimeout);
 
-      const subscribeResult = await this._client.subscribe(subscription, rest, context);
+      const subscribeResult = await this._client.subscribe(subscription, options, context);
       clearTimeout(requestTimer);
 
       if (!isAsyncIterable(subscribeResult)) {
-        ws.send(serializeErrors(subscribeResult as MaybeRequestResult));
+        ws.send(serializeErrors(subscribeResult));
         return;
       }
 
-      forAwaitEach(subscribeResult, ({ _cacheMetadata, ...otherProps }: MaybeRequestResult) => {
+      forAwaitEach(subscribeResult, result => {
         if (ws.readyState === ws.OPEN) {
-          const result: MaybeRequestResultWithDehydratedCacheMetadata = { ...otherProps };
-
-          if (_cacheMetadata) {
-            result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          if (!result) {
+            return;
           }
 
-          ws.send(JSON.stringify({ result: serializeErrors(result), subscriptionID }));
+          const { requestID, ...rest } = result;
+
+          const serverResult =
+            "_cacheMetadata" in rest
+              ? { ...rest, _cacheMetadata: dehydrateCacheMetadata(rest._cacheMetadata as CacheMetadata) }
+              : (rest as ServerResponse);
+
+          ws.send(JSON.stringify({ result: serializeErrors(serverResult), subscriptionID }));
         }
       });
     } catch (error) {

@@ -5,6 +5,7 @@ import {
   DocumentNode,
   ExecutionResult,
   FragmentDefinitionNode,
+  GraphQLError,
   GraphQLErrorExtensions,
   GraphQLFieldResolver,
   GraphQLNamedType,
@@ -435,9 +436,7 @@ export type IncrementalFetchResult = (
   headers: Headers;
 };
 
-export type FetchExecuteResolver = (
-  value: IncrementalFetchResult,
-) => Promise<RequestManagerResult | IncrementalRequestManagerResult>;
+export type FetchExecuteResolver = (value: IncrementalFetchResult) => Promise<RequestResult | IncrementalRequestResult>;
 
 /************************************************************************ */
 
@@ -465,8 +464,8 @@ export type IncrementalRequestManagerResult = (
 };
 
 export type RequestManagerExecuteResolver = (
-  value: RequestManagerResult | IncrementalRequestManagerResult,
-) => Promise<RequestManagerResult | IncrementalRequestManagerResult>;
+  value: IncrementalRequestManagerResult,
+) => Promise<IncrementalRequestResult>;
 
 export interface RequestManagerDef {
   execute(
@@ -474,7 +473,7 @@ export interface RequestManagerDef {
     options: RequestOptions,
     context: RequestContext,
     executeResolver: RequestManagerExecuteResolver,
-  ): Promise<AsyncIterableIterator<IncrementalRequestManagerResult | undefined> | RequestManagerResult>;
+  ): Promise<AsyncIterableIterator<IncrementalRequestResult | undefined> | RequestManagerResult>;
 }
 
 /************************************************************************ */
@@ -499,9 +498,7 @@ export type SubscriptionsManagerResult = ExecutionResult & {
   _cacheMetadata: CacheMetadata;
 };
 
-export type SubscriptionsManagerSubscribeResolver = (
-  value: SubscriptionsManagerResult,
-) => Promise<SubscriptionsManagerResult>;
+export type SubscriptionsManagerSubscribeResolver = (value: SubscriptionsManagerResult) => Promise<RequestResult>;
 
 export interface SubscriptionsManagerDef {
   subscribe(
@@ -509,15 +506,58 @@ export interface SubscriptionsManagerDef {
     options: RequestOptions,
     context: RequestContext,
     subscriberResolver: SubscriptionsManagerSubscribeResolver,
-  ): Promise<AsyncIterableIterator<SubscriptionsManagerResult | undefined>>;
+  ): Promise<AsyncIterableIterator<RequestResult | undefined>>;
 }
 
 /************************************************************************ */
 
-export type RequestResult = ExecutionResult & {
+export type CacheManagerResult = ExecutionResult & {
   _cacheMetadata: CacheMetadata;
 };
 
-export type IncrementalRequestResult = (InitialIncrementalExecutionResult | SubsequentIncrementalExecutionResult) & {
+export type IncrementalCacheManagerResult = (
+  | InitialIncrementalExecutionResult
+  | SubsequentIncrementalExecutionResult
+) & {
   _cacheMetadata: CacheMetadata;
 };
+
+/************************************************************************ */
+
+export type RequestResult = ExecutionResult & {
+  _cacheMetadata?: CacheMetadata;
+  requestID: string;
+};
+
+export type IncrementalRequestResult = (InitialIncrementalExecutionResult | SubsequentIncrementalExecutionResult) & {
+  _cacheMetadata?: CacheMetadata;
+  requestID: string;
+};
+
+export type SerializedRequestResult = Omit<ExecutionResult, "errors"> & {
+  _cacheMetadata?: DehydratedCacheMetadata;
+  errors?: (SerializedGraphqlError | ErrorObject)[];
+  requestID: string;
+};
+
+export type SerializedIncrementalRequestResult = (
+  | (Omit<InitialIncrementalExecutionResult, "errors"> & { errors?: (SerializedGraphqlError | ErrorObject)[] })
+  | SubsequentIncrementalExecutionResult
+) & {
+  _cacheMetadata?: DehydratedCacheMetadata;
+  requestID: string;
+};
+
+/************************************************************************ */
+
+export type ServerResponse =
+  | (ExecutionResult & {
+      _cacheMetadata?: DehydratedCacheMetadata;
+    })
+  | { errors: GraphQLError[] };
+
+export type IncrementalServerResponse =
+  | ((InitialIncrementalExecutionResult | SubsequentIncrementalExecutionResult) & {
+      _cacheMetadata?: DehydratedCacheMetadata;
+    })
+  | { errors: GraphQLError[] };

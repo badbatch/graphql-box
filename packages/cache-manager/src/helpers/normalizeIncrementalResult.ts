@@ -16,7 +16,7 @@ export default (result: IncrementalRequestManagerResult): RequestManagerResult =
         if ("data" in entry && entry.data) {
           set(acc, entry.path, cleanIncrementalResult(entry.data));
         } else if ("items" in entry && entry.items?.[0]) {
-          set(acc, entry.path, cleanIncrementalResult(entry.items[0]));
+          set(acc, entry.path, cleanIncrementalResult(entry.items[0] as PlainObjectMap | any[]));
         }
       }
 

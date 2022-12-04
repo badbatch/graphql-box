@@ -1,5 +1,4 @@
 import map from "@cachemap/map";
-import { RawResponseDataWithMaybeCacheMetadata } from "@graphql-box/core";
 import { hashRequest } from "@graphql-box/helpers";
 import { githubIntrospection as introspection, parsedRequests, responses } from "@graphql-box/test-utils";
 import { registerWorker } from "@graphql-box/worker-client";
@@ -29,7 +28,7 @@ mockRequest(fetchMock, {
 });
 
 mockRequest(fetchMock, {
-  data: (responses.nestedTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata).data,
+  data: responses.nestedTypeQuerySet.updated.data,
   hash: hashRequest(parsedRequests.nestedTypeQuerySet.updated),
 });
 

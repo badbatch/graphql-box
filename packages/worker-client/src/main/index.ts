@@ -1,19 +1,21 @@
 import WorkerCachemap from "@cachemap/core-worker";
 import {
   DebugManagerDef,
+  IncrementalRequestResult,
   MUTATION,
   MaybeRequestContext,
-  MaybeRequestResult,
   QUERY,
   REQUEST_RESOLVED,
   RequestContext,
   RequestOptions,
+  RequestResult,
   SUBSCRIPTION,
   SUBSCRIPTION_RESOLVED,
   ValidOperations,
 } from "@graphql-box/core";
-import { EventAsyncIterator, deserializeErrors, hashRequest, rehydrateCacheMetadata } from "@graphql-box/helpers";
+import { EventAsyncIterator, deserializeResult, hashRequest } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
+import { GraphQLError } from "graphql";
 import { castArray, isPlainObject } from "lodash";
 import { v1 as uuid } from "uuid";
 import { GRAPHQL_BOX, MESSAGE, REQUEST, SUBSCRIBE } from "../consts";
@@ -24,6 +26,13 @@ import { MessageContext, MessageResponsePayload, PendingResolver, PendingTracker
 export default class WorkerClient {
   private static _getMessageContext({ hasDeferOrStream = false, requestID }: RequestContext): MessageContext {
     return { hasDeferOrStream, requestID };
+  }
+
+  private static _resolve(
+    result: RequestResult | IncrementalRequestResult | { errors: GraphQLError[] },
+    { requestID }: RequestContext,
+  ): RequestResult | IncrementalRequestResult {
+    return { ...result, requestID };
   }
 
   private _cache: WorkerCachemap;
@@ -64,19 +73,34 @@ export default class WorkerClient {
     return this._cache;
   }
 
-  public async mutate(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
+  public async mutate(
+    request: string,
+    options: RequestOptions = {},
+    context: MaybeRequestContext = {},
+  ): Promise<RequestResult | AsyncIterableIterator<IncrementalRequestResult | undefined>> {
     return this._request(request, options, this._getRequestContext(MUTATION, request, context));
   }
 
-  public async query(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
+  public async query(
+    request: string,
+    options: RequestOptions = {},
+    context: MaybeRequestContext = {},
+  ): Promise<RequestResult | AsyncIterableIterator<IncrementalRequestResult | undefined>> {
     return this._request(request, options, this._getRequestContext(QUERY, request, context));
   }
 
-  public async request(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
+  public async request(
+    request: string,
+    options: RequestOptions = {},
+    context: MaybeRequestContext = {},
+  ): Promise<RequestResult | AsyncIterableIterator<IncrementalRequestResult | undefined>> {
     return this._request(request, options, this._getRequestContext(QUERY, request, context));
   }
 
-  public async subscribe(request: string, options: RequestOptions = {}) {
+  public async subscribe(
+    request: string,
+    options: RequestOptions = {},
+  ): Promise<RequestResult | AsyncIterableIterator<RequestResult | undefined>> {
     return this._subscribe(request, options, this._getRequestContext(SUBSCRIPTION, request));
   }
 
@@ -118,36 +142,35 @@ export default class WorkerClient {
       return;
     }
 
-    const { _cacheMetadata, ...otherProps } = result;
-    const response: MaybeRequestResult = deserializeErrors({ ...otherProps, requestID: context.requestID });
-
-    if (_cacheMetadata) {
-      response._cacheMetadata = rehydrateCacheMetadata(_cacheMetadata);
-    }
+    const deserializedResult = deserializeResult(result);
 
     if (method === SUBSCRIBE) {
       this._debugManager?.log(SUBSCRIPTION_RESOLVED, {
         context,
-        result: response,
+        result: deserializedResult,
         stats: { endTime: this._debugManager?.now() },
       });
 
-      this._eventEmitter.emit(context.requestID, response);
+      this._eventEmitter.emit(context.requestID, deserializedResult);
     } else if (context.hasDeferOrStream) {
       const pending = this._pending.get(context.requestID);
 
       if (pending) {
-        const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, context.requestID);
+        const eventAsyncIterator = new EventAsyncIterator<IncrementalRequestResult>(
+          this._eventEmitter,
+          context.requestID,
+        );
+
         pending.resolve(eventAsyncIterator.getIterator());
       }
 
       this._debugManager?.log(REQUEST_RESOLVED, {
         context,
-        result: response,
+        result: deserializedResult,
         stats: { endTime: this._debugManager?.now() },
       });
 
-      this._eventEmitter.emit(context.requestID, response);
+      this._eventEmitter.emit(context.requestID, deserializedResult);
     } else {
       const pending = this._pending.get(context.requestID);
 
@@ -157,16 +180,20 @@ export default class WorkerClient {
 
       this._debugManager?.log(REQUEST_RESOLVED, {
         context,
-        result: response,
+        result: deserializedResult,
         stats: { endTime: this._debugManager?.now() },
       });
 
-      pending.resolve(response);
+      pending.resolve(deserializedResult);
     }
   };
 
   @logRequest()
-  private async _request(request: string, options: RequestOptions, context: RequestContext) {
+  private async _request(
+    request: string,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<RequestResult | AsyncIterableIterator<IncrementalRequestResult | undefined>> {
     try {
       return await new Promise((resolve: PendingResolver) => {
         this._worker.postMessage({
@@ -180,12 +207,16 @@ export default class WorkerClient {
         this._pending.set(context.requestID, { resolve });
       });
     } catch (error) {
-      return { errors: castArray(error) };
+      return WorkerClient._resolve({ errors: castArray(error) }, context);
     }
   }
 
   @logSubscription()
-  private async _subscribe(request: string, options: RequestOptions, context: RequestContext) {
+  private async _subscribe(
+    request: string,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<RequestResult | AsyncIterableIterator<RequestResult | undefined>> {
     try {
       this._worker.postMessage({
         context: WorkerClient._getMessageContext(context),
@@ -195,10 +226,10 @@ export default class WorkerClient {
         type: GRAPHQL_BOX,
       });
 
-      const eventAsyncIterator = new EventAsyncIterator<MaybeRequestResult>(this._eventEmitter, context.requestID);
+      const eventAsyncIterator = new EventAsyncIterator<RequestResult>(this._eventEmitter, context.requestID);
       return eventAsyncIterator.getIterator();
     } catch (error) {
-      return { errors: castArray(error) };
+      return WorkerClient._resolve({ errors: castArray(error) }, context);
     }
   }
 }

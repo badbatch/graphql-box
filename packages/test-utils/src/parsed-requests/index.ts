@@ -601,8 +601,8 @@ export const getMoviePreviewQuery = `
           title
           voteAverage
           voteCount
-          ...MovieReleaseDates @defer(label: "MovieReleaseDatesDefer")
-          ...MovieVideos @defer(label: "MovieVideosDefer")
+          ...MovieReleaseDates @defer(label: "MovieReleaseDatesDefer2")
+          ...MovieVideos @defer(label: "MovieVideosDefer2")
           id
         }
       }
@@ -620,8 +620,8 @@ export const getMoviePreviewQuery = `
     title
     voteAverage
     voteCount
-    ...MovieReleaseDates @defer(label: "MovieReleaseDatesDefer")
-    ...MovieVideos @defer(label: "MovieVideosDefer")
+    ...MovieReleaseDates @defer(label: "MovieReleaseDatesDefer3")
+    ...MovieVideos @defer(label: "MovieVideosDefer3")
   }
 
   fragment MovieCast on Movie {

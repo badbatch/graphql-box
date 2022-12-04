@@ -4,7 +4,7 @@ import {
   FetchExecuteResolver,
   FetchResult,
   IncrementalFetchResult,
-  IncrementalRequestManagerResult,
+  IncrementalRequestResult,
   LogLevel,
   PlainObjectMap,
   PlainObjectStringMap,
@@ -104,7 +104,7 @@ export default class FetchManager {
     options: RequestOptions,
     context: RequestContext,
     executeResolver: RequestManagerExecuteResolver,
-  ): Promise<RequestManagerResult | AsyncIterableIterator<IncrementalRequestManagerResult | undefined>> {
+  ): Promise<RequestManagerResult | AsyncIterableIterator<IncrementalRequestResult | undefined>> {
     try {
       const url = this._apiUrl as string;
 
@@ -150,7 +150,7 @@ export default class FetchManager {
           }
         });
 
-        const eventAsyncIterator = new EventAsyncIterator<IncrementalRequestManagerResult>(this._eventEmitter, hash);
+        const eventAsyncIterator = new EventAsyncIterator<IncrementalRequestResult>(this._eventEmitter, hash);
         return eventAsyncIterator.getIterator();
       }
 

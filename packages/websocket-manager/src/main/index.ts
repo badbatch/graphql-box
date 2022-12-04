@@ -2,8 +2,8 @@ import {
   RequestContext,
   RequestData,
   RequestOptions,
+  RequestResult,
   SubscriptionsManagerDef,
-  SubscriptionsManagerResult,
   SubscriptionsManagerSubscribeResolver,
   WebsocketResult,
 } from "@graphql-box/core";
@@ -41,7 +41,7 @@ export default class WebsocketManager implements SubscriptionsManagerDef {
     _options: RequestOptions,
     context: RequestContext,
     subscriberResolver: SubscriptionsManagerSubscribeResolver,
-  ): Promise<AsyncIterableIterator<SubscriptionsManagerResult | undefined>> {
+  ): Promise<AsyncIterableIterator<RequestResult | undefined>> {
     if (!this._isSocketOpen()) {
       return Promise.reject(new Error("@graphql-box/websocket-manager expected the websocket to be open."));
     }
@@ -59,7 +59,7 @@ export default class WebsocketManager implements SubscriptionsManagerDef {
         return subscriberResolver(result);
       });
 
-      const eventAsyncIterator = new EventAsyncIterator<SubscriptionsManagerResult>(this._eventEmitter, hash);
+      const eventAsyncIterator = new EventAsyncIterator<RequestResult>(this._eventEmitter, hash);
       return eventAsyncIterator.getIterator();
     } catch (error) {
       return Promise.reject(error);

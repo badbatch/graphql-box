@@ -25,7 +25,7 @@ Array [
       "url": "http://localhost/",
       "userAgent": "mock-userAgent",
       "value": Object {
-        "cacheMetadata": Object {
+        "_cacheMetadata": Object {
           "query": Object {
             "cacheControl": Object {
               "maxAge": 5,

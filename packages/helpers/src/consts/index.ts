@@ -1,3 +1,4 @@
+export const DIRECTIVE = "Directive";
 export const DOCUMENT = "Document";
 export const FIELD = "Field";
 export const FRAGMENT_DEFINITION = "FragmentDefinition";

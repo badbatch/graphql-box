@@ -3,8 +3,8 @@ import {
   PlainObjectMap,
   RequestContext,
   RequestData,
+  RequestResult,
   ServerRequestOptions,
-  SubscriptionsManagerResult,
   SubscriptionsManagerSubscribeResolver,
 } from "@graphql-box/core";
 import { EventAsyncIterator, getFragmentDefinitions, setCacheMetadata } from "@graphql-box/helpers";
@@ -47,7 +47,7 @@ export default class Subscribe {
     options: ServerRequestOptions,
     context: RequestContext,
     subscriberResolver: SubscriptionsManagerSubscribeResolver,
-  ): Promise<AsyncIterableIterator<SubscriptionsManagerResult | undefined>> {
+  ): Promise<AsyncIterableIterator<RequestResult | undefined>> {
     const { contextValue = {}, fieldResolver, operationName, rootValue, subscribeFieldResolver } = options;
     const _cacheMetadata: CacheMetadata = new Map();
     const { debugManager, requestID } = context;
@@ -85,7 +85,7 @@ export default class Subscribe {
       }
 
       return await new Promise(async resolve => {
-        const eventAsyncIterator = new EventAsyncIterator<SubscriptionsManagerResult>(this._eventEmitter, hash);
+        const eventAsyncIterator = new EventAsyncIterator<RequestResult>(this._eventEmitter, hash);
         resolve(eventAsyncIterator.getIterator());
 
         if (!isAsyncIterable(subscribeResult)) {

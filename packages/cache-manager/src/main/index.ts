@@ -1,5 +1,6 @@
 import Cachemap from "@cachemap/core";
 import {
+  CacheManagerResult,
   CacheMetadata,
   CacheResult,
   CacheTypes,
@@ -7,8 +8,8 @@ import {
   DATA_ENTITIES,
   DEFAULT_TYPE_ID_KEY,
   FieldTypeInfo,
+  IncrementalCacheManagerResult,
   IncrementalRequestManagerResult,
-  IncrementalRequestResult,
   PlainObjectMap,
   PlainObjectStringMap,
   QUERY,
@@ -18,7 +19,6 @@ import {
   RequestData,
   RequestManagerResult,
   RequestOptions,
-  RequestResult,
   SerializedCacheResult,
   SubscriptionsManagerResult,
   TYPE_NAME_KEY,
@@ -300,7 +300,7 @@ export default class CacheManager implements CacheManagerDef {
     result: RequestManagerResult | IncrementalRequestManagerResult,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<RequestResult | IncrementalRequestResult> {
+  ): Promise<CacheManagerResult | IncrementalCacheManagerResult> {
     const cacheManagerContext: CacheManagerContext = {
       ...context,
       fragmentDefinitions: getFragmentDefinitions((updatedRequestData ?? requestData).ast),
@@ -315,7 +315,7 @@ export default class CacheManager implements CacheManagerDef {
     result: RequestManagerResult | IncrementalRequestManagerResult | SubscriptionsManagerResult,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<RequestResult | IncrementalRequestResult> {
+  ): Promise<CacheManagerResult | IncrementalCacheManagerResult> {
     const cacheManagerContext: CacheManagerContext = {
       ...context,
       fragmentDefinitions: getFragmentDefinitions(requestData.ast),
@@ -538,7 +538,7 @@ export default class CacheManager implements CacheManagerDef {
     result: RequestManagerResult | IncrementalRequestManagerResult | SubscriptionsManagerResult,
     options: RequestOptions,
     context: CacheManagerContext,
-  ): Promise<RequestResult | IncrementalRequestResult> {
+  ): Promise<CacheManagerResult | IncrementalCacheManagerResult> {
     let resultForCaching: RequestManagerResult | SubscriptionsManagerResult | undefined;
 
     if (isIncrementalResult(result)) {

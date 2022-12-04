@@ -57,3 +57,4 @@ export {
   serializeErrors,
   serializeGraphqlError,
 } from "./serializeErrors";
+export * from "./serializeResult";

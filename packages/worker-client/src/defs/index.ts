@@ -1,6 +1,13 @@
 import WorkerCachemap from "@cachemap/core-worker";
 import Client from "@graphql-box/client";
-import { DebugManagerDef, MaybeRawFetchData, MaybeRequestResult, RequestOptions } from "@graphql-box/core";
+import {
+  DebugManagerDef,
+  IncrementalRequestResult,
+  RequestOptions,
+  RequestResult,
+  SerializedIncrementalRequestResult,
+  SerializedRequestResult,
+} from "@graphql-box/core";
 
 export interface UserOptions {
   /**
@@ -27,7 +34,7 @@ export interface UserOptions {
 export type MethodNames = "request" | "subscribe";
 
 export type PendingResolver = (
-  value: MaybeRequestResult | AsyncIterableIterator<MaybeRequestResult | undefined>,
+  value: RequestResult | AsyncIterableIterator<IncrementalRequestResult | undefined>,
 ) => void;
 
 export interface PendingData {
@@ -47,7 +54,7 @@ export interface MessageRequestPayload {
 export interface MessageResponsePayload {
   context: MessageContext;
   method: MethodNames;
-  result: MaybeRawFetchData;
+  result: SerializedRequestResult | SerializedIncrementalRequestResult;
   type: "graphqlBox" | "cachemap";
 }
 

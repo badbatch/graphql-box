@@ -1,27 +1,32 @@
 import Core from "@cachemap/core";
 import { CacheManagerDef } from "@graphql-box/cache-manager";
 import {
+  CacheManagerResult,
+  CacheResult,
   DebugManagerDef,
+  IncrementalCacheManagerResult,
+  IncrementalRequestManagerResult,
+  IncrementalRequestResult,
   MUTATION,
-  MaybeRawResponseData,
   MaybeRequestContext,
-  MaybeRequestResult,
-  MaybeResponseData,
   PENDING_QUERY_RESOLVED,
   QUERY,
   REQUEST_RESOLVED,
-  RawResponseDataWithMaybeCacheMetadata,
   RequestContext,
   RequestData,
   RequestManagerDef,
+  RequestManagerResult,
   RequestOptions,
+  RequestResult,
   SUBSCRIPTION,
   SUBSCRIPTION_RESOLVED,
   SubscriptionsManagerDef,
+  SubscriptionsManagerResult,
   ValidOperations,
 } from "@graphql-box/core";
 import { hashRequest } from "@graphql-box/helpers";
 import { RequestParserDef } from "@graphql-box/request-parser";
+import { GraphQLError } from "graphql";
 import { isAsyncIterable } from "iterall";
 import { castArray, isArray, isPlainObject, isString } from "lodash";
 import { v1 as uuid } from "uuid";
@@ -39,32 +44,43 @@ export default class Client {
   }
 
   private static _resolve(
-    { cacheMetadata, ...rest }: MaybeResponseData,
+    result:
+      | CacheResult
+      | CacheManagerResult
+      | IncrementalCacheManagerResult
+      | Omit<RequestManagerResult, "headers">
+      | Omit<IncrementalRequestManagerResult, "headers">
+      | SubscriptionsManagerResult
+      | { errors: GraphQLError[] },
     options: RequestOptions,
     { requestID }: RequestContext,
-  ): MaybeRequestResult {
-    const result: MaybeRequestResult = { ...rest, requestID };
+  ): RequestResult | IncrementalRequestResult {
+    if ("_cacheMetadata" in result) {
+      const { _cacheMetadata, ...rest } = result;
 
-    if (options.returnCacheMetadata && cacheMetadata) {
-      result._cacheMetadata = cacheMetadata;
+      return {
+        ...rest,
+        ...(options.returnCacheMetadata ? { _cacheMetadata } : {}),
+        requestID,
+      };
     }
 
-    return result;
+    return { ...result, requestID };
   }
 
-  private static _validateRequestArguments(query: string, options: RequestOptions): Error[] {
-    const errors: Error[] = [];
+  private static _validateRequestArguments(query: string, options: RequestOptions): GraphQLError[] {
+    const errors: GraphQLError[] = [];
 
     if (!isString(query)) {
-      errors.push(new TypeError("@graphql-box/client expected query to be a string."));
+      errors.push(new GraphQLError("@graphql-box/client expected query to be a string."));
     }
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("@graphql-box/client expected options to be a plain object."));
+      errors.push(new GraphQLError("@graphql-box/client expected options to be a plain object."));
     }
 
     if (Client._areFragmentsInvalid(options.fragments)) {
-      errors.push(new TypeError("@graphql-box/client expected options.fragments to be an array of strings."));
+      errors.push(new GraphQLError("@graphql-box/client expected options.fragments to be an array of strings."));
     }
 
     return errors;
@@ -117,7 +133,11 @@ export default class Client {
     return this._debugManager;
   }
 
-  public async mutate(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
+  public async mutate(
+    request: string,
+    options: RequestOptions = {},
+    context: MaybeRequestContext = {},
+  ): Promise<RequestResult | AsyncIterableIterator<IncrementalRequestResult | undefined>> {
     const requestContext = this._buildRequestContext(MUTATION, request, context);
     const errors = Client._validateRequestArguments(request, options);
 
@@ -128,7 +148,11 @@ export default class Client {
     return this._request(request, options, requestContext);
   }
 
-  public async query(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
+  public async query(
+    request: string,
+    options: RequestOptions = {},
+    context: MaybeRequestContext = {},
+  ): Promise<RequestResult | AsyncIterableIterator<IncrementalRequestResult | undefined>> {
     const requestContext = this._buildRequestContext(QUERY, request, context);
     const errors = Client._validateRequestArguments(request, options);
 
@@ -139,7 +163,11 @@ export default class Client {
     return this._request(request, options, requestContext);
   }
 
-  public async request(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
+  public async request(
+    request: string,
+    options: RequestOptions = {},
+    context: MaybeRequestContext = {},
+  ): Promise<RequestResult | AsyncIterableIterator<IncrementalRequestResult | undefined>> {
     const requestContext = this._buildRequestContext(QUERY, request, context);
     const errors = Client._validateRequestArguments(request, options);
 
@@ -150,12 +178,16 @@ export default class Client {
     return this._request(request, options, requestContext);
   }
 
-  public async subscribe(request: string, options: RequestOptions = {}, context: MaybeRequestContext = {}) {
+  public async subscribe(
+    request: string,
+    options: RequestOptions = {},
+    context: MaybeRequestContext = {},
+  ): Promise<RequestResult | AsyncIterableIterator<RequestResult | undefined>> {
     const requestContext = this._buildRequestContext(SUBSCRIPTION, request, context);
-    const errors: Error[] = [];
+    const errors: GraphQLError[] = [];
 
     if (!this._subscriptionsManager) {
-      errors.push(new Error("@graphql-box/client does not have the subscriptions manager module."));
+      errors.push(new GraphQLError("@graphql-box/client does not have the subscriptions manager module."));
     }
 
     errors.push(...Client._validateRequestArguments(request, options));
@@ -164,7 +196,7 @@ export default class Client {
       return Client._resolve({ errors }, options, requestContext);
     }
 
-    return this._request(request, options, requestContext);
+    return this._subscribe(request, options, requestContext);
   }
 
   private _buildRequestContext(
@@ -191,38 +223,36 @@ export default class Client {
   }
 
   @logRequest()
-  private async _handleMutation(requestData: RequestData, options: RequestOptions, context: RequestContext) {
+  private async _handleMutation(
+    requestData: RequestData,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<RequestResult | AsyncIterableIterator<IncrementalRequestResult | undefined>> {
     try {
-      const resolver = async (rawResponseData: MaybeRawResponseData) => {
-        if (rawResponseData.errors?.length) {
-          const { errors, hasNext, paths } = rawResponseData;
-          return Client._resolve({ errors, hasNext, paths }, options, context);
+      const resolver = async (result: RequestManagerResult | IncrementalRequestManagerResult) => {
+        if ("errors" in result && result.errors?.length) {
+          const { headers, ...rest } = result;
+          return Client._resolve(rest, options, context);
         }
 
-        const responseData = await this._cacheManager.cacheResponse(
-          requestData,
-          rawResponseData as RawResponseDataWithMaybeCacheMetadata,
-          options,
-          context,
-        );
-
-        return Client._resolve(responseData, options, context);
+        const cachedResult = await this._cacheManager.cacheResponse(requestData, result, options, context);
+        return Client._resolve(cachedResult, options, context);
       };
 
       const { debugManager, ...otherContext } = context;
 
-      const decoratedResolver = async (rawResponseData: MaybeRawResponseData) => {
-        const result = await resolver(rawResponseData);
+      const decoratedResolver = async (result: IncrementalRequestManagerResult): Promise<IncrementalRequestResult> => {
+        const resolvedResult = (await resolver(result)) as IncrementalRequestResult;
 
         debugManager?.log(REQUEST_RESOLVED, {
           context: otherContext,
           options,
           requestHash: requestData.hash,
-          result,
+          result: resolvedResult,
           stats: { endTime: debugManager?.now() },
         });
 
-        return result;
+        return resolvedResult;
       };
 
       const executeResult = await this._requestManager.execute(requestData, options, context, decoratedResolver);
@@ -238,7 +268,11 @@ export default class Client {
   }
 
   @logRequest()
-  private async _handleQuery(requestData: RequestData, options: RequestOptions, context: RequestContext) {
+  private async _handleQuery(
+    requestData: RequestData,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<RequestResult | AsyncIterableIterator<IncrementalRequestResult | undefined>> {
     try {
       const checkResult = await this._cacheManager.checkQueryResponseCacheEntry(requestData.hash, options, context);
 
@@ -262,37 +296,36 @@ export default class Client {
         updatedRequestData = updated;
       }
 
-      const resolver = async (rawResponseData: MaybeRawResponseData) => {
-        if (rawResponseData.errors?.length) {
-          const { errors, hasNext, paths } = rawResponseData;
-          return this._resolveQuery(updatedRequestData ?? requestData, { errors, hasNext, paths }, options, context);
+      const resolver = async (result: RequestManagerResult | IncrementalRequestManagerResult) => {
+        if ("errors" in result && result.errors?.length) {
+          return this._resolveQuery(updatedRequestData ?? requestData, result, options, context);
         }
 
-        const responseData = await this._cacheManager.cacheQuery(
+        const cachedResult = await this._cacheManager.cacheQuery(
           requestData,
           updatedRequestData,
-          rawResponseData as RawResponseDataWithMaybeCacheMetadata,
+          result,
           options,
           context,
         );
 
-        return this._resolveQuery(requestData, responseData, options, context);
+        return this._resolveQuery(requestData, cachedResult, options, context);
       };
 
       const { debugManager, ...otherContext } = context;
 
-      const decoratedResolver = async (rawResponseData: MaybeRawResponseData) => {
-        const result = await resolver(rawResponseData);
+      const decoratedResolver = async (result: IncrementalRequestManagerResult): Promise<IncrementalRequestResult> => {
+        const resolvedResult = (await resolver(result)) as IncrementalRequestResult;
 
         debugManager?.log(REQUEST_RESOLVED, {
           context: otherContext,
           options,
           requestHash: requestData.hash,
-          result,
+          result: resolvedResult,
           stats: { endTime: debugManager?.now() },
         });
 
-        return result;
+        return resolvedResult;
       };
 
       const executeResult = await this._requestManager.execute(
@@ -312,35 +345,41 @@ export default class Client {
     }
   }
 
-  private _handleRequest(requestData: RequestData, options: RequestOptions, context: RequestContext) {
+  private async _handleRequest(
+    requestData: RequestData,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<RequestResult | AsyncIterableIterator<IncrementalRequestResult | undefined>> {
     if (context.operation === QUERY) {
       return this._handleQuery(requestData, options, context);
     } else if (context.operation === MUTATION) {
       return this._handleMutation(requestData, options, context);
-    } else if (context.operation === SUBSCRIPTION) {
-      return this._handleSubscription(requestData, options, context);
     }
 
-    const message = "@graphql-box/client expected the operation to be 'query', 'mutation' or 'subscription.";
-    return Client._resolve({ errors: [new Error(message)] }, options, context);
+    const message = "@graphql-box/client expected the operation to be 'query' or 'mutation'";
+    return Client._resolve({ errors: [new GraphQLError(message)] }, options, context);
   }
 
   @logSubscription()
-  private async _handleSubscription(requestData: RequestData, options: RequestOptions, context: RequestContext) {
+  private async _handleSubscription(
+    requestData: RequestData,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<RequestResult | AsyncIterableIterator<RequestResult | undefined>> {
     try {
-      const resolver = async (responseData: MaybeRawResponseData) => {
-        const result = await this._resolveSubscription(requestData, responseData, options, context);
+      const resolver = async (result: SubscriptionsManagerResult) => {
+        const resolvedResult = await this._resolveSubscription(requestData, result, options, context);
         const { debugManager, ...otherContext } = context;
 
         debugManager?.log(SUBSCRIPTION_RESOLVED, {
           context: otherContext,
           options,
           requestHash: requestData.hash,
-          result,
+          result: resolvedResult,
           stats: { endTime: debugManager?.now() },
         });
 
-        return result;
+        return resolvedResult;
       };
 
       const subscriptionsManager = this._subscriptionsManager as SubscriptionsManagerDef;
@@ -358,7 +397,11 @@ export default class Client {
     return isDataRequestedInActiveQuery(this._queryTracker.active, requestData, context);
   }
 
-  private async _request(request: string, options: RequestOptions, context: RequestContext) {
+  private async _request(
+    request: string,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<RequestResult | AsyncIterableIterator<IncrementalRequestResult | undefined>> {
     try {
       const { ast, request: updateRequest } = await this._requestParser.updateRequest(request, options, context);
       const requestData = { ast, hash: hashRequest(updateRequest), request: updateRequest };
@@ -370,7 +413,13 @@ export default class Client {
 
   private _resolvePendingRequests(
     activeRquestData: RequestData,
-    activeResponseData: MaybeResponseData,
+    activeResult:
+      | CacheResult
+      | CacheManagerResult
+      | IncrementalCacheManagerResult
+      | RequestManagerResult
+      | IncrementalRequestManagerResult
+      | { errors: GraphQLError[] },
     activeContext: RequestContext,
   ): void {
     const pendingRequests = this._queryTracker.pending.get(activeRquestData.hash);
@@ -382,38 +431,32 @@ export default class Client {
     pendingRequests.forEach(async ({ context, options, requestData, resolve }) => {
       const { debugManager, ...otherContext } = context;
 
-      if (activeRquestData.hash === requestData.hash || activeResponseData.errors?.length) {
+      if (activeRquestData.hash === requestData.hash || ("errors" in activeResult && activeResult.errors?.length)) {
         debugManager?.log(PENDING_QUERY_RESOLVED, {
           activeRequestHash: activeRquestData.hash,
           context: otherContext,
           options,
           pendingRequestHash: requestData.hash,
-          result: activeResponseData,
+          result: activeResult,
         });
 
-        resolve(Client._resolve(activeResponseData, options, context));
-      } else if (activeResponseData.data && activeResponseData.cacheMetadata) {
-        const filteredResponseData = filterResponseData(
-          requestData,
-          activeRquestData,
-          {
-            ...requestData,
-            cacheMetadata: activeResponseData.cacheMetadata,
-            data: activeResponseData.data,
-          },
-          { active: activeContext, pending: context },
-        );
+        resolve(Client._resolve(activeResult, options, context));
+      } else if ("data" in activeResult && activeResult.data && "_cacheMetadata" in activeResult) {
+        const filteredResult = filterResponseData(requestData, activeRquestData, activeResult, {
+          active: activeContext,
+          pending: context,
+        });
 
         debugManager?.log(PENDING_QUERY_RESOLVED, {
           activeRequestHash: activeRquestData.hash,
           context: otherContext,
           options,
           pendingRequestHash: requestData.hash,
-          result: filteredResponseData,
+          result: filteredResult,
         });
 
-        await this._cacheManager.setQueryResponseCacheEntry(requestData, filteredResponseData, options, context);
-        resolve(Client._resolve(filteredResponseData, options, context));
+        await this._cacheManager.setQueryResponseCacheEntry(requestData, filteredResult, options, context);
+        resolve(Client._resolve(filteredResult, options, context));
       }
     });
 
@@ -422,39 +465,38 @@ export default class Client {
 
   private async _resolveQuery(
     requestData: RequestData,
-    responseData: MaybeResponseData,
+    result:
+      | CacheResult
+      | CacheManagerResult
+      | IncrementalCacheManagerResult
+      | RequestManagerResult
+      | IncrementalRequestManagerResult
+      | { errors: GraphQLError[] },
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<MaybeRequestResult> {
-    this._resolvePendingRequests(requestData, responseData, context);
+  ): Promise<RequestResult | IncrementalRequestResult> {
+    this._resolvePendingRequests(requestData, result, context);
 
     this._queryTracker.active = this._queryTracker.active.filter(
       ({ requestData: activeRequestData }) => activeRequestData.hash !== requestData.hash,
     );
 
     this._cacheManager.deletePartialQueryResponse(requestData.hash);
-    return Client._resolve(responseData, options, context);
+    return Client._resolve(result, options, context);
   }
 
   private async _resolveSubscription(
     requestData: RequestData,
-    rawResponseData: MaybeRawResponseData,
+    result: SubscriptionsManagerResult,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<MaybeRequestResult> {
+  ): Promise<RequestResult> {
     try {
-      if (rawResponseData.errors?.length) {
-        const { errors, hasNext, paths } = rawResponseData;
-        return Client._resolve({ errors, hasNext, paths }, options, context);
+      if ("errors" in result && result.errors?.length) {
+        return Client._resolve(result, options, context);
       }
 
-      const responseData = await this._cacheManager.cacheResponse(
-        requestData,
-        rawResponseData as RawResponseDataWithMaybeCacheMetadata,
-        options,
-        context,
-      );
-
+      const responseData = await this._cacheManager.cacheResponse(requestData, result, options, context);
       return Client._resolve(responseData, options, context);
     } catch (error) {
       return Client._resolve({ errors: [error] }, options, context);
@@ -473,11 +515,30 @@ export default class Client {
     this._queryTracker.pending.set(requestHash, pending);
   }
 
+  private async _subscribe(
+    request: string,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<RequestResult | AsyncIterableIterator<RequestResult | undefined>> {
+    if (context.operation !== SUBSCRIPTION) {
+      const message = "@graphql-box/client expected the operation to be 'subscription'";
+      return Client._resolve({ errors: [new GraphQLError(message)] }, options, context);
+    }
+
+    try {
+      const { ast, request: updateRequest } = await this._requestParser.updateRequest(request, options, context);
+      const requestData = { ast, hash: hashRequest(updateRequest), request: updateRequest };
+      return this._handleSubscription(requestData, options, { ...context, parsedRequest: updateRequest });
+    } catch (error) {
+      return Client._resolve({ errors: castArray(error) }, options, context);
+    }
+  }
+
   private _trackQuery(
     requestData: RequestData,
     options: RequestOptions,
     context: RequestContext,
-  ): Promise<MaybeRequestResult> | void {
+  ): Promise<RequestResult> | void {
     const matchingRequestHash = this._isDataRequestedInActiveQuery(requestData, context);
 
     if (matchingRequestHash) {

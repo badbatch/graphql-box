@@ -1,7 +1,7 @@
-import { MaybeRequestResultWithDehydratedCacheMetadata } from "@graphql-box/core";
+import { IncrementalServerResponse } from "@graphql-box/core";
 import { Response } from "express";
 
-export default (res: Response, requestResult: MaybeRequestResultWithDehydratedCacheMetadata) => {
+export default (res: Response, requestResult: IncrementalServerResponse) => {
   const chunk = Buffer.from(JSON.stringify(requestResult), "utf8");
 
   const data = [

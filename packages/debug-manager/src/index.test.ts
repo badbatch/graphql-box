@@ -14,6 +14,7 @@ import {
   parsedRequests,
   requestFieldTypeMaps,
   responses,
+  transformResultCacheMetadata,
 } from "@graphql-box/test-utils";
 import DebugManager from ".";
 
@@ -63,7 +64,7 @@ describe("@graphql-box/debug-manager >>", () => {
       await cacheManager.cacheQuery(
         requestData,
         requestData,
-        responses.singleTypeQuery,
+        transformResultCacheMetadata(responses.singleTypeQuery),
         { awaitDataCaching: true },
         getRequestContext({ debugManager, fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
       );
@@ -107,7 +108,7 @@ describe("@graphql-box/debug-manager >>", () => {
       await cacheManager.cacheQuery(
         requestData,
         requestData,
-        responses.singleTypeQuerySet.initial,
+        transformResultCacheMetadata(responses.singleTypeQuerySet.initial),
         { awaitDataCaching: true },
         getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
       );

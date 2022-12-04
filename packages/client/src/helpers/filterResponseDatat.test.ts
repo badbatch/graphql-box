@@ -1,10 +1,10 @@
-import { ResponseData } from "@graphql-box/core";
 import {
   getRequestContext,
   getRequestData,
   parsedRequests,
   requestFieldTypeMaps,
   responses,
+  transformResultCacheMetadata,
 } from "@graphql-box/test-utils";
 import filterResponseData from "./filterResponseData";
 
@@ -19,7 +19,7 @@ describe("filterResponseData", () => {
       const responseData = filterResponseData(
         pendingRequestData,
         activeRequestData,
-        responses.nestedTypeQuery as ResponseData,
+        transformResultCacheMetadata(responses.nestedTypeQuery),
         {
           active: activeRequestContext,
           pending: pendingRequestContext,
@@ -40,7 +40,7 @@ describe("filterResponseData", () => {
       const responseData = filterResponseData(
         pendingRequestData,
         activeRequestData,
-        responses.nestedTypeQuery as ResponseData,
+        transformResultCacheMetadata(responses.nestedTypeQuery),
         {
           active: activeRequestContext,
           pending: pendingRequestContext,
@@ -66,7 +66,7 @@ describe("filterResponseData", () => {
         const responseData = filterResponseData(
           pendingRequestData,
           activeRequestData,
-          responses.nestedTypeQuery as ResponseData,
+          transformResultCacheMetadata(responses.nestedTypeQuery),
           {
             active: activeRequestContext,
             pending: pendingRequestContext,
@@ -94,7 +94,7 @@ describe("filterResponseData", () => {
         const responseData = filterResponseData(
           pendingRequestData,
           activeRequestData,
-          responses.nestedTypeQuery as ResponseData,
+          transformResultCacheMetadata(responses.nestedTypeQuery),
           {
             active: activeRequestContext,
             pending: pendingRequestContext,
@@ -123,7 +123,7 @@ describe("filterResponseData", () => {
       const responseData = filterResponseData(
         pendingRequestData,
         activeRequestData,
-        responses.nestedTypeQuery as ResponseData,
+        transformResultCacheMetadata(responses.nestedTypeQuery),
         {
           active: activeRequestContext,
           pending: pendingRequestContext,
@@ -151,7 +151,7 @@ describe("filterResponseData", () => {
       const responseData = filterResponseData(
         pendingRequestData,
         activeRequestData,
-        responses.nestedTypeQuery as ResponseData,
+        transformResultCacheMetadata(responses.nestedTypeQuery),
         {
           active: activeRequestContext,
           pending: pendingRequestContext,
@@ -179,7 +179,7 @@ describe("filterResponseData", () => {
       const responseData = filterResponseData(
         pendingRequestData,
         activeRequestData,
-        responses.nestedTypeQuery as ResponseData,
+        transformResultCacheMetadata(responses.nestedTypeQuery),
         {
           active: activeRequestContext,
           pending: pendingRequestContext,

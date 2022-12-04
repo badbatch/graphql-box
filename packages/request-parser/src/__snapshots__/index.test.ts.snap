@@ -106,7 +106,7 @@ Object {
 exports[`@graphql-box/request-parser >> mutation >> input type variable >> correct request 1`] = `
 "mutation {
   addStar(
-    input: {clientMutationId: \\"1\\", starrableId: \\"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=\\"}
+    input: { clientMutationId: \\"1\\", starrableId: \\"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=\\" }
   ) {
     clientMutationId
     starrable {
@@ -1424,8 +1424,8 @@ fragment MovieSimilar on Movie {
         title
         voteAverage
         voteCount
-        ...MovieReleaseDates @defer(label: \\"MovieReleaseDatesDefer\\")
-        ...MovieVideos @defer(label: \\"MovieVideosDefer\\")
+        ...MovieReleaseDates @defer(label: \\"MovieReleaseDatesDefer2\\")
+        ...MovieVideos @defer(label: \\"MovieVideosDefer2\\")
         id
       }
     }
@@ -1443,8 +1443,8 @@ fragment MovieBrief on Movie {
   title
   voteAverage
   voteCount
-  ...MovieReleaseDates @defer(label: \\"MovieReleaseDatesDefer\\")
-  ...MovieVideos @defer(label: \\"MovieVideosDefer\\")
+  ...MovieReleaseDates @defer(label: \\"MovieReleaseDatesDefer3\\")
+  ...MovieVideos @defer(label: \\"MovieVideosDefer3\\")
 }
 
 fragment MovieCast on Movie {

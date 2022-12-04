@@ -1,7 +1,7 @@
 import {
   CacheMetadata,
   EXECUTE_RESOLVED,
-  IncrementalRequestManagerResult,
+  IncrementalRequestResult,
   PlainObjectMap,
   RequestContext,
   RequestData,
@@ -54,7 +54,7 @@ export default class Execute {
     options: ServerRequestOptions,
     context: RequestContext,
     executeResolver: RequestManagerExecuteResolver,
-  ): Promise<RequestManagerResult | AsyncIterableIterator<IncrementalRequestManagerResult | undefined>> {
+  ): Promise<RequestManagerResult | AsyncIterableIterator<IncrementalRequestResult | undefined>> {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
     const _cacheMetadata: CacheMetadata = new Map();
     const { debugManager, requestID, ...otherContext } = context;
@@ -95,8 +95,8 @@ export default class Execute {
       });
 
       return await new Promise(
-        async (resolve: (value: AsyncIterableIterator<IncrementalRequestManagerResult | undefined>) => void) => {
-          const eventAsyncIterator = new EventAsyncIterator<IncrementalRequestManagerResult>(this._eventEmitter, hash);
+        async (resolve: (value: AsyncIterableIterator<IncrementalRequestResult | undefined>) => void) => {
+          const eventAsyncIterator = new EventAsyncIterator<IncrementalRequestResult>(this._eventEmitter, hash);
           resolve(eventAsyncIterator.getIterator());
           this._eventEmitter.emit(hash, await executeResolver({ ...executeResult.initialResult, _cacheMetadata }));
         },
