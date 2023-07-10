@@ -93,13 +93,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "mutation",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 6,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -379,13 +379,13 @@ Object {
   "hasDeferOrStream": true,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 7,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -541,13 +541,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 6,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -672,13 +672,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 6,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -738,13 +738,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -785,13 +785,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -1334,13 +1334,13 @@ Object {
   "hasDeferOrStream": true,
   "operation": "query",
   "operationName": "GetMoviePreview",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 7,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -1529,13 +1529,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -1629,13 +1629,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 4,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -1770,13 +1770,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 6,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -1836,13 +1836,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -1883,13 +1883,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "GetOrganization",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -1983,13 +1983,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 4,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -2061,13 +2061,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -2108,13 +2108,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -2155,13 +2155,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -2244,13 +2244,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 5,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 
@@ -2314,13 +2314,13 @@ Object {
   "hasDeferOrStream": false,
   "operation": "subscription",
   "operationName": "",
+  "originalRequestHash": "",
   "parsedRequest": "",
   "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 3,
   "requestID": "123456789",
-  "whitelistHash": "",
 }
 `;
 

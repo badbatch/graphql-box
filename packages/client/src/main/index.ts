@@ -179,13 +179,13 @@ export default class Client {
       filteredRequest: "",
       operation,
       operationName: "",
+      originalRequestHash: hashRequest(request),
       parsedRequest: "",
       queryFiltered: false,
       request,
       requestComplexity: null,
       requestDepth: null,
       requestID: uuid(),
-      whitelistHash: hashRequest(request),
       ...context,
     };
   }

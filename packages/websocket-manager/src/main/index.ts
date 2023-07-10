@@ -11,8 +11,8 @@ import EventEmitter from "eventemitter3";
 import { UserOptions } from "../defs";
 
 export default class WebsocketManager implements SubscriptionsManagerDef {
-  private static _getMessageContext({ operation, requestID, whitelistHash }: RequestContext) {
-    return { operation, requestID, whitelistHash };
+  private static _getMessageContext({ operation, originalRequestHash, requestID }: RequestContext) {
+    return { operation, originalRequestHash, requestID };
   }
 
   private _eventEmitter: EventEmitter;

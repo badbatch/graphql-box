@@ -9,13 +9,13 @@ export default function getRequestContext(props: PlainObjectMap = {}): RequestCo
     hasDeferOrStream: false,
     operation: "query",
     operationName: "",
+    originalRequestHash: "",
     parsedRequest: "",
     queryFiltered: false,
     request: "",
     requestComplexity: null,
     requestDepth: null,
     requestID: "123456789",
-    whitelistHash: "",
     ...props,
   };
 }

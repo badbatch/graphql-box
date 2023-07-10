@@ -4,17 +4,19 @@ import {
   MaybeRawFetchData,
   MaybeRawResponseData,
   MaybeRequestResult,
+  MockResponsesOptions,
   PlainObjectMap,
   PlainObjectStringMap,
   RequestContext,
   RequestData,
   RequestOptions,
   RequestResolver,
+  ResponseMock,
 } from "@graphql-box/core";
 import { EventAsyncIterator, deserializeErrors } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
 import { forAwaitEach, isAsyncIterable } from "iterall";
-import { isString } from "lodash";
+import { isString, isUndefined } from "lodash";
 import { meros } from "meros/browser";
 import { JsonValue } from "type-fest";
 import { v1 as uuid } from "uuid";
@@ -28,12 +30,14 @@ import {
   UserOptions,
 } from "../defs";
 import cleanPatchResponse from "../helpers/cleanPatchResponse";
+import { getBatchedMockedResponses } from "../helpers/getBatchedMockResponses";
+import { getMockedResponse } from "../helpers/getMockedResponse";
 import mergeResponseDataSets from "../helpers/mergeResponseDataSets";
 import parseFetchResult from "../helpers/parseFetchResult";
 
 export default class FetchManager {
-  private static _getMessageContext({ operation, requestID, whitelistHash }: RequestContext) {
-    return { operation, requestID, whitelistHash };
+  private static _getMessageContext({ operation, originalRequestHash, requestID }: RequestContext) {
+    return { operation, originalRequestHash, requestID };
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: any): void {
@@ -70,6 +74,8 @@ export default class FetchManager {
   private _fetchTimeout: number;
   private _headers: PlainObjectStringMap = { "content-type": "application/json" };
   private _logUrl: string | undefined;
+  private _mockResponses: MockResponsesOptions;
+  private _mocks: Record<string, ResponseMock>;
   private _requestBatchInterval: number;
   private _requestBatchMax: number;
   private _responseBatchInterval: number;
@@ -92,6 +98,8 @@ export default class FetchManager {
     this._fetchTimeout = options.fetchTimeout ?? 5000;
     this._headers = { ...this._headers, ...(options.headers ?? {}) };
     this._logUrl = options.logUrl;
+    this._mockResponses = !isUndefined(options.mockResponses) ? options.mockResponses : { enabled: false };
+    this._mocks = !isUndefined(options.mocks) ? options.mocks : {};
     this._requestBatchInterval = options.requestBatchInterval ?? 100;
     this._requestBatchMax = options.requestBatchMax ?? 20;
     this._responseBatchInterval = options.responseBatchInterval ?? 100;
@@ -99,20 +107,33 @@ export default class FetchManager {
 
   @logFetch()
   public async execute(
-    { hash, request }: RequestData,
+    requestData: RequestData,
     options: RequestOptions,
     context: RequestContext,
     executeResolver: RequestResolver,
   ) {
     try {
+      const { hash, request } = requestData;
       const url = this._apiUrl as string;
 
       if (options.batch === false || !this._batchRequests || context.hasDeferOrStream) {
-        const fetchResult = await this._fetch(`${url}?requestId=${hash}`, {
-          batched: false,
-          context: FetchManager._getMessageContext(context),
-          request,
-        });
+        const mockedResponse = this._mockResponses.enabled
+          ? getMockedResponse(requestData, options, context, this._mocks)
+          : undefined;
+
+        if (this._mockResponses.enabled && !mockedResponse && !this._mockResponses.allowPassThrough) {
+          throw new Error(
+            "@graphql-box/fetch-manager >> no matching mock found with mockResponse enabled and allowPassThrough set to false",
+          );
+        }
+
+        const fetchResult =
+          mockedResponse ??
+          (await this._fetch(`${url}?requestId=${hash}`, {
+            batched: false,
+            context: FetchManager._getMessageContext(context),
+            request,
+          }));
 
         const { debugManager, ...otherContext } = context;
 
@@ -257,12 +278,23 @@ export default class FetchManager {
       batchRequests[requestHash] = body;
     }
 
+    const mockedResponse = this._mockResponses.enabled
+      ? getBatchedMockedResponses(batchRequests, this._mocks)
+      : undefined;
+
+    if (this._mockResponses.enabled && !mockedResponse && !this._mockResponses.allowPassThrough) {
+      throw new Error(
+        "@graphql-box/fetch-manager >> no matching mock found with mockResponse enabled and allowPassThrough set to false",
+      );
+    }
+
     try {
       FetchManager._resolveFetchBatch(
-        (await this._fetch(`${url}?requestId=${hashes.join("-")}`, {
-          batched: true,
-          requests: batchRequests,
-        })) as BatchedMaybeFetchData,
+        (mockedResponse ??
+          (await this._fetch(`${url}?requestId=${hashes.join("-")}`, {
+            batched: true,
+            requests: batchRequests,
+          }))) as BatchedMaybeFetchData,
         batchActions,
       );
     } catch (error) {

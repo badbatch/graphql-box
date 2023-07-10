@@ -1,4 +1,10 @@
-import { MaybeRawFetchData, MaybeRawResponseData, PlainObjectStringMap } from "@graphql-box/core";
+import {
+  MaybeRawFetchData,
+  MaybeRawResponseData,
+  MockResponsesOptions,
+  PlainObjectStringMap,
+  ResponseMock,
+} from "@graphql-box/core";
 import { JsonValue } from "type-fest";
 
 export interface UserOptions {
@@ -36,6 +42,18 @@ export interface UserOptions {
    * to the server.
    */
   logUrl?: string;
+
+  /**
+   * Whether to mock responses.
+   */
+  mockResponses?: MockResponsesOptions;
+
+  /**
+   * A record of request hash to either a response object or
+   * a function that takes the requestData, options and context
+   * and returns a response object.
+   */
+  mocks?: Record<string, ResponseMock>;
 
   /**
    * How long client should wait to batch requests
