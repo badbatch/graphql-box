@@ -1,4 +1,5 @@
 import {
+  AsyncExecutionResult,
   DehydratedCacheMetadata,
   MaybeRawResponseData,
   MaybeRequestResult,
@@ -10,7 +11,7 @@ import {
 } from "@graphql-box/core";
 import { EventAsyncIterator, getFragmentDefinitions, setCacheMetadata, standardizePath } from "@graphql-box/helpers";
 import EventEmitter from "eventemitter3";
-import { AsyncExecutionResult, GraphQLFieldResolver, GraphQLSchema, subscribe } from "graphql";
+import { GraphQLFieldResolver, GraphQLSchema, subscribe } from "graphql";
 import { forAwaitEach, isAsyncIterable } from "iterall";
 import { GraphQLSubscribe, SubscribeArgs, UserOptions } from "../defs";
 

@@ -3,7 +3,9 @@ import EventEmitter from "eventemitter3";
 import {
   ASTNode,
   DocumentNode,
+  ExecutionResult,
   FragmentDefinitionNode,
+  GraphQLError,
   GraphQLErrorExtensions,
   GraphQLFieldResolver,
   GraphQLNamedType,
@@ -298,6 +300,20 @@ export type DeserializedGraphqlError = {
   };
   stack: string;
 };
+
+export interface ExecutionPatchResult<
+  TData = PlainObjectMap<unknown> | unknown,
+  TExtensions = PlainObjectMap<unknown>
+> {
+  data?: TData | null;
+  errors?: ReadonlyArray<GraphQLError>;
+  extensions?: TExtensions;
+  hasNext: boolean;
+  label?: string;
+  path?: ReadonlyArray<string | number>;
+}
+
+export declare type AsyncExecutionResult = ExecutionResult | ExecutionPatchResult;
 
 export interface MaybeRawFetchData {
   _cacheMetadata?: DehydratedCacheMetadata;
