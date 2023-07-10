@@ -1,3 +1,18 @@
+#### 4.1.5 (2023-07-10)
+
+##### Chores
+
+* **deps:**
+  *  bump ua-parser-js from 0.7.32 to 0.7.33 ([36937e5d](https://github.com/badbatch/graphql-box/commit/36937e5d31e5609063bb029b55b413b841d1ce0a))
+  *  bump qs from 6.5.2 to 6.5.3 ([01214b2c](https://github.com/badbatch/graphql-box/commit/01214b2c653873801361debe47b020c712164ce6))
+  *  bump decode-uri-component from 0.2.0 to 0.2.2 ([5c51d7aa](https://github.com/badbatch/graphql-box/commit/5c51d7aa54a382c7299479de255a4b485edd09e8))
+  *  bump engine.io from 6.2.0 to 6.2.1 ([5bc78505](https://github.com/badbatch/graphql-box/commit/5bc785057ebe3cf214460ed6deb29d543ff423dc))
+* **deps-dev:**  bump express from 4.17.1 to 4.17.3 ([ba4e9819](https://github.com/badbatch/graphql-box/commit/ba4e9819708cf8f769588ff6a70b062807ce9018))
+
+##### Bug Fixes
+
+*  make compatible with latest version 16 of graphql ([1f1e01d3](https://github.com/badbatch/graphql-box/commit/1f1e01d3b68ed07a45a44a51d99aa04ef165f316))
+
 #### 4.1.4 (2022-11-21)
 
 ##### Documentation Changes

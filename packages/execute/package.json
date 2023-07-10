@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/execute",
-  "version": "4.1.3",
+  "version": "4.1.4",
   "description": "The GraphQL Box execute module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
