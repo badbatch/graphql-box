@@ -1,4 +1,4 @@
-import { AsyncExecutionResult, ExecutionPatchResult } from "graphql";
+import { AsyncExecutionResult, ExecutionPatchResult } from "@graphql-box/core";
 import { SetRequired } from "type-fest";
 
 export default (result: AsyncExecutionResult) => {

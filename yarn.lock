@@ -4340,9 +4340,9 @@ camelcase@^5.0.0, camelcase@^5.3.1:
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
 caniuse-lite@^1.0.30001219:
-  version "1.0.30001377"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001377.tgz"
-  integrity sha512-I5XeHI1x/mRSGl96LFOaSk528LA/yZG3m3iQgImGujjO8gotd/DL8QaI1R1h1dg5ATeI2jqPblMpKq4Tr5iKfQ==
+  version "1.0.30001514"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001514.tgz"
+  integrity sha512-ENcIpYBmwAAOm/V2cXgM7rZUrKKaqisZl4ZAI520FIkqGXUxJjmaIssbRW5HVVR5tyV6ygTLIm15aU8LUmQSaQ==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -7002,10 +7002,10 @@ graphql@0.9.6, graphql@^0.9.5, graphql@^0.9.6:
   dependencies:
     iterall "^1.0.0"
 
-graphql@16.1.0-experimental-stream-defer.6:
-  version "16.1.0-experimental-stream-defer.6"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.1.0-experimental-stream-defer.6.tgz#8f00e27b11cf2c71ddec0350c663270cd3230659"
-  integrity sha512-qNedUtVDai94Ptxz7IXHoQR/GU27cuC/SfAU2CogIEfOflr7tW52GTnAF9SDa2i8gneowK0Ye5vyeQUJpGRvAQ==
+graphql@16.7.1:
+  version "16.7.1"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.7.1.tgz#11475b74a7bff2aefd4691df52a0eca0abd9b642"
+  integrity sha512-DRYR9tf+UGU0KOsMcKAlXeFfX89UiiIZ0dRU3mR0yJfu6OjZqUcp68NnFLnqQU5RexygFoDy1EW+ccOYcPfmHg==
 
 growl@1.10.5:
   version "1.10.5"

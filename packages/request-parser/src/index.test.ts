@@ -418,7 +418,6 @@ describe("@graphql-box/request-parser >>", () => {
 
       requestParser = new RequestParser({
         schema: makeExecutableSchema({
-          parseOptions: { enableDeferStream: true },
           resolvers: schemaResolvers,
           typeDefs: schemaTypeDefs,
           updateResolversInPlace: true,

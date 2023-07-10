@@ -1,5 +1,5 @@
-import { PlainObjectMap } from "@graphql-box/core";
-import { AsyncExecutionResult, ExecutionArgs, ExecutionResult, GraphQLFieldResolver, GraphQLSchema } from "graphql";
+import { AsyncExecutionResult, PlainObjectMap } from "@graphql-box/core";
+import { ExecutionArgs, ExecutionResult, GraphQLFieldResolver, GraphQLSchema } from "graphql";
 import { PromiseOrValue } from "graphql/jsutils/PromiseOrValue";
 
 export interface UserOptions {

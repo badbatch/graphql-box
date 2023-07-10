@@ -32,8 +32,8 @@ import mergeResponseDataSets from "../helpers/mergeResponseDataSets";
 import parseFetchResult from "../helpers/parseFetchResult";
 
 export default class FetchManager {
-  private static _getMessageContext({ operation, requestID, whitelistHash }: RequestContext) {
-    return { operation, requestID, whitelistHash };
+  private static _getMessageContext({ operation, originalRequestHash, requestID }: RequestContext) {
+    return { operation, originalRequestHash, requestID };
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: any): void {

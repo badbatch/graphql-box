@@ -85,8 +85,8 @@ export default class Server {
 
         if (
           this._requestWhitelist.length &&
-          context.whitelistHash &&
-          !this._requestWhitelist.includes(context.whitelistHash)
+          context.originalRequestHash &&
+          !this._requestWhitelist.includes(context.originalRequestHash)
         ) {
           response.responses[requestHash] = serializeErrors({
             errors: [new Error("@graphql-box/server: The request is not whitelisted.")],
@@ -140,7 +140,7 @@ export default class Server {
     options: ServerRequestOptions,
     context: MaybeRequestContext,
   ) {
-    if (this._requestWhitelist.length && !this._requestWhitelist.includes(context.whitelistHash as string)) {
+    if (this._requestWhitelist.length && !this._requestWhitelist.includes(context.originalRequestHash as string)) {
       res.status(400).send(serializeErrors({ errors: [new Error("The request is not whitelisted.")] }));
       return;
     }

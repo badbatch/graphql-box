@@ -3,13 +3,15 @@ import EventEmitter from "eventemitter3";
 import {
   ASTNode,
   DocumentNode,
+  ExecutionResult,
   FragmentDefinitionNode,
+  GraphQLError,
   GraphQLErrorExtensions,
   GraphQLFieldResolver,
   GraphQLNamedType,
 } from "graphql";
 import { ErrorObject } from "serialize-error";
-import { JsonObject, JsonValue } from "type-fest";
+import { JsonObject, JsonValue, SetOptional } from "type-fest";
 import WebSocket from "ws";
 
 export type Maybe<T> = null | undefined | T;
@@ -190,6 +192,7 @@ export type LogEntry = {
     nodeVersion?: string;
     operation: ValidOperations;
     operationName: string;
+    originalRequestHash: string;
     osPlatform?: string;
     path?: string;
     port?: string;
@@ -207,7 +210,6 @@ export type LogEntry = {
     url?: string;
     userAgent?: string;
     variables: JsonObject;
-    whitelistHash: string;
   };
   log: {
     level: LogLevel;
@@ -263,13 +265,13 @@ export interface RequestContext {
   normalizePatchResponseData?: boolean;
   operation: ValidOperations;
   operationName: string;
+  originalRequestHash: string;
   parsedRequest: string;
   queryFiltered: boolean;
   request: string;
   requestComplexity: number | null;
   requestDepth: number | null;
   requestID: string;
-  whitelistHash: string;
 }
 
 export type MaybeRequestContext = Partial<RequestContext>;
@@ -298,6 +300,20 @@ export type DeserializedGraphqlError = {
   };
   stack: string;
 };
+
+export interface ExecutionPatchResult<
+  TData = PlainObjectMap<unknown> | unknown,
+  TExtensions = PlainObjectMap<unknown>
+> {
+  data?: TData | null;
+  errors?: ReadonlyArray<GraphQLError>;
+  extensions?: TExtensions;
+  hasNext: boolean;
+  label?: string;
+  path?: ReadonlyArray<string | number>;
+}
+
+export declare type AsyncExecutionResult = ExecutionResult | ExecutionPatchResult;
 
 export interface MaybeRawFetchData {
   _cacheMetadata?: DehydratedCacheMetadata;
@@ -412,3 +428,16 @@ export interface SubscriptionsManagerDef {
     subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<MaybeRequestResult | undefined>>;
 }
+
+export interface MockResponsesOptions {
+  allowPassThrough?: boolean;
+  enabled: boolean;
+}
+
+export type ResponseMock =
+  | (MaybeRawFetchData | AsyncGenerator<Response, any, unknown>)
+  | ((
+      requestData: SetOptional<RequestData, "ast">,
+      options: RequestOptions,
+      context: Partial<RequestContext>,
+    ) => MaybeRawFetchData | AsyncGenerator<Response, any, unknown>);
