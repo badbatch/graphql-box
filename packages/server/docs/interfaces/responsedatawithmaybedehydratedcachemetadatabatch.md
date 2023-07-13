@@ -18,7 +18,7 @@
 
 • **responses**: *object*
 
-*Defined in [defs/index.ts:57](https://github.com/badbatch/graphql-box/blob/1f1e01d3/packages/server/src/defs/index.ts#L57)*
+*Defined in [defs/index.ts:57](https://github.com/badbatch/graphql-box/blob/2410fc32/packages/server/src/defs/index.ts#L57)*
 
 #### Type declaration:
 

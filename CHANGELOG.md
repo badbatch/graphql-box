@@ -1,3 +1,9 @@
+#### 4.1.6 (2023-07-13)
+
+##### Bug Fixes
+
+*  add named export ([2410fc32](https://github.com/badbatch/graphql-box/commit/2410fc3253ace350cd979f1d45e7033661fc6edd))
+
 #### 4.1.5 (2023-07-10)
 
 ##### Chores
