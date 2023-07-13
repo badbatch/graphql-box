@@ -5,7 +5,7 @@ import requestAndCachePages from "../helpers/requestAndCachePages";
 import resolveConnection from "../helpers/resolveConnection";
 import validateCursor from "../helpers/validateCursor";
 
-const main = <
+export const connectionResolver = <
   Source extends PlainObject | undefined,
   Args extends PlainObject,
   Ctx extends PlainObject,
@@ -97,4 +97,4 @@ const main = <
   }
 };
 
-export default main;
+export default connectionResolver;
