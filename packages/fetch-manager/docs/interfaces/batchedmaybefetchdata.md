@@ -19,7 +19,7 @@
 
 • **headers**: *Headers*
 
-*Defined in [defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/1f1e01d3/packages/fetch-manager/src/defs/index.ts#L79)*
+*Defined in [defs/index.ts:79](https://github.com/badbatch/graphql-box/blob/2410fc32/packages/fetch-manager/src/defs/index.ts#L79)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **responses**: *[MaybeRawFetchDataObjectMap](mayberawfetchdataobjectmap.md)*
 
-*Defined in [defs/index.ts:80](https://github.com/badbatch/graphql-box/blob/1f1e01d3/packages/fetch-manager/src/defs/index.ts#L80)*
+*Defined in [defs/index.ts:80](https://github.com/badbatch/graphql-box/blob/2410fc32/packages/fetch-manager/src/defs/index.ts#L80)*
