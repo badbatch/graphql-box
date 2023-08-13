@@ -17,7 +17,7 @@
     "access": "public"
   },
   "main": "lib/main/index.js",
-  "module": "lib/module/index.js",
+  "module": "lib/module/index.mjs",
   "browser": "lib/browser/index.js",
   "types": "lib/types/index.d.ts",
   "keywords": [
@@ -34,7 +34,7 @@
     "compile-watch:types": "yarn run compile:types --watch",
     "compile:browser": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js",
     "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
-    "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
+    "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --out-file-extension \".mjs\" --source-maps --config-file ../../babel.config.js",
     "compile:types": "tsc --build",
     "docs": "typedoc --includes ./src --out ./docs --options ../../typedoc.js",
     "watch": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js -w"
@@ -46,7 +46,7 @@
     "lodash": "< 5"
   },
   "dependencies": {
-    "cacheability": "^3.0.1",
+    "cacheability": "^3.0.2",
     "iterall": "^1.3.0",
     "md5": "^2.2.1",
     "serialize-error": "8.1.0"

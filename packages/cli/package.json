@@ -17,6 +17,7 @@
     "access": "public"
   },
   "main": "lib/main/index.js",
+  "module": "lib/module/index.mjs",
   "types": "lib/types/index.d.ts",
   "keywords": [
     "graphql-box",
@@ -34,6 +35,7 @@
     "compile-watch:main": "yarn run compile:main --watch",
     "compile-watch:types": "yarn run compile:types --watch",
     "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
+    "compile:module": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --out-file-extension \".mjs\" --source-maps --config-file ../../babel.config.js",
     "compile:types": "tsc --build",
     "docs": "typedoc --includes ./src/introspect --out ./docs --options ../../typedoc.js"
   },
