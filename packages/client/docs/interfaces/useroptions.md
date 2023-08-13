@@ -23,7 +23,7 @@
 
 • **cacheManager**: *CacheManagerDef*
 
-*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/2410fc32/packages/client/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:19](https://github.com/badbatch/graphql-box/blob/870b4903/packages/client/src/defs/index.ts#L19)*
 
 The curried function to initialize the cache manager.
 
@@ -33,7 +33,7 @@ ___
 
 • **debugManager**? : *DebugManagerDef*
 
-*Defined in [defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/2410fc32/packages/client/src/defs/index.ts#L24)*
+*Defined in [defs/index.ts:24](https://github.com/badbatch/graphql-box/blob/870b4903/packages/client/src/defs/index.ts#L24)*
 
 The curried function to initialize the debug manager.
 
@@ -43,7 +43,7 @@ ___
 
 • **experimentalDeferStreamSupport**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:30](https://github.com/badbatch/graphql-box/blob/2410fc32/packages/client/src/defs/index.ts#L30)*
+*Defined in [defs/index.ts:30](https://github.com/badbatch/graphql-box/blob/870b4903/packages/client/src/defs/index.ts#L30)*
 
 Enable support for defer and stream directives. Based on version
 of spec in 16.1.0-experimental-stream-defer.6
@@ -54,7 +54,7 @@ ___
 
 • **requestManager**: *RequestManagerDef*
 
-*Defined in [defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/2410fc32/packages/client/src/defs/index.ts#L35)*
+*Defined in [defs/index.ts:35](https://github.com/badbatch/graphql-box/blob/870b4903/packages/client/src/defs/index.ts#L35)*
 
 The request manager.
 
@@ -64,7 +64,7 @@ ___
 
 • **requestParser**: *RequestParserDef*
 
-*Defined in [defs/index.ts:40](https://github.com/badbatch/graphql-box/blob/2410fc32/packages/client/src/defs/index.ts#L40)*
+*Defined in [defs/index.ts:40](https://github.com/badbatch/graphql-box/blob/870b4903/packages/client/src/defs/index.ts#L40)*
 
 The curried function to initialzie the request parser.
 
@@ -74,6 +74,6 @@ ___
 
 • **subscriptionsManager**? : *SubscriptionsManagerDef*
 
-*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/2410fc32/packages/client/src/defs/index.ts#L45)*
+*Defined in [defs/index.ts:45](https://github.com/badbatch/graphql-box/blob/870b4903/packages/client/src/defs/index.ts#L45)*
 
 The curried function to initialize the subscriptions manager.

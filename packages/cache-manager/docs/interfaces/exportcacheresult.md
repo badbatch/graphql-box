@@ -19,7 +19,7 @@
 
 • **entries**: *[string, any][]*
 
-*Defined in [cache-manager/src/defs/index.ts:137](https://github.com/badbatch/graphql-box/blob/2410fc32/packages/cache-manager/src/defs/index.ts#L137)*
+*Defined in [cache-manager/src/defs/index.ts:137](https://github.com/badbatch/graphql-box/blob/870b4903/packages/cache-manager/src/defs/index.ts#L137)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **metadata**: *Metadata[]*
 
-*Defined in [cache-manager/src/defs/index.ts:138](https://github.com/badbatch/graphql-box/blob/2410fc32/packages/cache-manager/src/defs/index.ts#L138)*
+*Defined in [cache-manager/src/defs/index.ts:138](https://github.com/badbatch/graphql-box/blob/870b4903/packages/cache-manager/src/defs/index.ts#L138)*

@@ -1,3 +1,16 @@
+#### 4.1.7 (2023-08-13)
+
+##### Chores
+
+* **deps:**
+  *  bump word-wrap from 1.2.3 to 1.2.5 ([aa231f74](https://github.com/badbatch/graphql-box/commit/aa231f740e435b6e0211690240385335d682276a))
+  *  bump socket.io-parser from 4.2.1 to 4.2.4 ([c9a3e70c](https://github.com/badbatch/graphql-box/commit/c9a3e70c72219623daf3b7b90d63602d70ac00b1))
+  *  bump semver from 5.7.1 to 5.7.2 ([4c716c53](https://github.com/badbatch/graphql-box/commit/4c716c537b76dc2c69591e176f46e1e78de54cd3))
+
+##### Bug Fixes
+
+*  output mjs files for module ([870b4903](https://github.com/badbatch/graphql-box/commit/870b49030713f8670f86321356a6d85de656ea83))
+
 #### 4.1.6 (2023-07-13)
 
 ##### Bug Fixes

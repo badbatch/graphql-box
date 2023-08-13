@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/core",
-  "version": "4.1.5",
+  "version": "4.1.6",
   "description": "The GraphQL Box core module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
