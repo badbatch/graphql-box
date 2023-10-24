@@ -1,55 +1,55 @@
 {
   "name": "@graphql-box/subscribe",
-  "version": "4.1.5",
   "description": "The GraphQL Box subscribe module.",
-  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "version": "4.1.5",
+  "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
-  "bugs": {
-    "url": "https://github.com/badbatch/graphql-box/issues"
-  },
   "repository": {
+    "directory": "packages/subscribe",
     "type": "git",
-    "url": "https://github.com/badbatch/graphql-box",
-    "directory": "packages/subscribe"
+    "url": "https://github.com/badbatch/graphql-box"
   },
+  "bugs": "https://github.com/badbatch/graphql-box/issues",
+  "type": "module",
+  "main": "./dist/main/index.mjs",
+  "types": "./dist/types/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
-  "main": "lib/main/index.js",
-  "module": "lib/module/index.mjs",
-  "browser": "lib/browser/index.js",
-  "types": "lib/types/index.d.ts",
+  "scripts": {
+    "build": "pnpm run clean:dist && pnpm run compile",
+    "clean:deps": "del-cli ./node_modules",
+    "clean:dist": "del-cli ./dist",
+    "compile": "pnpm run /^compile:.*/",
+    "compile:main": "rollup -c ../../rollup.config.cjs",
+    "compile:types": "tsc --project ./tsconfig.build.json"
+  },
+  "dependencies": {
+    "@graphql-box/core": "workspace:../core",
+    "@graphql-box/helpers": "workspace:../helpers",
+    "eventemitter3": "^5.0.1",
+    "iterall": "^1.3.0"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "<8",
+    "core-js": "<4",
+    "graphql": "<17",
+    "lodash-es": "<5"
+  },
+  "devDependencies": {
+    "@babel/runtime": "^7.20.13",
+    "@graphql-box/test-utils": "workspace:../test-utils",
+    "@types/lodash-es": "^4.14.191",
+    "core-js": "^3.27.2",
+    "graphql": "^16.8.1",
+    "lodash-es": "^4.17.21"
+  },
   "keywords": [
     "graphql-box",
     "graphql",
     "client",
     "server",
     "isomorphic"
-  ],
-  "scripts": {
-    "compile": "concurrently npm:compile:*",
-    "compile-watch": "concurrently npm:compile-watch:*",
-    "compile-watch:main": "yarn run compile:main --watch",
-    "compile-watch:types": "yarn run compile:types --watch",
-    "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
-    "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --out-file-extension \".mjs\" --source-maps --config-file ../../babel.config.js",
-    "compile:types": "tsc --build",
-    "docs": "typedoc --includes ./src/main --out ./docs --options ../../typedoc.js"
-  },
-  "peerDependencies": {
-    "@babel/runtime": "< 8",
-    "@graphql-box/core": "< 5",
-    "@graphql-box/helpers": "< 5",
-    "core-js": "< 4",
-    "graphql": "< 17",
-    "lodash": "< 5"
-  },
-  "dependencies": {
-    "eventemitter3": "^4.0.0",
-    "iterall": "^1.3.0"
-  },
-  "devDependencies": {
-    "@graphql-box/test-utils": "^4.0.0"
-  }
+  ]
 }

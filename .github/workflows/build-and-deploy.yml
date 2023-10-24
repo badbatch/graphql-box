@@ -1,60 +1,19 @@
-name: build-and-deploy
+name: Build and publish
+
 on:
   push:
     branches:
-      - master
+      - main
     tags:
       - v**
   pull_request:
     branches:
-      - master
+      - main
+
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.18.0]
-    steps:
-      - name: Log build trigger
-        run: |
-          echo ${{ github.ref }}
-          echo ${{ github.ref_type }}
-
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install Yarn
-        run: |
-          curl -o- -L https://yarnpkg.com/install.sh | bash
-          export PATH=$HOME/.yarn/bin:$PATH
-
-      - name: Install dependencies
-        run: yarn run init
-
-      - name: Build packages
-        run: yarn run build
-
-      - name: Lint packages
-        run: yarn run lint
-
-      - name: Type check packages
-        run: yarn run type-check
-
-      - name: Run unit tests
-        run: yarn run test
-
-      - name: Run integration tests
-        run: yarn run integration
-
-      - name: Publish packages
-        if: github.ref_type == 'tag'
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: |
-          echo "//registry.npmjs.org/:_authToken=\$env:NPM_AUTH_TOKEN" >> .npmrc
-          yarn run publish-lerna-cutoff
+  build-and-publish:
+    uses: badbatch/repodog/.github/workflows/master-build-and-publish.yml@main
+    with:
+      package-manager-version: '7.27.0'
+    secrets:
+      npm_auth_token: ${{ secrets.NPM_AUTH_TOKEN }}
