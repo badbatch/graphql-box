@@ -1,27 +1,26 @@
-import { DeserializedGraphqlError } from "@graphql-box/core";
-import { GraphQLError, Source } from "graphql";
-import { isArray, isObject, isPlainObject } from "lodash";
-import { ErrorObject, deserializeError as deserialize, serializeError as serialize } from "serialize-error";
+import { type DeserializedGraphqlError, type PlainObject } from '@graphql-box/core';
+import { GraphQLError, Source } from 'graphql';
+import { isArray, isObject, isPlainObject } from 'lodash-es';
+import { type ErrorObject, deserializeError as deserialize, serializeError as serialize } from 'serialize-error';
 
-export const deserializedGraphqlError = (obj: DeserializedGraphqlError) => {
+export const deserializedGraphqlError = (obj: DeserializedGraphqlError): GraphQLError => {
   const originalError = new Error(obj.originalError.message);
   originalError.stack = obj.originalError.stack;
 
-  const graphqlError = new GraphQLError(
-    obj.message,
-    obj.nodes,
-    new Source(obj.source.body, obj.source.name, obj.source.locationOffset),
-    obj.positions,
-    obj.path,
+  const graphqlError = new GraphQLError(obj.message, {
+    nodes: obj.nodes,
     originalError,
-  );
+    path: obj.path,
+    positions: obj.positions,
+    source: new Source(obj.source.body, obj.source.name, obj.source.locationOffset),
+  });
 
   graphqlError.stack = obj.stack;
   return graphqlError;
 };
 
 export const deserializeError = (error: DeserializedGraphqlError | ErrorObject) =>
-  error.name === "GraphQLError" ? deserializedGraphqlError(error as DeserializedGraphqlError) : deserialize(error);
+  error.name === 'GraphQLError' ? deserializedGraphqlError(error as DeserializedGraphqlError) : deserialize(error);
 
 export const deserializeErrors = <Type extends { errors?: (DeserializedGraphqlError | ErrorObject)[] }>({
   errors,
@@ -40,15 +39,13 @@ export const deserializeErrors = <Type extends { errors?: (DeserializedGraphqlEr
 };
 
 export const serializeGraphqlError = (error: GraphQLError) => {
-  const cloneOwnProperties = (instance: any) =>
-    Object.getOwnPropertyNames(instance).reduce((obj: Record<string, any>, name) => {
+  const cloneOwnProperties = (instance: PlainObject) =>
+    Object.getOwnPropertyNames(instance).reduce((obj: PlainObject, name) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const value = instance[name];
 
-      if (isObject(value) && !isArray(value) && !isPlainObject(value)) {
-        obj[name] = cloneOwnProperties(value);
-      } else {
-        obj[name] = instance[name];
-      }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      obj[name] = isObject(value) && !isArray(value) && !isPlainObject(value) ? cloneOwnProperties(value) : value;
 
       return obj;
     }, {});

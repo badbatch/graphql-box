@@ -32,5 +32,7 @@ module.exports = {
         peerDependencies: false,
       },
     ],
+    'unicorn/no-array-reduce': 0,
+    'unicorn/no-null': 0,
   },
 };

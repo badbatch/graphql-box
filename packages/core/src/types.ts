@@ -146,7 +146,7 @@ export type LogData = {
   cachemapOptions?: CachemapOptions;
   context?: Omit<RequestContext, 'debugManager'>;
   options?: RequestOptions | ServerRequestOptions;
-  result?: MaybeRequestResult & { cacheMetadata?: CacheMetadata };
+  result?: Omit<PartialRequestResult, '_cacheMetadata'> & { cacheMetadata?: CacheMetadata };
   stats?: {
     duration: number;
     endTime: number;
@@ -253,7 +253,7 @@ export interface RequestContext {
   requestID: string;
 }
 
-export type MaybeRequestContext = Partial<RequestContext>;
+export type PartialRequestContext = Partial<RequestContext>;
 
 export type DehydratedCacheMetadata = Record<string, CacheabilityMetadata>;
 
@@ -289,7 +289,7 @@ export interface ExecutionPatchResult<TData = PlainObject<unknown> | unknown, TE
 
 export declare type AsyncExecutionResult = ExecutionResult | ExecutionPatchResult;
 
-export interface MaybeRawFetchData {
+export interface PartialRawFetchData {
   _cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObject;
   errors?: (DeserializedGraphqlError | ErrorObject)[];
@@ -308,7 +308,7 @@ export interface RawResponseDataWithMaybeCacheMetadata {
   paths?: string[];
 }
 
-export interface MaybeRawResponseData {
+export interface PartialRawResponseData {
   _cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObject | null;
   errors?: readonly Error[];
@@ -325,7 +325,7 @@ export interface ResponseData {
   paths?: string[];
 }
 
-export interface MaybeResponseData {
+export interface PartialResponseData {
   cacheMetadata?: CacheMetadata;
   data?: PlainObject | null;
   errors?: readonly Error[];
@@ -339,7 +339,7 @@ export interface RequestData {
   request: string;
 }
 
-export interface MaybeRequestResult {
+export interface PartialRequestResult {
   /**
    * A map of query paths to their cacheability
    * information.
@@ -367,7 +367,7 @@ export interface MaybeRequestResult {
   requestID: string;
 }
 
-export interface MaybeRequestResultWithDehydratedCacheMetadata {
+export interface PartialRequestResultWithDehydratedCacheMetadata {
   _cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainObject | null;
   errors?: readonly Error[];
@@ -382,12 +382,12 @@ export interface RequestManagerDef {
     options: RequestOptions,
     context: RequestContext,
     executeResolver: RequestResolver
-  ): Promise<AsyncIterableIterator<MaybeRequestResult | undefined> | MaybeRawResponseData>;
+  ): Promise<AsyncIterableIterator<PartialRequestResult | undefined> | PartialRawResponseData>;
 }
 
-export type RequestResolver = (rawResponseData: MaybeRawResponseData) => Promise<MaybeRequestResult>;
+export type RequestResolver = (rawResponseData: PartialRawResponseData) => Promise<PartialRequestResult>;
 
-export type SubscriberResolver = (rawResponseData: MaybeRawResponseData) => Promise<MaybeRequestResult>;
+export type SubscriberResolver = (rawResponseData: PartialRawResponseData) => Promise<PartialRequestResult>;
 
 export interface SubscriptionsManagerDef {
   subscribe(
@@ -395,7 +395,7 @@ export interface SubscriptionsManagerDef {
     options: RequestOptions,
     context: RequestContext,
     subscriberResolver: SubscriberResolver
-  ): Promise<AsyncIterator<MaybeRequestResult | undefined>>;
+  ): Promise<AsyncIterator<PartialRequestResult | undefined>>;
 }
 
 export interface MockResponsesOptions {
@@ -404,9 +404,9 @@ export interface MockResponsesOptions {
 }
 
 export type ResponseMock =
-  | (MaybeRawFetchData | AsyncGenerator<Response>)
+  | (PartialRawFetchData | AsyncGenerator<Response>)
   | ((
       requestData: SetOptional<RequestData, 'ast'>,
       options: RequestOptions,
       context: Partial<RequestContext>
-    ) => MaybeRawFetchData | AsyncGenerator<Response>);
+    ) => PartialRawFetchData | AsyncGenerator<Response>);

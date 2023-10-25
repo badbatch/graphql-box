@@ -25,13 +25,13 @@ importers:
       '@graphql-tools/schema': ^10.0.0
       '@jest/globals': ^29.3.1
       '@repodog/babel-config': ^1.1.8
-      '@repodog/cli': ^1.1.14
+      '@repodog/cli': ^1.1.15
       '@repodog/commitlint-config': ^1.1.6
-      '@repodog/eslint-config': ^1.1.12
+      '@repodog/eslint-config': ^1.1.14
       '@repodog/eslint-config-jasmine': ^1.1.10
       '@repodog/eslint-config-jest': ^1.1.10
       '@repodog/jasmine-browser-config': ^0.0.2
-      '@repodog/jest-config': ^1.1.10
+      '@repodog/jest-config': ^1.1.11
       '@repodog/markdownlint-config': ^1.1.4
       '@repodog/prettier-config': ^1.1.4
       '@repodog/rollup-config': ^1.1.6
@@ -66,6 +66,7 @@ importers:
       eslint-plugin-import: ^2.27.5
       eslint-plugin-jasmine: ^4.1.3
       eslint-plugin-jest: ^27.2.1
+      eslint-plugin-prefer-arrow: ^1.2.3
       eslint-plugin-prettier: ^4.2.1
       eslint-plugin-sort-class-members: ^1.16.0
       eslint-plugin-sort-destructure-keys: ^1.4.0
@@ -118,13 +119,13 @@ importers:
       '@graphql-tools/schema': 10.0.0_graphql@16.8.1
       '@jest/globals': 29.7.0
       '@repodog/babel-config': 1.1.8_462sguuf2tb5i4b3kw2zzrxbbi
-      '@repodog/cli': 1.1.14
+      '@repodog/cli': 1.1.15
       '@repodog/commitlint-config': 1.1.6_e32vlx7dsvspmttyzpxifnxvyq
-      '@repodog/eslint-config': 1.1.12_bp23cgm3vfuzma3wzcfnxtzyxy
+      '@repodog/eslint-config': 1.1.14_uqm2wxkcd7iwsqfke36fp4slbu
       '@repodog/eslint-config-jasmine': 1.1.10_yxughnei4d2uzjpsyzfdg3jfwu
       '@repodog/eslint-config-jest': 1.1.10_eslint-plugin-jest@27.4.3
       '@repodog/jasmine-browser-config': 0.0.2_q3lgtrlym7zbq42ii5lqjjvyxq
-      '@repodog/jest-config': 1.1.10_yajkwgfx5jms2xzollyur26apy
+      '@repodog/jest-config': 1.1.11_yajkwgfx5jms2xzollyur26apy
       '@repodog/markdownlint-config': 1.1.5_markdownlint-cli@0.37.0
       '@repodog/prettier-config': 1.1.5_prettier@2.8.8
       '@repodog/rollup-config': 1.1.6_duf6qy7mituxqlggzc3byhi6by
@@ -159,6 +160,7 @@ importers:
       eslint-plugin-import: 2.29.0_xtnuzoge4b5bwk2zupk2b6bkwu
       eslint-plugin-jasmine: 4.1.3
       eslint-plugin-jest: 27.4.3_ugx7mgogee677sbw2qrwkmelfe
+      eslint-plugin-prefer-arrow: 1.2.3_eslint@8.52.0
       eslint-plugin-prettier: 4.2.1_bk2rujilmxlltspnl4c5hwjdfu
       eslint-plugin-sort-class-members: 1.19.0_eslint@8.52.0
       eslint-plugin-sort-destructure-keys: 1.5.0_eslint@8.52.0
@@ -409,23 +411,31 @@ importers:
     specifiers:
       '@babel/runtime': ^7.20.13
       '@graphql-box/core': workspace:../core
+      '@jest/globals': ^29.3.1
       '@types/lodash-es': ^4.14.191
       cacheability: ^4.0.9
       core-js: ^3.27.2
+      eventemitter3: ^5.0.1
+      graphql: ^16.8.1
       iterall: ^1.3.0
       lodash-es: ^4.17.21
-      md5: ^2.2.1
       serialize-error: ^11.0.2
+      ts-md5: ^1.3.1
+      type-fest: ^4.5.0
     dependencies:
       '@graphql-box/core': link:../core
       cacheability: 4.0.9_v3hmjvhjnapg475hpz2si5lsz4
+      eventemitter3: 5.0.1
       iterall: 1.3.0
-      md5: 2.3.0
       serialize-error: 11.0.2
+      ts-md5: 1.3.1
+      type-fest: 4.5.0
     devDependencies:
       '@babel/runtime': 7.23.2
+      '@jest/globals': 29.7.0
       '@types/lodash-es': 4.17.10
       core-js: 3.33.1
+      graphql: 16.8.1
       lodash-es: 4.17.21
 
   packages/react:
@@ -2707,14 +2717,14 @@ packages:
       babel-plugin-macros: 3.1.0
     dev: true
 
-  /@repodog/cli-cut/1.1.7_v3hmjvhjnapg475hpz2si5lsz4:
-    resolution: {integrity: sha512-5xe7XyS3o4J5W+/BwZAkARUdg62EsIaz4ui3Sx1wEP8jmGDbsXNlUMzEDEG925X1+8JNe4jsmzk6Vgj10MV+KQ==}
+  /@repodog/cli-cut/1.1.8_v3hmjvhjnapg475hpz2si5lsz4:
+    resolution: {integrity: sha512-06Iox32aIruAtGMSlh1BzIJ8kDkXegnsB0VThuUF85vLzap2lGwqxge0qhi4nASRY9NjdZhJbzC8Gy0XaGWUlA==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
     dependencies:
       '@babel/runtime': 7.23.2
-      '@repodog/cli-utils': 1.1.7_v3hmjvhjnapg475hpz2si5lsz4
+      '@repodog/cli-utils': 1.1.8_v3hmjvhjnapg475hpz2si5lsz4
       ansi-colors: 4.1.3
       core-js: 3.33.1
       semver: 7.5.4
@@ -2724,16 +2734,16 @@ packages:
       - lodash-es
     dev: true
 
-  /@repodog/cli-new/1.1.11_v3hmjvhjnapg475hpz2si5lsz4:
-    resolution: {integrity: sha512-978BqhBWJd6XNOV8KBB5iYAY82Gv7U+Fb+CTc6H+VtZIx5uejwv+kAaBRraG7JHLx95ygLYCKlrlVK76ygLnEg==}
+  /@repodog/cli-new/1.1.12_v3hmjvhjnapg475hpz2si5lsz4:
+    resolution: {integrity: sha512-/LhkLAswdpby71rWSE+p4Cak63pDpJoylS3ppzgbSQGA556p5OFgr9/pdx/QuWHV6fibcbGmXQCJlh9PAm/8Cw==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
       lodash-es: <5
     dependencies:
       '@babel/runtime': 7.23.2
-      '@repodog/cli-setup': 1.1.7_v3hmjvhjnapg475hpz2si5lsz4
-      '@repodog/cli-utils': 1.1.7_v3hmjvhjnapg475hpz2si5lsz4
+      '@repodog/cli-setup': 1.1.8_v3hmjvhjnapg475hpz2si5lsz4
+      '@repodog/cli-utils': 1.1.8_v3hmjvhjnapg475hpz2si5lsz4
       ansi-colors: 4.1.3
       core-js: 3.33.1
       enquirer: 2.4.1
@@ -2745,14 +2755,14 @@ packages:
       - supports-color
     dev: true
 
-  /@repodog/cli-postinstall/0.1.11_v3hmjvhjnapg475hpz2si5lsz4:
-    resolution: {integrity: sha512-CPZG0gLGDA7xIikYNlvuBU5Lp+346btl415nWOFkYhG9+Mk5XnNAtLJqxGd+fTJzSLLSCQ0aOspX9OwYJ/16gQ==}
+  /@repodog/cli-postinstall/0.1.12_v3hmjvhjnapg475hpz2si5lsz4:
+    resolution: {integrity: sha512-vjFV0TjyAKRmbBV5z0Y5biEeQz7BZy1DMlwrOdO5k9sjxrLdPgBlVOFZasRm9B09E8zhjQGhK/Do0Y4UfPqTcw==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
     dependencies:
       '@babel/runtime': 7.23.2
-      '@repodog/cli-utils': 1.1.7_v3hmjvhjnapg475hpz2si5lsz4
+      '@repodog/cli-utils': 1.1.8_v3hmjvhjnapg475hpz2si5lsz4
       ansi-colors: 4.1.3
       core-js: 3.33.1
       package-json: 8.1.1
@@ -2762,14 +2772,14 @@ packages:
       - lodash-es
     dev: true
 
-  /@repodog/cli-publish/1.1.7_v3hmjvhjnapg475hpz2si5lsz4:
-    resolution: {integrity: sha512-GqgZOWAGq2isU3xGk7oAsQ7UbyUm+vhtkcVwEhv1Gzl8cFC5nADCje4GN+6rWzilgiLaqICHJdkkVtP79e3/ew==}
+  /@repodog/cli-publish/1.1.8_v3hmjvhjnapg475hpz2si5lsz4:
+    resolution: {integrity: sha512-H1GBISiFmsLwrunOoPajE8hGlmYtu/ggSwnTuvf/8xrUPiDHcM8FBKGhVhySLouK8Ktsz2yqakc23gP9LBDjtg==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
     dependencies:
       '@babel/runtime': 7.23.2
-      '@repodog/cli-utils': 1.1.7_v3hmjvhjnapg475hpz2si5lsz4
+      '@repodog/cli-utils': 1.1.8_v3hmjvhjnapg475hpz2si5lsz4
       ansi-colors: 4.1.3
       core-js: 3.33.1
       semver: 7.5.4
@@ -2779,14 +2789,14 @@ packages:
       - lodash-es
     dev: true
 
-  /@repodog/cli-setup/1.1.7_v3hmjvhjnapg475hpz2si5lsz4:
-    resolution: {integrity: sha512-kmomXxo2fqljJWuXqA0ZwYTJJ0OOTl39VH8Dvw0kEL7FNFwnL3LHM41rQrxYHN8Szhf0RYqGR1voRsVIQyGU2w==}
+  /@repodog/cli-setup/1.1.8_v3hmjvhjnapg475hpz2si5lsz4:
+    resolution: {integrity: sha512-egbNbj9M/FZu+S8zFFZdZf/0bDjBC5jvgwxDog+nHLB0qX6qkrYWfNWzjSeqD28AmPsCfQtSPVdQkGdAHt7xRQ==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
     dependencies:
       '@babel/runtime': 7.23.2
-      '@repodog/cli-utils': 1.1.7_v3hmjvhjnapg475hpz2si5lsz4
+      '@repodog/cli-utils': 1.1.8_v3hmjvhjnapg475hpz2si5lsz4
       ansi-colors: 4.1.3
       core-js: 3.33.1
       enquirer: 2.4.1
@@ -2796,8 +2806,8 @@ packages:
       - lodash-es
     dev: true
 
-  /@repodog/cli-utils/1.1.7_v3hmjvhjnapg475hpz2si5lsz4:
-    resolution: {integrity: sha512-I7V4FO0CnH+JNZIuosm+sOY0FAL9+eHteafAIexGYcom4W8cYOE/xpLmDSMyerWNvgYjhoFNZ8t2YbGSp7mWNA==}
+  /@repodog/cli-utils/1.1.8_v3hmjvhjnapg475hpz2si5lsz4:
+    resolution: {integrity: sha512-TghtAkZvaxDDVaKw8gJVNNnfiNJ6W8aN+zcBYumnFRuvNYdO+ZEeBXFUCrN+NCzjWRKiCqdIoq7NEatK3HJBBA==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
@@ -2813,14 +2823,14 @@ packages:
       shelljs: 0.8.5
     dev: true
 
-  /@repodog/cli-write/1.1.7_v3hmjvhjnapg475hpz2si5lsz4:
-    resolution: {integrity: sha512-ms/+mt81YDiXucpQkq/QVL0lce9/Dw59aMRwUb5WERIfk3hhtxmMI/x1pggAVkFcys5zJoGUzm0HtVUpYlO4fQ==}
+  /@repodog/cli-write/1.1.8_v3hmjvhjnapg475hpz2si5lsz4:
+    resolution: {integrity: sha512-ljmdr5XBhRqjdK8J6cqLJrVCklz1v/InlujfbBYo/VXfDee67BH6ZFG5PcdlvQJjeDcz0VA8Srjxq7xv32fPMw==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
     dependencies:
       '@babel/runtime': 7.23.2
-      '@repodog/cli-utils': 1.1.7_v3hmjvhjnapg475hpz2si5lsz4
+      '@repodog/cli-utils': 1.1.8_v3hmjvhjnapg475hpz2si5lsz4
       ansi-colors: 4.1.3
       core-js: 3.33.1
       dotenv: 16.3.1
@@ -2832,18 +2842,18 @@ packages:
       - lodash-es
     dev: true
 
-  /@repodog/cli/1.1.14:
-    resolution: {integrity: sha512-NdmO5ZvZSwzgNIALszj6+Tcyn2bgKBVsmgnumiHRl7AHWfcXo1rbHUox5NPMBkQ4FYJTrAmwhXkj6VgjVboo3Q==}
+  /@repodog/cli/1.1.15:
+    resolution: {integrity: sha512-/+dUKoSZr8wCnBp08dZp5UltoYKmteTOgxonWCKIuAoAn74qIIb2BtzxgWxKXvFsps/v1s2osKKrM7y/oilHxQ==}
     engines: {node: ^18.13.0}
     hasBin: true
     dependencies:
       '@babel/runtime': 7.23.2
-      '@repodog/cli-cut': 1.1.7_v3hmjvhjnapg475hpz2si5lsz4
-      '@repodog/cli-new': 1.1.11_v3hmjvhjnapg475hpz2si5lsz4
-      '@repodog/cli-postinstall': 0.1.11_v3hmjvhjnapg475hpz2si5lsz4
-      '@repodog/cli-publish': 1.1.7_v3hmjvhjnapg475hpz2si5lsz4
-      '@repodog/cli-setup': 1.1.7_v3hmjvhjnapg475hpz2si5lsz4
-      '@repodog/cli-write': 1.1.7_v3hmjvhjnapg475hpz2si5lsz4
+      '@repodog/cli-cut': 1.1.8_v3hmjvhjnapg475hpz2si5lsz4
+      '@repodog/cli-new': 1.1.12_v3hmjvhjnapg475hpz2si5lsz4
+      '@repodog/cli-postinstall': 0.1.12_v3hmjvhjnapg475hpz2si5lsz4
+      '@repodog/cli-publish': 1.1.8_v3hmjvhjnapg475hpz2si5lsz4
+      '@repodog/cli-setup': 1.1.8_v3hmjvhjnapg475hpz2si5lsz4
+      '@repodog/cli-write': 1.1.8_v3hmjvhjnapg475hpz2si5lsz4
       ansi-colors: 4.1.3
       core-js: 3.33.1
       jiti: 1.20.0
@@ -2885,8 +2895,8 @@ packages:
       eslint-plugin-jest: 27.4.3_ugx7mgogee677sbw2qrwkmelfe
     dev: true
 
-  /@repodog/eslint-config/1.1.12_bp23cgm3vfuzma3wzcfnxtzyxy:
-    resolution: {integrity: sha512-RWz58vur7ATqVo24Wumuni3gCZkp0Jmutcgz1KPXxkZlJgJkvLxeyqUol8dkQVRu+JWdfgWJGLBAe5lbMaQUBA==}
+  /@repodog/eslint-config/1.1.14_uqm2wxkcd7iwsqfke36fp4slbu:
+    resolution: {integrity: sha512-68EFiX6/oD13a7wwIwxtU+yzPsdszEolguroub6s5PT9BTMIim5rSr5qU17GknuxTCOVd2cITl5BPC6lJqOOxQ==}
     peerDependencies:
       '@babel/eslint-parser': <8
       '@typescript-eslint/eslint-plugin': <6
@@ -2895,6 +2905,7 @@ packages:
       eslint-config-prettier: <9
       eslint-import-resolver-typescript: <4
       eslint-plugin-import: <3
+      eslint-plugin-prefer-arrow: <2
       eslint-plugin-prettier: <5
       eslint-plugin-sort-class-members: <2
       eslint-plugin-sort-destructure-keys: <2
@@ -2909,6 +2920,7 @@ packages:
       eslint-config-prettier: 8.10.0_eslint@8.52.0
       eslint-import-resolver-typescript: 3.6.1_vnkqwkswoxqqgmefcilk43x3wu
       eslint-plugin-import: 2.29.0_xtnuzoge4b5bwk2zupk2b6bkwu
+      eslint-plugin-prefer-arrow: 1.2.3_eslint@8.52.0
       eslint-plugin-prettier: 4.2.1_bk2rujilmxlltspnl4c5hwjdfu
       eslint-plugin-sort-class-members: 1.19.0_eslint@8.52.0
       eslint-plugin-sort-destructure-keys: 1.5.0_eslint@8.52.0
@@ -2931,8 +2943,8 @@ packages:
       jasmine-expect: 5.0.0
     dev: true
 
-  /@repodog/jest-config/1.1.10_yajkwgfx5jms2xzollyur26apy:
-    resolution: {integrity: sha512-E/qoakapcQ2KQgb/kpsXDadAoY0044vCh+jYKMUvDf58vCgH5uvjqJHXlVnWXxLfptC0ajdMI4KHO/10FKlkDQ==}
+  /@repodog/jest-config/1.1.11_yajkwgfx5jms2xzollyur26apy:
+    resolution: {integrity: sha512-AdhY1KZ/290l3VAYw+ZeOrZTOnUNeAJPuyl5e7MK0y2Rh/yYEfrlfFxH4Jec3MP5uHLmUhEcRGMQG/QNdTTC3g==}
     peerDependencies:
       '@jest/globals': <30
       '@types/jest': <26
@@ -4461,10 +4473,6 @@ packages:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
     dev: true
 
-  /charenc/0.0.2:
-    resolution: {integrity: sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==}
-    dev: false
-
   /chokidar/3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
     engines: {node: '>= 8.10.0'}
@@ -4820,10 +4828,6 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
     dev: true
-
-  /crypt/0.0.2:
-    resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==}
-    dev: false
 
   /crypto-js/4.1.1:
     resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
@@ -5450,6 +5454,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
       - typescript
+    dev: true
+
+  /eslint-plugin-prefer-arrow/1.2.3_eslint@8.52.0:
+    resolution: {integrity: sha512-J9I5PKCOJretVuiZRGvPQxCbllxGAV/viI20JO3LYblAodofBxyMnZAJ+WGeClHgANnSJberTNoFWWjrWKBuXQ==}
+    peerDependencies:
+      eslint: '>=2.0.0'
+    dependencies:
+      eslint: 8.52.0
     dev: true
 
   /eslint-plugin-prettier/4.2.1_bk2rujilmxlltspnl4c5hwjdfu:
@@ -6564,10 +6576,6 @@ packages:
       call-bind: 1.0.5
       has-tostringtag: 1.0.0
     dev: true
-
-  /is-buffer/1.1.6:
-    resolution: {integrity: sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==}
-    dev: false
 
   /is-builtin-module/3.2.1:
     resolution: {integrity: sha512-BSLE3HnV2syZ0FK0iMA/yUGplUeMmNz4AW5fnTunbCIqZi4vG3WjJT9FHMy5D69xmAYBHXQhJdALdpwVxV501A==}
@@ -7731,14 +7739,6 @@ packages:
       markdown-it: 13.0.1
       markdownlint-micromark: 0.1.7
     dev: true
-
-  /md5/2.3.0:
-    resolution: {integrity: sha512-T1GITYmFaKuO91vxyoQMFETst+O71VUPEU3ze5GNzDm0OWdP8v1ziTaAEPUr/3kLsY3Sftgz242A1SetQiDL7g==}
-    dependencies:
-      charenc: 0.0.2
-      crypt: 0.0.2
-      is-buffer: 1.1.6
-    dev: false
 
   /mdurl/1.0.1:
     resolution: {integrity: sha512-/sKlQJCBYVY9Ers9hqzKou4H6V5UWc/M59TH2dvkt+84itfnq7uFOMLpOiOS4ujvHP4etln18fmIxA5R5fll0g==}
