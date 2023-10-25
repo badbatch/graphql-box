@@ -1,7 +1,11 @@
-import { DehydratedCacheMetadata, PlainObjectMap, RawResponseDataWithMaybeCacheMetadata } from "@graphql-box/core";
+import {
+  type DehydratedCacheMetadata,
+  type PlainObject,
+  type RawResponseDataWithMaybeCacheMetadata,
+} from '@graphql-box/core';
 
 export interface RequestAndOptions {
-  options: PlainObjectMap;
+  options: PlainObject;
   request: string;
 }
 
@@ -13,7 +17,7 @@ export interface ParsedQuerySet {
 
 export interface PartialQueryResponse {
   cacheMetadata: DehydratedCacheMetadata;
-  data: PlainObjectMap;
+  data: PlainObject;
 }
 
 export interface QueryResponseSet {

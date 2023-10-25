@@ -1,6 +1,4 @@
-/* tslint:disable:max-line-length */
-
-import { ParsedQuerySet } from "../defs";
+import { type ParsedQuerySet } from '../types.ts';
 
 export const singleTypeQuery = `
   {

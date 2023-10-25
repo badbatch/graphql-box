@@ -1,4 +1,4 @@
-const types = `
+export const typeDefs = `
   type Email {
     from: String!
     id: Int!
@@ -40,5 +40,3 @@ const types = `
     subscription: Subscription
   }
 `;
-
-export default types;

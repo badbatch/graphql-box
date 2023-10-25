@@ -1,4 +1,4 @@
-import { RequestAndOptions } from "../defs";
+import { type RequestAndOptions } from '../types.ts';
 
 export const queryWithoutVariable: RequestAndOptions = {
   options: {},
@@ -71,7 +71,7 @@ export const queryWithOperationName: RequestAndOptions = {
 export const queryWithVariable: RequestAndOptions = {
   options: {
     variables: {
-      login: "facebook",
+      login: 'facebook',
     },
   },
   request: `
@@ -90,7 +90,7 @@ export const queryWithVariable: RequestAndOptions = {
 export const queryWithVariableWithDefault: RequestAndOptions = {
   options: {
     variables: {
-      login: "facebook",
+      login: 'facebook',
     },
   },
   request: `
@@ -110,7 +110,7 @@ export const queryWithVariables: RequestAndOptions = {
   options: {
     variables: {
       first: 6,
-      login: "facebook",
+      login: 'facebook',
     },
   },
   request: `
@@ -146,8 +146,8 @@ export const queryWithEnumVariable: RequestAndOptions = {
   options: {
     variables: {
       first: 6,
-      login: "facebook",
-      ownerAffiliations: ["OWNER", "COLLABORATOR"],
+      login: 'facebook',
+      ownerAffiliations: ['OWNER', 'COLLABORATOR'],
     },
   },
   request: `
@@ -183,7 +183,7 @@ export const queryWithDirective: RequestAndOptions = {
   options: {
     variables: {
       first: 6,
-      login: "facebook",
+      login: 'facebook',
       withEmail: true,
       withRepos: true,
     },
@@ -220,7 +220,7 @@ export const queryWithDirective: RequestAndOptions = {
 export const queryWithInlineFragment: RequestAndOptions = {
   options: {
     variables: {
-      login: "facebook",
+      login: 'facebook',
     },
   },
   request: `
@@ -242,8 +242,8 @@ export const queryWithUnionInlineFragments: RequestAndOptions = {
   options: {
     variables: {
       first: 10,
-      query: "react",
-      type: "REPOSITORY",
+      query: 'react',
+      type: 'REPOSITORY',
     },
   },
   request: `
@@ -286,7 +286,7 @@ export const queryWithUnionInlineFragments: RequestAndOptions = {
 export const queryWithFragmentSpread: RequestAndOptions = {
   options: {
     variables: {
-      login: "facebook",
+      login: 'facebook',
     },
   },
   request: `
@@ -310,8 +310,8 @@ export const queryWithUnionInlineFragmentsAndFragmentSpread: RequestAndOptions =
   options: {
     variables: {
       first: 10,
-      query: "react",
-      type: "REPOSITORY",
+      query: 'react',
+      type: 'REPOSITORY',
     },
   },
   request: `
@@ -371,7 +371,7 @@ export const queryWithFragmentOption: RequestAndOptions = {
       `,
     ],
     variables: {
-      login: "facebook",
+      login: 'facebook',
     },
   },
   request: `
@@ -388,7 +388,7 @@ export const queryWithDefer: RequestAndOptions = {
     variables: {
       deferCondition: true,
       first: 10,
-      login: "facebook",
+      login: 'facebook',
       streamCondition: true,
     },
   },
@@ -450,7 +450,7 @@ export const queryWithDefer: RequestAndOptions = {
 export const getMoviePreviewQuery = {
   options: {
     variables: {
-      id: "12345",
+      id: '12345',
     },
   },
   request: `
@@ -602,8 +602,8 @@ export const nestedInterfaceMutation: RequestAndOptions = {
   options: {
     variables: {
       input: {
-        clientMutationId: "1",
-        starrableId: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
+        clientMutationId: '1',
+        starrableId: 'MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=',
       },
     },
   },
@@ -634,9 +634,9 @@ export const nestedTypeMutation: RequestAndOptions = {
   options: {
     variables: {
       input: {
-        from: "delta@gmail.com",
-        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        subject: "Hi, this is Delta",
+        from: 'delta@gmail.com',
+        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        subject: 'Hi, this is Delta',
       },
     },
   },

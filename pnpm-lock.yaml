@@ -545,11 +545,13 @@ importers:
       '@graphql-box/helpers': workspace:../helpers
       '@types/lodash-es': ^4.14.191
       core-js: ^3.27.2
+      eventemitter3: ^5.0.1
       graphql: ^16.8.1
       lodash-es: ^4.17.21
     dependencies:
       '@graphql-box/core': link:../core
       '@graphql-box/helpers': link:../helpers
+      eventemitter3: 5.0.1
     devDependencies:
       '@babel/runtime': 7.23.2
       '@types/lodash-es': 4.17.10

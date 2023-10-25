@@ -1,8 +1,8 @@
-import { FieldTypeMap } from "@graphql-box/core";
+import { type FieldTypeMap } from '@graphql-box/core';
 
 export const singleTypeQuery: FieldTypeMap = new Map([
   [
-    "query.organization",
+    'query.organization',
     {
       directives: {
         inherited: [],
@@ -15,14 +15,14 @@ export const singleTypeQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Organization",
+      typeName: 'Organization',
     },
   ],
 ]);
 
 export const singleTypeQueryWithDirective: FieldTypeMap = new Map([
   [
-    "query.organization",
+    'query.organization',
     {
       directives: {
         inherited: [],
@@ -35,11 +35,11 @@ export const singleTypeQueryWithDirective: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Organization",
+      typeName: 'Organization',
     },
   ],
   [
-    "query.organization.email",
+    'query.organization.email',
     {
       directives: {
         inherited: [],
@@ -52,14 +52,14 @@ export const singleTypeQueryWithDirective: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "String",
+      typeName: 'String',
     },
   ],
 ]);
 
 export const nestedTypeQuery: FieldTypeMap = new Map([
   [
-    "query.organization",
+    'query.organization',
     {
       directives: {
         inherited: [],
@@ -72,11 +72,11 @@ export const nestedTypeQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Organization",
+      typeName: 'Organization',
     },
   ],
   [
-    "query.organization.repositories",
+    'query.organization.repositories',
     {
       directives: {
         inherited: [],
@@ -89,11 +89,11 @@ export const nestedTypeQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "RepositoryConnection",
+      typeName: 'RepositoryConnection',
     },
   ],
   [
-    "query.organization.repositories.edges",
+    'query.organization.repositories.edges',
     {
       directives: {
         inherited: [],
@@ -106,11 +106,11 @@ export const nestedTypeQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "RepositoryEdge",
+      typeName: 'RepositoryEdge',
     },
   ],
   [
-    "query.organization.repositories.edges.node",
+    'query.organization.repositories.edges.node',
     {
       directives: {
         inherited: [],
@@ -123,11 +123,11 @@ export const nestedTypeQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Repository",
+      typeName: 'Repository',
     },
   ],
   [
-    "query.organization.repositories.edges.node.owner",
+    'query.organization.repositories.edges.node.owner',
     {
       directives: {
         inherited: [],
@@ -141,22 +141,22 @@ export const nestedTypeQuery: FieldTypeMap = new Map([
       possibleTypes: [
         {
           isEntity: true,
-          typeName: "Organization",
+          typeName: 'Organization',
         },
         {
           isEntity: true,
-          typeName: "User",
+          typeName: 'User',
         },
       ],
       typeIDValue: undefined,
-      typeName: "RepositoryOwner",
+      typeName: 'RepositoryOwner',
     },
   ],
 ]);
 
 export const nestedTypeQueryWithDirectives: FieldTypeMap = new Map([
   [
-    "query.organization",
+    'query.organization',
     {
       directives: {
         inherited: [],
@@ -169,11 +169,11 @@ export const nestedTypeQueryWithDirectives: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Organization",
+      typeName: 'Organization',
     },
   ],
   [
-    "query.organization.email",
+    'query.organization.email',
     {
       directives: {
         inherited: [],
@@ -186,11 +186,11 @@ export const nestedTypeQueryWithDirectives: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "String",
+      typeName: 'String',
     },
   ],
   [
-    "query.organization.repositories",
+    'query.organization.repositories',
     {
       directives: {
         inherited: [],
@@ -203,11 +203,11 @@ export const nestedTypeQueryWithDirectives: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "RepositoryConnection",
+      typeName: 'RepositoryConnection',
     },
   ],
   [
-    "query.organization.repositories.edges",
+    'query.organization.repositories.edges',
     {
       directives: {
         inherited: [],
@@ -220,11 +220,11 @@ export const nestedTypeQueryWithDirectives: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "RepositoryEdge",
+      typeName: 'RepositoryEdge',
     },
   ],
   [
-    "query.organization.repositories.edges.node",
+    'query.organization.repositories.edges.node',
     {
       directives: {
         inherited: [],
@@ -237,11 +237,11 @@ export const nestedTypeQueryWithDirectives: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Repository",
+      typeName: 'Repository',
     },
   ],
   [
-    "query.organization.repositories.edges.node.owner",
+    'query.organization.repositories.edges.node.owner',
     {
       directives: {
         inherited: [],
@@ -255,22 +255,22 @@ export const nestedTypeQueryWithDirectives: FieldTypeMap = new Map([
       possibleTypes: [
         {
           isEntity: true,
-          typeName: "Organization",
+          typeName: 'Organization',
         },
         {
           isEntity: true,
-          typeName: "User",
+          typeName: 'User',
         },
       ],
       typeIDValue: undefined,
-      typeName: "RepositoryOwner",
+      typeName: 'RepositoryOwner',
     },
   ],
 ]);
 
 export const nestedUnionQuery: FieldTypeMap = new Map([
   [
-    "query.search",
+    'query.search',
     {
       directives: {
         inherited: [],
@@ -283,11 +283,11 @@ export const nestedUnionQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "SearchResultItemConnection",
+      typeName: 'SearchResultItemConnection',
     },
   ],
   [
-    "query.search.edges",
+    'query.search.edges',
     {
       directives: {
         inherited: [],
@@ -300,11 +300,11 @@ export const nestedUnionQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "SearchResultItemEdge",
+      typeName: 'SearchResultItemEdge',
     },
   ],
   [
-    "query.search.edges.node",
+    'query.search.edges.node',
     {
       directives: {
         inherited: [],
@@ -318,38 +318,38 @@ export const nestedUnionQuery: FieldTypeMap = new Map([
       possibleTypes: [
         {
           isEntity: true,
-          typeName: "Issue",
+          typeName: 'Issue',
         },
         {
           isEntity: true,
-          typeName: "PullRequest",
+          typeName: 'PullRequest',
         },
         {
           isEntity: true,
-          typeName: "Repository",
+          typeName: 'Repository',
         },
         {
           isEntity: true,
-          typeName: "User",
+          typeName: 'User',
         },
         {
           isEntity: true,
-          typeName: "Organization",
+          typeName: 'Organization',
         },
         {
           isEntity: true,
-          typeName: "MarketplaceListing",
+          typeName: 'MarketplaceListing',
         },
       ],
       typeIDValue: undefined,
-      typeName: "SearchResultItem",
+      typeName: 'SearchResultItem',
     },
   ],
 ]);
 
 export const deferQuery: FieldTypeMap = new Map([
   [
-    "query.organization",
+    'query.organization',
     {
       directives: {
         inherited: [],
@@ -362,11 +362,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Organization",
+      typeName: 'Organization',
     },
   ],
   [
-    "query.organization.repositories",
+    'query.organization.repositories',
     {
       directives: {
         inherited: [],
@@ -379,11 +379,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "RepositoryConnection",
+      typeName: 'RepositoryConnection',
     },
   ],
   [
-    "query.organization.repositories.edges",
+    'query.organization.repositories.edges',
     {
       directives: {
         inherited: [],
@@ -396,11 +396,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "RepositoryEdge",
+      typeName: 'RepositoryEdge',
     },
   ],
   [
-    "query.organization.repositories.edges.node",
+    'query.organization.repositories.edges.node',
     {
       directives: {
         inherited: [],
@@ -413,11 +413,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Repository",
+      typeName: 'Repository',
     },
   ],
   [
-    "query.organization.repositories.edges.node.licenseInfo",
+    'query.organization.repositories.edges.node.licenseInfo',
     {
       directives: {
         inherited: ['include({"if":true})'],
@@ -430,11 +430,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "License",
+      typeName: 'License',
     },
   ],
   [
-    "query.organization.repositories.edges.node.licenseInfo.permissions",
+    'query.organization.repositories.edges.node.licenseInfo.permissions',
     {
       directives: {
         inherited: [],
@@ -447,11 +447,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "LicenseRule",
+      typeName: 'LicenseRule',
     },
   ],
   [
-    "query.organization.repositories.edges.node.licenseInfo.permissions.label",
+    'query.organization.repositories.edges.node.licenseInfo.permissions.label',
     {
       directives: {
         inherited: ['defer({"if":true,"label":"permissionsDefer"})'],
@@ -464,11 +464,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "String",
+      typeName: 'String',
     },
   ],
   [
-    "query.organization.repositories.edges.node.id",
+    'query.organization.repositories.edges.node.id',
     {
       directives: {
         inherited: ['include({"if":true})'],
@@ -481,11 +481,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "ID",
+      typeName: 'ID',
     },
   ],
   [
-    "query.organization.email",
+    'query.organization.email',
     {
       directives: {
         inherited: ['defer({"if":true,"label":"organizationDefer"})'],
@@ -498,11 +498,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "String",
+      typeName: 'String',
     },
   ],
   [
-    "query.organization.description",
+    'query.organization.description',
     {
       directives: {
         inherited: ['defer({"if":true,"label":"organizationDefer"})'],
@@ -515,11 +515,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "String",
+      typeName: 'String',
     },
   ],
   [
-    "query.organization.isVerified",
+    'query.organization.isVerified',
     {
       directives: {
         inherited: ['defer({"if":true,"label":"organizationDefer"})'],
@@ -532,11 +532,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Boolean",
+      typeName: 'Boolean',
     },
   ],
   [
-    "query.organization.location",
+    'query.organization.location',
     {
       directives: {
         inherited: ['defer({"if":true,"label":"organizationDefer"})'],
@@ -549,11 +549,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "String",
+      typeName: 'String',
     },
   ],
   [
-    "query.organization.repositories.edges.node.description",
+    'query.organization.repositories.edges.node.description',
     {
       directives: {
         inherited: ['include({"if":true})', 'skip({"if":false})', 'defer({"if":true,"label":"repositoryDefer"})'],
@@ -566,11 +566,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "String",
+      typeName: 'String',
     },
   ],
   [
-    "query.organization.repositories.edges.node.homepageUrl",
+    'query.organization.repositories.edges.node.homepageUrl',
     {
       directives: {
         inherited: ['include({"if":true})', 'skip({"if":false})', 'defer({"if":true,"label":"repositoryDefer"})'],
@@ -583,11 +583,11 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "URI",
+      typeName: 'URI',
     },
   ],
   [
-    "query.organization.repositories.edges.node.name",
+    'query.organization.repositories.edges.node.name',
     {
       directives: {
         inherited: ['include({"if":true})', 'skip({"if":false})', 'defer({"if":true,"label":"repositoryDefer"})'],
@@ -600,14 +600,14 @@ export const deferQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "String",
+      typeName: 'String',
     },
   ],
 ]);
 
 export const getSearchResultsQuery: FieldTypeMap = new Map([
   [
-    "query.search",
+    'query.search',
     {
       directives: {
         inherited: [],
@@ -619,11 +619,11 @@ export const getSearchResultsQuery: FieldTypeMap = new Map([
       isInterface: false,
       isUnion: false,
       possibleTypes: [],
-      typeName: "SearchConnection",
+      typeName: 'SearchConnection',
     },
   ],
   [
-    "query.search.edges",
+    'query.search.edges',
     {
       directives: {
         inherited: [],
@@ -635,11 +635,11 @@ export const getSearchResultsQuery: FieldTypeMap = new Map([
       isInterface: false,
       isUnion: false,
       possibleTypes: [],
-      typeName: "SearchEdge",
+      typeName: 'SearchEdge',
     },
   ],
   [
-    "query.search.edges.node",
+    'query.search.edges.node',
     {
       directives: {
         inherited: [],
@@ -653,34 +653,34 @@ export const getSearchResultsQuery: FieldTypeMap = new Map([
       possibleTypes: [
         {
           isEntity: true,
-          typeName: "Collection",
+          typeName: 'Collection',
         },
         {
           isEntity: true,
-          typeName: "Company",
+          typeName: 'Company',
         },
         {
           isEntity: true,
-          typeName: "Keyword",
+          typeName: 'Keyword',
         },
         {
           isEntity: true,
-          typeName: "Movie",
+          typeName: 'Movie',
         },
         {
           isEntity: true,
-          typeName: "Person",
+          typeName: 'Person',
         },
         {
           isEntity: true,
-          typeName: "Tv",
+          typeName: 'Tv',
         },
       ],
-      typeName: "Search",
+      typeName: 'Search',
     },
   ],
   [
-    "query.search.edges.node.contentRatings",
+    'query.search.edges.node.contentRatings',
     {
       directives: {
         inherited: ['defer({"label":"TvContentRatingsDefer"})'],
@@ -692,11 +692,11 @@ export const getSearchResultsQuery: FieldTypeMap = new Map([
       isInterface: false,
       isUnion: false,
       possibleTypes: [],
-      typeName: "ContentRating",
+      typeName: 'ContentRating',
     },
   ],
   [
-    "query.search.edges.node.releaseDates",
+    'query.search.edges.node.releaseDates',
     {
       directives: {
         inherited: ['defer({"label":"MovieReleaseDatesDefer"})'],
@@ -708,11 +708,11 @@ export const getSearchResultsQuery: FieldTypeMap = new Map([
       isInterface: false,
       isUnion: false,
       possibleTypes: [],
-      typeName: "ReleaseDates",
+      typeName: 'ReleaseDates',
     },
   ],
   [
-    "query.search.edges.node.releaseDates.releaseDates",
+    'query.search.edges.node.releaseDates.releaseDates',
     {
       directives: {
         inherited: [],
@@ -724,11 +724,11 @@ export const getSearchResultsQuery: FieldTypeMap = new Map([
       isInterface: false,
       isUnion: false,
       possibleTypes: [],
-      typeName: "ReleaseDate",
+      typeName: 'ReleaseDate',
     },
   ],
   [
-    "query.search.edges.node.videos",
+    'query.search.edges.node.videos',
     {
       directives: {
         inherited: ['defer({"label":"TvVideosDefer"})'],
@@ -740,11 +740,11 @@ export const getSearchResultsQuery: FieldTypeMap = new Map([
       isInterface: false,
       isUnion: false,
       possibleTypes: [],
-      typeName: "Video",
+      typeName: 'Video',
     },
   ],
   [
-    "query.search.pageInfo",
+    'query.search.pageInfo',
     {
       directives: {
         inherited: [],
@@ -756,14 +756,14 @@ export const getSearchResultsQuery: FieldTypeMap = new Map([
       isInterface: false,
       isUnion: false,
       possibleTypes: [],
-      typeName: "PageInfo",
+      typeName: 'PageInfo',
     },
   ],
 ]);
 
 export const getMoviePreviewQuery: FieldTypeMap = new Map([
   [
-    "query.movie",
+    'query.movie',
     {
       directives: {
         inherited: [],
@@ -775,12 +775,12 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isInterface: false,
       isUnion: false,
       possibleTypes: [],
-      typeIDValue: "671",
-      typeName: "Movie",
+      typeIDValue: '671',
+      typeName: 'Movie',
     },
   ],
   [
-    "query.movie.backdrops",
+    'query.movie.backdrops',
     {
       directives: {
         inherited: ['defer({"label":"MovieBackdropsDefer"})'],
@@ -793,11 +793,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Image",
+      typeName: 'Image',
     },
   ],
   [
-    "query.movie.belongsToCollection",
+    'query.movie.belongsToCollection',
     {
       directives: {
         inherited: [],
@@ -810,11 +810,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Collection",
+      typeName: 'Collection',
     },
   ],
   [
-    "query.movie.belongsToCollection.name",
+    'query.movie.belongsToCollection.name',
     {
       directives: {
         inherited: ['defer({"label":"MovieCollectionDefer"})'],
@@ -827,11 +827,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "String",
+      typeName: 'String',
     },
   ],
   [
-    "query.movie.belongsToCollection.overview",
+    'query.movie.belongsToCollection.overview',
     {
       directives: {
         inherited: ['defer({"label":"MovieCollectionDefer"})'],
@@ -844,11 +844,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "String",
+      typeName: 'String',
     },
   ],
   [
-    "query.movie.belongsToCollection.parts",
+    'query.movie.belongsToCollection.parts',
     {
       directives: {
         inherited: ['defer({"label":"MovieCollectionDefer"})'],
@@ -861,11 +861,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Movie",
+      typeName: 'Movie',
     },
   ],
   [
-    "query.movie.belongsToCollection.parts.posterPath",
+    'query.movie.belongsToCollection.parts.posterPath',
     {
       directives: {
         inherited: ['defer({"label":"MovieCollectionPartsDefer"})'],
@@ -878,11 +878,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "String",
+      typeName: 'String',
     },
   ],
   [
-    "query.movie.belongsToCollection.parts.releaseDates",
+    'query.movie.belongsToCollection.parts.releaseDates',
     {
       directives: {
         inherited: ['defer({"label":"MovieReleaseDatesDefer"})'],
@@ -895,11 +895,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "ReleaseDates",
+      typeName: 'ReleaseDates',
     },
   ],
   [
-    "query.movie.belongsToCollection.parts.releaseDates.releaseDates",
+    'query.movie.belongsToCollection.parts.releaseDates.releaseDates',
     {
       directives: {
         inherited: [],
@@ -912,11 +912,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "ReleaseDate",
+      typeName: 'ReleaseDate',
     },
   ],
   [
-    "query.movie.belongsToCollection.parts.title",
+    'query.movie.belongsToCollection.parts.title',
     {
       directives: {
         inherited: ['defer({"label":"MovieCollectionPartsDefer"})'],
@@ -929,11 +929,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "String",
+      typeName: 'String',
     },
   ],
   [
-    "query.movie.belongsToCollection.parts.videos",
+    'query.movie.belongsToCollection.parts.videos',
     {
       directives: {
         inherited: ['defer({"label":"MovieVideosDefer"})'],
@@ -946,11 +946,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Video",
+      typeName: 'Video',
     },
   ],
   [
-    "query.movie.belongsToCollection.parts.voteAverage",
+    'query.movie.belongsToCollection.parts.voteAverage',
     {
       directives: {
         inherited: ['defer({"label":"MovieCollectionPartsDefer"})'],
@@ -963,11 +963,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Float",
+      typeName: 'Float',
     },
   ],
   [
-    "query.movie.belongsToCollection.parts.voteCount",
+    'query.movie.belongsToCollection.parts.voteCount',
     {
       directives: {
         inherited: ['defer({"label":"MovieCollectionPartsDefer"})'],
@@ -980,11 +980,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Int",
+      typeName: 'Int',
     },
   ],
   [
-    "query.movie.cast",
+    'query.movie.cast',
     {
       directives: {
         inherited: ['defer({"label":"MovieCastDefer"})'],
@@ -997,11 +997,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Cast",
+      typeName: 'Cast',
     },
   ],
   [
-    "query.movie.crew",
+    'query.movie.crew',
     {
       directives: {
         inherited: ['defer({"label":"MovieCrewDefer"})'],
@@ -1014,11 +1014,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Crew",
+      typeName: 'Crew',
     },
   ],
   [
-    "query.movie.recommendations",
+    'query.movie.recommendations',
     {
       directives: {
         inherited: ['defer({"label":"MovieRecommendationsDefer"})'],
@@ -1030,12 +1030,12 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isInterface: false,
       isUnion: false,
       possibleTypes: [],
-      typeIDValue: "671",
-      typeName: "MovieConnection",
+      typeIDValue: '671',
+      typeName: 'MovieConnection',
     },
   ],
   [
-    "query.movie.recommendations.edges",
+    'query.movie.recommendations.edges',
     {
       directives: {
         inherited: [],
@@ -1048,11 +1048,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "MovieEdge",
+      typeName: 'MovieEdge',
     },
   ],
   [
-    "query.movie.recommendations.edges.node",
+    'query.movie.recommendations.edges.node',
     {
       directives: {
         inherited: [],
@@ -1065,11 +1065,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Movie",
+      typeName: 'Movie',
     },
   ],
   [
-    "query.movie.recommendations.edges.node.releaseDates",
+    'query.movie.recommendations.edges.node.releaseDates',
     {
       directives: {
         inherited: ['defer({"label":"MovieReleaseDatesDefer"})'],
@@ -1082,11 +1082,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "ReleaseDates",
+      typeName: 'ReleaseDates',
     },
   ],
   [
-    "query.movie.recommendations.edges.node.releaseDates.releaseDates",
+    'query.movie.recommendations.edges.node.releaseDates.releaseDates',
     {
       directives: {
         inherited: [],
@@ -1099,11 +1099,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "ReleaseDate",
+      typeName: 'ReleaseDate',
     },
   ],
   [
-    "query.movie.recommendations.edges.node.videos",
+    'query.movie.recommendations.edges.node.videos',
     {
       directives: {
         inherited: ['defer({"label":"MovieVideosDefer"})'],
@@ -1116,11 +1116,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Video",
+      typeName: 'Video',
     },
   ],
   [
-    "query.movie.recommendations.pageInfo",
+    'query.movie.recommendations.pageInfo',
     {
       directives: {
         inherited: [],
@@ -1133,11 +1133,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "PageInfo",
+      typeName: 'PageInfo',
     },
   ],
   [
-    "query.movie.reviews",
+    'query.movie.reviews',
     {
       directives: {
         inherited: ['defer({"label":"MovieReviewsDefer"})'],
@@ -1149,12 +1149,12 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isInterface: false,
       isUnion: false,
       possibleTypes: [],
-      typeIDValue: "671",
-      typeName: "ReviewConnection",
+      typeIDValue: '671',
+      typeName: 'ReviewConnection',
     },
   ],
   [
-    "query.movie.reviews.edges",
+    'query.movie.reviews.edges',
     {
       directives: {
         inherited: [],
@@ -1167,11 +1167,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "ReviewEdge",
+      typeName: 'ReviewEdge',
     },
   ],
   [
-    "query.movie.reviews.edges.node",
+    'query.movie.reviews.edges.node',
     {
       directives: {
         inherited: [],
@@ -1184,11 +1184,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Review",
+      typeName: 'Review',
     },
   ],
   [
-    "query.movie.reviews.pageInfo",
+    'query.movie.reviews.pageInfo',
     {
       directives: {
         inherited: [],
@@ -1201,11 +1201,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "PageInfo",
+      typeName: 'PageInfo',
     },
   ],
   [
-    "query.movie.similarMovies",
+    'query.movie.similarMovies',
     {
       directives: {
         inherited: ['defer({"label":"MovieSimilarDefer"})'],
@@ -1217,12 +1217,12 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isInterface: false,
       isUnion: false,
       possibleTypes: [],
-      typeIDValue: "671",
-      typeName: "MovieConnection",
+      typeIDValue: '671',
+      typeName: 'MovieConnection',
     },
   ],
   [
-    "query.movie.similarMovies.edges",
+    'query.movie.similarMovies.edges',
     {
       directives: {
         inherited: [],
@@ -1235,11 +1235,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "MovieEdge",
+      typeName: 'MovieEdge',
     },
   ],
   [
-    "query.movie.similarMovies.edges.node",
+    'query.movie.similarMovies.edges.node',
     {
       directives: {
         inherited: [],
@@ -1252,11 +1252,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Movie",
+      typeName: 'Movie',
     },
   ],
   [
-    "query.movie.similarMovies.edges.node.releaseDates",
+    'query.movie.similarMovies.edges.node.releaseDates',
     {
       directives: {
         inherited: ['defer({"label":"MovieReleaseDatesDefer"})'],
@@ -1269,11 +1269,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "ReleaseDates",
+      typeName: 'ReleaseDates',
     },
   ],
   [
-    "query.movie.similarMovies.edges.node.releaseDates.releaseDates",
+    'query.movie.similarMovies.edges.node.releaseDates.releaseDates',
     {
       directives: {
         inherited: [],
@@ -1286,11 +1286,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "ReleaseDate",
+      typeName: 'ReleaseDate',
     },
   ],
   [
-    "query.movie.similarMovies.edges.node.videos",
+    'query.movie.similarMovies.edges.node.videos',
     {
       directives: {
         inherited: ['defer({"label":"MovieVideosDefer"})'],
@@ -1303,11 +1303,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Video",
+      typeName: 'Video',
     },
   ],
   [
-    "query.movie.similarMovies.pageInfo",
+    'query.movie.similarMovies.pageInfo',
     {
       directives: {
         inherited: [],
@@ -1320,11 +1320,11 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "PageInfo",
+      typeName: 'PageInfo',
     },
   ],
   [
-    "query.movie.videos",
+    'query.movie.videos',
     {
       directives: {
         inherited: ['defer({"label":"VideosDefer"})'],
@@ -1337,14 +1337,14 @@ export const getMoviePreviewQuery: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Video",
+      typeName: 'Video',
     },
   ],
 ]);
 
 export const nestedInterfaceMutation: FieldTypeMap = new Map([
   [
-    "mutation.addStar",
+    'mutation.addStar',
     {
       directives: {
         inherited: [],
@@ -1357,11 +1357,11 @@ export const nestedInterfaceMutation: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "AddStarPayload",
+      typeName: 'AddStarPayload',
     },
   ],
   [
-    "mutation.addStar.starrable",
+    'mutation.addStar.starrable',
     {
       directives: {
         inherited: [],
@@ -1375,23 +1375,23 @@ export const nestedInterfaceMutation: FieldTypeMap = new Map([
       possibleTypes: [
         {
           isEntity: true,
-          typeName: "Repository",
+          typeName: 'Repository',
         },
         {
           isEntity: true,
-          typeName: "Topic",
+          typeName: 'Topic',
         },
         {
           isEntity: true,
-          typeName: "Gist",
+          typeName: 'Gist',
         },
       ],
       typeIDValue: undefined,
-      typeName: "Starrable",
+      typeName: 'Starrable',
     },
   ],
   [
-    "mutation.addStar.starrable.stargazers",
+    'mutation.addStar.starrable.stargazers',
     {
       directives: {
         inherited: [],
@@ -1404,11 +1404,11 @@ export const nestedInterfaceMutation: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "StargazerConnection",
+      typeName: 'StargazerConnection',
     },
   ],
   [
-    "mutation.addStar.starrable.stargazers.edges",
+    'mutation.addStar.starrable.stargazers.edges',
     {
       directives: {
         inherited: [],
@@ -1421,11 +1421,11 @@ export const nestedInterfaceMutation: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "StargazerEdge",
+      typeName: 'StargazerEdge',
     },
   ],
   [
-    "mutation.addStar.starrable.stargazers.edges.node",
+    'mutation.addStar.starrable.stargazers.edges.node',
     {
       directives: {
         inherited: [],
@@ -1438,14 +1438,14 @@ export const nestedInterfaceMutation: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "User",
+      typeName: 'User',
     },
   ],
 ]);
 
 export const nestedTypeSubscription: FieldTypeMap = new Map([
   [
-    "subscription.emailAdded",
+    'subscription.emailAdded',
     {
       directives: {
         inherited: [],
@@ -1458,11 +1458,11 @@ export const nestedTypeSubscription: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Inbox",
+      typeName: 'Inbox',
     },
   ],
   [
-    "subscription.emailAdded.emails",
+    'subscription.emailAdded.emails',
     {
       directives: {
         inherited: [],
@@ -1475,7 +1475,7 @@ export const nestedTypeSubscription: FieldTypeMap = new Map([
       isUnion: false,
       possibleTypes: [],
       typeIDValue: undefined,
-      typeName: "Email",
+      typeName: 'Email',
     },
   ],
 ]);

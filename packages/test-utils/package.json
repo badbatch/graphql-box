@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "@graphql-box/core": "workspace:../core",
-    "@graphql-box/helpers": "workspace:../helpers"
+    "@graphql-box/helpers": "workspace:../helpers",
+    "eventemitter3": "^5.0.1"
   },
   "peerDependencies": {
     "@babel/runtime": "<8",

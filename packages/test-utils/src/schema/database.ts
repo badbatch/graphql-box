@@ -1,26 +1,26 @@
-import { EmailInput, Inbox } from "../../defs";
+import { type EmailInput, type Inbox } from '../types.ts';
 
 const inbox: Inbox = {
   emails: [
     {
-      from: "alfa@gmail.com",
+      from: 'alfa@gmail.com',
       id: 1,
-      message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      subject: "Hi, this is Alfa",
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      subject: 'Hi, this is Alfa',
       unread: false,
     },
     {
-      from: "bravo@gmail.com",
+      from: 'bravo@gmail.com',
       id: 2,
-      message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      subject: "Hi, this is Bravo",
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      subject: 'Hi, this is Bravo',
       unread: false,
     },
     {
-      from: "charlie@gmail.com",
+      from: 'charlie@gmail.com',
       id: 3,
-      message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      subject: "Hi, this is Charlie",
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      subject: 'Hi, this is Charlie',
       unread: false,
     },
   ],
@@ -31,15 +31,15 @@ const inbox: Inbox = {
 
 let emailID = 3;
 
-export function getInbox(): Inbox {
+export const getInbox = (): Inbox => {
   return inbox;
-}
+};
 
-function getUnread(): number {
+const getUnread = (): number => {
   return inbox.emails.filter(email => !!email.unread).length;
-}
+};
 
-export function addEmail(email: EmailInput): void {
+export const addEmail = (email: EmailInput): void => {
   emailID += 1;
 
   inbox.emails.push({
@@ -50,9 +50,9 @@ export function addEmail(email: EmailInput): void {
 
   inbox.total = inbox.emails.length;
   inbox.unread = getUnread();
-}
+};
 
-export function deleteEmails(id?: number): void {
+export const deleteEmails = (id?: number): void => {
   if (id) {
     const index = inbox.emails.findIndex(email => email.id === id);
     inbox.emails.splice(index, 1);
@@ -62,4 +62,4 @@ export function deleteEmails(id?: number): void {
 
   inbox.total = inbox.emails.length;
   inbox.unread = getUnread();
-}
+};
