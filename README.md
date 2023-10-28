@@ -48,7 +48,6 @@ GraphQL Box's multi-package structure allows you to compose your client and serv
 additional bloat. Start with the `@graphql-box/client` or `@graphql-box/server` packages and build out from there.
 
 * [@graphql-box/cache-manager](packages/cache-manager/README.md)
-* [@graphql-box/cli](packages/cli/README.md)
 * [@graphql-box/client](packages/client/README.md)
 * [@graphql-box/connection-resolver](packages/connection-resolver/README.md)
 * [@graphql-box/core](packages/core/README.md)
