@@ -12,7 +12,7 @@ export type FragmentSpreadCheckist = Record<
 >;
 
 export const createFragmentSpreadChecklist = ({ request }: RequestData, { fragmentDefinitions }: CacheManagerContext) =>
-  keys(fragmentDefinitions ?? {}).reduce((acc: FragmentSpreadCheckist, name) => {
+  keys(fragmentDefinitions ?? {}).reduce<FragmentSpreadCheckist>((acc, name) => {
     acc[name] = { deleted: 0, paths: [], total: (request.match(new RegExp(`\\.\\.\\.${name}`, 'g')) ?? []).length };
     return acc;
   }, {});

@@ -2,8 +2,8 @@ import { type RawResponseDataWithMaybeCacheMetadata } from '@graphql-box/core';
 import { merge } from 'lodash-es';
 
 export const mergeResponseDataSets = (responseDataSets: RawResponseDataWithMaybeCacheMetadata[]) => {
-  return responseDataSets.reduce(
-    (acc: RawResponseDataWithMaybeCacheMetadata, dataSet, index) => {
+  return responseDataSets.reduce<RawResponseDataWithMaybeCacheMetadata>(
+    (acc, dataSet, index) => {
       const { _cacheMetadata, data, hasNext, headers, paths } = dataSet;
 
       if (_cacheMetadata) {

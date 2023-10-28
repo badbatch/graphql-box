@@ -77,7 +77,7 @@ export const setFragments = ({ fragmentDefinitions, node, type }: Params) => {
   if (!(type instanceof GraphQLInterfaceType) && !(type instanceof GraphQLUnionType) && hasInlineFragments(node)) {
     const inlineFragments = getInlineFragments(node);
 
-    const parsedInlineFragmentDirectives = inlineFragments.reduce((directives: ParsedDirective[], inlineFragment) => {
+    const parsedInlineFragmentDirectives = inlineFragments.reduce<ParsedDirective[]>((directives, inlineFragment) => {
       return [...directives, ...getInlineFragmentDirectives(inlineFragment)];
     }, []);
 

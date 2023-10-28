@@ -4,7 +4,7 @@ import { isNumber, isString } from 'lodash-es';
 
 const checkValue = (value: unknown, typeIDKey: string): boolean => {
   if (isArray(value)) {
-    return value.reduce((acc: boolean, entry) => {
+    return value.reduce<boolean>((acc, entry) => {
       if (!acc) {
         return false;
       }
@@ -27,7 +27,7 @@ const recursivelyCheckProps = (data: PlainData, typeIDKey: string): boolean => {
     return true;
   }
 
-  return keys.reduce((acc: boolean, key) => {
+  return keys.reduce<boolean>((acc, key) => {
     if (!acc) {
       return false;
     }

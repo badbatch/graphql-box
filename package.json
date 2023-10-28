@@ -58,7 +58,7 @@
     "@repodog/babel-config": "^1.1.9",
     "@repodog/cli": "^1.1.15",
     "@repodog/commitlint-config": "^1.1.6",
-    "@repodog/eslint-config": "^1.1.15",
+    "@repodog/eslint-config": "^1.1.16",
     "@repodog/eslint-config-jasmine": "^1.1.10",
     "@repodog/eslint-config-jest": "^1.1.10",
     "@repodog/jasmine-browser-config": "^0.0.2",

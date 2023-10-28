@@ -812,8 +812,8 @@ export class CacheManager implements CacheManagerDef {
 
       validResult = {
         cacheability: validResults[0]!.cacheability,
-        entry: validResults.reduce(
-          (obj: Partial<EntityData>, { entry }) => mergeDataSets(obj, entry, this._typeIDKey),
+        entry: validResults.reduce<Partial<EntityData>>(
+          (obj, { entry }) => mergeDataSets(obj, entry, this._typeIDKey),
           {}
         ) as EntityData,
       };

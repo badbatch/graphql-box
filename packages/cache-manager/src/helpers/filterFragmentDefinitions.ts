@@ -11,8 +11,8 @@ export const filterFragmentDefinitions = (
   fragmentSpreadChecklist: FragmentSpreadCheckist,
   context: CacheManagerContext
 ) => {
-  const definitionsToFilter = keys(fragmentSpreadChecklist).reduce(
-    (namesAndPaths: { name: string; path: string }[], key) => {
+  const definitionsToFilter = keys(fragmentSpreadChecklist).reduce<{ name: string; path: string }[]>(
+    (namesAndPaths, key) => {
       const checklist = fragmentSpreadChecklist[key];
 
       if (!checklist) {
@@ -37,7 +37,7 @@ export const filterFragmentDefinitions = (
     filterField(fragmentDefinition, fieldPathChecklist, fragmentSpreadChecklist, path, context);
   }
 
-  const definitionsToDelete = keys(fragmentSpreadChecklist).reduce((names: string[], key) => {
+  const definitionsToDelete = keys(fragmentSpreadChecklist).reduce<string[]>((names, key) => {
     const checklist = fragmentSpreadChecklist[key];
 
     if (!checklist) {

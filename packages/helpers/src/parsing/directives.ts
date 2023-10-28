@@ -36,7 +36,7 @@ export const getFragmentSpreadDirectives = (
   let parsedDirectives: ParsedDirective[] = [];
 
   if (fragmentSpreads.length > 0) {
-    parsedDirectives = fragmentSpreads.reduce((parsed: ParsedDirective[], spreadNode) => {
+    parsedDirectives = fragmentSpreads.reduce<ParsedDirective[]>((parsed, spreadNode) => {
       if (spreadNode.directives) {
         return [
           ...parsed,
@@ -63,7 +63,7 @@ export const parseDirectiveArguments = (
   kind: string,
   options?: RequestOptions
 ) => {
-  return directives.reduce((parsedDirectives: ParsedDirective[], directive) => {
+  return directives.reduce<ParsedDirective[]>((parsedDirectives, directive) => {
     let args: PlainObject = {};
 
     if (directive.arguments && directive.arguments.length > 0) {

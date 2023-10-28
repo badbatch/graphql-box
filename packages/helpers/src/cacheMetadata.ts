@@ -16,7 +16,7 @@ export const rehydrateCacheMetadata = (
   dehydratedCacheMetadata: DehydratedCacheMetadata,
   cacheMetadata: CacheMetadata = new Map()
 ): CacheMetadata => {
-  return Object.keys(dehydratedCacheMetadata).reduce((map: CacheMetadata, key: string) => {
+  return Object.keys(dehydratedCacheMetadata).reduce<CacheMetadata>((map, key) => {
     const cacheability = new Cacheability({ metadata: dehydratedCacheMetadata[key] });
     map.set(key, cacheability);
     return map;

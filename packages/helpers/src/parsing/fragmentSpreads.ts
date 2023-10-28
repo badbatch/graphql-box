@@ -73,7 +73,7 @@ export const getFragmentSpreads = (
 export const getFragmentSpreadsWithoutDirectives = (node: FieldNode | InlineFragmentNode | FragmentDefinitionNode) => {
   const fragmentSpreads = getFragmentSpreads(node);
 
-  return fragmentSpreads.reduce((withoutDirectives: FragmentSpreadNode[], spread) => {
+  return fragmentSpreads.reduce<FragmentSpreadNode[]>((withoutDirectives, spread) => {
     if (!spread.directives?.length) {
       withoutDirectives.push(spread);
     }

@@ -12,7 +12,7 @@ export const filterOutPropsWithArgsOrDirectives = (
 ) => {
   const fieldAndTypeName = resolveFragments(selectionNodes, context.fragmentDefinitions);
 
-  return keys(fieldData).reduce((acc: PlainObject, key) => {
+  return keys(fieldData).reduce<PlainObject>((acc, key) => {
     const match = fieldAndTypeName.find(({ fieldNode }) => getName(fieldNode) === key);
 
     if (match) {

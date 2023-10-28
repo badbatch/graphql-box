@@ -40,7 +40,7 @@ export const deserializeErrors = <Type extends { errors?: (DeserializedGraphqlEr
 
 export const serializeGraphqlError = (error: GraphQLError) => {
   const cloneOwnProperties = (instance: object) =>
-    Object.getOwnPropertyNames(instance).reduce((obj: PlainObject, name) => {
+    Object.getOwnPropertyNames(instance).reduce<PlainObject>((obj, name) => {
       // @ts-expect-error type 'string' can't be used to index type '{}'
       const value = instance[name] as unknown;
       obj[name] = isObjectLike(value) && !isArray(value) && !isPlainObject(value) ? cloneOwnProperties(value) : value;
