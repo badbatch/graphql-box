@@ -1,10 +1,11 @@
-import { PlainObjectMap } from "@graphql-box/core";
-import { isArray, isPlainObject } from "lodash";
+import type { PlainData } from '@graphql-box/core';
+import { isArray, isPlainObject } from '@graphql-box/helpers';
+import { isNumber, isString } from 'lodash-es';
 
-const checkValue = (value: any, typeIDKey: string): boolean => {
+const checkValue = (value: unknown, typeIDKey: string): boolean => {
   if (isArray(value)) {
-    return value.reduce((accB: boolean, entry) => {
-      if (!accB) {
+    return value.reduce((acc: boolean, entry) => {
+      if (!acc) {
         return false;
       }
 
@@ -19,22 +20,28 @@ const checkValue = (value: any, typeIDKey: string): boolean => {
   return false;
 };
 
-const recursivelyCheckProps = (data: PlainObjectMap, typeIDKey: string): boolean => {
-  const keys = Object.keys(data);
+const recursivelyCheckProps = (data: PlainData, typeIDKey: string): boolean => {
+  const keys = isPlainObject(data) ? Object.keys(data) : [...data.keys()];
 
-  if (keys.length === 1 && !!data[typeIDKey]) {
+  if (keys.length === 1 && isPlainObject(data) && !!data[typeIDKey]) {
     return true;
   }
 
-  return keys.reduce((accA: boolean, key) => {
-    if (!accA) {
+  return keys.reduce((acc: boolean, key) => {
+    if (!acc) {
       return false;
     }
 
-    return checkValue(data[key], typeIDKey);
+    if (isNumber(key) && isArray(data)) {
+      return checkValue(data[key], typeIDKey);
+    } else if (isString(key) && isPlainObject(data)) {
+      return checkValue(data[key], typeIDKey);
+    }
+
+    return acc;
   }, true);
 };
 
-export default (data: PlainObjectMap, typeIDKey: string) => {
+export const areOnlyPopulatedFieldsTypeIdKeys = (data: PlainData, typeIDKey: string) => {
   return recursivelyCheckProps(data, typeIDKey);
 };

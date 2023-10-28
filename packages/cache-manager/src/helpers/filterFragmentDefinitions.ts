@@ -1,40 +1,54 @@
-import { deleteFragmentDefinitions } from "@graphql-box/helpers";
-import { DocumentNode } from "graphql";
-import { keys } from "lodash";
-import { CacheManagerContext, FieldPathChecklist } from "../defs";
-import { FragmentSpreadCheckist } from "./createFragmentSpreadChecklist";
-import filterField from "./filterField";
+import { deleteFragmentDefinitions } from '@graphql-box/helpers';
+import { type DocumentNode } from 'graphql';
+import { keys } from 'lodash-es';
+import { type CacheManagerContext, type FieldPathChecklist } from '../types.ts';
+import { type FragmentSpreadCheckist } from './createFragmentSpreadChecklist.ts';
+import { filterField } from './filterField.ts';
 
-export default (
+export const filterFragmentDefinitions = (
   ast: DocumentNode,
   fieldPathChecklist: FieldPathChecklist,
   fragmentSpreadChecklist: FragmentSpreadCheckist,
-  context: CacheManagerContext,
+  context: CacheManagerContext
 ) => {
   const definitionsToFilter = keys(fragmentSpreadChecklist).reduce(
     (namesAndPaths: { name: string; path: string }[], key) => {
-      const { deleted, total } = fragmentSpreadChecklist[key];
+      const checklist = fragmentSpreadChecklist[key];
 
-      return deleted === 0 && total === 1
-        ? [...namesAndPaths, { name: key, path: fragmentSpreadChecklist[key].paths[0] as string }]
-        : namesAndPaths;
+      if (!checklist) {
+        return namesAndPaths;
+      }
+
+      const { deleted, paths, total } = checklist;
+      return deleted === 0 && total === 1 ? [...namesAndPaths, { name: key, path: paths[0]! }] : namesAndPaths;
     },
-    [],
+    []
   );
 
   const { fragmentDefinitions = {} } = context;
 
-  definitionsToFilter.forEach(({ name, path }) => {
+  for (const { name, path } of definitionsToFilter) {
     const fragmentDefinition = fragmentDefinitions[name];
+
+    if (!fragmentDefinition) {
+      continue;
+    }
+
     filterField(fragmentDefinition, fieldPathChecklist, fragmentSpreadChecklist, path, context);
-  });
+  }
 
   const definitionsToDelete = keys(fragmentSpreadChecklist).reduce((names: string[], key) => {
-    const { deleted, total } = fragmentSpreadChecklist[key];
+    const checklist = fragmentSpreadChecklist[key];
+
+    if (!checklist) {
+      return names;
+    }
+
+    const { deleted, total } = checklist;
     return deleted > 0 && deleted === total ? [...names, key] : names;
   }, []);
 
-  if (!definitionsToDelete.length) {
+  if (definitionsToDelete.length === 0) {
     return ast;
   }
 

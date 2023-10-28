@@ -1,10 +1,10 @@
-import { FRAGMENT_DEFINITION, OPERATION_DEFINITION, isKind } from "@graphql-box/helpers";
-import { DocumentNode, FragmentDefinitionNode, OperationDefinitionNode } from "graphql";
+import { isKind } from '@graphql-box/helpers';
+import { type DocumentNode, type FragmentDefinitionNode, Kind, type OperationDefinitionNode } from 'graphql';
 
-export default (ast: DocumentNode) => {
+export const filterOperationAndFragmentDefinitions = (ast: DocumentNode) => {
   return ast.definitions.filter(
     definition =>
-      isKind<OperationDefinitionNode>(definition, OPERATION_DEFINITION) ||
-      isKind<FragmentDefinitionNode>(definition, FRAGMENT_DEFINITION),
+      isKind<OperationDefinitionNode>(definition, Kind.OPERATION_DEFINITION) ||
+      isKind<FragmentDefinitionNode>(definition, Kind.FRAGMENT_DEFINITION)
   ) as (OperationDefinitionNode | FragmentDefinitionNode)[];
 };

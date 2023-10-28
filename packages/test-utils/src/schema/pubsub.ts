@@ -4,8 +4,7 @@ import { EventEmitter } from 'eventemitter3';
 
 const eventEmitter = new EventEmitter();
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const publish = (eventName: string, payload: any): void => {
+export const publish = (eventName: string, payload: unknown): void => {
   eventEmitter.emit(eventName, payload);
 };
 

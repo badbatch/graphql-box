@@ -49,7 +49,6 @@ export const getArguments = (field: FieldNode | DirectiveNode, options?: Request
       const variableName = getName(value);
 
       if (variableName) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         args[name.value] = options.variables[variableName];
       }
     } else {

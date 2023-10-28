@@ -1,11 +1,18 @@
-import { FieldTypeInfo } from "@graphql-box/core";
-import { isPlainObject } from "lodash";
+import { type FieldTypeInfo } from '@graphql-box/core';
+import { isPlainObject } from '@graphql-box/helpers';
 
-export const getValidTypeIDValue = (
-  requestFieldPathData: any,
+export const getValidTypeIdValue = (
+  requestFieldPathData: unknown,
   { typeIDValue }: FieldTypeInfo,
-  typeIDKey: string,
+  typeIDKey: string
 ): string | number | undefined => {
-  const requestFieldPathDataIDValue = isPlainObject(requestFieldPathData) ? requestFieldPathData[typeIDKey] : undefined;
-  return typeIDValue || requestFieldPathDataIDValue;
+  if (typeIDValue) {
+    return typeIDValue;
+  }
+
+  if (isPlainObject(requestFieldPathData)) {
+    return requestFieldPathData[typeIDKey] as string | number | undefined;
+  }
+
+  return;
 };

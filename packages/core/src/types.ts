@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type Cacheability, type Metadata as CacheabilityMetadata } from 'cacheability';
 import { type EventEmitter } from 'eventemitter3';
 import {
@@ -10,6 +9,7 @@ import {
   type GraphQLErrorExtensions,
   type GraphQLFieldResolver,
   type GraphQLNamedType,
+  type OperationTypeNode,
 } from 'graphql';
 import { type ErrorObject } from 'serialize-error';
 import { type JsonObject, type JsonValue, type SetOptional } from 'type-fest';
@@ -17,7 +17,15 @@ import { type WebSocket } from 'ws';
 
 export type Maybe<T> = null | undefined | T;
 
-export type PlainObject<T = any> = Record<string, T>;
+export type PlainArray<T = unknown> = T[];
+
+export type PlainData<T = unknown> = PlainObject<T> | PlainArray<T>;
+
+export type PlainObject<T = unknown> = Record<string | number, T>;
+
+export type EntityData<T extends string = 'id'> = TypedData & Record<T, string | number>;
+
+export type TypedData = PlainObject & { __typename: string };
 
 export interface RequestOptions {
   /**
@@ -71,7 +79,7 @@ export interface ServerRequestOptions {
    * be passed on to GraphQL's execute and subscribe
    * methods.
    */
-  fieldResolver?: GraphQLFieldResolver<any, any>;
+  fieldResolver?: GraphQLFieldResolver<unknown, unknown>;
   /**
    * Set GraphQL operation name to be passed on to
    * GraphQL's execute and subscribe methods.
@@ -86,12 +94,12 @@ export interface ServerRequestOptions {
    * Set default GraphQL root value to be passed on to
    * GraphQL's execute and subscribe methods.
    */
-  rootValue?: any;
+  rootValue?: unknown;
   /**
    * Set default GraphQL subscribe field resolver function to
    * be passed on to GraphQL's subscribe method.
    */
-  subscribeFieldResolver?: GraphQLFieldResolver<any, any>;
+  subscribeFieldResolver?: GraphQLFieldResolver<unknown, unknown>;
   /**
    * An identifier that will be stored in a request's cache metadata.
    * This can be used to retrieve cache entries against.
@@ -112,14 +120,14 @@ export type CacheHeaders = Headers | { cacheControl?: string; etag?: string };
 
 export interface CachemapOptions {
   cacheHeaders: CacheHeaders;
-  tag?: any;
+  tag?: string | number;
 }
 
 export type ExecutionContext = {
   debugManager: DebugManagerDef;
   fragmentDefinitions: FragmentDefinitionNodeMap;
   requestID: string;
-  setCacheMetadata: (key: string, headers: Headers, operation?: ValidOperations) => void;
+  setCacheMetadata: (key: string, headers: Headers, operation?: OperationTypeNode) => void;
 };
 
 export type GraphqlEnv = 'client' | 'server' | 'worker' | 'workerClient';
@@ -173,7 +181,7 @@ export type LogEntry = {
     logGroup: number;
     logOrder: number;
     nodeVersion?: string;
-    operation: ValidOperations;
+    operation: OperationTypeNode;
     operationName: string;
     originalRequestHash: string;
     osPlatform?: string;
@@ -233,8 +241,6 @@ export type FieldTypeMap = Map<string, FieldTypeInfo>;
 
 export type FragmentDefinitionNodeMap = Record<string, FragmentDefinitionNode>;
 
-export type ValidOperations = 'mutation' | 'query' | 'subscription';
-
 export interface RequestContext {
   debugManager: DebugManagerDef | null;
   experimentalDeferStreamSupport: boolean;
@@ -242,7 +248,7 @@ export interface RequestContext {
   filteredRequest: string;
   hasDeferOrStream?: boolean;
   normalizePatchResponseData?: boolean;
-  operation: ValidOperations;
+  operation: OperationTypeNode;
   operationName: string;
   originalRequestHash: string;
   parsedRequest: string;
@@ -278,7 +284,7 @@ export type DeserializedGraphqlError = {
   stack: string;
 };
 
-export interface ExecutionPatchResult<TData = PlainObject<unknown> | unknown, TExtensions = PlainObject<unknown>> {
+export interface ExecutionPatchResult<TData = PlainObject | unknown, TExtensions = PlainObject> {
   data?: TData | null;
   errors?: readonly GraphQLError[];
   extensions?: TExtensions;
@@ -301,7 +307,7 @@ export interface PartialRawFetchData {
 
 export interface RawResponseDataWithMaybeCacheMetadata {
   _cacheMetadata?: DehydratedCacheMetadata;
-  data: PlainObject;
+  data: PlainData;
   hasNext?: boolean;
   headers?: Headers;
   label?: string;
@@ -320,7 +326,7 @@ export interface PartialRawResponseData {
 
 export interface ResponseData {
   cacheMetadata: CacheMetadata;
-  data: PlainObject;
+  data: PlainData;
   hasNext?: boolean;
   paths?: string[];
 }

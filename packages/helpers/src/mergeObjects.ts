@@ -1,54 +1,53 @@
-import { cloneDeep, isArray, isEqual, isObjectLike, mergeWith } from 'lodash-es';
+import { cloneDeep, isEqual, mergeWith } from 'lodash-es';
+import { isArray, isObjectLike } from './lodashProxies.ts';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const mergeObjects = <T>(obj: T, source: T, matcher: (key: string, value: any) => any): T => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const mergeCustomizer = (objValue: any, sourceValue: any, key: string): any[] | undefined => {
-    if (!isArray(objValue) || !isArray(sourceValue)) {
+export const mergeObjects = <T extends object>(
+  obj: T,
+  source: T,
+  matcher: (key: string, value: unknown) => unknown
+): T => {
+  const mergeCustomizer = (destinationValue: unknown, sourceValue: unknown, key: string): unknown[] | undefined => {
+    if (!isArray(destinationValue) || !isArray(sourceValue)) {
       return undefined;
     }
 
     for (const [sourceIndex, value] of sourceValue.entries()) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const match = matcher(key, value);
 
       if (!match) {
-        if (isObjectLike(objValue[sourceIndex]) && isObjectLike(value) && !isEqual(objValue[sourceIndex], value)) {
-          mergeWith(objValue[sourceIndex], value, mergeCustomizer);
+        if (
+          isObjectLike(destinationValue[sourceIndex]) &&
+          isObjectLike(value) &&
+          !isEqual(destinationValue[sourceIndex], value)
+        ) {
+          mergeWith(destinationValue[sourceIndex], value, mergeCustomizer);
         } else {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          objValue[sourceIndex] = value;
+          destinationValue[sourceIndex] = value;
         }
 
         continue;
       }
 
-      const objIndex = objValue.findIndex(value_ => matcher(key, value_) === match);
+      const objIndex = destinationValue.findIndex(entry => matcher(key, entry) === match);
 
       if (objIndex === -1) {
-        objValue.push(value);
+        destinationValue.push(value);
         continue;
       }
 
-      if (isObjectLike(objValue[objIndex]) && isObjectLike(value) && !isEqual(objValue[objIndex], value)) {
-        mergeWith(objValue[objIndex], value, mergeCustomizer);
+      if (
+        isObjectLike(destinationValue[objIndex]) &&
+        isObjectLike(value) &&
+        !isEqual(destinationValue[objIndex], value)
+      ) {
+        mergeWith(destinationValue[objIndex], value, mergeCustomizer);
       } else {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        objValue[objIndex] = value;
+        destinationValue[objIndex] = value;
       }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return objValue;
+    return destinationValue;
   };
-
-  if (!obj) {
-    return cloneDeep(source);
-  }
-
-  if (!source) {
-    return cloneDeep(obj);
-  }
 
   const objClone = cloneDeep(obj);
   return mergeWith(objClone, source, mergeCustomizer);

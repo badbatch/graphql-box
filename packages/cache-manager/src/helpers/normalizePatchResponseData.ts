@@ -1,17 +1,24 @@
-import { RawResponseDataWithMaybeCacheMetadata } from "@graphql-box/core";
-import { set } from "lodash";
-import { CacheManagerContext } from "..";
+import { type RawResponseDataWithMaybeCacheMetadata } from '@graphql-box/core';
+import { isString, set } from 'lodash-es';
+import { type CacheManagerContext } from '../types.ts';
 
-export default (rawResponseData: RawResponseDataWithMaybeCacheMetadata, context: CacheManagerContext) => {
+export const normalizePatchResponseData = (
+  rawResponseData: RawResponseDataWithMaybeCacheMetadata,
+  context: CacheManagerContext
+) => {
   if (!context.normalizePatchResponseData) {
     return rawResponseData;
   }
 
   const { data, paths, ...rest } = rawResponseData;
 
+  if (!paths?.length || !isString(paths[0])) {
+    return rawResponseData;
+  }
+
   return {
     ...rest,
-    data: set({}, (paths as string[])[0], data),
+    data: set({}, paths[0], data),
     paths,
   };
 };

@@ -1,32 +1,34 @@
-import { deleteInlineFragments, getChildFields, getInlineFragments, getName } from "@graphql-box/helpers";
-import { FieldNode, FragmentDefinitionNode, OperationDefinitionNode } from "graphql";
-import { CacheManagerContext } from "..";
+import { deleteInlineFragments, getChildFields, getInlineFragments, getName } from '@graphql-box/helpers';
+import { type FieldNode, type FragmentDefinitionNode, type OperationDefinitionNode } from 'graphql';
+import { type CacheManagerContext } from '../types.ts';
 
-export default (
+export const filterInlineFragments = (
   field: FieldNode | FragmentDefinitionNode | OperationDefinitionNode,
-  { fragmentDefinitions, typeIDKey }: CacheManagerContext,
+  { fragmentDefinitions, typeIDKey }: CacheManagerContext
 ) => {
   const inlineFragments = getInlineFragments(field);
   let filtered = false;
 
-  inlineFragments.forEach(fragment => {
+  for (const fragment of inlineFragments) {
     const fieldsAndTypeNames = getChildFields(fragment, { fragmentDefinitions });
 
-    if (!fieldsAndTypeNames || !fieldsAndTypeNames.length) {
+    if (!fieldsAndTypeNames || fieldsAndTypeNames.length === 0) {
       deleteInlineFragments(field, fragment);
       filtered = true;
-      return;
+      continue;
     }
 
-    if (fieldsAndTypeNames.length === 1) {
-      const { fieldNode } = fieldsAndTypeNames[0];
+    const [fieldAndTypeName] = fieldsAndTypeNames;
+
+    if (fieldAndTypeName) {
+      const { fieldNode } = fieldAndTypeName;
 
       if (getName(fieldNode) === typeIDKey) {
         deleteInlineFragments(field, fragment);
         filtered = true;
       }
     }
-  });
+  }
 
   return filtered;
 };

@@ -1,7 +1,7 @@
 import { type DeserializedGraphqlError, type PlainObject } from '@graphql-box/core';
 import { GraphQLError, Source } from 'graphql';
-import { isArray, isObject, isPlainObject } from 'lodash-es';
 import { type ErrorObject, deserializeError as deserialize, serializeError as serialize } from 'serialize-error';
+import { isArray, isObjectLike, isPlainObject } from '../lodashProxies.ts';
 
 export const deserializedGraphqlError = (obj: DeserializedGraphqlError): GraphQLError => {
   const originalError = new Error(obj.originalError.message);
@@ -39,14 +39,11 @@ export const deserializeErrors = <Type extends { errors?: (DeserializedGraphqlEr
 };
 
 export const serializeGraphqlError = (error: GraphQLError) => {
-  const cloneOwnProperties = (instance: PlainObject) =>
+  const cloneOwnProperties = (instance: object) =>
     Object.getOwnPropertyNames(instance).reduce((obj: PlainObject, name) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const value = instance[name];
-
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      obj[name] = isObject(value) && !isArray(value) && !isPlainObject(value) ? cloneOwnProperties(value) : value;
-
+      // @ts-expect-error type 'string' can't be used to index type '{}'
+      const value = instance[name] as unknown;
+      obj[name] = isObjectLike(value) && !isArray(value) && !isPlainObject(value) ? cloneOwnProperties(value) : value;
       return obj;
     }, {});
 

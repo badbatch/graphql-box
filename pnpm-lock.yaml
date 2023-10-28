@@ -7,6 +7,7 @@ importers:
       '@babel/cli': ^7.19.3
       '@babel/core': ^7.20.5
       '@babel/eslint-parser': ^7.19.1
+      '@babel/plugin-proposal-decorators': ^7.23.2
       '@babel/plugin-syntax-dynamic-import': ^7.8.3
       '@babel/plugin-syntax-import-assertions': ^7.20.0
       '@babel/plugin-transform-class-properties': ^7.22.5
@@ -24,10 +25,10 @@ importers:
       '@commitlint/prompt-cli': ^17.3.0
       '@graphql-tools/schema': ^10.0.0
       '@jest/globals': ^29.3.1
-      '@repodog/babel-config': ^1.1.8
+      '@repodog/babel-config': ^1.1.9
       '@repodog/cli': ^1.1.15
       '@repodog/commitlint-config': ^1.1.6
-      '@repodog/eslint-config': ^1.1.14
+      '@repodog/eslint-config': ^1.1.15
       '@repodog/eslint-config-jasmine': ^1.1.10
       '@repodog/eslint-config-jest': ^1.1.10
       '@repodog/jasmine-browser-config': ^0.0.2
@@ -101,6 +102,7 @@ importers:
       '@babel/cli': 7.23.0_@babel+core@7.23.2
       '@babel/core': 7.23.2
       '@babel/eslint-parser': 7.22.15_ah26r3sjjcwu66nqedyygiotii
+      '@babel/plugin-proposal-decorators': 7.23.2_@babel+core@7.23.2
       '@babel/plugin-syntax-dynamic-import': 7.8.3_@babel+core@7.23.2
       '@babel/plugin-syntax-import-assertions': 7.22.5_@babel+core@7.23.2
       '@babel/plugin-transform-class-properties': 7.22.5_@babel+core@7.23.2
@@ -118,10 +120,10 @@ importers:
       '@commitlint/prompt-cli': 17.8.1
       '@graphql-tools/schema': 10.0.0_graphql@16.8.1
       '@jest/globals': 29.7.0
-      '@repodog/babel-config': 1.1.8_462sguuf2tb5i4b3kw2zzrxbbi
+      '@repodog/babel-config': 1.1.9_imu64aecbaaix3bii7xke6tini
       '@repodog/cli': 1.1.15
       '@repodog/commitlint-config': 1.1.6_e32vlx7dsvspmttyzpxifnxvyq
-      '@repodog/eslint-config': 1.1.14_uqm2wxkcd7iwsqfke36fp4slbu
+      '@repodog/eslint-config': 1.1.15_uqm2wxkcd7iwsqfke36fp4slbu
       '@repodog/eslint-config-jasmine': 1.1.10_yxughnei4d2uzjpsyzfdg3jfwu
       '@repodog/eslint-config-jest': 1.1.10_eslint-plugin-jest@27.4.3
       '@repodog/jasmine-browser-config': 0.0.2_q3lgtrlym7zbq42ii5lqjjvyxq
@@ -195,21 +197,29 @@ importers:
   packages/cache-manager:
     specifiers:
       '@babel/runtime': ^7.20.13
+      '@cachemap/core': ^5.0.2
+      '@cachemap/map': ^5.0.0
+      '@cachemap/types': ^5.0.0
       '@graphql-box/core': workspace:../core
       '@graphql-box/helpers': workspace:../helpers
       '@graphql-box/test-utils': workspace:../test-utils
+      '@jest/globals': ^29.3.1
       '@types/lodash-es': ^4.14.191
       cacheability: ^4.0.9
       core-js: ^3.27.2
       graphql: ^16.8.1
       lodash-es: ^4.17.21
     dependencies:
+      '@cachemap/core': 5.0.2_v3hmjvhjnapg475hpz2si5lsz4
+      '@cachemap/types': 5.0.0_v3hmjvhjnapg475hpz2si5lsz4
       '@graphql-box/core': link:../core
       '@graphql-box/helpers': link:../helpers
       cacheability: 4.0.9_v3hmjvhjnapg475hpz2si5lsz4
     devDependencies:
       '@babel/runtime': 7.23.2
+      '@cachemap/map': 5.0.0_v3hmjvhjnapg475hpz2si5lsz4
       '@graphql-box/test-utils': link:../test-utils
+      '@jest/globals': 29.7.0
       '@types/lodash-es': 4.17.10
       core-js: 3.33.1
       graphql: 16.8.1
@@ -934,6 +944,20 @@ packages:
       '@babel/plugin-transform-optional-chaining': 7.23.0_@babel+core@7.23.2
     dev: true
 
+  /@babel/plugin-proposal-decorators/7.23.2_@babel+core@7.23.2:
+    resolution: {integrity: sha512-eR0gJQc830fJVGz37oKLvt9W9uUIQSAovUl0e9sJ3YeO09dlcoBVYD3CLrjCj4qHdXmfiyTyFt8yeQYSN5fxLg==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.23.2
+      '@babel/helper-create-class-features-plugin': 7.22.15_@babel+core@7.23.2
+      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/helper-replace-supers': 7.22.20_@babel+core@7.23.2
+      '@babel/helper-split-export-declaration': 7.22.6
+      '@babel/plugin-syntax-decorators': 7.22.10_@babel+core@7.23.2
+    dev: true
+
   /@babel/plugin-proposal-private-property-in-object/7.21.0-placeholder-for-preset-env.2_@babel+core@7.23.2:
     resolution: {integrity: sha512-SOSkfJDddaM7mak6cPEpswyTRnuRltl429hMraQEglW+OkovnCzsiszTmsrlY//qLFjCpQDFRvjdm2wA5pPm9w==}
     engines: {node: '>=6.9.0'}
@@ -972,6 +996,16 @@ packages:
 
   /@babel/plugin-syntax-class-static-block/7.14.5_@babel+core@7.23.2:
     resolution: {integrity: sha512-b+YyPmr6ldyNnM6sqYeMWE+bgJcJpO6yS4QD7ymxgH34GBPNDM/THBh8iunyvKIZztiwLH4CJZ0RxTk9emgpjw==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.23.2
+      '@babel/helper-plugin-utils': 7.22.5
+    dev: true
+
+  /@babel/plugin-syntax-decorators/7.22.10_@babel+core@7.23.2:
+    resolution: {integrity: sha512-z1KTVemBjnz+kSEilAsI4lbkPOl5TvJH7YDSY1CTIzvLWJ+KHXp+mRe8VPmfnyvqOPqar1V2gid2PleKzRUstQ==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -2687,11 +2721,12 @@ packages:
       config-chain: 1.1.13
     dev: true
 
-  /@repodog/babel-config/1.1.8_462sguuf2tb5i4b3kw2zzrxbbi:
-    resolution: {integrity: sha512-oNRCHZyTtv1VSvRk6Qa4CxHBiaQaGwXXMf+KBvHrwSR5N86nhdLAdVE+2qCxm6Wopym+Lo9ReiveU5+zZrX5gQ==}
+  /@repodog/babel-config/1.1.9_imu64aecbaaix3bii7xke6tini:
+    resolution: {integrity: sha512-w9DI7+sl7Tbdl6QUFyN+bRPsbuqUvSq5c6JSS1eBhQA7xj2dVPzl2PxPParQAoze/3v6w1eFpRNKVVpRtQ3caQ==}
     peerDependencies:
       '@babel/cli': <8
       '@babel/core': <8
+      '@babel/plugin-proposal-decorators': <8
       '@babel/plugin-syntax-dynamic-import': <8
       '@babel/plugin-syntax-import-assertions': <8
       '@babel/plugin-transform-class-properties': <8
@@ -2706,6 +2741,7 @@ packages:
     dependencies:
       '@babel/cli': 7.23.0_@babel+core@7.23.2
       '@babel/core': 7.23.2
+      '@babel/plugin-proposal-decorators': 7.23.2_@babel+core@7.23.2
       '@babel/plugin-syntax-dynamic-import': 7.8.3_@babel+core@7.23.2
       '@babel/plugin-syntax-import-assertions': 7.22.5_@babel+core@7.23.2
       '@babel/plugin-transform-class-properties': 7.22.5_@babel+core@7.23.2
@@ -2897,8 +2933,8 @@ packages:
       eslint-plugin-jest: 27.4.3_ugx7mgogee677sbw2qrwkmelfe
     dev: true
 
-  /@repodog/eslint-config/1.1.14_uqm2wxkcd7iwsqfke36fp4slbu:
-    resolution: {integrity: sha512-68EFiX6/oD13a7wwIwxtU+yzPsdszEolguroub6s5PT9BTMIim5rSr5qU17GknuxTCOVd2cITl5BPC6lJqOOxQ==}
+  /@repodog/eslint-config/1.1.15_uqm2wxkcd7iwsqfke36fp4slbu:
+    resolution: {integrity: sha512-+D110YnKb3ZIr6f5mNJDjSRqBzuanHQnsTtbSla895WMMCKgX6k0ngVd1tPyMaqnvGaZjTQjdkm9he/UUj6qHQ==}
     peerDependencies:
       '@babel/eslint-parser': <8
       '@typescript-eslint/eslint-plugin': <6

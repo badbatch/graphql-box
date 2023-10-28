@@ -1,4 +1,5 @@
 import { type PlainObject, type RequestContext } from '@graphql-box/core';
+import { OperationTypeNode } from 'graphql';
 
 export const getRequestContext = (props: PlainObject = {}): RequestContext => {
   return {
@@ -7,7 +8,7 @@ export const getRequestContext = (props: PlainObject = {}): RequestContext => {
     fieldTypeMap: new Map(),
     filteredRequest: '',
     hasDeferOrStream: false,
-    operation: 'query',
+    operation: OperationTypeNode.QUERY,
     operationName: '',
     originalRequestHash: '',
     parsedRequest: '',

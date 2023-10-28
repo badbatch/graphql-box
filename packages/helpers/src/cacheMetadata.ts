@@ -1,5 +1,6 @@
-import { type CacheMetadata, type DehydratedCacheMetadata, type ValidOperations } from '@graphql-box/core';
+import { type CacheMetadata, type DehydratedCacheMetadata } from '@graphql-box/core';
 import { Cacheability } from 'cacheability';
+import { OperationTypeNode } from 'graphql';
 
 export const dehydrateCacheMetadata = (cacheMetadata: CacheMetadata): DehydratedCacheMetadata => {
   const obj: DehydratedCacheMetadata = {};
@@ -24,6 +25,6 @@ export const rehydrateCacheMetadata = (
 
 export const setCacheMetadata =
   (cacheMetadata: DehydratedCacheMetadata) =>
-  (key: string, headers: Headers, operation: ValidOperations = 'query') => {
+  (key: string, headers: Headers, operation: OperationTypeNode = OperationTypeNode.QUERY) => {
     cacheMetadata[`${operation}.${key}`] = new Cacheability({ headers }).metadata;
   };

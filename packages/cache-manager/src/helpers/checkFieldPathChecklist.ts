@@ -1,16 +1,18 @@
-import { CheckFieldPathChecklistResult, FieldPathChecklistValue } from "../defs";
+import { type CheckFieldPathChecklistResult, type FieldPathChecklistValue } from '../types.ts';
 
-export default (
+export const checkFieldPathChecklist = (
   fieldPathChecklistValues: FieldPathChecklistValue[] | undefined,
-  fieldTypeName: string | undefined,
+  fieldTypeName: string | undefined
 ): CheckFieldPathChecklistResult => {
-  if (!fieldPathChecklistValues || !fieldPathChecklistValues.length) {
+  if (!fieldPathChecklistValues || fieldPathChecklistValues.length === 0) {
     return { hasData: false, typeUnused: !!fieldTypeName };
   }
 
-  if (fieldPathChecklistValues.length === 1) {
-    const { hasData, typeName } = fieldPathChecklistValues[0];
-    const typeUnused = !typeName ? undefined : typeName !== fieldTypeName;
+  const [fieldPathChecklistValue] = fieldPathChecklistValues;
+
+  if (fieldPathChecklistValue) {
+    const { hasData, typeName } = fieldPathChecklistValue;
+    const typeUnused = typeName ? typeName !== fieldTypeName : undefined;
     return { hasData, typeUnused };
   }
 

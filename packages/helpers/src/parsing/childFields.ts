@@ -1,4 +1,4 @@
-import { type FragmentDefinitionNodeMap, type PlainObject } from '@graphql-box/core';
+import { type FragmentDefinitionNodeMap } from '@graphql-box/core';
 import {
   type FieldNode,
   GraphQLInterfaceType,
@@ -7,7 +7,8 @@ import {
   type InlineFragmentNode,
   Kind,
 } from 'graphql';
-import { castArray, isArray } from 'lodash-es';
+import { castArray } from 'lodash-es';
+import { isArray } from '../lodashProxies.ts';
 import { type FieldAndTypeName, type ParentNode } from '../types.ts';
 import { resolveFragments } from './fragments.ts';
 import { getKind, isKind } from './kind.ts';
@@ -111,8 +112,7 @@ export const hasChildFields = (node: ParentNode, { fragmentDefinitions, name }: 
 
 export const iterateChildFields = (
   field: FieldNode,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: PlainObject | any[],
+  data: object,
   fragmentDefinitions: FragmentDefinitionNodeMap | undefined,
   callback: (
     childField: FieldNode,

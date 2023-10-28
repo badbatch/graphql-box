@@ -9,7 +9,6 @@ export const unwrapOfType = (type: GraphQLOutputType): GraphQLOutputType => {
   return unwrapOfType(type.ofType);
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getType = ({ type }: GraphQLField<any, any>): GraphQLOutputType => {
+export const getType = ({ type }: GraphQLField<unknown, unknown>): GraphQLOutputType => {
   return unwrapOfType(type);
 };

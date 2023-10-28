@@ -17,6 +17,7 @@ import {
   type GraphQLList,
   type GraphQLObjectType,
   type GraphQLScalarType,
+  type GraphQLType,
   type GraphQLUnionType,
   type InlineFragmentNode,
   type InputObjectTypeDefinitionNode,
@@ -39,8 +40,7 @@ export type GraphQLNullableOutputType =
   | GraphQLInterfaceType
   | GraphQLUnionType
   | GraphQLEnumType
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  | GraphQLList<any>;
+  | GraphQLList<GraphQLType>;
 
 export type NamedASTNode =
   | OperationDefinitionNode
