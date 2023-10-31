@@ -1,1 +1,1 @@
-export default (page: number) => page === 1;
+export const isFirstPage = (page: number) => page === 1;

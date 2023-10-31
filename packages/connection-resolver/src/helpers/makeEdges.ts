@@ -1,4 +1,4 @@
-import { Node } from "../defs";
+import { type Node } from '../types.ts';
 
-export default (nodes: Node[], makeCursor: (node: Node) => string) =>
-  nodes.map(node => ({ node, cursor: makeCursor(node) }));
+export const makeEdges = (nodes: Node[], makeCursor: (node: Node) => string) =>
+  nodes.map(node => ({ cursor: makeCursor(node), node }));

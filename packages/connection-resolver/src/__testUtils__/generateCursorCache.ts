@@ -1,8 +1,8 @@
-import Cachemap from "@cachemap/core";
-import map from "@cachemap/map";
-import { encode } from "js-base64";
-import cacheCursors from "../helpers/cacheCursors";
-import generatePages from "./generatePages";
+import { Core } from '@cachemap/core';
+import { init as map } from '@cachemap/map';
+import { encode } from 'js-base64';
+import { cacheCursors } from '../helpers/cacheCursors.ts';
+import { generatePages } from './generatePages.ts';
 
 export type Params = {
   group: string;
@@ -12,16 +12,22 @@ export type Params = {
   totalResults: number;
 };
 
-export default async ({ group, pageRanges = [], resultsPerPage, totalPages, totalResults }: Params) => {
-  const cursorCache = new Cachemap({
-    name: "cursorCache",
+export const generateCursorCache = async ({
+  group,
+  pageRanges = [],
+  resultsPerPage,
+  totalPages,
+  totalResults,
+}: Params) => {
+  const cursorCache = new Core({
+    name: 'cursorCache',
     store: map(),
-    type: "someType",
+    type: 'someType',
   });
 
-  const headers = new Headers({ "Cache-Control": "max-age=60" });
+  const headers = new Headers({ 'Cache-Control': 'max-age=60' });
 
-  if (pageRanges.length && resultsPerPage) {
+  if (pageRanges.length > 0 && resultsPerPage) {
     const pages = generatePages(pageRanges);
 
     await Promise.all(
@@ -36,19 +42,19 @@ export default async ({ group, pageRanges = [], resultsPerPage, totalPages, tota
           resultsOnCurrentPage = resultsPerPage;
         }
 
-        const edges = Array.from({ length: resultsOnCurrentPage }, (_v, i) => i).map(index => {
+        const edges = Array.from({ length: resultsOnCurrentPage }, (_v, index) => index).map(index => {
           const id = encode(`${index}::${page}`);
           return { cursor: `${id}::${group}`, node: { id } };
         });
 
         await cacheCursors(cursorCache, { edges, group, headers, page, totalPages, totalResults });
-      }),
+      })
     );
   } else {
     await cursorCache.set(
       `${group}-metadata`,
       { totalPages, totalResults },
-      { cacheHeaders: { cacheControl: headers.get("cache-control") ?? undefined } },
+      { cacheHeaders: { cacheControl: headers.get('cache-control') ?? undefined } }
     );
   }
 

@@ -1,5 +1,5 @@
-import { CursorCacheEntry, Direction } from "../defs";
-import getIndexesOnLastPage from "./getIndexesOnLastPage";
+import { type CursorCacheEntry, type Direction } from '../types.ts';
+import { getIndexesOnLastPage } from './getIndexesOnLastPage.ts';
 
 export type Params = {
   direction: Direction;
@@ -9,5 +9,5 @@ export type Params = {
   totalResults: number;
 };
 
-export default ({ direction, entry: { index, page }, resultsPerPage, totalPages, totalResults }: Params) =>
-  direction === "forward" && page === totalPages && index === getIndexesOnLastPage({ resultsPerPage, totalResults });
+export const isCursorLast = ({ direction, entry: { index, page }, resultsPerPage, totalPages, totalResults }: Params) =>
+  direction === 'forward' && page === totalPages && index === getIndexesOnLastPage({ resultsPerPage, totalResults });

@@ -1,11 +1,15 @@
-import isLastPage from "./isLastPage";
+import { isLastPage } from './isLastPage.ts';
 
-describe("isLastPage", () => {
-  test("when page is last page", () => {
-    expect(isLastPage({ page: 5, totalPages: 5 })).toBe(true);
+describe('isLastPage', () => {
+  describe('when page is last page', () => {
+    it('should return the correct value', () => {
+      expect(isLastPage({ page: 5, totalPages: 5 })).toBe(true);
+    });
   });
 
-  test("when page is NOT last page", () => {
-    expect(isLastPage({ page: 4, totalPages: 5 })).toBe(false);
+  describe('when page is NOT last page', () => {
+    it('should return the correct value', () => {
+      expect(isLastPage({ page: 4, totalPages: 5 })).toBe(false);
+    });
   });
 });

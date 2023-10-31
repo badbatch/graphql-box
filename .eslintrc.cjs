@@ -7,7 +7,7 @@ module.exports = {
     },
     {
       extends: ['@repodog/eslint-config-jest'],
-      files: ['tests/node/*.{spec,test}.*'],
+      files: ['packages/**/*.{spec,test}.*', 'integration/node/*.{spec,test}.*'],
       rules: {
         'jest/max-nested-describe': [
           2,
@@ -32,7 +32,6 @@ module.exports = {
         peerDependencies: false,
       },
     ],
-    'unicorn/no-array-reduce': 0,
     'unicorn/no-null': 0,
   },
 };

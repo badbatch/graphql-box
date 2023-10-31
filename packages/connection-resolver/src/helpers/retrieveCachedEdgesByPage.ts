@@ -1,27 +1,27 @@
-import Cachemap, { ExportResult } from "@cachemap/core";
-import { Edge } from "../defs";
+import { type Core } from '@cachemap/core';
+import { type CursorCacheEntry, type Edge } from '../types.ts';
 
 export type Context = {
   groupCursor: string;
   pageNumber: number;
 };
 
-export default async (cursorCache: Cachemap, { groupCursor, pageNumber }: Context) => {
-  const { entries, metadata } = (await cursorCache.export({
+export const retrieveCachedEdgesByPage = async (cursorCache: Core, { groupCursor, pageNumber }: Context) => {
+  const { entries, metadata } = await cursorCache.export<CursorCacheEntry>({
     filterByValue: [
-      { keyChain: "page", comparator: pageNumber },
-      { keyChain: "group", comparator: groupCursor },
+      { comparator: pageNumber, keyChain: 'page' },
+      { comparator: groupCursor, keyChain: 'group' },
     ],
-  })) as ExportResult;
+  });
 
   return {
-    edges: entries.reduce((cached, [key, { index, node }]) => {
-      if (metadata[index].cacheability.checkTTL()) {
+    edges: entries.reduce<Edge[]>((cached, [key, { index, node }]) => {
+      if (metadata[index]?.cacheability.checkTTL()) {
         cached[index] = { cursor: key, node };
       }
 
       return cached;
-    }, [] as Edge[]),
+    }, []),
     pageNumber,
   };
 };

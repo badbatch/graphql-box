@@ -1,4 +1,4 @@
-import { Edge } from "../defs";
+import { type Edge } from '../types.ts';
 
 export const getStartCursor = (edges: Edge[]) => edges[0]?.cursor;
 

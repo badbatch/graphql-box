@@ -1,3 +1,3 @@
-import { ConnectionInputOptions } from "../defs";
+import { type ConnectionInputOptions } from '../types.ts';
 
-export default ({ first, last }: ConnectionInputOptions) => (first || last) as number;
+export const getCount = ({ first, last }: ConnectionInputOptions) => first ?? last!;

@@ -1,15 +1,16 @@
-import Cachemap from "@cachemap/core";
-import { ConnectionInputOptions, Getters, Node, PlainObject, ResourceResolver } from "../defs";
-import extractEdges from "./extractEdges";
-import extractNodes from "./extractNodes";
-import getInRangeCachedEdges from "./getInRangeCachedEdges";
-import { getEndCursor, getStartCursor } from "./getStartAndEndCursors";
-import mergeCachedEdges from "./mergeCachedEdges";
-import requestAndCachePages from "./requestAndCachePages";
-import retrieveCachedConnection from "./retrieveCachedConnection";
+import { type Core } from '@cachemap/core';
+import type { PlainObject } from '@graphql-box/core';
+import { type ConnectionInputOptions, type Getters, type Node, type ResourceResolver } from '../types.ts';
+import { extractEdges } from './extractEdges.ts';
+import { extractNodes } from './extractNodes.ts';
+import { getInRangeCachedEdges } from './getInRangeCachedEdges.ts';
+import { getEndCursor, getStartCursor } from './getStartAndEndCursors.ts';
+import { mergeCachedEdges } from './mergeCachedEdges.ts';
+import { requestAndCachePages } from './requestAndCachePages.ts';
+import { retrieveCachedConnection } from './retrieveCachedConnection.ts';
 
 export type Context<Resource extends PlainObject, ResourceNode extends Node> = {
-  cursorCache: Cachemap;
+  cursorCache: Core;
   getters: Getters<Resource, ResourceNode>;
   groupCursor: string;
   makeIDCursor: (id: string | number) => string;
@@ -17,31 +18,18 @@ export type Context<Resource extends PlainObject, ResourceNode extends Node> = {
   resultsPerPage: number;
 };
 
-const resolveConnection = async <Resource extends PlainObject, ResourceNode extends Node>(
+export const resolveConnection = async <Resource extends PlainObject, ResourceNode extends Node>(
   args: PlainObject & ConnectionInputOptions,
-  {
-    cursorCache,
-    getters,
-    groupCursor,
-    makeIDCursor,
-    resourceResolver,
-    resultsPerPage,
-  }: Context<Resource, ResourceNode>,
+  { cursorCache, getters, groupCursor, makeIDCursor, resourceResolver, resultsPerPage }: Context<Resource, ResourceNode>
 ) => {
-  const {
-    cachedEdges,
-    hasNextPage,
-    hasPreviousPage,
-    indexes,
-    missingPages,
-    totalResults,
-  } = await retrieveCachedConnection(args, {
-    cursorCache,
-    groupCursor,
-    resultsPerPage,
-  });
+  const { cachedEdges, hasNextPage, hasPreviousPage, indexes, missingPages, totalResults } =
+    await retrieveCachedConnection(args, {
+      cursorCache,
+      groupCursor,
+      resultsPerPage,
+    });
 
-  if (!missingPages.length) {
+  if (missingPages.length === 0) {
     const edges = extractEdges(cachedEdges);
 
     return {
@@ -87,5 +75,3 @@ const resolveConnection = async <Resource extends PlainObject, ResourceNode exte
     totalCount: totalResults,
   };
 };
-
-export default resolveConnection;

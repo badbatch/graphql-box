@@ -1,4 +1,4 @@
-import { Indexes } from "../defs";
+import { type Indexes } from '../types.ts';
 
 export type StartIndexContext = {
   pageIndex: number;

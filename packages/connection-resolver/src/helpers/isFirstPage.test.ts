@@ -1,11 +1,15 @@
-import isFirstPage from "./isFirstPage";
+import { isFirstPage } from './isFirstPage.ts';
 
-describe("isFirstPage", () => {
-  test("when page is first page", () => {
-    expect(isFirstPage(1)).toBe(true);
+describe('isFirstPage', () => {
+  describe('when page is first page', () => {
+    it('should return the correct value', () => {
+      expect(isFirstPage(1)).toBe(true);
+    });
   });
 
-  test("when page is NOT first page", () => {
-    expect(isFirstPage(5)).toBe(false);
+  describe('when page is NOT first page', () => {
+    it('should return the correct value', () => {
+      expect(isFirstPage(5)).toBe(false);
+    });
   });
 });

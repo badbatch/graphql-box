@@ -28,7 +28,7 @@ importers:
       '@repodog/babel-config': ^1.1.9
       '@repodog/cli': ^1.1.15
       '@repodog/commitlint-config': ^1.1.6
-      '@repodog/eslint-config': ^1.1.16
+      '@repodog/eslint-config': ^1.1.17
       '@repodog/eslint-config-jasmine': ^1.1.10
       '@repodog/eslint-config-jest': ^1.1.10
       '@repodog/jasmine-browser-config': ^0.0.2
@@ -37,7 +37,7 @@ importers:
       '@repodog/prettier-config': ^1.1.4
       '@repodog/rollup-config': ^1.1.6
       '@repodog/syncpack-config': ^1.1.4
-      '@repodog/ts-config': ^1.1.4
+      '@repodog/ts-config': ^1.1.6
       '@repodog/webpack-config': ^0.0.3
       '@rollup/plugin-babel': ^6.0.4
       '@rollup/plugin-image': ^3.0.3
@@ -123,7 +123,7 @@ importers:
       '@repodog/babel-config': 1.1.9_imu64aecbaaix3bii7xke6tini
       '@repodog/cli': 1.1.15
       '@repodog/commitlint-config': 1.1.6_e32vlx7dsvspmttyzpxifnxvyq
-      '@repodog/eslint-config': 1.1.16_uqm2wxkcd7iwsqfke36fp4slbu
+      '@repodog/eslint-config': 1.1.17_uqm2wxkcd7iwsqfke36fp4slbu
       '@repodog/eslint-config-jasmine': 1.1.10_yxughnei4d2uzjpsyzfdg3jfwu
       '@repodog/eslint-config-jest': 1.1.10_eslint-plugin-jest@27.4.3
       '@repodog/jasmine-browser-config': 0.0.2_q3lgtrlym7zbq42ii5lqjjvyxq
@@ -132,7 +132,7 @@ importers:
       '@repodog/prettier-config': 1.1.5_prettier@2.8.8
       '@repodog/rollup-config': 1.1.6_duf6qy7mituxqlggzc3byhi6by
       '@repodog/syncpack-config': 1.1.5_syncpack@9.8.6
-      '@repodog/ts-config': 1.1.5_typescript@5.2.2
+      '@repodog/ts-config': 1.1.6_typescript@5.2.2
       '@repodog/webpack-config': 0.0.3_43qqvmwdmam2tojvnzmrn2up3y
       '@rollup/plugin-babel': 6.0.4_d4in344ka63oangxmk5twek5ae
       '@rollup/plugin-image': 3.0.3_rollup@3.29.4
@@ -264,24 +264,28 @@ importers:
     specifiers:
       '@babel/runtime': ^7.20.13
       '@cachemap/core': ^5.0.2
+      '@cachemap/map': ^5.0.0
       '@graphql-box/core': workspace:../core
+      '@jest/globals': ^29.3.1
       '@types/lodash-es': ^4.14.191
       core-js: ^3.27.2
       graphql: ^16.8.1
-      js-base64: ^3.6.0
+      js-base64: ^3.7.5
       lodash-es: ^4.17.21
       type-fest: ^4.5.0
     dependencies:
       '@cachemap/core': 5.0.2_v3hmjvhjnapg475hpz2si5lsz4
       '@graphql-box/core': link:../core
       js-base64: 3.7.5
+      type-fest: 4.5.0
     devDependencies:
       '@babel/runtime': 7.23.2
+      '@cachemap/map': 5.0.0_v3hmjvhjnapg475hpz2si5lsz4
+      '@jest/globals': 29.7.0
       '@types/lodash-es': 4.17.10
       core-js: 3.33.1
       graphql: 16.8.1
       lodash-es: 4.17.21
-      type-fest: 4.5.0
 
   packages/core:
     specifiers:
@@ -2920,8 +2924,8 @@ packages:
       eslint-plugin-jest: 27.4.3_ugx7mgogee677sbw2qrwkmelfe
     dev: true
 
-  /@repodog/eslint-config/1.1.16_uqm2wxkcd7iwsqfke36fp4slbu:
-    resolution: {integrity: sha512-2hW9vUBX39B7u+sOFma6UhxQD+4ZwXuusGepMrDlGLh1QG0T9Mg4WpVEecOppSdrz+S+oCbWlgd0f+9GYuNWLw==}
+  /@repodog/eslint-config/1.1.17_uqm2wxkcd7iwsqfke36fp4slbu:
+    resolution: {integrity: sha512-MjqfIZOazb/0jlVq0lGPXHscocMYluQB7+y4unOMc6FlZg7F0u8XzTo1jj7XS+0EnV/nlp5oz0dnhLALD3VlZg==}
     peerDependencies:
       '@babel/eslint-parser': <8
       '@typescript-eslint/eslint-plugin': <6
@@ -3038,8 +3042,8 @@ packages:
       syncpack: 9.8.6
     dev: true
 
-  /@repodog/ts-config/1.1.5_typescript@5.2.2:
-    resolution: {integrity: sha512-OGd4R8tbKyd5JMbuO7PYBQ18f6GOo2F6kBTpDT9Mdf/GFZif4uNuemX02IKUj81Z+qXtUY+WMIv/U52aUS3bSQ==}
+  /@repodog/ts-config/1.1.6_typescript@5.2.2:
+    resolution: {integrity: sha512-GG8rYRK43D2qkKeaZSW+GFMkif46yVqtCBMDiTvPUkzHbfypnPF98TXuvQHp9XCRu2YTlGXDqHvLXiY3808iLw==}
     peerDependencies:
       typescript: <6
     dependencies:
@@ -9673,6 +9677,7 @@ packages:
   /type-fest/4.5.0:
     resolution: {integrity: sha512-diLQivFzddJl4ylL3jxSkEc39Tpw7o1QeEHIPxVwryDK2lpB7Nqhzhuo6v5/Ls08Z0yPSAhsyAWlv1/H0ciNmw==}
     engines: {node: '>=16'}
+    dev: false
 
   /type-is/1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}

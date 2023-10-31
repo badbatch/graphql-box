@@ -1,3 +1,4 @@
-import getResultsOnLastPage, { Params } from "./getResultsOnLastPage";
+import { type Params, getResultsOnLastPage } from './getResultsOnLastPage.ts';
 
-export default ({ resultsPerPage, totalResults }: Params) => getResultsOnLastPage({ resultsPerPage, totalResults }) - 1;
+export const getIndexesOnLastPage = ({ resultsPerPage, totalResults }: Params) =>
+  getResultsOnLastPage({ resultsPerPage, totalResults }) - 1;

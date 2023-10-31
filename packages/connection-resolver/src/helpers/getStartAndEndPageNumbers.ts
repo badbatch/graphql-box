@@ -1,6 +1,6 @@
-import { ConnectionInputOptions, Context, Indexes } from "../defs";
-import getDirection from "./getDirection";
-import isLastPage from "./isLastPage";
+import { type ConnectionInputOptions, type CursorGroupMetadata, type Indexes } from '../types.ts';
+import { getDirection } from './getDirection.ts';
+import { isLastPage } from './isLastPage.ts';
 
 export type PageNumberContext = {
   endIndex: Indexes;
@@ -8,11 +8,16 @@ export type PageNumberContext = {
   startIndex: Indexes;
 };
 
+export type Context = {
+  metadata: CursorGroupMetadata;
+  resultsPerPage: number;
+};
+
 export const getStartPageNumber = (
   args: ConnectionInputOptions,
-  { page, startIndex, resultsPerPage }: Omit<PageNumberContext, "endIndex"> & Omit<Context, "entry" | "metadata">,
+  { page, resultsPerPage, startIndex }: Omit<PageNumberContext, 'endIndex'> & Omit<Context, 'metadata'>
 ) => {
-  if (getDirection(args.last) === "forward" || startIndex.absolute >= 0) {
+  if (getDirection(args.last) === 'forward' || startIndex.absolute >= 0) {
     return page;
   }
 
@@ -22,17 +27,12 @@ export const getStartPageNumber = (
 
 export const getEndPageNumber = (
   args: ConnectionInputOptions,
-  {
-    endIndex,
-    metadata: { totalPages },
-    page,
-    resultsPerPage,
-  }: Omit<PageNumberContext, "startIndex"> & Omit<Context, "entry">,
+  { endIndex, metadata: { totalPages }, page, resultsPerPage }: Omit<PageNumberContext, 'startIndex'> & Context
 ) => {
   const indexesPerPage = resultsPerPage - 1;
 
   if (
-    getDirection(args.last) === "backward" ||
+    getDirection(args.last) === 'backward' ||
     isLastPage({ page, totalPages }) ||
     endIndex.absolute <= indexesPerPage
   ) {

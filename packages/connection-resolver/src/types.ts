@@ -1,13 +1,9 @@
-import Cachemap from "@cachemap/core";
-import { GraphQLResolveInfo } from "graphql";
+import { type Core } from '@cachemap/core';
+import type { PlainObject } from '@graphql-box/core';
+import { type GraphQLResolveInfo } from 'graphql';
+import { type SetOptional } from 'type-fest';
 
-export type PlainObject = {
-  [key: string]: any;
-};
-
-export type Node = PlainObject & { id: string | number };
-
-export type Direction = "backward" | "forward";
+export type Direction = 'backward' | 'forward';
 
 export type CursorCacheEntry = {
   group: string;
@@ -15,6 +11,8 @@ export type CursorCacheEntry = {
   node: Node;
   page: number;
 };
+
+export type PartialCursorCacheEntry = SetOptional<CursorCacheEntry, 'group' | 'node'>;
 
 export type CursorGroupMetadata = {
   totalPages: number;
@@ -35,6 +33,8 @@ export type Indexes = {
   absolute: number;
   relative: number;
 };
+
+export type Node = PlainObject & { id: string | number };
 
 export type PageInfo = {
   endCursor?: string;
@@ -85,13 +85,13 @@ export interface ConnectionResolverUserOptions<
     source: Source,
     args: Args,
     context: Ctx,
-    info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo
   ) => {
     makeGroupCursor: () => string;
     makeIDCursor: (id: string | number) => string;
   };
   createResourceResolver: CreateResourceResolver<Source, Args, Ctx, Resource>;
-  cursorCache: Cachemap;
+  cursorCache: Core;
   getters: Getters<Resource, ResourceNode>;
   resolver?: (args: Connection) => Connection;
   resultsPerPage: number;
@@ -101,7 +101,7 @@ export type ConnectionResolver = (
   source: PlainObject,
   args: PlainObject & ConnectionInputOptions,
   context: PlainObject,
-  info: GraphQLResolveInfo,
+  info: GraphQLResolveInfo
 ) => Promise<Connection>;
 
 export type ConnectionInputOptions = {
@@ -109,10 +109,4 @@ export type ConnectionInputOptions = {
   before?: string;
   first?: number;
   last?: number;
-};
-
-export type Context = {
-  entry: CursorCacheEntry;
-  metadata: CursorGroupMetadata;
-  resultsPerPage: number;
 };

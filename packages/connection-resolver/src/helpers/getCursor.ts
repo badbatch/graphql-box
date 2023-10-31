@@ -1,3 +1,3 @@
-import { ConnectionInputOptions } from "../defs";
+import { type ConnectionInputOptions } from '../types.ts';
 
-export default ({ after, before }: ConnectionInputOptions) => before || after;
+export const getCursor = ({ after, before }: ConnectionInputOptions) => before ?? after;

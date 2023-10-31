@@ -1,11 +1,15 @@
-import getCursor from "./getCursor";
+import { getCursor } from './getCursor.ts';
 
-describe("getCursor", () => {
-  test("when `before` is provided", () => {
-    expect(getCursor({ before: "abcdefg" })).toBe("abcdefg");
+describe('getCursor', () => {
+  describe('when `before` is provided', () => {
+    it('should return the correct value', () => {
+      expect(getCursor({ before: 'abcdefg' })).toBe('abcdefg');
+    });
   });
 
-  test("when `after` is provided", () => {
-    expect(getCursor({ after: "abcdefg" })).toBe("abcdefg");
+  describe('when `after` is provided', () => {
+    it('should return the correct value', () => {
+      expect(getCursor({ after: 'abcdefg' })).toBe('abcdefg');
+    });
   });
 });
