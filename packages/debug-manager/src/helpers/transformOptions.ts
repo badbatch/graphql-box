@@ -1,18 +1,18 @@
-import { PlainObjectMap, RequestOptions, ServerRequestOptions } from "@graphql-box/core";
+import { type PlainObject, type RequestOptions, type ServerRequestOptions } from '@graphql-box/core';
 
 const isServerRequestOptions = (options: RequestOptions | ServerRequestOptions): options is ServerRequestOptions =>
-  "contextValue" in options;
+  'contextValue' in options;
 
 export type TransformedOptions = {
   awaitDataCaching?: boolean;
   batch?: boolean;
-  contextValue?: PlainObjectMap;
+  contextValue?: PlainObject;
   returnCacheMetadata?: boolean;
-  tag?: any;
-  variables?: PlainObjectMap;
+  tag?: string | number;
+  variables?: PlainObject;
 };
 
-export default (options?: RequestOptions | ServerRequestOptions): TransformedOptions => {
+export const transformOptions = (options?: RequestOptions | ServerRequestOptions): TransformedOptions => {
   if (!options) {
     return {};
   }

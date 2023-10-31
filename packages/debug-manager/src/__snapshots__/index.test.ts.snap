@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`@graphql-box/debug-manager >> CacheManager >> CACHE_ENTRY_ADDED >> correct data emitted 1`] = `
-Array [
-  Object {
-    "labels": Object {
+[
+  {
+    "labels": {
       "awaitDataCaching": true,
       "cacheControl": "public, max-age=5",
       "cacheType": "queryResponses",
@@ -24,18 +24,18 @@ Array [
       "typeIDKey": "id",
       "url": "http://localhost/",
       "userAgent": "mock-userAgent",
-      "value": Object {
-        "cacheMetadata": Object {
-          "query": Object {
-            "cacheControl": Object {
+      "value": {
+        "cacheMetadata": {
+          "query": {
+            "cacheControl": {
               "maxAge": 5,
               "public": true,
             },
             "etag": undefined,
             "ttl": 297475205000,
           },
-          "query.organization": Object {
-            "cacheControl": Object {
+          "query.organization": {
+            "cacheControl": {
               "maxAge": 5,
               "public": true,
             },
@@ -43,8 +43,8 @@ Array [
             "ttl": 297475205000,
           },
         },
-        "data": Object {
-          "organization": Object {
+        "data": {
+          "organization": {
             "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
             "email": "",
             "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
@@ -55,18 +55,18 @@ Array [
         },
       },
     },
-    "log": Object {
+    "log": {
       "level": "INFO",
       "logger": "CLIENT",
     },
     "message": "cache_entry_added",
   },
-  Object {
-    "labels": Object {
+  {
+    "labels": {
       "awaitDataCaching": true,
       "cacheControl": "public, max-age=5",
       "cacheType": "requestFieldPaths",
-      "decryptedCacheKey": "organization({\\"login\\":\\"facebook\\"})",
+      "decryptedCacheKey": "organization({"login":"facebook"})",
       "duration": 0,
       "endTime": 0,
       "environment": "client",
@@ -84,7 +84,7 @@ Array [
       "typeIDKey": "id",
       "url": "http://localhost/",
       "userAgent": "mock-userAgent",
-      "value": Object {
+      "value": {
         "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
         "email": "",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
@@ -93,14 +93,14 @@ Array [
         "url": "https://github.com/facebook",
       },
     },
-    "log": Object {
+    "log": {
       "level": "INFO",
       "logger": "CLIENT",
     },
     "message": "cache_entry_added",
   },
-  Object {
-    "labels": Object {
+  {
+    "labels": {
       "awaitDataCaching": true,
       "cacheControl": "public, max-age=5",
       "cacheType": "dataEntities",
@@ -121,7 +121,7 @@ Array [
       "typeIDKey": "id",
       "url": "http://localhost/",
       "userAgent": "mock-userAgent",
-      "value": Object {
+      "value": {
         "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
         "email": "",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
@@ -130,7 +130,7 @@ Array [
         "url": "https://github.com/facebook",
       },
     },
-    "log": Object {
+    "log": {
       "level": "INFO",
       "logger": "CLIENT",
     },
@@ -140,12 +140,12 @@ Array [
 `;
 
 exports[`@graphql-box/debug-manager >> CacheManager >> CACHE_ENTRY_QUERIED >> correct data emitted 1`] = `
-Array [
-  Object {
-    "labels": Object {
+[
+  {
+    "labels": {
       "awaitDataCaching": true,
       "cacheType": "requestFieldPaths",
-      "decryptedCacheKey": "organization({\\"login\\":\\"facebook\\"})",
+      "decryptedCacheKey": "organization({"login":"facebook"})",
       "duration": 0,
       "endTime": 0,
       "environment": "client",
@@ -159,7 +159,7 @@ Array [
       "queryFiltered": false,
       "requestHash": "5256db516a2438a7e5488a00413f4809",
       "requestID": "123456789",
-      "result": Object {
+      "result": {
         "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
@@ -169,14 +169,14 @@ Array [
       "url": "http://localhost/",
       "userAgent": "mock-userAgent",
     },
-    "log": Object {
+    "log": {
       "level": "INFO",
       "logger": "CLIENT",
     },
     "message": "cache_entry_queried",
   },
-  Object {
-    "labels": Object {
+  {
+    "labels": {
       "awaitDataCaching": true,
       "cacheType": "dataEntities",
       "duration": 0,
@@ -192,7 +192,7 @@ Array [
       "queryFiltered": false,
       "requestHash": "Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       "requestID": "123456789",
-      "result": Object {
+      "result": {
         "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
         "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
         "login": "facebook",
@@ -202,7 +202,7 @@ Array [
       "url": "http://localhost/",
       "userAgent": "mock-userAgent",
     },
-    "log": Object {
+    "log": {
       "level": "INFO",
       "logger": "CLIENT",
     },

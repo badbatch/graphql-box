@@ -1,6 +1,6 @@
-import { LogData } from "@graphql-box/core";
+import { type LogData } from '@graphql-box/core';
 
-export default (stats?: LogData["stats"]) => {
+export const transformStats = (stats?: LogData['stats']) => {
   if (!stats) {
     return {};
   }

@@ -1,13 +1,13 @@
-import { CachemapOptions } from "@graphql-box/core";
+import { type CachemapOptions } from '@graphql-box/core';
 
-export default (options?: CachemapOptions) => {
+export const transformCachemapOptions = (options?: CachemapOptions) => {
   if (!options) {
     return {};
   }
 
   const { cacheHeaders, tag } = options;
 
-  const getHeaderValue = (key: "cacheControl" | "etag") => {
+  const getHeaderValue = (key: 'cacheControl' | 'etag') => {
     if (cacheHeaders instanceof Headers) {
       return cacheHeaders.get(key);
     }
@@ -16,7 +16,7 @@ export default (options?: CachemapOptions) => {
   };
 
   return {
-    cacheControl: getHeaderValue("cacheControl"),
+    cacheControl: getHeaderValue('cacheControl'),
     tag,
   };
 };

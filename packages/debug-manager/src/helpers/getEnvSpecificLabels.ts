@@ -1,14 +1,16 @@
-import { Environment } from "../defs";
+import { type Environment } from '../types.ts';
 
-export default (env: Environment) => {
-  if (env === "server" && typeof window === "undefined") {
+export const getEnvSpecificLabels = (env: Environment) => {
+  if (env === 'server' && typeof window === 'undefined') {
     const { platform, version } = process;
 
     return {
       nodeVersion: version,
       osPlatform: platform,
     };
-  } else if (typeof window !== "undefined") {
+  }
+
+  if (typeof window !== 'undefined') {
     const { userAgent } = window.navigator;
     const { href, pathname, port, protocol, search } = window.location;
 

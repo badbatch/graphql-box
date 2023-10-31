@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@graphql-box/core": "workspace:../core",
+    "@graphql-box/helpers": "workspace:../helpers",
     "eventemitter3": "^5.0.1"
   },
   "peerDependencies": {
@@ -36,8 +37,11 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
+    "@cachemap/core": "^5.0.2",
+    "@cachemap/map": "^5.0.0",
     "@graphql-box/cache-manager": "workspace:../cache-manager",
     "@graphql-box/test-utils": "workspace:../test-utils",
+    "@jest/globals": "^29.3.1",
     "@types/lodash-es": "^4.14.191",
     "core-js": "^3.27.2",
     "lodash-es": "^4.17.21"

@@ -315,20 +315,28 @@ importers:
   packages/debug-manager:
     specifiers:
       '@babel/runtime': ^7.20.13
+      '@cachemap/core': ^5.0.2
+      '@cachemap/map': ^5.0.0
       '@graphql-box/cache-manager': workspace:../cache-manager
       '@graphql-box/core': workspace:../core
+      '@graphql-box/helpers': workspace:../helpers
       '@graphql-box/test-utils': workspace:../test-utils
+      '@jest/globals': ^29.3.1
       '@types/lodash-es': ^4.14.191
       core-js: ^3.27.2
       eventemitter3: ^5.0.1
       lodash-es: ^4.17.21
     dependencies:
       '@graphql-box/core': link:../core
+      '@graphql-box/helpers': link:../helpers
       eventemitter3: 5.0.1
     devDependencies:
       '@babel/runtime': 7.23.2
+      '@cachemap/core': 5.0.2_v3hmjvhjnapg475hpz2si5lsz4
+      '@cachemap/map': 5.0.0_v3hmjvhjnapg475hpz2si5lsz4
       '@graphql-box/cache-manager': link:../cache-manager
       '@graphql-box/test-utils': link:../test-utils
+      '@jest/globals': 29.7.0
       '@types/lodash-es': 4.17.10
       core-js: 3.33.1
       lodash-es: 4.17.21
