@@ -39,7 +39,6 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
-    "@graphql-box/test-utils": "workspace:../test-utils",
     "@types/lodash-es": "^4.14.191",
     "core-js": "^3.27.2",
     "graphql": "^16.8.1",
