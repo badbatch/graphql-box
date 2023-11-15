@@ -27,10 +27,11 @@
   },
   "dependencies": {
     "@graphql-box/core": "workspace:../core",
+    "@graphql-box/helpers": "workspace:../helpers",
+    "@types/uuid": "^9.0.3",
     "eventemitter3": "^5.0.1",
     "iterall": "^1.3.0",
-    "meros": "^1.1.4",
-    "serialize-error": "^11.0.2",
+    "meros": "1.1.4",
     "uuid": "^9.0.1"
   },
   "peerDependencies": {
@@ -41,9 +42,12 @@
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
     "@graphql-box/test-utils": "workspace:../test-utils",
+    "@jest/globals": "^29.3.1",
     "@types/lodash-es": "^4.14.191",
     "core-js": "^3.27.2",
-    "lodash-es": "^4.17.21"
+    "fetch-mocked": "^0.0.11",
+    "lodash-es": "^4.17.21",
+    "node-fetch": "^3.3.2"
   },
   "keywords": [
     "graphql-box",

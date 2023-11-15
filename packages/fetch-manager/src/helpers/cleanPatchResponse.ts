@@ -1,43 +1,45 @@
-import { MaybeRawFetchData, PlainObjectMap } from "@graphql-box/core";
-import { isObjectLike, keys } from "lodash";
+import { type PartialRawFetchData, type PlainData, type PlainObject } from '@graphql-box/core';
+import { isArray, isObjectLike } from '@graphql-box/helpers';
 
-const convertNullArrayEntriesToUndefined = (data: PlainObjectMap) => {
-  const converter = (objectLike: PlainObjectMap | any[]) => {
-    const isArray = Array.isArray(objectLike);
+const convertNullArrayEntriesToUndefined = (data: PlainObject) => {
+  const converter = (value: PlainData) => {
+    const isValueArray = isArray(value);
 
-    return keys(objectLike).reduce(
-      (acc: PlainObjectMap, key) => {
-        let value;
+    return Object.keys(value).reduce<PlainData>(
+      (acc, key) => {
+        let entry: unknown;
 
-        if (isArray) {
+        if (isValueArray) {
           const index = Number(key);
-          value = objectLike[index] === null ? undefined : objectLike[index];
+          entry = value[index] === null ? undefined : value[index];
         } else {
-          value = objectLike[key];
+          entry = value[key];
         }
 
-        if (isObjectLike(value)) {
-          acc[key] = converter(value);
+        const conditionallyConvert = () => (isObjectLike(entry) ? converter(entry) : entry);
+
+        if (isArray(acc)) {
+          acc[Number(key)] = conditionallyConvert();
         } else {
-          acc[key] = value;
+          acc[key] = conditionallyConvert();
         }
 
         return acc;
       },
-      isArray ? [] : {},
+      isValueArray ? [] : {}
     );
   };
 
   return converter(data);
 };
 
-export default (responseData: MaybeRawFetchData) => {
+export const cleanPatchResponse = (responseData: PartialRawFetchData): PartialRawFetchData => {
   const { data, paths } = responseData;
 
   if (data && paths) {
     return {
       ...responseData,
-      data: convertNullArrayEntriesToUndefined(data),
+      data: convertNullArrayEntriesToUndefined(data) as PlainObject,
     };
   }
 
