@@ -8,13 +8,9 @@ The GraphQL Box core module.
 ## Installation
 
 ```bash
-yarn add @graphql-box/core
+npm add @graphql-box/core
 ```
 
 ## Usage
 
 Read the GraphQL Box [usage guide](../../README.md#usage).
-
-## Documentation
-
-Read the module API [documentation](docs/README.md).

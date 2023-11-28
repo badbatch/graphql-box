@@ -11,9 +11,12 @@
     "url": "https://github.com/badbatch/graphql-box"
   },
   "bugs": "https://github.com/badbatch/graphql-box/issues",
-  "type": "module",
-  "main": "./dist/main/index.mjs",
-  "types": "./dist/types/index.d.ts",
+  "type": "commonjs",
+  "exports": {
+    "types": "./dist/types/index.d.ts",
+    "import": "./dist/cjs/index.cjs",
+    "require": "./dist/cjs/index.cjs"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -22,15 +25,16 @@
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
-    "compile:main": "rollup -c ../../rollup.config.cjs",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
     "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
     "@babel/core": "^7.8.6",
     "@babel/types": "^7.8.6",
-    "@graphql-box/core": "workspace:../core",
-    "@graphql-box/helpers": "workspace:../helpers",
-    "babel-plugin-macros": "^3.1.0"
+    "@types/babel-plugin-macros": "^3.1.3",
+    "@types/babel__core": "^7.20.4",
+    "babel-plugin-macros": "^3.1.0",
+    "ts-md5": "^1.3.1"
   },
   "peerDependencies": {
     "@babel/runtime": "<8",
@@ -39,15 +43,16 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
+    "@jest/globals": "^29.3.1",
     "@types/lodash-es": "^4.14.191",
     "core-js": "^3.27.2",
     "lodash-es": "^4.17.21"
   },
   "keywords": [
-    "graphql-box",
-    "graphql",
     "client",
-    "server",
-    "isomorphic"
+    "graphql",
+    "graphql-box",
+    "isomorphic",
+    "server"
   ]
 }

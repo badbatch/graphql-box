@@ -12,8 +12,11 @@
   },
   "bugs": "https://github.com/badbatch/graphql-box/issues",
   "type": "module",
-  "main": "./dist/main/index.mjs",
-  "types": "./dist/types/index.d.ts",
+  "exports": {
+    "types": "./dist/types/index.d.ts",
+    "import": "./dist/esm/index.mjs",
+    "require": "./dist/cjs/index.cjs"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -22,12 +25,13 @@
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
-    "compile:main": "rollup -c ../../rollup.config.cjs",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
+    "compile:esm": "rollup -c ../../rollup.config.cjs",
     "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@graphql-box/core": "workspace:../core",
-    "@graphql-box/helpers": "workspace:../helpers",
+    "@graphql-box/core": "workspace:*",
+    "@graphql-box/helpers": "workspace:*",
     "iterall": "^1.3.0",
     "uuid": "^9.0.1"
   },
@@ -39,22 +43,22 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
-    "@graphql-box/cache-manager": "workspace:../cache-manager",
-    "@graphql-box/debug-manager": "workspace:../debug-manager",
-    "@graphql-box/fetch-manager": "workspace:../fetch-manager",
-    "@graphql-box/request-parser": "workspace:../request-parser",
-    "@graphql-box/test-utils": "workspace:../test-utils",
-    "@graphql-box/websocket-manager": "workspace:../websocket-manager",
+    "@graphql-box/cache-manager": "workspace:*",
+    "@graphql-box/debug-manager": "workspace:*",
+    "@graphql-box/fetch-manager": "workspace:*",
+    "@graphql-box/request-parser": "workspace:*",
+    "@graphql-box/test-utils": "workspace:*",
+    "@graphql-box/websocket-manager": "workspace:*",
     "@types/lodash-es": "^4.14.191",
     "core-js": "^3.27.2",
     "graphql": "^16.8.1",
     "lodash-es": "^4.17.21"
   },
   "keywords": [
-    "graphql-box",
-    "graphql",
     "client",
-    "server",
-    "isomorphic"
+    "graphql",
+    "graphql-box",
+    "isomorphic",
+    "server"
   ]
 }

@@ -8,9 +8,6 @@ The GraphQL Box connection resolver module.
 ## Installation
 
 ```bash
-yarn add @graphql-box/connection-resolver
+npm add @graphql-box/connection-resolver
 ```
 
-## Documentation
-
-Read the module API [documentation](docs/README.md).

@@ -8,13 +8,9 @@ The GraphQL Box helpers module.
 ## Installation
 
 ```bash
-yarn add @graphql-box/helpers
+npm add @graphql-box/helpers
 ```
 
 ## Usage
 
 Read the GraphQL Box [usage guide](../../README.md#usage).
-
-## Documentation
-
-Read the module API [documentation](docs/README.md).

@@ -12,19 +12,23 @@
   },
   "bugs": "https://github.com/badbatch/graphql-box/issues",
   "type": "module",
-  "main": "./dist/main/index.mjs",
-  "types": "./dist/types/index.d.ts",
+  "exports": {
+    "types": "./dist/types/index.d.ts",
+    "import": "./dist/esm/index.mjs",
+    "require": "./dist/cjs/index.cjs"
+  },
   "scripts": {
     "build": "pnpm run clean:dist && pnpm run compile",
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
-    "compile:main": "rollup -c ../../rollup.config.cjs",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
+    "compile:esm": "rollup -c ../../rollup.config.cjs",
     "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@graphql-box/core": "workspace:../core",
-    "@graphql-box/helpers": "workspace:../helpers",
+    "@graphql-box/core": "workspace:*",
+    "@graphql-box/helpers": "workspace:*",
     "eventemitter3": "^5.0.1"
   },
   "peerDependencies": {

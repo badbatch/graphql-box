@@ -1,7 +1,7 @@
-import { appendFileSync } from "fs";
+import { appendFileSync } from 'node:fs';
 
-export default (requestWhitelistPath: string, whitelist: string[]) => {
-  whitelist.forEach(entry => {
+export const writeFile = (requestWhitelistPath: string, whitelist: string[]) => {
+  for (const entry of whitelist) {
     appendFileSync(requestWhitelistPath, `${entry}\n`);
-  });
+  }
 };

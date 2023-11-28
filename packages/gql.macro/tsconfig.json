@@ -1,14 +1,7 @@
 {
-  "extends": "@repodog/ts-config/build.json",
+  "extends": "@repodog/ts-config/buildCjs.json",
   "include": [
     "src/**/*"
   ],
-  "references": [
-    {
-      "path": "../core"
-    },
-    {
-      "path": "../helpers"
-    }
-  ]
+  "references": []
 }

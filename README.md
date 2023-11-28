@@ -26,14 +26,14 @@ GraphQL Box is structured as a [monorepo](https://github.com/lerna/lerna), so ea
 `@graphql-box` scope and can be installed in a project in the same way as any other npm package.
 
 ```bash
-yarn add @graphql-box/<package>
+npm add @graphql-box/<package>
 ```
 
 So, for example, if you want a browser client, request parsing and a persisted cache you would install the
 following packages.
 
 ```bash
-yarn add @graphql-box/core @graphql-box/client @graphql-box/request-parser @graphql-box/cache-manager @graphql-box/debug-manager @graphql-box/fetch-manager @graphql-box/helpers @cachemap/core @cachemap/reaper @cachemap/indexed-db @cachemap/constants @cachemap/types
+npm add @graphql-box/core @graphql-box/client @graphql-box/request-parser @graphql-box/cache-manager @graphql-box/debug-manager @graphql-box/fetch-manager @graphql-box/helpers @cachemap/core @cachemap/reaper @cachemap/indexed-db @cachemap/constants @cachemap/types
 ```
 
 If, however, you want a server with a persisted cache, you would install the following packages.

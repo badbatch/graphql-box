@@ -8,9 +8,6 @@ The GraphQL Box react module.
 ## Installation
 
 ```bash
-yarn add @graphql-box/react
+npm add @graphql-box/react
 ```
 
-## Documentation
-
-Read the module API [documentation](docs/README.md).

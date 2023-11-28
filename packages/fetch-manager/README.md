@@ -8,13 +8,9 @@ The GraphQL Box fetch manager module.
 ## Installation
 
 ```bash
-yarn add @graphql-box/fetch-manager
+npm add @graphql-box/fetch-manager
 ```
 
 ## Usage
 
 Read the GraphQL Box [usage guide](../../README.md#usage).
-
-## Documentation
-
-Read the module API [documentation](docs/README.md).

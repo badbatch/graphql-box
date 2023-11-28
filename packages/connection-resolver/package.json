@@ -12,8 +12,11 @@
   },
   "bugs": "https://github.com/badbatch/graphql-box/issues",
   "type": "module",
-  "main": "./dist/main/index.mjs",
-  "types": "./dist/types/index.d.ts",
+  "exports": {
+    "types": "./dist/types/index.d.ts",
+    "import": "./dist/esm/index.mjs",
+    "require": "./dist/cjs/index.cjs"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -22,12 +25,13 @@
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
-    "compile:main": "rollup -c ../../rollup.config.cjs",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
+    "compile:esm": "rollup -c ../../rollup.config.cjs",
     "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cachemap/core": "^5.0.2",
-    "@graphql-box/core": "workspace:../core",
+    "@cachemap/core": "^5.0.4",
+    "@graphql-box/core": "workspace:*",
     "js-base64": "^3.7.5",
     "type-fest": "^4.5.0"
   },
@@ -39,7 +43,7 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
-    "@cachemap/map": "^5.0.0",
+    "@cachemap/map": "^5.0.2",
     "@jest/globals": "^29.3.1",
     "@types/lodash-es": "^4.14.191",
     "core-js": "^3.27.2",
@@ -47,10 +51,10 @@
     "lodash-es": "^4.17.21"
   },
   "keywords": [
-    "graphql-box",
-    "graphql",
     "client",
-    "server",
-    "isomorphic"
+    "graphql",
+    "graphql-box",
+    "isomorphic",
+    "server"
   ]
 }
