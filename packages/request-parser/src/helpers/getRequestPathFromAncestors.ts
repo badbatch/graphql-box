@@ -1,14 +1,16 @@
-import { getName, isKind } from "@graphql-box/helpers";
-import { ASTNode, FieldNode } from "graphql";
+import { getName, isKind } from '@graphql-box/helpers';
+import { type FieldNode, Kind } from 'graphql';
+import type { Ancestor } from '../types.ts';
+import { isAncestorAstNode } from './isAncestorAstNode.ts';
 
-export default (ancestors: ASTNode[]) => {
+export const getRequestPathFromAncestors = (ancestors: Ancestor[]) => {
   return ancestors
     .reduce((path: string[], ancestor) => {
-      if (isKind<FieldNode>(ancestor, "Field")) {
-        path.push(getName(ancestor) as FieldNode["name"]["value"]);
+      if (isAncestorAstNode(ancestor) && isKind<FieldNode>(ancestor, Kind.FIELD)) {
+        path.push(getName(ancestor)!);
       }
 
       return path;
     }, [])
-    .join(".");
+    .join('.');
 };

@@ -1,11 +1,14 @@
-import { ParsedDirective } from "@graphql-box/helpers";
+import { type ParsedDirective } from '@graphql-box/helpers';
 
-export default (parsedFragmentSpreadDirectives: ParsedDirective[]) =>
-  parsedFragmentSpreadDirectives.reduce((acc: { [key: string]: ParsedDirective[] }, { parentName, ...rest }) => {
-    if (!acc[parentName]) {
-      acc[parentName] = [];
+export const groupFragmentSpreadDirectives = (parsedFragmentSpreadDirectives: ParsedDirective[]) =>
+  parsedFragmentSpreadDirectives.reduce((acc: Record<string, ParsedDirective[]>, { parentName, ...rest }) => {
+    let value = acc[parentName];
+
+    if (!value) {
+      value = [];
     }
 
-    acc[parentName].push({ parentName, ...rest });
+    value.push({ parentName, ...rest });
+    acc[parentName] = value;
     return acc;
   }, {});

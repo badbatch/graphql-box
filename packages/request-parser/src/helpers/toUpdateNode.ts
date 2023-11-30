@@ -1,16 +1,16 @@
-import { ParsedDirective } from "@graphql-box/helpers";
+import { type ParsedDirective } from '@graphql-box/helpers';
 import {
   GraphQLInterfaceType,
-  GraphQLNamedType,
+  type GraphQLNamedType,
   GraphQLObjectType,
-  GraphQLOutputType,
+  type GraphQLOutputType,
   GraphQLUnionType,
-} from "graphql";
-import { isEmpty } from "lodash";
+} from 'graphql';
+import { isEmpty } from 'lodash-es';
 
-export default (
+export const toUpdateNode = (
   type: GraphQLOutputType | GraphQLNamedType | undefined,
-  parsedDirectives: ParsedDirective[] = [],
+  parsedDirectives: ParsedDirective[] = []
 ): type is GraphQLOutputType | GraphQLNamedType =>
   !!type &&
   (type instanceof GraphQLObjectType ||

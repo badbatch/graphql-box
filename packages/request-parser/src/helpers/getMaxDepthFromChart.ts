@@ -1,4 +1,7 @@
-import { keys } from "lodash";
+import { isNumber, keys } from 'lodash-es';
 
-export default (depthChart: Record<string, number>) =>
-  keys(depthChart).reduce((acc, key) => (depthChart[key] > acc ? depthChart[key] : acc), 0);
+export const getMaxDepthFromChart = (depthChart: Record<string, number>) =>
+  keys(depthChart).reduce<number>((acc, key) => {
+    const depthChartValue = depthChart[key];
+    return isNumber(depthChartValue) && depthChartValue > acc ? depthChartValue : acc;
+  }, 0);

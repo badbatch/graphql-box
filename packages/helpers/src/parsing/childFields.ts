@@ -72,7 +72,7 @@ export const deleteChildFields = (node: ParentNode, fields: FieldNode[] | FieldN
 
 export type ChildFieldOptions = {
   fragmentDefinitions?: FragmentDefinitionNodeMap;
-  name?: Kind;
+  name?: string;
 };
 
 export const getChildFields = (
@@ -90,6 +90,7 @@ export const getChildFields = (
   }
 
   const filtered = fieldsAndTypeNames.filter(
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     ({ fieldNode }) => getName(fieldNode) === name || getKind(fieldNode) === name
   );
 
@@ -107,6 +108,7 @@ export const hasChildFields = (node: ParentNode, { fragmentDefinitions, name }: 
     return fieldsAndTypeNames.length > 0;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
   return fieldsAndTypeNames.some(({ fieldNode }) => getName(fieldNode) === name || getKind(fieldNode) === name);
 };
 

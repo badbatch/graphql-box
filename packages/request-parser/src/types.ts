@@ -1,6 +1,13 @@
-import { FieldTypeMap, PossibleType, RequestContext, RequestOptions, ValidOperations } from "@graphql-box/core";
-import { ParsedDirective } from "@graphql-box/helpers";
-import { DocumentNode, FieldNode, GraphQLSchema, IntrospectionQuery } from "graphql";
+import { type FieldTypeMap, type PossibleType, type RequestContext, type RequestOptions } from '@graphql-box/core';
+import { type ParsedDirective } from '@graphql-box/helpers';
+import {
+  type ASTNode,
+  type DocumentNode,
+  type FieldNode,
+  type GraphQLSchema,
+  type IntrospectionQuery,
+  type OperationTypeNode,
+} from 'graphql';
 
 export interface UserOptions {
   /**
@@ -41,16 +48,18 @@ export interface UpdateRequestResult {
 }
 
 export interface RequestParserDef {
-  updateRequest(request: string, options: RequestOptions, context: RequestContext): Promise<UpdateRequestResult>;
+  updateRequest(request: string, options: RequestOptions, context: RequestContext): UpdateRequestResult;
 }
 
+export type Ancestor = ASTNode | readonly ASTNode[];
+
 export interface Ancestors {
-  ancestors: readonly any[];
+  ancestors: readonly Ancestor[];
   key: string | number | undefined;
 }
 
 export interface MapFieldToTypeData {
-  ancestors: ReadonlyArray<any>;
+  ancestors: readonly Ancestor[];
   directives: {
     inherited: string[];
     own: string[];
@@ -64,13 +73,13 @@ export interface MapFieldToTypeData {
   typeName: string;
 }
 
-export type PersistedFragmentSpread = [string, ParsedDirective[], ReadonlyArray<any>];
+export type PersistedFragmentSpread = [string, ParsedDirective[], Ancestor[]];
 
 export interface VisitorContext {
   experimentalDeferStreamSupport: boolean;
   fieldTypeMap: FieldTypeMap;
   hasDeferOrStream: boolean;
-  operation: ValidOperations;
+  operation: OperationTypeNode;
   operationName: string;
   persistedFragmentSpreads: PersistedFragmentSpread[];
 }

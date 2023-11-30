@@ -1,9 +1,12 @@
-import { Maybe } from "@graphql-box/core";
-import { GraphQLOutputType, GraphQLScalarType } from "graphql";
+import { type Maybe } from '@graphql-box/core';
+import { type GraphQLOutputType, GraphQLScalarType } from 'graphql';
 
-export default (fieldTypeList: Maybe<GraphQLOutputType>[], typeComplexityMap: Record<string, number>) => {
+export const calcTypeComplexity = (
+  fieldTypeList: Maybe<GraphQLOutputType>[],
+  typeComplexityMap: Record<string, number>
+) => {
   return fieldTypeList.reduce((complexity: number, fieldType) => {
-    if (!fieldType || fieldType instanceof GraphQLScalarType || !("name" in fieldType)) {
+    if (!fieldType || fieldType instanceof GraphQLScalarType || !('name' in fieldType)) {
       return complexity;
     }
 
