@@ -5,13 +5,13 @@
   ],
   "references": [
     {
-      "path": "../test-utils"
-    },
-    {
       "path": "../core"
     },
     {
       "path": "../helpers"
+    },
+    {
+      "path": "../test-utils"
     }
   ]
 }
