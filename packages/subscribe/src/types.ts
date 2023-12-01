@@ -1,26 +1,31 @@
-import { Maybe, PlainObjectMap } from "@graphql-box/core";
-import { DocumentNode, ExecutionResult, GraphQLFieldResolver, GraphQLSchema } from "graphql";
-import { ExecutionArgs } from "graphql/execution/execute";
+import { type Maybe, type PlainObject } from '@graphql-box/core';
+import {
+  type DocumentNode,
+  type ExecutionArgs,
+  type ExecutionResult,
+  type GraphQLFieldResolver,
+  type GraphQLSchema,
+} from 'graphql';
 
 export interface UserOptions {
   /**
    * Set GraphQL context value to be passed on to
    * GraphQL's execute and subscribe methods.
    */
-  contextValue?: PlainObjectMap;
+  contextValue?: PlainObject;
 
   /**
    * Set default GraphQL field resolver function to
    * be passed on to GraphQL's execute and subscribe
    * methods.
    */
-  fieldResolver?: GraphQLFieldResolver<any, any>;
+  fieldResolver?: GraphQLFieldResolver<unknown, unknown>;
 
   /**
    * Set default GraphQL root value to be passed on to
    * GraphQL's execute and subscribe methods.
    */
-  rootValue?: any;
+  rootValue?: unknown;
 
   /**
    * The GraphQL schema.
@@ -36,20 +41,20 @@ export interface UserOptions {
   /**
    * Set default GraphQL subscribe field resolver function.
    */
-  subscribeFieldResolver?: GraphQLFieldResolver<any, any>;
+  subscribeFieldResolver?: GraphQLFieldResolver<unknown, unknown>;
 }
 
-export type GraphQLSubscribe = <TData = PlainObjectMap<unknown>>(args: {
-  contextValue?: any;
+export type GraphQLSubscribe = <TData = PlainObject>(args: {
+  contextValue?: unknown;
   document: DocumentNode;
-  fieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
+  fieldResolver?: Maybe<GraphQLFieldResolver<unknown, unknown>>;
   operationName?: Maybe<string>;
-  rootValue?: any;
+  rootValue?: unknown;
   schema: GraphQLSchema;
-  subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
-  variableValues?: Maybe<{ [key: string]: any }>;
+  subscribeFieldResolver?: Maybe<GraphQLFieldResolver<unknown, unknown>>;
+  variableValues?: Maybe<Record<string, unknown>>;
 }) => Promise<AsyncIterator<ExecutionResult<TData>> | ExecutionResult<TData>>;
 
 export interface SubscribeArgs extends ExecutionArgs {
-  subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>;
+  subscribeFieldResolver?: Maybe<GraphQLFieldResolver<unknown, unknown>>;
 }
