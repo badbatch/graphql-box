@@ -1,34 +1,36 @@
 import {
-  FragmentDefinitionNodeMap,
-  MaybeResponseData,
-  PlainObjectMap,
-  QUERY,
-  RequestContext,
-  RequestData,
-  ResponseData,
-} from "@graphql-box/core";
+  type FragmentDefinitionNodeMap,
+  type PartialResponseData,
+  type PlainData,
+  type RequestContext,
+  type RequestData,
+  type ResponseData,
+} from '@graphql-box/core';
 import {
-  KeysAndPathsOptions,
+  type KeysAndPathsOptions,
   buildFieldKeysAndPaths,
   getAliasOrName,
   getChildFields,
   getFragmentDefinitions,
   getOperationDefinitions,
   hasChildFields,
+  isObjectLike,
+  isPlainObject,
   iterateChildFields,
-} from "@graphql-box/helpers";
-import { FieldNode } from "graphql";
-import { get, isArray, isPlainObject, isUndefined, set } from "lodash";
-import { FilteredDataAndCacheMetadata } from "../defs";
+} from '@graphql-box/helpers';
+import { type Cacheability } from 'cacheability';
+import { type FieldNode, OperationTypeNode } from 'graphql';
+import { get, isArray, isUndefined, set } from 'lodash-es';
+import { type FilteredDataAndCacheMetadata } from '../types.ts';
 
 export const filterDataAndCacheMetadata = (
   pendingFieldNode: FieldNode,
   activeFieldNode: FieldNode,
-  activeResponseData: MaybeResponseData,
-  { filteredData, filteredCacheMetadata }: FilteredDataAndCacheMetadata,
+  activeResponseData: PartialResponseData,
+  { filteredCacheMetadata, filteredData }: FilteredDataAndCacheMetadata,
   fragmentDefinitions: { active?: FragmentDefinitionNodeMap; pending?: FragmentDefinitionNodeMap },
   keyAndPathOptions: { active: KeysAndPathsOptions; pending: KeysAndPathsOptions },
-  contexts: { active: RequestContext; pending: RequestContext },
+  contexts: { active: RequestContext; pending: RequestContext }
 ) => {
   const pendingKeysAndPaths = buildFieldKeysAndPaths(pendingFieldNode, keyAndPathOptions.active, contexts.pending);
   const activeKeysAndPaths = buildFieldKeysAndPaths(activeFieldNode, keyAndPathOptions.active, contexts.active);
@@ -37,7 +39,7 @@ export const filterDataAndCacheMetadata = (
     return;
   }
 
-  const rawFieldData = get(activeResponseData.data, activeKeysAndPaths.responseDataPath);
+  const rawFieldData = get(activeResponseData.data, activeKeysAndPaths.responseDataPath) as unknown;
   let activeFieldData = rawFieldData;
 
   if (isPlainObject(activeFieldData)) {
@@ -57,6 +59,10 @@ export const filterDataAndCacheMetadata = (
     return;
   }
 
+  if (!isObjectLike(rawFieldData)) {
+    return;
+  }
+
   iterateChildFields(
     pendingFieldNode,
     rawFieldData,
@@ -66,7 +72,7 @@ export const filterDataAndCacheMetadata = (
       _childTypeName: string | undefined,
       _childFragmentKind: string | undefined,
       _childFragmentName: string | undefined,
-      childIndex?: number,
+      childIndex?: number
     ) => {
       let activeChildFieldNode: FieldNode;
 
@@ -80,7 +86,13 @@ export const filterDataAndCacheMetadata = (
           return;
         }
 
-        activeChildFieldNode = matchingActiveFieldAndTypeName[0].fieldNode;
+        const [match] = matchingActiveFieldAndTypeName;
+
+        if (!match) {
+          return;
+        }
+
+        activeChildFieldNode = match.fieldNode;
       } else {
         activeChildFieldNode = activeFieldNode;
       }
@@ -89,64 +101,76 @@ export const filterDataAndCacheMetadata = (
         pendingChildFieldNode,
         activeChildFieldNode,
         activeResponseData,
-        { filteredData, filteredCacheMetadata },
+        { filteredCacheMetadata, filteredData },
         fragmentDefinitions,
         {
           active: { ...activeKeysAndPaths, index: childIndex },
           pending: { ...pendingKeysAndPaths, index: childIndex },
         },
-        contexts,
+        contexts
       );
-    },
+    }
   );
 };
 
-export default (
+export const filterResponseData = (
   pendingRequestDatat: RequestData,
   activeRequestDatat: RequestData,
-  { data, cacheMetadata, ...rest }: ResponseData,
-  { active, pending }: { active: RequestContext; pending: RequestContext },
+  { cacheMetadata, data, ...rest }: ResponseData,
+  { active, pending }: { active: RequestContext; pending: RequestContext }
 ) => {
-  const pendingQueryNode = getOperationDefinitions(pendingRequestDatat.ast, QUERY)[0];
+  const [pendingQueryNode] = getOperationDefinitions(pendingRequestDatat.ast, OperationTypeNode.QUERY);
   const pendingQueryFragmentDefinitions = getFragmentDefinitions(pendingRequestDatat.ast);
-  const activeQueryNode = getOperationDefinitions(activeRequestDatat.ast, QUERY)[0];
+  const [activeQueryNode] = getOperationDefinitions(activeRequestDatat.ast, OperationTypeNode.QUERY);
   const activeQueryFragmentDefinitions = getFragmentDefinitions(activeRequestDatat.ast);
+
+  if (!pendingQueryNode || !activeQueryNode) {
+    return { cacheMetadata, data, ...rest };
+  }
 
   const pendingFieldsAndTypeNames = getChildFields(pendingQueryNode, {
     fragmentDefinitions: pendingQueryFragmentDefinitions,
   });
 
-  const filteredData: PlainObjectMap = {};
-  const filteredCacheMetadata = new Map();
+  const filteredData: PlainData = {};
+  const filteredCacheMetadata = new Map<string, Cacheability>();
 
-  pendingFieldsAndTypeNames?.forEach(({ fieldNode: pendingFieldNode }) => {
-    const matchingActiveFieldAndTypeName = getChildFields(activeQueryNode, {
-      fragmentDefinitions: activeQueryFragmentDefinitions,
-      name: getAliasOrName(pendingFieldNode),
-    });
+  if (pendingFieldsAndTypeNames) {
+    for (const { fieldNode: pendingFieldNode } of pendingFieldsAndTypeNames) {
+      const matchingActiveFieldAndTypeName = getChildFields(activeQueryNode, {
+        fragmentDefinitions: activeQueryFragmentDefinitions,
+        name: getAliasOrName(pendingFieldNode),
+      });
 
-    if (!matchingActiveFieldAndTypeName) {
-      return;
+      if (!matchingActiveFieldAndTypeName?.length) {
+        continue;
+      }
+
+      const [match] = matchingActiveFieldAndTypeName;
+
+      if (!match) {
+        continue;
+      }
+
+      const { fieldNode: activeFieldNode } = match;
+
+      filterDataAndCacheMetadata(
+        pendingFieldNode,
+        activeFieldNode,
+        { cacheMetadata, data, ...rest },
+        { filteredCacheMetadata, filteredData },
+        {
+          active: activeQueryFragmentDefinitions,
+          pending: pendingQueryFragmentDefinitions,
+        },
+        {
+          active: { requestFieldPath: OperationTypeNode.QUERY },
+          pending: { requestFieldPath: OperationTypeNode.QUERY },
+        },
+        { active, pending }
+      );
     }
-
-    const { fieldNode: activeFieldNode } = matchingActiveFieldAndTypeName[0];
-
-    filterDataAndCacheMetadata(
-      pendingFieldNode,
-      activeFieldNode,
-      { data, cacheMetadata, ...rest },
-      { filteredData, filteredCacheMetadata },
-      {
-        active: activeQueryFragmentDefinitions,
-        pending: pendingQueryFragmentDefinitions,
-      },
-      {
-        active: { requestFieldPath: QUERY },
-        pending: { requestFieldPath: QUERY },
-      },
-      { active, pending },
-    );
-  });
+  }
 
   return {
     ...rest,

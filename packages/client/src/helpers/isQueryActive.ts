@@ -1,5 +1,5 @@
-import { RequestData } from "@graphql-box/core";
-import { ActiveQueryData } from "../defs";
+import { type RequestData } from '@graphql-box/core';
+import { type ActiveQueryData } from '../types.ts';
 
-export default (activeRequestsList: ActiveQueryData[], requestData: RequestData) =>
-  activeRequestsList.find(({ requestData: activeRequestData }) => activeRequestData.hash === requestData.hash);
+export const isQueryActive = (activeRequestsList: ActiveQueryData[], requestData: RequestData) =>
+  activeRequestsList.some(({ requestData: activeRequestData }) => activeRequestData.hash === requestData.hash);

@@ -11,12 +11,6 @@
       "path": "../core"
     },
     {
-      "path": "../debug-manager"
-    },
-    {
-      "path": "../fetch-manager"
-    },
-    {
       "path": "../helpers"
     },
     {
@@ -25,8 +19,5 @@
     {
       "path": "../test-utils"
     },
-    {
-      "path": "../websocket-manager"
-    }
   ]
 }

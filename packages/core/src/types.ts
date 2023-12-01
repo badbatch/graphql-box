@@ -297,7 +297,7 @@ export declare type AsyncExecutionResult = ExecutionResult | ExecutionPatchResul
 
 export interface PartialRawFetchData {
   _cacheMetadata?: DehydratedCacheMetadata;
-  data?: PlainObject;
+  data?: PlainData;
   errors?: (DeserializedGraphqlError | ErrorObject)[];
   hasNext?: boolean;
   headers?: Headers;
@@ -316,7 +316,7 @@ export interface RawResponseDataWithMaybeCacheMetadata {
 
 export interface PartialRawResponseData {
   _cacheMetadata?: DehydratedCacheMetadata;
-  data?: PlainObject | null;
+  data?: PlainData | null;
   errors?: readonly Error[];
   hasNext?: boolean;
   headers?: Headers;
@@ -333,7 +333,7 @@ export interface ResponseData {
 
 export interface PartialResponseData {
   cacheMetadata?: CacheMetadata;
-  data?: PlainObject | null;
+  data?: PlainData | null;
   errors?: readonly Error[];
   hasNext?: boolean;
   paths?: string[];
@@ -354,7 +354,7 @@ export interface PartialRequestResult {
   /**
    * The data requested in a query, mutation or subscription.
    */
-  data?: PlainObject | null;
+  data?: PlainData | null;
   /**
    * Any errors thrown during the request.
    */
@@ -375,7 +375,7 @@ export interface PartialRequestResult {
 
 export interface PartialRequestResultWithDehydratedCacheMetadata {
   _cacheMetadata?: DehydratedCacheMetadata;
-  data?: PlainObject | null;
+  data?: PlainData | null;
   errors?: readonly Error[];
   hasNext?: boolean;
   paths?: string[];

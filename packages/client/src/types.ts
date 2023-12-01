@@ -1,16 +1,16 @@
-import { CacheManagerDef } from "@graphql-box/cache-manager";
+import { type CacheManagerDef } from '@graphql-box/cache-manager';
 import {
-  CacheMetadata,
-  DebugManagerDef,
-  MaybeRequestResult,
-  PlainObjectMap,
-  RequestContext,
-  RequestData,
-  RequestManagerDef,
-  RequestOptions,
-  SubscriptionsManagerDef,
-} from "@graphql-box/core";
-import { RequestParserDef } from "@graphql-box/request-parser";
+  type CacheMetadata,
+  type DebugManagerDef,
+  type PartialRequestResult,
+  type PlainObject,
+  type RequestContext,
+  type RequestData,
+  type RequestManagerDef,
+  type RequestOptions,
+  type SubscriptionsManagerDef,
+} from '@graphql-box/core';
+import { type RequestParserDef } from '@graphql-box/request-parser';
 
 export interface UserOptions {
   /**
@@ -45,7 +45,7 @@ export interface UserOptions {
   subscriptionsManager?: SubscriptionsManagerDef;
 }
 
-export type PendingQueryResolver = (value: MaybeRequestResult) => void;
+export type PendingQueryResolver = (value: PartialRequestResult) => void;
 
 export interface PendingQueryData {
   context: RequestContext;
@@ -67,5 +67,5 @@ export interface QueryTracker {
 
 export interface FilteredDataAndCacheMetadata {
   filteredCacheMetadata: CacheMetadata;
-  filteredData: PlainObjectMap;
+  filteredData: PlainObject;
 }

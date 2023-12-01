@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`filterResponseData when there are no fragments or directives or aliases in the pending query should return the correct data 1`] = `
-Object {
+{
   "cacheMetadata": Map {},
-  "data": Object {
-    "organization": Object {
+  "data": {
+    "organization": {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
       "email": "",
       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
@@ -14,20 +14,22 @@ Object {
     },
   },
   "headers": Headers {
-    Symbol(map): Object {
-      "Cache-Control": Array [
-        "public, max-age=5",
-      ],
+    Symbol(headers list): HeadersList {
+      Symbol(headers map): Map {
+        "cache-control" => "public, max-age=5",
+      },
+      Symbol(headers map sorted): null,
     },
+    Symbol(guard): "none",
   },
 }
 `;
 
 exports[`filterResponseData when there is a directive in the pending query when the directives do not match should return the correct data 1`] = `
-Object {
+{
   "cacheMetadata": Map {},
-  "data": Object {
-    "organization": Object {
+  "data": {
+    "organization": {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       "login": "facebook",
@@ -36,20 +38,22 @@ Object {
     },
   },
   "headers": Headers {
-    Symbol(map): Object {
-      "Cache-Control": Array [
-        "public, max-age=5",
-      ],
+    Symbol(headers list): HeadersList {
+      Symbol(headers map): Map {
+        "cache-control" => "public, max-age=5",
+      },
+      Symbol(headers map sorted): null,
     },
+    Symbol(guard): "none",
   },
 }
 `;
 
 exports[`filterResponseData when there is a directive in the pending query when the directives match should return the correct data 1`] = `
-Object {
+{
   "cacheMetadata": Map {},
-  "data": Object {
-    "organization": Object {
+  "data": {
+    "organization": {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
       "email": "",
       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
@@ -59,20 +63,22 @@ Object {
     },
   },
   "headers": Headers {
-    Symbol(map): Object {
-      "Cache-Control": Array [
-        "public, max-age=5",
-      ],
+    Symbol(headers list): HeadersList {
+      Symbol(headers map): Map {
+        "cache-control" => "public, max-age=5",
+      },
+      Symbol(headers map sorted): null,
     },
+    Symbol(guard): "none",
   },
 }
 `;
 
 exports[`filterResponseData when there is a fragment spread in the new query should return the correct data 1`] = `
-Object {
+{
   "cacheMetadata": Map {},
-  "data": Object {
-    "organization": Object {
+  "data": {
+    "organization": {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
       "email": "",
       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
@@ -82,20 +88,22 @@ Object {
     },
   },
   "headers": Headers {
-    Symbol(map): Object {
-      "Cache-Control": Array [
-        "public, max-age=5",
-      ],
+    Symbol(headers list): HeadersList {
+      Symbol(headers map): Map {
+        "cache-control" => "public, max-age=5",
+      },
+      Symbol(headers map sorted): null,
     },
+    Symbol(guard): "none",
   },
 }
 `;
 
 exports[`filterResponseData when there is a inline fragment in the pending query should return the correct data 1`] = `
-Object {
+{
   "cacheMetadata": Map {},
-  "data": Object {
-    "organization": Object {
+  "data": {
+    "organization": {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
       "email": "",
       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
@@ -105,20 +113,22 @@ Object {
     },
   },
   "headers": Headers {
-    Symbol(map): Object {
-      "Cache-Control": Array [
-        "public, max-age=5",
-      ],
+    Symbol(headers list): HeadersList {
+      Symbol(headers map): Map {
+        "cache-control" => "public, max-age=5",
+      },
+      Symbol(headers map sorted): null,
     },
+    Symbol(guard): "none",
   },
 }
 `;
 
 exports[`filterResponseData when there is an alias in the pending query should return the correct data 1`] = `
-Object {
+{
   "cacheMetadata": Map {},
-  "data": Object {
-    "organization": Object {
+  "data": {
+    "organization": {
       "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
       "email": "",
       "fullName": "Facebook",
@@ -128,98 +138,100 @@ Object {
     },
   },
   "headers": Headers {
-    Symbol(map): Object {
-      "Cache-Control": Array [
-        "public, max-age=5",
-      ],
+    Symbol(headers list): HeadersList {
+      Symbol(headers map): Map {
+        "cache-control" => "public, max-age=5",
+      },
+      Symbol(headers map sorted): null,
     },
+    Symbol(guard): "none",
   },
 }
 `;
 
 exports[`filterResponseData when there is are fragments in the active query should return the correct data 1`] = `
-Object {
+{
   "cacheMetadata": Map {},
-  "data": Object {
-    "organization": Object {
+  "data": {
+    "organization": {
       "email": "",
       "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
       "login": "facebook",
       "name": "Facebook",
-      "repositories": Object {
-        "edges": Array [
-          Object {
-            "node": Object {
+      "repositories": {
+        "edges": [
+          {
+            "node": {
               "description": "Codemod is a tool/library to assist you with large-scale codebase refactors that can be partially automated but still require human oversight and occasional intervention. Codemod was developed at Facebook and released as open source.",
               "homepageUrl": "",
               "id": "MDEwOlJlcG9zaXRvcnkxNjU4ODM=",
               "name": "codemod",
-              "owner": Object {
+              "owner": {
                 "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "url": "https://github.com/facebook",
               },
             },
           },
-          Object {
-            "node": Object {
+          {
+            "node": {
               "description": "A virtual machine for executing programs written in Hack.",
               "homepageUrl": "https://hhvm.com",
               "id": "MDEwOlJlcG9zaXRvcnk0NTU2MDA=",
               "name": "hhvm",
-              "owner": Object {
+              "owner": {
                 "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "url": "https://github.com/facebook",
               },
             },
           },
-          Object {
-            "node": Object {
+          {
+            "node": {
               "description": "Python wrapper for RE2",
               "homepageUrl": "",
               "id": "MDEwOlJlcG9zaXRvcnk1NjU0MjY=",
               "name": "pyre2",
-              "owner": Object {
+              "owner": {
                 "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "url": "https://github.com/facebook",
               },
             },
           },
-          Object {
-            "node": Object {
+          {
+            "node": {
               "description": null,
               "homepageUrl": "http://ogp.me",
               "id": "MDEwOlJlcG9zaXRvcnk2MTkyNDA=",
               "name": "open-graph-protocol",
-              "owner": Object {
+              "owner": {
                 "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "url": "https://github.com/facebook",
               },
             },
           },
-          Object {
-            "node": Object {
+          {
+            "node": {
               "description": "Used to integrate Android apps with Facebook Platform.",
               "homepageUrl": "https://developers.facebook.com/docs/android",
               "id": "MDEwOlJlcG9zaXRvcnk2NTkzNDE=",
               "name": "facebook-android-sdk",
-              "owner": Object {
+              "owner": {
                 "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "url": "https://github.com/facebook",
               },
             },
           },
-          Object {
-            "node": Object {
+          {
+            "node": {
               "description": "Used to integrate the Facebook Platform with your iOS & tvOS apps.",
               "homepageUrl": "https://developers.facebook.com/docs/ios",
               "id": "MDEwOlJlcG9zaXRvcnk3Mzg0OTE=",
               "name": "facebook-objc-sdk",
-              "owner": Object {
+              "owner": {
                 "__typename": "Organization",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "url": "https://github.com/facebook",
@@ -231,11 +243,13 @@ Object {
     },
   },
   "headers": Headers {
-    Symbol(map): Object {
-      "Cache-Control": Array [
-        "public, max-age=5",
-      ],
+    Symbol(headers list): HeadersList {
+      Symbol(headers map): Map {
+        "cache-control" => "public, max-age=5",
+      },
+      Symbol(headers map sorted): null,
     },
+    Symbol(guard): "none",
   },
 }
 `;

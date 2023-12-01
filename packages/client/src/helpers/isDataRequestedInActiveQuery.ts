@@ -1,8 +1,7 @@
-import { FragmentDefinitionNodeMap, QUERY, RequestContext, RequestData } from "@graphql-box/core";
+import { type FragmentDefinitionNodeMap, type RequestContext, type RequestData } from '@graphql-box/core';
 import {
-  FieldAndTypeName,
-  KeysAndPathsOptions,
-  ParentNode,
+  type KeysAndPathsOptions,
+  type ParentNode,
   buildFieldKeysAndPaths,
   getAliasOrName,
   getChildFields,
@@ -10,16 +9,17 @@ import {
   getName,
   getOperationDefinitions,
   hasChildFields,
-} from "@graphql-box/helpers";
-import { ActiveQueryData } from "../defs";
+} from '@graphql-box/helpers';
+import { OperationTypeNode } from 'graphql';
+import { type ActiveQueryData } from '../types.ts';
 
-const LOG_NAME = "isDataRequestedInActiveQuery";
+const LOG_NAME = 'isDataRequestedInActiveQuery';
 
 export const parentNodeIncludes = (
   activeNode: ParentNode,
   newNode: ParentNode,
   fragmentDefinitions: { control?: FragmentDefinitionNodeMap; value?: FragmentDefinitionNodeMap },
-  contexts: { active: RequestContext; new: RequestContext },
+  contexts: { active: RequestContext; new: RequestContext }
 ) => {
   const activeNodeFieldsAndTypeNames = getChildFields(activeNode, {
     fragmentDefinitions: fragmentDefinitions.control,
@@ -37,15 +37,15 @@ export const parentNodeIncludes = (
     const name = getAliasOrName(newFieldNode);
 
     if (
-      !activeNodeFieldsAndTypeNames.find(({ fieldNode: activeFieldNode }) => getAliasOrName(activeFieldNode) === name)
+      !activeNodeFieldsAndTypeNames.some(({ fieldNode: activeFieldNode }) => getAliasOrName(activeFieldNode) === name)
     ) {
       contexts.new.debugManager?.log(
         LOG_NAME,
         {
           context: contexts.new,
-          message: `Active parent node ${getName(activeNode)} is missing field ${name}`,
+          message: `Active parent node ${getName(activeNode) ?? 'without name'} is missing field ${name}`,
         },
-        "debug",
+        'debug'
       );
 
       return false;
@@ -60,7 +60,7 @@ export const newNodeFieldsPartOfActiveNode = (
   newNode: ParentNode,
   fragmentDefinitions: { active?: FragmentDefinitionNodeMap; new?: FragmentDefinitionNodeMap },
   keyAndPathOptions: { active: KeysAndPathsOptions; new: KeysAndPathsOptions },
-  contexts: { active: RequestContext; new: RequestContext },
+  contexts: { active: RequestContext; new: RequestContext }
 ): boolean => {
   const activeNodeHasNewNodeFields = parentNodeIncludes(
     activeNode,
@@ -69,7 +69,7 @@ export const newNodeFieldsPartOfActiveNode = (
       control: fragmentDefinitions.active,
       value: fragmentDefinitions.new,
     },
-    contexts,
+    contexts
   );
 
   if (!activeNodeHasNewNodeFields) {
@@ -78,7 +78,7 @@ export const newNodeFieldsPartOfActiveNode = (
 
   const newNodeFieldsAndTypeNames = getChildFields(newNode, {
     fragmentDefinitions: fragmentDefinitions.new,
-  }) as FieldAndTypeName[];
+  })!;
 
   return newNodeFieldsAndTypeNames.reduce((acc: boolean, { fieldNode: newFieldNode }) => {
     if (!acc) {
@@ -94,15 +94,20 @@ export const newNodeFieldsPartOfActiveNode = (
       return false;
     }
 
-    const { fieldNode: activeFieldNode } = matchingActiveFieldAndTypeName[0];
+    const [match] = matchingActiveFieldAndTypeName;
 
+    if (!match) {
+      return false;
+    }
+
+    const { fieldNode: activeFieldNode } = match;
     const activeKeysAndPaths = buildFieldKeysAndPaths(activeFieldNode, keyAndPathOptions.active, contexts.active);
     const newKeysAndPaths = buildFieldKeysAndPaths(newFieldNode, keyAndPathOptions.active, contexts.new);
 
     if (activeKeysAndPaths.requestFieldCacheKey !== newKeysAndPaths.requestFieldCacheKey) {
       let message = `${newKeysAndPaths.requestFieldPath} active and new request field cache keys do not match.`;
       message += `Active is ${activeKeysAndPaths.requestFieldCacheKey}. New is ${newKeysAndPaths.requestFieldCacheKey}`;
-      contexts.new.debugManager?.log(LOG_NAME, { message, context: contexts.new }, "debug");
+      contexts.new.debugManager?.log(LOG_NAME, { context: contexts.new, message }, 'debug');
       return false;
     }
 
@@ -115,17 +120,25 @@ export const newNodeFieldsPartOfActiveNode = (
       newFieldNode,
       fragmentDefinitions,
       { active: activeKeysAndPaths, new: newKeysAndPaths },
-      contexts,
+      contexts
     );
   }, true);
 };
 
-export default (activeRequestList: ActiveQueryData[], newRequestData: RequestData, context: RequestContext) => {
+export const isDataRequestedInActiveQuery = (
+  activeRequestList: ActiveQueryData[],
+  newRequestData: RequestData,
+  context: RequestContext
+) => {
   const match = activeRequestList.find(({ context: activeContext, requestData: activeRequestData }) => {
-    const activeQueryNode = getOperationDefinitions(activeRequestData.ast, QUERY)[0];
+    const [activeQueryNode] = getOperationDefinitions(activeRequestData.ast, OperationTypeNode.QUERY);
     const activeQueryFragmentDefinitions = getFragmentDefinitions(activeRequestData.ast);
-    const newQueryNode = getOperationDefinitions(newRequestData.ast, QUERY)[0];
+    const [newQueryNode] = getOperationDefinitions(newRequestData.ast, OperationTypeNode.QUERY);
     const newQueryFragmentDefinitions = getFragmentDefinitions(newRequestData.ast);
+
+    if (!activeQueryNode || !newQueryNode) {
+      return false;
+    }
 
     return newNodeFieldsPartOfActiveNode(
       activeQueryNode,
@@ -135,13 +148,13 @@ export default (activeRequestList: ActiveQueryData[], newRequestData: RequestDat
         new: newQueryFragmentDefinitions,
       },
       {
-        active: { requestFieldPath: QUERY },
-        new: { requestFieldPath: QUERY },
+        active: { requestFieldPath: OperationTypeNode.QUERY },
+        new: { requestFieldPath: OperationTypeNode.QUERY },
       },
       {
         active: activeContext,
         new: context,
-      },
+      }
     );
   });
 

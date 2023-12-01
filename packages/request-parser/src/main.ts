@@ -241,11 +241,11 @@ export class RequestParser implements RequestParserDef {
     try {
       this._schema = options.introspection ? buildClientSchema(options.introspection) : options.schema!;
     } catch (error) {
-      throw new GroupedError('@graphql-box/request-parser argument validation errors.', [
-        isError(error)
-          ? error
-          : new ArgsError('@graphql-box/request-parser expected introspection to be converted into a valid schema.'),
-      ]);
+      const confirmedError = isError(error)
+        ? error
+        : new ArgsError('@graphql-box/request-parser expected introspection to be converted into a valid schema.');
+
+      throw new GroupedError('@graphql-box/request-parser argument validation errors.', [confirmedError]);
     }
 
     this._typeComplexityMap = options.typeComplexityMap ?? null;

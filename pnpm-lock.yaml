@@ -242,7 +242,10 @@ importers:
       '@graphql-box/request-parser': workspace:*
       '@graphql-box/test-utils': workspace:*
       '@graphql-box/websocket-manager': workspace:*
+      '@jest/globals': ^29.3.1
       '@types/lodash-es': ^4.14.191
+      '@types/uuid': ^9.0.3
+      cacheability: ^4.0.14
       core-js: ^3.27.2
       graphql: ^16.8.1
       iterall: ^1.3.0
@@ -251,6 +254,8 @@ importers:
     dependencies:
       '@graphql-box/core': link:../core
       '@graphql-box/helpers': link:../helpers
+      '@types/uuid': 9.0.7
+      cacheability: 4.0.14_v3hmjvhjnapg475hpz2si5lsz4
       iterall: 1.3.0
       uuid: 9.0.1
     devDependencies:
@@ -261,6 +266,7 @@ importers:
       '@graphql-box/request-parser': link:../request-parser
       '@graphql-box/test-utils': link:../test-utils
       '@graphql-box/websocket-manager': link:../websocket-manager
+      '@jest/globals': 29.7.0
       '@types/lodash-es': 4.17.10
       core-js: 3.33.1
       graphql: 16.8.1
