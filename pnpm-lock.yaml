@@ -216,13 +216,13 @@ importers:
       graphql: ^16.8.1
       lodash-es: ^4.17.21
     dependencies:
-      '@cachemap/core': 5.0.4_v3hmjvhjnapg475hpz2si5lsz4
       '@cachemap/types': 5.0.2_v3hmjvhjnapg475hpz2si5lsz4
       '@graphql-box/core': link:../core
       '@graphql-box/helpers': link:../helpers
       cacheability: 4.0.14_v3hmjvhjnapg475hpz2si5lsz4
     devDependencies:
       '@babel/runtime': 7.23.2
+      '@cachemap/core': 5.0.4_v3hmjvhjnapg475hpz2si5lsz4
       '@cachemap/map': 5.0.2_v3hmjvhjnapg475hpz2si5lsz4
       '@graphql-box/test-utils': link:../test-utils
       '@jest/globals': 29.7.0
@@ -234,14 +234,12 @@ importers:
   packages/client:
     specifiers:
       '@babel/runtime': ^7.20.13
+      '@cachemap/core': ^5.0.4
       '@graphql-box/cache-manager': workspace:*
       '@graphql-box/core': workspace:*
-      '@graphql-box/debug-manager': workspace:*
-      '@graphql-box/fetch-manager': workspace:*
       '@graphql-box/helpers': workspace:*
       '@graphql-box/request-parser': workspace:*
       '@graphql-box/test-utils': workspace:*
-      '@graphql-box/websocket-manager': workspace:*
       '@jest/globals': ^29.3.1
       '@types/lodash-es': ^4.14.191
       '@types/uuid': ^9.0.3
@@ -260,12 +258,10 @@ importers:
       uuid: 9.0.1
     devDependencies:
       '@babel/runtime': 7.23.2
+      '@cachemap/core': 5.0.4_v3hmjvhjnapg475hpz2si5lsz4
       '@graphql-box/cache-manager': link:../cache-manager
-      '@graphql-box/debug-manager': link:../debug-manager
-      '@graphql-box/fetch-manager': link:../fetch-manager
       '@graphql-box/request-parser': link:../request-parser
       '@graphql-box/test-utils': link:../test-utils
-      '@graphql-box/websocket-manager': link:../websocket-manager
       '@jest/globals': 29.7.0
       '@types/lodash-es': 4.17.10
       core-js: 3.33.1
@@ -622,28 +618,32 @@ importers:
       '@babel/runtime': ^7.20.13
       '@cachemap/core': ^5.0.4
       '@cachemap/core-worker': ^5.0.4
+      '@graphql-box/client': workspace:*
       '@graphql-box/core': workspace:*
       '@graphql-box/helpers': workspace:*
-      '@graphql-box/test-utils': workspace:*
       '@types/lodash-es': ^4.14.191
+      '@types/uuid': ^9.0.3
       core-js: ^3.27.2
       eventemitter3: ^5.0.1
+      graphql: ^16.8.1
       iterall: ^1.3.0
       lodash-es: ^4.17.21
       uuid: ^9.0.1
     dependencies:
-      '@cachemap/core': 5.0.4_v3hmjvhjnapg475hpz2si5lsz4
-      '@cachemap/core-worker': 5.0.4_gk6gj5qpr2ijhfg7tziwan5p54
       '@graphql-box/core': link:../core
       '@graphql-box/helpers': link:../helpers
+      '@types/uuid': 9.0.7
       eventemitter3: 5.0.1
       iterall: 1.3.0
       uuid: 9.0.1
     devDependencies:
       '@babel/runtime': 7.23.2
-      '@graphql-box/test-utils': link:../test-utils
+      '@cachemap/core': 5.0.4_v3hmjvhjnapg475hpz2si5lsz4
+      '@cachemap/core-worker': 5.0.4_gk6gj5qpr2ijhfg7tziwan5p54
+      '@graphql-box/client': link:../client
       '@types/lodash-es': 4.17.10
       core-js: 3.33.1
+      graphql: 16.8.1
       lodash-es: 4.17.21
 
 packages:
@@ -2033,7 +2033,7 @@ packages:
       eventemitter3: 4.0.7
       lodash-es: 4.17.21
       uuid: 7.0.3
-    dev: false
+    dev: true
 
   /@cachemap/core/5.0.4_v3hmjvhjnapg475hpz2si5lsz4:
     resolution: {integrity: sha512-6hfZUI2q9sq5wzA7xHzys2HZZsNRCVrEF49aOcEDA40EaUXkL818fCzOV4vwF8fREUjeFvGxe1IQ0NwPAYe8xQ==}
@@ -3593,7 +3593,6 @@ packages:
 
   /@types/uuid/9.0.7:
     resolution: {integrity: sha512-WUtIVRUZ9i5dYXefDEAI7sh9/O7jGvHg7Df/5O/gtH3Yabe5odI3UWopVR1qbPXQtvOxWu3mM4XxlYeZtMWF4g==}
-    dev: false
 
   /@types/ws/8.5.8:
     resolution: {integrity: sha512-flUksGIQCnJd6sZ1l5dqCEG/ksaoAg/eUwiLAGTJQcfgvZJKF++Ta4bJA6A5aPSJmsr+xlseHn4KLgVlNnvPTg==}
@@ -10053,7 +10052,7 @@ packages:
   /uuid/7.0.3:
     resolution: {integrity: sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==}
     hasBin: true
-    dev: false
+    dev: true
 
   /uuid/9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}

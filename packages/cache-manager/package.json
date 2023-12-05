@@ -30,7 +30,6 @@
     "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cachemap/core": "^5.0.4",
     "@cachemap/types": "^5.0.2",
     "@graphql-box/core": "workspace:*",
     "@graphql-box/helpers": "workspace:*",
@@ -38,12 +37,14 @@
   },
   "peerDependencies": {
     "@babel/runtime": "<8",
+    "@cachemap/core": "<6",
     "core-js": "<4",
     "graphql": "<17",
     "lodash-es": "<5"
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
+    "@cachemap/core": "^5.0.4",
     "@cachemap/map": "^5.0.2",
     "@graphql-box/test-utils": "workspace:*",
     "@jest/globals": "^29.3.1",

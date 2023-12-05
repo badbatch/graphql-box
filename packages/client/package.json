@@ -39,6 +39,7 @@
   },
   "peerDependencies": {
     "@babel/runtime": "<8",
+    "@cachemap/core": "<6",
     "@graphql-box/cache-manager": "<5",
     "@graphql-box/request-parser": "<5",
     "core-js": "<4",
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
+    "@cachemap/core": "^5.0.4",
     "@graphql-box/cache-manager": "workspace:*",
     "@graphql-box/request-parser": "workspace:*",
     "@graphql-box/test-utils": "workspace:*",
