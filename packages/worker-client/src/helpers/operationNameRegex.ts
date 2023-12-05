@@ -1,4 +1,4 @@
-export default (request: string) => {
+export const operationNameRegex = (request: string) => {
   const output = /(query|mutation|subscription) ([A-Za-z]+)(\(| {)/.exec(request);
-  return output ? output[2] : "";
+  return output ? output[2] : '';
 };

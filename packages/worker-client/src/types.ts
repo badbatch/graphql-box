@@ -1,12 +1,17 @@
-import WorkerCachemap from "@cachemap/core-worker";
-import Client from "@graphql-box/client";
-import { DebugManagerDef, MaybeRawFetchData, MaybeRequestResult, RequestOptions } from "@graphql-box/core";
+import { type CoreWorker } from '@cachemap/core-worker';
+import { type Client } from '@graphql-box/client';
+import {
+  type DebugManagerDef,
+  type PartialRawFetchData,
+  type PartialRequestResult,
+  type RequestOptions,
+} from '@graphql-box/core';
 
 export interface UserOptions {
   /**
    * The cache.
    */
-  cache: WorkerCachemap;
+  cache: CoreWorker;
 
   /**
    * The debug manager.
@@ -25,10 +30,10 @@ export interface UserOptions {
   worker: Worker;
 }
 
-export type MethodNames = "request" | "subscribe";
+export type MethodNames = 'request' | 'subscribe';
 
 export type PendingResolver = (
-  value: MaybeRequestResult | AsyncIterableIterator<MaybeRequestResult | undefined>,
+  value: PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>
 ) => void;
 
 export interface PendingData {
@@ -42,14 +47,14 @@ export interface MessageRequestPayload {
   method: MethodNames;
   options: RequestOptions;
   request: string;
-  type: "graphqlBox" | "cachemap";
+  type: 'graphqlBox' | 'cachemap';
 }
 
 export interface MessageResponsePayload {
   context: MessageContext;
   method: MethodNames;
-  result: MaybeRawFetchData;
-  type: "graphqlBox" | "cachemap";
+  result: PartialRawFetchData;
+  type: 'graphqlBox' | 'cachemap';
 }
 
 export interface MessageContext {
