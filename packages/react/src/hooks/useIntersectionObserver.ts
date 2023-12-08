@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
-export default (options: IntersectionObserverInit) => {
-  const elementRef = useRef<HTMLDivElement>(null);
+export const useIntersectionObserver = (options: IntersectionObserverInit) => {
+  const elementReference = useRef<HTMLDivElement>(null);
   const [isElementVisible, setIsElementVisible] = useState<boolean>(false);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ export default (options: IntersectionObserverInit) => {
       setIsElementVisible(entry?.isIntersecting ?? false);
     }, options);
 
-    const currentElement = elementRef.current;
+    const currentElement = elementReference.current;
 
     if (currentElement) {
       observer.observe(currentElement);
@@ -23,5 +23,5 @@ export default (options: IntersectionObserverInit) => {
     };
   }, [options]);
 
-  return [elementRef, isElementVisible] as const;
+  return [elementReference, isElementVisible] as const;
 };

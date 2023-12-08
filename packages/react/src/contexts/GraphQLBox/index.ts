@@ -1,2 +1,2 @@
-export { default as Provider } from "./Provider";
-export { default as Context } from "./Context";
+export * from './Provider.tsx';
+export * from './Context.ts';

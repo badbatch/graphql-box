@@ -1,11 +1,11 @@
-export default (requestID: string, startCursor: string | undefined | null, paths: string[] = []) => {
+export const buildDependencyKey = (requestID: string, startCursor: string | undefined | null, paths: string[] = []) => {
   if (startCursor) {
     return startCursor;
   }
 
-  if (!paths.length) {
+  if (paths.length === 0) {
     return requestID;
   }
 
-  return `${requestID}::${paths.join("")}`;
+  return `${requestID}::${paths.join('')}`;
 };

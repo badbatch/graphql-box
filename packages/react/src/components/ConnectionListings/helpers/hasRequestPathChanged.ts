@@ -1,19 +1,20 @@
-import { PlainObjectMap } from "@graphql-box/core";
-import { get } from "lodash";
+import { type PlainData } from '@graphql-box/core';
+import { isObjectLike } from '@graphql-box/helpers';
+import { get } from 'lodash-es';
 
-const hasRequestPathChanged = (requestPath: string, data: PlainObjectMap | null | undefined) => {
+export const hasRequestPathChanged = (requestPath: string, data: PlainData | null | undefined) => {
   if (!data) {
     return false;
   }
 
-  let slice = data;
+  let slice: unknown = data;
 
-  return requestPath.split(".").reduce((acc, key) => {
+  return requestPath.split('.').reduce((acc, key) => {
     if (acc) {
       return acc;
     }
 
-    if (!(key in slice)) {
+    if (!isObjectLike(slice) || !(key in slice)) {
       return true;
     }
 
@@ -21,5 +22,3 @@ const hasRequestPathChanged = (requestPath: string, data: PlainObjectMap | null 
     return false;
   }, false);
 };
-
-export default hasRequestPathChanged;

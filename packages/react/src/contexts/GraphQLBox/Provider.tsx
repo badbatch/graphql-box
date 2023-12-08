@@ -1,13 +1,13 @@
-import Client from "@graphql-box/client";
-import WorkerClient from "@graphql-box/worker-client";
-import React, { ReactChild } from "react";
-import Context from "./Context";
+import { type Client } from '@graphql-box/client';
+import { type WorkerClient } from '@graphql-box/worker-client';
+import { type ReactNode } from 'react';
+import { Context } from './Context.ts';
 
 export type Props = {
-  children: ReactChild;
+  children: ReactNode;
   graphqlBoxClient: Client | WorkerClient;
 };
 
-export default ({ children, graphqlBoxClient }: Props) => (
+export const Providewr = ({ children, graphqlBoxClient }: Props) => (
   <Context.Provider value={{ graphqlBoxClient }}>{children}</Context.Provider>
 );

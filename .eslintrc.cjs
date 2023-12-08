@@ -17,6 +17,10 @@ module.exports = {
         ],
       },
     },
+    {
+      extends: ['@repodog/eslint-config-react'],
+      files: ['packages/react/**/*'],
+    },
   ],
   parserOptions: {
     project: ['./tsconfig.json', './packages/*/tsconfig.json'],
