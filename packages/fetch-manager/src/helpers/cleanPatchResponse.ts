@@ -1,7 +1,7 @@
-import { type PartialRawFetchData, type PlainData, type PlainObject } from '@graphql-box/core';
+import { type PartialRawFetchData, type PlainData } from '@graphql-box/core';
 import { isArray, isObjectLike } from '@graphql-box/helpers';
 
-const convertNullArrayEntriesToUndefined = (data: PlainObject) => {
+const convertNullArrayEntriesToUndefined = (data: PlainData) => {
   const converter = (value: PlainData) => {
     const isValueArray = isArray(value);
 
@@ -39,7 +39,7 @@ export const cleanPatchResponse = (responseData: PartialRawFetchData): PartialRa
   if (data && paths) {
     return {
       ...responseData,
-      data: convertNullArrayEntriesToUndefined(data) as PlainObject,
+      data: convertNullArrayEntriesToUndefined(data),
     };
   }
 
