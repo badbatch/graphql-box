@@ -210,8 +210,8 @@ export type LogEntry = {
 };
 
 export interface DebugManagerDef extends EventEmitter {
-  handleLog(message: string, data: PlainObject, logLevel?: LogLevel): void;
-  log(message: string, data: PlainObject, logLevel?: LogLevel): void;
+  handleLog(message: string, data: PlainData, logLevel?: LogLevel): void;
+  log(message: string, data: PlainData, logLevel?: LogLevel): void;
   now(): number;
 }
 

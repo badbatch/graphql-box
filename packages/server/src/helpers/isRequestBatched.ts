@@ -1,3 +1,3 @@
-import { BatchRequestData, RequestData } from "../defs";
+import { type BatchRequestData, type RequestData } from '../types.ts';
 
-export default (body: RequestData | BatchRequestData): body is BatchRequestData => body.batched;
+export const isRequestBatched = (body: RequestData | BatchRequestData): body is BatchRequestData => body.batched;

@@ -538,21 +538,31 @@ importers:
       '@graphql-box/core': workspace:*
       '@graphql-box/helpers': workspace:*
       '@graphql-box/test-utils': workspace:*
+      '@types/express': ^4.17.2
       '@types/lodash-es': ^4.14.191
+      '@types/ws': ^8.5.8
       core-js: ^3.27.2
+      express: ^4.17.1
       iterall: ^1.3.0
       lodash-es: ^4.17.21
+      type-fest: ^4.5.0
+      ws: ^8.14.2
     dependencies:
       '@graphql-box/core': link:../core
       '@graphql-box/helpers': link:../helpers
       iterall: 1.3.0
+      type-fest: 4.8.2
     devDependencies:
       '@babel/runtime': 7.23.2
       '@graphql-box/client': link:../client
       '@graphql-box/test-utils': link:../test-utils
+      '@types/express': 4.17.20
       '@types/lodash-es': 4.17.10
+      '@types/ws': 8.5.8
       core-js: 3.33.1
+      express: 4.18.2
       lodash-es: 4.17.21
+      ws: 8.14.2
 
   packages/subscribe:
     specifiers:
@@ -10161,7 +10171,6 @@ packages:
   /type-fest/4.8.2:
     resolution: {integrity: sha512-mcvrCjixA5166hSrUoJgGb9gBQN4loMYyj9zxuMs/66ibHNEFd5JXMw37YVDx58L4/QID9jIzdTBB4mDwDJ6KQ==}
     engines: {node: '>=16'}
-    dev: true
 
   /type-is/1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
