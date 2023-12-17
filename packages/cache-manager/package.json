@@ -12,8 +12,14 @@
   },
   "bugs": "https://github.com/badbatch/graphql-box/issues",
   "type": "module",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/types/cjs/index.d.cts",
   "exports": {
-    "types": "./dist/types/index.d.ts",
+    "types": {
+      "import": "./dist/types/esm/index.d.ts",
+      "require": "./dist/types/cjs/index.d.cts"
+    },
     "import": "./dist/esm/index.mjs",
     "require": "./dist/cjs/index.cjs"
   },
@@ -27,13 +33,13 @@
     "compile": "pnpm run /^compile:.*/",
     "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
     "compile:esm": "rollup -c ../../rollup.config.cjs",
-    "compile:types": "tsc --project ./tsconfig.build.json"
+    "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
-    "@cachemap/types": "^5.0.2",
+    "@cachemap/types": "^5.0.4",
     "@graphql-box/core": "workspace:*",
     "@graphql-box/helpers": "workspace:*",
-    "cacheability": "^4.0.14"
+    "cacheability": "^4.0.18"
   },
   "peerDependencies": {
     "@babel/runtime": "<8",
@@ -44,12 +50,13 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
-    "@cachemap/core": "^5.0.4",
-    "@cachemap/map": "^5.0.2",
+    "@cachemap/core": "^5.0.6",
+    "@cachemap/map": "^5.0.4",
     "@graphql-box/test-utils": "workspace:*",
     "@jest/globals": "^29.3.1",
     "@types/lodash-es": "^4.14.191",
     "core-js": "^3.27.2",
+    "cts-types": "^0.0.5",
     "graphql": "^16.8.1",
     "lodash-es": "^4.17.21"
   },

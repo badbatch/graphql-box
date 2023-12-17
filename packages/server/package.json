@@ -12,8 +12,14 @@
   },
   "bugs": "https://github.com/badbatch/graphql-box/issues",
   "type": "module",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/types/cjs/index.d.cts",
   "exports": {
-    "types": "./dist/types/index.d.ts",
+    "types": {
+      "import": "./dist/types/esm/index.d.ts",
+      "require": "./dist/types/cjs/index.d.cts"
+    },
     "import": "./dist/esm/index.mjs",
     "require": "./dist/cjs/index.cjs"
   },
@@ -27,7 +33,7 @@
     "compile": "pnpm run /^compile:.*/",
     "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
     "compile:esm": "rollup -c ../../rollup.config.cjs",
-    "compile:types": "tsc --project ./tsconfig.build.json"
+    "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
     "@graphql-box/core": "workspace:*",
@@ -50,6 +56,7 @@
     "@types/lodash-es": "^4.14.191",
     "@types/ws": "^8.5.8",
     "core-js": "^3.27.2",
+    "cts-types": "^0.0.5",
     "express": "^4.17.1",
     "lodash-es": "^4.17.21",
     "ws": "^8.14.2"

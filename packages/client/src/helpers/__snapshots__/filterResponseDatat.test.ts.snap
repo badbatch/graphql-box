@@ -15,8 +15,12 @@ exports[`filterResponseData when there are no fragments or directives or aliases
   },
   "headers": Headers {
     Symbol(headers list): HeadersList {
+      "cookies": null,
       Symbol(headers map): Map {
-        "cache-control" => "public, max-age=5",
+        "cache-control" => {
+          "name": "Cache-Control",
+          "value": "public, max-age=5",
+        },
       },
       Symbol(headers map sorted): null,
     },
@@ -39,8 +43,12 @@ exports[`filterResponseData when there is a directive in the pending query when 
   },
   "headers": Headers {
     Symbol(headers list): HeadersList {
+      "cookies": null,
       Symbol(headers map): Map {
-        "cache-control" => "public, max-age=5",
+        "cache-control" => {
+          "name": "Cache-Control",
+          "value": "public, max-age=5",
+        },
       },
       Symbol(headers map sorted): null,
     },
@@ -64,8 +72,12 @@ exports[`filterResponseData when there is a directive in the pending query when 
   },
   "headers": Headers {
     Symbol(headers list): HeadersList {
+      "cookies": null,
       Symbol(headers map): Map {
-        "cache-control" => "public, max-age=5",
+        "cache-control" => {
+          "name": "Cache-Control",
+          "value": "public, max-age=5",
+        },
       },
       Symbol(headers map sorted): null,
     },
@@ -89,8 +101,12 @@ exports[`filterResponseData when there is a fragment spread in the new query sho
   },
   "headers": Headers {
     Symbol(headers list): HeadersList {
+      "cookies": null,
       Symbol(headers map): Map {
-        "cache-control" => "public, max-age=5",
+        "cache-control" => {
+          "name": "Cache-Control",
+          "value": "public, max-age=5",
+        },
       },
       Symbol(headers map sorted): null,
     },
@@ -114,8 +130,12 @@ exports[`filterResponseData when there is a inline fragment in the pending query
   },
   "headers": Headers {
     Symbol(headers list): HeadersList {
+      "cookies": null,
       Symbol(headers map): Map {
-        "cache-control" => "public, max-age=5",
+        "cache-control" => {
+          "name": "Cache-Control",
+          "value": "public, max-age=5",
+        },
       },
       Symbol(headers map sorted): null,
     },
@@ -139,8 +159,12 @@ exports[`filterResponseData when there is an alias in the pending query should r
   },
   "headers": Headers {
     Symbol(headers list): HeadersList {
+      "cookies": null,
       Symbol(headers map): Map {
-        "cache-control" => "public, max-age=5",
+        "cache-control" => {
+          "name": "Cache-Control",
+          "value": "public, max-age=5",
+        },
       },
       Symbol(headers map sorted): null,
     },
@@ -244,8 +268,12 @@ exports[`filterResponseData when there is are fragments in the active query shou
   },
   "headers": Headers {
     Symbol(headers list): HeadersList {
+      "cookies": null,
       Symbol(headers map): Map {
-        "cache-control" => "public, max-age=5",
+        "cache-control" => {
+          "name": "Cache-Control",
+          "value": "public, max-age=5",
+        },
       },
       Symbol(headers map sorted): null,
     },

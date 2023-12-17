@@ -10,8 +10,8 @@
   "bugs": "https://github.com/badbatch/graphql-box/issues",
   "type": "module",
   "engines": {
-    "node": "^18.13.0",
-    "pnpm": "^7.27.0"
+    "node": "^20.10.0",
+    "pnpm": "^8.11.0"
   },
   "scripts": {
     "build": "pnpm run -r build",
@@ -33,7 +33,7 @@
     "test:node:cjs": "BABEL_MODULE_SYSTEM=cjs node node_modules/jest/bin/jest.js --testMatch \"$(pwd)/packages/gql.macro/**/*.test.ts\"",
     "test:node:esm": "node --require=suppress-experimental-warnings --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch \"$(pwd)/packages/!(gql.macro)/**/*.test.ts\" \"$(pwd)/tests/node/index.test.ts\"",
     "type-check": "tsc --noEmit",
-    "validate": "pnpm run syncpack && pnpm run build && pnpm run lint && pnpm run type-check && pnpm run test"
+    "validate": "pnpm run syncpack && pnpm run build && pnpm run lint && pnpm run type-check && pnpm run test:node"
   },
   "devDependencies": {
     "@babel/cli": "^7.19.3",
@@ -49,18 +49,18 @@
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
     "@babel/runtime": "^7.20.13",
-    "@cachemap/core": "^5.0.4",
-    "@cachemap/indexed-db": "^5.0.2",
-    "@cachemap/map": "^5.0.2",
+    "@cachemap/core": "^5.0.6",
+    "@cachemap/indexed-db": "^5.0.4",
+    "@cachemap/map": "^5.0.4",
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
     "@commitlint/prompt-cli": "^17.3.0",
     "@graphql-tools/schema": "^10.0.0",
     "@jest/globals": "^29.3.1",
     "@repodog/babel-config": "^1.1.11",
-    "@repodog/cli": "^1.2.5",
+    "@repodog/cli": "^1.3.3",
     "@repodog/commitlint-config": "^1.1.6",
-    "@repodog/eslint-config": "^1.1.17",
+    "@repodog/eslint-config": "^1.1.19",
     "@repodog/eslint-config-jasmine": "^1.1.10",
     "@repodog/eslint-config-jest": "^1.1.10",
     "@repodog/eslint-config-react": "^1.1.10",
@@ -69,9 +69,9 @@
     "@repodog/markdownlint-config": "^1.1.4",
     "@repodog/prettier-config": "^1.1.4",
     "@repodog/rollup-config": "^1.1.8",
-    "@repodog/syncpack-config": "^1.2.2",
+    "@repodog/syncpack-config": "^1.2.3",
     "@repodog/ts-config": "^1.1.7",
-    "@repodog/webpack-config": "^0.0.3",
+    "@repodog/webpack-config": "^0.0.4",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-image": "^3.0.3",
