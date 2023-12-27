@@ -55,6 +55,7 @@
     "@types/lodash-es": "^4.14.191",
     "core-js": "^3.27.2",
     "cts-types": "^0.0.5",
+    "del-cli": "^5.1.0",
     "lodash-es": "^4.17.21"
   },
   "keywords": [

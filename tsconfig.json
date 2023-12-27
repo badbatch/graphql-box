@@ -2,6 +2,9 @@
   "extends": "@repodog/ts-config/index.json",
   "include": [
     "packages/**/*",
-    "integration/**/*",
+    "tests/**/*",
+  ],
+  "exclude": [
+    "packages/gql.macro/**/*"
   ]
 }
