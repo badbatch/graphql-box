@@ -1,3 +1,3 @@
-import { Edge } from "../defs";
+import { type Edge } from '../types.ts';
 
-export default (edges: Edge[]) => edges.map(edge => edge.node);
+export const extractNodes = (edges: Edge[]) => edges.map(edge => edge.node);

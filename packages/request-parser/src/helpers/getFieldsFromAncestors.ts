@@ -1,9 +1,11 @@
-import { isKind } from "@graphql-box/helpers";
-import { ASTNode, FieldNode } from "graphql";
+import { isKind } from '@graphql-box/helpers';
+import { type FieldNode, Kind } from 'graphql';
+import type { Ancestor } from '../types.ts';
+import { isAncestorAstNode } from './isAncestorAstNode.ts';
 
-export default (ancestors: ASTNode[]) => {
+export const getFieldsFromAncestors = (ancestors: Ancestor[]) => {
   return ancestors.reduce((fields: FieldNode[], ancestor) => {
-    if (isKind<FieldNode>(ancestor, "Field")) {
+    if (isAncestorAstNode(ancestor) && isKind<FieldNode>(ancestor, Kind.FIELD)) {
       fields.push(ancestor);
     }
 

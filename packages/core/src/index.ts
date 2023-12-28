@@ -1,2 +1,2 @@
-export * from "./consts";
-export * from "./defs";
+export * from './constants.ts';
+export * from './types.ts';

@@ -8,13 +8,9 @@ The GraphQL Box cache manager module.
 ## Installation
 
 ```bash
-yarn add @graphql-box/cache-manager
+npm add @graphql-box/cache-manager
 ```
 
 ## Usage
 
 Read the GraphQL Box [usage guide](../../README.md#usage).
-
-## Documentation
-
-Read the module API [documentation](docs/README.md).

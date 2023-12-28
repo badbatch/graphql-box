@@ -1,2 +1,2 @@
-export * from "./defs";
-export { default } from "./main";
+export * from './types.ts';
+export * from './main.ts';

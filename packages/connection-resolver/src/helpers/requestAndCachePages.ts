@@ -1,25 +1,30 @@
-import Cachemap from "@cachemap/core";
-import { Getters, Node, PlainObject, ResourceResolver } from "../defs";
-import cacheCursors from "./cacheCursors";
-import makeEdges from "./makeEdges";
+import { type Core } from '@cachemap/core';
+import type { PlainObject } from '@graphql-box/core';
+import { type Getters, type Node, type ResourceResolver } from '../types.ts';
+import { cacheCursors } from './cacheCursors.ts';
+import { makeEdges } from './makeEdges.ts';
 
 export type Context<Resource extends PlainObject, ResourceNode extends Node> = {
-  cursorCache: Cachemap;
+  cursorCache: Core;
   getters: Getters<Resource, ResourceNode>;
   groupCursor: string;
   makeIDCursor: (id: string | number) => string;
   resourceResolver: ResourceResolver<Resource>;
 };
 
-const requestAndCachePages = async <Resource extends PlainObject, ResourceNode extends Node>(
+export const requestAndCachePages = async <Resource extends PlainObject, ResourceNode extends Node>(
   pages: number[],
-  { cursorCache, getters, groupCursor, makeIDCursor, resourceResolver }: Context<Resource, ResourceNode>,
+  { cursorCache, getters, groupCursor, makeIDCursor, resourceResolver }: Context<Resource, ResourceNode>
 ) => {
   const errors: Error[] = [];
 
   const cachedEdges = await Promise.all(
     pages.map(async page => {
-      const { data: pageResultData, errors: pageResultErrors, headers: pageResultHeaders } = await resourceResolver({
+      const {
+        data: pageResultData,
+        errors: pageResultErrors,
+        headers: pageResultHeaders,
+      } = await resourceResolver({
         page,
       });
 
@@ -43,10 +48,8 @@ const requestAndCachePages = async <Resource extends PlainObject, ResourceNode e
       }
 
       return { edges: [], pageNumber: page };
-    }),
+    })
   );
 
   return { cachedEdges, errors };
 };
-
-export default requestAndCachePages;

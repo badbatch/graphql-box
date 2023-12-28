@@ -1,11 +1,15 @@
-import getDirection from "./getDirection";
+import { getDirection } from './getDirection.ts';
 
-describe("getDirection", () => {
-  test("when last is provided", () => {
-    expect(getDirection(5)).toBe("backward");
+describe('getDirection', () => {
+  describe('when last is provided', () => {
+    it('should return "backward"', () => {
+      expect(getDirection(5)).toBe('backward');
+    });
   });
 
-  test("when last is NOT provided", () => {
-    expect(getDirection(undefined)).toBe("forward");
+  describe('when last is NOT provided', () => {
+    it('should return "forward"', () => {
+      expect(getDirection()).toBe('forward');
+    });
   });
 });

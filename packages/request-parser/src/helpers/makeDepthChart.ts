@@ -1,8 +1,8 @@
-import { ASTNode } from "graphql";
-import getFieldsFromAncestors from "./getFieldsFromAncestors";
-import getRequestPathFromAncestors from "./getRequestPathFromAncestors";
+import type { Ancestor } from '../types.ts';
+import { getFieldsFromAncestors } from './getFieldsFromAncestors.ts';
+import { getRequestPathFromAncestors } from './getRequestPathFromAncestors.ts';
 
-export default (ancestorsList: ASTNode[][]) => {
+export const makeDepthChart = (ancestorsList: Ancestor[][]) => {
   return ancestorsList.reduce((acc: Record<string, number>, ancestors) => {
     const requestPath = getRequestPathFromAncestors(ancestors);
     const fields = getFieldsFromAncestors(ancestors);

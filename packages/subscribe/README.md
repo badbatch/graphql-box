@@ -8,13 +8,9 @@ The GraphQL Box subscribe module.
 ## Installation
 
 ```bash
-yarn add @graphql-box/subscribe
+npm add @graphql-box/subscribe
 ```
 
 ## Usage
 
 Read the GraphQL Box [usage guide](../../README.md#usage).
-
-## Documentation
-
-Read the module API [documentation](docs/README.md).

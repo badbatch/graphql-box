@@ -1,11 +1,15 @@
-import getIndexesOnLastPage from "./getIndexesOnLastPage";
+import { getIndexesOnLastPage } from './getIndexesOnLastPage.ts';
 
-describe("getIndexesOnLastPage", () => {
-  test("when results on last page equal results per page", () => {
-    expect(getIndexesOnLastPage({ resultsPerPage: 10, totalResults: 50 })).toBe(9);
+describe('getIndexesOnLastPage', () => {
+  describe('when results on last page equal results per page', () => {
+    it('should return the correct value', () => {
+      expect(getIndexesOnLastPage({ resultsPerPage: 10, totalResults: 50 })).toBe(9);
+    });
   });
 
-  test("when results on last page do NOT equal results per page", () => {
-    expect(getIndexesOnLastPage({ resultsPerPage: 10, totalResults: 53 })).toBe(2);
+  describe('when results on last page do NOT equal results per page', () => {
+    it('should return the correct value', () => {
+      expect(getIndexesOnLastPage({ resultsPerPage: 10, totalResults: 53 })).toBe(2);
+    });
   });
 });

@@ -1,3 +1,3 @@
-export * from "./defs";
-export { default as removeConnectionInputOptions } from "./helpers/removeConnectionInputOptions";
-export { default, connectionResolver } from "./main";
+export * from './types.ts';
+export * from './helpers/removeConnectionInputOptions.ts';
+export * from './main/index.ts';

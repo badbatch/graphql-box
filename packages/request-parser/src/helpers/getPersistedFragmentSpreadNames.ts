@@ -1,4 +1,4 @@
-import { VisitorContext } from "../defs";
+import { type VisitorContext } from '../types.ts';
 
-export default (persistedFragmentSpreads: VisitorContext["persistedFragmentSpreads"]) =>
+export const getPersistedFragmentSpreadNames = (persistedFragmentSpreads: VisitorContext['persistedFragmentSpreads']) =>
   persistedFragmentSpreads.map(([name]) => name);

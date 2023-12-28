@@ -1,23 +1,23 @@
-import { MaybeRequestResultWithDehydratedCacheMetadata } from "@graphql-box/core";
-import { Response } from "express";
+import { type PartialRequestResultWithDehydratedCacheMetadata } from '@graphql-box/core';
+import type { Response } from 'express';
+import { isFunction } from 'lodash-es';
 
-export default (res: Response, requestResult: MaybeRequestResultWithDehydratedCacheMetadata) => {
-  const chunk = Buffer.from(JSON.stringify(requestResult), "utf8");
+export const writeResponseChunk = (res: Response, requestResult: PartialRequestResultWithDehydratedCacheMetadata) => {
+  const chunk = Buffer.from(JSON.stringify(requestResult), 'utf8');
 
   const data = [
-    "",
-    "---",
-    "Content-Type: application/json; charset=utf-8",
-    "Content-Length: " + String(chunk.length),
-    "",
+    '',
+    '---',
+    'Content-Type: application/json; charset=utf-8',
+    'Content-Length: ' + String(chunk.length),
+    '',
     chunk,
-    "",
-  ].join("\r\n");
+    '',
+  ].join('\r\n');
 
   res.write(data);
 
-  if ("flush" in res) {
-    // @ts-expect-error
+  if ('flush' in res && isFunction(res.flush)) {
     res.flush();
   }
 };

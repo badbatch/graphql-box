@@ -1,10 +1,10 @@
-import { DEFER, STREAM } from "@graphql-box/core";
-import { ParsedDirective } from "@graphql-box/helpers";
-import getParsedActiveDirectivesByName from "./getParsedActiveDirectivesByName";
+import { DEFER, STREAM } from '@graphql-box/core';
+import { type ParsedDirective } from '@graphql-box/helpers';
+import { getParsedActiveDirectivesByName } from './getParsedActiveDirectivesByName.ts';
 
-export default (directives: ParsedDirective[] = []) => {
+export const hasActiveDeferOrStreamDirective = (directives: ParsedDirective[] = []) => {
   return (
-    !!getParsedActiveDirectivesByName(directives, DEFER).length ||
-    !!getParsedActiveDirectivesByName(directives, STREAM).length
+    getParsedActiveDirectivesByName(directives, DEFER).length > 0 ||
+    getParsedActiveDirectivesByName(directives, STREAM).length > 0
   );
 };

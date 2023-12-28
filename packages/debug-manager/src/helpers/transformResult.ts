@@ -1,7 +1,7 @@
-import { CacheMetadata, DehydratedCacheMetadata, MaybeRequestResult } from "@graphql-box/core";
-import { dehydrateCacheMetadata } from "@graphql-box/helpers";
+import { type CacheMetadata, type DehydratedCacheMetadata, type PartialRequestResult } from '@graphql-box/core';
+import { dehydrateCacheMetadata } from '@graphql-box/helpers';
 
-export default (result?: MaybeRequestResult & { cacheMetadata?: CacheMetadata }) => {
+export const transformResult = (result?: PartialRequestResult & { cacheMetadata?: CacheMetadata }) => {
   if (!result) {
     return {};
   }

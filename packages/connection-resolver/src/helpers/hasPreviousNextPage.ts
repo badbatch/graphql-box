@@ -1,5 +1,6 @@
-import { CachedEdges, CursorGroupMetadata, Indexes } from "../defs";
-import getIndexesOnLastPage from "./getIndexesOnLastPage";
+import { isNumber } from 'lodash-es';
+import { type CachedEdges, type CursorGroupMetadata, type Indexes } from '../types.ts';
+import { getIndexesOnLastPage } from './getIndexesOnLastPage.ts';
 
 export type HasPreviousPageParams = {
   cachedEdgesByPage: CachedEdges[];
@@ -14,7 +15,7 @@ export type HasNextPageParams = {
 };
 
 export const hasPreviousPage = ({ cachedEdgesByPage, startIndex }: HasPreviousPageParams) =>
-  cachedEdgesByPage[0].pageNumber !== 1 || startIndex.relative > 0;
+  (isNumber(cachedEdgesByPage[0]?.pageNumber) && cachedEdgesByPage[0]?.pageNumber !== 1) || startIndex.relative > 0;
 
 export const hasNextPage = ({
   cachedEdgesByPage,
@@ -22,5 +23,6 @@ export const hasNextPage = ({
   metadata: { totalPages, totalResults },
   resultsPerPage,
 }: HasNextPageParams) =>
-  cachedEdgesByPage[cachedEdgesByPage.length - 1].pageNumber !== totalPages ||
+  (isNumber(cachedEdgesByPage[cachedEdgesByPage.length - 1]?.pageNumber) &&
+    cachedEdgesByPage[cachedEdgesByPage.length - 1]?.pageNumber !== totalPages) ||
   endIndex.relative < getIndexesOnLastPage({ resultsPerPage, totalResults });

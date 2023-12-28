@@ -1,7 +1,7 @@
-import operationNameRegex from "./operationNameRegex";
+import { operationNameRegex } from './operationNameRegex.ts';
 
-describe("operationNameRegex", () => {
-  test("when request does not have operation type", () => {
+describe('operationNameRegex', () => {
+  describe('when request does not have operation type', () => {
     const request = `
       {
         human(id: "1000") {
@@ -11,10 +11,12 @@ describe("operationNameRegex", () => {
       }
     `;
 
-    expect(operationNameRegex(request)).toBe("");
+    it('should return the correct value', () => {
+      expect(operationNameRegex(request)).toBe('');
+    });
   });
 
-  test("when request does not have operation name", () => {
+  describe('when request does not have operation name', () => {
     const request = `
       query {
         human(id: "1000") {
@@ -24,10 +26,12 @@ describe("operationNameRegex", () => {
       }
     `;
 
-    expect(operationNameRegex(request)).toBe("");
+    it('should return the correct value', () => {
+      expect(operationNameRegex(request)).toBe('');
+    });
   });
 
-  test("when request has operation name but no arguments", () => {
+  describe('when request has operation name but no arguments', () => {
     const request = `
       query HeroNameAndFriends {
         hero(episode: $episode) {
@@ -39,10 +43,12 @@ describe("operationNameRegex", () => {
       }
     `;
 
-    expect(operationNameRegex(request)).toBe("HeroNameAndFriends");
+    it('should return the correct value', () => {
+      expect(operationNameRegex(request)).toBe('HeroNameAndFriends');
+    });
   });
 
-  test("when request has operation name and arguments", () => {
+  describe('when request has operation name and arguments', () => {
     const request = `
       query HeroNameAndFriends($episode: Episode = JEDI) {
         hero(episode: $episode) {
@@ -54,10 +60,12 @@ describe("operationNameRegex", () => {
       }
     `;
 
-    expect(operationNameRegex(request)).toBe("HeroNameAndFriends");
+    it('should return the correct value', () => {
+      expect(operationNameRegex(request)).toBe('HeroNameAndFriends');
+    });
   });
 
-  test("when request is mutation", () => {
+  describe('when request is mutation', () => {
     const request = `
       mutation CreateReviewForEpisode($ep: Episode!, $review: ReviewInput!) {
         createReview(episode: $ep, review: $review) {
@@ -67,10 +75,12 @@ describe("operationNameRegex", () => {
       }
     `;
 
-    expect(operationNameRegex(request)).toBe("CreateReviewForEpisode");
+    it('should return the correct value', () => {
+      expect(operationNameRegex(request)).toBe('CreateReviewForEpisode');
+    });
   });
 
-  test("when request is subscription", () => {
+  describe('when request is subscription', () => {
     const request = `
       subscription OnCommentAdded($postID: ID!) {
         commentAdded(postID: $postID) {
@@ -80,6 +90,8 @@ describe("operationNameRegex", () => {
       }
     `;
 
-    expect(operationNameRegex(request)).toBe("OnCommentAdded");
+    it('should return the correct value', () => {
+      expect(operationNameRegex(request)).toBe('OnCommentAdded');
+    });
   });
 });

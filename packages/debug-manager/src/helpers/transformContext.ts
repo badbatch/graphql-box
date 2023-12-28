@@ -1,6 +1,6 @@
-import { RequestContext } from "@graphql-box/core";
+import { type RequestContext } from '@graphql-box/core';
 
-export default (context?: Omit<RequestContext, "debugManager">) => {
+export const transformContext = (context?: Omit<RequestContext, 'debugManager'>) => {
   if (!context) {
     return {};
   }

@@ -1,4 +1,6 @@
-import { encode } from "js-base64";
+import type { PlainObject } from '@graphql-box/core';
+import { encode } from 'js-base64';
+import type { ResourceResponse } from '../types.ts';
 
 export type Params = {
   resultsPerPage: number;
@@ -6,14 +8,17 @@ export type Params = {
   totalResults: number;
 };
 
-export default ({ resultsPerPage, totalPages, totalResults }: Params) => (page: number) => ({
-  data: {
-    page,
-    results: Array.from({ length: resultsPerPage }, (_v, i) => i).map(index => {
-      return { id: encode(`${index}::${page}`) };
-    }),
-    totalPages,
-    totalResults,
-  },
-  headers: new Headers({ "Cache-Control": "max-age=60" }),
-});
+export const generatePageResponse =
+  ({ resultsPerPage, totalPages, totalResults }: Params) =>
+  (page: number) =>
+    Promise.resolve({
+      data: {
+        page,
+        results: Array.from({ length: resultsPerPage }, (_v, index) => index).map(index => {
+          return { id: encode(`${index}::${page}`) };
+        }),
+        totalPages,
+        totalResults,
+      },
+      headers: new Headers({ 'Cache-Control': 'max-age=60' }),
+    }) as unknown as Promise<ResourceResponse<PlainObject>>;

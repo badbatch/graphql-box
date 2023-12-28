@@ -1,24 +1,24 @@
-import { PlainObjectMap } from "@graphql-box/core";
-import { encode } from "js-base64";
-import { get, merge } from "lodash";
-import { useEffect, useRef, useState } from "react";
-import useIntersectionObserver from "../../hooks/useIntersectionObserver";
-import useRequest from "../../hooks/useRequest";
-import buildDependencyKey from "./helpers/buildDependencyKey";
-import formatListings from "./helpers/formatListings";
-import hasRequestPathChanged from "./helpers/hasRequestPathChanged";
-import { ConnectionResponse, ConnectionVariables, ListingsData, ListingsProps, PageInfo } from "./types";
+import { type PlainObject } from '@graphql-box/core';
+import { encode } from 'js-base64';
+import { get, merge } from 'lodash-es';
+import { useEffect, useRef, useState } from 'react';
+import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.ts';
+import { useRequest } from '../../hooks/useRequest.ts';
+import { buildDependencyKey } from './helpers/buildDependencyKey.ts';
+import { formatListings } from './helpers/formatListings.ts';
+import { hasRequestPathChanged } from './helpers/hasRequestPathChanged.ts';
+import { type ConnectionResponse, type ConnectionVariables, type ListingsData, type ListingsProps } from './types.ts';
 
 const initialListingsData = {
   hasNextPage: true,
   listings: new Map(),
 };
 
-export default <Item extends PlainObjectMap>(props: ListingsProps<Item>) => {
+export const ConnectionListings = <Item extends PlainObject>(props: ListingsProps<Item>) => {
   const {
     children,
     intersectionRoot = null,
-    intersectionRootMargin = "0px",
+    intersectionRootMargin = '0px',
     intersectionThreshold = 0,
     query,
     renderError,
@@ -35,89 +35,95 @@ export default <Item extends PlainObjectMap>(props: ListingsProps<Item>) => {
     loading: true,
   });
 
-  const [lastItemRef, isLastItemVisible] = useIntersectionObserver({
+  const [lastItemReference, isLastItemVisible] = useIntersectionObserver({
     root: intersectionRoot,
     rootMargin: intersectionRootMargin,
     threshold: intersectionThreshold,
   });
 
-  const prevVariablesHashes = useRef<Map<string, string | undefined>>(new Map());
+  const previousVariablesHashes = useRef<Map<string, string | undefined>>(new Map());
   const queryHash = encode(query);
   const variablesHash = encode(JSON.stringify({ ...variables, requestPath }));
 
   const dependenciesKey = buildDependencyKey(
     requestID,
     get(data, `${requestPath}.pageInfo.startCursor`) as string | null | undefined,
-    paths,
+    paths
   );
 
   useEffect(() => {
-    if (variablesHash !== prevVariablesHashes.current.get(queryHash) || hasRequestPathChanged(requestPath, data)) {
+    if (variablesHash !== previousVariablesHashes.current.get(queryHash) || hasRequestPathChanged(requestPath, data)) {
       const newConnectionVariables = { ...connectionVariables, after: undefined };
-      execute({ variables: { ...variables, ...newConnectionVariables } });
+      void execute({ variables: { ...variables, ...newConnectionVariables } });
 
-      if (listings.size) {
+      if (listings.size > 0) {
         setListingsData({ hasNextPage: true, listings: new Map() });
         setConnectionVariables(newConnectionVariables);
       }
     }
 
     if (isLastItemVisible && hasNextPage) {
-      execute({ variables: { ...variables, ...connectionVariables } });
+      void execute({ variables: { ...variables, ...connectionVariables } });
     }
   }, [variablesHash, isLastItemVisible, hasNextPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
+    if (!data) {
+      return;
+    }
+
     const requestPathData = get(data, requestPath);
 
-    if (requestPathData) {
-      if (paths) {
-        const existingItem = listings.get(requestID) ?? {};
-        const listing = merge({}, existingItem, data);
+    if (!requestPathData) {
+      return;
+    }
 
-        setListingsData({
-          hasNextPage,
-          listings: new Map([...listings, [requestID, listing]]),
-        });
-
-        return;
-      }
-
-      const { pageInfo } = requestPathData as { pageInfo: PageInfo };
+    if (paths) {
+      const existingItem = listings.get(requestID) ?? {};
+      const listing = merge({}, existingItem, data);
 
       setListingsData({
-        hasNextPage: pageInfo.hasNextPage,
-        listings:
-          variablesHash === prevVariablesHashes.current.get(queryHash)
-            ? new Map([...listings, [requestID, data as ConnectionResponse<Item>]])
-            : new Map([[requestID, data as ConnectionResponse<Item>]]),
+        hasNextPage,
+        listings: new Map([...listings, [requestID, listing]]),
       });
 
-      setConnectionVariables({ ...connectionVariables, after: pageInfo.endCursor ?? undefined });
+      return;
     }
+
+    const { pageInfo } = requestPathData;
+
+    setListingsData({
+      hasNextPage: pageInfo.hasNextPage,
+      listings:
+        variablesHash === previousVariablesHashes.current.get(queryHash)
+          ? new Map([...listings, [requestID, data]])
+          : new Map([[requestID, data]]),
+    });
+
+    setConnectionVariables({ ...connectionVariables, after: pageInfo.endCursor ?? undefined });
   }, [dependenciesKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!loading) {
-      prevVariablesHashes.current.set(queryHash, variablesHash);
+      previousVariablesHashes.current.set(queryHash, variablesHash);
     }
   }, [dependenciesKey, loading]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (
-    ((variablesHash !== prevVariablesHashes.current.get(queryHash) && loading) ||
+    ((variablesHash !== previousVariablesHashes.current.get(queryHash) && loading) ||
       hasRequestPathChanged(requestPath, data)) &&
     renderLoader
   ) {
     return renderLoader();
   }
 
-  if (errors.length && renderError) {
+  if (errors.length > 0 && renderError) {
     return renderError(errors);
   }
 
   return children({
     hasNextPage,
-    lastItemRef,
+    lastItemRef: lastItemReference,
     listings: formatListings<Item>(listings, requestPath),
     loading,
   });

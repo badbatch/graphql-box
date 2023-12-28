@@ -1,12 +1,21 @@
-import { PlainObjectMap } from "@graphql-box/core";
-import { get } from "lodash";
-import { ConnectionResponse } from "../types";
+import { type PlainObject } from '@graphql-box/core';
+import { get } from 'lodash-es';
+import { type ConnectionResponse } from '../types.ts';
 
-export default <Item extends PlainObjectMap>(listings: Map<string, ConnectionResponse<Item>>, requestPath: string) =>
-  Array.from(listings).reduce((acc: Item[], [, data]) => {
-    const { edges } = get(data, requestPath);
+export const formatListings = <Item extends PlainObject>(
+  listings: Map<string, ConnectionResponse<Item>>,
+  requestPath: string
+) =>
+  [...listings].reduce((acc: Item[], [, data]) => {
+    const requestPathData = get(data, requestPath);
 
-    if (!edges || !edges.length) {
+    if (!requestPathData) {
+      return acc;
+    }
+
+    const { edges } = requestPathData;
+
+    if (!edges || edges.length === 0) {
       return acc;
     }
 

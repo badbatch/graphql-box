@@ -1,13 +1,16 @@
-import { CacheMetadata, MaybeRequestResult } from "@graphql-box/core";
-import { serializeErrors } from "@graphql-box/helpers";
-import { Environment } from "../defs";
+import { type CacheMetadata, type PartialRequestResult } from '@graphql-box/core';
+import { serializeErrors } from '@graphql-box/helpers';
+import { type Environment } from '../types.ts';
 
-export default (environment: Environment, result?: MaybeRequestResult & { cacheMetadata?: CacheMetadata }) => {
-  if (!result || !result.errors?.length) {
+export const transformError = (
+  environment: Environment,
+  result?: PartialRequestResult & { cacheMetadata?: CacheMetadata }
+) => {
+  if (!result?.errors?.length) {
     return {};
   }
 
   return {
-    err: environment === "server" ? result.errors[0] : serializeErrors(result)?.errors?.[0],
+    err: environment === 'server' ? result.errors[0] : serializeErrors(result).errors?.[0],
   };
 };

@@ -8,13 +8,9 @@ The GraphQL Box web worker client module.
 ## Installation
 
 ```bash
-yarn add @graphql-box/worker-client
+npm add @graphql-box/worker-client
 ```
 
 ## Usage
 
 Read the GraphQL Box [usage guide](../../README.md#usage).
-
-## Documentation
-
-Read the module API [documentation](docs/README.md).

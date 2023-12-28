@@ -1,5 +1,6 @@
-import { pickBy } from "lodash";
+import { pickBy } from 'lodash-es';
 
-const connectionInputOptions = ["after", "before", "first", "last"];
+const connectionInputOptions = new Set(['after', 'before', 'first', 'last']);
 
-export default <O extends object>(args: O) => pickBy(args, (_value, key) => !connectionInputOptions.includes(key));
+export const removeConnectionInputOptions = <O extends object>(args: O) =>
+  pickBy(args, (_value, key) => !connectionInputOptions.has(key));

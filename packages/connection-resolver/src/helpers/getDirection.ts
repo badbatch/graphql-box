@@ -1,1 +1,3 @@
-export default (last: number | undefined) => (last ? "backward" : "forward");
+import type { Direction } from '../types.ts';
+
+export const getDirection = (last?: number): Direction => (last ? 'backward' : 'forward');

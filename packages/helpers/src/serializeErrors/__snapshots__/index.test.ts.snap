@@ -1,91 +1,91 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`serializeErrors >> should serialise the error correctly 1`] = `
-Object {
-  "extensions": Object {},
-  "locations": Array [
-    Object {
+{
+  "extensions": {},
+  "locations": [
+    {
       "column": 60,
       "line": 1,
     },
   ],
   "message": "Oops",
   "name": "GraphQLError",
-  "nodes": Array [
-    Object {
-      "arguments": Array [],
-      "directives": Array [],
+  "nodes": [
+    {
+      "arguments": [],
+      "directives": [],
       "kind": "Field",
-      "loc": Object {
+      "loc": {
         "end": 147,
         "start": 59,
       },
-      "name": Object {
+      "name": {
         "kind": "Name",
-        "loc": Object {
+        "loc": {
           "end": 71,
           "start": 59,
         },
         "value": "releaseDates",
       },
-      "selectionSet": Object {
+      "selectionSet": {
         "kind": "SelectionSet",
-        "loc": Object {
+        "loc": {
           "end": 147,
           "start": 72,
         },
-        "selections": Array [
-          Object {
-            "arguments": Array [],
-            "directives": Array [],
+        "selections": [
+          {
+            "arguments": [],
+            "directives": [],
             "kind": "Field",
-            "loc": Object {
+            "loc": {
               "end": 90,
               "start": 80,
             },
-            "name": Object {
+            "name": {
               "kind": "Name",
-              "loc": Object {
+              "loc": {
                 "end": 90,
                 "start": 80,
               },
               "value": "iso_3166_1",
             },
           },
-          Object {
-            "arguments": Array [],
-            "directives": Array [],
+          {
+            "arguments": [],
+            "directives": [],
             "kind": "Field",
-            "loc": Object {
+            "loc": {
               "end": 141,
               "start": 97,
             },
-            "name": Object {
+            "name": {
               "kind": "Name",
-              "loc": Object {
+              "loc": {
                 "end": 109,
                 "start": 97,
               },
               "value": "releaseDates",
             },
-            "selectionSet": Object {
+            "selectionSet": {
               "kind": "SelectionSet",
-              "loc": Object {
+              "loc": {
                 "end": 141,
                 "start": 110,
               },
-              "selections": Array [
-                Object {
-                  "arguments": Array [],
-                  "directives": Array [],
+              "selections": [
+                {
+                  "arguments": [],
+                  "directives": [],
                   "kind": "Field",
-                  "loc": Object {
+                  "loc": {
                     "end": 133,
                     "start": 120,
                   },
-                  "name": Object {
+                  "name": {
                     "kind": "Name",
-                    "loc": Object {
+                    "loc": {
                       "end": 133,
                       "start": 120,
                     },
@@ -99,7 +99,7 @@ Object {
       },
     },
   ],
-  "originalError": Object {
+  "originalError": {
     "message": "Oops",
     "stack": "Error: Oops
     at Object.resolveMovieReleaseDates [as releaseDates] (/Users/dylan.aubrey/workspaces/dollygrip/graphql/resolvers/dist/cjs/index.js:1380:11)
@@ -113,16 +113,16 @@ Object {
     at async Promise.all (index 0)
     at async Execute.execute (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/@graphql-box/execute/lib/main/main/index.js:88:29)",
   },
-  "path": Array [
+  "path": [
     "movie",
     "releaseDates",
   ],
-  "positions": Array [
+  "positions": [
     59,
   ],
-  "source": Object {
-    "body": "query GetMovieCertifications {\\\\n  movie(id: \\"675054\\") {\\\\n    releaseDates {\\\\n      iso_3166_1\\\\n      releaseDates {\\\\n        certification\\\\n      }\\\\n    }\\\\n    id\\\\n  }\\\\n}",
-    "locationOffset": Object {
+  "source": {
+    "body": "query GetMovieCertifications {\\n  movie(id: "675054") {\\n    releaseDates {\\n      iso_3166_1\\n      releaseDates {\\n        certification\\n      }\\n    }\\n    id\\n  }\\n}",
+    "locationOffset": {
       "column": 1,
       "line": 1,
     },

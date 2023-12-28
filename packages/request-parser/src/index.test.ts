@@ -1,23 +1,24 @@
-import { MUTATION, RequestContext, SUBSCRIPTION } from "@graphql-box/core";
+import { type RequestContext } from '@graphql-box/core';
 import {
   getRequestContext,
   githubIntrospection,
   requestsAndOptions,
-  schemaResolvers,
-  schemaTypeDefs,
+  resolvers,
   theMovieDbIntrospection,
-} from "@graphql-box/test-utils";
-import { makeExecutableSchema } from "@graphql-tools/schema";
-import { IntrospectionQuery } from "graphql";
-import RequestParser, { RequestParserDef, UpdateRequestResult } from ".";
+  typeDefs,
+} from '@graphql-box/test-utils';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import { expect } from '@jest/globals';
+import { type IntrospectionQuery, OperationTypeNode } from 'graphql';
+import { RequestParser, type RequestParserDef, type UpdateRequestResult } from './index.ts';
 
-describe("@graphql-box/request-parser >>", () => {
+describe('@graphql-box/request-parser >>', () => {
   let requestContext: RequestContext;
   let requestParser: RequestParserDef;
   let updatedRequest: UpdateRequestResult | undefined;
 
-  describe("query >> no variable >>", () => {
-    beforeAll(async () => {
+  describe('query >> no variable >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -26,20 +27,20 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithoutVariable;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> with default", () => {
-    beforeAll(async () => {
+  describe('query >> with default', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -48,20 +49,20 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithDefault;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> with number default", () => {
-    beforeAll(async () => {
+  describe('query >> with number default', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -70,20 +71,20 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithNumberDefault;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> operation name >>", () => {
-    beforeAll(async () => {
+  describe('query >> operation name >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -92,20 +93,20 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithOperationName;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> variable", () => {
-    beforeAll(async () => {
+  describe('query >> variable', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -114,20 +115,20 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithVariable;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> variable with default", () => {
-    beforeAll(async () => {
+  describe('query >> variable with default', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -136,20 +137,20 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithVariableWithDefault;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> multiple variables >>", () => {
-    beforeAll(async () => {
+  describe('query >> multiple variables >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -158,20 +159,20 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithVariables;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> enum variable >>", () => {
-    beforeAll(async () => {
+  describe('query >> enum variable >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -180,20 +181,20 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithEnumVariable;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> directive", () => {
-    beforeAll(async () => {
+  describe('query >> directive', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -202,20 +203,20 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithDirective;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> inline fragment >>", () => {
-    beforeAll(async () => {
+  describe('query >> inline fragment >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -224,20 +225,20 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithInlineFragment;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> inline fragments >> union type >>", () => {
-    beforeAll(async () => {
+  describe('query >> inline fragments >> union type >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -246,20 +247,20 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithUnionInlineFragments;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> fragment spread >>", () => {
-    beforeAll(async () => {
+  describe('query >> fragment spread >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -268,42 +269,42 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithFragmentSpread;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> fragment spreads >> within fragment spreads >>", () => {
-    beforeAll(async () => {
+  describe('query >> fragment spreads >> within fragment spreads >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
-        introspection: (theMovieDbIntrospection as unknown) as IntrospectionQuery,
+        introspection: theMovieDbIntrospection as unknown as IntrospectionQuery,
       });
 
       const { options, request } = requestsAndOptions.getMoviePreviewQuery;
       requestContext = getRequestContext({ experimentalDeferStreamSupport: true });
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> union type inline fragments >> fragment spread >>", () => {
-    beforeAll(async () => {
+  describe('query >> union type inline fragments >> fragment spread >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -312,20 +313,20 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithUnionInlineFragmentsAndFragmentSpread;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> fragment option >>", () => {
-    beforeAll(async () => {
+  describe('query >> fragment option >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -334,21 +335,21 @@ describe("@graphql-box/request-parser >>", () => {
 
       const { options, request } = requestsAndOptions.queryWithFragmentOption;
       requestContext = getRequestContext();
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("query >> defer >>", () => {
-    describe("when experimentalDeferStreamSupport flag is true >>", () => {
-      beforeAll(async () => {
+  describe('query >> defer >>', () => {
+    describe('when experimentalDeferStreamSupport flag is true >>', () => {
+      beforeAll(() => {
         updatedRequest = undefined;
 
         requestParser = new RequestParser({
@@ -357,20 +358,20 @@ describe("@graphql-box/request-parser >>", () => {
 
         const { options, request } = requestsAndOptions.queryWithDefer;
         requestContext = getRequestContext({ experimentalDeferStreamSupport: true });
-        updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+        updatedRequest = requestParser.updateRequest(request, options, requestContext);
       });
 
-      it("correct request", () => {
+      it('correct request', () => {
         expect(updatedRequest?.request).toMatchSnapshot();
       });
 
-      it("correct context data", () => {
+      it('correct context data', () => {
         expect(requestContext).toMatchSnapshot();
       });
     });
 
-    describe("when experimentalDeferStreamSupport flag is false >>", () => {
-      beforeAll(async () => {
+    describe('when experimentalDeferStreamSupport flag is false >>', () => {
+      beforeAll(() => {
         updatedRequest = undefined;
 
         requestParser = new RequestParser({
@@ -380,18 +381,18 @@ describe("@graphql-box/request-parser >>", () => {
         requestContext = getRequestContext();
       });
 
-      it("throws correct error", async () => {
+      it('throws correct error', () => {
         const { options, request } = requestsAndOptions.queryWithDefer;
 
-        await expect(requestParser.updateRequest(request, options, requestContext)).rejects.toThrow(
-          "@graphql-box/request-parser >> to use defer/stream directives, please set the experimentalDeferStreamSupport flag to true",
+        expect(() => requestParser.updateRequest(request, options, requestContext)).toThrow(
+          '@graphql-box/request-parser >> to use defer/stream directives, please set the experimentalDeferStreamSupport flag to true'
         );
       });
     });
   });
 
-  describe("mutation >> input type variable >>", () => {
-    beforeAll(async () => {
+  describe('mutation >> input type variable >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -399,47 +400,47 @@ describe("@graphql-box/request-parser >>", () => {
       });
 
       const { options, request } = requestsAndOptions.nestedInterfaceMutation;
-      requestContext = getRequestContext({ operation: MUTATION });
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      requestContext = getRequestContext({ operation: OperationTypeNode.MUTATION });
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("subscription >>", () => {
-    beforeAll(async () => {
+  describe('subscription >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
         schema: makeExecutableSchema({
-          resolvers: schemaResolvers,
-          typeDefs: schemaTypeDefs,
+          resolvers,
+          typeDefs,
           updateResolversInPlace: true,
         }),
       });
 
       const { options, request } = requestsAndOptions.nestedTypeSubscription;
-      requestContext = getRequestContext({ operation: SUBSCRIPTION });
-      updatedRequest = await requestParser.updateRequest(request, options, requestContext);
+      requestContext = getRequestContext({ operation: OperationTypeNode.SUBSCRIPTION });
+      updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
-    it("correct request", () => {
+    it('correct request', () => {
       expect(updatedRequest?.request).toMatchSnapshot();
     });
 
-    it("correct context data", () => {
+    it('correct context data', () => {
       expect(requestContext).toMatchSnapshot();
     });
   });
 
-  describe("maxFieldDepth >> exceeded >>", () => {
-    beforeAll(async () => {
+  describe('maxFieldDepth >> exceeded >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -450,17 +451,17 @@ describe("@graphql-box/request-parser >>", () => {
       requestContext = getRequestContext({ experimentalDeferStreamSupport: true });
     });
 
-    it("throws correct error", async () => {
+    it('throws correct error', () => {
       const { options, request } = requestsAndOptions.queryWithDefer;
 
-      await expect(requestParser.updateRequest(request, options, requestContext)).rejects.toThrow(
-        "@graphql-box/request-parser >> request field depth of 7 exceeded max field depth of 2",
+      expect(() => requestParser.updateRequest(request, options, requestContext)).toThrow(
+        '@graphql-box/request-parser >> request field depth of 7 exceeded max field depth of 2'
       );
     });
   });
 
-  describe("maxTypeComplexity >> exceeded >>", () => {
-    beforeAll(async () => {
+  describe('maxTypeComplexity >> exceeded >>', () => {
+    beforeAll(() => {
       updatedRequest = undefined;
 
       requestParser = new RequestParser({
@@ -477,11 +478,11 @@ describe("@graphql-box/request-parser >>", () => {
       requestContext = getRequestContext({ experimentalDeferStreamSupport: true });
     });
 
-    it("throws correct error", async () => {
+    it('throws correct error', () => {
       const { options, request } = requestsAndOptions.queryWithDefer;
 
-      await expect(requestParser.updateRequest(request, options, requestContext)).rejects.toThrow(
-        "@graphql-box/request-parser >> request type complexity of 10 exceeded max type complexity of 9",
+      expect(() => requestParser.updateRequest(request, options, requestContext)).toThrow(
+        '@graphql-box/request-parser >> request type complexity of 10 exceeded max type complexity of 9'
       );
     });
   });

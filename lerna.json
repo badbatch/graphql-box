@@ -1,4 +1,0 @@
-{
-  "extends": "@repodog/lerna-config",
-  "version": "4.1.7"
-}

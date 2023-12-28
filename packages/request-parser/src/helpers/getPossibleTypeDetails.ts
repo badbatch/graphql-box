@@ -1,8 +1,18 @@
-import { PossibleType } from "@graphql-box/core";
-import { GraphQLInterfaceType, GraphQLNamedType, GraphQLOutputType, GraphQLSchema, GraphQLUnionType } from "graphql";
-import isTypeEntity from "./isTypeEntity";
+import { type PossibleType } from '@graphql-box/core';
+import {
+  GraphQLInterfaceType,
+  type GraphQLNamedType,
+  type GraphQLOutputType,
+  type GraphQLSchema,
+  GraphQLUnionType,
+} from 'graphql';
+import { isTypeEntity } from './isTypeEntity.ts';
 
-export default (type: GraphQLNamedType | GraphQLOutputType, schema: GraphQLSchema, typeIDKey: string) => {
+export const getPossibleTypeDetails = (
+  type: GraphQLNamedType | GraphQLOutputType,
+  schema: GraphQLSchema,
+  typeIDKey: string
+) => {
   const possibleTypeDetails: PossibleType[] = [];
 
   if (type instanceof GraphQLInterfaceType || type instanceof GraphQLUnionType) {
@@ -14,7 +24,7 @@ export default (type: GraphQLNamedType | GraphQLOutputType, schema: GraphQLSchem
           isEntity: isTypeEntity(possibleType, typeIDKey),
           typeName: possibleType.name,
         };
-      }),
+      })
     );
   }
 

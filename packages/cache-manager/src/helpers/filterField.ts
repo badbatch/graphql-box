@@ -1,26 +1,25 @@
-import { TYPE_NAME_KEY } from "@graphql-box/core";
+import { TYPE_NAME_KEY } from '@graphql-box/core';
 import {
-  FRAGMENT_SPREAD,
   buildFieldKeysAndPaths,
   deleteChildFields,
   getChildFields,
   getName,
   hasChildFields,
-} from "@graphql-box/helpers";
-import { FieldNode, FragmentDefinitionNode, OperationDefinitionNode } from "graphql";
-import { CacheManagerContext, FieldPathChecklist, FragmentSpreadFieldCounter } from "../defs";
-import checkFieldPathChecklist from "./checkFieldPathChecklist";
-import { FragmentSpreadCheckist } from "./createFragmentSpreadChecklist";
-import filterFragmentSpreads from "./filterFragmentSpreads";
-import filterIDsAndTypeNames from "./filterIDsAndTypeNames";
-import filterInlineFragments from "./filterInlineFragments";
+} from '@graphql-box/helpers';
+import { type FieldNode, type FragmentDefinitionNode, Kind, type OperationDefinitionNode } from 'graphql';
+import { type CacheManagerContext, type FieldPathChecklist, type FragmentSpreadFieldCounter } from '../types.ts';
+import { checkFieldPathChecklist } from './checkFieldPathChecklist.ts';
+import { type FragmentSpreadCheckist } from './createFragmentSpreadChecklist.ts';
+import { filterFragmentSpreads } from './filterFragmentSpreads.ts';
+import { filterIDsAndTypeNames } from './filterIDsAndTypeNames.ts';
+import { filterInlineFragments } from './filterInlineFragments.ts';
 
-const filterField = (
+export const filterField = (
   field: FieldNode | FragmentDefinitionNode | OperationDefinitionNode,
   fieldPathChecklist: FieldPathChecklist,
   fragmentSpreadChecklist: FragmentSpreadCheckist,
   ancestorRequestFieldPath: string,
-  context: CacheManagerContext,
+  context: CacheManagerContext
 ): boolean => {
   const { fragmentDefinitions, typeIDKey } = context;
   const fieldsAndTypeNames = getChildFields(field, { fragmentDefinitions });
@@ -31,14 +30,20 @@ const filterField = (
 
   const fragmentSpreadFieldCounter: FragmentSpreadFieldCounter = {};
 
-  for (let i = fieldsAndTypeNames.length - 1; i >= 0; i -= 1) {
-    const { fieldNode: childField, fragmentKind, fragmentName, typeName: childTypeName } = fieldsAndTypeNames[i];
+  for (let index = fieldsAndTypeNames.length - 1; index >= 0; index -= 1) {
+    const fieldAndTypeName = fieldsAndTypeNames[index];
 
-    if (fragmentKind === FRAGMENT_SPREAD && fragmentName && !fragmentSpreadFieldCounter[fragmentName]) {
+    if (!fieldAndTypeName) {
+      continue;
+    }
+
+    const { fieldNode: childField, fragmentKind, fragmentName, typeName: childTypeName } = fieldAndTypeName;
+
+    if (fragmentKind === Kind.FRAGMENT_SPREAD && fragmentName && !fragmentSpreadFieldCounter[fragmentName]) {
       fragmentSpreadFieldCounter[fragmentName] = {
         hasData: 0,
         total: fragmentDefinitions?.[fragmentName]
-          ? getChildFields(fragmentDefinitions?.[fragmentName], { fragmentDefinitions })?.length ?? 0
+          ? getChildFields(fragmentDefinitions[fragmentName]!, { fragmentDefinitions })?.length ?? 0
           : 0,
       };
     }
@@ -54,14 +59,18 @@ const filterField = (
       {
         requestFieldPath: ancestorRequestFieldPath,
       },
-      context,
+      context
     );
 
     const { hasData, typeUnused } = checkFieldPathChecklist(fieldPathChecklist.get(requestFieldPath), childTypeName);
 
     if (hasData || typeUnused) {
-      if (fragmentKind === FRAGMENT_SPREAD) {
-        fragmentSpreadFieldCounter[fragmentName as string].hasData += 1;
+      if (fragmentKind === Kind.FRAGMENT_SPREAD && fragmentName) {
+        const counter = fragmentSpreadFieldCounter[fragmentName];
+
+        if (counter) {
+          counter.hasData += 1;
+        }
       } else if (!hasChildFields(childField, { fragmentDefinitions })) {
         deleteChildFields(field, childField);
       } else if (filterField(childField, fieldPathChecklist, fragmentSpreadChecklist, requestFieldPath, context)) {
@@ -75,5 +84,3 @@ const filterField = (
   filterIDsAndTypeNames(field, context);
   return !hasChildFields(field, { fragmentDefinitions });
 };
-
-export default filterField;

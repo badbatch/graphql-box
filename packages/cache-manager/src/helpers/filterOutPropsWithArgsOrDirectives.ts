@@ -1,19 +1,19 @@
-import { PlainObjectMap } from "@graphql-box/core";
-import { KeysAndPaths, buildFieldKeysAndPaths, getName, resolveFragments } from "@graphql-box/helpers";
-import { FieldNode, SelectionNode } from "graphql";
-import { keys } from "lodash";
-import { CacheManagerContext } from "../defs";
+import { type PlainObject } from '@graphql-box/core';
+import { type KeysAndPaths, buildFieldKeysAndPaths, getName, resolveFragments } from '@graphql-box/helpers';
+import { type SelectionNode } from 'graphql';
+import { keys } from 'lodash-es';
+import { type CacheManagerContext } from '../types.ts';
 
-export default (
-  fieldData: PlainObjectMap,
+export const filterOutPropsWithArgsOrDirectives = (
+  fieldData: PlainObject,
   selectionNodes: readonly SelectionNode[],
   ancestorKeysAndPaths: KeysAndPaths,
-  context: CacheManagerContext,
+  context: CacheManagerContext
 ) => {
   const fieldAndTypeName = resolveFragments(selectionNodes, context.fragmentDefinitions);
 
-  return keys(fieldData).reduce((acc: PlainObjectMap, key) => {
-    const match = fieldAndTypeName.find(({ fieldNode }) => (getName(fieldNode) as FieldNode["name"]["value"]) === key);
+  return keys(fieldData).reduce<PlainObject>((acc, key) => {
+    const match = fieldAndTypeName.find(({ fieldNode }) => getName(fieldNode) === key);
 
     if (match) {
       const { requestFieldPath } = buildFieldKeysAndPaths(match.fieldNode, ancestorKeysAndPaths, context);

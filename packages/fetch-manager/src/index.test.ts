@@ -1,99 +1,64 @@
-/**
- * @jest-environment jsdom
- */
-
 import {
-  MaybeRawResponseData,
-  MaybeRequestResult,
-  PlainObjectMap,
-  RawResponseDataWithMaybeCacheMetadata,
-  RequestManagerDef,
-  RequestResolver,
-} from "@graphql-box/core";
-import { getRequestContext, getRequestData, parsedRequests, responses } from "@graphql-box/test-utils";
-import fetchMock from "fetch-mock";
-import { forAwaitEach } from "iterall";
-import { Response } from "undici";
-import FetchManager from ".";
-import createResponseChunks from "./__testUtils__/createResponseChunks";
+  type PartialRawResponseData,
+  type PartialRequestResult,
+  type PlainObject,
+  type RawResponseDataWithMaybeCacheMetadata,
+  type RequestManagerDef,
+  type RequestResolver,
+} from '@graphql-box/core';
+import { getRequestContext, getRequestData, parsedRequests, responses } from '@graphql-box/test-utils';
+import { expect, jest } from '@jest/globals';
+import { type Jsonifiable, ResponseType, mockFetch, polyfillFetch } from 'fetch-mocked';
+import { forAwaitEach } from 'iterall';
+import { createResponseChunks } from './__testUtils__/createResponseChunks.ts';
+import { FetchManager } from './index.ts';
 
-const URL = "https://api.github.com/graphql";
+polyfillFetch();
+const mockedFetch = mockFetch(jest.fn);
+const URL = 'https://api.github.com/graphql';
 
-describe("@graphql-box/fetch-manager >>", () => {
+describe('@graphql-box/fetch-manager >>', () => {
   let fetchManager: RequestManagerDef;
 
-  describe("no batching >>", () => {
-    describe("when batch is false >>", () => {
-      let response: MaybeRawResponseData;
+  describe('no batching >>', () => {
+    describe('when batch is false >>', () => {
+      let response: PartialRawResponseData;
 
       beforeAll(async () => {
+        jest.useFakeTimers();
+
         fetchManager = new FetchManager({
           apiUrl: URL,
         });
 
-        const body = { data: responses.singleTypeQuery.data };
-        const headers = { "cache-control": "public, max-age=5" };
-        fetchMock.post("*", { body, headers });
+        const body = { data: responses.singleTypeQuery.data } as Jsonifiable;
+        const headers = { 'cache-control': 'public, max-age=5' };
+        mockedFetch.mockPostOnce('*', { body, headers });
 
         response = (await fetchManager.execute(
           getRequestData(parsedRequests.singleTypeQuery),
           {},
           getRequestContext(),
-          ((async () => null) as unknown) as RequestResolver,
-        )) as MaybeRawResponseData;
+          (() => Promise.resolve(null)) as unknown as RequestResolver
+        )) as PartialRawResponseData;
       });
 
       afterAll(() => {
-        fetchMock.restore();
+        jest.useRealTimers();
+        mockedFetch.mockClear();
       });
 
-      it("correct request", () => {
-        expect(fetchMock.lastCall()).toMatchSnapshot();
+      it('correct request', () => {
+        expect(mockedFetch.mock.lastCall).toMatchSnapshot();
       });
 
-      it("correct response data", () => {
+      it('correct response data', () => {
         expect(response).toMatchSnapshot();
       });
     });
 
-    describe("when context.hasDeferOrStream is true >>", () => {
-      let response: MaybeRawResponseData;
-
-      beforeAll(async () => {
-        fetchManager = new FetchManager({
-          apiUrl: URL,
-          batchRequests: true,
-        });
-
-        const body = { data: responses.singleTypeQuery.data };
-        const headers = { "cache-control": "public, max-age=5" };
-        fetchMock.post("*", { body, headers });
-
-        response = (await fetchManager.execute(
-          getRequestData(parsedRequests.singleTypeQuery),
-          {},
-          getRequestContext({ hasDeferOrStream: true }),
-          ((async () => null) as unknown) as RequestResolver,
-        )) as MaybeRawResponseData;
-      });
-
-      afterAll(() => {
-        fetchMock.restore();
-      });
-
-      it("correct request", () => {
-        expect(fetchMock.lastCall()).toMatchSnapshot();
-      });
-
-      it("correct response data", () => {
-        expect(response).toMatchSnapshot();
-      });
-    });
-  });
-
-  describe("batching >>", () => {
-    describe("single request >>", () => {
-      let response: MaybeRawResponseData;
+    describe('when context.hasDeferOrStream is true >>', () => {
+      let response: PartialRawResponseData;
 
       beforeAll(async () => {
         jest.useFakeTimers();
@@ -101,7 +66,46 @@ describe("@graphql-box/fetch-manager >>", () => {
         fetchManager = new FetchManager({
           apiUrl: URL,
           batchRequests: true,
-          fetchTimeout: 10000,
+        });
+
+        const body = { data: responses.singleTypeQuery.data } as Jsonifiable;
+        const headers = { 'cache-control': 'public, max-age=5' };
+        mockedFetch.mockPostOnce('*', { body, headers });
+
+        response = (await fetchManager.execute(
+          getRequestData(parsedRequests.singleTypeQuery),
+          {},
+          getRequestContext({ hasDeferOrStream: true }),
+          (() => Promise.resolve(null)) as unknown as RequestResolver
+        )) as PartialRawResponseData;
+      });
+
+      afterAll(() => {
+        jest.useRealTimers();
+        mockedFetch.mockClear();
+      });
+
+      it('correct request', () => {
+        expect(mockedFetch.mock.lastCall).toMatchSnapshot();
+      });
+
+      it('correct response data', () => {
+        expect(response).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('batching >>', () => {
+    describe('single request >>', () => {
+      let response: PartialRawResponseData;
+
+      beforeAll(async () => {
+        jest.useFakeTimers();
+
+        fetchManager = new FetchManager({
+          apiUrl: URL,
+          batchRequests: true,
+          fetchTimeout: 10_000,
         });
 
         const requestData = getRequestData(parsedRequests.singleTypeQuery);
@@ -110,38 +114,34 @@ describe("@graphql-box/fetch-manager >>", () => {
           responses: {
             [requestData.hash]: { data: responses.singleTypeQuery.data },
           },
-        };
+        } as Jsonifiable;
 
-        const headers = { "cache-control": "public, max-age=5" };
-        fetchMock.post("*", { body, headers });
+        const headers = { 'cache-control': 'public, max-age=5' };
+        mockedFetch.mockPostOnce('*', { body, headers });
 
-        const promise = fetchManager.execute(
-          requestData,
-          {},
-          getRequestContext(),
-          ((async () => null) as unknown) as RequestResolver,
-        ) as Promise<MaybeRawResponseData>;
+        const promise = fetchManager.execute(requestData, {}, getRequestContext(), (() =>
+          Promise.resolve(null)) as unknown as RequestResolver) as Promise<PartialRawResponseData>;
 
         jest.runOnlyPendingTimers();
         response = await promise;
       });
 
       afterAll(() => {
-        fetchMock.restore();
         jest.useRealTimers();
+        mockedFetch.mockClear();
       });
 
-      it("correct request", () => {
-        expect(fetchMock.lastCall()).toMatchSnapshot();
+      it('correct request', () => {
+        expect(mockedFetch.mock.lastCall).toMatchSnapshot();
       });
 
-      it("correct response data", () => {
+      it('correct response data', () => {
         expect(response).toMatchSnapshot();
       });
     });
 
-    describe("multiple requests >>", () => {
-      let response: MaybeRawResponseData[];
+    describe('multiple requests >>', () => {
+      let response: PartialRawResponseData[];
 
       beforeAll(async () => {
         jest.useFakeTimers();
@@ -149,7 +149,7 @@ describe("@graphql-box/fetch-manager >>", () => {
         fetchManager = new FetchManager({
           apiUrl: URL,
           batchRequests: true,
-          fetchTimeout: 10000,
+          fetchTimeout: 10_000,
         });
 
         const initialRequestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
@@ -162,25 +162,17 @@ describe("@graphql-box/fetch-manager >>", () => {
               data: (responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata).data,
             },
           },
-        };
+        } as Jsonifiable;
 
-        const headers = { "cache-control": "public, max-age=5" };
-        fetchMock.post("*", { body, headers });
+        const headers = { 'cache-control': 'public, max-age=5' };
+        mockedFetch.mockPostOnce('*', { body, headers });
 
         const promises = [
-          fetchManager.execute(
-            initialRequestData,
-            {},
-            getRequestContext(),
-            ((async () => null) as unknown) as RequestResolver,
-          ) as Promise<MaybeRawResponseData>,
+          fetchManager.execute(initialRequestData, {}, getRequestContext(), (() =>
+            Promise.resolve(null)) as unknown as RequestResolver) as Promise<PartialRawResponseData>,
 
-          fetchManager.execute(
-            updatedRequestData,
-            {},
-            getRequestContext(),
-            ((async () => null) as unknown) as RequestResolver,
-          ) as Promise<MaybeRawResponseData>,
+          fetchManager.execute(updatedRequestData, {}, getRequestContext(), (() =>
+            Promise.resolve(null)) as unknown as RequestResolver) as Promise<PartialRawResponseData>,
         ];
 
         jest.runOnlyPendingTimers();
@@ -188,50 +180,45 @@ describe("@graphql-box/fetch-manager >>", () => {
       });
 
       afterAll(() => {
-        fetchMock.restore();
         jest.useRealTimers();
+        mockedFetch.mockClear();
       });
 
-      it("correct request", () => {
-        expect(fetchMock.lastCall()).toMatchSnapshot();
+      it('correct request', () => {
+        expect(mockedFetch.mock.lastCall).toMatchSnapshot();
       });
 
-      it("correct response data", () => {
+      it('correct first response data', () => {
         expect(response[0]).toMatchSnapshot();
+      });
+
+      it('correct second response data', () => {
         expect(response[1]).toMatchSnapshot();
       });
     });
   });
 
-  describe("when content type multipart is returned >>", () => {
-    const results: (MaybeRequestResult | undefined)[] = [];
-    const actualFetch = global.fetch;
-    let mockFetch: jest.Mock<any, any>;
+  describe('when content type multipart is returned >>', () => {
+    const results: (PartialRequestResult | undefined)[] = [];
 
     beforeAll(async () => {
       fetchManager = new FetchManager({
         apiUrl: URL,
       });
 
-      const headers = { "Content-Type": 'multipart/mixed; boundary="-"' };
-
-      const mockResponse = new Response(createResponseChunks(responses.deferQuerySet.updated as PlainObjectMap[]), {
-        headers,
-        status: 200,
-      });
-
-      mockFetch = jest.fn().mockResolvedValue(mockResponse);
-      global.fetch = mockFetch;
+      const body = createResponseChunks(responses.deferQuerySet.updated as unknown as PlainObject[]);
+      const headers = { 'content-type': 'multipart/mixed; boundary="-"' };
+      mockedFetch.mockPostOnce('*', { body, headers }, { responseType: ResponseType.TEXT });
 
       const executeResult = (await fetchManager.execute(
         getRequestData(parsedRequests.deferQuery),
         {},
         getRequestContext({ hasDeferOrStream: true }),
-        (async data => data) as RequestResolver,
-      )) as AsyncIterableIterator<MaybeRequestResult | undefined>;
+        (data => Promise.resolve(data)) as RequestResolver
+      )) as AsyncIterableIterator<PartialRequestResult | undefined>;
 
-      await new Promise((resolve: (value: void) => void) => {
-        forAwaitEach(executeResult, async result => {
+      const promise = new Promise<void>(resolve => {
+        void forAwaitEach(executeResult, result => {
           results.push(result);
 
           if (!result?.hasNext) {
@@ -239,17 +226,19 @@ describe("@graphql-box/fetch-manager >>", () => {
           }
         });
       });
+
+      await promise;
     });
 
     afterAll(() => {
-      global.fetch = actualFetch;
+      mockedFetch.mockClear();
     });
 
-    it("correct request", () => {
-      expect(mockFetch.mock.calls[0]).toMatchSnapshot();
+    it('correct request', () => {
+      expect(mockedFetch.mock.calls[0]).toMatchSnapshot();
     });
 
-    it("correct response data", () => {
+    it('correct response data', () => {
       expect(results).toMatchSnapshot();
     });
   });

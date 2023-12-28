@@ -1,28 +1,30 @@
-import { MaybeRequestResult, SUBSCRIPTION } from "@graphql-box/core";
-import { getRequestContext, getRequestData, parsedRequests, responses } from "@graphql-box/test-utils";
-import { forAwaitEach, isAsyncIterable } from "iterall";
-import { Server } from "mock-socket";
-import WebsocketManager from ".";
+import { type PartialRequestResult, type SubscriberResolver } from '@graphql-box/core';
+import { getRequestContext, getRequestData, parsedRequests, responses } from '@graphql-box/test-utils';
+import { expect } from '@jest/globals';
+import { OperationTypeNode } from 'graphql';
+import { forAwaitEach, isAsyncIterable } from 'iterall';
+import { type Client, Server } from 'mock-socket';
+import { WebsocketManager } from './index.ts';
 
-function onOpen(websocket: WebSocket): Promise<void> {
+const onOpen = (websocket: WebSocket): Promise<void> => {
   return new Promise(resolve => {
-    websocket.onopen = () => {
+    websocket.addEventListener('open', () => {
       resolve();
-    };
+    });
   });
-}
+};
 
-describe("@graphql-box/websocket-manager >>", () => {
-  const subscriptionResolver = async (result: any) => result;
-  const url = "ws://localhost:8080";
+describe('@graphql-box/websocket-manager >>', () => {
+  const subscriptionResolver: SubscriberResolver = result => Promise.resolve(result as PartialRequestResult);
+  const url = 'ws://localhost:8080';
   let server: Server;
-  let serverSocket: WebSocket;
+  let serverSocket: Client;
   let websocketManager: WebsocketManager;
 
   beforeEach(() => {
     server = new Server(url);
 
-    server.on("connection", socket => {
+    server.on('connection', socket => {
       serverSocket = socket;
     });
   });
@@ -31,8 +33,8 @@ describe("@graphql-box/websocket-manager >>", () => {
     server.stop();
   });
 
-  describe("subscribe >> return value >>", () => {
-    let response: AsyncIterator<MaybeRequestResult | undefined>;
+  describe('subscribe >> return value >>', () => {
+    let response: AsyncIterator<PartialRequestResult | undefined>;
 
     beforeEach(async () => {
       const websocket = new WebSocket(url);
@@ -45,18 +47,18 @@ describe("@graphql-box/websocket-manager >>", () => {
       response = await websocketManager.subscribe(
         getRequestData(parsedRequests.nestedInterfaceSubscription),
         {},
-        getRequestContext({ operation: SUBSCRIPTION }),
-        subscriptionResolver,
+        getRequestContext({ operation: OperationTypeNode.SUBSCRIPTION }),
+        subscriptionResolver
       );
     });
 
-    it("async iterator", () => {
+    it('async iterator', () => {
       expect(isAsyncIterable(response)).toBeTruthy();
     });
   });
 
-  describe("async iterator >> message received >>", () => {
-    let response: MaybeRequestResult;
+  describe('async iterator >> message received >>', () => {
+    let response: PartialRequestResult;
 
     beforeEach(async () => {
       const websocket = new WebSocket(url);
@@ -71,13 +73,13 @@ describe("@graphql-box/websocket-manager >>", () => {
       const asyncIterator = await websocketManager.subscribe(
         requestData,
         {},
-        getRequestContext({ operation: SUBSCRIPTION }),
-        subscriptionResolver,
+        getRequestContext({ operation: OperationTypeNode.SUBSCRIPTION }),
+        subscriptionResolver
       );
 
       const promise = new Promise<void>(resolve => {
         if (isAsyncIterable(asyncIterator)) {
-          forAwaitEach(asyncIterator, (value: MaybeRequestResult) => {
+          void forAwaitEach(asyncIterator, (value: PartialRequestResult) => {
             response = value;
             resolve();
           });
@@ -88,14 +90,14 @@ describe("@graphql-box/websocket-manager >>", () => {
         JSON.stringify({
           result: responses.nestedInterfaceSubscription,
           subscriptionID: requestData.hash,
-        }),
+        })
       );
 
       await promise;
     });
 
-    it("correct data", () => {
-      expect(response).toEqual(responses.nestedInterfaceSubscription);
+    it('correct data', () => {
+      expect(response).toEqual(expect.objectContaining({ ...responses.nestedInterfaceSubscription }));
     });
   });
 });

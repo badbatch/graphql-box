@@ -1,17 +1,17 @@
-import getPageNumbersToRequest from "./getPageNumbersToRequest";
+import { getPageNumbersToRequest } from './getPageNumbersToRequest.ts';
 
-describe("getPageNumbersToRequest", () => {
-  test("when direction is forward", () => {
+describe('getPageNumbersToRequest', () => {
+  describe('when direction is forward', () => {
     const args = {
-      after: "abcdefg",
+      after: 'abcdefg',
     };
 
     const ctx = {
       endIndex: { absolute: 22, relative: 5 },
       entry: {
-        group: "group",
+        group: 'group',
         index: 2,
-        node: { id: "123" },
+        node: { id: '123' },
         page: 2,
       },
       metadata: {
@@ -22,10 +22,12 @@ describe("getPageNumbersToRequest", () => {
       startIndex: { absolute: 3, relative: 3 },
     };
 
-    expect(getPageNumbersToRequest(args, ctx)).toEqual([2, 3, 4]);
+    it('should return the correct value', () => {
+      expect(getPageNumbersToRequest(args, ctx)).toEqual([2, 3, 4]);
+    });
   });
 
-  test("when direction is backward", () => {
+  describe('when direction is backward', () => {
     const args = {
       last: 5,
     };
@@ -33,9 +35,9 @@ describe("getPageNumbersToRequest", () => {
     const ctx = {
       endIndex: { absolute: 4, relative: 4 },
       entry: {
-        group: "group",
+        group: 'group',
         index: 3,
-        node: { id: "123" },
+        node: { id: '123' },
         page: 4,
       },
       metadata: {
@@ -47,6 +49,8 @@ describe("getPageNumbersToRequest", () => {
       startIndex: { absolute: -5, relative: 6 },
     };
 
-    expect(getPageNumbersToRequest(args, ctx)).toEqual([3, 4]);
+    it('should return the correct value', () => {
+      expect(getPageNumbersToRequest(args, ctx)).toEqual([3, 4]);
+    });
   });
 });

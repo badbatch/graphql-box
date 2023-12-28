@@ -1,9 +1,5 @@
 {
-  "extends": "../tsconfig.settings.json",
-  "compilerOptions": {
-    "outDir": "lib/types",
-    "rootDir": "src"
-  },
+  "extends": "@repodog/ts-config/build.json",
   "include": [
     "src/**/*"
   ],
@@ -12,10 +8,10 @@
       "path": "../cache-manager"
     },
     {
-      "path": "../debug-manager"
+      "path": "../core"
     },
     {
-      "path": "../fetch-manager"
+      "path": "../helpers"
     },
     {
       "path": "../request-parser"
@@ -23,14 +19,5 @@
     {
       "path": "../test-utils"
     },
-    {
-      "path": "../websocket-manager"
-    },
-    {
-      "path": "../core"
-    },
-    {
-      "path": "../helpers"
-    }
   ]
 }

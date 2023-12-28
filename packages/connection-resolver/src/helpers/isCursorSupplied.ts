@@ -1,3 +1,4 @@
-import { ConnectionInputOptions, PlainObject } from "../defs";
+import type { PlainObject } from '@graphql-box/core';
+import { type ConnectionInputOptions } from '../types.ts';
 
-export default ({ after, before }: PlainObject & ConnectionInputOptions) => !!(after || before);
+export const isCursorSupplied = ({ after, before }: PlainObject & ConnectionInputOptions) => !!(after ?? before);

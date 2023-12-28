@@ -1,3 +1,4 @@
-export * from "./defs";
-export { default } from "./main";
-export { default as registerWorker } from "./register-worker";
+export * from './constants.ts';
+export * from './main.ts';
+export * from './registerWorker.ts';
+export * from './types.ts';

@@ -1,13 +1,11 @@
-import * as parsedRequests from "./parsed-requests";
-import * as requestFieldTypeMaps from "./request-field-type-maps";
-import * as requestsAndOptions from "./requests-and-options";
-import * as responses from "./responses";
-
-export { parsedRequests, requestFieldTypeMaps, requestsAndOptions, responses };
-export { default as getRequestContext } from "./get-request-context";
-export { default as getRequestData } from "./get-request-data";
-export { default as githubIntrospection } from "./introspection/github.json";
-export { default as theMovieDbIntrospection } from "./introspection/theMovieDb.json";
-export { default as schemaResolvers } from "./schema/resolvers";
-export { default as schemaTypeDefs } from "./schema/type-defs";
-export * from "./defs";
+export * from './getRequestContext.ts';
+export * from './getRequestData.ts';
+export { default as githubIntrospection } from './introspection/github.json';
+export { default as theMovieDbIntrospection } from './introspection/theMovieDb.json';
+export * as parsedRequests from './parsedRequests/index.ts';
+export * as requestsAndOptions from './requestsAndOptions/index.ts';
+export * as requestFieldTypeMaps from './requestFieldTypeMaps/index.ts';
+export * as responses from './responses/index.ts';
+export * from './schema/resolvers.ts';
+export * from './schema/typeDefs.ts';
+export * from './types.ts';

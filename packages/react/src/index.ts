@@ -1,9 +1,6 @@
-import useRequest from "./hooks/useRequest";
-
-export const useQuery = useRequest;
-export const useMutation = useRequest;
-export * from "./components/ConnectionListings/types";
-export { default as ConnectionListings } from "./components/ConnectionListings";
-export * from "./contexts/GraphQLBox";
-export { default as useGraphQLBoxClient } from "./hooks/useGraphQLBoxClient";
-export { default as useSubscription } from "./hooks/useSubscription";
+export * from './components/ConnectionListings/index.tsx';
+export * from './components/ConnectionListings/types.ts';
+export * from './contexts/GraphqlBox/index.ts';
+export { useGraphqlBoxClient } from './hooks/useGraphqlBoxClient.ts';
+export { useRequest as useQuery, useRequest as useMutation } from './hooks/useRequest.ts';
+export { useSubscription } from './hooks/useSubscription.ts';

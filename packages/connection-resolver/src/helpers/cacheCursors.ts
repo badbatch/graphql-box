@@ -1,5 +1,5 @@
-import Cachemap from "@cachemap/core";
-import { Edge } from "../defs";
+import { type Core } from '@cachemap/core';
+import { type Edge } from '../types.ts';
 
 export type Params = {
   edges: Edge[];
@@ -10,13 +10,16 @@ export type Params = {
   totalResults: number;
 };
 
-export default async (cursorCache: Cachemap, { edges, group, headers, page, totalPages, totalResults }: Params) => {
-  const cacheControl = headers.get("cache-control");
-  const opts = cacheControl ? { cacheHeaders: { cacheControl } } : undefined;
+export const cacheCursors = async (
+  cursorCache: Core,
+  { edges, group, headers, page, totalPages, totalResults }: Params
+) => {
+  const cacheControl = headers.get('cache-control');
+  const options = cacheControl ? { cacheHeaders: { cacheControl } } : undefined;
 
   await Promise.all(
-    edges.map(async ({ cursor, node }, index) => cursorCache.set(cursor, { node, index, group, page }, opts)),
+    edges.map(async ({ cursor, node }, index) => cursorCache.set(cursor, { group, index, node, page }, options))
   );
 
-  await cursorCache.set(`${group}-metadata`, { totalPages, totalResults }, opts);
+  await cursorCache.set(`${group}-metadata`, { totalPages, totalResults }, options);
 };

@@ -1,40 +1,48 @@
-import Cachemap from "@cachemap/core";
-import { CachedEdges, ConnectionInputOptions, CursorGroupMetadata } from "../defs";
-import getCursor from "./getCursor";
-import getInRangeCachedEdges from "./getInRangeCachedEdges";
-import getPageNumbersToRequest from "./getPageNumbersToRequest";
-import getPagesMissingFromCache from "./getPagesMissingFromCache";
-import { getEndIndex, getStartIndex } from "./getStartAndEndIndexes";
-import { hasNextPage, hasPreviousPage } from "./hasPreviousNextPage";
-import makeEntry from "./makeEntry";
-import retrieveCachedEdgesByPage from "./retrieveCachedEdgesByPage";
+import { type Core } from '@cachemap/core';
+import { type CachedEdges, type ConnectionInputOptions, type CursorGroupMetadata } from '../types.ts';
+import { getInRangeCachedEdges } from './getInRangeCachedEdges.ts';
+import { getPageNumbersToRequest } from './getPageNumbersToRequest.ts';
+import { getPagesMissingFromCache } from './getPagesMissingFromCache.ts';
+import { getEndIndex, getStartIndex } from './getStartAndEndIndexes.ts';
+import { hasNextPage, hasPreviousPage } from './hasPreviousNextPage.ts';
+import { retrieveCachedEdgesByPage } from './retrieveCachedEdgesByPage.ts';
+import { retrieveEntry } from './retrieveEntry.ts';
 
 export type Context = {
-  cursorCache: Cachemap;
+  cursorCache: Core;
   groupCursor: string;
   resultsPerPage: number;
 };
 
-export default async (args: ConnectionInputOptions, { cursorCache, groupCursor, resultsPerPage }: Context) => {
-  const metadata = (await cursorCache.get(`${groupCursor}-metadata`)) as CursorGroupMetadata;
-  const cursor = getCursor(args);
-  const entry = cursor ? await cursorCache.get(cursor) : makeEntry(args, { metadata, resultsPerPage });
+export const retrieveCachedConnection = async (
+  args: ConnectionInputOptions,
+  { cursorCache, groupCursor, resultsPerPage }: Context
+) => {
+  /**
+   * At this point the cache will always have metadata because `retrieveCachedConnection`
+   * is called from `resolveConnection` and is only called if there is a cursor, either
+   * after a direct check or after calling `validateCursor` or `requestAndCachePages`,
+   * which check and set the metadata respectively.
+   */
+  const metadata = (await cursorCache.get<CursorGroupMetadata>(`${groupCursor}-metadata`))!;
+  const entry = await retrieveEntry(args, metadata, { cursorCache, resultsPerPage });
   const startIndex = getStartIndex(args, { entry, resultsPerPage });
   const endIndex = getEndIndex(args, { entry, metadata, resultsPerPage });
   const promises: Promise<CachedEdges>[] = [];
   const pageNumbersToRequest = getPageNumbersToRequest(args, { endIndex, entry, metadata, resultsPerPage, startIndex });
 
-  pageNumbersToRequest.forEach(pageNumber => {
+  for (const pageNumber of pageNumbersToRequest) {
     promises.push(retrieveCachedEdgesByPage(cursorCache, { groupCursor, pageNumber }));
-  });
+  }
 
   const cachedEdgesByPage = await Promise.all(promises);
   const missingPages = getPagesMissingFromCache(cachedEdgesByPage);
 
   return {
-    cachedEdges: !missingPages.length
-      ? getInRangeCachedEdges(cachedEdgesByPage, { endIndex, resultsPerPage, startIndex })
-      : cachedEdgesByPage,
+    cachedEdges:
+      missingPages.length === 0
+        ? getInRangeCachedEdges(cachedEdgesByPage, { endIndex, resultsPerPage, startIndex })
+        : cachedEdgesByPage,
     hasNextPage: hasNextPage({
       cachedEdgesByPage,
       endIndex,

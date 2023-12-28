@@ -8,5 +8,5 @@ The GraphQL Box test utils module.
 ## Installation
 
 ```bash
-yarn add @graphql-box/test-utils
+npm add @graphql-box/test-utils
 ```

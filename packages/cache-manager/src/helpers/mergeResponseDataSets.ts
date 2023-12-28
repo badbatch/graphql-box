@@ -1,16 +1,16 @@
-import { RawResponseDataWithMaybeCacheMetadata } from "@graphql-box/core";
-import { merge } from "lodash";
+import { type RawResponseDataWithMaybeCacheMetadata } from '@graphql-box/core';
+import { merge } from 'lodash-es';
 
-export default (responseDataSets: RawResponseDataWithMaybeCacheMetadata[]) => {
-  return responseDataSets.reduce(
-    (acc: RawResponseDataWithMaybeCacheMetadata, dataSet, index) => {
+export const mergeResponseDataSets = (responseDataSets: RawResponseDataWithMaybeCacheMetadata[]) => {
+  return responseDataSets.reduce<RawResponseDataWithMaybeCacheMetadata>(
+    (acc, dataSet, index) => {
       const { _cacheMetadata, data, hasNext, headers, paths } = dataSet;
 
       if (_cacheMetadata) {
         acc._cacheMetadata = acc._cacheMetadata ? { ...acc._cacheMetadata, ..._cacheMetadata } : _cacheMetadata;
       }
 
-      acc.data = acc.data ? merge(acc.data, data) : data;
+      acc.data = merge(acc.data, data);
 
       if (index === 0) {
         acc.headers = headers;
@@ -25,11 +25,11 @@ export default (responseDataSets: RawResponseDataWithMaybeCacheMetadata[]) => {
           acc.paths = [];
         }
 
-        acc.paths.push(paths[0]);
+        acc.paths.push(...paths);
       }
 
       return acc;
     },
-    { data: {} },
+    { data: {} }
   );
 };

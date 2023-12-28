@@ -1,58 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`connectionResolver when a cursor is supplied when there are NO missing pages in the cache 1`] = `
-Object {
-  "edges": Array [
-    Object {
+exports[`connectionResolver when a cursor is supplied when there are NO missing pages in the cache should return the correct result 1`] = `
+{
+  "edges": [
+    {
       "cursor": "MTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "MTo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "Mjo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Mjo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "Mzo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Mzo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "NDo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "NDo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "NTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "NTo6MQ==",
       },
     },
   ],
-  "errors": Array [],
-  "nodes": Array [
-    Object {
+  "errors": [],
+  "nodes": [
+    {
       "id": "MTo6MQ==",
     },
-    Object {
+    {
       "id": "Mjo6MQ==",
     },
-    Object {
+    {
       "id": "Mzo6MQ==",
     },
-    Object {
+    {
       "id": "NDo6MQ==",
     },
-    Object {
+    {
       "id": "NTo6MQ==",
     },
   ],
-  "pageInfo": Object {
+  "pageInfo": {
     "endCursor": "NTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
     "hasNextPage": true,
     "hasPreviousPage": true,
@@ -62,329 +62,329 @@ Object {
 }
 `;
 
-exports[`connectionResolver when a cursor is supplied when there are missing pages in the cache 1`] = `
-Object {
-  "edges": Array [
-    Object {
+exports[`connectionResolver when a cursor is supplied when there are missing pages in the cache should return the correct result 1`] = `
+{
+  "edges": [
+    {
       "cursor": "MTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "MTo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "Mjo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Mjo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "Mzo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Mzo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "NDo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "NDo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "NTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "NTo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "Njo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Njo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "Nzo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Nzo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "ODo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "ODo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "OTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "OTo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "TURvNk1nPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "MDo6Mg==",
       },
     },
-    Object {
+    {
       "cursor": "TVRvNk1nPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "MTo6Mg==",
       },
     },
-    Object {
+    {
       "cursor": "TWpvNk1nPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "Mjo6Mg==",
       },
     },
-    Object {
+    {
       "cursor": "TXpvNk1nPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "Mzo6Mg==",
       },
     },
-    Object {
+    {
       "cursor": "TkRvNk1nPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "NDo6Mg==",
       },
     },
-    Object {
+    {
       "cursor": "TlRvNk1nPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "NTo6Mg==",
       },
     },
-    Object {
+    {
       "cursor": "TmpvNk1nPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "Njo6Mg==",
       },
     },
-    Object {
+    {
       "cursor": "TnpvNk1nPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "Nzo6Mg==",
       },
     },
-    Object {
+    {
       "cursor": "T0RvNk1nPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "ODo6Mg==",
       },
     },
-    Object {
+    {
       "cursor": "T1RvNk1nPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "OTo6Mg==",
       },
     },
-    Object {
+    {
       "cursor": "MDo6Mw==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "MDo6Mw==",
       },
     },
-    Object {
+    {
       "cursor": "MTo6Mw==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "MTo6Mw==",
       },
     },
-    Object {
+    {
       "cursor": "Mjo6Mw==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Mjo6Mw==",
       },
     },
-    Object {
+    {
       "cursor": "Mzo6Mw==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Mzo6Mw==",
       },
     },
-    Object {
+    {
       "cursor": "NDo6Mw==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "NDo6Mw==",
       },
     },
-    Object {
+    {
       "cursor": "NTo6Mw==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "NTo6Mw==",
       },
     },
-    Object {
+    {
       "cursor": "Njo6Mw==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Njo6Mw==",
       },
     },
-    Object {
+    {
       "cursor": "Nzo6Mw==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Nzo6Mw==",
       },
     },
-    Object {
+    {
       "cursor": "ODo6Mw==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "ODo6Mw==",
       },
     },
-    Object {
+    {
       "cursor": "OTo6Mw==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "OTo6Mw==",
       },
     },
-    Object {
+    {
       "cursor": "MDo6NA==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "MDo6NA==",
       },
     },
-    Object {
+    {
       "cursor": "MTo6NA==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "MTo6NA==",
       },
     },
-    Object {
+    {
       "cursor": "Mjo6NA==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Mjo6NA==",
       },
     },
-    Object {
+    {
       "cursor": "Mzo6NA==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Mzo6NA==",
       },
     },
-    Object {
+    {
       "cursor": "NDo6NA==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "NDo6NA==",
       },
     },
-    Object {
+    {
       "cursor": "NTo6NA==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "NTo6NA==",
       },
     },
   ],
-  "errors": Array [],
-  "nodes": Array [
-    Object {
+  "errors": [],
+  "nodes": [
+    {
       "id": "MTo6MQ==",
     },
-    Object {
+    {
       "id": "Mjo6MQ==",
     },
-    Object {
+    {
       "id": "Mzo6MQ==",
     },
-    Object {
+    {
       "id": "NDo6MQ==",
     },
-    Object {
+    {
       "id": "NTo6MQ==",
     },
-    Object {
+    {
       "id": "Njo6MQ==",
     },
-    Object {
+    {
       "id": "Nzo6MQ==",
     },
-    Object {
+    {
       "id": "ODo6MQ==",
     },
-    Object {
+    {
       "id": "OTo6MQ==",
     },
-    Object {
+    {
       "id": "MDo6Mg==",
     },
-    Object {
+    {
       "id": "MTo6Mg==",
     },
-    Object {
+    {
       "id": "Mjo6Mg==",
     },
-    Object {
+    {
       "id": "Mzo6Mg==",
     },
-    Object {
+    {
       "id": "NDo6Mg==",
     },
-    Object {
+    {
       "id": "NTo6Mg==",
     },
-    Object {
+    {
       "id": "Njo6Mg==",
     },
-    Object {
+    {
       "id": "Nzo6Mg==",
     },
-    Object {
+    {
       "id": "ODo6Mg==",
     },
-    Object {
+    {
       "id": "OTo6Mg==",
     },
-    Object {
+    {
       "id": "MDo6Mw==",
     },
-    Object {
+    {
       "id": "MTo6Mw==",
     },
-    Object {
+    {
       "id": "Mjo6Mw==",
     },
-    Object {
+    {
       "id": "Mzo6Mw==",
     },
-    Object {
+    {
       "id": "NDo6Mw==",
     },
-    Object {
+    {
       "id": "NTo6Mw==",
     },
-    Object {
+    {
       "id": "Njo6Mw==",
     },
-    Object {
+    {
       "id": "Nzo6Mw==",
     },
-    Object {
+    {
       "id": "ODo6Mw==",
     },
-    Object {
+    {
       "id": "OTo6Mw==",
     },
-    Object {
+    {
       "id": "MDo6NA==",
     },
-    Object {
+    {
       "id": "MTo6NA==",
     },
-    Object {
+    {
       "id": "Mjo6NA==",
     },
-    Object {
+    {
       "id": "Mzo6NA==",
     },
-    Object {
+    {
       "id": "NDo6NA==",
     },
-    Object {
+    {
       "id": "NTo6NA==",
     },
   ],
-  "pageInfo": Object {
+  "pageInfo": {
     "endCursor": "NTo6NA==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
     "hasNextPage": true,
     "hasPreviousPage": true,
@@ -394,59 +394,59 @@ Object {
 }
 `;
 
-exports[`connectionResolver when the first [X] number are requested when there is NOT a fresh cache 1`] = `
-Object {
-  "edges": Array [
-    Object {
+exports[`connectionResolver when the first [X] number are requested when there is NOT a fresh cache should return the correct result 1`] = `
+{
+  "edges": [
+    {
       "cursor": "TURvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "MDo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "TVRvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "MTo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "TWpvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "Mjo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "TXpvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "Mzo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "TkRvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "NDo6MQ==",
       },
     },
   ],
-  "errors": Array [],
-  "nodes": Array [
-    Object {
+  "errors": [],
+  "nodes": [
+    {
       "id": "MDo6MQ==",
     },
-    Object {
+    {
       "id": "MTo6MQ==",
     },
-    Object {
+    {
       "id": "Mjo6MQ==",
     },
-    Object {
+    {
       "id": "Mzo6MQ==",
     },
-    Object {
+    {
       "id": "NDo6MQ==",
     },
   ],
-  "pageInfo": Object {
+  "pageInfo": {
     "endCursor": "TkRvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
     "hasNextPage": true,
     "hasPreviousPage": false,
@@ -456,59 +456,59 @@ Object {
 }
 `;
 
-exports[`connectionResolver when the first [X] number are requested when there is a fresh cache and there are NO missing pages in the cache 1`] = `
-Object {
-  "edges": Array [
-    Object {
+exports[`connectionResolver when the first [X] number are requested when there is a fresh cache and there are NO missing pages in the cache should return the correct result 1`] = `
+{
+  "edges": [
+    {
       "cursor": "MDo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "MDo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "MTo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "MTo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "Mjo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Mjo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "Mzo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Mzo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "NDo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "NDo6MQ==",
       },
     },
   ],
-  "errors": Array [],
-  "nodes": Array [
-    Object {
+  "errors": [],
+  "nodes": [
+    {
       "id": "MDo6MQ==",
     },
-    Object {
+    {
       "id": "MTo6MQ==",
     },
-    Object {
+    {
       "id": "Mjo6MQ==",
     },
-    Object {
+    {
       "id": "Mzo6MQ==",
     },
-    Object {
+    {
       "id": "NDo6MQ==",
     },
   ],
-  "pageInfo": Object {
+  "pageInfo": {
     "endCursor": "NDo6MQ==::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
     "hasNextPage": true,
     "hasPreviousPage": false,
@@ -518,59 +518,59 @@ Object {
 }
 `;
 
-exports[`connectionResolver when the first [X] number are requested when there is a fresh cache and there are missing pages in the cache 1`] = `
-Object {
-  "edges": Array [
-    Object {
+exports[`connectionResolver when the first [X] number are requested when there is a fresh cache and there are missing pages in the cache should return the correct result 1`] = `
+{
+  "edges": [
+    {
       "cursor": "TURvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "MDo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "TVRvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "MTo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "TWpvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "Mjo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "TXpvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "Mzo6MQ==",
       },
     },
-    Object {
+    {
       "cursor": "TkRvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "NDo6MQ==",
       },
     },
   ],
-  "errors": Array [],
-  "nodes": Array [
-    Object {
+  "errors": [],
+  "nodes": [
+    {
       "id": "MDo6MQ==",
     },
-    Object {
+    {
       "id": "MTo6MQ==",
     },
-    Object {
+    {
       "id": "Mjo6MQ==",
     },
-    Object {
+    {
       "id": "Mzo6MQ==",
     },
-    Object {
+    {
       "id": "NDo6MQ==",
     },
   ],
-  "pageInfo": Object {
+  "pageInfo": {
     "endCursor": "TkRvNk1RPT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
     "hasNextPage": true,
     "hasPreviousPage": false,
@@ -580,59 +580,59 @@ Object {
 }
 `;
 
-exports[`connectionResolver when the last [X] number are requested when there is NOT a fresh cache 1`] = `
-Object {
-  "edges": Array [
-    Object {
+exports[`connectionResolver when the last [X] number are requested when there is NOT a fresh cache should return the correct result 1`] = `
+{
+  "edges": [
+    {
       "cursor": "TlRvNk1UQT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "NTo6MTA=",
       },
     },
-    Object {
+    {
       "cursor": "TmpvNk1UQT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "Njo6MTA=",
       },
     },
-    Object {
+    {
       "cursor": "TnpvNk1UQT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "Nzo6MTA=",
       },
     },
-    Object {
+    {
       "cursor": "T0RvNk1UQT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "ODo6MTA=",
       },
     },
-    Object {
+    {
       "cursor": "T1RvNk1UQT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "OTo6MTA=",
       },
     },
   ],
-  "errors": Array [],
-  "nodes": Array [
-    Object {
+  "errors": [],
+  "nodes": [
+    {
       "id": "NTo6MTA=",
     },
-    Object {
+    {
       "id": "Njo6MTA=",
     },
-    Object {
+    {
       "id": "Nzo6MTA=",
     },
-    Object {
+    {
       "id": "ODo6MTA=",
     },
-    Object {
+    {
       "id": "OTo6MTA=",
     },
   ],
-  "pageInfo": Object {
+  "pageInfo": {
     "endCursor": "T1RvNk1UQT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
     "hasNextPage": false,
     "hasPreviousPage": true,
@@ -642,59 +642,59 @@ Object {
 }
 `;
 
-exports[`connectionResolver when the last [X] number are requested when there is a fresh cache and there are NO missing pages in the cache 1`] = `
-Object {
-  "edges": Array [
-    Object {
+exports[`connectionResolver when the last [X] number are requested when there is a fresh cache and there are NO missing pages in the cache should return the correct result 1`] = `
+{
+  "edges": [
+    {
       "cursor": "NTo6MTA=::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "NTo6MTA=",
       },
     },
-    Object {
+    {
       "cursor": "Njo6MTA=::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Njo6MTA=",
       },
     },
-    Object {
+    {
       "cursor": "Nzo6MTA=::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "Nzo6MTA=",
       },
     },
-    Object {
+    {
       "cursor": "ODo6MTA=::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "ODo6MTA=",
       },
     },
-    Object {
+    {
       "cursor": "OTo6MTA=::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
-      "node": Object {
+      "node": {
         "id": "OTo6MTA=",
       },
     },
   ],
-  "errors": Array [],
-  "nodes": Array [
-    Object {
+  "errors": [],
+  "nodes": [
+    {
       "id": "NTo6MTA=",
     },
-    Object {
+    {
       "id": "Njo6MTA=",
     },
-    Object {
+    {
       "id": "Nzo6MTA=",
     },
-    Object {
+    {
       "id": "ODo6MTA=",
     },
-    Object {
+    {
       "id": "OTo6MTA=",
     },
   ],
-  "pageInfo": Object {
+  "pageInfo": {
     "endCursor": "OTo6MTA=::eyJxdWVyeSI6IkhlbGxvIHdvcmxkISJ9",
     "hasNextPage": false,
     "hasPreviousPage": true,
@@ -704,59 +704,59 @@ Object {
 }
 `;
 
-exports[`connectionResolver when the last [X] number are requested when there is a fresh cache and there are missing pages in the cache 1`] = `
-Object {
-  "edges": Array [
-    Object {
+exports[`connectionResolver when the last [X] number are requested when there is a fresh cache and there are missing pages in the cache should return the correct result 1`] = `
+{
+  "edges": [
+    {
       "cursor": "TlRvNk1UQT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "NTo6MTA=",
       },
     },
-    Object {
+    {
       "cursor": "TmpvNk1UQT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "Njo6MTA=",
       },
     },
-    Object {
+    {
       "cursor": "TnpvNk1UQT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "Nzo6MTA=",
       },
     },
-    Object {
+    {
       "cursor": "T0RvNk1UQT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "ODo6MTA=",
       },
     },
-    Object {
+    {
       "cursor": "T1RvNk1UQT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
-      "node": Object {
+      "node": {
         "id": "OTo6MTA=",
       },
     },
   ],
-  "errors": Array [],
-  "nodes": Array [
-    Object {
+  "errors": [],
+  "nodes": [
+    {
       "id": "NTo6MTA=",
     },
-    Object {
+    {
       "id": "Njo6MTA=",
     },
-    Object {
+    {
       "id": "Nzo6MTA=",
     },
-    Object {
+    {
       "id": "ODo6MTA=",
     },
-    Object {
+    {
       "id": "OTo6MTA=",
     },
   ],
-  "pageInfo": Object {
+  "pageInfo": {
     "endCursor": "T1RvNk1UQT06OnsicXVlcnkiOiJIZWxsbyB3b3JsZCEifQ==",
     "hasNextPage": false,
     "hasPreviousPage": true,

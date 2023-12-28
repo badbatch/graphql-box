@@ -8,13 +8,9 @@ The GraphQL Box websocket manager module.
 ## Installation
 
 ```bash
-yarn add @graphql-box/websocket-manager
+npm add @graphql-box/websocket-manager
 ```
 
 ## Usage
 
 Read the GraphQL Box [usage guide](../../README.md#usage).
-
-## Documentation
-
-Read the module API [documentation](docs/README.md).

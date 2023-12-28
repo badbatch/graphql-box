@@ -1,17 +1,28 @@
-import { range } from "lodash";
-import { ConnectionInputOptions, Context, Indexes } from "../defs";
-import { getEndPageNumber, getStartPageNumber } from "./getStartAndEndPageNumbers";
+import { range } from 'lodash-es';
+import {
+  type ConnectionInputOptions,
+  type CursorGroupMetadata,
+  type Indexes,
+  type PartialCursorCacheEntry,
+} from '../types.ts';
+import { getEndPageNumber, getStartPageNumber } from './getStartAndEndPageNumbers.ts';
 
 export type GetPageNumbersToRequestContext = {
   endIndex: Indexes;
   startIndex: Indexes;
 };
 
-export default (
+export type Context = {
+  entry: PartialCursorCacheEntry;
+  metadata: CursorGroupMetadata;
+  resultsPerPage: number;
+};
+
+export const getPageNumbersToRequest = (
   args: ConnectionInputOptions,
-  { endIndex, entry: { page }, metadata, resultsPerPage, startIndex }: GetPageNumbersToRequestContext & Context,
+  { endIndex, entry: { page }, metadata, resultsPerPage, startIndex }: GetPageNumbersToRequestContext & Context
 ) => {
-  const startPageNumber = getStartPageNumber(args, { page, startIndex, resultsPerPage });
+  const startPageNumber = getStartPageNumber(args, { page, resultsPerPage, startIndex });
   const endPageNumber = getEndPageNumber(args, { endIndex, metadata, page, resultsPerPage });
 
   if (startPageNumber === endPageNumber) {

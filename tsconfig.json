@@ -1,15 +1,10 @@
 {
-  "extends": "./tsconfig.settings.json",
-  "compilerOptions": {
-    "jsx": "react"
-  },
-  "exclude": [
-    "**/bin/**",
-    "**/lib/**",
-    "**/node_modules/**"
-  ],
+  "extends": "@repodog/ts-config/index.json",
   "include": [
-    "integration",
-    "packages"
+    "packages/**/*",
+    "tests/**/*",
+  ],
+  "exclude": [
+    "packages/gql.macro/**/*"
   ]
 }

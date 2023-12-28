@@ -1,44 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`@graphql-box/request-parser >> mutation >> input type variable >> correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "mutation.addStar" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "mutation.addStar" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "AddStarPayload",
     },
-    "mutation.addStar.starrable" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "mutation.addStar.starrable" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": true,
       "isUnion": false,
-      "possibleTypes": Array [
-        Object {
+      "possibleTypes": [
+        {
           "isEntity": true,
           "typeName": "Repository",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "Gist",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "Topic",
         },
@@ -46,45 +46,45 @@ Object {
       "typeIDValue": undefined,
       "typeName": "Starrable",
     },
-    "mutation.addStar.starrable.stargazers" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "mutation.addStar.starrable.stargazers" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "StargazerConnection",
     },
-    "mutation.addStar.starrable.stargazers.edges" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "mutation.addStar.starrable.stargazers.edges" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "StargazerEdge",
     },
-    "mutation.addStar.starrable.stargazers.edges.node" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "mutation.addStar.starrable.stargazers.edges.node" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "User",
     },
@@ -106,7 +106,7 @@ Object {
 exports[`@graphql-box/request-parser >> mutation >> input type variable >> correct request 1`] = `
 "mutation {
   addStar(
-    input: {clientMutationId: \\"1\\", starrableId: \\"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=\\"}
+    input: {clientMutationId: "1", starrableId: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg="}
   ) {
     clientMutationId
     starrable {
@@ -130,47 +130,47 @@ exports[`@graphql-box/request-parser >> mutation >> input type variable >> corre
 `;
 
 exports[`@graphql-box/request-parser >> query >> defer >> when experimentalDeferStreamSupport flag is true >> correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": true,
   "fieldTypeMap": Map {
-    "query.organization" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
-    "query.organization.description" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"if\\":true,\\"label\\":\\"organizationDefer\\"})",
+    "query.organization.description" => {
+      "directives": {
+        "inherited": [
+          "defer({"if":true,"label":"organizationDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "String",
     },
-    "query.organization.email" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"if\\":true,\\"label\\":\\"organizationDefer\\"})",
+    "query.organization.email" => {
+      "directives": {
+        "inherited": [
+          "defer({"if":true,"label":"organizationDefer"})",
         ],
-        "own": Array [
-          "include({\\"if\\":true})",
+        "own": [
+          "include({"if":true})",
         ],
       },
       "hasArguments": false,
@@ -178,173 +178,173 @@ Object {
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "String",
     },
-    "query.organization.isVerified" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"if\\":true,\\"label\\":\\"organizationDefer\\"})",
+    "query.organization.isVerified" => {
+      "directives": {
+        "inherited": [
+          "defer({"if":true,"label":"organizationDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Boolean",
     },
-    "query.organization.location" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"if\\":true,\\"label\\":\\"organizationDefer\\"})",
+    "query.organization.location" => {
+      "directives": {
+        "inherited": [
+          "defer({"if":true,"label":"organizationDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "String",
     },
-    "query.organization.repositories" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "RepositoryConnection",
     },
-    "query.organization.repositories.edges" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "RepositoryEdge",
     },
-    "query.organization.repositories.edges.node" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges.node" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Repository",
     },
-    "query.organization.repositories.edges.node.description" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "include({\\"if\\":true})",
-          "skip({\\"if\\":false})",
-          "defer({\\"if\\":true,\\"label\\":\\"repositoryDefer\\"})",
+    "query.organization.repositories.edges.node.description" => {
+      "directives": {
+        "inherited": [
+          "include({"if":true})",
+          "skip({"if":false})",
+          "defer({"if":true,"label":"repositoryDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "String",
     },
-    "query.organization.repositories.edges.node.homepageUrl" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "include({\\"if\\":true})",
-          "skip({\\"if\\":false})",
-          "defer({\\"if\\":true,\\"label\\":\\"repositoryDefer\\"})",
+    "query.organization.repositories.edges.node.homepageUrl" => {
+      "directives": {
+        "inherited": [
+          "include({"if":true})",
+          "skip({"if":false})",
+          "defer({"if":true,"label":"repositoryDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "URI",
     },
-    "query.organization.repositories.edges.node.id" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "include({\\"if\\":true})",
+    "query.organization.repositories.edges.node.id" => {
+      "directives": {
+        "inherited": [
+          "include({"if":true})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "ID",
     },
-    "query.organization.repositories.edges.node.licenseInfo" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "include({\\"if\\":true})",
+    "query.organization.repositories.edges.node.licenseInfo" => {
+      "directives": {
+        "inherited": [
+          "include({"if":true})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "License",
     },
-    "query.organization.repositories.edges.node.licenseInfo.permissions" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges.node.licenseInfo.permissions" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "LicenseRule",
     },
-    "query.organization.repositories.edges.node.licenseInfo.permissions.label" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"if\\":true,\\"label\\":\\"permissionsDefer\\"})",
+    "query.organization.repositories.edges.node.licenseInfo.permissions.label" => {
+      "directives": {
+        "inherited": [
+          "defer({"if":true,"label":"permissionsDefer"})",
         ],
-        "own": Array [
-          "skip({\\"if\\":false})",
+        "own": [
+          "skip({"if":false})",
         ],
       },
       "hasArguments": false,
@@ -352,25 +352,25 @@ Object {
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "String",
     },
-    "query.organization.repositories.edges.node.name" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "include({\\"if\\":true})",
-          "skip({\\"if\\":false})",
-          "defer({\\"if\\":true,\\"label\\":\\"repositoryDefer\\"})",
+    "query.organization.repositories.edges.node.name" => {
+      "directives": {
+        "inherited": [
+          "include({"if":true})",
+          "skip({"if":false})",
+          "defer({"if":true,"label":"repositoryDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "String",
     },
@@ -391,8 +391,8 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> defer >> when experimentalDeferStreamSupport flag is true >> correct request 1`] = `
 "{
-  organization(login: \\"facebook\\") {
-    ...OrganizationFieldsA @defer(if: true, label: \\"organizationDefer\\")
+  organization(login: "facebook") {
+    ...OrganizationFieldsA @defer(if: true, label: "organizationDefer")
     login
     name
     repositories(first: 10) {
@@ -401,11 +401,11 @@ exports[`@graphql-box/request-parser >> query >> defer >> when experimentalDefer
           ... on Repository @include(if: true) {
             licenseInfo {
               permissions {
-                ...PermissionsFields @defer(if: true, label: \\"permissionsDefer\\")
+                ...PermissionsFields @defer(if: true, label: "permissionsDefer")
               }
               id
             }
-            ...RepositoryFields @skip(if: false) @defer(if: true, label: \\"repositoryDefer\\")
+            ...RepositoryFields @skip(if: false) @defer(if: true, label: "repositoryDefer")
             id
           }
         }
@@ -435,29 +435,29 @@ fragment PermissionsFields on LicenseRule {
 `;
 
 exports[`@graphql-box/request-parser >> query >> directive correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.organization" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
-    "query.organization.email" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [
-          "include({\\"if\\":true})",
+    "query.organization.email" => {
+      "directives": {
+        "inherited": [],
+        "own": [
+          "include({"if":true})",
         ],
       },
       "hasArguments": false,
@@ -465,15 +465,15 @@ Object {
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "String",
     },
-    "query.organization.repositories" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [
-          "include({\\"if\\":true})",
+    "query.organization.repositories" => {
+      "directives": {
+        "inherited": [],
+        "own": [
+          "include({"if":true})",
         ],
       },
       "hasArguments": true,
@@ -481,54 +481,54 @@ Object {
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "RepositoryConnection",
     },
-    "query.organization.repositories.edges" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "RepositoryEdge",
     },
-    "query.organization.repositories.edges.node" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges.node" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Repository",
     },
-    "query.organization.repositories.edges.node.owner" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges.node.owner" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": true,
       "isUnion": false,
-      "possibleTypes": Array [
-        Object {
+      "possibleTypes": [
+        {
           "isEntity": true,
           "typeName": "User",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "Organization",
         },
@@ -553,7 +553,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> directive correct request 1`] = `
 "{
-  organization(login: \\"facebook\\") {
+  organization(login: "facebook") {
     description
     email @include(if: true)
     login
@@ -584,82 +584,82 @@ exports[`@graphql-box/request-parser >> query >> directive correct request 1`] =
 `;
 
 exports[`@graphql-box/request-parser >> query >> enum variable >> correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.organization" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
-    "query.organization.repositories" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "RepositoryConnection",
     },
-    "query.organization.repositories.edges" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "RepositoryEdge",
     },
-    "query.organization.repositories.edges.node" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges.node" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Repository",
     },
-    "query.organization.repositories.edges.node.owner" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges.node.owner" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": true,
       "isUnion": false,
-      "possibleTypes": Array [
-        Object {
+      "possibleTypes": [
+        {
           "isEntity": true,
           "typeName": "User",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "Organization",
         },
@@ -684,7 +684,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> enum variable >> correct request 1`] = `
 "{
-  organization(login: \\"facebook\\") {
+  organization(login: "facebook") {
     description
     email
     login
@@ -715,21 +715,21 @@ exports[`@graphql-box/request-parser >> query >> enum variable >> correct reques
 `;
 
 exports[`@graphql-box/request-parser >> query >> fragment option >> correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.organization" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
@@ -750,7 +750,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> fragment option >> correct request 1`] = `
 "{
-  organization(login: \\"facebook\\") {
+  organization(login: "facebook") {
     description
     email
     login
@@ -762,21 +762,21 @@ exports[`@graphql-box/request-parser >> query >> fragment option >> correct requ
 `;
 
 exports[`@graphql-box/request-parser >> query >> fragment spread >> correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.organization" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
@@ -797,7 +797,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> fragment spread >> correct request 1`] = `
 "{
-  organization(login: \\"facebook\\") {
+  organization(login: "facebook") {
     description
     email
     login
@@ -809,523 +809,523 @@ exports[`@graphql-box/request-parser >> query >> fragment spread >> correct requ
 `;
 
 exports[`@graphql-box/request-parser >> query >> fragment spreads >> within fragment spreads >> correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": true,
   "fieldTypeMap": Map {
-    "query.movie" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": "12345",
       "typeName": "Movie",
     },
-    "query.movie.backdrops" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieBackdropsDefer\\"})",
+    "query.movie.backdrops" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieBackdropsDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Image",
     },
-    "query.movie.belongsToCollection" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie.belongsToCollection" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Collection",
     },
-    "query.movie.belongsToCollection.name" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieCollectionDefer\\"})",
+    "query.movie.belongsToCollection.name" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieCollectionDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "String",
     },
-    "query.movie.belongsToCollection.overview" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieCollectionDefer\\"})",
+    "query.movie.belongsToCollection.overview" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieCollectionDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "String",
     },
-    "query.movie.belongsToCollection.parts" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieCollectionDefer\\"})",
+    "query.movie.belongsToCollection.parts" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieCollectionDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Movie",
     },
-    "query.movie.belongsToCollection.parts.posterPath" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieCollectionPartsDefer\\"})",
+    "query.movie.belongsToCollection.parts.posterPath" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieCollectionPartsDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "String",
     },
-    "query.movie.belongsToCollection.parts.releaseDates" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieReleaseDatesDefer\\"})",
+    "query.movie.belongsToCollection.parts.releaseDates" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieReleaseDatesDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "ReleaseDates",
     },
-    "query.movie.belongsToCollection.parts.releaseDates.releaseDates" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie.belongsToCollection.parts.releaseDates.releaseDates" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "ReleaseDate",
     },
-    "query.movie.belongsToCollection.parts.title" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieCollectionPartsDefer\\"})",
+    "query.movie.belongsToCollection.parts.title" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieCollectionPartsDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "String",
     },
-    "query.movie.belongsToCollection.parts.videos" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieVideosDefer\\"})",
+    "query.movie.belongsToCollection.parts.videos" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieVideosDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Video",
     },
-    "query.movie.belongsToCollection.parts.voteAverage" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieCollectionPartsDefer\\"})",
+    "query.movie.belongsToCollection.parts.voteAverage" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieCollectionPartsDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Float",
     },
-    "query.movie.belongsToCollection.parts.voteCount" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieCollectionPartsDefer\\"})",
+    "query.movie.belongsToCollection.parts.voteCount" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieCollectionPartsDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Int",
     },
-    "query.movie.cast" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieCastDefer\\"})",
+    "query.movie.cast" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieCastDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Cast",
     },
-    "query.movie.crew" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieCrewDefer\\"})",
+    "query.movie.crew" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieCrewDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Crew",
     },
-    "query.movie.recommendations" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieRecommendationsDefer\\"})",
+    "query.movie.recommendations" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieRecommendationsDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": "12345",
       "typeName": "MovieConnection",
     },
-    "query.movie.recommendations.edges" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie.recommendations.edges" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "MovieEdge",
     },
-    "query.movie.recommendations.edges.node" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie.recommendations.edges.node" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Movie",
     },
-    "query.movie.recommendations.edges.node.releaseDates" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieReleaseDatesDefer\\"})",
+    "query.movie.recommendations.edges.node.releaseDates" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieReleaseDatesDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "ReleaseDates",
     },
-    "query.movie.recommendations.edges.node.releaseDates.releaseDates" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie.recommendations.edges.node.releaseDates.releaseDates" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "ReleaseDate",
     },
-    "query.movie.recommendations.edges.node.videos" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieVideosDefer\\"})",
+    "query.movie.recommendations.edges.node.videos" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieVideosDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Video",
     },
-    "query.movie.recommendations.pageInfo" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie.recommendations.pageInfo" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "PageInfo",
     },
-    "query.movie.reviews" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieReviewsDefer\\"})",
+    "query.movie.reviews" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieReviewsDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": "12345",
       "typeName": "ReviewConnection",
     },
-    "query.movie.reviews.edges" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie.reviews.edges" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "ReviewEdge",
     },
-    "query.movie.reviews.edges.node" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie.reviews.edges.node" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Review",
     },
-    "query.movie.reviews.pageInfo" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie.reviews.pageInfo" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "PageInfo",
     },
-    "query.movie.similarMovies" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieSimilarDefer\\"})",
+    "query.movie.similarMovies" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieSimilarDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": "12345",
       "typeName": "MovieConnection",
     },
-    "query.movie.similarMovies.edges" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie.similarMovies.edges" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "MovieEdge",
     },
-    "query.movie.similarMovies.edges.node" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie.similarMovies.edges.node" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Movie",
     },
-    "query.movie.similarMovies.edges.node.releaseDates" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieReleaseDatesDefer\\"})",
+    "query.movie.similarMovies.edges.node.releaseDates" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieReleaseDatesDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "ReleaseDates",
     },
-    "query.movie.similarMovies.edges.node.releaseDates.releaseDates" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie.similarMovies.edges.node.releaseDates.releaseDates" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "ReleaseDate",
     },
-    "query.movie.similarMovies.edges.node.videos" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"MovieVideosDefer\\"})",
+    "query.movie.similarMovies.edges.node.videos" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"MovieVideosDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Video",
     },
-    "query.movie.similarMovies.pageInfo" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.movie.similarMovies.pageInfo" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "PageInfo",
     },
-    "query.movie.videos" => Object {
-      "directives": Object {
-        "inherited": Array [
-          "defer({\\"label\\":\\"VideosDefer\\"})",
+    "query.movie.videos" => {
+      "directives": {
+        "inherited": [
+          "defer({"label":"VideosDefer"})",
         ],
-        "own": Array [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": true,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Video",
     },
@@ -1346,10 +1346,10 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> fragment spreads >> within fragment spreads >> correct request 1`] = `
 "query GetMoviePreview {
-  movie(id: \\"12345\\") {
+  movie(id: "12345") {
     backdropPath
     belongsToCollection {
-      ...MovieCollection @defer(label: \\"MovieCollectionDefer\\")
+      ...MovieCollection @defer(label: "MovieCollectionDefer")
       id
     }
     homepage
@@ -1363,13 +1363,13 @@ exports[`@graphql-box/request-parser >> query >> fragment spreads >> within frag
     title
     voteAverage
     voteCount
-    ...MovieBackdrops @defer(label: \\"MovieBackdropsDefer\\")
-    ...MovieCast @defer(label: \\"MovieCastDefer\\")
-    ...MovieCrew @defer(label: \\"MovieCrewDefer\\")
-    ...MovieRecommendations @defer(label: \\"MovieRecommendationsDefer\\")
-    ...MovieReviews @defer(label: \\"MovieReviewsDefer\\")
-    ...MovieSimilar @defer(label: \\"MovieSimilarDefer\\")
-    ...MovieVideos @defer(label: \\"VideosDefer\\")
+    ...MovieBackdrops @defer(label: "MovieBackdropsDefer")
+    ...MovieCast @defer(label: "MovieCastDefer")
+    ...MovieCrew @defer(label: "MovieCrewDefer")
+    ...MovieRecommendations @defer(label: "MovieRecommendationsDefer")
+    ...MovieReviews @defer(label: "MovieReviewsDefer")
+    ...MovieSimilar @defer(label: "MovieSimilarDefer")
+    ...MovieVideos @defer(label: "VideosDefer")
     id
   }
 }
@@ -1387,7 +1387,7 @@ fragment MovieCollection on Collection {
   name
   overview
   parts {
-    ...MovieBrief @defer(label: \\"MovieCollectionPartsDefer\\")
+    ...MovieBrief @defer(label: "MovieCollectionPartsDefer")
     id
   }
 }
@@ -1401,8 +1401,8 @@ fragment MovieRecommendations on Movie {
         title
         voteAverage
         voteCount
-        ...MovieReleaseDates @defer(label: \\"MovieReleaseDatesDefer\\")
-        ...MovieVideos @defer(label: \\"MovieVideosDefer\\")
+        ...MovieReleaseDates @defer(label: "MovieReleaseDatesDefer")
+        ...MovieVideos @defer(label: "MovieVideosDefer")
         id
       }
     }
@@ -1424,8 +1424,8 @@ fragment MovieSimilar on Movie {
         title
         voteAverage
         voteCount
-        ...MovieReleaseDates @defer(label: \\"MovieReleaseDatesDefer\\")
-        ...MovieVideos @defer(label: \\"MovieVideosDefer\\")
+        ...MovieReleaseDates @defer(label: "MovieReleaseDatesDefer")
+        ...MovieVideos @defer(label: "MovieVideosDefer")
         id
       }
     }
@@ -1443,8 +1443,8 @@ fragment MovieBrief on Movie {
   title
   voteAverage
   voteCount
-  ...MovieReleaseDates @defer(label: \\"MovieReleaseDatesDefer\\")
-  ...MovieVideos @defer(label: \\"MovieVideosDefer\\")
+  ...MovieReleaseDates @defer(label: "MovieReleaseDatesDefer")
+  ...MovieVideos @defer(label: "MovieVideosDefer")
 }
 
 fragment MovieCast on Movie {
@@ -1506,21 +1506,21 @@ fragment MovieVideos on Movie {
 `;
 
 exports[`@graphql-box/request-parser >> query >> inline fragment >> correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.organization" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
@@ -1541,7 +1541,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> inline fragment >> correct request 1`] = `
 "{
-  organization(login: \\"facebook\\") {
+  organization(login: "facebook") {
     description
     email
     login
@@ -1553,70 +1553,70 @@ exports[`@graphql-box/request-parser >> query >> inline fragment >> correct requ
 `;
 
 exports[`@graphql-box/request-parser >> query >> inline fragments >> union type >> correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.search" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.search" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "SearchResultItemConnection",
     },
-    "query.search.edges" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.search.edges" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "SearchResultItemEdge",
     },
-    "query.search.edges.node" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.search.edges.node" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": true,
-      "possibleTypes": Array [
-        Object {
+      "possibleTypes": [
+        {
           "isEntity": true,
           "typeName": "Issue",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "PullRequest",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "Repository",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "User",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "Organization",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "MarketplaceListing",
         },
@@ -1641,7 +1641,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> inline fragments >> union type >> correct request 1`] = `
 "{
-  search(query: \\"react\\", first: 10, type: REPOSITORY) {
+  search(query: "react", first: 10, type: REPOSITORY) {
     edges {
       node {
         ... on Organization {
@@ -1682,82 +1682,82 @@ exports[`@graphql-box/request-parser >> query >> inline fragments >> union type 
 `;
 
 exports[`@graphql-box/request-parser >> query >> multiple variables >> correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.organization" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
-    "query.organization.repositories" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "RepositoryConnection",
     },
-    "query.organization.repositories.edges" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "RepositoryEdge",
     },
-    "query.organization.repositories.edges.node" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges.node" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Repository",
     },
-    "query.organization.repositories.edges.node.owner" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges.node.owner" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": true,
       "isUnion": false,
-      "possibleTypes": Array [
-        Object {
+      "possibleTypes": [
+        {
           "isEntity": true,
           "typeName": "User",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "Organization",
         },
@@ -1782,7 +1782,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> multiple variables >> correct request 1`] = `
 "{
-  organization(login: \\"facebook\\") {
+  organization(login: "facebook") {
     description
     email
     login
@@ -1813,21 +1813,21 @@ exports[`@graphql-box/request-parser >> query >> multiple variables >> correct r
 `;
 
 exports[`@graphql-box/request-parser >> query >> no variable >> correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.organization" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
@@ -1848,7 +1848,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> no variable >> correct request 1`] = `
 "{
-  organization(login: \\"facebook\\") {
+  organization(login: "facebook") {
     description
     email
     login
@@ -1860,21 +1860,21 @@ exports[`@graphql-box/request-parser >> query >> no variable >> correct request 
 `;
 
 exports[`@graphql-box/request-parser >> query >> operation name >> correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.organization" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
@@ -1895,7 +1895,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> operation name >> correct request 1`] = `
 "query GetOrganization {
-  organization(login: \\"facebook\\") {
+  organization(login: "facebook") {
     description
     email
     login
@@ -1907,70 +1907,70 @@ exports[`@graphql-box/request-parser >> query >> operation name >> correct reque
 `;
 
 exports[`@graphql-box/request-parser >> query >> union type inline fragments >> fragment spread >> correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.search" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.search" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "SearchResultItemConnection",
     },
-    "query.search.edges" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.search.edges" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "SearchResultItemEdge",
     },
-    "query.search.edges.node" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.search.edges.node" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": true,
-      "possibleTypes": Array [
-        Object {
+      "possibleTypes": [
+        {
           "isEntity": true,
           "typeName": "Issue",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "PullRequest",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "Repository",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "User",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "Organization",
         },
-        Object {
+        {
           "isEntity": true,
           "typeName": "MarketplaceListing",
         },
@@ -1995,7 +1995,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> union type inline fragments >> fragment spread >> correct request 1`] = `
 "{
-  search(query: \\"react\\", first: 10, type: REPOSITORY) {
+  search(query: "react", first: 10, type: REPOSITORY) {
     edges {
       node {
         ... on Organization {
@@ -2038,21 +2038,21 @@ exports[`@graphql-box/request-parser >> query >> union type inline fragments >> 
 `;
 
 exports[`@graphql-box/request-parser >> query >> variable correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.organization" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
@@ -2073,7 +2073,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> variable correct request 1`] = `
 "{
-  organization(login: \\"facebook\\") {
+  organization(login: "facebook") {
     description
     email
     login
@@ -2085,21 +2085,21 @@ exports[`@graphql-box/request-parser >> query >> variable correct request 1`] = 
 `;
 
 exports[`@graphql-box/request-parser >> query >> variable with default correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.organization" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
@@ -2120,7 +2120,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> variable with default correct request 1`] = `
 "{
-  organization(login: \\"facebook\\") {
+  organization(login: "facebook") {
     description
     email
     login
@@ -2132,21 +2132,21 @@ exports[`@graphql-box/request-parser >> query >> variable with default correct r
 `;
 
 exports[`@graphql-box/request-parser >> query >> with default correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.organization" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
@@ -2167,7 +2167,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> with default correct request 1`] = `
 "{
-  organization(login: \\"google\\") {
+  organization(login: "google") {
     description
     email
     login
@@ -2179,63 +2179,63 @@ exports[`@graphql-box/request-parser >> query >> with default correct request 1`
 `;
 
 exports[`@graphql-box/request-parser >> query >> with number default correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "query.organization" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Organization",
     },
-    "query.organization.repositories" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": true,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "RepositoryConnection",
     },
-    "query.organization.repositories.edges" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": false,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "RepositoryEdge",
     },
-    "query.organization.repositories.edges.node" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "query.organization.repositories.edges.node" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Repository",
     },
@@ -2256,7 +2256,7 @@ Object {
 
 exports[`@graphql-box/request-parser >> query >> with number default correct request 1`] = `
 "{
-  organization(login: \\"google\\") {
+  organization(login: "google") {
     description
     email
     login
@@ -2277,35 +2277,35 @@ exports[`@graphql-box/request-parser >> query >> with number default correct req
 `;
 
 exports[`@graphql-box/request-parser >> subscription >> correct context data 1`] = `
-Object {
+{
   "debugManager": null,
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
-    "subscription.emailAdded" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "subscription.emailAdded" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Inbox",
     },
-    "subscription.emailAdded.emails" => Object {
-      "directives": Object {
-        "inherited": Array [],
-        "own": Array [],
+    "subscription.emailAdded.emails" => {
+      "directives": {
+        "inherited": [],
+        "own": [],
       },
       "hasArguments": false,
       "hasDirectives": false,
       "isEntity": true,
       "isInterface": false,
       "isUnion": false,
-      "possibleTypes": Array [],
+      "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "Email",
     },

@@ -1,9 +1,8 @@
-import { DeserializedGraphqlError, MaybeRawFetchData } from "@graphql-box/core";
-import { merge } from "lodash";
-import { ErrorObject } from "serialize-error";
-import cleanPatchResponse from "./cleanPatchResponse";
+import { type PartialRawFetchData } from '@graphql-box/core';
+import { isString, merge } from 'lodash-es';
+import { cleanPatchResponse } from './cleanPatchResponse.ts';
 
-export default (responseDataSets: MaybeRawFetchData[]): MaybeRawFetchData => {
+export const mergeResponseDataSets = (responseDataSets: PartialRawFetchData[]): PartialRawFetchData => {
   return responseDataSets.reduce((acc, dataSet, index) => {
     const { _cacheMetadata, data, errors, hasNext, headers, paths } = cleanPatchResponse(dataSet);
 
@@ -20,7 +19,7 @@ export default (responseDataSets: MaybeRawFetchData[]): MaybeRawFetchData => {
         acc.errors = [];
       }
 
-      (acc.errors as (DeserializedGraphqlError | ErrorObject)[]).push(...errors);
+      acc.errors.push(...errors);
     }
 
     if (index === 0) {
@@ -36,7 +35,9 @@ export default (responseDataSets: MaybeRawFetchData[]): MaybeRawFetchData => {
         acc.paths = [];
       }
 
-      acc.paths.push(paths[0]);
+      if (isString(paths[0])) {
+        acc.paths.push(paths[0]);
+      }
     }
 
     return acc;

@@ -1,30 +1,37 @@
-import { GraphQLResolveInfo } from "graphql";
-import { Connection, ConnectionInputOptions, ConnectionResolverUserOptions, Node, PlainObject } from "../defs";
-import isCursorSupplied from "../helpers/isCursorSupplied";
-import requestAndCachePages from "../helpers/requestAndCachePages";
-import resolveConnection from "../helpers/resolveConnection";
-import validateCursor from "../helpers/validateCursor";
+import type { PlainObject } from '@graphql-box/core';
+import { type GraphQLResolveInfo } from 'graphql';
+import { isCursorSupplied } from '../helpers/isCursorSupplied.ts';
+import { requestAndCachePages } from '../helpers/requestAndCachePages.ts';
+import { resolveConnection } from '../helpers/resolveConnection.ts';
+import { validateCursor } from '../helpers/validateCursor.ts';
+import {
+  type Connection,
+  type ConnectionInputOptions,
+  type ConnectionResolverUserOptions,
+  type Node,
+} from '../types.ts';
 
-export const connectionResolver = <
-  Source extends PlainObject | undefined,
-  Args extends PlainObject,
-  Ctx extends PlainObject,
-  Resource extends PlainObject,
-  ResourceNode extends Node
->({
-  cursorCache,
-  createMakeCursors,
-  createResourceResolver,
-  getters,
-  resolver = result => result,
-  resultsPerPage,
-}: ConnectionResolverUserOptions<Source, Args, Ctx, Resource, ResourceNode>) => async (
-  source: Source,
-  args: Args & ConnectionInputOptions,
-  context: Ctx,
-  info: GraphQLResolveInfo,
-): Promise<Connection> => {
-  try {
+export const makeConnectionResolver =
+  <
+    Source extends PlainObject | undefined,
+    Args extends PlainObject,
+    Ctx extends PlainObject,
+    Resource extends PlainObject,
+    ResourceNode extends Node
+  >({
+    createMakeCursors,
+    createResourceResolver,
+    cursorCache,
+    getters,
+    resolver = result => result,
+    resultsPerPage,
+  }: ConnectionResolverUserOptions<Source, Args, Ctx, Resource, ResourceNode>) =>
+  async (
+    source: Source,
+    args: Args & ConnectionInputOptions,
+    context: Ctx,
+    info: GraphQLResolveInfo
+  ): Promise<Connection> => {
     const { makeGroupCursor, makeIDCursor } = createMakeCursors(source, args, context, info);
     const resourceResolver = createResourceResolver(source, args, context, info);
     const groupCursor = makeGroupCursor();
@@ -57,7 +64,7 @@ export const connectionResolver = <
           makeIDCursor,
           resourceResolver,
           resultsPerPage,
-        }),
+        })
       );
     }
 
@@ -70,7 +77,7 @@ export const connectionResolver = <
           makeIDCursor,
           resourceResolver,
           resultsPerPage,
-        }),
+        })
       );
     }
 
@@ -90,11 +97,6 @@ export const connectionResolver = <
         makeIDCursor,
         resourceResolver,
         resultsPerPage,
-      }),
+      })
     );
-  } catch (e) {
-    throw e;
-  }
-};
-
-export default connectionResolver;
+  };

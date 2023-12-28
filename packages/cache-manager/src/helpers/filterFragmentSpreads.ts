@@ -1,27 +1,32 @@
-import { deleteFragmentSpreads } from "@graphql-box/helpers";
-import { FieldNode, FragmentDefinitionNode, OperationDefinitionNode } from "graphql";
-import { isEmpty, keys } from "lodash";
-import { FragmentSpreadFieldCounter } from "../defs";
-import { FragmentSpreadCheckist } from "./createFragmentSpreadChecklist";
+import { deleteFragmentSpreads } from '@graphql-box/helpers';
+import { type FieldNode, type FragmentDefinitionNode, type OperationDefinitionNode } from 'graphql';
+import { isEmpty } from 'lodash-es';
+import { type FragmentSpreadFieldCounter } from '../types.ts';
+import { type FragmentSpreadCheckist } from './createFragmentSpreadChecklist.ts';
 
-export default (
+export const filterFragmentSpreads = (
   field: FieldNode | FragmentDefinitionNode | OperationDefinitionNode,
   fragmentSpreadFieldCounter: FragmentSpreadFieldCounter,
   fragmentSpreadChecklist: FragmentSpreadCheckist,
-  ancestorRequestFieldPath: string,
+  ancestorRequestFieldPath: string
 ) => {
   if (isEmpty(fragmentSpreadFieldCounter)) {
     return;
   }
 
-  keys(fragmentSpreadFieldCounter).forEach(key => {
-    fragmentSpreadChecklist[key].paths.push(ancestorRequestFieldPath);
+  for (const key of Object.keys(fragmentSpreadFieldCounter)) {
+    const checklist = fragmentSpreadChecklist[key];
 
-    const { hasData, total } = fragmentSpreadFieldCounter[key];
+    if (!checklist) {
+      continue;
+    }
+
+    checklist.paths.push(ancestorRequestFieldPath);
+    const { hasData, total } = fragmentSpreadFieldCounter[key]!;
 
     if (hasData === total) {
       deleteFragmentSpreads(field, key);
-      fragmentSpreadChecklist[key].deleted += 1;
+      checklist.deleted += 1;
     }
-  });
+  }
 };

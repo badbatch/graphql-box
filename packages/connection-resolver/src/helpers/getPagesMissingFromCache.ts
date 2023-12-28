@@ -1,11 +1,11 @@
-import { CachedEdges } from "../defs";
+import { type CachedEdges } from '../types.ts';
 
-export default (cachedEdgesByPage: CachedEdges[]) => {
-  return cachedEdgesByPage.reduce((missing, cachedEdgesPage) => {
-    if (!cachedEdgesPage.edges.length) {
+export const getPagesMissingFromCache = (cachedEdgesByPage: CachedEdges[]) => {
+  return cachedEdgesByPage.reduce<number[]>((missing, cachedEdgesPage) => {
+    if (cachedEdgesPage.edges.length === 0) {
       missing.push(cachedEdgesPage.pageNumber);
     }
 
     return missing;
-  }, [] as number[]);
+  }, []);
 };

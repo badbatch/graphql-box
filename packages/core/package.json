@@ -1,49 +1,68 @@
 {
   "name": "@graphql-box/core",
-  "version": "4.1.6",
   "description": "The GraphQL Box core module.",
-  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "version": "4.1.6",
+  "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
-  "bugs": {
-    "url": "https://github.com/badbatch/graphql-box/issues"
-  },
   "repository": {
+    "directory": "packages/core",
     "type": "git",
-    "url": "https://github.com/badbatch/graphql-box",
-    "directory": "packages/core"
+    "url": "https://github.com/badbatch/graphql-box"
+  },
+  "bugs": "https://github.com/badbatch/graphql-box/issues",
+  "type": "module",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/types/cjs/index.d.cts",
+  "exports": {
+    "types": {
+      "import": "./dist/types/esm/index.d.ts",
+      "require": "./dist/types/cjs/index.d.cts"
+    },
+    "import": "./dist/esm/index.mjs",
+    "require": "./dist/cjs/index.cjs"
   },
   "publishConfig": {
     "access": "public"
   },
-  "main": "lib/main/index.js",
-  "module": "lib/module/index.mjs",
-  "browser": "lib/browser/index.js",
-  "types": "lib/types/index.d.ts",
-  "keywords": [
-    "graphql-box",
-    "graphql",
-    "client",
-    "server",
-    "isomorphic"
-  ],
   "scripts": {
-    "compile": "concurrently npm:compile:*",
-    "compile-watch": "concurrently npm:compile-watch:*",
-    "compile-watch:main": "yarn run compile:main --watch",
-    "compile-watch:types": "yarn run compile:types --watch",
-    "compile:browser": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js",
-    "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
-    "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --out-file-extension \".mjs\" --source-maps --config-file ../../babel.config.js",
-    "compile:types": "tsc --build",
-    "watch": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js -w"
+    "build": "pnpm run clean:dist && pnpm run compile",
+    "clean:deps": "del-cli ./node_modules",
+    "clean:dist": "del-cli ./dist",
+    "compile": "pnpm run /^compile:.*/",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
+    "compile:esm": "rollup -c ../../rollup.config.cjs",
+    "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
-    "serialize-error": "8.1.0"
+    "cacheability": "^4.0.18",
+    "eventemitter3": "^5.0.1",
+    "serialize-error": "^11.0.2",
+    "type-fest": "^4.5.0"
   },
   "peerDependencies": {
-    "@babel/runtime": "< 8",
-    "core-js": "< 4",
-    "lodash": "< 5"
-  }
+    "@babel/runtime": "<8",
+    "core-js": "<4",
+    "graphql": "<17",
+    "lodash-es": "<5",
+    "ws": "<9"
+  },
+  "devDependencies": {
+    "@babel/runtime": "^7.20.13",
+    "@types/lodash-es": "^4.14.191",
+    "core-js": "^3.27.2",
+    "cts-types": "^0.0.5",
+    "del-cli": "^5.1.0",
+    "graphql": "^16.8.1",
+    "lodash-es": "^4.17.21",
+    "ws": "^8.14.2"
+  },
+  "keywords": [
+    "client",
+    "graphql",
+    "graphql-box",
+    "isomorphic",
+    "server"
+  ]
 }

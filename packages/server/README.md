@@ -8,13 +8,9 @@ The GraphQL Box server module.
 ## Installation
 
 ```bash
-yarn add @graphql-box/server
+npm add @graphql-box/server
 ```
 
 ## Usage
 
 Read the GraphQL Box [usage guide](../../README.md#usage).
-
-## Documentation
-
-Read the module API [documentation](docs/README.md).

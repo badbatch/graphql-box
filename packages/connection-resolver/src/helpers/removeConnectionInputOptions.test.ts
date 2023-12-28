@@ -1,17 +1,19 @@
-import removeConnectionInputOptions from "./removeConnectionInputOptions";
+import { removeConnectionInputOptions } from './removeConnectionInputOptions.ts';
 
-describe("removeConnectionInputOptions", () => {
-  test("when connection input options are passed in", () => {
+describe('removeConnectionInputOptions', () => {
+  describe('when connection input options are passed in', () => {
     const args = {
-      after: "abcdefg",
-      alpha: "bravo",
-      before: "higklmn",
+      after: 'abcdefg',
+      alpha: 'bravo',
+      before: 'higklmn',
       first: 10,
       last: 5,
     };
 
-    expect(removeConnectionInputOptions(args)).toEqual({
-      alpha: "bravo",
+    it('should return the correct value', () => {
+      expect(removeConnectionInputOptions(args)).toEqual({
+        alpha: 'bravo',
+      });
     });
   });
 });

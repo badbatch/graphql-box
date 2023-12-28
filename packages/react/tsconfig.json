@@ -1,13 +1,5 @@
 {
-  "extends": "../tsconfig.settings.json",
-  "compilerOptions": {
-    "jsx": "react",
-    "outDir": "lib/types",
-    "rootDir": "src"
-  },
-  "exclude": [
-    "**/*.test.ts"
-  ],
+  "extends": "@repodog/ts-config/build.json",
   "include": [
     "src/**/*"
   ],
@@ -16,10 +8,13 @@
       "path": "../client"
     },
     {
-      "path": "../test-utils"
+      "path": "../core"
     },
     {
-      "path": "../core"
+      "path": "../helpers"
+    },
+    {
+      "path": "../worker-client"
     }
   ]
 }

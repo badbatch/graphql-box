@@ -1,7 +1,7 @@
-import { GraphQLNamedType, GraphQLOutputType } from "graphql";
+import { type GraphQLNamedType, type GraphQLOutputType } from 'graphql';
 
-export default (type: GraphQLNamedType | GraphQLOutputType, typeIDKey: string) => {
-  if (!("getFields" in type)) {
+export const isTypeEntity = (type: GraphQLNamedType | GraphQLOutputType, typeIDKey: string) => {
+  if (!('getFields' in type)) {
     return false;
   }
 

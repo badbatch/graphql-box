@@ -1,4 +1,4 @@
-import { CachedEdges, Edge } from "../defs";
+import { type CachedEdges, type Edge } from '../types.ts';
 
-export default (cachedEdges: CachedEdges[]) =>
-  cachedEdges.reduce((edges, cachedEdge) => [...edges, ...cachedEdge.edges], [] as Edge[]);
+export const extractEdges = (cachedEdges: CachedEdges[]) =>
+  cachedEdges.reduce<Edge[]>((edges, cachedEdge) => [...edges, ...cachedEdge.edges], []);

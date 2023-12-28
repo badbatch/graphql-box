@@ -1,18 +1,7 @@
 {
-  "extends": "../tsconfig.settings.json",
-  "compilerOptions": {
-    "outDir": "lib/types",
-    "rootDir": "src"
-  },
+  "extends": "@repodog/ts-config/buildCjs.json",
   "include": [
-    "src"
+    "src/**/*"
   ],
-  "references": [
-    {
-      "path": "../core"
-    },
-    {
-      "path": "../helpers"
-    }
-  ]
+  "references": []
 }

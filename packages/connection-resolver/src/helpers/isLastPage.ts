@@ -3,4 +3,4 @@ export type Params = {
   totalPages: number;
 };
 
-export default ({ page, totalPages }: Params) => page === totalPages;
+export const isLastPage = ({ page, totalPages }: Params) => page === totalPages;

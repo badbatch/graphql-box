@@ -1,9 +1,5 @@
 {
-  "extends": "../tsconfig.settings.json",
-  "compilerOptions": {
-    "outDir": "lib/types",
-    "rootDir": "src"
-  },
+  "extends": "@repodog/ts-config/build.json",
   "include": [
     "src/**/*"
   ],
@@ -12,13 +8,13 @@
       "path": "../client"
     },
     {
-      "path": "../test-utils"
-    },
-    {
       "path": "../core"
     },
     {
       "path": "../helpers"
+    },
+    {
+      "path": "../test-utils"
     }
   ]
 }
