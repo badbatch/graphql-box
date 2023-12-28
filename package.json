@@ -134,6 +134,7 @@
     "express": "^4.17.1",
     "fast-check": "^3.14.0",
     "fetch-mock": "^9.11.0",
+    "generate-changelog": "^1.8.0",
     "graphql": "^16.8.1",
     "husky": "^8.0.3",
     "identity-obj-proxy": "^3.0.0",
