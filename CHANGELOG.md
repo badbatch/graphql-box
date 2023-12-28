@@ -1,3 +1,44 @@
+#### 4.1.7 (2023-12-28)
+
+##### Chores
+
+*  save work in progress (a0be689f)
+
+##### New Features
+
+*  migrate gql.macro and use exports map for all packages (969a0847)
+
+##### Bug Fixes
+
+*  add generate changelog dependency (013183d5)
+*  readme tweaks (46650e26)
+*  revert to npm for concurrently scripts (175ca361)
+*  remove redundant snapshots (17dfe36c)
+*  regression in type checking fetch manager (63fd0987)
+*  tsconfig reference order (00d4f01a)
+
+##### Refactors
+
+*  migrate worker integration tests (d32d8b55)
+*  better support cjs (37519aff)
+*  move server to esmodule (87cb8f87)
+*  move react to esmodule (d89ff2cb)
+*  migrate worker client to esmodule (15b844d3)
+*  regig cachemap deps (fee56243)
+*  migrate client to esmodule (c7fd99de)
+*  move websocket manager to esmodule (f679dc59)
+*  migrate subscribe to esmodules (bfe6b115)
+*  move request parser to esmodule (a4b21c76)
+*  move fetch manager to esmodules (77e65412)
+*  migrate execute module to esmodules (99c82b14)
+*  migrate debug manager to esmodules (db1d1802)
+*  migrate connection resolver to esmodules (19e419a6)
+*  update way types are passed to reduce (c7875d69)
+*  remove cli module (0e5e31cc)
+*  migrate cache manager to esmodules (2598dca0)
+*  migrate test-utils (1374a77b)
+*  move helpers package to esmodules (fb829d38)
+
 #### 4.1.7 (2023-08-13)
 
 ##### Chores
