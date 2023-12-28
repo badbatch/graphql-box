@@ -10,4 +10,3 @@ The GraphQL Box react module.
 ```bash
 npm add @graphql-box/react
 ```
-

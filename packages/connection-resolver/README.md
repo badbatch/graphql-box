@@ -10,4 +10,3 @@ The GraphQL Box connection resolver module.
 ```bash
 npm add @graphql-box/connection-resolver
 ```
-

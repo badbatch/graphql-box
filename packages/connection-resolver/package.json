@@ -1,6 +1,6 @@
 {
   "name": "@graphql-box/connection-resolver",
-  "description": "The GraphQL Box connection manager module.",
+  "description": "The GraphQL Box connection resolver module.",
   "version": "4.1.4",
   "author": "Dylan Aubrey",
   "license": "MIT",
