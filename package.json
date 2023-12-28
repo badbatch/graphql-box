@@ -29,7 +29,7 @@
     "test:browser:client": "jasmine-browser-runner runSpecs --config=jasmineBrowser.config.cjs --no-random",
     "test:browser:debug": "jasmine-browser-runner serve --config=jasmineBrowser.config.cjs --browser chrome",
     "test:browser:remove": "del-cli ./tests/browser/dist",
-    "test:browser:run": "concurrently \"pnpm run test:browser:server\" \"pnpm run test:browser:client\"",
+    "test:browser:run": "concurrently --kill-others --success first \"npm run test:browser:server\" \"npm run test:browser:client\"",
     "test:browser:server": "node --loader ts-node/esm ./tests/server/cli.ts",
     "test:node": "pnpm run /^test:node:.*/",
     "test:node:cjs": "BABEL_MODULE_SYSTEM=cjs node node_modules/jest/bin/jest.js --testMatch \"$(pwd)/packages/gql.macro/**/*.test.ts\"",
