@@ -47,7 +47,7 @@
     "@babel/runtime": "<8",
     "@cachemap/core": "<6",
     "@cachemap/core-worker": "<6",
-    "@graphql-box/client": "<5",
+    "@graphql-box/client": "workspace:*",
     "core-js": "<4",
     "graphql": "<17",
     "lodash-es": "<5"

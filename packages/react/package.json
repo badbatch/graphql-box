@@ -43,8 +43,8 @@
   },
   "peerDependencies": {
     "@babel/runtime": "<8",
-    "@graphql-box/client": "<5",
-    "@graphql-box/worker-client": "<5",
+    "@graphql-box/client": "workspace:*",
+    "@graphql-box/worker-client": "workspace:*",
     "core-js": "<4",
     "lodash-es": "<5",
     "react": "<19",

@@ -46,8 +46,8 @@
   "peerDependencies": {
     "@babel/runtime": "<8",
     "@cachemap/core": "<6",
-    "@graphql-box/cache-manager": "<5",
-    "@graphql-box/request-parser": "<5",
+    "@graphql-box/cache-manager": "workspace:*",
+    "@graphql-box/request-parser": "workspace:*",
     "core-js": "<4",
     "graphql": "<17",
     "lodash-es": "<5"

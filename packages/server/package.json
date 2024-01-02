@@ -42,7 +42,7 @@
   },
   "peerDependencies": {
     "@babel/runtime": "<8",
-    "@graphql-box/client": "<5",
+    "@graphql-box/client": "workspace:*",
     "core-js": "<4",
     "express": "<5",
     "lodash-es": "<5",
