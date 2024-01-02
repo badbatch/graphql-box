@@ -1,3 +1,9 @@
+#### 5.0.0 (2024-01-02)
+
+##### Bug Fixes
+
+*  internal peer deps mismatch (0d840f43)
+
 #### 4.1.7 (2023-12-28)
 
 ##### Chores
