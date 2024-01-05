@@ -1,3 +1,13 @@
+#### 5.0.1 (2024-01-05)
+
+##### Bug Fixes
+
+*  wait for server to start before running tests (74f3c3f9)
+
+##### Refactors
+
+*  change way macro is exported and add type casting (3caea583)
+
 #### 5.0.0 (2024-01-02)
 
 ##### Bug Fixes
