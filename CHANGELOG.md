@@ -1,3 +1,9 @@
+#### 5.0.3 (2024-01-06)
+
+##### Bug Fixes
+
+*  another attempt to align macro types for runtime (2e75186c)
+
 #### 5.0.2 (2024-01-06)
 
 ##### Bug Fixes
