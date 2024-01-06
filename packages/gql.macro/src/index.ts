@@ -1,2 +1,2 @@
 // eslint-disable-next-line import/no-default-export
-export default './macro.ts';
+export { macro as default } from './macro.ts';
