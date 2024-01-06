@@ -1,3 +1,10 @@
+#### 5.0.2 (2024-01-06)
+
+##### Bug Fixes
+
+*  whitespace in package json (ef5306e3)
+*  bonehead mistake with default export (4ba4b89c)
+
 #### 5.0.1 (2024-01-05)
 
 ##### Bug Fixes
