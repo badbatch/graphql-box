@@ -1,3 +1,9 @@
+#### 5.0.4 (2024-01-06)
+
+##### Refactors
+
+*  change macro to type module (589597d5)
+
 #### 5.0.3 (2024-01-06)
 
 ##### Bug Fixes
