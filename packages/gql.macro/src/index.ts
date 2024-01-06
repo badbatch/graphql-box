@@ -1,2 +1,4 @@
-// eslint-disable-next-line import/no-default-export
-export { macro as default } from './macro.ts';
+import { macro } from './macro.ts';
+
+// eslint-disable-next-line unicorn/prefer-export-from, import/no-default-export
+export default macro;
