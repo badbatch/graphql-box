@@ -1,5 +1,5 @@
 {
-  "extends": "@repodog/ts-config/buildCjs.json",
+  "extends": "@repodog/ts-config/build.json",
   "include": [
     "src/**/*"
   ],
