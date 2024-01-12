@@ -16,12 +16,14 @@
   "module": "./dist/esm/index.mjs",
   "types": "./dist/types/cjs/index.d.cts",
   "exports": {
-    "types": {
-      "import": "./dist/types/esm/index.d.ts",
-      "require": "./dist/types/cjs/index.d.cts"
-    },
-    "import": "./dist/esm/index.mjs",
-    "require": "./dist/cjs/index.cjs"
+    ".": {
+      "types": {
+        "import": "./dist/types/esm/index.d.ts",
+        "require": "./dist/types/cjs/index.d.cts"
+      },
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs"
+    }
   },
   "publishConfig": {
     "access": "public"
@@ -58,7 +60,7 @@
     "@types/react": "^18.2.31",
     "@types/react-dom": "^18.2.14",
     "core-js": "^3.27.2",
-    "cts-types": "^0.0.5",
+    "cts-types": "^0.0.6",
     "del-cli": "^5.1.0",
     "lodash-es": "^4.17.21",
     "react": "^18.2.0",

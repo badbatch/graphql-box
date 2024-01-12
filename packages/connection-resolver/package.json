@@ -16,12 +16,14 @@
   "module": "./dist/esm/index.mjs",
   "types": "./dist/types/cjs/index.d.cts",
   "exports": {
-    "types": {
-      "import": "./dist/types/esm/index.d.ts",
-      "require": "./dist/types/cjs/index.d.cts"
-    },
-    "import": "./dist/esm/index.mjs",
-    "require": "./dist/cjs/index.cjs"
+    ".": {
+      "types": {
+        "import": "./dist/types/esm/index.d.ts",
+        "require": "./dist/types/cjs/index.d.cts"
+      },
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs"
+    }
   },
   "publishConfig": {
     "access": "public"
@@ -36,7 +38,7 @@
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
-    "@cachemap/core": "^5.0.6",
+    "@cachemap/core": "^5.0.8",
     "@graphql-box/core": "workspace:*",
     "js-base64": "^3.7.5",
     "type-fest": "^4.5.0"
@@ -49,11 +51,11 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
-    "@cachemap/map": "^5.0.4",
+    "@cachemap/map": "^5.0.6",
     "@jest/globals": "^29.3.1",
     "@types/lodash-es": "^4.14.191",
     "core-js": "^3.27.2",
-    "cts-types": "^0.0.5",
+    "cts-types": "^0.0.6",
     "del-cli": "^5.1.0",
     "graphql": "^16.8.1",
     "lodash-es": "^4.17.21"
