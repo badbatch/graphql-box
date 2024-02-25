@@ -1,3 +1,10 @@
+#### 5.0.6 (2024-02-25)
+
+##### Bug Fixes
+
+* **react:**  typo in provider name (457c37b9)
+*  add .tsx to command line lint script (c8c68e0a)
+
 #### 5.0.5 (2024-01-12)
 
 ##### Chores
