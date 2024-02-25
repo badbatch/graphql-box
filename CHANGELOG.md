@@ -1,3 +1,9 @@
+#### 5.0.7 (2024-02-25)
+
+##### Refactors
+
+* **execute:**  loosen up the default resolver type (dcded3b6)
+
 #### 5.0.6 (2024-02-25)
 
 ##### Bug Fixes
