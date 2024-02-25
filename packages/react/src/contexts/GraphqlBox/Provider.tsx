@@ -8,6 +8,6 @@ export type Props = {
   graphqlBoxClient: Client | WorkerClient;
 };
 
-export const Providewr = ({ children, graphqlBoxClient }: Props) => (
+export const Provider = ({ children, graphqlBoxClient }: Props) => (
   <Context.Provider value={{ graphqlBoxClient }}>{children}</Context.Provider>
 );
