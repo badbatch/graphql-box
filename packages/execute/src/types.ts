@@ -18,7 +18,8 @@ export interface UserOptions {
    * be passed on to GraphQL's execute and subscribe
    * methods.
    */
-  fieldResolver?: GraphQLFieldResolver<unknown, unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fieldResolver?: GraphQLFieldResolver<any, any>;
   /**
    * Set default GraphQL root value to be passed on to
    * GraphQL's execute and subscribe methods.
