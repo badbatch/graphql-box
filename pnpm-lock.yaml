@@ -48,11 +48,11 @@ importers:
         specifier: ^7.20.13
         version: 7.23.2
       '@cachemap/core':
-        specifier: ^5.0.8
-        version: 5.0.8(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
+        specifier: ^5.0.9
+        version: 5.0.9(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
       '@cachemap/core-worker':
-        specifier: ^5.0.8
-        version: 5.0.8(@babel/runtime@7.23.2)(@cachemap/core@5.0.8)(core-js@3.33.1)(lodash-es@4.17.21)
+        specifier: ^5.0.9
+        version: 5.0.9(@babel/runtime@7.23.2)(@cachemap/core@5.0.9)(core-js@3.33.1)(lodash-es@4.17.21)
       '@cachemap/indexed-db':
         specifier: ^5.0.6
         version: 5.0.6(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
@@ -397,8 +397,8 @@ importers:
         specifier: ^7.20.13
         version: 7.23.2
       '@cachemap/core':
-        specifier: ^5.0.8
-        version: 5.0.8(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
+        specifier: ^5.0.9
+        version: 5.0.9(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
       '@cachemap/map':
         specifier: ^5.0.6
         version: 5.0.6(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
@@ -452,8 +452,8 @@ importers:
         specifier: ^7.20.13
         version: 7.23.2
       '@cachemap/core':
-        specifier: ^5.0.8
-        version: 5.0.8(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
+        specifier: ^5.0.9
+        version: 5.0.9(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
       '@graphql-box/cache-manager':
         specifier: workspace:*
         version: link:../cache-manager
@@ -488,8 +488,8 @@ importers:
   packages/connection-resolver:
     dependencies:
       '@cachemap/core':
-        specifier: ^5.0.8
-        version: 5.0.8(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
+        specifier: ^5.0.9
+        version: 5.0.9(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
       '@graphql-box/core':
         specifier: workspace:*
         version: link:../core
@@ -584,8 +584,8 @@ importers:
         specifier: ^7.20.13
         version: 7.23.2
       '@cachemap/core':
-        specifier: ^5.0.8
-        version: 5.0.8(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
+        specifier: ^5.0.9
+        version: 5.0.9(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
       '@cachemap/map':
         specifier: ^5.0.6
         version: 5.0.6(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
@@ -1084,11 +1084,11 @@ importers:
         specifier: ^7.20.13
         version: 7.23.2
       '@cachemap/core':
-        specifier: ^5.0.8
-        version: 5.0.8(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
+        specifier: ^5.0.9
+        version: 5.0.9(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
       '@cachemap/core-worker':
-        specifier: ^5.0.8
-        version: 5.0.8(@babel/runtime@7.23.2)(@cachemap/core@5.0.8)(core-js@3.33.1)(lodash-es@4.17.21)
+        specifier: ^5.0.9
+        version: 5.0.9(@babel/runtime@7.23.2)(@cachemap/core@5.0.9)(core-js@3.33.1)(lodash-es@4.17.21)
       '@graphql-box/client':
         specifier: workspace:*
         version: link:../client
@@ -1142,7 +1142,7 @@ packages:
       slash: 2.0.0
     optionalDependencies:
       '@nicolo-ribaudo/chokidar-2': 2.1.8-no-fsevents.3
-      chokidar: 3.5.3
+      chokidar: 3.6.0
     dev: true
 
   /@babel/code-frame@7.22.13:
@@ -2493,8 +2493,8 @@ packages:
     transitivePeerDependencies:
       - lodash-es
 
-  /@cachemap/core-worker@5.0.8(@babel/runtime@7.23.2)(@cachemap/core@5.0.8)(core-js@3.33.1)(lodash-es@4.17.21):
-    resolution: {integrity: sha512-4ckm81u0wNx1fnEPCPl+yu5EmJ6zxHpOddRvM6Kq23L7YeZFWF0QHqAnUoP8/weVU38FSo3iWZEqLSw+U0BC7g==}
+  /@cachemap/core-worker@5.0.9(@babel/runtime@7.23.2)(@cachemap/core@5.0.9)(core-js@3.33.1)(lodash-es@4.17.21):
+    resolution: {integrity: sha512-ASV3c94GP3DKSjbq1axIG4IsxOQ+g8hTMPDU+kz+LAW4n9uAsztEfczrTfFjD0uh6rrma9uk45FjAgPuFL0qow==}
     peerDependencies:
       '@babel/runtime': <8
       '@cachemap/core': <6
@@ -2503,7 +2503,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.23.2
       '@cachemap/controller': 5.0.7(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
-      '@cachemap/core': 5.0.8(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
+      '@cachemap/core': 5.0.9(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
       '@cachemap/types': 5.0.6(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
       '@cachemap/utils': 5.0.6(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
       '@types/uuid': 9.0.7
@@ -2514,8 +2514,8 @@ packages:
       uuid: 7.0.3
     dev: true
 
-  /@cachemap/core@5.0.8(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21):
-    resolution: {integrity: sha512-xrWPFzn91V0vAIfWNCY0ebDhRaoChO3cZWXeMlK1B1lJ72fUE7eagfpVSohnI4jnhMznTkH7JbwhuMHWVESlPQ==}
+  /@cachemap/core@5.0.9(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21):
+    resolution: {integrity: sha512-nrJh/urrsYEC0VR/NmxW1IqUJP8FHZphLKti0KVQNcbDbGOdki4OZLcWgZjcPZ4nP1HKvDvSnRUiLD9KmvoMVA==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
@@ -2578,11 +2578,11 @@ packages:
     dependencies:
       '@babel/runtime': 7.23.2
       '@cachemap/types': 5.0.6(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
-      '@types/crypto-js': 4.2.1
+      '@types/crypto-js': 4.2.2
       cacheability: 4.0.20(@babel/runtime@7.23.2)(core-js@3.33.1)(lodash-es@4.17.21)
       core-js: 3.33.1
       crypto-js: 4.2.0
-      js-base64: 3.7.5
+      js-base64: 3.7.7
       lodash-es: 4.17.21
       type-fest: 3.13.1
 
@@ -3887,8 +3887,8 @@ packages:
       '@types/node': 20.9.0
     dev: true
 
-  /@types/crypto-js@4.2.1:
-    resolution: {integrity: sha512-FSPGd9+OcSok3RsM0UZ/9fcvMOXJ1ENE/ZbLfOPlBWj7BgXtEAM8VYfTtT760GiLbQIMoVozwVuisjvsVwqYWw==}
+  /@types/crypto-js@4.2.2:
+    resolution: {integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==}
 
   /@types/eslint-scope@3.7.6:
     resolution: {integrity: sha512-zfM4ipmxVKWdxtDaJ3MP3pBurDXOCoyjvlpE3u6Qzrmw4BPbfm4/ambIeTk/r/J0iq/+2/xp0Fmt+gFvXJY2PQ==}
@@ -5235,8 +5235,8 @@ packages:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
     dev: true
 
-  /chokidar@3.5.3:
-    resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
+  /chokidar@3.6.0:
+    resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
     requiresBuild: true
     dependencies:
@@ -8403,6 +8403,10 @@ packages:
 
   /js-base64@3.7.5:
     resolution: {integrity: sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==}
+    dev: false
+
+  /js-base64@3.7.7:
+    resolution: {integrity: sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==}
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
