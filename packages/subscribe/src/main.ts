@@ -81,12 +81,12 @@ export class Subscribe {
     const subscribeResult = await this._subscribe(subscribeArgs);
 
     if (isAsyncIterable(subscribeResult)) {
-      void forAwaitEach(subscribeResult, async (result: AsyncExecutionResult) => {
+      void forAwaitEach(subscribeResult, (result: AsyncExecutionResult) => {
         context.normalizePatchResponseData = !!('path' in result);
 
         this._eventEmitter.emit(
           hash,
-          await subscriberResolver({
+          subscriberResolver({
             _cacheMetadata,
             ...standardizePath(result),
           } as unknown as PartialRawResponseData)

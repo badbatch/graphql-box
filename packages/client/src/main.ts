@@ -190,13 +190,13 @@ export class Client {
   @logRequest()
   private async _handleMutation(requestData: RequestData, options: RequestOptions, context: RequestContext) {
     try {
-      const resolver = async (rawResponseData: PartialRawResponseData) => {
+      const resolver = (rawResponseData: PartialRawResponseData) => {
         if (rawResponseData.errors?.length) {
           const { errors, hasNext, paths } = rawResponseData;
           return Client._resolve({ errors, hasNext, paths }, options, context);
         }
 
-        const responseData = await this._cacheManager.cacheResponse(
+        const responseData = this._cacheManager.cacheResponse(
           requestData,
           rawResponseData as RawResponseDataWithMaybeCacheMetadata,
           options,
@@ -208,8 +208,8 @@ export class Client {
 
       const { debugManager, ...otherContext } = context;
 
-      const decoratedResolver = async (rawResponseData: PartialRawResponseData) => {
-        const result = await resolver(rawResponseData);
+      const decoratedResolver = (rawResponseData: PartialRawResponseData) => {
+        const result = resolver(rawResponseData);
 
         debugManager?.log(REQUEST_RESOLVED, {
           context: otherContext,
@@ -228,7 +228,7 @@ export class Client {
         return executeResult;
       }
 
-      return await resolver(executeResult);
+      return resolver(executeResult);
     } catch (error) {
       const confirmedError = isError(error)
         ? error
@@ -263,13 +263,13 @@ export class Client {
         updatedRequestData = updated;
       }
 
-      const resolver = async (rawResponseData: PartialRawResponseData) => {
+      const resolver = (rawResponseData: PartialRawResponseData) => {
         if (rawResponseData.errors?.length) {
           const { errors, hasNext, paths } = rawResponseData;
           return this._resolveQuery(updatedRequestData ?? requestData, { errors, hasNext, paths }, options, context);
         }
 
-        const responseData = await this._cacheManager.cacheQuery(
+        const responseData = this._cacheManager.cacheQuery(
           requestData,
           updatedRequestData,
           rawResponseData as RawResponseDataWithMaybeCacheMetadata,
@@ -282,8 +282,8 @@ export class Client {
 
       const { debugManager, ...otherContext } = context;
 
-      const decoratedResolver = async (rawResponseData: PartialRawResponseData) => {
-        const result = await resolver(rawResponseData);
+      const decoratedResolver = (rawResponseData: PartialRawResponseData) => {
+        const result = resolver(rawResponseData);
 
         debugManager?.log(REQUEST_RESOLVED, {
           context: otherContext,
@@ -307,7 +307,7 @@ export class Client {
         return executeResult;
       }
 
-      return await resolver(executeResult);
+      return resolver(executeResult);
     } catch (error) {
       const confirmedError = isError(error) ? error : new Error('@graphql-box/client query had an unexpected error.');
       return this._resolveQuery(requestData, { errors: [confirmedError] }, options, context);
@@ -335,8 +335,8 @@ export class Client {
   @logSubscription()
   private async _handleSubscription(requestData: RequestData, options: RequestOptions, context: RequestContext) {
     try {
-      const resolver = async (responseData: PartialRawResponseData) => {
-        const result = await this._resolveSubscription(requestData, responseData, options, context);
+      const resolver = (responseData: PartialRawResponseData) => {
+        const result = this._resolveSubscription(requestData, responseData, options, context);
         const { debugManager, ...otherContext } = context;
 
         debugManager?.log(SUBSCRIPTION_RESOLVED, {
@@ -380,11 +380,11 @@ export class Client {
     }
   }
 
-  private async _resolvePendingRequests(
+  private _resolvePendingRequests(
     activeRquestData: RequestData,
     activeResponseData: PartialResponseData,
     activeContext: RequestContext
-  ): Promise<void> {
+  ): void {
     const pendingRequests = this._queryTracker.pending.get(activeRquestData.hash);
 
     if (!pendingRequests) {
@@ -424,7 +424,7 @@ export class Client {
           result: filteredResponseData,
         });
 
-        await this._cacheManager.setQueryResponseCacheEntry(requestData, filteredResponseData, options, context);
+        this._cacheManager.setQueryResponseCacheEntry(requestData, filteredResponseData, options, context);
         resolve(Client._resolve(filteredResponseData, options, context));
       }
     }
@@ -438,7 +438,7 @@ export class Client {
     options: RequestOptions,
     context: RequestContext
   ): PartialRequestResult {
-    void this._resolvePendingRequests(requestData, responseData, context);
+    this._resolvePendingRequests(requestData, responseData, context);
 
     this._queryTracker.active = this._queryTracker.active.filter(
       ({ requestData: activeRequestData }) => activeRequestData.hash !== requestData.hash
@@ -448,19 +448,19 @@ export class Client {
     return Client._resolve(responseData, options, context);
   }
 
-  private async _resolveSubscription(
+  private _resolveSubscription(
     requestData: RequestData,
     rawResponseData: PartialRawResponseData,
     options: RequestOptions,
     context: RequestContext
-  ): Promise<PartialRequestResult> {
+  ): PartialRequestResult {
     try {
       if (rawResponseData.errors?.length) {
         const { errors, hasNext, paths } = rawResponseData;
         return Client._resolve({ errors, hasNext, paths }, options, context);
       }
 
-      const responseData = await this._cacheManager.cacheResponse(
+      const responseData = this._cacheManager.cacheResponse(
         requestData,
         rawResponseData as RawResponseDataWithMaybeCacheMetadata,
         options,

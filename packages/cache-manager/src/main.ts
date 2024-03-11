@@ -276,12 +276,7 @@ export class CacheManager implements CacheManagerDef {
     }
 
     if (!fieldCount.missing) {
-      const dataCaching = this._setQueryResponseCacheEntry(hash, { cacheMetadata, data }, options, cacheManagerContext);
-
-      if (options.awaitDataCaching) {
-        await dataCaching;
-      }
-
+      this._setQueryResponseCacheEntry(hash, { cacheMetadata, data }, options, cacheManagerContext);
       return { response: { cacheMetadata, data } };
     }
 
@@ -300,13 +295,13 @@ export class CacheManager implements CacheManagerDef {
     return this._cache;
   }
 
-  public async cacheQuery(
+  public cacheQuery(
     requestData: RequestData,
     updatedRequestData: RequestData | undefined,
     rawResponseData: RawResponseDataWithMaybeCacheMetadata,
     options: RequestOptions,
     context: RequestContext
-  ): Promise<ResponseData> {
+  ): ResponseData {
     const cacheManagerContext: CacheManagerContext = {
       ...context,
       fragmentDefinitions: getFragmentDefinitions((updatedRequestData ?? requestData).ast),
@@ -316,12 +311,12 @@ export class CacheManager implements CacheManagerDef {
     return this._cacheResponse(requestData, updatedRequestData, rawResponseData, options, cacheManagerContext);
   }
 
-  public async cacheResponse(
+  public cacheResponse(
     requestData: RequestData,
     rawResponseData: RawResponseDataWithMaybeCacheMetadata,
     options: RequestOptions,
     context: RequestContext
-  ): Promise<ResponseData> {
+  ): ResponseData {
     const cacheManagerContext: CacheManagerContext = {
       ...context,
       fragmentDefinitions: getFragmentDefinitions(requestData.ast),
@@ -363,13 +358,13 @@ export class CacheManager implements CacheManagerDef {
     this._partialQueryResponses.delete(hash);
   }
 
-  public async setQueryResponseCacheEntry(
+  public setQueryResponseCacheEntry(
     requestData: RequestData,
     responseData: ResponseData,
     options: RequestOptions,
     context: CacheManagerContext
-  ): Promise<void> {
-    return this._setQueryResponseCacheEntry(requestData.hash, responseData, options, context);
+  ): void {
+    this._setQueryResponseCacheEntry(requestData.hash, responseData, options, context);
   }
 
   private async _analyzeFieldNode(
@@ -553,13 +548,13 @@ export class CacheManager implements CacheManagerDef {
     return cacheMetadata;
   }
 
-  private async _cacheResponse(
+  private _cacheResponse(
     requestData: RequestData,
     updatedRequestData: RequestData | undefined,
     rawResponseData: RawResponseDataWithMaybeCacheMetadata,
     options: RequestOptions,
     context: CacheManagerContext
-  ): Promise<ResponseData> {
+  ): ResponseData {
     const normalizedResponseData = normalizePatchResponseData(rawResponseData, context);
     let responseDataForCaching: RawResponseDataWithMaybeCacheMetadata | undefined = normalizedResponseData;
 
@@ -572,23 +567,19 @@ export class CacheManager implements CacheManagerDef {
       responseDataForCaching = this._retrieveResponseDataForCaching(normalizedResponseData, context);
     }
 
-    const dataCaching: Promise<void>[] = [];
-
     if (responseDataForCaching) {
       const { data } = responseDataForCaching;
       const cacheMetadata = this._buildCacheMetadata(requestData, responseDataForCaching, options, context);
 
-      dataCaching.push(
-        this._setEntityAndRequestFieldPathCacheEntries(
-          requestData,
-          {
-            cacheMetadata,
-            entityData: cloneDeep(data),
-            requestFieldPathData: cloneDeep(data),
-          },
-          options,
-          context
-        )
+      this._setEntityAndRequestFieldPathCacheEntries(
+        requestData,
+        {
+          cacheMetadata,
+          entityData: cloneDeep(data),
+          requestFieldPathData: cloneDeep(data),
+        },
+        options,
+        context
       );
 
       let queryCacheMetadata: CacheMetadata | undefined;
@@ -598,28 +589,19 @@ export class CacheManager implements CacheManagerDef {
         let partialQueryResponse: PartialQueryResponse | undefined;
 
         if (context.queryFiltered && updatedRequestData) {
-          dataCaching.push(
-            this._setQueryResponseCacheEntry(updatedRequestData.hash, { cacheMetadata, data }, options, context)
-          );
-
+          this._setQueryResponseCacheEntry(updatedRequestData.hash, { cacheMetadata, data }, options, context);
           partialQueryResponse = this._getPartialQueryResponse(requestData.hash);
         }
 
         queryCacheMetadata = CacheManager._mergeResponseCacheMetadata(cacheMetadata, partialQueryResponse);
         queryData = this._mergeResponseData(data, partialQueryResponse);
 
-        dataCaching.push(
-          this._setQueryResponseCacheEntry(
-            requestData.hash,
-            { cacheMetadata: queryCacheMetadata, data: queryData },
-            options,
-            context
-          )
+        this._setQueryResponseCacheEntry(
+          requestData.hash,
+          { cacheMetadata: queryCacheMetadata, data: queryData },
+          options,
+          context
         );
-      }
-
-      if (options.awaitDataCaching) {
-        await Promise.all(dataCaching);
       }
 
       if (isNotResponseChunk(normalizedResponseData, context) && queryCacheMetadata && queryData) {
@@ -734,13 +716,13 @@ export class CacheManager implements CacheManagerDef {
     return mergeDataSets(partialQueryResponse.data, responseData, this._typeIDKey);
   }
 
-  private async _parseEntityAndRequestFieldPathCacheEntryData(
+  private _parseEntityAndRequestFieldPathCacheEntryData(
     field: FieldNode,
     ancestorKeysAndPaths: AncestorKeysAndPaths,
     { cacheMetadata, entityData, requestFieldPathData }: ResponseDataForCaching,
     options: RequestOptions,
     context: CacheManagerContext
-  ): Promise<void> {
+  ): void {
     const keysAndPaths = buildFieldKeysAndPaths(field, ancestorKeysAndPaths, context);
     const { requestFieldCacheKey, requestFieldPath, responseDataPath } = keysAndPaths;
     const fieldData = get(requestFieldPathData, responseDataPath) as unknown;
@@ -751,8 +733,6 @@ export class CacheManager implements CacheManagerDef {
     }
 
     if (isObjectLike(fieldData)) {
-      const promises: Promise<void>[] = [];
-
       iterateChildFields(
         field,
         fieldData,
@@ -764,22 +744,18 @@ export class CacheManager implements CacheManagerDef {
           _fragmentName: string | undefined,
           childIndex?: number
         ) => {
-          promises.push(
-            this._parseEntityAndRequestFieldPathCacheEntryData(
-              childField,
-              { index: childIndex, requestFieldCacheKey, requestFieldPath, responseDataPath },
-              { cacheMetadata, entityData, requestFieldPathData },
-              options,
-              context
-            )
+          this._parseEntityAndRequestFieldPathCacheEntryData(
+            childField,
+            { index: childIndex, requestFieldCacheKey, requestFieldPath, responseDataPath },
+            { cacheMetadata, entityData, requestFieldPathData },
+            options,
+            context
           );
         }
       );
-
-      await Promise.all(promises);
     }
 
-    await this._setEntityAndRequestFieldPathCacheEntry(
+    this._setEntityAndRequestFieldPathCacheEntry(
       field,
       keysAndPaths,
       { cacheMetadata, entityData, requestFieldPathData },
@@ -948,12 +924,12 @@ export class CacheManager implements CacheManagerDef {
     }
   }
 
-  private async _setEntityAndRequestFieldPathCacheEntries(
+  private _setEntityAndRequestFieldPathCacheEntries(
     requestData: RequestData,
     responseData: ResponseDataForCaching,
     options: RequestOptions,
     context: CacheManagerContext
-  ): Promise<void> {
+  ): void {
     const operationNode = getOperationDefinitions(requestData.ast, context.operation)[0];
 
     if (!operationNode) {
@@ -966,20 +942,18 @@ export class CacheManager implements CacheManagerDef {
       return;
     }
 
-    await Promise.all(
-      fieldsAndTypeNames.map(({ fieldNode }) => {
-        return this._parseEntityAndRequestFieldPathCacheEntryData(
-          fieldNode,
-          { requestFieldPath: context.operation },
-          responseData,
-          options,
-          context
-        );
-      })
-    );
+    fieldsAndTypeNames.map(({ fieldNode }) => {
+      this._parseEntityAndRequestFieldPathCacheEntryData(
+        fieldNode,
+        { requestFieldPath: context.operation },
+        responseData,
+        options,
+        context
+      );
+    });
   }
 
-  private async _setEntityAndRequestFieldPathCacheEntry(
+  private _setEntityAndRequestFieldPathCacheEntry(
     field: FieldNode,
     keysAndPaths: KeysAndPaths,
     { cacheMetadata, entityData, requestFieldPathData }: ResponseDataForCaching,
@@ -995,16 +969,12 @@ export class CacheManager implements CacheManagerDef {
       return;
     }
 
-    const promises: Promise<void>[] = [];
-
-    promises.push(
-      this._setRequestFieldPathCacheEntry(
-        field,
-        keysAndPaths,
-        { cacheability, data: requestFieldPathData, fieldTypeInfo },
-        options,
-        context
-      )
+    void this._setRequestFieldPathCacheEntry(
+      field,
+      keysAndPaths,
+      { cacheability, data: requestFieldPathData, fieldTypeInfo },
+      options,
+      context
     );
 
     const isEntity = this._isFieldEntity(fieldData, fieldTypeInfo);
@@ -1014,12 +984,8 @@ export class CacheManager implements CacheManagerDef {
     }
 
     if (isEntity) {
-      promises.push(
-        this._setEntityCacheEntry(keysAndPaths, { cacheability, data: entityData, fieldTypeInfo }, options, context)
-      );
+      void this._setEntityCacheEntry(keysAndPaths, { cacheability, data: entityData, fieldTypeInfo }, options, context);
     }
-
-    await Promise.all(promises);
   }
 
   private async _setEntityCacheEntry(
@@ -1037,7 +1003,7 @@ export class CacheManager implements CacheManagerDef {
       fieldData = mergeDataSets(result.entry, fieldData, this._typeIDKey);
     }
 
-    await this._setCacheEntry(
+    void this._setCacheEntry(
       DATA_ENTITIES,
       entityDataKey,
       fieldData,
@@ -1131,16 +1097,16 @@ export class CacheManager implements CacheManagerDef {
     this._partialQueryResponses.set(hash, partialQueryResponse);
   }
 
-  private async _setQueryResponseCacheEntry(
+  private _setQueryResponseCacheEntry(
     hash: string,
     { cacheMetadata, data }: ResponseData,
     options: RequestOptions,
     context: CacheManagerContext
-  ): Promise<void> {
+  ): void {
     const dehydratedCacheMetadata = dehydrateCacheMetadata(cacheMetadata);
     const cacheControl = CacheManager._getOperationCacheControl(cacheMetadata, context.operation);
 
-    await this._setCacheEntry(
+    void this._setCacheEntry(
       QUERY_RESPONSES,
       hash,
       { cacheMetadata: dehydratedCacheMetadata, data },
@@ -1176,7 +1142,7 @@ export class CacheManager implements CacheManagerDef {
         fieldData = mergeDataSets(result.entry, fieldData, this._typeIDKey);
       }
 
-      await this._setCacheEntry(
+      void this._setCacheEntry(
         REQUEST_FIELD_PATHS,
         hashedRequestFieldCacheKey,
         fieldData,

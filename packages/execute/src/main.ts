@@ -83,7 +83,7 @@ export class Execute {
       return { ...executeResult, _cacheMetadata };
     }
 
-    void forAwaitEach(executeResult, async result => {
+    void forAwaitEach(executeResult, result => {
       context.normalizePatchResponseData = !!('path' in result);
 
       const enrichedResult = {
@@ -99,7 +99,7 @@ export class Execute {
         stats: { endTime: debugManager.now() },
       });
 
-      this._eventEmitter.emit(hash, await executeResolver(enrichedResult));
+      this._eventEmitter.emit(hash, executeResolver(enrichedResult));
     });
 
     const eventAsyncIterator = new EventAsyncIterator<PartialRequestResult>(this._eventEmitter, hash);
