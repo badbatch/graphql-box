@@ -118,7 +118,7 @@ export class FetchManager {
         return deserializeErrors(fetchResult);
       }
 
-      void forAwaitEach(fetchResult, async ({ body, headers }) => {
+      void forAwaitEach(fetchResult, ({ body, headers }) => {
         const responseData = { headers, ...body } as unknown as PartialRawFetchData;
 
         const decoratedExecuteResolver = (result: PartialRawResponseData) => {
@@ -138,10 +138,7 @@ export class FetchManager {
         if (this._batchResponses && responseData.paths) {
           this._batchResponse(responseData, hash, decoratedExecuteResolver);
         } else {
-          this._eventEmitter.emit(
-            hash,
-            await decoratedExecuteResolver(deserializeErrors(cleanPatchResponse(responseData)))
-          );
+          this._eventEmitter.emit(hash, decoratedExecuteResolver(deserializeErrors(cleanPatchResponse(responseData))));
         }
       });
 
@@ -287,14 +284,12 @@ export class FetchManager {
 
   private _startResponseBatchTimer(hash: string, executeResolver: RequestResolver) {
     this._activeResponseBatchTimer = setTimeout(() => {
-      void (async () => {
-        if (this._activeResponseBatch) {
-          const responseData = mergeResponseDataSets([...this._activeResponseBatch]);
-          this._eventEmitter.emit(hash, await executeResolver(deserializeErrors(responseData)));
-        }
+      if (this._activeResponseBatch) {
+        const responseData = mergeResponseDataSets([...this._activeResponseBatch]);
+        this._eventEmitter.emit(hash, executeResolver(deserializeErrors(responseData)));
+      }
 
-        this._activeResponseBatchTimer = undefined;
-      })();
+      this._activeResponseBatchTimer = undefined;
     }, this._responseBatchInterval);
   }
 

@@ -391,9 +391,9 @@ export interface RequestManagerDef {
   ): Promise<AsyncIterableIterator<PartialRequestResult | undefined> | PartialRawResponseData>;
 }
 
-export type RequestResolver = (rawResponseData: PartialRawResponseData) => Promise<PartialRequestResult>;
+export type RequestResolver = (rawResponseData: PartialRawResponseData) => PartialRequestResult;
 
-export type SubscriberResolver = (rawResponseData: PartialRawResponseData) => Promise<PartialRequestResult>;
+export type SubscriberResolver = (rawResponseData: PartialRawResponseData) => PartialRequestResult;
 
 export interface SubscriptionsManagerDef {
   subscribe(

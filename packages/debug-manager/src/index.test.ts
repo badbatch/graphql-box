@@ -39,7 +39,7 @@ describe('@graphql-box/debug-manager >>', () => {
   describe('CacheManager >> CACHE_ENTRY_ADDED >>', () => {
     const response: PlainObject[] = [];
 
-    beforeAll(async () => {
+    beforeAll(() => {
       debugManager = new DebugManager({ name: 'CLIENT', performance });
       // @ts-expect-error property is private
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -63,7 +63,7 @@ describe('@graphql-box/debug-manager >>', () => {
 
       const requestData = getRequestData(parsedRequests.singleTypeQuery);
 
-      await cacheManager.cacheQuery(
+      cacheManager.cacheQuery(
         requestData,
         requestData,
         responses.singleTypeQuery,
@@ -107,7 +107,7 @@ describe('@graphql-box/debug-manager >>', () => {
 
       const requestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
 
-      await cacheManager.cacheQuery(
+      cacheManager.cacheQuery(
         requestData,
         requestData,
         responses.singleTypeQuerySet.initial,

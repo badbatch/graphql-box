@@ -36,7 +36,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
     describe('mutation >> nested interface >>', () => {
       describe('cascading cache control >>', () => {
-        beforeAll(async () => {
+        beforeAll(() => {
           responseData = undefined;
 
           cacheManager = new CacheManager({
@@ -51,7 +51,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           requestData = getRequestData(parsedRequests.nestedInterfaceMutation);
 
-          responseData = await cacheManager.cacheResponse(
+          responseData = cacheManager.cacheResponse(
             requestData,
             responses.nestedInterfaceMutation,
             { awaitDataCaching: true },
@@ -72,7 +72,7 @@ describe('@graphql-box/cache-manager >>', () => {
       });
 
       describe('type cache directives >>', () => {
-        beforeAll(async () => {
+        beforeAll(() => {
           responseData = undefined;
 
           cacheManager = new CacheManager({
@@ -93,7 +93,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           requestData = getRequestData(parsedRequests.nestedInterfaceMutation);
 
-          responseData = await cacheManager.cacheResponse(
+          responseData = cacheManager.cacheResponse(
             requestData,
             responses.nestedInterfaceMutation,
             { awaitDataCaching: true },
@@ -116,7 +116,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
     describe('subscription >> nested type >>', () => {
       describe('cascading cache control >>', () => {
-        beforeAll(async () => {
+        beforeAll(() => {
           responseData = undefined;
 
           cacheManager = new CacheManager({
@@ -131,7 +131,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           requestData = getRequestData(parsedRequests.nestedTypeSubscription);
 
-          responseData = await cacheManager.cacheResponse(
+          responseData = cacheManager.cacheResponse(
             requestData,
             responses.nestedTypeSubscription,
             { awaitDataCaching: true },
@@ -152,7 +152,7 @@ describe('@graphql-box/cache-manager >>', () => {
       });
 
       describe('type cache directives >>', () => {
-        beforeAll(async () => {
+        beforeAll(() => {
           responseData = undefined;
 
           cacheManager = new CacheManager({
@@ -170,7 +170,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           requestData = getRequestData(parsedRequests.nestedTypeSubscription);
 
-          responseData = await cacheManager.cacheResponse(
+          responseData = cacheManager.cacheResponse(
             requestData,
             responses.nestedTypeSubscription,
             { awaitDataCaching: true },
@@ -199,7 +199,7 @@ describe('@graphql-box/cache-manager >>', () => {
     describe('not filtered >>', () => {
       describe('single type >>', () => {
         describe('cascading cache control >>', () => {
-          beforeAll(async () => {
+          beforeAll(() => {
             responseData = undefined;
 
             cacheManager = new CacheManager({
@@ -214,7 +214,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
             requestData = getRequestData(parsedRequests.singleTypeQuery);
 
-            responseData = await cacheManager.cacheQuery(
+            responseData = cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.singleTypeQuery,
@@ -233,7 +233,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         describe('type cache directives >>', () => {
-          beforeAll(async () => {
+          beforeAll(() => {
             responseData = undefined;
 
             cacheManager = new CacheManager({
@@ -250,7 +250,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
             requestData = getRequestData(parsedRequests.singleTypeQuery);
 
-            responseData = await cacheManager.cacheQuery(
+            responseData = cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.singleTypeQuery,
@@ -271,7 +271,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
       describe('nested type with edges >>', () => {
         describe('cascading cache control >>', () => {
-          beforeAll(async () => {
+          beforeAll(() => {
             responseData = undefined;
 
             cacheManager = new CacheManager({
@@ -286,7 +286,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
             requestData = getRequestData(parsedRequests.nestedTypeQuery);
 
-            responseData = await cacheManager.cacheQuery(
+            responseData = cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.nestedTypeQuery,
@@ -305,7 +305,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         describe('type cache directives >>', () => {
-          beforeAll(async () => {
+          beforeAll(() => {
             responseData = undefined;
 
             cacheManager = new CacheManager({
@@ -325,7 +325,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
             requestData = getRequestData(parsedRequests.nestedTypeQuery);
 
-            responseData = await cacheManager.cacheQuery(
+            responseData = cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.nestedTypeQuery,
@@ -346,7 +346,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
       describe('nested union with edges >>', () => {
         describe('cascading cache control >>', () => {
-          beforeAll(async () => {
+          beforeAll(() => {
             responseData = undefined;
 
             cacheManager = new CacheManager({
@@ -361,7 +361,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
             requestData = getRequestData(parsedRequests.nestedUnionQuery);
 
-            responseData = await cacheManager.cacheQuery(
+            responseData = cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.nestedUnionQuery,
@@ -380,7 +380,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         describe('type cache directives >>', () => {
-          beforeAll(async () => {
+          beforeAll(() => {
             responseData = undefined;
 
             cacheManager = new CacheManager({
@@ -398,7 +398,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
             requestData = getRequestData(parsedRequests.nestedUnionQuery);
 
-            responseData = await cacheManager.cacheQuery(
+            responseData = cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.nestedUnionQuery,
@@ -421,7 +421,7 @@ describe('@graphql-box/cache-manager >>', () => {
     describe('filtered >>', () => {
       describe('single type >>', () => {
         describe('cascading cache control >>', () => {
-          beforeAll(async () => {
+          beforeAll(() => {
             responseData = undefined;
             // @ts-expect-error property is private
             jest.spyOn(CacheManager, '_isValid').mockReturnValue(true);
@@ -438,7 +438,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
             requestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
 
-            await cacheManager.cacheQuery(
+            cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.singleTypeQuerySet.initial,
@@ -456,7 +456,7 @@ describe('@graphql-box/cache-manager >>', () => {
               data,
             });
 
-            responseData = await cacheManager.cacheQuery(
+            responseData = cacheManager.cacheQuery(
               getRequestData(parsedRequests.singleTypeQuerySet.full),
               getRequestData(parsedRequests.singleTypeQuerySet.updated),
               responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
@@ -475,7 +475,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         describe('type cache directives >>', () => {
-          beforeAll(async () => {
+          beforeAll(() => {
             responseData = undefined;
             // @ts-expect-error property is private
             jest.spyOn(CacheManager, '_isValid').mockReturnValue(true);
@@ -494,7 +494,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
             requestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
 
-            await cacheManager.cacheQuery(
+            cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.singleTypeQuerySet.initial,
@@ -512,7 +512,7 @@ describe('@graphql-box/cache-manager >>', () => {
               data,
             });
 
-            responseData = await cacheManager.cacheQuery(
+            responseData = cacheManager.cacheQuery(
               getRequestData(parsedRequests.singleTypeQuerySet.full),
               getRequestData(parsedRequests.singleTypeQuerySet.updated),
               responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
@@ -533,7 +533,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
       describe('nested type with edges >>', () => {
         describe('cascading cache control >>', () => {
-          beforeAll(async () => {
+          beforeAll(() => {
             responseData = undefined;
             // @ts-expect-error property is private
             jest.spyOn(CacheManager, '_isValid').mockReturnValue(true);
@@ -550,7 +550,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
             requestData = getRequestData(parsedRequests.nestedTypeQuerySet.initial);
 
-            await cacheManager.cacheQuery(
+            cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.nestedTypeQuerySet.initial,
@@ -568,7 +568,7 @@ describe('@graphql-box/cache-manager >>', () => {
               data,
             });
 
-            responseData = await cacheManager.cacheQuery(
+            responseData = cacheManager.cacheQuery(
               getRequestData(parsedRequests.nestedTypeQuerySet.full),
               getRequestData(parsedRequests.nestedTypeQuerySet.updated),
               responses.nestedTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
@@ -587,7 +587,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         describe('type cache directives >>', () => {
-          beforeAll(async () => {
+          beforeAll(() => {
             responseData = undefined;
             // @ts-expect-error property is private
             jest.spyOn(CacheManager, '_isValid').mockReturnValue(true);
@@ -609,7 +609,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
             requestData = getRequestData(parsedRequests.nestedTypeQuerySet.initial);
 
-            await cacheManager.cacheQuery(
+            cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.nestedTypeQuerySet.initial,
@@ -627,7 +627,7 @@ describe('@graphql-box/cache-manager >>', () => {
               data,
             });
 
-            responseData = await cacheManager.cacheQuery(
+            responseData = cacheManager.cacheQuery(
               getRequestData(parsedRequests.nestedTypeQuerySet.full),
               getRequestData(parsedRequests.nestedTypeQuerySet.updated),
               responses.nestedTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
@@ -648,7 +648,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
       describe('nested union with edges >>', () => {
         describe('cascading cache control >>', () => {
-          beforeAll(async () => {
+          beforeAll(() => {
             responseData = undefined;
             // @ts-expect-error property is private
             jest.spyOn(CacheManager, '_isValid').mockReturnValue(true);
@@ -665,7 +665,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
             requestData = getRequestData(parsedRequests.nestedUnionQuerySet.initial);
 
-            await cacheManager.cacheQuery(
+            cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.nestedUnionQuerySet.initial,
@@ -683,7 +683,7 @@ describe('@graphql-box/cache-manager >>', () => {
               data,
             });
 
-            responseData = await cacheManager.cacheQuery(
+            responseData = cacheManager.cacheQuery(
               getRequestData(parsedRequests.nestedUnionQuerySet.full),
               getRequestData(parsedRequests.nestedUnionQuerySet.updated),
               responses.nestedUnionQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
@@ -702,7 +702,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         describe('type cache directives >>', () => {
-          beforeAll(async () => {
+          beforeAll(() => {
             responseData = undefined;
             // @ts-expect-error property is private
             jest.spyOn(CacheManager, '_isValid').mockReturnValue(true);
@@ -722,7 +722,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
             requestData = getRequestData(parsedRequests.nestedUnionQuerySet.initial);
 
-            await cacheManager.cacheQuery(
+            cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.nestedUnionQuerySet.initial,
@@ -740,7 +740,7 @@ describe('@graphql-box/cache-manager >>', () => {
               data,
             });
 
-            responseData = await cacheManager.cacheQuery(
+            responseData = cacheManager.cacheQuery(
               getRequestData(parsedRequests.nestedUnionQuerySet.full),
               getRequestData(parsedRequests.nestedUnionQuerySet.updated),
               responses.nestedUnionQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
@@ -779,7 +779,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
             requestData = getRequestData(parsedRequests.deferQuerySet.initial);
 
-            await cacheManager.cacheQuery(
+            cacheManager.cacheQuery(
               requestData,
               requestData,
               responses.deferQuerySet.initial,
@@ -801,26 +801,24 @@ describe('@graphql-box/cache-manager >>', () => {
               const updateResponses = [...(responses.deferQuerySet.updated as RawResponseDataWithMaybeCacheMetadata[])];
 
               const interval = setInterval(() => {
-                void (async () => {
-                  const result = await cacheManager.cacheQuery(
-                    getRequestData(parsedRequests.deferQuerySet.full),
-                    getRequestData(parsedRequests.deferQuerySet.updated),
-                    updateResponses.shift()!,
-                    { awaitDataCaching: true },
-                    getRequestContext({
-                      fieldTypeMap: requestFieldTypeMaps.deferQuery,
-                      hasDeferOrStream: true,
-                      queryFiltered: true,
-                    })
-                  );
+                const result = cacheManager.cacheQuery(
+                  getRequestData(parsedRequests.deferQuerySet.full),
+                  getRequestData(parsedRequests.deferQuerySet.updated),
+                  updateResponses.shift()!,
+                  { awaitDataCaching: true },
+                  getRequestContext({
+                    fieldTypeMap: requestFieldTypeMaps.deferQuery,
+                    hasDeferOrStream: true,
+                    queryFiltered: true,
+                  })
+                );
 
-                  responseDataSet.push(result);
+                responseDataSet.push(result);
 
-                  if (updateResponses.length === 0) {
-                    clearInterval(interval);
-                    resolve();
-                  }
-                })();
+                if (updateResponses.length === 0) {
+                  clearInterval(interval);
+                  resolve();
+                }
               }, 50);
             });
           });
@@ -983,7 +981,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           const requestData = getRequestData(parsedRequests.singleTypeQuery);
 
-          await cacheManager.cacheQuery(
+          cacheManager.cacheQuery(
             requestData,
             requestData,
             responses.singleTypeQuery,
@@ -1034,7 +1032,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           const requestData = getRequestData(parsedRequests.nestedTypeQuery);
 
-          await cacheManager.cacheQuery(
+          cacheManager.cacheQuery(
             requestData,
             requestData,
             responses.nestedTypeQuery,
@@ -1083,7 +1081,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           const requestData = getRequestData(parsedRequests.nestedUnionQuery);
 
-          await cacheManager.cacheQuery(
+          cacheManager.cacheQuery(
             requestData,
             requestData,
             responses.nestedUnionQuery,
@@ -1133,23 +1131,21 @@ describe('@graphql-box/cache-manager >>', () => {
             const updateResponses = [...(responses.deferQuerySet.updated as RawResponseDataWithMaybeCacheMetadata[])];
 
             const interval = setInterval(() => {
-              void (async () => {
-                await cacheManager.cacheQuery(
-                  requestData,
-                  requestData,
-                  updateResponses.shift()!,
-                  { awaitDataCaching: true },
-                  getRequestContext({
-                    fieldTypeMap: requestFieldTypeMaps.deferQuery,
-                    hasDeferOrStream: true,
-                  })
-                );
+              cacheManager.cacheQuery(
+                requestData,
+                requestData,
+                updateResponses.shift()!,
+                { awaitDataCaching: true },
+                getRequestContext({
+                  fieldTypeMap: requestFieldTypeMaps.deferQuery,
+                  hasDeferOrStream: true,
+                })
+              );
 
-                if (updateResponses.length === 0) {
-                  clearInterval(interval);
-                  resolve();
-                }
-              })();
+              if (updateResponses.length === 0) {
+                clearInterval(interval);
+                resolve();
+              }
             }, 50);
           });
 
@@ -1195,7 +1191,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           const requestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
 
-          await cacheManager.cacheQuery(
+          cacheManager.cacheQuery(
             requestData,
             requestData,
             responses.singleTypeQuerySet.initial,
@@ -1249,7 +1245,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           const requestData = getRequestData(parsedRequests.singleTypeQuerySmallA);
 
-          await cacheManager.cacheQuery(
+          cacheManager.cacheQuery(
             requestData,
             requestData,
             responses.singleTypeQuerySmallA,
@@ -1306,7 +1302,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           const requestData = getRequestData(parsedRequests.nestedTypeQuerySet.initial);
 
-          await cacheManager.cacheQuery(
+          cacheManager.cacheQuery(
             requestData,
             requestData,
             responses.nestedTypeQuerySet.initial,
@@ -1361,7 +1357,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           const requestData = getRequestData(parsedRequests.nestedUnionQuerySet.initial);
 
-          await cacheManager.cacheQuery(
+          cacheManager.cacheQuery(
             requestData,
             requestData,
             responses.nestedUnionQuerySet.initial,
@@ -1413,7 +1409,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           const requestData = getRequestData(parsedRequests.getSearchResultsQuery);
 
-          await cacheManager.cacheQuery(
+          cacheManager.cacheQuery(
             requestData,
             requestData,
             responses.getSearchResultsQuery,
@@ -1465,7 +1461,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           const requestData = getRequestData(parsedRequests.deferQuerySet.initial);
 
-          await cacheManager.cacheQuery(
+          cacheManager.cacheQuery(
             requestData,
             requestData,
             responses.deferQuerySet.initial,
