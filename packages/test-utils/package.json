@@ -1,7 +1,7 @@
 {
   "name": "@graphql-box/test-utils",
   "description": "The GraphQL Box test utils module.",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",

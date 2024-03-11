@@ -1,3 +1,9 @@
+#### 5.0.8 (2024-03-11)
+
+##### Chores
+
+*  republish packages with prod build outputs (ca9c2494)
+
 #### 5.0.7 (2024-02-25)
 
 ##### Refactors
