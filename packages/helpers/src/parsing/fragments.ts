@@ -20,7 +20,7 @@ import { isKind } from './kind.ts';
 import { getName } from './name.ts';
 
 export const resolveFragments = (
-  selectionNodes: readonly SelectionNode[],
+  selectionNodes: readonly SelectionNode[] = [],
   fragmentDefinitions: FragmentDefinitionNodeMap = {},
   typeName?: string,
   fragmentKind?: string,

@@ -1,29 +1,30 @@
-import { type PlainObject } from '@graphql-box/core';
+import { type EntityData } from '@graphql-box/core';
 import { type KeysAndPaths, buildFieldKeysAndPaths, getName, resolveFragments } from '@graphql-box/helpers';
-import { type SelectionNode } from 'graphql';
+import { type FieldNode } from 'graphql';
 import { keys } from 'lodash-es';
 import { type CacheManagerContext } from '../types.ts';
+import { isFieldEntity } from './isFieldEntity.ts';
 
-export const filterOutPropsWithArgsOrDirectives = (
-  fieldData: PlainObject,
-  selectionNodes: readonly SelectionNode[],
+export const filterOutPropsWithEntityOrArgs = (
+  fieldData: EntityData,
+  field: FieldNode,
   ancestorKeysAndPaths: KeysAndPaths,
   context: CacheManagerContext
 ) => {
-  const fieldAndTypeName = resolveFragments(selectionNodes, context.fragmentDefinitions);
+  const fieldAndTypeName = resolveFragments(field.selectionSet?.selections, context.fragmentDefinitions);
 
-  return keys(fieldData).reduce<PlainObject>((acc, key) => {
+  return keys(fieldData).reduce<Partial<EntityData>>((acc, key) => {
     const match = fieldAndTypeName.find(({ fieldNode }) => getName(fieldNode) === key);
 
     if (match) {
       const { requestFieldPath } = buildFieldKeysAndPaths(match.fieldNode, ancestorKeysAndPaths, context);
       const fieldTypeInfo = context.fieldTypeMap.get(requestFieldPath);
 
-      if (!fieldTypeInfo?.hasArguments && !fieldTypeInfo?.hasDirectives) {
+      if (!isFieldEntity(fieldData[key], fieldTypeInfo, context.typeIDKey!) && !fieldTypeInfo?.hasArguments) {
         acc[key] = fieldData[key];
       }
     }
 
     return acc;
-  }, {});
+  }, {}) as EntityData;
 };
