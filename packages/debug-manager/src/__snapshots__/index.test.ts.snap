@@ -4,7 +4,6 @@ exports[`@graphql-box/debug-manager >> CacheManager >> CACHE_ENTRY_ADDED >> corr
 [
   {
     "labels": {
-      "awaitDataCaching": true,
       "cacheControl": "public, max-age=5",
       "cacheType": "queryResponses",
       "duration": 0,
@@ -63,7 +62,6 @@ exports[`@graphql-box/debug-manager >> CacheManager >> CACHE_ENTRY_ADDED >> corr
   },
   {
     "labels": {
-      "awaitDataCaching": true,
       "cacheControl": "public, max-age=5",
       "cacheType": "requestFieldPaths",
       "decryptedCacheKey": "organization({"login":"facebook"})",
@@ -101,7 +99,6 @@ exports[`@graphql-box/debug-manager >> CacheManager >> CACHE_ENTRY_ADDED >> corr
   },
   {
     "labels": {
-      "awaitDataCaching": true,
       "cacheControl": "public, max-age=5",
       "cacheType": "dataEntities",
       "duration": 0,
@@ -143,7 +140,6 @@ exports[`@graphql-box/debug-manager >> CacheManager >> CACHE_ENTRY_QUERIED >> co
 [
   {
     "labels": {
-      "awaitDataCaching": true,
       "cacheType": "requestFieldPaths",
       "decryptedCacheKey": "organization({"login":"facebook"})",
       "duration": 0,
@@ -177,7 +173,6 @@ exports[`@graphql-box/debug-manager >> CacheManager >> CACHE_ENTRY_QUERIED >> co
   },
   {
     "labels": {
-      "awaitDataCaching": true,
       "cacheType": "dataEntities",
       "duration": 0,
       "endTime": 0,

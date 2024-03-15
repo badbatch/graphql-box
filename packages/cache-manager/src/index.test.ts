@@ -54,7 +54,7 @@ describe('@graphql-box/cache-manager >>', () => {
           responseData = cacheManager.cacheResponse(
             requestData,
             responses.nestedInterfaceMutation,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({
               fieldTypeMap: requestFieldTypeMaps.nestedInterfaceMutation,
               operation: OperationTypeNode.MUTATION,
@@ -96,7 +96,7 @@ describe('@graphql-box/cache-manager >>', () => {
           responseData = cacheManager.cacheResponse(
             requestData,
             responses.nestedInterfaceMutation,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({
               fieldTypeMap: requestFieldTypeMaps.nestedInterfaceMutation,
               operation: OperationTypeNode.MUTATION,
@@ -134,7 +134,7 @@ describe('@graphql-box/cache-manager >>', () => {
           responseData = cacheManager.cacheResponse(
             requestData,
             responses.nestedTypeSubscription,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({
               fieldTypeMap: requestFieldTypeMaps.nestedTypeSubscription,
               operation: OperationTypeNode.SUBSCRIPTION,
@@ -173,7 +173,7 @@ describe('@graphql-box/cache-manager >>', () => {
           responseData = cacheManager.cacheResponse(
             requestData,
             responses.nestedTypeSubscription,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({
               fieldTypeMap: requestFieldTypeMaps.nestedTypeSubscription,
               operation: OperationTypeNode.SUBSCRIPTION,
@@ -218,7 +218,7 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               requestData,
               responses.singleTypeQuery,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
             );
           });
@@ -254,7 +254,7 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               requestData,
               responses.singleTypeQuery,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
             );
           });
@@ -290,7 +290,7 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               requestData,
               responses.nestedTypeQuery,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery })
             );
           });
@@ -329,7 +329,7 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               requestData,
               responses.nestedTypeQuery,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery })
             );
           });
@@ -365,7 +365,7 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               requestData,
               responses.nestedUnionQuery,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery })
             );
           });
@@ -402,7 +402,7 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               requestData,
               responses.nestedUnionQuery,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery })
             );
           });
@@ -442,7 +442,7 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               requestData,
               responses.singleTypeQuerySet.initial,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
             );
 
@@ -460,7 +460,7 @@ describe('@graphql-box/cache-manager >>', () => {
               getRequestData(parsedRequests.singleTypeQuerySet.full),
               getRequestData(parsedRequests.singleTypeQuerySet.updated),
               responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery, queryFiltered: true })
             );
           });
@@ -498,7 +498,7 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               requestData,
               responses.singleTypeQuerySet.initial,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
             );
 
@@ -516,7 +516,7 @@ describe('@graphql-box/cache-manager >>', () => {
               getRequestData(parsedRequests.singleTypeQuerySet.full),
               getRequestData(parsedRequests.singleTypeQuerySet.updated),
               responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery, queryFiltered: true })
             );
           });
@@ -533,7 +533,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
       describe('nested type with edges >>', () => {
         describe('cascading cache control >>', () => {
-          beforeAll(() => {
+          beforeAll(async () => {
             responseData = undefined;
             // @ts-expect-error property is private
             jest.spyOn(CacheManager, '_isValid').mockReturnValue(true);
@@ -554,9 +554,11 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               requestData,
               responses.nestedTypeQuerySet.initial,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery })
             );
+
+            await new Promise((...args) => process.nextTick(...args));
 
             const { cacheMetadata, data } = responses.nestedTypeQuerySet.partial;
 
@@ -572,7 +574,7 @@ describe('@graphql-box/cache-manager >>', () => {
               getRequestData(parsedRequests.nestedTypeQuerySet.full),
               getRequestData(parsedRequests.nestedTypeQuerySet.updated),
               responses.nestedTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery, queryFiltered: true })
             );
           });
@@ -587,7 +589,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         describe('type cache directives >>', () => {
-          beforeAll(() => {
+          beforeAll(async () => {
             responseData = undefined;
             // @ts-expect-error property is private
             jest.spyOn(CacheManager, '_isValid').mockReturnValue(true);
@@ -613,9 +615,11 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               requestData,
               responses.nestedTypeQuerySet.initial,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery })
             );
+
+            await new Promise((...args) => process.nextTick(...args));
 
             const { cacheMetadata, data } = responses.nestedTypeQuerySet.partial;
 
@@ -631,7 +635,7 @@ describe('@graphql-box/cache-manager >>', () => {
               getRequestData(parsedRequests.nestedTypeQuerySet.full),
               getRequestData(parsedRequests.nestedTypeQuerySet.updated),
               responses.nestedTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery, queryFiltered: true })
             );
           });
@@ -648,7 +652,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
       describe('nested union with edges >>', () => {
         describe('cascading cache control >>', () => {
-          beforeAll(() => {
+          beforeAll(async () => {
             responseData = undefined;
             // @ts-expect-error property is private
             jest.spyOn(CacheManager, '_isValid').mockReturnValue(true);
@@ -669,9 +673,11 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               requestData,
               responses.nestedUnionQuerySet.initial,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery })
             );
+
+            await new Promise((...args) => process.nextTick(...args));
 
             const { cacheMetadata, data } = responses.nestedUnionQuerySet.partial;
 
@@ -687,7 +693,7 @@ describe('@graphql-box/cache-manager >>', () => {
               getRequestData(parsedRequests.nestedUnionQuerySet.full),
               getRequestData(parsedRequests.nestedUnionQuerySet.updated),
               responses.nestedUnionQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery, queryFiltered: true })
             );
           });
@@ -702,7 +708,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         describe('type cache directives >>', () => {
-          beforeAll(() => {
+          beforeAll(async () => {
             responseData = undefined;
             // @ts-expect-error property is private
             jest.spyOn(CacheManager, '_isValid').mockReturnValue(true);
@@ -726,9 +732,11 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               requestData,
               responses.nestedUnionQuerySet.initial,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery })
             );
+
+            await new Promise((...args) => process.nextTick(...args));
 
             const { cacheMetadata, data } = responses.nestedUnionQuerySet.partial;
 
@@ -744,7 +752,7 @@ describe('@graphql-box/cache-manager >>', () => {
               getRequestData(parsedRequests.nestedUnionQuerySet.full),
               getRequestData(parsedRequests.nestedUnionQuerySet.updated),
               responses.nestedUnionQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery, queryFiltered: true })
             );
           });
@@ -783,9 +791,11 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               requestData,
               responses.deferQuerySet.initial,
-              { awaitDataCaching: true },
+              {},
               getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true })
             );
+
+            await new Promise((...args) => process.nextTick(...args));
 
             const { cacheMetadata, data } = responses.deferQuerySet.partial;
 
@@ -805,7 +815,7 @@ describe('@graphql-box/cache-manager >>', () => {
                   getRequestData(parsedRequests.deferQuerySet.full),
                   getRequestData(parsedRequests.deferQuerySet.updated),
                   updateResponses.shift()!,
-                  { awaitDataCaching: true },
+                  {},
                   getRequestContext({
                     fieldTypeMap: requestFieldTypeMaps.deferQuery,
                     hasDeferOrStream: true,
@@ -854,7 +864,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.singleTypeQuery),
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
           );
         });
@@ -884,7 +894,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.nestedTypeQuery),
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery })
           );
         });
@@ -914,7 +924,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.nestedUnionQuery),
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery })
           );
         });
@@ -944,7 +954,7 @@ describe('@graphql-box/cache-manager >>', () => {
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.deferQuery),
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true })
           );
         });
@@ -985,13 +995,15 @@ describe('@graphql-box/cache-manager >>', () => {
             requestData,
             requestData,
             responses.singleTypeQuery,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
           );
 
+          await new Promise((...args) => process.nextTick(...args));
+
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.singleTypeQuery),
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
           );
         });
@@ -1036,13 +1048,15 @@ describe('@graphql-box/cache-manager >>', () => {
             requestData,
             requestData,
             responses.nestedTypeQuery,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery })
           );
 
+          await new Promise((...args) => process.nextTick(...args));
+
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.nestedTypeQuery),
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery })
           );
         });
@@ -1085,13 +1099,15 @@ describe('@graphql-box/cache-manager >>', () => {
             requestData,
             requestData,
             responses.nestedUnionQuery,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery })
           );
 
+          await new Promise((...args) => process.nextTick(...args));
+
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.nestedUnionQuery),
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery })
           );
         });
@@ -1135,7 +1151,7 @@ describe('@graphql-box/cache-manager >>', () => {
                 requestData,
                 requestData,
                 updateResponses.shift()!,
-                { awaitDataCaching: true },
+                {},
                 getRequestContext({
                   fieldTypeMap: requestFieldTypeMaps.deferQuery,
                   hasDeferOrStream: true,
@@ -1149,9 +1165,11 @@ describe('@graphql-box/cache-manager >>', () => {
             }, 50);
           });
 
+          await new Promise((...args) => process.nextTick(...args));
+
           analyzeQueryResult = await cacheManager.analyzeQuery(
             requestData,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true })
           );
         });
@@ -1195,13 +1213,15 @@ describe('@graphql-box/cache-manager >>', () => {
             requestData,
             requestData,
             responses.singleTypeQuerySet.initial,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
           );
 
+          await new Promise((...args) => process.nextTick(...args));
+
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.singleTypeQuery),
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
           );
         });
@@ -1249,13 +1269,15 @@ describe('@graphql-box/cache-manager >>', () => {
             requestData,
             requestData,
             responses.singleTypeQuerySmallA,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
           );
 
+          await new Promise((...args) => process.nextTick(...args));
+
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.singleTypeQuerySmallB),
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
           );
         });
@@ -1306,13 +1328,15 @@ describe('@graphql-box/cache-manager >>', () => {
             requestData,
             requestData,
             responses.nestedTypeQuerySet.initial,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery })
           );
 
+          await new Promise((...args) => process.nextTick(...args));
+
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.nestedTypeQuery),
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery })
           );
         });
@@ -1361,13 +1385,15 @@ describe('@graphql-box/cache-manager >>', () => {
             requestData,
             requestData,
             responses.nestedUnionQuerySet.initial,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery })
           );
 
+          await new Promise((...args) => process.nextTick(...args));
+
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.nestedUnionQuery),
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery })
           );
         });
@@ -1413,13 +1439,15 @@ describe('@graphql-box/cache-manager >>', () => {
             requestData,
             requestData,
             responses.getSearchResultsQuery,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.getSearchResultsQuery, hasDeferOrStream: true })
           );
 
+          await new Promise((...args) => process.nextTick(...args));
+
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.getMoviePreviewQuery),
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.getMoviePreviewQuery, hasDeferOrStream: true })
           );
         });
@@ -1465,13 +1493,15 @@ describe('@graphql-box/cache-manager >>', () => {
             requestData,
             requestData,
             responses.deferQuerySet.initial,
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true })
           );
 
+          await new Promise((...args) => process.nextTick(...args));
+
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.deferQuery),
-            { awaitDataCaching: true },
+            {},
             getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true })
           );
         });

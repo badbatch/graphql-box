@@ -4,7 +4,6 @@ const isServerRequestOptions = (options: RequestOptions | ServerRequestOptions):
   'contextValue' in options;
 
 export type TransformedOptions = {
-  awaitDataCaching?: boolean;
   batch?: boolean;
   contextValue?: PlainObject;
   returnCacheMetadata?: boolean;
@@ -20,18 +19,16 @@ export const transformOptions = (options?: RequestOptions | ServerRequestOptions
   let transformedOptions: TransformedOptions = {};
 
   if (isServerRequestOptions(options)) {
-    const { awaitDataCaching, returnCacheMetadata, tag } = options;
+    const { returnCacheMetadata, tag } = options;
 
     transformedOptions = {
-      awaitDataCaching,
       returnCacheMetadata,
       tag,
     };
   } else {
-    const { awaitDataCaching, batch, returnCacheMetadata, tag, variables } = options;
+    const { batch, returnCacheMetadata, tag, variables } = options;
 
     transformedOptions = {
-      awaitDataCaching,
       batch,
       returnCacheMetadata,
       tag,

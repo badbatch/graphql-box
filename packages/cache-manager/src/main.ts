@@ -574,16 +574,18 @@ export class CacheManager implements CacheManagerDef {
       const { data } = responseDataForCaching;
       const cacheMetadata = this._buildCacheMetadata(requestData, responseDataForCaching, options, context);
 
-      this._setEntityAndRequestFieldPathCacheEntries(
-        requestData,
-        {
-          cacheMetadata,
-          entityData: structuredClone(data),
-          requestFieldPathData: structuredClone(data),
-        },
-        options,
-        context
-      );
+      void new Promise(() => {
+        this._setEntityAndRequestFieldPathCacheEntries(
+          requestData,
+          {
+            cacheMetadata,
+            entityData: structuredClone(data),
+            requestFieldPathData: structuredClone(data),
+          },
+          options,
+          context
+        );
+      });
 
       let queryCacheMetadata: CacheMetadata | undefined;
       let queryData: PlainData | undefined;
@@ -755,7 +757,7 @@ export class CacheManager implements CacheManagerDef {
         keysAndPaths,
         {
           cacheability,
-          fieldData: filterOutPropsWithEntityArgsOrDirectives(fieldData, field, keysAndPaths, context),
+          fieldData: filterOutPropsWithEntityArgsOrDirectives(structuredClone(fieldData), field, keysAndPaths, context),
           fieldTypeInfo,
         },
         options,
@@ -778,7 +780,7 @@ export class CacheManager implements CacheManagerDef {
         {
           cacheability,
           fieldData: filterOutPropsWithEntityOrArgs(
-            get(entityData, responseDataPath) as EntityData,
+            structuredClone(get(entityData, responseDataPath)) as EntityData,
             field,
             keysAndPaths,
             context

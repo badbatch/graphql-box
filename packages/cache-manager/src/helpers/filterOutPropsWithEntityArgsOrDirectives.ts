@@ -31,14 +31,15 @@ export const filterOutPropsWithEntityArgsOrDirectives = (
       const fieldTypeInfo = context.fieldTypeMap.get(keysAndPaths.requestFieldPath);
 
       if (
-        !isFieldEntity(fieldData[key], fieldTypeInfo, context.typeIDKey!) &&
-        !fieldTypeInfo?.hasArguments &&
-        !fieldTypeInfo?.hasDirectives
+        isFieldEntity(fieldData[key], fieldTypeInfo, context.typeIDKey!) ||
+        fieldTypeInfo?.hasArguments ||
+        fieldTypeInfo?.hasDirectives
       ) {
-        acc[key] = fieldData[key];
+        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+        delete fieldData[key];
       }
     }
 
     return acc;
-  }, {});
+  }, fieldData);
 };

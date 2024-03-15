@@ -67,7 +67,7 @@ describe('@graphql-box/debug-manager >>', () => {
         requestData,
         requestData,
         responses.singleTypeQuery,
-        { awaitDataCaching: true },
+        {},
         getRequestContext({ debugManager, fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
       );
     });
@@ -111,13 +111,13 @@ describe('@graphql-box/debug-manager >>', () => {
         requestData,
         requestData,
         responses.singleTypeQuerySet.initial,
-        { awaitDataCaching: true },
+        {},
         getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
       );
 
       await cacheManager.analyzeQuery(
         getRequestData(parsedRequests.singleTypeQuery),
-        { awaitDataCaching: true },
+        {},
         getRequestContext({ debugManager, fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
       );
     });

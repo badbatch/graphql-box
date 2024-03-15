@@ -26,13 +26,13 @@ export const start = (): http.Server => {
     .use(cors())
     .use(bodyParser.urlencoded({ extended: true }))
     .use(bodyParser.json())
-    .use('/graphql', graphqlServer.request({ awaitDataCaching: true, returnCacheMetadata: true }));
+    .use('/graphql', graphqlServer.request({ returnCacheMetadata: true }));
 
   const httpServer = http.createServer(app);
   const wss = new WebSocketServer({ path: '/graphql', server: httpServer });
 
   wss.on('connection', ws => {
-    ws.on('message', graphqlServer.message({ awaitDataCaching: true, returnCacheMetadata: true, ws }));
+    ws.on('message', graphqlServer.message({ returnCacheMetadata: true, ws }));
 
     ws.on('error', error => {
       console.log(error);

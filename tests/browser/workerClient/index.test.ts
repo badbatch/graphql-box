@@ -12,7 +12,7 @@ import { dehydrateCacheMetadata } from '@graphql-box/helpers';
 import { parsedRequests } from '@graphql-box/test-utils';
 import { type WorkerClient } from '@graphql-box/worker-client';
 
-const defaultOptions = { awaitDataCaching: true, returnCacheMetadata: true };
+const defaultOptions = { returnCacheMetadata: true };
 
 describe('workerClient', () => {
   describe('request', () => {

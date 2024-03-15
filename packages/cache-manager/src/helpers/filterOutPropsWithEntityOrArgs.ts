@@ -20,11 +20,12 @@ export const filterOutPropsWithEntityOrArgs = (
       const { requestFieldPath } = buildFieldKeysAndPaths(match.fieldNode, ancestorKeysAndPaths, context);
       const fieldTypeInfo = context.fieldTypeMap.get(requestFieldPath);
 
-      if (!isFieldEntity(fieldData[key], fieldTypeInfo, context.typeIDKey!) && !fieldTypeInfo?.hasArguments) {
-        acc[key] = fieldData[key];
+      if (isFieldEntity(fieldData[key], fieldTypeInfo, context.typeIDKey!) || fieldTypeInfo?.hasArguments) {
+        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+        delete fieldData[key];
       }
     }
 
     return acc;
-  }, {}) as EntityData;
+  }, fieldData) as EntityData;
 };

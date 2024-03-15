@@ -23,7 +23,7 @@ import { WebsocketManager } from '@graphql-box/websocket-manager';
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10_000;
 
 const introspection = githubIntrospection as IntrospectionQuery;
-const defaultOptions = { awaitDataCaching: true, returnCacheMetadata: true };
+const defaultOptions = { returnCacheMetadata: true };
 
 const typeCacheDirectives = {
   Organization: 'public, max-age=1',
