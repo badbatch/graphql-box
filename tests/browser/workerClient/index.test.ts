@@ -1,6 +1,5 @@
 import { expected } from '../../expected/index.ts';
 import { initWorkerClient } from '../../helpers/initWorker.ts';
-import { sortCacheEntries } from '../../helpers/sortCacheEntries.ts';
 import { FetchMockWorker } from '../../modules/fetch-mock/index.ts';
 import { type ExportCacheResult } from '@graphql-box/cache-manager';
 import {
@@ -13,6 +12,7 @@ import { parsedRequests } from '@graphql-box/test-utils';
 import { type WorkerClient } from '@graphql-box/worker-client';
 
 const defaultOptions = { returnCacheMetadata: true };
+const delay = (ms = 200) => new Promise<void>(resolve => setTimeout(() => resolve(), ms));
 
 describe('workerClient', () => {
   describe('request', () => {
@@ -39,6 +39,7 @@ describe('workerClient', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
+        await delay();
         cache = await workerClient.cache.export();
       });
 
@@ -52,7 +53,7 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.noMatch.cache);
+        expect(cache).toEqual(expected.noMatch.cache);
       });
     });
 
@@ -75,6 +76,7 @@ describe('workerClient', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
+        await delay();
         cache = await workerClient.cache.export();
       });
 
@@ -93,7 +95,7 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.queryTrackerExactMatch.cache);
+        expect(cache).toEqual(expected.queryTrackerExactMatch.cache);
       });
     });
 
@@ -115,6 +117,7 @@ describe('workerClient', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
+        await delay();
         cache = await workerClient.cache.export();
       });
 
@@ -133,7 +136,7 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.queryTrackerPartialMatch.cache);
+        expect(cache).toEqual(expected.queryTrackerPartialMatch.cache);
       });
     });
 
@@ -145,6 +148,7 @@ describe('workerClient', () => {
         const request = parsedRequests.singleTypeQuery;
 
         await workerClient.query(request, { ...defaultOptions });
+        await delay();
         await fetchMockWorker.postMessage('resetHistory');
 
         const { _cacheMetadata, data } = (await workerClient.query(request, {
@@ -157,6 +161,7 @@ describe('workerClient', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
+        await delay();
         cache = await workerClient.cache.export();
       });
 
@@ -175,7 +180,7 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.queryResponseMatch.cache);
+        expect(cache).toEqual(expected.queryResponseMatch.cache);
       });
     });
 
@@ -187,6 +192,7 @@ describe('workerClient', () => {
         const { full, initial } = parsedRequests.singleTypeQuerySet;
 
         await workerClient.query(full, { ...defaultOptions });
+        await delay();
         await fetchMockWorker.postMessage('resetHistory');
 
         const { _cacheMetadata, data } = (await workerClient.query(initial, {
@@ -199,6 +205,7 @@ describe('workerClient', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
+        await delay();
         cache = await workerClient.cache.export();
       });
 
@@ -217,7 +224,7 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.requestFieldPathDataEntityMatch.cache);
+        expect(cache).toEqual(expected.requestFieldPathDataEntityMatch.cache);
       });
     });
 
@@ -230,6 +237,7 @@ describe('workerClient', () => {
         workerClient = initWorkerClient({ worker });
 
         await workerClient.query(initial, { ...defaultOptions });
+        await delay();
         await fetchMockWorker.postMessage('resetHistory');
 
         const { _cacheMetadata, data } = (await workerClient.query(full, {
@@ -242,6 +250,7 @@ describe('workerClient', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
+        await delay();
         cache = await workerClient.cache.export();
       });
 
@@ -260,7 +269,7 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.requestFieldPathDataEntityPartialMatch.cache);
+        expect(cache).toEqual(expected.requestFieldPathDataEntityPartialMatch.cache);
       });
     });
   });

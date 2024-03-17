@@ -7,7 +7,6 @@ import { WS_URL } from '../../constants.ts';
 import { expected } from '../../expected/index.ts';
 import { initClient } from '../../helpers/initClient.ts';
 import { onWebsocketOpen } from '../../helpers/onWebsocketOpen.ts';
-import { sortCacheEntries } from '../../helpers/sortCacheEntries.ts';
 import { mockRequest } from '../../modules/fetch-mock/index.ts';
 import { type ExportCacheResult } from '@graphql-box/cache-manager';
 import { type Client } from '@graphql-box/client';
@@ -31,6 +30,8 @@ const typeCacheDirectives = {
   RepositoryConnection: 'public, max-age=1',
   RepositoryOwner: 'public, max-age=3',
 };
+
+const delay = (ms = 200) => new Promise<void>(resolve => setTimeout(() => resolve(), ms));
 
 describe('client', () => {
   const realDateNow = Date.now.bind(global.Date);
@@ -66,6 +67,7 @@ describe('client', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
+        await delay();
         cache = await client.cache.export();
       });
 
@@ -79,7 +81,7 @@ describe('client', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.noMatch.cache);
+        expect(cache).toEqual(expected.noMatch.cache);
       });
     });
 
@@ -107,6 +109,7 @@ describe('client', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
+        await delay();
         cache = await client.cache.export();
       });
 
@@ -124,7 +127,7 @@ describe('client', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.queryTrackerExactMatch.cache);
+        expect(cache).toEqual(expected.queryTrackerExactMatch.cache);
       });
     });
 
@@ -150,6 +153,7 @@ describe('client', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
+        await delay();
         cache = await client.cache.export();
       });
 
@@ -167,7 +171,7 @@ describe('client', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.queryTrackerPartialMatch.cache);
+        expect(cache).toEqual(expected.queryTrackerPartialMatch.cache);
       });
     });
 
@@ -183,6 +187,7 @@ describe('client', () => {
 
         const request = parsedRequests.singleTypeQuery;
         await client.query(request, { ...defaultOptions });
+        await delay();
         fetchMock.resetHistory();
 
         const { _cacheMetadata, data } = (await client.query(request, { ...defaultOptions })) as PartialRequestResult;
@@ -192,6 +197,7 @@ describe('client', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
+        await delay();
         cache = await client.cache.export();
       });
 
@@ -209,7 +215,7 @@ describe('client', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.queryResponseMatch.cache);
+        expect(cache).toEqual(expected.queryResponseMatch.cache);
       });
     });
 
@@ -225,6 +231,7 @@ describe('client', () => {
 
         const { full, initial } = parsedRequests.singleTypeQuerySet;
         await client.query(full, { ...defaultOptions });
+        await delay();
         fetchMock.resetHistory();
 
         const { _cacheMetadata, data } = (await client.query(initial, { ...defaultOptions })) as PartialRequestResult;
@@ -234,6 +241,7 @@ describe('client', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
+        await delay();
         cache = await client.cache.export();
       });
 
@@ -251,7 +259,7 @@ describe('client', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.requestFieldPathDataEntityMatch.cache);
+        expect(cache).toEqual(expected.requestFieldPathDataEntityMatch.cache);
       });
     });
 
@@ -276,6 +284,7 @@ describe('client', () => {
         });
 
         await client.query(initial, { ...defaultOptions });
+        await delay();
         fetchMock.resetHistory();
 
         const { _cacheMetadata, data } = (await client.query(full, { ...defaultOptions })) as PartialRequestResult;
@@ -285,6 +294,7 @@ describe('client', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
+        await delay();
         cache = await client.cache.export();
       });
 
@@ -302,7 +312,7 @@ describe('client', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.requestFieldPathDataEntityPartialMatch.cache);
+        expect(cache).toEqual(expected.requestFieldPathDataEntityPartialMatch.cache);
       });
     });
   });
@@ -346,6 +356,7 @@ describe('client', () => {
               subResponse._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
             }
 
+            await delay();
             cache = await client.cache.export();
             resolve();
           });
@@ -374,6 +385,7 @@ describe('client', () => {
           mutResponse._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
+        await delay();
         await subscriptionResponse;
       });
 
