@@ -36,7 +36,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
     this._websocket = options.websocket;
 
     this._websocket.addEventListener('message', (event: MessageEvent<string>) => {
-      void this._onMessage(event);
+      this._onMessage(event);
     });
   }
 
@@ -70,7 +70,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
     return this._websocket.readyState === 1;
   }
 
-  private async _onMessage(event: MessageEvent<string>): Promise<void> {
+  private _onMessage(event: MessageEvent<string>): void {
     const { result, subscriptionID } = JSON.parse(event.data) as {
       result: PartialRawFetchData;
       subscriptionID: string;
@@ -82,7 +82,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
       return;
     }
 
-    const resolvedResult = await subscriberResolver(deserializeErrors(result));
+    const resolvedResult = subscriberResolver(deserializeErrors(result));
     this._eventEmitter.emit(subscriptionID, resolvedResult);
   }
 }

@@ -214,7 +214,7 @@ describe('@graphql-box/fetch-manager >>', () => {
         getRequestData(parsedRequests.deferQuery),
         {},
         getRequestContext({ hasDeferOrStream: true }),
-        (data => Promise.resolve(data)) as RequestResolver
+        (data => data) as RequestResolver
       )) as AsyncIterableIterator<PartialRequestResult | undefined>;
 
       const promise = new Promise<void>(resolve => {

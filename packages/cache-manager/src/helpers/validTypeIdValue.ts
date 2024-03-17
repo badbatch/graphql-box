@@ -3,11 +3,11 @@ import { isPlainObject } from '@graphql-box/helpers';
 
 export const getValidTypeIdValue = (
   requestFieldPathData: unknown,
-  { typeIDValue }: FieldTypeInfo,
+  fieldTypeInfo: FieldTypeInfo | undefined,
   typeIDKey: string
 ): string | number | undefined => {
-  if (typeIDValue) {
-    return typeIDValue;
+  if (fieldTypeInfo?.typeIDValue) {
+    return fieldTypeInfo.typeIDValue;
   }
 
   if (isPlainObject(requestFieldPathData)) {

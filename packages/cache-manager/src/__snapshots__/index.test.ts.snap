@@ -3161,7 +3161,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> entire matching data >> n
       "updatedCount": 0,
     },
     {
-      "accessedCount": 6,
+      "accessedCount": 11,
       "added": 297475200000,
       "cacheability": Cacheability {
         "metadata": {
@@ -5740,7 +5740,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> def
   ],
   "metadata": [
     {
-      "accessedCount": 5,
+      "accessedCount": 9,
       "added": 297475200000,
       "cacheability": Cacheability {
         "metadata": {
@@ -5780,7 +5780,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> def
       "updatedCount": 0,
     },
     {
-      "accessedCount": 2,
+      "accessedCount": 3,
       "added": 297475200000,
       "cacheability": Cacheability {
         "metadata": {
@@ -21515,7 +21515,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 280,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21535,7 +21535,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 392,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21555,7 +21555,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 464,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21575,7 +21575,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 512,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21595,7 +21595,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 288,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21615,7 +21615,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 384,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21635,7 +21635,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21655,7 +21655,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21675,7 +21675,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 456,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21695,7 +21695,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 272,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21715,7 +21715,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 288,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21735,7 +21735,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 288,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21755,7 +21755,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21775,7 +21775,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21795,7 +21795,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21815,7 +21815,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21835,7 +21835,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 272,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21855,7 +21855,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 408,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21875,7 +21875,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 408,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21895,7 +21895,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 272,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21915,7 +21915,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 288,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21935,7 +21935,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 288,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21955,7 +21955,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 288,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21975,7 +21975,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -21995,7 +21995,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 376,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22015,7 +22015,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 344,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22035,7 +22035,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 464,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22055,7 +22055,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22075,7 +22075,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22095,7 +22095,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 432,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22115,7 +22115,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22135,7 +22135,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22155,7 +22155,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22175,7 +22175,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 432,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22195,7 +22195,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22215,7 +22215,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22235,7 +22235,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22255,7 +22255,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 456,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22275,7 +22275,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22295,7 +22295,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 424,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22315,7 +22315,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22335,7 +22335,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 424,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22355,7 +22355,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 424,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22375,7 +22375,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 520,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22395,7 +22395,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 520,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22415,7 +22415,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22435,7 +22435,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22455,7 +22455,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22475,7 +22475,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22495,7 +22495,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22515,7 +22515,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22535,7 +22535,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 512,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22555,7 +22555,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22575,7 +22575,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 424,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22595,7 +22595,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 480,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22615,7 +22615,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22635,7 +22635,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 504,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22655,7 +22655,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22675,7 +22675,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 440,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22695,7 +22695,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 440,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22715,7 +22715,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 440,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22735,7 +22735,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 304,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22755,7 +22755,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 440,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22775,7 +22775,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22795,7 +22795,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 496,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22815,7 +22815,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 488,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22835,7 +22835,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 496,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22855,7 +22855,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 480,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22875,7 +22875,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 496,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22895,7 +22895,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 488,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22915,7 +22915,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 304,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22935,7 +22935,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 496,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22955,7 +22955,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 504,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22975,7 +22975,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 296,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -22995,7 +22995,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 304,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -23015,7 +23015,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 304,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -23035,7 +23035,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 352,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -23055,7 +23055,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 328,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -23175,7 +23175,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 272,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -23655,7 +23655,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 280,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -23735,7 +23735,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 440,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -23775,7 +23775,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -23895,7 +23895,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 328,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -23915,7 +23915,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 8,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -24135,7 +24135,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -24335,7 +24335,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -24355,7 +24355,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 520,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -24535,7 +24535,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 496,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -24615,7 +24615,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -24695,7 +24695,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 464,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -24715,7 +24715,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 288,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -24955,7 +24955,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 272,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -24995,7 +24995,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -25115,7 +25115,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 304,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -25135,7 +25135,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 928,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -25155,7 +25155,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 7368,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -25275,7 +25275,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -25455,7 +25455,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -25555,7 +25555,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -25695,7 +25695,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 16,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -25735,7 +25735,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 744,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26095,7 +26095,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 432,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26115,7 +26115,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 488,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26135,7 +26135,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 288,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26195,7 +26195,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 424,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26275,7 +26275,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26295,7 +26295,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 296,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26575,7 +26575,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26755,7 +26755,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 480,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26775,7 +26775,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26855,7 +26855,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26875,7 +26875,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 424,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26895,7 +26895,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 504,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26915,7 +26915,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 440,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -26995,7 +26995,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 384,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -27015,7 +27015,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 496,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -27295,7 +27295,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 8,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -27375,7 +27375,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -27415,7 +27415,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -27475,7 +27475,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -27495,7 +27495,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 376,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -27615,7 +27615,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -27775,7 +27775,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 744,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -27875,7 +27875,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -27895,7 +27895,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 1112,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -27975,7 +27975,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 16,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -28015,7 +28015,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 304,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -28075,7 +28075,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 288,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -28115,7 +28115,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 496,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -28135,7 +28135,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -28275,7 +28275,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 408,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -28295,7 +28295,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 288,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -28395,7 +28395,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 272,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -28555,7 +28555,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 304,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -28655,7 +28655,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 440,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -28695,7 +28695,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 392,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -28915,7 +28915,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 304,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -28955,7 +28955,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -29075,7 +29075,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -29235,7 +29235,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 464,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -29315,7 +29315,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -29395,7 +29395,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -29415,7 +29415,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 456,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -29595,7 +29595,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 352,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -29775,7 +29775,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 8,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -29835,7 +29835,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 344,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -29975,7 +29975,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 424,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -30035,7 +30035,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 520,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -30135,7 +30135,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 456,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -30175,7 +30175,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 8,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -30395,7 +30395,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -30575,7 +30575,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 8,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -30675,7 +30675,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 424,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -30695,7 +30695,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -30875,7 +30875,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -31015,7 +31015,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 488,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -31075,7 +31075,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 192,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -31255,7 +31255,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 416,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -31315,7 +31315,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 480,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -31435,7 +31435,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 928,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -31475,7 +31475,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 512,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -31515,7 +31515,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 288,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -31775,7 +31775,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 16,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -31855,7 +31855,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 512,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -32035,7 +32035,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 432,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -32095,7 +32095,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 1112,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -32175,7 +32175,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 504,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -32375,7 +32375,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 8,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -32535,7 +32535,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 376,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -32555,7 +32555,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 288,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -32615,7 +32615,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 400,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -32635,7 +32635,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 440,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -32675,7 +32675,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 560,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -32715,7 +32715,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 376,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -32735,7 +32735,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 496,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -32755,7 +32755,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> fra
       "lastUpdated": 297475200000,
       "size": 408,
       "tags": [],
-      "updatedCount": 1,
+      "updatedCount": 0,
     },
     {
       "accessedCount": 0,
@@ -33631,7 +33631,7 @@ exports[`@graphql-box/cache-manager >> analyzeQuery >> some matching data >> nes
       "updatedCount": 0,
     },
     {
-      "accessedCount": 6,
+      "accessedCount": 11,
       "added": 297475200000,
       "cacheability": Cacheability {
         "metadata": {
@@ -36919,7 +36919,7 @@ exports[`@graphql-box/cache-manager >> cacheQuery >> filtered >> defer >> cascad
   ],
   "metadata": [
     {
-      "accessedCount": 5,
+      "accessedCount": 9,
       "added": 297475200000,
       "cacheability": Cacheability {
         "metadata": {
@@ -36959,7 +36959,7 @@ exports[`@graphql-box/cache-manager >> cacheQuery >> filtered >> defer >> cascad
       "updatedCount": 1,
     },
     {
-      "accessedCount": 2,
+      "accessedCount": 3,
       "added": 297475200000,
       "cacheability": Cacheability {
         "metadata": {
@@ -41617,7 +41617,7 @@ exports[`@graphql-box/cache-manager >> cacheQuery >> filtered >> nested type wit
       "updatedCount": 1,
     },
     {
-      "accessedCount": 0,
+      "accessedCount": 5,
       "added": 297475200000,
       "cacheability": Cacheability {
         "metadata": {
@@ -42923,7 +42923,7 @@ exports[`@graphql-box/cache-manager >> cacheQuery >> filtered >> nested type wit
       "updatedCount": 1,
     },
     {
-      "accessedCount": 0,
+      "accessedCount": 5,
       "added": 297475200000,
       "cacheability": Cacheability {
         "metadata": {
@@ -47004,7 +47004,7 @@ exports[`@graphql-box/cache-manager >> cacheQuery >> not filtered >> nested type
       "updatedCount": 0,
     },
     {
-      "accessedCount": 0,
+      "accessedCount": 5,
       "added": 297475200000,
       "cacheability": Cacheability {
         "metadata": {
@@ -48063,7 +48063,7 @@ exports[`@graphql-box/cache-manager >> cacheQuery >> not filtered >> nested type
       "updatedCount": 0,
     },
     {
-      "accessedCount": 0,
+      "accessedCount": 5,
       "added": 297475200000,
       "cacheability": Cacheability {
         "metadata": {

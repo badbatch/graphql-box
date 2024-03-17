@@ -29,12 +29,6 @@ export type TypedData = PlainObject & { __typename: string };
 
 export interface RequestOptions {
   /**
-   * Whether the request method should wait until
-   * all response data has been cached before
-   * returning the response data.
-   */
-  awaitDataCaching?: boolean;
-  /**
    * Whether to batch the request. This defaults to the
    * batchRequest value set in @graphql-box/fetch-manager.
    */
@@ -63,12 +57,6 @@ export interface RequestOptions {
 }
 
 export interface ServerRequestOptions {
-  /**
-   * Whether the request method should wait until
-   * all response data has been cached before
-   * returning the response data.
-   */
-  awaitDataCaching?: boolean;
   /**
    * Set GraphQL context value to be passed on to
    * GraphQL's execute and subscribe methods.
@@ -391,9 +379,9 @@ export interface RequestManagerDef {
   ): Promise<AsyncIterableIterator<PartialRequestResult | undefined> | PartialRawResponseData>;
 }
 
-export type RequestResolver = (rawResponseData: PartialRawResponseData) => Promise<PartialRequestResult>;
+export type RequestResolver = (rawResponseData: PartialRawResponseData) => PartialRequestResult;
 
-export type SubscriberResolver = (rawResponseData: PartialRawResponseData) => Promise<PartialRequestResult>;
+export type SubscriberResolver = (rawResponseData: PartialRawResponseData) => PartialRequestResult;
 
 export interface SubscriptionsManagerDef {
   subscribe(

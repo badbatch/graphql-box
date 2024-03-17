@@ -15,7 +15,7 @@ const onOpen = (websocket: WebSocket): Promise<void> => {
 };
 
 describe('@graphql-box/websocket-manager >>', () => {
-  const subscriptionResolver: SubscriberResolver = result => Promise.resolve(result as PartialRequestResult);
+  const subscriptionResolver: SubscriberResolver = result => result as PartialRequestResult;
   const url = 'ws://localhost:8080';
   let server: Server;
   let serverSocket: Client;

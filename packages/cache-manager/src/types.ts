@@ -122,9 +122,9 @@ export interface ResponseDataForCaching {
   requestFieldPathData: PlainData;
 }
 
-export interface DataForCachingEntry {
+export interface DataForCachingEntry<Data = unknown> {
   cacheability: Cacheability;
-  data: PlainData;
+  fieldData: Data;
   fieldTypeInfo: FieldTypeInfo;
 }
 
@@ -157,13 +157,13 @@ export interface CacheManagerDef {
     responseData: RawResponseDataWithMaybeCacheMetadata,
     options: RequestOptions,
     context: RequestContext
-  ): Promise<ResponseData>;
+  ): ResponseData;
   cacheResponse(
     requestData: RequestData,
     responseData: RawResponseDataWithMaybeCacheMetadata,
     options: RequestOptions,
     context: RequestContext
-  ): Promise<ResponseData>;
+  ): ResponseData;
   checkCacheEntry(
     cacheType: CacheTypes,
     hash: string,
@@ -181,5 +181,5 @@ export interface CacheManagerDef {
     responseData: ResponseData,
     options: RequestOptions,
     context: CacheManagerContext
-  ): Promise<void>;
+  ): void;
 }
