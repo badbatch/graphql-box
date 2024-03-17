@@ -1,3 +1,13 @@
+#### 5.0.9 (2024-03-17)
+
+##### Refactors
+
+*  add delay after caching in tests (78ff0483)
+*  sort caching to fix tests (639ae922)
+*  change way caching is awaited (3df29249)
+*  update cachemap to sort exported entries (14d86438)
+*  remove awaiting in caching workflow (2756e614)
+
 #### 5.0.8 (2024-03-11)
 
 ##### Chores
