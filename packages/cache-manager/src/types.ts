@@ -122,9 +122,9 @@ export interface ResponseDataForCaching {
   requestFieldPathData: PlainData;
 }
 
-export interface DataForCachingEntry {
+export interface DataForCachingEntry<Data = unknown> {
   cacheability: Cacheability;
-  data: PlainData;
+  fieldData: Data;
   fieldTypeInfo: FieldTypeInfo;
 }
 

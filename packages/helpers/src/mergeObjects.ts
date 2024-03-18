@@ -1,4 +1,4 @@
-import { cloneDeep, isEqual, mergeWith } from 'lodash-es';
+import { isEqual, mergeWith } from 'lodash-es';
 import { isArray, isObjectLike } from './lodashProxies.ts';
 
 export const mergeObjects = <T extends object>(
@@ -49,6 +49,6 @@ export const mergeObjects = <T extends object>(
     return destinationValue;
   };
 
-  const objClone = cloneDeep(obj);
+  const objClone = structuredClone(obj);
   return mergeWith(objClone, source, mergeCustomizer);
 };

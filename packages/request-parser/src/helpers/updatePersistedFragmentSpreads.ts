@@ -1,5 +1,5 @@
 import { type ParsedDirective } from '@graphql-box/helpers';
-import { cloneDeep, isUndefined, keys } from 'lodash-es';
+import { isUndefined, keys } from 'lodash-es';
 import { type Ancestors, type PersistedFragmentSpread, type VisitorContext } from '../types.ts';
 import { enrichAncestors } from './enrichAncestors.ts';
 
@@ -13,7 +13,7 @@ export const updatePersistedFragmentSpreads = (
     ...(keys(groupedFragmentSpreadDirectives).map(propName => [
       propName,
       groupedFragmentSpreadDirectives[propName],
-      isUndefined(key) ? ancestors : enrichAncestors(cloneDeep(ancestors), key),
+      isUndefined(key) ? ancestors : enrichAncestors(structuredClone(ancestors), key),
     ]) as PersistedFragmentSpread[]),
   ];
 };
