@@ -1,7 +1,7 @@
 {
   "name": "@graphql-box/cache-manager",
   "description": "The GraphQL Box cache manager module.",
-  "version": "5.2.3",
+  "version": "5.2.4",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
