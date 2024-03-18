@@ -1,5 +1,5 @@
 import { CACHE_ENTRY_ADDED, type CacheTypes, type CachemapOptions, type RequestOptions } from '@graphql-box/core';
-import type { CacheManagerContext, CacheManagerDef } from '../types.ts';
+import { type CacheManagerContext, type CacheManagerDef } from '../types.ts';
 
 type Descriptor = (
   cacheType: CacheTypes,

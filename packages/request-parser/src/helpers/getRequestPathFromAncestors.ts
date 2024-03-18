@@ -1,6 +1,6 @@
 import { getName, isKind } from '@graphql-box/helpers';
 import { type FieldNode, Kind } from 'graphql';
-import type { Ancestor } from '../types.ts';
+import { type Ancestor } from '../types.ts';
 import { isAncestorAstNode } from './isAncestorAstNode.ts';
 
 export const getRequestPathFromAncestors = (ancestors: Ancestor[]) => {

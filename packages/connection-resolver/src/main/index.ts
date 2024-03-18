@@ -1,4 +1,4 @@
-import type { PlainObject } from '@graphql-box/core';
+import { type PlainObject } from '@graphql-box/core';
 import { type GraphQLResolveInfo } from 'graphql';
 import { isCursorSupplied } from '../helpers/isCursorSupplied.ts';
 import { requestAndCachePages } from '../helpers/requestAndCachePages.ts';

@@ -1,5 +1,5 @@
 import { type Core } from '@cachemap/core';
-import type { PlainObject } from '@graphql-box/core';
+import { type PlainObject } from '@graphql-box/core';
 import { type GraphQLResolveInfo } from 'graphql';
 import { type SetOptional } from 'type-fest';
 

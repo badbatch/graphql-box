@@ -1,4 +1,4 @@
-import type { Ancestor } from '../types.ts';
+import { type Ancestor } from '../types.ts';
 import { getFieldsFromAncestors } from './getFieldsFromAncestors.ts';
 import { getRequestPathFromAncestors } from './getRequestPathFromAncestors.ts';
 

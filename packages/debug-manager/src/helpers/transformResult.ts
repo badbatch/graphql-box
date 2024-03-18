@@ -9,6 +9,7 @@ export const transformResult = (result?: PartialRequestResult & { cacheMetadata?
   const parseCacheMetadata = (cacheMetadata: CacheMetadata | DehydratedCacheMetadata) =>
     cacheMetadata instanceof Map ? dehydrateCacheMetadata(cacheMetadata) : cacheMetadata;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _cacheMetadata, cacheMetadata, errors, ...rest } = result;
 
   return {

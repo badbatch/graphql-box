@@ -1,11 +1,11 @@
 const config = require('@repodog/jest-config');
 
-const { moduleNameMapper } = config;
+const { moduleNameMapper, ...otherConfig } = config();
 // Jest is picking up the wrong output of library
 moduleNameMapper['^uuid$'] = '<rootDir>/node_modules/uuid/wrapper.mjs';
 
 module.exports = {
-  ...config,
+  ...otherConfig,
   collectCoverage: false,
   collectCoverageFrom: [],
   moduleNameMapper,

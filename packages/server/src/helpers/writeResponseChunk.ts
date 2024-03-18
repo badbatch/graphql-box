@@ -1,5 +1,5 @@
 import { type PartialRequestResultWithDehydratedCacheMetadata } from '@graphql-box/core';
-import type { Response } from 'express';
+import { type Response } from 'express';
 import { isFunction } from 'lodash-es';
 
 export const writeResponseChunk = (res: Response, requestResult: PartialRequestResultWithDehydratedCacheMetadata) => {

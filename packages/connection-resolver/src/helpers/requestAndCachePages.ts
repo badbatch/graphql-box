@@ -1,5 +1,5 @@
 import { type Core } from '@cachemap/core';
-import type { PlainObject } from '@graphql-box/core';
+import { type PlainObject } from '@graphql-box/core';
 import { type Getters, type Node, type ResourceResolver } from '../types.ts';
 import { cacheCursors } from './cacheCursors.ts';
 import { makeEdges } from './makeEdges.ts';

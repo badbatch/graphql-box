@@ -1,7 +1,7 @@
 import { init as indexedDB } from '@cachemap/indexed-db';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import fetchMock from 'fetch-mock';
-import type { IntrospectionQuery } from 'graphql';
+import { type IntrospectionQuery } from 'graphql';
 import { forAwaitEach, isAsyncIterable } from 'iterall';
 import { WS_URL } from '../../constants.ts';
 import { expected } from '../../expected/index.ts';

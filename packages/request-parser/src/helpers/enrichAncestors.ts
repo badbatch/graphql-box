@@ -1,5 +1,5 @@
 import { isNumber } from 'lodash-es';
-import type { Ancestor } from '../types.ts';
+import { type Ancestor } from '../types.ts';
 
 export const enrichAncestors = (ancestors: readonly Ancestor[], key: string | number) => {
   const last = ancestors[ancestors.length - 1];

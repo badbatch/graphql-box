@@ -1,13 +1,13 @@
 import { Core } from '@cachemap/core';
 import { init as map } from '@cachemap/map';
-import type { PlainObject } from '@graphql-box/core';
+import { type PlainObject } from '@graphql-box/core';
 import { expect, jest } from '@jest/globals';
 import { GraphQLError, type GraphQLResolveInfo } from 'graphql';
 import { encode } from 'js-base64';
 import { generateCursorCache } from '../__testUtils__/generateCursorCache.ts';
 import { generatePageResponse } from '../__testUtils__/generatePageResponse.ts';
 import { removeConnectionInputOptions } from '../helpers/removeConnectionInputOptions.ts';
-import type { Getters, Node, ResourceResponse } from '../types.ts';
+import { type Getters, type Node, type ResourceResponse } from '../types.ts';
 import { makeConnectionResolver } from './index.ts';
 
 const createMakeCursors = (_source: PlainObject, args: PlainObject) => ({

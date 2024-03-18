@@ -1,6 +1,6 @@
 import { init as map } from '@cachemap/map';
 import fetchMock from 'fetch-mock';
-import type { IntrospectionQuery } from 'graphql';
+import { type IntrospectionQuery } from 'graphql';
 import { initClient } from '../../helpers/initClient.ts';
 import { mockRequest, registerFetchMockWorker } from '../../modules/fetch-mock/index.ts';
 import { type RawResponseDataWithMaybeCacheMetadata } from '@graphql-box/core';

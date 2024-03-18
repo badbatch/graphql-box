@@ -1,6 +1,6 @@
 import { type AsyncExecutionResult, type PlainObject } from '@graphql-box/core';
 import { type ExecutionArgs, type ExecutionResult, type GraphQLFieldResolver, type GraphQLSchema } from 'graphql';
-import type { PromiseOrValue } from 'graphql/jsutils/PromiseOrValue.js';
+import { type PromiseOrValue } from 'graphql/jsutils/PromiseOrValue.js';
 
 export interface UserOptions {
   /**

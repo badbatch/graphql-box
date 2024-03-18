@@ -1,5 +1,5 @@
 import { type Core } from '@cachemap/core';
-import type { PlainObject } from '@graphql-box/core';
+import { type PlainObject } from '@graphql-box/core';
 import { type ConnectionInputOptions, type Getters, type Node, type ResourceResolver } from '../types.ts';
 import { extractEdges } from './extractEdges.ts';
 import { extractNodes } from './extractNodes.ts';

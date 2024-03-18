@@ -1,4 +1,4 @@
-import type { PlainData } from '@graphql-box/core';
+import { type PlainData } from '@graphql-box/core';
 import { isArray, isPlainObject } from '@graphql-box/helpers';
 import { isNumber, isString } from 'lodash-es';
 

@@ -5,6 +5,7 @@ export const transformContext = (context?: Omit<RequestContext, 'debugManager'>)
     return {};
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { fieldTypeMap, ...rest } = context;
   return rest;
 };

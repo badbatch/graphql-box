@@ -1,5 +1,5 @@
 import { PARTIAL_QUERY_COMPILED, type RequestOptions } from '@graphql-box/core';
-import type { CacheManagerContext, CacheManagerDef, PartialQueryResponse } from '../types.ts';
+import { type CacheManagerContext, type CacheManagerDef, type PartialQueryResponse } from '../types.ts';
 
 type Descriptor = (
   hash: string,

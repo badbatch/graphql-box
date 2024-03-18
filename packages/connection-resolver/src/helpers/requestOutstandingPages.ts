@@ -1,4 +1,4 @@
-import type { PlainArray } from '@graphql-box/core';
+import { type PlainArray } from '@graphql-box/core';
 
 export type RequestMissingPagesParams = {
   count: number;

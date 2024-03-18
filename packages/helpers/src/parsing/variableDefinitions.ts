@@ -1,6 +1,6 @@
 import { type NamedTypeNode, type TypeNode, type VariableDefinitionNode } from 'graphql';
 import { isBoolean } from 'lodash-es';
-import type { Jsonifiable } from 'type-fest';
+import { type Jsonifiable } from 'type-fest';
 import { TYPE } from '../constants.ts';
 import { getName } from './name.ts';
 

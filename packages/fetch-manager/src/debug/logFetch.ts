@@ -52,6 +52,7 @@ export const logFetch = () => {
             return;
           }
 
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { headers, ...otherResult } = result;
 
           debugManager.log(FETCH_RESOLVED, {

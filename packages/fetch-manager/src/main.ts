@@ -122,6 +122,7 @@ export class FetchManager {
         const responseData = { headers, ...body } as unknown as PartialRawFetchData;
 
         const decoratedExecuteResolver = (result: PartialRawResponseData) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { headers: resultHeaders, ...otherResult } = result;
 
           debugManager?.log(FETCH_RESOLVED, {

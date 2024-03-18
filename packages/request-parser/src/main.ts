@@ -576,6 +576,7 @@ export class RequestParser implements RequestParserDef {
       }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { fieldTypeMap, persistedFragmentSpreads, ...rest } = visitorContext;
 
     assign(context, {

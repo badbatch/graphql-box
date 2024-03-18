@@ -1,4 +1,4 @@
-import type { CursorGroupMetadata } from '../types.ts';
+import { type CursorGroupMetadata } from '../types.ts';
 import { getResultsOnLastPage } from './getResultsOnLastPage.ts';
 import { isLastPage } from './isLastPage.ts';
 

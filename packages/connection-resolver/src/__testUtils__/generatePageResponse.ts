@@ -1,6 +1,6 @@
-import type { PlainObject } from '@graphql-box/core';
+import { type PlainObject } from '@graphql-box/core';
 import { encode } from 'js-base64';
-import type { ResourceResponse } from '../types.ts';
+import { type ResourceResponse } from '../types.ts';
 
 export type Params = {
   resultsPerPage: number;

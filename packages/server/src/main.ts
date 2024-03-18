@@ -9,10 +9,10 @@ import {
   type ServerSocketRequestOptions,
 } from '@graphql-box/core';
 import { ArgsError, GroupedError, dehydrateCacheMetadata, serializeErrors } from '@graphql-box/helpers';
-import type { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
 import { forAwaitEach, isAsyncIterable } from 'iterall';
 import { isError, isPlainObject } from 'lodash-es';
-import type { Data } from 'ws';
+import { type Data } from 'ws';
 import { isLogBatched } from './helpers/isLogBatched.ts';
 import { isRequestBatched } from './helpers/isRequestBatched.ts';
 import { writeResponseChunk } from './helpers/writeResponseChunk.ts';
@@ -205,6 +205,7 @@ export class Server {
       if (isLogBatched(body)) {
         logs = Object.values(body.requests);
       } else {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { batched, ...rest } = body;
         logs = [rest];
       }

@@ -1,4 +1,4 @@
-import type { PartialRawFetchData } from '@graphql-box/core';
+import { type PartialRawFetchData } from '@graphql-box/core';
 
 export const parseFetchResult = async (fetchResult: Response): Promise<PartialRawFetchData> => ({
   headers: fetchResult.headers,

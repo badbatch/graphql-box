@@ -862,6 +862,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct request data', () => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { ast, ...otherProps } = analyzeQueryResult!.updated!;
           expect(otherProps).toMatchSnapshot();
         });
@@ -892,6 +893,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct request data', () => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { ast, ...otherProps } = analyzeQueryResult!.updated!;
           expect(otherProps).toMatchSnapshot();
         });
@@ -922,6 +924,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct request data', () => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { ast, ...otherProps } = analyzeQueryResult!.updated!;
           expect(otherProps).toMatchSnapshot();
         });
@@ -952,6 +955,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct request data', () => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { ast, ...otherProps } = analyzeQueryResult!.updated!;
           expect(otherProps).toMatchSnapshot();
         });
@@ -1211,6 +1215,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct request data', () => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { ast, ...otherProps } = analyzeQueryResult!.updated!;
           expect(otherProps).toMatchSnapshot();
         });
@@ -1265,6 +1270,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct request data', () => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { ast, ...otherProps } = analyzeQueryResult!.updated!;
           expect(otherProps).toMatchSnapshot();
         });
@@ -1322,6 +1328,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct request data', () => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { ast, ...otherProps } = analyzeQueryResult!.updated!;
           expect(otherProps).toMatchSnapshot();
         });
@@ -1377,6 +1384,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct request data', () => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { ast, ...otherProps } = analyzeQueryResult!.updated!;
           expect(otherProps).toMatchSnapshot();
         });
@@ -1429,6 +1437,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct request data', () => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { ast, ...otherProps } = analyzeQueryResult!.updated!;
           expect(otherProps).toMatchSnapshot();
         });
@@ -1481,6 +1490,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct request data', () => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { ast, ...otherProps } = analyzeQueryResult!.updated!;
           expect(otherProps).toMatchSnapshot();
         });

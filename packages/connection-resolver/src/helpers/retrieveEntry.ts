@@ -1,9 +1,9 @@
-import type { Core } from '@cachemap/core';
-import type {
-  ConnectionInputOptions,
-  CursorCacheEntry,
-  CursorGroupMetadata,
-  PartialCursorCacheEntry,
+import { type Core } from '@cachemap/core';
+import {
+  type ConnectionInputOptions,
+  type CursorCacheEntry,
+  type CursorGroupMetadata,
+  type PartialCursorCacheEntry,
 } from '../types.ts';
 import { getCursor } from './getCursor.ts';
 import { makeEntry } from './makeEntry.ts';

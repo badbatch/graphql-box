@@ -1,5 +1,5 @@
-import type { Metadata } from '@cachemap/types';
-import type { ExportCacheResult } from '@graphql-box/cache-manager';
+import { type Metadata } from '@cachemap/types';
+import { type ExportCacheResult } from '@graphql-box/cache-manager';
 
 const sortEntries = ([keyA]: [string, unknown], [keyB]: [string, unknown]) => {
   if (keyA < keyB) {

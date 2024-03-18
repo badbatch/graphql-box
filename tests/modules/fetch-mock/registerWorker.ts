@@ -3,7 +3,7 @@ import { isPlainObject } from '../../../packages/helpers/src/lodashProxies.ts';
 import { FETCH_MOCK, MESSAGE } from './constants.ts';
 import { dehydrateFetchMock } from './helpers.ts';
 import { type FetchMockMessageRequest } from './types.ts';
-import type { PlainData } from '@graphql-box/core';
+import { type PlainData } from '@graphql-box/core';
 
 export const registerFetchMockWorker = (): void => {
   const onMessage = ({ data }: MessageEvent<FetchMockMessageRequest>): void => {

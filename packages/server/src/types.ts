@@ -6,7 +6,7 @@ import {
   type PlainData,
   type RequestContext,
 } from '@graphql-box/core';
-import type { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
 import { type Data } from 'ws';
 
 export interface UserOptions {

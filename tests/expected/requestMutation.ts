@@ -1,6 +1,6 @@
 import { Cacheability } from 'cacheability';
-import type { ExportCacheResult } from '@graphql-box/cache-manager';
-import type { PartialRequestResultWithDehydratedCacheMetadata } from '@graphql-box/core';
+import { type ExportCacheResult } from '@graphql-box/cache-manager';
+import { type PartialRequestResultWithDehydratedCacheMetadata } from '@graphql-box/core';
 
 export const mutationResponse: Omit<PartialRequestResultWithDehydratedCacheMetadata, 'requestID'> = {
   _cacheMetadata: {

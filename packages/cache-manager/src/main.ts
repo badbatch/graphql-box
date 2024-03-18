@@ -287,6 +287,7 @@ export class CacheManager implements CacheManagerDef {
 
     const filteredAST = filterQuery(requestData, cachedResponseData, cacheManagerContext);
     const filteredRequest = print(filteredAST);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { fragmentDefinitions, typeIDKey, ...rest } = cacheManagerContext;
     assign(context, { ...rest, filteredRequest });
     this._setPartialQueryResponse(hash, { cacheMetadata, data }, options, context);
