@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.13 (2024-03-18)
+
+### Refactors
+
+* **cache-manager:**  tidy up cache entry setting logic (771c163c)
+
 ## 5.2.12 (2024-03-18)
 
 ### Chores
