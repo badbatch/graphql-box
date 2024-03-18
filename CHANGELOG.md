@@ -1,3 +1,9 @@
+#### 5.2.9 (2024-03-18)
+
+##### Chores
+
+*  manually bump minor version past previous to skip reverted code (98292ed4)
+
 #### 5.0.8 (2024-03-11)
 
 ##### Chores
