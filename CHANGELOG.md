@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.12 (2024-03-18)
+
+### Chores
+
+* **graphql-box:**  bump cachemap and update tests (1b0c31b9)
+
 ## 5.2.11 (2024-03-18)
 
 ### Chores
