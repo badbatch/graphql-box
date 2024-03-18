@@ -1,6 +1,5 @@
 import { expected } from '../../expected/index.ts';
 import { initWorkerClient } from '../../helpers/initWorker.ts';
-import { sortCacheEntries } from '../../helpers/sortCacheEntries.ts';
 import { FetchMockWorker } from '../../modules/fetch-mock/index.ts';
 import { type ExportCacheResult } from '@graphql-box/cache-manager';
 import {
@@ -52,7 +51,7 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.noMatch.cache);
+        expect(cache).toEqual(expected.noMatch.cache);
       });
     });
 
@@ -93,7 +92,7 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.queryTrackerExactMatch.cache);
+        expect(cache).toEqual(expected.queryTrackerExactMatch.cache);
       });
     });
 
@@ -133,7 +132,7 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.queryTrackerPartialMatch.cache);
+        expect(cache).toEqual(expected.queryTrackerPartialMatch.cache);
       });
     });
 
@@ -175,7 +174,7 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.queryResponseMatch.cache);
+        expect(cache).toEqual(expected.queryResponseMatch.cache);
       });
     });
 
@@ -217,7 +216,7 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.requestFieldPathDataEntityMatch.cache);
+        expect(cache).toEqual(expected.requestFieldPathDataEntityMatch.cache);
       });
     });
 
@@ -260,7 +259,7 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.requestFieldPathDataEntityPartialMatch.cache);
+        expect(cache).toEqual(expected.requestFieldPathDataEntityPartialMatch.cache);
       });
     });
   });

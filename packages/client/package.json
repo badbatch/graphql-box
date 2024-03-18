@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
-    "@cachemap/core": "^5.0.8",
+    "@cachemap/core": "^5.0.9",
     "@graphql-box/cache-manager": "workspace:*",
     "@graphql-box/request-parser": "workspace:*",
     "@graphql-box/test-utils": "workspace:*",

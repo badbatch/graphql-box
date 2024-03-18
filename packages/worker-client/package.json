@@ -56,8 +56,8 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
-    "@cachemap/core": "^5.0.8",
-    "@cachemap/core-worker": "^5.0.8",
+    "@cachemap/core": "^5.0.9",
+    "@cachemap/core-worker": "^5.0.9",
     "@graphql-box/client": "workspace:*",
     "@types/lodash-es": "^4.14.191",
     "core-js": "^3.27.2",

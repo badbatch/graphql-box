@@ -7,7 +7,6 @@ import { WS_URL } from '../../constants.ts';
 import { expected } from '../../expected/index.ts';
 import { initClient } from '../../helpers/initClient.ts';
 import { onWebsocketOpen } from '../../helpers/onWebsocketOpen.ts';
-import { sortCacheEntries } from '../../helpers/sortCacheEntries.ts';
 import { mockRequest } from '../../modules/fetch-mock/index.ts';
 import { type ExportCacheResult } from '@graphql-box/cache-manager';
 import { type Client } from '@graphql-box/client';
@@ -79,7 +78,7 @@ describe('client', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.noMatch.cache);
+        expect(cache).toEqual(expected.noMatch.cache);
       });
     });
 
@@ -124,7 +123,7 @@ describe('client', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.queryTrackerExactMatch.cache);
+        expect(cache).toEqual(expected.queryTrackerExactMatch.cache);
       });
     });
 
@@ -167,7 +166,7 @@ describe('client', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.queryTrackerPartialMatch.cache);
+        expect(cache).toEqual(expected.queryTrackerPartialMatch.cache);
       });
     });
 
@@ -209,7 +208,7 @@ describe('client', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.queryResponseMatch.cache);
+        expect(cache).toEqual(expected.queryResponseMatch.cache);
       });
     });
 
@@ -251,7 +250,7 @@ describe('client', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.requestFieldPathDataEntityMatch.cache);
+        expect(cache).toEqual(expected.requestFieldPathDataEntityMatch.cache);
       });
     });
 
@@ -302,7 +301,7 @@ describe('client', () => {
       });
 
       it('correct cache data', () => {
-        expect(sortCacheEntries(cache)).toEqual(expected.requestFieldPathDataEntityPartialMatch.cache);
+        expect(cache).toEqual(expected.requestFieldPathDataEntityPartialMatch.cache);
       });
     });
   });
