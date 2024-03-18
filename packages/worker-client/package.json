@@ -1,7 +1,7 @@
 {
   "name": "@graphql-box/worker-client",
   "description": "The GraphQL Box web worker client module.",
-  "version": "5.0.3",
+  "version": "5.2.3",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
