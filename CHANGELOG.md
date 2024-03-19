@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.14 (2024-03-19)
+
+### New Features
+
+* **react:**  pass all request options through connection listings (6a443eac)
+
 ## 5.2.13 (2024-03-18)
 
 ### Refactors
