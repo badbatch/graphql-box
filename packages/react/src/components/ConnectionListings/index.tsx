@@ -16,7 +16,10 @@ const initialListingsData = {
 
 export const ConnectionListings = <Item extends PlainObject>(props: ListingsProps<Item>) => {
   const {
+    awaitDataCaching,
+    batch,
     children,
+    fragments,
     intersectionRoot = null,
     intersectionRootMargin = '0px',
     intersectionThreshold = 0,
@@ -25,6 +28,8 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
     renderLoader,
     requestPath,
     resultsPerRequest = 20,
+    returnCacheMetadata,
+    tag,
     variables,
   } = props;
 
@@ -54,7 +59,15 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
   useEffect(() => {
     if (variablesHash !== previousVariablesHashes.current.get(queryHash) || hasRequestPathChanged(requestPath, data)) {
       const newConnectionVariables = { ...connectionVariables, after: undefined };
-      void execute({ variables: { ...variables, ...newConnectionVariables } });
+
+      void execute({
+        awaitDataCaching,
+        batch,
+        fragments,
+        returnCacheMetadata,
+        tag,
+        variables: { ...variables, ...newConnectionVariables },
+      });
 
       if (listings.size > 0) {
         setListingsData({ hasNextPage: true, listings: new Map() });

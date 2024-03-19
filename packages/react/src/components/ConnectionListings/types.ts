@@ -1,4 +1,4 @@
-import { type PlainObject } from '@graphql-box/core';
+import { type PlainObject, type RequestOptions } from '@graphql-box/core';
 import { type MutableRefObject, type ReactElement } from 'react';
 
 export type ConnectionVariables = {
@@ -40,8 +40,7 @@ export type ListingsProps<Item extends PlainObject> = {
   renderLoader?: () => ReactElement;
   requestPath: string;
   resultsPerRequest?: number;
-  variables: Record<string, unknown>;
-};
+} & RequestOptions;
 
 export type ListingsData<Item extends PlainObject> = {
   hasNextPage: boolean;
