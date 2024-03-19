@@ -37,7 +37,8 @@
     "test:node:cjs": "BABEL_MODULE_SYSTEM=cjs node node_modules/jest/bin/jest.js --testMatch \"$(pwd)/packages/gql.macro/**/*.test.ts\"",
     "test:node:esm": "node --require=suppress-experimental-warnings --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch \"$(pwd)/packages/!(gql.macro)/**/*.test.ts\"",
     "type-check": "tsc --noEmit",
-    "validate": "pnpm run syncpack && pnpm run build && pnpm run lint && pnpm run type-check && pnpm run test"
+    "validate": "pnpm run syncpack && pnpm run build && pnpm run lint && pnpm run type-check && pnpm run test",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@babel/cli": "^7.19.3",
@@ -137,7 +138,7 @@
     "fetch-mock": "^9.11.0",
     "generate-changelog": "^1.8.0",
     "graphql": "^16.8.1",
-    "husky": "^8.0.3",
+    "husky": "^9.0.11",
     "identity-obj-proxy": "^3.0.0",
     "iterall": "^1.3.0",
     "jasmine-browser-runner": "^2.3.0",
