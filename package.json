@@ -134,7 +134,7 @@
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "eslint-plugin-typescript-sort-keys": "^2.3.0",
     "eslint-plugin-unicorn": "^46.0.1",
-    "express": "^4.17.1",
+    "express": "^4.19.2",
     "fetch-mock": "^9.11.0",
     "generate-changelog": "^1.8.0",
     "graphql": "^16.8.1",
