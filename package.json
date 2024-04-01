@@ -21,6 +21,7 @@
     "cut:changelog": "changelog",
     "cut:post-version": "pnpm run build",
     "lint": "eslint . --ext .ts,.tsx,.cjs",
+    "new:package": "pnpm run repodog new pkg library",
     "repodog": "repodog",
     "syncpack": "syncpack format && syncpack list-mismatches && syncpack lint-semver-ranges",
     "test": "concurrently \"pnpm run test:browser\" \"pnpm run test:node\"",
