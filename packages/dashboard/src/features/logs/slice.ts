@@ -1,5 +1,6 @@
 import { createAction, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { encode } from 'js-base64';
+import { type Except } from 'type-fest';
 import { type LogEntry, type Store } from '../../types.ts';
 import { websocketMessage } from '../websocket/slice.ts';
 
@@ -9,7 +10,7 @@ export const logsSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(websocketMessage, (state, action) => {
       const parsed = (JSON.parse(action.payload) as string[]).map((message: string) => ({
-        ...(JSON.parse(message) as LogEntry),
+        ...(JSON.parse(message) as Except<LogEntry, 'id'>),
         id: encode(message),
       }));
 

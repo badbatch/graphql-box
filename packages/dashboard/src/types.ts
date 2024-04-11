@@ -45,45 +45,51 @@ export type GraphqlStep =
 
 export type LogEntry = {
   '@timestamp': string;
-  ecs: {
-    version: string;
-  };
+  'ecs.version': string;
   error?: Error;
   id: string;
   labels: {
+    cacheControl?: string;
     cacheType: string;
+    decryptedCacheKey?: string;
     duration: number;
     endTime: number;
     environment: GraphqlEnv;
+    experimentalDeferStreamSupport: boolean;
     hasDeferOrStream: boolean;
     logGroup: number;
     logOrder: number;
     nodeVersion?: string;
     operation: OperationTypeNode;
     operationName: string;
+    originalRequestHash?: string;
     osPlatform?: string;
+    parsedRequest?: string;
     path?: string;
     port?: string;
     protocol?: string;
-    queryFiltered: boolean;
+    queryFiltered?: boolean;
     queryString?: string;
     request: string;
     requestComplexity?: number;
     requestDepth?: number;
     requestHash: string;
     requestID: string;
-    result: string;
+    result?: JsonObject;
     returnCacheMetadata: boolean;
     startTime: number;
+    typeIDKey?: string;
     url?: string;
     userAgent?: string;
-    variables: JsonObject;
+    value?: JsonObject;
+    variables?: JsonObject;
     whitelistHash: string;
   };
   log: {
     level: LogLevel;
     logger: string;
   };
+  'log.level': string;
   message: GraphqlStep;
 };
 
@@ -95,17 +101,22 @@ export type LogEntryFlattened = {
   'error.message'?: string;
   'error.stack_trace'?: string;
   'error.type'?: string;
+  'labels.cacheControl'?: string;
   'labels.cacheType': string;
+  'labels.decryptedCacheKey'?: string;
   'labels.duration': number;
   'labels.endTime': number;
   'labels.environment': GraphqlEnv;
+  'labels.experimentalDeferStreamSupport': boolean;
   'labels.hasDeferOrStream': boolean;
   'labels.logGroup': number;
   'labels.logOrder': number;
   'labels.nodeVersion'?: string;
   'labels.operation': OperationTypeNode;
   'labels.operationName': string;
+  'labels.originalRequestHash'?: string;
   'labels.osPlatform'?: string;
+  'labels.parsedRequest'?: string;
   'labels.path'?: string;
   'labels.port'?: string;
   'labels.protocol'?: string;
@@ -116,11 +127,13 @@ export type LogEntryFlattened = {
   'labels.requestDepth'?: string;
   'labels.requestHash': string;
   'labels.requestID': string;
-  'labels.result': string;
+  'labels.result'?: string;
   'labels.returnCacheMetadata': boolean;
   'labels.startTime': number;
+  'labels.typeIDKey'?: string;
   'labels.url'?: string;
   'labels.userAgent'?: string;
+  'labels.value'?: JsonObject;
   'labels.variables': string;
   'labels.whitelistHash': string;
   'log.level': LogLevel;
