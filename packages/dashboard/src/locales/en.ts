@@ -48,4 +48,9 @@ export const content = {
       to: 'To',
     },
   },
+  logEntryFullDescValue: {
+    button: {
+      ariaLabel: 'Diff against other request versions',
+    },
+  },
 } as const;

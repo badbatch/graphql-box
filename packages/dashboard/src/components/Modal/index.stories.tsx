@@ -1,15 +1,15 @@
 import { Typography } from '@mui/material';
 import { type Meta, type StoryObj } from '@storybook/react';
-import { ShowMore } from './index.tsx';
+import { Modal } from './index.tsx';
 
-const meta: Meta<typeof ShowMore> = {
+const meta: Meta<typeof Modal> = {
   argTypes: {},
-  component: ShowMore,
+  component: Modal,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  title: 'Components/ShowMore',
+  title: 'Components/Modal',
 };
 
 // Storybook requires this to be default export.
@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     children: (
-      <Typography sx={{ paddingRight: '5rem' }}>
+      <Typography>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
@@ -29,5 +29,6 @@ export const Primary: Story = {
         laborum.
       </Typography>
     ),
+    open: true,
   },
 };

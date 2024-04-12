@@ -1,10 +1,10 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { ProvidersWrapper } from '../../../__testUtils__/helpers/ProvidersWrapper.tsx';
-import { Filters } from './index.tsx';
+import { LogEntryFullDescValue } from './index.tsx';
 
-const meta: Meta<typeof Filters> = {
+const meta: Meta<typeof LogEntryFullDescValue> = {
   argTypes: {},
-  component: Filters,
+  component: LogEntryFullDescValue,
   decorators: [
     Story => (
       <ProvidersWrapper>
@@ -14,16 +14,9 @@ const meta: Meta<typeof Filters> = {
   ],
   parameters: {
     layout: 'centered',
-    nextjs: {
-      appDirectory: true,
-    },
-  },
-  // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-  render: function Render(args) {
-    return <Filters {...args} />;
   },
   tags: ['autodocs'],
-  title: 'Components/Filters',
+  title: 'Components/LogEntryFullDescValue',
 };
 
 // Storybook requires this to be default export.
@@ -34,6 +27,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    filters: [],
+    code: '\nquery GetMovieCertifications(\n  $id: ID!\n) {\n  movie(id: $id) {\n    ...MovieCertifications\n  }\n}\n\nfragment MovieCertifications on Movie {\n  releaseDates {\n    iso_3166_1\n    releaseDates {\n      certification\n    }\n  }\n}\n',
+    descKey: 'request',
+    language: 'graphql',
   },
 };
