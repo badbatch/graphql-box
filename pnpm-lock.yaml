@@ -576,6 +576,9 @@ importers:
       '@emotion/styled':
         specifier: ^11.6.0
         version: 11.11.5(@emotion/react@11.11.4)(@types/react@18.2.31)(react@18.2.0)
+      '@graphql-box/core':
+        specifier: workspace:*
+        version: link:../core
       '@mui/icons-material':
         specifier: ^5.3.0
         version: 5.15.14(@mui/material@5.15.14)(@types/react@18.2.31)(react@18.2.0)
@@ -588,9 +591,15 @@ importers:
       '@reduxjs/toolkit':
         specifier: ^2.2.2
         version: 2.2.2(react-redux@9.1.0)(react@18.2.0)
+      '@types/diff':
+        specifier: ^5.0.9
+        version: 5.0.9
       date-fns:
         specifier: ^2.28.0
         version: 2.30.0
+      diff:
+        specifier: ^5.2.0
+        version: 5.2.0
       formik:
         specifier: ^2.2.9
         version: 2.4.5(react@18.2.0)
@@ -7756,6 +7765,10 @@ packages:
     resolution: {integrity: sha512-Rf3/lB9WkDfIL9eEKaSYKc+1L/rNVYBjThk22JTqQw0YozXarX8YljFAz+HCoC6h4B4KwCMsBPZHaFezwT4BNA==}
     dev: true
 
+  /@types/diff@5.0.9:
+    resolution: {integrity: sha512-RWVEhh/zGXpAVF/ZChwNnv7r4rvqzJ7lYNSmZSVTxjV0PBLf6Qu7RNg+SUtkpzxmiNkjCx0Xn2tPp7FIkshJwQ==}
+    dev: false
+
   /@types/doctrine@0.0.3:
     resolution: {integrity: sha512-w5jZ0ee+HaPOaX25X2/2oGR/7rgAQSYII7X7pp0m9KgBfMP7uKfMfTvcpl5Dj+eDBbpxKGiqE+flqDr6XTd2RA==}
     dev: true
@@ -10732,6 +10745,11 @@ packages:
   /diff@4.0.2:
     resolution: {integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==}
     engines: {node: '>=0.3.1'}
+
+  /diff@5.2.0:
+    resolution: {integrity: sha512-uIFDxqpRZGZ6ThOk84hEfqWoHx2devRFvpTZcTHur85vImfaxUbTW9Ryh4CpCuDnToOP1CEtXKIgytHBPVff5A==}
+    engines: {node: '>=0.3.1'}
+    dev: false
 
   /diffie-hellman@5.0.3:
     resolution: {integrity: sha512-kqag/Nl+f3GwyK25fhUMYj81BUOrZ9IuJsjIcDE5icNM9FJHAVm3VcUDxdLPoQtTuUylWm6ZIknYJwwaPxsUzg==}

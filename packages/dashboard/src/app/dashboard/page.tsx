@@ -1,20 +1,21 @@
 import { ArrowBackIosNew, FilterList } from '@mui/icons-material';
 import { IconButton, List, Pagination, Typography } from '@mui/material';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation.js';
 import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilters } from '../../components/Filters/helpers/getFilters.ts';
 import { Filters } from '../../components/Filters/index.tsx';
-import Loader from '../../components/Loader';
-import LogEntryFull from '../../components/LogEntryFull';
-import Modal from '../../components/Modal';
-import NavBar from '../../components/NavBar';
-import RequestGroupSummary from '../../components/RequestGroupSummary';
-import RequestGroupSummaryHeadings from '../../components/RequestGroupSummaryHeadings';
-import { selectRequestGroupIdsFiltered } from '../../features/requestGroups/slice';
-import { logEntryModal } from '../../features/ui/slice';
-import { type RequestGroupField, type Store } from '../../types';
-import deriveVisibleIndexRange from './helpers/deriveVisibleIndexRange';
-import { ListingsContainer } from './styled';
+import { Loader } from '../../components/Loader/index.tsx';
+import { LogEntryFull } from '../../components/LogEntryFull/index.tsx';
+import { Modal } from '../../components/Modal/index.tsx';
+import { NavBar } from '../../components/NavBar/index.tsx';
+import { RequestGroupSummary } from '../../components/RequestGroupSummary/index.tsx';
+import { RequestGroupSummaryHeadings } from '../../components/RequestGroupSummaryHeadings/index.tsx';
+import { selectRequestGroupIdsFiltered } from '../../features/requestGroups/slice.ts';
+import { logEntryModal } from '../../features/ui/slice.ts';
+import { type RequestGroupField, type Store } from '../../types.ts';
+import { deriveVisibleIndexRange } from './helpers/deriveVisibleIndexRange.ts';
+import { ListingsContainer } from './styled.ts';
 
 const defaultFields: RequestGroupField[] = [
   'timestamp',
@@ -29,7 +30,9 @@ const defaultFields: RequestGroupField[] = [
 const Page = () => {
   const QUERY_PARAM_NAME = 'page';
   const PER_PAGE = 100;
-  const [searchParams, setSearchParams] = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = new URLSearchParams(useSearchParams());
   const filters = getFilters(searchParams, { mandatory: ['timeWindow'] });
   const requestGroupIds = useSelector((state: Store) => selectRequestGroupIdsFiltered(state, filters));
   const logId = useSelector((state: Store) => state.ui.logEntryModal);
@@ -82,7 +85,8 @@ const Page = () => {
             count={totalPages}
             onChange={(_event, value) => {
               searchParams.set('page', String(value));
-              setSearchParams(searchParams);
+              const newHref = [...searchParams].length > 0 ? `${pathname}?${searchParams.toString()}` : pathname;
+              router.push(newHref);
             }}
             page={pageNumber}
           />
