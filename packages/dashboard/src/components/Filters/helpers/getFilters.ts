@@ -22,7 +22,7 @@ const args = (store: Store, requestGroup: RequestGroup, input: string) => {
         return false;
       }
 
-      const requestGroupVariablesValue = requestGroupVariables[key];
+      const requestGroupVariablesValue = requestGroupVariables?.[key];
 
       if (!requestGroupVariablesValue) {
         return false;

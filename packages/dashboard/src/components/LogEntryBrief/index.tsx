@@ -105,8 +105,7 @@ export const LogEntryBrief = ({ logId }: LogEntryBriefProps) => {
 
   let propValues = propKeys.map(entry => {
     const key = (isArray(entry) ? entry[0] : entry) as string;
-    // TODO: Fix this
-    const value = get(logEntry, key);
+    const value = get(logEntry, key) as unknown;
     return isArray(entry) ? (entry[1] as (value: unknown, logEntry: LogEntry) => string)(value, logEntry) : value;
   });
 
