@@ -26,7 +26,7 @@ export const AppScaffold = (props: { children: ReactNode }) => {
             <CssBaseline />
             <ErrorBoundary
               onError={(error, errorInfo) => {
-                console.error(error, errorInfo); // eslint-disable-line no-console
+                console.error(error, errorInfo);
               }}
               renderError={() => (
                 // TODO: Create error component

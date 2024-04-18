@@ -20,9 +20,9 @@
   },
   "scripts": {
     "build": "pnpm run /^build:.*/",
+    "build-storybook": "storybook build",
     "build:client": "next build",
     "build:server": "rollup -c ./rollup.config.cjs",
-    "build-storybook": "storybook build",
     "dev": "LOG_FILE_PATH=__testUtils__/logs/app.log concurrently \"nodemon server.mjs\" \"pnpm run build:server --watch\"",
     "start": "NODE_ENV=production node server.mjs",
     "storybook": "storybook dev -p 6006"
@@ -83,11 +83,11 @@
   },
   "keywords": [
     "client",
+    "dashboard",
     "graphql",
     "graphql-box",
     "isomorphic",
-    "server",
-    "dashboard",
-    "logging"
+    "logging",
+    "server"
   ]
 }

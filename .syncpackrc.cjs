@@ -1,5 +1,12 @@
-const config = require('@repodog/syncpack-config');
+const { semverGroups, ...otherConfig } = require('@repodog/syncpack-config');
 
 module.exports = {
-  ...config,
+  ...otherConfig,
+  semverGroups: [
+    {
+      dependencies: ['next'],
+      range: '',
+    },
+    ...semverGroups,
+  ],
 };
