@@ -9,7 +9,7 @@ module.exports = [
     input: './src/server/index.ts',
     output: {
       ...rollupConfig.output,
-      file: `./dist/${MODULE_SYSTEM}/server.${outputExtension}`,
+      file: `./dist/server.${outputExtension}`,
     },
   },
   {
@@ -17,7 +17,7 @@ module.exports = [
     input: './src/cli/index.ts',
     output: {
       ...rollupConfig.output,
-      file: `./dist/${MODULE_SYSTEM}/cli.${outputExtension}`,
+      file: `./dist/cli.${outputExtension}`,
     },
   },
 ];

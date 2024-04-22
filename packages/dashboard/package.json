@@ -23,8 +23,8 @@
     "build-storybook": "storybook build",
     "build:client": "next build",
     "build:server": "rollup -c ./rollup.config.cjs",
-    "dev": "LOG_TAIL_PATH=__testUtils__/logs/app.log concurrently \"nodemon dist/esm/server.mjs\" \"pnpm run build:server --watch\"",
-    "start": "node dist/esm/server.mjs",
+    "dev": "LOG_TAIL_PATH=__testUtils__/logs/app.log concurrently \"nodemon dist/server.mjs\" \"pnpm run build:server --watch\"",
+    "start": "node dist/server.mjs",
     "storybook": "storybook dev -p 6006"
   },
   "dependencies": {
@@ -35,7 +35,7 @@
     "@mui/material": "^5.3.0",
     "@mui/x-date-pickers": "^5.0.6",
     "@reduxjs/toolkit": "^2.2.2",
-    "@repodog/cli-utils": "^1.4.6",
+    "@repodog/cli-utils": "^1.4.7",
     "@types/body-parser": "^1.19.5",
     "@types/cookie-parser": "^1.4.7",
     "@types/diff": "^5.0.9",
