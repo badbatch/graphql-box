@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
-const { cli } = await import('../dist/cjs/cli.cjs'); // eslint-disable-line import/no-unresolved
+const { cli } = await import('../dist/cli.mjs'); // eslint-disable-line import/no-unresolved
 cli();
