@@ -1,5 +1,28 @@
 # Changelog
 
+## 5.2.15-pr-12345.0 (2024-04-22)
+
+### Chores
+
+* **dashboard:**
+  * bump deps (317c5520)
+  * save work in progress (d97c9fcc)
+  * save work in progress (1eec8c21)
+  * save work in progress (3ed9437b)
+* **graphql-box:**  upgrade husky (757f5398)
+
+### New Features
+
+* **dashboard:**
+  * add cli module (03200f8a)
+  * finish getting app working (bdae635d)
+  * finish migrating components (e48299fc)
+  * migrate more components over (fed11f3c)
+
+### Refactors
+
+* **dashboard:**  update structure to support client only code (af2a361b)
+
 ## 5.2.14 (2024-03-19)
 
 ### New Features
