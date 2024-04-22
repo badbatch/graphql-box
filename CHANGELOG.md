@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.1 (2024-04-22)
+
+### Bug Fixes
+
+* **dashboard:**  broken import path (595110cb)
+
 ## 5.2.15-pr-12345.0 (2024-04-22)
 
 ### Chores
