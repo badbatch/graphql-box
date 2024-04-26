@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.3 (2024-04-26)
+
+### New Features
+
+* **dashboard:**  add more logging in (252d71c2)
+
 ## 5.2.15-pr-12345.2 (2024-04-26)
 
 ### Bug Fixes
