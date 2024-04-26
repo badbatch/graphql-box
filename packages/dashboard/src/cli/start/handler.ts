@@ -16,11 +16,18 @@ export const handler = (argv: StartHandlerArgv) => {
   const fullLogTailPath = resolve(cwd, logTailPath);
   const envVars = `HTTPS=${String(https)} LOG_TAIL_PATH=${fullLogTailPath} NODE_ENV=production`;
 
+  shelljs.echo(colors.blue(`logTailPath: ${logTailPath}`));
+  shelljs.echo(colors.blue(`https: ${String(https)}`));
+  shelljs.echo(colors.blue(`moduleSystem: ${moduleSystem}`));
+  shelljs.echo(colors.blue(`cwd: ${cwd}`));
+  shelljs.echo(colors.blue(`fullLogTailPath: ${fullLogTailPath}`));
+  shelljs.echo(colors.blue(`envVars: ${envVars}`));
+
   try {
     shelljs.exec(`${envVars} next build && rollup -c ./rollup.config.cjs && node dist/${moduleSystem}/server.mjs`);
     return shelljs.exit(0);
   } catch (error: unknown) {
-    shelljs.echo(`${colors.red(`Error: ${(error as Error).message}`)}`);
+    shelljs.echo(colors.red(`Error: ${(error as Error).message}`));
     return shelljs.exit(1);
   }
 };
