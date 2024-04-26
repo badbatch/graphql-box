@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.2 (2024-04-26)
+
+### Bug Fixes
+
+* **dashboard:**  wrong file ext (bb979c84)
+
 ## 5.2.15-pr-12345.1 (2024-04-22)
 
 ### Bug Fixes
