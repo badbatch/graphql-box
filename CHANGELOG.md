@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.4 (2024-04-27)
+
+### Bug Fixes
+
+* **dashboard:**  change working dir before executing command (dc8ecb40)
+
 ## 5.2.15-pr-12345.3 (2024-04-26)
 
 ### New Features
