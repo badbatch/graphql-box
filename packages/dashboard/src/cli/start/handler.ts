@@ -1,5 +1,6 @@
 import colors from 'ansi-colors';
 import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import shelljs from 'shelljs';
 
 export type StartHandlerArgv = {
@@ -12,16 +13,22 @@ export const handler = (argv: StartHandlerArgv) => {
   const logTailPath = argv['log-tail-path'];
   const https = argv.https ?? false;
   const moduleSystem = argv['module-system'];
-  const cwd = process.cwd();
-  const fullLogTailPath = resolve(cwd, logTailPath);
+  const fullLogTailPath = resolve(process.cwd(), logTailPath);
   const envVars = `HTTPS=${String(https)} LOG_TAIL_PATH=${fullLogTailPath} NODE_ENV=production`;
+  const filePath = fileURLToPath(import.meta.url);
+  const dashboardRootDir = resolve(filePath, '../../../');
 
   shelljs.echo(colors.blue(`logTailPath: ${logTailPath}`));
   shelljs.echo(colors.blue(`https: ${String(https)}`));
   shelljs.echo(colors.blue(`moduleSystem: ${moduleSystem}`));
-  shelljs.echo(colors.blue(`cwd: ${cwd}`));
+  shelljs.echo(colors.blue(`cwd: ${process.cwd()}`));
   shelljs.echo(colors.blue(`fullLogTailPath: ${fullLogTailPath}`));
   shelljs.echo(colors.blue(`envVars: ${envVars}`));
+  shelljs.echo(colors.blue(`filePath: ${filePath}`));
+  shelljs.echo(colors.blue(`dashboardRootDir: ${dashboardRootDir}`));
+
+  process.chdir(dashboardRootDir);
+  shelljs.echo(colors.blue(`cwd: ${process.cwd()}`));
 
   try {
     shelljs.exec(`${envVars} next build && rollup -c ./rollup.config.cjs && node dist/${moduleSystem}/server.mjs`);
