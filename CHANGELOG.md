@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.5 (2024-04-27)
+
+### Bug Fixes
+
+* **dashboard:**  use npx to execute commands (814ff2b3)
+
 ## 5.2.15-pr-12345.4 (2024-04-27)
 
 ### Bug Fixes
