@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.6 (2024-04-27)
+
+### Bug Fixes
+
+* **dashboard:**  change directory wrong (139c0f6a)
+
 ## 5.2.15-pr-12345.5 (2024-04-27)
 
 ### Bug Fixes
