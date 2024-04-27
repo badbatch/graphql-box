@@ -16,7 +16,7 @@ export const handler = (argv: StartHandlerArgv) => {
   const fullLogTailPath = resolve(process.cwd(), logTailPath);
   const envVars = `HTTPS=${String(https)} LOG_TAIL_PATH=${fullLogTailPath} NODE_ENV=production`;
   const filePath = fileURLToPath(import.meta.url);
-  const dashboardRootDir = resolve(filePath, '../../../');
+  const dashboardRootDir = resolve(filePath, '../../');
 
   shelljs.echo(colors.blue(`> logTailPath: ${logTailPath}`));
   shelljs.echo(colors.blue(`> https: ${String(https)}`));
