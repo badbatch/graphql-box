@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.7 (2024-04-28)
+
+### Refactors
+
+* **dashboard:**  remove build steps from cli script (26f87b2d)
+
 ## 5.2.15-pr-12345.6 (2024-04-27)
 
 ### Bug Fixes
