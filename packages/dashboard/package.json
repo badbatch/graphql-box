@@ -19,7 +19,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "pnpm run /^build:.*/",
+    "build": "pnpm run build:server && pnpm run build:client",
     "build-storybook": "storybook build",
     "build:client": "next build",
     "build:server": "rollup -c ./rollup.config.cjs",

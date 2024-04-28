@@ -32,10 +32,7 @@ export const handler = (argv: StartHandlerArgv) => {
   shelljs.echo(colors.blue(`> new cwd: ${process.cwd()}`));
 
   try {
-    shelljs.exec(
-      `${envVars} npx next build && npx rollup -c ./rollup.config.cjs && node dist/${moduleSystem}/server.mjs`
-    );
-
+    shelljs.exec(`${envVars} node dist/${moduleSystem}/server.mjs`);
     return shelljs.exit(0);
   } catch (error: unknown) {
     shelljs.echo(colors.red(`Error: ${(error as Error).message}`));
