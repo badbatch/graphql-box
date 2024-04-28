@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.8 (2024-04-28)
+
+### Bug Fixes
+
+* **dashboard:**  path to executable (67eba6e8)
+
 ## 5.2.15-pr-12345.7 (2024-04-28)
 
 ### Refactors
