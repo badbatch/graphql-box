@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.9 (2024-04-28)
+
+### New Features
+
+* **dashboard:**  add npmignore file (ced8e5d6)
+
 ## 5.2.15-pr-12345.8 (2024-04-28)
 
 ### Bug Fixes
