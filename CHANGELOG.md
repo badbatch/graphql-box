@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.11 (2024-05-10)
+
+### Bug Fixes
+
+* **dashboard:**  remove obsolete code (02a4aa39)
+
 ## 5.2.15-pr-12345.10 (2024-05-10)
 
 ### Refactors
