@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.10 (2024-05-10)
+
+### Refactors
+
+* **dashboard:**  swap out tail package (7f8628e2)
+
 ## 5.2.15-pr-12345.9 (2024-04-28)
 
 ### New Features
