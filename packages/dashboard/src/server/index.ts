@@ -10,7 +10,7 @@ import { serveOver } from './serveOver.ts';
 const { HTTPS, LOG_TAIL_PATH, NODE_ENV, NODE_SSL_CA, NODE_SSL_CERT, NODE_SSL_KEY, PORT } = process.env;
 const dev = NODE_ENV !== 'production';
 const https = HTTPS === 'true';
-const port = PORT ? Number.parseInt(PORT, 10) : 3000;
+const port = PORT ? Number.parseInt(PORT, 10) : 3002;
 // @ts-expect-error nextjs types are not being picked up correctly
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const nextServer = next({ dev }) as NextServer;
