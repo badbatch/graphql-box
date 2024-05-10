@@ -28,22 +28,6 @@ export const createConnectionHandler =
       tail.pipe(split2()).on('data', (line: string) => {
         ws.send(line);
       });
-
-      let timeoutId: NodeJS.Timeout;
-      const logEntries: string[] = [];
-
-      tail.on('line', (logEntry: string) => {
-        logEntries.push(logEntry);
-
-        if (ws.readyState === ws.OPEN) {
-          clearTimeout(timeoutId);
-
-          timeoutId = setTimeout(() => {
-            ws.send(JSON.stringify(logEntries));
-            logEntries.splice(0, logEntries.length);
-          }, 5000);
-        }
-      });
     };
 
     ws.on('error', error => {
