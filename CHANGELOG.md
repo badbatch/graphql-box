@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.12 (2024-05-11)
+
+### Bug Fixes
+
+* **dashboard:**  change way log entries are parsed on client (8e80fe88)
+
 ## 5.2.15-pr-12345.11 (2024-05-10)
 
 ### Bug Fixes
