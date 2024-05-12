@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.15 (2024-05-12)
+
+### Bug Fixes
+
+* **dashboard:**  guard against empty string (2dc95306)
+
 ## 5.2.15-pr-12345.14 (2024-05-12)
 
 ### Bug Fixes
