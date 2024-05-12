@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.13 (2024-05-12)
+
+### Refactors
+
+* **dashboard:**  change amount of data sent with each socket response (ab3689ea)
+
 ## 5.2.15-pr-12345.12 (2024-05-11)
 
 ### Bug Fixes
