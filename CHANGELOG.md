@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.16 (2024-05-12)
+
+### Bug Fixes
+
+* **dashboard:**  change way data is sent to client (ed548cc3)
+
 ## 5.2.15-pr-12345.15 (2024-05-12)
 
 ### Bug Fixes

@@ -1,7 +1,7 @@
 {
   "name": "@graphql-box/dashboard",
   "description": "The GraphQL Box logging analysis dashboard application.",
-  "version": "0.1.1-pr-12345.15",
+  "version": "0.1.1-pr-12345.16",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
