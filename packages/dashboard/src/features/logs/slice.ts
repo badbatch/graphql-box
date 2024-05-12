@@ -9,7 +9,7 @@ const logsAdapter = createEntityAdapter<LogEntry>();
 export const logsSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(websocketMessage, (state, action) => {
-      const parsed = (JSON.parse(action.payload) as string[]).map((line: string) => ({
+      const parsed = action.payload.split('\n').map((line: string) => ({
         ...(JSON.parse(line) as Except<LogEntry, 'id'>),
         id: encode(line),
       }));
