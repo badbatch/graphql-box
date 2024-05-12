@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.14 (2024-05-12)
+
+### Bug Fixes
+
+* **dashboard:**  split and then parse on client (edf2e817)
+
 ## 5.2.15-pr-12345.13 (2024-05-12)
 
 ### Refactors
