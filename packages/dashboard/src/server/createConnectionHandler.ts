@@ -7,13 +7,31 @@ export type Options = {
   filename: string;
 };
 
+let position = 0;
+
 export const createConnectionHandler =
   ({ filename }: Options) =>
   (ws: WebSocket) => {
     const tailFile = () => {
       const tail = new TailFile(filename, { encoding: 'utf8' });
 
+      process.on('SIGINT', () => {
+        tail
+          .quit()
+          .then(() => {
+            console.log(`The last read file position was: ${position}`);
+          })
+          .catch(error => {
+            process.nextTick(() => {
+              console.error('Error during tailing file shutdown', error);
+            });
+          });
+      });
+
       tail
+        .on('flush', ({ lastReadPosition }) => {
+          position = lastReadPosition;
+        })
         .on('tail_error', err => {
           console.error(`There was a problem tailing file: ${filename}`, err);
         })
