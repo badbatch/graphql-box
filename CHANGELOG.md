@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.17 (2024-05-13)
+
+### New Features
+
+* **dashboard:**  add graceful shutdown (118a576e)
+
 ## 5.2.15-pr-12345.16 (2024-05-12)
 
 ### Bug Fixes
