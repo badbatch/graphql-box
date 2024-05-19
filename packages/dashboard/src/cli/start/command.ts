@@ -12,20 +12,19 @@ export const builder = (argv: Argv) =>
       desc: 'Whether to use https instead of http for the graphql-box dashboard app',
       type: 'boolean',
     })
-    .option('module-system', {
-      choices: ['esm', 'cjs'],
-      default: 'cjs',
-      desc: 'Whether to run esm or cjs server code',
-      type: 'string',
+    .option('port', {
+      default: 3002,
+      desc: 'The port the dashboard is running on',
+      type: 'number',
+    })
+    .option('monitoring-port', {
+      default: 3000,
+      desc: 'The port the app being monitored is running on',
+      type: 'number',
     })
     .option('skip-node-version-check', {
       default: false,
       desc: 'To skip the node version check',
-      type: 'boolean',
-    })
-    .option('verbose', {
-      default: false,
-      desc: 'Whether to output verbose logs',
       type: 'boolean',
     });
 
