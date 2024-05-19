@@ -12,12 +12,6 @@ export const builder = (argv: Argv) =>
       desc: 'Whether to use https instead of http for the graphql-box dashboard app',
       type: 'boolean',
     })
-    .option('module-system', {
-      choices: ['esm', 'cjs'],
-      default: 'cjs',
-      desc: 'Whether to run esm or cjs server code',
-      type: 'string',
-    })
     .option('skip-node-version-check', {
       default: false,
       desc: 'To skip the node version check',
