@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.15-pr-12345.18 (2024-05-19)
+
+### Refactors
+
+* **dashboard:**  add ports to cli options and await and open on launch (d6ed129b)
+
 ## 5.2.15-pr-12345.17 (2024-05-13)
 
 ### New Features
