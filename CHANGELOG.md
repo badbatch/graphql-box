@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.15-pr-12345.19 (2024-05-19)
+
+### Bug Fixes
+
+* **dashboard:**  remove redundant cli option (6fef3f0d)
+
+### Other Changes
+
+* **dashboard:**  add ports to cli options and await and open on launch" (833ef962)
+
+### Refactors
+
+* **dashboard:**  change file to mjs (2defc286)
+
 ## 5.2.15-pr-12345.18 (2024-05-19)
 
 ### Refactors
