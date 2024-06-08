@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.2.15 (2024-06-08)
+
+### Chores
+
+* **deps-dev:**  bump express from 4.18.2 to 4.19.2 (0eebb5d3)
+* **graphql-box:**  upgrade husky (757f5398)
+
+### New Features
+
+* **fetch-manager:**  log graphql errors to console in dev mode (aea17ac1)
+
 ## 5.2.14 (2024-03-19)
 
 ### New Features
