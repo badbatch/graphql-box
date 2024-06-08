@@ -19,6 +19,7 @@ import { meros } from 'meros/browser';
 import { v4 as uuidv4 } from 'uuid';
 import { logFetch } from './debug/logFetch.ts';
 import { cleanPatchResponse } from './helpers/cleanPatchResponse.ts';
+import { logErrorsToConsole } from './helpers/logErrorsToConsole.ts';
 import { mergeResponseDataSets } from './helpers/mergeResponseDataSets.ts';
 import { parseFetchResult } from './helpers/parseFetchResult.ts';
 import {
@@ -51,7 +52,7 @@ export class FetchManager {
       const { reject, resolve } = batchEntries[hash]!;
 
       if (responseData) {
-        resolve(deserializeErrors({ headers, ...responseData }));
+        resolve(logErrorsToConsole(deserializeErrors({ headers, ...responseData })));
       } else {
         reject(new Error(`@graphql-box/fetch-manager did not get a response for batched request ${hash}.`));
       }
@@ -115,7 +116,7 @@ export class FetchManager {
       const { debugManager, ...otherContext } = context;
 
       if (!isAsyncIterable(fetchResult)) {
-        return deserializeErrors(fetchResult);
+        return logErrorsToConsole(deserializeErrors(fetchResult));
       }
 
       void forAwaitEach(fetchResult, async ({ body, headers }) => {
@@ -141,7 +142,7 @@ export class FetchManager {
         } else {
           this._eventEmitter.emit(
             hash,
-            await decoratedExecuteResolver(deserializeErrors(cleanPatchResponse(responseData)))
+            await decoratedExecuteResolver(logErrorsToConsole(deserializeErrors(cleanPatchResponse(responseData))))
           );
         }
       });
@@ -291,7 +292,7 @@ export class FetchManager {
       void (async () => {
         if (this._activeResponseBatch) {
           const responseData = mergeResponseDataSets([...this._activeResponseBatch]);
-          this._eventEmitter.emit(hash, await executeResolver(deserializeErrors(responseData)));
+          this._eventEmitter.emit(hash, await executeResolver(logErrorsToConsole(deserializeErrors(responseData))));
         }
 
         this._activeResponseBatchTimer = undefined;

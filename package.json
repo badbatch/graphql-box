@@ -21,6 +21,7 @@
     "cut:changelog": "changelog",
     "cut:post-version": "pnpm run build",
     "lint": "eslint . --ext .ts,.tsx,.cjs",
+    "prepare": "husky",
     "repodog": "repodog",
     "syncpack": "syncpack format && syncpack list-mismatches && syncpack lint-semver-ranges",
     "test": "concurrently \"pnpm run test:browser\" \"pnpm run test:node\"",
@@ -37,8 +38,7 @@
     "test:node:cjs": "BABEL_MODULE_SYSTEM=cjs node node_modules/jest/bin/jest.js --testMatch \"$(pwd)/packages/gql.macro/**/*.test.ts\"",
     "test:node:esm": "node --require=suppress-experimental-warnings --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch \"$(pwd)/packages/!(gql.macro)/**/*.test.ts\"",
     "type-check": "tsc --noEmit",
-    "validate": "pnpm run syncpack && pnpm run build && pnpm run lint && pnpm run type-check && pnpm run test",
-    "prepare": "husky"
+    "validate": "pnpm run syncpack && pnpm run build && pnpm run lint && pnpm run type-check && pnpm run test"
   },
   "devDependencies": {
     "@babel/cli": "^7.19.3",
