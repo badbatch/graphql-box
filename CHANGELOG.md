@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.16 (2024-06-17)
+
+### Refactors
+
+* **react:**  support lazy initialisation of client (606b7bcd)
+
 ## 5.2.15 (2024-06-08)
 
 ### Chores
