@@ -1,5 +1,5 @@
 import { expected } from '../../expected/index.ts';
-import { initWorkerClient } from '../../helpers/initWorker.ts';
+import { initWorkerClient } from '../../helpers/initWorkerClient.ts';
 import { FetchMockWorker } from '../../modules/fetch-mock/index.ts';
 import { type ExportCacheResult } from '@graphql-box/cache-manager';
 import {

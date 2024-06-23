@@ -4,14 +4,25 @@ import cors from 'cors';
 import express from 'express';
 import http from 'node:http';
 import { WebSocketServer } from 'ws';
-import { initServer } from '../helpers/initServer.ts';
-import { Server } from '@graphql-box/server';
+import { initServerClient } from '../helpers/initServerClient.ts';
+import { ExpressMiddleware } from '@graphql-box/server/express';
+import { WebsocketMiddleware } from '@graphql-box/server/ws';
 
 globalThis.Date.now = () => Date.parse('June 6, 1979 GMT');
 
 export const start = (): http.Server => {
-  const graphqlServer = new Server({
-    client: initServer({
+  const expressMiddleware = new ExpressMiddleware({
+    client: initServerClient({
+      cachemapStore: map(),
+      typeCacheDirectives: {
+        Email: 'public, max-age=5',
+        Inbox: 'public, max-age=1',
+      },
+    }),
+  });
+
+  const websocketMiddleware = new WebsocketMiddleware({
+    client: initServerClient({
       cachemapStore: map(),
       typeCacheDirectives: {
         Email: 'public, max-age=5',
@@ -26,13 +37,16 @@ export const start = (): http.Server => {
     .use(cors())
     .use(bodyParser.urlencoded({ extended: true }))
     .use(bodyParser.json())
-    .use('/graphql', graphqlServer.request({ awaitDataCaching: true, returnCacheMetadata: true }));
+    .use('/graphql', expressMiddleware.createRequestHandler({ awaitDataCaching: true, returnCacheMetadata: true }));
 
   const httpServer = http.createServer(app);
   const wss = new WebSocketServer({ path: '/graphql', server: httpServer });
 
   wss.on('connection', ws => {
-    ws.on('message', graphqlServer.message({ awaitDataCaching: true, returnCacheMetadata: true, ws }));
+    ws.on(
+      'message',
+      websocketMiddleware.createMessageHandler({ awaitDataCaching: true, returnCacheMetadata: true, ws })
+    );
 
     ws.on('error', error => {
       console.log(error);

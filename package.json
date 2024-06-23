@@ -24,7 +24,7 @@
     "prepare": "husky",
     "repodog": "repodog",
     "syncpack": "syncpack format && syncpack list-mismatches && syncpack lint-semver-ranges",
-    "test": "concurrently \"pnpm run test:browser\" \"pnpm run test:node\"",
+    "test": "pnpm run test:node && pnpm run test:browser",
     "test:browser": "pnpm run test:browser:remove && pnpm run test:browser:build && pnpm run test:browser:run",
     "test:browser:build": "webpack --config ./webpack.config.cjs",
     "test:browser:client": "wait-on tcp:3001 && jasmine-browser-runner runSpecs --config=jasmineBrowser.config.cjs --no-random",
