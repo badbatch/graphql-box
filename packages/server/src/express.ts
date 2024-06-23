@@ -6,13 +6,11 @@ import {
   type PartialRequestResultWithDehydratedCacheMetadata,
   SERVER_REQUEST_RECEIVED,
   type ServerRequestOptions,
-  type ServerSocketRequestOptions,
 } from '@graphql-box/core';
 import { ArgsError, GroupedError, dehydrateCacheMetadata, serializeErrors } from '@graphql-box/helpers';
 import { type Request, type Response } from 'express';
 import { forAwaitEach, isAsyncIterable } from 'iterall';
 import { isError, isPlainObject } from 'lodash-es';
-import { type Data } from 'ws';
 import { isLogBatched } from './helpers/isLogBatched.ts';
 import { isRequestBatched } from './helpers/isRequestBatched.ts';
 import { writeResponseChunk } from './helpers/writeResponseChunk.ts';
@@ -20,15 +18,13 @@ import {
   type BatchRequestData,
   type BatchedLogData,
   type LogData,
-  type MessageData,
-  type MessageHandler,
   type RequestData,
   type RequestHandler,
   type ResponseDataWithMaybeDehydratedCacheMetadataBatch,
   type UserOptions,
 } from './types.ts';
 
-export class Server {
+export class ExpressMiddleware {
   private _client: Client;
   private _requestTimeout: number;
   private _requestWhitelist: string[];
@@ -53,19 +49,13 @@ export class Server {
     this._requestWhitelist = options.requestWhitelist ?? [];
   }
 
-  public log(): RequestHandler {
+  public createLogHandler(): RequestHandler {
     return (req: Request<unknown, unknown, LogData | BatchedLogData>, res: Response) => {
       this._logHandler(req, res);
     };
   }
 
-  public message(options: ServerSocketRequestOptions): MessageHandler {
-    return (message: Data) => {
-      void this._messageHandler(message, options);
-    };
-  }
-
-  public request(options: ServerRequestOptions = {}): RequestHandler {
+  public createRequestHandler(options: ServerRequestOptions = {}): RequestHandler {
     return (req: Request<unknown, unknown, RequestData | BatchRequestData>, res: Response) => {
       this._requestHandler(req, res, options);
     };
@@ -218,48 +208,6 @@ export class Server {
         : new Error('@graphql-box/server logHandler had an unexpected error.');
 
       res.status(500).send(serializeErrors({ errors: [confirmedError] }));
-    }
-  }
-
-  private async _messageHandler(message: Data, { ws, ...rest }: ServerSocketRequestOptions): Promise<void> {
-    try {
-      const { context, subscription, subscriptionID } = JSON.parse(message as string) as MessageData;
-
-      const requestTimer = setTimeout(() => {
-        ws.send(
-          JSON.stringify(
-            serializeErrors({
-              errors: [new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`)],
-            })
-          )
-        );
-      }, this._requestTimeout);
-
-      const subscribeResult = await this._client.subscribe(subscription, rest, context);
-      clearTimeout(requestTimer);
-
-      if (!isAsyncIterable(subscribeResult)) {
-        ws.send(JSON.stringify(serializeErrors(subscribeResult as PartialRequestResult)));
-        return;
-      }
-
-      void forAwaitEach(subscribeResult, ({ _cacheMetadata, ...otherProps }: PartialRequestResult) => {
-        if (ws.readyState === ws.OPEN) {
-          const result: PartialRequestResultWithDehydratedCacheMetadata = { ...otherProps };
-
-          if (_cacheMetadata) {
-            result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
-          }
-
-          ws.send(JSON.stringify({ result: serializeErrors(result), subscriptionID }));
-        }
-      });
-    } catch (error) {
-      const confirmedError = isError(error)
-        ? error
-        : new Error('@graphql-box/server messageHandler had an unexpected error.');
-
-      ws.send(JSON.stringify(serializeErrors({ errors: [confirmedError] })));
     }
   }
 

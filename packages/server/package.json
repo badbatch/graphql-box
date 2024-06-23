@@ -23,6 +23,22 @@
       },
       "import": "./dist/esm/index.mjs",
       "require": "./dist/cjs/index.cjs"
+    },
+    "./express": {
+      "types": {
+        "import": "./dist/types/esm/express.d.ts",
+        "require": "./dist/types/cjs/express.d.cts"
+      },
+      "import": "./dist/esm/express.mjs",
+      "require": "./dist/cjs/express.cjs"
+    },
+    "./ws": {
+      "types": {
+        "import": "./dist/types/esm/ws.d.ts",
+        "require": "./dist/types/cjs/ws.d.cts"
+      },
+      "import": "./dist/esm/ws.mjs",
+      "require": "./dist/cjs/ws.cjs"
     }
   },
   "publishConfig": {
@@ -34,7 +50,7 @@
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
     "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
-    "compile:esm": "rollup -c ../../rollup.config.cjs",
+    "compile:esm": "rollup -c ./rollup.config.cjs",
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
@@ -49,6 +65,14 @@
     "express": "<5",
     "lodash-es": "<5",
     "ws": "<9"
+  },
+  "peerDependenciesMeta": {
+    "express": {
+      "optional": true
+    },
+    "ws": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
