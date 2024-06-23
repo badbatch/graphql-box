@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.3.0 (2024-06-23)
+
+### Chores
+
+* **deps-dev:**  bump ws from 8.14.2 to 8.17.1 (ec3d1cab)
+
+### Refactors
+
+* **server:**  turn into framework specific classes (2c73fbf5)
+
 ## 5.2.16 (2024-06-17)
 
 ### Refactors
