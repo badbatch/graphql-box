@@ -16,7 +16,7 @@ const schema = makeExecutableSchema({
   updateResolversInPlace: true,
 });
 
-export const initServer = ({ cachemapStore, debuggerName = 'SERVER', typeCacheDirectives }: InitServerOptions) =>
+export const initServerClient = ({ cachemapStore, debuggerName = 'SERVER', typeCacheDirectives }: InitServerOptions) =>
   new Client({
     cacheManager: new CacheManager({
       cache: new Cachemap({

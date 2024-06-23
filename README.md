@@ -65,7 +65,7 @@ GraphQL Box's multi-package structure allows you to compose your client and serv
 * [Creating a browser instance of the Client](#creating-a-browser-instance-of-the-client)
 * [Making a Client request for a query or mutation](#making-a-client-request-for-a-query-or-mutation)
 * [Making a Client request for a subscription](#making-a-client-request-for-a-subscription)
-* [Creating an instance of the Server](#creating-an-instance-of-the-server)
+* [Creating a server instance of the Client](#creating-a-server-instance-of-the-client)
 * [Handling a Server request for a query or mutation](#handling-a-server-request-for-a-query-or-mutation)
 * [Handling a Server message for a subscription](#handling-a-server-message-for-a-subscription)
 
@@ -77,7 +77,7 @@ The cache manager, request manager and request parser are all mandatory modules.
 
 The example below initializes the `Client` with a persisted cache with type cache control directives, a debug manager with a logger, a fetch manager with request batching enabled, and a subscriptions manager.
 
-```javascript
+```typescript
 import { Core as Cachemap } from '@cachemap/core';
 import { init as indexedDB } from '@cachemap/indexed-db';
 import { init as reaper } from '@cachemap/reaper';
@@ -217,7 +217,7 @@ You can execute a query or mutation using the `request` method. Pass the request
 
 The `request` method returns a `data` object with the response and/or an `errors` array.
 
-```javascript
+```typescript
 const request = `
   query ($login: String!) {
     organization(login: $login) {
@@ -245,7 +245,7 @@ You can execute a subscription using the `subscribe` method. Pass the request st
 
 The `subscribe` method returns an async iterator. Each time the iterator's `next` function is invokes, it returns a `data` object with the response and/or an `errors` array.
 
-```javascript
+```typescript
 const subscription = `
   subscription {
     emailAdded {
@@ -270,15 +270,14 @@ const subscription = `
 })();
 ```
 
-### Creating an instance of the Server
-
-The `Server` is initialized using the traditional class constructor. To initialize the `Server`, you just need to pass an instance of the `Client` into the constructor.
+### Creating a server instance of the Client
 
 The difference with the `Client` initialized in the browser example above is the `requestManager` and `subscriptionsManager` properties accept their server-side equivalents.
 
-The example below initializes the `Server` with a persisted cache with type cache control directives, a debug manager with a logger, an execute module, and a subscribe module.
+The example below initializes the `ExpressMiddleware` - one of the middleware GraphQL Box provides for handling client requests - with a persisted cache with type cache control directives, a debug manager with a logger, an execute module, and a subscribe module.
 
-```javascript
+```typescript
+// ./expressMiddleware.ts
 import { Core as Cachemap } from '@cachemap/core';
 import { init as reaper } from '@cachemap/reaper';
 import { init as redis } from '@cachemap/redis';
@@ -287,7 +286,7 @@ import { Client } from '@graphql-box/client';
 import { DebugManager } from '@graphql-box/debug-manager';
 import { Execute } from '@graphql-box/execute';
 import { RequestParser } from '@graphql-box/request-parser';
-import { Server } from '@graphql-box/server';
+import { ExpressMiddleware } from '@graphql-box/server/express';
 import { Subscribe } from '@graphql-box/subscribe';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { performance } from 'perf_hooks';
@@ -295,7 +294,7 @@ import { resolvers, typeDefs } from './schema';
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-const server = new Server({
+const expressMiddleware = new ExpressMiddleware({
   client: new Client({
     cacheManager: new CacheManager({
       cache: new Cachemap({
@@ -330,10 +329,10 @@ const server = new Server({
 
 Only the `Client` properties that differ from the browser example above are outlined below.
 
-* [debugManager:performance](#debugmanagerperformance)
-* [execute](#execute)
-* [requestParser:schema](#requestparserschema)
-* [subscribe](#subscribe)
+* [DebugManager:performance](#debugmanagerperformance)
+* [Execute](#execute)
+* [RequestParser:schema](#requestparserschema)
+* [Subscribe](#subscribe)
 
 #### DebugManager:performance
 
@@ -361,56 +360,59 @@ On the server, the `RequestParser` uses the the GraphQL schema rather than the r
 
 > For a full list of configuration options, see the `@graphql-box/subscribe` [documentation](./packages/subscribe/README.md).
 
-### Handling a Server request for a query or mutation
+### Handling a server request for a query or mutation
 
-You can handle a query or mutation using the `request` method. The method returns a middleware function that can be used with web application frameworks such as `Express`.
+You can handle a query or mutation using the `createRequestHandler` method on the `ExpressMiddleware` instance. The method returns a middleware function that can be used with `Express` or any other compatible framework.
 
-```javascript
+```typescript
 import express from 'express';
 import http from 'http';
-import initGraphqlServer from './initGraphqlServer';
+import expressMiddleware from './expressMiddleware';
 
 const app = express();
-const graphqlServer = initGraphqlServer();
-app.use('api/graphql', graphqlServer.request());
+app.use('api/graphql', expressMiddleware.createRequestHandler());
 const httpServer = http.createServer(app);
 httpServer.listen(3001);
 ```
 
-### Handling a Server request for a log
+### Handling a server log request
 
-You can handle a log request using the `log` method. The method returns a middleware function that can be
-used with web application frameworks such as `Express`.
+You can handle a log request using the `createLogHandler` method on the `ExpressMiddleware` instance. The method returns a middleware function that can be used with `Express` or any other compatible framework.
 
-```javascript
+```typescript
 import express from 'express';
 import http from 'http';
-import initGraphqlServer from './initGraphqlServer';
+import expressMiddleware from './expressMiddleware';
 
 const app = express();
-const graphqlServer = initGraphqlServer();
-app.post('/log/graphql', graphqlServer.log());
+app.post('/log/graphql', expressMiddleware.createLogHandler());
 const httpServer = http.createServer(app);
 httpServer.listen(3001);
 ```
 
-### Handling a Server message for a subscription
+### Handling a server message for a subscription
 
-You can handle a subscription using the `message` method. The method returns a middleware function that can be used with websocket libraries such as `ws`.
+You can handle a subscription using the `createMessageHandler` method on the `WebsocketMiddleware` instance. The method returns a middleware function that can be used with `ws` or any other compatible library.
 
-```javascript
+```typescript
+import { Client } from '@graphql-box/client';
+import { WebsocketMiddleware } from '@graphql-box/server/ws';
 import express from 'express';
 import http from 'http';
 import WebSocket from 'ws';
-import initGraphqlServer from './initGraphqlServer';
+
+const websocketMiddleware = new WebsocketMiddleware({
+  client: new Client({
+    // client options
+  }),
+});
 
 const app = express();
-const graphqlServer = initGraphqlServer();
 const httpServer = http.createServer(app);
 const wss = new WebSocket.Server({ path: 'api/graphql', server: httpServer });
 
 wss.on('connection', (ws) => {
-  ws.on('message', graphqlServer.message({ ws }));
+  ws.on('message', websocketMiddleware.createMessageHandler({ ws }));
 });
 ```
 
