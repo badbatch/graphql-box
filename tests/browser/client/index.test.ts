@@ -11,8 +11,8 @@ import { mockRequest } from '../../modules/fetch-mock/index.ts';
 import { type ExportCacheResult } from '@graphql-box/cache-manager';
 import { type Client } from '@graphql-box/client';
 import {
+  type PartialDehydratedRequestResult,
   type PartialRequestResult,
-  type PartialRequestResultWithDehydratedCacheMetadata,
   type RawResponseDataWithMaybeCacheMetadata,
 } from '@graphql-box/core';
 import { dehydrateCacheMetadata, hashRequest } from '@graphql-box/helpers';
@@ -45,7 +45,7 @@ describe('client', () => {
   describe('request', () => {
     let cache: ExportCacheResult;
     let client: Client;
-    let response: Omit<PartialRequestResultWithDehydratedCacheMetadata, 'requestID'>;
+    let response: Omit<PartialDehydratedRequestResult, 'requestID'>;
 
     describe('no match', () => {
       beforeAll(async () => {
@@ -310,8 +310,8 @@ describe('client', () => {
     let asyncIterator: AsyncIterator<PartialRequestResult | undefined>;
     let cache: ExportCacheResult;
     let client: Client;
-    let mutResponse: Omit<PartialRequestResultWithDehydratedCacheMetadata, 'requestID'>;
-    let subResponse: Omit<PartialRequestResultWithDehydratedCacheMetadata, 'requestID'>;
+    let mutResponse: Omit<PartialDehydratedRequestResult, 'requestID'>;
+    let subResponse: Omit<PartialDehydratedRequestResult, 'requestID'>;
     let subscriptionResponse: Promise<void>;
 
     beforeAll(async () => {

@@ -14,6 +14,14 @@ module.exports = [
   },
   {
     ...otherConfig,
+    input: input.replace('index', 'next'),
+    output: {
+      ...output,
+      file: output.file.replace('index', 'next'),
+    },
+  },
+  {
+    ...otherConfig,
     input: input.replace('index', 'ws'),
     output: {
       ...output,

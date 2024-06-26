@@ -7,6 +7,7 @@ import {
   type RequestContext,
 } from '@graphql-box/core';
 import { type Request, type Response } from 'express';
+import { type NextRequest, type NextResponse } from 'next/server.js';
 import { type Data } from 'ws';
 
 export interface UserOptions {
@@ -27,9 +28,11 @@ export interface UserOptions {
   requestWhitelist?: string[];
 }
 
-export type RequestHandler = (req: Request, res: Response, ...args: PlainArray) => void;
+export type ExpressRequestHandler = (req: Request, res: Response, ...args: PlainArray) => void;
 
-export type MessageHandler = (message: Data) => void;
+export type NextRequestHandler = (req: NextRequest) => Promise<NextResponse>;
+
+export type WsMessageHandler = (message: Data) => void;
 
 export type LogData = {
   batched: boolean;

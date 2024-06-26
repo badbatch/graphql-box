@@ -2,11 +2,7 @@ import { expected } from '../../expected/index.ts';
 import { initWorkerClient } from '../../helpers/initWorkerClient.ts';
 import { FetchMockWorker } from '../../modules/fetch-mock/index.ts';
 import { type ExportCacheResult } from '@graphql-box/cache-manager';
-import {
-  type PartialRequestResult,
-  type PartialRequestResultWithDehydratedCacheMetadata,
-  type PlainArray,
-} from '@graphql-box/core';
+import { type PartialDehydratedRequestResult, type PartialRequestResult, type PlainArray } from '@graphql-box/core';
 import { dehydrateCacheMetadata } from '@graphql-box/helpers';
 import { parsedRequests } from '@graphql-box/test-utils';
 import { type WorkerClient } from '@graphql-box/worker-client';
@@ -19,7 +15,7 @@ describe('workerClient', () => {
     let fetchMockWorker: FetchMockWorker;
     let worker: Worker;
     let workerClient: WorkerClient;
-    let response: Omit<PartialRequestResultWithDehydratedCacheMetadata, 'requestID'>;
+    let response: Omit<PartialDehydratedRequestResult, 'requestID'>;
 
     describe('no match', () => {
       beforeAll(async () => {

@@ -1,8 +1,8 @@
 import { Cacheability } from 'cacheability';
 import { type ExportCacheResult } from '@graphql-box/cache-manager';
-import { type PartialRequestResultWithDehydratedCacheMetadata } from '@graphql-box/core';
+import { type PartialDehydratedRequestResult } from '@graphql-box/core';
 
-export const response: Omit<PartialRequestResultWithDehydratedCacheMetadata, 'requestID'> = {
+export const response: Omit<PartialDehydratedRequestResult, 'requestID'> = {
   _cacheMetadata: {
     query: {
       cacheControl: {

@@ -3,11 +3,7 @@ import {
   handleMessage as handleCachemapMessage,
 } from '@cachemap/core-worker';
 import { type Client } from '@graphql-box/client';
-import {
-  type PartialRequestResult,
-  type PartialRequestResultWithDehydratedCacheMetadata,
-  type RequestOptions,
-} from '@graphql-box/core';
+import { type PartialDehydratedRequestResult, type PartialRequestResult, type RequestOptions } from '@graphql-box/core';
 import { dehydrateCacheMetadata, serializeErrors } from '@graphql-box/helpers';
 import { forAwaitEach, isAsyncIterable } from 'iterall';
 import { GRAPHQL_BOX, MESSAGE, REQUEST } from './constants.ts';
@@ -32,24 +28,24 @@ const handleRequest = async (
 
   if (!isAsyncIterable(requestResult)) {
     const { _cacheMetadata, ...otherProps } = requestResult as PartialRequestResult;
-    const result: PartialRequestResultWithDehydratedCacheMetadata = { ...otherProps };
+    const result: PartialDehydratedRequestResult = serializeErrors({ ...otherProps });
 
     if (_cacheMetadata) {
       result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
     }
 
-    globalScope.postMessage({ context, method, result: serializeErrors(result), type: GRAPHQL_BOX });
+    globalScope.postMessage({ context, method, result, type: GRAPHQL_BOX });
     return;
   }
 
   void forAwaitEach(requestResult, ({ _cacheMetadata, ...otherProps }: PartialRequestResult) => {
-    const result: PartialRequestResultWithDehydratedCacheMetadata = { ...otherProps };
+    const result: PartialDehydratedRequestResult = serializeErrors({ ...otherProps });
 
     if (_cacheMetadata) {
       result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
     }
 
-    globalScope.postMessage({ context, method, result: serializeErrors(result), type: GRAPHQL_BOX });
+    globalScope.postMessage({ context, method, result, type: GRAPHQL_BOX });
   });
 };
 
@@ -74,13 +70,13 @@ const handleSubscription = async (
   }
 
   void forAwaitEach(subscribeResult, ({ _cacheMetadata, ...otherProps }: PartialRequestResult) => {
-    const result: PartialRequestResultWithDehydratedCacheMetadata = { ...otherProps };
+    const result: PartialDehydratedRequestResult = serializeErrors({ ...otherProps });
 
     if (_cacheMetadata) {
       result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
     }
 
-    globalScope.postMessage({ context, method, result: serializeErrors(result), type: GRAPHQL_BOX });
+    globalScope.postMessage({ context, method, result, type: GRAPHQL_BOX });
   });
 };
 

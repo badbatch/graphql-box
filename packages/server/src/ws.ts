@@ -1,14 +1,14 @@
 import { type Client } from '@graphql-box/client';
 import {
+  type PartialDehydratedRequestResult,
   type PartialRequestResult,
-  type PartialRequestResultWithDehydratedCacheMetadata,
   type ServerSocketRequestOptions,
 } from '@graphql-box/core';
 import { ArgsError, GroupedError, dehydrateCacheMetadata, serializeErrors } from '@graphql-box/helpers';
 import { forAwaitEach, isAsyncIterable } from 'iterall';
 import { isError, isPlainObject } from 'lodash-es';
 import { type Data } from 'ws';
-import { type MessageData, type MessageHandler, type UserOptions } from './types.ts';
+import { type MessageData, type UserOptions, type WsMessageHandler } from './types.ts';
 
 export class WebsocketMiddleware {
   private _client: Client;
@@ -35,7 +35,7 @@ export class WebsocketMiddleware {
     this._requestWhitelist = options.requestWhitelist ?? [];
   }
 
-  public createMessageHandler(options: ServerSocketRequestOptions): MessageHandler {
+  public createMessageHandler(options: ServerSocketRequestOptions): WsMessageHandler {
     return (message: Data) => {
       void this._messageHandler(message, options);
     };
@@ -70,13 +70,13 @@ export class WebsocketMiddleware {
 
       void forAwaitEach(subscribeResult, ({ _cacheMetadata, ...otherProps }: PartialRequestResult) => {
         if (ws.readyState === ws.OPEN) {
-          const result: PartialRequestResultWithDehydratedCacheMetadata = { ...otherProps };
+          const result: PartialDehydratedRequestResult = serializeErrors({ ...otherProps });
 
           if (_cacheMetadata) {
             result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
           }
 
-          ws.send(JSON.stringify({ result: serializeErrors(result), subscriptionID }));
+          ws.send(JSON.stringify({ result, subscriptionID }));
         }
       });
     } catch (error) {

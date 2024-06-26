@@ -32,6 +32,14 @@
       "import": "./dist/esm/express.mjs",
       "require": "./dist/cjs/express.cjs"
     },
+    "./next": {
+      "types": {
+        "import": "./dist/types/esm/next.d.ts",
+        "require": "./dist/types/cjs/next.d.cts"
+      },
+      "import": "./dist/esm/next.mjs",
+      "require": "./dist/cjs/next.cjs"
+    },
     "./ws": {
       "types": {
         "import": "./dist/types/esm/ws.d.ts",
@@ -64,10 +72,14 @@
     "core-js": "<4",
     "express": "<5",
     "lodash-es": "<5",
+    "next": "<15",
     "ws": "<9"
   },
   "peerDependenciesMeta": {
     "express": {
+      "optional": true
+    },
+    "next": {
       "optional": true
     },
     "ws": {
@@ -86,6 +98,7 @@
     "del-cli": "^5.1.0",
     "express": "^4.19.2",
     "lodash-es": "^4.17.21",
+    "next": "^14.2.4",
     "ws": "^8.17.1"
   },
   "keywords": [

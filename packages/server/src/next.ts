@@ -8,23 +8,23 @@ import {
   type ServerRequestOptions,
 } from '@graphql-box/core';
 import { ArgsError, GroupedError, dehydrateCacheMetadata, serializeErrors } from '@graphql-box/helpers';
-import { type Request, type Response } from 'express';
-import { forAwaitEach, isAsyncIterable } from 'iterall';
+import { isAsyncIterable } from 'iterall';
 import { isError, isPlainObject } from 'lodash-es';
+import { type NextRequest, NextResponse } from 'next/server.js';
+import { asyncIteratorToStream } from './helpers/asyncIteratorToStream.ts';
 import { isLogBatched } from './helpers/isLogBatched.ts';
 import { isRequestBatched } from './helpers/isRequestBatched.ts';
-import { writeResponseChunk } from './helpers/writeResponseChunk.ts';
 import {
   type BatchRequestData,
   type BatchedLogData,
-  type ExpressRequestHandler,
   type LogData,
+  type NextRequestHandler,
   type RequestData,
   type ResponseDataWithMaybeDehydratedCacheMetadataBatch,
   type UserOptions,
 } from './types.ts';
 
-export class ExpressMiddleware {
+export class NextMiddleware {
   private _client: Client;
   private _requestTimeout: number;
   private _requestWhitelist: string[];
@@ -49,23 +49,15 @@ export class ExpressMiddleware {
     this._requestWhitelist = options.requestWhitelist ?? [];
   }
 
-  public createLogHandler(): ExpressRequestHandler {
-    return (req: Request<unknown, unknown, LogData | BatchedLogData>, res: Response) => {
-      this._logHandler(req, res);
-    };
+  public createLogHandler(): NextRequestHandler {
+    return (req: NextRequest) => this._logHandler(req);
   }
 
-  public createRequestHandler(options: ServerRequestOptions = {}): ExpressRequestHandler {
-    return (req: Request<unknown, unknown, RequestData | BatchRequestData>, res: Response) => {
-      this._requestHandler(req, res, options);
-    };
+  public createRequestHandler(options: ServerRequestOptions = {}): NextRequestHandler {
+    return (req: NextRequest) => this._requestHandler(req, options);
   }
 
-  private async _handleBatchRequest(
-    res: Response,
-    requests: BatchRequestData['requests'],
-    options: ServerRequestOptions
-  ) {
+  private async _handleBatchRequest(requests: BatchRequestData['requests'], options: ServerRequestOptions) {
     const response: ResponseDataWithMaybeDehydratedCacheMetadataBatch = { responses: {} };
 
     await Promise.all(
@@ -126,7 +118,9 @@ export class ExpressMiddleware {
       })
     );
 
-    res.status(200).send(response);
+    return new NextResponse(JSON.stringify(response), {
+      status: 200,
+    });
   }
 
   private _handleLogs(logs: Omit<LogData, 'batched'>[]) {
@@ -135,62 +129,76 @@ export class ExpressMiddleware {
     }
   }
 
-  private async _handleRequest(
-    res: Response,
-    request: string,
-    options: ServerRequestOptions,
-    context: PartialRequestContext
-  ) {
+  private async _handleRequest(request: string, options: ServerRequestOptions, context: PartialRequestContext) {
     if (this._requestWhitelist.length > 0 && !this._requestWhitelist.includes(context.originalRequestHash!)) {
-      res.status(400).send(serializeErrors({ errors: [new Error('The request is not whitelisted.')] }));
-      return;
-    }
-
-    const requestTimer = setTimeout(() => {
-      res.status(408).send(
-        serializeErrors({
-          errors: [new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`)],
-        })
+      return new NextResponse(
+        JSON.stringify(serializeErrors({ errors: [new Error('The request is not whitelisted.')] })),
+        {
+          status: 400,
+        }
       );
-    }, this._requestTimeout);
-
-    const requestResult = await this._client.request(request, options, context);
-    clearTimeout(requestTimer);
-
-    if (!isAsyncIterable(requestResult)) {
-      const { _cacheMetadata, ...otherProps } = requestResult as PartialRequestResult;
-      const response: PartialDehydratedRequestResult = serializeErrors({ ...otherProps });
-
-      if (_cacheMetadata) {
-        response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
-      }
-
-      res.status(200).send(response);
-      return;
     }
 
-    res.setHeader('Content-Type', 'multipart/mixed; boundary="-"');
+    return new Promise<NextResponse>(resolve => {
+      void (async () => {
+        const requestTimer = setTimeout(() => {
+          resolve(
+            new NextResponse(
+              JSON.stringify(
+                serializeErrors({
+                  errors: [
+                    new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`),
+                  ],
+                })
+              ),
+              {
+                status: 408,
+              }
+            )
+          );
+        }, this._requestTimeout);
 
-    void forAwaitEach(requestResult, ({ _cacheMetadata, ...otherProps }: PartialRequestResult) => {
-      const response: PartialDehydratedRequestResult = serializeErrors({ ...otherProps });
+        const requestResult = await this._client.request(request, options, context);
+        clearTimeout(requestTimer);
 
-      if (_cacheMetadata) {
-        response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
-      }
+        if (!isAsyncIterable(requestResult)) {
+          const { _cacheMetadata, ...otherProps } = requestResult as PartialRequestResult;
+          const response: PartialDehydratedRequestResult = serializeErrors({ ...otherProps });
 
-      writeResponseChunk(res, response);
+          if (_cacheMetadata) {
+            response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
+          }
 
-      if (!otherProps.hasNext) {
-        res.write('\r\n-----\r\n');
-        res.end();
-      }
+          resolve(
+            new NextResponse(JSON.stringify(response), {
+              status: 200,
+            })
+          );
+
+          return;
+        }
+
+        const asyncInteratorResult = requestResult as AsyncIterator<
+          PartialRequestResult | undefined,
+          PartialRequestResult | undefined
+        >;
+
+        resolve(
+          new NextResponse(asyncIteratorToStream(asyncInteratorResult), {
+            headers: new Headers({
+              'Content-Type': 'multipart/mixed; boundary="-"',
+            }),
+            status: 200,
+          })
+        );
+      })();
     });
   }
 
-  private _logHandler(req: Request<unknown, unknown, LogData | BatchedLogData>, res: Response) {
+  private async _logHandler(req: NextRequest) {
     try {
       let logs: Omit<LogData, 'batched'>[] = [];
-      const { body } = req;
+      const body = (await req.json()) as LogData | BatchedLogData;
 
       if (isLogBatched(body)) {
         logs = Object.values(body.requests);
@@ -201,43 +209,48 @@ export class ExpressMiddleware {
       }
 
       this._handleLogs(logs);
-      res.status(204).send();
+
+      return new NextResponse(undefined, {
+        status: 204,
+      });
     } catch (error) {
       const confirmedError = isError(error)
         ? error
         : new Error('@graphql-box/server logHandler had an unexpected error.');
 
-      res.status(500).send(serializeErrors({ errors: [confirmedError] }));
+      return new NextResponse(JSON.stringify(serializeErrors({ errors: [confirmedError] })), {
+        status: 500,
+      });
     }
   }
 
-  private _requestHandler(
-    { body, headers }: Request<unknown, unknown, RequestData | BatchRequestData>,
-    res: Response,
-    options: ServerRequestOptions
-  ) {
+  private async _requestHandler(req: NextRequest, options: ServerRequestOptions): Promise<NextResponse> {
     try {
+      const body = (await req.json()) as RequestData | BatchRequestData;
+
       if (isRequestBatched(body)) {
         const { requests } = body;
 
         void new Promise(() => {
           for (const { context, request } of Object.values(requests)) {
-            this._client.debugger?.log(SERVER_REQUEST_RECEIVED, { body, context, headers, request });
+            this._client.debugger?.log(SERVER_REQUEST_RECEIVED, { body, context, headers: req.headers, request });
           }
         });
 
-        void this._handleBatchRequest(res, requests, options);
+        return this._handleBatchRequest(requests, options);
       } else {
         const { context, request } = body;
-        this._client.debugger?.log(SERVER_REQUEST_RECEIVED, { body, context, headers, request });
-        void this._handleRequest(res, request, options, context);
+        this._client.debugger?.log(SERVER_REQUEST_RECEIVED, { body, context, headers: req.headers, request });
+        return this._handleRequest(request, options, context);
       }
     } catch (error) {
       const confirmedError = isError(error)
         ? error
         : new Error('@graphql-box/server requestHandler had an unexpected error.');
 
-      res.status(500).send(serializeErrors({ errors: [confirmedError] }));
+      return new NextResponse(JSON.stringify(serializeErrors({ errors: [confirmedError] })), {
+        status: 500,
+      });
     }
   }
 }

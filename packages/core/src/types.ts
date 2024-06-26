@@ -373,10 +373,10 @@ export interface PartialRequestResult {
   requestID: string;
 }
 
-export interface PartialRequestResultWithDehydratedCacheMetadata {
+export interface PartialDehydratedRequestResult {
   _cacheMetadata?: DehydratedCacheMetadata;
   data?: PlainData | null;
-  errors?: readonly Error[];
+  errors?: (DeserializedGraphqlError | ErrorObject)[];
   hasNext?: boolean;
   paths?: string[];
   requestID: string;
