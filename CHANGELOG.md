@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.1 (2024-06-26)
+
+### New Features
+
+* **server:**  add nextjs middleware (c7066930)
+
 ## 5.3.0 (2024-06-23)
 
 ### Chores
