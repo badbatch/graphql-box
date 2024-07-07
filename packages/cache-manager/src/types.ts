@@ -15,12 +15,23 @@ import {
 } from '@graphql-box/core';
 import { type Cacheability } from 'cacheability';
 
+export type CacheTiersEnabled = {
+  entity?: boolean;
+  queryResponse?: boolean;
+  requestPath?: boolean;
+};
+
 export interface UserOptions {
   /**
    * The cache to use for storing query responses, data entities,
    * and request field paths.
    */
   cache: Core;
+  /**
+   * Whether to enable/disable any/all of the three cache tiers
+   * the CacheManager uses. All three are enabled by default.
+   */
+  cacheTiersEnabled?: CacheTiersEnabled;
   /**
    * Whether to cascade cache control directives down to
    * child nodes if a child node does not have its down
