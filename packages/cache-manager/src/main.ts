@@ -40,6 +40,14 @@ import { assign, get, isEqual, isNumber, isUndefined, set, unset } from 'lodash-
 import { CACHE_CONTROL, HEADER_NO_CACHE, METADATA, NO_CACHE } from './constants.ts';
 import { logCacheEntry, logCacheQuery, logPartialCompiled } from './debug/index.ts';
 import { areOnlyPopulatedFieldsTypeIdKeys } from './helpers/areOnlyPopulatedFieldsTypeIdKeys.ts';
+import {
+  allCacheTiersDisabled,
+  entityCacheTierEnabled,
+  entityOrRequestPathCacheTiersEnabled,
+  queryResponseCacheTierEnabled,
+  requestPathCacheTierEnabled,
+  someCacheTiersEnabled,
+} from './helpers/cacheTiersEnabled.ts';
 import { combineDataSets } from './helpers/combineData.ts';
 import { createEntityDataKey } from './helpers/createEntityDataKey.ts';
 import { deriveOpCacheability } from './helpers/deriveOpCacheability.ts';
@@ -61,6 +69,7 @@ import {
   type AncestorKeysAndPaths,
   type CacheManagerContext,
   type CacheManagerDef,
+  type CacheTiersEnabled,
   type CachedAncestorFieldData,
   type CachedResponseData,
   type CheckCacheEntryResult,
@@ -159,7 +168,7 @@ export class CacheManager implements CacheManagerDef {
     }
   }
 
-  private static _setCachedResponseData(
+  private static _setCachedResponseSlice(
     cachedFieldData: MergedCachedFieldData,
     { cacheMetadata, data, fieldPathChecklist }: CachedResponseData,
     { propNameOrIndex, requestFieldPath }: KeysAndPaths,
@@ -223,6 +232,7 @@ export class CacheManager implements CacheManagerDef {
   }
 
   private _cache: Core;
+  private _cacheTiersEnabled: CacheTiersEnabled = { entity: true, queryResponse: true, requestPath: true };
   private _cascadeCacheControl: boolean;
   private _fallbackOperationCacheability: string;
   private _partialQueryResponses: PartialQueryResponses = new Map();
@@ -247,6 +257,7 @@ export class CacheManager implements CacheManagerDef {
     }
 
     this._cache = options.cache;
+    this._cacheTiersEnabled = { ...this._cacheTiersEnabled, ...options.cacheTiersEnabled };
     this._cascadeCacheControl = options.cascadeCacheControl ?? false;
     this._fallbackOperationCacheability = options.fallbackOperationCacheability ?? NO_CACHE;
     this._typeCacheDirectives = options.typeCacheDirectives ?? {};
@@ -258,6 +269,13 @@ export class CacheManager implements CacheManagerDef {
     options: RequestOptions,
     context: RequestContext
   ): Promise<AnalyzeQueryResult> {
+    // the client has already checked the query response cache with
+    // `checkQueryResponseCacheEntry`, so at this point the entity and
+    // request path caches are the only relevant ones.
+    if (!entityOrRequestPathCacheTiersEnabled(this._cacheTiersEnabled)) {
+      return { updated: requestData };
+    }
+
     const { ast, hash } = requestData;
 
     const cacheManagerContext: CacheManagerContext = {
@@ -278,7 +296,7 @@ export class CacheManager implements CacheManagerDef {
       return { updated: requestData };
     }
 
-    if (!fieldCount.missing) {
+    if (!fieldCount.missing && queryResponseCacheTierEnabled(this._cacheTiersEnabled)) {
       const dataCaching = this._setQueryResponseCacheEntry(hash, { cacheMetadata, data }, options, cacheManagerContext);
 
       if (options.awaitDataCaching) {
@@ -293,7 +311,10 @@ export class CacheManager implements CacheManagerDef {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { fragmentDefinitions, typeIDKey, ...rest } = cacheManagerContext;
     assign(context, { ...rest, filteredRequest });
-    this._setPartialQueryResponse(hash, { cacheMetadata, data }, options, context);
+
+    if (queryResponseCacheTierEnabled(this._cacheTiersEnabled)) {
+      this._setPartialQueryResponse(hash, { cacheMetadata, data }, options, context);
+    }
 
     return {
       updated: { ast: filteredAST, hash: hashRequest(filteredRequest), request: filteredRequest },
@@ -341,6 +362,10 @@ export class CacheManager implements CacheManagerDef {
     options: RequestOptions,
     context: RequestContext & { requestFieldCacheKey?: string }
   ): Promise<CheckCacheEntryResult | false> {
+    if (allCacheTiersDisabled(this._cacheTiersEnabled)) {
+      return false;
+    }
+
     return this._checkCacheEntry(cacheType, hash, options, context);
   }
 
@@ -349,6 +374,10 @@ export class CacheManager implements CacheManagerDef {
     options: RequestOptions,
     context: RequestContext
   ): Promise<ResponseData | false> {
+    if (!queryResponseCacheTierEnabled(this._cacheTiersEnabled)) {
+      return false;
+    }
+
     const result = await this._checkCacheEntry(QUERY_RESPONSES, hash, options, context);
 
     if (!result) {
@@ -364,7 +393,9 @@ export class CacheManager implements CacheManagerDef {
   }
 
   public deletePartialQueryResponse(hash: string): void {
-    this._partialQueryResponses.delete(hash);
+    if (queryResponseCacheTierEnabled(this._cacheTiersEnabled)) {
+      this._partialQueryResponses.delete(hash);
+    }
   }
 
   public async setQueryResponseCacheEntry(
@@ -373,7 +404,9 @@ export class CacheManager implements CacheManagerDef {
     options: RequestOptions,
     context: CacheManagerContext
   ): Promise<void> {
-    return this._setQueryResponseCacheEntry(requestData.hash, responseData, options, context);
+    if (queryResponseCacheTierEnabled(this._cacheTiersEnabled)) {
+      return this._setQueryResponseCacheEntry(requestData.hash, responseData, options, context);
+    }
   }
 
   private async _analyzeFieldNode(
@@ -413,23 +446,7 @@ export class CacheManager implements CacheManagerDef {
       fragmentName,
     };
 
-    if (CacheManager._isNodeRequestFieldPath(fieldTypeInfo)) {
-      const { cacheability, entry } = await this._retrieveCachedRequestFieldPathData(
-        hashedRequestFieldCacheKey,
-        requestFieldCacheKey,
-        options,
-        context
-      );
-
-      CacheManager._setCachedResponseData(
-        { cacheability, data: entry },
-        cachedResponseData,
-        keysAndPaths,
-        typenamesAndKind,
-        options,
-        context
-      );
-    } else {
+    if (!CacheManager._isNodeRequestFieldPath(fieldTypeInfo)) {
       const cachedFieldData =
         CacheManager._getFieldDataFromAncestor(entityData, propNameOrIndex) ??
         CacheManager._getFieldDataFromAncestor(requestFieldPathData, propNameOrIndex);
@@ -442,6 +459,22 @@ export class CacheManager implements CacheManagerDef {
       );
 
       CacheManager._setCachedData(cachedResponseData.data, { data: cachedFieldData }, propNameOrIndex);
+    } else if (requestPathCacheTierEnabled(this._cacheTiersEnabled)) {
+      const { cacheability, entry } = await this._retrieveCachedRequestFieldPathData(
+        hashedRequestFieldCacheKey,
+        requestFieldCacheKey,
+        options,
+        context
+      );
+
+      CacheManager._setCachedResponseSlice(
+        { cacheability, data: entry },
+        cachedResponseData,
+        keysAndPaths,
+        typenamesAndKind,
+        options,
+        context
+      );
     }
   }
 
@@ -466,7 +499,7 @@ export class CacheManager implements CacheManagerDef {
 
     const { fragmentKind, fragmentName, typeName } = cachedAncestorFieldData;
 
-    CacheManager._setCachedResponseData(
+    CacheManager._setCachedResponseSlice(
       { cacheability, data },
       cachedResponseData,
       keysAndPaths,
@@ -578,27 +611,29 @@ export class CacheManager implements CacheManagerDef {
 
     const dataCaching: Promise<void>[] = [];
 
-    if (responseDataForCaching) {
+    if (responseDataForCaching && someCacheTiersEnabled(this._cacheTiersEnabled)) {
       const { data } = responseDataForCaching;
       const cacheMetadata = this._buildCacheMetadata(requestData, responseDataForCaching, options, context);
 
-      dataCaching.push(
-        this._setEntityAndRequestFieldPathCacheEntries(
-          requestData,
-          {
-            cacheMetadata,
-            entityData: structuredClone(data),
-            requestFieldPathData: structuredClone(data),
-          },
-          options,
-          context
-        )
-      );
+      if (entityOrRequestPathCacheTiersEnabled(this._cacheTiersEnabled)) {
+        dataCaching.push(
+          this._setEntityAndRequestFieldPathCacheEntries(
+            requestData,
+            {
+              cacheMetadata,
+              entityData: structuredClone(data),
+              requestFieldPathData: structuredClone(data),
+            },
+            options,
+            context
+          )
+        );
+      }
 
       let queryCacheMetadata: CacheMetadata | undefined;
       let queryData: PlainData | undefined;
 
-      if (context.operation === OperationTypeNode.QUERY) {
+      if (context.operation === OperationTypeNode.QUERY && queryResponseCacheTierEnabled(this._cacheTiersEnabled)) {
         let partialQueryResponse: PartialQueryResponse | undefined;
 
         if (context.queryFiltered && updatedRequestData) {
@@ -775,7 +810,11 @@ export class CacheManager implements CacheManagerDef {
     const isEntity = isFieldEntity(fieldData, fieldTypeInfo, this._typeIDKey);
     const hasArgsOrDirectives = !!fieldTypeInfo.hasArguments || !!fieldTypeInfo.hasDirectives;
 
-    if (context.operation === OperationTypeNode.QUERY && (isEntity || hasArgsOrDirectives)) {
+    if (
+      context.operation === OperationTypeNode.QUERY &&
+      (isEntity || hasArgsOrDirectives) &&
+      requestPathCacheTierEnabled(this._cacheTiersEnabled)
+    ) {
       await this._setRequestFieldPathCacheEntry(
         keysAndPaths,
         {
@@ -798,7 +837,7 @@ export class CacheManager implements CacheManagerDef {
       }
     }
 
-    if (isEntity) {
+    if (isEntity && entityCacheTierEnabled(this._cacheTiersEnabled)) {
       await this._setEntityCacheEntry(
         {
           cacheability,
@@ -865,7 +904,7 @@ export class CacheManager implements CacheManagerDef {
     let requestFieldPathData = CacheManager._getFieldDataFromAncestor(ancestorRequestFieldPathData, propNameOrIndex);
     let cacheability: Cacheability | undefined;
 
-    if (CacheManager._isNodeRequestFieldPath(fieldTypeInfo)) {
+    if (CacheManager._isNodeRequestFieldPath(fieldTypeInfo) && requestPathCacheTierEnabled(this._cacheTiersEnabled)) {
       const { cacheability: entryCacheability, entry } = await this._retrieveCachedRequestFieldPathData(
         hashedRequestFieldCacheKey,
         requestFieldCacheKey,
@@ -882,7 +921,11 @@ export class CacheManager implements CacheManagerDef {
 
     const validTypeIDValue = getValidTypeIdValue(requestFieldPathData, fieldTypeInfo, this._typeIDKey);
 
-    if (CacheManager._isNodeEntity(fieldTypeInfo) && validTypeIDValue) {
+    if (
+      CacheManager._isNodeEntity(fieldTypeInfo) &&
+      validTypeIDValue &&
+      entityCacheTierEnabled(this._cacheTiersEnabled)
+    ) {
       const { cacheability: entryCacheability, entry } = await this._retrieveCachedEntityData(
         validTypeIDValue,
         fieldTypeInfo,
