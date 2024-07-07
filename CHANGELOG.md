@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.2 (2024-07-07)
+
+### New Features
+
+* **cache-manager:**  make cache tiers configurable (4b32c075)
+
 ## 5.3.1 (2024-06-26)
 
 ### New Features
