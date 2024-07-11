@@ -6,16 +6,20 @@ import { isArray, isPlainObject } from '../lodashProxies.ts';
 export const deserializedGraphqlError = (obj: DeserializedGraphqlError): GraphQLError => {
   const originalError = new Error(obj.originalError.message);
   originalError.stack = obj.originalError.stack;
+  const source = new Source(obj.source.body, obj.source.name, obj.source.locationOffset);
 
   const graphqlError = new GraphQLError(obj.message, {
     nodes: obj.nodes,
     originalError,
     path: obj.path,
     positions: obj.positions,
-    source: new Source(obj.source.body, obj.source.name, obj.source.locationOffset),
+    source,
   });
 
   graphqlError.stack = obj.stack;
+  // @ts-expect-error intentional
+  graphqlError.locations = graphqlError.locations?.map(location => ({ ...location, source }));
+
   return graphqlError;
 };
 
