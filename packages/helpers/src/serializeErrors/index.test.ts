@@ -90,7 +90,6 @@ describe('deserializeErrors >>', () => {
       expect.objectContaining({
         message: 'Oops',
         name: 'GraphQLError',
-        nodes,
         originalError: expect.any(Error),
         path,
         positions,
@@ -98,6 +97,17 @@ describe('deserializeErrors >>', () => {
         stack: deserializedError.stack,
       })
     );
+  });
+
+  it('should stringify the error correctly', () => {
+    expect(deserialized.toString()).toMatchInlineSnapshot(`
+      "Oops
+
+      GraphQL request:1:60
+      1 | query GetMovieCertifications {\\n  movie(id: "675054") {\\n    releaseDates {\\n   
+        |                                                            ^
+        |    iso_3166_1\\n      releaseDates {\\n        certification\\n      }\\n    }\\n    "
+    `);
   });
 });
 

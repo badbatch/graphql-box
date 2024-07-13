@@ -9,7 +9,6 @@ export const deserializedGraphqlError = (obj: DeserializedGraphqlError): GraphQL
   const source = new Source(obj.source.body, obj.source.name, obj.source.locationOffset);
 
   const graphqlError = new GraphQLError(obj.message, {
-    nodes: obj.nodes,
     originalError,
     path: obj.path,
     positions: obj.positions,
@@ -17,9 +16,6 @@ export const deserializedGraphqlError = (obj: DeserializedGraphqlError): GraphQL
   });
 
   graphqlError.stack = obj.stack;
-  // @ts-expect-error intentional
-  graphqlError.locations = graphqlError.locations?.map(location => ({ ...location, source }));
-
   return graphqlError;
 };
 
