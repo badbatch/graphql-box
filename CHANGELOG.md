@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.3-alpha-54321.1 (2024-07-13)
+
+### Refactors
+
+* **helpers:**  change way error is deserialised (df0f6d49)
+
 ## 5.3.3-alpha-54321.0 (2024-07-12)
 
 ### Bug Fixes
