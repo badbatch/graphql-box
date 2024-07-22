@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.3 (2024-07-22)
+
+### Refactors
+
+* **cache-manager:**  disable entity and requestPath cache tiers by default (7b4f47ef)
+
 ## 5.3.3-alpha-54321.1 (2024-07-13)
 
 ### Refactors
