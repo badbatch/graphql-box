@@ -45,6 +45,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             cascadeCacheControl: true,
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
@@ -81,6 +86,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             typeCacheDirectives: {
               AddStarPayload: 'no-cache, no-store',
               StargazerConnection: 'public, max-age=1',
@@ -125,6 +135,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             cascadeCacheControl: true,
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
@@ -161,6 +176,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             typeCacheDirectives: {
               Email: 'public, max-age=5',
               Inbox: 'public, max-age=1',
@@ -208,6 +228,11 @@ describe('@graphql-box/cache-manager >>', () => {
                 store: map(),
                 type: 'someType',
               }),
+              cacheTiersEnabled: {
+                entity: true,
+                queryResponse: true,
+                requestPath: true,
+              },
               cascadeCacheControl: true,
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
@@ -242,6 +267,11 @@ describe('@graphql-box/cache-manager >>', () => {
                 store: map(),
                 type: 'someType',
               }),
+              cacheTiersEnabled: {
+                entity: true,
+                queryResponse: true,
+                requestPath: true,
+              },
               typeCacheDirectives: {
                 Organization: 'public, max-age=1',
               },
@@ -280,6 +310,11 @@ describe('@graphql-box/cache-manager >>', () => {
                 store: map(),
                 type: 'someType',
               }),
+              cacheTiersEnabled: {
+                entity: true,
+                queryResponse: true,
+                requestPath: true,
+              },
               cascadeCacheControl: true,
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
@@ -314,6 +349,11 @@ describe('@graphql-box/cache-manager >>', () => {
                 store: map(),
                 type: 'someType',
               }),
+              cacheTiersEnabled: {
+                entity: true,
+                queryResponse: true,
+                requestPath: true,
+              },
               typeCacheDirectives: {
                 Organization: 'public, max-age=3',
                 Repository: 'public, max-age=2',
@@ -355,6 +395,11 @@ describe('@graphql-box/cache-manager >>', () => {
                 store: map(),
                 type: 'someType',
               }),
+              cacheTiersEnabled: {
+                entity: true,
+                queryResponse: true,
+                requestPath: true,
+              },
               cascadeCacheControl: true,
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
@@ -389,6 +434,11 @@ describe('@graphql-box/cache-manager >>', () => {
                 store: map(),
                 type: 'someType',
               }),
+              cacheTiersEnabled: {
+                entity: true,
+                queryResponse: true,
+                requestPath: true,
+              },
               typeCacheDirectives: {
                 SearchResultItem: 'public, max-age=1',
                 SearchResultItemConnection: 'public, max-age=3',
@@ -432,6 +482,11 @@ describe('@graphql-box/cache-manager >>', () => {
                 store: map(),
                 type: 'someType',
               }),
+              cacheTiersEnabled: {
+                entity: true,
+                queryResponse: true,
+                requestPath: true,
+              },
               cascadeCacheControl: true,
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
@@ -486,6 +541,11 @@ describe('@graphql-box/cache-manager >>', () => {
                 store: map(),
                 type: 'someType',
               }),
+              cacheTiersEnabled: {
+                entity: true,
+                queryResponse: true,
+                requestPath: true,
+              },
               typeCacheDirectives: {
                 Organization: 'public, max-age=1',
               },
@@ -544,6 +604,11 @@ describe('@graphql-box/cache-manager >>', () => {
                 store: map(),
                 type: 'someType',
               }),
+              cacheTiersEnabled: {
+                entity: true,
+                queryResponse: true,
+                requestPath: true,
+              },
               cascadeCacheControl: true,
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
@@ -598,6 +663,11 @@ describe('@graphql-box/cache-manager >>', () => {
                 store: map(),
                 type: 'someType',
               }),
+              cacheTiersEnabled: {
+                entity: true,
+                queryResponse: true,
+                requestPath: true,
+              },
               typeCacheDirectives: {
                 Organization: 'public, max-age=3',
                 Repository: 'public, max-age=2',
@@ -659,6 +729,11 @@ describe('@graphql-box/cache-manager >>', () => {
                 store: map(),
                 type: 'someType',
               }),
+              cacheTiersEnabled: {
+                entity: true,
+                queryResponse: true,
+                requestPath: true,
+              },
               cascadeCacheControl: true,
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
@@ -713,6 +788,11 @@ describe('@graphql-box/cache-manager >>', () => {
                 store: map(),
                 type: 'someType',
               }),
+              cacheTiersEnabled: {
+                entity: true,
+                queryResponse: true,
+                requestPath: true,
+              },
               typeCacheDirectives: {
                 SearchResultItem: 'public, max-age=1',
                 SearchResultItemConnection: 'public, max-age=3',
@@ -773,6 +853,11 @@ describe('@graphql-box/cache-manager >>', () => {
                 store: map(),
                 type: 'someType',
               }),
+              cacheTiersEnabled: {
+                entity: true,
+                queryResponse: true,
+                requestPath: true,
+              },
               cascadeCacheControl: true,
               typeIDKey: DEFAULT_TYPE_ID_KEY,
             });
@@ -851,6 +936,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
 
@@ -882,6 +972,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
 
@@ -913,6 +1008,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
 
@@ -944,6 +1044,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
 
@@ -979,6 +1084,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             typeCacheDirectives: {
               Organization: 'public, max-age=1',
             },
@@ -1027,6 +1137,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             typeCacheDirectives: {
               Organization: 'public, max-age=3',
               Repository: 'public, max-age=2',
@@ -1078,6 +1193,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             typeCacheDirectives: {
               SearchResultItem: 'public, max-age=1',
               SearchResultItemConnection: 'public, max-age=3',
@@ -1127,6 +1247,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             cascadeCacheControl: true,
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
@@ -1191,6 +1316,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             typeCacheDirectives: {
               Organization: 'public, max-age=1',
             },
@@ -1246,6 +1376,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             typeCacheDirectives: {
               Organization: 'public, max-age=1',
             },
@@ -1301,6 +1436,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             typeCacheDirectives: {
               Organization: 'public, max-age=3',
               Repository: 'public, max-age=2',
@@ -1359,6 +1499,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             typeCacheDirectives: {
               SearchResultItem: 'public, max-age=1',
               SearchResultItemConnection: 'public, max-age=3',
@@ -1415,6 +1560,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             cascadeCacheControl: true,
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });
@@ -1468,6 +1618,11 @@ describe('@graphql-box/cache-manager >>', () => {
               store: map(),
               type: 'someType',
             }),
+            cacheTiersEnabled: {
+              entity: true,
+              queryResponse: true,
+              requestPath: true,
+            },
             cascadeCacheControl: true,
             typeIDKey: DEFAULT_TYPE_ID_KEY,
           });

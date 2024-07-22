@@ -57,6 +57,11 @@ describe('@graphql-box/debug-manager >>', () => {
           store: map(),
           type: 'someType',
         }),
+        cacheTiersEnabled: {
+          entity: true,
+          queryResponse: true,
+          requestPath: true,
+        },
         cascadeCacheControl: true,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });
@@ -101,6 +106,11 @@ describe('@graphql-box/debug-manager >>', () => {
           store: map(),
           type: 'someType',
         }),
+        cacheTiersEnabled: {
+          entity: true,
+          queryResponse: true,
+          requestPath: true,
+        },
         cascadeCacheControl: true,
         typeIDKey: DEFAULT_TYPE_ID_KEY,
       });

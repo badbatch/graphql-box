@@ -25,6 +25,11 @@ export const initClient = ({
         store: cachemapStore,
         type: 'someType',
       }),
+      cacheTiersEnabled: {
+        entity: true,
+        queryResponse: true,
+        requestPath: true,
+      },
       cascadeCacheControl: true,
       typeCacheDirectives,
     }),

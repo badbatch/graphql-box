@@ -232,7 +232,7 @@ export class CacheManager implements CacheManagerDef {
   }
 
   private _cache: Core;
-  private _cacheTiersEnabled: CacheTiersEnabled = { entity: true, queryResponse: true, requestPath: true };
+  private _cacheTiersEnabled: CacheTiersEnabled = { entity: false, queryResponse: true, requestPath: false };
   private _cascadeCacheControl: boolean;
   private _fallbackOperationCacheability: string;
   private _partialQueryResponses: PartialQueryResponses = new Map();

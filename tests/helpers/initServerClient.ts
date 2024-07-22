@@ -24,6 +24,11 @@ export const initServerClient = ({ cachemapStore, debuggerName = 'SERVER', typeC
         store: cachemapStore,
         type: 'someType',
       }),
+      cacheTiersEnabled: {
+        entity: true,
+        queryResponse: true,
+        requestPath: true,
+      },
       cascadeCacheControl: true,
       typeCacheDirectives,
     }),
