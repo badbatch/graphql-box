@@ -1,11 +1,5 @@
 # Changelog
 
-## 5.3.4-alpha-1234.0 (2024-09-05)
-
-### Refactors
-
-* **cache-manager:**  wrap caching in settimeout to defer (3f6999a4)
-
 ## 5.3.3 (2024-07-22)
 
 ### Refactors
