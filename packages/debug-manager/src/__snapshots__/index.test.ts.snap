@@ -6,65 +6,6 @@ exports[`@graphql-box/debug-manager >> CacheManager >> CACHE_ENTRY_ADDED >> corr
     "labels": {
       "awaitDataCaching": true,
       "cacheControl": "public, max-age=5",
-      "cacheType": "queryResponses",
-      "duration": 0,
-      "endTime": 0,
-      "environment": "client",
-      "experimentalDeferStreamSupport": false,
-      "hasDeferOrStream": false,
-      "logGroup": 4,
-      "logOrder": 10,
-      "operation": "query",
-      "path": "/",
-      "protocol": "http:",
-      "queryFiltered": false,
-      "requestHash": "ea1cbc58eca798225b53f59d95ffb23a",
-      "requestID": "123456789",
-      "startTime": 0,
-      "typeIDKey": "id",
-      "url": "http://localhost/",
-      "userAgent": "mock-userAgent",
-      "value": {
-        "cacheMetadata": {
-          "query": {
-            "cacheControl": {
-              "maxAge": 5,
-              "public": true,
-            },
-            "etag": undefined,
-            "ttl": 297475205000,
-          },
-          "query.organization": {
-            "cacheControl": {
-              "maxAge": 5,
-              "public": true,
-            },
-            "etag": undefined,
-            "ttl": 297475205000,
-          },
-        },
-        "data": {
-          "organization": {
-            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
-            "email": "",
-            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
-            "login": "facebook",
-            "name": "Facebook",
-            "url": "https://github.com/facebook",
-          },
-        },
-      },
-    },
-    "log": {
-      "level": "INFO",
-      "logger": "CLIENT",
-    },
-    "message": "cache_entry_added",
-  },
-  {
-    "labels": {
-      "awaitDataCaching": true,
-      "cacheControl": "public, max-age=5",
       "cacheType": "requestFieldPaths",
       "decryptedCacheKey": "organization({"login":"facebook"})",
       "duration": 0,
@@ -128,6 +69,65 @@ exports[`@graphql-box/debug-manager >> CacheManager >> CACHE_ENTRY_ADDED >> corr
         "login": "facebook",
         "name": "Facebook",
         "url": "https://github.com/facebook",
+      },
+    },
+    "log": {
+      "level": "INFO",
+      "logger": "CLIENT",
+    },
+    "message": "cache_entry_added",
+  },
+  {
+    "labels": {
+      "awaitDataCaching": true,
+      "cacheControl": "public, max-age=5",
+      "cacheType": "queryResponses",
+      "duration": 0,
+      "endTime": 0,
+      "environment": "client",
+      "experimentalDeferStreamSupport": false,
+      "hasDeferOrStream": false,
+      "logGroup": 4,
+      "logOrder": 10,
+      "operation": "query",
+      "path": "/",
+      "protocol": "http:",
+      "queryFiltered": false,
+      "requestHash": "ea1cbc58eca798225b53f59d95ffb23a",
+      "requestID": "123456789",
+      "startTime": 0,
+      "typeIDKey": "id",
+      "url": "http://localhost/",
+      "userAgent": "mock-userAgent",
+      "value": {
+        "cacheMetadata": {
+          "query": {
+            "cacheControl": {
+              "maxAge": 5,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297475205000,
+          },
+          "query.organization": {
+            "cacheControl": {
+              "maxAge": 5,
+              "public": true,
+            },
+            "etag": undefined,
+            "ttl": 297475205000,
+          },
+        },
+        "data": {
+          "organization": {
+            "description": "We are working to build community through open source technology. NB: members must have two-factor auth.",
+            "email": "",
+            "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+            "login": "facebook",
+            "name": "Facebook",
+            "url": "https://github.com/facebook",
+          },
+        },
       },
     },
     "log": {

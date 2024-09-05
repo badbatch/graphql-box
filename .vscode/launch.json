@@ -12,7 +12,9 @@
       "env": {
         "DEBUG": "true",
         "NODE_OPTIONS": "--experimental-vm-modules"
-      }
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

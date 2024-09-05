@@ -1029,29 +1029,37 @@ export class CacheManager implements CacheManagerDef {
     options: RequestOptions,
     context: CacheManagerContext
   ): Promise<void> {
-    const operationNode = getOperationDefinitions(requestData.ast, context.operation)[0];
+    return new Promise(resolve => {
+      setTimeout(() => {
+        void (async () => {
+          const operationNode = getOperationDefinitions(requestData.ast, context.operation)[0];
 
-    if (!operationNode) {
-      return;
-    }
+          if (!operationNode) {
+            return;
+          }
 
-    const fieldsAndTypeNames = getChildFields(operationNode);
+          const fieldsAndTypeNames = getChildFields(operationNode);
 
-    if (!fieldsAndTypeNames) {
-      return;
-    }
+          if (!fieldsAndTypeNames) {
+            return;
+          }
 
-    await Promise.all(
-      fieldsAndTypeNames.map(({ fieldNode }) => {
-        return this._parseEntityAndRequestFieldPathCacheEntryData(
-          fieldNode,
-          { requestFieldPath: context.operation },
-          responseData,
-          options,
-          context
-        );
-      })
-    );
+          await Promise.all(
+            fieldsAndTypeNames.map(({ fieldNode }) => {
+              return this._parseEntityAndRequestFieldPathCacheEntryData(
+                fieldNode,
+                { requestFieldPath: context.operation },
+                responseData,
+                options,
+                context
+              );
+            })
+          );
+
+          resolve();
+        })();
+      }, 0);
+    });
   }
 
   private async _setEntityCacheEntry(
@@ -1165,17 +1173,25 @@ export class CacheManager implements CacheManagerDef {
     options: RequestOptions,
     context: CacheManagerContext
   ): Promise<void> {
-    const dehydratedCacheMetadata = dehydrateCacheMetadata(cacheMetadata);
-    const cacheControl = CacheManager._getOperationCacheControl(cacheMetadata, context.operation);
+    return new Promise(resolve => {
+      setTimeout(() => {
+        void (async () => {
+          const dehydratedCacheMetadata = dehydrateCacheMetadata(cacheMetadata);
+          const cacheControl = CacheManager._getOperationCacheControl(cacheMetadata, context.operation);
 
-    await this._setCacheEntry(
-      QUERY_RESPONSES,
-      hash,
-      { cacheMetadata: dehydratedCacheMetadata, data },
-      { cacheHeaders: { cacheControl }, tag: options.tag },
-      options,
-      context
-    );
+          resolve(
+            await this._setCacheEntry(
+              QUERY_RESPONSES,
+              hash,
+              { cacheMetadata: dehydratedCacheMetadata, data },
+              { cacheHeaders: { cacheControl }, tag: options.tag },
+              options,
+              context
+            )
+          );
+        })();
+      }, 0);
+    });
   }
 
   private async _setRequestFieldPathCacheEntry(
