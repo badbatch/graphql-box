@@ -39,12 +39,12 @@
   },
   "dependencies": {
     "@graphql-box/core": "workspace:*",
-    "cacheability": "^4.0.20",
+    "cacheability": "^4.0.27",
     "eventemitter3": "^5.0.1",
     "iterall": "^1.3.0",
-    "serialize-error": "^11.0.2",
+    "serialize-error": "^11.0.3",
     "ts-md5": "^1.3.1",
-    "type-fest": "^4.5.0"
+    "type-fest": "^4.30.0"
   },
   "peerDependencies": {
     "@babel/runtime": "<8",
@@ -53,13 +53,13 @@
     "lodash-es": "<5"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.20.13",
+    "@babel/runtime": "^7.26.0",
     "@jest/globals": "^29.3.1",
-    "@types/lodash-es": "^4.14.191",
-    "core-js": "^3.27.2",
-    "cts-types": "^0.0.6",
-    "del-cli": "^5.1.0",
-    "graphql": "^16.8.1",
+    "@types/lodash-es": "^4.17.12",
+    "core-js": "^3.39.0",
+    "cts-types": "^0.0.8",
+    "del-cli": "^6.0.0",
+    "graphql": "^16.9.0",
     "lodash-es": "^4.17.21"
   },
   "keywords": [

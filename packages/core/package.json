@@ -38,10 +38,10 @@
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
-    "cacheability": "^4.0.20",
+    "cacheability": "^4.0.27",
     "eventemitter3": "^5.0.1",
-    "serialize-error": "^11.0.2",
-    "type-fest": "^4.5.0"
+    "serialize-error": "^11.0.3",
+    "type-fest": "^4.30.0"
   },
   "peerDependencies": {
     "@babel/runtime": "<8",
@@ -51,14 +51,14 @@
     "ws": "<9"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.20.13",
-    "@types/lodash-es": "^4.14.191",
-    "core-js": "^3.27.2",
-    "cts-types": "^0.0.6",
-    "del-cli": "^5.1.0",
-    "graphql": "^16.8.1",
+    "@babel/runtime": "^7.26.0",
+    "@types/lodash-es": "^4.17.12",
+    "core-js": "^3.39.0",
+    "cts-types": "^0.0.8",
+    "del-cli": "^6.0.0",
+    "graphql": "^16.9.0",
     "lodash-es": "^4.17.21",
-    "ws": "^8.17.1"
+    "ws": "^8.18.0"
   },
   "keywords": [
     "client",

@@ -33,15 +33,15 @@
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
-    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
-    "compile:esm": "rollup -c ../../rollup.config.cjs",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.babel.cjs",
+    "compile:esm": "rollup -c ../../rollup.config.babel.cjs",
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
-    "@babel/core": "^7.8.6",
-    "@babel/types": "^7.8.6",
+    "@babel/core": "^7.26.0",
+    "@babel/types": "^7.26.3",
     "@types/babel-plugin-macros": "^3.1.3",
-    "@types/babel__core": "^7.20.4",
+    "@types/babel__core": "^7.20.5",
     "babel-plugin-macros": "^3.1.0",
     "ts-md5": "^1.3.1"
   },
@@ -51,12 +51,12 @@
     "lodash-es": "<5"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.20.13",
+    "@babel/runtime": "^7.26.0",
     "@jest/globals": "^29.3.1",
-    "@types/lodash-es": "^4.14.191",
-    "core-js": "^3.27.2",
-    "cts-types": "^0.0.6",
-    "del-cli": "^5.1.0",
+    "@types/lodash-es": "^4.17.12",
+    "core-js": "^3.39.0",
+    "cts-types": "^0.0.8",
+    "del-cli": "^6.0.0",
     "lodash-es": "^4.17.21"
   },
   "keywords": [
