@@ -1,9 +1,9 @@
 import { type FetchMockStatic } from 'fetch-mock';
 import { cloneDeepWith } from 'lodash-es';
+import { type PlainData, type PlainObject } from '@graphql-box/core';
 import { URL } from '../../constants.ts';
 import { HEADERS } from './constants.ts';
 import { type MockRequestOptions } from './types.ts';
-import { type PlainData, type PlainObject } from '@graphql-box/core';
 
 const buildRequestURL = (hash?: string): string => {
   if (hash) {

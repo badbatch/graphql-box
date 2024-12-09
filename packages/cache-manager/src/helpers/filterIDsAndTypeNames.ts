@@ -5,7 +5,7 @@ import { type CacheManagerContext } from '../types.ts';
 
 export const filterIDsAndTypeNames = (
   field: FieldNode | FragmentDefinitionNode | OperationDefinitionNode,
-  { fragmentDefinitions, typeIDKey }: CacheManagerContext
+  { fragmentDefinitions, typeIDKey }: CacheManagerContext,
 ) => {
   const fieldsAndTypeNames = getChildFields(field, { fragmentDefinitions });
 
@@ -18,7 +18,7 @@ export const filterIDsAndTypeNames = (
   if (fieldNames.length === 2 && fieldNames.every(name => name === typeIDKey || name === TYPE_NAME_KEY)) {
     deleteChildFields(
       field,
-      fieldsAndTypeNames.map(({ fieldNode }) => fieldNode)
+      fieldsAndTypeNames.map(({ fieldNode }) => fieldNode),
     );
 
     return true;

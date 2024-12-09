@@ -64,7 +64,7 @@ export type CreateResourceResolver<
   Source extends PlainObject | undefined,
   Args extends PlainObject,
   Ctx extends PlainObject,
-  Resource extends PlainObject
+  Resource extends PlainObject,
 > = (source: Source, args: Args, context: Ctx, info: GraphQLResolveInfo) => ResourceResolver<Resource>;
 
 export interface Getters<Resource extends PlainObject, ResourceNode extends Node> {
@@ -79,13 +79,13 @@ export interface ConnectionResolverUserOptions<
   Args extends PlainObject,
   Ctx extends PlainObject,
   Resource extends PlainObject,
-  ResourceNode extends Node
+  ResourceNode extends Node,
 > {
   createMakeCursors: (
     source: Source,
     args: Args,
     context: Ctx,
-    info: GraphQLResolveInfo
+    info: GraphQLResolveInfo,
   ) => {
     makeGroupCursor: () => string;
     makeIDCursor: (id: string | number) => string;
@@ -101,7 +101,7 @@ export type ConnectionResolver = (
   source: PlainObject,
   args: PlainObject & ConnectionInputOptions,
   context: PlainObject,
-  info: GraphQLResolveInfo
+  info: GraphQLResolveInfo,
 ) => Promise<Connection>;
 
 export type ConnectionInputOptions = {

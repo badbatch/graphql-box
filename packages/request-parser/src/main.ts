@@ -96,7 +96,7 @@ export class RequestParser implements RequestParserDef {
   private static _mapFieldToType(
     data: MapFieldToTypeData,
     { variables }: RequestOptions,
-    context: VisitorContext
+    context: VisitorContext,
   ): void {
     const { ancestors, directives, fieldNode, isEntity, isInterface, isUnion, possibleTypes, typeIDKey, typeName } =
       data;
@@ -194,7 +194,7 @@ export class RequestParser implements RequestParserDef {
   private static _updateVariableNode(
     node: VariableNode,
     variableType: Maybe<GraphQLNamedType>,
-    { variables }: RequestOptions
+    { variables }: RequestOptions,
   ): ValueNode {
     if (!variables) {
       return parseValue('null');
@@ -304,7 +304,7 @@ export class RequestParser implements RequestParserDef {
     fragmentDefinitions: FragmentDefinitionNodeMap | undefined,
     options: RequestOptions,
     context: VisitorContext,
-    inheritedFragmentSpreadDirective: ParsedDirective[] = []
+    inheritedFragmentSpreadDirective: ParsedDirective[] = [],
   ) {
     const typeDef = typeInfo.getFieldDef();
     const type = typeDef ? getType(typeDef) : undefined;
@@ -331,7 +331,7 @@ export class RequestParser implements RequestParserDef {
     const directives = parsedFieldDirectives.map(({ args, name }) => `${name}(${JSON.stringify(args)})`);
 
     const inheritedDirectives = [...parsedParentInlineFragmentDirectives, ...inheritedFragmentSpreadDirective].map(
-      ({ args, name }) => `${name}(${JSON.stringify(args)})`
+      ({ args, name }) => `${name}(${JSON.stringify(args)})`,
     );
 
     const isEntity = isTypeEntity(type, this._typeIDKey);
@@ -370,7 +370,7 @@ export class RequestParser implements RequestParserDef {
   private _updateFragmentDefinitionNode(
     node: FragmentDefinitionNode,
     _typeInfo: TypeInfo,
-    fragmentDefinitions: FragmentDefinitionNodeMap | undefined
+    fragmentDefinitions: FragmentDefinitionNodeMap | undefined,
   ) {
     const type = this._getFragmentType(node);
 
@@ -387,7 +387,7 @@ export class RequestParser implements RequestParserDef {
     _typeInfo: TypeInfo,
     fragmentDefinitions: FragmentDefinitionNodeMap | undefined,
     options: RequestOptions,
-    context: VisitorContext
+    context: VisitorContext,
   ) {
     const type = this._getFragmentType(node);
 
@@ -411,7 +411,7 @@ export class RequestParser implements RequestParserDef {
 
     if (!operationDefinition || operationDefinitions.length > 1) {
       throw new TypeError(
-        `@graphql-box/request-parser expected one operation, but got ${operationDefinitions.length}.`
+        `@graphql-box/request-parser expected one operation, but got ${operationDefinitions.length}.`,
       );
     }
 
@@ -427,7 +427,7 @@ export class RequestParser implements RequestParserDef {
       fieldTypeMap: context.fieldTypeMap,
       hasDeferOrStream: false,
       operation: operationDefinition.operation,
-      operationName: get(operationDefinition, [NAME, VALUE], '') as string,
+      operationName: get(operationDefinition, [NAME, VALUE], ''),
       persistedFragmentSpreads: [],
     };
 
@@ -447,7 +447,7 @@ export class RequestParser implements RequestParserDef {
             const fragmentDefinitionNode = findAncestorFragmentDefinition(ancestors)!;
 
             const matches = visitorContext.persistedFragmentSpreads.filter(
-              ([name]) => name === getName(fragmentDefinitionNode)!
+              ([name]) => name === getName(fragmentDefinitionNode)!,
             );
 
             for (const match of matches) {
@@ -466,7 +466,7 @@ export class RequestParser implements RequestParserDef {
                 visitorContext,
                 isAncestorAstNode(parentNode) && isKind<FragmentDefinitionNode>(parentNode, Kind.FRAGMENT_DEFINITION)
                   ? match[1]
-                  : undefined
+                  : undefined,
               );
             }
           } else {
@@ -485,7 +485,7 @@ export class RequestParser implements RequestParserDef {
             const fragmentDefinitionNode = parentNode;
 
             const matches = visitorContext.persistedFragmentSpreads.filter(
-              ([name]) => name === getName(fragmentDefinitionNode)!
+              ([name]) => name === getName(fragmentDefinitionNode)!,
             );
 
             for (const match of matches) {
@@ -503,7 +503,7 @@ export class RequestParser implements RequestParserDef {
             typeInfo,
             fragmentDefinitions,
             options,
-            visitorContext
+            visitorContext,
           );
 
           return;
@@ -560,7 +560,7 @@ export class RequestParser implements RequestParserDef {
 
     if (maxDepth > this._maxFieldDepth) {
       throw new Error(
-        `@graphql-box/request-parser >> request field depth of ${maxDepth} exceeded max field depth of ${this._maxFieldDepth}`
+        `@graphql-box/request-parser >> request field depth of ${maxDepth} exceeded max field depth of ${this._maxFieldDepth}`,
       );
     }
 
@@ -571,7 +571,7 @@ export class RequestParser implements RequestParserDef {
 
       if (typeComplexity > this._maxTypeComplexity) {
         throw new Error(
-          `@graphql-box/request-parser >> request type complexity of ${typeComplexity} exceeded max type complexity of ${this._maxTypeComplexity}`
+          `@graphql-box/request-parser >> request type complexity of ${typeComplexity} exceeded max type complexity of ${this._maxTypeComplexity}`,
         );
       }
     }

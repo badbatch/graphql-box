@@ -6,11 +6,11 @@ export const reorderDefinitions = (ast: DocumentNode) => {
   const { definitions } = ast;
 
   const otherDefinitions = definitions.filter(
-    definition => !isKind<FragmentDefinitionNode>(definition, Kind.FRAGMENT_DEFINITION)
+    definition => !isKind<FragmentDefinitionNode>(definition, Kind.FRAGMENT_DEFINITION),
   );
 
   const fragmentDefinitions = definitions.filter(definition =>
-    isKind<FragmentDefinitionNode>(definition, Kind.FRAGMENT_DEFINITION)
+    isKind<FragmentDefinitionNode>(definition, Kind.FRAGMENT_DEFINITION),
   );
 
   fragmentDefinitions.sort((a, b) => {

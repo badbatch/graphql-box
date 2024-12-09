@@ -33,7 +33,7 @@ export const macroHandler: MacroHandler = ({ config, references: { default: path
         throw new MacroError(
           `@graphql-box/gql.macro can only be used as tagged template expression. You tried ${
             targetPath?.type ?? 'a unknown'
-          } target path.`
+          } target path.`,
         );
       }
     }

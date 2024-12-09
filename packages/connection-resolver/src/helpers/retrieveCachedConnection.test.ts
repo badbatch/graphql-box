@@ -10,7 +10,7 @@ describe('retrieveCachedConnection', () => {
 
   describe('retrieving edges after a cursor', () => {
     describe('when 5 cursors on the same page are requested', () => {
-      let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+      let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
         const cursorCache = await generateCursorCache({
@@ -45,7 +45,7 @@ describe('retrieveCachedConnection', () => {
 
       it('should return the correct last edge', () => {
         const edges = extractEdges(result.cachedEdges);
-        expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('5::1');
+        expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('5::1');
       });
 
       it('should return hasPreviousPage as true', () => {
@@ -62,7 +62,7 @@ describe('retrieveCachedConnection', () => {
     });
 
     describe('when 15 cursors covering multiple pages are requested', () => {
-      let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+      let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
         const cursorCache = await generateCursorCache({
@@ -97,7 +97,7 @@ describe('retrieveCachedConnection', () => {
 
       it('should return the correct last edge', () => {
         const edges = extractEdges(result.cachedEdges);
-        expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('0::3');
+        expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('0::3');
       });
 
       it('should return hasPreviousPage as true', () => {
@@ -114,7 +114,7 @@ describe('retrieveCachedConnection', () => {
     });
 
     describe('when 15 cursors going over the last page are requested', () => {
-      let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+      let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
         const cursorCache = await generateCursorCache({
@@ -149,7 +149,7 @@ describe('retrieveCachedConnection', () => {
 
       it('should return the correct last edge', () => {
         const edges = extractEdges(result.cachedEdges);
-        expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('9::10');
+        expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('9::10');
       });
 
       it('should return hasPreviousPage as true', () => {
@@ -167,7 +167,7 @@ describe('retrieveCachedConnection', () => {
 
     describe('when 35 cursors covering multiple pages and going OVER the last page are requested', () => {
       describe('when last page has full page of results', () => {
-        let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+        let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
           const cursorCache = await generateCursorCache({
@@ -202,7 +202,7 @@ describe('retrieveCachedConnection', () => {
 
         it('should return the correct last edge', () => {
           const edges = extractEdges(result.cachedEdges);
-          expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('9::10');
+          expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('9::10');
         });
 
         it('should return hasPreviousPage as true', () => {
@@ -219,7 +219,7 @@ describe('retrieveCachedConnection', () => {
       });
 
       describe('when last page has partial page of results', () => {
-        let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+        let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
           const cursorCache = await generateCursorCache({
@@ -254,7 +254,7 @@ describe('retrieveCachedConnection', () => {
 
         it('should return the correct last edge', () => {
           const edges = extractEdges(result.cachedEdges);
-          expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('5::10');
+          expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('5::10');
         });
 
         it('should return hasPreviousPage as true', () => {
@@ -273,7 +273,7 @@ describe('retrieveCachedConnection', () => {
 
     describe('when 25 cursors covering multiple pages and going UP TO the last page are requested', () => {
       describe('when last page has full page of results', () => {
-        let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+        let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
           const cursorCache = await generateCursorCache({
@@ -308,7 +308,7 @@ describe('retrieveCachedConnection', () => {
 
         it('should return the correct last edge', () => {
           const edges = extractEdges(result.cachedEdges);
-          expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('5::10');
+          expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('5::10');
         });
 
         it('should return hasPreviousPage as true', () => {
@@ -325,7 +325,7 @@ describe('retrieveCachedConnection', () => {
       });
 
       describe('when last page has partial page of results', () => {
-        let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+        let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
           const cursorCache = await generateCursorCache({
@@ -360,7 +360,7 @@ describe('retrieveCachedConnection', () => {
 
         it('should return the correct last edge', () => {
           const edges = extractEdges(result.cachedEdges);
-          expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('5::10');
+          expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('5::10');
         });
 
         it('should return hasPreviousPage as true', () => {
@@ -379,7 +379,7 @@ describe('retrieveCachedConnection', () => {
 
     describe('when there are missing pages', () => {
       describe('when 35 cursors covering multiple pages and going OVER the last page are requested', () => {
-        let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+        let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
           const cursorCache = await generateCursorCache({
@@ -414,7 +414,7 @@ describe('retrieveCachedConnection', () => {
 
         it('should return the correct last edge', () => {
           const edges = extractEdges(result.cachedEdges);
-          expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('9::10');
+          expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('9::10');
         });
 
         it('should return hasPreviousPage as true', () => {
@@ -431,7 +431,7 @@ describe('retrieveCachedConnection', () => {
       });
 
       describe('when 25 cursors covering multiple pages and going UP TO the last page are requested', () => {
-        let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+        let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
           const cursorCache = await generateCursorCache({
@@ -466,7 +466,7 @@ describe('retrieveCachedConnection', () => {
 
         it('should return the correct last edge', () => {
           const edges = extractEdges(result.cachedEdges);
-          expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('9::10');
+          expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('9::10');
         });
 
         it('should return hasPreviousPage as true', () => {
@@ -486,7 +486,7 @@ describe('retrieveCachedConnection', () => {
 
   describe('retrieving edges before a cursor', () => {
     describe('when 5 cursors on the same page are requested', () => {
-      let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+      let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
         const cursorCache = await generateCursorCache({
@@ -521,7 +521,7 @@ describe('retrieveCachedConnection', () => {
 
       it('should return the correct last edge', () => {
         const edges = extractEdges(result.cachedEdges);
-        expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('8::10');
+        expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('8::10');
       });
 
       it('should return hasPreviousPage as true', () => {
@@ -538,7 +538,7 @@ describe('retrieveCachedConnection', () => {
     });
 
     describe('when 15 cursors covering multiple pages are requested', () => {
-      let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+      let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
         const cursorCache = await generateCursorCache({
@@ -573,7 +573,7 @@ describe('retrieveCachedConnection', () => {
 
       it('should return the correct last edge', () => {
         const edges = extractEdges(result.cachedEdges);
-        expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('8::10');
+        expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('8::10');
       });
 
       it('should return hasPreviousPage as true', () => {
@@ -590,7 +590,7 @@ describe('retrieveCachedConnection', () => {
     });
 
     describe('when 15 cursors going under the first page are requested', () => {
-      let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+      let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
         const cursorCache = await generateCursorCache({
@@ -625,7 +625,7 @@ describe('retrieveCachedConnection', () => {
 
       it('should return the correct last edge', () => {
         const edges = extractEdges(result.cachedEdges);
-        expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('8::1');
+        expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('8::1');
       });
 
       it('should return hasPreviousPage as false', () => {
@@ -642,7 +642,7 @@ describe('retrieveCachedConnection', () => {
     });
 
     describe('when 35 cursors covering multiple pages and going UNDER the first page are requested', () => {
-      let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+      let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
         const cursorCache = await generateCursorCache({
@@ -677,7 +677,7 @@ describe('retrieveCachedConnection', () => {
 
       it('should return the correct last edge', () => {
         const edges = extractEdges(result.cachedEdges);
-        expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('6::3');
+        expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('6::3');
       });
 
       it('should return hasPreviousPage as false', () => {
@@ -694,7 +694,7 @@ describe('retrieveCachedConnection', () => {
     });
 
     describe('when 25 cursors covering multiple pages and going DOWN TO the first page are requested', () => {
-      let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+      let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
         const cursorCache = await generateCursorCache({
@@ -729,7 +729,7 @@ describe('retrieveCachedConnection', () => {
 
       it('should return the correct last edge', () => {
         const edges = extractEdges(result.cachedEdges);
-        expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('6::3');
+        expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('6::3');
       });
 
       it('should return hasPreviousPage as true', () => {
@@ -747,7 +747,7 @@ describe('retrieveCachedConnection', () => {
 
     describe('when there are missing pages', () => {
       describe('when 35 cursors covering multiple pages and going UNDER the first page are requested', () => {
-        let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+        let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
           const cursorCache = await generateCursorCache({
@@ -782,7 +782,7 @@ describe('retrieveCachedConnection', () => {
 
         it('should return the correct last edge', () => {
           const edges = extractEdges(result.cachedEdges);
-          expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('9::3');
+          expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('9::3');
         });
 
         it('should return hasPreviousPage as false', () => {
@@ -799,7 +799,7 @@ describe('retrieveCachedConnection', () => {
       });
 
       describe('when 25 cursors covering multiple pages and going DOWN TO the first page are requested', () => {
-        let result: Awaited<ReturnType<typeof import('./retrieveCachedConnection.ts')['retrieveCachedConnection']>>;
+        let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
           const cursorCache = await generateCursorCache({
@@ -834,7 +834,7 @@ describe('retrieveCachedConnection', () => {
 
         it('should return the correct last edge', () => {
           const edges = extractEdges(result.cachedEdges);
-          expect(decode((edges[edges.length - 1]!.node.id as string).split('::')[0]!)).toBe('9::3');
+          expect(decode((edges.at(-1)!.node.id as string).split('::')[0]!)).toBe('9::3');
         });
 
         it('should return hasPreviousPage as true', () => {

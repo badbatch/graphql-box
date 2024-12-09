@@ -3,7 +3,7 @@ import { dehydrateCacheMetadata, serializeErrors } from '@graphql-box/helpers';
 import { createResponseChunk } from './createResponseChunk.ts';
 
 export const asyncIteratorToStream = (
-  iterator: AsyncIterator<PartialRequestResult | undefined, PartialRequestResult | undefined>
+  iterator: AsyncIterator<PartialRequestResult | undefined, PartialRequestResult | undefined>,
 ) =>
   new ReadableStream({
     pull: async controller => {

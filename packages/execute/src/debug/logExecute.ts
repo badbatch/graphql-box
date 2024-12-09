@@ -15,7 +15,7 @@ type Descriptor = (
   requestData: RequestData,
   options: ServerRequestOptions,
   context: RequestContext,
-  executeResolver: RequestResolver
+  executeResolver: RequestResolver,
 ) => Promise<AsyncIterableIterator<PartialRequestResult | undefined> | PartialRawResponseData>;
 
 export const logExecute = () => {

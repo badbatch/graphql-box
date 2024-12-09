@@ -19,7 +19,7 @@ export const parentNodeIncludes = (
   activeNode: ParentNode,
   newNode: ParentNode,
   fragmentDefinitions: { control?: FragmentDefinitionNodeMap; value?: FragmentDefinitionNodeMap },
-  contexts: { active: RequestContext; new: RequestContext }
+  contexts: { active: RequestContext; new: RequestContext },
 ) => {
   const activeNodeFieldsAndTypeNames = getChildFields(activeNode, {
     fragmentDefinitions: fragmentDefinitions.control,
@@ -45,7 +45,7 @@ export const parentNodeIncludes = (
           context: contexts.new,
           message: `Active parent node ${getName(activeNode) ?? 'without name'} is missing field ${name}`,
         },
-        'debug'
+        'debug',
       );
 
       return false;
@@ -60,7 +60,7 @@ export const newNodeFieldsPartOfActiveNode = (
   newNode: ParentNode,
   fragmentDefinitions: { active?: FragmentDefinitionNodeMap; new?: FragmentDefinitionNodeMap },
   keyAndPathOptions: { active: KeysAndPathsOptions; new: KeysAndPathsOptions },
-  contexts: { active: RequestContext; new: RequestContext }
+  contexts: { active: RequestContext; new: RequestContext },
 ): boolean => {
   const activeNodeHasNewNodeFields = parentNodeIncludes(
     activeNode,
@@ -69,7 +69,7 @@ export const newNodeFieldsPartOfActiveNode = (
       control: fragmentDefinitions.active,
       value: fragmentDefinitions.new,
     },
-    contexts
+    contexts,
   );
 
   if (!activeNodeHasNewNodeFields) {
@@ -120,7 +120,7 @@ export const newNodeFieldsPartOfActiveNode = (
       newFieldNode,
       fragmentDefinitions,
       { active: activeKeysAndPaths, new: newKeysAndPaths },
-      contexts
+      contexts,
     );
   }, true);
 };
@@ -128,7 +128,7 @@ export const newNodeFieldsPartOfActiveNode = (
 export const isDataRequestedInActiveQuery = (
   activeRequestList: ActiveQueryData[],
   newRequestData: RequestData,
-  context: RequestContext
+  context: RequestContext,
 ) => {
   const match = activeRequestList.find(({ context: activeContext, requestData: activeRequestData }) => {
     const [activeQueryNode] = getOperationDefinitions(activeRequestData.ast, OperationTypeNode.QUERY);
@@ -154,7 +154,7 @@ export const isDataRequestedInActiveQuery = (
       {
         active: activeContext,
         new: context,
-      }
+      },
     );
   });
 

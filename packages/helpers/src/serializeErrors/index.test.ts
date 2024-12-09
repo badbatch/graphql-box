@@ -55,7 +55,7 @@ const path = ['movie', 'releaseDates'];
 const positions = [59];
 
 const sourceFields = {
-  body: 'query GetMovieCertifications {\\n  movie(id: "675054") {\\n    releaseDates {\\n      iso_3166_1\\n      releaseDates {\\n        certification\\n      }\\n    }\\n    id\\n  }\\n}',
+  body: String.raw`query GetMovieCertifications {\n  movie(id: "675054") {\n    releaseDates {\n      iso_3166_1\n      releaseDates {\n        certification\n      }\n    }\n    id\n  }\n}`,
   locationOffset: { column: 1, line: 1 },
   name: 'GraphQL request',
 };
@@ -95,7 +95,7 @@ describe('deserializeErrors >>', () => {
         positions,
         source: expect.any(Source),
         stack: deserializedError.stack,
-      })
+      }),
     );
   });
 

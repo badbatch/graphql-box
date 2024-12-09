@@ -8,7 +8,7 @@ export const filterFragmentSpreads = (
   field: FieldNode | FragmentDefinitionNode | OperationDefinitionNode,
   fragmentSpreadFieldCounter: FragmentSpreadFieldCounter,
   fragmentSpreadChecklist: FragmentSpreadCheckist,
-  ancestorRequestFieldPath: string
+  ancestorRequestFieldPath: string,
 ) => {
   if (isEmpty(fragmentSpreadFieldCounter)) {
     return;

@@ -64,7 +64,7 @@ export class ExpressMiddleware {
   private async _handleBatchRequest(
     res: Response,
     requests: BatchRequestData['requests'],
-    options: ServerRequestOptions
+    options: ServerRequestOptions,
   ) {
     const response: ResponseDataWithMaybeDehydratedCacheMetadataBatch = { responses: {} };
 
@@ -102,7 +102,7 @@ export class ExpressMiddleware {
           const { _cacheMetadata, ...otherProps } = (await this._client.request(
             request,
             options,
-            context
+            context,
           )) as PartialRequestResult;
 
           clearTimeout(requestTimer);
@@ -123,7 +123,7 @@ export class ExpressMiddleware {
             requestID: context.requestID,
           });
         }
-      })
+      }),
     );
 
     res.status(200).send(response);
@@ -139,7 +139,7 @@ export class ExpressMiddleware {
     res: Response,
     request: string,
     options: ServerRequestOptions,
-    context: PartialRequestContext
+    context: PartialRequestContext,
   ) {
     if (this._requestWhitelist.length > 0 && !this._requestWhitelist.includes(context.originalRequestHash!)) {
       res.status(400).send(serializeErrors({ errors: [new Error('The request is not whitelisted.')] }));
@@ -150,7 +150,7 @@ export class ExpressMiddleware {
       res.status(408).send(
         serializeErrors({
           errors: [new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`)],
-        })
+        }),
       );
     }, this._requestTimeout);
 
@@ -214,7 +214,7 @@ export class ExpressMiddleware {
   private _requestHandler(
     { body, headers }: Request<unknown, unknown, RequestData | BatchRequestData>,
     res: Response,
-    options: ServerRequestOptions
+    options: ServerRequestOptions,
   ) {
     try {
       if (isRequestBatched(body)) {

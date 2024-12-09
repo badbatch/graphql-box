@@ -55,7 +55,7 @@ export class Subscribe {
     { ast, hash }: RequestData,
     options: ServerRequestOptions,
     context: RequestContext,
-    subscriberResolver: SubscriberResolver
+    subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<PartialRequestResult | undefined>> {
     const { contextValue = {}, fieldResolver, operationName, rootValue, subscribeFieldResolver } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
@@ -89,7 +89,7 @@ export class Subscribe {
           await subscriberResolver({
             _cacheMetadata,
             ...standardizePath(result),
-          } as unknown as PartialRawResponseData)
+          } as unknown as PartialRawResponseData),
         );
       });
     }

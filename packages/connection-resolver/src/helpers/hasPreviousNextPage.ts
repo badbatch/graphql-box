@@ -23,6 +23,5 @@ export const hasNextPage = ({
   metadata: { totalPages, totalResults },
   resultsPerPage,
 }: HasNextPageParams) =>
-  (isNumber(cachedEdgesByPage[cachedEdgesByPage.length - 1]?.pageNumber) &&
-    cachedEdgesByPage[cachedEdgesByPage.length - 1]?.pageNumber !== totalPages) ||
+  (isNumber(cachedEdgesByPage.at(-1)?.pageNumber) && cachedEdgesByPage.at(-1)?.pageNumber !== totalPages) ||
   endIndex.relative < getIndexesOnLastPage({ resultsPerPage, totalResults });

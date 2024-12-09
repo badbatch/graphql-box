@@ -13,7 +13,7 @@ describe('isCursorLast', () => {
           resultsPerPage: 10,
           totalPages: 6,
           totalResults: 53,
-        })
+        }),
       ).toBe(true);
     });
   });
@@ -29,7 +29,7 @@ describe('isCursorLast', () => {
           resultsPerPage: 10,
           totalPages: 6,
           totalResults: 53,
-        })
+        }),
       ).toBe(false);
     });
   });

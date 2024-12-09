@@ -3,7 +3,7 @@ import { getKind } from './kind.ts';
 
 export const getOperationDefinitions = (
   { definitions }: DocumentNode,
-  name?: OperationTypeNode
+  name?: OperationTypeNode,
 ): OperationDefinitionNode[] => {
   const operationDefinitions: OperationDefinitionNode[] = [];
 

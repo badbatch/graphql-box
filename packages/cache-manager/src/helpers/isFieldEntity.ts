@@ -4,7 +4,7 @@ import { isPlainObject } from '@graphql-box/helpers';
 export const isFieldEntity = (
   fieldData: unknown,
   fieldTypeInfo: FieldTypeInfo | undefined,
-  typeIDKey: string
+  typeIDKey: string,
 ): fieldData is EntityData => {
   if (!isPlainObject(fieldData) || !(typeIDKey in fieldData)) {
     return false;

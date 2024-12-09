@@ -23,7 +23,7 @@ export const buildRequestFieldCacheKey = (
   requestFieldCacheKey: string,
   args: PlainObject | undefined,
   directives?: FieldTypeInfo['directives'],
-  index?: number
+  index?: number,
 ) => {
   let key = `${isNumber(index) ? index : name}`;
 
@@ -45,7 +45,7 @@ export const buildRequestFieldCacheKey = (
 export const buildFieldKeysAndPaths = (
   field: FieldNode,
   options: KeysAndPathsOptions,
-  context: RequestContext
+  context: RequestContext,
 ): KeysAndPaths => {
   const { index, requestFieldCacheKey = '', requestFieldPath = '', responseDataPath = '' } = options;
   const name = getName(field)!;
@@ -58,7 +58,7 @@ export const buildFieldKeysAndPaths = (
     requestFieldCacheKey,
     getArguments(field),
     fieldTypeInfo?.directives,
-    index
+    index,
   );
 
   const propNameOrIndex = isNumber(index) ? index : name;

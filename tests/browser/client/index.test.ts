@@ -3,11 +3,6 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import fetchMock from 'fetch-mock';
 import { type IntrospectionQuery } from 'graphql';
 import { forAwaitEach, isAsyncIterable } from 'iterall';
-import { WS_URL } from '../../constants.ts';
-import { expected } from '../../expected/index.ts';
-import { initClient } from '../../helpers/initClient.ts';
-import { onWebsocketOpen } from '../../helpers/onWebsocketOpen.ts';
-import { mockRequest } from '../../modules/fetch-mock/index.ts';
 import { type ExportCacheResult } from '@graphql-box/cache-manager';
 import { type Client } from '@graphql-box/client';
 import {
@@ -18,8 +13,13 @@ import {
 import { dehydrateCacheMetadata, hashRequest } from '@graphql-box/helpers';
 import { githubIntrospection, parsedRequests, resolvers, responses, typeDefs } from '@graphql-box/test-utils';
 import { WebsocketManager } from '@graphql-box/websocket-manager';
+import { WS_URL } from '../../constants.ts';
+import { expected } from '../../expected/index.ts';
+import { initClient } from '../../helpers/initClient.ts';
+import { onWebsocketOpen } from '../../helpers/onWebsocketOpen.ts';
+import { mockRequest } from '../../modules/fetch-mock/index.ts';
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10_000;
+jest.setTimeout(10_000);
 
 const introspection = githubIntrospection as IntrospectionQuery;
 const defaultOptions = { awaitDataCaching: true, returnCacheMetadata: true };
@@ -32,7 +32,7 @@ const typeCacheDirectives = {
 };
 
 describe('client', () => {
-  const realDateNow = Date.now.bind(global.Date);
+  const realDateNow = Date.now.bind(globalThis.Date);
 
   beforeAll(() => {
     globalThis.Date.now = () => Date.parse('June 6, 1979 GMT');
@@ -88,7 +88,7 @@ describe('client', () => {
 
         client = initClient({
           cachemapStore: indexedDB(),
-          introspection: introspection,
+          introspection,
           typeCacheDirectives,
         });
 
@@ -115,7 +115,7 @@ describe('client', () => {
       });
 
       it('one request', () => {
-        expect(fetchMock.calls().length).toBe(1);
+        expect(fetchMock.calls()).toHaveLength(1);
       });
 
       it('correct response data', () => {
@@ -133,7 +133,7 @@ describe('client', () => {
 
         client = initClient({
           cachemapStore: indexedDB(),
-          introspection: introspection,
+          introspection,
           typeCacheDirectives,
         });
 
@@ -158,7 +158,7 @@ describe('client', () => {
       });
 
       it('one request', () => {
-        expect(fetchMock.calls().length).toBe(1);
+        expect(fetchMock.calls()).toHaveLength(1);
       });
 
       it('correct response data', () => {
@@ -176,7 +176,7 @@ describe('client', () => {
 
         client = initClient({
           cachemapStore: indexedDB(),
-          introspection: introspection,
+          introspection,
           typeCacheDirectives,
         });
 
@@ -200,7 +200,7 @@ describe('client', () => {
       });
 
       it('no request', () => {
-        expect(fetchMock.calls().length).toBe(0);
+        expect(fetchMock.calls()).toHaveLength(0);
       });
 
       it('correct response data', () => {
@@ -242,7 +242,7 @@ describe('client', () => {
       });
 
       it('no request', () => {
-        expect(fetchMock.calls().length).toBe(0);
+        expect(fetchMock.calls()).toHaveLength(0);
       });
 
       it('correct response data', () => {
@@ -293,7 +293,7 @@ describe('client', () => {
       });
 
       it('one request', () => {
-        expect(fetchMock.calls().length).toBe(1);
+        expect(fetchMock.calls()).toHaveLength(1);
       });
 
       it('correct response data', () => {

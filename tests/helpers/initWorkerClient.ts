@@ -1,11 +1,11 @@
 import { CoreWorker as WorkerCachemap } from '@cachemap/core-worker';
 import { camelCase } from 'lodash-es';
-import { type InitWorkerClientOptions } from '../types.ts';
-import { log } from './log.ts';
 import { DebugManager, type Environment } from '@graphql-box/debug-manager';
 import { WorkerClient } from '@graphql-box/worker-client';
+import { type InitWorkerClientOptions } from '../types.ts';
+import { log } from './log.ts';
 
-const { performance } = self;
+const { performance } = globalThis;
 
 export const initWorkerClient = ({ worker }: InitWorkerClientOptions) => {
   const name = 'WORKER_CLIENT';

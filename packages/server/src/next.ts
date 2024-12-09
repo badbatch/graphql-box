@@ -94,7 +94,7 @@ export class NextMiddleware {
           const { _cacheMetadata, ...otherProps } = (await this._client.request(
             request,
             options,
-            context
+            context,
           )) as PartialRequestResult;
 
           clearTimeout(requestTimer);
@@ -115,7 +115,7 @@ export class NextMiddleware {
             requestID: context.requestID,
           });
         }
-      })
+      }),
     );
 
     return new NextResponse(JSON.stringify(response), {
@@ -135,7 +135,7 @@ export class NextMiddleware {
         JSON.stringify(serializeErrors({ errors: [new Error('The request is not whitelisted.')] })),
         {
           status: 400,
-        }
+        },
       );
     }
 
@@ -149,12 +149,12 @@ export class NextMiddleware {
                   errors: [
                     new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`),
                   ],
-                })
+                }),
               ),
               {
                 status: 408,
-              }
-            )
+              },
+            ),
           );
         }, this._requestTimeout);
 
@@ -172,7 +172,7 @@ export class NextMiddleware {
           resolve(
             new NextResponse(JSON.stringify(response), {
               status: 200,
-            })
+            }),
           );
 
           return;
@@ -189,7 +189,7 @@ export class NextMiddleware {
               'Content-Type': 'multipart/mixed; boundary="-"',
             }),
             status: 200,
-          })
+          }),
         );
       })();
     });

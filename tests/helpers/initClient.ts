@@ -1,14 +1,14 @@
 import { Core as Cachemap } from '@cachemap/core';
-import { URL } from '../constants.ts';
-import { type InitClientOptions } from '../types.ts';
-import { log } from './log.ts';
 import { CacheManager } from '@graphql-box/cache-manager';
 import { Client } from '@graphql-box/client';
 import { DebugManager, type Environment } from '@graphql-box/debug-manager';
 import { FetchManager } from '@graphql-box/fetch-manager';
 import { RequestParser } from '@graphql-box/request-parser';
+import { URL } from '../constants.ts';
+import { type InitClientOptions } from '../types.ts';
+import { log } from './log.ts';
 
-const { performance } = self;
+const { performance } = globalThis;
 
 export const initClient = ({
   cachemapStore,

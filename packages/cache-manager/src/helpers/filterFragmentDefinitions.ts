@@ -9,7 +9,7 @@ export const filterFragmentDefinitions = (
   ast: DocumentNode,
   fieldPathChecklist: FieldPathChecklist,
   fragmentSpreadChecklist: FragmentSpreadCheckist,
-  context: CacheManagerContext
+  context: CacheManagerContext,
 ) => {
   const definitionsToFilter = keys(fragmentSpreadChecklist).reduce<{ name: string; path: string }[]>(
     (namesAndPaths, key) => {
@@ -22,7 +22,7 @@ export const filterFragmentDefinitions = (
       const { deleted, paths, total } = checklist;
       return deleted === 0 && total === 1 ? [...namesAndPaths, { name: key, path: paths[0]! }] : namesAndPaths;
     },
-    []
+    [],
   );
 
   const { fragmentDefinitions = {} } = context;

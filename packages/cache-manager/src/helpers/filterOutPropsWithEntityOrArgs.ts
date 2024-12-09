@@ -9,7 +9,7 @@ export const filterOutPropsWithEntityOrArgs = (
   fieldData: EntityData,
   field: FieldNode,
   ancestorKeysAndPaths: KeysAndPaths,
-  context: CacheManagerContext
+  context: CacheManagerContext,
 ) => {
   const fieldAndTypeName = resolveFragments(field.selectionSet?.selections, context.fragmentDefinitions);
 

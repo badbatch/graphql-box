@@ -5,7 +5,7 @@ type Descriptor = (
   cacheType: CacheTypes,
   hash: string,
   options: RequestOptions,
-  context: CacheManagerContext & { requestFieldCacheKey?: string }
+  context: CacheManagerContext & { requestFieldCacheKey?: string },
 ) => Promise<never | undefined>;
 
 export const logCacheQuery = () => {

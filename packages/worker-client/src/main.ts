@@ -156,7 +156,7 @@ export class WorkerClient {
   private _getRequestContext(
     operation: OperationTypeNode,
     request: string,
-    context: PartialRequestContext = {}
+    context: PartialRequestContext = {},
   ): RequestContext {
     return {
       debugManager: this._debugManager,
@@ -180,7 +180,7 @@ export class WorkerClient {
   private async _request(
     request: string,
     options: RequestOptions,
-    context: RequestContext
+    context: RequestContext,
   ): Promise<PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>> {
     try {
       return await new Promise((resolve: PendingResolver) => {
@@ -207,7 +207,7 @@ export class WorkerClient {
   private _subscribe(
     request: string,
     options: RequestOptions,
-    context: RequestContext
+    context: RequestContext,
   ): Promise<PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>> {
     try {
       this._worker.postMessage({

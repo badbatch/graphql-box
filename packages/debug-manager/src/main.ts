@@ -65,7 +65,7 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
           ...getEnvSpecificLabels(this._environment),
           ...rest,
         },
-        value => value !== undefined && value !== null && value !== ''
+        value => value !== undefined && value !== null && value !== '',
       ),
       log: {
         level: logLevel.toUpperCase(),

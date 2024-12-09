@@ -38,7 +38,7 @@ export class Client {
   private static _resolve(
     { cacheMetadata, ...rest }: PartialResponseData,
     options: RequestOptions,
-    { requestID }: RequestContext
+    { requestID }: RequestContext,
   ): PartialRequestResult {
     const result: PartialRequestResult = { ...rest, requestID };
 
@@ -167,7 +167,7 @@ export class Client {
   private _buildRequestContext(
     operation: OperationTypeNode,
     request: string,
-    context: PartialRequestContext
+    context: PartialRequestContext,
   ): RequestContext {
     return {
       debugManager: this._debugManager,
@@ -200,7 +200,7 @@ export class Client {
           requestData,
           rawResponseData as RawResponseDataWithMaybeCacheMetadata,
           options,
-          context
+          context,
         );
 
         return Client._resolve(responseData, options, context);
@@ -274,7 +274,7 @@ export class Client {
           updatedRequestData,
           rawResponseData as RawResponseDataWithMaybeCacheMetadata,
           options,
-          context
+          context,
         );
 
         return this._resolveQuery(requestData, responseData, options, context);
@@ -300,7 +300,7 @@ export class Client {
         updatedRequestData ?? requestData,
         options,
         context,
-        decoratedResolver
+        decoratedResolver,
       );
 
       if (isAsyncIterable(executeResult)) {
@@ -383,7 +383,7 @@ export class Client {
   private async _resolvePendingRequests(
     activeRquestData: RequestData,
     activeResponseData: PartialResponseData,
-    activeContext: RequestContext
+    activeContext: RequestContext,
   ): Promise<void> {
     const pendingRequests = this._queryTracker.pending.get(activeRquestData.hash);
 
@@ -413,7 +413,7 @@ export class Client {
             cacheMetadata: activeResponseData.cacheMetadata,
             data: activeResponseData.data,
           },
-          { active: activeContext, pending: context }
+          { active: activeContext, pending: context },
         );
 
         debugManager?.log(PENDING_QUERY_RESOLVED, {
@@ -436,12 +436,12 @@ export class Client {
     requestData: RequestData,
     responseData: PartialResponseData,
     options: RequestOptions,
-    context: RequestContext
+    context: RequestContext,
   ): PartialRequestResult {
     void this._resolvePendingRequests(requestData, responseData, context);
 
     this._queryTracker.active = this._queryTracker.active.filter(
-      ({ requestData: activeRequestData }) => activeRequestData.hash !== requestData.hash
+      ({ requestData: activeRequestData }) => activeRequestData.hash !== requestData.hash,
     );
 
     this._cacheManager.deletePartialQueryResponse(requestData.hash);
@@ -452,7 +452,7 @@ export class Client {
     requestData: RequestData,
     rawResponseData: PartialRawResponseData,
     options: RequestOptions,
-    context: RequestContext
+    context: RequestContext,
   ): Promise<PartialRequestResult> {
     try {
       if (rawResponseData.errors?.length) {
@@ -464,7 +464,7 @@ export class Client {
         requestData,
         rawResponseData as RawResponseDataWithMaybeCacheMetadata,
         options,
-        context
+        context,
       );
 
       return Client._resolve(responseData, options, context);
@@ -492,7 +492,7 @@ export class Client {
   private _trackQuery(
     requestData: RequestData,
     options: RequestOptions,
-    context: RequestContext
+    context: RequestContext,
   ): Promise<PartialRequestResult> | undefined {
     const matchingRequestHash = this._isDataRequestedInActiveQuery(requestData, context);
 

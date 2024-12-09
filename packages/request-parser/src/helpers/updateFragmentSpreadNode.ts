@@ -11,7 +11,7 @@ export const updateFragmentSpreadNode = (
   node: FragmentSpreadNode,
   ancestors: Ancestors,
   options: RequestOptions,
-  context: VisitorContext
+  context: VisitorContext,
 ) => {
   if (!node.directives) {
     return;
@@ -31,7 +31,7 @@ export const updateFragmentSpreadNode = (
 
     if (!context.experimentalDeferStreamSupport) {
       throw new Error(
-        '@graphql-box/request-parser >> to use defer/stream directives, please set the experimentalDeferStreamSupport flag to true'
+        '@graphql-box/request-parser >> to use defer/stream directives, please set the experimentalDeferStreamSupport flag to true',
       );
     }
   }

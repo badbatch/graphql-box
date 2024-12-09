@@ -13,7 +13,7 @@ import { getName } from './name.ts';
 
 export const deleteFragmentDefinitions = (
   documentNode: DocumentNode,
-  { exclude = [], include = [] }: { exclude?: string[]; include?: string[] } = {}
+  { exclude = [], include = [] }: { exclude?: string[]; include?: string[] } = {},
 ) => {
   const definitions = [...documentNode.definitions];
 
@@ -69,7 +69,7 @@ export const getFragmentDefinitions = ({ definitions }: DocumentNode): FragmentD
 export const setFragmentDefinitions = (
   fragmentDefinitions: FragmentDefinitionNodeMap,
   node: FieldNode | InlineFragmentNode | FragmentDefinitionNode,
-  { exclude = [], include = [] }: { exclude?: string[]; include?: string[] } = {}
+  { exclude = [], include = [] }: { exclude?: string[]; include?: string[] } = {},
 ) => {
   let fragmentsSet = 0;
 

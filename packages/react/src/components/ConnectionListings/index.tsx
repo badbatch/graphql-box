@@ -53,7 +53,7 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
   const dependenciesKey = buildDependencyKey(
     requestID,
     get(data, `${requestPath}.pageInfo.startCursor`) as string | null | undefined,
-    paths
+    paths,
   );
 
   useEffect(() => {

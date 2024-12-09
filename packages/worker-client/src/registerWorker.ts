@@ -15,14 +15,14 @@ import {
   type RegisterWorkerOptions,
 } from './types.ts';
 
-const globalScope = self as unknown as DedicatedWorkerGlobalScope;
+const globalScope = globalThis as unknown as DedicatedWorkerGlobalScope;
 
 const handleRequest = async (
   request: string,
   method: MethodNames,
   options: RequestOptions,
   context: MessageContext,
-  client: Client
+  client: Client,
 ): Promise<void> => {
   const requestResult = await client.request(request, options, context);
 
@@ -54,7 +54,7 @@ const handleSubscription = async (
   method: MethodNames,
   options: RequestOptions,
   context: MessageContext,
-  client: Client
+  client: Client,
 ): Promise<void> => {
   const subscribeResult = await client.subscribe(request, options, context);
 

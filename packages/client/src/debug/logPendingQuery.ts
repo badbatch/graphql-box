@@ -18,7 +18,8 @@ export const logPendingQuery = () => {
       const { debugManager, ...otherContext } = context;
 
       if (!debugManager) {
-        return method.apply(this, args);
+        method.apply(this, args);
+        return;
       }
 
       const result = method.apply(this, args);

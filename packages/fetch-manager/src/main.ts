@@ -45,7 +45,7 @@ export class FetchManager {
 
   private static _resolveFetchBatch(
     { headers, responses }: BatchedMaybeFetchData,
-    batchEntries: BatchActionsObjectMap
+    batchEntries: BatchActionsObjectMap,
   ): void {
     for (const hash of Object.keys(batchEntries)) {
       const responseData = responses[hash];
@@ -102,7 +102,7 @@ export class FetchManager {
     { hash, request }: RequestData,
     options: RequestOptions,
     context: RequestContext,
-    executeResolver: RequestResolver
+    executeResolver: RequestResolver,
   ) {
     const url = this._apiUrl!;
 
@@ -142,7 +142,7 @@ export class FetchManager {
         } else {
           this._eventEmitter.emit(
             hash,
-            await decoratedExecuteResolver(logErrorsToConsole(deserializeErrors(cleanPatchResponse(responseData))))
+            await decoratedExecuteResolver(logErrorsToConsole(deserializeErrors(cleanPatchResponse(responseData)))),
           );
         }
       });
@@ -159,7 +159,7 @@ export class FetchManager {
           request,
         },
         hash,
-        { reject, resolve }
+        { reject, resolve },
       );
     });
   }
@@ -267,7 +267,7 @@ export class FetchManager {
           batched: true,
           requests: batchRequests,
         })) as BatchedMaybeFetchData,
-        batchActions
+        batchActions,
       );
     } catch (error) {
       FetchManager._rejectBatchEntries(batchActions, error);

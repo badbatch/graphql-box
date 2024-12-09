@@ -12,13 +12,13 @@ export type Params = {
 
 export const cacheCursors = async (
   cursorCache: Core,
-  { edges, group, headers, page, totalPages, totalResults }: Params
+  { edges, group, headers, page, totalPages, totalResults }: Params,
 ) => {
   const cacheControl = headers.get('cache-control');
   const options = cacheControl ? { cacheHeaders: { cacheControl } } : undefined;
 
   await Promise.all(
-    edges.map(async ({ cursor, node }, index) => cursorCache.set(cursor, { group, index, node, page }, options))
+    edges.map(async ({ cursor, node }, index) => cursorCache.set(cursor, { group, index, node, page }, options)),
   );
 
   await cursorCache.set(`${group}-metadata`, { totalPages, totalResults }, options);

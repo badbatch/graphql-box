@@ -4,7 +4,7 @@ import { type Environment } from '../types.ts';
 
 export const transformError = (
   environment: Environment,
-  result?: PartialRequestResult & { cacheMetadata?: CacheMetadata }
+  result?: PartialRequestResult & { cacheMetadata?: CacheMetadata },
 ) => {
   if (!result?.errors?.length) {
     return {};

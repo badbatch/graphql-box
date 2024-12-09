@@ -15,7 +15,7 @@ export const filterOutPropsWithEntityArgsOrDirectives = (
   fieldData: unknown,
   field: FieldNode,
   ancestorKeysAndPaths: KeysAndPaths,
-  context: CacheManagerContext
+  context: CacheManagerContext,
 ) => {
   if (!isPlainObject(fieldData)) {
     return fieldData;

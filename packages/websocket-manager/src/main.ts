@@ -23,7 +23,6 @@ export class WebsocketManager implements SubscriptionsManagerDef {
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!('websocket' in options)) {
       errors.push(new TypeError('@graphql-box/websocket-manager expected options.websocket.'));
     }
@@ -44,7 +43,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
     { hash, request }: RequestData,
     _options: RequestOptions,
     context: RequestContext,
-    subscriberResolver: SubscriberResolver
+    subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<PartialRequestResult | undefined>> {
     if (!this._isSocketOpen()) {
       throw new Error('@graphql-box/websocket-manager expected the websocket to be open.');
@@ -55,7 +54,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
         context: WebsocketManager._getMessageContext(context),
         subscription: request,
         subscriptionID: hash,
-      })
+      }),
     );
 
     this._subscriptions.set(hash, result => {

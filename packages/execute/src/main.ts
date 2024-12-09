@@ -55,7 +55,7 @@ export class Execute {
     { ast, hash }: RequestData,
     options: ServerRequestOptions,
     context: RequestContext,
-    executeResolver: RequestResolver
+    executeResolver: RequestResolver,
   ): Promise<AsyncIterableIterator<PartialRequestResult | undefined> | PartialRawResponseData> {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};

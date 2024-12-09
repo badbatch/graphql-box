@@ -10,7 +10,7 @@ import { isEmpty } from 'lodash-es';
 
 export const toUpdateNode = (
   type: GraphQLOutputType | GraphQLNamedType | undefined,
-  parsedDirectives: ParsedDirective[] = []
+  parsedDirectives: ParsedDirective[] = [],
 ): type is GraphQLOutputType | GraphQLNamedType =>
   !!type &&
   (type instanceof GraphQLObjectType ||

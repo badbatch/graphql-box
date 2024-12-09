@@ -9,7 +9,7 @@ export type Context = {
 
 export const makeEntry = (
   args: ConnectionInputOptions,
-  { metadata: { totalPages, totalResults }, resultsPerPage }: Context
+  { metadata: { totalPages, totalResults }, resultsPerPage }: Context,
 ) => {
   if (getDirection(args.last) === 'backward') {
     return { index: getIndexesOnLastPage({ resultsPerPage, totalResults }) + 1, page: totalPages };

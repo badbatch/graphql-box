@@ -13,7 +13,7 @@ import { filterFragmentDefinitions } from './filterFragmentDefinitions.ts';
 export const filterQuery = (
   requestData: RequestData,
   { fieldPathChecklist }: CachedResponseData,
-  context: CacheManagerContext
+  context: CacheManagerContext,
 ) => {
   const { ast } = requestData;
   const queryNode = getOperationDefinitions(ast, context.operation)[0];
@@ -39,7 +39,7 @@ export const filterQuery = (
       {
         requestFieldPath: operation,
       },
-      context
+      context,
     );
 
     if (filterField(fieldNode, fieldPathChecklist, fragmentSpreadChecklist, requestFieldPath, context)) {

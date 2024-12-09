@@ -9,7 +9,7 @@ export type Context = {
 
 export const getInRangeCachedEdges = (
   cachedEdgesByPage: CachedEdges[],
-  { endIndex, resultsPerPage, startIndex }: Context
+  { endIndex, resultsPerPage, startIndex }: Context,
 ) => {
   return cachedEdgesByPage.reduce<CachedEdges[]>((inRange, cachedEdgesPage, index) => {
     const currentPageStartIndex = getCurrentPageStartIndex({ pageIndex: index, startIndex });

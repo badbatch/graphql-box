@@ -12,7 +12,7 @@ import { type Client } from '../main.ts';
 type Descriptor = (
   requestData: RequestData,
   options: RequestOptions,
-  context: RequestContext
+  context: RequestContext,
 ) => Promise<PartialRequestResult | AsyncIterator<PartialRequestResult | undefined>>;
 
 export const logSubscription = () => {

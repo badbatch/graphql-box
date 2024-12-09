@@ -1,7 +1,6 @@
 import { Core as Cachemap } from '@cachemap/core';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { performance } from 'node:perf_hooks';
-import { type InitServerOptions } from '../types.ts';
 import { CacheManager } from '@graphql-box/cache-manager';
 import { Client } from '@graphql-box/client';
 import { DebugManager, type Environment } from '@graphql-box/debug-manager';
@@ -9,6 +8,7 @@ import { Execute } from '@graphql-box/execute';
 import { RequestParser } from '@graphql-box/request-parser';
 import { Subscribe } from '@graphql-box/subscribe';
 import { resolvers, typeDefs } from '@graphql-box/test-utils';
+import { type InitServerOptions } from '../types.ts';
 
 const schema = makeExecutableSchema({
   resolvers,

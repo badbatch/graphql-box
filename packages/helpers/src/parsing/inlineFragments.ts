@@ -72,7 +72,7 @@ export const resolveInlineFragments = (
   maxDepth = 1,
   depth = 0,
   typeName?: string,
-  fragmentKind?: string
+  fragmentKind?: string,
 ): FieldAndTypeName[] => {
   let fieldAndTypeName: FieldAndTypeName[] = [];
 
@@ -87,7 +87,7 @@ export const resolveInlineFragments = (
         maxDepth,
         depth + 1,
         inlineFragmentTypeName,
-        Kind.INLINE_FRAGMENT
+        Kind.INLINE_FRAGMENT,
       );
 
       fieldAndTypeName = [...fieldAndTypeName, ...resolvedFieldAndTypeName];
@@ -99,7 +99,7 @@ export const resolveInlineFragments = (
 
 export const setInlineFragments = (
   { selectionSet }: FieldNode | InlineFragmentNode | FragmentDefinitionNode,
-  { exclude = [], include = [] }: { exclude?: string[]; include?: string[] } = {}
+  { exclude = [], include = [] }: { exclude?: string[]; include?: string[] } = {},
 ) => {
   let fragmentsSet = 0;
 

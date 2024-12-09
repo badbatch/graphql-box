@@ -32,7 +32,7 @@ export const generateCursorCache = async ({
 
     await Promise.all(
       pages.map(async page => {
-        const isLastPage = page === pages[pages.length - 1];
+        const isLastPage = page === pages.at(-1);
         let resultsOnCurrentPage: number;
 
         if (isLastPage) {
@@ -48,13 +48,13 @@ export const generateCursorCache = async ({
         });
 
         await cacheCursors(cursorCache, { edges, group, headers, page, totalPages, totalResults });
-      })
+      }),
     );
   } else {
     await cursorCache.set(
       `${group}-metadata`,
       { totalPages, totalResults },
-      { cacheHeaders: { cacheControl: headers.get('cache-control') ?? undefined } }
+      { cacheHeaders: { cacheControl: headers.get('cache-control') ?? undefined } },
     );
   }
 

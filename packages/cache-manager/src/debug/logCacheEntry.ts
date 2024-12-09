@@ -7,7 +7,7 @@ type Descriptor = (
   value: unknown,
   cachemapOptions: CachemapOptions,
   options: RequestOptions,
-  context: CacheManagerContext & { requestFieldCacheKey?: string }
+  context: CacheManagerContext & { requestFieldCacheKey?: string },
 ) => Promise<void>;
 
 export const logCacheEntry = () => {

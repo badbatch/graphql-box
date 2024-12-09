@@ -167,30 +167,30 @@ export interface CacheManagerDef {
     updatedRequestData: RequestData | undefined,
     responseData: RawResponseDataWithMaybeCacheMetadata,
     options: RequestOptions,
-    context: RequestContext
+    context: RequestContext,
   ): Promise<ResponseData>;
   cacheResponse(
     requestData: RequestData,
     responseData: RawResponseDataWithMaybeCacheMetadata,
     options: RequestOptions,
-    context: RequestContext
+    context: RequestContext,
   ): Promise<ResponseData>;
   checkCacheEntry(
     cacheType: CacheTypes,
     hash: string,
     options: RequestOptions,
-    context: RequestContext
+    context: RequestContext,
   ): Promise<CheckCacheEntryResult | false>;
   checkQueryResponseCacheEntry(
     hash: string,
     options: RequestOptions,
-    context: RequestContext
+    context: RequestContext,
   ): Promise<ResponseData | false>;
   deletePartialQueryResponse(hash: string): void;
   setQueryResponseCacheEntry(
     requestData: RequestData,
     responseData: ResponseData,
     options: RequestOptions,
-    context: CacheManagerContext
+    context: CacheManagerContext,
   ): Promise<void>;
 }

@@ -55,8 +55,8 @@ export class WebsocketMiddleware {
           JSON.stringify(
             serializeErrors({
               errors: [new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`)],
-            })
-          )
+            }),
+          ),
         );
       }, this._requestTimeout);
 

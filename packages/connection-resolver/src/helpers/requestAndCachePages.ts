@@ -14,7 +14,7 @@ export type Context<Resource extends PlainObject, ResourceNode extends Node> = {
 
 export const requestAndCachePages = async <Resource extends PlainObject, ResourceNode extends Node>(
   pages: number[],
-  { cursorCache, getters, groupCursor, makeIDCursor, resourceResolver }: Context<Resource, ResourceNode>
+  { cursorCache, getters, groupCursor, makeIDCursor, resourceResolver }: Context<Resource, ResourceNode>,
 ) => {
   const errors: Error[] = [];
 
@@ -48,7 +48,7 @@ export const requestAndCachePages = async <Resource extends PlainObject, Resourc
       }
 
       return { edges: [], pageNumber: page };
-    })
+    }),
   );
 
   return { cachedEdges, errors };

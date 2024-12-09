@@ -4,9 +4,9 @@ import cors from 'cors';
 import express from 'express';
 import http from 'node:http';
 import { WebSocketServer } from 'ws';
-import { initServerClient } from '../helpers/initServerClient.ts';
 import { ExpressMiddleware } from '@graphql-box/server/express';
 import { WebsocketMiddleware } from '@graphql-box/server/ws';
+import { initServerClient } from '../helpers/initServerClient.ts';
 
 globalThis.Date.now = () => Date.parse('June 6, 1979 GMT');
 
@@ -45,7 +45,7 @@ export const start = (): http.Server => {
   wss.on('connection', ws => {
     ws.on(
       'message',
-      websocketMiddleware.createMessageHandler({ awaitDataCaching: true, returnCacheMetadata: true, ws })
+      websocketMiddleware.createMessageHandler({ awaitDataCaching: true, returnCacheMetadata: true, ws }),
     );
 
     ws.on('error', error => {

@@ -30,7 +30,7 @@ export const getFieldDirectives = (field: FieldNode, options?: RequestOptions) =
 
 export const getFragmentSpreadDirectives = (
   field: FieldNode | InlineFragmentNode | FragmentDefinitionNode,
-  options?: RequestOptions
+  options?: RequestOptions,
 ) => {
   const fragmentSpreads = getFragmentSpreads(field);
   let parsedDirectives: ParsedDirective[] = [];
@@ -61,7 +61,7 @@ export const parseDirectiveArguments = (
   directives: readonly DirectiveNode[],
   name: string,
   kind: string,
-  options?: RequestOptions
+  options?: RequestOptions,
 ) => {
   return directives.reduce<ParsedDirective[]>((parsedDirectives, directive) => {
     let args: PlainObject = {};

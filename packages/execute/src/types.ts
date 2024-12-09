@@ -32,5 +32,5 @@ export interface UserOptions {
 }
 
 export type GraphQLExecute = (
-  args: ExecutionArgs
+  args: ExecutionArgs,
 ) => PromiseOrValue<ExecutionResult | AsyncGenerator<AsyncExecutionResult, void, void>>;

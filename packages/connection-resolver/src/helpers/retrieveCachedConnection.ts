@@ -16,7 +16,7 @@ export type Context = {
 
 export const retrieveCachedConnection = async (
   args: ConnectionInputOptions,
-  { cursorCache, groupCursor, resultsPerPage }: Context
+  { cursorCache, groupCursor, resultsPerPage }: Context,
 ) => {
   /**
    * At this point the cache will always have metadata because `retrieveCachedConnection`

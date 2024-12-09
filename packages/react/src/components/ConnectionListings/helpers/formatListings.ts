@@ -4,7 +4,7 @@ import { type ConnectionResponse } from '../types.ts';
 
 export const formatListings = <Item extends PlainObject>(
   listings: Map<string, ConnectionResponse<Item>>,
-  requestPath: string
+  requestPath: string,
 ) =>
   [...listings].reduce((acc: Item[], [, data]) => {
     const requestPathData = get(data, requestPath);

@@ -1,11 +1,11 @@
-import { expected } from '../../expected/index.ts';
-import { initWorkerClient } from '../../helpers/initWorkerClient.ts';
-import { FetchMockWorker } from '../../modules/fetch-mock/index.ts';
 import { type ExportCacheResult } from '@graphql-box/cache-manager';
 import { type PartialDehydratedRequestResult, type PartialRequestResult, type PlainArray } from '@graphql-box/core';
 import { dehydrateCacheMetadata } from '@graphql-box/helpers';
 import { parsedRequests } from '@graphql-box/test-utils';
 import { type WorkerClient } from '@graphql-box/worker-client';
+import { expected } from '../../expected/index.ts';
+import { initWorkerClient } from '../../helpers/initWorkerClient.ts';
+import { FetchMockWorker } from '../../modules/fetch-mock/index.ts';
 
 const defaultOptions = { awaitDataCaching: true, returnCacheMetadata: true };
 
@@ -80,7 +80,7 @@ describe('workerClient', () => {
 
       it('one request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls.length).toBe(1);
+        expect(calls).toHaveLength(1);
       });
 
       it('correct response data', () => {
@@ -120,7 +120,7 @@ describe('workerClient', () => {
 
       it('one request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls.length).toBe(1);
+        expect(calls).toHaveLength(1);
       });
 
       it('correct response data', () => {
@@ -162,7 +162,7 @@ describe('workerClient', () => {
 
       it('no request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls.length).toBe(0);
+        expect(calls).toHaveLength(0);
       });
 
       it('correct response data', () => {
@@ -204,7 +204,7 @@ describe('workerClient', () => {
 
       it('no request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls.length).toBe(0);
+        expect(calls).toHaveLength(0);
       });
 
       it('correct response data', () => {
@@ -247,7 +247,7 @@ describe('workerClient', () => {
 
       it('one request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls.length).toBe(1);
+        expect(calls).toHaveLength(1);
       });
 
       it('correct response data', () => {

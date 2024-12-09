@@ -30,6 +30,6 @@ export const mergeResponseDataSets = (responseDataSets: RawResponseDataWithMaybe
 
       return acc;
     },
-    { data: {} }
+    { data: {} },
   );
 };

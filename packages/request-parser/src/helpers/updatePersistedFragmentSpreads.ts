@@ -6,7 +6,7 @@ import { enrichAncestors } from './enrichAncestors.ts';
 export const updatePersistedFragmentSpreads = (
   groupedFragmentSpreadDirectives: Record<string, ParsedDirective[]>,
   { ancestors, key }: Ancestors,
-  context: VisitorContext
+  context: VisitorContext,
 ) => {
   context.persistedFragmentSpreads = [
     ...context.persistedFragmentSpreads,

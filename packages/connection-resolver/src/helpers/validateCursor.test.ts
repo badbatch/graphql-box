@@ -25,7 +25,7 @@ describe('validateCursor', () => {
       const result = await validateCursor({ after: 'abcdefg' }, info as GraphQLResolveInfo, ctx);
 
       expect(result?.message).toBe(
-        'Invalid connection argument combination. `after` must be used in combination with `first`.'
+        'Invalid connection argument combination. `after` must be used in combination with `first`.',
       );
     });
   });
@@ -37,7 +37,7 @@ describe('validateCursor', () => {
       const result = await validateCursor({ after: 'abcdefg', last: 5 }, info as GraphQLResolveInfo, ctx);
 
       expect(result?.message).toBe(
-        'Invalid connection argument combination. `after` cannot be used in combination with `last`.'
+        'Invalid connection argument combination. `after` cannot be used in combination with `last`.',
       );
     });
   });
@@ -49,7 +49,7 @@ describe('validateCursor', () => {
       const result = await validateCursor({ before: 'abcdefg' }, info as GraphQLResolveInfo, ctx);
 
       expect(result?.message).toBe(
-        'Invalid connection argument combination. `before` must be used in combination with `last`.'
+        'Invalid connection argument combination. `before` must be used in combination with `last`.',
       );
     });
   });
@@ -61,7 +61,7 @@ describe('validateCursor', () => {
       const result = await validateCursor({ before: 'abcdefg', first: 5 }, info as GraphQLResolveInfo, ctx);
 
       expect(result?.message).toBe(
-        'Invalid connection argument combination. `before` cannot be used in combination with `first`.'
+        'Invalid connection argument combination. `before` cannot be used in combination with `first`.',
       );
     });
   });

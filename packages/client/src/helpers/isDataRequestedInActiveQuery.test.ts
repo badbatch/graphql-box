@@ -41,7 +41,7 @@ describe('isDataRequestedInActiveQuery', () => {
         const newRequestContext = getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery });
 
         expect(isDataRequestedInActiveQuery([aciveQueryData], newRequestData, newRequestContext)).toBe(
-          aciveQueryData.requestData.hash
+          aciveQueryData.requestData.hash,
         );
       });
     });
@@ -57,7 +57,7 @@ describe('isDataRequestedInActiveQuery', () => {
         const newRequestContext = getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery });
 
         expect(isDataRequestedInActiveQuery([aciveQueryData], newRequestData, newRequestContext)).toBe(
-          aciveQueryData.requestData.hash
+          aciveQueryData.requestData.hash,
         );
       });
     });
@@ -94,7 +94,7 @@ describe('isDataRequestedInActiveQuery', () => {
           });
 
           expect(isDataRequestedInActiveQuery([aciveQueryData], newRequestData, newRequestContext)).toBe(
-            aciveQueryData.requestData.hash
+            aciveQueryData.requestData.hash,
           );
         });
       });
@@ -111,7 +111,7 @@ describe('isDataRequestedInActiveQuery', () => {
         const newRequestContext = getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery });
 
         expect(isDataRequestedInActiveQuery([aciveQueryData], newRequestData, newRequestContext)).toBe(
-          aciveQueryData.requestData.hash
+          aciveQueryData.requestData.hash,
         );
       });
     });
@@ -127,7 +127,7 @@ describe('isDataRequestedInActiveQuery', () => {
         const newRequestContext = getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery });
 
         expect(isDataRequestedInActiveQuery([aciveQueryData], newRequestData, newRequestContext)).toBe(
-          aciveQueryData.requestData.hash
+          aciveQueryData.requestData.hash,
         );
       });
     });
@@ -143,7 +143,7 @@ describe('isDataRequestedInActiveQuery', () => {
         const newRequestContext = getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery });
 
         expect(isDataRequestedInActiveQuery([aciveQueryData], newRequestData, newRequestContext)).toBe(
-          aciveQueryData.requestData.hash
+          aciveQueryData.requestData.hash,
         );
       });
     });

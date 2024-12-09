@@ -4,7 +4,7 @@ import { isArray, isObjectLike } from './lodashProxies.ts';
 export const mergeObjects = <T extends object>(
   obj: T,
   source: T,
-  matcher: (key: string, value: unknown) => unknown
+  matcher: (key: string, value: unknown) => unknown,
 ): T => {
   const mergeCustomizer = (destinationValue: unknown, sourceValue: unknown, key: string): unknown[] | undefined => {
     if (!isArray(destinationValue) || !isArray(sourceValue)) {

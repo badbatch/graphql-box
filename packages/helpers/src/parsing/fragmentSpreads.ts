@@ -50,7 +50,7 @@ export const hasFragmentSpreads = ({
 
 export const getFragmentSpreads = (
   fieldNode: FieldNode | InlineFragmentNode | FragmentDefinitionNode,
-  { exclude = [], include = [] }: { exclude?: string[]; include?: string[] } = {}
+  { exclude = [], include = [] }: { exclude?: string[]; include?: string[] } = {},
 ) => {
   if (!hasFragmentSpreads(fieldNode)) {
     return [];
@@ -89,7 +89,7 @@ export const resolveFragmentSpreads = (
   depth = 0,
   typeName?: string,
   fragmentKind?: string,
-  fragmentName?: string
+  fragmentName?: string,
 ): FieldAndTypeName[] => {
   let fieldAndTypeName: FieldAndTypeName[] = [];
 
@@ -110,7 +110,7 @@ export const resolveFragmentSpreads = (
           depth + 1,
           fragmentDefinitionTypeName,
           Kind.FRAGMENT_SPREAD,
-          name
+          name,
         );
 
         fieldAndTypeName = [...fieldAndTypeName, ...resolvedFieldAndTypeName];

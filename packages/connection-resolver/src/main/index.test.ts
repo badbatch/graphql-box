@@ -27,7 +27,7 @@ const resultsPerPage = 10;
 describe('connectionResolver', () => {
   describe('when a cursor is supplied', () => {
     describe('when the cursor is invalid', () => {
-      let result: Awaited<ReturnType<ReturnType<typeof import('./index.ts')['makeConnectionResolver']>>>;
+      let result: Awaited<ReturnType<ReturnType<(typeof import('./index.ts'))['makeConnectionResolver']>>>;
 
       beforeAll(async () => {
         const createResourceResolver =
@@ -57,7 +57,7 @@ describe('connectionResolver', () => {
           edges: [],
           errors: [
             new GraphQLError(
-              'Invalid connection argument combination. `before` cannot be used in combination with `first`.'
+              'Invalid connection argument combination. `before` cannot be used in combination with `first`.',
             ),
           ],
           nodes: [],
@@ -71,7 +71,7 @@ describe('connectionResolver', () => {
     });
 
     describe('when there are NO missing pages in the cache', () => {
-      let result: Awaited<ReturnType<ReturnType<typeof import('./index.ts')['makeConnectionResolver']>>>;
+      let result: Awaited<ReturnType<ReturnType<(typeof import('./index.ts'))['makeConnectionResolver']>>>;
 
       beforeAll(async () => {
         const createResourceResolver =
@@ -113,7 +113,7 @@ describe('connectionResolver', () => {
     });
 
     describe('when there are missing pages in the cache', () => {
-      let result: Awaited<ReturnType<ReturnType<typeof import('./index.ts')['makeConnectionResolver']>>>;
+      let result: Awaited<ReturnType<ReturnType<(typeof import('./index.ts'))['makeConnectionResolver']>>>;
       const pageResponse = generatePageResponse({ resultsPerPage, totalPages: 10, totalResults: 100 });
 
       const mock = jest
@@ -170,7 +170,7 @@ describe('connectionResolver', () => {
 
   describe('when the first [X] number are requested', () => {
     describe('when there is a fresh cache and there are NO missing pages in the cache', () => {
-      let result: Awaited<ReturnType<ReturnType<typeof import('./index.ts')['makeConnectionResolver']>>>;
+      let result: Awaited<ReturnType<ReturnType<(typeof import('./index.ts'))['makeConnectionResolver']>>>;
 
       beforeAll(async () => {
         const createResourceResolver =
@@ -211,7 +211,7 @@ describe('connectionResolver', () => {
     });
 
     describe('when there is a fresh cache and there are missing pages in the cache', () => {
-      let result: Awaited<ReturnType<ReturnType<typeof import('./index.ts')['makeConnectionResolver']>>>;
+      let result: Awaited<ReturnType<ReturnType<(typeof import('./index.ts'))['makeConnectionResolver']>>>;
       const pageResponse = generatePageResponse({ resultsPerPage, totalPages: 10, totalResults: 100 });
 
       const mock = jest
@@ -265,7 +265,7 @@ describe('connectionResolver', () => {
     });
 
     describe('when there is NOT a fresh cache', () => {
-      let result: Awaited<ReturnType<ReturnType<typeof import('./index.ts')['makeConnectionResolver']>>>;
+      let result: Awaited<ReturnType<ReturnType<(typeof import('./index.ts'))['makeConnectionResolver']>>>;
       const pageResponse = generatePageResponse({ resultsPerPage, totalPages: 10, totalResults: 100 });
 
       const mock = jest
@@ -317,7 +317,7 @@ describe('connectionResolver', () => {
 
   describe('when the last [X] number are requested', () => {
     describe('when there is a fresh cache and there are NO missing pages in the cache', () => {
-      let result: Awaited<ReturnType<ReturnType<typeof import('./index.ts')['makeConnectionResolver']>>>;
+      let result: Awaited<ReturnType<ReturnType<(typeof import('./index.ts'))['makeConnectionResolver']>>>;
 
       beforeAll(async () => {
         const createResourceResolver =
@@ -358,7 +358,7 @@ describe('connectionResolver', () => {
     });
 
     describe('when there is a fresh cache and there are missing pages in the cache', () => {
-      let result: Awaited<ReturnType<ReturnType<typeof import('./index.ts')['makeConnectionResolver']>>>;
+      let result: Awaited<ReturnType<ReturnType<(typeof import('./index.ts'))['makeConnectionResolver']>>>;
       const pageResponse = generatePageResponse({ resultsPerPage, totalPages: 10, totalResults: 100 });
 
       const mock = jest
@@ -412,7 +412,7 @@ describe('connectionResolver', () => {
     });
 
     describe('when there is NOT a fresh cache', () => {
-      let result: Awaited<ReturnType<ReturnType<typeof import('./index.ts')['makeConnectionResolver']>>>;
+      let result: Awaited<ReturnType<ReturnType<(typeof import('./index.ts'))['makeConnectionResolver']>>>;
       const pageResponse = generatePageResponse({ resultsPerPage, totalPages: 10, totalResults: 100 });
 
       const mock = jest

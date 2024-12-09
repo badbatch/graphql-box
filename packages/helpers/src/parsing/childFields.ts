@@ -77,7 +77,7 @@ export type ChildFieldOptions = {
 
 export const getChildFields = (
   node: ParentNode,
-  { fragmentDefinitions, name }: ChildFieldOptions = {}
+  { fragmentDefinitions, name }: ChildFieldOptions = {},
 ): FieldAndTypeName[] | undefined => {
   if (!node.selectionSet) {
     return undefined;
@@ -91,7 +91,7 @@ export const getChildFields = (
 
   const filtered = fieldsAndTypeNames.filter(
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    ({ fieldNode }) => getName(fieldNode) === name || getKind(fieldNode) === name
+    ({ fieldNode }) => getName(fieldNode) === name || getKind(fieldNode) === name,
   );
 
   return filtered;
@@ -121,8 +121,8 @@ export const iterateChildFields = (
     typeName: string | undefined,
     fragmentKind: string | undefined,
     fragmentName: string | undefined,
-    childIndex?: number
-  ) => void
+    childIndex?: number,
+  ) => void,
 ): void => {
   if (isArray(data)) {
     for (const [index] of data.entries()) {

@@ -19,7 +19,7 @@ export const filterField = (
   fieldPathChecklist: FieldPathChecklist,
   fragmentSpreadChecklist: FragmentSpreadCheckist,
   ancestorRequestFieldPath: string,
-  context: CacheManagerContext
+  context: CacheManagerContext,
 ): boolean => {
   const { fragmentDefinitions, typeIDKey } = context;
   const fieldsAndTypeNames = getChildFields(field, { fragmentDefinitions });
@@ -43,7 +43,7 @@ export const filterField = (
       fragmentSpreadFieldCounter[fragmentName] = {
         hasData: 0,
         total: fragmentDefinitions?.[fragmentName]
-          ? getChildFields(fragmentDefinitions[fragmentName]!, { fragmentDefinitions })?.length ?? 0
+          ? (getChildFields(fragmentDefinitions[fragmentName], { fragmentDefinitions })?.length ?? 0)
           : 0,
       };
     }
@@ -59,7 +59,7 @@ export const filterField = (
       {
         requestFieldPath: ancestorRequestFieldPath,
       },
-      context
+      context,
     );
 
     const { hasData, typeUnused } = checkFieldPathChecklist(fieldPathChecklist.get(requestFieldPath), childTypeName);

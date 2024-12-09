@@ -24,7 +24,7 @@ export const resolveFragments = (
   fragmentDefinitions: FragmentDefinitionNodeMap = {},
   typeName?: string,
   fragmentKind?: string,
-  fragmentName?: string
+  fragmentName?: string,
 ): FieldAndTypeName[] => {
   let fieldAndTypeName: FieldAndTypeName[] = [];
 
@@ -43,7 +43,7 @@ export const resolveFragments = (
           fragmentDefinitions,
           fragmentDefinitionTypeName,
           Kind.FRAGMENT_SPREAD,
-          name
+          name,
         );
 
         fieldAndTypeName = [...fieldAndTypeName, ...resolvedFieldAndTypeName];
@@ -55,7 +55,7 @@ export const resolveFragments = (
         selectionNode.selectionSet.selections,
         fragmentDefinitions,
         inlineFragmentTypeName,
-        Kind.INLINE_FRAGMENT
+        Kind.INLINE_FRAGMENT,
       );
 
       fieldAndTypeName = [...fieldAndTypeName, ...resolvedFieldAndTypeName];
