@@ -13,6 +13,9 @@ export default [
         project: ['./tsconfig.json', './packages/*/tsconfig.json'],
       },
     },
+    rules: {
+      'unicorn/no-null': 0,
+    },
   },
   ...reactConfig.map(entry => ({
     ...entry,

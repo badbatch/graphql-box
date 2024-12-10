@@ -15,6 +15,9 @@
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
   "types": "./dist/types/cjs/index.d.cts",
+  "imports": {
+    "#*": "./src/*"
+  },
   "exports": {
     ".": {
       "types": {
@@ -40,18 +43,11 @@
     "eventemitter3": "^5.0.1"
   },
   "peerDependencies": {
-    "@babel/runtime": "<8",
-    "core-js": "<4",
-    "graphql": "<17",
-    "lodash-es": "<5"
+    "graphql": "<17"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.26.0",
-    "@types/lodash-es": "^4.17.12",
-    "core-js": "^3.39.0",
     "cts-types": "^0.0.8",
     "del-cli": "^6.0.0",
-    "graphql": "^16.9.0",
-    "lodash-es": "^4.17.21"
+    "graphql": "^16.9.0"
   }
 }

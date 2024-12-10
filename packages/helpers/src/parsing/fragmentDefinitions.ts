@@ -30,8 +30,8 @@ export const deleteFragmentDefinitions = (
       continue;
     }
 
-    const isIncluded = include.length > 0 && include.includes(getName(definitionNode)!);
-    const isExcluded = (include.length > 0 && !isIncluded) || exclude.includes(getName(definitionNode)!);
+    const isIncluded = include.length > 0 && include.includes(definitionNode.name.value);
+    const isExcluded = (include.length > 0 && !isIncluded) || exclude.includes(definitionNode.name.value);
 
     if (isIncluded || !isExcluded) {
       definitions.splice(index, 1);
@@ -92,7 +92,7 @@ export const setFragmentDefinitions = (
       continue;
     }
 
-    const name = getName(selectionNode)!;
+    const { value: name } = selectionNode.name;
     const isIncluded = include.length > 0 && include.includes(name);
     const isExcluded = (include.length > 0 && !isIncluded) || exclude.includes(name);
 

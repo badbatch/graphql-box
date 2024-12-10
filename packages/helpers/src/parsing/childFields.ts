@@ -58,6 +58,8 @@ export const deleteChildFields = (node: ParentNode, fields: FieldNode[] | FieldN
   const childFields = [...node.selectionSet.selections];
 
   for (let index = childFields.length - 1; index >= 0; index -= 1) {
+    // Based on context, childFields[index] cannot be undefined
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const childField = childFields[index]!;
 
     if (isKind<InlineFragmentNode>(childField, Kind.INLINE_FRAGMENT)) {
@@ -89,12 +91,10 @@ export const getChildFields = (
     return fieldsAndTypeNames;
   }
 
-  const filtered = fieldsAndTypeNames.filter(
+  return fieldsAndTypeNames.filter(
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     ({ fieldNode }) => getName(fieldNode) === name || getKind(fieldNode) === name,
   );
-
-  return filtered;
 };
 
 export const hasChildFields = (node: ParentNode, { fragmentDefinitions, name }: ChildFieldOptions = {}): boolean => {

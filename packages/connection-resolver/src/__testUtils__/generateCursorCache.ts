@@ -43,7 +43,7 @@ export const generateCursorCache = async ({
         }
 
         const edges = Array.from({ length: resultsOnCurrentPage }, (_v, index) => index).map(index => {
-          const id = encode(`${index}::${page}`);
+          const id = encode(`${String(index)}::${String(page)}`);
           return { cursor: `${id}::${group}`, node: { id } };
         });
 

@@ -10,7 +10,6 @@ import {
 import { castArray } from 'lodash-es';
 import { type FieldAndTypeName, type ParentNode } from '../types.ts';
 import { isKind } from './kind.ts';
-import { getName } from './name.ts';
 
 export const deleteFragmentSpreads = (node: ParentNode, spreadNames: string[] | string): void => {
   if (!node.selectionSet) {
@@ -28,7 +27,7 @@ export const deleteFragmentSpreads = (node: ParentNode, spreadNames: string[] | 
     }
 
     if (isKind<FragmentSpreadNode>(childField, Kind.FRAGMENT_SPREAD)) {
-      if (castSpreadNames.includes(getName(childField)!)) {
+      if (castSpreadNames.includes(childField.name.value)) {
         childFields.splice(index, 1);
       }
     } else if (isKind<InlineFragmentNode>(childField, Kind.INLINE_FRAGMENT)) {
@@ -56,25 +55,30 @@ export const getFragmentSpreads = (
     return [];
   }
 
-  return fieldNode.selectionSet!.selections.filter(value => {
-    const isFragmentSpread = isKind<FragmentSpreadNode>(value, Kind.FRAGMENT_SPREAD);
+  return (
+    fieldNode.selectionSet?.selections.filter(value => {
+      const isFragmentSpread = isKind<FragmentSpreadNode>(value, Kind.FRAGMENT_SPREAD);
 
-    if (!isFragmentSpread) {
-      return false;
-    }
+      if (!isFragmentSpread) {
+        return false;
+      }
 
-    const isIncluded = include.length > 0 && include.includes(getName(value)!);
-    const isExcluded = (include.length > 0 && !isIncluded) || exclude.includes(getName(value)!);
+      const isIncluded = include.length > 0 && include.includes(value.name.value);
+      const isExcluded = (include.length > 0 && !isIncluded) || exclude.includes(value.name.value);
 
-    return isIncluded || !isExcluded;
-  }) as FragmentSpreadNode[];
+      return isIncluded || !isExcluded;
+      // Unable to pass generic into filter
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    }) ?? ([] as FragmentSpreadNode[])
+  );
 };
 
 export const getFragmentSpreadsWithoutDirectives = (node: FieldNode | InlineFragmentNode | FragmentDefinitionNode) => {
   const fragmentSpreads = getFragmentSpreads(node);
+  const isFragmentSpreadNode = (n: SelectionNode): n is FragmentSpreadNode => !n.directives?.length;
 
   return fragmentSpreads.reduce<FragmentSpreadNode[]>((withoutDirectives, spread) => {
-    if (!spread.directives?.length) {
+    if (isFragmentSpreadNode(spread)) {
       withoutDirectives.push(spread);
     }
 
@@ -97,18 +101,16 @@ export const resolveFragmentSpreads = (
     if (isKind<FieldNode>(selectionNode, Kind.FIELD)) {
       fieldAndTypeName.push({ fieldNode: selectionNode, fragmentKind, fragmentName, typeName });
     } else if (isKind<FragmentSpreadNode>(selectionNode, Kind.FRAGMENT_SPREAD) && depth < maxDepth) {
-      const name = getName(selectionNode)!;
+      const { value: name } = selectionNode.name;
       const fragmentDefinition = fragmentDefinitions[name];
 
       if (fragmentDefinition) {
-        const fragmentDefinitionTypeName = getName(fragmentDefinition.typeCondition)!;
-
         const resolvedFieldAndTypeName = resolveFragmentSpreads(
           fragmentDefinition.selectionSet.selections,
           fragmentDefinitions,
           maxDepth,
           depth + 1,
-          fragmentDefinitionTypeName,
+          fragmentDefinition.typeCondition.name.value,
           Kind.FRAGMENT_SPREAD,
           name,
         );

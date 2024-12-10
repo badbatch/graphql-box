@@ -32,6 +32,8 @@ export const filterQuery = (
   const fragmentSpreadChecklist = createFragmentSpreadChecklist(requestData, context);
 
   for (let index = fieldsAndTypeNames.length - 1; index >= 0; index -= 1) {
+    // In this context fieldsAndTypeNames[index] will not be undefined
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const { fieldNode } = fieldsAndTypeNames[index]!;
 
     const { requestFieldPath } = buildFieldKeysAndPaths(

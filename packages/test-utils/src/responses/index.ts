@@ -1,6 +1,6 @@
 import { type RawResponseDataWithMaybeCacheMetadata } from '@graphql-box/core';
 import { type QueryResponseSet } from '../types.ts';
-import searchResultsQuery from './theMovieDb/searchResultsQuery.json';
+import searchResultsQuery from './theMovieDb/searchResultsQuery.json' with { type: 'json' };
 
 export const singleTypeQuery: RawResponseDataWithMaybeCacheMetadata = {
   data: {

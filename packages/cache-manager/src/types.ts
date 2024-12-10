@@ -28,7 +28,7 @@ export interface UserOptions {
    */
   cache: Core;
   /**
-   * Whether to enable/disable any/all of the three cache tiers
+   * Whether to enable/disable any/all the three cache tiers
    * the CacheManager uses. All three are enabled by default.
    */
   cacheTiersEnabled?: CacheTiersEnabled;
@@ -50,7 +50,7 @@ export interface UserOptions {
    */
   typeCacheDirectives?: Record<string, string>;
   /**
-   * The name of the property thats value is used as the unique
+   * The name of the property that's value is used as the unique
    * identifier for each type in the GraphQL schema.
    */
   typeIDKey?: string;

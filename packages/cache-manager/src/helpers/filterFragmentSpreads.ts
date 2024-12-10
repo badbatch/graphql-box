@@ -14,7 +14,7 @@ export const filterFragmentSpreads = (
     return;
   }
 
-  for (const key of Object.keys(fragmentSpreadFieldCounter)) {
+  for (const [key, value] of Object.entries(fragmentSpreadFieldCounter)) {
     const checklist = fragmentSpreadChecklist[key];
 
     if (!checklist) {
@@ -22,7 +22,7 @@ export const filterFragmentSpreads = (
     }
 
     checklist.paths.push(ancestorRequestFieldPath);
-    const { hasData, total } = fragmentSpreadFieldCounter[key]!;
+    const { hasData, total } = value;
 
     if (hasData === total) {
       deleteFragmentSpreads(field, key);

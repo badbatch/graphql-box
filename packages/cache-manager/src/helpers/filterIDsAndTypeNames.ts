@@ -1,5 +1,5 @@
 import { TYPE_NAME_KEY } from '@graphql-box/core';
-import { deleteChildFields, getChildFields, getName } from '@graphql-box/helpers';
+import { deleteChildFields, getChildFields } from '@graphql-box/helpers';
 import { type FieldNode, type FragmentDefinitionNode, type OperationDefinitionNode } from 'graphql';
 import { type CacheManagerContext } from '../types.ts';
 
@@ -13,7 +13,7 @@ export const filterIDsAndTypeNames = (
     return false;
   }
 
-  const fieldNames = fieldsAndTypeNames.map(({ fieldNode }) => getName(fieldNode)!);
+  const fieldNames = fieldsAndTypeNames.map(({ fieldNode }) => fieldNode.name.value);
 
   if (fieldNames.length === 2 && fieldNames.every(name => name === typeIDKey || name === TYPE_NAME_KEY)) {
     deleteChildFields(

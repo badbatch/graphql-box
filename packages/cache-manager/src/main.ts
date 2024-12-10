@@ -120,7 +120,7 @@ export class CacheManager implements CacheManagerDef {
     }
 
     const { isEntity, possibleTypes } = fieldTypeInfo;
-    return isEntity || possibleTypes.some(type => !!type.isEntity);
+    return isEntity || possibleTypes.some(type => type.isEntity);
   }
 
   private static _isNodeRequestFieldPath(fieldTypeInfo?: FieldTypeInfo): boolean {
@@ -231,14 +231,14 @@ export class CacheManager implements CacheManagerDef {
     ]);
   }
 
-  private _cache: Core;
-  private _cacheTiersEnabled: CacheTiersEnabled = { entity: false, queryResponse: true, requestPath: false };
-  private _cascadeCacheControl: boolean;
-  private _fallbackOperationCacheability: string;
+  private readonly _cache: Core;
+  private readonly _cacheTiersEnabled: CacheTiersEnabled = { entity: false, queryResponse: true, requestPath: false };
+  private readonly _cascadeCacheControl: boolean;
+  private readonly _fallbackOperationCacheability: string;
   private _partialQueryResponses: PartialQueryResponses = new Map();
   private _responseChunksAwaitingCaching = new Map<string, RawResponseDataWithMaybeCacheMetadata[]>();
-  private _typeCacheDirectives: Record<string, string>;
-  private _typeIDKey: string;
+  private readonly _typeCacheDirectives: Record<string, string>;
+  private readonly _typeIDKey: string;
 
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
@@ -290,7 +290,7 @@ export class CacheManager implements CacheManagerDef {
     /**
      * Second half of check is required for the scenario where the only matching data is
      * the typeIDKey field, i.e. "id", in which case there is no point settings a partial
-     * query reponse because we request the typeIDKey field with every request.
+     * query response because we request the typeIDKey field with every request.
      */
     if (fieldCount.missing === fieldCount.total || areOnlyPopulatedFieldsTypeIdKeys(data, this._typeIDKey)) {
       return { updated: requestData };
@@ -378,13 +378,13 @@ export class CacheManager implements CacheManagerDef {
       return false;
     }
 
-    const result = await this._checkCacheEntry(QUERY_RESPONSES, hash, options, context);
+    const result = await this._checkCacheEntry<QueryResponseCacheEntry>(QUERY_RESPONSES, hash, options, context);
 
     if (!result) {
       return false;
     }
 
-    const { cacheMetadata, data } = result.entry as QueryResponseCacheEntry;
+    const { cacheMetadata, data } = result.entry;
 
     return {
       cacheMetadata: rehydrateCacheMetadata(cacheMetadata),
@@ -487,7 +487,11 @@ export class CacheManager implements CacheManagerDef {
   ): Promise<void> {
     const keysAndPaths = buildFieldKeysAndPaths(fieldNode, cachedAncestorFieldData, context);
     const { propNameOrIndex, requestFieldCacheKey, requestFieldPath } = keysAndPaths;
-    const fieldTypeInfo = context.fieldTypeMap.get(requestFieldPath)!;
+    const fieldTypeInfo = context.fieldTypeMap.get(requestFieldPath);
+
+    if (!fieldTypeInfo) {
+      return;
+    }
 
     const { cacheability, data, entityData, requestFieldPathData } = await this._retrieveCachedParentNodeData(
       cachedAncestorFieldData,
@@ -498,12 +502,21 @@ export class CacheManager implements CacheManagerDef {
     );
 
     const { fragmentKind, fragmentName, typeName } = cachedAncestorFieldData;
+    // Don't get this one, need to look into it more
+    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
+    const dataTypename = get(data, TYPE_NAME_KEY);
 
     CacheManager._setCachedResponseSlice(
       { cacheability, data },
       cachedResponseData,
       keysAndPaths,
-      { dataTypename: get(data, TYPE_NAME_KEY), fieldTypename: typeName, fragmentKind, fragmentName },
+
+      {
+        dataTypename,
+        fieldTypename: typeName,
+        fragmentKind,
+        fragmentName,
+      },
       options,
       context,
     );
@@ -541,12 +554,11 @@ export class CacheManager implements CacheManagerDef {
             },
             {
               ...cachedResponseData,
-              /**
-               * `cachedResponseData.data[propNameOrIndex]` will always be either an empty array
-               * or an empty object at this point as based on whether `data` is object-like
-               * `cachedResponseData.data[propNameOrIndex]` is set accordingly in
-               * _setCachedResponseData > _setCachedData
-               */
+              // `cachedResponseData.data[propNameOrIndex]` will always be either an empty array
+              // or an empty object at this point as based on whether `data` is object-like
+              // `cachedResponseData.data[propNameOrIndex]` is set accordingly in
+              // _setCachedResponseData > _setCachedData
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               data: getDataValue<PlainData>(cachedResponseData.data, propNameOrIndex)!,
             },
             options,
@@ -766,6 +778,8 @@ export class CacheManager implements CacheManagerDef {
   ): Promise<void> {
     const keysAndPaths = buildFieldKeysAndPaths(field, ancestorKeysAndPaths, context);
     const { hashedRequestFieldCacheKey, requestFieldCacheKey, requestFieldPath, responseDataPath } = keysAndPaths;
+    // get has rubbish return typing
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const fieldData = get(requestFieldPathData, responseDataPath) as unknown;
     const fieldTypeInfo = context.fieldTypeMap.get(requestFieldPath);
     const cacheability = cacheMetadata.get(requestFieldPath);
@@ -808,7 +822,7 @@ export class CacheManager implements CacheManagerDef {
     }
 
     const isEntity = isFieldEntity(fieldData, fieldTypeInfo, this._typeIDKey);
-    const hasArgsOrDirectives = !!fieldTypeInfo.hasArguments || !!fieldTypeInfo.hasDirectives;
+    const hasArgsOrDirectives = fieldTypeInfo.hasArguments || fieldTypeInfo.hasDirectives;
 
     if (
       context.operation === OperationTypeNode.QUERY &&
@@ -842,7 +856,9 @@ export class CacheManager implements CacheManagerDef {
         {
           cacheability,
           fieldData: filterOutPropsWithEntityOrArgs(
-            structuredClone(get(entityData, responseDataPath)) as EntityData,
+            // Casting here for ease of typing
+            // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+            structuredClone(get(entityData, responseDataPath) as EntityData),
             field,
             keysAndPaths,
             context,
@@ -869,7 +885,7 @@ export class CacheManager implements CacheManagerDef {
 
     const checkResults = await Promise.all(
       typeNames.map(name =>
-        this._checkCacheEntry<EntityData>(DATA_ENTITIES, `${name}::${validTypeIDValue}`, options, context),
+        this._checkCacheEntry<EntityData>(DATA_ENTITIES, `${name}::${String(validTypeIDValue)}`, options, context),
       ),
     );
 
@@ -881,13 +897,19 @@ export class CacheManager implements CacheManagerDef {
     } else if (validResults.length > 1) {
       validResults.sort(({ cacheability: a }, { cacheability: b }) => a.metadata.ttl - b.metadata.ttl);
 
-      validResult = {
-        cacheability: validResults[0]!.cacheability,
-        entry: validResults.reduce<Partial<EntityData>>(
-          (obj, { entry }) => mergeDataSets(obj, entry, this._typeIDKey),
-          {},
-        ) as EntityData,
-      };
+      const firstResult = validResults[0];
+
+      if (firstResult) {
+        validResult = {
+          cacheability: firstResult.cacheability,
+          // By the time the merge has happened, the type is EntityData
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+          entry: validResults.reduce<Partial<EntityData>>(
+            (obj, { entry }) => mergeDataSets(obj, entry, this._typeIDKey),
+            {},
+          ) as EntityData,
+        };
+      }
     }
 
     return validResult ?? {};
@@ -1007,10 +1029,9 @@ export class CacheManager implements CacheManagerDef {
     normalizedResponseData: RawResponseDataWithMaybeCacheMetadata,
     context: CacheManagerContext,
   ) {
-    const responseChunks = this._responseChunksAwaitingCaching.get(context.requestID)!;
-
+    const responseChunks = this._responseChunksAwaitingCaching.get(context.requestID);
     this._responseChunksAwaitingCaching.delete(context.requestID);
-    return mergeResponseDataSets([...responseChunks, normalizedResponseData]);
+    return mergeResponseDataSets([...(responseChunks ?? []), normalizedResponseData]);
   }
 
   @logCacheEntry()
@@ -1098,6 +1119,8 @@ export class CacheManager implements CacheManagerDef {
       return;
     }
 
+    // get return type annotation is rubbish
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const fieldData = get(data, responseDataPath) as unknown;
     const fieldTypeInfo = context.fieldTypeMap.get(requestFieldPath);
 

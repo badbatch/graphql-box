@@ -9,24 +9,23 @@ import {
 import { castArray } from 'lodash-es';
 import { type FieldAndTypeName, type ParentNode } from '../types.ts';
 import { getKind, isKind } from './kind.ts';
-import { getName } from './name.ts';
-import { getTypeCondition } from './typeCondition.ts';
 
 export const deleteInlineFragments = (node: ParentNode, inlineFragments: InlineFragmentNode[] | InlineFragmentNode) => {
-  if (!node.selectionSet) return;
+  if (!node.selectionSet) {
+    return;
+  }
 
   const castInlineFragments = castArray(inlineFragments);
   const childFields = [...node.selectionSet.selections];
 
+  const isInlineFragmentNode = (n?: SelectionNode): n is InlineFragmentNode =>
+    !!n && getKind(n) === Kind.INLINE_FRAGMENT;
+
   for (let index = childFields.length - 1; index >= 0; index -= 1) {
     const childField = childFields[index];
 
-    if (childField && getKind(childField) === Kind.INLINE_FRAGMENT) {
-      const inlineFragmentNode = childField as InlineFragmentNode;
-
-      if (castInlineFragments.includes(inlineFragmentNode)) {
-        childFields.splice(index, 1);
-      }
+    if (isInlineFragmentNode(childField) && castInlineFragments.includes(childField)) {
+      childFields.splice(index, 1);
     }
   }
 
@@ -44,15 +43,14 @@ export const getInlineFragments = ({
 
   const selectionNodes = [...selectionSet.selections];
 
+  const isInlineFragmentNode = (n?: SelectionNode): n is InlineFragmentNode =>
+    !!n && getKind(n) === Kind.INLINE_FRAGMENT;
+
   for (let index = selectionNodes.length - 1; index >= 0; index -= 1) {
     const selectionNode = selectionNodes[index];
 
-    if (selectionNode) {
-      const kind = getKind(selectionNode);
-
-      if (kind === Kind.INLINE_FRAGMENT) {
-        inlineFragments.push(selectionNode as InlineFragmentNode);
-      }
+    if (isInlineFragmentNode(selectionNode)) {
+      inlineFragments.push(selectionNode);
     }
   }
 
@@ -80,13 +78,11 @@ export const resolveInlineFragments = (
     if (isKind<FieldNode>(selectionNode, Kind.FIELD)) {
       fieldAndTypeName.push({ fieldNode: selectionNode, fragmentKind, fragmentName: undefined, typeName });
     } else if (isKind<InlineFragmentNode>(selectionNode, Kind.INLINE_FRAGMENT) && depth < maxDepth) {
-      const inlineFragmentTypeName = selectionNode.typeCondition ? getName(selectionNode.typeCondition)! : undefined;
-
       const resolvedFieldAndTypeName = resolveInlineFragments(
         selectionNode.selectionSet.selections,
         maxDepth,
         depth + 1,
-        inlineFragmentTypeName,
+        selectionNode.typeCondition?.name.value,
         Kind.INLINE_FRAGMENT,
       );
 
@@ -123,10 +119,12 @@ export const setInlineFragments = (
       continue;
     }
 
-    const isIncluded = include.length > 0 && include.includes(getName(getTypeCondition(selectionNode)!)!);
+    const isIncluded =
+      include.length > 0 && selectionNode.typeCondition && include.includes(selectionNode.typeCondition.name.value);
 
     const isExcluded =
-      (include.length > 0 && !isIncluded) || exclude.includes(getName(getTypeCondition(selectionNode)!)!);
+      (include.length > 0 && !isIncluded) ||
+      (selectionNode.typeCondition && exclude.includes(selectionNode.typeCondition.name.value));
 
     if (isIncluded || !isExcluded) {
       inlineFragmentSelectionNodes = selectionNode.selectionSet.selections;

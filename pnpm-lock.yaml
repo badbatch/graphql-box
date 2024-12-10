@@ -114,8 +114,8 @@ importers:
         specifier: ^4.0.3
         version: 4.0.6(@types/node@22.10.1)(rollup@4.28.1)
       '@repodog/swc-config':
-        specifier: ^1.0.4
-        version: 1.0.5(@rollup/plugin-swc@0.3.1(@swc/core@1.10.0(@swc/helpers@0.5.5))(rollup@4.28.1))(@swc/core@1.10.0(@swc/helpers@0.5.5))
+        specifier: ^1.0.6
+        version: 1.0.6(@rollup/plugin-swc@0.3.1(@swc/core@1.10.0(@swc/helpers@0.5.5))(rollup@4.28.1))(@swc/core@1.10.0(@swc/helpers@0.5.5))
       '@repodog/syncpack-config':
         specifier: ^13.0.2
         version: 13.0.3(syncpack@13.0.0(typescript@5.7.2))
@@ -413,16 +413,10 @@ importers:
       type-fest:
         specifier: ^4.30.0
         version: 4.30.0
+      ws:
+        specifier: ^8.18.0
+        version: 8.18.0
     devDependencies:
-      '@babel/runtime':
-        specifier: ^7.26.0
-        version: 7.26.0
-      '@types/lodash-es':
-        specifier: ^4.17.12
-        version: 4.17.12
-      core-js:
-        specifier: ^3.39.0
-        version: 3.39.0
       cts-types:
         specifier: ^0.0.8
         version: 0.0.8
@@ -432,12 +426,6 @@ importers:
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
-      lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
-      ws:
-        specifier: ^8.18.0
-        version: 8.18.0
 
   packages/debug-manager:
     dependencies:
@@ -625,15 +613,24 @@ importers:
       '@graphql-box/core':
         specifier: workspace:*
         version: link:../core
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       cacheability:
         specifier: ^4.0.27
         version: 4.0.27
+      core-js:
+        specifier: ^3.39.0
+        version: 3.39.0
       eventemitter3:
         specifier: ^5.0.1
         version: 5.0.1
       iterall:
         specifier: ^1.3.0
         version: 1.3.0
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
       serialize-error:
         specifier: ^11.0.3
         version: 11.0.3
@@ -644,18 +641,9 @@ importers:
         specifier: ^4.30.0
         version: 4.30.0
     devDependencies:
-      '@babel/runtime':
-        specifier: ^7.26.0
-        version: 7.26.0
       '@jest/globals':
         specifier: ^29.3.1
         version: 29.7.0
-      '@types/lodash-es':
-        specifier: ^4.17.12
-        version: 4.17.12
-      core-js:
-        specifier: ^3.39.0
-        version: 3.39.0
       cts-types:
         specifier: ^0.0.8
         version: 0.0.8
@@ -665,9 +653,6 @@ importers:
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
-      lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
 
   packages/react:
     dependencies:
@@ -868,15 +853,6 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1
     devDependencies:
-      '@babel/runtime':
-        specifier: ^7.26.0
-        version: 7.26.0
-      '@types/lodash-es':
-        specifier: ^4.17.12
-        version: 4.17.12
-      core-js:
-        specifier: ^3.39.0
-        version: 3.39.0
       cts-types:
         specifier: ^0.0.8
         version: 0.0.8
@@ -886,9 +862,6 @@ importers:
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
-      lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
 
   packages/websocket-manager:
     dependencies:
@@ -2224,8 +2197,8 @@ packages:
     peerDependencies:
       rollup: <5
 
-  '@repodog/swc-config@1.0.5':
-    resolution: {integrity: sha512-9lK3mK+01f6ZeejkKhejrXIuOuwFfPp4ZZOGFtc0K1A59NF3huIzTOtSs02Oc2NDXj37CSCa1g0Gb5wVZhGoDA==}
+  '@repodog/swc-config@1.0.6':
+    resolution: {integrity: sha512-LBpihdFm32iwUHDN/8a0bKsPLYRi8sA9QLNR/E9KKROWslCFFa1Uq/SsViJBwJgRUYchxt5uBt/h0qlbS1qVtQ==}
     peerDependencies:
       '@rollup/plugin-swc': <0.4
       '@swc/core': <2
@@ -8348,7 +8321,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@repodog/swc-config@1.0.5(@rollup/plugin-swc@0.3.1(@swc/core@1.10.0(@swc/helpers@0.5.5))(rollup@4.28.1))(@swc/core@1.10.0(@swc/helpers@0.5.5))':
+  '@repodog/swc-config@1.0.6(@rollup/plugin-swc@0.3.1(@swc/core@1.10.0(@swc/helpers@0.5.5))(rollup@4.28.1))(@swc/core@1.10.0(@swc/helpers@0.5.5))':
     dependencies:
       '@swc/core': 1.10.0(@swc/helpers@0.5.5)
       browserslist: 4.24.2

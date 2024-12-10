@@ -12,7 +12,7 @@ import { makeConnectionResolver } from './index.ts';
 
 const createMakeCursors = (_source: PlainObject, args: PlainObject) => ({
   makeGroupCursor: () => encode(JSON.stringify(removeConnectionInputOptions(args))),
-  makeIDCursor: (id: string | number) => encode(`${id}::${JSON.stringify(removeConnectionInputOptions(args))}`),
+  makeIDCursor: (id: string | number) => encode(`${String(id)}::${JSON.stringify(removeConnectionInputOptions(args))}`),
 });
 
 const getters = {

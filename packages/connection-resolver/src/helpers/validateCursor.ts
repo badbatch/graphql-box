@@ -51,7 +51,12 @@ export const validateCursor = async (
     return new GraphQLError('Curser cannot be supplied without previously being provided.', { nodes: fieldNodes });
   }
 
-  const cursor = getCursor({ after, before })!;
+  const cursor = getCursor({ after, before });
+
+  if (!cursor) {
+    return new GraphQLError(`The cursor could not be found.`, { nodes: fieldNodes });
+  }
+
   const entry = await cursorCache.get<CursorCacheEntry>(cursor);
 
   if (!entry) {

@@ -504,7 +504,7 @@ describe('@graphql-box/cache-manager >>', () => {
             const { cacheMetadata, data } = responses.singleTypeQuerySet.partial;
 
             // @ts-expect-error property is private
-
+            // eslint-disable-next-line @stylistic/max-len
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             jest.spyOn(cacheManager._partialQueryResponses, 'get').mockReturnValue({
               cacheMetadata: rehydrateCacheMetadata(cacheMetadata),
@@ -565,7 +565,7 @@ describe('@graphql-box/cache-manager >>', () => {
             const { cacheMetadata, data } = responses.singleTypeQuerySet.partial;
 
             // @ts-expect-error property is private
-
+            // eslint-disable-next-line @stylistic/max-len
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             jest.spyOn(cacheManager._partialQueryResponses, 'get').mockReturnValue({
               cacheMetadata: rehydrateCacheMetadata(cacheMetadata),
@@ -626,7 +626,7 @@ describe('@graphql-box/cache-manager >>', () => {
             const { cacheMetadata, data } = responses.nestedTypeQuerySet.partial;
 
             // @ts-expect-error property is private
-
+            // eslint-disable-next-line @stylistic/max-len
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             jest.spyOn(cacheManager._partialQueryResponses, 'get').mockReturnValue({
               cacheMetadata: rehydrateCacheMetadata(cacheMetadata),
@@ -690,7 +690,7 @@ describe('@graphql-box/cache-manager >>', () => {
             const { cacheMetadata, data } = responses.nestedTypeQuerySet.partial;
 
             // @ts-expect-error property is private
-
+            // eslint-disable-next-line @stylistic/max-len
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             jest.spyOn(cacheManager._partialQueryResponses, 'get').mockReturnValue({
               cacheMetadata: rehydrateCacheMetadata(cacheMetadata),
@@ -751,7 +751,7 @@ describe('@graphql-box/cache-manager >>', () => {
             const { cacheMetadata, data } = responses.nestedUnionQuerySet.partial;
 
             // @ts-expect-error property is private
-
+            // eslint-disable-next-line @stylistic/max-len
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             jest.spyOn(cacheManager._partialQueryResponses, 'get').mockReturnValue({
               cacheMetadata: rehydrateCacheMetadata(cacheMetadata),
@@ -813,7 +813,7 @@ describe('@graphql-box/cache-manager >>', () => {
             const { cacheMetadata, data } = responses.nestedUnionQuerySet.partial;
 
             // @ts-expect-error property is private
-
+            // eslint-disable-next-line @stylistic/max-len
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             jest.spyOn(cacheManager._partialQueryResponses, 'get').mockReturnValue({
               cacheMetadata: rehydrateCacheMetadata(cacheMetadata),
@@ -875,7 +875,7 @@ describe('@graphql-box/cache-manager >>', () => {
             const { cacheMetadata, data } = responses.deferQuerySet.partial;
 
             // @ts-expect-error property is private
-
+            // eslint-disable-next-line @stylistic/max-len
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             jest.spyOn(cacheManager._partialQueryResponses, 'get').mockReturnValue({
               cacheMetadata: rehydrateCacheMetadata(cacheMetadata),

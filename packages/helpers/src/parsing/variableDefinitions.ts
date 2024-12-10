@@ -1,11 +1,9 @@
 import { type NamedTypeNode, type TypeNode, type VariableDefinitionNode } from 'graphql';
 import { isBoolean } from 'lodash-es';
 import { type Jsonifiable } from 'type-fest';
-import { TYPE } from '../constants.ts';
-import { getName } from './name.ts';
 
 const variableDefinitionTypeVisitor = (node: TypeNode): NamedTypeNode => {
-  if (TYPE in node) {
+  if ('type' in node) {
     return variableDefinitionTypeVisitor(node.type);
   }
 
@@ -28,12 +26,13 @@ export const getVariableDefinitionDefaultValue = ({ defaultValue }: VariableDefi
   }
 
   try {
+    // JSON.parse returns any type
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     return JSON.parse(value) as Jsonifiable;
   } catch {
     return value;
   }
 };
 
-export const getVariableDefinitionType = ({ type }: VariableDefinitionNode): string => {
-  return getName(variableDefinitionTypeVisitor(type))!;
-};
+export const getVariableDefinitionType = ({ type }: VariableDefinitionNode): string =>
+  variableDefinitionTypeVisitor(type).name.value;
