@@ -13,10 +13,10 @@ import { transformStats } from './helpers/transformStats.ts';
 import { type Environment, type Log, type Performance, type UserOptions } from './types.ts';
 
 export class DebugManager extends EventEmitter implements DebugManagerDef {
-  private _environment: Environment;
-  private _log: Log | null;
-  private _name: string;
-  private _performance: Performance;
+  private readonly _environment: Environment;
+  private readonly _log: Log | null;
+  private readonly _name: string;
+  private readonly _performance: Performance;
 
   constructor(options: UserOptions) {
     super();

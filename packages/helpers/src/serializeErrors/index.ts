@@ -30,13 +30,19 @@ export const deserializeErrors = <Type extends { errors?: (DeserializedGraphqlEr
   ...rest
 }: Type) => {
   if (!errors) {
-    return rest;
+    // Add for easy of typing return value for consumers.
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    return rest as Type & { errors?: Error[] | readonly Error[] };
   }
 
-  return {
+  const output = {
     ...rest,
     errors: errors.map(error => deserializeError(error)),
   };
+
+  // Add for easy of typing return value for consumers.
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  return output as Type & { errors: Error[] | readonly Error[] };
 };
 
 export const serializeGraphqlError = (error: GraphQLError) => {
@@ -63,11 +69,17 @@ export const serializeError = (error: Error) =>
 
 export const serializeErrors = <Type extends { errors?: Error[] | readonly Error[] }>({ errors, ...rest }: Type) => {
   if (!errors) {
-    return rest;
+    // Add for easy of typing return value for consumers.
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    return rest as Type & { errors?: (DeserializedGraphqlError | ErrorObject)[] };
   }
 
-  return {
+  const output = {
     ...rest,
     errors: errors.map(error => serializeError(error)),
   };
+
+  // Add for easy of typing return value for consumers.
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  return output as Type & { errors: (DeserializedGraphqlError | ErrorObject)[] };
 };

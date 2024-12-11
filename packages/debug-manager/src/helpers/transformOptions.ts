@@ -17,7 +17,7 @@ export const transformOptions = (options?: RequestOptions | ServerRequestOptions
     return {};
   }
 
-  let transformedOptions: TransformedOptions = {};
+  let transformedOptions: TransformedOptions;
 
   if (isServerRequestOptions(options)) {
     const { awaitDataCaching, returnCacheMetadata, tag } = options;
