@@ -37,8 +37,7 @@ export class FetchManager {
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: unknown): void {
-    for (const hash of Object.keys(batchEntries)) {
-      const { reject } = batchEntries[hash]!;
+    for (const { reject } of Object.values(batchEntries)) {
       reject(error);
     }
   }
@@ -47,9 +46,8 @@ export class FetchManager {
     { headers, responses }: BatchedMaybeFetchData,
     batchEntries: BatchActionsObjectMap,
   ): void {
-    for (const hash of Object.keys(batchEntries)) {
+    for (const [hash, { reject, resolve }] of Object.entries(batchEntries)) {
       const responseData = responses[hash];
-      const { reject, resolve } = batchEntries[hash]!;
 
       if (responseData) {
         resolve(logErrorsToConsole(deserializeErrors({ headers, ...responseData })));
@@ -58,21 +56,20 @@ export class FetchManager {
       }
     }
   }
-
   private _activeRequestBatch: Record<string, ActiveBatch | undefined> = {};
   private _activeRequestBatchTimer: Record<string, NodeJS.Timeout | undefined> = {};
   private _activeResponseBatch: Set<PartialRawFetchData> | undefined;
   private _activeResponseBatchTimer: NodeJS.Timeout | undefined;
-  private _apiUrl: string | undefined;
-  private _batchRequests: boolean;
-  private _batchResponses: boolean;
-  private _eventEmitter: EventEmitter;
-  private _fetchTimeout: number;
-  private _headers: Record<string, string> = { 'content-type': 'application/json' };
-  private _logUrl: string | undefined;
-  private _requestBatchInterval: number;
-  private _requestBatchMax: number;
-  private _responseBatchInterval: number;
+  private readonly _apiUrl: string;
+  private readonly _batchRequests: boolean;
+  private readonly _batchResponses: boolean;
+  private readonly _eventEmitter: EventEmitter;
+  private readonly _fetchTimeout: number;
+  private readonly _headers: Record<string, string> = { 'content-type': 'application/json' };
+  private readonly _logUrl: string | undefined;
+  private readonly _requestBatchInterval: number;
+  private readonly _requestBatchMax: number;
+  private readonly _responseBatchInterval: number;
 
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
@@ -104,7 +101,7 @@ export class FetchManager {
     context: RequestContext,
     executeResolver: RequestResolver,
   ) {
-    const url = this._apiUrl!;
+    const url = this._apiUrl;
 
     if (options.batch === false || !this._batchRequests || context.hasDeferOrStream) {
       const fetchResult = await this._fetch(`${url}?requestId=${hash}`, {
@@ -120,6 +117,8 @@ export class FetchManager {
       }
 
       void forAwaitEach(fetchResult, async ({ body, headers }) => {
+        // Struggling to cleanly type this another way
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         const responseData = { headers, ...body } as unknown as PartialRawFetchData;
 
         const decoratedExecuteResolver = (result: PartialRawResponseData) => {
@@ -166,7 +165,11 @@ export class FetchManager {
 
   public log(message: string, data: PlainObject, logLevel?: LogLevel) {
     try {
-      const url = this._logUrl!;
+      if (!this._logUrl) {
+        return;
+      }
+
+      const url = this._logUrl;
       const hash = uuidv4();
 
       if (!this._batchRequests) {
@@ -225,7 +228,9 @@ export class FetchManager {
     return new Promise<PartialRawFetchData | AsyncGenerator<Response>>((resolve, reject) => {
       void (async () => {
         const fetchTimer = setTimeout(() => {
-          reject(new Error(`@graphql-box/fetch-manager did not get a response within ${this._fetchTimeout}ms.`));
+          reject(
+            new Error(`@graphql-box/fetch-manager did not get a response within ${String(this._fetchTimeout)}ms.`),
+          );
         }, this._fetchTimeout);
 
         const fetchResult = await fetch(url, {
@@ -238,7 +243,7 @@ export class FetchManager {
         clearTimeout(fetchTimer);
 
         if (isAsyncIterable(fetchResult) || fetchResult.status === 204) {
-          resolve(fetchResult as Response | AsyncGenerator<Response>);
+          resolve(fetchResult);
         } else {
           resolve(await parseFetchResult(fetchResult));
         }
@@ -263,6 +268,8 @@ export class FetchManager {
 
     try {
       FetchManager._resolveFetchBatch(
+        // Casting most straight forward way of typing this for now.
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         (await this._fetch(`${url}?requestId=${hashes.join('-')}`, {
           batched: true,
           requests: batchRequests,

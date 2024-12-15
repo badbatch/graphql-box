@@ -24,12 +24,12 @@ import { logExecute } from './debug/logExecute.ts';
 import { type GraphQLExecute, type UserOptions } from './types.ts';
 
 export class Execute {
-  private _contextValue: PlainObject;
-  private _eventEmitter: EventEmitter;
-  private _execute: GraphQLExecute;
-  private _fieldResolver?: GraphQLFieldResolver<unknown, unknown> | null;
-  private _rootValue: unknown;
-  private _schema: GraphQLSchema;
+  private readonly _contextValue: PlainObject;
+  private readonly _eventEmitter: EventEmitter;
+  private readonly _execute: GraphQLExecute;
+  private readonly _fieldResolver?: GraphQLFieldResolver<unknown, unknown> | null;
+  private readonly _rootValue: unknown;
+  private readonly _schema: GraphQLSchema;
 
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
@@ -44,7 +44,7 @@ export class Execute {
 
     this._contextValue = options.contextValue ?? {};
     this._eventEmitter = new EventEmitter();
-    this._execute = options.execute ?? (execute as GraphQLExecute);
+    this._execute = options.execute ?? execute;
     this._fieldResolver = options.fieldResolver ?? null;
     this._rootValue = options.rootValue;
     this._schema = options.schema;
@@ -84,12 +84,15 @@ export class Execute {
     }
 
     void forAwaitEach(executeResult, async result => {
-      context.normalizePatchResponseData = !!('path' in result);
+      context.normalizePatchResponseData = 'path' in result;
 
+      // Typescript not inferring enrichedResult is same type
+      // as PartialRawResponseData.
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const enrichedResult = {
         _cacheMetadata,
         ...standardizePath(result),
-      } as unknown as PartialRawResponseData;
+      } as PartialRawResponseData;
 
       debugManager?.log(EXECUTE_RESOLVED, {
         context: { requestID, ...otherContext },

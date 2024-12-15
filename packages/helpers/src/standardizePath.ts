@@ -12,8 +12,10 @@ export const standardizePath = (result: AsyncExecutionResult) => {
 
   const { path, ...rest } = result;
 
+  // Casting for ease of typing for consumers
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   return {
     ...rest,
     paths: [path.join('.')],
-  };
+  } as AsyncExecutionResult & { paths: string[] };
 };

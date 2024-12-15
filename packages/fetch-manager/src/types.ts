@@ -5,7 +5,7 @@ export interface UserOptions {
    * The endpoint that client will use to communicate with the
    * GraphQL server for queries and mutations.
    */
-  apiUrl?: string;
+  apiUrl: string;
   /**
    * Whether a client should batch requests query and mutation
    * requests.

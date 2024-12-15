@@ -11,10 +11,12 @@
     "url": "https://github.com/badbatch/graphql-box"
   },
   "bugs": "https://github.com/badbatch/graphql-box/issues",
-  "type": "module",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
   "types": "./dist/types/cjs/index.d.cts",
+  "imports": {
+    "#*": "./src/*"
+  },
   "exports": {
     ".": {
       "types": {
@@ -33,8 +35,8 @@
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
-    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.babel.cjs",
-    "compile:esm": "rollup -c ../../rollup.config.babel.cjs",
+    "compile:cjs": "COMPILER=babel MODULE_SYSTEM=cjs rollup -c ../../rollup.config.babel.cjs",
+    "compile:esm": "COMPILER=babel rollup -c ../../rollup.config.babel.cjs",
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
@@ -43,21 +45,13 @@
     "@types/babel-plugin-macros": "^3.1.3",
     "@types/babel__core": "^7.20.5",
     "babel-plugin-macros": "^3.1.0",
+    "core-js": "^3.39.0",
     "ts-md5": "^1.3.1"
   },
-  "peerDependencies": {
-    "@babel/runtime": "<8",
-    "core-js": "<4",
-    "lodash-es": "<5"
-  },
   "devDependencies": {
-    "@babel/runtime": "^7.26.0",
     "@jest/globals": "^29.3.1",
-    "@types/lodash-es": "^4.17.12",
-    "core-js": "^3.39.0",
     "cts-types": "^0.0.8",
-    "del-cli": "^6.0.0",
-    "lodash-es": "^4.17.21"
+    "del-cli": "^6.0.0"
   },
   "keywords": [
     "client",

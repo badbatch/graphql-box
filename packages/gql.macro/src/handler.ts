@@ -15,6 +15,8 @@ export type GqlConfig = {
 export const macroHandler: MacroHandler = ({ config, references: { default: paths }, state }) => {
   if (paths.length > 0) {
     const { cwd } = state;
+    // Unable to type the config in a better way
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const { basePath = cwd, requestWhitelistPath = `${cwd}/requestWhitelist.txt` } = (config ?? {}) as GqlConfig;
     const whitelist: string[] = [];
 
@@ -22,7 +24,10 @@ export const macroHandler: MacroHandler = ({ config, references: { default: path
       const targetPath = path.parentPath;
 
       if (targetPath?.type === 'TaggedTemplateExpression') {
+        // Proving too much hassle to type any other way
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         const quasiPath = targetPath.get('quasi') as unknown as NodePath<TemplateLiteral>;
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         const gqlPath = quasiPath.evaluate().value as string;
         const fullGqlPath = resolve(basePath, gqlPath);
         const { dir } = parse(fullGqlPath);
