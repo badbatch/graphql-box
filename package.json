@@ -128,6 +128,13 @@
     "webpack-cli": "^5.1.4",
     "ws": "^8.18.0"
   },
+  "keywords": [
+    "client",
+    "graphql",
+    "graphql-box",
+    "isomorphic",
+    "server"
+  ],
   "pnpm": {
     "overrides": {
       "braces": ">=3.0.3",
@@ -135,12 +142,5 @@
       "micromatch": ">=4.0.8",
       "nanoid": ">=3.3.8"
     }
-  },
-  "keywords": [
-    "client",
-    "graphql",
-    "graphql-box",
-    "isomorphic",
-    "server"
-  ]
+  }
 }
