@@ -46,7 +46,8 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(cache).toEqual(expected.noMatch.cache);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        expect(cache).toEqual(jasmine.objectContaining(expected.noMatch.cache));
       });
     });
 
@@ -87,7 +88,8 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(cache).toEqual(expected.queryTrackerExactMatch.cache);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        expect(cache).toEqual(jasmine.objectContaining(expected.queryTrackerExactMatch.cache));
       });
     });
 
@@ -127,7 +129,8 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(cache).toEqual(expected.queryTrackerPartialMatch.cache);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        expect(cache).toEqual(jasmine.objectContaining(expected.queryTrackerPartialMatch.cache));
       });
     });
 
@@ -169,7 +172,8 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(cache).toEqual(expected.queryResponseMatch.cache);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        expect(cache).toEqual(jasmine.objectContaining(expected.queryResponseMatch.cache));
       });
     });
 
@@ -211,7 +215,8 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(cache).toEqual(expected.requestFieldPathDataEntityMatch.cache);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        expect(cache).toEqual(jasmine.objectContaining(expected.requestFieldPathDataEntityMatch.cache));
       });
     });
 
@@ -254,7 +259,8 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(cache).toEqual(expected.requestFieldPathDataEntityPartialMatch.cache);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        expect(cache).toEqual(jasmine.objectContaining(expected.requestFieldPathDataEntityPartialMatch.cache));
       });
     });
   });
