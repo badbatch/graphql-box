@@ -233,26 +233,6 @@ export const cache: ExpectedExportCacheResult = {
           ttl: 297_475_205_000,
         },
       }),
-      key: 'dataEntities::Email::4',
-      lastAccessed: 297_475_200_000,
-      lastUpdated: 297_475_200_000,
-      size: numberMock,
-      tags: [],
-      updatedCount: 1,
-    },
-    {
-      accessedCount: numberMock,
-      added: 297_475_200_000,
-      cacheability: new Cacheability({
-        metadata: {
-          cacheControl: {
-            maxAge: 5,
-            public: true,
-          },
-          etag: undefined,
-          ttl: 297_475_205_000,
-        },
-      }),
       key: 'dataEntities::Email::2',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
@@ -274,6 +254,26 @@ export const cache: ExpectedExportCacheResult = {
         },
       }),
       key: 'dataEntities::Email::3',
+      lastAccessed: 297_475_200_000,
+      lastUpdated: 297_475_200_000,
+      size: numberMock,
+      tags: [],
+      updatedCount: 1,
+    },
+    {
+      accessedCount: numberMock,
+      added: 297_475_200_000,
+      cacheability: new Cacheability({
+        metadata: {
+          cacheControl: {
+            maxAge: 5,
+            public: true,
+          },
+          etag: undefined,
+          ttl: 297_475_205_000,
+        },
+      }),
+      key: 'dataEntities::Email::4',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
       size: numberMock,
