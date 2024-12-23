@@ -23,21 +23,10 @@ export default [
   })),
   ...jestConfig.map(entry => ({
     ...entry,
-    files: ['**/!(browser)/*.{spec,test}.*'],
+    files: ['**/!(browser/(client|workerClient))/*.{spec,test}.*'],
   })),
-  {
-    files: ['tests/node/*.{spec,test}.*'],
-    rules: {
-      'jest/max-nested-describe': [
-        2,
-        {
-          max: 6,
-        },
-      ],
-    },
-  },
   ...jasmineConfig.map(entry => ({
     ...entry,
-    files: ['tests/browser/*.{spec,test}.*'],
+    files: ['tests/browser/(client|workerClient))/*.{spec,test}.*'],
   })),
 ];

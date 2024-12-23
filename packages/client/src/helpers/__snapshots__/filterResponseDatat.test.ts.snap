@@ -13,19 +13,7 @@ exports[`filterResponseData when there are no fragments or directives or aliases
       "url": "https://github.com/facebook",
     },
   },
-  "headers": Headers {
-    Symbol(headers list): HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "cache-control" => {
-          "name": "Cache-Control",
-          "value": "public, max-age=5",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    Symbol(guard): "none",
-  },
+  "headers": Headers {},
 }
 `;
 
@@ -41,19 +29,7 @@ exports[`filterResponseData when there is a directive in the pending query when 
       "url": "https://github.com/facebook",
     },
   },
-  "headers": Headers {
-    Symbol(headers list): HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "cache-control" => {
-          "name": "Cache-Control",
-          "value": "public, max-age=5",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    Symbol(guard): "none",
-  },
+  "headers": Headers {},
 }
 `;
 
@@ -70,19 +46,7 @@ exports[`filterResponseData when there is a directive in the pending query when 
       "url": "https://github.com/facebook",
     },
   },
-  "headers": Headers {
-    Symbol(headers list): HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "cache-control" => {
-          "name": "Cache-Control",
-          "value": "public, max-age=5",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    Symbol(guard): "none",
-  },
+  "headers": Headers {},
 }
 `;
 
@@ -99,19 +63,7 @@ exports[`filterResponseData when there is a fragment spread in the new query sho
       "url": "https://github.com/facebook",
     },
   },
-  "headers": Headers {
-    Symbol(headers list): HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "cache-control" => {
-          "name": "Cache-Control",
-          "value": "public, max-age=5",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    Symbol(guard): "none",
-  },
+  "headers": Headers {},
 }
 `;
 
@@ -128,19 +80,7 @@ exports[`filterResponseData when there is a inline fragment in the pending query
       "url": "https://github.com/facebook",
     },
   },
-  "headers": Headers {
-    Symbol(headers list): HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "cache-control" => {
-          "name": "Cache-Control",
-          "value": "public, max-age=5",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    Symbol(guard): "none",
-  },
+  "headers": Headers {},
 }
 `;
 
@@ -157,19 +97,7 @@ exports[`filterResponseData when there is an alias in the pending query should r
       "url": "https://github.com/facebook",
     },
   },
-  "headers": Headers {
-    Symbol(headers list): HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "cache-control" => {
-          "name": "Cache-Control",
-          "value": "public, max-age=5",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    Symbol(guard): "none",
-  },
+  "headers": Headers {},
 }
 `;
 
@@ -266,18 +194,6 @@ exports[`filterResponseData when there is are fragments in the active query shou
       },
     },
   },
-  "headers": Headers {
-    Symbol(headers list): HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "cache-control" => {
-          "name": "Cache-Control",
-          "value": "public, max-age=5",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    Symbol(guard): "none",
-  },
+  "headers": Headers {},
 }
 `;

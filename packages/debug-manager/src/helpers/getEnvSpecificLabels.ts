@@ -12,16 +12,21 @@ export const getEnvSpecificLabels = (env: Environment) => {
 
   if (typeof globalThis !== 'undefined') {
     const { userAgent } = globalThis.navigator;
-    const { href, pathname, port, protocol, search } = globalThis.location;
 
-    return {
-      path: pathname,
-      port,
-      protocol,
-      queryString: search,
-      url: href,
-      userAgent,
-    };
+    // Seems like it is possible for this to be undefined
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (globalThis.location) {
+      const { href, pathname, port, protocol, search } = globalThis.location;
+
+      return {
+        path: pathname,
+        port,
+        protocol,
+        queryString: search,
+        url: href,
+        userAgent,
+      };
+    }
   }
 
   return {};
