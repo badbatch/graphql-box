@@ -12,7 +12,7 @@ import { type MessageData, type UserOptions, type WsMessageHandler } from './typ
 
 export class WebsocketMiddleware {
   private _client: Client;
-  private _requestTimeout: number;
+  private readonly _requestTimeout: number;
   private _requestWhitelist: string[];
 
   constructor(options: UserOptions) {
@@ -43,6 +43,8 @@ export class WebsocketMiddleware {
 
   private async _messageHandler(message: Data, { ws, ...rest }: ServerSocketRequestOptions): Promise<void> {
     try {
+      // Need to implement a type check on message and JSON.parse return any type
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const { context, subscription, subscriptionID } = JSON.parse(message as string) as MessageData;
 
       if (this._requestWhitelist.length > 0 && !this._requestWhitelist.includes(context.originalRequestHash)) {
@@ -54,7 +56,9 @@ export class WebsocketMiddleware {
         ws.send(
           JSON.stringify(
             serializeErrors({
-              errors: [new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`)],
+              errors: [
+                new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
+              ],
             }),
           ),
         );
@@ -64,6 +68,8 @@ export class WebsocketMiddleware {
       clearTimeout(requestTimer);
 
       if (!isAsyncIterable(subscribeResult)) {
+        // Need to implement a type guard
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         ws.send(JSON.stringify(serializeErrors(subscribeResult as PartialRequestResult)));
         return;
       }

@@ -13,9 +13,7 @@ import {
 import {
   ArgsError,
   GroupedError,
-  NAME,
   type ParsedDirective,
-  VALUE,
   addChildField,
   deleteFragmentDefinitions,
   getAlias,
@@ -25,7 +23,6 @@ import {
   getFragmentDefinitions,
   getInlineFragmentDirectives,
   getKind,
-  getName,
   getOperationDefinitions,
   getType,
   getVariableDefinitionDefaultValue,
@@ -104,28 +101,33 @@ export class RequestParser implements RequestParserDef {
     const { fieldTypeMap, operation } = context;
     const ancestorRequestFieldPath: string[] = [operation];
 
+    const isAncestorFieldNode = (ancestor: Ancestor): ancestor is FieldNode =>
+      isAncestorAstNode(ancestor) && getKind(ancestor) === Kind.FIELD;
+
     for (const ancestor of ancestors) {
-      if (isAncestorAstNode(ancestor) && getKind(ancestor) === Kind.FIELD) {
-        const ancestorFieldNode = ancestor as FieldNode;
-        ancestorRequestFieldPath.push(getAlias(ancestorFieldNode) ?? getName(ancestorFieldNode)!);
+      if (isAncestorFieldNode(ancestor)) {
+        ancestorRequestFieldPath.push(getAlias(ancestor) ?? ancestor.name.value);
       }
     }
 
-    const fieldName = getAlias(fieldNode) ?? getName(fieldNode)!;
+    const fieldName = getAlias(fieldNode) ?? fieldNode.name.value;
     ancestorRequestFieldPath.push(fieldName);
-    const requestfieldPath = ancestorRequestFieldPath.join('.');
+    const requestFieldPath = ancestorRequestFieldPath.join('.');
     const argumentsObjectMap = getArguments(fieldNode);
     let typeIDValue: string | number | undefined;
 
     if (argumentsObjectMap) {
       if (argumentsObjectMap[typeIDKey]) {
+        // Need to refactor to remove casting
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         typeIDValue = argumentsObjectMap[typeIDKey] as string | number;
       } else if (variables?.[typeIDKey]) {
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         typeIDValue = variables[typeIDKey] as string | number;
       }
     }
 
-    fieldTypeMap.set(requestfieldPath, {
+    fieldTypeMap.set(requestFieldPath, {
       directives,
       hasArguments: !!argumentsObjectMap,
       hasDirectives: !(isEmpty(directives.inherited) && isEmpty(directives.own)),
@@ -200,7 +202,7 @@ export class RequestParser implements RequestParserDef {
       return parseValue('null');
     }
 
-    const name = getName(node)!;
+    const name = node.name.value;
     const value = variables[name];
 
     if (!value) {
@@ -211,15 +213,17 @@ export class RequestParser implements RequestParserDef {
       return parseValue(RequestParser._parseToInputString(value, variableType));
     }
 
+    // This should be okay, but need to check test coverage
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     const sanitizedValue = isString(value) && !(variableType instanceof GraphQLEnumType) ? `"${value}"` : String(value);
     return parseValue(sanitizedValue);
   }
 
-  private _maxFieldDepth: number;
-  private _maxTypeComplexity: number;
-  private _schema: GraphQLSchema;
-  private _typeComplexityMap: Record<string, number> | null;
-  private _typeIDKey: string;
+  private readonly _maxFieldDepth: number;
+  private readonly _maxTypeComplexity: number;
+  private readonly _schema: GraphQLSchema;
+  private readonly _typeComplexityMap: Record<string, number> | null;
+  private readonly _typeIDKey: string;
 
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
@@ -239,6 +243,8 @@ export class RequestParser implements RequestParserDef {
     this._maxTypeComplexity = options.maxTypeComplexity ?? Number.POSITIVE_INFINITY;
 
     try {
+      // At this point either introspection or schema has to be defined.
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this._schema = options.introspection ? buildClientSchema(options.introspection) : options.schema!;
     } catch (error) {
       const confirmedError = isError(error)
@@ -293,7 +299,7 @@ export class RequestParser implements RequestParserDef {
       return undefined;
     }
 
-    const name = getName(node.typeCondition)!;
+    const name = node.typeCondition.name.value;
     return this._schema.getType(name);
   }
 
@@ -411,7 +417,7 @@ export class RequestParser implements RequestParserDef {
 
     if (!operationDefinition || operationDefinitions.length > 1) {
       throw new TypeError(
-        `@graphql-box/request-parser expected one operation, but got ${operationDefinitions.length}.`,
+        `@graphql-box/request-parser expected one operation, but got ${String(operationDefinitions.length)}.`,
       );
     }
 
@@ -427,7 +433,7 @@ export class RequestParser implements RequestParserDef {
       fieldTypeMap: context.fieldTypeMap,
       hasDeferOrStream: false,
       operation: operationDefinition.operation,
-      operationName: get(operationDefinition, [NAME, VALUE], ''),
+      operationName: get(operationDefinition, ['name', 'value'], ''),
       persistedFragmentSpreads: [],
     };
 
@@ -444,10 +450,12 @@ export class RequestParser implements RequestParserDef {
           }
 
           if (isAncestorFragmentDefinition(ancestors)) {
+            // Based on above condition, fragmentDefinitionNode must be defined.
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const fragmentDefinitionNode = findAncestorFragmentDefinition(ancestors)!;
 
             const matches = visitorContext.persistedFragmentSpreads.filter(
-              ([name]) => name === getName(fragmentDefinitionNode)!,
+              ([name]) => name === fragmentDefinitionNode.name.value,
             );
 
             for (const match of matches) {
@@ -485,7 +493,7 @@ export class RequestParser implements RequestParserDef {
             const fragmentDefinitionNode = parentNode;
 
             const matches = visitorContext.persistedFragmentSpreads.filter(
-              ([name]) => name === getName(fragmentDefinitionNode)!,
+              ([name]) => name === fragmentDefinitionNode.name.value,
             );
 
             for (const match of matches) {
@@ -514,12 +522,12 @@ export class RequestParser implements RequestParserDef {
         }
 
         if (isKind<VariableNode>(node, Kind.VARIABLE)) {
-          const variableName = getName(node)!;
+          const variableName = node.name.value;
 
           if (isAncestorAstNode(parent) && isKind<VariableDefinitionNode>(parent, Kind.VARIABLE_DEFINITION)) {
-            const variableDefinitonNode = parent;
-            variableTypes[variableName] = this._schema.getType(getVariableDefinitionType(variableDefinitonNode));
-            const defaultValue = getVariableDefinitionDefaultValue(variableDefinitonNode);
+            const variableDefinitionNode = parent;
+            variableTypes[variableName] = this._schema.getType(getVariableDefinitionType(variableDefinitionNode));
+            const defaultValue = getVariableDefinitionDefaultValue(variableDefinitionNode);
 
             if (defaultValue) {
               if (!options.variables) {
@@ -560,7 +568,7 @@ export class RequestParser implements RequestParserDef {
 
     if (maxDepth > this._maxFieldDepth) {
       throw new Error(
-        `@graphql-box/request-parser >> request field depth of ${maxDepth} exceeded max field depth of ${this._maxFieldDepth}`,
+        `@graphql-box/request-parser >> request field depth of ${String(maxDepth)} exceeded max field depth of ${String(this._maxFieldDepth)}`,
       );
     }
 
@@ -571,7 +579,7 @@ export class RequestParser implements RequestParserDef {
 
       if (typeComplexity > this._maxTypeComplexity) {
         throw new Error(
-          `@graphql-box/request-parser >> request type complexity of ${typeComplexity} exceeded max type complexity of ${this._maxTypeComplexity}`,
+          `@graphql-box/request-parser >> request type complexity of ${String(typeComplexity)} exceeded max type complexity of ${String(this._maxTypeComplexity)}`,
         );
       }
     }

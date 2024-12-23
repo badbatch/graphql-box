@@ -1,5 +1,5 @@
 import { type RequestOptions } from '@graphql-box/core';
-import { getKind, getName, parseDirectiveArguments } from '@graphql-box/helpers';
+import { getKind, parseDirectiveArguments } from '@graphql-box/helpers';
 import { type FragmentSpreadNode } from 'graphql';
 import { isEmpty } from 'lodash-es';
 import { type Ancestors, type VisitorContext } from '../types.ts';
@@ -17,7 +17,7 @@ export const updateFragmentSpreadNode = (
     return;
   }
 
-  const parsedDirectives = parseDirectiveArguments(node.directives, getName(node)!, getKind(node), options);
+  const parsedDirectives = parseDirectiveArguments(node.directives, node.name.value, getKind(node), options);
   const groupedFragmentSpreadDirectives = groupFragmentSpreadDirectives(parsedDirectives);
 
   if (!isEmpty(groupedFragmentSpreadDirectives)) {

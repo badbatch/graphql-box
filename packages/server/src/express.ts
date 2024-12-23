@@ -26,7 +26,7 @@ import {
 
 export class ExpressMiddleware {
   private _client: Client;
-  private _requestTimeout: number;
+  private readonly _requestTimeout: number;
   private _requestWhitelist: string[];
 
   constructor(options: UserOptions) {
@@ -94,11 +94,15 @@ export class ExpressMiddleware {
         try {
           const requestTimer = setTimeout(() => {
             response.responses[requestHash] = serializeErrors({
-              errors: [new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`)],
+              errors: [
+                new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
+              ],
               requestID: context.requestID,
             });
           }, this._requestTimeout);
 
+          // Need to make client.request a generic
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
           const { _cacheMetadata, ...otherProps } = (await this._client.request(
             request,
             options,
@@ -106,6 +110,8 @@ export class ExpressMiddleware {
           )) as PartialRequestResult;
 
           clearTimeout(requestTimer);
+          // Need to implement a type guard
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
           const responseEntry = serializeErrors({ ...otherProps }) as PartialRawFetchData;
 
           if (_cacheMetadata) {
@@ -141,6 +147,8 @@ export class ExpressMiddleware {
     options: ServerRequestOptions,
     context: PartialRequestContext,
   ) {
+    // Need to change how context gets initialised and updated
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     if (this._requestWhitelist.length > 0 && !this._requestWhitelist.includes(context.originalRequestHash!)) {
       res.status(400).send(serializeErrors({ errors: [new Error('The request is not whitelisted.')] }));
       return;
@@ -149,7 +157,9 @@ export class ExpressMiddleware {
     const requestTimer = setTimeout(() => {
       res.status(408).send(
         serializeErrors({
-          errors: [new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`)],
+          errors: [
+            new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
+          ],
         }),
       );
     }, this._requestTimeout);
@@ -158,6 +168,8 @@ export class ExpressMiddleware {
     clearTimeout(requestTimer);
 
     if (!isAsyncIterable(requestResult)) {
+      // Need to implement a type guard
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const { _cacheMetadata, ...otherProps } = requestResult as PartialRequestResult;
       const response: PartialDehydratedRequestResult = serializeErrors({ ...otherProps });
 

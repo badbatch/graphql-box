@@ -14,9 +14,8 @@ import { ArgsError, EventAsyncIterator, GroupedError, deserializeErrors } from '
 import { EventEmitter } from 'eventemitter3';
 import { forAwaitEach, isAsyncIterable } from 'iterall';
 import { isString } from 'lodash-es';
-// @ts-expect-error package.json type mapping incorrect
 import { meros } from 'meros/browser';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { logFetch } from './debug/logFetch.ts';
 import { cleanPatchResponse } from './helpers/cleanPatchResponse.ts';
 import { logErrorsToConsole } from './helpers/logErrorsToConsole.ts';
@@ -170,7 +169,7 @@ export class FetchManager {
       }
 
       const url = this._logUrl;
-      const hash = uuidv4();
+      const hash = uuid();
 
       if (!this._batchRequests) {
         void this._fetch(`${url}?requestId=${hash}`, { batched: false, data, logLevel, message });
@@ -237,7 +236,6 @@ export class FetchManager {
           body: JSON.stringify(body),
           headers: new Headers(this._headers),
           method: 'POST',
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         }).then(meros);
 
         clearTimeout(fetchTimer);

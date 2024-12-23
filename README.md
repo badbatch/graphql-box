@@ -1,5 +1,5 @@
 <div align="center">
-<img src="./assets/graphql-box-logo.png">
+<img alt="GraphqlBox logo" src="./assets/graphql-box-logo.png">
 <h1>GraphQL<strong>Box</strong></h1>
 </div>
 
@@ -264,7 +264,7 @@ const subscription = `
 (async () => {
   const asyncIterator = await client.subscribe(subscription);
 
-  for await (const ({ data, errors }) of asyncIterator) {
+  for await (const { data, errors } of asyncIterator) {
     // Do something...
   }
 })();

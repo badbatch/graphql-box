@@ -2,8 +2,8 @@ import { type PlainObject } from '@graphql-box/core';
 import { encode } from 'js-base64';
 import { get, merge } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
-import { useIntersectionObserver } from '../../hooks/useIntersectionObserver.ts';
-import { useRequest } from '../../hooks/useRequest.ts';
+import { useIntersectionObserver } from '#hooks/useIntersectionObserver.ts';
+import { useRequest } from '#hooks/useRequest.ts';
 import { buildDependencyKey } from './helpers/buildDependencyKey.ts';
 import { formatListings } from './helpers/formatListings.ts';
 import { hasRequestPathChanged } from './helpers/hasRequestPathChanged.ts';
@@ -52,6 +52,8 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
 
   const dependenciesKey = buildDependencyKey(
     requestID,
+    // Typing get return value doesn't work very well
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     get(data, `${requestPath}.pageInfo.startCursor`) as string | null | undefined,
     paths,
   );

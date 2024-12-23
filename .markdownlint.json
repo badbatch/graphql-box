@@ -1,3 +1,5 @@
 {
-  "extends": "node_modules/@repodog/markdownlint-config/index.json"
+  "extends": "node_modules/@repodog/markdownlint-config/index.json",
+  "MD041": false,
+  "MD051": false
 }

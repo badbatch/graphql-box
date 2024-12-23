@@ -19,8 +19,6 @@ import { initClient } from '../../helpers/initClient.ts';
 import { onWebsocketOpen } from '../../helpers/onWebsocketOpen.ts';
 import { mockRequest } from '../../modules/fetch-mock/index.ts';
 
-jest.setTimeout(10_000);
-
 const introspection = githubIntrospection as IntrospectionQuery;
 const defaultOptions = { awaitDataCaching: true, returnCacheMetadata: true };
 
@@ -115,7 +113,7 @@ describe('client', () => {
       });
 
       it('one request', () => {
-        expect(fetchMock.calls()).toHaveLength(1);
+        expect(fetchMock.calls()).toHaveSize(1);
       });
 
       it('correct response data', () => {
@@ -158,7 +156,7 @@ describe('client', () => {
       });
 
       it('one request', () => {
-        expect(fetchMock.calls()).toHaveLength(1);
+        expect(fetchMock.calls()).toHaveSize(1);
       });
 
       it('correct response data', () => {
@@ -200,7 +198,7 @@ describe('client', () => {
       });
 
       it('no request', () => {
-        expect(fetchMock.calls()).toHaveLength(0);
+        expect(fetchMock.calls()).toHaveSize(0);
       });
 
       it('correct response data', () => {
@@ -242,7 +240,7 @@ describe('client', () => {
       });
 
       it('no request', () => {
-        expect(fetchMock.calls()).toHaveLength(0);
+        expect(fetchMock.calls()).toHaveSize(0);
       });
 
       it('correct response data', () => {
@@ -293,7 +291,7 @@ describe('client', () => {
       });
 
       it('one request', () => {
-        expect(fetchMock.calls()).toHaveLength(1);
+        expect(fetchMock.calls()).toHaveSize(1);
       });
 
       it('correct response data', () => {

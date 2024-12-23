@@ -39,6 +39,9 @@ export const start = (): http.Server => {
     .use(bodyParser.json())
     .use('/graphql', expressMiddleware.createRequestHandler({ awaitDataCaching: true, returnCacheMetadata: true }));
 
+  // This looks like a mistake as neither the argument nor the return
+  // value is a promise.
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const httpServer = http.createServer(app);
   const wss = new WebSocketServer({ path: '/graphql', server: httpServer });
 

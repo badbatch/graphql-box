@@ -76,9 +76,10 @@ export const newNodeFieldsPartOfActiveNode = (
     return false;
   }
 
-  const newNodeFieldsAndTypeNames = getChildFields(newNode, {
-    fragmentDefinitions: fragmentDefinitions.new,
-  })!;
+  const newNodeFieldsAndTypeNames =
+    getChildFields(newNode, {
+      fragmentDefinitions: fragmentDefinitions.new,
+    }) ?? [];
 
   return newNodeFieldsAndTypeNames.reduce((acc: boolean, { fieldNode: newFieldNode }) => {
     if (!acc) {

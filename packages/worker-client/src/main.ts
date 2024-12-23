@@ -20,7 +20,7 @@ import {
 import { EventEmitter } from 'eventemitter3';
 import { OperationTypeNode } from 'graphql';
 import { isError } from 'lodash-es';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { GRAPHQL_BOX, MESSAGE, REQUEST, SUBSCRIBE } from './constants.ts';
 import { logRequest } from './debug/logRequest.ts';
 import { logSubscription } from './debug/logSubscription.ts';
@@ -171,7 +171,7 @@ export class WorkerClient {
       request,
       requestComplexity: null,
       requestDepth: null,
-      requestID: uuidv4(),
+      requestID: uuid(),
       ...context,
     };
   }

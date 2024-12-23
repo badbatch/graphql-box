@@ -41,30 +41,25 @@
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
-    "@cachemap/types": "^5.0.8",
     "@graphql-box/core": "workspace:*",
     "@graphql-box/helpers": "workspace:*",
-    "cacheability": "^4.0.27"
+    "@types/lodash-es": "^4.17.12",
+    "cacheability": "^4.0.27",
+    "core-js": "^3.39.0",
+    "lodash-es": "^4.17.21"
   },
   "peerDependencies": {
-    "@babel/runtime": "<8",
     "@cachemap/core": "<6",
-    "core-js": "<4",
-    "graphql": "<17",
-    "lodash-es": "<5"
+    "graphql": "<17"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.26.0",
     "@cachemap/core": "^5.2.2",
     "@cachemap/map": "^5.0.8",
     "@graphql-box/test-utils": "workspace:*",
     "@jest/globals": "^29.3.1",
-    "@types/lodash-es": "^4.17.12",
-    "core-js": "^3.39.0",
     "cts-types": "^0.0.8",
     "del-cli": "^6.0.0",
-    "graphql": "^16.9.0",
-    "lodash-es": "^4.17.21"
+    "graphql": "^16.9.0"
   },
   "keywords": [
     "client",

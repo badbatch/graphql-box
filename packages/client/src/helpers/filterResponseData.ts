@@ -39,6 +39,8 @@ export const filterDataAndCacheMetadata = (
     return;
   }
 
+  // Typing get return value doesn't really work
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const rawFieldData = get(activeResponseData.data, activeKeysAndPaths.responseDataPath) as unknown;
   let activeFieldData = rawFieldData;
 
@@ -114,15 +116,15 @@ export const filterDataAndCacheMetadata = (
 };
 
 export const filterResponseData = (
-  pendingRequestDatat: RequestData,
-  activeRequestDatat: RequestData,
+  pendingRequestData: RequestData,
+  activeRequestData: RequestData,
   { cacheMetadata, data, ...rest }: ResponseData,
   { active, pending }: { active: RequestContext; pending: RequestContext },
 ) => {
-  const [pendingQueryNode] = getOperationDefinitions(pendingRequestDatat.ast, OperationTypeNode.QUERY);
-  const pendingQueryFragmentDefinitions = getFragmentDefinitions(pendingRequestDatat.ast);
-  const [activeQueryNode] = getOperationDefinitions(activeRequestDatat.ast, OperationTypeNode.QUERY);
-  const activeQueryFragmentDefinitions = getFragmentDefinitions(activeRequestDatat.ast);
+  const [pendingQueryNode] = getOperationDefinitions(pendingRequestData.ast, OperationTypeNode.QUERY);
+  const pendingQueryFragmentDefinitions = getFragmentDefinitions(pendingRequestData.ast);
+  const [activeQueryNode] = getOperationDefinitions(activeRequestData.ast, OperationTypeNode.QUERY);
+  const activeQueryFragmentDefinitions = getFragmentDefinitions(activeRequestData.ast);
 
   if (!pendingQueryNode || !activeQueryNode) {
     return { cacheMetadata, data, ...rest };

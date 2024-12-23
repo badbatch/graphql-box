@@ -28,6 +28,8 @@ export const useSubscription = <Data extends PlainObject>(subscription: string, 
     const subscribeResult = await graphqlBoxClient.subscribe(subscription, options);
 
     if (!isAsyncIterable(subscribeResult)) {
+      // Need to use a type guard
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const { errors, requestID } = subscribeResult as PartialRequestResult;
 
       setState({
@@ -41,9 +43,13 @@ export const useSubscription = <Data extends PlainObject>(subscription: string, 
     }
 
     void forAwaitEach(subscribeResult, result => {
+      // Need to use a type guard
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const { data, errors, hasNext, paths, requestID } = result as PartialRequestResult;
 
       setState({
+        // Need to fix the types here
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         data: data as Data,
         errors: errors ?? [],
         hasNext,

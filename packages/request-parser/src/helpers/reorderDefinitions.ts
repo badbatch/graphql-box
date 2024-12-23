@@ -1,4 +1,4 @@
-import { getName, isKind } from '@graphql-box/helpers';
+import { isKind } from '@graphql-box/helpers';
 import { type DocumentNode, type FragmentDefinitionNode, Kind } from 'graphql';
 import { assign } from 'lodash-es';
 
@@ -16,14 +16,12 @@ export const reorderDefinitions = (ast: DocumentNode) => {
   fragmentDefinitions.sort((a, b) => {
     const aContents = JSON.stringify(a);
     const bContents = JSON.stringify(b);
-    const aName = getName(a)!;
-    const bName = getName(b)!;
 
-    if (aContents.includes(bName)) {
+    if (aContents.includes(b.name.value)) {
       return -1;
     }
 
-    if (bContents.includes(aName)) {
+    if (bContents.includes(a.name.value)) {
       return 1;
     }
 

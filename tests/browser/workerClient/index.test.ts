@@ -22,9 +22,8 @@ describe('workerClient', () => {
         worker = new Worker(new URL('worker.ts', import.meta.url));
         fetchMockWorker = new FetchMockWorker(worker);
         workerClient = initWorkerClient({ worker });
-        const request = parsedRequests.singleTypeQuery;
 
-        const { _cacheMetadata, data } = (await workerClient.query(request, {
+        const { _cacheMetadata, data } = (await workerClient.query(parsedRequests.singleTypeQuery, {
           ...defaultOptions,
         })) as PartialRequestResult;
 
@@ -80,7 +79,7 @@ describe('workerClient', () => {
 
       it('one request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls).toHaveLength(1);
+        expect(calls).toHaveSize(1);
       });
 
       it('correct response data', () => {
@@ -120,7 +119,7 @@ describe('workerClient', () => {
 
       it('one request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls).toHaveLength(1);
+        expect(calls).toHaveSize(1);
       });
 
       it('correct response data', () => {
@@ -162,7 +161,7 @@ describe('workerClient', () => {
 
       it('no request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls).toHaveLength(0);
+        expect(calls).toHaveSize(0);
       });
 
       it('correct response data', () => {
@@ -204,7 +203,7 @@ describe('workerClient', () => {
 
       it('no request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls).toHaveLength(0);
+        expect(calls).toHaveSize(0);
       });
 
       it('correct response data', () => {
@@ -247,7 +246,7 @@ describe('workerClient', () => {
 
       it('one request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls).toHaveLength(1);
+        expect(calls).toHaveSize(1);
       });
 
       it('correct response data', () => {

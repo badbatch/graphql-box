@@ -284,7 +284,7 @@ export type DeserializedGraphqlError = {
   stack: string;
 };
 
-export interface ExecutionPatchResult<TData = PlainObject | unknown, TExtensions = PlainObject> {
+export interface ExecutionPatchResult<TData = PlainObject, TExtensions = PlainObject> {
   data?: TData | null;
   errors?: readonly GraphQLError[];
   extensions?: TExtensions;

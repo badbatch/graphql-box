@@ -8,6 +8,6 @@ module.exports = {
   extends: ['@repodog/commitlint-config'],
   rules: {
     'scope-empty': [2, 'never'],
-    'scope-enum': [2, 'always', ['graphql-box', ...directories]],
+    'scope-enum': [2, 'always', ['root', ...directories]],
   },
 };

@@ -8,6 +8,8 @@ import { registerWorker } from '@graphql-box/worker-client';
 import { initClient } from '../../helpers/initClient.ts';
 import { mockRequest, registerFetchMockWorker } from '../../modules/fetch-mock/index.ts';
 
+// Required as githubIntrospection is coming from JSON file
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 const introspection = githubIntrospection as IntrospectionQuery;
 
 globalThis.Date.now = () => Date.parse('June 6, 1979 GMT');
@@ -31,6 +33,8 @@ mockRequest(fetchMock, {
 });
 
 mockRequest(fetchMock, {
+  // Need to look into this more
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   data: (responses.nestedTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata).data,
   hash: hashRequest(parsedRequests.nestedTypeQuerySet.updated),
 });
