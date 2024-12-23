@@ -1,7 +1,7 @@
 {
   "name": "@graphql-box/request-parser",
   "description": "The GraphQL Box request parser module.",
-  "version": "5.3.2-alpha-54321.1",
+  "version": "5.4.0",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",

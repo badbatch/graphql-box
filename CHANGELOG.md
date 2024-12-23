@@ -1,5 +1,35 @@
 # Changelog
 
+## 5.4.0 (2024-12-23)
+
+### Chores
+
+* **root:**
+  * fix automoation tests (4f08fa7e)
+  * fix remaining integration tests (71bf1ecd)
+  * save work in progress (8cb88b6d)
+* **graphql-box:**
+  * save work in progress (9e622ed5)
+  * initial lint fixes (c02d477a)
+  * initial config changes (a0df959e)
+
+### Bug Fixes
+
+* **root:**
+  * prop ordering (4aa62a64)
+  * sort vulnerabilities (b0954c46)
+  * update metadata order (899213f4)
+
+### Other Changes
+
+* **cache-manager:**  wrap caching in settimeout to defer" (e8c0c9f5)
+
+### Refactors
+
+* **root:**  change metadata order in integration tests (c59849b3)
+* **graphql-box:**  update deps and make code mods (850bdee7)
+* **debug-manager:**  upgrade deps (0f93f496)
+
 ## 5.3.3 (2024-07-22)
 
 ### Refactors
