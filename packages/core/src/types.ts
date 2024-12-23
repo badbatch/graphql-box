@@ -284,7 +284,7 @@ export type DeserializedGraphqlError = {
   stack: string;
 };
 
-export interface ExecutionPatchResult<TData = PlainObject | unknown, TExtensions = PlainObject> {
+export interface ExecutionPatchResult<TData = PlainObject, TExtensions = PlainObject> {
   data?: TData | null;
   errors?: readonly GraphQLError[];
   extensions?: TExtensions;
@@ -387,7 +387,7 @@ export interface RequestManagerDef {
     requestData: RequestData,
     options: RequestOptions,
     context: RequestContext,
-    executeResolver: RequestResolver
+    executeResolver: RequestResolver,
   ): Promise<AsyncIterableIterator<PartialRequestResult | undefined> | PartialRawResponseData>;
 }
 
@@ -400,7 +400,7 @@ export interface SubscriptionsManagerDef {
     requestData: RequestData,
     options: RequestOptions,
     context: RequestContext,
-    subscriberResolver: SubscriberResolver
+    subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<PartialRequestResult | undefined>>;
 }
 
@@ -414,5 +414,5 @@ export type ResponseMock =
   | ((
       requestData: SetOptional<RequestData, 'ast'>,
       options: RequestOptions,
-      context: Partial<RequestContext>
+      context: Partial<RequestContext>,
     ) => PartialRawFetchData | AsyncGenerator<Response>);

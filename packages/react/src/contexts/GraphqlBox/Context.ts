@@ -7,4 +7,6 @@ export type GraphQLBoxContext = {
 };
 
 const defaultValue = {};
+// Client gets added to context in provider
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 export const Context = createContext<GraphQLBoxContext>(defaultValue as GraphQLBoxContext);

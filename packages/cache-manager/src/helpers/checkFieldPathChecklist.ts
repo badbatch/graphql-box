@@ -2,7 +2,7 @@ import { type CheckFieldPathChecklistResult, type FieldPathChecklistValue } from
 
 export const checkFieldPathChecklist = (
   fieldPathChecklistValues: FieldPathChecklistValue[] | undefined,
-  fieldTypeName: string | undefined
+  fieldTypeName: string | undefined,
 ): CheckFieldPathChecklistResult => {
   if (!fieldPathChecklistValues || fieldPathChecklistValues.length === 0) {
     return { hasData: false, typeUnused: !!fieldTypeName };

@@ -48,7 +48,7 @@ describe('@graphql-box/websocket-manager >>', () => {
         getRequestData(parsedRequests.nestedInterfaceSubscription),
         {},
         getRequestContext({ operation: OperationTypeNode.SUBSCRIPTION }),
-        subscriptionResolver
+        subscriptionResolver,
       );
     });
 
@@ -74,7 +74,7 @@ describe('@graphql-box/websocket-manager >>', () => {
         requestData,
         {},
         getRequestContext({ operation: OperationTypeNode.SUBSCRIPTION }),
-        subscriptionResolver
+        subscriptionResolver,
       );
 
       const promise = new Promise<void>(resolve => {
@@ -90,7 +90,7 @@ describe('@graphql-box/websocket-manager >>', () => {
         JSON.stringify({
           result: responses.nestedInterfaceSubscription,
           subscriptionID: requestData.hash,
-        })
+        }),
       );
 
       await promise;

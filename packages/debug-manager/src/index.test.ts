@@ -21,19 +21,19 @@ import {
 import { expect, jest } from '@jest/globals';
 import { DebugManager } from './index.ts';
 
-const { performance } = window;
+const { performance } = globalThis;
 
 describe('@graphql-box/debug-manager >>', () => {
-  const realDateNow = Date.now.bind(global.Date);
+  const realDateNow = Date.now.bind(globalThis.Date);
   let debugManager: DebugManagerDef;
 
   beforeAll(() => {
     globalThis.Date.now = jest.fn<() => number>().mockReturnValue(Date.parse('June 6, 1979 GMT'));
-    jest.spyOn(global.navigator, 'userAgent', 'get').mockReturnValue('mock-userAgent');
+    jest.spyOn(globalThis.navigator, 'userAgent', 'get').mockReturnValue('mock-userAgent');
   });
 
   afterAll(() => {
-    global.Date.now = realDateNow;
+    globalThis.Date.now = realDateNow;
   });
 
   describe('CacheManager >> CACHE_ENTRY_ADDED >>', () => {
@@ -73,7 +73,7 @@ describe('@graphql-box/debug-manager >>', () => {
         requestData,
         responses.singleTypeQuery,
         { awaitDataCaching: true },
-        getRequestContext({ debugManager, fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
+        getRequestContext({ debugManager, fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
       );
     });
 
@@ -122,13 +122,13 @@ describe('@graphql-box/debug-manager >>', () => {
         requestData,
         responses.singleTypeQuerySet.initial,
         { awaitDataCaching: true },
-        getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
+        getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
       );
 
       await cacheManager.analyzeQuery(
         getRequestData(parsedRequests.singleTypeQuery),
         { awaitDataCaching: true },
-        getRequestContext({ debugManager, fieldTypeMap: requestFieldTypeMaps.singleTypeQuery })
+        getRequestContext({ debugManager, fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
       );
     });
 

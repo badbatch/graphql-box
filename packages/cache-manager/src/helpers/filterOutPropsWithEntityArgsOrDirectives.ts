@@ -15,7 +15,7 @@ export const filterOutPropsWithEntityArgsOrDirectives = (
   fieldData: unknown,
   field: FieldNode,
   ancestorKeysAndPaths: KeysAndPaths,
-  context: CacheManagerContext
+  context: CacheManagerContext,
 ) => {
   if (!isPlainObject(fieldData)) {
     return fieldData;
@@ -31,10 +31,13 @@ export const filterOutPropsWithEntityArgsOrDirectives = (
       const fieldTypeInfo = context.fieldTypeMap.get(keysAndPaths.requestFieldPath);
 
       if (
+        // In this context, typeIDKey cannot be undefined
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         isFieldEntity(fieldData[key], fieldTypeInfo, context.typeIDKey!) ||
         fieldTypeInfo?.hasArguments ||
         fieldTypeInfo?.hasDirectives
       ) {
+        // In this context, this is safe
         // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
         delete fieldData[key];
       }

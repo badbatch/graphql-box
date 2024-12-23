@@ -4,15 +4,18 @@ import { $$asyncIterator } from 'iterall';
 export class EventAsyncIterator<RequestResult> {
   private _pushValue = (result: RequestResult): void => {
     if (this._pullQueue.length > 0) {
-      const resolver = this._pullQueue.shift() as (value: IteratorResult<RequestResult>) => void;
-      resolver({ done: false, value: result });
+      const resolver = this._pullQueue.shift();
+
+      if (resolver) {
+        resolver({ done: false, value: result });
+      }
     } else {
       this._pushQueue.push(result);
     }
   };
 
   private _eventEmitter: EventEmitter;
-  private _eventName: string;
+  private readonly _eventName: string;
   private _listening = false;
   private _pullQueue: ((value: IteratorResult<RequestResult | undefined>) => void)[] = [];
   private _pushQueue: RequestResult[] = [];
@@ -62,7 +65,7 @@ export class EventAsyncIterator<RequestResult> {
   private _pullValue(): Promise<IteratorResult<RequestResult | undefined>> {
     return new Promise((resolve: (value: IteratorResult<RequestResult | undefined>) => void) => {
       if (this._pushQueue.length > 0) {
-        const result = this._pushQueue.shift() as RequestResult;
+        const result = this._pushQueue.shift();
         resolve({ done: false, value: result });
       } else {
         this._pullQueue.push(resolve);

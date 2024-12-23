@@ -4,7 +4,6 @@ import { isNumber, pickBy } from 'lodash-es';
 import { hashRequest } from './hashRequest.ts';
 import { getAliasOrName } from './parsing/aliasOrName.ts';
 import { getArguments } from './parsing/arguments.ts';
-import { getName } from './parsing/name.ts';
 import { type KeysAndPaths, type KeysAndPathsOptions } from './types.ts';
 
 export const buildKey = (path: string, key: string | number) => {
@@ -23,9 +22,9 @@ export const buildRequestFieldCacheKey = (
   requestFieldCacheKey: string,
   args: PlainObject | undefined,
   directives?: FieldTypeInfo['directives'],
-  index?: number
+  index?: number,
 ) => {
-  let key = `${isNumber(index) ? index : name}`;
+  let key = isNumber(index) ? String(index) : name;
 
   if (args) {
     key = `${key}(${JSON.stringify(pickBy(args, value => value !== undefined && value !== null))})`;
@@ -45,10 +44,10 @@ export const buildRequestFieldCacheKey = (
 export const buildFieldKeysAndPaths = (
   field: FieldNode,
   options: KeysAndPathsOptions,
-  context: RequestContext
+  context: RequestContext,
 ): KeysAndPaths => {
   const { index, requestFieldCacheKey = '', requestFieldPath = '', responseDataPath = '' } = options;
-  const name = getName(field)!;
+  const { value: name } = field.name;
   const fieldAliasOrName = getAliasOrName(field);
   const updatedRequestFieldPath = isNumber(index) ? requestFieldPath : buildKey(requestFieldPath, name);
   const fieldTypeInfo = context.fieldTypeMap.get(updatedRequestFieldPath);
@@ -58,7 +57,7 @@ export const buildFieldKeysAndPaths = (
     requestFieldCacheKey,
     getArguments(field),
     fieldTypeInfo?.directives,
-    index
+    index,
   );
 
   const propNameOrIndex = isNumber(index) ? index : name;

@@ -1,5 +1,9 @@
 {
   "extends": ["@repodog/ts-config/index.json", "@repodog/ts-config/build.json"],
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler"
+  },
   "include": [
     "src/**/*"
   ],

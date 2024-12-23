@@ -5,5 +5,5 @@ import { isAncestorAstNode } from './isAncestorAstNode.ts';
 
 export const findAncestorFragmentDefinition = (ancestors: readonly Ancestor[]): FragmentDefinitionNode | undefined =>
   ancestors.find(
-    ancestor => isAncestorAstNode(ancestor) && isKind<FragmentDefinitionNode>(ancestor, Kind.FRAGMENT_DEFINITION)
-  ) as FragmentDefinitionNode | undefined;
+    ancestor => isAncestorAstNode(ancestor) && isKind<FragmentDefinitionNode>(ancestor, Kind.FRAGMENT_DEFINITION),
+  );

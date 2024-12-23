@@ -15,6 +15,9 @@
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
   "types": "./dist/types/cjs/index.d.cts",
+  "imports": {
+    "#*": "./src/*"
+  },
   "exports": {
     ".": {
       "types": {
@@ -40,25 +43,19 @@
   "dependencies": {
     "@graphql-box/core": "workspace:*",
     "@graphql-box/helpers": "workspace:*",
-    "eventemitter3": "^5.0.1"
-  },
-  "peerDependencies": {
-    "@babel/runtime": "<8",
-    "core-js": "<4",
-    "lodash-es": "<5"
+    "@types/lodash-es": "^4.17.12",
+    "core-js": "^3.39.0",
+    "eventemitter3": "^5.0.1",
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.20.13",
-    "@cachemap/core": "^5.0.9",
-    "@cachemap/map": "^5.0.6",
+    "@cachemap/core": "^5.2.2",
+    "@cachemap/map": "^5.0.8",
     "@graphql-box/cache-manager": "workspace:*",
     "@graphql-box/test-utils": "workspace:*",
     "@jest/globals": "^29.3.1",
-    "@types/lodash-es": "^4.14.191",
-    "core-js": "^3.27.2",
-    "cts-types": "^0.0.6",
-    "del-cli": "^5.1.0",
-    "lodash-es": "^4.17.21"
+    "cts-types": "^0.0.8",
+    "del-cli": "^6.0.0"
   },
   "keywords": [
     "client",

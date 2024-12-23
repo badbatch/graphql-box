@@ -1,7 +1,7 @@
-const babelConfig = require('@repodog/babel-config/rollup');
 const rollupConfig = require('@repodog/rollup-config');
-const { babel: babelPlugin } = require('@rollup/plugin-babel');
+const swcConfig = require('@repodog/swc-config');
+const swcPlugin = require('@rollup/plugin-swc');
 
 module.exports = {
-  ...rollupConfig({ compiler: babelPlugin(babelConfig) }),
+  ...rollupConfig({ compiler: swcPlugin({ swc: swcConfig.ts }) }),
 };

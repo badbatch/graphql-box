@@ -15,33 +15,33 @@ export type Context = {
 export const validateCursor = async (
   { after, before, first, last }: ConnectionInputOptions,
   { fieldNodes }: GraphQLResolveInfo,
-  { cursorCache, groupCursor, resultsPerPage }: Context
+  { cursorCache, groupCursor, resultsPerPage }: Context,
 ) => {
   if (after && !first && !last) {
     return new GraphQLError(
       'Invalid connection argument combination. `after` must be used in combination with `first`.',
-      { nodes: fieldNodes }
+      { nodes: fieldNodes },
     );
   }
 
   if (after && last) {
     return new GraphQLError(
       'Invalid connection argument combination. `after` cannot be used in combination with `last`.',
-      { nodes: fieldNodes }
+      { nodes: fieldNodes },
     );
   }
 
   if (before && !last && !first) {
     return new GraphQLError(
       'Invalid connection argument combination. `before` must be used in combination with `last`.',
-      { nodes: fieldNodes }
+      { nodes: fieldNodes },
     );
   }
 
   if (before && first) {
     return new GraphQLError(
       'Invalid connection argument combination. `before` cannot be used in combination with `first`.',
-      { nodes: fieldNodes }
+      { nodes: fieldNodes },
     );
   }
 
@@ -51,7 +51,12 @@ export const validateCursor = async (
     return new GraphQLError('Curser cannot be supplied without previously being provided.', { nodes: fieldNodes });
   }
 
-  const cursor = getCursor({ after, before })!;
+  const cursor = getCursor({ after, before });
+
+  if (!cursor) {
+    return new GraphQLError(`The cursor could not be found.`, { nodes: fieldNodes });
+  }
+
   const entry = await cursorCache.get<CursorCacheEntry>(cursor);
 
   if (!entry) {

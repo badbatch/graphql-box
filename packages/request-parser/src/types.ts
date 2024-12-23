@@ -36,7 +36,7 @@ export interface UserOptions {
   typeComplexityMap?: Record<string, number>;
 
   /**
-   * The name of the property thats value is used as the unique
+   * The name of the property that's value is used as the unique
    * identifier for each type in the GraphQL schema.
    */
   typeIDKey?: string;

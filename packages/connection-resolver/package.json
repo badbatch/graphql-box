@@ -15,6 +15,9 @@
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
   "types": "./dist/types/cjs/index.d.cts",
+  "imports": {
+    "#*": "./src/*"
+  },
   "exports": {
     ".": {
       "types": {
@@ -38,27 +41,23 @@
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
-    "@cachemap/core": "^5.0.9",
+    "@cachemap/core": "^5.2.2",
     "@graphql-box/core": "workspace:*",
-    "js-base64": "^3.7.5",
-    "type-fest": "^4.5.0"
+    "@types/lodash-es": "^4.17.12",
+    "core-js": "^3.39.0",
+    "js-base64": "^3.7.7",
+    "lodash-es": "^4.17.21",
+    "type-fest": "^4.30.0"
   },
   "peerDependencies": {
-    "@babel/runtime": "<8",
-    "core-js": "<4",
-    "graphql": "<17",
-    "lodash-es": "<5"
+    "graphql": "<17"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.20.13",
-    "@cachemap/map": "^5.0.6",
+    "@cachemap/map": "^5.0.8",
     "@jest/globals": "^29.3.1",
-    "@types/lodash-es": "^4.14.191",
-    "core-js": "^3.27.2",
-    "cts-types": "^0.0.6",
-    "del-cli": "^5.1.0",
-    "graphql": "^16.8.1",
-    "lodash-es": "^4.17.21"
+    "cts-types": "^0.0.8",
+    "del-cli": "^6.0.0",
+    "graphql": "^16.9.0"
   },
   "keywords": [
     "client",

@@ -1,13 +1,19 @@
-const config = require('@repodog/jest-config');
+const { COMPILER, DEBUG } = process.env;
 
-const { moduleNameMapper, ...otherConfig } = config();
-// Jest is picking up the wrong output of library
-moduleNameMapper['^uuid$'] = '<rootDir>/node_modules/uuid/wrapper.mjs';
+if (!COMPILER) {
+  process.env.COMPILER = 'swc';
+}
+
+const jestConfig = require('@repodog/jest-config');
+const swcConfig = require('@repodog/swc-config');
+
+const isComplierSwc = COMPILER === 'swc';
+const isDebug = DEBUG === 'true';
 
 module.exports = {
-  ...otherConfig,
+  ...jestConfig({ compilerOptions: swcConfig }),
   collectCoverage: false,
   collectCoverageFrom: [],
-  moduleNameMapper,
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.mjs'],
+  setupFilesAfterEnv: isComplierSwc ? ['<rootDir>/jest.setup.mjs'] : [],
+  ...(isDebug ? {} : { testMatch: ['**/src/**/*.test.{ts,tsx}'] }),
 };

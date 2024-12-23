@@ -8,7 +8,7 @@ export const resolveImports = (rawGql: string, parentDir: string) => {
     const fragments: string[] = [];
 
     for (const line of importLines) {
-      const match = line.match(/#import "(.+)"/);
+      const match = /#import "(.+)"/.exec(line);
       const path = match?.[1];
 
       if (path) {

@@ -5,7 +5,9 @@ type Descriptor = (
   cacheType: CacheTypes,
   hash: string,
   options: RequestOptions,
-  context: CacheManagerContext & { requestFieldCacheKey?: string }
+  context: CacheManagerContext & { requestFieldCacheKey?: string },
+  // Proving more difficult to fix, that worth the effort
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 ) => Promise<never | undefined>;
 
 export const logCacheQuery = () => {
@@ -17,16 +19,22 @@ export const logCacheQuery = () => {
     }
 
     descriptor.value = async function descriptorValue(...args: Parameters<Descriptor>): ReturnType<Descriptor> {
-      return new Promise(resolve => {
-        void (async () => {
+      // Proving more difficult to fix, that worth the effort
+      // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+      return new Promise<never | undefined>(resolve => {
+        const resolver = async () => {
           const { debugManager, requestFieldCacheKey, ...otherContext } = args[3];
 
           if (!debugManager) {
+            // Proving more difficult to fix, that worth the effort
+            // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
             resolve(await method.apply(this, args));
             return;
           }
 
           const startTime = debugManager.now();
+          // Proving more difficult to fix, that worth the effort
+          // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
           const result = await method.apply(this, args);
           const endTime = debugManager.now();
           const duration = endTime - startTime;
@@ -43,7 +51,9 @@ export const logCacheQuery = () => {
           };
 
           debugManager.log(CACHE_ENTRY_QUERIED, payload);
-        })();
+        };
+
+        void resolver();
       });
     };
   };

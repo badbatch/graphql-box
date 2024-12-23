@@ -6,10 +6,12 @@ import { enrichAncestors } from './enrichAncestors.ts';
 export const updatePersistedFragmentSpreads = (
   groupedFragmentSpreadDirectives: Record<string, ParsedDirective[]>,
   { ancestors, key }: Ancestors,
-  context: VisitorContext
+  context: VisitorContext,
 ) => {
   context.persistedFragmentSpreads = [
     ...context.persistedFragmentSpreads,
+    // Will need to revisit this
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     ...(keys(groupedFragmentSpreadDirectives).map(propName => [
       propName,
       groupedFragmentSpreadDirectives[propName],

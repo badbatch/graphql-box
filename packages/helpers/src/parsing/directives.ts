@@ -6,12 +6,11 @@ import {
   type InlineFragmentNode,
   Kind,
 } from 'graphql';
+import { getName } from '#parsing/name.ts';
 import { type ParsedDirective } from '../types.ts';
 import { getArguments } from './arguments.ts';
 import { getFragmentSpreads } from './fragmentSpreads.ts';
 import { getKind, isKind } from './kind.ts';
-import { getName } from './name.ts';
-import { getTypeCondition } from './typeCondition.ts';
 
 export const getDirectives = (field: FieldNode | InlineFragmentNode, options?: RequestOptions) => {
   return [
@@ -24,24 +23,23 @@ export const getDirectives = (field: FieldNode | InlineFragmentNode, options?: R
 
 export const getFieldDirectives = (field: FieldNode, options?: RequestOptions) => {
   return field.directives?.length
-    ? parseDirectiveArguments(field.directives, getName(field)!, getKind(field), options)
+    ? parseDirectiveArguments(field.directives, field.name.value, getKind(field), options)
     : [];
 };
 
 export const getFragmentSpreadDirectives = (
   field: FieldNode | InlineFragmentNode | FragmentDefinitionNode,
-  options?: RequestOptions
+  options?: RequestOptions,
 ) => {
   const fragmentSpreads = getFragmentSpreads(field);
   let parsedDirectives: ParsedDirective[] = [];
 
   if (fragmentSpreads.length > 0) {
     parsedDirectives = fragmentSpreads.reduce<ParsedDirective[]>((parsed, spreadNode) => {
-      if (spreadNode.directives) {
-        return [
-          ...parsed,
-          ...parseDirectiveArguments(spreadNode.directives, getName(spreadNode)!, getKind(spreadNode), options),
-        ];
+      const spreadName = getName(spreadNode);
+
+      if (spreadNode.directives && spreadName) {
+        return [...parsed, ...parseDirectiveArguments(spreadNode.directives, getKind(spreadNode), spreadName, options)];
       }
 
       return parsed;
@@ -53,15 +51,17 @@ export const getFragmentSpreadDirectives = (
 
 export const getInlineFragmentDirectives = (field: InlineFragmentNode, options?: RequestOptions) => {
   return field.directives?.length
-    ? parseDirectiveArguments(field.directives, getName(getTypeCondition(field)!)!, getKind(field), options)
+    ? // Based on context, field is always going to have typeCondition
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      parseDirectiveArguments(field.directives, getKind(field), field.typeCondition!.name.value, options)
     : [];
 };
 
 export const parseDirectiveArguments = (
   directives: readonly DirectiveNode[],
-  name: string,
   kind: string,
-  options?: RequestOptions
+  name: string,
+  options?: RequestOptions,
 ) => {
   return directives.reduce<ParsedDirective[]>((parsedDirectives, directive) => {
     let args: PlainObject = {};

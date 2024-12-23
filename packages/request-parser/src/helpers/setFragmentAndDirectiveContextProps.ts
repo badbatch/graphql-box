@@ -12,7 +12,7 @@ export const setFragmentAndDirectiveContextProps = (
   ancestors: Ancestors,
   options: RequestOptions,
   context: VisitorContext,
-  parsedDirectives: ParsedDirective[] = []
+  parsedDirectives: ParsedDirective[] = [],
 ) => {
   const parsedFragmentSpreadDirectives = getFragmentSpreadDirectives(node, options);
   const groupedFragmentSpreadDirectives = groupFragmentSpreadDirectives(parsedFragmentSpreadDirectives);
@@ -28,7 +28,7 @@ export const setFragmentAndDirectiveContextProps = (
 
     if (!context.experimentalDeferStreamSupport) {
       throw new Error(
-        '@graphql-box/request-parser >> to use defer/stream directives, please set the experimentalDeferStreamSupport flag to true'
+        '@graphql-box/request-parser >> to use defer/stream directives, please set the experimentalDeferStreamSupport flag to true',
       );
     }
   }

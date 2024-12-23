@@ -1,6 +1,5 @@
 import { type PlainObject, type RequestOptions } from '@graphql-box/core';
 import { type DirectiveNode, type FieldNode, Kind, type ValueNode } from 'graphql';
-import { VALUE } from '../constants.ts';
 import { getKind } from './kind.ts';
 import { getName } from './name.ts';
 
@@ -9,23 +8,20 @@ type ParseValueResult = string | boolean | null | PlainObject | ParseValueResult
 const parseValue = (valueNode: ValueNode): ParseValueResult => {
   let output: ParseValueResult;
 
-  if (VALUE in valueNode) {
-    const scalarValueNode = valueNode;
-    output = scalarValueNode.value;
+  if ('value' in valueNode) {
+    output = valueNode.value;
   } else if (valueNode.kind === Kind.OBJECT) {
-    const objectValueNode = valueNode;
     const obj: PlainObject = {};
 
-    for (const { name, value } of objectValueNode.fields) {
+    for (const { name, value } of valueNode.fields) {
       obj[name.value] = parseValue(value);
     }
 
     output = obj;
   } else if (valueNode.kind === Kind.LIST) {
-    const listValueNode = valueNode;
     const array: ParseValueResult[] = [];
 
-    for (const value of listValueNode.values) {
+    for (const value of valueNode.values) {
       array.push(parseValue(value));
     }
 

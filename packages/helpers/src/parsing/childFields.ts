@@ -58,6 +58,8 @@ export const deleteChildFields = (node: ParentNode, fields: FieldNode[] | FieldN
   const childFields = [...node.selectionSet.selections];
 
   for (let index = childFields.length - 1; index >= 0; index -= 1) {
+    // Based on context, childFields[index] cannot be undefined
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const childField = childFields[index]!;
 
     if (isKind<InlineFragmentNode>(childField, Kind.INLINE_FRAGMENT)) {
@@ -77,7 +79,7 @@ export type ChildFieldOptions = {
 
 export const getChildFields = (
   node: ParentNode,
-  { fragmentDefinitions, name }: ChildFieldOptions = {}
+  { fragmentDefinitions, name }: ChildFieldOptions = {},
 ): FieldAndTypeName[] | undefined => {
   if (!node.selectionSet) {
     return undefined;
@@ -89,12 +91,10 @@ export const getChildFields = (
     return fieldsAndTypeNames;
   }
 
-  const filtered = fieldsAndTypeNames.filter(
+  return fieldsAndTypeNames.filter(
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    ({ fieldNode }) => getName(fieldNode) === name || getKind(fieldNode) === name
+    ({ fieldNode }) => getName(fieldNode) === name || getKind(fieldNode) === name,
   );
-
-  return filtered;
 };
 
 export const hasChildFields = (node: ParentNode, { fragmentDefinitions, name }: ChildFieldOptions = {}): boolean => {
@@ -121,8 +121,8 @@ export const iterateChildFields = (
     typeName: string | undefined,
     fragmentKind: string | undefined,
     fragmentName: string | undefined,
-    childIndex?: number
-  ) => void
+    childIndex?: number,
+  ) => void,
 ): void => {
   if (isArray(data)) {
     for (const [index] of data.entries()) {

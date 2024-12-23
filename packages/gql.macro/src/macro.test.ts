@@ -7,7 +7,7 @@ jest.mock('./helpers/writeFile.ts', () => ({
 }));
 
 const transformSourceFile = (sourceFile: string, macroConfig: Record<string, unknown> = {}) => {
-  const transformed = transformSync(sourceFile, {
+  return transformSync(sourceFile, {
     filename: 'test.js',
     plugins: [
       [
@@ -22,8 +22,6 @@ const transformSourceFile = (sourceFile: string, macroConfig: Record<string, unk
       ],
     ],
   })?.code;
-
-  return transformed;
 };
 
 describe('gql.macro', () => {

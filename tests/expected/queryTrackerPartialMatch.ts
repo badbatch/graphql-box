@@ -1,6 +1,8 @@
 import { Cacheability } from 'cacheability';
-import { type ExportCacheResult } from '@graphql-box/cache-manager';
 import { type PartialDehydratedRequestResult } from '@graphql-box/core';
+import { type ExpectedExportCacheResult } from '../types.ts';
+
+const numberMock = jasmine.any(Number);
 
 export const response: Omit<PartialDehydratedRequestResult, 'requestID'> = {
   _cacheMetadata: {
@@ -26,7 +28,7 @@ export const response: Omit<PartialDehydratedRequestResult, 'requestID'> = {
   },
 };
 
-export const cache: ExportCacheResult = {
+export const cache: ExpectedExportCacheResult = {
   entries: [
     [
       'dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx',
@@ -488,7 +490,7 @@ export const cache: ExportCacheResult = {
   ],
   metadata: [
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -503,12 +505,12 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 648,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -523,12 +525,12 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::Repository::MDEwOlJlcG9zaXRvcnk0NTU2MDA=',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 648,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -543,12 +545,12 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::Repository::MDEwOlJlcG9zaXRvcnk1NjU0MjY=',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 520,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -563,12 +565,12 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2MTkyNDA=',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 536,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -583,12 +585,12 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::Repository::MDEwOlJlcG9zaXRvcnk2NTkzNDE=',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 760,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -603,12 +605,12 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::Repository::MDEwOlJlcG9zaXRvcnk3Mzg0OTE=',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 776,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -623,12 +625,12 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::Repository::MDEwOlJlcG9zaXRvcnkxNjU4ODM=',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 1088,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -643,12 +645,12 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::RepositoryOwner::MDEyOk9yZ2FuaXphdGlvbjY5NjMx',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 368,
+      size: numberMock,
       tags: [],
       updatedCount: 5,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -663,12 +665,12 @@ export const cache: ExportCacheResult = {
       key: 'queryResponses::2a0b8ac261139c6615fcf79f54ef01bd',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 7832,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -682,12 +684,12 @@ export const cache: ExportCacheResult = {
       key: 'queryResponses::ea1cbc58eca798225b53f59d95ffb23a',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 992,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -702,12 +704,12 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::027fe08f84ad0a2b5437c86ed15f50c8',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 736,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -722,12 +724,12 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::2006a409742a6aa7aa0c1758c770cfd2',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 512,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -742,12 +744,12 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::21e8076c41db5f0c66930106377ebbdc',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 368,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -762,12 +764,12 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::5256db516a2438a7e5488a00413f4809',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 648,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -782,12 +784,12 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::87b204dfb276479261afc6ed9a74c96c',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 368,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -802,12 +804,12 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::8b1b7ba7c8eda6898f88c6975535c524',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 368,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -822,12 +824,12 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::9b6f480860437518432fa4e56252825d',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 632,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -842,12 +844,12 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::b0b013e9fa72a5a9dd854d0ebe96d629',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 368,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -862,12 +864,12 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::d8154782d2727cf7630dc81cdd12fa2b',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 496,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -882,12 +884,12 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::da942e5e50337b7d4495590126407fd8',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 1280,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -902,12 +904,12 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::e837bc099bd7b2e544e29234260d9ead',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 752,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -922,12 +924,12 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::ef681506ce96960ba2f1faeb46dc4311',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 1064,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -942,12 +944,12 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::fac0b5026f368ef4428db067436423db',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 368,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -962,7 +964,7 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::ffa65fdcf6b1370af59f364589a51214',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 368,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },

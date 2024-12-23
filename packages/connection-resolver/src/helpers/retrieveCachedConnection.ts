@@ -16,14 +16,13 @@ export type Context = {
 
 export const retrieveCachedConnection = async (
   args: ConnectionInputOptions,
-  { cursorCache, groupCursor, resultsPerPage }: Context
+  { cursorCache, groupCursor, resultsPerPage }: Context,
 ) => {
-  /**
-   * At this point the cache will always have metadata because `retrieveCachedConnection`
-   * is called from `resolveConnection` and is only called if there is a cursor, either
-   * after a direct check or after calling `validateCursor` or `requestAndCachePages`,
-   * which check and set the metadata respectively.
-   */
+  // At this point the cache will always have metadata because `retrieveCachedConnection`
+  // is called from `resolveConnection` and is only called if there is a cursor, either
+  // after a direct check or after calling `validateCursor` or `requestAndCachePages`,
+  // which check and set the metadata respectively.
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const metadata = (await cursorCache.get<CursorGroupMetadata>(`${groupCursor}-metadata`))!;
   const entry = await retrieveEntry(args, metadata, { cursorCache, resultsPerPage });
   const startIndex = getStartIndex(args, { entry, resultsPerPage });

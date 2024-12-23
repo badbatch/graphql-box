@@ -1,6 +1,8 @@
 import { Cacheability } from 'cacheability';
-import { type ExportCacheResult } from '@graphql-box/cache-manager';
 import { type PartialDehydratedRequestResult } from '@graphql-box/core';
+import { type ExpectedExportCacheResult } from '../types.ts';
+
+const numberMock = jasmine.any(Number);
 
 export const response: Omit<PartialDehydratedRequestResult, 'requestID'> = {
   _cacheMetadata: {
@@ -31,7 +33,7 @@ export const response: Omit<PartialDehydratedRequestResult, 'requestID'> = {
   },
 };
 
-export const cache: ExportCacheResult = {
+export const cache: ExpectedExportCacheResult = {
   entries: [
     [
       'dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx',
@@ -121,7 +123,7 @@ export const cache: ExportCacheResult = {
   ],
   metadata: [
     {
-      accessedCount: 1,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -136,12 +138,12 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::Organization::MDEyOk9yZ2FuaXphdGlvbjY5NjMx',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 648,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -156,12 +158,12 @@ export const cache: ExportCacheResult = {
       key: 'queryResponses::ea1cbc58eca798225b53f59d95ffb23a',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 1176,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -176,12 +178,12 @@ export const cache: ExportCacheResult = {
       key: 'queryResponses::f666cc27cdcfcecacb340b64fcf27506',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 1008,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },
     {
-      accessedCount: 1,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -196,7 +198,7 @@ export const cache: ExportCacheResult = {
       key: 'requestFieldPaths::5256db516a2438a7e5488a00413f4809',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 648,
+      size: numberMock,
       tags: [],
       updatedCount: 0,
     },

@@ -24,7 +24,7 @@ describe('filterResponseData', () => {
         {
           active: activeRequestContext,
           pending: pendingRequestContext,
-        }
+        },
       );
 
       expect(responseData).toMatchSnapshot();
@@ -45,7 +45,7 @@ describe('filterResponseData', () => {
         {
           active: activeRequestContext,
           pending: pendingRequestContext,
-        }
+        },
       );
 
       expect(responseData).toMatchSnapshot();
@@ -71,7 +71,7 @@ describe('filterResponseData', () => {
           {
             active: activeRequestContext,
             pending: pendingRequestContext,
-          }
+          },
         );
 
         expect(responseData).toMatchSnapshot();
@@ -99,7 +99,7 @@ describe('filterResponseData', () => {
           {
             active: activeRequestContext,
             pending: pendingRequestContext,
-          }
+          },
         );
 
         expect(responseData).toMatchSnapshot();
@@ -128,7 +128,7 @@ describe('filterResponseData', () => {
         {
           active: activeRequestContext,
           pending: pendingRequestContext,
-        }
+        },
       );
 
       expect(responseData).toMatchSnapshot();
@@ -156,7 +156,7 @@ describe('filterResponseData', () => {
         {
           active: activeRequestContext,
           pending: pendingRequestContext,
-        }
+        },
       );
 
       expect(responseData).toMatchSnapshot();
@@ -184,7 +184,7 @@ describe('filterResponseData', () => {
         {
           active: activeRequestContext,
           pending: pendingRequestContext,
-        }
+        },
       );
 
       expect(responseData).toMatchSnapshot();

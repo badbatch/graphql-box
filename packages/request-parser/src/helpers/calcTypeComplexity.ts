@@ -3,7 +3,7 @@ import { type GraphQLOutputType, GraphQLScalarType } from 'graphql';
 
 export const calcTypeComplexity = (
   fieldTypeList: Maybe<GraphQLOutputType>[],
-  typeComplexityMap: Record<string, number>
+  typeComplexityMap: Record<string, number>,
 ) => {
   return fieldTypeList.reduce((complexity: number, fieldType) => {
     if (!fieldType || fieldType instanceof GraphQLScalarType || !('name' in fieldType)) {

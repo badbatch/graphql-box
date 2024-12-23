@@ -15,19 +15,19 @@ export type Context = {
 
 export const getStartPageNumber = (
   args: ConnectionInputOptions,
-  { page, resultsPerPage, startIndex }: Omit<PageNumberContext, 'endIndex'> & Omit<Context, 'metadata'>
+  { page, resultsPerPage, startIndex }: Omit<PageNumberContext, 'endIndex'> & Omit<Context, 'metadata'>,
 ) => {
   if (getDirection(args.last) === 'forward' || startIndex.absolute >= 0) {
     return page;
   }
 
   const startPageNumber = page - Math.ceil(Math.abs(startIndex.absolute) / resultsPerPage);
-  return startPageNumber <= 1 ? 1 : startPageNumber;
+  return Math.max(startPageNumber, 1);
 };
 
 export const getEndPageNumber = (
   args: ConnectionInputOptions,
-  { endIndex, metadata: { totalPages }, page, resultsPerPage }: Omit<PageNumberContext, 'startIndex'> & Context
+  { endIndex, metadata: { totalPages }, page, resultsPerPage }: Omit<PageNumberContext, 'startIndex'> & Context,
 ) => {
   const indexesPerPage = resultsPerPage - 1;
 
@@ -40,5 +40,5 @@ export const getEndPageNumber = (
   }
 
   const endPageNumber = page + Math.ceil((endIndex.absolute - indexesPerPage) / resultsPerPage);
-  return endPageNumber >= totalPages ? totalPages : endPageNumber;
+  return Math.min(endPageNumber, totalPages);
 };

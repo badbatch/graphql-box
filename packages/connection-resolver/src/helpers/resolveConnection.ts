@@ -20,7 +20,14 @@ export type Context<Resource extends PlainObject, ResourceNode extends Node> = {
 
 export const resolveConnection = async <Resource extends PlainObject, ResourceNode extends Node>(
   args: PlainObject & ConnectionInputOptions,
-  { cursorCache, getters, groupCursor, makeIDCursor, resourceResolver, resultsPerPage }: Context<Resource, ResourceNode>
+  {
+    cursorCache,
+    getters,
+    groupCursor,
+    makeIDCursor,
+    resourceResolver,
+    resultsPerPage,
+  }: Context<Resource, ResourceNode>,
 ) => {
   const { cachedEdges, hasNextPage, hasPreviousPage, indexes, missingPages, totalResults } =
     await retrieveCachedConnection(args, {

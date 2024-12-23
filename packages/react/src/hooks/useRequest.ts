@@ -28,9 +28,13 @@ export const useRequest = <Data extends PlainObject>(request: string, { loading 
     const requestResult = await graphqlBoxClient.request(request, options);
 
     if (!isAsyncIterable(requestResult)) {
+      // Need to use a type guard
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const { data, errors, requestID } = requestResult as PartialRequestResult;
 
       setState({
+        // Need to fix the types here
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         data: data as Data,
         errors: errors ?? [],
         loading: false,
@@ -41,9 +45,13 @@ export const useRequest = <Data extends PlainObject>(request: string, { loading 
     }
 
     void forAwaitEach(requestResult, result => {
+      // Need to use a type guard
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const { data, errors, hasNext, paths, requestID } = result as PartialRequestResult;
 
       setState({
+        // Need to fix the types here
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         data: data as Data,
         errors: errors ?? [],
         hasNext,

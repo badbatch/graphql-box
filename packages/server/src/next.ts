@@ -26,7 +26,7 @@ import {
 
 export class NextMiddleware {
   private _client: Client;
-  private _requestTimeout: number;
+  private readonly _requestTimeout: number;
   private _requestWhitelist: string[];
 
   constructor(options: UserOptions) {
@@ -86,18 +86,24 @@ export class NextMiddleware {
         try {
           const requestTimer = setTimeout(() => {
             response.responses[requestHash] = serializeErrors({
-              errors: [new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`)],
+              errors: [
+                new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
+              ],
               requestID: context.requestID,
             });
           }, this._requestTimeout);
 
+          // Need to make client.request a generic
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
           const { _cacheMetadata, ...otherProps } = (await this._client.request(
             request,
             options,
-            context
+            context,
           )) as PartialRequestResult;
 
           clearTimeout(requestTimer);
+          // Need to implement a type guard
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
           const responseEntry = serializeErrors({ ...otherProps }) as PartialRawFetchData;
 
           if (_cacheMetadata) {
@@ -115,7 +121,7 @@ export class NextMiddleware {
             requestID: context.requestID,
           });
         }
-      })
+      }),
     );
 
     return new NextResponse(JSON.stringify(response), {
@@ -130,12 +136,14 @@ export class NextMiddleware {
   }
 
   private async _handleRequest(request: string, options: ServerRequestOptions, context: PartialRequestContext) {
+    // Need to change how context gets initialised and updated
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     if (this._requestWhitelist.length > 0 && !this._requestWhitelist.includes(context.originalRequestHash!)) {
       return new NextResponse(
         JSON.stringify(serializeErrors({ errors: [new Error('The request is not whitelisted.')] })),
         {
           status: 400,
-        }
+        },
       );
     }
 
@@ -147,14 +155,16 @@ export class NextMiddleware {
               JSON.stringify(
                 serializeErrors({
                   errors: [
-                    new Error(`@graphql-box/server did not process the request within ${this._requestTimeout}ms.`),
+                    new Error(
+                      `@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`,
+                    ),
                   ],
-                })
+                }),
               ),
               {
                 status: 408,
-              }
-            )
+              },
+            ),
           );
         }, this._requestTimeout);
 
@@ -162,6 +172,8 @@ export class NextMiddleware {
         clearTimeout(requestTimer);
 
         if (!isAsyncIterable(requestResult)) {
+          // Need to implement a type guard
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
           const { _cacheMetadata, ...otherProps } = requestResult as PartialRequestResult;
           const response: PartialDehydratedRequestResult = serializeErrors({ ...otherProps });
 
@@ -172,12 +184,14 @@ export class NextMiddleware {
           resolve(
             new NextResponse(JSON.stringify(response), {
               status: 200,
-            })
+            }),
           );
 
           return;
         }
 
+        // Need to implement a type guard
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         const asyncInteratorResult = requestResult as AsyncIterator<
           PartialRequestResult | undefined,
           PartialRequestResult | undefined
@@ -189,7 +203,7 @@ export class NextMiddleware {
               'Content-Type': 'multipart/mixed; boundary="-"',
             }),
             status: 200,
-          })
+          }),
         );
       })();
     });
@@ -198,6 +212,8 @@ export class NextMiddleware {
   private async _logHandler(req: NextRequest) {
     try {
       let logs: Omit<LogData, 'batched'>[] = [];
+      // res.json returns an any type
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const body = (await req.json()) as LogData | BatchedLogData;
 
       if (isLogBatched(body)) {
@@ -226,6 +242,8 @@ export class NextMiddleware {
 
   private async _requestHandler(req: NextRequest, options: ServerRequestOptions): Promise<NextResponse> {
     try {
+      // res.json returns an any type
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const body = (await req.json()) as RequestData | BatchRequestData;
 
       if (isRequestBatched(body)) {
@@ -237,11 +255,11 @@ export class NextMiddleware {
           }
         });
 
-        return this._handleBatchRequest(requests, options);
+        return await this._handleBatchRequest(requests, options);
       } else {
         const { context, request } = body;
         this._client.debugger?.log(SERVER_REQUEST_RECEIVED, { body, context, headers: req.headers, request });
-        return this._handleRequest(request, options, context);
+        return await this._handleRequest(request, options, context);
       }
     } catch (error) {
       const confirmedError = isError(error)

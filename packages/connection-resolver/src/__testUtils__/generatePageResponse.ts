@@ -15,7 +15,7 @@ export const generatePageResponse =
       data: {
         page,
         results: Array.from({ length: resultsPerPage }, (_v, index) => index).map(index => {
-          return { id: encode(`${index}::${page}`) };
+          return { id: encode(`${String(index)}::${String(page)}`) };
         }),
         totalPages,
         totalResults,

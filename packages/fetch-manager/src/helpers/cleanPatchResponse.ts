@@ -26,7 +26,7 @@ const convertNullArrayEntriesToUndefined = (data: PlainData) => {
 
         return acc;
       },
-      isValueArray ? [] : {}
+      isValueArray ? [] : {},
     );
   };
 

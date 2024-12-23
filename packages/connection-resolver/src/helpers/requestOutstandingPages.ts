@@ -14,7 +14,7 @@ export type RequestMissingPagesCallback = (params: { nextPage: number }) => Prom
 
 export const requestOutstandingPages = async (
   { count, direction, page, results, resultsPerPage, totalPages, totalResults }: RequestMissingPagesParams,
-  requestCallback: RequestMissingPagesCallback
+  requestCallback: RequestMissingPagesCallback,
 ) => {
   const resultsOnLastPage = totalResults % totalPages;
   const outstanding = count - results;

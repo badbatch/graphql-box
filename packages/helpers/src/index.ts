@@ -1,6 +1,5 @@
 export * from './buildKeysAndPaths.ts';
 export * from './cacheMetadata.ts';
-export * from './constants.ts';
 export * from './types.ts';
 export * from './errors/index.ts';
 export * from './eventAsyncIterator.ts';

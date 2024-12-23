@@ -16,7 +16,7 @@ export type Context = {
 export const retrieveEntry = async (
   args: ConnectionInputOptions,
   metadata: CursorGroupMetadata,
-  { cursorCache, resultsPerPage }: Context
+  { cursorCache, resultsPerPage }: Context,
 ): Promise<PartialCursorCacheEntry> => {
   const cursor = getCursor(args);
 

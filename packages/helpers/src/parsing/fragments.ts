@@ -17,14 +17,13 @@ import { setFragmentDefinitions } from './fragmentDefinitions.ts';
 import { getFragmentSpreadsWithoutDirectives, hasFragmentSpreads } from './fragmentSpreads.ts';
 import { getInlineFragments, hasInlineFragments, setInlineFragments } from './inlineFragments.ts';
 import { isKind } from './kind.ts';
-import { getName } from './name.ts';
 
 export const resolveFragments = (
   selectionNodes: readonly SelectionNode[] = [],
   fragmentDefinitions: FragmentDefinitionNodeMap = {},
   typeName?: string,
   fragmentKind?: string,
-  fragmentName?: string
+  fragmentName?: string,
 ): FieldAndTypeName[] => {
   let fieldAndTypeName: FieldAndTypeName[] = [];
 
@@ -32,30 +31,28 @@ export const resolveFragments = (
     if (isKind<FieldNode>(selectionNode, Kind.FIELD)) {
       fieldAndTypeName.push({ fieldNode: selectionNode, fragmentKind, fragmentName, typeName });
     } else if (isKind<FragmentSpreadNode>(selectionNode, Kind.FRAGMENT_SPREAD)) {
-      const name = getName(selectionNode)!;
+      const { value: name } = selectionNode.name;
       const fragmentDefinition = fragmentDefinitions[name];
 
       if (fragmentDefinition) {
-        const fragmentDefinitionTypeName = getName(fragmentDefinition.typeCondition)!;
-
         const resolvedFieldAndTypeName = resolveFragments(
           fragmentDefinition.selectionSet.selections,
           fragmentDefinitions,
-          fragmentDefinitionTypeName,
+          fragmentDefinition.typeCondition.name.value,
           Kind.FRAGMENT_SPREAD,
-          name
+          name,
         );
 
         fieldAndTypeName = [...fieldAndTypeName, ...resolvedFieldAndTypeName];
       }
     } else if (isKind<InlineFragmentNode>(selectionNode, Kind.INLINE_FRAGMENT)) {
-      const inlineFragmentTypeName = selectionNode.typeCondition ? getName(selectionNode.typeCondition)! : undefined;
+      const inlineFragmentTypeName = selectionNode.typeCondition ? selectionNode.typeCondition.name.value : undefined;
 
       const resolvedFieldAndTypeName = resolveFragments(
         selectionNode.selectionSet.selections,
         fragmentDefinitions,
         inlineFragmentTypeName,
-        Kind.INLINE_FRAGMENT
+        Kind.INLINE_FRAGMENT,
       );
 
       fieldAndTypeName = [...fieldAndTypeName, ...resolvedFieldAndTypeName];
@@ -95,7 +92,7 @@ export const setFragments = ({ fragmentDefinitions, node, type }: Params) => {
 
     if (fragmentSpreadsWithoutDirectives.length > 0) {
       const count = setFragmentDefinitions(fragmentDefinitions, node, {
-        include: fragmentSpreadsWithoutDirectives.map(spread => getName(spread)!),
+        include: fragmentSpreadsWithoutDirectives.map(spread => spread.name.value),
       });
 
       if (count) {

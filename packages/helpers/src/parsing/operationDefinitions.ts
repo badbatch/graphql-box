@@ -1,16 +1,24 @@
-import { type DocumentNode, Kind, type OperationDefinitionNode, type OperationTypeNode } from 'graphql';
+import {
+  type DefinitionNode,
+  type DocumentNode,
+  Kind,
+  type OperationDefinitionNode,
+  type OperationTypeNode,
+} from 'graphql';
 import { getKind } from './kind.ts';
 
 export const getOperationDefinitions = (
   { definitions }: DocumentNode,
-  name?: OperationTypeNode
+  name?: OperationTypeNode,
 ): OperationDefinitionNode[] => {
   const operationDefinitions: OperationDefinitionNode[] = [];
 
+  const isOperationDefinitionNode = (n: DefinitionNode): n is OperationDefinitionNode =>
+    getKind(n) === Kind.OPERATION_DEFINITION;
+
   for (const definition of definitions) {
-    if (getKind(definition) === Kind.OPERATION_DEFINITION) {
-      const operationDefinition = definition as OperationDefinitionNode;
-      operationDefinitions.push(operationDefinition);
+    if (isOperationDefinitionNode(definition)) {
+      operationDefinitions.push(definition);
     }
   }
 

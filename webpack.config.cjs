@@ -1,5 +1,6 @@
-const config = require('@repodog/webpack-config/test.cjs');
+const swcConfig = require('@repodog/swc-config');
+const webpackConfig = require('@repodog/webpack-config/test.cjs');
 
 module.exports = {
-  ...config({ compiler: 'babel-loader' }),
+  ...webpackConfig({ compiler: ['swc-loader', swcConfig.ts] }),
 };

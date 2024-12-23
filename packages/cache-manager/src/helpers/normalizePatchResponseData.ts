@@ -4,7 +4,7 @@ import { type CacheManagerContext } from '../types.ts';
 
 export const normalizePatchResponseData = (
   rawResponseData: RawResponseDataWithMaybeCacheMetadata,
-  context: CacheManagerContext
+  context: CacheManagerContext,
 ) => {
   if (!context.normalizePatchResponseData) {
     return rawResponseData;

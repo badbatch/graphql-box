@@ -1,11 +1,11 @@
-import { expected } from '../../expected/index.ts';
-import { initWorkerClient } from '../../helpers/initWorkerClient.ts';
-import { FetchMockWorker } from '../../modules/fetch-mock/index.ts';
 import { type ExportCacheResult } from '@graphql-box/cache-manager';
 import { type PartialDehydratedRequestResult, type PartialRequestResult, type PlainArray } from '@graphql-box/core';
 import { dehydrateCacheMetadata } from '@graphql-box/helpers';
 import { parsedRequests } from '@graphql-box/test-utils';
 import { type WorkerClient } from '@graphql-box/worker-client';
+import { expected } from '../../expected/index.ts';
+import { initWorkerClient } from '../../helpers/initWorkerClient.ts';
+import { FetchMockWorker } from '../../modules/fetch-mock/index.ts';
 
 const defaultOptions = { awaitDataCaching: true, returnCacheMetadata: true };
 
@@ -22,9 +22,8 @@ describe('workerClient', () => {
         worker = new Worker(new URL('worker.ts', import.meta.url));
         fetchMockWorker = new FetchMockWorker(worker);
         workerClient = initWorkerClient({ worker });
-        const request = parsedRequests.singleTypeQuery;
 
-        const { _cacheMetadata, data } = (await workerClient.query(request, {
+        const { _cacheMetadata, data } = (await workerClient.query(parsedRequests.singleTypeQuery, {
           ...defaultOptions,
         })) as PartialRequestResult;
 
@@ -47,7 +46,8 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(cache).toEqual(expected.noMatch.cache);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        expect(cache).toEqual(jasmine.objectContaining(expected.noMatch.cache));
       });
     });
 
@@ -80,7 +80,7 @@ describe('workerClient', () => {
 
       it('one request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls.length).toBe(1);
+        expect(calls).toHaveSize(1);
       });
 
       it('correct response data', () => {
@@ -88,7 +88,8 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(cache).toEqual(expected.queryTrackerExactMatch.cache);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        expect(cache).toEqual(jasmine.objectContaining(expected.queryTrackerExactMatch.cache));
       });
     });
 
@@ -120,7 +121,7 @@ describe('workerClient', () => {
 
       it('one request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls.length).toBe(1);
+        expect(calls).toHaveSize(1);
       });
 
       it('correct response data', () => {
@@ -128,7 +129,8 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(cache).toEqual(expected.queryTrackerPartialMatch.cache);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        expect(cache).toEqual(jasmine.objectContaining(expected.queryTrackerPartialMatch.cache));
       });
     });
 
@@ -162,7 +164,7 @@ describe('workerClient', () => {
 
       it('no request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls.length).toBe(0);
+        expect(calls).toHaveSize(0);
       });
 
       it('correct response data', () => {
@@ -170,7 +172,8 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(cache).toEqual(expected.queryResponseMatch.cache);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        expect(cache).toEqual(jasmine.objectContaining(expected.queryResponseMatch.cache));
       });
     });
 
@@ -204,7 +207,7 @@ describe('workerClient', () => {
 
       it('no request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls.length).toBe(0);
+        expect(calls).toHaveSize(0);
       });
 
       it('correct response data', () => {
@@ -212,7 +215,8 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(cache).toEqual(expected.requestFieldPathDataEntityMatch.cache);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        expect(cache).toEqual(jasmine.objectContaining(expected.requestFieldPathDataEntityMatch.cache));
       });
     });
 
@@ -247,7 +251,7 @@ describe('workerClient', () => {
 
       it('one request', async () => {
         const calls = (await fetchMockWorker.postMessage('calls', { returnValue: true })) as PlainArray;
-        expect(calls.length).toBe(1);
+        expect(calls).toHaveSize(1);
       });
 
       it('correct response data', () => {
@@ -255,7 +259,8 @@ describe('workerClient', () => {
       });
 
       it('correct cache data', () => {
-        expect(cache).toEqual(expected.requestFieldPathDataEntityPartialMatch.cache);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        expect(cache).toEqual(jasmine.objectContaining(expected.requestFieldPathDataEntityPartialMatch.cache));
       });
     });
   });

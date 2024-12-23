@@ -20,7 +20,7 @@ import {
 import { EventEmitter } from 'eventemitter3';
 import { OperationTypeNode } from 'graphql';
 import { isError } from 'lodash-es';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { GRAPHQL_BOX, MESSAGE, REQUEST, SUBSCRIBE } from './constants.ts';
 import { logRequest } from './debug/logRequest.ts';
 import { logSubscription } from './debug/logSubscription.ts';
@@ -156,7 +156,7 @@ export class WorkerClient {
   private _getRequestContext(
     operation: OperationTypeNode,
     request: string,
-    context: PartialRequestContext = {}
+    context: PartialRequestContext = {},
   ): RequestContext {
     return {
       debugManager: this._debugManager,
@@ -171,7 +171,7 @@ export class WorkerClient {
       request,
       requestComplexity: null,
       requestDepth: null,
-      requestID: uuidv4(),
+      requestID: uuid(),
       ...context,
     };
   }
@@ -180,7 +180,7 @@ export class WorkerClient {
   private async _request(
     request: string,
     options: RequestOptions,
-    context: RequestContext
+    context: RequestContext,
   ): Promise<PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>> {
     try {
       return await new Promise((resolve: PendingResolver) => {
@@ -207,7 +207,7 @@ export class WorkerClient {
   private _subscribe(
     request: string,
     options: RequestOptions,
-    context: RequestContext
+    context: RequestContext,
   ): Promise<PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>> {
     try {
       this._worker.postMessage({

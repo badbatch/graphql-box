@@ -17,7 +17,7 @@ export const makeConnectionResolver =
     Args extends PlainObject,
     Ctx extends PlainObject,
     Resource extends PlainObject,
-    ResourceNode extends Node
+    ResourceNode extends Node,
   >({
     createMakeCursors,
     createResourceResolver,
@@ -30,7 +30,7 @@ export const makeConnectionResolver =
     source: Source,
     args: Args & ConnectionInputOptions,
     context: Ctx,
-    info: GraphQLResolveInfo
+    info: GraphQLResolveInfo,
   ): Promise<Connection> => {
     const { makeGroupCursor, makeIDCursor } = createMakeCursors(source, args, context, info);
     const resourceResolver = createResourceResolver(source, args, context, info);
@@ -64,7 +64,7 @@ export const makeConnectionResolver =
           makeIDCursor,
           resourceResolver,
           resultsPerPage,
-        })
+        }),
       );
     }
 
@@ -77,7 +77,7 @@ export const makeConnectionResolver =
           makeIDCursor,
           resourceResolver,
           resultsPerPage,
-        })
+        }),
       );
     }
 
@@ -97,6 +97,6 @@ export const makeConnectionResolver =
         makeIDCursor,
         resourceResolver,
         resultsPerPage,
-      })
+      }),
     );
   };

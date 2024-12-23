@@ -39,7 +39,7 @@ describe('@graphql-box/fetch-manager >>', () => {
           getRequestData(parsedRequests.singleTypeQuery),
           {},
           getRequestContext(),
-          (() => Promise.resolve(null)) as unknown as RequestResolver
+          (() => Promise.resolve(null)) as unknown as RequestResolver,
         )) as PartialRawResponseData;
       });
 
@@ -76,7 +76,7 @@ describe('@graphql-box/fetch-manager >>', () => {
           getRequestData(parsedRequests.singleTypeQuery),
           {},
           getRequestContext({ hasDeferOrStream: true }),
-          (() => Promise.resolve(null)) as unknown as RequestResolver
+          (() => Promise.resolve(null)) as unknown as RequestResolver,
         )) as PartialRawResponseData;
       });
 
@@ -214,7 +214,7 @@ describe('@graphql-box/fetch-manager >>', () => {
         getRequestData(parsedRequests.deferQuery),
         {},
         getRequestContext({ hasDeferOrStream: true }),
-        (data => Promise.resolve(data)) as RequestResolver
+        (data => Promise.resolve(data)) as RequestResolver,
       )) as AsyncIterableIterator<PartialRequestResult | undefined>;
 
       const promise = new Promise<void>(resolve => {

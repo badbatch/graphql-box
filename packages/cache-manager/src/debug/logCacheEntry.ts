@@ -7,7 +7,7 @@ type Descriptor = (
   value: unknown,
   cachemapOptions: CachemapOptions,
   options: RequestOptions,
-  context: CacheManagerContext & { requestFieldCacheKey?: string }
+  context: CacheManagerContext & { requestFieldCacheKey?: string },
 ) => Promise<void>;
 
 export const logCacheEntry = () => {
@@ -20,7 +20,7 @@ export const logCacheEntry = () => {
 
     descriptor.value = async function descriptorValue(...args: Parameters<Descriptor>): ReturnType<Descriptor> {
       return new Promise<void>(resolve => {
-        void (async () => {
+        const resolver = async () => {
           const { debugManager, requestFieldCacheKey, ...otherContext } = args[5];
 
           if (!debugManager) {
@@ -47,7 +47,9 @@ export const logCacheEntry = () => {
           };
 
           debugManager.log(CACHE_ENTRY_ADDED, payload);
-        })();
+        };
+
+        void resolver();
       });
     };
   };

@@ -13,7 +13,7 @@ import { filterFragmentDefinitions } from './filterFragmentDefinitions.ts';
 export const filterQuery = (
   requestData: RequestData,
   { fieldPathChecklist }: CachedResponseData,
-  context: CacheManagerContext
+  context: CacheManagerContext,
 ) => {
   const { ast } = requestData;
   const queryNode = getOperationDefinitions(ast, context.operation)[0];
@@ -32,6 +32,8 @@ export const filterQuery = (
   const fragmentSpreadChecklist = createFragmentSpreadChecklist(requestData, context);
 
   for (let index = fieldsAndTypeNames.length - 1; index >= 0; index -= 1) {
+    // In this context fieldsAndTypeNames[index] will not be undefined
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const { fieldNode } = fieldsAndTypeNames[index]!;
 
     const { requestFieldPath } = buildFieldKeysAndPaths(
@@ -39,7 +41,7 @@ export const filterQuery = (
       {
         requestFieldPath: operation,
       },
-      context
+      context,
     );
 
     if (filterField(fieldNode, fieldPathChecklist, fragmentSpreadChecklist, requestFieldPath, context)) {

@@ -385,7 +385,7 @@ describe('@graphql-box/request-parser >>', () => {
         const { options, request } = requestsAndOptions.queryWithDefer;
 
         expect(() => requestParser.updateRequest(request, options, requestContext)).toThrow(
-          '@graphql-box/request-parser >> to use defer/stream directives, please set the experimentalDeferStreamSupport flag to true'
+          '@graphql-box/request-parser >> to use defer/stream directives, please set the experimentalDeferStreamSupport flag to true',
         );
       });
     });
@@ -455,7 +455,7 @@ describe('@graphql-box/request-parser >>', () => {
       const { options, request } = requestsAndOptions.queryWithDefer;
 
       expect(() => requestParser.updateRequest(request, options, requestContext)).toThrow(
-        '@graphql-box/request-parser >> request field depth of 7 exceeded max field depth of 2'
+        '@graphql-box/request-parser >> request field depth of 7 exceeded max field depth of 2',
       );
     });
   });
@@ -482,7 +482,7 @@ describe('@graphql-box/request-parser >>', () => {
       const { options, request } = requestsAndOptions.queryWithDefer;
 
       expect(() => requestParser.updateRequest(request, options, requestContext)).toThrow(
-        '@graphql-box/request-parser >> request type complexity of 10 exceeded max type complexity of 9'
+        '@graphql-box/request-parser >> request type complexity of 10 exceeded max type complexity of 9',
       );
     });
   });

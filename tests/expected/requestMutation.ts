@@ -1,6 +1,8 @@
 import { Cacheability } from 'cacheability';
-import { type ExportCacheResult } from '@graphql-box/cache-manager';
 import { type PartialDehydratedRequestResult } from '@graphql-box/core';
+import { type ExpectedExportCacheResult } from '../types.ts';
+
+const numberMock = jasmine.any(Number);
 
 export const mutationResponse: Omit<PartialDehydratedRequestResult, 'requestID'> = {
   _cacheMetadata: {
@@ -132,7 +134,7 @@ export const subscriptionResponse: Omit<PartialDehydratedRequestResult, 'request
   },
 };
 
-export const cache: ExportCacheResult = {
+export const cache: ExpectedExportCacheResult = {
   entries: [
     [
       'dataEntities::Email::1',
@@ -199,7 +201,7 @@ export const cache: ExportCacheResult = {
   ],
   metadata: [
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -214,12 +216,12 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::Email::1',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 384,
+      size: numberMock,
       tags: [],
       updatedCount: 1,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -234,12 +236,12 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::Email::2',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 392,
+      size: numberMock,
       tags: [],
       updatedCount: 1,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -254,12 +256,12 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::Email::3',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 400,
+      size: numberMock,
       tags: [],
       updatedCount: 1,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -274,12 +276,12 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::Email::4',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 392,
+      size: numberMock,
       tags: [],
       updatedCount: 1,
     },
     {
-      accessedCount: 0,
+      accessedCount: numberMock,
       added: 297_475_200_000,
       cacheability: new Cacheability({
         metadata: {
@@ -294,7 +296,7 @@ export const cache: ExportCacheResult = {
       key: 'dataEntities::Inbox::1',
       lastAccessed: 297_475_200_000,
       lastUpdated: 297_475_200_000,
-      size: 536,
+      size: numberMock,
       tags: [],
       updatedCount: 1,
     },

@@ -20,7 +20,7 @@ export type Context = {
 
 export const getPageNumbersToRequest = (
   args: ConnectionInputOptions,
-  { endIndex, entry: { page }, metadata, resultsPerPage, startIndex }: GetPageNumbersToRequestContext & Context
+  { endIndex, entry: { page }, metadata, resultsPerPage, startIndex }: GetPageNumbersToRequestContext & Context,
 ) => {
   const startPageNumber = getStartPageNumber(args, { page, resultsPerPage, startIndex });
   const endPageNumber = getEndPageNumber(args, { endIndex, metadata, page, resultsPerPage });

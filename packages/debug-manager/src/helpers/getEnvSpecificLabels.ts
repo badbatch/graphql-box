@@ -1,7 +1,7 @@
 import { type Environment } from '../types.ts';
 
 export const getEnvSpecificLabels = (env: Environment) => {
-  if (env === 'server' && typeof window === 'undefined') {
+  if (env === 'server' && typeof globalThis === 'undefined') {
     const { platform, version } = process;
 
     return {
@@ -10,18 +10,23 @@ export const getEnvSpecificLabels = (env: Environment) => {
     };
   }
 
-  if (typeof window !== 'undefined') {
-    const { userAgent } = window.navigator;
-    const { href, pathname, port, protocol, search } = window.location;
+  if (typeof globalThis !== 'undefined') {
+    const { userAgent } = globalThis.navigator;
 
-    return {
-      path: pathname,
-      port,
-      protocol,
-      queryString: search,
-      url: href,
-      userAgent,
-    };
+    // Seems like it is possible for this to be undefined
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (globalThis.location) {
+      const { href, pathname, port, protocol, search } = globalThis.location;
+
+      return {
+        path: pathname,
+        port,
+        protocol,
+        queryString: search,
+        url: href,
+        userAgent,
+      };
+    }
   }
 
   return {};

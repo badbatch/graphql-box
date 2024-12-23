@@ -33,7 +33,7 @@ export interface UserOptions {
 export type MethodNames = 'request' | 'subscribe';
 
 export type PendingResolver = (
-  value: PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>
+  value: PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>,
 ) => void;
 
 export interface PendingData {

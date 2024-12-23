@@ -30,7 +30,7 @@ export const filterDataAndCacheMetadata = (
   { filteredCacheMetadata, filteredData }: FilteredDataAndCacheMetadata,
   fragmentDefinitions: { active?: FragmentDefinitionNodeMap; pending?: FragmentDefinitionNodeMap },
   keyAndPathOptions: { active: KeysAndPathsOptions; pending: KeysAndPathsOptions },
-  contexts: { active: RequestContext; pending: RequestContext }
+  contexts: { active: RequestContext; pending: RequestContext },
 ) => {
   const pendingKeysAndPaths = buildFieldKeysAndPaths(pendingFieldNode, keyAndPathOptions.active, contexts.pending);
   const activeKeysAndPaths = buildFieldKeysAndPaths(activeFieldNode, keyAndPathOptions.active, contexts.active);
@@ -39,6 +39,8 @@ export const filterDataAndCacheMetadata = (
     return;
   }
 
+  // Typing get return value doesn't really work
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const rawFieldData = get(activeResponseData.data, activeKeysAndPaths.responseDataPath) as unknown;
   let activeFieldData = rawFieldData;
 
@@ -72,7 +74,7 @@ export const filterDataAndCacheMetadata = (
       _childTypeName: string | undefined,
       _childFragmentKind: string | undefined,
       _childFragmentName: string | undefined,
-      childIndex?: number
+      childIndex?: number,
     ) => {
       let activeChildFieldNode: FieldNode;
 
@@ -107,22 +109,22 @@ export const filterDataAndCacheMetadata = (
           active: { ...activeKeysAndPaths, index: childIndex },
           pending: { ...pendingKeysAndPaths, index: childIndex },
         },
-        contexts
+        contexts,
       );
-    }
+    },
   );
 };
 
 export const filterResponseData = (
-  pendingRequestDatat: RequestData,
-  activeRequestDatat: RequestData,
+  pendingRequestData: RequestData,
+  activeRequestData: RequestData,
   { cacheMetadata, data, ...rest }: ResponseData,
-  { active, pending }: { active: RequestContext; pending: RequestContext }
+  { active, pending }: { active: RequestContext; pending: RequestContext },
 ) => {
-  const [pendingQueryNode] = getOperationDefinitions(pendingRequestDatat.ast, OperationTypeNode.QUERY);
-  const pendingQueryFragmentDefinitions = getFragmentDefinitions(pendingRequestDatat.ast);
-  const [activeQueryNode] = getOperationDefinitions(activeRequestDatat.ast, OperationTypeNode.QUERY);
-  const activeQueryFragmentDefinitions = getFragmentDefinitions(activeRequestDatat.ast);
+  const [pendingQueryNode] = getOperationDefinitions(pendingRequestData.ast, OperationTypeNode.QUERY);
+  const pendingQueryFragmentDefinitions = getFragmentDefinitions(pendingRequestData.ast);
+  const [activeQueryNode] = getOperationDefinitions(activeRequestData.ast, OperationTypeNode.QUERY);
+  const activeQueryFragmentDefinitions = getFragmentDefinitions(activeRequestData.ast);
 
   if (!pendingQueryNode || !activeQueryNode) {
     return { cacheMetadata, data, ...rest };
@@ -167,7 +169,7 @@ export const filterResponseData = (
           active: { requestFieldPath: OperationTypeNode.QUERY },
           pending: { requestFieldPath: OperationTypeNode.QUERY },
         },
-        { active, pending }
+        { active, pending },
       );
     }
   }

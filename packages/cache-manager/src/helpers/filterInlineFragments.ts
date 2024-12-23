@@ -4,7 +4,7 @@ import { type CacheManagerContext } from '../types.ts';
 
 export const filterInlineFragments = (
   field: FieldNode | FragmentDefinitionNode | OperationDefinitionNode,
-  { fragmentDefinitions, typeIDKey }: CacheManagerContext
+  { fragmentDefinitions, typeIDKey }: CacheManagerContext,
 ) => {
   const inlineFragments = getInlineFragments(field);
   let filtered = false;

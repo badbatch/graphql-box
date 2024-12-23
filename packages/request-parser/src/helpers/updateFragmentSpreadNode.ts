@@ -1,5 +1,5 @@
 import { type RequestOptions } from '@graphql-box/core';
-import { getKind, getName, parseDirectiveArguments } from '@graphql-box/helpers';
+import { getKind, parseDirectiveArguments } from '@graphql-box/helpers';
 import { type FragmentSpreadNode } from 'graphql';
 import { isEmpty } from 'lodash-es';
 import { type Ancestors, type VisitorContext } from '../types.ts';
@@ -11,13 +11,13 @@ export const updateFragmentSpreadNode = (
   node: FragmentSpreadNode,
   ancestors: Ancestors,
   options: RequestOptions,
-  context: VisitorContext
+  context: VisitorContext,
 ) => {
   if (!node.directives) {
     return;
   }
 
-  const parsedDirectives = parseDirectiveArguments(node.directives, getName(node)!, getKind(node), options);
+  const parsedDirectives = parseDirectiveArguments(node.directives, node.name.value, getKind(node), options);
   const groupedFragmentSpreadDirectives = groupFragmentSpreadDirectives(parsedDirectives);
 
   if (!isEmpty(groupedFragmentSpreadDirectives)) {
@@ -31,7 +31,7 @@ export const updateFragmentSpreadNode = (
 
     if (!context.experimentalDeferStreamSupport) {
       throw new Error(
-        '@graphql-box/request-parser >> to use defer/stream directives, please set the experimentalDeferStreamSupport flag to true'
+        '@graphql-box/request-parser >> to use defer/stream directives, please set the experimentalDeferStreamSupport flag to true',
       );
     }
   }

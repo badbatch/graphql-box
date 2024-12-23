@@ -11,7 +11,7 @@ import { isTypeEntity } from './isTypeEntity.ts';
 export const getPossibleTypeDetails = (
   type: GraphQLNamedType | GraphQLOutputType,
   schema: GraphQLSchema,
-  typeIDKey: string
+  typeIDKey: string,
 ) => {
   const possibleTypeDetails: PossibleType[] = [];
 
@@ -24,7 +24,7 @@ export const getPossibleTypeDetails = (
           isEntity: isTypeEntity(possibleType, typeIDKey),
           typeName: possibleType.name,
         };
-      })
+      }),
     );
   }
 

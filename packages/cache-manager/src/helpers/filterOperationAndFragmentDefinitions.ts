@@ -5,6 +5,6 @@ export const filterOperationAndFragmentDefinitions = (ast: DocumentNode) => {
   return ast.definitions.filter(
     definition =>
       isKind<OperationDefinitionNode>(definition, Kind.OPERATION_DEFINITION) ||
-      isKind<FragmentDefinitionNode>(definition, Kind.FRAGMENT_DEFINITION)
-  ) as (OperationDefinitionNode | FragmentDefinitionNode)[];
+      isKind<FragmentDefinitionNode>(definition, Kind.FRAGMENT_DEFINITION),
+  );
 };

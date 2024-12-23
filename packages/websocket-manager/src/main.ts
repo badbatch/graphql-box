@@ -16,14 +16,13 @@ export class WebsocketManager implements SubscriptionsManagerDef {
     return { operation, originalRequestHash, requestID };
   }
 
-  private _eventEmitter: EventEmitter;
+  private readonly _eventEmitter: EventEmitter;
   private _subscriptions = new Map<string, SubscriberResolver>();
   private _websocket: WebSocket;
 
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!('websocket' in options)) {
       errors.push(new TypeError('@graphql-box/websocket-manager expected options.websocket.'));
     }
@@ -44,7 +43,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
     { hash, request }: RequestData,
     _options: RequestOptions,
     context: RequestContext,
-    subscriberResolver: SubscriberResolver
+    subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<PartialRequestResult | undefined>> {
     if (!this._isSocketOpen()) {
       throw new Error('@graphql-box/websocket-manager expected the websocket to be open.');
@@ -55,7 +54,7 @@ export class WebsocketManager implements SubscriptionsManagerDef {
         context: WebsocketManager._getMessageContext(context),
         subscription: request,
         subscriptionID: hash,
-      })
+      }),
     );
 
     this._subscriptions.set(hash, result => {
@@ -71,6 +70,8 @@ export class WebsocketManager implements SubscriptionsManagerDef {
   }
 
   private async _onMessage(event: MessageEvent<string>): Promise<void> {
+    // JSON.parse returns an any type
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const { result, subscriptionID } = JSON.parse(event.data) as {
       result: PartialRawFetchData;
       subscriptionID: string;

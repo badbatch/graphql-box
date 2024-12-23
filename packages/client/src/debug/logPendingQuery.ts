@@ -18,10 +18,11 @@ export const logPendingQuery = () => {
       const { debugManager, ...otherContext } = context;
 
       if (!debugManager) {
-        return method.apply(this, args);
+        method.apply(this, args);
+        return;
       }
 
-      const result = method.apply(this, args);
+      method.apply(this, args);
 
       debugManager.log(PENDING_QUERY_ADDED, {
         activeRequestHash: args[0],
@@ -29,8 +30,6 @@ export const logPendingQuery = () => {
         options,
         pendingRequestHash: hash,
       });
-
-      return result;
     };
   };
 };

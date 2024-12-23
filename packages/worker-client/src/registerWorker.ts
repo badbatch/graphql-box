@@ -15,18 +15,18 @@ import {
   type RegisterWorkerOptions,
 } from './types.ts';
 
-const globalScope = self as unknown as DedicatedWorkerGlobalScope;
-
 const handleRequest = async (
   request: string,
   method: MethodNames,
   options: RequestOptions,
   context: MessageContext,
-  client: Client
+  client: Client,
 ): Promise<void> => {
   const requestResult = await client.request(request, options, context);
 
   if (!isAsyncIterable(requestResult)) {
+    // Need to replace this casting with a type guard
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const { _cacheMetadata, ...otherProps } = requestResult as PartialRequestResult;
     const result: PartialDehydratedRequestResult = serializeErrors({ ...otherProps });
 
@@ -34,7 +34,7 @@ const handleRequest = async (
       result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
     }
 
-    globalScope.postMessage({ context, method, result, type: GRAPHQL_BOX });
+    globalThis.postMessage({ context, method, result, type: GRAPHQL_BOX });
     return;
   }
 
@@ -45,7 +45,7 @@ const handleRequest = async (
       result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
     }
 
-    globalScope.postMessage({ context, method, result, type: GRAPHQL_BOX });
+    globalThis.postMessage({ context, method, result, type: GRAPHQL_BOX });
   });
 };
 
@@ -54,14 +54,16 @@ const handleSubscription = async (
   method: MethodNames,
   options: RequestOptions,
   context: MessageContext,
-  client: Client
+  client: Client,
 ): Promise<void> => {
   const subscribeResult = await client.subscribe(request, options, context);
 
   if (!isAsyncIterable(subscribeResult)) {
-    globalScope.postMessage({
+    globalThis.postMessage({
       context,
       method,
+      // Need to replace this casting with a type guard
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       result: serializeErrors(subscribeResult as PartialRequestResult),
       type: GRAPHQL_BOX,
     });
@@ -76,7 +78,7 @@ const handleSubscription = async (
       result._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
     }
 
-    globalScope.postMessage({ context, method, result, type: GRAPHQL_BOX });
+    globalThis.postMessage({ context, method, result, type: GRAPHQL_BOX });
   });
 };
 
@@ -99,5 +101,5 @@ export const registerWorker = ({ client }: RegisterWorkerOptions): void => {
     }
   };
 
-  globalScope.addEventListener(MESSAGE, onMessage);
+  globalThis.addEventListener(MESSAGE, onMessage);
 };

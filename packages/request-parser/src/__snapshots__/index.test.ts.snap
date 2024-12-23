@@ -921,36 +921,6 @@ exports[`@graphql-box/request-parser >> query >> fragment spreads >> within frag
       "typeIDValue": undefined,
       "typeName": "String",
     },
-    "query.movie.belongsToCollection.parts.releaseDates" => {
-      "directives": {
-        "inherited": [
-          "defer({"label":"MovieReleaseDatesDefer"})",
-        ],
-        "own": [],
-      },
-      "hasArguments": false,
-      "hasDirectives": true,
-      "isEntity": false,
-      "isInterface": false,
-      "isUnion": false,
-      "possibleTypes": [],
-      "typeIDValue": undefined,
-      "typeName": "ReleaseDates",
-    },
-    "query.movie.belongsToCollection.parts.releaseDates.releaseDates" => {
-      "directives": {
-        "inherited": [],
-        "own": [],
-      },
-      "hasArguments": false,
-      "hasDirectives": false,
-      "isEntity": false,
-      "isInterface": false,
-      "isUnion": false,
-      "possibleTypes": [],
-      "typeIDValue": undefined,
-      "typeName": "ReleaseDate",
-    },
     "query.movie.belongsToCollection.parts.title" => {
       "directives": {
         "inherited": [
@@ -966,22 +936,6 @@ exports[`@graphql-box/request-parser >> query >> fragment spreads >> within frag
       "possibleTypes": [],
       "typeIDValue": undefined,
       "typeName": "String",
-    },
-    "query.movie.belongsToCollection.parts.videos" => {
-      "directives": {
-        "inherited": [
-          "defer({"label":"MovieVideosDefer"})",
-        ],
-        "own": [],
-      },
-      "hasArguments": false,
-      "hasDirectives": true,
-      "isEntity": true,
-      "isInterface": false,
-      "isUnion": false,
-      "possibleTypes": [],
-      "typeIDValue": undefined,
-      "typeName": "Video",
     },
     "query.movie.belongsToCollection.parts.voteAverage" => {
       "directives": {

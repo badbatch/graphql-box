@@ -19,14 +19,19 @@ export const deserializedGraphqlError = (obj: DeserializedGraphqlError): GraphQL
   return graphqlError;
 };
 
+const isDeserializedGraphqlError = (error: DeserializedGraphqlError | ErrorObject): error is DeserializedGraphqlError =>
+  error.name === 'GraphQLError';
+
 export const deserializeError = (error: DeserializedGraphqlError | ErrorObject) =>
-  error.name === 'GraphQLError' ? deserializedGraphqlError(error as DeserializedGraphqlError) : deserialize(error);
+  isDeserializedGraphqlError(error) ? deserializedGraphqlError(error) : deserialize(error);
 
 export const deserializeErrors = <Type extends { errors?: (DeserializedGraphqlError | ErrorObject)[] }>({
   errors,
   ...rest
 }: Type) => {
   if (!errors) {
+    // Add for easy of typing return value for consumers.
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     return rest as Type & { errors?: Error[] | readonly Error[] };
   }
 
@@ -35,6 +40,8 @@ export const deserializeErrors = <Type extends { errors?: (DeserializedGraphqlEr
     errors: errors.map(error => deserializeError(error)),
   };
 
+  // Add for easy of typing return value for consumers.
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   return output as Type & { errors: Error[] | readonly Error[] };
 };
 
@@ -42,6 +49,8 @@ export const serializeGraphqlError = (error: GraphQLError) => {
   const cloneOwnProperties = (instance: object) =>
     Object.getOwnPropertyNames(instance).reduce<PlainObject>((obj, name) => {
       // @ts-expect-error type 'string' can't be used to index type '{}'
+      // Helps with typing following code.
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const value = instance[name] as unknown;
 
       obj[name] =
@@ -60,6 +69,8 @@ export const serializeError = (error: Error) =>
 
 export const serializeErrors = <Type extends { errors?: Error[] | readonly Error[] }>({ errors, ...rest }: Type) => {
   if (!errors) {
+    // Add for easy of typing return value for consumers.
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     return rest as Type & { errors?: (DeserializedGraphqlError | ErrorObject)[] };
   }
 
@@ -68,5 +79,7 @@ export const serializeErrors = <Type extends { errors?: Error[] | readonly Error
     errors: errors.map(error => serializeError(error)),
   };
 
+  // Add for easy of typing return value for consumers.
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   return output as Type & { errors: (DeserializedGraphqlError | ErrorObject)[] };
 };

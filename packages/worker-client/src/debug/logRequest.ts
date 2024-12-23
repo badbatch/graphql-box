@@ -12,7 +12,7 @@ import { type WorkerClient } from '../main.ts';
 type Descriptor = (
   request: string,
   options: RequestOptions,
-  context: RequestContext
+  context: RequestContext,
 ) => Promise<PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>>;
 
 export const logRequest = () => {

@@ -40,7 +40,7 @@ export interface UserOptions {
   requestParser: RequestParserDef;
 
   /**
-   * The curried function to initialize the subscriptions manager.
+   * The curried function to initialize the subscription manager.
    */
   subscriptionsManager?: SubscriptionsManagerDef;
 }

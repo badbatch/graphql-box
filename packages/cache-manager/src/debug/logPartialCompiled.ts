@@ -5,7 +5,7 @@ type Descriptor = (
   hash: string,
   partialQueryResponse: PartialQueryResponse,
   options: RequestOptions,
-  context: CacheManagerContext
+  context: CacheManagerContext,
 ) => void;
 
 export const logPartialCompiled = () => {
