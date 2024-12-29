@@ -38,6 +38,7 @@
     "test:node": "pnpm run /^test:node:.*/",
     "test:node:cjs": "COMPILER=babel BABEL_MODULE_SYSTEM=cjs node node_modules/jest/bin/jest.js --testMatch \"$(pwd)/packages/gql.macro/**/*.test.ts\"",
     "test:node:esm": "node --require=suppress-experimental-warnings --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch \"$(pwd)/packages/!(gql.macro)/**/*.test.ts\"",
+    "test:node:other": "pnpm run -r test",
     "type-check": "tsc --noEmit",
     "validate": "pnpm run syncpack && pnpm run build && pnpm run lint && pnpm run type-check && pnpm run test"
   },
