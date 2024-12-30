@@ -802,7 +802,7 @@ importers:
         specifier: ^16.9.0
         version: 16.10.0
 
-  packages/swc-plugin: {}
+  packages/swc-plugin-gql: {}
 
   packages/test-utils:
     dependencies:

@@ -776,6 +776,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "path-clean"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "17359afc20d7ab31fdb42bb844c8b3bb1dabd7dcf7e68428492da7f16966fcef"
+
+[[package]]
 name = "percent-encoding"
 version = "2.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1245,10 +1251,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "swc-plugin-graphql-box"
+name = "swc-plugin-graphql-box-gql"
 version = "0.1.0"
 dependencies = [
  "md5",
+ "path-clean",
  "regex",
  "serde",
  "swc_core",

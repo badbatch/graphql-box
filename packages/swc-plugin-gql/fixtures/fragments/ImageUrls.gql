@@ -1,0 +1,4 @@
+fragment ImageUrls on Image {
+  baseUrl
+  secureBaseUrl
+}

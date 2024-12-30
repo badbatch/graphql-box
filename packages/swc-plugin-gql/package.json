@@ -1,24 +1,24 @@
 {
-  "name": "swc-plugin-graphql-box",
+  "name": "@graphql-box/swc-plugin-gql",
   "description": "The GraphQL Box SWC plugin for replacing paths to GraphQL queries with those queries.",
   "version": "0.0.1",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
   "repository": {
-    "directory": "packages/swc-plugin",
+    "directory": "packages/swc-plugin-gql",
     "type": "git",
     "url": "https://github.com/badbatch/graphql-box"
   },
   "bugs": "https://github.com/badbatch/graphql-box/issues",
-  "main": "target/wasm32-wasi/release/swc-plugin-graphql-box.wasm",
+  "main": "./target/wasm32-wasi/release/swc-plugin-graphql-box-gql.wasm",
   "types": "./types.d.ts",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
     "build": "cargo build",
-    "prepublishOnly": "cargo build-wasi --release",
+    "prepack": "cargo build --release -p swc-plugin-graphql-box-gql --target wasm32-wasi",
     "test": "cargo test"
   },
   "keywords": [
