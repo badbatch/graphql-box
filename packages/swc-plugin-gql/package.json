@@ -1,7 +1,7 @@
 {
   "name": "@graphql-box/swc-plugin-gql",
   "description": "The GraphQL Box SWC plugin for replacing paths to GraphQL queries with those queries.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",

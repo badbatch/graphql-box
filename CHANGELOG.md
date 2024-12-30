@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.5.0 (2024-12-30)
+
+### Chores
+
+* **swc-plugin-gql:**  add readme and license (6225cf61)
+
+### New Features
+
+* **swc-plugin-gql:**  remaining changes for plugin (16c45748)
+* **swc-plugin:**  add initial code for plugin (dce26d23)
+
 ## 5.4.0 (2024-12-23)
 
 ### Chores
