@@ -1,5 +1,22 @@
 # Changelog
 
+## 5.5.1 (2024-12-30)
+
+### Chores
+
+* **root:**  update mise config to include rust (fd46854d)
+
+### Bug Fixes
+
+* **swc-plugin-gql:**
+  * add clippy explicitely in lint script (23474f16)
+  * linting suggestions (17fd477a)
+* **root:**  add rust flags to enable clippy (ba3e00db)
+
+### Refactors
+
+* **swc-plugin-gql:**  config changes (6384b26c)
+
 ## 5.5.0 (2024-12-30)
 
 ### Chores
