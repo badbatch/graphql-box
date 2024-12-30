@@ -48,7 +48,7 @@ describe('gql.macro', () => {
     });
 
     it('should call writeFile with the correct arguments', () => {
-      expect(writeFile).toHaveBeenCalledWith(`${process.cwd()}/requestWhitelist.txt`, [
+      expect(writeFile).toHaveBeenCalledWith(`${process.cwd()}/.gql-query-whitelist`, [
         '33771f995332f7d2c4f83258a37d3108',
       ]);
     });

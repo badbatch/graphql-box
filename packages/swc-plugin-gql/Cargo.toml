@@ -1,0 +1,21 @@
+[package]
+name = "swc-plugin-graphql-box-gql"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[profile.release]
+lto = true
+
+[dependencies]
+md5 = "0.7.0"
+serde = "1"
+swc_core = { version = "0.101.*", features = ["ecma_plugin_transform"] }
+regex = "1.11.1"
+path-clean = "1.0.1"
+
+# .cargo/config.toml defines few alias to build plugin.
+# cargo build-wasi generates wasm-wasi32 binary
+# cargo build-wasm32 generates wasm32-unknown-unknown binary.

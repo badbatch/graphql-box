@@ -17,7 +17,7 @@ export const macroHandler: MacroHandler = ({ config, references: { default: path
     const { cwd } = state;
     // Unable to type the config in a better way
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    const { basePath = cwd, requestWhitelistPath = `${cwd}/requestWhitelist.txt` } = (config ?? {}) as GqlConfig;
+    const { basePath = cwd, requestWhitelistPath = `${cwd}/.gql-query-whitelist` } = (config ?? {}) as GqlConfig;
     const whitelist: string[] = [];
 
     for (const path of paths) {
