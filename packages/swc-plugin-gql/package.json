@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "cargo build",
-    "lint": "cargo clippy",
+    "lint": "rustup component add clippy && cargo clippy",
     "prepack": "rustup target add wasm32-wasi && cargo build --release -p swc-plugin-graphql-box-gql --target wasm32-wasi",
     "test": "cargo test"
   },
