@@ -1,4 +1,4 @@
-use path_clean::{clean};
+use path_clean::clean;
 use regex::Regex;
 use std::env;
 use std::fs::{read_to_string, OpenOptions};
@@ -17,10 +17,10 @@ pub struct TransformVisitor;
 const IMPORT_GQL_IDENT: &str = "importGql";
 const WHITELIST_FILE: &str = ".gql-query-whitelist";
 
-fn build_gql_query_node(gql_query_path: &PathBuf, gql_query: String) -> Option<Box<Expr>> {
-    let mut resolved_gql_query = resolve_gql_imports(&gql_query_path, gql_query);
-    resolved_gql_query.insert_str(0, "`");
-    resolved_gql_query.push_str("`");
+fn build_gql_query_node(gql_query_path: &Path, gql_query: String) -> Option<Box<Expr>> {
+    let mut resolved_gql_query = resolve_gql_imports(gql_query_path, gql_query);
+    resolved_gql_query.insert(0, '`');
+    resolved_gql_query.push('`');
     let value = Str::from_tpl_raw(&resolved_gql_query);
     let raw = Some(value.clone());
 
@@ -31,7 +31,7 @@ fn build_gql_query_node(gql_query_path: &PathBuf, gql_query: String) -> Option<B
     }))))
 }
 
-fn format_gql_query_for_hashing(gql_query: &String) -> String {
+fn format_gql_query_for_hashing(gql_query: &str) -> String {
     String::from(get_whitespace_regex().replace_all(gql_query, ""))
 }
 
@@ -48,13 +48,13 @@ fn get_gql_import_path_regex() -> Regex {
 }
 
 fn get_gql_query(path_buff: &PathBuf) -> Option<String> {
-    read_to_string(&path_buff).ok()
+    read_to_string(path_buff).ok()
 }
 
 fn get_gql_query_path(tagged_tpl: Option<TaggedTpl>) -> Option<PathBuf> {
     tagged_tpl
         .and_then(|tagged_tpl| {
-            if let Some(tpl_element) = tagged_tpl.tpl.quasis.get(0) {
+            if let Some(tpl_element) = tagged_tpl.tpl.quasis.first() {
                 let tpl_element = tpl_element.clone();
                 Some(tpl_element)
             } else {
@@ -62,9 +62,7 @@ fn get_gql_query_path(tagged_tpl: Option<TaggedTpl>) -> Option<PathBuf> {
             }
         })
         .and_then(|tpl_element| get_current_dir().map(|current_dir| (tpl_element, current_dir)))
-        .and_then(|(tpl_element, current_dir)| {
-            Some(Path::new(&current_dir).join(tpl_element.raw.as_str()))
-        })
+        .map(|(tpl_element, current_dir)| Path::new(&current_dir).join(tpl_element.raw.as_str()))
 }
 
 fn get_import_gql_index(module_node: &mut Module) -> Option<usize> {
@@ -118,13 +116,10 @@ fn is_ident_import_gql(tagged_tpl: Option<TaggedTpl>) -> bool {
 }
 
 fn parse_whitelist_file_contents(contents: String) -> Vec<String> {
-    contents
-        .split("\n")
-        .map(|line| String::from(line))
-        .collect()
+    contents.split("\n").map(String::from).collect()
 }
 
-fn resolve_gql_imports(gql_query_path: &PathBuf, gql_query: String) -> String {
+fn resolve_gql_imports(gql_query_path: &Path, gql_query: String) -> String {
     let mut gql_imports: Vec<&str> = gql_query
         .split("\n")
         .filter(|line| line.starts_with("#import "))
@@ -133,19 +128,19 @@ fn resolve_gql_imports(gql_query_path: &PathBuf, gql_query: String) -> String {
     let mut other_lines: Vec<String> = gql_query
         .split("\n")
         .filter(|line| !line.starts_with("#import "))
-        .map(|line| String::from(line))
+        .map(String::from)
         .collect();
 
     for gql_import in gql_imports.iter_mut() {
-        if let Some(captures) = get_gql_import_path_regex().captures(&gql_import) {
+        if let Some(captures) = get_gql_import_path_regex().captures(gql_import) {
             if let Some(capture_group) = captures.get(1) {
                 let current_import_path = gql_query_path.parent().unwrap();
                 let relative_import_path = Path::new(capture_group.as_str());
                 let import_path_buf = clean(current_import_path.join(relative_import_path));
-                
-                let maybe_imported_gql_query: Option<String> = get_gql_query(&import_path_buf)
-                    .and_then(|imported_gql_query| {
-                        Some(resolve_gql_imports(&import_path_buf, imported_gql_query))
+
+                let maybe_imported_gql_query: Option<String> =
+                    get_gql_query(&import_path_buf).map(|imported_gql_query| {
+                        resolve_gql_imports(&import_path_buf, imported_gql_query)
                     });
 
                 if let Some(imported_gql_query) = maybe_imported_gql_query {
@@ -162,7 +157,7 @@ fn unbox<T>(value: Box<T>) -> T {
     *value
 }
 
-fn whitelist_gql_query(gql_query: &String) {
+fn whitelist_gql_query(gql_query: &str) {
     let digest = md5::compute(format_gql_query_for_hashing(gql_query));
     let hash = format!("{:x}", digest);
 
@@ -189,7 +184,11 @@ fn write_hash_to_file(hash: String, path: &PathBuf) {
 
     if let Some(mut file) = opt_file {
         let line = hash + "\n";
-        file.write(line.as_bytes()).ok();
+
+        match file.write(line.as_bytes()).ok() {
+            Some(_) => {}
+            None => {}
+        }
     }
 }
 
