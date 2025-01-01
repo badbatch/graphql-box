@@ -4,6 +4,7 @@
 bundle/
 coverage/
 docs/
+target/
 
 # private files
 .*
