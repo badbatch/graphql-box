@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.5.2 (2025-01-01)
+
+### Chores
+
+* **root:**  minor changes (8642a228)
+
+### Bug Fixes
+
+* **swc-plugin-gql:**  output wasm filename wrongame wrong (47ea8464)
+
+### Refactors
+
+* **swc-plugin-gql:**  change how files are ignored (f47fd6d9)
+
 ## 5.5.1 (2024-12-30)
 
 ### Chores
