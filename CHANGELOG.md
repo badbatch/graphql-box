@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.4 (2025-01-01)
+
+### Bug Fixes
+
+* **swc-plugin-gql:**  exclude target from npm (7bce5b95)
+
 ## 5.5.3 (2025-01-01)
 
 ### Bug Fixes
