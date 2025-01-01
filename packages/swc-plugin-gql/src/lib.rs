@@ -185,10 +185,7 @@ fn write_hash_to_file(hash: String, path: &PathBuf) {
     if let Some(mut file) = opt_file {
         let line = hash + "\n";
 
-        match file.write(line.as_bytes()).ok() {
-            Some(_) => {}
-            None => {}
-        }
+        if file.write(line.as_bytes()).is_ok() {}
     }
 }
 

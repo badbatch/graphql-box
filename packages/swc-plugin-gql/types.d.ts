@@ -1,4 +1,2 @@
-type ImportGql = (path: TemplateStringsArray) => string;
-
-export = ImportGql;
-export default ImportGql;
+declare const macro: (path: TemplateStringsArray) => string;
+export default macro;
