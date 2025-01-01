@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.5.3 (2025-01-01)
+
+### Bug Fixes
+
+* **swc-plugin-gql:**
+  * wrong build npm script (cc29ad4b)
+  * copy wasm output to dist folder and ignore target (750fa2f6)
+
 ## 5.5.2 (2025-01-01)
 
 ### Chores
