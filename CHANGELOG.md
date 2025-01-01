@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.6 (2025-01-01)
+
+### Bug Fixes
+
+* **swc-plugin-gql:**  importGql signature (afc44ffd)
+
 ## 5.5.5 (2025-01-01)
 
 ### Bug Fixes
