@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.5 (2025-01-01)
+
+### Bug Fixes
+
+* **swc-plugin-gql:**  change type signature of importGql (d4c2e4ad)
+
 ## 5.5.4 (2025-01-01)
 
 ### Bug Fixes
