@@ -17,10 +17,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "pnpm run clean:dist && pnpm run compile",
+    "build": "cargo build",
+    "build-release": "cargo build --release -p swc-plugin-graphql-box-gql --target wasm32-wasi",
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
-    "build-release": "cargo build --release -p swc-plugin-graphql-box-gql --target wasm32-wasi",
     "copy-wasm": "copyfiles -f target/wasm32-wasi/release/swc_plugin_graphql_box_gql.wasm dist",
     "lint": "rustup component add clippy && cargo clippy",
     "prepack": "pnpm run clean:dist && pnpm run target-wasm && pnpm run build-release && pnpm run copy-wasm",
