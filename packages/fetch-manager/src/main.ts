@@ -55,6 +55,7 @@ export class FetchManager {
       }
     }
   }
+
   private _activeRequestBatch: Record<string, ActiveBatch | undefined> = {};
   private _activeRequestBatchTimer: Record<string, NodeJS.Timeout | undefined> = {};
   private _activeResponseBatch: Set<PartialRawFetchData> | undefined;
