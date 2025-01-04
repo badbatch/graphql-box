@@ -5,7 +5,8 @@
     "moduleResolution": "Bundler"
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "index.d.ts"
   ],
   "references": []
 }

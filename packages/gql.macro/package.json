@@ -13,16 +13,13 @@
   "bugs": "https://github.com/badbatch/graphql-box/issues",
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
-  "types": "./dist/types/cjs/index.d.cts",
+  "types": "./index.d.ts",
   "imports": {
     "#*": "./src/*"
   },
   "exports": {
     ".": {
-      "types": {
-        "import": "./dist/types/esm/index.d.ts",
-        "require": "./dist/types/cjs/index.d.cts"
-      },
+      "types": "./index.d.ts",
       "import": "./dist/esm/index.mjs",
       "require": "./dist/cjs/index.cjs"
     }
@@ -36,8 +33,7 @@
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
     "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.babel.cjs",
-    "compile:esm": "rollup -c ../../rollup.config.babel.cjs",
-    "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
+    "compile:esm": "rollup -c ../../rollup.config.babel.cjs"
   },
   "dependencies": {
     "@babel/core": "^7.26.0",
