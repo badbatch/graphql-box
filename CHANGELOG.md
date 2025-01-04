@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.7 (2025-01-04)
+
+### Chores
+
+* **fetch-manager:**  fix formatting (cee94dcb)
+
+### Refactors
+
+* **root:**  remove swc plugin until it works properly (cfd85357)
+
 ## 5.5.6 (2025-01-01)
 
 ### Bug Fixes
