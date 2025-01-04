@@ -57,7 +57,6 @@ GraphQL Box's multi-package structure allows you to compose your client and serv
 * [@graphql-box/request-parser](packages/request-parser/README.md)
 * [@graphql-box/server](packages/server/README.md)
 * [@graphql-box/subscribe](packages/subscribe/README.md)
-* [@graphql-box/swc-plugin-gql](packages/swc-plugin-gql/README.md)
 * [@graphql-box/websocket-manager](packages/websocket-manager/README.md)
 * [@graphql-box/worker-client](packages/worker-client/README.md)
 
