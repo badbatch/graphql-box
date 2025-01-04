@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.8 (2025-01-04)
+
+### Chores
+
+* **deps-dev:**  bump next from 14.2.20 to 14.2.21 (57e6ca75)
+
+### Refactors
+
+* **gql.macro:**  manually generate types (a47b6eb4)
+
 ## 5.5.7 (2025-01-04)
 
 ### Chores
