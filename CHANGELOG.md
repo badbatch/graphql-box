@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.9 (2025-01-11)
+
+### New Features
+
+* **react:**  add multi query and mutation hooks (32e26f10)
+
+### Bug Fixes
+
+* **root:**  remove rust config in github actions (9dcb386d)
+
 ## 5.5.8 (2025-01-04)
 
 ### Chores
