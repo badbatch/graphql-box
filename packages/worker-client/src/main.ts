@@ -102,7 +102,6 @@ export class WorkerClient {
   private _experimentalDeferStreamSupport: boolean;
   private _messageQueue: MessageRequestPayload[] = [];
   private _pending: PendingTracker = new Map();
-
   private _worker: Worker | undefined;
 
   constructor(options: UserOptions) {
