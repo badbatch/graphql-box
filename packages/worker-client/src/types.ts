@@ -27,7 +27,7 @@ export interface UserOptions {
   /**
    * The web worker instance.
    */
-  worker: Worker;
+  worker: Worker | (() => Promise<Worker>);
 }
 
 export type MethodNames = 'request' | 'subscribe';

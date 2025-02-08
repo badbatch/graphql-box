@@ -26,6 +26,7 @@ import { logRequest } from './debug/logRequest.ts';
 import { logSubscription } from './debug/logSubscription.ts';
 import {
   type MessageContext,
+  type MessageRequestPayload,
   type MessageResponsePayload,
   type PendingResolver,
   type PendingTracker,
@@ -99,8 +100,10 @@ export class WorkerClient {
   private _debugManager: DebugManagerDef | null;
   private _eventEmitter: EventEmitter;
   private _experimentalDeferStreamSupport: boolean;
+  private _messageQueue: MessageRequestPayload[] = [];
   private _pending: PendingTracker = new Map();
-  private _worker: Worker;
+
+  private _worker: Worker | undefined;
 
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
@@ -125,8 +128,22 @@ export class WorkerClient {
     this._debugManager = options.debugManager ?? null;
     this._eventEmitter = new EventEmitter();
     this._experimentalDeferStreamSupport = options.experimentalDeferStreamSupport ?? false;
-    this._worker = options.worker;
-    this._addEventListener();
+
+    if (typeof options.worker === 'function') {
+      options
+        .worker()
+        .then(worker => {
+          this._worker = worker;
+          this._addEventListener();
+          this._releaseMessageQueue();
+        })
+        .catch((error: unknown) => {
+          throw error;
+        });
+    } else {
+      this._worker = options.worker;
+      this._addEventListener();
+    }
   }
 
   get cache(): CoreWorker {
@@ -150,6 +167,10 @@ export class WorkerClient {
   }
 
   private _addEventListener(): void {
+    if (!this._worker) {
+      throw new Error('A worker is required for the WorkerClient to work correctly.');
+    }
+
     this._worker.addEventListener(MESSAGE, this._onMessage);
   }
 
@@ -176,6 +197,16 @@ export class WorkerClient {
     };
   }
 
+  private _releaseMessageQueue(): void {
+    if (!this._worker) {
+      throw new Error('A worker is required for the WorkerClient to work correctly.');
+    }
+
+    for (const message of this._messageQueue) {
+      this._worker.postMessage(message);
+    }
+  }
+
   @logRequest()
   private async _request(
     request: string,
@@ -184,13 +215,23 @@ export class WorkerClient {
   ): Promise<PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>> {
     try {
       return await new Promise((resolve: PendingResolver) => {
-        this._worker.postMessage({
-          context: WorkerClient._getMessageContext(context),
-          method: REQUEST,
-          options,
-          request,
-          type: GRAPHQL_BOX,
-        });
+        if (this._worker) {
+          this._worker.postMessage({
+            context: WorkerClient._getMessageContext(context),
+            method: REQUEST,
+            options,
+            request,
+            type: GRAPHQL_BOX,
+          });
+        } else {
+          this._messageQueue.push({
+            context: WorkerClient._getMessageContext(context),
+            method: REQUEST,
+            options,
+            request,
+            type: GRAPHQL_BOX,
+          });
+        }
 
         this._pending.set(context.requestID, { resolve });
       });
@@ -210,13 +251,23 @@ export class WorkerClient {
     context: RequestContext,
   ): Promise<PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>> {
     try {
-      this._worker.postMessage({
-        context: WorkerClient._getMessageContext(context),
-        method: SUBSCRIBE,
-        options,
-        request,
-        type: GRAPHQL_BOX,
-      });
+      if (this._worker) {
+        this._worker.postMessage({
+          context: WorkerClient._getMessageContext(context),
+          method: SUBSCRIBE,
+          options,
+          request,
+          type: GRAPHQL_BOX,
+        });
+      } else {
+        this._messageQueue.push({
+          context: WorkerClient._getMessageContext(context),
+          method: SUBSCRIBE,
+          options,
+          request,
+          type: GRAPHQL_BOX,
+        });
+      }
 
       const eventAsyncIterator = new EventAsyncIterator<PartialRequestResult>(this._eventEmitter, context.requestID);
       return Promise.resolve(eventAsyncIterator.getIterator());
