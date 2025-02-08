@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.13 (2025-02-08)
+
+### Chores
+
+* **worker-client:**  spacing (7c7aa764)
+
+### Refactors
+
+* **worker-client:**  make callback promisable (4b594660)
+
 ## 5.5.12 (2025-02-08)
 
 ### New Features
