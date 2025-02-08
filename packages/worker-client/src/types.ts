@@ -12,22 +12,19 @@ export interface UserOptions {
    * The cache.
    */
   cache: CoreWorker;
-
   /**
    * The debug manager.
    */
   debugManager?: DebugManagerDef;
-
   /**
    * Enable support for defer and stream directives. Based on version
    * of spec in 16.1.0-experimental-stream-defer.6
    */
   experimentalDeferStreamSupport?: boolean;
-
   /**
    * The web worker instance.
    */
-  worker: Worker | (() => Promise<Worker>);
+  worker: Worker | (() => Worker | Promise<Worker>);
 }
 
 export type MethodNames = 'request' | 'subscribe';

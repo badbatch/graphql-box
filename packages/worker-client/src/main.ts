@@ -129,8 +129,7 @@ export class WorkerClient {
     this._experimentalDeferStreamSupport = options.experimentalDeferStreamSupport ?? false;
 
     if (typeof options.worker === 'function') {
-      options
-        .worker()
+      Promise.resolve(options.worker())
         .then(worker => {
           this._worker = worker;
           this._addEventListener();
