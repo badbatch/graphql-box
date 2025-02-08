@@ -231,7 +231,7 @@ export class CacheManager implements CacheManagerDef {
     ]);
   }
 
-  private readonly _cache: Core;
+  private _cache: Core | undefined;
   private readonly _cacheTiersEnabled: CacheTiersEnabled = { entity: false, queryResponse: true, requestPath: false };
   private readonly _cascadeCacheControl: boolean;
   private readonly _fallbackOperationCacheability: string;
@@ -256,7 +256,19 @@ export class CacheManager implements CacheManagerDef {
       throw new GroupedError('@graphql-box/cache-manager argument validation errors.', errors);
     }
 
-    this._cache = options.cache;
+    if (typeof options.cache === 'function') {
+      void options
+        .cache()
+        .then(cache => {
+          this._cache = cache;
+        })
+        .catch((error: unknown) => {
+          throw error;
+        });
+    } else {
+      this._cache = options.cache;
+    }
+
     this._cacheTiersEnabled = { ...this._cacheTiersEnabled, ...options.cacheTiersEnabled };
     this._cascadeCacheControl = options.cascadeCacheControl ?? false;
     this._fallbackOperationCacheability = options.fallbackOperationCacheability ?? NO_CACHE;
@@ -321,7 +333,7 @@ export class CacheManager implements CacheManagerDef {
     };
   }
 
-  get cache(): Core {
+  get cache(): Core | undefined {
     return this._cache;
   }
 
@@ -744,7 +756,7 @@ export class CacheManager implements CacheManagerDef {
     _options: RequestOptions,
     _context: CacheManagerContext & { requestFieldCacheKey?: string },
   ): Promise<T | undefined> {
-    return this._cache.get<T>(`${cacheType}::${hash}`);
+    return this._cache?.get<T>(`${cacheType}::${hash}`);
   }
 
   private _getPartialQueryResponse(hash: string): PartialQueryResponse | undefined {
@@ -755,7 +767,7 @@ export class CacheManager implements CacheManagerDef {
 
   private async _hasCacheEntry(cacheType: CacheTypes, hash: string): Promise<Cacheability | false> {
     try {
-      return await this._cache.has(`${cacheType}::${hash}`);
+      return (await this._cache?.has(`${cacheType}::${hash}`)) ?? false;
     } catch {
       return false;
     }
@@ -1044,7 +1056,7 @@ export class CacheManager implements CacheManagerDef {
     _context: CacheManagerContext & { requestFieldCacheKey?: string },
   ): Promise<void> {
     try {
-      await this._cache.set(`${cacheType}::${hash}`, structuredClone(value), cachemapOptions);
+      await this._cache?.set(`${cacheType}::${hash}`, structuredClone(value), cachemapOptions);
     } catch {
       // no catch
     }

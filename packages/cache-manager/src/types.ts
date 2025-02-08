@@ -26,7 +26,7 @@ export interface UserOptions {
    * The cache to use for storing query responses, data entities,
    * and request field paths.
    */
-  cache: Core;
+  cache: Core | (() => Promise<Core>);
   /**
    * Whether to enable/disable any/all the three cache tiers
    * the CacheManager uses. All three are enabled by default.
@@ -161,7 +161,7 @@ export interface QueryResponseCacheEntry {
 
 export interface CacheManagerDef {
   analyzeQuery(requestData: RequestData, options: RequestOptions, context: RequestContext): Promise<AnalyzeQueryResult>;
-  cache: Core;
+  cache: Core | undefined;
   cacheQuery(
     requestData: RequestData,
     updatedRequestData: RequestData | undefined,

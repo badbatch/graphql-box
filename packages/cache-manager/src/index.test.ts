@@ -72,7 +72,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
       });
 
@@ -119,7 +119,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
       });
     });
@@ -162,7 +162,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
       });
 
@@ -206,7 +206,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
       });
     });
@@ -253,7 +253,7 @@ describe('@graphql-box/cache-manager >>', () => {
           });
 
           it('correct cache data', async () => {
-            await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+            await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
           });
         });
 
@@ -294,7 +294,7 @@ describe('@graphql-box/cache-manager >>', () => {
           });
 
           it('correct cache data', async () => {
-            await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+            await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
           });
         });
       });
@@ -335,7 +335,7 @@ describe('@graphql-box/cache-manager >>', () => {
           });
 
           it('correct cache data', async () => {
-            await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+            await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
           });
         });
 
@@ -379,7 +379,7 @@ describe('@graphql-box/cache-manager >>', () => {
           });
 
           it('correct cache data', async () => {
-            await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+            await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
           });
         });
       });
@@ -420,7 +420,7 @@ describe('@graphql-box/cache-manager >>', () => {
           });
 
           it('correct cache data', async () => {
-            await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+            await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
           });
         });
 
@@ -462,7 +462,7 @@ describe('@graphql-box/cache-manager >>', () => {
           });
 
           it('correct cache data', async () => {
-            await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+            await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
           });
         });
       });
@@ -525,7 +525,7 @@ describe('@graphql-box/cache-manager >>', () => {
           });
 
           it('correct cache data', async () => {
-            await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+            await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
           });
         });
 
@@ -586,7 +586,7 @@ describe('@graphql-box/cache-manager >>', () => {
           });
 
           it('correct cache data', async () => {
-            await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+            await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
           });
         });
       });
@@ -647,7 +647,7 @@ describe('@graphql-box/cache-manager >>', () => {
           });
 
           it('correct cache data', async () => {
-            await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+            await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
           });
         });
 
@@ -711,7 +711,7 @@ describe('@graphql-box/cache-manager >>', () => {
           });
 
           it('correct cache data', async () => {
-            await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+            await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
           });
         });
       });
@@ -772,7 +772,7 @@ describe('@graphql-box/cache-manager >>', () => {
           });
 
           it('correct cache data', async () => {
-            await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+            await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
           });
         });
 
@@ -834,7 +834,7 @@ describe('@graphql-box/cache-manager >>', () => {
           });
 
           it('correct cache data', async () => {
-            await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+            await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
           });
         });
       });
@@ -915,7 +915,7 @@ describe('@graphql-box/cache-manager >>', () => {
           });
 
           it('correct cache data', async () => {
-            await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+            await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
           });
         });
       });
@@ -1121,7 +1121,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
       });
 
@@ -1177,7 +1177,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
       });
 
@@ -1231,7 +1231,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
       });
 
@@ -1298,7 +1298,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
       });
     });
@@ -1355,7 +1355,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
 
         it('correct partial data', () => {
@@ -1415,7 +1415,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
 
         it('correct partial data', () => {
@@ -1478,7 +1478,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
 
         it('correct partial data', () => {
@@ -1539,7 +1539,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
 
         it('correct partial data', () => {
@@ -1597,7 +1597,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
 
         it('correct partial data', () => {
@@ -1655,7 +1655,7 @@ describe('@graphql-box/cache-manager >>', () => {
         });
 
         it('correct cache data', async () => {
-          await expect(cacheManager.cache.export()).resolves.toMatchSnapshot();
+          await expect(cacheManager.cache?.export()).resolves.toMatchSnapshot();
         });
 
         it('correct partial data', () => {

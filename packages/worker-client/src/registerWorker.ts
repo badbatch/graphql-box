@@ -96,7 +96,7 @@ export const registerWorker = ({ client }: RegisterWorkerOptions): void => {
   const onMessage = ({ data }: MessageEvent<MessageRequestPayload | CachemapMessageRequestPayload>): void => {
     if (isGraphqlBoxMessageRequestPayload(data)) {
       handleMessage(data, client);
-    } else {
+    } else if (client.cache) {
       void handleCachemapMessage(data, client.cache);
     }
   };

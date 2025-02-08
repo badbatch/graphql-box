@@ -41,7 +41,7 @@ describe('client', () => {
   });
 
   describe('request', () => {
-    let cache: ExportCacheResult;
+    let cache: ExportCacheResult | undefined;
     let client: Client;
     let response: Omit<PartialDehydratedRequestResult, 'requestID'>;
 
@@ -63,12 +63,12 @@ describe('client', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
-        cache = await client.cache.export();
+        cache = await client.cache?.export();
       });
 
       afterAll(async () => {
         fetchMock.restore();
-        await client.cache.clear();
+        await client.cache?.clear();
       });
 
       it('correct response data', () => {
@@ -105,12 +105,12 @@ describe('client', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
-        cache = await client.cache.export();
+        cache = await client.cache?.export();
       });
 
       afterAll(async () => {
         fetchMock.restore();
-        await client.cache.clear();
+        await client.cache?.clear();
       });
 
       it('one request', () => {
@@ -149,12 +149,12 @@ describe('client', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
-        cache = await client.cache.export();
+        cache = await client.cache?.export();
       });
 
       afterAll(async () => {
         fetchMock.restore();
-        await client.cache.clear();
+        await client.cache?.clear();
       });
 
       it('one request', () => {
@@ -192,12 +192,12 @@ describe('client', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
-        cache = await client.cache.export();
+        cache = await client.cache?.export();
       });
 
       afterAll(async () => {
         fetchMock.restore();
-        await client.cache.clear();
+        await client.cache?.clear();
       });
 
       it('no request', () => {
@@ -235,12 +235,12 @@ describe('client', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
-        cache = await client.cache.export();
+        cache = await client.cache?.export();
       });
 
       afterAll(async () => {
         fetchMock.restore();
-        await client.cache.clear();
+        await client.cache?.clear();
       });
 
       it('no request', () => {
@@ -287,12 +287,12 @@ describe('client', () => {
           response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
         }
 
-        cache = await client.cache.export();
+        cache = await client.cache?.export();
       });
 
       afterAll(async () => {
         fetchMock.restore();
-        await client.cache.clear();
+        await client.cache?.clear();
       });
 
       it('one request', () => {
@@ -312,7 +312,7 @@ describe('client', () => {
 
   describe('subscribe', () => {
     let asyncIterator: AsyncIterator<PartialRequestResult | undefined>;
-    let cache: ExportCacheResult;
+    let cache: ExportCacheResult | undefined;
     let client: Client;
     let mutResponse: Omit<PartialDehydratedRequestResult, 'requestID'>;
     let subResponse: Omit<PartialDehydratedRequestResult, 'requestID'>;
@@ -349,7 +349,7 @@ describe('client', () => {
               subResponse._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
             }
 
-            cache = await client.cache.export();
+            cache = await client.cache?.export();
             resolve();
           });
         }
@@ -383,7 +383,7 @@ describe('client', () => {
       afterAll(async () => {
         fetchMock.config.fallbackToNetwork = false;
         fetchMock.config.warnOnFallback = true;
-        await client.cache.clear();
+        await client.cache?.clear();
       });
 
       it('correct mutation response data', () => {
