@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.12 (2025-02-08)
+
+### New Features
+
+* **worker-client:**  support lazy init of worker (235d62b6)
+
 ## 5.5.11 (2025-02-08)
 
 ### New Features
