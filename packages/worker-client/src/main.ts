@@ -115,7 +115,7 @@ export class WorkerClient {
       errors.push(new ArgsError('@graphql-box/worker-client expected options.cache.'));
     }
 
-    if (!('worker' in options)) {
+    if (!options.lazyWorkerInit && !('worker' in options)) {
       errors.push(new ArgsError('@graphql-box/worker-client expected options.worker.'));
     }
 
@@ -138,7 +138,7 @@ export class WorkerClient {
         .catch((error: unknown) => {
           throw error;
         });
-    } else {
+    } else if (options.worker) {
       this._worker = options.worker;
       this._addEventListener();
     }
@@ -162,6 +162,12 @@ export class WorkerClient {
 
   public async subscribe(request: string, options: RequestOptions = {}) {
     return this._subscribe(request, options, this._getRequestContext(OperationTypeNode.SUBSCRIPTION, request));
+  }
+
+  public set worker(worker: Worker) {
+    this._worker = worker;
+    this._addEventListener();
+    this._releaseMessageQueue();
   }
 
   private _addEventListener(): void {

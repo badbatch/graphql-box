@@ -22,9 +22,14 @@ export interface UserOptions {
    */
   experimentalDeferStreamSupport?: boolean;
   /**
+   * Must be passed in as true if you are going to
+   * initialise the worker after the constructor.
+   */
+  lazyWorkerInit?: boolean;
+  /**
    * The web worker instance.
    */
-  worker: Worker | (() => Worker | Promise<Worker>);
+  worker?: Worker | (() => Worker | Promise<Worker>);
 }
 
 export type MethodNames = 'request' | 'subscribe';
