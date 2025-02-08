@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.10 (2025-02-08)
+
+### Refactors
+
+* **react:**  simplify provider (5cac6ee8)
+
 ## 5.5.9 (2025-01-11)
 
 ### New Features
