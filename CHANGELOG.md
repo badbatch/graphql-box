@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.14 (2025-02-08)
+
+### New Features
+
+* **worker-client:**  add worker setter (85d560ef)
+
 ## 5.5.13 (2025-02-08)
 
 ### Chores
