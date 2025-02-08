@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.11 (2025-02-08)
+
+### New Features
+
+* **cache-manager:**  support lazy init of cache (f8afb8d0)
+
 ## 5.5.10 (2025-02-08)
 
 ### Refactors
