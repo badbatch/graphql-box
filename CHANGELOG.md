@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.15 (2025-02-09)
+
+### New Features
+
+* **react:**  add support for server action (0ca16470)
+
 ## 5.5.14 (2025-02-08)
 
 ### New Features
