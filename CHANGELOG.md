@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.18 (2025-02-09)
+
+### New Features
+
+* **core:**  add request result type (dff94ad7)
+
 ## 5.5.17 (2025-02-09)
 
 ### New Features
