@@ -1,7 +1,6 @@
 import { type PartialRequestResult, type PlainObject, type RequestOptions } from '@graphql-box/core';
 import { forAwaitEach, isAsyncIterable } from 'iterall';
 import { useState } from 'react';
-import { useServerActions } from '#hooks/useServerActions.ts';
 import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
 
 export type State<Data extends PlainObject> = {
@@ -15,7 +14,6 @@ export type State<Data extends PlainObject> = {
 
 export const useRequest = <Data extends PlainObject>(request: string, { loading = false } = {}) => {
   const graphqlBoxClient = useGraphqlBoxClient();
-  const serverActions = useServerActions();
   const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading, requestID: '' });
 
   const execute = async (options?: RequestOptions) => {
@@ -27,9 +25,7 @@ export const useRequest = <Data extends PlainObject>(request: string, { loading 
       requestID: '',
     });
 
-    const requestResult = serverActions?.request
-      ? await serverActions.request(request, options)
-      : await graphqlBoxClient.request(request, options);
+    const requestResult = await graphqlBoxClient.request(request, options);
 
     if (!isAsyncIterable(requestResult)) {
       // Need to use a type guard
