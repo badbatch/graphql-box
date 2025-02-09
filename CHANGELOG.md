@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.17 (2025-02-09)
+
+### New Features
+
+* **core:**  make partial request result generic (6930c3e2)
+
 ## 5.5.16 (2025-02-09)
 
 ### Other Changes

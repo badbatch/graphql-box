@@ -1,7 +1,7 @@
 {
   "name": "@graphql-box/client",
   "description": "The GraphQL Box client module.",
-  "version": "5.4.0",
+  "version": "5.4.1",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
