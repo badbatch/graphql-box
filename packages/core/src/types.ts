@@ -345,6 +345,26 @@ export interface RequestData {
   request: string;
 }
 
+export interface RequestResult<Data = PlainData> {
+  /**
+   * A map of query paths to their cacheability
+   * information.
+   */
+  _cacheMetadata?: CacheMetadata;
+  /**
+   * The data requested in a query, mutation or subscription.
+   */
+  data: Data;
+  /**
+   * Any errors thrown during the request.
+   */
+  errors?: readonly Error[];
+  /**
+   * Unique identifier for a given request.
+   */
+  requestID: string;
+}
+
 export interface PartialRequestResult<Data = PlainData | null> {
   /**
    * A map of query paths to their cacheability
