@@ -345,7 +345,7 @@ export interface RequestData {
   request: string;
 }
 
-export interface PartialRequestResult {
+export interface PartialRequestResult<Data = PlainData | null> {
   /**
    * A map of query paths to their cacheability
    * information.
@@ -354,7 +354,7 @@ export interface PartialRequestResult {
   /**
    * The data requested in a query, mutation or subscription.
    */
-  data?: PlainData | null;
+  data?: Data;
   /**
    * Any errors thrown during the request.
    */
