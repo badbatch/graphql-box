@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.19 (2025-02-10)
+
+### New Features
+
+* **react:**  add update provider for graphql (e5fdde49)
+
 ## 5.5.18 (2025-02-09)
 
 ### New Features
