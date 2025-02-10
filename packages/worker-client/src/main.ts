@@ -206,7 +206,10 @@ export class WorkerClient {
       throw new Error('A worker is required for the WorkerClient to work correctly.');
     }
 
-    for (const message of this._messageQueue) {
+    const messageQueue = this._messageQueue;
+    this._messageQueue = [];
+
+    for (const message of messageQueue) {
       this._worker.postMessage(message);
     }
   }
