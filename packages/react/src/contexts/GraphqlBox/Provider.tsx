@@ -1,3 +1,5 @@
+'use client';
+
 import { type Client } from '@graphql-box/client';
 import { type WorkerClient } from '@graphql-box/worker-client';
 import { type ReactNode } from 'react';
