@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.5.20 (2025-02-11)
+
+### New Features
+
+* **worker-client:**  enforce cache manager and request parser (62179c0c)
+
+### Bug Fixes
+
+* **react:**  update provider should update worker cache (ee729af9)
+* **worker-client:**
+  * minor change (fb95d288)
+  * release message queue (4f53f1a9)
+
 ## 5.5.19 (2025-02-10)
 
 ### New Features
