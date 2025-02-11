@@ -17,28 +17,23 @@ export interface UserOptions {
    * The curried function to initialize the cache manager.
    */
   cacheManager: CacheManagerDef;
-
   /**
    * The curried function to initialize the debug manager.
    */
   debugManager?: DebugManagerDef;
-
   /**
    * Enable support for defer and stream directives. Based on version
    * of spec in 16.1.0-experimental-stream-defer.6
    */
   experimentalDeferStreamSupport?: boolean;
-
   /**
    * The request manager.
    */
   requestManager: RequestManagerDef;
-
   /**
    * The curried function to initialzie the request parser.
    */
   requestParser: RequestParserDef;
-
   /**
    * The curried function to initialize the subscription manager.
    */

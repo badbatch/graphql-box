@@ -1,12 +1,14 @@
+import { type IntrospectionQuery } from 'graphql';
 import { type ExportCacheResult } from '@graphql-box/cache-manager';
 import { type PartialDehydratedRequestResult, type PartialRequestResult, type PlainArray } from '@graphql-box/core';
 import { dehydrateCacheMetadata } from '@graphql-box/helpers';
-import { parsedRequests } from '@graphql-box/test-utils';
+import { githubIntrospection, parsedRequests } from '@graphql-box/test-utils';
 import { type WorkerClient } from '@graphql-box/worker-client';
 import { expected } from '../../expected/index.ts';
 import { initWorkerClient } from '../../helpers/initWorkerClient.ts';
 import { FetchMockWorker } from '../../modules/fetch-mock/index.ts';
 
+const introspection = githubIntrospection as IntrospectionQuery;
 const defaultOptions = { awaitDataCaching: true, returnCacheMetadata: true };
 
 describe('workerClient', () => {
@@ -21,7 +23,7 @@ describe('workerClient', () => {
       beforeAll(async () => {
         worker = new Worker(new URL('worker.ts', import.meta.url));
         fetchMockWorker = new FetchMockWorker(worker);
-        workerClient = initWorkerClient({ worker });
+        workerClient = initWorkerClient({ introspection, worker });
 
         const { _cacheMetadata, data } = (await workerClient.query(parsedRequests.singleTypeQuery, {
           ...defaultOptions,
@@ -55,7 +57,7 @@ describe('workerClient', () => {
       beforeAll(async () => {
         worker = new Worker(new URL('worker.ts', import.meta.url));
         fetchMockWorker = new FetchMockWorker(worker);
-        workerClient = initWorkerClient({ worker });
+        workerClient = initWorkerClient({ introspection, worker });
         const request = parsedRequests.singleTypeQuery;
 
         const result = await Promise.all([
@@ -97,7 +99,7 @@ describe('workerClient', () => {
       beforeAll(async () => {
         worker = new Worker(new URL('worker.ts', import.meta.url));
         fetchMockWorker = new FetchMockWorker(worker);
-        workerClient = initWorkerClient({ worker });
+        workerClient = initWorkerClient({ introspection, worker });
 
         const result = await Promise.all([
           workerClient.query(parsedRequests.nestedTypeQuery, { ...defaultOptions }),
@@ -138,7 +140,7 @@ describe('workerClient', () => {
       beforeAll(async () => {
         worker = new Worker(new URL('worker.ts', import.meta.url));
         fetchMockWorker = new FetchMockWorker(worker);
-        workerClient = initWorkerClient({ worker });
+        workerClient = initWorkerClient({ introspection, worker });
         const request = parsedRequests.singleTypeQuery;
 
         await workerClient.query(request, { ...defaultOptions });
@@ -181,7 +183,7 @@ describe('workerClient', () => {
       beforeAll(async () => {
         worker = new Worker(new URL('worker.ts', import.meta.url));
         fetchMockWorker = new FetchMockWorker(worker);
-        workerClient = initWorkerClient({ worker });
+        workerClient = initWorkerClient({ introspection, worker });
         const { full, initial } = parsedRequests.singleTypeQuerySet;
 
         await workerClient.query(full, { ...defaultOptions });
@@ -226,7 +228,7 @@ describe('workerClient', () => {
 
         worker = new Worker(new URL('worker.ts', import.meta.url));
         fetchMockWorker = new FetchMockWorker(worker);
-        workerClient = initWorkerClient({ worker });
+        workerClient = initWorkerClient({ introspection, worker });
 
         await workerClient.query(initial, { ...defaultOptions });
         await fetchMockWorker.postMessage('resetHistory');

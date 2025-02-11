@@ -1,17 +1,26 @@
 import { type CoreWorker } from '@cachemap/core-worker';
+import { type CacheManagerDef } from '@graphql-box/cache-manager';
 import { type Client } from '@graphql-box/client';
 import {
   type DebugManagerDef,
   type PartialRawFetchData,
   type PartialRequestResult,
+  type RequestContext,
+  type RequestData,
   type RequestOptions,
 } from '@graphql-box/core';
+import { type RequestParserDef } from '@graphql-box/request-parser';
+import { type OperationTypeNode } from 'graphql';
 
 export interface UserOptions {
   /**
    * The cache.
    */
   cache: CoreWorker;
+  /**
+   * The curried function to initialize the cache manager.
+   */
+  cacheManager: CacheManagerDef;
   /**
    * The debug manager.
    */
@@ -27,6 +36,10 @@ export interface UserOptions {
    */
   lazyWorkerInit?: boolean;
   /**
+   * The curried function to initialzie the request parser.
+   */
+  requestParser: RequestParserDef;
+  /**
    * The web worker instance.
    */
   worker?: Worker | (() => Worker | Promise<Worker>);
@@ -39,6 +52,9 @@ export type PendingResolver = (
 ) => void;
 
 export interface PendingData {
+  context?: RequestContext;
+  options?: RequestOptions;
+  requestData?: RequestData;
   resolve: PendingResolver;
 }
 
@@ -61,6 +77,7 @@ export interface MessageResponsePayload {
 
 export interface MessageContext {
   hasDeferOrStream: boolean;
+  operation: OperationTypeNode;
   requestID: string;
 }
 

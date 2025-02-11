@@ -85,12 +85,12 @@ export class Client {
       errors.push(new ArgsError('@graphql-box/client expected options.cacheManager.'));
     }
 
-    if (!('requestParser' in options)) {
-      errors.push(new ArgsError('@graphql-box/client expected options.requestParser.'));
-    }
-
     if (!('requestManager' in options)) {
       errors.push(new ArgsError('@graphql-box/client expected options.requestManager.'));
+    }
+
+    if (!('requestParser' in options)) {
+      errors.push(new ArgsError('@graphql-box/client expected options.requestParser.'));
     }
 
     if (errors.length > 0) {

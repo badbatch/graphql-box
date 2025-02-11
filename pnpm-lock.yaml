@@ -897,9 +897,15 @@ importers:
         specifier: ^11.0.3
         version: 11.0.3
     devDependencies:
+      '@graphql-box/cache-manager':
+        specifier: workspace:*
+        version: link:../cache-manager
       '@graphql-box/client':
         specifier: workspace:*
         version: link:../client
+      '@graphql-box/request-parser':
+        specifier: workspace:*
+        version: link:../request-parser
       cts-types:
         specifier: ^0.0.8
         version: 0.0.8

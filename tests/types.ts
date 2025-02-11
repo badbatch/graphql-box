@@ -18,6 +18,7 @@ export interface InitClientOptions {
 }
 
 export interface InitWorkerClientOptions {
+  introspection: IntrospectionQuery;
   worker: Worker;
 }
 

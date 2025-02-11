@@ -1,9 +1,12 @@
 import { type CoreWorker } from '@cachemap/core-worker';
+import { type CacheManagerDef } from '@graphql-box/cache-manager';
 import {
   type DebugManagerDef,
   type PartialRequestContext,
   type PartialRequestResult,
+  type PartialResponseData,
   REQUEST_RESOLVED,
+  type RawResponseDataWithMaybeCacheMetadata,
   type RequestContext,
   type RequestOptions,
   SUBSCRIPTION_RESOLVED,
@@ -17,6 +20,7 @@ import {
   isPlainObject,
   rehydrateCacheMetadata,
 } from '@graphql-box/helpers';
+import { type RequestParserDef } from '@graphql-box/request-parser';
 import { EventEmitter } from 'eventemitter3';
 import { OperationTypeNode } from 'graphql';
 import { isError } from 'lodash-es';
@@ -34,8 +38,26 @@ import {
 } from './types.ts';
 
 export class WorkerClient {
-  private static _getMessageContext({ hasDeferOrStream = false, requestID }: RequestContext): MessageContext {
-    return { hasDeferOrStream, requestID };
+  private static _getMessageContext({
+    hasDeferOrStream = false,
+    operation,
+    requestID,
+  }: RequestContext): MessageContext {
+    return { hasDeferOrStream, operation, requestID };
+  }
+
+  private static _resolve(
+    { cacheMetadata, ...rest }: PartialResponseData,
+    options: RequestOptions,
+    { requestID }: RequestContext,
+  ): PartialRequestResult {
+    const result: PartialRequestResult = { ...rest, requestID };
+
+    if (options.returnCacheMetadata && cacheMetadata) {
+      result._cacheMetadata = cacheMetadata;
+    }
+
+    return result;
   }
 
   private _onMessage = ({ data }: MessageEvent<MessageResponsePayload>): void => {
@@ -92,16 +114,35 @@ export class WorkerClient {
         stats: { endTime: this._debugManager.now() },
       });
 
+      if (context.operation === OperationTypeNode.QUERY && pending.requestData && pending.options && pending.context) {
+        void this._cacheManager.cacheQuery(
+          pending.requestData,
+          undefined,
+          // Need to look at what type guards can be put in place
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+          response as RawResponseDataWithMaybeCacheMetadata,
+          pending.options,
+          pending.context,
+        );
+      }
+
       pending.resolve(response);
     }
   };
 
+  /**
+   * This cache instance does not actually store anything itself,
+   * it is for communicating with the worker cache that the worker
+   * client is using within the worker.
+   */
   private _cache: CoreWorker;
+  private _cacheManager: CacheManagerDef;
   private _debugManager: DebugManagerDef | null;
   private _eventEmitter: EventEmitter;
   private _experimentalDeferStreamSupport: boolean;
   private _messageQueue: MessageRequestPayload[] = [];
   private _pending: PendingTracker = new Map();
+  private _requestParser: RequestParserDef;
   private _worker: Worker | undefined;
 
   constructor(options: UserOptions) {
@@ -115,6 +156,14 @@ export class WorkerClient {
       errors.push(new ArgsError('@graphql-box/worker-client expected options.cache.'));
     }
 
+    if (!('cacheManager' in options)) {
+      errors.push(new ArgsError('@graphql-box/worker-client expected options.cacheManager.'));
+    }
+
+    if (!('requestParser' in options)) {
+      errors.push(new ArgsError('@graphql-box/worker-client expected options.requestParser.'));
+    }
+
     if (!options.lazyWorkerInit && !('worker' in options)) {
       errors.push(new ArgsError('@graphql-box/worker-client expected options.worker.'));
     }
@@ -124,9 +173,11 @@ export class WorkerClient {
     }
 
     this._cache = options.cache;
+    this._cacheManager = options.cacheManager;
     this._debugManager = options.debugManager ?? null;
     this._eventEmitter = new EventEmitter();
     this._experimentalDeferStreamSupport = options.experimentalDeferStreamSupport ?? false;
+    this._requestParser = options.requestParser;
 
     if (typeof options.worker === 'function') {
       Promise.resolve(options.worker())
@@ -153,7 +204,7 @@ export class WorkerClient {
   }
 
   public async query(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
-    return this._request(request, options, this._getRequestContext(OperationTypeNode.QUERY, request, context));
+    return this._query(request, options, this._getRequestContext(OperationTypeNode.QUERY, request, context));
   }
 
   public async request(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
@@ -199,6 +250,50 @@ export class WorkerClient {
       requestID: uuid(),
       ...context,
     };
+  }
+
+  private async _query(
+    request: string,
+    options: RequestOptions,
+    context: RequestContext,
+  ): Promise<PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>> {
+    try {
+      const { ast, request: updateRequest } = this._requestParser.updateRequest(request, options, context);
+      const requestData = { ast, hash: hashRequest(updateRequest), request: updateRequest };
+      const checkResult = await this._cacheManager.checkQueryResponseCacheEntry(requestData.hash, options, context);
+
+      if (checkResult) {
+        return WorkerClient._resolve(checkResult, options, context);
+      }
+
+      return await new Promise((resolve: PendingResolver) => {
+        if (this._worker) {
+          this._worker.postMessage({
+            context: WorkerClient._getMessageContext(context),
+            method: REQUEST,
+            options,
+            request,
+            type: GRAPHQL_BOX,
+          });
+        } else {
+          this._messageQueue.push({
+            context: WorkerClient._getMessageContext(context),
+            method: REQUEST,
+            options,
+            request,
+            type: GRAPHQL_BOX,
+          });
+        }
+
+        this._pending.set(context.requestID, { context, options, requestData, resolve });
+      });
+    } catch (error) {
+      const confirmedError = isError(error)
+        ? error
+        : new Error('@graphql-box/worker-client request had an unexpected error.');
+
+      return { errors: [confirmedError], requestID: context.requestID };
+    }
   }
 
   private _releaseMessageQueue(): void {
