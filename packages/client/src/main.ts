@@ -109,6 +109,10 @@ export class Client {
     return this._cacheManager.cache;
   }
 
+  get cacheManager() {
+    return this._cacheManager;
+  }
+
   get debugger(): DebugManagerDef | null {
     return this._debugManager;
   }

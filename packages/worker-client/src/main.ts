@@ -199,6 +199,10 @@ export class WorkerClient {
     return this._cache;
   }
 
+  get cacheManager(): CacheManagerDef {
+    return this._cacheManager;
+  }
+
   public async mutate(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
     return this._request(request, options, this._getRequestContext(OperationTypeNode.MUTATION, request, context));
   }
