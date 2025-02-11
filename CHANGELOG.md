@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.21 (2025-02-11)
+
+### Bug Fixes
+
+* **react:**  create useQuery hook (6cfe8523)
+
 ## 5.5.20 (2025-02-11)
 
 ### New Features
