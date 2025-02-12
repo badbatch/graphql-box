@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.22 (2025-02-12)
+
+### Refactors
+
+* **react:**  move connection listings to use query (49b5d550)
+
 ## 5.5.21 (2025-02-11)
 
 ### Bug Fixes
