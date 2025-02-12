@@ -1,9 +1,9 @@
 import { type PlainObject } from '@graphql-box/core';
 import { encode } from 'js-base64';
-import { get, merge } from 'lodash-es';
+import { get } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
 import { useIntersectionObserver } from '#hooks/useIntersectionObserver.ts';
-import { useRequest } from '#hooks/useRequest.ts';
+import { useQuery } from '#hooks/useQuery.ts';
 import { buildDependencyKey } from './helpers/buildDependencyKey.ts';
 import { formatListings } from './helpers/formatListings.ts';
 import { hasRequestPathChanged } from './helpers/hasRequestPathChanged.ts';
@@ -36,7 +36,7 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
   const [{ hasNextPage, listings }, setListingsData] = useState<ListingsData<Item>>(initialListingsData);
   const [connectionVariables, setConnectionVariables] = useState<ConnectionVariables>({ first: resultsPerRequest });
 
-  const { data, errors, execute, loading, paths, requestID } = useRequest<ConnectionResponse<Item>>(query, {
+  const { data, errors, execute, loading, requestID } = useQuery<ConnectionResponse<Item>>(query, {
     loading: true,
   });
 
@@ -55,7 +55,6 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
     // Typing get return value doesn't work very well
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     get(data, `${requestPath}.pageInfo.startCursor`) as string | null | undefined,
-    paths,
   );
 
   useEffect(() => {
@@ -90,18 +89,6 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
     const requestPathData = get(data, requestPath);
 
     if (!requestPathData) {
-      return;
-    }
-
-    if (paths) {
-      const existingItem = listings.get(requestID) ?? {};
-      const listing = merge({}, existingItem, data);
-
-      setListingsData({
-        hasNextPage,
-        listings: new Map([...listings, [requestID, listing]]),
-      });
-
       return;
     }
 
