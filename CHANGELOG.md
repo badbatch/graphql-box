@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.23 (2025-02-14)
+
+### Bug Fixes
+
+* **react:**  loading state bug (0e291e01)
+
 ## 5.5.22 (2025-02-12)
 
 ### Refactors
