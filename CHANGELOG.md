@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.24 (2025-02-14)
+
+### Bug Fixes
+
+* **react:**  another change to use query state (26b59e2a)
+
 ## 5.5.23 (2025-02-14)
 
 ### Bug Fixes
