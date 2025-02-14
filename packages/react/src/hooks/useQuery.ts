@@ -15,7 +15,13 @@ export const useQuery = <Data extends PlainObject>(request: string, { loading = 
   const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading, requestID: '' });
 
   const execute = async (options?: RequestOptions) => {
-    setState({ ...state, loading: true });
+    setState({
+      data: undefined,
+      errors: [],
+      loading: true,
+      requestID: '',
+    });
+
     const requestResult = await graphqlBoxClient.query(request, options);
 
     if (isAsyncIterable(requestResult)) {
