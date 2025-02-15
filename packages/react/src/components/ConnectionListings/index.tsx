@@ -21,6 +21,7 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
     awaitDataCaching,
     batch,
     children,
+    debug = false,
     fragments,
     intersectionRoot = null,
     intersectionRootMargin = '0px',
@@ -95,7 +96,7 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
     }
 
     const { pageInfo } = requestPathData;
-    const filteredData = filterOutDuplicateEntities(getLastListingsEntry(listings), data, requestPath);
+    const filteredData = filterOutDuplicateEntities(getLastListingsEntry(listings), data, requestPath, debug);
 
     setListingsData({
       hasNextPage: pageInfo.hasNextPage,
