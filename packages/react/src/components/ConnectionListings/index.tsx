@@ -5,7 +5,9 @@ import { useEffect, useRef, useState } from 'react';
 import { useIntersectionObserver } from '#hooks/useIntersectionObserver.ts';
 import { useQuery } from '#hooks/useQuery.ts';
 import { buildDependencyKey } from './helpers/buildDependencyKey.ts';
+import { filterOutDuplicateEntities } from './helpers/filterOutDuplicateEntities.ts';
 import { formatListings } from './helpers/formatListings.ts';
+import { getLastListingsEntry } from './helpers/getLastListingsEntry.ts';
 import { hasRequestPathChanged } from './helpers/hasRequestPathChanged.ts';
 import { type ConnectionResponse, type ConnectionVariables, type ListingsData, type ListingsProps } from './types.ts';
 
@@ -93,13 +95,14 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
     }
 
     const { pageInfo } = requestPathData;
+    const filteredData = filterOutDuplicateEntities(getLastListingsEntry(listings), data, requestPath);
 
     setListingsData({
       hasNextPage: pageInfo.hasNextPage,
       listings:
         variablesHash === previousVariablesHashes.current.get(queryHash)
-          ? new Map([...listings, [requestID, data]])
-          : new Map([[requestID, data]]),
+          ? new Map([...listings, [requestID, filteredData]])
+          : new Map([[requestID, filteredData]]),
     });
 
     setConnectionVariables({ ...connectionVariables, after: pageInfo.endCursor ?? undefined });
