@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.26 (2025-02-15)
+
+### Chores
+
+* **react:**  add debug with logging of duplicate entries (0fbd2e67)
+
 ## 5.5.25 (2025-02-15)
 
 ### Bug Fixes
