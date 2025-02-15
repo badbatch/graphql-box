@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.25 (2025-02-15)
+
+### Bug Fixes
+
+* **react:**  filter out duplicate entries from connection (dff1de02)
+
 ## 5.5.24 (2025-02-14)
 
 ### Bug Fixes
