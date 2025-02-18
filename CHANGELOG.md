@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.27 (2025-02-18)
+
+### New Features
+
+* **react:**  export connection type (c725838b)
+
 ## 5.5.26 (2025-02-15)
 
 ### Chores
