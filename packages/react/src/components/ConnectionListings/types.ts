@@ -8,15 +8,13 @@ export type ConnectionVariables = {
   last?: number;
 };
 
-export type ConnectionResponse<Item extends PlainObject> = Record<
-  string,
-  | {
-      edges?: Edge<Item>[];
-      pageInfo: PageInfo;
-      totalCount: number;
-    }
-  | undefined
->;
+export type Connection<Item extends PlainObject> = {
+  edges?: Edge<Item>[];
+  pageInfo: PageInfo;
+  totalCount: number;
+};
+
+export type ConnectionResponse<Item extends PlainObject> = Record<string, Connection<Item> | undefined>;
 
 export type Edge<Item extends PlainObject> = {
   cursor: string;
