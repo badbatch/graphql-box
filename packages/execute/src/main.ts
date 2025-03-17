@@ -59,7 +59,7 @@ export class Execute {
   ): Promise<AsyncIterableIterator<PartialRequestResult | undefined> | PartialRawResponseData> {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
-    const { debugManager, requestID, ...otherContext } = context;
+    const { debugManager, operationName: ctxOperationName, requestID, ...otherContext } = context;
 
     const executeArgs: ExecutionArgs = {
       contextValue: {
@@ -67,6 +67,9 @@ export class Execute {
         ...contextValue,
         debugManager,
         fragmentDefinitions: getFragmentDefinitions(ast),
+        // TODO: Need to understand why operationName is being passed in options
+        // as the one on the context is derived from the request itself.
+        operationName: ctxOperationName,
         requestID,
         setCacheMetadata: setCacheMetadata(_cacheMetadata),
       },
