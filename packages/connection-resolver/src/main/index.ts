@@ -8,6 +8,7 @@ import {
   type Connection,
   type ConnectionInputOptions,
   type ConnectionResolverUserOptions,
+  type Context,
   type Node,
 } from '../types.ts';
 
@@ -15,7 +16,7 @@ export const makeConnectionResolver =
   <
     Source extends PlainObject | undefined,
     Args extends PlainObject,
-    Ctx extends PlainObject,
+    Ctx extends Context,
     Resource extends PlainObject,
     ResourceNode extends Node,
   >({
@@ -35,6 +36,19 @@ export const makeConnectionResolver =
     const { makeGroupCursor, makeIDCursor } = createMakeCursors(source, args, context, info);
     const resourceResolver = createResourceResolver(source, args, context, info);
     const groupCursor = makeGroupCursor();
+    const { logger, operationName, requestID, setCacheMetadata, tmdbGuestSessionId } = context;
+    const { fieldName } = info;
+
+    const childLogger = logger?.child({
+      args,
+      field: fieldName,
+      groupCursor,
+      operationName,
+      requestID,
+      tmdbGuestSessionId,
+    });
+
+    childLogger?.info(`Resolving ${fieldName}`);
 
     if (isCursorSupplied(args)) {
       const cursorError = await validateCursor(args, info, {
@@ -44,6 +58,10 @@ export const makeConnectionResolver =
       });
 
       if (cursorError) {
+        childLogger?.error(`Failed to resolve ${fieldName}, validation cursor error`, {
+          errors: [cursorError],
+        });
+
         return resolver({
           edges: [],
           errors: [cursorError],
@@ -59,11 +77,14 @@ export const makeConnectionResolver =
       return resolver(
         await resolveConnection(args, {
           cursorCache,
+          fieldName,
           getters,
           groupCursor,
+          logger: childLogger,
           makeIDCursor,
           resourceResolver,
           resultsPerPage,
+          setCacheMetadata,
         }),
       );
     }
@@ -72,31 +93,39 @@ export const makeConnectionResolver =
       return resolver(
         await resolveConnection(args, {
           cursorCache,
+          fieldName,
           getters,
           groupCursor,
+          logger: childLogger,
           makeIDCursor,
           resourceResolver,
           resultsPerPage,
+          setCacheMetadata,
         }),
       );
     }
 
     await requestAndCachePages<Resource, ResourceNode>([1], {
       cursorCache,
+      fieldName,
       getters,
       groupCursor,
       makeIDCursor,
       resourceResolver,
+      setCacheMetadata,
     });
 
     return resolver(
       await resolveConnection(args, {
         cursorCache,
+        fieldName,
         getters,
         groupCursor,
+        logger: childLogger,
         makeIDCursor,
         resourceResolver,
         resultsPerPage,
+        setCacheMetadata,
       }),
     );
   };

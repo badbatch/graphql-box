@@ -1,20 +1,30 @@
 import { type Core } from '@cachemap/core';
 import { type PlainObject } from '@graphql-box/core';
-import { type Getters, type Node, type ResourceResolver } from '../types.ts';
+import { type Getters, type Node, type ResourceResolver, type SetCacheMetadata } from '../types.ts';
 import { cacheCursors } from './cacheCursors.ts';
 import { makeEdges } from './makeEdges.ts';
 
 export type Context<Resource extends PlainObject, ResourceNode extends Node> = {
   cursorCache: Core;
+  fieldName: string;
   getters: Getters<Resource, ResourceNode>;
   groupCursor: string;
   makeIDCursor: (id: string | number) => string;
   resourceResolver: ResourceResolver<Resource>;
+  setCacheMetadata: SetCacheMetadata | undefined;
 };
 
 export const requestAndCachePages = async <Resource extends PlainObject, ResourceNode extends Node>(
   pages: number[],
-  { cursorCache, getters, groupCursor, makeIDCursor, resourceResolver }: Context<Resource, ResourceNode>,
+  {
+    cursorCache,
+    fieldName,
+    getters,
+    groupCursor,
+    makeIDCursor,
+    resourceResolver,
+    setCacheMetadata,
+  }: Context<Resource, ResourceNode>,
 ) => {
   const errors: Error[] = [];
 
@@ -27,6 +37,10 @@ export const requestAndCachePages = async <Resource extends PlainObject, Resourc
       } = await resourceResolver({
         page,
       });
+
+      if (pageResultData) {
+        setCacheMetadata?.(fieldName, pageResultHeaders);
+      }
 
       if (pageResultData && !pageResultErrors?.length) {
         const edges = makeEdges(getters.nodes(pageResultData), node => makeIDCursor(node.id));

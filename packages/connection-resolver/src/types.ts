@@ -1,7 +1,8 @@
 import { type Core } from '@cachemap/core';
 import { type PlainObject } from '@graphql-box/core';
-import { type GraphQLResolveInfo } from 'graphql';
+import { type GraphQLResolveInfo, type OperationTypeNode } from 'graphql';
 import { type SetOptional } from 'type-fest';
+import { type Logger } from 'winston';
 
 export type Direction = 'backward' | 'forward';
 
@@ -60,10 +61,17 @@ export type ResourceResolver<Resource extends PlainObject> = (args: {
   page: number;
 }) => Promise<ResourceResponse<Resource>>;
 
+export type SetCacheMetadata = (key: string, headers: Headers, operation?: OperationTypeNode) => void;
+
+export type Context = PlainObject & {
+  logger?: Logger;
+  setCacheMetadata?: SetCacheMetadata;
+};
+
 export type CreateResourceResolver<
   Source extends PlainObject | undefined,
   Args extends PlainObject,
-  Ctx extends PlainObject,
+  Ctx extends Context,
   Resource extends PlainObject,
 > = (source: Source, args: Args, context: Ctx, info: GraphQLResolveInfo) => ResourceResolver<Resource>;
 
@@ -77,7 +85,7 @@ export interface Getters<Resource extends PlainObject, ResourceNode extends Node
 export interface ConnectionResolverUserOptions<
   Source extends PlainObject | undefined,
   Args extends PlainObject,
-  Ctx extends PlainObject,
+  Ctx extends Context,
   Resource extends PlainObject,
   ResourceNode extends Node,
 > {
@@ -100,7 +108,7 @@ export interface ConnectionResolverUserOptions<
 export type ConnectionResolver = (
   source: PlainObject,
   args: PlainObject & ConnectionInputOptions,
-  context: PlainObject,
+  context: Context,
   info: GraphQLResolveInfo,
 ) => Promise<Connection>;
 
