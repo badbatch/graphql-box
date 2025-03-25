@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.5.28 (2025-03-25)
+
+### New Features
+
+* **connection-resolver:**  add logging and cache control setting (396e7846)
+
+### Bug Fixes
+
+* **root:**  vulnerabilities (51795c9a)
+
+### Refactors
+
+* **execute:**  pass operation name into context (da18d5df)
+
 ## 5.5.27 (2025-02-18)
 
 ### New Features
