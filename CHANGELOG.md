@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.29 (2025-03-26)
+
+### Refactors
+
+* **connection-resolver:**  rename variable (64f63687)
+
 ## 5.5.28 (2025-03-25)
 
 ### New Features
