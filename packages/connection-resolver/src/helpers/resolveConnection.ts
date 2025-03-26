@@ -18,7 +18,7 @@ import { retrieveCachedConnection } from './retrieveCachedConnection.ts';
 
 export type Context<Resource extends PlainObject, ResourceNode extends Node> = {
   cursorCache: Core;
-  fieldName: string;
+  fieldPath: string;
   getters: Getters<Resource, ResourceNode>;
   groupCursor: string;
   logger: Logger | undefined;
@@ -32,7 +32,7 @@ export const resolveConnection = async <Resource extends PlainObject, ResourceNo
   args: PlainObject & ConnectionInputOptions,
   {
     cursorCache,
-    fieldName,
+    fieldPath,
     getters,
     groupCursor,
     logger,
@@ -51,7 +51,7 @@ export const resolveConnection = async <Resource extends PlainObject, ResourceNo
 
   if (missingPages.length === 0) {
     const edges = extractEdges(cachedEdges);
-    logger?.info(`Successfully resolved ${fieldName} from cache`);
+    logger?.info(`Successfully resolved ${fieldPath} from cache`);
 
     return {
       edges,
@@ -69,7 +69,7 @@ export const resolveConnection = async <Resource extends PlainObject, ResourceNo
 
   const { cachedEdges: missingCachedEdges, errors } = await requestAndCachePages<Resource, ResourceNode>(missingPages, {
     cursorCache,
-    fieldName,
+    fieldPath,
     getters,
     groupCursor,
     makeIDCursor,
@@ -84,7 +84,7 @@ export const resolveConnection = async <Resource extends PlainObject, ResourceNo
   });
 
   const edges = extractEdges(mergedCachedEdges);
-  logger?.info(`Successfully resolved ${fieldName} from api`);
+  logger?.info(`Successfully resolved ${fieldPath} from api`);
 
   return {
     edges,

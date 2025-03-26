@@ -37,18 +37,18 @@ export const makeConnectionResolver =
     const resourceResolver = createResourceResolver(source, args, context, info);
     const groupCursor = makeGroupCursor();
     const { logger, operationName, requestID, setCacheMetadata, tmdbGuestSessionId } = context;
-    const { fieldName } = info;
+    const { fieldName: fieldPath } = info;
 
     const childLogger = logger?.child({
       args,
-      field: fieldName,
+      fieldPath,
       groupCursor,
       operationName,
       requestID,
       tmdbGuestSessionId,
     });
 
-    childLogger?.info(`Resolving ${fieldName}`);
+    childLogger?.info(`Resolving ${fieldPath}`);
 
     if (isCursorSupplied(args)) {
       const cursorError = await validateCursor(args, info, {
@@ -58,7 +58,7 @@ export const makeConnectionResolver =
       });
 
       if (cursorError) {
-        childLogger?.error(`Failed to resolve ${fieldName}, validation cursor error`, {
+        childLogger?.error(`Failed to resolve ${fieldPath}, validation cursor error`, {
           errors: [cursorError],
         });
 
@@ -77,7 +77,7 @@ export const makeConnectionResolver =
       return resolver(
         await resolveConnection(args, {
           cursorCache,
-          fieldName,
+          fieldPath,
           getters,
           groupCursor,
           logger: childLogger,
@@ -93,7 +93,7 @@ export const makeConnectionResolver =
       return resolver(
         await resolveConnection(args, {
           cursorCache,
-          fieldName,
+          fieldPath,
           getters,
           groupCursor,
           logger: childLogger,
@@ -107,7 +107,7 @@ export const makeConnectionResolver =
 
     await requestAndCachePages<Resource, ResourceNode>([1], {
       cursorCache,
-      fieldName,
+      fieldPath,
       getters,
       groupCursor,
       makeIDCursor,
@@ -118,7 +118,7 @@ export const makeConnectionResolver =
     return resolver(
       await resolveConnection(args, {
         cursorCache,
-        fieldName,
+        fieldPath,
         getters,
         groupCursor,
         logger: childLogger,

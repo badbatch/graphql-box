@@ -6,7 +6,7 @@ import { makeEdges } from './makeEdges.ts';
 
 export type Context<Resource extends PlainObject, ResourceNode extends Node> = {
   cursorCache: Core;
-  fieldName: string;
+  fieldPath: string;
   getters: Getters<Resource, ResourceNode>;
   groupCursor: string;
   makeIDCursor: (id: string | number) => string;
@@ -18,7 +18,7 @@ export const requestAndCachePages = async <Resource extends PlainObject, Resourc
   pages: number[],
   {
     cursorCache,
-    fieldName,
+    fieldPath,
     getters,
     groupCursor,
     makeIDCursor,
@@ -39,7 +39,7 @@ export const requestAndCachePages = async <Resource extends PlainObject, Resourc
       });
 
       if (pageResultData) {
-        setCacheMetadata?.(fieldName, pageResultHeaders);
+        setCacheMetadata?.(fieldPath, pageResultHeaders);
       }
 
       if (pageResultData && !pageResultErrors?.length) {
