@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.30 (2025-03-31)
+
+### Chores
+
+* **deps-dev:**  bump next from 14.2.21 to 14.2.25 (6ac0a151)
+
+### Refactors
+
+* **connection-resolver:**  update return type (ec33ce3a)
+
 ## 5.5.29 (2025-03-26)
 
 ### Refactors
