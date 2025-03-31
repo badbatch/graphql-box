@@ -52,10 +52,12 @@ export type Connection = {
   totalCount: number;
 };
 
-export interface ResourceResponse<Resource extends PlainObject> extends Response {
+export type ResourceResponse<Resource extends PlainObject> = {
   data?: Resource;
   errors?: Error[];
-}
+  headers: Headers;
+  status: number;
+};
 
 export type ResourceResolver<Resource extends PlainObject> = (args: {
   page: number;
