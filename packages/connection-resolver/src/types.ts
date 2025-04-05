@@ -56,7 +56,6 @@ export type ResourceResponse<Resource extends PlainObject> = {
   data?: Resource;
   errors?: Error[];
   headers: Headers;
-  status: number;
 };
 
 export type ResourceResolver<Resource extends PlainObject> = (args: {

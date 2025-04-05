@@ -36,7 +36,7 @@ export const makeConnectionResolver =
     const { makeGroupCursor, makeIDCursor } = createMakeCursors(source, args, context, info);
     const resourceResolver = createResourceResolver(source, args, context, info);
     const groupCursor = makeGroupCursor();
-    const { logger, operationName, requestID, setCacheMetadata, tmdbGuestSessionId } = context;
+    const { logger, operationName, requestID, setCacheMetadata } = context;
     const { fieldName: fieldPath } = info;
 
     const childLogger = logger?.child({
@@ -45,7 +45,6 @@ export const makeConnectionResolver =
       groupCursor,
       operationName,
       requestID,
-      tmdbGuestSessionId,
     });
 
     childLogger?.info(`Resolving ${fieldPath}`);
