@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.32 (2025-04-05)
+
+### Bug Fixes
+
+* **root:**  vulnerabilities (cca5dfa0)
+
 ## 5.5.31 (2025-04-05)
 
 ### Chores
