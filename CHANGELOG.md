@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.31 (2025-04-05)
+
+### Chores
+
+* **deps-dev:**  bump next from 14.2.25 to 14.2.26 (885f4160)
+
+### Refactors
+
+* **connection-resolver:**  remove status from return type (e62a335a)
+
 ## 5.5.30 (2025-03-31)
 
 ### Chores
