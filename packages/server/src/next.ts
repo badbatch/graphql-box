@@ -11,6 +11,7 @@ import { ArgsError, GroupedError, dehydrateCacheMetadata, serializeErrors } from
 import { isAsyncIterable } from 'iterall';
 import { isError, isPlainObject } from 'lodash-es';
 import { type NextRequest, NextResponse } from 'next/server.js';
+import { nextEnrichContextValue } from '#helpers/nextEnrichContextValue.ts';
 import { asyncIteratorToStream } from './helpers/asyncIteratorToStream.ts';
 import { isLogBatched } from './helpers/isLogBatched.ts';
 import { isRequestBatched } from './helpers/isRequestBatched.ts';
@@ -54,7 +55,7 @@ export class NextMiddleware {
   }
 
   public createRequestHandler(options: ServerRequestOptions = {}): NextRequestHandler {
-    return (req: NextRequest) => this._requestHandler(req, options);
+    return (req: NextRequest) => this._requestHandler(req, nextEnrichContextValue(req, options));
   }
 
   private async _handleBatchRequest(requests: BatchRequestData['requests'], options: ServerRequestOptions) {
@@ -124,7 +125,7 @@ export class NextMiddleware {
       }),
     );
 
-    return new NextResponse(JSON.stringify(response), {
+    return NextResponse.json(response, {
       status: 200,
     });
   }
@@ -150,15 +151,13 @@ export class NextMiddleware {
     return new Promise<NextResponse>(resolve => {
       void (async () => {
         const requestTimer = setTimeout(() => {
+          const message = `@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`;
+
           resolve(
             new NextResponse(
               JSON.stringify(
                 serializeErrors({
-                  errors: [
-                    new Error(
-                      `@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`,
-                    ),
-                  ],
+                  errors: [new Error(message)],
                 }),
               ),
               {
@@ -182,7 +181,7 @@ export class NextMiddleware {
           }
 
           resolve(
-            new NextResponse(JSON.stringify(response), {
+            NextResponse.json(response, {
               status: 200,
             }),
           );
@@ -234,7 +233,7 @@ export class NextMiddleware {
         ? error
         : new Error('@graphql-box/server logHandler had an unexpected error.');
 
-      return new NextResponse(JSON.stringify(serializeErrors({ errors: [confirmedError] })), {
+      return NextResponse.json(serializeErrors({ errors: [confirmedError] }), {
         status: 500,
       });
     }
@@ -266,7 +265,7 @@ export class NextMiddleware {
         ? error
         : new Error('@graphql-box/server requestHandler had an unexpected error.');
 
-      return new NextResponse(JSON.stringify(serializeErrors({ errors: [confirmedError] })), {
+      return NextResponse.json(serializeErrors({ errors: [confirmedError] }), {
         status: 500,
       });
     }

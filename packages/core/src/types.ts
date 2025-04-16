@@ -73,7 +73,7 @@ export interface ServerRequestOptions {
    * Set GraphQL context value to be passed on to
    * GraphQL's execute and subscribe methods.
    */
-  contextValue?: PlainObject;
+  contextValue?: PlainObject & { data?: PlainObject };
   /**
    * Set default GraphQL field resolver function to
    * be passed on to GraphQL's execute and subscribe
