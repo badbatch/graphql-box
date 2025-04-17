@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.37 (2025-04-17)
+
+### Refactors
+
+* **connection-resolver,server:**  update logging data (aeed9439)
+
 ## 5.5.36 (2025-04-17)
 
 ### Refactors
