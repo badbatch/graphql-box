@@ -123,10 +123,18 @@ export interface CachemapOptions {
   tag?: string | number;
 }
 
-export type ExecutionContext = {
-  debugManager: DebugManagerDef;
-  fragmentDefinitions: FragmentDefinitionNodeMap;
+export type ExecutionContextValueData = PlainObject & {
+  operationName: string;
+  originalRequestHash: string;
+  requestComplexity: number | null;
+  requestDepth: number | null;
   requestID: string;
+};
+
+export type ExecutionContextValue = PlainObject & {
+  data: ExecutionContextValueData;
+  debugManager: DebugManagerDef | null;
+  fragmentDefinitions?: FragmentDefinitionNodeMap;
   setCacheMetadata: (key: string, headers: Headers, operation?: OperationTypeNode) => void;
 };
 

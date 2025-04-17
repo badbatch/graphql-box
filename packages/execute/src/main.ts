@@ -24,7 +24,7 @@ import { logExecute } from './debug/logExecute.ts';
 import { type GraphQLExecute, type UserOptions } from './types.ts';
 
 export class Execute {
-  private readonly _contextValue: PlainObject;
+  private readonly _contextValue: PlainObject & { data?: PlainObject };
   private readonly _eventEmitter: EventEmitter;
   private readonly _execute: GraphQLExecute;
   private readonly _fieldResolver?: GraphQLFieldResolver<unknown, unknown> | null;
@@ -80,6 +80,7 @@ export class Execute {
           requestComplexity,
           requestDepth,
           requestID,
+          ...this._contextValue.data,
           ...contextValue.data,
         },
         debugManager,

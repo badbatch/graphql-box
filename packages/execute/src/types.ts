@@ -1,9 +1,4 @@
-import {
-  type AsyncExecutionResult,
-  type DebugManagerDef,
-  type FragmentDefinitionNodeMap,
-  type PlainObject,
-} from '@graphql-box/core';
+import { type AsyncExecutionResult, type PlainObject } from '@graphql-box/core';
 import { type ExecutionArgs, type ExecutionResult, type GraphQLFieldResolver, type GraphQLSchema } from 'graphql';
 import { type PromiseOrValue } from 'graphql/jsutils/PromiseOrValue.js';
 
@@ -12,7 +7,7 @@ export interface UserOptions {
    * Set GraphQL context value to be passed on to
    * GraphQL's execute and subscribe methods.
    */
-  contextValue?: PlainObject;
+  contextValue?: PlainObject & { data?: PlainObject };
   /**
    * A GraphQL execute function to use
    * instead of the out-of-the-box function.
@@ -39,17 +34,3 @@ export interface UserOptions {
 export type GraphQLExecute = (
   args: ExecutionArgs,
 ) => PromiseOrValue<ExecutionResult | AsyncGenerator<AsyncExecutionResult, void, void>>;
-
-export type ExecutionContextValueData = PlainObject & {
-  operationName: string;
-  originalRequestHash: string;
-  requestComplexity: number | null;
-  requestDepth: number | null;
-  requestID: string;
-};
-
-export type ExecutionContextValue = PlainObject & {
-  data: ExecutionContextValueData;
-  debugManager: DebugManagerDef | null;
-  fragmentDefinitions?: FragmentDefinitionNodeMap;
-};
