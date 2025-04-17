@@ -5,7 +5,8 @@ import { UAParser } from 'ua-parser-js';
 export const nextEnrichContextValue = (req: NextRequest, options: ServerRequestOptions): ServerRequestOptions => {
   const headersList = req.headers;
   const cookieStore = req.cookies;
-  const { browser, cpu, device, engine, os } = UAParser(headersList.get('user-agent') ?? undefined);
+  const userAgent = headersList.get('user-agent') ?? undefined;
+  const { browser, cpu, device, engine, os } = UAParser(userAgent);
 
   return {
     ...options,
@@ -15,20 +16,21 @@ export const nextEnrichContextValue = (req: NextRequest, options: ServerRequestO
         ...options.contextValue?.data,
         browserName: browser.name,
         browserVersion: browser.version,
-        cookies: JSON.stringify(cookieStore.getAll()),
+        cookies: cookieStore.getAll(),
         cpuArchitecture: cpu.architecture,
         deviceModel: device.model,
         deviceType: device.type,
         deviceVendor: device.vendor,
         engineName: engine.name,
         engineVersion: engine.version,
-        headers: JSON.stringify(headersList),
+        headers: headersList,
         ipAddress: headersList.get('x-real-ip') ?? headersList.get('x-forwarded-for'),
         osName: os.name,
         osVersion: os.version,
+        pathname: req.nextUrl.pathname,
         referer: headersList.get('referer'),
         url: req.nextUrl.href,
-        userAgent: headersList.get('user-agent'),
+        userAgent,
       },
     },
   };
