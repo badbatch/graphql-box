@@ -36,15 +36,14 @@ export const makeConnectionResolver =
     const { makeGroupCursor, makeIDCursor } = createMakeCursors(source, args, context, info);
     const resourceResolver = createResourceResolver(source, args, context, info);
     const groupCursor = makeGroupCursor();
-    const { logger, operationName, requestID, setCacheMetadata } = context;
+    const { data: ctxData, logger, setCacheMetadata } = context;
     const { fieldName: fieldPath } = info;
 
     const childLogger = logger?.child({
+      ...ctxData,
       args,
       fieldPath,
       groupCursor,
-      operationName,
-      requestID,
     });
 
     childLogger?.info(`Resolving ${fieldPath}`);

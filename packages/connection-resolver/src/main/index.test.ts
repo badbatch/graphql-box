@@ -7,7 +7,7 @@ import { encode } from 'js-base64';
 import { generateCursorCache } from '../__testUtils__/generateCursorCache.ts';
 import { generatePageResponse } from '../__testUtils__/generatePageResponse.ts';
 import { removeConnectionInputOptions } from '../helpers/removeConnectionInputOptions.ts';
-import { type Getters, type Node, type ResourceResponse } from '../types.ts';
+import { type Context, type Getters, type Node, type ResourceResponse } from '../types.ts';
 import { makeConnectionResolver } from './index.ts';
 
 const createMakeCursors = (_source: PlainObject, args: PlainObject) => ({
@@ -49,7 +49,7 @@ describe('connectionResolver', () => {
 
         const args = { before: 'abcdefg', first: 5, query: 'Hello world!' };
         const info = {};
-        result = await connectionResolver({}, args, {}, info as GraphQLResolveInfo);
+        result = await connectionResolver({}, args, {} as Context, info as GraphQLResolveInfo);
       });
 
       it('should return the correct result', () => {
@@ -104,7 +104,7 @@ describe('connectionResolver', () => {
         };
 
         const info = {};
-        result = await connectionResolver({}, args, {}, info as GraphQLResolveInfo);
+        result = await connectionResolver({}, args, {} as Context, info as GraphQLResolveInfo);
       });
 
       it('should return the correct result', () => {
@@ -151,7 +151,7 @@ describe('connectionResolver', () => {
         };
 
         const info = {};
-        result = await connectionResolver({}, args, {}, info as GraphQLResolveInfo);
+        result = await connectionResolver({}, args, {} as Context, info as GraphQLResolveInfo);
       });
 
       it('should return the correct result', () => {
@@ -202,7 +202,7 @@ describe('connectionResolver', () => {
         };
 
         const info = {};
-        result = await connectionResolver({}, args, {}, info as GraphQLResolveInfo);
+        result = await connectionResolver({}, args, {} as Context, info as GraphQLResolveInfo);
       });
 
       it('should return the correct result', () => {
@@ -248,7 +248,7 @@ describe('connectionResolver', () => {
         };
 
         const info = {};
-        result = await connectionResolver({}, args, {}, info as GraphQLResolveInfo);
+        result = await connectionResolver({}, args, {} as Context, info as GraphQLResolveInfo);
       });
 
       it('should return the correct result', () => {
@@ -298,7 +298,7 @@ describe('connectionResolver', () => {
         };
 
         const info = {};
-        result = await connectionResolver({}, args, {}, info as GraphQLResolveInfo);
+        result = await connectionResolver({}, args, {} as Context, info as GraphQLResolveInfo);
       });
 
       it('should return the correct result', () => {
@@ -349,7 +349,7 @@ describe('connectionResolver', () => {
         };
 
         const info = {};
-        result = await connectionResolver({}, args, {}, info as GraphQLResolveInfo);
+        result = await connectionResolver({}, args, {} as Context, info as GraphQLResolveInfo);
       });
 
       it('should return the correct result', () => {
@@ -395,7 +395,7 @@ describe('connectionResolver', () => {
         };
 
         const info = {};
-        result = await connectionResolver({}, args, {}, info as GraphQLResolveInfo);
+        result = await connectionResolver({}, args, {} as Context, info as GraphQLResolveInfo);
       });
 
       it('should return the correct result', () => {
@@ -445,7 +445,7 @@ describe('connectionResolver', () => {
         };
 
         const info = {};
-        result = await connectionResolver({}, args, {}, info as GraphQLResolveInfo);
+        result = await connectionResolver({}, args, {} as Context, info as GraphQLResolveInfo);
       });
 
       it('should return the correct result', () => {

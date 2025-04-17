@@ -235,7 +235,11 @@ export class FetchManager {
 
         const fetchResult = await fetch(url, {
           body: JSON.stringify(body),
-          headers: new Headers(this._headers),
+          headers: new Headers({
+            ...this._headers,
+            'x-browser-href': globalThis.location.href,
+            'x-browser-pathname': globalThis.location.pathname,
+          }),
           method: 'POST',
         }).then(meros);
 

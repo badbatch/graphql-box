@@ -17,6 +17,14 @@ polyfillFetch();
 const mockedFetch = mockFetch(jest.fn);
 const URL = 'https://api.github.com/graphql';
 
+Object.defineProperty(globalThis, 'location', {
+  value: {
+    href: 'https://browser-origin.local/browser-pathname',
+    pathname: 'browser-pathname',
+  },
+  writable: true,
+});
+
 describe('@graphql-box/fetch-manager >>', () => {
   let fetchManager: RequestManagerDef;
 
