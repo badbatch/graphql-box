@@ -34,18 +34,22 @@ export const makeConnectionResolver =
     info: GraphQLResolveInfo,
   ): Promise<Connection> => {
     const { makeGroupCursor, makeIDCursor } = createMakeCursors(source, args, context, info);
-    const resourceResolver = createResourceResolver(source, args, context, info);
     const groupCursor = makeGroupCursor();
-    const { data: ctxData, logger, setCacheMetadata } = context;
+    const { logger, setCacheMetadata } = context;
     const { fieldName: fieldPath } = info;
 
-    const childLogger = logger?.child({
-      ...ctxData,
-      args,
-      fieldPath,
-      groupCursor,
-    });
+    const newCtx = {
+      ...context,
+      data: {
+        ...context.data,
+        args,
+        fieldPath,
+        groupCursor,
+      },
+    };
 
+    const resourceResolver = createResourceResolver(source, args, newCtx, info);
+    const childLogger = logger?.child(newCtx.data);
     childLogger?.info(`Resolving ${fieldPath}`);
 
     if (isCursorSupplied(args)) {
