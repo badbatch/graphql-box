@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.36 (2025-04-17)
+
+### Refactors
+
+* **connection-resolver,fetch-manager,server:**  update headers and context (febeeb85)
+
 ## 5.5.35 (2025-04-17)
 
 ### Refactors
