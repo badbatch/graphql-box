@@ -51,7 +51,7 @@ export const resolveConnection = async <Resource extends PlainObject, ResourceNo
 
   if (missingPages.length === 0) {
     const edges = extractEdges(cachedEdges);
-    logger?.info(`Successfully resolved ${fieldPath} from cache`);
+    logger?.info(`CACHE HIT: Connection resolver cache has data to resolve ${fieldPath}`);
 
     return {
       edges,
@@ -84,7 +84,6 @@ export const resolveConnection = async <Resource extends PlainObject, ResourceNo
   });
 
   const edges = extractEdges(mergedCachedEdges);
-  logger?.info(`Successfully resolved ${fieldPath} from api`);
 
   return {
     edges,
