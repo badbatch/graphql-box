@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.38 (2025-04-18)
+
+### New Features
+
+* **connection-resolver:**  enrich log entries (3633d918)
+
+### Refactors
+
+* **connection-resolver:**  update logging (c3ccda0c)
+
 ## 5.5.37 (2025-04-17)
 
 ### Refactors
