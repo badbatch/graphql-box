@@ -50,7 +50,7 @@ export const makeConnectionResolver =
 
     const resourceResolver = createResourceResolver(source, args, newCtx, info);
     const childLogger = logger?.child(newCtx.data);
-    childLogger?.info(`Resolving ${fieldPath}`);
+    childLogger?.info(`Resolving ${fieldPath}`, { logEntryName: 'RESOLVER_START' });
 
     if (isCursorSupplied(args)) {
       const cursorError = await validateCursor(args, info, {
@@ -62,6 +62,7 @@ export const makeConnectionResolver =
       if (cursorError) {
         childLogger?.error(`Failed to resolve ${fieldPath}, validation cursor error`, {
           errors: [cursorError],
+          logEntryName: 'RESOLVER_FAILED',
         });
 
         return resolver({

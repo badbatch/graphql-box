@@ -51,7 +51,10 @@ export const resolveConnection = async <Resource extends PlainObject, ResourceNo
 
   if (missingPages.length === 0) {
     const edges = extractEdges(cachedEdges);
-    logger?.info(`CACHE HIT: Connection resolver cache has data to resolve ${fieldPath}`);
+
+    logger?.info(`CACHE HIT: Connection resolver cache has data to resolve ${fieldPath}`, {
+      logEntryName: 'RESOLVER_RESPONSE_FROM_CACHE',
+    });
 
     return {
       edges,
