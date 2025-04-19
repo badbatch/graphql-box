@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.42 (2025-04-19)
+
+### New Features
+
+* **execute,server:**  add initiator to context data (25167ef5)
+
 ## 5.5.41 (2025-04-19)
 
 ### New Features
