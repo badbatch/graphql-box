@@ -12,7 +12,7 @@ import {
   type OperationTypeNode,
 } from 'graphql';
 import { type ErrorObject } from 'serialize-error';
-import { type JsonObject, type JsonValue, type SetOptional } from 'type-fest';
+import { type Except, type JsonObject, type JsonValue, type SetOptional } from 'type-fest';
 import { type WebSocket } from 'ws';
 
 export type Maybe<T> = null | undefined | T;
@@ -62,13 +62,7 @@ export interface RequestOptions {
   variables?: PlainObject;
 }
 
-export interface ServerRequestOptions {
-  /**
-   * Whether the request method should wait until
-   * all response data has been cached before
-   * returning the response data.
-   */
-  awaitDataCaching?: boolean;
+export interface ServerRequestOptions extends Except<RequestOptions, 'batch'> {
   /**
    * Set GraphQL context value to be passed on to
    * GraphQL's execute and subscribe methods.
@@ -86,11 +80,6 @@ export interface ServerRequestOptions {
    */
   operationName?: string;
   /**
-   * Whether to return the cache metadata along
-   * with the requested data.
-   */
-  returnCacheMetadata?: boolean;
-  /**
    * Set default GraphQL root value to be passed on to
    * GraphQL's execute and subscribe methods.
    */
@@ -100,11 +89,6 @@ export interface ServerRequestOptions {
    * be passed on to GraphQL's subscribe method.
    */
   subscribeFieldResolver?: GraphQLFieldResolver<unknown, unknown>;
-  /**
-   * An identifier that will be stored in a request's cache metadata.
-   * This can be used to retrieve cache entries against.
-   */
-  tag?: string | number;
 }
 
 export interface ServerSocketRequestOptions extends ServerRequestOptions {
