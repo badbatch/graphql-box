@@ -1,5 +1,6 @@
 import { type PlainObject } from '@graphql-box/core';
 import { type GraphQLResolveInfo } from 'graphql';
+import crypto from 'node:crypto';
 import { isCursorSupplied } from '../helpers/isCursorSupplied.ts';
 import { requestAndCachePages } from '../helpers/requestAndCachePages.ts';
 import { resolveConnection } from '../helpers/resolveConnection.ts';
@@ -45,6 +46,7 @@ export const makeConnectionResolver =
         args,
         fieldPath,
         groupCursor,
+        resolverRequestId: crypto.randomUUID(),
       },
     };
 
