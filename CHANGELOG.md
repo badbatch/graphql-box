@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.40 (2025-04-19)
+
+### Bug Fixes
+
+* **connection-resolver:**  remove incorrect log entry (0985d679)
+
 ## 5.5.39 (2025-04-19)
 
 ### Refactors
