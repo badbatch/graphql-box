@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.41 (2025-04-19)
+
+### New Features
+
+* **connection-resolver:**  add resolver request id to logs (3220b581)
+
 ## 5.5.40 (2025-04-19)
 
 ### Bug Fixes
