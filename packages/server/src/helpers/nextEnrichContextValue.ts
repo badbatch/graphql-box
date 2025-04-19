@@ -14,6 +14,7 @@ export const nextEnrichContextValue = (req: NextRequest, options: ServerRequestO
       ...options.contextValue,
       data: {
         ...options.contextValue?.data,
+        apiRequestType: 'API_REQUEST',
         apiRouteHeaders: headersList,
         apiRouteUrl: req.nextUrl.href,
         browserName: browser.name,

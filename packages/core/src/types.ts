@@ -239,6 +239,7 @@ export interface RequestContext {
   fieldTypeMap: FieldTypeMap;
   filteredRequest: string;
   hasDeferOrStream?: boolean;
+  initiator?: string;
   normalizePatchResponseData?: boolean;
   operation: OperationTypeNode;
   operationName: string;

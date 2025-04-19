@@ -62,6 +62,7 @@ export class Execute {
 
     const {
       debugManager,
+      initiator,
       operationName: ctxOperationName,
       originalRequestHash,
       requestComplexity,
@@ -75,6 +76,7 @@ export class Execute {
         ...this._contextValue,
         ...contextValue,
         data: {
+          initiator,
           operationName: ctxOperationName,
           originalRequestHash,
           requestComplexity,
