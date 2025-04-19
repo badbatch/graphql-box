@@ -31,8 +31,8 @@ import {
 } from './types.ts';
 
 export class FetchManager {
-  private static _getMessageContext({ operation, originalRequestHash, requestID }: RequestContext) {
-    return { operation, originalRequestHash, requestID };
+  private static _getMessageContext({ initiator, operation, originalRequestHash, requestID }: RequestContext) {
+    return { initiator, operation, originalRequestHash, requestID };
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: unknown): void {
