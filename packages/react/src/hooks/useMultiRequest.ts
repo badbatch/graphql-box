@@ -1,4 +1,9 @@
-import { type PartialRequestResult, type PlainObject, type RequestOptions } from '@graphql-box/core';
+import {
+  type PartialRequestResult,
+  type PlainObject,
+  type RequestContext,
+  type RequestOptions,
+} from '@graphql-box/core';
 import { useState } from 'react';
 import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
 
@@ -12,7 +17,7 @@ export const useMultiRequest = <Data extends PlainObject>(request: string, { loa
   const graphqlBoxClient = useGraphqlBoxClient();
   const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading });
 
-  const execute = async (optionsSet: RequestOptions[]) => {
+  const execute = async (optionsSet: RequestOptions[], context?: Partial<RequestContext>) => {
     setState({
       data: undefined,
       errors: [],
@@ -23,7 +28,7 @@ export const useMultiRequest = <Data extends PlainObject>(request: string, { loa
     // returning an async iterator.
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const requestResults = (await Promise.all(
-      optionsSet.map(options => graphqlBoxClient.request(request, options)),
+      optionsSet.map(options => graphqlBoxClient.request(request, options, context)),
     )) as PartialRequestResult[];
 
     setState({

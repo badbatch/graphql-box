@@ -1,4 +1,9 @@
-import { type PartialRequestResult, type PlainObject, type RequestOptions } from '@graphql-box/core';
+import {
+  type PartialRequestResult,
+  type PlainObject,
+  type RequestContext,
+  type RequestOptions,
+} from '@graphql-box/core';
 import { isAsyncIterable } from 'iterall';
 import { useState } from 'react';
 import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
@@ -14,7 +19,7 @@ export const useQuery = <Data extends PlainObject>(request: string, { loading = 
   const graphqlBoxClient = useGraphqlBoxClient();
   const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading, requestID: '' });
 
-  const execute = async (options?: RequestOptions) => {
+  const execute = async (options?: RequestOptions, context?: Partial<RequestContext>) => {
     setState({
       data: undefined,
       errors: [],
@@ -22,7 +27,7 @@ export const useQuery = <Data extends PlainObject>(request: string, { loading = 
       requestID: '',
     });
 
-    const requestResult = await graphqlBoxClient.query(request, options);
+    const requestResult = await graphqlBoxClient.query(request, options, context);
 
     if (isAsyncIterable(requestResult)) {
       throw new Error('useQuery does not support returning async iterators from queries');
