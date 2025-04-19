@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.39 (2025-04-19)
+
+### Refactors
+
+* **server:**  update request options on server (b70b8523)
+
 ## 5.5.38 (2025-04-18)
 
 ### New Features
