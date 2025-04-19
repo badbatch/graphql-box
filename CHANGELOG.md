@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.5.43 (2025-04-19)
+
+### New Features
+
+* **fetch-manager:**  pass initiator context to server (2e4d29ed)
+* **react:**  allow context to be passed to request hooks (92a87cca)
+
 ## 5.5.42 (2025-04-19)
 
 ### New Features
