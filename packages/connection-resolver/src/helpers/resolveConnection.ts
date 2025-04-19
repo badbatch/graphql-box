@@ -1,6 +1,5 @@
 import { type Core } from '@cachemap/core';
 import { type PlainObject } from '@graphql-box/core';
-import { type Logger } from 'winston';
 import {
   type ConnectionInputOptions,
   type Getters,
@@ -21,7 +20,6 @@ export type Context<Resource extends PlainObject, ResourceNode extends Node> = {
   fieldPath: string;
   getters: Getters<Resource, ResourceNode>;
   groupCursor: string;
-  logger: Logger | undefined;
   makeIDCursor: (id: string | number) => string;
   resourceResolver: ResourceResolver<Resource>;
   resultsPerPage: number;
@@ -35,7 +33,6 @@ export const resolveConnection = async <Resource extends PlainObject, ResourceNo
     fieldPath,
     getters,
     groupCursor,
-    logger,
     makeIDCursor,
     resourceResolver,
     resultsPerPage,
@@ -51,10 +48,6 @@ export const resolveConnection = async <Resource extends PlainObject, ResourceNo
 
   if (missingPages.length === 0) {
     const edges = extractEdges(cachedEdges);
-
-    logger?.info(`CACHE HIT: Connection resolver cache has data to resolve ${fieldPath}`, {
-      logEntryName: 'RESOLVER_RESPONSE_FROM_CACHE',
-    });
 
     return {
       edges,
