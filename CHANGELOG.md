@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.44 (2025-04-21)
+
+### Bug Fixes
+
+* **worker-client:**  pass initiator to worker on context (3834a7d6)
+
 ## 5.5.43 (2025-04-19)
 
 ### New Features
