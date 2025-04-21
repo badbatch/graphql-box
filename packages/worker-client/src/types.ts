@@ -77,6 +77,7 @@ export interface MessageResponsePayload {
 
 export interface MessageContext {
   hasDeferOrStream: boolean;
+  initiator?: string;
   operation: OperationTypeNode;
   requestID: string;
 }

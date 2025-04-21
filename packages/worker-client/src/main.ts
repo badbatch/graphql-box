@@ -40,10 +40,11 @@ import {
 export class WorkerClient {
   private static _getMessageContext({
     hasDeferOrStream = false,
+    initiator,
     operation,
     requestID,
   }: RequestContext): MessageContext {
-    return { hasDeferOrStream, operation, requestID };
+    return { hasDeferOrStream, initiator, operation, requestID };
   }
 
   private static _resolve(
