@@ -47,6 +47,7 @@ export const makeConnectionResolver =
         fieldPath,
         groupCursor,
         resolverRequestId: crypto.randomUUID(),
+        resolverType: 'Connection',
       },
     };
 
@@ -63,7 +64,7 @@ export const makeConnectionResolver =
 
       if (cursorError) {
         childLogger?.error(`Failed to resolve ${fieldPath}, validation cursor error`, {
-          errors: [cursorError],
+          errors: JSON.stringify([cursorError]),
           logEntryName: 'RESOLVER_FAILED',
         });
 
