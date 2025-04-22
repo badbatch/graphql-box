@@ -530,13 +530,8 @@ export class RequestParser implements RequestParserDef {
             const defaultValue = getVariableDefinitionDefaultValue(variableDefinitionNode);
 
             if (defaultValue) {
-              if (!options.variables) {
-                options.variables = {};
-              }
-
-              if (!options.variables[variableName]) {
-                options.variables[variableName] = defaultValue;
-              }
+              options.variables ??= {};
+              options.variables[variableName] ??= defaultValue;
             }
 
             return;

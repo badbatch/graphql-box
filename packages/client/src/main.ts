@@ -502,12 +502,7 @@ export class Client {
 
   @logPendingQuery()
   private _setPendingQuery(requestHash: string, data: PendingQueryData): void {
-    let pending = this._queryTracker.pending.get(requestHash);
-
-    if (!pending) {
-      pending = [];
-    }
-
+    const pending = this._queryTracker.pending.get(requestHash) ?? [];
     pending.push(data);
     this._queryTracker.pending.set(requestHash, pending);
   }

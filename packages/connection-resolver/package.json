@@ -41,7 +41,7 @@
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
-    "@cachemap/core": "^5.2.2",
+    "@cachemap/core": "^5.2.7",
     "@graphql-box/core": "workspace:*",
     "@types/lodash-es": "^4.17.12",
     "core-js": "^3.39.0",

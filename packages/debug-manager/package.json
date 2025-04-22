@@ -49,7 +49,7 @@
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@cachemap/core": "^5.2.2",
+    "@cachemap/core": "^5.2.7",
     "@cachemap/map": "^5.0.8",
     "@graphql-box/cache-manager": "workspace:*",
     "@graphql-box/test-utils": "workspace:*",

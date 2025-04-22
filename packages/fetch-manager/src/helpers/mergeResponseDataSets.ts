@@ -15,10 +15,7 @@ export const mergeResponseDataSets = (responseDataSets: PartialRawFetchData[]): 
     }
 
     if (errors?.length) {
-      if (!acc.errors) {
-        acc.errors = [];
-      }
-
+      acc.errors ??= [];
       acc.errors.push(...errors);
     }
 
@@ -31,9 +28,7 @@ export const mergeResponseDataSets = (responseDataSets: PartialRawFetchData[]): 
     }
 
     if (paths) {
-      if (!acc.paths) {
-        acc.paths = [];
-      }
+      acc.paths ??= [];
 
       if (isString(paths[0])) {
         acc.paths.push(paths[0]);

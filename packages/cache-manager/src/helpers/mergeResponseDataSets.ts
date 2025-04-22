@@ -21,10 +21,7 @@ export const mergeResponseDataSets = (responseDataSets: RawResponseDataWithMaybe
       }
 
       if (paths) {
-        if (!acc.paths) {
-          acc.paths = [];
-        }
-
+        acc.paths ??= [];
         acc.paths.push(...paths);
       }
 

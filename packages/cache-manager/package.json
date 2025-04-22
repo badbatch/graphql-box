@@ -53,7 +53,7 @@
     "graphql": "<17"
   },
   "devDependencies": {
-    "@cachemap/core": "^5.2.2",
+    "@cachemap/core": "^5.2.7",
     "@cachemap/map": "^5.0.8",
     "@graphql-box/test-utils": "workspace:*",
     "@jest/globals": "^29.3.1",

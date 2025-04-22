@@ -117,8 +117,9 @@ export class FetchManager {
       }
 
       void forAwaitEach(fetchResult, async ({ body, headers }) => {
-        // Struggling to cleanly type this another way
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        // Need to re-look at this and fix
+        // eslint-disable-next-line @stylistic/max-len
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions,@typescript-eslint/no-misused-spread
         const responseData = { headers, ...body } as unknown as PartialRawFetchData;
 
         const decoratedExecuteResolver = (result: PartialRawResponseData) => {

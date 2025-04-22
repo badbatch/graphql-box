@@ -42,10 +42,7 @@ export const useMultiRequest = <Data extends PlainObject>(request: string, { loa
       }, []),
       errors: requestResults.reduce<readonly Error[]>((acc, result) => {
         if (result.errors?.length) {
-          return {
-            ...acc,
-            ...result.errors,
-          };
+          return [...acc, ...result.errors];
         }
 
         return acc;

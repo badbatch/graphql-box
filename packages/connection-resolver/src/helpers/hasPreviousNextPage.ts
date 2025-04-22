@@ -15,7 +15,7 @@ export type HasNextPageParams = {
 };
 
 export const hasPreviousPage = ({ cachedEdgesByPage, startIndex }: HasPreviousPageParams) =>
-  (isNumber(cachedEdgesByPage[0]?.pageNumber) && cachedEdgesByPage[0]?.pageNumber !== 1) || startIndex.relative > 0;
+  (isNumber(cachedEdgesByPage[0]?.pageNumber) && cachedEdgesByPage[0].pageNumber !== 1) || startIndex.relative > 0;
 
 export const hasNextPage = ({
   cachedEdgesByPage,

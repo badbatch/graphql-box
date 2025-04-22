@@ -75,7 +75,7 @@ export class Subscribe {
       document: ast,
       fieldResolver: fieldResolver ?? this._fieldResolver,
       operationName,
-      rootValue: rootValue || this._rootValue,
+      rootValue: rootValue ?? this._rootValue,
       schema: this._schema,
       subscribeFieldResolver: subscribeFieldResolver ?? this._subscribeFieldResolver,
     };
