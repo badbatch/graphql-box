@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.46 (2025-04-22)
+
+### New Features
+
+* **connection-resolver:**  add resolverType log prop (7160883b)
+
 ## 5.5.45 (2025-04-22)
 
 ### New Features
