@@ -136,6 +136,7 @@ export type GraphqlStep =
   | 'pending_query_resolved'
   | 'request_executed'
   | 'request_resolved'
+  | 'request_resolved_from_cache'
   | 'resolver_executed'
   | 'resolver_resolved'
   | 'server_request_received'
