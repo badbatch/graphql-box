@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.49 (2025-04-22)
+
+### Bug Fixes
+
+* **core:**  add entry to log step type (62c48681)
+
 ## 5.5.48 (2025-04-22)
 
 ### Chores
