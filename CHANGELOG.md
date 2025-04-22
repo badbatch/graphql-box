@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.47 (2025-04-22)
+
+### New Features
+
+* **connection-resolver:**  add args to log message (7e5091f1)
+
 ## 5.5.46 (2025-04-22)
 
 ### New Features
