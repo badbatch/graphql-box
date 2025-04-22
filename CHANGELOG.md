@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.48 (2025-04-22)
+
+### Chores
+
+* **root:**  bump deps (a7d521d3)
+
+### Refactors
+
+* **cache-manager,client:**  update logging (58e7858f)
+
 ## 5.5.47 (2025-04-22)
 
 ### New Features
