@@ -53,7 +53,7 @@ export const makeConnectionResolver =
 
     const resourceResolver = createResourceResolver(source, args, newCtx, info);
     const childLogger = logger?.child(newCtx.data);
-    childLogger?.info(`Resolving ${fieldPath}`, { logEntryName: 'RESOLVER_START' });
+    childLogger?.info(`Resolving ${fieldPath} ${JSON.stringify(args)}`, { logEntryName: 'RESOLVER_START' });
 
     if (isCursorSupplied(args)) {
       const cursorError = await validateCursor(args, info, {
