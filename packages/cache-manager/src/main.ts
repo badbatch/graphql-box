@@ -368,6 +368,10 @@ export class CacheManager implements CacheManagerDef {
     return this._cacheResponse(requestData, undefined, rawResponseData, options, cacheManagerContext);
   }
 
+  get cacheTiersEnabled(): CacheTiersEnabled {
+    return this._cacheTiersEnabled;
+  }
+
   public async checkCacheEntry(
     cacheType: CacheTypes,
     hash: string,

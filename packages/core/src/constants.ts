@@ -21,6 +21,7 @@ export const PENDING_QUERY_ADDED = 'pending_query_added';
 export const PENDING_QUERY_RESOLVED = 'pending_query_resolved';
 export const REQUEST_EXECUTED = 'request_executed';
 export const REQUEST_RESOLVED = 'request_resolved';
+export const REQUEST_RESOLVED_FROM_CACHE = 'request_resolved_from_cache';
 export const RESOLVER_EXECUTED = 'resolver_executed';
 export const RESOLVER_RESOLVED = 'resolver_resolved';
 export const SERVER_REQUEST_RECEIVED = 'server_request_received';

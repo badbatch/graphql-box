@@ -7,6 +7,7 @@ import {
   type PartialRequestResult,
   type PartialResponseData,
   REQUEST_RESOLVED,
+  REQUEST_RESOLVED_FROM_CACHE,
   type RawResponseDataWithMaybeCacheMetadata,
   type RequestContext,
   type RequestData,
@@ -249,6 +250,13 @@ export class Client {
       const checkResult = await this._cacheManager.checkQueryResponseCacheEntry(requestData.hash, options, context);
 
       if (checkResult) {
+        this._debugManager?.log(REQUEST_RESOLVED_FROM_CACHE, {
+          context,
+          options,
+          requestHash: requestData.hash,
+          result: checkResult,
+        });
+
         return Client._resolve(checkResult, options, context);
       }
 
@@ -377,7 +385,9 @@ export class Client {
       return requestData.hash;
     }
 
-    return isDataRequestedInActiveQuery(this._queryTracker.active, requestData, context);
+    return !!this._cacheManager.cacheTiersEnabled.entity || !!this._cacheManager.cacheTiersEnabled.requestPath
+      ? isDataRequestedInActiveQuery(this._queryTracker.active, requestData, context)
+      : undefined;
   }
 
   private async _request(request: string, options: RequestOptions, context: RequestContext) {

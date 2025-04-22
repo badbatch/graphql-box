@@ -175,6 +175,7 @@ export interface CacheManagerDef {
     options: RequestOptions,
     context: RequestContext,
   ): Promise<ResponseData>;
+  cacheTiersEnabled: CacheTiersEnabled;
   checkCacheEntry(
     cacheType: CacheTypes,
     hash: string,
