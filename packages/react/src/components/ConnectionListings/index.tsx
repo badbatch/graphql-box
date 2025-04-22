@@ -21,6 +21,7 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
     awaitDataCaching,
     batch,
     children,
+    componentName,
     debug = false,
     fragments,
     intersectionRoot = null,
@@ -64,14 +65,19 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
     if (variablesHash !== previousVariablesHashes.current.get(queryHash) || hasRequestPathChanged(requestPath, data)) {
       const newConnectionVariables = { ...connectionVariables, after: undefined };
 
-      void execute({
-        awaitDataCaching,
-        batch,
-        fragments,
-        returnCacheMetadata,
-        tag,
-        variables: { ...variables, ...newConnectionVariables },
-      });
+      void execute(
+        {
+          awaitDataCaching,
+          batch,
+          fragments,
+          returnCacheMetadata,
+          tag,
+          variables: { ...variables, ...newConnectionVariables },
+        },
+        {
+          initiator: componentName,
+        },
+      );
 
       if (listings.size > 0) {
         setListingsData({ hasNextPage: true, listings: new Map() });
@@ -80,7 +86,7 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
     }
 
     if (isLastItemVisible && hasNextPage) {
-      void execute({ variables: { ...variables, ...connectionVariables } });
+      void execute({ variables: { ...variables, ...connectionVariables } }, { initiator: componentName });
     }
   }, [variablesHash, isLastItemVisible, hasNextPage]); // eslint-disable-line react-hooks/exhaustive-deps
 

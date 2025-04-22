@@ -30,6 +30,7 @@ export type ListingsChildrenProps<Item extends PlainObject> = {
 
 export type ListingsProps<Item extends PlainObject> = {
   children: (props: ListingsChildrenProps<Item>) => ReactElement | null;
+  componentName: string;
   debug?: boolean;
   intersectionRoot?: IntersectionObserverInit['root'];
   intersectionRootMargin?: IntersectionObserverInit['rootMargin'];
