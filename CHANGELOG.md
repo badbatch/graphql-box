@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.45 (2025-04-22)
+
+### New Features
+
+* **react:**  support passing component name into connection listings (9dc591a0)
+
 ## 5.5.44 (2025-04-21)
 
 ### Bug Fixes
