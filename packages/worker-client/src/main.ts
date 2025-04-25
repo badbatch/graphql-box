@@ -23,13 +23,12 @@ import {
 import { type RequestParserDef } from '@graphql-box/request-parser';
 import { EventEmitter } from 'eventemitter3';
 import { OperationTypeNode } from 'graphql';
-import { isError } from 'lodash-es';
+import { isError, merge } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 import { GRAPHQL_BOX, MESSAGE, REQUEST, SUBSCRIBE } from './constants.ts';
 import { logRequest } from './debug/logRequest.ts';
 import { logSubscription } from './debug/logSubscription.ts';
 import {
-  type MessageContext,
   type MessageRequestPayload,
   type MessageResponsePayload,
   type PendingResolver,
@@ -38,21 +37,12 @@ import {
 } from './types.ts';
 
 export class WorkerClient {
-  private static _getMessageContext({
-    hasDeferOrStream = false,
-    initiator,
-    operation,
-    requestID,
-  }: RequestContext): MessageContext {
-    return { hasDeferOrStream, initiator, operation, requestID };
-  }
-
   private static _resolve(
     { cacheMetadata, ...rest }: PartialResponseData,
     options: RequestOptions,
-    { requestID }: RequestContext,
+    { data }: RequestContext,
   ): PartialRequestResult {
-    const result: PartialRequestResult = { ...rest, requestID };
+    const result: PartialRequestResult = { ...rest, requestID: data.requestID };
 
     if (options.returnCacheMetadata && cacheMetadata) {
       result._cacheMetadata = cacheMetadata;
@@ -72,8 +62,10 @@ export class WorkerClient {
       return;
     }
 
+    const { operation, requestID } = context.data;
+    const { hasDeferOrStream } = context.deprecated;
     const { _cacheMetadata, ...otherProps } = result;
-    const response: PartialRequestResult = { ...deserializeErrors(otherProps), requestID: context.requestID };
+    const response: PartialRequestResult = { ...deserializeErrors(otherProps), requestID };
 
     if (_cacheMetadata) {
       response._cacheMetadata = rehydrateCacheMetadata(_cacheMetadata);
@@ -81,41 +73,38 @@ export class WorkerClient {
 
     if (method === SUBSCRIBE) {
       this._debugManager?.log(SUBSCRIPTION_RESOLVED, {
-        context,
-        result: response,
+        data: context.data,
         stats: { endTime: this._debugManager.now() },
       });
 
-      this._eventEmitter.emit(context.requestID, response);
-    } else if (context.hasDeferOrStream) {
-      const pending = this._pending.get(context.requestID);
+      this._eventEmitter.emit(requestID, response);
+    } else if (hasDeferOrStream) {
+      const pending = this._pending.get(requestID);
 
       if (pending) {
-        const eventAsyncIterator = new EventAsyncIterator<PartialRequestResult>(this._eventEmitter, context.requestID);
+        const eventAsyncIterator = new EventAsyncIterator<PartialRequestResult>(this._eventEmitter, requestID);
         pending.resolve(eventAsyncIterator.getIterator());
       }
 
       this._debugManager?.log(REQUEST_RESOLVED, {
-        context,
-        result: response,
+        data: context.data,
         stats: { endTime: this._debugManager.now() },
       });
 
-      this._eventEmitter.emit(context.requestID, response);
+      this._eventEmitter.emit(requestID, response);
     } else {
-      const pending = this._pending.get(context.requestID);
+      const pending = this._pending.get(requestID);
 
       if (!pending) {
         return;
       }
 
       this._debugManager?.log(REQUEST_RESOLVED, {
-        context,
-        result: response,
+        data: context.data,
         stats: { endTime: this._debugManager.now() },
       });
 
-      if (context.operation === OperationTypeNode.QUERY && pending.requestData && pending.options && pending.context) {
+      if (operation === OperationTypeNode.QUERY && pending.requestData && pending.options && pending.context) {
         void this._cacheManager.cacheQuery(
           pending.requestData,
           undefined,
@@ -136,11 +125,11 @@ export class WorkerClient {
    * it is for communicating with the worker cache that the worker
    * client is using within the worker.
    */
-  private _cache: CoreWorker;
-  private _cacheManager: CacheManagerDef;
-  private _debugManager: DebugManagerDef | null;
-  private _eventEmitter: EventEmitter;
-  private _experimentalDeferStreamSupport: boolean;
+  private readonly _cache: CoreWorker;
+  private readonly _cacheManager: CacheManagerDef;
+  private readonly _debugManager: DebugManagerDef | undefined;
+  private readonly _eventEmitter: EventEmitter;
+  private readonly _experimentalDeferStreamSupport: boolean;
   private _messageQueue: MessageRequestPayload[] = [];
   private _pending: PendingTracker = new Map();
   private _requestParser: RequestParserDef;
@@ -175,7 +164,7 @@ export class WorkerClient {
 
     this._cache = options.cache;
     this._cacheManager = options.cacheManager;
-    this._debugManager = options.debugManager ?? null;
+    this._debugManager = options.debugManager;
     this._eventEmitter = new EventEmitter();
     this._experimentalDeferStreamSupport = options.experimentalDeferStreamSupport ?? false;
     this._requestParser = options.requestParser;
@@ -205,19 +194,27 @@ export class WorkerClient {
   }
 
   public async mutate(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
-    return this._request(request, options, this._getRequestContext(OperationTypeNode.MUTATION, request, context));
+    return this._request(
+      request,
+      options,
+      this._getRequestContext(OperationTypeNode.MUTATION, request, options, context),
+    );
   }
 
   public async query(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
-    return this._query(request, options, this._getRequestContext(OperationTypeNode.QUERY, request, context));
+    return this._query(request, options, this._getRequestContext(OperationTypeNode.QUERY, request, options, context));
   }
 
   public async request(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
-    return this._request(request, options, this._getRequestContext(OperationTypeNode.QUERY, request, context));
+    return this._request(request, options, this._getRequestContext(OperationTypeNode.QUERY, request, options, context));
   }
 
-  public async subscribe(request: string, options: RequestOptions = {}) {
-    return this._subscribe(request, options, this._getRequestContext(OperationTypeNode.SUBSCRIPTION, request));
+  public async subscribe(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
+    return this._subscribe(
+      request,
+      options,
+      this._getRequestContext(OperationTypeNode.SUBSCRIPTION, request, options, context),
+    );
   }
 
   public set worker(worker: Worker) {
@@ -237,24 +234,34 @@ export class WorkerClient {
   private _getRequestContext(
     operation: OperationTypeNode,
     request: string,
-    context: PartialRequestContext = {},
+    options: RequestOptions,
+    context: PartialRequestContext,
   ): RequestContext {
-    return {
-      debugManager: this._debugManager,
-      experimentalDeferStreamSupport: this._experimentalDeferStreamSupport,
-      fieldTypeMap: new Map(),
-      filteredRequest: '',
-      operation,
-      operationName: '',
-      originalRequestHash: hashRequest(request),
-      parsedRequest: '',
-      queryFiltered: false,
-      request,
-      requestComplexity: null,
-      requestDepth: null,
-      requestID: uuid(),
-      ...context,
-    };
+    return merge(
+      {
+        data: {
+          batched: options.batch,
+          operation,
+          operationName: '',
+          originalRequestHash: hashRequest(request),
+          queryFiltered: false,
+          requestComplexity: undefined,
+          requestDepth: undefined,
+          requestID: uuid(),
+          tag: options.tag,
+          variables: options.variables,
+        },
+        debugManager: this._debugManager,
+        deprecated: {
+          experimentalDeferStreamSupport: this._experimentalDeferStreamSupport,
+        },
+        fieldTypeMap: new Map(),
+        filteredRequest: '',
+        parsedRequest: '',
+        request,
+      },
+      context,
+    );
   }
 
   private async _query(
@@ -274,7 +281,10 @@ export class WorkerClient {
       return await new Promise((resolve: PendingResolver) => {
         if (this._worker) {
           this._worker.postMessage({
-            context: WorkerClient._getMessageContext(context),
+            context: {
+              data: context.data,
+              deprecated: context.deprecated,
+            },
             method: REQUEST,
             options,
             request,
@@ -282,7 +292,10 @@ export class WorkerClient {
           });
         } else {
           this._messageQueue.push({
-            context: WorkerClient._getMessageContext(context),
+            context: {
+              data: context.data,
+              deprecated: context.deprecated,
+            },
             method: REQUEST,
             options,
             request,
@@ -290,14 +303,14 @@ export class WorkerClient {
           });
         }
 
-        this._pending.set(context.requestID, { context, options, requestData, resolve });
+        this._pending.set(context.data.requestID, { context, options, requestData, resolve });
       });
     } catch (error) {
       const confirmedError = isError(error)
         ? error
         : new Error('@graphql-box/worker-client request had an unexpected error.');
 
-      return { errors: [confirmedError], requestID: context.requestID };
+      return { errors: [confirmedError], requestID: context.data.requestID };
     }
   }
 
@@ -318,13 +331,16 @@ export class WorkerClient {
   private async _request(
     request: string,
     options: RequestOptions,
-    context: RequestContext,
+    { data, deprecated }: RequestContext,
   ): Promise<PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>> {
     try {
       return await new Promise((resolve: PendingResolver) => {
         if (this._worker) {
           this._worker.postMessage({
-            context: WorkerClient._getMessageContext(context),
+            context: {
+              data,
+              deprecated,
+            },
             method: REQUEST,
             options,
             request,
@@ -332,7 +348,10 @@ export class WorkerClient {
           });
         } else {
           this._messageQueue.push({
-            context: WorkerClient._getMessageContext(context),
+            context: {
+              data,
+              deprecated,
+            },
             method: REQUEST,
             options,
             request,
@@ -340,14 +359,14 @@ export class WorkerClient {
           });
         }
 
-        this._pending.set(context.requestID, { resolve });
+        this._pending.set(data.requestID, { resolve });
       });
     } catch (error) {
       const confirmedError = isError(error)
         ? error
         : new Error('@graphql-box/worker-client request had an unexpected error.');
 
-      return { errors: [confirmedError], requestID: context.requestID };
+      return { errors: [confirmedError], requestID: data.requestID };
     }
   }
 
@@ -355,12 +374,15 @@ export class WorkerClient {
   private _subscribe(
     request: string,
     options: RequestOptions,
-    context: RequestContext,
+    { data, deprecated }: RequestContext,
   ): Promise<PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>> {
     try {
       if (this._worker) {
         this._worker.postMessage({
-          context: WorkerClient._getMessageContext(context),
+          context: {
+            data,
+            deprecated,
+          },
           method: SUBSCRIBE,
           options,
           request,
@@ -368,7 +390,10 @@ export class WorkerClient {
         });
       } else {
         this._messageQueue.push({
-          context: WorkerClient._getMessageContext(context),
+          context: {
+            data,
+            deprecated,
+          },
           method: SUBSCRIBE,
           options,
           request,
@@ -376,14 +401,15 @@ export class WorkerClient {
         });
       }
 
-      const eventAsyncIterator = new EventAsyncIterator<PartialRequestResult>(this._eventEmitter, context.requestID);
+      const eventAsyncIterator = new EventAsyncIterator<PartialRequestResult>(this._eventEmitter, data.requestID);
+
       return Promise.resolve(eventAsyncIterator.getIterator());
     } catch (error) {
       const confirmedError = isError(error)
         ? error
         : new Error('@graphql-box/worker-client subscribe had an unexpected error.');
 
-      return Promise.resolve({ errors: [confirmedError], requestID: context.requestID });
+      return Promise.resolve({ errors: [confirmedError], requestID: data.requestID });
     }
   }
 }

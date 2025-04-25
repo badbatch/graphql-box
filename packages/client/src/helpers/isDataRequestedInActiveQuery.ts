@@ -6,20 +6,16 @@ import {
   getAliasOrName,
   getChildFields,
   getFragmentDefinitions,
-  getName,
   getOperationDefinitions,
   hasChildFields,
 } from '@graphql-box/helpers';
 import { OperationTypeNode } from 'graphql';
 import { type ActiveQueryData } from '../types.ts';
 
-const LOG_NAME = 'isDataRequestedInActiveQuery';
-
 export const parentNodeIncludes = (
   activeNode: ParentNode,
   newNode: ParentNode,
   fragmentDefinitions: { control?: FragmentDefinitionNodeMap; value?: FragmentDefinitionNodeMap },
-  contexts: { active: RequestContext; new: RequestContext },
 ) => {
   const activeNodeFieldsAndTypeNames = getChildFields(activeNode, {
     fragmentDefinitions: fragmentDefinitions.control,
@@ -39,15 +35,6 @@ export const parentNodeIncludes = (
     if (
       !activeNodeFieldsAndTypeNames.some(({ fieldNode: activeFieldNode }) => getAliasOrName(activeFieldNode) === name)
     ) {
-      contexts.new.debugManager?.log(
-        LOG_NAME,
-        {
-          context: contexts.new,
-          message: `Active parent node ${getName(activeNode) ?? 'without name'} is missing field ${name}`,
-        },
-        'debug',
-      );
-
       return false;
     }
 
@@ -62,15 +49,10 @@ export const newNodeFieldsPartOfActiveNode = (
   keyAndPathOptions: { active: KeysAndPathsOptions; new: KeysAndPathsOptions },
   contexts: { active: RequestContext; new: RequestContext },
 ): boolean => {
-  const activeNodeHasNewNodeFields = parentNodeIncludes(
-    activeNode,
-    newNode,
-    {
-      control: fragmentDefinitions.active,
-      value: fragmentDefinitions.new,
-    },
-    contexts,
-  );
+  const activeNodeHasNewNodeFields = parentNodeIncludes(activeNode, newNode, {
+    control: fragmentDefinitions.active,
+    value: fragmentDefinitions.new,
+  });
 
   if (!activeNodeHasNewNodeFields) {
     return false;
@@ -106,9 +88,6 @@ export const newNodeFieldsPartOfActiveNode = (
     const newKeysAndPaths = buildFieldKeysAndPaths(newFieldNode, keyAndPathOptions.active, contexts.new);
 
     if (activeKeysAndPaths.requestFieldCacheKey !== newKeysAndPaths.requestFieldCacheKey) {
-      let message = `${newKeysAndPaths.requestFieldPath} active and new request field cache keys do not match.`;
-      message += `Active is ${activeKeysAndPaths.requestFieldCacheKey}. New is ${newKeysAndPaths.requestFieldCacheKey}`;
-      contexts.new.debugManager?.log(LOG_NAME, { context: contexts.new, message }, 'debug');
       return false;
     }
 

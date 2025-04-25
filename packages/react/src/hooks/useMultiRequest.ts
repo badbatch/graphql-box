@@ -1,7 +1,7 @@
 import {
+  type PartialRequestContext,
   type PartialRequestResult,
   type PlainObject,
-  type RequestContext,
   type RequestOptions,
 } from '@graphql-box/core';
 import { useState } from 'react';
@@ -17,7 +17,7 @@ export const useMultiRequest = <Data extends PlainObject>(request: string, { loa
   const graphqlBoxClient = useGraphqlBoxClient();
   const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading });
 
-  const execute = async (optionsSet: RequestOptions[], context?: Partial<RequestContext>) => {
+  const execute = async (optionsSet: RequestOptions[], context?: PartialRequestContext) => {
     setState({
       data: undefined,
       errors: [],

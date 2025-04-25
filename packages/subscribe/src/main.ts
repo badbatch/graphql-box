@@ -23,7 +23,7 @@ import { forAwaitEach, isAsyncIterable } from 'iterall';
 import { type GraphQLSubscribe, type SubscribeArgs, type UserOptions } from './types.ts';
 
 export class Subscribe {
-  private readonly _contextValue: PlainObject;
+  private readonly _contextValue: PlainObject & { data?: PlainObject };
   private readonly _eventEmitter: EventEmitter;
   private readonly _fieldResolver?: GraphQLFieldResolver<unknown, unknown> | null;
   private readonly _rootValue: unknown;
@@ -61,15 +61,19 @@ export class Subscribe {
   ): Promise<AsyncIterator<PartialRequestResult | undefined>> {
     const { contextValue = {}, fieldResolver, operationName, rootValue, subscribeFieldResolver } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
-    const { debugManager, requestID } = context;
+    const { data, debugManager } = context;
 
     const subscribeArgs: SubscribeArgs = {
       contextValue: {
         ...this._contextValue,
         ...contextValue,
+        data: {
+          ...data,
+          ...this._contextValue.data,
+          ...contextValue.data,
+        },
         debugManager,
         fragmentDefinitions: getFragmentDefinitions(ast),
-        requestID,
         setCacheMetadata: setCacheMetadata(_cacheMetadata),
       },
       document: ast,
@@ -84,7 +88,7 @@ export class Subscribe {
 
     if (isAsyncIterable(subscribeResult)) {
       void forAwaitEach(subscribeResult, async (result: AsyncExecutionResult) => {
-        context.normalizePatchResponseData = 'path' in result;
+        context.deprecated.normalizePatchResponseData = 'path' in result;
 
         this._eventEmitter.emit(
           hash,

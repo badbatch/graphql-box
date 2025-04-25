@@ -1,3 +1,4 @@
-import { type BatchedLogData, type LogData } from '../types.ts';
+import { type BatchedLogDataPayload, type LogDataPayload } from '../types.ts';
 
-export const isLogBatched = (body: LogData | BatchedLogData): body is BatchedLogData => body.batched;
+export const isLogBatched = (body: LogDataPayload | BatchedLogDataPayload): body is BatchedLogDataPayload =>
+  body.batched;

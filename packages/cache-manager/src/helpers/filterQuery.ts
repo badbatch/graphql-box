@@ -16,13 +16,13 @@ export const filterQuery = (
   context: CacheManagerContext,
 ) => {
   const { ast } = requestData;
-  const queryNode = getOperationDefinitions(ast, context.operation)[0];
+  const queryNode = getOperationDefinitions(ast, context.data.operation)[0];
 
   if (!queryNode) {
     return ast;
   }
 
-  const { fragmentDefinitions, operation } = context;
+  const { data, fragmentDefinitions } = context;
   const fieldsAndTypeNames = getChildFields(queryNode, { fragmentDefinitions });
 
   if (!fieldsAndTypeNames) {
@@ -39,7 +39,7 @@ export const filterQuery = (
     const { requestFieldPath } = buildFieldKeysAndPaths(
       fieldNode,
       {
-        requestFieldPath: operation,
+        requestFieldPath: data.operation,
       },
       context,
     );
@@ -49,6 +49,6 @@ export const filterQuery = (
     }
   }
 
-  context.queryFiltered = true;
+  context.data.queryFiltered = true;
   return filterFragmentDefinitions(ast, fieldPathChecklist, fragmentSpreadChecklist, context);
 };

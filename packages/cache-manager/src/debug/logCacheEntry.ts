@@ -21,7 +21,7 @@ export const logCacheEntry = () => {
     descriptor.value = async function descriptorValue(...args: Parameters<Descriptor>): ReturnType<Descriptor> {
       return new Promise<void>(resolve => {
         const resolver = async () => {
-          const { debugManager, requestFieldCacheKey, ...otherContext } = args[5];
+          const { data, debugManager, requestFieldCacheKey } = args[5];
 
           if (!debugManager) {
             await method.apply(this, args);
@@ -35,18 +35,15 @@ export const logCacheEntry = () => {
           const duration = endTime - startTime;
           resolve();
 
-          const payload = {
-            cacheType: args[0],
-            cachemapOptions: args[3],
-            context: otherContext,
-            options: args[4],
-            requestHash: args[1],
+          debugManager.log(CACHE_ENTRY_ADDED, {
+            data: {
+              ...data,
+              cacheHeaders: args[3].cacheHeaders,
+              cacheType: args[0],
+              ...(requestFieldCacheKey ? { decryptedCacheKey: requestFieldCacheKey } : undefined),
+            },
             stats: { duration, endTime, startTime },
-            value: args[2],
-            ...(requestFieldCacheKey ? { decryptedCacheKey: requestFieldCacheKey } : {}),
-          };
-
-          debugManager.log(CACHE_ENTRY_ADDED, payload);
+          });
         };
 
         void resolver();

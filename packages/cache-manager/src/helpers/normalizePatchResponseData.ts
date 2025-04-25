@@ -6,7 +6,7 @@ export const normalizePatchResponseData = (
   rawResponseData: RawResponseDataWithMaybeCacheMetadata,
   context: CacheManagerContext,
 ) => {
-  if (!context.normalizePatchResponseData) {
+  if (!context.deprecated.normalizePatchResponseData) {
     return rawResponseData;
   }
 

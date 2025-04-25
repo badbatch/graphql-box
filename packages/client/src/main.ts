@@ -38,9 +38,9 @@ export class Client {
   private static _resolve(
     { cacheMetadata, ...rest }: PartialResponseData,
     options: RequestOptions,
-    { requestID }: RequestContext,
+    { data }: RequestContext,
   ): PartialRequestResult {
-    const result: PartialRequestResult = { ...rest, requestID };
+    const result: PartialRequestResult = { ...rest, requestID: data.requestID };
 
     if (options.returnCacheMetadata && cacheMetadata) {
       result._cacheMetadata = cacheMetadata;
@@ -67,8 +67,8 @@ export class Client {
     return errors;
   }
 
-  private _cacheManager: CacheManagerDef;
-  private readonly _debugManager: DebugManagerDef | null;
+  private readonly _cacheManager: CacheManagerDef;
+  private readonly _debugManager: DebugManagerDef | undefined;
   private readonly _experimentalDeferStreamSupport: boolean;
   private _queryTracker: QueryTracker = { active: [], pending: new Map() };
   private _requestManager: RequestManagerDef;
@@ -99,7 +99,7 @@ export class Client {
     }
 
     this._cacheManager = options.cacheManager;
-    this._debugManager = options.debugManager ?? null;
+    this._debugManager = options.debugManager;
     this._experimentalDeferStreamSupport = options.experimentalDeferStreamSupport ?? false;
     this._requestManager = options.requestManager;
     this._requestParser = options.requestParser;
@@ -114,12 +114,12 @@ export class Client {
     return this._cacheManager;
   }
 
-  get debugger(): DebugManagerDef | null {
+  get debugger(): DebugManagerDef | undefined {
     return this._debugManager;
   }
 
   public async mutate(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
-    const requestContext = this._buildRequestContext(OperationTypeNode.MUTATION, request, context);
+    const requestContext = this._buildRequestContext(OperationTypeNode.MUTATION, request, options, context);
     const errors = Client._validateRequestArguments(request, options);
 
     if (errors.length > 0) {
@@ -130,7 +130,7 @@ export class Client {
   }
 
   public async query(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
-    const requestContext = this._buildRequestContext(OperationTypeNode.QUERY, request, context);
+    const requestContext = this._buildRequestContext(OperationTypeNode.QUERY, request, options, context);
     const errors = Client._validateRequestArguments(request, options);
 
     if (errors.length > 0) {
@@ -141,7 +141,7 @@ export class Client {
   }
 
   public async request(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
-    const requestContext = this._buildRequestContext(OperationTypeNode.QUERY, request, context);
+    const requestContext = this._buildRequestContext(OperationTypeNode.QUERY, request, options, context);
     const errors = Client._validateRequestArguments(request, options);
 
     if (errors.length > 0) {
@@ -152,7 +152,7 @@ export class Client {
   }
 
   public async subscribe(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
-    const requestContext = this._buildRequestContext(OperationTypeNode.SUBSCRIPTION, request, context);
+    const requestContext = this._buildRequestContext(OperationTypeNode.SUBSCRIPTION, request, options, context);
     const errors: Error[] = [];
 
     if (!this._subscriptionsManager) {
@@ -171,23 +171,32 @@ export class Client {
   private _buildRequestContext(
     operation: OperationTypeNode,
     request: string,
+    options: RequestOptions,
     context: PartialRequestContext,
   ): RequestContext {
     return {
+      ...context,
+      data: {
+        ...context.data,
+        batched: options.batch,
+        operation,
+        operationName: '',
+        originalRequestHash: hashRequest(request),
+        queryFiltered: false,
+        requestComplexity: undefined,
+        requestDepth: undefined,
+        requestID: uuid(),
+        tag: options.tag,
+        variables: options.variables,
+      },
       debugManager: this._debugManager,
-      experimentalDeferStreamSupport: this._experimentalDeferStreamSupport,
+      deprecated: {
+        experimentalDeferStreamSupport: this._experimentalDeferStreamSupport,
+      },
       fieldTypeMap: new Map(),
       filteredRequest: '',
-      operation,
-      operationName: '',
-      originalRequestHash: hashRequest(request),
       parsedRequest: '',
-      queryFiltered: false,
       request,
-      requestComplexity: null,
-      requestDepth: null,
-      requestID: uuid(),
-      ...context,
     };
   }
 
@@ -212,16 +221,13 @@ export class Client {
         return Client._resolve(responseData, options, context);
       };
 
-      const { debugManager, ...otherContext } = context;
+      const { data, debugManager } = context;
 
       const decoratedResolver = async (rawResponseData: PartialRawResponseData) => {
         const result = await resolver(rawResponseData);
 
         debugManager?.log(REQUEST_RESOLVED, {
-          context: otherContext,
-          options,
-          requestHash: requestData.hash,
-          result,
+          data,
           stats: { endTime: debugManager.now() },
         });
 
@@ -251,10 +257,10 @@ export class Client {
 
       if (checkResult) {
         this._debugManager?.log(REQUEST_RESOLVED_FROM_CACHE, {
-          context,
-          options,
-          requestHash: requestData.hash,
-          result: checkResult,
+          data: {
+            ...context.data,
+            requestHash: requestData.hash,
+          },
         });
 
         return Client._resolve(checkResult, options, context);
@@ -297,16 +303,13 @@ export class Client {
         return this._resolveQuery(requestData, responseData, options, context);
       };
 
-      const { debugManager, ...otherContext } = context;
+      const { data, debugManager } = context;
 
       const decoratedResolver = async (rawResponseData: PartialRawResponseData) => {
         const result = await resolver(rawResponseData);
 
         debugManager?.log(REQUEST_RESOLVED, {
-          context: otherContext,
-          options,
-          requestHash: requestData.hash,
-          result,
+          data,
           stats: { endTime: debugManager.now() },
         });
 
@@ -332,7 +335,7 @@ export class Client {
   }
 
   private _handleRequest(requestData: RequestData, options: RequestOptions, context: RequestContext) {
-    switch (context.operation) {
+    switch (context.data.operation) {
       case OperationTypeNode.QUERY: {
         return this._handleQuery(requestData, options, context);
       }
@@ -354,13 +357,10 @@ export class Client {
     try {
       const resolver = async (responseData: PartialRawResponseData) => {
         const result = await this._resolveSubscription(requestData, responseData, options, context);
-        const { debugManager, ...otherContext } = context;
+        const { data, debugManager } = context;
 
         debugManager?.log(SUBSCRIPTION_RESOLVED, {
-          context: otherContext,
-          options,
-          requestHash: requestData.hash,
-          result,
+          data,
           stats: { endTime: debugManager.now() },
         });
 
@@ -394,6 +394,7 @@ export class Client {
     try {
       const { ast, request: updateRequest } = this._requestParser.updateRequest(request, options, context);
       const requestData = { ast, hash: hashRequest(updateRequest), request: updateRequest };
+      context.data.parsedRequestHash = requestData.hash;
       return await this._handleRequest(requestData, options, { ...context, parsedRequest: updateRequest });
     } catch (error) {
       const confirmedError = isError(error) ? error : new Error('@graphql-box/client had an unexpected error.');
@@ -413,15 +414,11 @@ export class Client {
     }
 
     for (const { context, options, requestData, resolve } of pendingRequests) {
-      const { debugManager, ...otherContext } = context;
+      const { data, debugManager } = context;
 
       if (activeRquestData.hash === requestData.hash || activeResponseData.errors?.length) {
         debugManager?.log(PENDING_QUERY_RESOLVED, {
-          activeRequestHash: activeRquestData.hash,
-          context: otherContext,
-          options,
-          pendingRequestHash: requestData.hash,
-          result: activeResponseData,
+          data,
         });
 
         resolve(Client._resolve(activeResponseData, options, context));
@@ -438,11 +435,7 @@ export class Client {
         );
 
         debugManager?.log(PENDING_QUERY_RESOLVED, {
-          activeRequestHash: activeRquestData.hash,
-          context: otherContext,
-          options,
-          pendingRequestHash: requestData.hash,
-          result: filteredResponseData,
+          data,
         });
 
         await this._cacheManager.setQueryResponseCacheEntry(requestData, filteredResponseData, options, context);

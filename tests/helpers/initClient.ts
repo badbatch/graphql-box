@@ -1,7 +1,8 @@
 import { Core as Cachemap } from '@cachemap/core';
 import { CacheManager } from '@graphql-box/cache-manager';
 import { Client } from '@graphql-box/client';
-import { DebugManager, type Environment } from '@graphql-box/debug-manager';
+import { type GraphqlEnv } from '@graphql-box/core';
+import { DebugManager } from '@graphql-box/debug-manager';
 import { FetchManager } from '@graphql-box/fetch-manager';
 import { RequestParser } from '@graphql-box/request-parser';
 import { URL } from '../constants.ts';
@@ -36,7 +37,7 @@ export const initClient = ({
     debugManager: new DebugManager({
       // DebugManager is expecting Environment type, not string.
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      environment: debuggerName.toLowerCase() as Environment,
+      environment: debuggerName.toLowerCase() as GraphqlEnv,
       log,
       name: debuggerName,
       performance,

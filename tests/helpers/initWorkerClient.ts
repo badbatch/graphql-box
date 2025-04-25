@@ -3,7 +3,8 @@ import { CoreWorker as WorkerCachemap } from '@cachemap/core-worker';
 import { init as map } from '@cachemap/map';
 import { camelCase } from 'lodash-es';
 import { CacheManager } from '@graphql-box/cache-manager';
-import { DebugManager, type Environment } from '@graphql-box/debug-manager';
+import { type GraphqlEnv } from '@graphql-box/core';
+import { DebugManager } from '@graphql-box/debug-manager';
 import { RequestParser } from '@graphql-box/request-parser';
 import { WorkerClient } from '@graphql-box/worker-client';
 import { type InitWorkerClientOptions } from '../types.ts';
@@ -29,7 +30,7 @@ export const initWorkerClient = ({ introspection, worker }: InitWorkerClientOpti
     debugManager: new DebugManager({
       // DebugManager is expecting Environment type, not string.
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      environment: camelCase(name) as Environment,
+      environment: camelCase(name) as GraphqlEnv,
       log,
       name,
       performance,

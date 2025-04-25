@@ -820,9 +820,15 @@ importers:
       '@graphql-box/helpers':
         specifier: workspace:*
         version: link:../helpers
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       eventemitter3:
         specifier: ^5.0.1
         version: 5.0.1
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
     devDependencies:
       cts-types:
         specifier: ^0.0.8

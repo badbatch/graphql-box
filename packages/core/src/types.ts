@@ -12,7 +12,7 @@ import {
   type OperationTypeNode,
 } from 'graphql';
 import { type ErrorObject } from 'serialize-error';
-import { type Except, type JsonObject, type JsonValue, type SetOptional } from 'type-fest';
+import { type Except, type SetOptional } from 'type-fest';
 import { type WebSocket } from 'ws';
 
 export type Maybe<T> = null | undefined | T;
@@ -144,67 +144,20 @@ export type GraphqlStep =
   | 'subscription_resolved';
 
 export type LogData = {
-  cachemapOptions?: CachemapOptions;
-  context?: Omit<RequestContext, 'debugManager'>;
-  options?: RequestOptions | ServerRequestOptions;
-  result?: Omit<PartialRequestResult, '_cacheMetadata'> & { cacheMetadata?: CacheMetadata };
+  data: RequestContextData;
+  error?: DeserializedGraphqlError | ErrorObject;
   stats?: {
-    duration: number;
-    endTime: number;
-    startTime: number;
+    duration?: number;
+    endTime?: number;
+    startTime?: number;
   };
-  value?: JsonValue;
 };
 
 export type LogLevel = 'error' | 'warn' | 'info' | 'http' | 'verbose' | 'debug' | 'silly';
 
-export type LogEntry = {
-  '@timestamp': string;
-  ecs: {
-    version: string;
-  };
-  err?: Error | (DeserializedGraphqlError | ErrorObject);
-  id: string;
-  labels: {
-    cacheType: string;
-    duration: number;
-    endTime: number;
-    environment: GraphqlEnv;
-    hasDeferOrStream: boolean;
-    logGroup: number;
-    logOrder: number;
-    nodeVersion?: string;
-    operation: OperationTypeNode;
-    operationName: string;
-    originalRequestHash: string;
-    osPlatform?: string;
-    path?: string;
-    port?: string;
-    protocol?: string;
-    queryFiltered: boolean;
-    queryString?: string;
-    request: string;
-    requestComplexity?: number;
-    requestDepth?: number;
-    requestHash: string;
-    requestID: string;
-    result: string;
-    returnCacheMetadata: boolean;
-    startTime: number;
-    url?: string;
-    userAgent?: string;
-    variables: JsonObject;
-  };
-  log: {
-    level: LogLevel;
-    logger: string;
-  };
-  message: GraphqlStep;
-};
-
 export interface DebugManagerDef extends EventEmitter {
-  handleLog(message: string, data: PlainData, logLevel?: LogLevel): void;
-  log(message: string, data: PlainData, logLevel?: LogLevel): void;
+  handleLog(message: GraphqlStep, data: LogData, logLevel?: LogLevel): void;
+  log(message: GraphqlStep, data: LogData, logLevel?: LogLevel): void;
   now(): number;
 }
 
@@ -234,26 +187,37 @@ export type FieldTypeMap = Map<string, FieldTypeInfo>;
 
 export type FragmentDefinitionNodeMap = Record<string, FragmentDefinitionNode>;
 
-export interface RequestContext {
-  debugManager: DebugManagerDef | null;
-  experimentalDeferStreamSupport: boolean;
-  fieldTypeMap: FieldTypeMap;
-  filteredRequest: string;
-  hasDeferOrStream?: boolean;
+export type RequestContextData = PlainObject & {
   initiator?: string;
-  normalizePatchResponseData?: boolean;
   operation: OperationTypeNode;
   operationName: string;
   originalRequestHash: string;
-  parsedRequest: string;
   queryFiltered: boolean;
-  request: string;
-  requestComplexity: number | null;
-  requestDepth: number | null;
+  requestComplexity: number | undefined;
+  requestDepth: number | undefined;
   requestID: string;
+};
+
+export type RequestContextDeprecated = {
+  experimentalDeferStreamSupport: boolean;
+  hasDeferOrStream?: boolean;
+  normalizePatchResponseData?: boolean;
+};
+
+export interface RequestContext {
+  data: RequestContextData;
+  debugManager: DebugManagerDef | undefined;
+  deprecated: RequestContextDeprecated;
+  fieldTypeMap: FieldTypeMap;
+  filteredRequest: string;
+  parsedRequest: string;
+  request: string;
 }
 
-export type PartialRequestContext = Partial<RequestContext>;
+export type PartialRequestContext = Partial<Except<RequestContext, 'data' | 'deprecated'>> & {
+  data?: Partial<RequestContextData>;
+  deprecated?: Partial<RequestContextDeprecated>;
+};
 
 export type DehydratedCacheMetadata = Record<string, CacheabilityMetadata>;
 

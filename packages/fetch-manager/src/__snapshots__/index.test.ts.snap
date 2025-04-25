@@ -17,7 +17,7 @@ exports[`@graphql-box/fetch-manager >> batching >> multiple requests >> correct 
 [
   "https://api.github.com/graphql?requestId=f666cc27cdcfcecacb340b64fcf27506-70a245971c9c179bc5c30c3925e4881c",
   {
-    "body": "{"batched":true,"requests":{"f666cc27cdcfcecacb340b64fcf27506":{"context":{"operation":"query","originalRequestHash":"","requestID":"123456789"},"request":"\\n    {\\n      organization(login: \\"facebook\\") {\\n        description\\n        login\\n        id\\n      }\\n    }\\n  "},"70a245971c9c179bc5c30c3925e4881c":{"context":{"operation":"query","originalRequestHash":"","requestID":"123456789"},"request":"\\n    {\\n      organization(login: \\"facebook\\") {\\n        email\\n        name\\n        url\\n        id\\n      }\\n    }\\n  "}}}",
+    "body": "{"batched":true,"requests":{"f666cc27cdcfcecacb340b64fcf27506":{"context":{"data":{"operation":"query","operationName":"","originalRequestHash":"","queryFiltered":false,"requestID":"123456789"}},"request":"\\n    {\\n      organization(login: \\"facebook\\") {\\n        description\\n        login\\n        id\\n      }\\n    }\\n  "},"70a245971c9c179bc5c30c3925e4881c":{"context":{"data":{"operation":"query","operationName":"","originalRequestHash":"","queryFiltered":false,"requestID":"123456789"}},"request":"\\n    {\\n      organization(login: \\"facebook\\") {\\n        email\\n        name\\n        url\\n        id\\n      }\\n    }\\n  "}}}",
     "headers": Headers {},
     "method": "POST",
   },
@@ -42,7 +42,7 @@ exports[`@graphql-box/fetch-manager >> batching >> single request >> correct req
 [
   "https://api.github.com/graphql?requestId=ea1cbc58eca798225b53f59d95ffb23a",
   {
-    "body": "{"batched":true,"requests":{"ea1cbc58eca798225b53f59d95ffb23a":{"context":{"operation":"query","originalRequestHash":"","requestID":"123456789"},"request":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      description\\n      email\\n      login\\n      name\\n      url\\n      id\\n    }\\n  }\\n"}}}",
+    "body": "{"batched":true,"requests":{"ea1cbc58eca798225b53f59d95ffb23a":{"context":{"data":{"operation":"query","operationName":"","originalRequestHash":"","queryFiltered":false,"requestID":"123456789"}},"request":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      description\\n      email\\n      login\\n      name\\n      url\\n      id\\n    }\\n  }\\n"}}}",
     "headers": Headers {},
     "method": "POST",
   },
@@ -69,7 +69,7 @@ exports[`@graphql-box/fetch-manager >> no batching >> when batch is false >> cor
 [
   "https://api.github.com/graphql?requestId=ea1cbc58eca798225b53f59d95ffb23a",
   {
-    "body": "{"batched":false,"context":{"operation":"query","originalRequestHash":"","requestID":"123456789"},"request":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      description\\n      email\\n      login\\n      name\\n      url\\n      id\\n    }\\n  }\\n"}",
+    "body": "{"batched":false,"context":{"data":{"operation":"query","operationName":"","originalRequestHash":"","queryFiltered":false,"requestID":"123456789"}},"request":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      description\\n      email\\n      login\\n      name\\n      url\\n      id\\n    }\\n  }\\n"}",
     "headers": Headers {},
     "method": "POST",
   },
@@ -96,7 +96,7 @@ exports[`@graphql-box/fetch-manager >> no batching >> when context.hasDeferOrStr
 [
   "https://api.github.com/graphql?requestId=ea1cbc58eca798225b53f59d95ffb23a",
   {
-    "body": "{"batched":false,"context":{"operation":"query","originalRequestHash":"","requestID":"123456789"},"request":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      description\\n      email\\n      login\\n      name\\n      url\\n      id\\n    }\\n  }\\n"}",
+    "body": "{"batched":false,"context":{"data":{"operation":"query","operationName":"","originalRequestHash":"","queryFiltered":false,"requestID":"123456789"}},"request":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      description\\n      email\\n      login\\n      name\\n      url\\n      id\\n    }\\n  }\\n"}",
     "headers": Headers {},
     "method": "POST",
   },
@@ -123,7 +123,7 @@ exports[`@graphql-box/fetch-manager >> when content type multipart is returned >
 [
   "https://api.github.com/graphql?requestId=736da61e389d3e664e8cb26527eab248",
   {
-    "body": "{"batched":false,"context":{"operation":"query","originalRequestHash":"","requestID":"123456789"},"request":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      ...OrganizationFieldsA @defer(if: true, label: \\"organizationDefer\\")\\n      login\\n      name\\n      repositories(first: 10) {\\n        edges {\\n          node {\\n            ... on Repository @include(if: true) {\\n              licenseInfo {\\n                permissions {\\n                  ...PermissionsFields @defer(if: true, label: \\"permissionsDefer\\")\\n                }\\n                id\\n              }\\n              ...RepositoryFields @skip(if: false) @defer(if: true, label: \\"repositoryDefer\\")\\n              id\\n            }\\n          }\\n        }\\n      }\\n      url\\n      id\\n    }\\n  }\\n\\n  fragment OrganizationFieldsA on Organization {\\n    email @include(if: true)\\n    description\\n    isVerified\\n    location\\n  }\\n\\n  fragment RepositoryFields on Repository {\\n    description\\n    homepageUrl\\n    name\\n  }\\n\\n  fragment PermissionsFields on LicenseRule {\\n    label @skip(if: false)\\n  }\\n"}",
+    "body": "{"batched":false,"context":{"data":{"operation":"query","operationName":"","originalRequestHash":"","queryFiltered":false,"requestID":"123456789"}},"request":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      ...OrganizationFieldsA @defer(if: true, label: \\"organizationDefer\\")\\n      login\\n      name\\n      repositories(first: 10) {\\n        edges {\\n          node {\\n            ... on Repository @include(if: true) {\\n              licenseInfo {\\n                permissions {\\n                  ...PermissionsFields @defer(if: true, label: \\"permissionsDefer\\")\\n                }\\n                id\\n              }\\n              ...RepositoryFields @skip(if: false) @defer(if: true, label: \\"repositoryDefer\\")\\n              id\\n            }\\n          }\\n        }\\n      }\\n      url\\n      id\\n    }\\n  }\\n\\n  fragment OrganizationFieldsA on Organization {\\n    email @include(if: true)\\n    description\\n    isVerified\\n    location\\n  }\\n\\n  fragment RepositoryFields on Repository {\\n    description\\n    homepageUrl\\n    name\\n  }\\n\\n  fragment PermissionsFields on LicenseRule {\\n    label @skip(if: false)\\n  }\\n"}",
     "headers": Headers {},
     "method": "POST",
   },

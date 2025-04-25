@@ -31,8 +31,8 @@ import {
 } from './types.ts';
 
 export class FetchManager {
-  private static _getMessageContext({ initiator, operation, originalRequestHash, requestID }: RequestContext) {
-    return { initiator, operation, originalRequestHash, requestID };
+  private static _getMessageContext({ data }: RequestContext) {
+    return { data };
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: unknown): void {
@@ -103,14 +103,14 @@ export class FetchManager {
   ) {
     const url = this._apiUrl;
 
-    if (options.batch === false || !this._batchRequests || context.hasDeferOrStream) {
+    if (options.batch === false || !this._batchRequests || context.deprecated.hasDeferOrStream) {
       const fetchResult = await this._fetch(`${url}?requestId=${hash}`, {
         batched: false,
         context: FetchManager._getMessageContext(context),
         request,
       });
 
-      const { debugManager, ...otherContext } = context;
+      const { data, debugManager } = context;
 
       if (!isAsyncIterable(fetchResult)) {
         return logErrorsToConsole(deserializeErrors(fetchResult));
@@ -123,14 +123,8 @@ export class FetchManager {
         const responseData = { headers, ...body } as unknown as PartialRawFetchData;
 
         const decoratedExecuteResolver = (result: PartialRawResponseData) => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { headers: resultHeaders, ...otherResult } = result;
-
           debugManager?.log(FETCH_RESOLVED, {
-            context: otherContext,
-            options,
-            requestHash: hash,
-            result: otherResult,
+            data,
             stats: { endTime: debugManager.now() },
           });
 

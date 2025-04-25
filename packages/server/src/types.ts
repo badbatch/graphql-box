@@ -1,10 +1,11 @@
 import { type Client } from '@graphql-box/client';
 import {
+  type GraphqlStep,
+  type LogData,
   type LogLevel,
   type PartialRawFetchData,
   type PlainArray,
-  type PlainData,
-  type RequestContext,
+  type RequestContextData,
 } from '@graphql-box/core';
 import { type Request, type Response } from 'express';
 import { type NextRequest, type NextResponse } from 'next/server.js';
@@ -34,34 +35,38 @@ export type NextRequestHandler = (req: NextRequest) => Promise<NextResponse>;
 
 export type WsMessageHandler = (message: Data) => void;
 
-export type LogData = {
+export type LogDataPayload = {
   batched: boolean;
-  data: PlainData;
+  data: LogData;
   logLevel?: LogLevel;
-  message: string;
+  message: GraphqlStep;
 };
 
-export type BatchedLogData = {
+export type BatchedLogDataPayload = {
   batched: boolean;
   requests: Record<
     string,
     {
-      data: PlainData;
+      data: LogData;
       logLevel?: LogLevel;
-      message: string;
+      message: GraphqlStep;
     }
   >;
 };
 
 export type MessageData = {
-  context: Pick<RequestContext, 'operation' | 'originalRequestHash' | 'requestID'>;
+  context: {
+    data: RequestContextData;
+  };
   subscription: string;
   subscriptionID: string;
 };
 
 export type RequestData = {
   batched: boolean;
-  context: Pick<RequestContext, 'operation' | 'originalRequestHash' | 'requestID'>;
+  context: {
+    data: RequestContextData;
+  };
   request: string;
 };
 
@@ -70,7 +75,9 @@ export type BatchRequestData = {
   requests: Record<
     string,
     {
-      context: Pick<RequestContext, 'operation' | 'originalRequestHash' | 'requestID'>;
+      context: {
+        data: RequestContextData;
+      };
       request: string;
     }
   >;
