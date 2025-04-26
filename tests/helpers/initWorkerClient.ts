@@ -8,7 +8,6 @@ import { DebugManager } from '@graphql-box/debug-manager';
 import { RequestParser } from '@graphql-box/request-parser';
 import { WorkerClient } from '@graphql-box/worker-client';
 import { type InitWorkerClientOptions } from '../types.ts';
-import { log } from './log.ts';
 
 const { performance } = globalThis;
 
@@ -31,7 +30,6 @@ export const initWorkerClient = ({ introspection, worker }: InitWorkerClientOpti
       // DebugManager is expecting Environment type, not string.
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       environment: camelCase(name) as GraphqlEnv,
-      log,
       name,
       performance,
     }),

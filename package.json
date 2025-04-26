@@ -99,6 +99,7 @@
     "concurrently": "^9.1.0",
     "core-js": "^3.39.0",
     "cors": "^2.8.5",
+    "deep-object-diff": "^1.1.9",
     "del-cli": "^6.0.0",
     "eslint": "^9.11.0",
     "express": "^4.21.2",

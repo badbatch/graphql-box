@@ -579,14 +579,16 @@ export class RequestParser implements RequestParserDef {
       }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { fieldTypeMap, persistedFragmentSpreads, ...rest } = visitorContext;
-
     assign(context, {
-      ...rest,
-      fieldTypeMap: new Map([...fieldTypeMap.entries()].sort()),
-      requestComplexity: typeComplexity,
-      requestDepth: maxDepth,
+      data: assign(context.data, {
+        operation: visitorContext.operation,
+        operationName: visitorContext.operationName,
+      }),
+      deprecated: assign(context.deprecated, {
+        experimentalDeferStreamSupport: visitorContext.experimentalDeferStreamSupport,
+        hasDeferOrStream: visitorContext.hasDeferOrStream,
+      }),
+      fieldTypeMap: new Map([...visitorContext.fieldTypeMap.entries()].sort()),
     });
 
     return { ast: updatedAST, request: print(updatedAST) };

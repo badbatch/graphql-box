@@ -7,7 +7,6 @@ import { FetchManager } from '@graphql-box/fetch-manager';
 import { RequestParser } from '@graphql-box/request-parser';
 import { URL } from '../constants.ts';
 import { type InitClientOptions } from '../types.ts';
-import { log } from './log.ts';
 
 const { performance } = globalThis;
 
@@ -38,7 +37,6 @@ export const initClient = ({
       // DebugManager is expecting Environment type, not string.
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       environment: debuggerName.toLowerCase() as GraphqlEnv,
-      log,
       name: debuggerName,
       performance,
     }),
