@@ -2,7 +2,20 @@
 
 exports[`@graphql-box/request-parser >> mutation >> input type variable >> correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "mutation",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "mutation.addStar" => {
@@ -93,13 +106,10 @@ exports[`@graphql-box/request-parser >> mutation >> input type variable >> corre
   "hasDeferOrStream": false,
   "operation": "mutation",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 6,
-  "requestID": "123456789",
 }
 `;
 
@@ -131,7 +141,20 @@ exports[`@graphql-box/request-parser >> mutation >> input type variable >> corre
 
 exports[`@graphql-box/request-parser >> query >> defer >> when experimentalDeferStreamSupport flag is true >> correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": true,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": true,
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -379,13 +402,10 @@ exports[`@graphql-box/request-parser >> query >> defer >> when experimentalDefer
   "hasDeferOrStream": true,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 7,
-  "requestID": "123456789",
 }
 `;
 
@@ -436,7 +456,20 @@ fragment PermissionsFields on LicenseRule {
 
 exports[`@graphql-box/request-parser >> query >> directive correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -541,13 +574,10 @@ exports[`@graphql-box/request-parser >> query >> directive correct context data 
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 6,
-  "requestID": "123456789",
 }
 `;
 
@@ -585,7 +615,20 @@ exports[`@graphql-box/request-parser >> query >> directive correct request 1`] =
 
 exports[`@graphql-box/request-parser >> query >> enum variable >> correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -672,13 +715,10 @@ exports[`@graphql-box/request-parser >> query >> enum variable >> correct contex
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 6,
-  "requestID": "123456789",
 }
 `;
 
@@ -716,7 +756,20 @@ exports[`@graphql-box/request-parser >> query >> enum variable >> correct reques
 
 exports[`@graphql-box/request-parser >> query >> fragment option >> correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -738,13 +791,10 @@ exports[`@graphql-box/request-parser >> query >> fragment option >> correct cont
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
-  "requestID": "123456789",
 }
 `;
 
@@ -763,7 +813,20 @@ exports[`@graphql-box/request-parser >> query >> fragment option >> correct requ
 
 exports[`@graphql-box/request-parser >> query >> fragment spread >> correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -785,13 +848,10 @@ exports[`@graphql-box/request-parser >> query >> fragment spread >> correct cont
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
-  "requestID": "123456789",
 }
 `;
 
@@ -810,7 +870,20 @@ exports[`@graphql-box/request-parser >> query >> fragment spread >> correct requ
 
 exports[`@graphql-box/request-parser >> query >> fragment spreads >> within fragment spreads >> correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": true,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": true,
   "fieldTypeMap": Map {
     "query.movie" => {
@@ -1288,13 +1361,10 @@ exports[`@graphql-box/request-parser >> query >> fragment spreads >> within frag
   "hasDeferOrStream": true,
   "operation": "query",
   "operationName": "GetMoviePreview",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 7,
-  "requestID": "123456789",
 }
 `;
 
@@ -1461,7 +1531,20 @@ fragment MovieVideos on Movie {
 
 exports[`@graphql-box/request-parser >> query >> inline fragment >> correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -1483,13 +1566,10 @@ exports[`@graphql-box/request-parser >> query >> inline fragment >> correct cont
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
-  "requestID": "123456789",
 }
 `;
 
@@ -1508,7 +1588,20 @@ exports[`@graphql-box/request-parser >> query >> inline fragment >> correct requ
 
 exports[`@graphql-box/request-parser >> query >> inline fragments >> union type >> correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.search" => {
@@ -1583,13 +1676,10 @@ exports[`@graphql-box/request-parser >> query >> inline fragments >> union type 
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 4,
-  "requestID": "123456789",
 }
 `;
 
@@ -1637,7 +1727,20 @@ exports[`@graphql-box/request-parser >> query >> inline fragments >> union type 
 
 exports[`@graphql-box/request-parser >> query >> multiple variables >> correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -1724,13 +1827,10 @@ exports[`@graphql-box/request-parser >> query >> multiple variables >> correct c
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 6,
-  "requestID": "123456789",
 }
 `;
 
@@ -1768,7 +1868,20 @@ exports[`@graphql-box/request-parser >> query >> multiple variables >> correct r
 
 exports[`@graphql-box/request-parser >> query >> no variable >> correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -1790,13 +1903,10 @@ exports[`@graphql-box/request-parser >> query >> no variable >> correct context 
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
-  "requestID": "123456789",
 }
 `;
 
@@ -1815,7 +1925,20 @@ exports[`@graphql-box/request-parser >> query >> no variable >> correct request 
 
 exports[`@graphql-box/request-parser >> query >> operation name >> correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -1837,13 +1960,10 @@ exports[`@graphql-box/request-parser >> query >> operation name >> correct conte
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "GetOrganization",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
-  "requestID": "123456789",
 }
 `;
 
@@ -1862,7 +1982,20 @@ exports[`@graphql-box/request-parser >> query >> operation name >> correct reque
 
 exports[`@graphql-box/request-parser >> query >> union type inline fragments >> fragment spread >> correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.search" => {
@@ -1937,13 +2070,10 @@ exports[`@graphql-box/request-parser >> query >> union type inline fragments >> 
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 4,
-  "requestID": "123456789",
 }
 `;
 
@@ -1993,7 +2123,20 @@ exports[`@graphql-box/request-parser >> query >> union type inline fragments >> 
 
 exports[`@graphql-box/request-parser >> query >> variable correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -2015,13 +2158,10 @@ exports[`@graphql-box/request-parser >> query >> variable correct context data 1
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
-  "requestID": "123456789",
 }
 `;
 
@@ -2040,7 +2180,20 @@ exports[`@graphql-box/request-parser >> query >> variable correct request 1`] = 
 
 exports[`@graphql-box/request-parser >> query >> variable with default correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -2062,13 +2215,10 @@ exports[`@graphql-box/request-parser >> query >> variable with default correct c
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
-  "requestID": "123456789",
 }
 `;
 
@@ -2087,7 +2237,20 @@ exports[`@graphql-box/request-parser >> query >> variable with default correct r
 
 exports[`@graphql-box/request-parser >> query >> with default correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -2109,13 +2272,10 @@ exports[`@graphql-box/request-parser >> query >> with default correct context da
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 2,
-  "requestID": "123456789",
 }
 `;
 
@@ -2134,7 +2294,20 @@ exports[`@graphql-box/request-parser >> query >> with default correct request 1`
 
 exports[`@graphql-box/request-parser >> query >> with number default correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "query",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -2198,13 +2371,10 @@ exports[`@graphql-box/request-parser >> query >> with number default correct con
   "hasDeferOrStream": false,
   "operation": "query",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 5,
-  "requestID": "123456789",
 }
 `;
 
@@ -2232,7 +2402,20 @@ exports[`@graphql-box/request-parser >> query >> with number default correct req
 
 exports[`@graphql-box/request-parser >> subscription >> correct context data 1`] = `
 {
-  "debugManager": null,
+  "data": {
+    "operation": "subscription",
+    "operationName": "",
+    "originalRequestHash": "",
+    "queryFiltered": false,
+    "requestComplexity": undefined,
+    "requestDepth": undefined,
+    "requestID": "123456789",
+  },
+  "debugManager": undefined,
+  "deprecated": {
+    "experimentalDeferStreamSupport": false,
+    "hasDeferOrStream": false,
+  },
   "experimentalDeferStreamSupport": false,
   "fieldTypeMap": Map {
     "subscription.emailAdded" => {
@@ -2268,13 +2451,10 @@ exports[`@graphql-box/request-parser >> subscription >> correct context data 1`]
   "hasDeferOrStream": false,
   "operation": "subscription",
   "operationName": "",
-  "originalRequestHash": "",
   "parsedRequest": "",
-  "queryFiltered": false,
   "request": "",
   "requestComplexity": null,
   "requestDepth": 3,
-  "requestID": "123456789",
 }
 `;
 
