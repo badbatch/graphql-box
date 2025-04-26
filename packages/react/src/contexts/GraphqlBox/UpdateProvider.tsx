@@ -1,5 +1,3 @@
-'use client';
-
 import { type Core, type ImportOptions } from '@cachemap/core';
 import { WorkerClient } from '@graphql-box/worker-client';
 import { type ReactNode, useContext } from 'react';

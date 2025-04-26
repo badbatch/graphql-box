@@ -24,7 +24,7 @@ export const logSubscription = () => {
     descriptor.value = async function descriptorValue(...args: Parameters<Descriptor>): ReturnType<Descriptor> {
       return new Promise(resolve => {
         void (async () => {
-          const { debugManager, ...otherContext } = args[2];
+          const { data, debugManager } = args[2];
 
           if (!debugManager) {
             resolve(await method.apply(this, args));
@@ -35,9 +35,10 @@ export const logSubscription = () => {
           const startTime = debugManager.now();
 
           debugManager.log(SUBSCRIPTION_EXECUTED, {
-            context: { ...otherContext, operationName: derivedOperationName },
-            options: args[1],
-            request: args[0],
+            data: {
+              ...data,
+              ...(!data.operationName && derivedOperationName ? { operationName: derivedOperationName } : undefined),
+            },
             stats: { startTime },
           });
 

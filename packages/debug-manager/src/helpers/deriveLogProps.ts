@@ -5,6 +5,8 @@ import {
   EXECUTE_RESOLVED,
   FETCH_EXECUTED,
   FETCH_RESOLVED,
+  type GraphqlEnv,
+  type GraphqlStep,
   PARTIAL_QUERY_COMPILED,
   PENDING_QUERY_ADDED,
   PENDING_QUERY_RESOLVED,
@@ -16,9 +18,8 @@ import {
   SUBSCRIPTION_EXECUTED,
   SUBSCRIPTION_RESOLVED,
 } from '@graphql-box/core';
-import { type Environment } from '../types.ts';
 
-export const deriveLogOrder = (message: string) => {
+export const deriveLogOrder = (message: GraphqlStep): number => {
   switch (message) {
     case SERVER_REQUEST_RECEIVED: {
       return 1;
@@ -90,7 +91,7 @@ export const deriveLogOrder = (message: string) => {
   }
 };
 
-export const deriveLogGroup = (environment: Environment, message: string) => {
+export const deriveLogGroup = (environment: GraphqlEnv, message: GraphqlStep): number => {
   switch (true) {
     case environment === 'workerClient' && deriveLogOrder(message) <= 6: {
       return 1;

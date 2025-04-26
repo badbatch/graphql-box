@@ -47,7 +47,7 @@ describe('@graphql-box/websocket-manager >>', () => {
       response = await websocketManager.subscribe(
         getRequestData(parsedRequests.nestedInterfaceSubscription),
         {},
-        getRequestContext({ operation: OperationTypeNode.SUBSCRIPTION }),
+        getRequestContext({ data: { operation: OperationTypeNode.SUBSCRIPTION } }),
         subscriptionResolver,
       );
     });
@@ -73,7 +73,7 @@ describe('@graphql-box/websocket-manager >>', () => {
       const asyncIterator = await websocketManager.subscribe(
         requestData,
         {},
-        getRequestContext({ operation: OperationTypeNode.SUBSCRIPTION }),
+        getRequestContext({ data: { operation: OperationTypeNode.SUBSCRIPTION } }),
         subscriptionResolver,
       );
 

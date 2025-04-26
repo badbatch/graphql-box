@@ -26,8 +26,7 @@ export const logExecute = () => {
     descriptor.value = async function descriptorValue(...args: Parameters<Descriptor>): ReturnType<Descriptor> {
       return new Promise<AsyncIterableIterator<PartialRequestResult | undefined> | PartialRawResponseData>(resolve => {
         const resolver = async () => {
-          const { hash } = args[0];
-          const { debugManager, ...otherContext } = args[2];
+          const { data, debugManager } = args[2];
 
           if (!debugManager) {
             resolve(await method.apply(this, args));
@@ -37,9 +36,7 @@ export const logExecute = () => {
           const startTime = debugManager.now();
 
           debugManager.log(EXECUTE_EXECUTED, {
-            context: otherContext,
-            options: args[1],
-            requestHash: hash,
+            data,
             stats: { startTime },
           });
 
@@ -53,10 +50,7 @@ export const logExecute = () => {
           }
 
           debugManager.log(EXECUTE_RESOLVED, {
-            context: otherContext,
-            options: args[1],
-            requestHash: hash,
-            result,
+            data,
             stats: { duration, endTime, startTime },
           });
         };

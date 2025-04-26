@@ -59,40 +59,25 @@ export class Execute {
   ): Promise<AsyncIterableIterator<PartialRequestResult | undefined> | PartialRawResponseData> {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
-
-    const {
-      debugManager,
-      initiator,
-      operationName: ctxOperationName,
-      originalRequestHash,
-      requestComplexity,
-      requestDepth,
-      requestID,
-      ...otherContext
-    } = context;
+    const { data, debugManager } = context;
 
     const executeArgs: ExecutionArgs = {
       contextValue: {
         ...this._contextValue,
         ...contextValue,
         data: {
-          initiator,
-          operationName: ctxOperationName,
-          originalRequestHash,
-          requestComplexity,
-          requestDepth,
-          requestID,
+          ...data,
           ...this._contextValue.data,
           ...contextValue.data,
         },
         debugManager,
         fragmentDefinitions: getFragmentDefinitions(ast),
-        // TODO: Need to understand why operationName is being passed in options
-        // as the one on the context is derived from the request itself.
         setCacheMetadata: setCacheMetadata(_cacheMetadata),
       },
       document: ast,
       fieldResolver: fieldResolver ?? this._fieldResolver,
+      // TODO: Need to understand why operationName is being passed in options
+      // as the one on the context is derived from the request itself.
       operationName,
       rootValue: rootValue ?? this._rootValue,
       schema: this._schema,
@@ -105,7 +90,7 @@ export class Execute {
     }
 
     void forAwaitEach(executeResult, async result => {
-      context.normalizePatchResponseData = 'path' in result;
+      context.deprecated.normalizePatchResponseData = 'path' in result;
 
       // Typescript not inferring enrichedResult is same type
       // as PartialRawResponseData.
@@ -116,10 +101,7 @@ export class Execute {
       } as PartialRawResponseData;
 
       debugManager?.log(EXECUTE_RESOLVED, {
-        context: { requestID, ...otherContext },
-        options,
-        requestHash: hash,
-        result: enrichedResult,
+        data,
         stats: { endTime: debugManager.now() },
       });
 

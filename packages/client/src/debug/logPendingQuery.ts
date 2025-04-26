@@ -13,9 +13,8 @@ export const logPendingQuery = () => {
     }
 
     descriptor.value = function descriptorValue(...args: Parameters<Descriptor>): ReturnType<Descriptor> {
-      const { context, options, requestData } = args[1];
-      const { hash } = requestData;
-      const { debugManager, ...otherContext } = context;
+      const { context } = args[1];
+      const { data, debugManager } = context;
 
       if (!debugManager) {
         method.apply(this, args);
@@ -25,10 +24,7 @@ export const logPendingQuery = () => {
       method.apply(this, args);
 
       debugManager.log(PENDING_QUERY_ADDED, {
-        activeRequestHash: args[0],
-        context: otherContext,
-        options,
-        pendingRequestHash: hash,
+        data,
       });
     };
   };

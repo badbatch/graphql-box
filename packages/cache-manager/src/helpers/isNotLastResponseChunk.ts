@@ -4,4 +4,4 @@ import { type CacheManagerContext } from '../types.ts';
 export const isNotLastResponseChunk = (
   rawResponseData: RawResponseDataWithMaybeCacheMetadata,
   context: CacheManagerContext,
-) => context.hasDeferOrStream && rawResponseData.hasNext;
+) => context.deprecated.hasDeferOrStream && rawResponseData.hasNext;

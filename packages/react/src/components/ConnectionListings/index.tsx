@@ -75,7 +75,9 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
           variables: { ...variables, ...newConnectionVariables },
         },
         {
-          initiator: componentName,
+          data: {
+            initiator: componentName,
+          },
         },
       );
 
@@ -86,7 +88,7 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
     }
 
     if (isLastItemVisible && hasNextPage) {
-      void execute({ variables: { ...variables, ...connectionVariables } }, { initiator: componentName });
+      void execute({ variables: { ...variables, ...connectionVariables } }, { data: { initiator: componentName } });
     }
   }, [variablesHash, isLastItemVisible, hasNextPage]); // eslint-disable-line react-hooks/exhaustive-deps
 

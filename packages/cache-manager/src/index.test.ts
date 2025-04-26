@@ -61,8 +61,10 @@ describe('@graphql-box/cache-manager >>', () => {
             responses.nestedInterfaceMutation,
             { awaitDataCaching: true },
             getRequestContext({
+              data: {
+                operation: OperationTypeNode.MUTATION,
+              },
               fieldTypeMap: requestFieldTypeMaps.nestedInterfaceMutation,
-              operation: OperationTypeNode.MUTATION,
             }),
           );
         });
@@ -108,8 +110,10 @@ describe('@graphql-box/cache-manager >>', () => {
             responses.nestedInterfaceMutation,
             { awaitDataCaching: true },
             getRequestContext({
+              data: {
+                operation: OperationTypeNode.MUTATION,
+              },
               fieldTypeMap: requestFieldTypeMaps.nestedInterfaceMutation,
-              operation: OperationTypeNode.MUTATION,
             }),
           );
         });
@@ -151,8 +155,10 @@ describe('@graphql-box/cache-manager >>', () => {
             responses.nestedTypeSubscription,
             { awaitDataCaching: true },
             getRequestContext({
+              data: {
+                operation: OperationTypeNode.SUBSCRIPTION,
+              },
               fieldTypeMap: requestFieldTypeMaps.nestedTypeSubscription,
-              operation: OperationTypeNode.SUBSCRIPTION,
             }),
           );
         });
@@ -195,8 +201,10 @@ describe('@graphql-box/cache-manager >>', () => {
             responses.nestedTypeSubscription,
             { awaitDataCaching: true },
             getRequestContext({
+              data: {
+                operation: OperationTypeNode.SUBSCRIPTION,
+              },
               fieldTypeMap: requestFieldTypeMaps.nestedTypeSubscription,
-              operation: OperationTypeNode.SUBSCRIPTION,
             }),
           );
         });
@@ -516,7 +524,7 @@ describe('@graphql-box/cache-manager >>', () => {
               getRequestData(parsedRequests.singleTypeQuerySet.updated),
               responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery, queryFiltered: true }),
+              getRequestContext({ data: { queryFiltered: true }, fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
             );
           });
 
@@ -577,7 +585,7 @@ describe('@graphql-box/cache-manager >>', () => {
               getRequestData(parsedRequests.singleTypeQuerySet.updated),
               responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.singleTypeQuery, queryFiltered: true }),
+              getRequestContext({ data: { queryFiltered: true }, fieldTypeMap: requestFieldTypeMaps.singleTypeQuery }),
             );
           });
 
@@ -638,7 +646,7 @@ describe('@graphql-box/cache-manager >>', () => {
               getRequestData(parsedRequests.nestedTypeQuerySet.updated),
               responses.nestedTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery, queryFiltered: true }),
+              getRequestContext({ data: { queryFiltered: true }, fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery }),
             );
           });
 
@@ -702,7 +710,7 @@ describe('@graphql-box/cache-manager >>', () => {
               getRequestData(parsedRequests.nestedTypeQuerySet.updated),
               responses.nestedTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery, queryFiltered: true }),
+              getRequestContext({ data: { queryFiltered: true }, fieldTypeMap: requestFieldTypeMaps.nestedTypeQuery }),
             );
           });
 
@@ -763,7 +771,7 @@ describe('@graphql-box/cache-manager >>', () => {
               getRequestData(parsedRequests.nestedUnionQuerySet.updated),
               responses.nestedUnionQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery, queryFiltered: true }),
+              getRequestContext({ data: { queryFiltered: true }, fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery }),
             );
           });
 
@@ -825,7 +833,7 @@ describe('@graphql-box/cache-manager >>', () => {
               getRequestData(parsedRequests.nestedUnionQuerySet.updated),
               responses.nestedUnionQuerySet.updated as RawResponseDataWithMaybeCacheMetadata,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery, queryFiltered: true }),
+              getRequestContext({ data: { queryFiltered: true }, fieldTypeMap: requestFieldTypeMaps.nestedUnionQuery }),
             );
           });
 
@@ -869,7 +877,10 @@ describe('@graphql-box/cache-manager >>', () => {
               requestData,
               responses.deferQuerySet.initial,
               { awaitDataCaching: true },
-              getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true }),
+              getRequestContext({
+                deprecated: { hasDeferOrStream: true },
+                fieldTypeMap: requestFieldTypeMaps.deferQuery,
+              }),
             );
 
             const { cacheMetadata, data } = responses.deferQuerySet.partial;
@@ -893,9 +904,9 @@ describe('@graphql-box/cache-manager >>', () => {
                     updateResponses.shift()!,
                     { awaitDataCaching: true },
                     getRequestContext({
+                      data: { queryFiltered: true },
+                      deprecated: { hasDeferOrStream: true },
                       fieldTypeMap: requestFieldTypeMaps.deferQuery,
-                      hasDeferOrStream: true,
-                      queryFiltered: true,
                     }),
                   );
 
@@ -1055,7 +1066,10 @@ describe('@graphql-box/cache-manager >>', () => {
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.deferQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true }),
+            getRequestContext({
+              deprecated: { hasDeferOrStream: true },
+              fieldTypeMap: requestFieldTypeMaps.deferQuery,
+            }),
           );
         });
 
@@ -1269,8 +1283,10 @@ describe('@graphql-box/cache-manager >>', () => {
                   updateResponses.shift()!,
                   { awaitDataCaching: true },
                   getRequestContext({
+                    deprecated: {
+                      hasDeferOrStream: true,
+                    },
                     fieldTypeMap: requestFieldTypeMaps.deferQuery,
-                    hasDeferOrStream: true,
                   }),
                 );
 
@@ -1285,7 +1301,10 @@ describe('@graphql-box/cache-manager >>', () => {
           analyzeQueryResult = await cacheManager.analyzeQuery(
             requestData,
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true }),
+            getRequestContext({
+              deprecated: { hasDeferOrStream: true },
+              fieldTypeMap: requestFieldTypeMaps.deferQuery,
+            }),
           );
         });
 
@@ -1576,13 +1595,19 @@ describe('@graphql-box/cache-manager >>', () => {
             requestData,
             responses.getSearchResultsQuery,
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.getSearchResultsQuery, hasDeferOrStream: true }),
+            getRequestContext({
+              data: { hasDeferOrStream: true },
+              fieldTypeMap: requestFieldTypeMaps.getSearchResultsQuery,
+            }),
           );
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.getMoviePreviewQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.getMoviePreviewQuery, hasDeferOrStream: true }),
+            getRequestContext({
+              data: { hasDeferOrStream: true },
+              fieldTypeMap: requestFieldTypeMaps.getMoviePreviewQuery,
+            }),
           );
         });
 
@@ -1634,13 +1659,13 @@ describe('@graphql-box/cache-manager >>', () => {
             requestData,
             responses.deferQuerySet.initial,
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true }),
+            getRequestContext({ data: { hasDeferOrStream: true }, fieldTypeMap: requestFieldTypeMaps.deferQuery }),
           );
 
           analyzeQueryResult = await cacheManager.analyzeQuery(
             getRequestData(parsedRequests.deferQuery),
             { awaitDataCaching: true },
-            getRequestContext({ fieldTypeMap: requestFieldTypeMaps.deferQuery, hasDeferOrStream: true }),
+            getRequestContext({ data: { hasDeferOrStream: true }, fieldTypeMap: requestFieldTypeMaps.deferQuery }),
           );
         });
 

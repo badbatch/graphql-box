@@ -23,7 +23,7 @@ export const logCacheQuery = () => {
       // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
       return new Promise<never | undefined>(resolve => {
         const resolver = async () => {
-          const { debugManager, requestFieldCacheKey, ...otherContext } = args[3];
+          const { data, debugManager, requestFieldCacheKey } = args[3];
 
           if (!debugManager) {
             // Proving more difficult to fix, that worth the effort
@@ -40,17 +40,14 @@ export const logCacheQuery = () => {
           const duration = endTime - startTime;
           resolve(result);
 
-          const payload = {
-            cacheType: args[0],
-            context: otherContext,
-            options: args[2],
-            requestHash: args[1],
-            result,
+          debugManager.log(CACHE_ENTRY_QUERIED, {
+            data: {
+              ...data,
+              cacheType: args[0],
+              ...(requestFieldCacheKey ? { decryptedCacheKey: requestFieldCacheKey } : undefined),
+            },
             stats: { duration, endTime, startTime },
-            ...(requestFieldCacheKey ? { decryptedCacheKey: requestFieldCacheKey } : {}),
-          };
-
-          debugManager.log(CACHE_ENTRY_QUERIED, payload);
+          });
         };
 
         void resolver();

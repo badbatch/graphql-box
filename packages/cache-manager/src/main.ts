@@ -174,9 +174,9 @@ export class CacheManager implements CacheManagerDef {
     { propNameOrIndex, requestFieldPath }: KeysAndPaths,
     typeNamesAndKind: TypenamesAndKind,
     _options: RequestOptions,
-    { operation }: CacheManagerContext,
+    { data: ctxData }: CacheManagerContext,
   ) {
-    CacheManager._setCacheMetadata(cacheMetadata, cachedFieldData.cacheability, requestFieldPath, operation);
+    CacheManager._setCacheMetadata(cacheMetadata, cachedFieldData.cacheability, requestFieldPath, ctxData.operation);
     CacheManager._setFieldPathChecklist(fieldPathChecklist, cachedFieldData, requestFieldPath, typeNamesAndKind);
     CacheManager._setCachedData(data, cachedFieldData, propNameOrIndex);
   }
@@ -594,7 +594,7 @@ export class CacheManager implements CacheManagerDef {
     context: CacheManagerContext,
   ): CacheMetadata {
     const cacheMetadata = this._createCacheMetadata({ data, ...otherProps }, context);
-    const queryNode = getOperationDefinitions(ast, context.operation)[0];
+    const queryNode = getOperationDefinitions(ast, context.data.operation)[0];
 
     if (!queryNode) {
       return cacheMetadata;
@@ -609,7 +609,7 @@ export class CacheManager implements CacheManagerDef {
     for (const { fieldNode } of fieldsAndTypeNames)
       this._setFieldCacheability(
         fieldNode,
-        { requestFieldPath: context.operation },
+        { requestFieldPath: context.data.operation },
         { cacheMetadata, data },
         options,
         context,
@@ -661,10 +661,13 @@ export class CacheManager implements CacheManagerDef {
       let queryCacheMetadata: CacheMetadata | undefined;
       let queryData: PlainData | undefined;
 
-      if (context.operation === OperationTypeNode.QUERY && queryResponseCacheTierEnabled(this._cacheTiersEnabled)) {
+      if (
+        context.data.operation === OperationTypeNode.QUERY &&
+        queryResponseCacheTierEnabled(this._cacheTiersEnabled)
+      ) {
         let partialQueryResponse: PartialQueryResponse | undefined;
 
-        if (context.queryFiltered && updatedRequestData) {
+        if (context.data.queryFiltered && updatedRequestData) {
           dataCaching.push(
             this._setQueryResponseCacheEntry(updatedRequestData.hash, { cacheMetadata, data }, options, context),
           );
@@ -734,7 +737,7 @@ export class CacheManager implements CacheManagerDef {
 
   private _createCacheMetadata(
     { _cacheMetadata, headers }: RawResponseDataWithMaybeCacheMetadata,
-    { operation }: CacheManagerContext,
+    { data }: CacheManagerContext,
   ): CacheMetadata {
     const cacheMetadata = new Map<string, Cacheability>();
 
@@ -744,7 +747,7 @@ export class CacheManager implements CacheManagerDef {
       headers,
     });
 
-    cacheMetadata.set(operation, cacheability);
+    cacheMetadata.set(data.operation, cacheability);
 
     if (_cacheMetadata) {
       rehydrateCacheMetadata(_cacheMetadata, cacheMetadata);
@@ -841,7 +844,7 @@ export class CacheManager implements CacheManagerDef {
     const hasArgsOrDirectives = fieldTypeInfo.hasArguments || fieldTypeInfo.hasDirectives;
 
     if (
-      context.operation === OperationTypeNode.QUERY &&
+      context.data.operation === OperationTypeNode.QUERY &&
       (isEntity || hasArgsOrDirectives) &&
       requestPathCacheTierEnabled(this._cacheTiersEnabled)
     ) {
@@ -1013,7 +1016,7 @@ export class CacheManager implements CacheManagerDef {
       fieldPathChecklist: new Map(),
     };
 
-    const queryNode = getOperationDefinitions(ast, context.operation)[0];
+    const queryNode = getOperationDefinitions(ast, context.data.operation)[0];
 
     if (!queryNode) {
       return cachedResponseData;
@@ -1029,7 +1032,7 @@ export class CacheManager implements CacheManagerDef {
       fieldsAndTypeNames.map(({ fieldNode }) =>
         this._analyzeFieldNode(
           fieldNode,
-          { requestFieldPath: context.operation },
+          { requestFieldPath: context.data.operation },
           cachedResponseData,
           options,
           context,
@@ -1045,8 +1048,8 @@ export class CacheManager implements CacheManagerDef {
     normalizedResponseData: RawResponseDataWithMaybeCacheMetadata,
     context: CacheManagerContext,
   ) {
-    const responseChunks = this._responseChunksAwaitingCaching.get(context.requestID);
-    this._responseChunksAwaitingCaching.delete(context.requestID);
+    const responseChunks = this._responseChunksAwaitingCaching.get(context.data.requestID);
+    this._responseChunksAwaitingCaching.delete(context.data.requestID);
     return mergeResponseDataSets([...(responseChunks ?? []), normalizedResponseData]);
   }
 
@@ -1072,7 +1075,7 @@ export class CacheManager implements CacheManagerDef {
     options: RequestOptions,
     context: CacheManagerContext,
   ): Promise<void> {
-    const operationNode = getOperationDefinitions(requestData.ast, context.operation)[0];
+    const operationNode = getOperationDefinitions(requestData.ast, context.data.operation)[0];
 
     if (!operationNode) {
       return;
@@ -1088,7 +1091,7 @@ export class CacheManager implements CacheManagerDef {
       fieldsAndTypeNames.map(({ fieldNode }) => {
         return this._parseEntityAndRequestFieldPathCacheEntryData(
           fieldNode,
-          { requestFieldPath: context.operation },
+          { requestFieldPath: context.data.operation },
           responseData,
           options,
           context,
@@ -1173,7 +1176,7 @@ export class CacheManager implements CacheManagerDef {
   private _setFieldTypeCacheDirective(
     cacheMetadata: CacheMetadata,
     { ancestorRequestFieldPath, requestFieldPath }: { ancestorRequestFieldPath?: string; requestFieldPath: string },
-    { fieldTypeMap, operation }: CacheManagerContext,
+    { data, fieldTypeMap }: CacheManagerContext,
   ): void {
     if (cacheMetadata.has(requestFieldPath)) {
       return;
@@ -1183,13 +1186,13 @@ export class CacheManager implements CacheManagerDef {
 
     if (fieldTypeInfo && this._typeCacheDirectives[fieldTypeInfo.typeName]) {
       const cacheability = new Cacheability({ cacheControl: this._typeCacheDirectives[fieldTypeInfo.typeName] });
-      CacheManager._setCacheMetadata(cacheMetadata, cacheability, requestFieldPath, operation);
+      CacheManager._setCacheMetadata(cacheMetadata, cacheability, requestFieldPath, data.operation);
     } else if (this._cascadeCacheControl && ancestorRequestFieldPath) {
       CacheManager._setCacheMetadata(
         cacheMetadata,
         cacheMetadata.get(ancestorRequestFieldPath),
         requestFieldPath,
-        operation,
+        data.operation,
       );
     }
   }
@@ -1211,7 +1214,7 @@ export class CacheManager implements CacheManagerDef {
     context: CacheManagerContext,
   ): Promise<void> {
     const dehydratedCacheMetadata = dehydrateCacheMetadata(cacheMetadata);
-    const cacheControl = CacheManager._getOperationCacheControl(cacheMetadata, context.operation);
+    const cacheControl = CacheManager._getOperationCacheControl(cacheMetadata, context.data.operation);
 
     await this._setCacheEntry(
       QUERY_RESPONSES,
@@ -1254,12 +1257,12 @@ export class CacheManager implements CacheManagerDef {
     normalizedResponseData: RawResponseDataWithMaybeCacheMetadata,
     context: CacheManagerContext,
   ) {
-    const responseChunks = this._responseChunksAwaitingCaching.get(context.requestID);
+    const responseChunks = this._responseChunksAwaitingCaching.get(context.data.requestID);
 
     if (responseChunks) {
-      this._responseChunksAwaitingCaching.set(context.requestID, [...responseChunks, normalizedResponseData]);
+      this._responseChunksAwaitingCaching.set(context.data.requestID, [...responseChunks, normalizedResponseData]);
     } else {
-      this._responseChunksAwaitingCaching.set(context.requestID, [normalizedResponseData]);
+      this._responseChunksAwaitingCaching.set(context.data.requestID, [normalizedResponseData]);
     }
   }
 }

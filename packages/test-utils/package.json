@@ -40,7 +40,9 @@
   "dependencies": {
     "@graphql-box/core": "workspace:*",
     "@graphql-box/helpers": "workspace:*",
-    "eventemitter3": "^5.0.1"
+    "@types/lodash-es": "^4.17.12",
+    "eventemitter3": "^5.0.1",
+    "lodash-es": "^4.17.21"
   },
   "peerDependencies": {
     "graphql": "<17"

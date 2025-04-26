@@ -17,7 +17,7 @@ export const logPartialCompiled = () => {
     }
 
     descriptor.value = function descriptorValue(...args: Parameters<Descriptor>): ReturnType<Descriptor> {
-      const { debugManager, ...otherContext } = args[3];
+      const { data, debugManager } = args[3];
 
       if (!debugManager) {
         method.apply(this, args);
@@ -30,10 +30,7 @@ export const logPartialCompiled = () => {
       const duration = endTime - startTime;
 
       debugManager.log(PARTIAL_QUERY_COMPILED, {
-        context: otherContext,
-        options: args[2],
-        requestHash: args[0],
-        result: args[1],
+        data,
         stats: { duration, endTime, startTime },
       });
     };

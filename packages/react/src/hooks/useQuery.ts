@@ -1,7 +1,7 @@
 import {
+  type PartialRequestContext,
   type PartialRequestResult,
   type PlainObject,
-  type RequestContext,
   type RequestOptions,
 } from '@graphql-box/core';
 import { isAsyncIterable } from 'iterall';
@@ -19,7 +19,7 @@ export const useQuery = <Data extends PlainObject>(request: string, { loading = 
   const graphqlBoxClient = useGraphqlBoxClient();
   const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading, requestID: '' });
 
-  const execute = async (options?: RequestOptions, context?: Partial<RequestContext>) => {
+  const execute = async (options?: RequestOptions, context?: PartialRequestContext) => {
     setState({
       data: undefined,
       errors: [],

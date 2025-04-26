@@ -26,8 +26,7 @@ export const logRequest = () => {
     descriptor.value = async function descriptorValue(...args: Parameters<Descriptor>): ReturnType<Descriptor> {
       return new Promise(resolve => {
         void (async () => {
-          const { hash } = args[0];
-          const { debugManager, ...otherContext } = args[2];
+          const { data, debugManager } = args[2];
 
           if (!debugManager) {
             resolve(await method.apply(this, args));
@@ -37,9 +36,7 @@ export const logRequest = () => {
           const startTime = debugManager.now();
 
           debugManager.log(REQUEST_EXECUTED, {
-            context: otherContext,
-            options: args[1],
-            requestHash: hash,
+            data,
             stats: { startTime },
           });
 
@@ -53,10 +50,7 @@ export const logRequest = () => {
           }
 
           debugManager.log(REQUEST_RESOLVED, {
-            context: otherContext,
-            options: args[1],
-            requestHash: hash,
-            result,
+            data,
             stats: { duration, endTime, startTime },
           });
         })();

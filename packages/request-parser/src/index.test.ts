@@ -290,7 +290,7 @@ describe('@graphql-box/request-parser >>', () => {
       });
 
       const { options, request } = requestsAndOptions.getMoviePreviewQuery;
-      requestContext = getRequestContext({ experimentalDeferStreamSupport: true });
+      requestContext = getRequestContext({ deprecated: { experimentalDeferStreamSupport: true } });
       updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
@@ -357,7 +357,7 @@ describe('@graphql-box/request-parser >>', () => {
         });
 
         const { options, request } = requestsAndOptions.queryWithDefer;
-        requestContext = getRequestContext({ experimentalDeferStreamSupport: true });
+        requestContext = getRequestContext({ deprecated: { experimentalDeferStreamSupport: true } });
         updatedRequest = requestParser.updateRequest(request, options, requestContext);
       });
 
@@ -400,7 +400,7 @@ describe('@graphql-box/request-parser >>', () => {
       });
 
       const { options, request } = requestsAndOptions.nestedInterfaceMutation;
-      requestContext = getRequestContext({ operation: OperationTypeNode.MUTATION });
+      requestContext = getRequestContext({ data: { operation: OperationTypeNode.MUTATION } });
       updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
@@ -426,7 +426,7 @@ describe('@graphql-box/request-parser >>', () => {
       });
 
       const { options, request } = requestsAndOptions.nestedTypeSubscription;
-      requestContext = getRequestContext({ operation: OperationTypeNode.SUBSCRIPTION });
+      requestContext = getRequestContext({ data: { operation: OperationTypeNode.SUBSCRIPTION } });
       updatedRequest = requestParser.updateRequest(request, options, requestContext);
     });
 
@@ -448,7 +448,7 @@ describe('@graphql-box/request-parser >>', () => {
         maxFieldDepth: 2,
       });
 
-      requestContext = getRequestContext({ experimentalDeferStreamSupport: true });
+      requestContext = getRequestContext({ deprecated: { experimentalDeferStreamSupport: true } });
     });
 
     it('throws correct error', () => {
@@ -475,7 +475,7 @@ describe('@graphql-box/request-parser >>', () => {
         },
       });
 
-      requestContext = getRequestContext({ experimentalDeferStreamSupport: true });
+      requestContext = getRequestContext({ deprecated: { experimentalDeferStreamSupport: true } });
     });
 
     it('throws correct error', () => {

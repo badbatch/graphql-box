@@ -3,7 +3,8 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { performance } from 'node:perf_hooks';
 import { CacheManager } from '@graphql-box/cache-manager';
 import { Client } from '@graphql-box/client';
-import { DebugManager, type Environment } from '@graphql-box/debug-manager';
+import { type GraphqlEnv } from '@graphql-box/core';
+import { DebugManager } from '@graphql-box/debug-manager';
 import { Execute } from '@graphql-box/execute';
 import { RequestParser } from '@graphql-box/request-parser';
 import { Subscribe } from '@graphql-box/subscribe';
@@ -35,7 +36,7 @@ export const initServerClient = ({ cachemapStore, debuggerName = 'SERVER', typeC
     debugManager: new DebugManager({
       // DebugManager is expecting Environment type, not string.
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      environment: debuggerName.toLowerCase() as Environment,
+      environment: debuggerName.toLowerCase() as GraphqlEnv,
       name: debuggerName,
       performance,
     }),

@@ -6,11 +6,12 @@ import {
   type PartialRawFetchData,
   type PartialRequestResult,
   type RequestContext,
+  type RequestContextData,
+  type RequestContextDeprecated,
   type RequestData,
   type RequestOptions,
 } from '@graphql-box/core';
 import { type RequestParserDef } from '@graphql-box/request-parser';
-import { type OperationTypeNode } from 'graphql';
 
 export interface UserOptions {
   /**
@@ -76,10 +77,8 @@ export interface MessageResponsePayload {
 }
 
 export interface MessageContext {
-  hasDeferOrStream: boolean;
-  initiator?: string;
-  operation: OperationTypeNode;
-  requestID: string;
+  data: RequestContextData;
+  deprecated: RequestContextDeprecated;
 }
 
 export interface RegisterWorkerOptions {

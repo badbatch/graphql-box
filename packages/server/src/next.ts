@@ -2,8 +2,8 @@ import { type Client } from '@graphql-box/client';
 import {
   type PartialDehydratedRequestResult,
   type PartialRawFetchData,
-  type PartialRequestContext,
   type PartialRequestResult,
+  type RequestContextData,
   SERVER_REQUEST_RECEIVED,
   type ServerRequestOptions,
 } from '@graphql-box/core';
@@ -17,8 +17,8 @@ import { isLogBatched } from './helpers/isLogBatched.ts';
 import { isRequestBatched } from './helpers/isRequestBatched.ts';
 import {
   type BatchRequestData,
-  type BatchedLogData,
-  type LogData,
+  type BatchedLogDataPayload,
+  type LogDataPayload,
   type NextRequestHandler,
   type RequestData,
   type ResponseDataWithMaybeDehydratedCacheMetadataBatch,
@@ -70,15 +70,16 @@ export class NextMiddleware {
         }
 
         const { context, request } = requestEntry;
+        const { originalRequestHash, requestID } = context.data;
 
         if (
           this._requestWhitelist.length > 0 &&
-          context.originalRequestHash &&
-          !this._requestWhitelist.includes(context.originalRequestHash)
+          originalRequestHash &&
+          !this._requestWhitelist.includes(originalRequestHash)
         ) {
           response.responses[requestHash] = serializeErrors({
             errors: [new Error('@graphql-box/server: The request is not whitelisted.')],
-            requestID: context.requestID,
+            requestID,
           });
 
           return;
@@ -90,7 +91,7 @@ export class NextMiddleware {
               errors: [
                 new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
               ],
-              requestID: context.requestID,
+              requestID,
             });
           }, this._requestTimeout);
 
@@ -119,7 +120,7 @@ export class NextMiddleware {
 
           response.responses[requestHash] = serializeErrors({
             errors: [confirmedError],
-            requestID: context.requestID,
+            requestID,
           });
         }
       }),
@@ -130,16 +131,14 @@ export class NextMiddleware {
     });
   }
 
-  private _handleLogs(logs: Omit<LogData, 'batched'>[]) {
+  private _handleLogs(logs: Omit<LogDataPayload, 'batched'>[]) {
     for (const { data, logLevel, message } of logs) {
       this._client.debugger?.handleLog(message, data, logLevel);
     }
   }
 
-  private async _handleRequest(request: string, options: ServerRequestOptions, context: PartialRequestContext) {
-    // Need to change how context gets initialised and updated
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    if (this._requestWhitelist.length > 0 && !this._requestWhitelist.includes(context.originalRequestHash!)) {
+  private async _handleRequest(request: string, options: ServerRequestOptions, context: { data: RequestContextData }) {
+    if (this._requestWhitelist.length > 0 && !this._requestWhitelist.includes(context.data.originalRequestHash)) {
       return new NextResponse(
         JSON.stringify(serializeErrors({ errors: [new Error('The request is not whitelisted.')] })),
         {
@@ -210,10 +209,10 @@ export class NextMiddleware {
 
   private async _logHandler(req: NextRequest) {
     try {
-      let logs: Omit<LogData, 'batched'>[] = [];
+      let logs: Omit<LogDataPayload, 'batched'>[] = [];
       // res.json returns an any type
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      const body = (await req.json()) as LogData | BatchedLogData;
+      const body = (await req.json()) as LogDataPayload | BatchedLogDataPayload;
 
       if (isLogBatched(body)) {
         logs = Object.values(body.requests);
@@ -249,15 +248,15 @@ export class NextMiddleware {
         const { requests } = body;
 
         void new Promise(() => {
-          for (const { context, request } of Object.values(requests)) {
-            this._client.debugger?.log(SERVER_REQUEST_RECEIVED, { body, context, headers: req.headers, request });
+          for (const { context } of Object.values(requests)) {
+            this._client.debugger?.log(SERVER_REQUEST_RECEIVED, { data: context.data });
           }
         });
 
         return await this._handleBatchRequest(requests, options);
       } else {
         const { context, request } = body;
-        this._client.debugger?.log(SERVER_REQUEST_RECEIVED, { body, context, headers: req.headers, request });
+        this._client.debugger?.log(SERVER_REQUEST_RECEIVED, { data: context.data });
         return await this._handleRequest(request, options, context);
       }
     } catch (error) {

@@ -1,19 +1,18 @@
-import { type DebugManagerDef, type LogData, type LogEntry, type LogLevel } from '@graphql-box/core';
-import { ArgsError, GroupedError, deserializeError } from '@graphql-box/helpers';
+import {
+  type DebugManagerDef,
+  type GraphqlEnv,
+  type GraphqlStep,
+  type LogData,
+  type LogLevel,
+} from '@graphql-box/core';
+import { ArgsError, GroupedError } from '@graphql-box/helpers';
 import { EventEmitter } from 'eventemitter3';
-import { isString, pickBy } from 'lodash-es';
+import { isString } from 'lodash-es';
 import { deriveLogGroup, deriveLogOrder } from './helpers/deriveLogProps.ts';
-import { getEnvSpecificLabels } from './helpers/getEnvSpecificLabels.ts';
-import { transformCachemapOptions } from './helpers/transformCachemapOptions.ts';
-import { transformContext } from './helpers/transformContext.ts';
-import { transformError } from './helpers/transformError.ts';
-import { transformOptions } from './helpers/transformOptions.ts';
-import { transformResult } from './helpers/transformResult.ts';
-import { transformStats } from './helpers/transformStats.ts';
-import { type Environment, type Log, type Performance, type UserOptions } from './types.ts';
+import { type Log, type Performance, type UserOptions } from './types.ts';
 
 export class DebugManager extends EventEmitter implements DebugManagerDef {
-  private readonly _environment: Environment;
+  private readonly _environment: GraphqlEnv;
   private readonly _log: Log | null;
   private readonly _name: string;
   private readonly _performance: Performance;
@@ -36,11 +35,7 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
     this._environment = options.environment ?? 'client';
   }
 
-  public handleLog(message: string, data: LogEntry, logLevel: LogLevel = 'info') {
-    if (data.err && !(data.err instanceof Error)) {
-      data.err = deserializeError(data.err);
-    }
-
+  public handleLog(message: GraphqlStep, data: LogData, logLevel: LogLevel = 'info') {
     this.emit('LOG', message, data);
 
     if (this._log) {
@@ -48,36 +43,25 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
     }
   }
 
-  public log(message: string, data: LogData, logLevel: LogLevel = 'info'): void {
-    const { cachemapOptions, context, options, result, stats, ...rest } = data;
+  public log(message: GraphqlStep, logData: LogData, logLevel: LogLevel = 'info'): void {
+    const { data, error, stats } = logData;
 
-    const updatedData = {
-      labels: pickBy(
-        {
-          environment: this._environment,
-          logGroup: deriveLogGroup(this._environment, message),
-          logOrder: deriveLogOrder(message),
-          ...transformCachemapOptions(cachemapOptions),
-          ...transformContext(context),
-          ...transformOptions(options),
-          ...transformResult(result),
-          ...transformStats(stats),
-          ...getEnvSpecificLabels(this._environment),
-          ...rest,
-        },
-        value => value !== undefined && value !== null && value !== '',
-      ),
-      log: {
-        level: logLevel.toUpperCase(),
-        logger: this._name,
+    const updatedLogData: LogData = {
+      data: {
+        environment: this._environment,
+        logGroup: deriveLogGroup(this._environment, message),
+        logOrder: deriveLogOrder(message),
+        loggerName: this._name,
+        ...data,
       },
-      ...transformError(this._environment, result),
+      error,
+      stats,
     };
 
-    this.emit('LOG', message, updatedData);
+    this.emit('LOG', message, updatedLogData);
 
     if (this._log) {
-      this._log(message, updatedData, logLevel);
+      this._log(message, updatedLogData, logLevel);
     }
   }
 

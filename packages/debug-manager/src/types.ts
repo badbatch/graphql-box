@@ -1,12 +1,12 @@
-import { type LogLevel, type PlainObject } from '@graphql-box/core';
+import { type GraphqlEnv, type GraphqlStep, type LogData, type LogLevel } from '@graphql-box/core';
 
-export type Log = (message: string, data: PlainObject, level?: LogLevel) => void;
+export type Log = (message: GraphqlStep, data: LogData, level?: LogLevel) => void;
 
 export interface UserOptions {
   /**
    * Where the debug manager is being used.
    */
-  environment?: Environment;
+  environment?: GraphqlEnv;
   /**
    * The callback to pass log messages to your logger.
    */
@@ -22,8 +22,6 @@ export interface UserOptions {
    */
   performance: Performance;
 }
-
-export type Environment = 'client' | 'server' | 'worker' | 'workerClient';
 
 export interface Performance {
   now(): number;

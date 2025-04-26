@@ -47,7 +47,7 @@ export class WebsocketMiddleware {
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const { context, subscription, subscriptionID } = JSON.parse(message as string) as MessageData;
 
-      if (this._requestWhitelist.length > 0 && !this._requestWhitelist.includes(context.originalRequestHash)) {
+      if (this._requestWhitelist.length > 0 && !this._requestWhitelist.includes(context.data.originalRequestHash)) {
         ws.send(JSON.stringify(serializeErrors({ errors: [new Error('The request is not whitelisted.')] })));
         return;
       }

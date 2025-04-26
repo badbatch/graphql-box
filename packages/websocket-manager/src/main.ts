@@ -12,8 +12,8 @@ import { EventEmitter } from 'eventemitter3';
 import { type UserOptions } from './types.ts';
 
 export class WebsocketManager implements SubscriptionsManagerDef {
-  private static _getMessageContext({ operation, originalRequestHash, requestID }: RequestContext) {
-    return { operation, originalRequestHash, requestID };
+  private static _getMessageContext({ data }: RequestContext) {
+    return { data };
   }
 
   private readonly _eventEmitter: EventEmitter;
