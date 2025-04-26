@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.5.50 (2025-04-26)
+
+### Chores
+
+* **root:**  save work in progress (497b30cd)
+
+### Bug Fixes
+
+* **request-parser:**  props spread at wrong level (717235af)
+* **root:**  update snapshot tests (03f7f771)
+
 ## 5.5.49 (2025-04-22)
 
 ### Bug Fixes
