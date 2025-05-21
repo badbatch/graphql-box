@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.51-alpha-126.0 (2025-05-21)
+
+### Other Changes
+
+* **root:**  remove swc plugin until it works properly" (652c7c4d)
+
 ## 5.5.50 (2025-04-26)
 
 ### Chores
