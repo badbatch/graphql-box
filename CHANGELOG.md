@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.51-alpha-126.1 (2025-05-21)
+
+### Bug Fixes
+
+* **swc-plugin-gql:**  change target (d8f12058)
+
 ## 5.5.51-alpha-126.0 (2025-05-21)
 
 ### Other Changes
