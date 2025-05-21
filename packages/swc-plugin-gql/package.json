@@ -24,7 +24,7 @@
     "copy-wasm": "copyfiles -f target/wasm32-wasip1/release/swc_plugin_graphql_box_gql.wasm dist",
     "lint": "rustup component add clippy && cargo clippy",
     "prepack": "pnpm run clean:dist && pnpm run target-wasm && pnpm run build-release && pnpm run copy-wasm",
-    "target-wasm": "rustup target add wasm32-wasi",
+    "target-wasm": "rustup target add wasm32-wasip1",
     "test": "cargo test"
   },
   "devDependencies": {
