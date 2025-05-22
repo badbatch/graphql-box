@@ -29,4 +29,7 @@ export default [
     ...entry,
     files: ['tests/browser/(client|workerClient))/*.{spec,test}.*'],
   })),
+  {
+    ignores: ['packages/swc-plugin-gql/*'],
+  },
 ];

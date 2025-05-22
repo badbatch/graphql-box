@@ -1,5 +1,41 @@
 # Changelog
 
+## 5.5.51-alpha-126.5 (2025-05-22)
+
+### Refactors
+
+* **swc-plugin-gql:**  update imports (dae10a3e)
+
+## 5.5.51-alpha-126.4 (2025-05-22)
+
+### Bug Fixes
+
+* **swc-plugin-gql:**  change import path for macro (e4df44a9)
+
+## 5.5.51-alpha-126.3 (2025-05-21)
+
+### Bug Fixes
+
+* **swc-plugin-gql:**  update target missed previously (cd146631)
+
+## 5.5.51-alpha-126.2 (2025-05-21)
+
+### Bug Fixes
+
+* **swc-plugin-gql:**  update target in config (39ec0625)
+
+## 5.5.51-alpha-126.1 (2025-05-21)
+
+### Bug Fixes
+
+* **swc-plugin-gql:**  change target (d8f12058)
+
+## 5.5.51-alpha-126.0 (2025-05-21)
+
+### Other Changes
+
+* **root:**  remove swc plugin until it works properly" (652c7c4d)
+
 ## 5.5.50 (2025-04-26)
 
 ### Chores

@@ -1,0 +1,12 @@
+#import "./ImageUrls.gql"
+
+fragment ConfigImages on Config {
+  images {
+    backdropSizes
+    logoSizes
+    posterSizes
+    profileSizes
+    stillSizes
+    ...ImageUrls
+  }
+}
