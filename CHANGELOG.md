@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.51-alpha-126.5 (2025-05-22)
+
+### Refactors
+
+* **swc-plugin-gql:**  update imports (dae10a3e)
+
 ## 5.5.51-alpha-126.4 (2025-05-22)
 
 ### Bug Fixes
