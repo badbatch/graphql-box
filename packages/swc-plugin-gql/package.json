@@ -13,6 +13,17 @@
   "bugs": "https://github.com/badbatch/graphql-box/issues",
   "main": "./dist/swc_plugin_graphql_box_gql.wasm",
   "types": "./types.d.ts",
+  "imports": {
+    "#*": "./src/*"
+  },
+  "exports": {
+    "./macro": {
+      "types": {
+        "import": "./types.d.ts",
+        "require": "./types.d.ts"
+      }
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
