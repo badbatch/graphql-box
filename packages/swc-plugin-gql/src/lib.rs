@@ -226,7 +226,7 @@ test!(
     |_| visit_mut_pass(TransformVisitor),
     test_transform_gql_import,
     r#"
-      import importGql from '@graphql-box/swc-plugin-gql';
+      import importGql from '@graphql-box/swc-plugin-gql/macro';
       const GET_CONFIG = importGql`fixtures/query.gql`;
       export default GET_CONFIG;
     "#
@@ -237,7 +237,7 @@ test!(
     |_| visit_mut_pass(TransformVisitor),
     test_transform_gql_import_with_sub_imports,
     r#"
-      import importGql from '@graphql-box/swc-plugin-gql';
+      import importGql from '@graphql-box/swc-plugin-gql/macro';
       const GET_CONFIG = importGql`fixtures/queries/GetConfig.gql`;
       export default GET_CONFIG;
     "#
