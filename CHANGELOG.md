@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.51-alpha-126.4 (2025-05-22)
+
+### Bug Fixes
+
+* **swc-plugin-gql:**  change import path for macro (e4df44a9)
+
 ## 5.5.51-alpha-126.3 (2025-05-21)
 
 ### Bug Fixes
