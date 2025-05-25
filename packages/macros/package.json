@@ -1,0 +1,50 @@
+{
+  "name": "@graphql-box/macros",
+  "description": "A library of macros for use with Graphql Box.",
+  "version": "0.0.1",
+  "author": "Dylan Aubrey",
+  "license": "MIT",
+  "homepage": "https://github.com/badbatch/graphql-box",
+  "repository": {
+    "directory": "packages/macros",
+    "type": "git",
+    "url": "https://github.com/badbatch/graphql-box"
+  },
+  "bugs": "https://github.com/badbatch/graphql-box/issues",
+  "type": "module",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/types/cjs/index.d.cts",
+  "imports": {
+    "#*": "./src/*"
+  },
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/types/esm/index.d.ts",
+        "require": "./dist/types/cjs/index.d.cts"
+      },
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "pnpm run clean:dist && pnpm run compile",
+    "clean:deps": "del-cli ./node_modules",
+    "clean:dist": "del-cli ./dist",
+    "compile": "pnpm run /^compile:.*/",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
+    "compile:esm": "rollup -c ../../rollup.config.cjs",
+    "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
+  },
+  "dependencies": {},
+  "peerDependencies": {},
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "cts-types": "^0.0.6",
+    "del-cli": "^5.1.0"
+  }
+}
