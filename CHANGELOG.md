@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.52 (2025-05-27)
+
+### Chores
+
+* **react,server:**  upgrade react and next (740d28da)
+
 ## 5.5.51 (2025-05-27)
 
 ### Documentation Changes
