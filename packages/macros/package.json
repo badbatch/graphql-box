@@ -1,7 +1,7 @@
 {
   "name": "@graphql-box/macros",
   "description": "A library of macros for use with GraphQL Box.",
-  "version": "0.0.2-alpha-127.1",
+  "version": "0.0.2",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",

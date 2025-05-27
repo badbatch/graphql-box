@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.51 (2025-05-27)
+
+### Documentation Changes
+
+* **macros:**  add readme details (2534778a)
+
 ## 5.5.51-alpha-127.1 (2025-05-25)
 
 ### Bug Fixes
