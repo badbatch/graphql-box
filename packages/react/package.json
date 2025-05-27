@@ -53,18 +53,18 @@
   "peerDependencies": {
     "@graphql-box/client": "workspace:*",
     "@graphql-box/worker-client": "workspace:*",
-    "react": "<19",
-    "react-dom": "<19"
+    "react": "<20",
+    "react-dom": "<20"
   },
   "devDependencies": {
     "@graphql-box/client": "workspace:*",
     "@graphql-box/worker-client": "workspace:*",
-    "@types/react": "^18.2.31",
-    "@types/react-dom": "^18.2.14",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
     "cts-types": "^0.0.8",
     "del-cli": "^6.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "keywords": [
     "client",

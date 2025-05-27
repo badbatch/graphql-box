@@ -75,7 +75,7 @@
   "peerDependencies": {
     "@graphql-box/client": "workspace:*",
     "express": "<5",
-    "next": "<15",
+    "next": "<16",
     "ws": "<9"
   },
   "peerDependenciesMeta": {
@@ -97,7 +97,7 @@
     "cts-types": "^0.0.8",
     "del-cli": "^6.0.0",
     "express": "^4.21.2",
-    "next": "^14.2.26",
+    "next": "^15.3.2",
     "ws": "^8.18.0"
   },
   "keywords": [
