@@ -2,7 +2,7 @@
   "name": "@graphql-box/connection-resolver",
   "description": "The GraphQL Box connection resolver module.",
   "version": "5.4.20",
-  "author": "Dylan Aubrey",
+  "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
   "repository": {

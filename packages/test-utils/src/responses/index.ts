@@ -1896,8 +1896,8 @@ export const nestedInterfaceMutation: RawResponseDataWithMaybeCacheMetadata = {
             {
               node: {
                 id: 'MDQ6VXNlcjE3MzQ2OTc4',
-                login: 'dylanaubrey',
-                name: 'Dylan Aubrey',
+                login: 'miami-man',
+                name: 'miami-man',
               },
             },
           ],
@@ -1953,8 +1953,8 @@ export const nestedInterfaceSubscription: RawResponseDataWithMaybeCacheMetadata 
         {
           node: {
             id: 'MDQ6VXNlcjE3MzQ2OTc4',
-            login: 'dylanaubrey',
-            name: 'Dylan Aubrey',
+            login: 'miami-man',
+            name: 'miami-man',
           },
         },
       ],

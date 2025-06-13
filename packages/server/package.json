@@ -2,7 +2,7 @@
   "name": "@graphql-box/server",
   "description": "The GraphQL Box server module.",
   "version": "5.4.18",
-  "author": "Dylan Aubrey",
+  "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
   "repository": {

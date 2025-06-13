@@ -2,7 +2,7 @@
   "name": "@graphql-box/gql.macro",
   "description": "The GraphQL Box graphql file import module.",
   "version": "5.4.2",
-  "author": "Dylan Aubrey",
+  "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
   "repository": {

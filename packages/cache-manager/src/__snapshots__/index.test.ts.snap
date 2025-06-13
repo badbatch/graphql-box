@@ -50831,8 +50831,8 @@ exports[`@graphql-box/cache-manager >> cacheResponse >> mutation >> nested inter
       "dataEntities::User::MDQ6VXNlcjE3MzQ2OTc4",
       {
         "id": "MDQ6VXNlcjE3MzQ2OTc4",
-        "login": "dylanaubrey",
-        "name": "Dylan Aubrey",
+        "login": "miami-man",
+        "name": "miami-man",
       },
     ],
     [
@@ -50925,7 +50925,7 @@ exports[`@graphql-box/cache-manager >> cacheResponse >> mutation >> nested inter
       "key": "dataEntities::User::MDQ6VXNlcjE3MzQ2OTc4",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 146,
+      "size": 136,
       "tags": [],
       "updatedCount": 0,
     },
@@ -51124,8 +51124,8 @@ exports[`@graphql-box/cache-manager >> cacheResponse >> mutation >> nested inter
             {
               "node": {
                 "id": "MDQ6VXNlcjE3MzQ2OTc4",
-                "login": "dylanaubrey",
-                "name": "Dylan Aubrey",
+                "login": "miami-man",
+                "name": "miami-man",
               },
             },
           ],
@@ -51161,8 +51161,8 @@ exports[`@graphql-box/cache-manager >> cacheResponse >> mutation >> nested inter
       "dataEntities::User::MDQ6VXNlcjE3MzQ2OTc4",
       {
         "id": "MDQ6VXNlcjE3MzQ2OTc4",
-        "login": "dylanaubrey",
-        "name": "Dylan Aubrey",
+        "login": "miami-man",
+        "name": "miami-man",
       },
     ],
     [
@@ -51255,7 +51255,7 @@ exports[`@graphql-box/cache-manager >> cacheResponse >> mutation >> nested inter
       "key": "dataEntities::User::MDQ6VXNlcjE3MzQ2OTc4",
       "lastAccessed": 297475200000,
       "lastUpdated": 297475200000,
-      "size": 146,
+      "size": 136,
       "tags": [],
       "updatedCount": 0,
     },
@@ -51454,8 +51454,8 @@ exports[`@graphql-box/cache-manager >> cacheResponse >> mutation >> nested inter
             {
               "node": {
                 "id": "MDQ6VXNlcjE3MzQ2OTc4",
-                "login": "dylanaubrey",
-                "name": "Dylan Aubrey",
+                "login": "miami-man",
+                "name": "miami-man",
               },
             },
           ],

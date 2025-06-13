@@ -2,7 +2,7 @@
   "name": "@graphql-box/debug-manager",
   "description": "The GraphQL Box debug manager module.",
   "version": "5.4.9",
-  "author": "Dylan Aubrey",
+  "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
   "repository": {
