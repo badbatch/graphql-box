@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.53 (2025-06-13)
+
+### Chores
+
+* **root:**  minor update (aa73880e)
+
 ## 5.5.52 (2025-05-27)
 
 ### Chores

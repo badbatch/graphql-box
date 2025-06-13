@@ -1,7 +1,7 @@
 {
   "name": "@graphql-box/subscribe",
   "description": "The GraphQL Box subscribe module.",
-  "version": "5.4.11",
+  "version": "5.4.12",
   "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
