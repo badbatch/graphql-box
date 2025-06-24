@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.56 (2025-06-24)
+
+### Refactors
+
+* **debug-manager:**  remove legacy log properties (02ab45e3)
+
 ## 5.5.55 (2025-06-24)
 
 ### Bug Fixes
