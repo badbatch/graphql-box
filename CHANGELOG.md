@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.5.54 (2025-06-24)
+
+### Chores
+
+* **root:**  force commit (2b124616)
+
+### Bug Fixes
+
+* **root:**  package lock (b9064028)
+
+### Refactors
+
+* **server:**  remove excessive log data (c7aa8cc3)
+
 ## 5.5.53 (2025-06-13)
 
 ### Chores
