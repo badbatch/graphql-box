@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.55 (2025-06-24)
+
+### Bug Fixes
+
+* **client:**  update data getting logged (f863ecf2)
+
 ## 5.5.54 (2025-06-24)
 
 ### Chores
