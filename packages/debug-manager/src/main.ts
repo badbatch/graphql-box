@@ -8,7 +8,6 @@ import {
 import { ArgsError, GroupedError } from '@graphql-box/helpers';
 import { EventEmitter } from 'eventemitter3';
 import { isString } from 'lodash-es';
-import { deriveLogGroup, deriveLogOrder } from './helpers/deriveLogProps.ts';
 import { type Log, type Performance, type UserOptions } from './types.ts';
 
 export class DebugManager extends EventEmitter implements DebugManagerDef {
@@ -49,8 +48,6 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
     const updatedLogData: LogData = {
       data: {
         environment: this._environment,
-        logGroup: deriveLogGroup(this._environment, message),
-        logOrder: deriveLogOrder(message),
         loggerName: this._name,
         ...data,
       },
