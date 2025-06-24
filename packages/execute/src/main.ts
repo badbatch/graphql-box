@@ -20,6 +20,7 @@ import {
 import { EventEmitter } from 'eventemitter3';
 import { type ExecutionArgs, type GraphQLFieldResolver, GraphQLSchema, execute } from 'graphql';
 import { forAwaitEach, isAsyncIterable } from 'iterall';
+import { omit } from 'lodash-es';
 import { logExecute } from './debug/logExecute.ts';
 import { type GraphQLExecute, type UserOptions } from './types.ts';
 
@@ -66,7 +67,7 @@ export class Execute {
         ...this._contextValue,
         ...contextValue,
         data: {
-          ...data,
+          ...omit(data, ['variables', 'tag', 'requestDepth', 'requestComplexity', 'queryFiltered']),
           ...this._contextValue.data,
           ...contextValue.data,
         },
