@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.57 (2025-06-24)
+
+### Refactors
+
+* **execute:**  omit some data from execute context (5cb80cec)
+
 ## 5.5.56 (2025-06-24)
 
 ### Refactors
