@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.58 (2025-06-25)
+
+### Chores
+
+* **root:**  upgrade deps (7806a0b8)
+
 ## 5.5.57 (2025-06-24)
 
 ### Refactors
