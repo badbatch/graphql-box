@@ -15,7 +15,7 @@ npm add @graphql-box/gql.macro
 
 ## Usage
 
-Instructions on how to get started with Babel macros can be found [here](https://github.com/kentcdodds/babel-plugin-macros).
+Instructions on how to get started with Babel macros can be found on the [babel-plugin-macros GitHub](https://github.com/kentcdodds/babel-plugin-macros).
 
 Once you have added Babel macros support to your build, you can import the macro and use the default export to import GraphQL queries like in the example below.
 

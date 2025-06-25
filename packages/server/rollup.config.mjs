@@ -1,8 +1,10 @@
-const config = require('../../rollup.config.cjs');
+import config from '../../rollup.config.mjs';
 
 const { input, output, ...otherConfig } = config;
 
-module.exports = [
+// rollup requires default export
+// eslint-disable-next-line import-x/no-default-export
+export default [
   config,
   {
     ...otherConfig,

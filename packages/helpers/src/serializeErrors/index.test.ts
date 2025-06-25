@@ -1,3 +1,4 @@
+import { type DeserializedGraphqlError } from '@graphql-box/core';
 import { expect } from '@jest/globals';
 import { type ASTNode, GraphQLError, Source } from 'graphql';
 import { deserializeErrors, serializeErrors } from './index.ts';
@@ -43,7 +44,7 @@ const nodes = [
       ],
     },
   },
-];
+] as unknown as ASTNode[];
 
 const originalErrorFields = {
   message: 'Oops',
@@ -72,7 +73,7 @@ const deserializedError = {
   source: sourceFields,
   stack:
     'Error: Oops\n    at Object.resolveMovieReleaseDates [as releaseDates] (/Users/dylan.aubrey/workspaces/dollygrip/graphql/resolvers/dist/cjs/index.js:1380:11)\n    at executeField (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:542:20)\n    at executeFields (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:458:20)\n    at collectAndExecuteSubfields (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:1225:21)\n    at completeObjectValue (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:1193:10)\n    at completeValue (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:716:12)\n    at /Users/dylan.aubrey/workspaces/dollygrip/node_modules/graphql/execution/execute.js:547:9\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)\n    at async Promise.all (index 0)\n    at async Execute.execute (/Users/dylan.aubrey/workspaces/dollygrip/node_modules/@graphql-box/execute/lib/main/main/index.js:88:29)',
-};
+} as DeserializedGraphqlError;
 
 describe('deserializeErrors >>', () => {
   let deserialized: GraphQLError;

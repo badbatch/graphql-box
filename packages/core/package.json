@@ -36,24 +36,24 @@
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
-    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
-    "compile:esm": "rollup -c ../../rollup.config.cjs",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.mjs",
+    "compile:esm": "rollup -c ../../rollup.config.mjs",
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
-    "cacheability": "^4.0.27",
+    "cacheability": "^4.0.30",
     "eventemitter3": "^5.0.1",
-    "serialize-error": "^11.0.3",
-    "type-fest": "^4.30.0",
-    "ws": "^8.18.0"
+    "serialize-error": "^12.0.0",
+    "type-fest": "^4.41.0",
+    "ws": "^8.18.2"
   },
   "peerDependencies": {
     "graphql": "<17"
   },
   "devDependencies": {
-    "cts-types": "^0.0.8",
+    "cts-types": "^0.0.10",
     "del-cli": "^6.0.0",
-    "graphql": "^16.9.0"
+    "graphql": "^16.11.0"
   },
   "keywords": [
     "client",

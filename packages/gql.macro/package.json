@@ -32,21 +32,21 @@
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
-    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.babel.cjs",
-    "compile:esm": "rollup -c ../../rollup.config.babel.cjs"
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.babel.mjs",
+    "compile:esm": "rollup -c ../../rollup.config.babel.mjs"
   },
   "dependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/types": "^7.26.3",
+    "@babel/core": "^7.27.4",
+    "@babel/types": "^7.27.6",
     "@types/babel__core": "^7.20.5",
     "@types/babel-plugin-macros": "^3.1.3",
     "babel-plugin-macros": "^3.1.0",
-    "core-js": "^3.39.0",
+    "core-js": "^3.43.0",
     "ts-md5": "^1.3.1"
   },
   "devDependencies": {
     "@jest/globals": "^29.3.1",
-    "cts-types": "^0.0.8",
+    "cts-types": "^0.0.10",
     "del-cli": "^6.0.0"
   },
   "keywords": [

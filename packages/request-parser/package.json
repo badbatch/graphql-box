@@ -36,15 +36,15 @@
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
-    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
-    "compile:esm": "rollup -c ../../rollup.config.cjs",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.mjs",
+    "compile:esm": "rollup -c ../../rollup.config.mjs",
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
     "@graphql-box/core": "workspace:*",
     "@graphql-box/helpers": "workspace:*",
     "@types/lodash-es": "^4.17.12",
-    "core-js": "^3.39.0",
+    "core-js": "^3.43.0",
     "lodash-es": "^4.17.21"
   },
   "peerDependencies": {
@@ -52,11 +52,11 @@
   },
   "devDependencies": {
     "@graphql-box/test-utils": "workspace:*",
-    "@graphql-tools/schema": "^10.0.11",
+    "@graphql-tools/schema": "^10.0.23",
     "@jest/globals": "^29.3.1",
-    "cts-types": "^0.0.8",
+    "cts-types": "^0.0.10",
     "del-cli": "^6.0.0",
-    "graphql": "^16.9.0"
+    "graphql": "^16.11.0"
   },
   "keywords": [
     "client",

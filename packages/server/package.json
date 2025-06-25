@@ -60,8 +60,8 @@
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
-    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
-    "compile:esm": "rollup -c ./rollup.config.cjs",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.mjs",
+    "compile:esm": "rollup -c ./rollup.config.mjs",
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
@@ -73,7 +73,7 @@
   },
   "peerDependencies": {
     "@graphql-box/client": "workspace:*",
-    "express": "<5",
+    "express": "<6",
     "next": "<16",
     "ws": "<9"
   },
@@ -91,13 +91,13 @@
   "devDependencies": {
     "@graphql-box/client": "workspace:*",
     "@graphql-box/test-utils": "workspace:*",
-    "@types/express": "^5.0.0",
-    "@types/ws": "^8.5.13",
-    "cts-types": "^0.0.8",
+    "@types/express": "^5.0.3",
+    "@types/ws": "^8.18.1",
+    "cts-types": "^0.0.10",
     "del-cli": "^6.0.0",
-    "express": "^4.21.2",
-    "next": "^15.3.2",
-    "ws": "^8.18.0"
+    "express": "^5.1.0",
+    "next": "^15.3.4",
+    "ws": "^8.18.2"
   },
   "keywords": [
     "client",
