@@ -61,6 +61,7 @@ import {
   visit,
 } from 'graphql';
 import { assign, get, isEmpty, isError, isString } from 'lodash-es';
+import { FieldPathManager } from '#FieldPathManager.ts';
 import { calcTypeComplexity } from './helpers/calcTypeComplexity.ts';
 import { findAncestorFragmentDefinition } from './helpers/findAncestorFragmentDefinition.ts';
 import { getMaxDepthFromChart } from './helpers/getMaxDepthFromChart.ts';
@@ -322,6 +323,15 @@ export class RequestParser implements RequestParserDef {
         ? getInlineFragmentDirectives(parentNode, options)
         : [];
 
+    if (typeDef && type) {
+      context.fieldPathManager.addPath(node, ancestors, {
+        isTypeDefList: typeDef.type.constructor.name === 'GraphQLList',
+        isTypeScalar: type.constructor.name === 'GraphQLScalarType',
+        typeName: 'name' in type ? type.name : undefined,
+        variables: options.variables,
+      });
+    }
+
     if (
       !toUpdateNode(type, [
         ...parsedFieldDirectives,
@@ -430,6 +440,7 @@ export class RequestParser implements RequestParserDef {
 
     const visitorContext: VisitorContext = {
       experimentalDeferStreamSupport: context.deprecated.experimentalDeferStreamSupport,
+      fieldPathManager: new FieldPathManager(),
       fieldTypeMap: context.fieldTypeMap,
       hasDeferOrStream: false,
       operation: operationDefinition.operation,
@@ -588,6 +599,7 @@ export class RequestParser implements RequestParserDef {
         experimentalDeferStreamSupport: visitorContext.experimentalDeferStreamSupport,
         hasDeferOrStream: visitorContext.hasDeferOrStream,
       }),
+      fieldPaths: visitorContext.fieldPathManager.leafFieldPaths,
       fieldTypeMap: new Map([...visitorContext.fieldTypeMap.entries()].sort()),
     });
 

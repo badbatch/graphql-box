@@ -16,6 +16,64 @@ exports[`@graphql-box/request-parser >> mutation >> input type variable >> corre
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
   },
+  "fieldPaths": {
+    "addStar.clientMutationId": {
+      "cachePaths": [
+        "addStar({"input":{"clientMutationId":"1","starrableId":"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg="}}).clientMutationId",
+      ],
+      "responsePaths": [
+        "addStar.clientMutationId",
+      ],
+    },
+    "addStar.starrable.__typename": {
+      "cachePaths": [
+        "addStar({"input":{"clientMutationId":"1","starrableId":"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg="}}).starrable.__typename",
+      ],
+      "responsePaths": [
+        "addStar.starrable.__typename",
+      ],
+    },
+    "addStar.starrable.id": {
+      "cachePaths": [
+        "addStar({"input":{"clientMutationId":"1","starrableId":"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg="}}).starrable.id",
+      ],
+      "responsePaths": [
+        "addStar.starrable.id",
+      ],
+    },
+    "addStar.starrable.stargazers.edges.node.id": {
+      "cachePaths": [
+        "addStar({"input":{"clientMutationId":"1","starrableId":"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg="}}).starrable.stargazers({}).edges.node.id",
+      ],
+      "responsePaths": [
+        "addStar.starrable.stargazers.edges.node.id",
+      ],
+    },
+    "addStar.starrable.stargazers.edges.node.login": {
+      "cachePaths": [
+        "addStar({"input":{"clientMutationId":"1","starrableId":"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg="}}).starrable.stargazers({}).edges.node.login",
+      ],
+      "responsePaths": [
+        "addStar.starrable.stargazers.edges.node.login",
+      ],
+    },
+    "addStar.starrable.stargazers.edges.node.name": {
+      "cachePaths": [
+        "addStar({"input":{"clientMutationId":"1","starrableId":"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg="}}).starrable.stargazers({}).edges.node.name",
+      ],
+      "responsePaths": [
+        "addStar.starrable.stargazers.edges.node.name",
+      ],
+    },
+    "addStar.starrable.viewerHasStarred": {
+      "cachePaths": [
+        "addStar({"input":{"clientMutationId":"1","starrableId":"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg="}}).starrable.viewerHasStarred",
+      ],
+      "responsePaths": [
+        "addStar.starrable.viewerHasStarred",
+      ],
+    },
+  },
   "fieldTypeMap": Map {
     "mutation.addStar" => {
       "directives": {
@@ -148,6 +206,120 @@ exports[`@graphql-box/request-parser >> query >> defer >> when experimentalDefer
   "deprecated": {
     "experimentalDeferStreamSupport": true,
     "hasDeferOrStream": true,
+  },
+  "fieldPaths": {
+    "organization.description": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).description",
+      ],
+      "responsePaths": [
+        "organization.description",
+      ],
+    },
+    "organization.email": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).email",
+      ],
+      "responsePaths": [
+        "organization.email",
+      ],
+    },
+    "organization.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).id",
+      ],
+      "responsePaths": [
+        "organization.id",
+      ],
+    },
+    "organization.isVerified": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).isVerified",
+      ],
+      "responsePaths": [
+        "organization.isVerified",
+      ],
+    },
+    "organization.location": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).location",
+      ],
+      "responsePaths": [
+        "organization.location",
+      ],
+    },
+    "organization.login": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).login",
+      ],
+      "responsePaths": [
+        "organization.login",
+      ],
+    },
+    "organization.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).name",
+      ],
+      "responsePaths": [
+        "organization.name",
+      ],
+    },
+    "organization.repositories.edges.node.description": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":10}).edges{10}.node.description",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges{10}.node.description",
+      ],
+    },
+    "organization.repositories.edges.node.homepageUrl": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":10}).edges{10}.node.homepageUrl",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges{10}.node.homepageUrl",
+      ],
+    },
+    "organization.repositories.edges.node.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":10}).edges{10}.node.id",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges{10}.node.id",
+      ],
+    },
+    "organization.repositories.edges.node.licenseInfo.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":10}).edges{10}.node.licenseInfo.id",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges{10}.node.licenseInfo.id",
+      ],
+    },
+    "organization.repositories.edges.node.licenseInfo.permissions.label": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":10}).edges{10}.node.licenseInfo.permissions.label",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges{10}.node.licenseInfo.permissions.label",
+      ],
+    },
+    "organization.repositories.edges.node.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":10}).edges{10}.node.name",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges{10}.node.name",
+      ],
+    },
+    "organization.url": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).url",
+      ],
+      "responsePaths": [
+        "organization.url",
+      ],
+    },
   },
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -458,6 +630,218 @@ exports[`@graphql-box/request-parser >> query >> directive correct context data 
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
   },
+  "fieldPaths": {
+    "organization.description": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).description",
+      ],
+      "responsePaths": [
+        "organization.description",
+      ],
+    },
+    "organization.email": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).email",
+      ],
+      "responsePaths": [
+        "organization.email",
+      ],
+    },
+    "organization.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).id",
+      ],
+      "responsePaths": [
+        "organization.id",
+      ],
+    },
+    "organization.login": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).login",
+      ],
+      "responsePaths": [
+        "organization.login",
+      ],
+    },
+    "organization.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).name",
+      ],
+      "responsePaths": [
+        "organization.name",
+      ],
+    },
+    "organization.repositories.edges.node.description": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.description",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.description",
+        "organization.repositories.edges[1].node.description",
+        "organization.repositories.edges[2].node.description",
+        "organization.repositories.edges[3].node.description",
+        "organization.repositories.edges[4].node.description",
+        "organization.repositories.edges[5].node.description",
+      ],
+    },
+    "organization.repositories.edges.node.homepageUrl": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.homepageUrl",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.homepageUrl",
+        "organization.repositories.edges[1].node.homepageUrl",
+        "organization.repositories.edges[2].node.homepageUrl",
+        "organization.repositories.edges[3].node.homepageUrl",
+        "organization.repositories.edges[4].node.homepageUrl",
+        "organization.repositories.edges[5].node.homepageUrl",
+      ],
+    },
+    "organization.repositories.edges.node.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.id",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.id",
+        "organization.repositories.edges[1].node.id",
+        "organization.repositories.edges[2].node.id",
+        "organization.repositories.edges[3].node.id",
+        "organization.repositories.edges[4].node.id",
+        "organization.repositories.edges[5].node.id",
+      ],
+    },
+    "organization.repositories.edges.node.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.name",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.name",
+        "organization.repositories.edges[1].node.name",
+        "organization.repositories.edges[2].node.name",
+        "organization.repositories.edges[3].node.name",
+        "organization.repositories.edges[4].node.name",
+        "organization.repositories.edges[5].node.name",
+      ],
+    },
+    "organization.repositories.edges.node.owner.__typename": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.owner.__typename",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.__typename",
+        "organization.repositories.edges[1].node.owner.__typename",
+        "organization.repositories.edges[2].node.owner.__typename",
+        "organization.repositories.edges[3].node.owner.__typename",
+        "organization.repositories.edges[4].node.owner.__typename",
+        "organization.repositories.edges[5].node.owner.__typename",
+      ],
+    },
+    "organization.repositories.edges.node.owner.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.owner.id",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.id",
+        "organization.repositories.edges[1].node.owner.id",
+        "organization.repositories.edges[2].node.owner.id",
+        "organization.repositories.edges[3].node.owner.id",
+        "organization.repositories.edges[4].node.owner.id",
+        "organization.repositories.edges[5].node.owner.id",
+      ],
+    },
+    "organization.repositories.edges.node.owner.login": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.owner.login",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.login",
+        "organization.repositories.edges[1].node.owner.login",
+        "organization.repositories.edges[2].node.owner.login",
+        "organization.repositories.edges[3].node.owner.login",
+        "organization.repositories.edges[4].node.owner.login",
+        "organization.repositories.edges[5].node.owner.login",
+      ],
+    },
+    "organization.repositories.edges.node.owner.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.owner.name",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.name",
+        "organization.repositories.edges[1].node.owner.name",
+        "organization.repositories.edges[2].node.owner.name",
+        "organization.repositories.edges[3].node.owner.name",
+        "organization.repositories.edges[4].node.owner.name",
+        "organization.repositories.edges[5].node.owner.name",
+      ],
+    },
+    "organization.repositories.edges.node.owner.url": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.owner.url",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.url",
+        "organization.repositories.edges[1].node.owner.url",
+        "organization.repositories.edges[2].node.owner.url",
+        "organization.repositories.edges[3].node.owner.url",
+        "organization.repositories.edges[4].node.owner.url",
+        "organization.repositories.edges[5].node.owner.url",
+      ],
+    },
+    "organization.url": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).url",
+      ],
+      "responsePaths": [
+        "organization.url",
+      ],
+    },
+  },
   "fieldTypeMap": Map {
     "query.organization" => {
       "directives": {
@@ -611,6 +995,218 @@ exports[`@graphql-box/request-parser >> query >> enum variable >> correct contex
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
   },
+  "fieldPaths": {
+    "organization.description": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).description",
+      ],
+      "responsePaths": [
+        "organization.description",
+      ],
+    },
+    "organization.email": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).email",
+      ],
+      "responsePaths": [
+        "organization.email",
+      ],
+    },
+    "organization.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).id",
+      ],
+      "responsePaths": [
+        "organization.id",
+      ],
+    },
+    "organization.login": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).login",
+      ],
+      "responsePaths": [
+        "organization.login",
+      ],
+    },
+    "organization.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).name",
+      ],
+      "responsePaths": [
+        "organization.name",
+      ],
+    },
+    "organization.repositories.edges.node.description": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.description",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.description",
+        "organization.repositories.edges[1].node.description",
+        "organization.repositories.edges[2].node.description",
+        "organization.repositories.edges[3].node.description",
+        "organization.repositories.edges[4].node.description",
+        "organization.repositories.edges[5].node.description",
+      ],
+    },
+    "organization.repositories.edges.node.homepageUrl": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.homepageUrl",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.homepageUrl",
+        "organization.repositories.edges[1].node.homepageUrl",
+        "organization.repositories.edges[2].node.homepageUrl",
+        "organization.repositories.edges[3].node.homepageUrl",
+        "organization.repositories.edges[4].node.homepageUrl",
+        "organization.repositories.edges[5].node.homepageUrl",
+      ],
+    },
+    "organization.repositories.edges.node.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.id",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.id",
+        "organization.repositories.edges[1].node.id",
+        "organization.repositories.edges[2].node.id",
+        "organization.repositories.edges[3].node.id",
+        "organization.repositories.edges[4].node.id",
+        "organization.repositories.edges[5].node.id",
+      ],
+    },
+    "organization.repositories.edges.node.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.name",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.name",
+        "organization.repositories.edges[1].node.name",
+        "organization.repositories.edges[2].node.name",
+        "organization.repositories.edges[3].node.name",
+        "organization.repositories.edges[4].node.name",
+        "organization.repositories.edges[5].node.name",
+      ],
+    },
+    "organization.repositories.edges.node.owner.__typename": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.__typename",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.__typename",
+        "organization.repositories.edges[1].node.owner.__typename",
+        "organization.repositories.edges[2].node.owner.__typename",
+        "organization.repositories.edges[3].node.owner.__typename",
+        "organization.repositories.edges[4].node.owner.__typename",
+        "organization.repositories.edges[5].node.owner.__typename",
+      ],
+    },
+    "organization.repositories.edges.node.owner.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.id",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.id",
+        "organization.repositories.edges[1].node.owner.id",
+        "organization.repositories.edges[2].node.owner.id",
+        "organization.repositories.edges[3].node.owner.id",
+        "organization.repositories.edges[4].node.owner.id",
+        "organization.repositories.edges[5].node.owner.id",
+      ],
+    },
+    "organization.repositories.edges.node.owner.login": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.login",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.login",
+        "organization.repositories.edges[1].node.owner.login",
+        "organization.repositories.edges[2].node.owner.login",
+        "organization.repositories.edges[3].node.owner.login",
+        "organization.repositories.edges[4].node.owner.login",
+        "organization.repositories.edges[5].node.owner.login",
+      ],
+    },
+    "organization.repositories.edges.node.owner.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.name",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.name",
+        "organization.repositories.edges[1].node.owner.name",
+        "organization.repositories.edges[2].node.owner.name",
+        "organization.repositories.edges[3].node.owner.name",
+        "organization.repositories.edges[4].node.owner.name",
+        "organization.repositories.edges[5].node.owner.name",
+      ],
+    },
+    "organization.repositories.edges.node.owner.url": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6,"ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.url",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.url",
+        "organization.repositories.edges[1].node.owner.url",
+        "organization.repositories.edges[2].node.owner.url",
+        "organization.repositories.edges[3].node.owner.url",
+        "organization.repositories.edges[4].node.owner.url",
+        "organization.repositories.edges[5].node.owner.url",
+      ],
+    },
+    "organization.url": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).url",
+      ],
+      "responsePaths": [
+        "organization.url",
+      ],
+    },
+  },
   "fieldTypeMap": Map {
     "query.organization" => {
       "directives": {
@@ -746,6 +1342,56 @@ exports[`@graphql-box/request-parser >> query >> fragment option >> correct cont
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
   },
+  "fieldPaths": {
+    "organization.description": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).description",
+      ],
+      "responsePaths": [
+        "organization.description",
+      ],
+    },
+    "organization.email": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).email",
+      ],
+      "responsePaths": [
+        "organization.email",
+      ],
+    },
+    "organization.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).id",
+      ],
+      "responsePaths": [
+        "organization.id",
+      ],
+    },
+    "organization.login": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).login",
+      ],
+      "responsePaths": [
+        "organization.login",
+      ],
+    },
+    "organization.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).name",
+      ],
+      "responsePaths": [
+        "organization.name",
+      ],
+    },
+    "organization.url": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).url",
+      ],
+      "responsePaths": [
+        "organization.url",
+      ],
+    },
+  },
   "fieldTypeMap": Map {
     "query.organization" => {
       "directives": {
@@ -797,6 +1443,56 @@ exports[`@graphql-box/request-parser >> query >> fragment spread >> correct cont
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
   },
+  "fieldPaths": {
+    "organization.description": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).description",
+      ],
+      "responsePaths": [
+        "organization.description",
+      ],
+    },
+    "organization.email": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).email",
+      ],
+      "responsePaths": [
+        "organization.email",
+      ],
+    },
+    "organization.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).id",
+      ],
+      "responsePaths": [
+        "organization.id",
+      ],
+    },
+    "organization.login": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).login",
+      ],
+      "responsePaths": [
+        "organization.login",
+      ],
+    },
+    "organization.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).name",
+      ],
+      "responsePaths": [
+        "organization.name",
+      ],
+    },
+    "organization.url": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).url",
+      ],
+      "responsePaths": [
+        "organization.url",
+      ],
+    },
+  },
   "fieldTypeMap": Map {
     "query.organization" => {
       "directives": {
@@ -847,6 +1543,600 @@ exports[`@graphql-box/request-parser >> query >> fragment spreads >> within frag
   "deprecated": {
     "experimentalDeferStreamSupport": true,
     "hasDeferOrStream": true,
+  },
+  "fieldPaths": {
+    "movie.backdropPath": {
+      "cachePaths": [
+        "movie({"id":"12345"}).backdropPath",
+      ],
+      "responsePaths": [
+        "movie.backdropPath",
+      ],
+    },
+    "movie.backdrops.filePath": {
+      "cachePaths": [
+        "movie({"id":"12345"}).backdrops.filePath",
+      ],
+      "responsePaths": [
+        "movie.backdrops.filePath",
+      ],
+    },
+    "movie.backdrops.fileType": {
+      "cachePaths": [
+        "movie({"id":"12345"}).backdrops.fileType",
+      ],
+      "responsePaths": [
+        "movie.backdrops.fileType",
+      ],
+    },
+    "movie.backdrops.height": {
+      "cachePaths": [
+        "movie({"id":"12345"}).backdrops.height",
+      ],
+      "responsePaths": [
+        "movie.backdrops.height",
+      ],
+    },
+    "movie.backdrops.width": {
+      "cachePaths": [
+        "movie({"id":"12345"}).backdrops.width",
+      ],
+      "responsePaths": [
+        "movie.backdrops.width",
+      ],
+    },
+    "movie.belongsToCollection.id": {
+      "cachePaths": [
+        "movie({"id":"12345"}).belongsToCollection.id",
+      ],
+      "responsePaths": [
+        "movie.belongsToCollection.id",
+      ],
+    },
+    "movie.belongsToCollection.name": {
+      "cachePaths": [
+        "movie({"id":"12345"}).belongsToCollection.name",
+      ],
+      "responsePaths": [
+        "movie.belongsToCollection.name",
+      ],
+    },
+    "movie.belongsToCollection.overview": {
+      "cachePaths": [
+        "movie({"id":"12345"}).belongsToCollection.overview",
+      ],
+      "responsePaths": [
+        "movie.belongsToCollection.overview",
+      ],
+    },
+    "movie.belongsToCollection.parts.id": {
+      "cachePaths": [
+        "movie({"id":"12345"}).belongsToCollection.parts.id",
+      ],
+      "responsePaths": [
+        "movie.belongsToCollection.parts.id",
+      ],
+    },
+    "movie.belongsToCollection.parts.posterPath": {
+      "cachePaths": [
+        "movie({"id":"12345"}).belongsToCollection.parts.posterPath",
+      ],
+      "responsePaths": [
+        "movie.belongsToCollection.parts.posterPath",
+      ],
+    },
+    "movie.belongsToCollection.parts.title": {
+      "cachePaths": [
+        "movie({"id":"12345"}).belongsToCollection.parts.title",
+      ],
+      "responsePaths": [
+        "movie.belongsToCollection.parts.title",
+      ],
+    },
+    "movie.belongsToCollection.parts.voteAverage": {
+      "cachePaths": [
+        "movie({"id":"12345"}).belongsToCollection.parts.voteAverage",
+      ],
+      "responsePaths": [
+        "movie.belongsToCollection.parts.voteAverage",
+      ],
+    },
+    "movie.belongsToCollection.parts.voteCount": {
+      "cachePaths": [
+        "movie({"id":"12345"}).belongsToCollection.parts.voteCount",
+      ],
+      "responsePaths": [
+        "movie.belongsToCollection.parts.voteCount",
+      ],
+    },
+    "movie.cast.character": {
+      "cachePaths": [
+        "movie({"id":"12345"}).cast.character",
+      ],
+      "responsePaths": [
+        "movie.cast.character",
+      ],
+    },
+    "movie.cast.id": {
+      "cachePaths": [
+        "movie({"id":"12345"}).cast.id",
+      ],
+      "responsePaths": [
+        "movie.cast.id",
+      ],
+    },
+    "movie.cast.name": {
+      "cachePaths": [
+        "movie({"id":"12345"}).cast.name",
+      ],
+      "responsePaths": [
+        "movie.cast.name",
+      ],
+    },
+    "movie.cast.profilePath": {
+      "cachePaths": [
+        "movie({"id":"12345"}).cast.profilePath",
+      ],
+      "responsePaths": [
+        "movie.cast.profilePath",
+      ],
+    },
+    "movie.crew.department": {
+      "cachePaths": [
+        "movie({"id":"12345"}).crew.department",
+      ],
+      "responsePaths": [
+        "movie.crew.department",
+      ],
+    },
+    "movie.crew.gender": {
+      "cachePaths": [
+        "movie({"id":"12345"}).crew.gender",
+      ],
+      "responsePaths": [
+        "movie.crew.gender",
+      ],
+    },
+    "movie.crew.id": {
+      "cachePaths": [
+        "movie({"id":"12345"}).crew.id",
+      ],
+      "responsePaths": [
+        "movie.crew.id",
+      ],
+    },
+    "movie.crew.job": {
+      "cachePaths": [
+        "movie({"id":"12345"}).crew.job",
+      ],
+      "responsePaths": [
+        "movie.crew.job",
+      ],
+    },
+    "movie.crew.name": {
+      "cachePaths": [
+        "movie({"id":"12345"}).crew.name",
+      ],
+      "responsePaths": [
+        "movie.crew.name",
+      ],
+    },
+    "movie.crew.profilePath": {
+      "cachePaths": [
+        "movie({"id":"12345"}).crew.profilePath",
+      ],
+      "responsePaths": [
+        "movie.crew.profilePath",
+      ],
+    },
+    "movie.homepage": {
+      "cachePaths": [
+        "movie({"id":"12345"}).homepage",
+      ],
+      "responsePaths": [
+        "movie.homepage",
+      ],
+    },
+    "movie.id": {
+      "cachePaths": [
+        "movie({"id":"12345"}).id",
+      ],
+      "responsePaths": [
+        "movie.id",
+      ],
+    },
+    "movie.overview": {
+      "cachePaths": [
+        "movie({"id":"12345"}).overview",
+      ],
+      "responsePaths": [
+        "movie.overview",
+      ],
+    },
+    "movie.popularity": {
+      "cachePaths": [
+        "movie({"id":"12345"}).popularity",
+      ],
+      "responsePaths": [
+        "movie.popularity",
+      ],
+    },
+    "movie.posterPath": {
+      "cachePaths": [
+        "movie({"id":"12345"}).posterPath",
+      ],
+      "responsePaths": [
+        "movie.posterPath",
+      ],
+    },
+    "movie.recommendations.edges.cursor": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).edges.cursor",
+      ],
+      "responsePaths": [
+        "movie.recommendations.edges.cursor",
+      ],
+    },
+    "movie.recommendations.edges.node.id": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).edges.node.id",
+      ],
+      "responsePaths": [
+        "movie.recommendations.edges.node.id",
+      ],
+    },
+    "movie.recommendations.edges.node.posterPath": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).edges.node.posterPath",
+      ],
+      "responsePaths": [
+        "movie.recommendations.edges.node.posterPath",
+      ],
+    },
+    "movie.recommendations.edges.node.releaseDates.releaseDates.certification": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).edges.node.releaseDates.releaseDates.certification",
+      ],
+      "responsePaths": [
+        "movie.recommendations.edges.node.releaseDates.releaseDates.certification",
+      ],
+    },
+    "movie.recommendations.edges.node.title": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).edges.node.title",
+      ],
+      "responsePaths": [
+        "movie.recommendations.edges.node.title",
+      ],
+    },
+    "movie.recommendations.edges.node.videos.id": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).edges.node.videos.id",
+      ],
+      "responsePaths": [
+        "movie.recommendations.edges.node.videos.id",
+      ],
+    },
+    "movie.recommendations.edges.node.videos.key": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).edges.node.videos.key",
+      ],
+      "responsePaths": [
+        "movie.recommendations.edges.node.videos.key",
+      ],
+    },
+    "movie.recommendations.edges.node.videos.name": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).edges.node.videos.name",
+      ],
+      "responsePaths": [
+        "movie.recommendations.edges.node.videos.name",
+      ],
+    },
+    "movie.recommendations.edges.node.voteAverage": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).edges.node.voteAverage",
+      ],
+      "responsePaths": [
+        "movie.recommendations.edges.node.voteAverage",
+      ],
+    },
+    "movie.recommendations.edges.node.voteCount": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).edges.node.voteCount",
+      ],
+      "responsePaths": [
+        "movie.recommendations.edges.node.voteCount",
+      ],
+    },
+    "movie.recommendations.pageInfo.endCursor": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).pageInfo.endCursor",
+      ],
+      "responsePaths": [
+        "movie.recommendations.pageInfo.endCursor",
+      ],
+    },
+    "movie.recommendations.pageInfo.hasNextPage": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).pageInfo.hasNextPage",
+      ],
+      "responsePaths": [
+        "movie.recommendations.pageInfo.hasNextPage",
+      ],
+    },
+    "movie.recommendations.pageInfo.hasPreviousPage": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).pageInfo.hasPreviousPage",
+      ],
+      "responsePaths": [
+        "movie.recommendations.pageInfo.hasPreviousPage",
+      ],
+    },
+    "movie.recommendations.pageInfo.startCursor": {
+      "cachePaths": [
+        "movie({"id":"12345"}).recommendations({}).pageInfo.startCursor",
+      ],
+      "responsePaths": [
+        "movie.recommendations.pageInfo.startCursor",
+      ],
+    },
+    "movie.releaseDate": {
+      "cachePaths": [
+        "movie({"id":"12345"}).releaseDate",
+      ],
+      "responsePaths": [
+        "movie.releaseDate",
+      ],
+    },
+    "movie.reviews.edges.cursor": {
+      "cachePaths": [
+        "movie({"id":"12345"}).reviews({}).edges.cursor",
+      ],
+      "responsePaths": [
+        "movie.reviews.edges.cursor",
+      ],
+    },
+    "movie.reviews.edges.node.author": {
+      "cachePaths": [
+        "movie({"id":"12345"}).reviews({}).edges.node.author",
+      ],
+      "responsePaths": [
+        "movie.reviews.edges.node.author",
+      ],
+    },
+    "movie.reviews.edges.node.content": {
+      "cachePaths": [
+        "movie({"id":"12345"}).reviews({}).edges.node.content",
+      ],
+      "responsePaths": [
+        "movie.reviews.edges.node.content",
+      ],
+    },
+    "movie.reviews.edges.node.id": {
+      "cachePaths": [
+        "movie({"id":"12345"}).reviews({}).edges.node.id",
+      ],
+      "responsePaths": [
+        "movie.reviews.edges.node.id",
+      ],
+    },
+    "movie.reviews.pageInfo.endCursor": {
+      "cachePaths": [
+        "movie({"id":"12345"}).reviews({}).pageInfo.endCursor",
+      ],
+      "responsePaths": [
+        "movie.reviews.pageInfo.endCursor",
+      ],
+    },
+    "movie.reviews.pageInfo.hasNextPage": {
+      "cachePaths": [
+        "movie({"id":"12345"}).reviews({}).pageInfo.hasNextPage",
+      ],
+      "responsePaths": [
+        "movie.reviews.pageInfo.hasNextPage",
+      ],
+    },
+    "movie.reviews.pageInfo.hasPreviousPage": {
+      "cachePaths": [
+        "movie({"id":"12345"}).reviews({}).pageInfo.hasPreviousPage",
+      ],
+      "responsePaths": [
+        "movie.reviews.pageInfo.hasPreviousPage",
+      ],
+    },
+    "movie.reviews.pageInfo.startCursor": {
+      "cachePaths": [
+        "movie({"id":"12345"}).reviews({}).pageInfo.startCursor",
+      ],
+      "responsePaths": [
+        "movie.reviews.pageInfo.startCursor",
+      ],
+    },
+    "movie.runtime": {
+      "cachePaths": [
+        "movie({"id":"12345"}).runtime",
+      ],
+      "responsePaths": [
+        "movie.runtime",
+      ],
+    },
+    "movie.similarMovies.edges.cursor": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).edges.cursor",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.edges.cursor",
+      ],
+    },
+    "movie.similarMovies.edges.node.id": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).edges.node.id",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.edges.node.id",
+      ],
+    },
+    "movie.similarMovies.edges.node.posterPath": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).edges.node.posterPath",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.edges.node.posterPath",
+      ],
+    },
+    "movie.similarMovies.edges.node.releaseDates.releaseDates.certification": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).edges.node.releaseDates.releaseDates.certification",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.edges.node.releaseDates.releaseDates.certification",
+      ],
+    },
+    "movie.similarMovies.edges.node.title": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).edges.node.title",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.edges.node.title",
+      ],
+    },
+    "movie.similarMovies.edges.node.videos.id": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).edges.node.videos.id",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.edges.node.videos.id",
+      ],
+    },
+    "movie.similarMovies.edges.node.videos.key": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).edges.node.videos.key",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.edges.node.videos.key",
+      ],
+    },
+    "movie.similarMovies.edges.node.videos.name": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).edges.node.videos.name",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.edges.node.videos.name",
+      ],
+    },
+    "movie.similarMovies.edges.node.voteAverage": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).edges.node.voteAverage",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.edges.node.voteAverage",
+      ],
+    },
+    "movie.similarMovies.edges.node.voteCount": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).edges.node.voteCount",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.edges.node.voteCount",
+      ],
+    },
+    "movie.similarMovies.pageInfo.endCursor": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).pageInfo.endCursor",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.pageInfo.endCursor",
+      ],
+    },
+    "movie.similarMovies.pageInfo.hasNextPage": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).pageInfo.hasNextPage",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.pageInfo.hasNextPage",
+      ],
+    },
+    "movie.similarMovies.pageInfo.hasPreviousPage": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).pageInfo.hasPreviousPage",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.pageInfo.hasPreviousPage",
+      ],
+    },
+    "movie.similarMovies.pageInfo.startCursor": {
+      "cachePaths": [
+        "movie({"id":"12345"}).similarMovies({}).pageInfo.startCursor",
+      ],
+      "responsePaths": [
+        "movie.similarMovies.pageInfo.startCursor",
+      ],
+    },
+    "movie.status": {
+      "cachePaths": [
+        "movie({"id":"12345"}).status",
+      ],
+      "responsePaths": [
+        "movie.status",
+      ],
+    },
+    "movie.tagline": {
+      "cachePaths": [
+        "movie({"id":"12345"}).tagline",
+      ],
+      "responsePaths": [
+        "movie.tagline",
+      ],
+    },
+    "movie.title": {
+      "cachePaths": [
+        "movie({"id":"12345"}).title",
+      ],
+      "responsePaths": [
+        "movie.title",
+      ],
+    },
+    "movie.videos.id": {
+      "cachePaths": [
+        "movie({"id":"12345"}).videos.id",
+      ],
+      "responsePaths": [
+        "movie.videos.id",
+      ],
+    },
+    "movie.videos.key": {
+      "cachePaths": [
+        "movie({"id":"12345"}).videos.key",
+      ],
+      "responsePaths": [
+        "movie.videos.key",
+      ],
+    },
+    "movie.videos.name": {
+      "cachePaths": [
+        "movie({"id":"12345"}).videos.name",
+      ],
+      "responsePaths": [
+        "movie.videos.name",
+      ],
+    },
+    "movie.voteAverage": {
+      "cachePaths": [
+        "movie({"id":"12345"}).voteAverage",
+      ],
+      "responsePaths": [
+        "movie.voteAverage",
+      ],
+    },
+    "movie.voteCount": {
+      "cachePaths": [
+        "movie({"id":"12345"}).voteCount",
+      ],
+      "responsePaths": [
+        "movie.voteCount",
+      ],
+    },
   },
   "fieldTypeMap": Map {
     "query.movie" => {
@@ -1503,6 +2793,56 @@ exports[`@graphql-box/request-parser >> query >> inline fragment >> correct cont
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
   },
+  "fieldPaths": {
+    "organization.description": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).description",
+      ],
+      "responsePaths": [
+        "organization.description",
+      ],
+    },
+    "organization.email": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).email",
+      ],
+      "responsePaths": [
+        "organization.email",
+      ],
+    },
+    "organization.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).id",
+      ],
+      "responsePaths": [
+        "organization.id",
+      ],
+    },
+    "organization.login": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).login",
+      ],
+      "responsePaths": [
+        "organization.login",
+      ],
+    },
+    "organization.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).name",
+      ],
+      "responsePaths": [
+        "organization.name",
+      ],
+    },
+    "organization.url": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).url",
+      ],
+      "responsePaths": [
+        "organization.url",
+      ],
+    },
+  },
   "fieldTypeMap": Map {
     "query.organization" => {
       "directives": {
@@ -1553,6 +2893,112 @@ exports[`@graphql-box/request-parser >> query >> inline fragments >> union type 
   "deprecated": {
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
+  },
+  "fieldPaths": {
+    "search.edges.node.__typename": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.__typename",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.__typename",
+      ],
+    },
+    "search.edges.node.bodyText": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.bodyText",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.bodyText",
+      ],
+    },
+    "search.edges.node.description": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.description",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.description",
+      ],
+    },
+    "search.edges.node.homepageUrl": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.homepageUrl",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.homepageUrl",
+      ],
+    },
+    "search.edges.node.howItWorks": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.howItWorks",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.howItWorks",
+      ],
+    },
+    "search.edges.node.id": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.id",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.id",
+      ],
+    },
+    "search.edges.node.login": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.login",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.login",
+      ],
+    },
+    "search.edges.node.name": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.name",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.name",
+      ],
+    },
+    "search.edges.node.number": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.number",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.number",
+      ],
+    },
+    "search.edges.node.organizationName": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.organizationName",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.organizationName",
+      ],
+    },
+    "search.edges.node.shortDescription": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.shortDescription",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.shortDescription",
+      ],
+    },
+    "search.edges.node.slug": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.slug",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.slug",
+      ],
+    },
+    "search.edges.node.title": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.title",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.title",
+      ],
+    },
   },
   "fieldTypeMap": Map {
     "query.search" => {
@@ -1686,6 +3132,218 @@ exports[`@graphql-box/request-parser >> query >> multiple variables >> correct c
   "deprecated": {
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
+  },
+  "fieldPaths": {
+    "organization.description": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).description",
+      ],
+      "responsePaths": [
+        "organization.description",
+      ],
+    },
+    "organization.email": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).email",
+      ],
+      "responsePaths": [
+        "organization.email",
+      ],
+    },
+    "organization.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).id",
+      ],
+      "responsePaths": [
+        "organization.id",
+      ],
+    },
+    "organization.login": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).login",
+      ],
+      "responsePaths": [
+        "organization.login",
+      ],
+    },
+    "organization.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).name",
+      ],
+      "responsePaths": [
+        "organization.name",
+      ],
+    },
+    "organization.repositories.edges.node.description": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.description",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.description",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.description",
+        "organization.repositories.edges[1].node.description",
+        "organization.repositories.edges[2].node.description",
+        "organization.repositories.edges[3].node.description",
+        "organization.repositories.edges[4].node.description",
+        "organization.repositories.edges[5].node.description",
+      ],
+    },
+    "organization.repositories.edges.node.homepageUrl": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.homepageUrl",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.homepageUrl",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.homepageUrl",
+        "organization.repositories.edges[1].node.homepageUrl",
+        "organization.repositories.edges[2].node.homepageUrl",
+        "organization.repositories.edges[3].node.homepageUrl",
+        "organization.repositories.edges[4].node.homepageUrl",
+        "organization.repositories.edges[5].node.homepageUrl",
+      ],
+    },
+    "organization.repositories.edges.node.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.id",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.id",
+        "organization.repositories.edges[1].node.id",
+        "organization.repositories.edges[2].node.id",
+        "organization.repositories.edges[3].node.id",
+        "organization.repositories.edges[4].node.id",
+        "organization.repositories.edges[5].node.id",
+      ],
+    },
+    "organization.repositories.edges.node.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.name",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.name",
+        "organization.repositories.edges[1].node.name",
+        "organization.repositories.edges[2].node.name",
+        "organization.repositories.edges[3].node.name",
+        "organization.repositories.edges[4].node.name",
+        "organization.repositories.edges[5].node.name",
+      ],
+    },
+    "organization.repositories.edges.node.owner.__typename": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.owner.__typename",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.owner.__typename",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.__typename",
+        "organization.repositories.edges[1].node.owner.__typename",
+        "organization.repositories.edges[2].node.owner.__typename",
+        "organization.repositories.edges[3].node.owner.__typename",
+        "organization.repositories.edges[4].node.owner.__typename",
+        "organization.repositories.edges[5].node.owner.__typename",
+      ],
+    },
+    "organization.repositories.edges.node.owner.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.owner.id",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.owner.id",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.id",
+        "organization.repositories.edges[1].node.owner.id",
+        "organization.repositories.edges[2].node.owner.id",
+        "organization.repositories.edges[3].node.owner.id",
+        "organization.repositories.edges[4].node.owner.id",
+        "organization.repositories.edges[5].node.owner.id",
+      ],
+    },
+    "organization.repositories.edges.node.owner.login": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.owner.login",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.owner.login",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.login",
+        "organization.repositories.edges[1].node.owner.login",
+        "organization.repositories.edges[2].node.owner.login",
+        "organization.repositories.edges[3].node.owner.login",
+        "organization.repositories.edges[4].node.owner.login",
+        "organization.repositories.edges[5].node.owner.login",
+      ],
+    },
+    "organization.repositories.edges.node.owner.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.owner.name",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.owner.name",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.name",
+        "organization.repositories.edges[1].node.owner.name",
+        "organization.repositories.edges[2].node.owner.name",
+        "organization.repositories.edges[3].node.owner.name",
+        "organization.repositories.edges[4].node.owner.name",
+        "organization.repositories.edges[5].node.owner.name",
+      ],
+    },
+    "organization.repositories.edges.node.owner.url": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[0].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[1].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[2].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[3].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[4].node.owner.url",
+        "organization({"login":"facebook"}).repositories({"first":6}).edges[5].node.owner.url",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges[0].node.owner.url",
+        "organization.repositories.edges[1].node.owner.url",
+        "organization.repositories.edges[2].node.owner.url",
+        "organization.repositories.edges[3].node.owner.url",
+        "organization.repositories.edges[4].node.owner.url",
+        "organization.repositories.edges[5].node.owner.url",
+      ],
+    },
+    "organization.url": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).url",
+      ],
+      "responsePaths": [
+        "organization.url",
+      ],
+    },
   },
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -1822,6 +3480,56 @@ exports[`@graphql-box/request-parser >> query >> no variable >> correct context 
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
   },
+  "fieldPaths": {
+    "organization.description": {
+      "cachePaths": [
+        "organization.description",
+      ],
+      "responsePaths": [
+        "organization.description",
+      ],
+    },
+    "organization.email": {
+      "cachePaths": [
+        "organization.email",
+      ],
+      "responsePaths": [
+        "organization.email",
+      ],
+    },
+    "organization.id": {
+      "cachePaths": [
+        "organization.id",
+      ],
+      "responsePaths": [
+        "organization.id",
+      ],
+    },
+    "organization.login": {
+      "cachePaths": [
+        "organization.login",
+      ],
+      "responsePaths": [
+        "organization.login",
+      ],
+    },
+    "organization.name": {
+      "cachePaths": [
+        "organization.name",
+      ],
+      "responsePaths": [
+        "organization.name",
+      ],
+    },
+    "organization.url": {
+      "cachePaths": [
+        "organization.url",
+      ],
+      "responsePaths": [
+        "organization.url",
+      ],
+    },
+  },
   "fieldTypeMap": Map {
     "query.organization" => {
       "directives": {
@@ -1873,6 +3581,56 @@ exports[`@graphql-box/request-parser >> query >> operation name >> correct conte
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
   },
+  "fieldPaths": {
+    "organization.description": {
+      "cachePaths": [
+        "organization.description",
+      ],
+      "responsePaths": [
+        "organization.description",
+      ],
+    },
+    "organization.email": {
+      "cachePaths": [
+        "organization.email",
+      ],
+      "responsePaths": [
+        "organization.email",
+      ],
+    },
+    "organization.id": {
+      "cachePaths": [
+        "organization.id",
+      ],
+      "responsePaths": [
+        "organization.id",
+      ],
+    },
+    "organization.login": {
+      "cachePaths": [
+        "organization.login",
+      ],
+      "responsePaths": [
+        "organization.login",
+      ],
+    },
+    "organization.name": {
+      "cachePaths": [
+        "organization.name",
+      ],
+      "responsePaths": [
+        "organization.name",
+      ],
+    },
+    "organization.url": {
+      "cachePaths": [
+        "organization.url",
+      ],
+      "responsePaths": [
+        "organization.url",
+      ],
+    },
+  },
   "fieldTypeMap": Map {
     "query.organization" => {
       "directives": {
@@ -1923,6 +3681,128 @@ exports[`@graphql-box/request-parser >> query >> union type inline fragments >> 
   "deprecated": {
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
+  },
+  "fieldPaths": {
+    "search.edges.node.__typename": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.__typename",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.__typename",
+      ],
+    },
+    "search.edges.node.bodyText": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.bodyText",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.bodyText",
+      ],
+    },
+    "search.edges.node.description": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.description",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.description",
+      ],
+    },
+    "search.edges.node.email": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.email",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.email",
+      ],
+    },
+    "search.edges.node.homepageUrl": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.homepageUrl",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.homepageUrl",
+      ],
+    },
+    "search.edges.node.howItWorks": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.howItWorks",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.howItWorks",
+      ],
+    },
+    "search.edges.node.id": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.id",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.id",
+      ],
+    },
+    "search.edges.node.login": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.login",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.login",
+      ],
+    },
+    "search.edges.node.name": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.name",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.name",
+      ],
+    },
+    "search.edges.node.number": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.number",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.number",
+      ],
+    },
+    "search.edges.node.organizationName": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.organizationName",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.organizationName",
+      ],
+    },
+    "search.edges.node.shortDescription": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.shortDescription",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.shortDescription",
+      ],
+    },
+    "search.edges.node.slug": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.slug",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.slug",
+      ],
+    },
+    "search.edges.node.title": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.title",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.title",
+      ],
+    },
+    "search.edges.node.url": {
+      "cachePaths": [
+        "search({"query":"react","first":10,"type":"REPOSITORY"}).edges{10}.node.url",
+      ],
+      "responsePaths": [
+        "search.edges{10}.node.url",
+      ],
+    },
   },
   "fieldTypeMap": Map {
     "query.search" => {
@@ -2059,6 +3939,56 @@ exports[`@graphql-box/request-parser >> query >> variable correct context data 1
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
   },
+  "fieldPaths": {
+    "organization.description": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).description",
+      ],
+      "responsePaths": [
+        "organization.description",
+      ],
+    },
+    "organization.email": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).email",
+      ],
+      "responsePaths": [
+        "organization.email",
+      ],
+    },
+    "organization.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).id",
+      ],
+      "responsePaths": [
+        "organization.id",
+      ],
+    },
+    "organization.login": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).login",
+      ],
+      "responsePaths": [
+        "organization.login",
+      ],
+    },
+    "organization.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).name",
+      ],
+      "responsePaths": [
+        "organization.name",
+      ],
+    },
+    "organization.url": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).url",
+      ],
+      "responsePaths": [
+        "organization.url",
+      ],
+    },
+  },
   "fieldTypeMap": Map {
     "query.organization" => {
       "directives": {
@@ -2109,6 +4039,56 @@ exports[`@graphql-box/request-parser >> query >> variable with default correct c
   "deprecated": {
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
+  },
+  "fieldPaths": {
+    "organization.description": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).description",
+      ],
+      "responsePaths": [
+        "organization.description",
+      ],
+    },
+    "organization.email": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).email",
+      ],
+      "responsePaths": [
+        "organization.email",
+      ],
+    },
+    "organization.id": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).id",
+      ],
+      "responsePaths": [
+        "organization.id",
+      ],
+    },
+    "organization.login": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).login",
+      ],
+      "responsePaths": [
+        "organization.login",
+      ],
+    },
+    "organization.name": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).name",
+      ],
+      "responsePaths": [
+        "organization.name",
+      ],
+    },
+    "organization.url": {
+      "cachePaths": [
+        "organization({"login":"facebook"}).url",
+      ],
+      "responsePaths": [
+        "organization.url",
+      ],
+    },
   },
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -2161,6 +4141,56 @@ exports[`@graphql-box/request-parser >> query >> with default correct context da
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
   },
+  "fieldPaths": {
+    "organization.description": {
+      "cachePaths": [
+        "organization({"login":"google"}).description",
+      ],
+      "responsePaths": [
+        "organization.description",
+      ],
+    },
+    "organization.email": {
+      "cachePaths": [
+        "organization({"login":"google"}).email",
+      ],
+      "responsePaths": [
+        "organization.email",
+      ],
+    },
+    "organization.id": {
+      "cachePaths": [
+        "organization({"login":"google"}).id",
+      ],
+      "responsePaths": [
+        "organization.id",
+      ],
+    },
+    "organization.login": {
+      "cachePaths": [
+        "organization({"login":"google"}).login",
+      ],
+      "responsePaths": [
+        "organization.login",
+      ],
+    },
+    "organization.name": {
+      "cachePaths": [
+        "organization({"login":"google"}).name",
+      ],
+      "responsePaths": [
+        "organization.name",
+      ],
+    },
+    "organization.url": {
+      "cachePaths": [
+        "organization({"login":"google"}).url",
+      ],
+      "responsePaths": [
+        "organization.url",
+      ],
+    },
+  },
   "fieldTypeMap": Map {
     "query.organization" => {
       "directives": {
@@ -2211,6 +4241,80 @@ exports[`@graphql-box/request-parser >> query >> with number default correct con
   "deprecated": {
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
+  },
+  "fieldPaths": {
+    "organization.description": {
+      "cachePaths": [
+        "organization({"login":"google"}).description",
+      ],
+      "responsePaths": [
+        "organization.description",
+      ],
+    },
+    "organization.email": {
+      "cachePaths": [
+        "organization({"login":"google"}).email",
+      ],
+      "responsePaths": [
+        "organization.email",
+      ],
+    },
+    "organization.id": {
+      "cachePaths": [
+        "organization({"login":"google"}).id",
+      ],
+      "responsePaths": [
+        "organization.id",
+      ],
+    },
+    "organization.login": {
+      "cachePaths": [
+        "organization({"login":"google"}).login",
+      ],
+      "responsePaths": [
+        "organization.login",
+      ],
+    },
+    "organization.name": {
+      "cachePaths": [
+        "organization({"login":"google"}).name",
+      ],
+      "responsePaths": [
+        "organization.name",
+      ],
+    },
+    "organization.repositories.edges.node.description": {
+      "cachePaths": [
+        "organization({"login":"google"}).repositories({"first":20}).edges{20}.node.description",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges{20}.node.description",
+      ],
+    },
+    "organization.repositories.edges.node.id": {
+      "cachePaths": [
+        "organization({"login":"google"}).repositories({"first":20}).edges{20}.node.id",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges{20}.node.id",
+      ],
+    },
+    "organization.repositories.edges.node.name": {
+      "cachePaths": [
+        "organization({"login":"google"}).repositories({"first":20}).edges{20}.node.name",
+      ],
+      "responsePaths": [
+        "organization.repositories.edges{20}.node.name",
+      ],
+    },
+    "organization.url": {
+      "cachePaths": [
+        "organization({"login":"google"}).url",
+      ],
+      "responsePaths": [
+        "organization.url",
+      ],
+    },
   },
   "fieldTypeMap": Map {
     "query.organization" => {
@@ -2313,6 +4417,72 @@ exports[`@graphql-box/request-parser >> subscription >> correct context data 1`]
   "deprecated": {
     "experimentalDeferStreamSupport": false,
     "hasDeferOrStream": false,
+  },
+  "fieldPaths": {
+    "emailAdded.emails.from": {
+      "cachePaths": [
+        "emailAdded.emails.from",
+      ],
+      "responsePaths": [
+        "emailAdded.emails.from",
+      ],
+    },
+    "emailAdded.emails.id": {
+      "cachePaths": [
+        "emailAdded.emails.id",
+      ],
+      "responsePaths": [
+        "emailAdded.emails.id",
+      ],
+    },
+    "emailAdded.emails.message": {
+      "cachePaths": [
+        "emailAdded.emails.message",
+      ],
+      "responsePaths": [
+        "emailAdded.emails.message",
+      ],
+    },
+    "emailAdded.emails.subject": {
+      "cachePaths": [
+        "emailAdded.emails.subject",
+      ],
+      "responsePaths": [
+        "emailAdded.emails.subject",
+      ],
+    },
+    "emailAdded.emails.unread": {
+      "cachePaths": [
+        "emailAdded.emails.unread",
+      ],
+      "responsePaths": [
+        "emailAdded.emails.unread",
+      ],
+    },
+    "emailAdded.id": {
+      "cachePaths": [
+        "emailAdded.id",
+      ],
+      "responsePaths": [
+        "emailAdded.id",
+      ],
+    },
+    "emailAdded.total": {
+      "cachePaths": [
+        "emailAdded.total",
+      ],
+      "responsePaths": [
+        "emailAdded.total",
+      ],
+    },
+    "emailAdded.unread": {
+      "cachePaths": [
+        "emailAdded.unread",
+      ],
+      "responsePaths": [
+        "emailAdded.unread",
+      ],
+    },
   },
   "fieldTypeMap": Map {
     "subscription.emailAdded" => {

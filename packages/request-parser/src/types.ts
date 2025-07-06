@@ -8,6 +8,17 @@ import {
   type IntrospectionQuery,
   type OperationTypeNode,
 } from 'graphql';
+import { type FieldPathManager } from '#FieldPathManager.ts';
+
+export type CalculateIteratorCallbackOptions<T extends Record<string, unknown>> = {
+  fieldTypeName?: string | undefined;
+  isFieldTypeList?: boolean | undefined;
+  variables?: T | undefined;
+};
+
+export type CalculateIteratorCallback = <T extends Record<string, unknown>>(
+  options: CalculateIteratorCallbackOptions<T>,
+) => number | undefined;
 
 export interface UserOptions {
   /**
@@ -73,10 +84,13 @@ export interface MapFieldToTypeData {
   typeName: string;
 }
 
+export type PathPart = [part: string, count: number] | string;
+
 export type PersistedFragmentSpread = [string, ParsedDirective[], Ancestor[]];
 
 export interface VisitorContext {
   experimentalDeferStreamSupport: boolean;
+  fieldPathManager: FieldPathManager;
   fieldTypeMap: FieldTypeMap;
   hasDeferOrStream: boolean;
   operation: OperationTypeNode;
