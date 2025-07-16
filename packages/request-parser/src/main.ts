@@ -28,6 +28,7 @@ import {
   getVariableDefinitionDefaultValue,
   getVariableDefinitionType,
   hasChildFields,
+  isAncestorAstNode,
   isKind,
   isObjectLike,
   isPlainObject,
@@ -67,7 +68,6 @@ import { findAncestorFragmentDefinition } from './helpers/findAncestorFragmentDe
 import { getMaxDepthFromChart } from './helpers/getMaxDepthFromChart.ts';
 import { getPersistedFragmentSpreadNames } from './helpers/getPersistedFragmentSpreadNames.ts';
 import { getPossibleTypeDetails } from './helpers/getPossibleTypeDetails.ts';
-import { isAncestorAstNode } from './helpers/isAncestorAstNode.ts';
 import { isAncestorFragmentDefinition } from './helpers/isAncestorFragmentDefinition.ts';
 import { isTypeEntity } from './helpers/isTypeEntity.ts';
 import { makeDepthChart } from './helpers/makeDepthChart.ts';

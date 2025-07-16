@@ -1,7 +1,8 @@
-import { getAlias, getKind } from '@graphql-box/helpers';
+import { type Ancestor } from '@graphql-box/core';
 import { type FieldNode, Kind } from 'graphql';
-import { isAncestorAstNode } from '#helpers/isAncestorAstNode.ts';
-import { type Ancestor } from '#types.ts';
+import { isAncestorAstNode } from '#isAncestorAstNode.ts';
+import { getAlias } from '#parsing/alias.ts';
+import { getKind } from '#parsing/kind.ts';
 
 const isAncestorFieldNode = (ancestor: Ancestor): ancestor is FieldNode =>
   isAncestorAstNode(ancestor) && getKind(ancestor) === Kind.FIELD;

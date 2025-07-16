@@ -1,8 +1,6 @@
-import { getAlias, getArguments } from '@graphql-box/helpers';
+import { buildAncestorFieldNames, buildFieldOperationPath, getAlias, getArguments } from '@graphql-box/helpers';
 import { type FieldNode } from 'graphql';
-import { buildAncestorFieldNames } from '#helpers/buildAncestorFieldNames.ts';
 import { buildFieldCachePath } from '#helpers/buildFieldCachePath.ts';
-import { buildFieldOperationPath } from '#helpers/buildFieldOperationPath.ts';
 import { buildFieldResponsePath } from '#helpers/buildFieldResponsePath.ts';
 import { connectionIteratorCallback } from '#helpers/connectionIteratorCallback.ts';
 import { explodePathParts } from '#helpers/explodePathParts.ts';

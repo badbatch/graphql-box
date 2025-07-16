@@ -1,54 +1,73 @@
-import { type RequestData } from '@graphql-box/core';
+import { type FragmentDefinitionNodeMap } from '@graphql-box/core';
 import {
-  buildFieldKeysAndPaths,
-  deleteChildFields,
-  getChildFields,
-  getOperationDefinitions,
+  buildAncestorFieldNames,
+  buildFieldOperationPath,
+  getAlias,
+  getFragmentDefinitions,
+  isKind,
 } from '@graphql-box/helpers';
-import { type CacheManagerContext, type CachedResponseData } from '../types.ts';
-import { createFragmentSpreadChecklist } from './createFragmentSpreadChecklist.ts';
-import { filterField } from './filterField.ts';
-import { filterFragmentDefinitions } from './filterFragmentDefinitions.ts';
+import {
+  type DocumentNode,
+  type FieldNode,
+  type FragmentDefinitionNode,
+  type FragmentSpreadNode,
+  type InlineFragmentNode,
+  Kind,
+  type OperationDefinitionNode,
+  visit,
+} from 'graphql';
+import { replaceFragmentSpreadsWithDefinitionFields } from '#helpers/replaceFragmentSpreadsWithDefinitionFields.ts';
 
-export const filterQuery = (
-  requestData: RequestData,
-  { fieldPathChecklist }: CachedResponseData,
-  context: CacheManagerContext,
-) => {
-  const { ast } = requestData;
-  const queryNode = getOperationDefinitions(ast, context.data.operation)[0];
+const childIsFragmentSpread = (node: FieldNode | InlineFragmentNode | FragmentDefinitionNode): boolean =>
+  node.selectionSet?.selections.some(n => isKind<FragmentSpreadNode>(n, Kind.FRAGMENT_SPREAD)) ?? false;
 
-  if (!queryNode) {
-    return ast;
+export const filterQuery = (ast: DocumentNode, resolvedPaths: string[]): DocumentNode => {
+  const fragmentDefinitions: FragmentDefinitionNodeMap = {
+    ...getFragmentDefinitions(ast),
+  };
+
+  for (const [name, fragmentDefinition] of Object.entries(fragmentDefinitions)) {
+    fragmentDefinitions[name] = replaceFragmentSpreadsWithDefinitionFields(fragmentDefinition, fragmentDefinitions);
   }
 
-  const { data, fragmentDefinitions } = context;
-  const fieldsAndTypeNames = getChildFields(queryNode, { fragmentDefinitions });
+  return visit(ast, {
+    enter: (node, _key, _parent, _path, ancestors) => {
+      if (isKind<FieldNode>(node, Kind.FIELD)) {
+        const ancestorFieldNames = buildAncestorFieldNames(ancestors);
+        const parentFieldPath = ancestorFieldNames.join('.');
+        const fieldName = getAlias(node) ?? node.name.value;
+        const fieldOperationPath = buildFieldOperationPath(fieldName, parentFieldPath);
 
-  if (!fieldsAndTypeNames) {
-    return ast;
-  }
+        if (resolvedPaths.includes(fieldOperationPath)) {
+          return null;
+        }
+      }
 
-  const fragmentSpreadChecklist = createFragmentSpreadChecklist(requestData, context);
+      if (
+        (isKind<FieldNode>(node, Kind.FIELD) || isKind<InlineFragmentNode>(node, Kind.INLINE_FRAGMENT)) &&
+        node.selectionSet &&
+        childIsFragmentSpread(node)
+      ) {
+        return replaceFragmentSpreadsWithDefinitionFields(node, fragmentDefinitions);
+      }
 
-  for (let index = fieldsAndTypeNames.length - 1; index >= 0; index -= 1) {
-    // In this context fieldsAndTypeNames[index] will not be undefined
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const { fieldNode } = fieldsAndTypeNames[index]!;
+      return;
+    },
+    leave: node => {
+      if (
+        (isKind<FieldNode>(node, Kind.FIELD) ||
+          isKind<InlineFragmentNode>(node, Kind.INLINE_FRAGMENT) ||
+          isKind<OperationDefinitionNode>(node, Kind.OPERATION_DEFINITION)) &&
+        node.selectionSet?.selections.length === 0
+      ) {
+        return null;
+      }
 
-    const { requestFieldPath } = buildFieldKeysAndPaths(
-      fieldNode,
-      {
-        requestFieldPath: data.operation,
-      },
-      context,
-    );
+      if (isKind<FragmentDefinitionNode>(node, Kind.FRAGMENT_DEFINITION)) {
+        return null;
+      }
 
-    if (filterField(fieldNode, fieldPathChecklist, fragmentSpreadChecklist, requestFieldPath, context)) {
-      deleteChildFields(queryNode, fieldNode);
-    }
-  }
-
-  context.data.queryFiltered = true;
-  return filterFragmentDefinitions(ast, fieldPathChecklist, fragmentSpreadChecklist, context);
+      return;
+    },
+  });
 };

@@ -193,6 +193,7 @@ export class Client {
       deprecated: {
         experimentalDeferStreamSupport: this._experimentalDeferStreamSupport,
       },
+      fieldPaths: {},
       fieldTypeMap: new Map(),
       filteredRequest: '',
       parsedRequest: '',
