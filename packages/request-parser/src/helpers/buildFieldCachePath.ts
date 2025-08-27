@@ -1,13 +1,13 @@
 export const buildFieldCachePath = (
   fieldName: string,
   parentCachePath: string | undefined,
-  populatedFieldArgs: Record<string, unknown> | undefined,
+  fieldArgs: Record<string, unknown> | undefined,
   iterations: number | undefined,
 ) => {
   let fieldCachePath = parentCachePath ? `${parentCachePath}.${fieldName}` : fieldName;
 
-  if (populatedFieldArgs) {
-    fieldCachePath += `(${JSON.stringify(populatedFieldArgs)})`;
+  if (fieldArgs) {
+    fieldCachePath += `(${JSON.stringify(fieldArgs)})`;
   }
 
   if (iterations) {

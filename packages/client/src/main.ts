@@ -2,19 +2,15 @@ import { type CacheManagerDef } from '@graphql-box/cache-manager';
 import {
   type DebugManagerDef,
   PENDING_QUERY_RESOLVED,
-  type PartialRawResponseData,
   type PartialRequestContext,
-  type PartialRequestResult,
-  type PartialResponseData,
+  type PlainObject,
   REQUEST_RESOLVED,
   REQUEST_RESOLVED_FROM_CACHE,
-  type RawResponseDataWithMaybeCacheMetadata,
   type RequestContext,
   type RequestData,
   type RequestManagerDef,
   type RequestOptions,
-  SUBSCRIPTION_RESOLVED,
-  type SubscriptionsManagerDef,
+  type ResponseData,
 } from '@graphql-box/core';
 import { ArgsError, GroupedError, hashRequest, isArray, isPlainObject } from '@graphql-box/helpers';
 import { type RequestParserDef } from '@graphql-box/request-parser';
@@ -24,11 +20,8 @@ import { isError, isString } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 import { logPendingQuery } from './debug/logPendingQuery.ts';
 import { logRequest } from './debug/logRequest.ts';
-import { logSubscription } from './debug/logSubscription.ts';
 import { filterResponseData } from './helpers/filterResponseData.ts';
-import { isDataRequestedInActiveQuery } from './helpers/isDataRequestedInActiveQuery.ts';
-import { isQueryActive } from './helpers/isQueryActive.ts';
-import { type PendingQueryData, type PendingQueryResolver, type QueryTracker, type UserOptions } from './types.ts';
+import { type QueryTracker, type UserOptions } from './types.ts';
 
 export class Client {
   private static _areFragmentsInvalid(fragments?: string[]): boolean {
@@ -69,11 +62,9 @@ export class Client {
 
   private readonly _cacheManager: CacheManagerDef;
   private readonly _debugManager: DebugManagerDef | undefined;
-  private readonly _experimentalDeferStreamSupport: boolean;
-  private _queryTracker: QueryTracker = { active: [], pending: new Map() };
-  private _requestManager: RequestManagerDef;
-  private _requestParser: RequestParserDef;
-  private readonly _subscriptionsManager: SubscriptionsManagerDef | null;
+  private readonly _requestManager: RequestManagerDef;
+  private readonly _requestParser: RequestParserDef;
+  private readonly _tracker: QueryTracker = { activeQueries: [] };
 
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
@@ -100,72 +91,32 @@ export class Client {
 
     this._cacheManager = options.cacheManager;
     this._debugManager = options.debugManager;
-    this._experimentalDeferStreamSupport = options.experimentalDeferStreamSupport ?? false;
     this._requestManager = options.requestManager;
     this._requestParser = options.requestParser;
-    this._subscriptionsManager = options.subscriptionsManager ?? null;
-  }
-
-  get cache() {
-    return this._cacheManager.cache;
   }
 
   get cacheManager() {
     return this._cacheManager;
   }
 
-  get debugger(): DebugManagerDef | undefined {
+  get debugManager(): DebugManagerDef | undefined {
     return this._debugManager;
   }
 
-  public async mutate(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
-    const requestContext = this._buildRequestContext(OperationTypeNode.MUTATION, request, options, context);
-    const errors = Client._validateRequestArguments(request, options);
-
-    if (errors.length > 0) {
-      return Client._resolve({ errors }, options, requestContext);
-    }
-
-    return this._request(request, options, requestContext);
-  }
-
-  public async query(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
+  public async query<T extends PlainObject = PlainObject>(
+    request: string,
+    options: RequestOptions = {},
+    context: PartialRequestContext = {},
+  ): Promise<ResponseData<T>> {
     const requestContext = this._buildRequestContext(OperationTypeNode.QUERY, request, options, context);
     const errors = Client._validateRequestArguments(request, options);
 
     if (errors.length > 0) {
-      return Client._resolve({ errors }, options, requestContext);
+      throw new GroupedError('@graphql-box/client argument validation errors.', errors);
     }
 
-    return this._request(request, options, requestContext);
-  }
-
-  public async request(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
-    const requestContext = this._buildRequestContext(OperationTypeNode.QUERY, request, options, context);
-    const errors = Client._validateRequestArguments(request, options);
-
-    if (errors.length > 0) {
-      return Client._resolve({ errors }, options, requestContext);
-    }
-
-    return this._request(request, options, requestContext);
-  }
-
-  public async subscribe(request: string, options: RequestOptions = {}, context: PartialRequestContext = {}) {
-    const requestContext = this._buildRequestContext(OperationTypeNode.SUBSCRIPTION, request, options, context);
-    const errors: Error[] = [];
-
-    if (!this._subscriptionsManager) {
-      errors.push(new Error('@graphql-box/client does not have the subscriptions manager module.'));
-    }
-
-    errors.push(...Client._validateRequestArguments(request, options));
-
-    if (errors.length > 0) {
-      return Client._resolve({ errors }, options, requestContext);
-    }
-
-    return this._request(request, options, requestContext);
+    const requestData = this._requestParser.updateRequest(request, options, requestContext);
+    return this._handleQuery(requestData, options, requestContext);
   }
 
   private _buildRequestContext(
@@ -185,70 +136,13 @@ export class Client {
         queryFiltered: false,
         requestComplexity: undefined,
         requestDepth: undefined,
-        requestID: uuid(),
+        requestId: uuid(),
         tag: options.tag,
         variables: options.variables,
       },
       debugManager: this._debugManager,
-      deprecated: {
-        experimentalDeferStreamSupport: this._experimentalDeferStreamSupport,
-      },
       fieldPaths: {},
-      fieldTypeMap: new Map(),
-      filteredRequest: '',
-      parsedRequest: '',
-      request,
     };
-  }
-
-  @logRequest()
-  private async _handleMutation(requestData: RequestData, options: RequestOptions, context: RequestContext) {
-    try {
-      const resolver = async (rawResponseData: PartialRawResponseData) => {
-        if (rawResponseData.errors?.length) {
-          const { errors, hasNext, paths } = rawResponseData;
-          return Client._resolve({ errors, hasNext, paths }, options, context);
-        }
-
-        const responseData = await this._cacheManager.cacheResponse(
-          requestData,
-          // Need to look at what type guards can be put in place
-          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-          rawResponseData as RawResponseDataWithMaybeCacheMetadata,
-          options,
-          context,
-        );
-
-        return Client._resolve(responseData, options, context);
-      };
-
-      const { data, debugManager } = context;
-
-      const decoratedResolver = async (rawResponseData: PartialRawResponseData) => {
-        const result = await resolver(rawResponseData);
-
-        debugManager?.log(REQUEST_RESOLVED, {
-          data,
-          stats: { endTime: debugManager.now() },
-        });
-
-        return result;
-      };
-
-      const executeResult = await this._requestManager.execute(requestData, options, context, decoratedResolver);
-
-      if (isAsyncIterable(executeResult)) {
-        return executeResult;
-      }
-
-      return await resolver(executeResult);
-    } catch (error) {
-      const confirmedError = isError(error)
-        ? error
-        : new Error('@graphql-box/client mutation had an unexpected error.');
-
-      return Client._resolve({ errors: [confirmedError] }, options, context);
-    }
   }
 
   @logRequest()
@@ -332,74 +226,6 @@ export class Client {
     } catch (error) {
       const confirmedError = isError(error) ? error : new Error('@graphql-box/client query had an unexpected error.');
       return this._resolveQuery(requestData, { errors: [confirmedError] }, options, context);
-    }
-  }
-
-  private _handleRequest(requestData: RequestData, options: RequestOptions, context: RequestContext) {
-    switch (context.data.operation) {
-      case OperationTypeNode.QUERY: {
-        return this._handleQuery(requestData, options, context);
-      }
-
-      case OperationTypeNode.MUTATION: {
-        return this._handleMutation(requestData, options, context);
-      }
-
-      case OperationTypeNode.SUBSCRIPTION: {
-        return this._handleSubscription(requestData, options, context);
-      }
-
-      // No default
-    }
-  }
-
-  @logSubscription()
-  private async _handleSubscription(requestData: RequestData, options: RequestOptions, context: RequestContext) {
-    try {
-      const resolver = async (responseData: PartialRawResponseData) => {
-        const result = await this._resolveSubscription(requestData, responseData, options, context);
-        const { data, debugManager } = context;
-
-        debugManager?.log(SUBSCRIPTION_RESOLVED, {
-          data,
-          stats: { endTime: debugManager.now() },
-        });
-
-        return result;
-      };
-
-      // In order to get into _handleSubscription, the subscriptionsManager
-      // must be defined.
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return await this._subscriptionsManager!.subscribe(requestData, options, context, resolver);
-    } catch (error) {
-      const confirmedError = isError(error)
-        ? error
-        : new Error('@graphql-box/client subscription had an unexpected error.');
-
-      return Client._resolve({ errors: [confirmedError] }, options, context);
-    }
-  }
-
-  private _isDataRequestedInActiveQuery(requestData: RequestData, context: RequestContext) {
-    if (isQueryActive(this._queryTracker.active, requestData)) {
-      return requestData.hash;
-    }
-
-    return !!this._cacheManager.cacheTiersEnabled.entity || !!this._cacheManager.cacheTiersEnabled.requestPath
-      ? isDataRequestedInActiveQuery(this._queryTracker.active, requestData, context)
-      : undefined;
-  }
-
-  private async _request(request: string, options: RequestOptions, context: RequestContext) {
-    try {
-      const { ast, request: updateRequest } = this._requestParser.updateRequest(request, options, context);
-      const requestData = { ast, hash: hashRequest(updateRequest), request: updateRequest };
-      context.data.parsedRequestHash = requestData.hash;
-      return await this._handleRequest(requestData, options, { ...context, parsedRequest: updateRequest });
-    } catch (error) {
-      const confirmedError = isError(error) ? error : new Error('@graphql-box/client had an unexpected error.');
-      return Client._resolve({ errors: [confirmedError] }, options, context);
     }
   }
 

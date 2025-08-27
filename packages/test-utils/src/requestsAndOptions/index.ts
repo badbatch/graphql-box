@@ -33,8 +33,8 @@ export const queryWithDefault: RequestAndOptions = {
 export const queryWithNumberDefault: RequestAndOptions = {
   options: {},
   request: `
-    query ($login: String = "google", $first: Int = 20) {
-      organization(login: $login) {
+    query ($first: Int = 20) {
+      organization(login: "google") {
         description
         email
         login
@@ -106,21 +106,20 @@ export const queryWithVariableWithDefault: RequestAndOptions = {
   `,
 };
 
-export const queryWithVariables: RequestAndOptions = {
+export const queryWithEnumVariable: RequestAndOptions = {
   options: {
     variables: {
-      first: 6,
-      login: 'facebook',
+      ownerAffiliations: ['OWNER', 'COLLABORATOR'],
     },
   },
   request: `
-    query ($login: String!, $first: Int!) {
-      organization(login: $login) {
+    query ($ownerAffiliations: [RepositoryAffiliation]) {
+      organization(login: "facebook") {
         description
         email
         login
         name
-        repositories(first: $first) {
+        repositories(first: 6, ownerAffiliations: $ownerAffiliations) {
           edges {
             node {
               description
@@ -142,7 +141,7 @@ export const queryWithVariables: RequestAndOptions = {
   `,
 };
 
-export const queryWithEnumVariable: RequestAndOptions = {
+export const queryWithVariables: RequestAndOptions = {
   options: {
     variables: {
       first: 6,
@@ -151,7 +150,7 @@ export const queryWithEnumVariable: RequestAndOptions = {
     },
   },
   request: `
-    query ($login: String!, $first: Int!, $ownerAffiliations: [RepositoryAffiliation]) {
+    query ($login: String!, $first: Int!, $ownerAffiliations: [RepositoryAffiliation]!) {
       organization(login: $login) {
         description
         email
@@ -182,35 +181,16 @@ export const queryWithEnumVariable: RequestAndOptions = {
 export const queryWithDirective: RequestAndOptions = {
   options: {
     variables: {
-      first: 6,
-      login: 'facebook',
-      withEmail: true,
-      withRepos: true,
+      withEmail: false,
     },
   },
   request: `
-    query ($login: String!, $withEmail: Boolean!, $withRepos: Boolean!) {
-      organization(login: $login) {
+    query ($withEmail: Boolean!) {
+      organization(login: "facebook") {
         description
         email @include(if: $withEmail)
         login
         name
-        repositories(first: $first) @include(if: $withRepos) {
-          edges {
-            node {
-              description
-              homepageUrl
-              name
-              owner {
-                login
-                url
-                ... on Organization {
-                  name
-                }
-              }
-            }
-          }
-        }
         url
       }
     }
@@ -218,14 +198,10 @@ export const queryWithDirective: RequestAndOptions = {
 };
 
 export const queryWithInlineFragment: RequestAndOptions = {
-  options: {
-    variables: {
-      login: 'facebook',
-    },
-  },
+  options: {},
   request: `
-    query ($login: String!) {
-      organization(login: $login) {
+    query {
+      organization(login: "facebook") {
         ... on Organization {
           description
           email
@@ -238,45 +214,49 @@ export const queryWithInlineFragment: RequestAndOptions = {
   `,
 };
 
-export const queryWithUnionInlineFragments: RequestAndOptions = {
+export const queryWithVariableInInlineFragment: RequestAndOptions = {
   options: {
     variables: {
-      first: 10,
-      query: 'react',
-      type: 'REPOSITORY',
+      first: 6,
     },
   },
   request: `
-    query ($query: String!, $first: Int!, $type: SearchType!) {
-      search(query: $query, first: $first, type: $type) {
-        edges {
-          node {
-            ... on Organization {
-              description
-              login
-              organizationName: name
-            }
-            ... on Issue {
-              bodyText
-              number
-              title
-            }
-            ... on MarketplaceListing {
-              slug
-              shortDescription
-              howItWorks
-            }
-            ... on PullRequest {
-              bodyText
-              number
-              title
-            }
-            ... on Repository {
-              description
-              homepageUrl
-              name
+    query ($first: Int!) {
+      organization(login: "facebook") {
+        ... on Organization {
+          description
+          email
+          login
+          repositories(first: $first) {
+            edges {
+              node {
+                description
+                homepageUrl
+                name
+              }
             }
           }
+        }
+      }
+    }
+  `,
+};
+
+export const queryWithDirectiveInInlineFragment: RequestAndOptions = {
+  options: {
+    variables: {
+      withEmail: false,
+    },
+  },
+  request: `
+    query ($withEmail: Boolean!) {
+      organization(login: "facebook") {
+        ... on Organization {
+          description
+          email @include(if: $withEmail)
+          login
+          name
+          url
         }
       }
     }
@@ -284,11 +264,7 @@ export const queryWithUnionInlineFragments: RequestAndOptions = {
 };
 
 export const queryWithFragmentSpread: RequestAndOptions = {
-  options: {
-    variables: {
-      login: 'facebook',
-    },
-  },
+  options: {},
   request: `
     fragment organizationFields on Organization {
       description
@@ -298,54 +274,157 @@ export const queryWithFragmentSpread: RequestAndOptions = {
       url
     }
 
-    query ($login: String!) {
-      organization(login: $login) {
+    query {
+      organization(login: "facebook") {
         ...organizationFields
       }
     }
   `,
 };
 
-export const queryWithUnionInlineFragmentsAndFragmentSpread: RequestAndOptions = {
-  options: {
-    variables: {
-      first: 10,
-      query: 'react',
-      type: 'REPOSITORY',
-    },
-  },
+export const queryWithNestedFragmentSpread: RequestAndOptions = {
+  options: {},
+  request: `
+    fragment organizationFieldsB on Organization {
+      description
+      email
+      login
+    }
+    
+    fragment organizationFieldsA on Organization {
+      ...organizationFieldsB
+      name
+      url
+    }
+
+    query {
+      organization(login: "facebook") {
+        ...organizationFieldsA
+      }
+    }
+  `,
+};
+
+export const queryWithSiblingFragmentSpreads: RequestAndOptions = {
+  options: {},
+  request: `
+    fragment organizationFieldsB on Organization {
+      description
+      email
+      login
+    }
+    
+    fragment organizationFieldsA on Organization {
+      name
+      url
+    }
+
+    query {
+      organization(login: "facebook") {
+        ...organizationFieldsA
+        ...organizationFieldsB
+      }
+    }
+  `,
+};
+
+export const queryWithReusedFragmentSpread: RequestAndOptions = {
+  options: {},
   request: `
     fragment organizationFields on Organization {
       description
       email
       login
-      organizationName: name
+      name
+      url
+    }
+    
+    query {
+      organization: facebook(login: "facebook") {
+        ...organizationFields
+      }
+      organization: google(login: "google") {
+        ...organizationFields
+      }
+    }
+  `,
+};
+
+export const queryWithVariableInFragmentSpread: RequestAndOptions = {
+  options: {
+    variables: {
+      first: 6,
+    },
+  },
+  request: `
+    fragment organizationFields on Organization {
+      description
+      repositories(first: $first) {
+        edges {
+          node {
+            description
+            homepageUrl
+            name
+          }
+        }
+      }
+    }
+
+    query ($first: Int!) {
+      organization(login: "facebook") {
+        ...organizationFields
+      }
+    }
+  `,
+};
+
+export const queryWithVariableInNestedFragmentSpread: RequestAndOptions = {
+  options: {
+    variables: {
+      first: 6,
+    },
+  },
+  request: `
+    fragment organizationFieldsB on Organization {
+      description
+      repositories(first: $first) {
+        edges {
+          node {
+            description
+            homepageUrl
+            name
+          }
+        }
+      }
+    }
+    
+    fragment organizationFieldsA on Organization {
+      ...organizationFieldsB
+      name
       url
     }
 
-    query ($query: String!, $first: Int!, $type: SearchType!) {
-      search(query: $query, first: $first, type: $type) {
-        edges {
-          node {
-            ... on Organization {
-              ...organizationFields
-            }
-            ... on Issue {
-              bodyText
-              number
-              title
-            }
-            ... on MarketplaceListing {
-              slug
-              shortDescription
-              howItWorks
-            }
-            ... on PullRequest {
-              bodyText
-              number
-              title
-            }
-            ... on Repository {
+    query ($first: Int!) {
+      organization(login: "facebook") {
+        ...organizationFieldsA
+      }
+    }
+  `,
+};
+
+export const queryWithVariableInInlineFragmentInNestedFragmentSpread: RequestAndOptions = {
+  options: {
+    variables: {
+      first: 6,
+    },
+  },
+  request: `
+    fragment organizationFieldsB on Organization {
+      ... on Organization {
+        description
+        repositories(first: $first) {
+          edges {
+            node {
               description
               homepageUrl
               name
@@ -354,251 +433,22 @@ export const queryWithUnionInlineFragmentsAndFragmentSpread: RequestAndOptions =
         }
       }
     }
-  `,
-};
-
-export const queryWithFragmentOption: RequestAndOptions = {
-  options: {
-    fragments: [
-      `
-        fragment organizationFields on Organization {
-          description
-          email
-          login
-          name
-          url
-        }
-      `,
-    ],
-    variables: {
-      login: 'facebook',
-    },
-  },
-  request: `
-    query ($login: String!) {
-      organization(login: $login) {
-        ...organizationFields
-      }
-    }
-  `,
-};
-
-export const queryWithDefer: RequestAndOptions = {
-  options: {
-    variables: {
-      deferCondition: true,
-      first: 10,
-      login: 'facebook',
-      streamCondition: true,
-    },
-  },
-  request: `
-    fragment OrganizationFieldsA on Organization {
-      email @include(if: true)
-      ...on Organization {
-        description
-      }
-      ...OrganizationFieldsC
-    }
-
-    fragment OrganizationFieldsB on Organization {
-      login
-      ...on Organization {
-        name
-      }
-    }
-
-    fragment OrganizationFieldsC on Organization {
-      isVerified
-      location
-    }
-
-    fragment RepositoryFields on Repository {
-      description
-      homepageUrl
+    
+    fragment organizationFieldsA on Organization {
+      ...organizationFieldsB
       name
+      url
     }
 
-    fragment PermissionsFields on LicenseRule {
-      label @skip(if: false)
-    }
-
-    query ($login: String!, $deferCondition: Boolean!, $streamCondition: Boolean!) {
-      organization(login: $login) {
-        ...OrganizationFieldsA @defer(if: $deferCondition, label: "organizationDefer")
-        ...OrganizationFieldsB
-        repositories(first: $first) {
-          edges {
-            node {
-              ...on Repository @include(if: true) {
-                licenseInfo {
-                  permissions {
-                    ...PermissionsFields @defer(if: true, label: "permissionsDefer")
-                  }
-                }
-                ...RepositoryFields @skip(if: false) @defer(if: $deferCondition, label: "repositoryDefer")
-              }
-            }
-          }
-        }
-        url
+    query ($first: Int!) {
+      organization(login: "facebook") {
+        ...organizationFieldsA
       }
     }
   `,
 };
 
-export const getMoviePreviewQuery = {
-  options: {
-    variables: {
-      id: '12345',
-    },
-  },
-  request: `
-    query GetMoviePreview(
-      $id: ID!
-    ) {
-      movie(id: $id) {
-        backdropPath
-        belongsToCollection {
-          ...MovieCollection @defer(label: "MovieCollectionDefer")
-        }
-        homepage
-        overview
-        popularity
-        posterPath
-        releaseDate
-        runtime
-        status
-        tagline
-        title
-        voteAverage
-        voteCount
-        ...MovieBackdrops @defer(label: "MovieBackdropsDefer")
-        ...MovieCast @defer(label: "MovieCastDefer")
-        ...MovieCrew @defer(label: "MovieCrewDefer")
-        ...MovieRecommendations @defer(label: "MovieRecommendationsDefer")
-        ...MovieReviews @defer(label: "MovieReviewsDefer")
-        ...MovieSimilar @defer(label: "MovieSimilarDefer")
-        ...MovieVideos @defer(label: "VideosDefer")
-      }
-    }
-
-    fragment MovieBackdrops on Movie {
-      backdrops {
-        filePath
-        fileType
-        height
-        width
-      }
-    }
-
-    fragment MovieBrief on Movie {
-      posterPath
-      title
-      voteAverage
-      voteCount
-      ...MovieReleaseDates @defer(label: "MovieReleaseDatesDefer")
-      ...MovieVideos @defer(label: "MovieVideosDefer")
-    }
-
-    fragment MovieCollection on Collection {
-      name
-      overview
-      parts {
-        ...MovieBrief @defer(label: "MovieCollectionPartsDefer")
-      }
-    }
-
-    fragment MovieCast on Movie {
-      cast {
-        character
-        name
-        profilePath
-      }
-    }
-
-    fragment MovieCrew on Movie {
-      crew {
-        department
-        gender
-        job
-        name
-        profilePath
-      }
-    }
-
-    fragment MovieRecommendations on Movie {
-      recommendations(first: 10) {
-        edges {
-          cursor
-          node {
-            ...MovieBrief
-          }
-        }
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-          startCursor
-          endCursor
-        }
-      }
-    }
-
-    fragment MovieReviews on Movie {
-      reviews(first: 10) {
-        edges {
-          cursor
-          node {
-            author
-            content
-          }
-        }
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-          startCursor
-          endCursor
-        }
-      }
-    }
-
-    fragment MovieSimilar on Movie {
-      similarMovies(first: 10) {
-        edges {
-          cursor
-          node {
-            ...MovieBrief
-          }
-        }
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-          startCursor
-          endCursor
-        }
-      }
-    }
-
-    fragment MovieReleaseDates on Movie {
-      releaseDates {
-        releaseDates {
-          certification
-        }
-      }
-    }
-
-    fragment MovieVideos on Movie {
-      videos {
-        name
-        key
-        site
-        type
-      }
-    }
-  `,
-};
-
-export const nestedInterfaceMutation: RequestAndOptions = {
+export const mutationWithInputObjectType: RequestAndOptions = {
   options: {
     variables: {
       input: {
@@ -612,8 +462,6 @@ export const nestedInterfaceMutation: RequestAndOptions = {
       addStar(input: $input) {
         clientMutationId
         starrable {
-          viewerHasStarred
-
           ... on Repository {
             stargazers(first: 6) {
               edges {
@@ -625,50 +473,6 @@ export const nestedInterfaceMutation: RequestAndOptions = {
             }
           }
         }
-      }
-    }
-  `,
-};
-
-export const nestedTypeMutation: RequestAndOptions = {
-  options: {
-    variables: {
-      input: {
-        from: 'delta@gmail.com',
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        subject: 'Hi, this is Delta',
-      },
-    },
-  },
-  request: `
-    mutation ($input: EmailInput!) {
-      addEmail(input: $input) {
-        emails {
-          from
-          message
-          subject
-          unread
-        }
-        total
-        unread
-      }
-    }
-  `,
-};
-
-export const nestedTypeSubscription: RequestAndOptions = {
-  options: {},
-  request: `
-    subscription {
-      emailAdded {
-        emails {
-          from
-          message
-          subject
-          unread
-        }
-        total
-        unread
       }
     }
   `,

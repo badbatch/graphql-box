@@ -8,12 +8,12 @@ import {
   type OperationTypeNode,
 } from 'graphql';
 import { type ErrorObject } from 'serialize-error';
-import { type Except } from 'type-fest';
+import { type PartialDeep } from 'type-fest';
 import { type WebSocket } from 'ws';
 
 export type Ancestor = ASTNode | readonly ASTNode[];
 
-export type CacheHeaders = Headers | { cacheControl?: string; etag?: string };
+export type CacheHeaders = Headers | { cacheControl?: string };
 
 export type CacheMetadata = Record<string, CacheabilityMetadata>;
 
@@ -32,10 +32,10 @@ export type FieldPaths = Record<string, FieldPath>;
 
 export type FragmentDefinitionNodeMap = Record<string, FragmentDefinitionNode>;
 
-export interface CachemapOptions {
+export type CachemapOptions = {
   cacheHeaders: CacheHeaders;
   tag?: string | number;
-}
+};
 
 export type ExecutionContextValue = PlainObject & {
   data: ExecutionContextValueData;
@@ -87,11 +87,19 @@ export type LogLevel = 'error' | 'warn' | 'info' | 'verbose';
 
 export type Maybe<T> = null | undefined | T;
 
-export type PlainArray<T = unknown> = T[];
+export type PartialRequestContext = PartialDeep<RequestContext>;
 
-export type PlainData<T = unknown> = PlainObject<T> | PlainArray<T>;
+// Needs to be kept as generic as possible, only used internally
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type PlainArray<T = any> = T[];
 
-export type PlainObject<T = unknown> = Record<string | number, T>;
+// Needs to be kept as generic as possible, only used internally
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type PlainData<T = any> = PlainObject<T> | PlainArray<T>;
+
+// Needs to be kept as generic as possible, only used internally
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type PlainObject<T = any> = Record<string, T>;
 
 export type RequestContextData = PlainObject & {
   initiator?: string;
@@ -104,17 +112,17 @@ export type RequestContextData = PlainObject & {
   requestId: string;
 };
 
-export interface RequestContext {
+export type RequestContext = {
   data: RequestContextData;
   debugManager: DebugManagerDef | undefined;
   fieldPaths: FieldPaths;
-}
+};
 
-export interface RequestData {
+export type RequestData = {
   ast: DocumentNode;
   hash: string;
   request: string;
-}
+};
 
 export interface RequestManagerDef {
   execute(
@@ -125,7 +133,7 @@ export interface RequestManagerDef {
   ): Promise<ResponseData>;
 }
 
-export interface RequestOptions {
+export type RequestOptions = {
   /**
    * Whether to batch the request. This defaults to the
    * batchRequest value set in @graphql-box/fetch-manager.
@@ -147,23 +155,23 @@ export interface RequestOptions {
    * subscription being requested.
    */
   variables?: PlainObject;
-}
+};
 
 export type RequestResolver = (responseData: ResponseData) => Promise<ResponseData>;
 
-export interface ResponseData {
-  cacheMetadata?: CacheMetadata;
-  data?: PlainObject;
+export type ResponseData<T extends PlainObject = PlainObject> = {
+  __cacheMetadata?: CacheMetadata;
+  data?: T;
   errors?: readonly Error[];
-}
+};
 
-export interface SerialisedResponseData {
-  cacheMetadata?: CacheMetadata;
-  data?: PlainObject;
+export type SerialisedResponseData<T extends PlainObject = PlainObject> = {
+  __cacheMetadata?: CacheMetadata;
+  data?: T;
   errors?: ErrorObject[];
-}
+};
 
-export interface ServerRequestOptions extends Except<RequestOptions, 'batch'> {
+export type ServerRequestOptions = {
   /**
    * Set GraphQL context value to be passed on to
    * GraphQL's execute and subscribe methods.
@@ -177,7 +185,7 @@ export interface ServerRequestOptions extends Except<RequestOptions, 'batch'> {
   fieldResolver?: GraphQLFieldResolver<unknown, unknown>;
   /**
    * Set GraphQL operation name to be passed on to
-   * GraphQL's execute and subscribe methods.
+   * the GraphQL execute and subscribe methods.
    */
   operationName?: string;
   /**
@@ -190,7 +198,7 @@ export interface ServerRequestOptions extends Except<RequestOptions, 'batch'> {
    * be passed on to GraphQL's subscribe method.
    */
   subscribeFieldResolver?: GraphQLFieldResolver<unknown, unknown>;
-}
+};
 
 export interface ServerSocketRequestOptions extends ServerRequestOptions {
   /**

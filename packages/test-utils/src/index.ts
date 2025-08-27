@@ -4,7 +4,6 @@ export { default as githubIntrospection } from './introspection/github.json';
 export { default as theMovieDbIntrospection } from './introspection/theMovieDb.json';
 export * as parsedRequests from './parsedRequests/index.ts';
 export * as requestsAndOptions from './requestsAndOptions/index.ts';
-export * as requestFieldTypeMaps from './requestFieldTypeMaps/index.ts';
 export * as responses from './responses/index.ts';
 export * from './schema/resolvers.ts';
 export * from './schema/typeDefs.ts';

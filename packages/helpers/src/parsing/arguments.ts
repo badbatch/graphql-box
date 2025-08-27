@@ -38,7 +38,7 @@ export const getArguments = (field: FieldNode | DirectiveNode, options?: Request
     return undefined;
   }
 
-  const args: PlainObject = {};
+  const args: PlainObject<unknown> = {};
 
   for (const { name, value } of field.arguments) {
     if (getKind(value) === Kind.VARIABLE && options?.variables) {

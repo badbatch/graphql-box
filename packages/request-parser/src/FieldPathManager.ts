@@ -5,7 +5,6 @@ import { buildFieldResponsePath } from '#helpers/buildFieldResponsePath.ts';
 import { connectionIteratorCallback } from '#helpers/connectionIteratorCallback.ts';
 import { explodePathParts } from '#helpers/explodePathParts.ts';
 import { getPathParts } from '#helpers/getPathParts.ts';
-import { populateFieldArgs } from '#helpers/populateFieldArgs.ts';
 import { type Ancestor, type CalculateIteratorCallback } from '#types.ts';
 
 export type FieldPathMetadata = {
@@ -24,7 +23,6 @@ export type AddPathOptions = {
   isTypeDefList: boolean;
   isTypeScalar: boolean;
   typeName?: string;
-  variables?: Record<string, unknown>;
 };
 
 export class FieldPathManager {
@@ -34,26 +32,26 @@ export class FieldPathManager {
   public addPath(
     field: FieldNode,
     ancestors: readonly Ancestor[],
-    { isTypeDefList, isTypeScalar, typeName, variables }: AddPathOptions,
+    { isTypeDefList, isTypeScalar, typeName }: AddPathOptions,
   ): void {
     const ancestorFieldNames = buildAncestorFieldNames(ancestors);
     const parentFieldPath = ancestorFieldNames.join('.');
     const parentFieldPathMetadata = this._fieldPaths[parentFieldPath];
     const fieldName = getAlias(field) ?? field.name.value;
-    const populatedFieldArgs = populateFieldArgs(getArguments(field), variables);
+    const fieldArgs = getArguments(field);
 
     const iterations = this._calculateIteratorCallback({
+      fieldArgs,
       fieldTypeName: typeName,
       isFieldTypeList: isTypeDefList,
-      variables,
     });
 
     const fieldOperationPath = buildFieldOperationPath(fieldName, parentFieldPath);
 
     const fieldCachePath = buildFieldCachePath(
-      fieldName,
+      field.name.value,
       parentFieldPathMetadata?.cachePath,
-      populatedFieldArgs,
+      fieldArgs,
       iterations,
     );
 

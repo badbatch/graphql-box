@@ -1,9 +1,6 @@
 import { type CacheManagerDef } from '@graphql-box/cache-manager';
 import {
-  type CacheMetadata,
   type DebugManagerDef,
-  type PartialRequestResult,
-  type PlainObject,
   type RequestContext,
   type RequestData,
   type RequestManagerDef,
@@ -22,11 +19,6 @@ export interface UserOptions {
    */
   debugManager?: DebugManagerDef;
   /**
-   * Enable support for defer and stream directives. Based on version
-   * of spec in 16.1.0-experimental-stream-defer.6
-   */
-  experimentalDeferStreamSupport?: boolean;
-  /**
    * The request manager.
    */
   requestManager: RequestManagerDef;
@@ -39,16 +31,6 @@ export interface UserOptions {
    */
   subscriptionsManager?: SubscriptionsManagerDef;
 }
-
-export type PendingQueryResolver = (value: PartialRequestResult) => void;
-
-export interface PendingQueryData {
-  context: RequestContext;
-  options: RequestOptions;
-  requestData: RequestData;
-  resolve: PendingQueryResolver;
-}
-
 export interface ActiveQueryData {
   context: RequestContext;
   options: RequestOptions;
@@ -56,11 +38,5 @@ export interface ActiveQueryData {
 }
 
 export interface QueryTracker {
-  active: ActiveQueryData[];
-  pending: Map<string, PendingQueryData[]>;
-}
-
-export interface FilteredDataAndCacheMetadata {
-  filteredCacheMetadata: CacheMetadata;
-  filteredData: PlainObject;
+  activeQueries: ActiveQueryData[];
 }

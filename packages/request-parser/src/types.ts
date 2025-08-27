@@ -1,99 +1,72 @@
-import { type FieldTypeMap, type PossibleType, type RequestContext, type RequestOptions } from '@graphql-box/core';
+import { type Maybe, type PlainObject, type RequestContext, type RequestOptions } from '@graphql-box/core';
 import { type ParsedDirective } from '@graphql-box/helpers';
 import {
   type ASTNode,
+  type DirectiveNode,
   type DocumentNode,
   type FieldNode,
+  type FragmentSpreadNode,
+  type GraphQLNamedType,
   type GraphQLSchema,
   type IntrospectionQuery,
-  type OperationTypeNode,
 } from 'graphql';
-import { type FieldPathManager } from '#FieldPathManager.ts';
-
-export type CalculateIteratorCallbackOptions<T extends Record<string, unknown>> = {
-  fieldTypeName?: string | undefined;
-  isFieldTypeList?: boolean | undefined;
-  variables?: T | undefined;
-};
-
-export type CalculateIteratorCallback = <T extends Record<string, unknown>>(
-  options: CalculateIteratorCallbackOptions<T>,
-) => number | undefined;
-
-export interface UserOptions {
-  /**
-   * Output of an introspection query.
-   */
-  introspection?: IntrospectionQuery;
-
-  /**
-   * The maximum request field depth per request.
-   */
-  maxFieldDepth?: number;
-
-  /**
-   * The maximum type cost per request.
-   */
-  maxTypeComplexity?: number;
-
-  /**
-   * A GraphQL schema.
-   */
-  schema?: GraphQLSchema;
-
-  /**
-   * The cost of requesting a type.
-   */
-  typeComplexityMap?: Record<string, number>;
-
-  /**
-   * The name of the property that's value is used as the unique
-   * identifier for each type in the GraphQL schema.
-   */
-  typeIDKey?: string;
-}
-
-export interface UpdateRequestResult {
-  ast: DocumentNode;
-  request: string;
-}
-
-export interface RequestParserDef {
-  updateRequest(request: string, options: RequestOptions, context: RequestContext): UpdateRequestResult;
-}
+import { type Jsonifiable } from 'type-fest';
 
 export type Ancestor = ASTNode | readonly ASTNode[];
 
-export interface Ancestors {
-  ancestors: readonly Ancestor[];
-  key: string | number | undefined;
-}
+export type CalculateIteratorCallbackOptions<T extends Record<string, unknown> = Record<string, unknown>> = {
+  fieldArgs?: T | undefined;
+  fieldTypeName?: string | undefined;
+  isFieldTypeList?: boolean | undefined;
+};
 
-export interface MapFieldToTypeData {
-  ancestors: readonly Ancestor[];
-  directives: {
-    inherited: string[];
-    own: string[];
-  };
-  fieldNode: FieldNode;
-  isEntity: boolean;
-  isInterface: boolean;
-  isUnion: boolean;
-  possibleTypes: PossibleType[];
-  typeIDKey: string;
-  typeName: string;
-}
+export type CalculateIteratorCallback<T extends Record<string, unknown> = Record<string, unknown>> = (
+  options: CalculateIteratorCallbackOptions<T>,
+) => number | undefined;
+
+export type DirectiveParser<T extends PlainObject<Jsonifiable> = PlainObject<Jsonifiable>> = (
+  node: FieldNode | FragmentSpreadNode,
+  directive: DirectiveNode,
+  variables: T,
+  // Return type needs to match the GraphQL return type.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+) => any;
 
 export type PathPart = [part: string, count: number] | string;
 
 export type PersistedFragmentSpread = [string, ParsedDirective[], Ancestor[]];
 
-export interface VisitorContext {
-  experimentalDeferStreamSupport: boolean;
-  fieldPathManager: FieldPathManager;
-  fieldTypeMap: FieldTypeMap;
-  hasDeferOrStream: boolean;
-  operation: OperationTypeNode;
-  operationName: string;
-  persistedFragmentSpreads: PersistedFragmentSpread[];
+export interface RequestParserDef {
+  updateRequest(request: string, options: RequestOptions, context: RequestContext): UpdateRequestResult;
 }
+
+export type UpdateRequestResult = {
+  ast: DocumentNode;
+  hash: string;
+  request: string;
+};
+
+export type UserOptions = {
+  /**
+   * Output of an introspection query.
+   */
+  introspection?: IntrospectionQuery;
+  /**
+   * The maximum request field depth per request.
+   */
+  maxFieldDepth?: number;
+  /**
+   * The maximum type cost per request.
+   */
+  maxTypeComplexity?: number;
+  /**
+   * A GraphQL schema.
+   */
+  schema?: GraphQLSchema;
+  /**
+   * The cost of requesting a type.
+   */
+  typeComplexityMap?: Record<string, number>;
+};
+
+export type VariableTypesMap = Record<string, Maybe<GraphQLNamedType>>;

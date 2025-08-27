@@ -1,7 +1,6 @@
-import { isKind } from '@graphql-box/helpers';
-import { isAncestorAstNode } from '@graphql-box/helpers/src/isAncestorAstNode.ts';
+import { isAncestorAstNode, isKind } from '@graphql-box/helpers';
 import { type FieldNode, Kind } from 'graphql';
-import { type Ancestor } from '../types.ts';
+import { type Ancestor } from '#types.ts';
 
 export const getFieldsFromAncestors = (ancestors: Ancestor[]) => {
   return ancestors.reduce((fields: FieldNode[], ancestor) => {

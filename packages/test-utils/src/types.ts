@@ -1,29 +1,8 @@
-import {
-  type DehydratedCacheMetadata,
-  type PlainObject,
-  type RawResponseDataWithMaybeCacheMetadata,
-} from '@graphql-box/core';
+import { type RequestOptions } from '@graphql-box/core';
 
 export interface RequestAndOptions {
-  options: PlainObject;
+  options: RequestOptions;
   request: string;
-}
-
-export interface ParsedQuerySet {
-  full: string;
-  initial: string;
-  updated: string;
-}
-
-export interface PartialQueryResponse {
-  cacheMetadata: DehydratedCacheMetadata;
-  data: PlainObject;
-}
-
-export interface QueryResponseSet {
-  initial: RawResponseDataWithMaybeCacheMetadata;
-  partial: PartialQueryResponse;
-  updated: RawResponseDataWithMaybeCacheMetadata | RawResponseDataWithMaybeCacheMetadata[];
 }
 
 export interface Inbox {

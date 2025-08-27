@@ -1,4 +1,4 @@
-import { type PartialRequestResult } from '@graphql-box/core';
+import { type ResponseData } from '@graphql-box/core';
 import { EventAsyncIterator } from '@graphql-box/helpers';
 import { EventEmitter } from 'eventemitter3';
 
@@ -8,7 +8,7 @@ export const publish = (eventName: string, payload: unknown): void => {
   eventEmitter.emit(eventName, payload);
 };
 
-export const subscribe = (eventName: string): AsyncIterator<PartialRequestResult | undefined> => {
-  const eventAsyncIterator = new EventAsyncIterator<PartialRequestResult>(eventEmitter, eventName);
+export const subscribe = (eventName: string): AsyncIterator<ResponseData | undefined> => {
+  const eventAsyncIterator = new EventAsyncIterator<ResponseData>(eventEmitter, eventName);
   return eventAsyncIterator.getIterator();
 };

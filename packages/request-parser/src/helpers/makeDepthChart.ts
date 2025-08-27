@@ -1,8 +1,8 @@
-import { type Ancestor } from '../types.ts';
+import { type Ancestor } from '#types.ts';
 import { getFieldsFromAncestors } from './getFieldsFromAncestors.ts';
 import { getRequestPathFromAncestors } from './getRequestPathFromAncestors.ts';
 
-export const makeDepthChart = (ancestorsList: Ancestor[][]) => {
+export const makeDepthChart = (ancestorsList: Ancestor[][]): Record<string, number> => {
   return ancestorsList.reduce((acc: Record<string, number>, ancestors) => {
     const requestPath = getRequestPathFromAncestors(ancestors);
     const fields = getFieldsFromAncestors(ancestors);

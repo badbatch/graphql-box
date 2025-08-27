@@ -1,10 +1,10 @@
 import { type GraphQLNamedType, type GraphQLOutputType } from 'graphql';
 
-export const isTypeEntity = (type: GraphQLNamedType | GraphQLOutputType, typeIDKey: string) => {
+export const isTypeEntity = (type: GraphQLNamedType | GraphQLOutputType) => {
   if (!('getFields' in type)) {
     return false;
   }
 
   const fields = type.getFields();
-  return !!fields[typeIDKey];
+  return !!fields.id;
 };
