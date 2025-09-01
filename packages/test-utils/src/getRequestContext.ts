@@ -1,4 +1,4 @@
-import { type FieldPaths, type PartialRequestContext, type RequestContext } from '@graphql-box/core';
+import { type PartialRequestContext, type RequestContext } from '@graphql-box/core';
 import { OperationTypeNode } from 'graphql';
 import { merge } from 'lodash-es';
 
@@ -15,9 +15,7 @@ export const getRequestContext = (ctx: PartialRequestContext = {}): RequestConte
         requestId: '123456789',
       },
       debugManager: undefined,
-      // Temporary
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      fieldPaths: {} as FieldPaths,
+      fieldPaths: undefined,
     },
     ctx,
   );

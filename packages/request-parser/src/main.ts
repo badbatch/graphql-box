@@ -1,18 +1,17 @@
 import { type RequestContext, type RequestOptions } from '@graphql-box/core';
 import { ArgsError, GroupedError, getOperationDefinitions, hashRequest, isPlainObject } from '@graphql-box/helpers';
-import { GraphQLSchema, buildClientSchema, parse, print, validate } from 'graphql';
+import { GraphQLSchema, buildClientSchema, parse, print } from 'graphql';
 import { assign, isError } from 'lodash-es';
-import { instrumentOperation } from '#helpers/instrumentOperation.js';
-import { parseOperation } from '#helpers/parseOperation.js';
-import { calcTypeComplexity } from './helpers/calcTypeComplexity.ts';
-import { getMaxDepthFromChart } from './helpers/getMaxDepthFromChart.ts';
+import { instrumentOperation } from '#helpers/instrumentOperation.ts';
+import { parseOperation } from '#helpers/parseOperation.ts';
+import { validateOperation } from '#helpers/validateOperation.ts';
 import { type RequestParserDef, type UpdateRequestResult, type UserOptions } from './types.ts';
 
 export class RequestParser implements RequestParserDef {
   private readonly _maxFieldDepth: number;
   private readonly _maxTypeComplexity: number;
   private readonly _schema: GraphQLSchema;
-  private readonly _typeComplexityMap: Record<string, number> | null;
+  private readonly _typeComplexityMap: Record<string, number> | undefined;
 
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
@@ -43,18 +42,11 @@ export class RequestParser implements RequestParserDef {
       throw new GroupedError('@graphql-box/request-parser argument validation errors.', [confirmedError]);
     }
 
-    this._typeComplexityMap = options.typeComplexityMap ?? null;
+    this._typeComplexityMap = options.typeComplexityMap;
   }
 
   public updateRequest(request: string, options: RequestOptions, context: RequestContext): UpdateRequestResult {
-    const updated = this._updateRequest(request, options, context);
-    const errors = validate(this._schema, updated.ast);
-
-    if (errors.length > 0) {
-      throw new GroupedError('@graphql-box/request-parser AST validation errors.', errors);
-    }
-
-    return updated;
+    return this._updateRequest(request, options, context);
   }
 
   private _updateRequest(request: string, options: RequestOptions, context: RequestContext): UpdateRequestResult {
@@ -70,30 +62,21 @@ export class RequestParser implements RequestParserDef {
     }
 
     const parsedAst = parseOperation(ast, this._schema, { query: request, variables: options.variables });
+    const parsedOperation = print(parsedAst);
 
     const { depthChart, fieldPaths, typeList } = instrumentOperation(parsedAst, this._schema, {
-      query: print(parsedAst),
+      query: parsedOperation,
     });
 
-    const maxDepth = getMaxDepthFromChart(depthChart);
-
-    if (maxDepth > this._maxFieldDepth) {
-      throw new Error(
-        `@graphql-box/request-parser >> request field depth of ${String(maxDepth)} exceeded max field depth of ${String(this._maxFieldDepth)}`,
-      );
-    }
-
-    let typeComplexity: number | null = null;
-
-    if (this._typeComplexityMap) {
-      typeComplexity = calcTypeComplexity(typeList, this._typeComplexityMap);
-
-      if (typeComplexity > this._maxTypeComplexity) {
-        throw new Error(
-          `@graphql-box/request-parser >> request type complexity of ${String(typeComplexity)} exceeded max type complexity of ${String(this._maxTypeComplexity)}`,
-        );
-      }
-    }
+    validateOperation({
+      ast: parsedAst,
+      depthChart,
+      maxFieldDepth: this._maxFieldDepth,
+      maxTypeComplexity: this._maxTypeComplexity,
+      schema: this._schema,
+      typeComplexityMap: this._typeComplexityMap,
+      typeList,
+    });
 
     assign(context, {
       data: assign(context.data, {
@@ -103,7 +86,10 @@ export class RequestParser implements RequestParserDef {
       fieldPaths,
     });
 
-    const updatedOperation = print(parsedAst);
-    return { ast: parsedAst, hash: hashRequest(updatedOperation), request: updatedOperation };
+    return {
+      ast: parsedAst,
+      hash: hashRequest(parsedOperation),
+      request: parsedOperation,
+    };
   }
 }

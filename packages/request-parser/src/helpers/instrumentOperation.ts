@@ -2,7 +2,6 @@ import { hasChildFields, isKind, unwrapOfType } from '@graphql-box/helpers';
 import {
   type DocumentNode,
   type FieldNode,
-  type GraphQLOutputType,
   type GraphQLSchema,
   Kind,
   TypeInfo,
@@ -24,7 +23,7 @@ export type InstrumentOperationOptions = {
 export type InstrumentOperationResult = {
   depthChart: Record<string, number>;
   fieldPaths: Record<string, LeafFieldPathMetadata>;
-  typeList: GraphQLOutputType[];
+  typeList: string[];
 };
 
 export const instrumentOperation = (
@@ -38,7 +37,7 @@ export const instrumentOperation = (
     return instrumentedOperationCache[operationHash];
   }
 
-  const typeList: GraphQLOutputType[] = [];
+  const typeList: string[] = [];
   const depthChartAncestorsList: Ancestor[][] = [];
   const fieldPathManager = new FieldPathManager();
   const typeInfo = new TypeInfo(schema);
@@ -56,8 +55,8 @@ export const instrumentOperation = (
             return false;
           }
 
-          if (unwrappedType) {
-            typeList.push(unwrappedType);
+          if (unwrappedType && 'name' in unwrappedType) {
+            typeList.push(unwrappedType.name);
           }
 
           if (!hasChildFields(node)) {

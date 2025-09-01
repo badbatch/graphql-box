@@ -14,15 +14,12 @@ import { type Jsonifiable } from 'type-fest';
 
 export type Ancestor = ASTNode | readonly ASTNode[];
 
-export type CalculateIteratorCallbackOptions<T extends Record<string, unknown> = Record<string, unknown>> = {
-  fieldArgs?: T | undefined;
-  fieldTypeName?: string | undefined;
-  isFieldTypeList?: boolean | undefined;
+export type ConnectionInputOptions = {
+  after?: string;
+  before?: string;
+  first?: number;
+  last?: number;
 };
-
-export type CalculateIteratorCallback<T extends Record<string, unknown> = Record<string, unknown>> = (
-  options: CalculateIteratorCallbackOptions<T>,
-) => number | undefined;
 
 export type DirectiveParser<T extends PlainObject<Jsonifiable> = PlainObject<Jsonifiable>> = (
   node: FieldNode | FragmentSpreadNode,

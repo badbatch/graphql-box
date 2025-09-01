@@ -1,4 +1,4 @@
-export const singleTypeQuery = `
+export const query = `
   {
     organization(login: "facebook") {
       email
@@ -9,7 +9,7 @@ export const singleTypeQuery = `
   }
 `;
 
-export const singleTypeQueryWithAlias = `
+export const queryWithAlias = `
   {
     organization(login: "facebook") {
       email
@@ -20,7 +20,7 @@ export const singleTypeQueryWithAlias = `
   }
 `;
 
-export const singleTypeQueryWithIncludeTrueDirective = `
+export const queryWithIncludeTrueDirective = `
   {
     organization(login: "facebook") {
       email @include(if: true)
@@ -31,7 +31,7 @@ export const singleTypeQueryWithIncludeTrueDirective = `
   }
 `;
 
-export const singleTypeQueryWithIncludeFalseDirective = `
+export const queryWithIncludeFalseDirective = `
   {
     organization(login: "facebook") {
       email @include(if: false)
@@ -42,7 +42,7 @@ export const singleTypeQueryWithIncludeFalseDirective = `
   }
 `;
 
-export const singleTypeQueryWithSkipTrueDirective = `
+export const queryWithSkipTrueDirective = `
   {
     organization(login: "facebook") {
       email @skip(if: true)
@@ -53,7 +53,7 @@ export const singleTypeQueryWithSkipTrueDirective = `
   }
 `;
 
-export const singleTypeQueryWithSkipFalseDirective = `
+export const queryWithSkipFalseDirective = `
   {
     organization(login: "facebook") {
       email @skip(if: false)
@@ -64,7 +64,7 @@ export const singleTypeQueryWithSkipFalseDirective = `
   }
 `;
 
-export const singleTypeQueryWithInlineFragment = `
+export const queryWithInlineFragment = `
   {
     organization(login: "facebook") {
       email
@@ -77,7 +77,7 @@ export const singleTypeQueryWithInlineFragment = `
   }
 `;
 
-export const singleTypeQueryWithInlineFragmentWithNoTypeCondition = `
+export const queryWithInlineFragmentWithNoTypeCondition = `
   {
     organization(login: "facebook") {
       email
@@ -90,7 +90,7 @@ export const singleTypeQueryWithInlineFragmentWithNoTypeCondition = `
   }
 `;
 
-export const nestedTypeQuery = `
+export const queryWithConnection = `
   {
     organization(login: "facebook") {
       description
@@ -104,20 +104,9 @@ export const nestedTypeQuery = `
             homepageUrl
             name
             id
-            owner {
-              login
-              url
-              ... on Organization {
-                name
-                id
-              }
-              __typename
-            }
           }
         }
       }
-      url
-      id
     }
   }
 `;

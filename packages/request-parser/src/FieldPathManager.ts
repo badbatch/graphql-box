@@ -2,13 +2,15 @@ import { buildAncestorFieldNames, buildFieldOperationPath, getAlias, getArgument
 import { type FieldNode } from 'graphql';
 import { buildFieldCachePath } from '#helpers/buildFieldCachePath.ts';
 import { buildFieldResponsePath } from '#helpers/buildFieldResponsePath.ts';
-import { connectionIteratorCallback } from '#helpers/connectionIteratorCallback.ts';
 import { explodePathParts } from '#helpers/explodePathParts.ts';
+import { getConnectionIterations } from '#helpers/getConnectionIterations.ts';
+import { getEdgeIterations } from '#helpers/getEdgeIterations.ts';
 import { getPathParts } from '#helpers/getPathParts.ts';
-import { type Ancestor, type CalculateIteratorCallback } from '#types.ts';
+import { type Ancestor } from '#types.ts';
 
 export type FieldPathMetadata = {
   cachePath: string;
+  connectionIterations?: number;
   isTypeDefList: boolean;
   isTypeScalar: boolean;
   responsePath: string;
@@ -26,7 +28,6 @@ export type AddPathOptions = {
 };
 
 export class FieldPathManager {
-  private _calculateIteratorCallback: CalculateIteratorCallback = connectionIteratorCallback;
   private _fieldPaths: Record<string, FieldPathMetadata> = {};
 
   public addPath(
@@ -39,14 +40,8 @@ export class FieldPathManager {
     const parentFieldPathMetadata = this._fieldPaths[parentFieldPath];
     const fieldName = getAlias(field) ?? field.name.value;
     const fieldArgs = getArguments(field);
-
-    const iterations = this._calculateIteratorCallback({
-      fieldArgs,
-      fieldTypeName: typeName,
-      isFieldTypeList: isTypeDefList,
-    });
-
     const fieldOperationPath = buildFieldOperationPath(fieldName, parentFieldPath);
+    const iterations = getEdgeIterations(typeName, parentFieldPathMetadata);
 
     const fieldCachePath = buildFieldCachePath(
       field.name.value,
@@ -59,6 +54,7 @@ export class FieldPathManager {
 
     this._fieldPaths[fieldOperationPath] = {
       cachePath: fieldCachePath,
+      connectionIterations: getConnectionIterations(typeName, fieldArgs),
       isTypeDefList,
       isTypeScalar,
       responsePath: fieldResponsePath,

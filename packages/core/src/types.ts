@@ -115,7 +115,7 @@ export type RequestContextData = PlainObject & {
 export type RequestContext = {
   data: RequestContextData;
   debugManager: DebugManagerDef | undefined;
-  fieldPaths: FieldPaths;
+  fieldPaths: FieldPaths | undefined;
 };
 
 export type RequestData = {
