@@ -4,7 +4,7 @@ import { Client } from '@graphql-box/client';
 import { type GraphqlEnv } from '@graphql-box/core';
 import { DebugManager } from '@graphql-box/debug-manager';
 import { FetchManager } from '@graphql-box/fetch-manager';
-import { RequestParser } from '@graphql-box/request-parser';
+import { RequestParser } from '../../packages/operation-parser';
 import { URL } from '../constants.ts';
 import { type InitClientOptions } from '../types.ts';
 

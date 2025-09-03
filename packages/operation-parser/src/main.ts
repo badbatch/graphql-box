@@ -1,0 +1,102 @@
+import { type OperationContext, type OperationOptions } from '@graphql-box/core';
+import { ArgsError, GroupedError, getOperationDefinitions, hashRequest, isPlainObject } from '@graphql-box/helpers';
+import { GraphQLSchema, buildClientSchema, parse, print } from 'graphql';
+import { assign, isError } from 'lodash-es';
+import { calcTypeComplexity } from '#helpers/calcTypeComplexity.ts';
+import { getMaxFieldDepthFromChart } from '#helpers/getMaxFieldDepthFromChart.ts';
+import { instrumentOperation } from '#helpers/instrumentOperation.ts';
+import { parseOperation } from '#helpers/parseOperation.ts';
+import { validateOperation } from '#helpers/validateOperation.ts';
+import { type OperationParserDef, type UpdateOperationResult, type UserOptions } from './types.ts';
+
+export class OperationParser implements OperationParserDef {
+  private readonly _maxFieldDepth: number;
+  private readonly _maxTypeComplexity: number;
+  private readonly _schema: GraphQLSchema;
+  private readonly _typeComplexityMap: Record<string, number> | undefined;
+
+  constructor(options: UserOptions) {
+    const errors: ArgsError[] = [];
+
+    if (!isPlainObject(options.introspection) && !(options.schema instanceof GraphQLSchema)) {
+      const message =
+        '@graphql-box/operation-parser expected introspection to be an object or schema to be a GraphQLSchema';
+
+      errors.push(new ArgsError(message));
+    }
+
+    if (errors.length > 0) {
+      throw new GroupedError('@graphql-box/operation-parser argument validation errors.', errors);
+    }
+
+    this._maxFieldDepth = options.maxFieldDepth ?? Number.POSITIVE_INFINITY;
+    this._maxTypeComplexity = options.maxTypeComplexity ?? Number.POSITIVE_INFINITY;
+
+    try {
+      // At this point either introspection or schema has to be defined.
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      this._schema = options.introspection ? buildClientSchema(options.introspection) : options.schema!;
+    } catch (error) {
+      const confirmedError = isError(error)
+        ? error
+        : new ArgsError('@graphql-box/operation-parser expected introspection to be converted into a valid schema.');
+
+      throw new GroupedError('@graphql-box/operation-parser argument validation errors.', [confirmedError]);
+    }
+
+    this._typeComplexityMap = options.typeComplexityMap;
+  }
+
+  public update(operation: string, options: OperationOptions, context: OperationContext): UpdateOperationResult {
+    return this._update(operation, options, context);
+  }
+
+  private _update(operation: string, options: OperationOptions, context: OperationContext): UpdateOperationResult {
+    const operationtWithFragments = options.fragments ? [operation, ...options.fragments].join('\n\n') : operation;
+    const ast = parse(operationtWithFragments);
+    const operationDefinitions = getOperationDefinitions(ast);
+    const [operationDefinition] = operationDefinitions;
+
+    if (!operationDefinition || operationDefinitions.length > 1) {
+      throw new Error(
+        `@graphql-box/operation-parser expected one operation, but got ${String(operationDefinitions.length)}.`,
+      );
+    }
+
+    const parsedAst = parseOperation(ast, this._schema, { operation, variables: options.variables });
+    const parsedOperation = print(parsedAst);
+
+    const { depthChart, fieldPaths, typeList } = instrumentOperation(parsedAst, this._schema, {
+      operation: parsedOperation,
+      operationType: context.data.operationType,
+    });
+
+    const fieldDepth = getMaxFieldDepthFromChart(depthChart);
+    const typeComplexity = this._typeComplexityMap ? calcTypeComplexity(typeList, this._typeComplexityMap) : undefined;
+
+    validateOperation({
+      ast: parsedAst,
+      fieldDepth,
+      maxFieldDepth: this._maxFieldDepth,
+      maxTypeComplexity: this._maxTypeComplexity,
+      schema: this._schema,
+      typeComplexity,
+    });
+
+    assign(context, {
+      data: assign(context.data, {
+        operationMaxFieldDepth: fieldDepth,
+        operationName: operationDefinition.name?.value ?? '',
+        operationType: operationDefinition.operation,
+        operationTypeComplexity: typeComplexity,
+      }),
+      fieldPaths,
+    });
+
+    return {
+      ast: parsedAst,
+      hash: hashRequest(parsedOperation),
+      operation: parsedOperation,
+    };
+  }
+}

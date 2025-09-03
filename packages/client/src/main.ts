@@ -13,11 +13,11 @@ import {
   type ResponseData,
 } from '@graphql-box/core';
 import { ArgsError, GroupedError, hashRequest, isArray, isPlainObject } from '@graphql-box/helpers';
-import { type RequestParserDef } from '@graphql-box/request-parser';
 import { OperationTypeNode } from 'graphql';
 import { isAsyncIterable } from 'iterall';
 import { isError, isString } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
+import { type RequestParserDef } from '../../operation-parser';
 import { logPendingQuery } from './debug/logPendingQuery.ts';
 import { logRequest } from './debug/logRequest.ts';
 import { filterResponseData } from './helpers/filterResponseData.ts';
@@ -42,7 +42,7 @@ export class Client {
     return result;
   }
 
-  private static _validateRequestArguments(query: string, options: RequestOptions): ArgsError[] {
+  private static _validateOperationArguments(query: string, options: RequestOptions): ArgsError[] {
     const errors: ArgsError[] = [];
 
     if (!isString(query)) {
@@ -104,22 +104,22 @@ export class Client {
   }
 
   public async query<T extends PlainObject = PlainObject>(
-    request: string,
+    operation: string,
     options: RequestOptions = {},
     context: PartialRequestContext = {},
   ): Promise<ResponseData<T>> {
-    const requestContext = this._buildRequestContext(OperationTypeNode.QUERY, request, options, context);
-    const errors = Client._validateRequestArguments(request, options);
+    const requestContext = this._buildOperationContext(OperationTypeNode.QUERY, operation, options, context);
+    const errors = Client._validateOperationArguments(operation, options);
 
     if (errors.length > 0) {
       throw new GroupedError('@graphql-box/client argument validation errors.', errors);
     }
 
-    const requestData = this._requestParser.updateRequest(request, options, requestContext);
+    const operationData = this._operationParser.update(operation, options, requestContext);
     return this._handleQuery(requestData, options, requestContext);
   }
 
-  private _buildRequestContext(
+  private _buildOperationContext(
     operation: OperationTypeNode,
     request: string,
     options: RequestOptions,
@@ -131,11 +131,10 @@ export class Client {
         ...context.data,
         batched: options.batch,
         operation,
+        operationMaxFieldDepth: undefined,
         operationName: '',
-        originalRequestHash: hashRequest(request),
-        queryFiltered: false,
-        requestComplexity: undefined,
-        requestDepth: undefined,
+        operationTypeComplexity: undefined,
+        originalOperationHash: hashRequest(request),
         requestId: uuid(),
         tag: options.tag,
         variables: options.variables,

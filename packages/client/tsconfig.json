@@ -14,7 +14,7 @@
       "path": "../helpers"
     },
     {
-      "path": "../request-parser"
+      "path": "../operation-parser"
     },
     {
       "path": "../test-utils"

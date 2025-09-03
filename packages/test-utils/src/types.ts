@@ -1,8 +1,8 @@
-import { type RequestOptions } from '@graphql-box/core';
+import { type OperationOptions } from '@graphql-box/core';
 
-export interface RequestAndOptions {
-  options: RequestOptions;
-  request: string;
+export interface RawOperationAndOptions {
+  operation: string;
+  options: OperationOptions;
 }
 
 export interface Inbox {

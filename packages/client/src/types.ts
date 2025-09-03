@@ -7,7 +7,7 @@ import {
   type RequestOptions,
   type SubscriptionsManagerDef,
 } from '@graphql-box/core';
-import { type RequestParserDef } from '@graphql-box/request-parser';
+import { type RequestParserDef } from '../../operation-parser';
 
 export interface UserOptions {
   /**

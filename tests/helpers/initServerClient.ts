@@ -6,9 +6,9 @@ import { Client } from '@graphql-box/client';
 import { type GraphqlEnv } from '@graphql-box/core';
 import { DebugManager } from '@graphql-box/debug-manager';
 import { Execute } from '@graphql-box/execute';
-import { RequestParser } from '@graphql-box/request-parser';
 import { Subscribe } from '@graphql-box/subscribe';
 import { resolvers, typeDefs } from '@graphql-box/test-utils';
+import { RequestParser } from '../../packages/operation-parser';
 import { type InitServerOptions } from '../types.ts';
 
 const schema = makeExecutableSchema({

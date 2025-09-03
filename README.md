@@ -54,7 +54,7 @@ GraphQL Box's multi-package structure allows you to compose your client and serv
 * [@graphql-box/gql.macro](packages/gql.macro/README.md)
 * [@graphql-box/helpers](packages/helpers/README.md)
 * [@graphql-box/react](packages/react/README.md)
-* [@graphql-box/request-parser](packages/request-parser/README.md)
+* [@graphql-box/request-parser](packages/operation-parser/README.md)
 * [@graphql-box/server](packages/server/README.md)
 * [@graphql-box/subscribe](packages/subscribe/README.md)
 * [@graphql-box/websocket-manager](packages/websocket-manager/README.md)
@@ -199,7 +199,7 @@ The `RequestParser` takes the request string, fragments and variables from the `
 
 In the browser, the `RequestParser` uses the result of an introspection query of the GraphQL schema to parse each request.
 
-> For a full list of configuration options, see the `@graphql-box/request-parser` [documentation](./packages/request-parser/README.md).
+> For a full list of configuration options, see the `@graphql-box/request-parser` [documentation](packages/operation-parser/README.md).
 
 #### WebsocketManager
 
@@ -352,7 +352,7 @@ The `schema` is made up of GraphQL type definitions of each data structure and a
 
 On the server, the `RequestParser` uses the the GraphQL schema rather than the result of an introspection query of the schema.
 
-> For a full list of configuration options, see the `@graphql-box/request-parser` [documentation](./packages/request-parser/README.md).
+> For a full list of configuration options, see the `@graphql-box/request-parser` [documentation](packages/operation-parser/README.md).
 
 #### Subscribe
 

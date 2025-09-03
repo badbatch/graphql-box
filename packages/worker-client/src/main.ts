@@ -20,11 +20,11 @@ import {
   isPlainObject,
   rehydrateCacheMetadata,
 } from '@graphql-box/helpers';
-import { type RequestParserDef } from '@graphql-box/request-parser';
 import { EventEmitter } from 'eventemitter3';
 import { OperationTypeNode } from 'graphql';
 import { isError, merge } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
+import { type RequestParserDef } from '../../operation-parser';
 import { GRAPHQL_BOX, MESSAGE, REQUEST, SUBSCRIBE } from './constants.ts';
 import { logRequest } from './debug/logRequest.ts';
 import { logSubscription } from './debug/logSubscription.ts';

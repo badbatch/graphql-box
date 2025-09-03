@@ -45,10 +45,11 @@ export type ExecutionContextValue = PlainObject & {
 };
 
 export type ExecutionContextValueData = PlainObject & {
+  operationMaxFieldDepth: number | undefined;
   operationName: string;
-  originalRequestHash: string;
-  requestComplexity: number | null;
-  requestDepth: number | null;
+  operationType: OperationTypeNode;
+  operationTypeComplexity: number | undefined;
+  originalOperationHash: string;
   requestId: string;
 };
 
@@ -74,7 +75,7 @@ export type GraphqlStep =
   | 'subscription_resolved';
 
 export type LogData = {
-  data: RequestContextData;
+  data: OperationContextData;
   error?: ErrorObject;
   stats?: {
     duration?: number;
@@ -87,7 +88,7 @@ export type LogLevel = 'error' | 'warn' | 'info' | 'verbose';
 
 export type Maybe<T> = null | undefined | T;
 
-export type PartialRequestContext = PartialDeep<RequestContext>;
+export type PartialOperationContext = PartialDeep<OperationContext>;
 
 // Needs to be kept as generic as possible, only used internally
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -101,39 +102,38 @@ export type PlainData<T = any> = PlainObject<T> | PlainArray<T>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PlainObject<T = any> = Record<string, T>;
 
-export type RequestContextData = PlainObject & {
+export type OperationContextData = PlainObject & {
   initiator?: string;
-  operation: OperationTypeNode;
+  operationId: string;
+  operationMaxFieldDepth: number | undefined;
   operationName: string;
-  originalRequestHash: string;
-  queryFiltered: boolean;
-  requestComplexity: number | undefined;
-  requestDepth: number | undefined;
-  requestId: string;
+  operationType: OperationTypeNode;
+  operationTypeComplexity: number | undefined;
+  originalOperationHash: string;
 };
 
-export type RequestContext = {
-  data: RequestContextData;
+export type OperationContext = {
+  data: OperationContextData;
   debugManager: DebugManagerDef | undefined;
   fieldPaths: FieldPaths | undefined;
 };
 
-export type RequestData = {
+export type OperationData = {
   ast: DocumentNode;
   hash: string;
-  request: string;
+  operation: string;
 };
 
-export interface RequestManagerDef {
+export interface OperationManagerDef {
   execute(
-    requestData: RequestData,
-    options: RequestOptions,
-    context: RequestContext,
-    executeResolver: RequestResolver,
+    operationData: OperationData,
+    options: OperationOptions,
+    context: OperationContext,
+    executeResolver: OperationResolver,
   ): Promise<ResponseData>;
 }
 
-export type RequestOptions = {
+export type OperationOptions = {
   /**
    * Whether to batch the request. This defaults to the
    * batchRequest value set in @graphql-box/fetch-manager.
@@ -157,7 +157,7 @@ export type RequestOptions = {
   variables?: PlainObject;
 };
 
-export type RequestResolver = (responseData: ResponseData) => Promise<ResponseData>;
+export type OperationResolver = (responseData: ResponseData) => Promise<ResponseData>;
 
 export type ResponseData<T extends PlainObject = PlainObject> = {
   __cacheMetadata?: CacheMetadata;
@@ -211,9 +211,9 @@ export type SubscriberResolver = (responseData: ResponseData) => Promise<Respons
 
 export interface SubscriptionsManagerDef {
   subscribe(
-    requestData: RequestData,
-    options: RequestOptions,
-    context: RequestContext,
+    requestData: OperationData,
+    options: OperationOptions,
+    context: OperationContext,
     subscriberResolver: SubscriberResolver,
   ): Promise<AsyncIterator<ResponseData>>;
 }

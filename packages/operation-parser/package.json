@@ -1,0 +1,69 @@
+{
+  "name": "@graphql-box/operation-parser",
+  "description": "The GraphQL Box operation parser module.",
+  "version": "5.4.13",
+  "author": "miami-man",
+  "license": "MIT",
+  "homepage": "https://github.com/badbatch/graphql-box",
+  "repository": {
+    "directory": "packages/operation-parser",
+    "type": "git",
+    "url": "https://github.com/badbatch/graphql-box"
+  },
+  "bugs": "https://github.com/badbatch/graphql-box/issues",
+  "type": "module",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/types/cjs/index.d.cts",
+  "imports": {
+    "#*": "./src/*"
+  },
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/types/esm/index.d.ts",
+        "require": "./dist/types/cjs/index.d.cts"
+      },
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "pnpm run clean:dist && pnpm run compile",
+    "clean:deps": "del-cli ./node_modules",
+    "clean:dist": "del-cli ./dist",
+    "compile": "pnpm run /^compile:.*/",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.mjs",
+    "compile:esm": "rollup -c ../../rollup.config.mjs",
+    "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
+  },
+  "dependencies": {
+    "@graphql-box/core": "workspace:*",
+    "@graphql-box/helpers": "workspace:*",
+    "@types/lodash-es": "^4.17.12",
+    "core-js": "^3.43.0",
+    "lodash-es": "^4.17.21",
+    "type-fest": "^4.41.0"
+  },
+  "peerDependencies": {
+    "graphql": "<17"
+  },
+  "devDependencies": {
+    "@graphql-box/test-utils": "workspace:*",
+    "@graphql-tools/schema": "^10.0.23",
+    "@jest/globals": "^29.3.1",
+    "cts-types": "^0.0.10",
+    "del-cli": "^6.0.0",
+    "graphql": "^16.11.0"
+  },
+  "keywords": [
+    "client",
+    "graphql",
+    "graphql-box",
+    "isomorphic",
+    "server"
+  ]
+}

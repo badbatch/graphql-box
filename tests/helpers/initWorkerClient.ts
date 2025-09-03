@@ -5,8 +5,8 @@ import { camelCase } from 'lodash-es';
 import { CacheManager } from '@graphql-box/cache-manager';
 import { type GraphqlEnv } from '@graphql-box/core';
 import { DebugManager } from '@graphql-box/debug-manager';
-import { RequestParser } from '@graphql-box/request-parser';
 import { WorkerClient } from '@graphql-box/worker-client';
+import { RequestParser } from '../../packages/operation-parser';
 import { type InitWorkerClientOptions } from '../types.ts';
 
 const { performance } = globalThis;
