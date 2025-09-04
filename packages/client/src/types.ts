@@ -1,13 +1,13 @@
 import { type CacheManagerDef } from '@graphql-box/cache-manager';
 import {
   type DebugManagerDef,
-  type RequestContext,
-  type RequestData,
+  type OperationContext,
+  type OperationData,
+  type OperationOptions,
   type RequestManagerDef,
-  type RequestOptions,
   type SubscriptionsManagerDef,
 } from '@graphql-box/core';
-import { type RequestParserDef } from '../../operation-parser';
+import { type OperationParserDef } from '@graphql-box/operation-parser';
 
 export interface UserOptions {
   /**
@@ -19,22 +19,22 @@ export interface UserOptions {
    */
   debugManager?: DebugManagerDef;
   /**
+   * The curried function to initialzie the request parser.
+   */
+  operationParser: OperationParserDef;
+  /**
    * The request manager.
    */
   requestManager: RequestManagerDef;
-  /**
-   * The curried function to initialzie the request parser.
-   */
-  requestParser: RequestParserDef;
   /**
    * The curried function to initialize the subscription manager.
    */
   subscriptionsManager?: SubscriptionsManagerDef;
 }
 export interface ActiveQueryData {
-  context: RequestContext;
-  options: RequestOptions;
-  requestData: RequestData;
+  context: OperationContext;
+  operationData: OperationData;
+  options: OperationOptions;
 }
 
 export interface QueryTracker {

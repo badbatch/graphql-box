@@ -54,12 +54,12 @@
   },
   "peerDependencies": {
     "@graphql-box/cache-manager": "workspace:*",
-    "@graphql-box/request-parser": "workspace:*",
+    "@graphql-box/operation-parser": "workspace:*",
     "graphql": "<17"
   },
   "devDependencies": {
     "@graphql-box/cache-manager": "workspace:*",
-    "@graphql-box/request-parser": "workspace:*",
+    "@graphql-box/operation-parser": "workspace:*",
     "@graphql-box/test-utils": "workspace:*",
     "@jest/globals": "^29.3.1",
     "cts-types": "^0.0.10",

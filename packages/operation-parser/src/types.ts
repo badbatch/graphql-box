@@ -1,15 +1,11 @@
-import { type Maybe, type OperationContext, type OperationOptions, type PlainObject } from '@graphql-box/core';
+import { type Maybe, type OperationContext, type OperationOptions } from '@graphql-box/core';
 import {
   type ASTNode,
-  type DirectiveNode,
   type DocumentNode,
-  type FieldNode,
-  type FragmentSpreadNode,
   type GraphQLNamedType,
   type GraphQLSchema,
   type IntrospectionQuery,
 } from 'graphql';
-import { type Jsonifiable } from 'type-fest';
 
 export type Ancestor = ASTNode | readonly ASTNode[];
 
@@ -20,18 +16,10 @@ export type ConnectionInputOptions = {
   last?: number;
 };
 
-export type DirectiveParser<T extends PlainObject<Jsonifiable> = PlainObject<Jsonifiable>> = (
-  node: FieldNode | FragmentSpreadNode,
-  directive: DirectiveNode,
-  variables: T,
-  // Return type needs to match the GraphQL return type.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-) => any;
-
 export type PathPart = [part: string, count: number] | string;
 
 export interface OperationParserDef {
-  update(operation: string, options: OperationOptions, context: OperationContext): UpdateOperationResult;
+  buildOperationData(operation: string, options: OperationOptions, context: OperationContext): UpdateOperationResult;
 }
 
 export type UpdateOperationResult = {

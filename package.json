@@ -56,7 +56,7 @@
     "@graphql-box/execute": "workspace:*",
     "@graphql-box/fetch-manager": "workspace:*",
     "@graphql-box/helpers": "workspace:*",
-    "@graphql-box/request-parser": "workspace:*",
+    "@graphql-box/operation-parser": "workspace:*",
     "@graphql-box/server": "workspace:*",
     "@graphql-box/subscribe": "workspace:*",
     "@graphql-box/test-utils": "workspace:*",

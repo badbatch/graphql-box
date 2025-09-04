@@ -1,23 +1,23 @@
 import { type CacheManagerDef } from '@graphql-box/cache-manager';
 import {
   type DebugManagerDef,
+  type OperationContext,
+  type OperationData,
+  type OperationOptions,
   PENDING_QUERY_RESOLVED,
-  type PartialRequestContext,
+  type PartialOperationContext,
   type PlainObject,
   REQUEST_RESOLVED,
   REQUEST_RESOLVED_FROM_CACHE,
-  type RequestContext,
-  type RequestData,
   type RequestManagerDef,
-  type RequestOptions,
   type ResponseData,
 } from '@graphql-box/core';
 import { ArgsError, GroupedError, hashRequest, isArray, isPlainObject } from '@graphql-box/helpers';
+import { type OperationParserDef } from '@graphql-box/operation-parser';
 import { OperationTypeNode } from 'graphql';
 import { isAsyncIterable } from 'iterall';
 import { isError, isString } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
-import { type RequestParserDef } from '../../operation-parser';
 import { logPendingQuery } from './debug/logPendingQuery.ts';
 import { logRequest } from './debug/logRequest.ts';
 import { filterResponseData } from './helpers/filterResponseData.ts';
@@ -42,7 +42,7 @@ export class Client {
     return result;
   }
 
-  private static _validateOperationArguments(query: string, options: RequestOptions): ArgsError[] {
+  private static _validateOperationArguments(query: string, options: OperationOptions): ArgsError[] {
     const errors: ArgsError[] = [];
 
     if (!isString(query)) {
@@ -62,8 +62,8 @@ export class Client {
 
   private readonly _cacheManager: CacheManagerDef;
   private readonly _debugManager: DebugManagerDef | undefined;
+  private readonly _operationParser: OperationParserDef;
   private readonly _requestManager: RequestManagerDef;
-  private readonly _requestParser: RequestParserDef;
   private readonly _tracker: QueryTracker = { activeQueries: [] };
 
   constructor(options: UserOptions) {
@@ -81,8 +81,8 @@ export class Client {
       errors.push(new ArgsError('@graphql-box/client expected options.requestManager.'));
     }
 
-    if (!('requestParser' in options)) {
-      errors.push(new ArgsError('@graphql-box/client expected options.requestParser.'));
+    if (!('operationParser' in options)) {
+      errors.push(new ArgsError('@graphql-box/client expected options.operationParser.'));
     }
 
     if (errors.length > 0) {
@@ -92,7 +92,7 @@ export class Client {
     this._cacheManager = options.cacheManager;
     this._debugManager = options.debugManager;
     this._requestManager = options.requestManager;
-    this._requestParser = options.requestParser;
+    this._operationParser = options.operationParser;
   }
 
   get cacheManager() {
@@ -105,47 +105,51 @@ export class Client {
 
   public async query<T extends PlainObject = PlainObject>(
     operation: string,
-    options: RequestOptions = {},
-    context: PartialRequestContext = {},
+    options: OperationOptions = {},
+    context: PartialOperationContext = {},
   ): Promise<ResponseData<T>> {
-    const requestContext = this._buildOperationContext(OperationTypeNode.QUERY, operation, options, context);
     const errors = Client._validateOperationArguments(operation, options);
 
     if (errors.length > 0) {
-      throw new GroupedError('@graphql-box/client argument validation errors.', errors);
+      throw new GroupedError('@graphql-box/client argument validation errors', errors);
     }
 
-    const operationData = this._operationParser.update(operation, options, requestContext);
-    return this._handleQuery(requestData, options, requestContext);
+    const operationContext = this._buildOperationContext(OperationTypeNode.QUERY, operation, options, context);
+    const operationData = this._operationParser.update(operation, options, operationContext);
+    return this._handleQuery<T>(operationData, options, operationContext);
   }
 
   private _buildOperationContext(
-    operation: OperationTypeNode,
+    operationType: OperationTypeNode,
     request: string,
-    options: RequestOptions,
-    context: PartialRequestContext,
-  ): RequestContext {
+    options: OperationOptions,
+    context: PartialOperationContext,
+  ): OperationContext {
     return {
       ...context,
       data: {
         ...context.data,
         batched: options.batch,
-        operation,
+        operationId: uuid(),
         operationMaxFieldDepth: undefined,
         operationName: '',
+        operationType,
         operationTypeComplexity: undefined,
         originalOperationHash: hashRequest(request),
-        requestId: uuid(),
         tag: options.tag,
         variables: options.variables,
       },
       debugManager: this._debugManager,
-      fieldPaths: {},
+      fieldPaths: undefined,
     };
   }
 
   @logRequest()
-  private async _handleQuery(requestData: RequestData, options: RequestOptions, context: RequestContext) {
+  private async _handleQuery<T extends PlainObject = PlainObject>(
+    requestData: OperationData,
+    options: OperationOptions,
+    context: OperationContext,
+  ): Promise<ResponseData<T>> {
     try {
       const checkResult = await this._cacheManager.checkQueryResponseCacheEntry(requestData.hash, options, context);
 

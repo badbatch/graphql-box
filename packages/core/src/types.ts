@@ -124,7 +124,7 @@ export type OperationData = {
   operation: string;
 };
 
-export interface OperationManagerDef {
+export interface RequestManagerDef {
   execute(
     operationData: OperationData,
     options: OperationOptions,

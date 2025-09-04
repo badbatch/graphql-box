@@ -47,13 +47,21 @@ export class OperationParser implements OperationParserDef {
     this._typeComplexityMap = options.typeComplexityMap;
   }
 
-  public update(operation: string, options: OperationOptions, context: OperationContext): UpdateOperationResult {
-    return this._update(operation, options, context);
+  public buildOperationData(
+    operation: string,
+    options: OperationOptions,
+    context: OperationContext,
+  ): UpdateOperationResult {
+    return this._buildOperationData(operation, options, context);
   }
 
-  private _update(operation: string, options: OperationOptions, context: OperationContext): UpdateOperationResult {
-    const operationtWithFragments = options.fragments ? [operation, ...options.fragments].join('\n\n') : operation;
-    const ast = parse(operationtWithFragments);
+  private _buildOperationData(
+    operation: string,
+    options: OperationOptions,
+    context: OperationContext,
+  ): UpdateOperationResult {
+    const operationWithFragments = options.fragments ? [operation, ...options.fragments].join('\n\n') : operation;
+    const ast = parse(operationWithFragments);
     const operationDefinitions = getOperationDefinitions(ast);
     const [operationDefinition] = operationDefinitions;
 
