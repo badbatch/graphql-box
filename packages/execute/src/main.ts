@@ -10,6 +10,13 @@ import {
   type ServerRequestOptions,
 } from '@graphql-box/core';
 import {
+  type OperationContext,
+  type OperationData,
+  type OperationOptions,
+  type ResponseData,
+  type ServerOperationOptions,
+} from '@graphql-box/core/src/index.js';
+import {
   ArgsError,
   EventAsyncIterator,
   GroupedError,
@@ -19,7 +26,7 @@ import {
 } from '@graphql-box/helpers';
 import { EventEmitter } from 'eventemitter3';
 import { type ExecutionArgs, type GraphQLFieldResolver, GraphQLSchema, execute } from 'graphql';
-import { forAwaitEach, isAsyncIterable } from 'iterall';
+import { forAwaitEach } from 'iterall';
 import { omit } from 'lodash-es';
 import { logExecute } from './debug/logExecute.ts';
 import { type GraphQLExecute, type UserOptions } from './types.ts';
@@ -53,11 +60,10 @@ export class Execute {
 
   @logExecute()
   public async execute(
-    { ast, hash }: RequestData,
-    options: ServerRequestOptions,
-    context: RequestContext,
-    executeResolver: RequestResolver,
-  ): Promise<AsyncIterableIterator<PartialRequestResult | undefined> | PartialRawResponseData> {
+    { ast, hash }: OperationData,
+    options: OperationOptions,
+    context: OperationContext,
+  ): Promise<ResponseData> {
     const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
     const _cacheMetadata: DehydratedCacheMetadata = {};
     const { data, debugManager } = context;
@@ -86,8 +92,8 @@ export class Execute {
 
     const executeResult = await this._execute(executeArgs);
 
-    if (!isAsyncIterable(executeResult)) {
-      return { ...executeResult, _cacheMetadata };
+    if (isAsyncIterableTypeGuard(result)) {
+      throw new Error('Returning async iterator from server action is not currently supported.');
     }
 
     void forAwaitEach(executeResult, async result => {

@@ -1,8 +1,9 @@
 import { PENDING_QUERY_ADDED } from '@graphql-box/core';
+import { type OperationParams } from '@graphql-box/core';
 import { type Client } from '../main.ts';
-import { type PendingQueryData } from '../types.ts';
+import { type PendingQueryResolver } from '../types.ts';
 
-type Descriptor = (requestHash: string, data: PendingQueryData) => void;
+type Descriptor = (activeQuery: OperationParams, resolver: PendingQueryResolver) => void;
 
 export const logPendingQuery = () => {
   return (_target: Client, _propertyName: string, descriptor: TypedPropertyDescriptor<Descriptor>): void => {
@@ -13,7 +14,7 @@ export const logPendingQuery = () => {
     }
 
     descriptor.value = function descriptorValue(...args: Parameters<Descriptor>): ReturnType<Descriptor> {
-      const { context } = args[1];
+      const { context } = args[0];
       const { data, debugManager } = context;
 
       if (!debugManager) {

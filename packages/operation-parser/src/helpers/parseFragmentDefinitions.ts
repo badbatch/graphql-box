@@ -1,14 +1,13 @@
 import { type FragmentDefinitionNodeMap, type PlainObject } from '@graphql-box/core';
 import { getFragmentDefinitions } from '@graphql-box/helpers';
 import { type DocumentNode } from 'graphql';
-import { type Jsonifiable } from 'type-fest';
 import { replaceFragmentSpreadsWithDefinitionFields } from '#helpers/replaceFragmentSpreadsWithDefinitionFields.ts';
 import { type VariableTypesMap } from '#types.ts';
 
 export const parseFragmentDefinitions = (
   ast: DocumentNode,
   variableTypes: VariableTypesMap,
-  variableValues: PlainObject<Jsonifiable>,
+  variableValues: PlainObject<unknown>,
 ): FragmentDefinitionNodeMap => {
   const fragmentDefinitions: FragmentDefinitionNodeMap = {
     ...getFragmentDefinitions(ast),

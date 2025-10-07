@@ -5,21 +5,20 @@ import {
   getVariableDefinitionType,
 } from '@graphql-box/helpers';
 import { type DocumentNode, type GraphQLSchema } from 'graphql';
-import { type Jsonifiable } from 'type-fest';
 import { type VariableTypesMap } from '#types.ts';
 
 export type GetVariableTypeAndValuesResult = {
   variableTypes: VariableTypesMap;
-  variableValues: PlainObject<Jsonifiable>;
+  variableValues: PlainObject<unknown>;
 };
 
 export const getVariableTypeAndValues = (
   ast: DocumentNode,
   schema: GraphQLSchema,
-  variables?: PlainObject<Jsonifiable>,
+  variables?: PlainObject<unknown>,
 ): GetVariableTypeAndValuesResult => {
   const variableTypes: VariableTypesMap = {};
-  const variableValues: PlainObject<Jsonifiable> = { ...variables };
+  const variableValues: PlainObject<unknown> = { ...variables };
   // We are picking the first and non-null asserting because we already have a
   // check in the caller to throw if there is more or less than one operation.
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

@@ -16,7 +16,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithoutVariable;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -34,7 +34,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithoutVariable;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -104,7 +104,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithOperationName;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "query GetOrganization {
@@ -122,7 +122,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithOperationName;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -192,7 +192,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithDefault;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -210,7 +210,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithDefault;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -280,7 +280,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithNumberDefault;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -306,7 +306,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithNumberDefault;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -468,7 +468,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithVariable;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -486,7 +486,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithVariable;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -556,7 +556,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithVariableWithDefault;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -574,7 +574,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithVariableWithDefault;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -644,7 +644,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithEnumVariable;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -678,7 +678,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithEnumVariable;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -856,7 +856,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithVariables;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -890,7 +890,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithVariables;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -1068,7 +1068,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithAlias;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -1086,7 +1086,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithAlias;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -1156,7 +1156,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithIncludeFalseDirective;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -1174,7 +1174,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithIncludeFalseDirective;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -1236,7 +1236,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithSkipTrueDirective;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -1254,7 +1254,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithSkipTrueDirective;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -1316,7 +1316,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithInlineFragment;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -1336,7 +1336,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithAlias;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -1406,7 +1406,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithInlineFragmentWithNoTypeCondition;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -1426,7 +1426,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithInlineFragmentWithNoTypeCondition;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -1496,7 +1496,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithVariableInInlineFragment;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -1523,7 +1523,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithVariableInInlineFragment;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -1631,7 +1631,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithFragmentSpread;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -1649,7 +1649,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithFragmentSpread;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -1719,7 +1719,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithNestedFragmentSpread;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -1737,7 +1737,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithNestedFragmentSpread;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -1807,7 +1807,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithVariableInFragmentSpread;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -1830,7 +1830,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithVariableInFragmentSpread;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -1922,7 +1922,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithVariableInInlineFragmentInNestedFragmentSpread;
       const operationContext = getOperationContext();
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
@@ -1949,7 +1949,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.queryWithVariableInInlineFragmentInNestedFragmentSpread;
       const operationContext = getOperationContext();
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {
@@ -2060,7 +2060,7 @@ describe('@graphql-box/operation-parser', () => {
       const operationContext = getOperationContext();
 
       expect(() => {
-        operationParser.update(operation, options, operationContext);
+        operationParser.buildOperationData(operation, options, operationContext);
       }).toThrow('@graphql-box/request-parser >> request field depth of 2 exceeded max field depth of 1');
     });
   });
@@ -2083,7 +2083,7 @@ describe('@graphql-box/operation-parser', () => {
       const operationContext = getOperationContext();
 
       expect(() => {
-        operationParser.update(operation, options, operationContext);
+        operationParser.buildOperationData(operation, options, operationContext);
       }).toThrow('@graphql-box/request-parser >> request type complexity of 10 exceeded max type complexity of 9');
     });
   });
@@ -2098,7 +2098,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should return the correct operation', () => {
       const { operation, options } = rawOperationsAndOptions.mutationWithInputObjectType;
       const operationContext = getOperationContext({ data: { operationType: OperationTypeNode.MUTATION } });
-      const updatedOperation = operationParser.update(operation, options, operationContext);
+      const updatedOperation = operationParser.buildOperationData(operation, options, operationContext);
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "mutation {
@@ -2126,7 +2126,7 @@ describe('@graphql-box/operation-parser', () => {
     it('should enrich the context data as expected', () => {
       const { operation, options } = rawOperationsAndOptions.mutationWithInputObjectType;
       const operationContext = getOperationContext({ data: { operationType: OperationTypeNode.MUTATION } });
-      operationParser.update(operation, options, operationContext);
+      operationParser.buildOperationData(operation, options, operationContext);
 
       expect(operationContext).toMatchInlineSnapshot(`
         {

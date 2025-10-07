@@ -8,7 +8,6 @@ import {
   Kind,
   type VariableNode,
 } from 'graphql';
-import { type Jsonifiable } from 'type-fest';
 import { replaceVariableNodeWithValueNode } from '#helpers/replaceVariableNodeWithValueNode.ts';
 import { type VariableTypesMap } from '#types.ts';
 
@@ -18,7 +17,7 @@ export const replaceFragmentSpreadsWithDefinitionFields = <
   node: T,
   fragmentDefinitions: FragmentDefinitionNodeMap | undefined,
   variableTypes: VariableTypesMap,
-  variableValues: PlainObject<Jsonifiable>,
+  variableValues: PlainObject<unknown>,
 ): T => {
   if (!node.selectionSet) {
     return node;

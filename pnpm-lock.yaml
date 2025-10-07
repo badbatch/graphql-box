@@ -297,6 +297,9 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
+      type-fest:
+        specifier: ^4.41.0
+        version: 4.41.0
     devDependencies:
       '@cachemap/core':
         specifier: ^5.2.8

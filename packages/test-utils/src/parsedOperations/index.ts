@@ -111,6 +111,36 @@ export const queryWithConnection = `
   }
 `;
 
+export const queryWithConnectionWithNestedInlineFragment = `
+  {
+    organization(login: "facebook") {
+      description
+      email
+      login
+      name
+      repositories(first: 6) {
+        edges {
+          node {
+            description
+            homepageUrl
+            name
+            id
+            owner {
+              url
+              ... on Organization {
+                id
+                login
+                name
+              }
+              __typename
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const queryWithConnectionWithDoubleFigures = `
   {
     organization(login: "facebook") {
@@ -126,6 +156,48 @@ export const queryWithConnectionWithDoubleFigures = `
             name
             id
           }
+        }
+      }
+    }
+  }
+`;
+
+export const queryWithUnion = `
+  {
+    search(query: "react", first: 10, type: REPOSITORY) {
+      edges {
+        node {
+          ... on Organization {
+            description
+            login
+            organizationName: name
+            id
+          }
+          ... on Issue {
+            bodyText
+            number
+            title
+            id
+          }
+          ... on MarketplaceListing {
+            slug
+            shortDescription
+            howItWorks
+            id
+          }
+          ... on PullRequest {
+            bodyText
+            number
+            title
+            id
+          }
+          ... on Repository {
+            description
+            homepageUrl
+            name
+            id
+          }
+          __typename
         }
       }
     }

@@ -2,19 +2,21 @@ import { type Core } from '@cachemap/core';
 import {
   type CacheMetadata,
   type FieldPaths,
-  type RequestContext,
-  type RequestData,
+  type OperationContext,
+  type OperationData,
   type ResponseData,
 } from '@graphql-box/core';
 import { ArgsError, GroupedError, hashRequest } from '@graphql-box/helpers';
 import { Cacheability, type Metadata as CacheabilityMetadata } from 'cacheability';
 import { print } from 'graphql';
 import { get, has, set } from 'lodash-es';
+import { type SetRequired } from 'type-fest';
 import { filterQuery } from './helpers/filterQuery.ts';
 import { type AnalyzeQueryResult, type CacheManagerDef, type UserOptions } from './types.ts';
 
 export class CacheManager implements CacheManagerDef {
   private _cache: Core | undefined;
+  private readonly _hashCacheKeys: boolean;
 
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
@@ -39,31 +41,36 @@ export class CacheManager implements CacheManagerDef {
     } else {
       this._cache = options.cache;
     }
+
+    this._hashCacheKeys = options.hashCacheKeys ?? false;
   }
 
-  public async analyzeQuery(requestData: RequestData, context: RequestContext): Promise<AnalyzeQueryResult> {
-    const { ast } = requestData;
+  public async analyzeQuery(
+    operationData: OperationData,
+    context: SetRequired<OperationContext, 'fieldPaths'>,
+  ): Promise<AnalyzeQueryResult> {
+    const { ast } = operationData;
 
     const { allPathsResolved, cacheMetadata, data, resolvedPaths } = await this._retrieveResponseData(
       context.fieldPaths,
     );
 
     if (resolvedPaths.length === 0) {
-      return { updated: requestData };
+      return { operationData };
     }
 
     if (allPathsResolved) {
-      return { response: { cacheMetadata, data } };
+      return { responseData: { __cacheMetadata: cacheMetadata, data } };
     }
 
     const filteredAst = filterQuery(ast, resolvedPaths);
-    const filteredRequest = print(filteredAst);
+    const filteredOperation = print(filteredAst);
 
     return {
-      updated: {
+      operationData: {
         ast: filteredAst,
-        hash: hashRequest(filteredRequest),
-        request: filteredRequest,
+        hash: hashRequest(filteredOperation),
+        operation: filteredOperation,
       },
     };
   }
@@ -72,8 +79,15 @@ export class CacheManager implements CacheManagerDef {
     return this._cache;
   }
 
-  public cacheQuery(responseData: ResponseData, context: RequestContext): void {
-    this._storeResponseData(responseData, context.fieldPaths);
+  public async cacheQuery(
+    responseData: ResponseData,
+    context: SetRequired<OperationContext, 'fieldPaths'>,
+  ): Promise<void> {
+    await this._storeResponseData(responseData, context.fieldPaths);
+  }
+
+  get hashCacheKeys(): boolean {
+    return this._hashCacheKeys;
   }
 
   private async _retrieveResponseData(fieldPaths: FieldPaths): Promise<{
@@ -91,7 +105,7 @@ export class CacheManager implements CacheManagerDef {
       let hasCachedData = false;
 
       for (const [index, cachePath] of cachePaths.entries()) {
-        const cacheability = await this._cache?.has(cachePath);
+        const cacheability = await this._cache?.has(cachePath, { hashKey: this._hashCacheKeys });
         const cacheEntryValid = !!cacheability && cacheability.checkTTL();
 
         if (!cacheEntryValid && !hasCachedData) {
@@ -109,7 +123,7 @@ export class CacheManager implements CacheManagerDef {
           resolvedOperationPaths.push(operationPath);
         }
 
-        const cachedData = await this._cache?.get(cachePath);
+        const cachedData = await this._cache?.get(cachePath, { hashKey: this._hashCacheKeys });
         const matchingResponsePath = responsePaths[index];
 
         if (!matchingResponsePath) {
@@ -134,8 +148,9 @@ export class CacheManager implements CacheManagerDef {
     };
   }
 
-  private _storeResponseData({ cacheMetadata, data }: ResponseData, fieldPaths: FieldPaths): void {
+  private async _storeResponseData({ __cacheMetadata, data }: ResponseData, fieldPaths: FieldPaths): Promise<void> {
     const fieldPathEntries = Object.entries(fieldPaths);
+    const cacheSetPromises: Promise<void>[] = [];
 
     for (const [operationPath, { cachePaths, responsePaths }] of fieldPathEntries) {
       for (const [index, responsePath] of responsePaths.entries()) {
@@ -153,7 +168,7 @@ export class CacheManager implements CacheManagerDef {
           );
         }
 
-        const matchingMetadata = cacheMetadata?.[operationPath];
+        const matchingMetadata = __cacheMetadata?.[operationPath];
 
         if (!matchingMetadata) {
           throw new Error(
@@ -161,10 +176,17 @@ export class CacheManager implements CacheManagerDef {
           );
         }
 
-        void this._cache?.set(matchingCachePath, value, {
-          cacheHeaders: { cacheControl: new Cacheability({ metadata: matchingMetadata }).printCacheControl() },
-        });
+        if (this._cache) {
+          cacheSetPromises.push(
+            this._cache.set(matchingCachePath, value, {
+              cacheHeaders: { cacheControl: new Cacheability({ metadata: matchingMetadata }).printCacheControl() },
+              hashKey: this._hashCacheKeys,
+            }),
+          );
+        }
       }
     }
+
+    await Promise.all(cacheSetPromises);
   }
 }

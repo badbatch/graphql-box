@@ -1,18 +1,16 @@
-import { parsedRequests } from '@graphql-box/test-utils';
+import { parsedOperations } from '@graphql-box/test-utils';
 import { expect } from '@jest/globals';
-import { parse } from 'graphql/index.js';
+import { parse, print } from 'graphql';
 import { filterQuery } from './filterQuery.ts';
 
 describe('filterQuery', () => {
-  describe('singleTypeQuery', () => {
+  describe('when an operation is filtered', () => {
     it('should remove the matching resolved operation paths', () => {
-      const ast = parse(parsedRequests.singleTypeQuery);
+      const ast = parse(parsedOperations.query);
 
-      expect(filterQuery(ast, ['organization.description', 'organization.url'])).toMatchInlineSnapshot(`
+      expect(print(filterQuery(ast, ['organization.email', 'organization.login']))).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
-            email
-            login
             name
             id
           }
@@ -21,38 +19,47 @@ describe('filterQuery', () => {
     });
 
     describe('when all fields within the operation are resolved', () => {
-      it('should do something...', () => {
-        const ast = parse(parsedRequests.singleTypeQuery);
+      it('should return an empty string', () => {
+        const ast = parse(parsedOperations.query);
 
         expect(
-          filterQuery(ast, [
-            'organization.description',
-            'organization.email',
-            'organization.login',
-            'organization.name',
-            'organization.id',
-            'organization.url',
-          ]),
+          print(filterQuery(ast, ['organization.email', 'organization.login', 'organization.name', 'organization.id'])),
         ).toMatchInlineSnapshot(`""`);
       });
     });
   });
 
-  describe('nestedTypeQuery', () => {
-    it('should remove the matching resolved operation paths', () => {
-      const ast = parse(parsedRequests.nestedTypeQuery);
+  describe('when all fields within an inline fragment are resolved', () => {
+    it('should remove the empty inline fragment', () => {
+      const ast = parse(parsedOperations.queryWithInlineFragment);
 
-      expect(
-        filterQuery(ast, [
-          'organization.description',
-          'organization.url',
-          'organization.repositories.edges.node.homepageUrl',
-          'organization.repositories.edges.node.owner.login',
-        ]),
-      ).toMatchInlineSnapshot(`
+      expect(print(filterQuery(ast, ['organization.login', 'organization.name', 'organization.id'])))
+        .toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
             email
+          }
+        }"
+      `);
+    });
+  });
+
+  describe('when an operation with a connection is filtered', () => {
+    it('should remove the matching resolved operation paths', () => {
+      const ast = parse(parsedOperations.queryWithConnection);
+
+      expect(
+        print(
+          filterQuery(ast, [
+            'organization.description',
+            'organization.email',
+            'organization.repositories.edges.node.homepageUrl',
+            'organization.repositories.edges.node.id',
+          ]),
+        ),
+      ).toMatchInlineSnapshot(`
+        "{
+          organization(login: "facebook") {
             login
             name
             repositories(first: 6) {
@@ -60,222 +67,86 @@ describe('filterQuery', () => {
                 node {
                   description
                   name
-                  id
-                  owner {
-                    url
-                    ... on Organization {
-                      name
-                      id
-                    }
-                    __typename
-                  }
                 }
               }
             }
-            id
           }
         }"
       `);
     });
-
-    describe('when all fields within an inline fragment are resolved', () => {
-      it('should remove the empty inline fragment', () => {
-        const ast = parse(parsedRequests.nestedTypeQuery);
-
-        expect(
-          filterQuery(ast, [
-            'organization.repositories.edges.node.owner.name',
-            'organization.repositories.edges.node.owner.id',
-          ]),
-        ).toMatchInlineSnapshot(`
-          "{
-            organization(login: "facebook") {
-              description
-              email
-              login
-              name
-              repositories(first: 6) {
-                edges {
-                  node {
-                    description
-                    homepageUrl
-                    name
-                    id
-                    owner {
-                      login
-                      url
-                      __typename
-                    }
-                  }
-                }
-              }
-              url
-              id
-            }
-          }"
-        `);
-      });
-    });
-
-    describe('when all fields within a field are resolved', () => {
-      it('should remove the empty field', () => {
-        const ast = parse(parsedRequests.nestedTypeQuery);
-
-        expect(
-          filterQuery(ast, [
-            'organization.repositories.edges.node.owner.id',
-            'organization.repositories.edges.node.owner.login',
-            'organization.repositories.edges.node.owner.name',
-            'organization.repositories.edges.node.owner.url',
-            'organization.repositories.edges.node.owner.__typename',
-          ]),
-        ).toMatchInlineSnapshot(`
-          "{
-            organization(login: "facebook") {
-              description
-              email
-              login
-              name
-              repositories(first: 6) {
-                edges {
-                  node {
-                    description
-                    homepageUrl
-                    name
-                    id
-                  }
-                }
-              }
-              url
-              id
-            }
-          }"
-        `);
-      });
-    });
-
-    describe('when all fields within nested fields are resolved', () => {
-      it('should remove the nested empty fields', () => {
-        const ast = parse(parsedRequests.nestedTypeQuery);
-
-        expect(
-          filterQuery(ast, [
-            'organization.repositories.edges.node.description',
-            'organization.repositories.edges.node.homepageUrl',
-            'organization.repositories.edges.node.name',
-            'organization.repositories.edges.node.id',
-            'organization.repositories.edges.node.owner.id',
-            'organization.repositories.edges.node.owner.login',
-            'organization.repositories.edges.node.owner.name',
-            'organization.repositories.edges.node.owner.url',
-            'organization.repositories.edges.node.owner.__typename',
-          ]),
-        ).toMatchInlineSnapshot(`
-          "{
-            organization(login: "facebook") {
-              description
-              email
-              login
-              name
-              url
-              id
-            }
-          }"
-        `);
-      });
-    });
   });
 
-  describe('nestedTypeQueryWithFragments', () => {
-    it('should remove the matching resolved operation paths', () => {
-      const ast = parse(parsedRequests.nestedTypeQueryWithFragments);
+  describe('when all fields within a field are resolved', () => {
+    it('should remove the empty field', () => {
+      const ast = parse(parsedOperations.queryWithConnection);
 
       expect(
-        filterQuery(ast, [
-          'organization.description',
-          'organization.name',
-          'organization.repositories.edges.node.homepageUrl',
-          'organization.repositories.edges.node.owner.name',
-          'organization.repositories.edges.node.owner.url',
-        ]),
+        print(
+          filterQuery(ast, [
+            'organization.repositories.edges.node.description',
+            'organization.repositories.edges.node.name',
+            'organization.repositories.edges.node.homepageUrl',
+            'organization.repositories.edges.node.id',
+          ]),
+        ),
       ).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            description
             email
-            isVerified
-            location
             login
-            repositories(first: 6) {
-              edges {
-                node {
-                  ... on Repository {
-                    description
-                    name
-                    owner {
-                      login
-                      ... on Organization {
-                        id
-                      }
-                      __typename
-                    }
-                    id
-                  }
-                }
-              }
-            }
-            url
-            id
+            name
           }
         }"
       `);
     });
+  });
 
-    describe('when all fields within nested fields are resolved', () => {
-      it('should remove the nested empty fields', () => {
-        const ast = parse(parsedRequests.nestedTypeQueryWithFragments);
+  describe('when all fields within nested fields are resolved', () => {
+    it('should remove the nested empty fields', () => {
+      const ast = parse(parsedOperations.queryWithConnectionWithNestedInlineFragment);
 
-        expect(
+      expect(
+        print(
           filterQuery(ast, [
             'organization.repositories.edges.node.description',
             'organization.repositories.edges.node.homepageUrl',
-            'organization.repositories.edges.node.id',
             'organization.repositories.edges.node.name',
+            'organization.repositories.edges.node.id',
             'organization.repositories.edges.node.owner.id',
             'organization.repositories.edges.node.owner.login',
             'organization.repositories.edges.node.owner.name',
             'organization.repositories.edges.node.owner.url',
             'organization.repositories.edges.node.owner.__typename',
           ]),
-        ).toMatchInlineSnapshot(`
-          "{
-            organization(login: "facebook") {
-              email
-              description
-              isVerified
-              location
-              login
-              name
-              url
-              id
-            }
-          }"
-        `);
-      });
+        ),
+      ).toMatchInlineSnapshot(`
+        "{
+          organization(login: "facebook") {
+            description
+            email
+            login
+            name
+          }
+        }"
+      `);
     });
   });
 
-  describe('nestedUnionQuery', () => {
+  describe('when an operation with a union is filtered', () => {
     it('should remove the matching resolved operation paths', () => {
-      const ast = parse(parsedRequests.nestedUnionQuery);
+      const ast = parse(parsedOperations.queryWithUnion);
 
       expect(
-        filterQuery(ast, [
-          'search.edges.node.description',
-          'search.edges.node.homepageUrl',
-          'search.edges.node.number',
-          'search.edges.node.shortDescription',
-          'search.edges.node.title',
-        ]),
+        print(
+          filterQuery(ast, [
+            'search.edges.node.description',
+            'search.edges.node.homepageUrl',
+            'search.edges.node.number',
+            'search.edges.node.shortDescription',
+            'search.edges.node.title',
+          ]),
+        ),
       ).toMatchInlineSnapshot(`
         "{
           search(query: "react", first: 10, type: REPOSITORY) {
@@ -311,22 +182,24 @@ describe('filterQuery', () => {
       `);
     });
 
-    describe('when all fields within an inline fragment are resolved', () => {
+    describe('when all fields within a union inline fragment are resolved', () => {
       it('should remove the empty inline fragment', () => {
-        const ast = parse(parsedRequests.nestedUnionQuery);
+        const ast = parse(parsedOperations.queryWithUnion);
 
         expect(
-          filterQuery(ast, [
-            'search.edges.node.description',
-            'search.edges.node.homepageUrl',
-            'search.edges.node.id',
-            'search.edges.node.login',
-            'search.edges.node.name',
-            'search.edges.node.number',
-            'search.edges.node.organizationName',
-            'search.edges.node.shortDescription',
-            'search.edges.node.title',
-          ]),
+          print(
+            filterQuery(ast, [
+              'search.edges.node.description',
+              'search.edges.node.homepageUrl',
+              'search.edges.node.id',
+              'search.edges.node.login',
+              'search.edges.node.name',
+              'search.edges.node.number',
+              'search.edges.node.organizationName',
+              'search.edges.node.shortDescription',
+              'search.edges.node.title',
+            ]),
+          ),
         ).toMatchInlineSnapshot(`
           "{
             search(query: "react", first: 10, type: REPOSITORY) {

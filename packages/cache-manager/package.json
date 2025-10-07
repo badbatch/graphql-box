@@ -46,7 +46,8 @@
     "@types/lodash-es": "^4.17.12",
     "cacheability": "^4.0.30",
     "core-js": "^3.43.0",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.21",
+    "type-fest": "^4.41.0"
   },
   "peerDependencies": {
     "@cachemap/core": "<6",

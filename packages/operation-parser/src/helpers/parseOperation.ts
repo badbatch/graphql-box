@@ -12,7 +12,6 @@ import {
   type VariableNode,
   visit,
 } from 'graphql';
-import { type Jsonifiable } from 'type-fest';
 import { buildOperationHash } from '#helpers/buildOperationHash.ts';
 import { getVariableTypeAndValues } from '#helpers/getVariableTypesAndValues.ts';
 import { parseFragmentDefinitions } from '#helpers/parseFragmentDefinitions.ts';
@@ -26,7 +25,7 @@ const parsedOperationCache: Record<string, DocumentNode> = {};
 
 export type ParseOperationOptions = {
   operation: string;
-  variables?: PlainObject<Jsonifiable>;
+  variables?: PlainObject<unknown>;
 };
 
 export const parseOperation = (

@@ -1,6 +1,5 @@
 import { type PlainObject } from '@graphql-box/core';
 import { hashRequest } from '@graphql-box/helpers';
-import { type Jsonifiable } from 'type-fest';
 
-export const buildOperationHash = (query: string, variables: PlainObject<Jsonifiable> = {}) =>
+export const buildOperationHash = (query: string, variables: PlainObject<unknown> = {}) =>
   hashRequest(`${JSON.stringify(variables)}:${query}`);

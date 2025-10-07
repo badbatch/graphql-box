@@ -2,7 +2,6 @@ import { type Maybe, type PlainArray, type PlainData, type PlainObject } from '@
 import { isObjectLike, isPlainObject } from '@graphql-box/helpers';
 import { GraphQLEnumType, type GraphQLNamedType, type ValueNode, parseValue } from 'graphql';
 import { isString } from 'lodash-es';
-import { type Jsonifiable } from 'type-fest';
 
 const parseArrayToInputString = (values: PlainArray, variableType: Maybe<GraphQLNamedType>): string => {
   let inputString = '[';
@@ -61,7 +60,7 @@ const parseToInputString = (value: PlainData, variableType: Maybe<GraphQLNamedTy
 
 export const replaceVariableNodeWithValueNode = (
   variableType: Maybe<GraphQLNamedType>,
-  variableValue?: Jsonifiable,
+  variableValue?: unknown,
 ): ValueNode => {
   if (variableValue === undefined) {
     return parseValue('null');
@@ -74,7 +73,9 @@ export const replaceVariableNodeWithValueNode = (
   const sanitizedValue =
     isString(variableValue) && !(variableType instanceof GraphQLEnumType)
       ? `"${variableValue}"`
-      : String(variableValue);
+      : // Typescript is not inferring that variableValue cannot be object-like
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
+        String(variableValue);
 
   return parseValue(sanitizedValue);
 };

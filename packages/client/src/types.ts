@@ -1,10 +1,9 @@
 import { type CacheManagerDef } from '@graphql-box/cache-manager';
 import {
   type DebugManagerDef,
-  type OperationContext,
-  type OperationData,
-  type OperationOptions,
+  type OperationParams,
   type RequestManagerDef,
+  type ResponseData,
   type SubscriptionsManagerDef,
 } from '@graphql-box/core';
 import { type OperationParserDef } from '@graphql-box/operation-parser';
@@ -31,12 +30,12 @@ export interface UserOptions {
    */
   subscriptionsManager?: SubscriptionsManagerDef;
 }
-export interface ActiveQueryData {
-  context: OperationContext;
-  operationData: OperationData;
-  options: OperationOptions;
-}
 
-export interface QueryTracker {
-  activeQueries: ActiveQueryData[];
-}
+export type PendingQueryParams = OperationParams & { resolver: PendingQueryResolver };
+
+export type PendingQueryResolver = (value: ResponseData) => void;
+
+export type QueryTracker = {
+  active: OperationParams[];
+  pending: Record<string, PendingQueryParams[]>;
+};

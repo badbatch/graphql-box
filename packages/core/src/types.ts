@@ -8,7 +8,7 @@ import {
   type OperationTypeNode,
 } from 'graphql';
 import { type ErrorObject } from 'serialize-error';
-import { type PartialDeep } from 'type-fest';
+import { type Except, type PartialDeep } from 'type-fest';
 import { type WebSocket } from 'ws';
 
 export type Ancestor = ASTNode | readonly ASTNode[];
@@ -39,38 +39,27 @@ export type CachemapOptions = {
 
 export type ExecutionContextValue = PlainObject & {
   data: ExecutionContextValueData;
-  debugManager: DebugManagerDef | null;
+  debugManager?: DebugManagerDef;
   fragmentDefinitions?: FragmentDefinitionNodeMap;
   setCacheMetadata: (key: string, headers: Headers, operation?: OperationTypeNode) => void;
 };
 
-export type ExecutionContextValueData = PlainObject & {
-  operationMaxFieldDepth: number | undefined;
-  operationName: string;
-  operationType: OperationTypeNode;
-  operationTypeComplexity: number | undefined;
-  originalOperationHash: string;
-  requestId: string;
-};
+export type ExecutionContextValueData = PlainObject & Except<OperationContextData, 'initiator'>;
 
 export type GraphqlEnv = 'client' | 'server' | 'worker' | 'workerClient';
 
 export type GraphqlStep =
-  | 'cache_entry_added'
-  | 'cache_entry_queried'
   | 'execute_executed'
   | 'execute_resolved'
   | 'fetch_executed'
   | 'fetch_resolved'
-  | 'partial_query_compiled'
   | 'pending_query_added'
   | 'pending_query_resolved'
-  | 'request_executed'
-  | 'request_resolved'
-  | 'request_resolved_from_cache'
+  | 'operation_executed'
+  | 'operation_resolved'
+  | 'query_resolved_from_cache'
   | 'resolver_executed'
   | 'resolver_resolved'
-  | 'server_request_received'
   | 'subscription_executed'
   | 'subscription_resolved';
 
@@ -102,20 +91,20 @@ export type PlainData<T = any> = PlainObject<T> | PlainArray<T>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PlainObject<T = any> = Record<string, T>;
 
-export type OperationContextData = PlainObject & {
+export type OperationContextData = PlainObject<unknown> & {
   initiator?: string;
   operationId: string;
-  operationMaxFieldDepth: number | undefined;
+  operationMaxFieldDepth?: number;
   operationName: string;
   operationType: OperationTypeNode;
-  operationTypeComplexity: number | undefined;
+  operationTypeComplexity?: number;
   originalOperationHash: string;
 };
 
 export type OperationContext = {
   data: OperationContextData;
-  debugManager: DebugManagerDef | undefined;
-  fieldPaths: FieldPaths | undefined;
+  debugManager?: DebugManagerDef;
+  fieldPaths?: FieldPaths;
 };
 
 export type OperationData = {
@@ -125,12 +114,7 @@ export type OperationData = {
 };
 
 export interface RequestManagerDef {
-  execute(
-    operationData: OperationData,
-    options: OperationOptions,
-    context: OperationContext,
-    executeResolver: OperationResolver,
-  ): Promise<ResponseData>;
+  execute(operationData: OperationData, options: OperationOptions, context: OperationContext): Promise<ResponseData>;
 }
 
 export type OperationOptions = {
@@ -140,11 +124,21 @@ export type OperationOptions = {
    */
   batch?: boolean;
   /**
+   * Set GraphQL context value to be passed on to
+   * GraphQL's execute and subscribe methods.
+   */
+  contextValue?: PlainObject<unknown> & { data?: PlainObject<unknown> };
+  /**
    * A list of query fragements to be inserted
    * into the main query, mutation or subscription
    * being requested.
    */
   fragments?: string[];
+  /**
+   * Whether to return cache metadata in each response. Useful to
+   * share cache metadata between server and client.
+   */
+  returnCacheMetadata?: boolean;
   /**
    * An identifier that will be stored in a request's cache metadata.
    * This can be used to retrieve cache entries against.
@@ -154,29 +148,35 @@ export type OperationOptions = {
    * Arguments to be inserted into the query, mutation or
    * subscription being requested.
    */
-  variables?: PlainObject;
+  variables?: PlainObject<unknown>;
+};
+
+export type OperationParams = {
+  context: OperationContext;
+  operationData: OperationData;
+  options: OperationOptions;
 };
 
 export type OperationResolver = (responseData: ResponseData) => Promise<ResponseData>;
 
-export type ResponseData<T extends PlainObject = PlainObject> = {
+export type ResponseData<T extends PlainObject<unknown> = PlainObject<unknown>> = {
   __cacheMetadata?: CacheMetadata;
   data?: T;
   errors?: readonly Error[];
 };
 
-export type SerialisedResponseData<T extends PlainObject = PlainObject> = {
+export type ResponseDataWithoutErrors<T extends PlainObject<unknown> = PlainObject<unknown>> = {
+  __cacheMetadata?: CacheMetadata;
+  data?: T;
+};
+
+export type SerialisedResponseData<T extends PlainObject<unknown> = PlainObject<unknown>> = {
   __cacheMetadata?: CacheMetadata;
   data?: T;
   errors?: ErrorObject[];
 };
 
-export type ServerRequestOptions = {
-  /**
-   * Set GraphQL context value to be passed on to
-   * GraphQL's execute and subscribe methods.
-   */
-  contextValue?: PlainObject & { data?: PlainObject };
+export type ServerOperationOptions = {
   /**
    * Set default GraphQL field resolver function to
    * be passed on to GraphQL's execute and subscribe
@@ -200,7 +200,7 @@ export type ServerRequestOptions = {
   subscribeFieldResolver?: GraphQLFieldResolver<unknown, unknown>;
 };
 
-export interface ServerSocketRequestOptions extends ServerRequestOptions {
+export interface ServerSocketOperationOptions extends ServerOperationOptions {
   /**
    * The websocket.
    */
