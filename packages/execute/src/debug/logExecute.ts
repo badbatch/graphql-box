@@ -1,22 +1,18 @@
 import {
   EXECUTE_EXECUTED,
   EXECUTE_RESOLVED,
-  type PartialRawResponseData,
-  type PartialRequestResult,
-  type RequestContext,
-  type RequestData,
+  type OperationContext,
+  type OperationData,
+  type OperationOptions,
   type RequestManagerDef,
-  type RequestResolver,
-  type ServerRequestOptions,
+  type ResponseData,
 } from '@graphql-box/core';
-import { isAsyncIterable } from 'iterall';
 
 type Descriptor = (
-  requestData: RequestData,
-  options: ServerRequestOptions,
-  context: RequestContext,
-  executeResolver: RequestResolver,
-) => Promise<AsyncIterableIterator<PartialRequestResult | undefined> | PartialRawResponseData>;
+  requestData: OperationData,
+  options: OperationOptions,
+  context: OperationContext,
+) => Promise<ResponseData>;
 
 export const logExecute = () => {
   return (_target: RequestManagerDef, _propertyName: string, descriptor: TypedPropertyDescriptor<Descriptor>): void => {
@@ -24,7 +20,7 @@ export const logExecute = () => {
     if (!method) return;
 
     descriptor.value = async function descriptorValue(...args: Parameters<Descriptor>): ReturnType<Descriptor> {
-      return new Promise<AsyncIterableIterator<PartialRequestResult | undefined> | PartialRawResponseData>(resolve => {
+      return new Promise<ResponseData>(resolve => {
         const resolver = async () => {
           const { data, debugManager } = args[2];
 
@@ -44,10 +40,6 @@ export const logExecute = () => {
           const endTime = debugManager.now();
           const duration = endTime - startTime;
           resolve(result);
-
-          if (isAsyncIterable(result)) {
-            return;
-          }
 
           debugManager.log(EXECUTE_RESOLVED, {
             data,

@@ -307,6 +307,9 @@ importers:
       '@cachemap/map':
         specifier: ^5.0.10
         version: 5.0.10
+      '@graphql-box/operation-parser':
+        specifier: workspace:*
+        version: link:../operation-parser
       '@graphql-box/test-utils':
         specifier: workspace:*
         version: link:../test-utils

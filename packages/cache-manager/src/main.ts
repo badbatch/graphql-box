@@ -102,25 +102,12 @@ export class CacheManager implements CacheManagerDef {
     const fieldPathEntries = Object.entries(fieldPaths);
 
     for (const [operationPath, { cachePaths, responsePaths }] of fieldPathEntries) {
-      let hasCachedData = false;
-
       for (const [index, cachePath] of cachePaths.entries()) {
         const cacheability = await this._cache?.has(cachePath, { hashKey: this._hashCacheKeys });
         const cacheEntryValid = !!cacheability && cacheability.checkTTL();
 
-        if (!cacheEntryValid && !hasCachedData) {
+        if (!cacheEntryValid) {
           continue;
-        }
-
-        if (!cacheEntryValid && hasCachedData) {
-          throw new Error(
-            `Your cache has got corrupted. Cache path "${cachePath}" returned no data, but it is part of a cache path group for which data should exist.`,
-          );
-        }
-
-        if (cacheEntryValid && !hasCachedData) {
-          hasCachedData = true;
-          resolvedOperationPaths.push(operationPath);
         }
 
         const cachedData = await this._cache?.get(cachePath, { hashKey: this._hashCacheKeys });
@@ -134,9 +121,11 @@ export class CacheManager implements CacheManagerDef {
 
         set(cachedResponseData, matchingResponsePath, cachedData);
 
-        if (!has(cacheMetadata, operationPath) && cacheability) {
-          set(cacheMetadata, operationPath, cacheability.metadata);
+        if (!has(cacheMetadata, operationPath)) {
+          cacheMetadata[operationPath] = cacheability.metadata;
         }
+
+        resolvedOperationPaths.push(operationPath);
       }
     }
 

@@ -56,6 +56,7 @@
   "devDependencies": {
     "@cachemap/core": "^5.2.8",
     "@cachemap/map": "^5.0.10",
+    "@graphql-box/operation-parser": "workspace:*",
     "@graphql-box/test-utils": "workspace:*",
     "@jest/globals": "^29.3.1",
     "cts-types": "^0.0.10",

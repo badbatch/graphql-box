@@ -1,12 +1,6 @@
 import { type Metadata as CacheabilityMetadata } from 'cacheability';
 import { type EventEmitter } from 'eventemitter3';
-import {
-  type ASTNode,
-  type DocumentNode,
-  type FragmentDefinitionNode,
-  type GraphQLFieldResolver,
-  type OperationTypeNode,
-} from 'graphql';
+import { type ASTNode, type DocumentNode, type FragmentDefinitionNode, type OperationTypeNode } from 'graphql';
 import { type ErrorObject } from 'serialize-error';
 import { type Except, type PartialDeep } from 'type-fest';
 import { type WebSocket } from 'ws';
@@ -176,31 +170,7 @@ export type SerialisedResponseData<T extends PlainObject<unknown> = PlainObject<
   errors?: ErrorObject[];
 };
 
-export type ServerOperationOptions = {
-  /**
-   * Set default GraphQL field resolver function to
-   * be passed on to GraphQL's execute and subscribe
-   * methods.
-   */
-  fieldResolver?: GraphQLFieldResolver<unknown, unknown>;
-  /**
-   * Set GraphQL operation name to be passed on to
-   * the GraphQL execute and subscribe methods.
-   */
-  operationName?: string;
-  /**
-   * Set default GraphQL root value to be passed on to
-   * GraphQL's execute and subscribe methods.
-   */
-  rootValue?: unknown;
-  /**
-   * Set default GraphQL subscribe field resolver function to
-   * be passed on to GraphQL's subscribe method.
-   */
-  subscribeFieldResolver?: GraphQLFieldResolver<unknown, unknown>;
-};
-
-export interface ServerSocketOperationOptions extends ServerOperationOptions {
+export interface ServerSocketOperationOptions extends OperationOptions {
   /**
    * The websocket.
    */

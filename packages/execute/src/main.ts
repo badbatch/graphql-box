@@ -1,39 +1,20 @@
 import {
-  type DehydratedCacheMetadata,
-  EXECUTE_RESOLVED,
-  type PartialRawResponseData,
-  type PartialRequestResult,
-  type PlainObject,
-  type RequestContext,
-  type RequestData,
-  type RequestResolver,
-  type ServerRequestOptions,
-} from '@graphql-box/core';
-import {
+  type CacheMetadata,
   type OperationContext,
   type OperationData,
   type OperationOptions,
+  type PlainObject,
   type ResponseData,
-  type ServerOperationOptions,
-} from '@graphql-box/core/src/index.js';
-import {
-  ArgsError,
-  EventAsyncIterator,
-  GroupedError,
-  getFragmentDefinitions,
-  setCacheMetadata,
-  standardizePath,
-} from '@graphql-box/helpers';
-import { EventEmitter } from 'eventemitter3';
+} from '@graphql-box/core';
+import { ArgsError, GroupedError, getFragmentDefinitions, setCacheMetadata } from '@graphql-box/helpers';
 import { type ExecutionArgs, type GraphQLFieldResolver, GraphQLSchema, execute } from 'graphql';
-import { forAwaitEach } from 'iterall';
 import { omit } from 'lodash-es';
+import { isAsyncIterableTypeGuard } from '#helpers/isAsyncIterableTypeGuard.ts';
 import { logExecute } from './debug/logExecute.ts';
 import { type GraphQLExecute, type UserOptions } from './types.ts';
 
 export class Execute {
   private readonly _contextValue: PlainObject & { data?: PlainObject };
-  private readonly _eventEmitter: EventEmitter;
   private readonly _execute: GraphQLExecute;
   private readonly _fieldResolver?: GraphQLFieldResolver<unknown, unknown> | null;
   private readonly _rootValue: unknown;
@@ -51,7 +32,6 @@ export class Execute {
     }
 
     this._contextValue = options.contextValue ?? {};
-    this._eventEmitter = new EventEmitter();
     this._execute = options.execute ?? execute;
     this._fieldResolver = options.fieldResolver ?? null;
     this._rootValue = options.rootValue;
@@ -60,62 +40,44 @@ export class Execute {
 
   @logExecute()
   public async execute(
-    { ast, hash }: OperationData,
+    { ast }: OperationData,
     options: OperationOptions,
     context: OperationContext,
   ): Promise<ResponseData> {
-    const { contextValue = {}, fieldResolver, operationName, rootValue } = options;
-    const _cacheMetadata: DehydratedCacheMetadata = {};
-    const { data, debugManager } = context;
+    const { contextValue = {} } = options;
+    const cacheMetadata: CacheMetadata = {};
 
     const executeArgs: ExecutionArgs = {
       contextValue: {
         ...this._contextValue,
         ...contextValue,
         data: {
-          ...omit(data, ['variables', 'tag', 'requestDepth', 'requestComplexity', 'queryFiltered']),
+          ...omit(context.data, ['variables', 'tag', 'requestDepth', 'requestComplexity', 'queryFiltered']),
           ...this._contextValue.data,
           ...contextValue.data,
         },
-        debugManager,
+        debugManager: context.debugManager,
         fragmentDefinitions: getFragmentDefinitions(ast),
-        setCacheMetadata: setCacheMetadata(_cacheMetadata),
+        setCacheMetadata: setCacheMetadata(cacheMetadata),
       },
       document: ast,
-      fieldResolver: fieldResolver ?? this._fieldResolver,
-      // TODO: Need to understand why operationName is being passed in options
-      // as the one on the context is derived from the request itself.
-      operationName,
-      rootValue: rootValue ?? this._rootValue,
+      fieldResolver: this._fieldResolver,
+      rootValue: this._rootValue,
       schema: this._schema,
     };
 
     const executeResult = await this._execute(executeArgs);
 
-    if (isAsyncIterableTypeGuard(result)) {
-      throw new Error('Returning async iterator from server action is not currently supported.');
+    if (isAsyncIterableTypeGuard(executeResult)) {
+      throw new Error('Returning async iterator from `execute` is not supported.');
     }
 
-    void forAwaitEach(executeResult, async result => {
-      context.deprecated.normalizePatchResponseData = 'path' in result;
+    const { data, errors } = executeResult;
 
-      // Typescript not inferring enrichedResult is same type
-      // as PartialRawResponseData.
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      const enrichedResult = {
-        _cacheMetadata,
-        ...standardizePath(result),
-      } as PartialRawResponseData;
-
-      debugManager?.log(EXECUTE_RESOLVED, {
-        data,
-        stats: { endTime: debugManager.now() },
-      });
-
-      this._eventEmitter.emit(hash, await executeResolver(enrichedResult));
-    });
-
-    const eventAsyncIterator = new EventAsyncIterator<PartialRequestResult>(this._eventEmitter, hash);
-    return eventAsyncIterator.getIterator();
+    return {
+      __cacheMetadata: cacheMetadata,
+      data: data ?? undefined,
+      errors,
+    };
   }
 }
