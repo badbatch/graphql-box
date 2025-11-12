@@ -1,37 +1,28 @@
 import {
-  FETCH_RESOLVED,
   type LogLevel,
-  type PartialRawFetchData,
-  type PartialRawResponseData,
-  type PartialRequestResult,
+  type OperationContext,
+  type OperationData,
+  type OperationOptions,
   type PlainObject,
-  type RequestContext,
-  type RequestData,
-  type RequestOptions,
-  type RequestResolver,
+  type ResponseData,
+  type SerialisedResponseData,
 } from '@graphql-box/core';
-import { ArgsError, EventAsyncIterator, GroupedError, deserializeErrors } from '@graphql-box/helpers';
-import { EventEmitter } from 'eventemitter3';
-import { forAwaitEach, isAsyncIterable } from 'iterall';
+import { ArgsError, GroupedError, deserializeErrors } from '@graphql-box/helpers';
 import { isString } from 'lodash-es';
-import { meros } from 'meros/browser';
 import { v4 as uuid } from 'uuid';
 import { logFetch } from './debug/logFetch.ts';
-import { cleanPatchResponse } from './helpers/cleanPatchResponse.ts';
 import { logErrorsToConsole } from './helpers/logErrorsToConsole.ts';
-import { mergeResponseDataSets } from './helpers/mergeResponseDataSets.ts';
-import { parseFetchResult } from './helpers/parseFetchResult.ts';
 import {
   type ActiveBatch,
   type ActiveBatchValue,
   type BatchActionsObjectMap,
   type BatchResultActions,
-  type BatchedMaybeFetchData,
+  type BatchedSerialisedResponseData,
   type UserOptions,
 } from './types.ts';
 
 export class FetchManager {
-  private static _getMessageContext({ data }: RequestContext) {
+  private static _getMessageContext({ data }: OperationContext) {
     return { data };
   }
 
@@ -42,14 +33,14 @@ export class FetchManager {
   }
 
   private static _resolveFetchBatch(
-    { headers, responses }: BatchedMaybeFetchData,
+    { responses }: BatchedSerialisedResponseData,
     batchEntries: BatchActionsObjectMap,
   ): void {
     for (const [hash, { reject, resolve }] of Object.entries(batchEntries)) {
       const responseData = responses[hash];
 
       if (responseData) {
-        resolve(logErrorsToConsole(deserializeErrors({ headers, ...responseData })));
+        resolve(logErrorsToConsole(deserializeErrors({ ...responseData })));
       } else {
         reject(new Error(`@graphql-box/fetch-manager did not get a response for batched request ${hash}.`));
       }
@@ -58,18 +49,13 @@ export class FetchManager {
 
   private _activeRequestBatch: Record<string, ActiveBatch | undefined> = {};
   private _activeRequestBatchTimer: Record<string, NodeJS.Timeout | undefined> = {};
-  private _activeResponseBatch: Set<PartialRawFetchData> | undefined;
-  private _activeResponseBatchTimer: NodeJS.Timeout | undefined;
   private readonly _apiUrl: string;
   private readonly _batchRequests: boolean;
-  private readonly _batchResponses: boolean;
-  private readonly _eventEmitter: EventEmitter;
   private readonly _fetchTimeout: number;
   private readonly _headers: Record<string, string> = { 'content-type': 'application/json' };
   private readonly _logUrl: string | undefined;
   private readonly _requestBatchInterval: number;
   private readonly _requestBatchMax: number;
-  private readonly _responseBatchInterval: number;
 
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
@@ -84,73 +70,37 @@ export class FetchManager {
 
     this._apiUrl = options.apiUrl;
     this._batchRequests = options.batchRequests ?? false;
-    this._batchResponses = options.batchResponses ?? true;
-    this._eventEmitter = new EventEmitter();
     this._fetchTimeout = options.fetchTimeout ?? 5000;
     this._headers = { ...this._headers, ...options.headers };
     this._logUrl = options.logUrl;
     this._requestBatchInterval = options.requestBatchInterval ?? 100;
     this._requestBatchMax = options.requestBatchMax ?? 20;
-    this._responseBatchInterval = options.responseBatchInterval ?? 100;
   }
 
   @logFetch()
   public async execute(
-    { hash, request }: RequestData,
-    options: RequestOptions,
-    context: RequestContext,
-    executeResolver: RequestResolver,
-  ) {
+    { hash, operation }: OperationData,
+    options: OperationOptions,
+    context: OperationContext,
+  ): Promise<ResponseData> {
     const url = this._apiUrl;
 
-    if (options.batch === false || !this._batchRequests || context.deprecated.hasDeferOrStream) {
-      const fetchResult = await this._fetch(`${url}?requestId=${hash}`, {
+    if (options.batch === false || !this._batchRequests) {
+      const fetchResult = await this._fetch<SerialisedResponseData>(`${url}?requestId=${hash}`, {
         batched: false,
         context: FetchManager._getMessageContext(context),
-        request,
+        operation,
       });
 
-      const { data, debugManager } = context;
-
-      if (!isAsyncIterable(fetchResult)) {
-        return logErrorsToConsole(deserializeErrors(fetchResult));
-      }
-
-      void forAwaitEach(fetchResult, async ({ body, headers }) => {
-        // Need to re-look at this and fix
-        // eslint-disable-next-line @stylistic/max-len
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions,@typescript-eslint/no-misused-spread
-        const responseData = { headers, ...body } as unknown as PartialRawFetchData;
-
-        const decoratedExecuteResolver = (result: PartialRawResponseData) => {
-          debugManager?.log(FETCH_RESOLVED, {
-            data,
-            stats: { endTime: debugManager.now() },
-          });
-
-          return executeResolver(result);
-        };
-
-        if (this._batchResponses && responseData.paths) {
-          this._batchResponse(responseData, hash, decoratedExecuteResolver);
-        } else {
-          this._eventEmitter.emit(
-            hash,
-            await decoratedExecuteResolver(logErrorsToConsole(deserializeErrors(cleanPatchResponse(responseData)))),
-          );
-        }
-      });
-
-      const eventAsyncIterator = new EventAsyncIterator<PartialRequestResult>(this._eventEmitter, hash);
-      return eventAsyncIterator.getIterator();
+      return logErrorsToConsole(deserializeErrors(fetchResult));
     }
 
-    return new Promise((resolve: (value: PartialRawResponseData) => void, reject) => {
+    return new Promise((resolve: (value: ResponseData) => void, reject) => {
       this._batchRequest(
         url,
         {
           context: FetchManager._getMessageContext(context),
-          request,
+          operation,
         },
         hash,
         { reject, resolve },
@@ -198,14 +148,6 @@ export class FetchManager {
     }
   }
 
-  private _batchResponse(response: PartialRawFetchData, hash: string, executeResolver: RequestResolver) {
-    if (this._activeResponseBatchTimer) {
-      this._updateResponseBatch(response, hash, executeResolver);
-    } else {
-      this._createResponseBatch(response, hash, executeResolver);
-    }
-  }
-
   private _createRequestBatch(url: string, body: PlainObject, hash: string, actions?: BatchResultActions): void {
     const activeRequestBatch = new Map();
     activeRequestBatch.set(hash, { actions, body });
@@ -213,14 +155,8 @@ export class FetchManager {
     this._startRequestBatchTimer(url);
   }
 
-  private _createResponseBatch(response: PartialRawFetchData, hash: string, executeResolver: RequestResolver) {
-    this._activeResponseBatch = new Set();
-    this._activeResponseBatch.add(response);
-    this._startResponseBatchTimer(hash, executeResolver);
-  }
-
-  private async _fetch(url: string, body: PlainObject) {
-    return new Promise<PartialRawFetchData | AsyncGenerator<Response>>((resolve, reject) => {
+  private async _fetch<T>(url: string, body: PlainObject): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
       void (async () => {
         const fetchTimer = setTimeout(() => {
           reject(
@@ -236,15 +172,12 @@ export class FetchManager {
             'x-browser-pathname': globalThis.location.pathname,
           }),
           method: 'POST',
-        }).then(meros);
+        });
 
         clearTimeout(fetchTimer);
-
-        if (isAsyncIterable(fetchResult) || fetchResult.status === 204) {
-          resolve(fetchResult);
-        } else {
-          resolve(await parseFetchResult(fetchResult));
-        }
+        // .json() returns an any type
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        resolve((await fetchResult.json()) as T);
       })();
     });
   }
@@ -266,12 +199,10 @@ export class FetchManager {
 
     try {
       FetchManager._resolveFetchBatch(
-        // Casting most straight forward way of typing this for now.
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        (await this._fetch(`${url}?requestId=${hashes.join('-')}`, {
+        await this._fetch<BatchedSerialisedResponseData>(`${url}?requestId=${hashes.join('-')}`, {
           batched: true,
           requests: batchRequests,
-        })) as BatchedMaybeFetchData,
+        }),
         batchActions,
       );
     } catch (error) {
@@ -292,19 +223,6 @@ export class FetchManager {
     }, this._requestBatchInterval);
   }
 
-  private _startResponseBatchTimer(hash: string, executeResolver: RequestResolver) {
-    this._activeResponseBatchTimer = setTimeout(() => {
-      void (async () => {
-        if (this._activeResponseBatch) {
-          const responseData = mergeResponseDataSets([...this._activeResponseBatch]);
-          this._eventEmitter.emit(hash, await executeResolver(logErrorsToConsole(deserializeErrors(responseData))));
-        }
-
-        this._activeResponseBatchTimer = undefined;
-      })();
-    }, this._responseBatchInterval);
-  }
-
   private _updateRequestBatch(url: string, body: PlainObject, hash: string, actions?: BatchResultActions): void {
     const activeRequestBatchTimer = this._activeRequestBatchTimer[url];
 
@@ -319,15 +237,5 @@ export class FetchManager {
     }
 
     this._startRequestBatchTimer(url);
-  }
-
-  private _updateResponseBatch(response: PartialRawFetchData, hash: string, executeResolver: RequestResolver) {
-    clearTimeout(this._activeResponseBatchTimer);
-
-    if (this._activeResponseBatch) {
-      this._activeResponseBatch.add(response);
-    }
-
-    this._startResponseBatchTimer(hash, executeResolver);
   }
 }

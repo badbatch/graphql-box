@@ -1,16 +1,7 @@
-import {
-  type PartialRawResponseData,
-  type PartialRequestResult,
-  type PlainObject,
-  type RawResponseDataWithMaybeCacheMetadata,
-  type RequestManagerDef,
-  type RequestResolver,
-} from '@graphql-box/core';
-import { getRequestContext, getRequestData, parsedRequests, responses } from '@graphql-box/test-utils';
+import { type RequestManagerDef, type ResponseData } from '@graphql-box/core';
+import { getOperationContext, getOperationData, parsedOperations, responses } from '@graphql-box/test-utils';
 import { expect, jest } from '@jest/globals';
-import { type Jsonifiable, ResponseType, mockFetch, polyfillFetch } from 'fetch-mocked';
-import { forAwaitEach } from 'iterall';
-import { createResponseChunks } from './__testUtils__/createResponseChunks.ts';
+import { type Jsonifiable, mockFetch, polyfillFetch } from 'fetch-mocked';
 import { FetchManager } from './index.ts';
 
 polyfillFetch();
@@ -25,12 +16,12 @@ Object.defineProperty(globalThis, 'location', {
   writable: true,
 });
 
-describe('@graphql-box/fetch-manager >>', () => {
+describe('@graphql-box/fetch-manager', () => {
   let fetchManager: RequestManagerDef;
 
-  describe('no batching >>', () => {
-    describe('when batch is false >>', () => {
-      let response: PartialRawResponseData;
+  describe('no batching', () => {
+    describe('when batch is false', () => {
+      let response: ResponseData;
 
       beforeAll(async () => {
         jest.useFakeTimers();
@@ -39,16 +30,9 @@ describe('@graphql-box/fetch-manager >>', () => {
           apiUrl: URL,
         });
 
-        const body = { data: responses.singleTypeQuery.data } as Jsonifiable;
-        const headers = { 'cache-control': 'public, max-age=5' };
-        mockedFetch.mockPostOnce('*', { body, headers });
-
-        response = (await fetchManager.execute(
-          getRequestData(parsedRequests.singleTypeQuery),
-          {},
-          getRequestContext(),
-          (() => Promise.resolve(null)) as unknown as RequestResolver,
-        )) as PartialRawResponseData;
+        const body = { data: responses.facebookQuery.data } as Jsonifiable;
+        mockedFetch.mockPostOnce('*', { body });
+        response = await fetchManager.execute(getOperationData(parsedOperations.query), {}, getOperationContext());
       });
 
       afterAll(() => {
@@ -57,55 +41,38 @@ describe('@graphql-box/fetch-manager >>', () => {
       });
 
       it('correct request', () => {
-        expect(mockedFetch.mock.lastCall).toMatchSnapshot();
+        expect(mockedFetch.mock.lastCall).toMatchInlineSnapshot(`
+          [
+            "https://api.github.com/graphql?requestId=faf1d7adbe1edf185c33b52edd09df1b",
+            {
+              "body": "{"batched":false,"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n      id\\n    }\\n  }\\n"}",
+              "headers": Headers {},
+              "method": "POST",
+            },
+          ]
+        `);
       });
 
       it('correct response data', () => {
-        expect(response).toMatchSnapshot();
-      });
-    });
-
-    describe('when context.hasDeferOrStream is true >>', () => {
-      let response: PartialRawResponseData;
-
-      beforeAll(async () => {
-        jest.useFakeTimers();
-
-        fetchManager = new FetchManager({
-          apiUrl: URL,
-          batchRequests: true,
-        });
-
-        const body = { data: responses.singleTypeQuery.data } as Jsonifiable;
-        const headers = { 'cache-control': 'public, max-age=5' };
-        mockedFetch.mockPostOnce('*', { body, headers });
-
-        response = (await fetchManager.execute(
-          getRequestData(parsedRequests.singleTypeQuery),
-          {},
-          getRequestContext({ deprecated: { hasDeferOrStream: true } }),
-          (() => Promise.resolve(null)) as unknown as RequestResolver,
-        )) as PartialRawResponseData;
-      });
-
-      afterAll(() => {
-        jest.useRealTimers();
-        mockedFetch.mockClear();
-      });
-
-      it('correct request', () => {
-        expect(mockedFetch.mock.lastCall).toMatchSnapshot();
-      });
-
-      it('correct response data', () => {
-        expect(response).toMatchSnapshot();
+        expect(response).toMatchInlineSnapshot(`
+          {
+            "data": {
+              "organization": {
+                "email": "",
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "name": "Facebook",
+              },
+            },
+          }
+        `);
       });
     });
   });
 
-  describe('batching >>', () => {
-    describe('single request >>', () => {
-      let response: PartialRawResponseData;
+  describe('batching', () => {
+    describe('single request', () => {
+      let response: ResponseData;
 
       beforeAll(async () => {
         jest.useFakeTimers();
@@ -116,20 +83,16 @@ describe('@graphql-box/fetch-manager >>', () => {
           fetchTimeout: 10_000,
         });
 
-        const requestData = getRequestData(parsedRequests.singleTypeQuery);
+        const operationData = getOperationData(parsedOperations.query);
 
         const body = {
           responses: {
-            [requestData.hash]: { data: responses.singleTypeQuery.data },
+            [operationData.hash]: { data: responses.facebookQuery.data },
           },
         } as Jsonifiable;
 
-        const headers = { 'cache-control': 'public, max-age=5' };
-        mockedFetch.mockPostOnce('*', { body, headers });
-
-        const promise = fetchManager.execute(requestData, {}, getRequestContext(), (() =>
-          Promise.resolve(null)) as unknown as RequestResolver) as Promise<PartialRawResponseData>;
-
+        mockedFetch.mockPostOnce('*', { body });
+        const promise = fetchManager.execute(operationData, {}, getOperationContext());
         jest.runOnlyPendingTimers();
         response = await promise;
       });
@@ -140,16 +103,36 @@ describe('@graphql-box/fetch-manager >>', () => {
       });
 
       it('correct request', () => {
-        expect(mockedFetch.mock.lastCall).toMatchSnapshot();
+        expect(mockedFetch.mock.lastCall).toMatchInlineSnapshot(`
+          [
+            "https://api.github.com/graphql?requestId=faf1d7adbe1edf185c33b52edd09df1b",
+            {
+              "body": "{"batched":true,"requests":{"faf1d7adbe1edf185c33b52edd09df1b":{"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n      id\\n    }\\n  }\\n"}}}",
+              "headers": Headers {},
+              "method": "POST",
+            },
+          ]
+        `);
       });
 
       it('correct response data', () => {
-        expect(response).toMatchSnapshot();
+        expect(response).toMatchInlineSnapshot(`
+          {
+            "data": {
+              "organization": {
+                "email": "",
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "name": "Facebook",
+              },
+            },
+          }
+        `);
       });
     });
 
-    describe('multiple requests >>', () => {
-      let response: PartialRawResponseData[];
+    describe('multiple requests', () => {
+      let response: ResponseData[];
 
       beforeAll(async () => {
         jest.useFakeTimers();
@@ -160,27 +143,21 @@ describe('@graphql-box/fetch-manager >>', () => {
           fetchTimeout: 10_000,
         });
 
-        const initialRequestData = getRequestData(parsedRequests.singleTypeQuerySet.initial);
-        const updatedRequestData = getRequestData(parsedRequests.singleTypeQuerySet.updated);
+        const facebookOperationData = getOperationData(parsedOperations.query);
+        const googleOperationData = getOperationData(parsedOperations.query.replaceAll('facebook', 'google'));
 
         const body = {
           responses: {
-            [initialRequestData.hash]: { data: responses.singleTypeQuerySet.initial.data },
-            [updatedRequestData.hash]: {
-              data: (responses.singleTypeQuerySet.updated as RawResponseDataWithMaybeCacheMetadata).data,
-            },
+            [facebookOperationData.hash]: { data: responses.facebookQuery.data },
+            [googleOperationData.hash]: { data: responses.googleQuery.data },
           },
         } as Jsonifiable;
 
-        const headers = { 'cache-control': 'public, max-age=5' };
-        mockedFetch.mockPostOnce('*', { body, headers });
+        mockedFetch.mockPostOnce('*', { body });
 
         const promises = [
-          fetchManager.execute(initialRequestData, {}, getRequestContext(), (() =>
-            Promise.resolve(null)) as unknown as RequestResolver) as Promise<PartialRawResponseData>,
-
-          fetchManager.execute(updatedRequestData, {}, getRequestContext(), (() =>
-            Promise.resolve(null)) as unknown as RequestResolver) as Promise<PartialRawResponseData>,
+          fetchManager.execute(facebookOperationData, {}, getOperationContext()),
+          fetchManager.execute(googleOperationData, {}, getOperationContext()),
         ];
 
         jest.runOnlyPendingTimers();
@@ -193,61 +170,47 @@ describe('@graphql-box/fetch-manager >>', () => {
       });
 
       it('correct request', () => {
-        expect(mockedFetch.mock.lastCall).toMatchSnapshot();
+        expect(mockedFetch.mock.lastCall).toMatchInlineSnapshot(`
+          [
+            "https://api.github.com/graphql?requestId=faf1d7adbe1edf185c33b52edd09df1b-3288105b397b84de10bdff80ceaa5247",
+            {
+              "body": "{"batched":true,"requests":{"faf1d7adbe1edf185c33b52edd09df1b":{"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n      id\\n    }\\n  }\\n"},"3288105b397b84de10bdff80ceaa5247":{"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"google\\") {\\n      email\\n      login\\n      name\\n      id\\n    }\\n  }\\n"}}}",
+              "headers": Headers {},
+              "method": "POST",
+            },
+          ]
+        `);
       });
 
       it('correct first response data', () => {
-        expect(response[0]).toMatchSnapshot();
+        expect(response[0]).toMatchInlineSnapshot(`
+          {
+            "data": {
+              "organization": {
+                "email": "",
+                "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
+                "login": "facebook",
+                "name": "Facebook",
+              },
+            },
+          }
+        `);
       });
 
       it('correct second response data', () => {
-        expect(response[1]).toMatchSnapshot();
-      });
-    });
-  });
-
-  describe('when content type multipart is returned >>', () => {
-    const results: (PartialRequestResult | undefined)[] = [];
-
-    beforeAll(async () => {
-      fetchManager = new FetchManager({
-        apiUrl: URL,
-      });
-
-      const body = createResponseChunks(responses.deferQuerySet.updated as unknown as PlainObject[]);
-      const headers = { 'content-type': 'multipart/mixed; boundary="-"' };
-      mockedFetch.mockPostOnce('*', { body, headers }, { responseType: ResponseType.TEXT });
-
-      const executeResult = (await fetchManager.execute(
-        getRequestData(parsedRequests.deferQuery),
-        {},
-        getRequestContext({ deprecated: { hasDeferOrStream: true } }),
-        (data => Promise.resolve(data)) as RequestResolver,
-      )) as AsyncIterableIterator<PartialRequestResult | undefined>;
-
-      const promise = new Promise<void>(resolve => {
-        void forAwaitEach(executeResult, result => {
-          results.push(result);
-
-          if (!result?.hasNext) {
-            resolve();
+        expect(response[1]).toMatchInlineSnapshot(`
+          {
+            "data": {
+              "organization": {
+                "email": "",
+                "id": "MDEyOk9yZ2FuaXphdGlvbjEzNDIwMDQ=",
+                "login": "google",
+                "name": "Google",
+              },
+            },
           }
-        });
+        `);
       });
-
-      await promise;
-    });
-
-    afterAll(() => {
-      mockedFetch.mockClear();
-    });
-
-    it('correct request', () => {
-      expect(mockedFetch.mock.calls[0]).toMatchSnapshot();
-    });
-
-    it('correct response data', () => {
-      expect(results).toMatchSnapshot();
     });
   });
 });

@@ -1,6 +1,12 @@
 import { type Metadata as CacheabilityMetadata } from 'cacheability';
 import { type EventEmitter } from 'eventemitter3';
-import { type ASTNode, type DocumentNode, type FragmentDefinitionNode, type OperationTypeNode } from 'graphql';
+import {
+  type ASTNode,
+  type DocumentNode,
+  type FragmentDefinitionNode,
+  type GraphQLErrorExtensions,
+  type OperationTypeNode,
+} from 'graphql';
 import { type ErrorObject } from 'serialize-error';
 import { type Except, type PartialDeep } from 'type-fest';
 import { type WebSocket } from 'ws';
@@ -16,6 +22,25 @@ export interface DebugManagerDef extends EventEmitter {
   log(message: GraphqlStep, data: LogData, logLevel?: LogLevel): void;
   now(): number;
 }
+
+export type DeserializedGraphqlError = {
+  extensions: GraphQLErrorExtensions;
+  message: string;
+  name: 'GraphQLError';
+  nodes: ASTNode | ASTNode[];
+  originalError: ErrorObject;
+  path: string[];
+  positions: number[];
+  source: {
+    body: string;
+    locationOffset: {
+      column: number;
+      line: number;
+    };
+    name: string;
+  };
+  stack: string;
+};
 
 export type FieldPath = {
   cachePaths: string[];

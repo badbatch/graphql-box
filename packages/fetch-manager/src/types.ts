@@ -1,4 +1,4 @@
-import { type PartialRawFetchData, type PartialRawResponseData, type PlainObject } from '@graphql-box/core';
+import { type PlainObject, type ResponseData, type SerialisedResponseData } from '@graphql-box/core';
 
 export interface UserOptions {
   /**
@@ -11,11 +11,6 @@ export interface UserOptions {
    * requests.
    */
   batchRequests?: boolean;
-  /**
-   * Whether a client should batch responses when receiving
-   * patches for requests using defer or stream.
-   */
-  batchResponses?: boolean;
   /**
    * How long client should wait for a server to
    * respond before timing out.
@@ -39,11 +34,6 @@ export interface UserOptions {
    * The maximum number of requests in a single batch
    */
   requestBatchMax?: number;
-  /**
-   * How long client should wait to batch responses
-   * before returning a response.
-   */
-  responseBatchInterval?: number;
 }
 
 export type ActiveBatch = Map<string, ActiveBatchValue>;
@@ -55,14 +45,13 @@ export interface ActiveBatchValue {
 
 export interface BatchResultActions {
   reject: (reason: unknown) => void;
-  resolve: (value: PartialRawResponseData) => void;
+  resolve: (value: ResponseData) => void;
 }
 
 export type BatchActionsObjectMap = Record<string, BatchResultActions>;
 
-export type MaybeRawFetchDataObjectMap = Record<string, PartialRawFetchData>;
+export type SerialisedResponseDataObjectMap = Record<string, SerialisedResponseData>;
 
-export interface BatchedMaybeFetchData {
-  headers: Headers;
-  responses: MaybeRawFetchDataObjectMap;
+export interface BatchedSerialisedResponseData {
+  responses: SerialisedResponseDataObjectMap;
 }

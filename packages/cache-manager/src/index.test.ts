@@ -70,21 +70,21 @@ describe('@graphql-box/cache-manager', () => {
       const fieldPaths = getFieldPaths(parsedOperations.query);
 
       beforeEach(async () => {
-        await cacheManager.cacheQuery(responses.query, getOperationContext({ fieldPaths }));
+        await cacheManager.cacheQuery(responses.facebookQuery, getOperationContext({ fieldPaths }));
       });
 
       it('should return the expected response data', async () => {
         const operationData = getOperationData(parsedOperations.query);
 
         await expect(cacheManager.analyzeQuery(operationData, getOperationContext({ fieldPaths }))).resolves.toEqual({
-          responseData: responses.query,
+          responseData: responses.facebookQuery,
         });
       });
     });
 
     describe('when some field paths are resolved', () => {
       const fieldPaths = getFieldPaths(parsedOperations.query);
-      const response = structuredClone(responses.query);
+      const response = structuredClone(responses.facebookQuery);
 
       // @ts-expect-error does not matter for test purposes
       response.__cacheMetadata['organization.email'] = {
@@ -126,7 +126,7 @@ describe('@graphql-box/cache-manager', () => {
 
     it('should store the expected response data against each field path', async () => {
       const fieldPaths = getFieldPaths(parsedOperations.query);
-      await cacheManager.cacheQuery(responses.query, getOperationContext({ fieldPaths }));
+      await cacheManager.cacheQuery(responses.facebookQuery, getOperationContext({ fieldPaths }));
 
       expect(await cacheManager.cache!.export()).toMatchInlineSnapshot(`
         {
