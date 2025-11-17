@@ -3,15 +3,14 @@ import { type CacheManagerDef } from '@graphql-box/cache-manager';
 import { type Client } from '@graphql-box/client';
 import {
   type DebugManagerDef,
-  type PartialRawFetchData,
-  type PartialRequestResult,
-  type RequestContext,
-  type RequestContextData,
-  type RequestContextDeprecated,
-  type RequestData,
-  type RequestOptions,
+  type OperationContext,
+  type OperationContextData,
+  type OperationData,
+  type OperationOptions,
+  type ResponseData,
+  type SerialisedResponseData,
 } from '@graphql-box/core';
-import { type RequestParserDef } from '../../operation-parser';
+import { type OperationParserDef } from '@graphql-box/operation-parser';
 
 export interface UserOptions {
   /**
@@ -27,11 +26,6 @@ export interface UserOptions {
    */
   debugManager?: DebugManagerDef;
   /**
-   * Enable support for defer and stream directives. Based on version
-   * of spec in 16.1.0-experimental-stream-defer.6
-   */
-  experimentalDeferStreamSupport?: boolean;
-  /**
    * Must be passed in as true if you are going to
    * initialise the worker after the constructor.
    */
@@ -39,23 +33,19 @@ export interface UserOptions {
   /**
    * The curried function to initialzie the request parser.
    */
-  requestParser: RequestParserDef;
+  operationParser: OperationParserDef;
   /**
    * The web worker instance.
    */
   worker?: Worker | (() => Worker | Promise<Worker>);
 }
 
-export type MethodNames = 'request' | 'subscribe';
-
-export type PendingResolver = (
-  value: PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>,
-) => void;
+export type PendingResolver = (value: ResponseData) => void;
 
 export interface PendingData {
-  context?: RequestContext;
-  options?: RequestOptions;
-  requestData?: RequestData;
+  context?: OperationContext;
+  operationData?: OperationData;
+  options?: OperationOptions;
   resolve: PendingResolver;
 }
 
@@ -63,22 +53,19 @@ export type PendingTracker = Map<string, PendingData>;
 
 export interface MessageRequestPayload {
   context: MessageContext;
-  method: MethodNames;
-  options: RequestOptions;
-  request: string;
+  operation: string;
+  options: OperationOptions;
   type: 'graphqlBox' | 'cachemap';
 }
 
 export interface MessageResponsePayload {
   context: MessageContext;
-  method: MethodNames;
-  result: PartialRawFetchData;
+  result: SerialisedResponseData;
   type: 'graphqlBox' | 'cachemap';
 }
 
 export interface MessageContext {
-  data: RequestContextData;
-  deprecated: RequestContextDeprecated;
+  data: OperationContextData;
 }
 
 export interface RegisterWorkerOptions {

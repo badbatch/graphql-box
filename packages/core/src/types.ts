@@ -192,7 +192,7 @@ export type ResponseDataWithoutErrors<T extends PlainObject<unknown> = PlainObje
 export type SerialisedResponseData<T extends PlainObject<unknown> = PlainObject<unknown>> = {
   __cacheMetadata?: CacheMetadata;
   data?: T;
-  errors?: ErrorObject[];
+  errors?: (DeserializedGraphqlError | ErrorObject)[];
 };
 
 export interface ServerSocketOperationOptions extends OperationOptions {

@@ -1,8 +1,9 @@
 import {
-  type PartialRequestContext,
-  type PartialRequestResult,
+  type OperationContext,
+  type OperationOptions,
+  type PartialOperationContext,
   type PlainObject,
-  type RequestOptions,
+  type ResponseData,
 } from '@graphql-box/core';
 import { useState } from 'react';
 import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
@@ -17,19 +18,16 @@ export const useMultiRequest = <Data extends PlainObject>(request: string, { loa
   const graphqlBoxClient = useGraphqlBoxClient();
   const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading });
 
-  const execute = async (optionsSet: RequestOptions[], context?: PartialRequestContext) => {
+  const execute = async (optionsSet: OperationOptions[], context?: PartialOperationContext) => {
     setState({
       data: undefined,
       errors: [],
       loading: true,
     });
 
-    // This hook cannot be used with defer/stream so doesn't support
-    // returning an async iterator.
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    const requestResults = (await Promise.all(
-      optionsSet.map(options => graphqlBoxClient.request(request, options, context)),
-    )) as PartialRequestResult[];
+    const requestResults = await Promise.all(
+      optionsSet.map(options => graphqlBoxClient.query(request, options, context)),
+    );
 
     setState({
       // @ts-expect-error Need to handle this properly

@@ -1,5 +1,5 @@
-import { type PlainObject, type RequestOptions } from '@graphql-box/core';
-import { type MutableRefObject, type ReactElement } from 'react';
+import { type OperationOptions, type PlainObject } from '@graphql-box/core';
+import { type ReactElement, type RefObject } from 'react';
 
 export type ConnectionVariables = {
   after?: string;
@@ -23,7 +23,7 @@ export type Edge<Item extends PlainObject> = {
 
 export type ListingsChildrenProps<Item extends PlainObject> = {
   hasNextPage: boolean;
-  lastItemRef: MutableRefObject<HTMLDivElement | null>;
+  lastItemRef: RefObject<HTMLDivElement | null>;
   listings: Item[];
   loading: boolean;
 };
@@ -40,7 +40,7 @@ export type ListingsProps<Item extends PlainObject> = {
   renderLoader?: () => ReactElement;
   requestPath: string;
   resultsPerRequest?: number;
-} & RequestOptions;
+} & OperationOptions;
 
 export type ListingsData<Item extends PlainObject> = {
   hasNextPage: boolean;

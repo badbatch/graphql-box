@@ -1,4 +1,4 @@
-import { type PlainObject, type RequestOptions } from '@graphql-box/core';
+import { type OperationOptions, type PlainObject } from '@graphql-box/core';
 import {
   type DirectiveNode,
   type FieldNode,
@@ -12,7 +12,7 @@ import { getArguments } from './arguments.ts';
 import { getFragmentSpreads } from './fragmentSpreads.ts';
 import { getKind, isKind } from './kind.ts';
 
-export const getDirectives = (field: FieldNode | InlineFragmentNode, options?: RequestOptions) => {
+export const getDirectives = (field: FieldNode | InlineFragmentNode, options?: OperationOptions) => {
   return [
     ...(isKind<FieldNode>(field, Kind.FIELD)
       ? getFieldDirectives(field, options)
@@ -21,7 +21,7 @@ export const getDirectives = (field: FieldNode | InlineFragmentNode, options?: R
   ];
 };
 
-export const getFieldDirectives = (field: FieldNode, options?: RequestOptions) => {
+export const getFieldDirectives = (field: FieldNode, options?: OperationOptions) => {
   return field.directives?.length
     ? parseDirectiveArguments(field.directives, field.name.value, getKind(field), options)
     : [];
@@ -29,7 +29,7 @@ export const getFieldDirectives = (field: FieldNode, options?: RequestOptions) =
 
 export const getFragmentSpreadDirectives = (
   field: FieldNode | InlineFragmentNode | FragmentDefinitionNode,
-  options?: RequestOptions,
+  options?: OperationOptions,
 ) => {
   const fragmentSpreads = getFragmentSpreads(field);
   let parsedDirectives: ParsedDirective[] = [];
@@ -49,7 +49,7 @@ export const getFragmentSpreadDirectives = (
   return parsedDirectives;
 };
 
-export const getInlineFragmentDirectives = (field: InlineFragmentNode, options?: RequestOptions) => {
+export const getInlineFragmentDirectives = (field: InlineFragmentNode, options?: OperationOptions) => {
   return field.directives?.length
     ? // Based on context, field is always going to have typeCondition
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -61,7 +61,7 @@ export const parseDirectiveArguments = (
   directives: readonly DirectiveNode[],
   kind: string,
   name: string,
-  options?: RequestOptions,
+  options?: OperationOptions,
 ) => {
   return directives.reduce<ParsedDirective[]>((parsedDirectives, directive) => {
     let args: PlainObject = {};

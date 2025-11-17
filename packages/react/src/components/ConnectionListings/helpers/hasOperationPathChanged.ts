@@ -2,7 +2,7 @@ import { type PlainData } from '@graphql-box/core';
 import { isObjectLike } from '@graphql-box/helpers';
 import { get } from 'lodash-es';
 
-export const hasRequestPathChanged = (requestPath: string, data: PlainData | null | undefined) => {
+export const hasOperationPathChanged = (requestPath: string, data: PlainData | null | undefined) => {
   if (!data) {
     return false;
   }

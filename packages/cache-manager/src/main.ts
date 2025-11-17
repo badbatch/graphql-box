@@ -6,7 +6,7 @@ import {
   type OperationData,
   type ResponseData,
 } from '@graphql-box/core';
-import { ArgsError, GroupedError, hashRequest } from '@graphql-box/helpers';
+import { ArgsError, GroupedError, hashOperation } from '@graphql-box/helpers';
 import { Cacheability, type Metadata as CacheabilityMetadata } from 'cacheability';
 import { print } from 'graphql';
 import { get, has, set } from 'lodash-es';
@@ -69,7 +69,7 @@ export class CacheManager implements CacheManagerDef {
     return {
       operationData: {
         ast: filteredAst,
-        hash: hashRequest(filteredOperation),
+        hash: hashOperation(filteredOperation),
         operation: filteredOperation,
       },
     };

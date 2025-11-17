@@ -1,5 +1,5 @@
-import { type OperationContext, type OperationOptions } from '@graphql-box/core';
-import { ArgsError, GroupedError, getOperationDefinitions, hashRequest, isPlainObject } from '@graphql-box/helpers';
+import { type OperationContext, type OperationData, type OperationOptions } from '@graphql-box/core';
+import { ArgsError, GroupedError, getOperationDefinitions, hashOperation, isPlainObject } from '@graphql-box/helpers';
 import { GraphQLSchema, buildClientSchema, parse, print } from 'graphql';
 import { assign, isError } from 'lodash-es';
 import { calcTypeComplexity } from '#helpers/calcTypeComplexity.ts';
@@ -7,7 +7,7 @@ import { getMaxFieldDepthFromChart } from '#helpers/getMaxFieldDepthFromChart.ts
 import { instrumentOperation } from '#helpers/instrumentOperation.ts';
 import { parseOperation } from '#helpers/parseOperation.ts';
 import { validateOperation } from '#helpers/validateOperation.ts';
-import { type OperationParserDef, type UpdateOperationResult, type UserOptions } from './types.ts';
+import { type OperationParserDef, type UserOptions } from './types.ts';
 
 export class OperationParser implements OperationParserDef {
   private readonly _maxFieldDepth: number;
@@ -47,19 +47,11 @@ export class OperationParser implements OperationParserDef {
     this._typeComplexityMap = options.typeComplexityMap;
   }
 
-  public buildOperationData(
-    operation: string,
-    options: OperationOptions,
-    context: OperationContext,
-  ): UpdateOperationResult {
+  public buildOperationData(operation: string, options: OperationOptions, context: OperationContext): OperationData {
     return this._buildOperationData(operation, options, context);
   }
 
-  private _buildOperationData(
-    operation: string,
-    options: OperationOptions,
-    context: OperationContext,
-  ): UpdateOperationResult {
+  private _buildOperationData(operation: string, options: OperationOptions, context: OperationContext): OperationData {
     const operationWithFragments = options.fragments ? [operation, ...options.fragments].join('\n\n') : operation;
     const ast = parse(operationWithFragments);
     const operationDefinitions = getOperationDefinitions(ast);
@@ -103,7 +95,7 @@ export class OperationParser implements OperationParserDef {
 
     return {
       ast: parsedAst,
-      hash: hashRequest(parsedOperation),
+      hash: hashOperation(parsedOperation),
       operation: parsedOperation,
     };
   }

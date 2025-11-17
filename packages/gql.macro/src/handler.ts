@@ -3,7 +3,7 @@ import { type TemplateLiteral, stringLiteral } from '@babel/types';
 import { MacroError, type MacroHandler } from 'babel-plugin-macros';
 import { readFileSync } from 'node:fs';
 import { parse, resolve } from 'node:path';
-import { hashRequest } from './helpers/hashRequest.ts';
+import { hashOperation } from './helpers/hashOperation.ts';
 import { resolveImports } from './helpers/resolveImports.ts';
 import { writeFile } from './helpers/writeFile.ts';
 
@@ -32,7 +32,7 @@ export const macroHandler: MacroHandler = ({ config, references: { default: path
         const fullGqlPath = resolve(basePath, gqlPath);
         const { dir } = parse(fullGqlPath);
         const rawGql = resolveImports(readFileSync(fullGqlPath, { encoding: 'utf8' }), dir);
-        whitelist.push(hashRequest(rawGql));
+        whitelist.push(hashOperation(rawGql));
         targetPath.replaceWith(stringLiteral(rawGql));
       } else {
         throw new MacroError(

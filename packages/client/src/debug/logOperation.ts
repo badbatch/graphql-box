@@ -1,9 +1,9 @@
 import {
+  OPERATION_EXECUTED,
+  OPERATION_RESOLVED,
   type OperationContext,
   type OperationData,
   type OperationOptions,
-  REQUEST_EXECUTED,
-  REQUEST_RESOLVED,
   type ResponseData,
 } from '@graphql-box/core';
 import { type Client } from '../main.ts';
@@ -35,7 +35,7 @@ export const logOperation = () => {
 
           const startTime = debugManager.now();
 
-          debugManager.log(REQUEST_EXECUTED, {
+          debugManager.log(OPERATION_EXECUTED, {
             data: {
               ...data,
               ...contextValue?.data,
@@ -48,7 +48,7 @@ export const logOperation = () => {
           const duration = endTime - startTime;
           resolve(result);
 
-          debugManager.log(REQUEST_RESOLVED, {
+          debugManager.log(OPERATION_RESOLVED, {
             data: {
               ...data,
               ...contextValue?.data,

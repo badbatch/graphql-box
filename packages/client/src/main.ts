@@ -14,7 +14,7 @@ import {
   type ResponseData,
   type ResponseDataWithoutErrors,
 } from '@graphql-box/core';
-import { ArgsError, GroupedError, hashRequest, isArray, isPlainObject } from '@graphql-box/helpers';
+import { ArgsError, GroupedError, hashOperation, isArray, isPlainObject } from '@graphql-box/helpers';
 import { type OperationParserDef } from '@graphql-box/operation-parser';
 import { OperationTypeNode } from 'graphql';
 import { isString } from 'lodash-es';
@@ -87,8 +87,8 @@ export class Client {
 
     this._cacheManager = options.cacheManager;
     this._debugManager = options.debugManager;
-    this._requestManager = options.requestManager;
     this._operationParser = options.operationParser;
+    this._requestManager = options.requestManager;
   }
 
   get cacheManager() {
@@ -134,7 +134,7 @@ export class Client {
         operationName: '',
         operationType,
         operationTypeComplexity: undefined,
-        originalOperationHash: hashRequest(request),
+        originalOperationHash: hashOperation(request),
         tag: options.tag,
         variables: options.variables,
       },

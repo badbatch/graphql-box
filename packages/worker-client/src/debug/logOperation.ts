@@ -1,19 +1,21 @@
 import {
-  type PartialRequestResult,
-  type RequestContext,
-  type RequestOptions,
-  SUBSCRIPTION_EXECUTED,
+  OPERATION_EXECUTED,
+  OPERATION_RESOLVED,
+  type OperationContext,
+  type OperationData,
+  type OperationOptions,
+  type ResponseData,
 } from '@graphql-box/core';
 import { operationNameRegex } from '../helpers/operationNameRegex.ts';
 import { type WorkerClient } from '../main.ts';
 
 type Descriptor = (
-  request: string,
-  options: RequestOptions,
-  context: RequestContext,
-) => Promise<PartialRequestResult | AsyncIterableIterator<PartialRequestResult | undefined>>;
+  operationData: OperationData,
+  options: OperationOptions,
+  context: OperationContext,
+) => Promise<ResponseData>;
 
-export const logSubscription = () => {
+export const logOperation = () => {
   return (_target: WorkerClient, _propertyName: string, descriptor: TypedPropertyDescriptor<Descriptor>): void => {
     const method = descriptor.value;
 
@@ -31,10 +33,10 @@ export const logSubscription = () => {
             return;
           }
 
-          const derivedOperationName = operationNameRegex(args[0]);
+          const derivedOperationName = operationNameRegex(args[0].operation);
           const startTime = debugManager.now();
 
-          debugManager.log(SUBSCRIPTION_EXECUTED, {
+          debugManager.log(OPERATION_EXECUTED, {
             data: {
               ...data,
               ...(!data.operationName && derivedOperationName ? { operationName: derivedOperationName } : undefined),
@@ -43,7 +45,17 @@ export const logSubscription = () => {
           });
 
           const result = await method.apply(this, args);
+          const endTime = debugManager.now();
+          const duration = endTime - startTime;
           resolve(result);
+
+          debugManager.log(OPERATION_RESOLVED, {
+            data: {
+              ...data,
+              ...(!data.operationName && derivedOperationName ? { operationName: derivedOperationName } : undefined),
+            },
+            stats: { duration, endTime, startTime },
+          });
         })();
       });
     };

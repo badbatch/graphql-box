@@ -8,7 +8,7 @@ import { buildDependencyKey } from './helpers/buildDependencyKey.ts';
 import { filterOutDuplicateEntities } from './helpers/filterOutDuplicateEntities.ts';
 import { formatListings } from './helpers/formatListings.ts';
 import { getLastListingsEntry } from './helpers/getLastListingsEntry.ts';
-import { hasRequestPathChanged } from './helpers/hasRequestPathChanged.ts';
+import { hasOperationPathChanged } from './helpers/hasOperationPathChanged.ts';
 import { type ConnectionResponse, type ConnectionVariables, type ListingsData, type ListingsProps } from './types.ts';
 
 const initialListingsData = {
@@ -18,7 +18,6 @@ const initialListingsData = {
 
 export const ConnectionListings = <Item extends PlainObject>(props: ListingsProps<Item>) => {
   const {
-    awaitDataCaching,
     batch,
     children,
     componentName,
@@ -62,12 +61,14 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
   );
 
   useEffect(() => {
-    if (variablesHash !== previousVariablesHashes.current.get(queryHash) || hasRequestPathChanged(requestPath, data)) {
+    if (
+      variablesHash !== previousVariablesHashes.current.get(queryHash) ||
+      hasOperationPathChanged(requestPath, data)
+    ) {
       const newConnectionVariables = { ...connectionVariables, after: undefined };
 
       void execute(
         {
-          awaitDataCaching,
           batch,
           fragments,
           returnCacheMetadata,
@@ -125,7 +126,7 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
 
   if (
     ((variablesHash !== previousVariablesHashes.current.get(queryHash) && loading) ||
-      hasRequestPathChanged(requestPath, data)) &&
+      hasOperationPathChanged(requestPath, data)) &&
     renderLoader
   ) {
     return renderLoader();

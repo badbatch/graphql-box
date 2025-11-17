@@ -1,4 +1,4 @@
-import { type PlainObject, type RequestOptions } from '@graphql-box/core';
+import { type OperationOptions, type PlainObject } from '@graphql-box/core';
 import { type DirectiveNode, type FieldNode, Kind, type ValueNode } from 'graphql';
 import { getKind } from './kind.ts';
 import { getName } from './name.ts';
@@ -33,7 +33,7 @@ const parseValue = (valueNode: ValueNode): ParseValueResult => {
   return output;
 };
 
-export const getArguments = (field: FieldNode | DirectiveNode, options?: RequestOptions): PlainObject | undefined => {
+export const getArguments = (field: FieldNode | DirectiveNode, options?: OperationOptions): PlainObject | undefined => {
   if (!field.arguments || field.arguments.length === 0) {
     return undefined;
   }

@@ -80,18 +80,3 @@ export interface ParsedDirective {
   parentKind: string;
   parentName: string;
 }
-
-export interface KeysAndPaths {
-  hashedRequestFieldCacheKey: string;
-  propNameOrIndex: string | number;
-  requestFieldCacheKey: string;
-  requestFieldPath: string;
-  responseDataPath: string;
-}
-
-export interface KeysAndPathsOptions {
-  index?: number;
-  requestFieldCacheKey?: string;
-  requestFieldPath?: string;
-  responseDataPath?: string;
-}

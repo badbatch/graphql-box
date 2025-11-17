@@ -1,11 +1,5 @@
-import { type Maybe, type OperationContext, type OperationOptions } from '@graphql-box/core';
-import {
-  type ASTNode,
-  type DocumentNode,
-  type GraphQLNamedType,
-  type GraphQLSchema,
-  type IntrospectionQuery,
-} from 'graphql';
+import { type Maybe, type OperationContext, type OperationData, type OperationOptions } from '@graphql-box/core';
+import { type ASTNode, type GraphQLNamedType, type GraphQLSchema, type IntrospectionQuery } from 'graphql';
 
 export type Ancestor = ASTNode | readonly ASTNode[];
 
@@ -19,14 +13,8 @@ export type ConnectionInputOptions = {
 export type PathPart = [part: string, count: number] | string;
 
 export interface OperationParserDef {
-  buildOperationData(operation: string, options: OperationOptions, context: OperationContext): UpdateOperationResult;
+  buildOperationData(operation: string, options: OperationOptions, context: OperationContext): OperationData;
 }
-
-export type UpdateOperationResult = {
-  ast: DocumentNode;
-  hash: string;
-  operation: string;
-};
 
 export type UserOptions = {
   /**
