@@ -59,7 +59,7 @@ export class WorkerClient {
       stats: { endTime: this._debugManager.now() },
     });
 
-    const response: ResponseData = { ...deserializeErrors(result) };
+    const response: ResponseData & { operationId: string } = { ...deserializeErrors(result), operationId };
 
     if (operationType === OperationTypeNode.QUERY && pending.operationData && pending.options && pending.context) {
       void this._cacheManager.cacheQuery(response, pending.context);
@@ -141,13 +141,16 @@ export class WorkerClient {
     operation: string,
     options: OperationOptions = {},
     context: PartialOperationContext = {},
-  ): Promise<ResponseData> {
-    const operationContext = this._getOperationContext(OperationTypeNode.QUERY, operation, options, context);
+  ): Promise<ResponseData<T> & { operationId: string }> {
+    const operationContext = this._buildOperationContext(OperationTypeNode.QUERY, operation, options, context);
     const operationData = this._operationParser.buildOperationData(operation, options, operationContext);
+
     // Casting to allow user to type response data while allowing downstream code
     // to be more generic.
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    return this._handleQuery(operationData, options, operationContext) as Promise<ResponseData<T>>;
+    return this._handleQuery(operationData, options, operationContext) as Promise<
+      ResponseData<T> & { operationId: string }
+    >;
   }
 
   public set worker(worker: Worker) {
@@ -164,7 +167,7 @@ export class WorkerClient {
     this._worker.addEventListener(MESSAGE, this._onMessage);
   }
 
-  private _getOperationContext(
+  private _buildOperationContext(
     operationType: OperationTypeNode,
     operation: string,
     options: OperationOptions,

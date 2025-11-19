@@ -1,10 +1,4 @@
-import {
-  type PartialRequestContext,
-  type PartialRequestResult,
-  type PlainObject,
-  type RequestOptions,
-} from '@graphql-box/core';
-import { isAsyncIterable } from 'iterall';
+import { type OperationOptions, type PartialOperationContext, type PlainObject } from '@graphql-box/core';
 import { useState } from 'react';
 import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
 
@@ -12,38 +6,29 @@ export type State<Data extends PlainObject> = {
   data: Data | null | undefined;
   errors: readonly Error[];
   loading: boolean;
-  requestID: string;
+  operationId: string;
 };
 
 export const useQuery = <Data extends PlainObject>(request: string, { loading = false } = {}) => {
   const graphqlBoxClient = useGraphqlBoxClient();
-  const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading, requestID: '' });
+  const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading, operationId: '' });
 
-  const execute = async (options?: RequestOptions, context?: PartialRequestContext) => {
+  const execute = async (options?: OperationOptions, context?: PartialOperationContext) => {
     setState({
       data: undefined,
       errors: [],
       loading: true,
-      requestID: '',
+      operationId: '',
     });
 
-    const requestResult = await graphqlBoxClient.query(request, options, context);
-
-    if (isAsyncIterable(requestResult)) {
-      throw new Error('useQuery does not support returning async iterators from queries');
-    }
-
-    // Need to use a type guard
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    const { data, errors, requestID } = requestResult as PartialRequestResult;
+    const requestResult = await graphqlBoxClient.query<Data>(request, options, context);
+    const { data, errors, operationId } = requestResult;
 
     setState({
-      // Need to fix the types here
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      data: data as Data,
+      data,
       errors: errors ?? [],
       loading: false,
-      requestID,
+      operationId,
     });
   };
 

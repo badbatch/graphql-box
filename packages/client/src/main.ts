@@ -28,14 +28,18 @@ export class Client {
     return !!fragments && (!isArray(fragments) || !fragments.every(value => isString(value)));
   }
 
-  private static _resolve({ __cacheMetadata, ...rest }: ResponseData, options: OperationOptions): ResponseData {
+  private static _resolve(
+    { __cacheMetadata, ...rest }: ResponseData,
+    options: OperationOptions,
+    context: OperationContext,
+  ): ResponseData & { operationId: string } {
     const result: ResponseData = { ...rest };
 
     if (options.returnCacheMetadata && __cacheMetadata) {
       result.__cacheMetadata = __cacheMetadata;
     }
 
-    return result;
+    return { ...result, operationId: context.data.operationId };
   }
 
   private static _validateOperationArgs(query: string, options: OperationOptions): ArgsError[] {
@@ -103,7 +107,7 @@ export class Client {
     operation: string,
     options: OperationOptions = {},
     context: PartialOperationContext = {},
-  ): Promise<ResponseData<T>> {
+  ): Promise<ResponseData<T> & { operationId: string }> {
     const errors = Client._validateOperationArgs(operation, options);
 
     if (errors.length > 0) {
@@ -112,10 +116,13 @@ export class Client {
 
     const operationContext = this._buildOperationContext(OperationTypeNode.QUERY, operation, options, context);
     const operationData = this._operationParser.buildOperationData(operation, options, operationContext);
+
     // Casting to allow user to type response data while allowing downstream code
     // to be more generic.
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    return this._handleQuery(operationData, options, operationContext) as Promise<ResponseData<T>>;
+    return this._handleQuery(operationData, options, operationContext) as Promise<
+      ResponseData<T> & { operationId: string }
+    >;
   }
 
   private _buildOperationContext(
@@ -160,7 +167,7 @@ export class Client {
         },
       });
 
-      return Client._resolve(result, options);
+      return Client._resolve(result, options, context);
     }
 
     const pendingQuery = await this._trackQuery(operationData, options, context);
@@ -173,7 +180,7 @@ export class Client {
       await this._cacheManager.analyzeQuery(operationData, context);
 
     if (initialResponseData) {
-      return this._resolveQuery(operationData, initialResponseData, options);
+      return this._resolveQuery(operationData, initialResponseData, options, context);
     }
 
     // @ts-expect-error One of operationData or responseData is required,
@@ -193,7 +200,7 @@ export class Client {
       stats: { endTime: this._debugManager.now() },
     });
 
-    return this._resolveQuery(operationData, finalResponseData, options);
+    return this._resolveQuery(operationData, finalResponseData, options, context);
   }
 
   private _resolvePendingQueries(operationData: OperationData, responseData: ResponseData): void {
@@ -208,7 +215,7 @@ export class Client {
         data: context.data,
       });
 
-      resolver(Client._resolve(responseData, options));
+      resolver(Client._resolve(responseData, options, context));
     }
 
     // This is not a problem in this scenario.
@@ -220,6 +227,7 @@ export class Client {
     operationData: OperationData,
     responseData: ResponseData,
     options: OperationOptions,
+    context: OperationContext,
   ): ResponseData {
     this._resolvePendingQueries(operationData, responseData);
 
@@ -227,7 +235,7 @@ export class Client {
       activeQuery => activeQuery.operationData.hash !== operationData.hash,
     );
 
-    return Client._resolve(responseData, options);
+    return Client._resolve(responseData, options, context);
   }
 
   @logPendingQuery()

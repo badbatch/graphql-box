@@ -1,10 +1,4 @@
-import {
-  type OperationContext,
-  type OperationOptions,
-  type PartialOperationContext,
-  type PlainObject,
-  type ResponseData,
-} from '@graphql-box/core';
+import { type OperationOptions, type PartialOperationContext, type PlainObject } from '@graphql-box/core';
 import { useState } from 'react';
 import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
 
@@ -14,7 +8,7 @@ export type State<Data extends PlainObject> = {
   loading: boolean;
 };
 
-export const useMultiRequest = <Data extends PlainObject>(request: string, { loading = false } = {}) => {
+export const useMultiQuery = <Data extends PlainObject>(request: string, { loading = false } = {}) => {
   const graphqlBoxClient = useGraphqlBoxClient();
   const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading });
 

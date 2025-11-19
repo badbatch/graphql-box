@@ -1,5 +1,4 @@
-import { type Core, type ImportOptions } from '@cachemap/core';
-import { WorkerClient } from '@graphql-box/worker-client';
+import { type ImportOptions } from '@cachemap/core';
 import { type ReactNode, useContext } from 'react';
 import { Context } from './Context.ts';
 
@@ -10,18 +9,9 @@ export type GraphqlBoxUpdateProviderProps = {
 
 export const GraphqlBoxUpdateProvider = ({ children, imports }: GraphqlBoxUpdateProviderProps) => {
   const { graphqlBoxClient } = useContext(Context);
-  let cache: Core | undefined;
-
-  if (graphqlBoxClient instanceof WorkerClient) {
-    ({ cache } = graphqlBoxClient.cacheManager);
-  }
 
   for (const options of imports) {
-    void graphqlBoxClient.cache?.import(options);
-
-    if (cache) {
-      void cache.import(options);
-    }
+    void graphqlBoxClient.cacheManager.cache?.import(options);
   }
 
   return children;

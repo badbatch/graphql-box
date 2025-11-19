@@ -36,13 +36,13 @@ export class FetchManager {
     { responses }: BatchedSerialisedResponseData,
     batchEntries: BatchActionsObjectMap,
   ): void {
-    for (const [hash, { reject, resolve }] of Object.entries(batchEntries)) {
-      const responseData = responses[hash];
+    for (const [requestId, { reject, resolve }] of Object.entries(batchEntries)) {
+      const responseData = responses[requestId];
 
       if (responseData) {
         resolve(logErrorsToConsole(deserializeErrors({ ...responseData })));
       } else {
-        reject(new Error(`@graphql-box/fetch-manager did not get a response for batched request ${hash}.`));
+        reject(new Error(`@graphql-box/fetch-manager did not get a response for batched request ${requestId}.`));
       }
     }
   }
@@ -79,14 +79,14 @@ export class FetchManager {
 
   @logFetch()
   public async execute(
-    { hash, operation }: OperationData,
+    { operation }: OperationData,
     options: OperationOptions,
     context: OperationContext,
   ): Promise<ResponseData> {
     const url = this._apiUrl;
 
     if (options.batch === false || !this._batchRequests) {
-      const fetchResult = await this._fetch<SerialisedResponseData>(`${url}?requestId=${hash}`, {
+      const fetchResult = await this._fetch<SerialisedResponseData>(`${url}?requestId=${context.data.operationId}`, {
         batched: false,
         context: FetchManager._getMessageContext(context),
         operation,
@@ -102,7 +102,7 @@ export class FetchManager {
           context: FetchManager._getMessageContext(context),
           operation,
         },
-        hash,
+        context.data.operationId,
         { reject, resolve },
       );
     });
@@ -115,24 +115,24 @@ export class FetchManager {
       }
 
       const url = this._logUrl;
-      const hash = uuid();
+      const requestId = uuid();
 
       if (!this._batchRequests) {
-        void this._fetch(`${url}?requestId=${hash}`, { batched: false, data, logLevel, message });
+        void this._fetch(`${url}?requestId=${requestId}`, { batched: false, data, logLevel, message });
         return;
       }
 
-      this._batchRequest(url, { data, logLevel, message }, hash);
+      this._batchRequest(url, { data, logLevel, message }, requestId);
     } catch {
       // no catch
     }
   }
 
-  private _batchRequest(url: string, body: PlainObject, hash: string, actions?: BatchResultActions): void {
+  private _batchRequest(url: string, body: PlainObject, requestId: string, actions?: BatchResultActions): void {
     const activeRequestBatch = this._activeRequestBatch[url];
 
     if (!activeRequestBatch) {
-      this._createRequestBatch(url, body, hash, actions);
+      this._createRequestBatch(url, body, requestId, actions);
     } else if (activeRequestBatch.size >= this._requestBatchMax) {
       const activeRequestBatchTimer = this._activeRequestBatchTimer[url];
 
@@ -142,15 +142,15 @@ export class FetchManager {
 
       void this._fetchBatch(url, activeRequestBatch.entries());
       this._activeRequestBatch[url] = undefined;
-      this._createRequestBatch(url, body, hash, actions);
+      this._createRequestBatch(url, body, requestId, actions);
     } else {
-      this._updateRequestBatch(url, body, hash, actions);
+      this._updateRequestBatch(url, body, requestId, actions);
     }
   }
 
-  private _createRequestBatch(url: string, body: PlainObject, hash: string, actions?: BatchResultActions): void {
+  private _createRequestBatch(url: string, body: PlainObject, requestId: string, actions?: BatchResultActions): void {
     const activeRequestBatch = new Map();
-    activeRequestBatch.set(hash, { actions, body });
+    activeRequestBatch.set(requestId, { actions, body });
     this._activeRequestBatch[url] = activeRequestBatch;
     this._startRequestBatchTimer(url);
   }
@@ -183,25 +183,25 @@ export class FetchManager {
   }
 
   private async _fetchBatch(url: string, batchEntries: IterableIterator<[string, ActiveBatchValue]>): Promise<void> {
-    const hashes: string[] = [];
+    const requestIds: string[] = [];
     const batchActions: BatchActionsObjectMap = {};
-    const batchRequests: Record<string, PlainObject> = {};
+    const batchOperations: Record<string, PlainObject> = {};
 
-    for (const [requestHash, { actions, body }] of batchEntries) {
-      hashes.push(requestHash);
+    for (const [requestId, { actions, body }] of batchEntries) {
+      requestIds.push(requestId);
 
       if (actions) {
-        batchActions[requestHash] = actions;
+        batchActions[requestId] = actions;
       }
 
-      batchRequests[requestHash] = body;
+      batchOperations[requestId] = body;
     }
 
     try {
       FetchManager._resolveFetchBatch(
-        await this._fetch<BatchedSerialisedResponseData>(`${url}?requestId=${hashes.join('-')}`, {
+        await this._fetch<BatchedSerialisedResponseData>(`${url}?requestId=${requestIds.join('-')}`, {
           batched: true,
-          requests: batchRequests,
+          operations: batchOperations,
         }),
         batchActions,
       );
@@ -223,7 +223,7 @@ export class FetchManager {
     }, this._requestBatchInterval);
   }
 
-  private _updateRequestBatch(url: string, body: PlainObject, hash: string, actions?: BatchResultActions): void {
+  private _updateRequestBatch(url: string, body: PlainObject, requestId: string, actions?: BatchResultActions): void {
     const activeRequestBatchTimer = this._activeRequestBatchTimer[url];
 
     if (activeRequestBatchTimer) {
@@ -233,7 +233,7 @@ export class FetchManager {
     const activeRequestBatch = this._activeRequestBatch[url];
 
     if (activeRequestBatch) {
-      activeRequestBatch.set(hash, { actions, body });
+      activeRequestBatch.set(requestId, { actions, body });
     }
 
     this._startRequestBatchTimer(url);

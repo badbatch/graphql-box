@@ -39,7 +39,7 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
   const [{ hasNextPage, listings }, setListingsData] = useState<ListingsData<Item>>(initialListingsData);
   const [connectionVariables, setConnectionVariables] = useState<ConnectionVariables>({ first: resultsPerRequest });
 
-  const { data, errors, execute, loading, requestID } = useQuery<ConnectionResponse<Item>>(query, {
+  const { data, errors, execute, loading, operationId } = useQuery<ConnectionResponse<Item>>(query, {
     loading: true,
   });
 
@@ -54,7 +54,7 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
   const variablesHash = encode(JSON.stringify({ ...variables, requestPath }));
 
   const dependenciesKey = buildDependencyKey(
-    requestID,
+    operationId,
     // Typing get return value doesn't work very well
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     get(data, `${requestPath}.pageInfo.startCursor`) as string | null | undefined,
@@ -111,8 +111,8 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
       hasNextPage: pageInfo.hasNextPage,
       listings:
         variablesHash === previousVariablesHashes.current.get(queryHash)
-          ? new Map([...listings, [requestID, filteredData]])
-          : new Map([[requestID, filteredData]]),
+          ? new Map([...listings, [operationId, filteredData]])
+          : new Map([[operationId, filteredData]]),
     });
 
     setConnectionVariables({ ...connectionVariables, after: pageInfo.endCursor ?? undefined });
