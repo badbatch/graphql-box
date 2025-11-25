@@ -3,13 +3,12 @@ import {
   type GraphqlStep,
   type LogData,
   type LogLevel,
-  type PartialRawFetchData,
+  type OperationContextData,
   type PlainArray,
-  type RequestContextData,
+  type SerialisedResponseData,
 } from '@graphql-box/core';
 import { type Request, type Response } from 'express';
 import { type NextRequest, type NextResponse } from 'next/server.js';
-import { type Data } from 'ws';
 
 export interface UserOptions {
   /**
@@ -18,22 +17,20 @@ export interface UserOptions {
   client: Client;
 
   /**
-   * Time the server has to process a request before timing out.
-   */
-  requestTimeout?: number;
-
-  /**
    * List of request hashes that the server is allowed to
    * operate on.
    */
-  requestWhitelist?: string[];
+  operationWhitelist?: string[];
+
+  /**
+   * Time the server has to process a request before timing out.
+   */
+  requestTimeout?: number;
 }
 
 export type ExpressRequestHandler = (req: Request, res: Response, ...args: PlainArray) => void;
 
 export type NextRequestHandler = (req: NextRequest) => Promise<NextResponse>;
-
-export type WsMessageHandler = (message: Data) => void;
 
 export type LogDataPayload = {
   batched: boolean;
@@ -54,35 +51,27 @@ export type BatchedLogDataPayload = {
   >;
 };
 
-export type MessageData = {
-  context: {
-    data: RequestContextData;
-  };
-  subscription: string;
-  subscriptionID: string;
-};
-
 export type RequestData = {
   batched: boolean;
   context: {
-    data: RequestContextData;
+    data: OperationContextData;
   };
-  request: string;
+  operation: string;
 };
 
 export type BatchRequestData = {
   batched: boolean;
-  requests: Record<
+  operations: Record<
     string,
     {
       context: {
-        data: RequestContextData;
+        data: OperationContextData;
       };
-      request: string;
+      operation: string;
     }
   >;
 };
 
-export type ResponseDataWithMaybeDehydratedCacheMetadataBatch = {
-  responses: Record<string, PartialRawFetchData>;
+export type SerialisedResponseDataBatch = {
+  responses: Record<string, SerialisedResponseData>;
 };

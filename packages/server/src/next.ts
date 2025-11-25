@@ -1,18 +1,9 @@
 import { type Client } from '@graphql-box/client';
-import {
-  type PartialDehydratedRequestResult,
-  type PartialRawFetchData,
-  type PartialRequestResult,
-  type RequestContextData,
-  SERVER_REQUEST_RECEIVED,
-  type ServerRequestOptions,
-} from '@graphql-box/core';
-import { ArgsError, GroupedError, dehydrateCacheMetadata, serializeErrors } from '@graphql-box/helpers';
-import { isAsyncIterable } from 'iterall';
+import { type OperationContextData, type OperationOptions } from '@graphql-box/core';
+import { ArgsError, GroupedError, serializeErrors } from '@graphql-box/helpers';
 import { isError, isPlainObject } from 'lodash-es';
 import { type NextRequest, NextResponse } from 'next/server.js';
 import { nextEnrichContextValue } from '#helpers/nextEnrichContextValue.ts';
-import { asyncIteratorToStream } from './helpers/asyncIteratorToStream.ts';
 import { isLogBatched } from './helpers/isLogBatched.ts';
 import { isRequestBatched } from './helpers/isRequestBatched.ts';
 import {
@@ -21,14 +12,14 @@ import {
   type LogDataPayload,
   type NextRequestHandler,
   type RequestData,
-  type ResponseDataWithMaybeDehydratedCacheMetadataBatch,
+  type SerialisedResponseDataBatch,
   type UserOptions,
 } from './types.ts';
 
 export class NextMiddleware {
   private _client: Client;
+  private readonly _operationWhitelist: string[];
   private readonly _requestTimeout: number;
-  private _requestWhitelist: string[];
 
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
@@ -47,39 +38,38 @@ export class NextMiddleware {
 
     this._client = options.client;
     this._requestTimeout = options.requestTimeout ?? 10_000;
-    this._requestWhitelist = options.requestWhitelist ?? [];
+    this._operationWhitelist = options.operationWhitelist ?? [];
   }
 
   public createLogHandler(): NextRequestHandler {
     return (req: NextRequest) => this._logHandler(req);
   }
 
-  public createRequestHandler(options: ServerRequestOptions = {}): NextRequestHandler {
+  public createRequestHandler(options: OperationOptions = {}): NextRequestHandler {
     return (req: NextRequest) => this._requestHandler(req, nextEnrichContextValue(req, options));
   }
 
-  private async _handleBatchRequest(requests: BatchRequestData['requests'], options: ServerRequestOptions) {
-    const response: ResponseDataWithMaybeDehydratedCacheMetadataBatch = { responses: {} };
+  private async _handleBatchRequest(requests: BatchRequestData['operations'], options: OperationOptions) {
+    const response: SerialisedResponseDataBatch = { responses: {} };
 
     await Promise.all(
-      Object.keys(requests).map(async requestHash => {
-        const requestEntry = requests[requestHash];
+      Object.keys(requests).map(async requestId => {
+        const requestEntry = requests[requestId];
 
         if (!requestEntry) {
           return;
         }
 
-        const { context, request } = requestEntry;
-        const { originalRequestHash, requestID } = context.data;
+        const { context, operation } = requestEntry;
+        const { originalOperationHash } = context.data;
 
         if (
-          this._requestWhitelist.length > 0 &&
-          originalRequestHash &&
-          !this._requestWhitelist.includes(originalRequestHash)
+          this._operationWhitelist.length > 0 &&
+          originalOperationHash &&
+          !this._operationWhitelist.includes(originalOperationHash)
         ) {
-          response.responses[requestHash] = serializeErrors({
+          response.responses[requestId] = serializeErrors({
             errors: [new Error('@graphql-box/server: The request is not whitelisted.')],
-            requestID,
           });
 
           return;
@@ -87,40 +77,26 @@ export class NextMiddleware {
 
         try {
           const requestTimer = setTimeout(() => {
-            response.responses[requestHash] = serializeErrors({
+            response.responses[requestId] = serializeErrors({
               errors: [
                 new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
               ],
-              requestID,
             });
           }, this._requestTimeout);
 
-          // Need to make client.request a generic
-          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-          const { _cacheMetadata, ...otherProps } = (await this._client.request(
-            request,
-            options,
-            context,
-          )) as PartialRequestResult;
-
+          // The client already has scope of this so no need to send it back.
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { operationId, ...otherProps } = await this._client.query(operation, options, context);
           clearTimeout(requestTimer);
-          // Need to implement a type guard
-          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-          const responseEntry = serializeErrors({ ...otherProps }) as PartialRawFetchData;
-
-          if (_cacheMetadata) {
-            responseEntry._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
-          }
-
-          response.responses[requestHash] = responseEntry;
+          const responseEntry = serializeErrors({ ...otherProps });
+          response.responses[requestId] = responseEntry;
         } catch (error) {
           const confirmedError = isError(error)
             ? error
             : new Error('@graphql-box/server handleBatchRequest had an unexpected error.');
 
-          response.responses[requestHash] = serializeErrors({
+          response.responses[requestId] = serializeErrors({
             errors: [confirmedError],
-            requestID,
           });
         }
       }),
@@ -133,12 +109,12 @@ export class NextMiddleware {
 
   private _handleLogs(logs: Omit<LogDataPayload, 'batched'>[]) {
     for (const { data, logLevel, message } of logs) {
-      this._client.debugger?.handleLog(message, data, logLevel);
+      this._client.debugManager?.handleLog(message, data, logLevel);
     }
   }
 
-  private async _handleRequest(request: string, options: ServerRequestOptions, context: { data: RequestContextData }) {
-    if (this._requestWhitelist.length > 0 && !this._requestWhitelist.includes(context.data.originalRequestHash)) {
+  private async _handleRequest(operation: string, options: OperationOptions, context: { data: OperationContextData }) {
+    if (this._operationWhitelist.length > 0 && !this._operationWhitelist.includes(context.data.originalOperationHash)) {
       return new NextResponse(
         JSON.stringify(serializeErrors({ errors: [new Error('The request is not whitelisted.')] })),
         {
@@ -166,40 +142,15 @@ export class NextMiddleware {
           );
         }, this._requestTimeout);
 
-        const requestResult = await this._client.request(request, options, context);
+        const result = await this._client.query(operation, options, context);
         clearTimeout(requestTimer);
-
-        if (!isAsyncIterable(requestResult)) {
-          // Need to implement a type guard
-          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-          const { _cacheMetadata, ...otherProps } = requestResult as PartialRequestResult;
-          const response: PartialDehydratedRequestResult = serializeErrors({ ...otherProps });
-
-          if (_cacheMetadata) {
-            response._cacheMetadata = dehydrateCacheMetadata(_cacheMetadata);
-          }
-
-          resolve(
-            NextResponse.json(response, {
-              status: 200,
-            }),
-          );
-
-          return;
-        }
-
-        // Need to implement a type guard
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        const asyncInteratorResult = requestResult as AsyncIterator<
-          PartialRequestResult | undefined,
-          PartialRequestResult | undefined
-        >;
+        // The client already has scope of this so no need to send it back.
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { operationId, ...otherProps } = result;
+        const responseData = serializeErrors({ ...otherProps });
 
         resolve(
-          new NextResponse(asyncIteratorToStream(asyncInteratorResult), {
-            headers: new Headers({
-              'Content-Type': 'multipart/mixed; boundary="-"',
-            }),
+          NextResponse.json(responseData, {
             status: 200,
           }),
         );
@@ -238,26 +189,18 @@ export class NextMiddleware {
     }
   }
 
-  private async _requestHandler(req: NextRequest, options: ServerRequestOptions): Promise<NextResponse> {
+  private async _requestHandler(req: NextRequest, options: OperationOptions): Promise<NextResponse> {
     try {
       // res.json returns an any type
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const body = (await req.json()) as RequestData | BatchRequestData;
 
       if (isRequestBatched(body)) {
-        const { requests } = body;
-
-        void new Promise(() => {
-          for (const { context } of Object.values(requests)) {
-            this._client.debugger?.log(SERVER_REQUEST_RECEIVED, { data: context.data });
-          }
-        });
-
-        return await this._handleBatchRequest(requests, options);
+        const { operations } = body;
+        return await this._handleBatchRequest(operations, options);
       } else {
-        const { context, request } = body;
-        this._client.debugger?.log(SERVER_REQUEST_RECEIVED, { data: context.data });
-        return await this._handleRequest(request, options, context);
+        const { context, operation } = body;
+        return await this._handleRequest(operation, options, context);
       }
     } catch (error) {
       const confirmedError = isError(error)

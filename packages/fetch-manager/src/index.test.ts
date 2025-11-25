@@ -43,7 +43,7 @@ describe('@graphql-box/fetch-manager', () => {
       it('correct request', () => {
         expect(mockedFetch.mock.lastCall).toMatchInlineSnapshot(`
           [
-            "https://api.github.com/graphql?requestId=faf1d7adbe1edf185c33b52edd09df1b",
+            "https://api.github.com/graphql?requestId=123456789",
             {
               "body": "{"batched":false,"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n      id\\n    }\\n  }\\n"}",
               "headers": Headers {},
@@ -84,15 +84,16 @@ describe('@graphql-box/fetch-manager', () => {
         });
 
         const operationData = getOperationData(parsedOperations.query);
+        const context = getOperationContext();
 
         const body = {
           responses: {
-            [operationData.hash]: { data: responses.facebookQuery.data },
+            [context.data.operationId]: { data: responses.facebookQuery.data },
           },
         } as Jsonifiable;
 
         mockedFetch.mockPostOnce('*', { body });
-        const promise = fetchManager.execute(operationData, {}, getOperationContext());
+        const promise = fetchManager.execute(operationData, {}, context);
         jest.runOnlyPendingTimers();
         response = await promise;
       });
@@ -105,9 +106,9 @@ describe('@graphql-box/fetch-manager', () => {
       it('correct request', () => {
         expect(mockedFetch.mock.lastCall).toMatchInlineSnapshot(`
           [
-            "https://api.github.com/graphql?requestId=faf1d7adbe1edf185c33b52edd09df1b",
+            "https://api.github.com/graphql?requestId=123456789",
             {
-              "body": "{"batched":true,"requests":{"faf1d7adbe1edf185c33b52edd09df1b":{"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n      id\\n    }\\n  }\\n"}}}",
+              "body": "{"batched":true,"operations":{"123456789":{"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n      id\\n    }\\n  }\\n"}}}",
               "headers": Headers {},
               "method": "POST",
             },
@@ -144,20 +145,22 @@ describe('@graphql-box/fetch-manager', () => {
         });
 
         const facebookOperationData = getOperationData(parsedOperations.query);
+        const facebookContext = getOperationContext();
         const googleOperationData = getOperationData(parsedOperations.query.replaceAll('facebook', 'google'));
+        const googleContext = getOperationContext({ data: { operationId: '0123456878' } });
 
         const body = {
           responses: {
-            [facebookOperationData.hash]: { data: responses.facebookQuery.data },
-            [googleOperationData.hash]: { data: responses.googleQuery.data },
+            [facebookContext.data.operationId]: { data: responses.facebookQuery.data },
+            [googleContext.data.operationId]: { data: responses.googleQuery.data },
           },
         } as Jsonifiable;
 
         mockedFetch.mockPostOnce('*', { body });
 
         const promises = [
-          fetchManager.execute(facebookOperationData, {}, getOperationContext()),
-          fetchManager.execute(googleOperationData, {}, getOperationContext()),
+          fetchManager.execute(facebookOperationData, {}, facebookContext),
+          fetchManager.execute(googleOperationData, {}, googleContext),
         ];
 
         jest.runOnlyPendingTimers();
@@ -172,9 +175,9 @@ describe('@graphql-box/fetch-manager', () => {
       it('correct request', () => {
         expect(mockedFetch.mock.lastCall).toMatchInlineSnapshot(`
           [
-            "https://api.github.com/graphql?requestId=faf1d7adbe1edf185c33b52edd09df1b-3288105b397b84de10bdff80ceaa5247",
+            "https://api.github.com/graphql?requestId=123456789-0123456878",
             {
-              "body": "{"batched":true,"requests":{"faf1d7adbe1edf185c33b52edd09df1b":{"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n      id\\n    }\\n  }\\n"},"3288105b397b84de10bdff80ceaa5247":{"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"google\\") {\\n      email\\n      login\\n      name\\n      id\\n    }\\n  }\\n"}}}",
+              "body": "{"batched":true,"operations":{"123456789":{"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n      id\\n    }\\n  }\\n"},"0123456878":{"context":{"data":{"operationId":"0123456878","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"google\\") {\\n      email\\n      login\\n      name\\n      id\\n    }\\n  }\\n"}}}",
               "headers": Headers {},
               "method": "POST",
             },

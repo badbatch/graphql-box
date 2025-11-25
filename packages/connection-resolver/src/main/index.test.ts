@@ -16,11 +16,11 @@ const createMakeCursors = (_source: PlainObject, args: PlainObject) => ({
 });
 
 const getters = {
-  nodes: ({ results }: PlainObject) => results,
-  page: ({ page }: PlainObject) => page,
-  totalPages: ({ totalPages }: PlainObject) => totalPages,
-  totalResults: ({ totalResults }: PlainObject) => totalResults,
-} as Getters<PlainObject, Node>;
+  nodes: ({ results }: PlainObject<unknown>) => results,
+  page: ({ page }: PlainObject<unknown>) => page,
+  totalPages: ({ totalPages }: PlainObject<unknown>) => totalPages,
+  totalResults: ({ totalResults }: PlainObject<unknown>) => totalResults,
+} as Getters<PlainObject<unknown>, Node>;
 
 const resultsPerPage = 10;
 

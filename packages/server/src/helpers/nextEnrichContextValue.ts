@@ -1,7 +1,7 @@
-import { type ServerRequestOptions } from '@graphql-box/core';
+import { type OperationOptions } from '@graphql-box/core';
 import { type NextRequest } from 'next/server.js';
 
-export const nextEnrichContextValue = (req: NextRequest, options: ServerRequestOptions): ServerRequestOptions => {
+export const nextEnrichContextValue = (req: NextRequest, options: OperationOptions): OperationOptions => {
   const headersList = req.headers;
   const cookieStore = req.cookies;
   const userAgent = headersList.get('user-agent') ?? undefined;

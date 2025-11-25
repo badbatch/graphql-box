@@ -66,15 +66,9 @@ importers:
       '@graphql-box/server':
         specifier: workspace:*
         version: link:packages/server
-      '@graphql-box/subscribe':
-        specifier: workspace:*
-        version: link:packages/subscribe
       '@graphql-box/test-utils':
         specifier: workspace:*
         version: link:packages/test-utils
-      '@graphql-box/websocket-manager':
-        specifier: workspace:*
-        version: link:packages/websocket-manager
       '@graphql-box/worker-client':
         specifier: workspace:*
         version: link:packages/worker-client
@@ -509,9 +503,6 @@ importers:
       core-js:
         specifier: ^3.43.0
         version: 3.43.0
-      eventemitter3:
-        specifier: ^5.0.1
-        version: 5.0.1
       iterall:
         specifier: ^1.3.0
         version: 1.3.0
@@ -811,37 +802,6 @@ importers:
         specifier: ^8.18.2
         version: 8.18.2
 
-  packages/subscribe:
-    dependencies:
-      '@graphql-box/core':
-        specifier: workspace:*
-        version: link:../core
-      '@graphql-box/helpers':
-        specifier: workspace:*
-        version: link:../helpers
-      core-js:
-        specifier: ^3.43.0
-        version: 3.43.0
-      eventemitter3:
-        specifier: ^5.0.1
-        version: 5.0.1
-      iterall:
-        specifier: ^1.3.0
-        version: 1.3.0
-    devDependencies:
-      '@graphql-box/test-utils':
-        specifier: workspace:*
-        version: link:../test-utils
-      cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
-      del-cli:
-        specifier: ^6.0.0
-        version: 6.0.0
-      graphql:
-        specifier: ^16.11.0
-        version: 16.11.0
-
   packages/test-utils:
     dependencies:
       '@graphql-box/core':
@@ -869,43 +829,6 @@ importers:
       graphql:
         specifier: ^16.11.0
         version: 16.11.0
-
-  packages/websocket-manager:
-    dependencies:
-      '@graphql-box/core':
-        specifier: workspace:*
-        version: link:../core
-      '@graphql-box/helpers':
-        specifier: workspace:*
-        version: link:../helpers
-      core-js:
-        specifier: ^3.43.0
-        version: 3.43.0
-      eventemitter3:
-        specifier: ^5.0.1
-        version: 5.0.1
-    devDependencies:
-      '@graphql-box/test-utils':
-        specifier: workspace:*
-        version: link:../test-utils
-      '@jest/globals':
-        specifier: ^29.3.1
-        version: 29.7.0
-      cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
-      del-cli:
-        specifier: ^6.0.0
-        version: 6.0.0
-      graphql:
-        specifier: ^16.11.0
-        version: 16.11.0
-      iterall:
-        specifier: ^1.3.0
-        version: 1.3.0
-      mock-socket:
-        specifier: ^9.3.1
-        version: 9.3.1
 
   packages/worker-client:
     dependencies:
@@ -5841,10 +5764,6 @@ packages:
   minipass@7.1.2:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
-
-  mock-socket@9.3.1:
-    resolution: {integrity: sha512-qxBgB7Qa2sEQgHFjj0dSigq7fX4k6Saisd5Nelwp2q8mlbAFh5dHV9JTTlF8viYJLSSWgMCZFUom8PJcMNBoJw==}
-    engines: {node: '>= 8'}
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
@@ -13135,8 +13054,6 @@ snapshots:
   minimist@1.2.8: {}
 
   minipass@7.1.2: {}
-
-  mock-socket@9.3.1: {}
 
   ms@2.1.3: {}
 

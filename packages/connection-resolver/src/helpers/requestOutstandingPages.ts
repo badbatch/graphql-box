@@ -39,7 +39,7 @@ export const requestOutstandingPages = async (
   const missingPages: number[] = [];
   const settledResults = await Promise.allSettled(promises);
 
-  const pageResults = settledResults.reduce<PlainArray>((pages, result, index) => {
+  const pageResults = settledResults.reduce<PlainArray<unknown>>((pages, result, index) => {
     if (result.status === 'fulfilled') {
       pages.push(result.value);
     }

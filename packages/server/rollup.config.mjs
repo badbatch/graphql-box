@@ -22,12 +22,4 @@ export default [
       file: output.file.replace('index', 'next'),
     },
   },
-  {
-    ...otherConfig,
-    input: input.replace('index', 'ws'),
-    output: {
-      ...output,
-      file: output.file.replace('index', 'ws'),
-    },
-  },
 ];
