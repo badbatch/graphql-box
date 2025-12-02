@@ -7,11 +7,18 @@ import {
 } from '@graphql-box/core';
 
 export const createQueryServerFunc =
-  (client: Client) =>
+  (client: Client, factoryContext: PartialOperationContext) =>
   async <Data extends PlainObject>(
     operation: string,
     options: OperationOptions = {},
     context: PartialOperationContext,
   ): Promise<ResponseData<Data> & { operationId: string }> => {
-    return client.query<Data>(operation, options, context);
+    return client.query<Data>(operation, options, {
+      ...factoryContext,
+      ...context,
+      data: {
+        ...factoryContext.data,
+        ...context.data,
+      },
+    });
   };

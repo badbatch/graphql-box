@@ -5,15 +5,24 @@ import { type OperationOptions, type PartialOperationContext, type PlainObject }
 export type MultiQueryExport = [req: string, options?: OperationOptions, context?: PartialOperationContext][];
 
 export const createQueryExportServerFunc =
-  (client: Client) =>
+  (client: Client, factoryContext: PartialOperationContext) =>
   async <Data extends PlainObject>(
     arg1: string | MultiQueryExport,
     options: OperationOptions = {},
     context: PartialOperationContext,
   ): Promise<ExportResult<Data>[]> => {
+    const mergedContext = {
+      ...factoryContext,
+      ...context,
+      data: {
+        ...factoryContext.data,
+        ...context.data,
+      },
+    };
+
     const operations: MultiQueryExport = Array.isArray(arg1)
-      ? arg1.map(([req, opts, ctx]) => [req, { ...options, ...opts }, { ...context, ...ctx }])
-      : [[arg1, options, context]];
+      ? arg1.map(([req, opts, ctx]) => [req, { ...options, ...opts }, { ...mergedContext, ...ctx }])
+      : [[arg1, options, mergedContext]];
 
     const importOptionPromises: Promise<ExportResult<Data>>[] = [];
 
