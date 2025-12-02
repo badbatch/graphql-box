@@ -1,7 +1,7 @@
 {
   "name": "graphql-box",
   "description": "An extensible GraphQL client and server with modules for caching, request parsing, subscriptions and more.",
-  "version": "5.5.59-unstable-12345.2",
+  "version": "5.5.59-unstable-12345.3",
   "author": "miami-man",
   "license": "MIT",
   "private": true,
@@ -57,7 +57,7 @@
     "@graphql-tools/schema": "^10.0.23",
     "@jest/globals": "^29.7.0",
     "@repodog/babel-config": "^7.0.6",
-    "@repodog/cli": "^1.6.44",
+    "@repodog/cli": "^1.6.53",
     "@repodog/commitlint-config": "^19.0.4",
     "@repodog/eslint-config": "^9.0.16",
     "@repodog/eslint-config-jasmine": "^9.0.8",
