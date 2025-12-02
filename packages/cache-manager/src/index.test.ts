@@ -1,4 +1,5 @@
 import { Core } from '@cachemap/core';
+import { type ExportResult } from '@cachemap/core';
 import { init as map } from '@cachemap/map';
 import { instrumentOperation } from '@graphql-box/operation-parser';
 import {
@@ -10,9 +11,13 @@ import {
   responses,
 } from '@graphql-box/test-utils';
 import { expect, jest } from '@jest/globals';
-import { parse } from 'graphql';
-import { type IntrospectionQuery, OperationTypeNode, buildClientSchema } from 'graphql/index.js';
+import { type IntrospectionQuery, OperationTypeNode, buildClientSchema, parse } from 'graphql';
 import { CacheManager, type CacheManagerDef } from './index.ts';
+
+const serialiseExport = ({ entries, metadata }: ExportResult<unknown>) => ({
+  entries,
+  metadata: metadata.map(({ cacheability, ...rest }) => ({ ...rest, cacheability: cacheability.metadata })),
+});
 
 describe('@graphql-box/cache-manager', () => {
   const realDateNow = Date.now.bind(globalThis.Date);
@@ -128,7 +133,7 @@ describe('@graphql-box/cache-manager', () => {
       const fieldPaths = getFieldPaths(parsedOperations.query);
       await cacheManager.cacheQuery(responses.facebookQuery, getOperationContext({ fieldPaths }));
 
-      expect(await cacheManager.cache!.export()).toMatchInlineSnapshot(`
+      expect(serialiseExport(await cacheManager.cache!.export())).toMatchInlineSnapshot(`
         {
           "entries": [
             [
@@ -152,14 +157,12 @@ describe('@graphql-box/cache-manager', () => {
             {
               "accessedCount": 0,
               "added": 297475200000,
-              "cacheability": Cacheability {
-                "metadata": {
-                  "cacheControl": {
-                    "maxAge": 5,
-                  },
-                  "etag": undefined,
-                  "ttl": 297475205000,
+              "cacheability": {
+                "cacheControl": {
+                  "maxAge": 5,
                 },
+                "etag": undefined,
+                "ttl": 297475205000,
               },
               "key": "organization({"login":"facebook"}).email",
               "lastAccessed": 297475200000,
@@ -171,14 +174,12 @@ describe('@graphql-box/cache-manager', () => {
             {
               "accessedCount": 0,
               "added": 297475200000,
-              "cacheability": Cacheability {
-                "metadata": {
-                  "cacheControl": {
-                    "maxAge": 5,
-                  },
-                  "etag": undefined,
-                  "ttl": 297475205000,
+              "cacheability": {
+                "cacheControl": {
+                  "maxAge": 5,
                 },
+                "etag": undefined,
+                "ttl": 297475205000,
               },
               "key": "organization({"login":"facebook"}).id",
               "lastAccessed": 297475200000,
@@ -190,14 +191,12 @@ describe('@graphql-box/cache-manager', () => {
             {
               "accessedCount": 0,
               "added": 297475200000,
-              "cacheability": Cacheability {
-                "metadata": {
-                  "cacheControl": {
-                    "maxAge": 5,
-                  },
-                  "etag": undefined,
-                  "ttl": 297475205000,
+              "cacheability": {
+                "cacheControl": {
+                  "maxAge": 5,
                 },
+                "etag": undefined,
+                "ttl": 297475205000,
               },
               "key": "organization({"login":"facebook"}).login",
               "lastAccessed": 297475200000,
@@ -209,14 +208,12 @@ describe('@graphql-box/cache-manager', () => {
             {
               "accessedCount": 0,
               "added": 297475200000,
-              "cacheability": Cacheability {
-                "metadata": {
-                  "cacheControl": {
-                    "maxAge": 5,
-                  },
-                  "etag": undefined,
-                  "ttl": 297475205000,
+              "cacheability": {
+                "cacheControl": {
+                  "maxAge": 5,
                 },
+                "etag": undefined,
+                "ttl": 297475205000,
               },
               "key": "organization({"login":"facebook"}).name",
               "lastAccessed": 297475200000,
