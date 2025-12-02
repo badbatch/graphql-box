@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.1 (2025-12-02)
+
+### Bug Fixes
+
+* **cache-manager:**  update snapshot to remove class reference (1d4c0c28)
+
 ## 5.5.59-unstable-12345.0 (2025-12-02)
 
 ### Chores
