@@ -1,5 +1,34 @@
 # Changelog
 
+## 5.5.59-unstable-12345.0 (2025-12-02)
+
+### Chores
+
+* **root:**
+  * save work in progress (17795ee8)
+  * save work in progress (f0ce4344)
+  * save work in progress (4b54cece)
+* **cache-manager:**  save work in progress (76ffc87b)
+* **operation-parser:**  save work in progress (e882b688)
+* **request-parser:**  save work in progress (5f661f9e)
+
+### New Features
+
+* **root:**  add coverage generator (415ea602)
+
+### Bug Fixes
+
+* **root:**  package json ordering (d6267dcb)
+
+### Refactors
+
+* **root:**  finish simplification (71a12b0b)
+* **react:**  update and simplify (88c5389e)
+* **worker-client:**  update and simplify (c818daf2)
+* **fetch-manager:**  simplify module (69bc4f07)
+* **operation-parser:**  re-write request parser (9ca66806)
+* **request-parser:**  add field paths (b1e9700f)
+
 ## 5.5.58 (2025-06-25)
 
 ### Chores
