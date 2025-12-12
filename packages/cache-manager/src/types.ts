@@ -8,6 +8,11 @@ export interface UserOptions {
    */
   cache: Core | (() => Promise<Core>);
   /**
+   * The fallback cache control directives to apply when
+   * there is no cache metadata for an operation path.
+   */
+  fallbackCacheControlDirectives?: string;
+  /**
    * Whether to hash operations and field paths used as
    * cache keys.
    */

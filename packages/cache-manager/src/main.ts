@@ -16,6 +16,7 @@ import { type AnalyzeQueryResult, type CacheManagerDef, type UserOptions } from 
 
 export class CacheManager implements CacheManagerDef {
   private _cache: Core | undefined;
+  private readonly _fallbackCacheControlDirectives: string;
   private readonly _hashCacheKeys: boolean;
 
   constructor(options: UserOptions) {
@@ -41,6 +42,9 @@ export class CacheManager implements CacheManagerDef {
     } else {
       this._cache = options.cache;
     }
+
+    this._fallbackCacheControlDirectives =
+      options.fallbackCacheControlDirectives ?? 'no-cache, max-age=0, must-revalidate';
 
     this._hashCacheKeys = options.hashCacheKeys ?? false;
   }
@@ -160,7 +164,7 @@ export class CacheManager implements CacheManagerDef {
         const matchingMetadata = __cacheMetadata?.[operationPath];
 
         if (!matchingMetadata) {
-          throw new Error(
+          console.error(
             `Your response data has got corrupted. No matching cache metadata was found for operation path "${operationPath}".`,
           );
         }
@@ -168,7 +172,11 @@ export class CacheManager implements CacheManagerDef {
         if (this._cache) {
           cacheSetPromises.push(
             this._cache.set(matchingCachePath, value, {
-              cacheHeaders: { cacheControl: new Cacheability({ metadata: matchingMetadata }).printCacheControl() },
+              cacheHeaders: {
+                cacheControl: matchingMetadata
+                  ? new Cacheability({ metadata: matchingMetadata }).printCacheControl()
+                  : this._fallbackCacheControlDirectives,
+              },
               hashKey: this._hashCacheKeys,
             }),
           );
