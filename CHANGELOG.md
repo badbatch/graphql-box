@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.59-unstable-12345.4 (2025-12-12)
+
+### Bug Fixes
+
+* **react:**  add exports (b41064b5)
+
+### Refactors
+
+* **react:**  export server side modules separately (b23bf05a)
+
 ## 5.5.59-unstable-12345.3 (2025-12-02)
 
 ## 5.5.59-unstable-12345.2 (2025-12-02)
