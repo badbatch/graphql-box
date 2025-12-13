@@ -190,9 +190,11 @@ export class Client {
     const { responseData: finalResponseData } = await this._cacheManager.analyzeQuery(operationData, context);
 
     if (!finalResponseData) {
-      throw new Error(
+      console.error(
         'Final response data not returned from cache manager, there is a problem with how the cache manager has stored/retrieved the response data.',
       );
+
+      return this._resolveQuery(operationData, {}, options, context);
     }
 
     this._debugManager?.log(OPERATION_RESOLVED, {
