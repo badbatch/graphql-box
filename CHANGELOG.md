@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.7 (2025-12-13)
+
+### Bug Fixes
+
+* **client:**  log error instead of throwing (0614e206)
+
 ## 5.5.59-unstable-12345.6 (2025-12-13)
 
 ### Refactors
