@@ -118,9 +118,11 @@ export class CacheManager implements CacheManagerDef {
         const matchingResponsePath = responsePaths[index];
 
         if (!matchingResponsePath) {
-          throw new Error(
+          console.error(
             `Your context has got corrupted. No matching response path was found for cache path "${cachePath}", but it is part of a response path group for which data should exist.`,
           );
+
+          continue;
         }
 
         set(cachedResponseData, matchingResponsePath, cachedData);
@@ -150,15 +152,18 @@ export class CacheManager implements CacheManagerDef {
         const value = get(data, responsePath);
 
         if (value === undefined) {
-          throw new Error(`Response data value undefined for response path "${responsePath}"`);
+          console.error(`Response data value undefined for response path "${responsePath}"`);
+          continue;
         }
 
         const matchingCachePath = cachePaths[index];
 
         if (!matchingCachePath) {
-          throw new Error(
+          console.error(
             `Your context has got corrupted. No matching cache path was found for response path "${responsePath}", but it is part of a cache path group for which data should exist.`,
           );
+
+          continue;
         }
 
         const matchingMetadata = __cacheMetadata?.[operationPath];
