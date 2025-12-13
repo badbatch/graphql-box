@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.6 (2025-12-13)
+
+### Refactors
+
+* **cache-manager:**  change errors to console errors (1ffee660)
+
 ## 5.5.59-unstable-12345.5 (2025-12-12)
 
 ### New Features
