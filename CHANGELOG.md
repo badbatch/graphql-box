@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.5 (2025-12-12)
+
+### New Features
+
+* **cache-manager:**  add fallback cache control directives (f5ed5e84)
+
 ## 5.5.59-unstable-12345.4 (2025-12-12)
 
 ### Bug Fixes
