@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.8 (2025-12-13)
+
+### Bug Fixes
+
+* **server:**  misconfig in package.json (07b0382b)
+
 ## 5.5.59-unstable-12345.7 (2025-12-13)
 
 ### Bug Fixes
