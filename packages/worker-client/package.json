@@ -1,7 +1,7 @@
 {
   "name": "@graphql-box/worker-client",
   "description": "The GraphQL Box web worker client module.",
-  "version": "5.4.20-unstable-12345.1",
+  "version": "5.4.20-unstable-12345.2",
   "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",

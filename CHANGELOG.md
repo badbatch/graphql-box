@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.10 (2025-12-16)
+
+### Refactors
+
+* **cache-manager,operation-parser:**  expose whether path is within union (3a0b5f5c)
+
 ## 5.5.59-unstable-12345.9 (2025-12-16)
 
 ### Bug Fixes
