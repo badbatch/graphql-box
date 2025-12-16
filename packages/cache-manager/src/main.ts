@@ -147,12 +147,19 @@ export class CacheManager implements CacheManagerDef {
     const fieldPathEntries = Object.entries(fieldPaths);
     const cacheSetPromises: Promise<void>[] = [];
 
-    for (const [operationPath, { cachePaths, responsePaths }] of fieldPathEntries) {
+    for (const [operationPath, { cachePaths, isPathWithinUnion, responsePaths }] of fieldPathEntries) {
       for (const [index, responsePath] of responsePaths.entries()) {
         const value = get(data, responsePath);
 
         if (value === undefined) {
-          console.error(`Response data value undefined for response path "${responsePath}"`);
+          if (isPathWithinUnion) {
+            console.info(
+              `Response data value undefined for response path "${responsePath}". Path is within union type so may be invalid.`,
+            );
+          } else {
+            console.error(`Response data value undefined for response path "${responsePath}"`);
+          }
+
           continue;
         }
 

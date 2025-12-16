@@ -6,6 +6,7 @@ import {
   Kind,
   OperationTypeNode,
   TypeInfo,
+  isUnionType,
   visit,
   visitWithTypeInfo,
 } from 'graphql';
@@ -69,6 +70,7 @@ export const instrumentOperation = (
             fieldPathManager.addPath(node, ancestors, {
               isTypeDefList: fieldDef.type.constructor.name === 'GraphQLList',
               isTypeScalar: unwrappedType.constructor.name === 'GraphQLScalarType',
+              isTypeUnion: isUnionType(unwrappedType),
               typeName: 'name' in unwrappedType ? unwrappedType.name : undefined,
             });
           }

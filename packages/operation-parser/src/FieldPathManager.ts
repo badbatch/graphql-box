@@ -11,19 +11,23 @@ import { type Ancestor } from '#types.ts';
 export type FieldPathMetadata = {
   cachePath: string;
   connectionIterations?: number;
+  isPathWithinUnion: boolean;
   isTypeDefList: boolean;
   isTypeScalar: boolean;
+  isTypeUnion: boolean;
   responsePath: string;
 };
 
 export type LeafFieldPathMetadata = {
   cachePaths: string[];
+  isPathWithinUnion: boolean;
   responsePaths: string[];
 };
 
 export type AddPathOptions = {
   isTypeDefList: boolean;
   isTypeScalar: boolean;
+  isTypeUnion: boolean;
   typeName?: string;
 };
 
@@ -33,7 +37,7 @@ export class FieldPathManager {
   public addPath(
     field: FieldNode,
     ancestors: readonly Ancestor[],
-    { isTypeDefList, isTypeScalar, typeName }: AddPathOptions,
+    { isTypeDefList, isTypeScalar, isTypeUnion, typeName }: AddPathOptions,
   ): void {
     const ancestorFieldNames = buildAncestorFieldNames(ancestors);
     const parentFieldPath = ancestorFieldNames.join('.');
@@ -55,8 +59,10 @@ export class FieldPathManager {
     this._fieldPaths[fieldOperationPath] = {
       cachePath: fieldCachePath,
       connectionIterations: getConnectionIterations(typeName, fieldArgs),
+      isPathWithinUnion: !!(parentFieldPathMetadata?.isPathWithinUnion ?? parentFieldPathMetadata?.isTypeUnion),
       isTypeDefList,
       isTypeScalar,
+      isTypeUnion,
       responsePath: fieldResponsePath,
     };
   }
@@ -64,10 +70,13 @@ export class FieldPathManager {
   get leafFieldPaths(): Record<string, LeafFieldPathMetadata> {
     const leafPaths: Record<string, LeafFieldPathMetadata> = {};
 
-    for (const [operationPath, { cachePath, isTypeScalar, responsePath }] of Object.entries(this._fieldPaths)) {
+    for (const [operationPath, { cachePath, isPathWithinUnion, isTypeScalar, responsePath }] of Object.entries(
+      this._fieldPaths,
+    )) {
       if (isTypeScalar) {
         leafPaths[operationPath] = {
           cachePaths: explodePathParts(getPathParts(cachePath)),
+          isPathWithinUnion,
           responsePaths: explodePathParts(getPathParts(responsePath)),
         };
       }

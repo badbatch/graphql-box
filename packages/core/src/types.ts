@@ -44,6 +44,7 @@ export type DeserializedGraphqlError = {
 
 export type FieldPath = {
   cachePaths: string[];
+  isPathWithinUnion: boolean;
   responsePaths: string[];
 };
 
