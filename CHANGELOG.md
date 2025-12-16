@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.9 (2025-12-16)
+
+### Bug Fixes
+
+* **cache-manager:**  change how resolved cache paths is checked (4d72c80d)
+
 ## 5.5.59-unstable-12345.8 (2025-12-13)
 
 ### Bug Fixes
