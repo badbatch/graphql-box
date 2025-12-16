@@ -54,16 +54,13 @@ export class CacheManager implements CacheManagerDef {
     context: SetRequired<OperationContext, 'fieldPaths'>,
   ): Promise<AnalyzeQueryResult> {
     const { ast } = operationData;
-
-    const { allPathsResolved, cacheMetadata, data, resolvedPaths } = await this._retrieveResponseData(
-      context.fieldPaths,
-    );
+    const { cacheMetadata, data, rejectedPaths, resolvedPaths } = await this._retrieveResponseData(context.fieldPaths);
 
     if (resolvedPaths.length === 0) {
       return { operationData };
     }
 
-    if (allPathsResolved) {
+    if (rejectedPaths.length === 0) {
       return { responseData: { __cacheMetadata: cacheMetadata, data } };
     }
 
@@ -95,14 +92,15 @@ export class CacheManager implements CacheManagerDef {
   }
 
   private async _retrieveResponseData(fieldPaths: FieldPaths): Promise<{
-    allPathsResolved: boolean;
     cacheMetadata: CacheMetadata;
     data: Record<string, unknown>;
+    rejectedPaths: string[];
     resolvedPaths: string[];
   }> {
     const cachedResponseData: Record<string, unknown> = {};
     const cacheMetadata: Record<string, CacheabilityMetadata> = {};
     const resolvedOperationPaths: string[] = [];
+    const rejectedOperationPaths: string[] = [];
     const fieldPathEntries = Object.entries(fieldPaths);
 
     for (const [operationPath, { cachePaths, responsePaths }] of fieldPathEntries) {
@@ -111,6 +109,7 @@ export class CacheManager implements CacheManagerDef {
         const cacheEntryValid = !!cacheability && cacheability.checkTTL();
 
         if (!cacheEntryValid) {
+          rejectedOperationPaths.push(operationPath);
           continue;
         }
 
@@ -122,6 +121,7 @@ export class CacheManager implements CacheManagerDef {
             `Your context has got corrupted. No matching response path was found for cache path "${cachePath}", but it is part of a response path group for which data should exist.`,
           );
 
+          rejectedOperationPaths.push(operationPath);
           continue;
         }
 
@@ -136,9 +136,9 @@ export class CacheManager implements CacheManagerDef {
     }
 
     return {
-      allPathsResolved: fieldPathEntries.length === resolvedOperationPaths.length,
       cacheMetadata,
       data: cachedResponseData,
+      rejectedPaths: rejectedOperationPaths,
       resolvedPaths: resolvedOperationPaths,
     };
   }
