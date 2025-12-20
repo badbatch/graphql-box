@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.12 (2025-12-20)
+
+### Bug Fixes
+
+* **cache-manager:**  stop rejecting paths when within union (016ed3da)
+
 ## 5.5.59-unstable-12345.11 (2025-12-20)
 
 ### Bug Fixes
