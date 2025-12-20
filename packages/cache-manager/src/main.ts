@@ -103,7 +103,7 @@ export class CacheManager implements CacheManagerDef {
     const rejectedOperationPaths: string[] = [];
     const fieldPathEntries = Object.entries(fieldPaths);
 
-    for (const [operationPath, { cachePaths, responsePaths }] of fieldPathEntries) {
+    for (const [operationPath, { cachePaths, isPathWithinUnion, responsePaths }] of fieldPathEntries) {
       for (const [index, cachePath] of cachePaths.entries()) {
         const cacheability = await this._cache?.has(cachePath, { hashKey: this._hashCacheKeys });
         const cacheEntryValid = !!cacheability && cacheability.checkTTL();
@@ -116,7 +116,7 @@ export class CacheManager implements CacheManagerDef {
         const cachedData = await this._cache?.get(cachePath, { hashKey: this._hashCacheKeys });
         const matchingResponsePath = responsePaths[index];
 
-        if (!matchingResponsePath) {
+        if (!matchingResponsePath && !isPathWithinUnion) {
           console.error(
             `Your context has got corrupted. No matching response path was found for cache path "${cachePath}", but it is part of a response path group for which data should exist.`,
           );
@@ -125,7 +125,9 @@ export class CacheManager implements CacheManagerDef {
           continue;
         }
 
-        set(cachedResponseData, matchingResponsePath, cachedData);
+        if (matchingResponsePath) {
+          set(cachedResponseData, matchingResponsePath, cachedData);
+        }
 
         if (!has(cacheMetadata, operationPath)) {
           cacheMetadata[operationPath] = cacheability.metadata;
