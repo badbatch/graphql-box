@@ -52,7 +52,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -61,7 +60,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -70,7 +68,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -79,7 +76,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -88,7 +84,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -145,7 +140,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -154,7 +148,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -163,7 +156,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -172,7 +164,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -181,7 +172,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -238,7 +228,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"google"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -247,7 +236,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"google"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -256,7 +244,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"google"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -265,7 +252,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"google"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -274,7 +260,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"google"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -339,7 +324,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"google"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -348,7 +332,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"google"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -357,7 +340,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"google"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -366,7 +348,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"google"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -394,7 +375,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"google"}).repositories({"first":"20"}).edges[18].node.description",
                 "organization({"login":"google"}).repositories({"first":"20"}).edges[19].node.description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.description",
                 "organization.repositories.edges[1].node.description",
@@ -441,7 +421,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"google"}).repositories({"first":"20"}).edges[18].node.name",
                 "organization({"login":"google"}).repositories({"first":"20"}).edges[19].node.name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.name",
                 "organization.repositories.edges[1].node.name",
@@ -469,7 +448,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"google"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -526,7 +504,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -535,7 +512,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -544,7 +520,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -553,7 +528,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -562,7 +536,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -619,7 +592,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -628,7 +600,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -637,7 +608,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -646,7 +616,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -655,7 +624,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -728,7 +696,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -737,7 +704,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -746,7 +712,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -755,7 +720,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -769,7 +733,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.description",
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.description",
                 "organization.repositories.edges[1].node.description",
@@ -788,7 +751,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.homepageUrl",
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.homepageUrl",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.homepageUrl",
                 "organization.repositories.edges[1].node.homepageUrl",
@@ -807,7 +769,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.name",
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.name",
                 "organization.repositories.edges[1].node.name",
@@ -826,7 +787,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.login",
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.owner.login",
                 "organization.repositories.edges[1].node.owner.login",
@@ -845,7 +805,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.name",
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.owner.name",
                 "organization.repositories.edges[1].node.owner.name",
@@ -864,7 +823,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.url",
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.owner.url",
                 "organization.repositories.edges[1].node.owner.url",
@@ -878,7 +836,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -951,7 +908,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -960,7 +916,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -969,7 +924,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -978,7 +932,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -992,7 +945,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.description",
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.description",
                 "organization.repositories.edges[1].node.description",
@@ -1011,7 +963,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.homepageUrl",
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.homepageUrl",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.homepageUrl",
                 "organization.repositories.edges[1].node.homepageUrl",
@@ -1030,7 +981,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.name",
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.name",
                 "organization.repositories.edges[1].node.name",
@@ -1049,7 +999,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.login",
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.owner.login",
                 "organization.repositories.edges[1].node.owner.login",
@@ -1068,7 +1017,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.name",
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.owner.name",
                 "organization.repositories.edges[1].node.owner.name",
@@ -1087,7 +1035,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.url",
                 "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.owner.url",
                 "organization.repositories.edges[1].node.owner.url",
@@ -1101,7 +1048,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -1158,7 +1104,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -1167,7 +1112,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -1176,7 +1120,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.fullName",
               ],
@@ -1185,7 +1128,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -1194,7 +1136,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -1251,7 +1192,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -1260,7 +1200,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -1269,7 +1208,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -1278,7 +1216,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -1335,7 +1272,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -1344,7 +1280,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -1353,7 +1288,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -1362,7 +1296,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -1421,7 +1354,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -1430,7 +1362,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -1439,7 +1370,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.fullName",
               ],
@@ -1448,7 +1378,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -1457,7 +1386,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -1516,7 +1444,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -1525,7 +1452,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -1534,7 +1460,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -1543,7 +1468,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -1552,7 +1476,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -1618,7 +1541,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -1627,7 +1549,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -1636,7 +1557,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -1650,7 +1570,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.description",
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.description",
                 "organization.repositories.edges[1].node.description",
@@ -1669,7 +1588,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.homepageUrl",
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.homepageUrl",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.homepageUrl",
                 "organization.repositories.edges[1].node.homepageUrl",
@@ -1688,7 +1606,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.name",
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.name",
                 "organization.repositories.edges[1].node.name",
@@ -1750,7 +1667,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -1759,7 +1675,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -1768,7 +1683,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -1777,7 +1691,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -1786,7 +1699,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -1843,7 +1755,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -1852,7 +1763,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).email",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.email",
               ],
@@ -1861,7 +1771,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).login",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.login",
               ],
@@ -1870,7 +1779,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -1879,7 +1787,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],
@@ -1941,7 +1848,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -1955,7 +1861,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.description",
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.description",
                 "organization.repositories.edges[1].node.description",
@@ -1974,7 +1879,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.homepageUrl",
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.homepageUrl",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.homepageUrl",
                 "organization.repositories.edges[1].node.homepageUrl",
@@ -1993,7 +1897,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.name",
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.name",
                 "organization.repositories.edges[1].node.name",
@@ -2064,7 +1967,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.description",
               ],
@@ -2073,7 +1975,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.name",
               ],
@@ -2087,7 +1988,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.description",
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.description",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.description",
                 "organization.repositories.edges[1].node.description",
@@ -2106,7 +2006,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.homepageUrl",
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.homepageUrl",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.homepageUrl",
                 "organization.repositories.edges[1].node.homepageUrl",
@@ -2125,7 +2024,6 @@ describe('@graphql-box/operation-parser', () => {
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.name",
                 "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.name",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.repositories.edges[0].node.name",
                 "organization.repositories.edges[1].node.name",
@@ -2139,7 +2037,6 @@ describe('@graphql-box/operation-parser', () => {
               "cachePaths": [
                 "organization({"login":"facebook"}).url",
               ],
-              "isPathWithinUnion": false,
               "responsePaths": [
                 "organization.url",
               ],

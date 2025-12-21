@@ -103,7 +103,7 @@ export class CacheManager implements CacheManagerDef {
     const rejectedOperationPaths: string[] = [];
     const fieldPathEntries = Object.entries(fieldPaths);
 
-    for (const [operationPath, { cachePaths, isPathWithinUnion, responsePaths }] of fieldPathEntries) {
+    for (const [operationPath, { cachePaths, responsePaths }] of fieldPathEntries) {
       for (const [index, cachePath] of cachePaths.entries()) {
         const cacheability = await this._cache?.has(cachePath, { hashKey: this._hashCacheKeys });
         const cacheEntryValid = !!cacheability && cacheability.checkTTL();
@@ -116,7 +116,7 @@ export class CacheManager implements CacheManagerDef {
         const cachedData = await this._cache?.get(cachePath, { hashKey: this._hashCacheKeys });
         const matchingResponsePath = responsePaths[index];
 
-        if (!matchingResponsePath && !isPathWithinUnion) {
+        if (!matchingResponsePath) {
           console.error(
             `Your context has got corrupted. No matching response path was found for cache path "${cachePath}", but it is part of a response path group for which data should exist.`,
           );
@@ -127,10 +127,10 @@ export class CacheManager implements CacheManagerDef {
 
         if (matchingResponsePath) {
           set(cachedResponseData, matchingResponsePath, cachedData);
-        }
 
-        if (!has(cacheMetadata, operationPath)) {
-          cacheMetadata[operationPath] = cacheability.metadata;
+          if (!has(cacheMetadata, operationPath)) {
+            cacheMetadata[operationPath] = cacheability.metadata;
+          }
         }
 
         resolvedOperationPaths.push(operationPath);
@@ -149,19 +149,12 @@ export class CacheManager implements CacheManagerDef {
     const fieldPathEntries = Object.entries(fieldPaths);
     const cacheSetPromises: Promise<void>[] = [];
 
-    for (const [operationPath, { cachePaths, isPathWithinUnion, responsePaths }] of fieldPathEntries) {
+    for (const [operationPath, { cachePaths, responsePaths }] of fieldPathEntries) {
       for (const [index, responsePath] of responsePaths.entries()) {
         const value = get(data, responsePath);
 
         if (value === undefined) {
-          if (isPathWithinUnion) {
-            console.info(
-              `Response data value undefined for response path "${responsePath}". Path is within union type so may be invalid.`,
-            );
-          } else {
-            console.error(`Response data value undefined for response path "${responsePath}"`);
-          }
-
+          console.error(`Response data value undefined for response path "${responsePath}"`);
           continue;
         }
 

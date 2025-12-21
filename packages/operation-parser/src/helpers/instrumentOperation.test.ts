@@ -71,7 +71,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).email",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.email",
             ],
@@ -80,7 +79,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).id",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.id",
             ],
@@ -89,7 +87,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).login",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.login",
             ],
@@ -98,7 +95,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).name",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.name",
             ],
@@ -160,7 +156,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).email",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.email",
             ],
@@ -169,7 +164,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).name",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.fullName",
             ],
@@ -178,7 +172,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).id",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.id",
             ],
@@ -187,7 +180,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).login",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.login",
             ],
@@ -249,7 +241,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).email",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.email",
             ],
@@ -258,7 +249,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).id",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.id",
             ],
@@ -267,7 +257,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).login",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.login",
             ],
@@ -276,7 +265,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).name",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.name",
             ],
@@ -336,7 +324,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).id",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.id",
             ],
@@ -345,7 +332,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).login",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.login",
             ],
@@ -354,7 +340,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).name",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.name",
             ],
@@ -414,7 +399,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).id",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.id",
             ],
@@ -423,7 +407,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).login",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.login",
             ],
@@ -432,7 +415,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).name",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.name",
             ],
@@ -494,7 +476,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).email",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.email",
             ],
@@ -503,7 +484,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).id",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.id",
             ],
@@ -512,7 +492,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).login",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.login",
             ],
@@ -521,7 +500,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).name",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.name",
             ],
@@ -583,7 +561,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).email",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.email",
             ],
@@ -592,7 +569,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).id",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.id",
             ],
@@ -601,7 +577,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).login",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.login",
             ],
@@ -610,7 +585,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).name",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.name",
             ],
@@ -672,7 +646,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).email",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.email",
             ],
@@ -681,7 +654,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).id",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.id",
             ],
@@ -690,7 +662,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).login",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.login",
             ],
@@ -699,7 +670,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).name",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.name",
             ],
@@ -772,7 +742,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).description",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.description",
             ],
@@ -781,7 +750,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).email",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.email",
             ],
@@ -790,7 +758,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).login",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.login",
             ],
@@ -799,7 +766,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).name",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.name",
             ],
@@ -813,7 +779,6 @@ describe('instrumentOperation', () => {
               "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.description",
               "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.description",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.repositories.edges[0].node.description",
               "organization.repositories.edges[1].node.description",
@@ -832,7 +797,6 @@ describe('instrumentOperation', () => {
               "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.homepageUrl",
               "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.homepageUrl",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.repositories.edges[0].node.homepageUrl",
               "organization.repositories.edges[1].node.homepageUrl",
@@ -851,7 +815,6 @@ describe('instrumentOperation', () => {
               "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.id",
               "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.id",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.repositories.edges[0].node.id",
               "organization.repositories.edges[1].node.id",
@@ -870,7 +833,6 @@ describe('instrumentOperation', () => {
               "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.name",
               "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.name",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.repositories.edges[0].node.name",
               "organization.repositories.edges[1].node.name",
@@ -948,7 +910,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).description",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.description",
             ],
@@ -957,7 +918,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).email",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.email",
             ],
@@ -966,7 +926,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).login",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.login",
             ],
@@ -975,7 +934,6 @@ describe('instrumentOperation', () => {
             "cachePaths": [
               "organization({"login":"facebook"}).name",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.name",
             ],
@@ -994,7 +952,6 @@ describe('instrumentOperation', () => {
               "organization({"login":"facebook"}).repositories({"first":"11"}).edges[9].node.description",
               "organization({"login":"facebook"}).repositories({"first":"11"}).edges[10].node.description",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.repositories.edges[0].node.description",
               "organization.repositories.edges[1].node.description",
@@ -1023,7 +980,6 @@ describe('instrumentOperation', () => {
               "organization({"login":"facebook"}).repositories({"first":"11"}).edges[9].node.homepageUrl",
               "organization({"login":"facebook"}).repositories({"first":"11"}).edges[10].node.homepageUrl",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.repositories.edges[0].node.homepageUrl",
               "organization.repositories.edges[1].node.homepageUrl",
@@ -1052,7 +1008,6 @@ describe('instrumentOperation', () => {
               "organization({"login":"facebook"}).repositories({"first":"11"}).edges[9].node.id",
               "organization({"login":"facebook"}).repositories({"first":"11"}).edges[10].node.id",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.repositories.edges[0].node.id",
               "organization.repositories.edges[1].node.id",
@@ -1081,7 +1036,6 @@ describe('instrumentOperation', () => {
               "organization({"login":"facebook"}).repositories({"first":"11"}).edges[9].node.name",
               "organization({"login":"facebook"}).repositories({"first":"11"}).edges[10].node.name",
             ],
-            "isPathWithinUnion": false,
             "responsePaths": [
               "organization.repositories.edges[0].node.name",
               "organization.repositories.edges[1].node.name",
