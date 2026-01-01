@@ -21,11 +21,20 @@ export type LeafFieldPathMetadata = {
   responsePaths: string[];
 };
 
-export type AddPathOptions = {
+export type BaseAddPathOptions = {
   isTypeDefList: boolean;
   isTypeScalar: boolean;
+  isTypeUnionOrInterface: boolean;
   typeName?: string;
 };
+
+export type AddPathOptions = {
+  possibleTypes: string[];
+} & BaseAddPathOptions;
+
+export type PrivateAddPathOptions = {
+  concreteType?: string;
+} & BaseAddPathOptions;
 
 export class FieldPathManager {
   private _fieldPaths: Record<string, FieldPathMetadata> = {};
@@ -33,32 +42,15 @@ export class FieldPathManager {
   public addPath(
     field: FieldNode,
     ancestors: readonly Ancestor[],
-    { isTypeDefList, isTypeScalar, typeName }: AddPathOptions,
+    { isTypeUnionOrInterface, possibleTypes, ...rest }: AddPathOptions,
   ): void {
-    const ancestorFieldNames = buildAncestorFieldNames(ancestors);
-    const parentFieldPath = ancestorFieldNames.join('.');
-    const parentFieldPathMetadata = this._fieldPaths[parentFieldPath];
-    const fieldName = getAlias(field) ?? field.name.value;
-    const fieldArgs = getArguments(field);
-    const fieldOperationPath = buildFieldOperationPath(fieldName, parentFieldPath);
-    const iterations = getEdgeIterations(typeName, parentFieldPathMetadata);
-
-    const fieldCachePath = buildFieldCachePath(
-      field.name.value,
-      parentFieldPathMetadata?.cachePath,
-      fieldArgs,
-      iterations,
-    );
-
-    const fieldResponsePath = buildFieldResponsePath(fieldName, parentFieldPathMetadata?.responsePath, iterations);
-
-    this._fieldPaths[fieldOperationPath] = {
-      cachePath: fieldCachePath,
-      connectionIterations: getConnectionIterations(typeName, fieldArgs),
-      isTypeDefList,
-      isTypeScalar,
-      responsePath: fieldResponsePath,
-    };
+    if (isTypeUnionOrInterface) {
+      for (const type of possibleTypes) {
+        this._addPath(field, ancestors, { ...rest, concreteType: type, isTypeUnionOrInterface });
+      }
+    } else {
+      this._addPath(field, ancestors, { ...rest, isTypeUnionOrInterface });
+    }
   }
 
   get leafFieldPaths(): Record<string, LeafFieldPathMetadata> {
@@ -74,5 +66,37 @@ export class FieldPathManager {
     }
 
     return leafPaths;
+  }
+
+  private _addPath(
+    field: FieldNode,
+    ancestors: readonly Ancestor[],
+    { concreteType, isTypeDefList, isTypeScalar, typeName }: PrivateAddPathOptions,
+  ): void {
+    const ancestorFieldNames = buildAncestorFieldNames(ancestors);
+    const parentFieldPath = ancestorFieldNames.join('.');
+    const parentFieldPathMetadata = this._fieldPaths[parentFieldPath];
+    const fieldName = getAlias(field) ?? field.name.value;
+    const fieldArgs = getArguments(field);
+    const fieldOperationPath = buildFieldOperationPath(fieldName, parentFieldPath);
+    const iterations = getEdgeIterations(typeName, parentFieldPathMetadata);
+
+    const fieldCachePath = buildFieldCachePath(
+      field.name.value,
+      concreteType,
+      parentFieldPathMetadata?.cachePath,
+      fieldArgs,
+      iterations,
+    );
+
+    const fieldResponsePath = buildFieldResponsePath(fieldName, parentFieldPathMetadata?.responsePath, iterations);
+
+    this._fieldPaths[fieldOperationPath] = {
+      cachePath: fieldCachePath,
+      connectionIterations: getConnectionIterations(typeName, fieldArgs),
+      isTypeDefList,
+      isTypeScalar,
+      responsePath: fieldResponsePath,
+    };
   }
 }

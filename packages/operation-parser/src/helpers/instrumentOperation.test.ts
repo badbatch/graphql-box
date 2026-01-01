@@ -14,6 +14,7 @@ const {
   queryWithInlineFragmentWithNoTypeCondition,
   queryWithSkipFalseDirective,
   queryWithSkipTrueDirective,
+  queryWithUnion,
 } = parsedOperations;
 
 describe('instrumentOperation', () => {
@@ -1052,6 +1053,19 @@ describe('instrumentOperation', () => {
           },
         }
       `);
+    });
+  });
+
+  describe('queryWithUnion', () => {
+    it('should return the expected field paths', () => {
+      const ast = parse(queryWithUnion);
+
+      const { fieldPaths } = instrumentOperation(ast, githubSchema, {
+        operation: queryWithUnion,
+        operationType: OperationTypeNode.QUERY,
+      });
+
+      expect(fieldPaths).toMatchInlineSnapshot();
     });
   });
 });

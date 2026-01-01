@@ -12,6 +12,7 @@ import {
 import { FieldPathManager, type LeafFieldPathMetadata } from '#FieldPathManager.ts';
 import { buildOperationHash } from '#helpers/buildOperationHash.ts';
 import { directivesHasIncludeFalseOrSkipTrue } from '#helpers/directivesHasIncludeFalseOrSkipTrue.ts';
+import { getPossibleTypes } from '#helpers/getPossibleTypes.ts';
 import { makeDepthChart } from '#helpers/makeDepthChart.ts';
 import { type Ancestor } from '#types.ts';
 
@@ -66,9 +67,13 @@ export const instrumentOperation = (
           }
 
           if (operationType === OperationTypeNode.QUERY && unwrappedType && fieldDef) {
+            const possibleTypes = getPossibleTypes(schema, unwrappedType);
+
             fieldPathManager.addPath(node, ancestors, {
               isTypeDefList: fieldDef.type.constructor.name === 'GraphQLList',
               isTypeScalar: unwrappedType.constructor.name === 'GraphQLScalarType',
+              isTypeUnionOrInterface: possibleTypes.length > 0,
+              possibleTypes,
               typeName: 'name' in unwrappedType ? unwrappedType.name : undefined,
             });
           }
