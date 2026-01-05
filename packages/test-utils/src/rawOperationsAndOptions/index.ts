@@ -138,9 +138,6 @@ export const queryWithEnumVariable: RawOperationAndOptions = {
               owner {
                 login
                 url
-                ... on Organization {
-                  name
-                }
               }
             }
           }
@@ -269,6 +266,7 @@ export const queryWithSkipFalseDirective: RawOperationAndOptions = {
   },
 };
 
+// TODO: change this for an interface root query
 export const queryWithInlineFragment: RawOperationAndOptions = {
   operation: `
     query {
@@ -331,6 +329,7 @@ export const queryWithVariableInInlineFragment: RawOperationAndOptions = {
   },
 };
 
+// TODO: change this for an interface root query
 export const queryWithDirectiveInInlineFragment: RawOperationAndOptions = {
   operation: `
     query ($withEmail: Boolean!) {
@@ -535,6 +534,45 @@ export const queryWithVariableInInlineFragmentInNestedFragmentSpread: RawOperati
       first: 6,
     },
   },
+};
+
+export const queryWithUnion: RawOperationAndOptions = {
+  operation: `
+    query {
+      search(query: "react", first: 10, type: REPOSITORY) {
+        edges {
+          node {
+            ... on Organization {
+              description
+              login
+              organizationName: name
+            }
+            ... on Issue {
+              bodyText
+              number
+              title
+            }
+            ... on MarketplaceListing {
+              slug
+              shortDescription
+              howItWorks
+            }
+            ... on PullRequest {
+              bodyText
+              number
+              title
+            }
+            ... on Repository {
+              description
+              homepageUrl
+              name
+            }
+          }
+        }
+      }
+    }
+  `,
+  options: {},
 };
 
 export const mutationWithInputObjectType: RawOperationAndOptions = {

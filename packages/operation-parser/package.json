@@ -45,6 +45,7 @@
     "@graphql-box/helpers": "workspace:*",
     "@types/lodash-es": "^4.17.12",
     "core-js": "^3.43.0",
+    "fast-json-stable-stringify": "^2.1.0",
     "lodash-es": "^4.17.21",
     "type-fest": "^4.41.0"
   },

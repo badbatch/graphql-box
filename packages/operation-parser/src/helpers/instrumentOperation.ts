@@ -11,7 +11,6 @@ import {
 } from 'graphql';
 import { FieldPathManager, type LeafFieldPathMetadata } from '#FieldPathManager.ts';
 import { buildOperationHash } from '#helpers/buildOperationHash.ts';
-import { directivesHasIncludeFalseOrSkipTrue } from '#helpers/directivesHasIncludeFalseOrSkipTrue.ts';
 import { getPossibleTypes } from '#helpers/getPossibleTypes.ts';
 import { makeDepthChart } from '#helpers/makeDepthChart.ts';
 import { type Ancestor } from '#types.ts';
@@ -53,10 +52,6 @@ export const instrumentOperation = (
           const type = typeInfo.getType();
           const unwrappedType = type ? unwrapOfType(type) : undefined;
           const fieldDef = typeInfo.getFieldDef();
-
-          if (directivesHasIncludeFalseOrSkipTrue(node)) {
-            return false;
-          }
 
           if (unwrappedType && 'name' in unwrappedType) {
             typeList.push(unwrappedType.name);

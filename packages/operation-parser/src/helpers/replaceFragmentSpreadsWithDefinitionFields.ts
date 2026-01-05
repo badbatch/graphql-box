@@ -6,17 +6,14 @@ import {
   type FragmentSpreadNode,
   type InlineFragmentNode,
   Kind,
-  type VariableNode,
 } from 'graphql';
-import { replaceVariableNodeWithValueNode } from '#helpers/replaceVariableNodeWithValueNode.ts';
-import { type VariableTypesMap } from '#types.ts';
+import { directivesHasIncludeFalseOrSkipTrue } from '#helpers/directivesHasIncludeFalseOrSkipTrue.ts';
 
 export const replaceFragmentSpreadsWithDefinitionFields = <
   T extends FieldNode | InlineFragmentNode | FragmentDefinitionNode,
 >(
   node: T,
   fragmentDefinitions: FragmentDefinitionNodeMap | undefined,
-  variableTypes: VariableTypesMap,
   variableValues: PlainObject<unknown>,
 ): T => {
   if (!node.selectionSet) {
@@ -30,21 +27,14 @@ export const replaceFragmentSpreadsWithDefinitionFields = <
       continue;
     }
 
-    if (isKind<FieldNode>(childNode, Kind.FIELD) && childNode.arguments?.length) {
-      for (const argumentNode of childNode.arguments) {
-        if (isKind<VariableNode>(argumentNode.value, Kind.VARIABLE)) {
-          const variableName = argumentNode.value.name.value;
-
-          // @ts-expect-error does not cause a runtime exception
-          argumentNode.value = replaceVariableNodeWithValueNode(
-            variableTypes[variableName],
-            variableValues[variableName],
-          );
-        }
-      }
-    }
-
     if (isKind<FragmentSpreadNode>(childNode, Kind.FRAGMENT_SPREAD)) {
+      const selections = [...node.selectionSet.selections];
+
+      if (directivesHasIncludeFalseOrSkipTrue(childNode, variableValues)) {
+        selections.splice(i, 1);
+        continue;
+      }
+
       const { value: name } = childNode.name;
       const fragmentDefinition = fragmentDefinitions?.[name];
 
@@ -52,19 +42,15 @@ export const replaceFragmentSpreadsWithDefinitionFields = <
         throw new Error(`Could not find matching fragment definition for fragment spread "${name}".`);
       }
 
-      const selections = [...node.selectionSet.selections];
+      const fragmentDefinitionClone = structuredClone(fragmentDefinition);
 
-      selections.splice(
-        i,
-        1,
-        ...replaceFragmentSpreadsWithDefinitionFields(
-          fragmentDefinition,
-          fragmentDefinitions,
-          variableTypes,
-          variableValues,
-        ).selectionSet.selections,
+      const replaced = replaceFragmentSpreadsWithDefinitionFields(
+        fragmentDefinitionClone,
+        fragmentDefinitions,
+        variableValues,
       );
 
+      selections.splice(i, 1, ...replaced.selectionSet.selections);
       node.selectionSet.selections = selections;
     }
   }

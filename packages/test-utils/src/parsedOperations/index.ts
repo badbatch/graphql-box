@@ -5,6 +5,7 @@ export const query = `
       login
       name
       id
+      __typename
     }
   }
 `;
@@ -16,6 +17,7 @@ export const queryWithAlias = `
       login
       fullName: name
       id
+      __typename
     }
   }
 `;
@@ -27,6 +29,7 @@ export const queryWithIncludeTrueDirective = `
       login
       name
       id
+      __typename
     }
   }
 `;
@@ -38,6 +41,7 @@ export const queryWithIncludeFalseDirective = `
       login
       name
       id
+      __typename
     }
   }
 `;
@@ -49,6 +53,7 @@ export const queryWithSkipTrueDirective = `
       login
       name
       id
+      __typename
     }
   }
 `;
@@ -60,10 +65,12 @@ export const queryWithSkipFalseDirective = `
       login
       name
       id
+      __typename
     }
   }
 `;
 
+// TODO: change this for an interface root query
 export const queryWithInlineFragment = `
   {
     organization(login: "facebook") {
@@ -73,6 +80,7 @@ export const queryWithInlineFragment = `
         name
         id
       }
+      __typename
     }
   }
 `;
@@ -84,8 +92,9 @@ export const queryWithInlineFragmentWithNoTypeCondition = `
       ... {
         login
         name
-        id
       }
+      id
+      __typename
     }
   }
 `;
@@ -104,9 +113,12 @@ export const queryWithConnection = `
             homepageUrl
             name
             id
+            __typename
           }
         }
       }
+      id
+      __typename
     }
   }
 `;
@@ -124,19 +136,22 @@ export const queryWithConnectionWithNestedInlineFragment = `
             description
             homepageUrl
             name
-            id
             owner {
               url
               ... on Organization {
-                id
                 login
                 name
+                id
               }
               __typename
             }
+            id
+            __typename
           }
         }
       }
+      id
+      __typename
     }
   }
 `;
@@ -155,9 +170,12 @@ export const queryWithConnectionWithDoubleFigures = `
             homepageUrl
             name
             id
+            __typename
           }
         }
       }
+      id
+      __typename
     }
   }
 `;

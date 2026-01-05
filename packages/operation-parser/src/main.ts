@@ -5,11 +5,12 @@ import { assign, isError } from 'lodash-es';
 import { calcTypeComplexity } from '#helpers/calcTypeComplexity.ts';
 import { getMaxFieldDepthFromChart } from '#helpers/getMaxFieldDepthFromChart.ts';
 import { instrumentOperation } from '#helpers/instrumentOperation.ts';
-import { parseOperation } from '#helpers/parseOperation.ts';
+import { normaliseOperation } from '#helpers/normaliseOperation.ts';
 import { validateOperation } from '#helpers/validateOperation.ts';
 import { type OperationParserDef, type UserOptions } from './types.ts';
 
 export class OperationParser implements OperationParserDef {
+  private _idKey = 'id';
   private readonly _maxFieldDepth: number;
   private readonly _maxTypeComplexity: number;
   private readonly _schema: GraphQLSchema;
@@ -51,6 +52,10 @@ export class OperationParser implements OperationParserDef {
     return this._buildOperationData(operation, options, context);
   }
 
+  set idKeys(idKey: string) {
+    this._idKey = idKey;
+  }
+
   private _buildOperationData(operation: string, options: OperationOptions, context: OperationContext): OperationData {
     const operationWithFragments = options.fragments ? [operation, ...options.fragments].join('\n\n') : operation;
     const ast = parse(operationWithFragments);
@@ -63,7 +68,12 @@ export class OperationParser implements OperationParserDef {
       );
     }
 
-    const parsedAst = parseOperation(ast, this._schema, { operation, variables: options.variables });
+    const parsedAst = normaliseOperation(ast, this._schema, {
+      idKey: this._idKey,
+      operation,
+      variables: options.variables,
+    });
+
     const parsedOperation = print(parsedAst);
 
     const { depthChart, fieldPaths, typeList } = instrumentOperation(parsedAst, this._schema, {

@@ -1,81 +1,14 @@
-import { type Maybe, type PlainArray, type PlainData, type PlainObject } from '@graphql-box/core';
-import { isObjectLike, isPlainObject } from '@graphql-box/helpers';
-import { GraphQLEnumType, type GraphQLNamedType, type ValueNode, parseValue } from 'graphql';
-import { isString } from 'lodash-es';
-
-const parseArrayToInputString = (values: PlainArray, variableType: Maybe<GraphQLNamedType>): string => {
-  let inputString = '[';
-
-  for (const [index, value] of values.entries()) {
-    if (isObjectLike(value)) {
-      inputString += parseToInputString(value, variableType);
-    } else {
-      const sanitizedValue =
-        isString(value) && !(variableType instanceof GraphQLEnumType) ? `"${value}"` : String(value);
-
-      inputString += sanitizedValue;
-    }
-
-    if (index < values.length - 1) {
-      inputString += ',';
-    }
-  }
-
-  inputString += ']';
-  return inputString;
-};
-
-const parseObjectToInputString = (obj: PlainObject, variableType: Maybe<GraphQLNamedType>): string => {
-  let inputString = '{';
-  const keys = Object.keys(obj);
-
-  for (const [index, key] of keys.entries()) {
-    inputString += `${key}:`;
-    // Result of needing to keep PlainObject as generic as possible.
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const value = obj[key];
-
-    if (isObjectLike(value)) {
-      inputString += parseToInputString(value, variableType);
-    } else {
-      inputString += isString(value) ? `"${value}"` : String(value);
-    }
-
-    if (index < keys.length - 1) {
-      inputString += ',';
-    }
-  }
-
-  inputString += '}';
-  return inputString;
-};
-
-const parseToInputString = (value: PlainData, variableType: Maybe<GraphQLNamedType>): string => {
-  if (isPlainObject(value)) {
-    return parseObjectToInputString(value, variableType);
-  }
-
-  return parseArrayToInputString(value, variableType);
-};
+import { type GraphQLInputType, type ValueNode, astFromValue } from 'graphql';
 
 export const replaceVariableNodeWithValueNode = (
-  variableType: Maybe<GraphQLNamedType>,
+  variableType: GraphQLInputType,
   variableValue?: unknown,
 ): ValueNode => {
-  if (variableValue === undefined) {
-    return parseValue('null');
+  const valueNode = astFromValue(variableValue, variableType);
+
+  if (!valueNode) {
+    throw new Error('Could not convert variable value to AST');
   }
 
-  if (isObjectLike(variableValue)) {
-    return parseValue(parseToInputString(variableValue, variableType));
-  }
-
-  const sanitizedValue =
-    isString(variableValue) && !(variableType instanceof GraphQLEnumType)
-      ? `"${variableValue}"`
-      : // Typescript is not inferring that variableValue cannot be object-like
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
-        String(variableValue);
-
-  return parseValue(sanitizedValue);
+  return valueNode;
 };

@@ -2,7 +2,7 @@ import { githubIntrospection, rawOperationsAndOptions } from '@graphql-box/test-
 import { expect } from '@jest/globals';
 import { buildClientSchema, parse, print } from 'graphql';
 import { type IntrospectionQuery } from 'graphql';
-import { parseOperation } from './parseOperation.ts';
+import { normaliseOperation } from './normaliseOperation.ts';
 
 const {
   mutationWithInputObjectType,
@@ -16,6 +16,7 @@ const {
   queryWithNumberDefault,
   queryWithReusedFragmentSpread,
   queryWithSiblingFragmentSpreads,
+  queryWithUnion,
   queryWithVariable,
   queryWithVariableInFragmentSpread,
   queryWithVariableInInlineFragment,
@@ -25,19 +26,21 @@ const {
   queryWithVariables,
 } = rawOperationsAndOptions;
 
-describe('parseOperation', () => {
+describe('normaliseOperation', () => {
   const githubSchema = buildClientSchema(githubIntrospection as IntrospectionQuery);
 
   describe('queryWithDefault', () => {
     it('should replace the variable node with the default value', () => {
       const ast = parse(queryWithDefault.operation);
 
-      expect(print(parseOperation(ast, githubSchema, { operation: queryWithDefault.operation })))
+      expect(print(normaliseOperation(ast, githubSchema, { idKey: 'id', operation: queryWithDefault.operation })))
         .toMatchInlineSnapshot(`
         "{
           organization(login: "google") {
+            __typename
             description
             email
+            id
             login
             name
             url
@@ -51,18 +54,22 @@ describe('parseOperation', () => {
     it('should replace the variable node with the default value', () => {
       const ast = parse(queryWithNumberDefault.operation);
 
-      expect(print(parseOperation(ast, githubSchema, { operation: queryWithNumberDefault.operation })))
+      expect(print(normaliseOperation(ast, githubSchema, { idKey: 'id', operation: queryWithNumberDefault.operation })))
         .toMatchInlineSnapshot(`
         "{
           organization(login: "google") {
+            __typename
             description
             email
+            id
             login
             name
             repositories(first: 20) {
               edges {
                 node {
+                  __typename
                   description
+                  id
                   name
                 }
               }
@@ -80,7 +87,8 @@ describe('parseOperation', () => {
 
       expect(
         print(
-          parseOperation(ast, githubSchema, {
+          normaliseOperation(ast, githubSchema, {
+            idKey: 'id',
             operation: queryWithVariable.operation,
             variables: queryWithVariable.options.variables,
           }),
@@ -88,8 +96,10 @@ describe('parseOperation', () => {
       ).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
             email
+            id
             login
             name
             url
@@ -105,7 +115,8 @@ describe('parseOperation', () => {
 
       expect(
         print(
-          parseOperation(ast, githubSchema, {
+          normaliseOperation(ast, githubSchema, {
+            idKey: 'id',
             operation: queryWithVariableWithDefault.operation,
             variables: queryWithVariableWithDefault.options.variables,
           }),
@@ -113,8 +124,10 @@ describe('parseOperation', () => {
       ).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
             email
+            id
             login
             name
             url
@@ -130,7 +143,8 @@ describe('parseOperation', () => {
 
       expect(
         print(
-          parseOperation(ast, githubSchema, {
+          normaliseOperation(ast, githubSchema, {
+            idKey: 'id',
             operation: queryWithEnumVariable.operation,
             variables: queryWithEnumVariable.options.variables,
           }),
@@ -138,22 +152,25 @@ describe('parseOperation', () => {
       ).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
             email
+            id
             login
             name
             repositories(first: 6, ownerAffiliations: [OWNER, COLLABORATOR]) {
               edges {
                 node {
+                  __typename
                   description
                   homepageUrl
+                  id
                   name
                   owner {
+                    __typename
+                    id
                     login
                     url
-                    ... on Organization {
-                      name
-                    }
                   }
                 }
               }
@@ -171,7 +188,8 @@ describe('parseOperation', () => {
 
       expect(
         print(
-          parseOperation(ast, githubSchema, {
+          normaliseOperation(ast, githubSchema, {
+            idKey: 'id',
             operation: queryWithVariables.operation,
             variables: queryWithVariables.options.variables,
           }),
@@ -179,20 +197,26 @@ describe('parseOperation', () => {
       ).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
             email
+            id
             login
             name
             repositories(first: 6, ownerAffiliations: [OWNER, COLLABORATOR]) {
               edges {
                 node {
+                  __typename
                   description
                   homepageUrl
+                  id
                   name
                   owner {
+                    __typename
                     login
                     url
                     ... on Organization {
+                      id
                       name
                     }
                   }
@@ -212,7 +236,8 @@ describe('parseOperation', () => {
 
       expect(
         print(
-          parseOperation(ast, githubSchema, {
+          normaliseOperation(ast, githubSchema, {
+            idKey: 'id',
             operation: queryWithIncludeTrueDirective.operation,
             variables: queryWithIncludeTrueDirective.options.variables,
           }),
@@ -220,8 +245,10 @@ describe('parseOperation', () => {
       ).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
             email @include(if: true)
+            id
             login
             name
             url
@@ -235,13 +262,17 @@ describe('parseOperation', () => {
     it('should parse the query as is', () => {
       const ast = parse(queryWithInlineFragment.operation);
 
-      expect(print(parseOperation(ast, githubSchema, { operation: queryWithInlineFragment.operation })))
-        .toMatchInlineSnapshot(`
+      expect(
+        print(normaliseOperation(ast, githubSchema, { idKey: 'id', operation: queryWithInlineFragment.operation })),
+      ).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
+            id
             ... on Organization {
               description
               email
+              id
               login
               name
               url
@@ -258,7 +289,8 @@ describe('parseOperation', () => {
 
       expect(
         print(
-          parseOperation(ast, githubSchema, {
+          normaliseOperation(ast, githubSchema, {
+            idKey: 'id',
             operation: queryWithVariableInInlineFragment.operation,
             variables: queryWithVariableInInlineFragment.options.variables,
           }),
@@ -266,15 +298,20 @@ describe('parseOperation', () => {
       ).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
+            id
             ... on Organization {
               description
               email
+              id
               login
               repositories(first: 6) {
                 edges {
                   node {
+                    __typename
                     description
                     homepageUrl
+                    id
                     name
                   }
                 }
@@ -292,7 +329,8 @@ describe('parseOperation', () => {
 
       expect(
         print(
-          parseOperation(ast, githubSchema, {
+          normaliseOperation(ast, githubSchema, {
+            idKey: 'id',
             operation: queryWithDirectiveInInlineFragment.operation,
             variables: queryWithDirectiveInInlineFragment.options.variables,
           }),
@@ -300,9 +338,11 @@ describe('parseOperation', () => {
       ).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
+            id
             ... on Organization {
               description
-              email @include(if: false)
+              id
               login
               name
               url
@@ -317,8 +357,9 @@ describe('parseOperation', () => {
     it('should replace the fragment spread with its field nodes', () => {
       const ast = parse(queryWithFragmentSpread.operation);
 
-      expect(print(parseOperation(ast, githubSchema, { operation: queryWithFragmentSpread.operation })))
-        .toMatchInlineSnapshot(`
+      expect(
+        print(normaliseOperation(ast, githubSchema, { idKey: 'id', operation: queryWithFragmentSpread.operation })),
+      ).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
             description
@@ -336,8 +377,11 @@ describe('parseOperation', () => {
     it('should replace the fragment spread with its field nodes', () => {
       const ast = parse(queryWithNestedFragmentSpread.operation);
 
-      expect(print(parseOperation(ast, githubSchema, { operation: queryWithNestedFragmentSpread.operation })))
-        .toMatchInlineSnapshot(`
+      expect(
+        print(
+          normaliseOperation(ast, githubSchema, { idKey: 'id', operation: queryWithNestedFragmentSpread.operation }),
+        ),
+      ).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
             description
@@ -355,15 +399,18 @@ describe('parseOperation', () => {
     it('should replace the fragment spread with its field nodes', () => {
       const ast = parse(queryWithSiblingFragmentSpreads.operation);
 
-      expect(print(parseOperation(ast, githubSchema, { operation: queryWithSiblingFragmentSpreads.operation })))
-        .toMatchInlineSnapshot(`
+      expect(
+        print(
+          normaliseOperation(ast, githubSchema, { idKey: 'id', operation: queryWithSiblingFragmentSpreads.operation }),
+        ),
+      ).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
-            name
-            url
             description
             email
             login
+            name
+            url
           }
         }"
       `);
@@ -374,8 +421,11 @@ describe('parseOperation', () => {
     it('should replace the fragment spread with its field nodes', () => {
       const ast = parse(queryWithReusedFragmentSpread.operation);
 
-      expect(print(parseOperation(ast, githubSchema, { operation: queryWithReusedFragmentSpread.operation })))
-        .toMatchInlineSnapshot(`
+      expect(
+        print(
+          normaliseOperation(ast, githubSchema, { idKey: 'id', operation: queryWithReusedFragmentSpread.operation }),
+        ),
+      ).toMatchInlineSnapshot(`
         "{
           organization: facebook(login: "facebook") {
             description
@@ -402,7 +452,8 @@ describe('parseOperation', () => {
 
       expect(
         print(
-          parseOperation(ast, githubSchema, {
+          normaliseOperation(ast, githubSchema, {
+            idKey: 'id',
             operation: queryWithVariableInFragmentSpread.operation,
             variables: queryWithVariableInFragmentSpread.options.variables,
           }),
@@ -414,8 +465,10 @@ describe('parseOperation', () => {
             repositories(first: 6) {
               edges {
                 node {
+                  __typename
                   description
                   homepageUrl
+                  id
                   name
                 }
               }
@@ -432,7 +485,8 @@ describe('parseOperation', () => {
 
       expect(
         print(
-          parseOperation(ast, githubSchema, {
+          normaliseOperation(ast, githubSchema, {
+            idKey: 'id',
             operation: queryWithVariableInNestedFragmentSpread.operation,
             variables: queryWithVariableInNestedFragmentSpread.options.variables,
           }),
@@ -441,16 +495,18 @@ describe('parseOperation', () => {
         "{
           organization(login: "facebook") {
             description
+            name
             repositories(first: 6) {
               edges {
                 node {
+                  __typename
                   description
                   homepageUrl
+                  id
                   name
                 }
               }
             }
-            name
             url
           }
         }"
@@ -464,7 +520,8 @@ describe('parseOperation', () => {
 
       expect(
         print(
-          parseOperation(ast, githubSchema, {
+          normaliseOperation(ast, githubSchema, {
+            idKey: 'id',
             operation: queryWithVariableInInlineFragmentInNestedFragmentSpread.operation,
             variables: queryWithVariableInInlineFragmentInNestedFragmentSpread.options.variables,
           }),
@@ -472,20 +529,78 @@ describe('parseOperation', () => {
       ).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            name
+            url
             ... on Organization {
               description
+              id
               repositories(first: 6) {
                 edges {
                   node {
+                    __typename
                     description
                     homepageUrl
+                    id
                     name
                   }
                 }
               }
             }
-            name
-            url
+          }
+        }"
+      `);
+    });
+  });
+
+  describe('queryWithUnion', () => {
+    it('should inject the id and typename fields', () => {
+      const ast = parse(queryWithUnion.operation);
+
+      expect(
+        print(
+          normaliseOperation(ast, githubSchema, {
+            idKey: 'id',
+            operation: queryWithUnion.operation,
+          }),
+        ),
+      ).toMatchInlineSnapshot(`
+        "{
+          search(query: "react", first: 10, type: REPOSITORY) {
+            edges {
+              node {
+                __typename
+                ... on Issue {
+                  bodyText
+                  id
+                  number
+                  title
+                }
+                ... on MarketplaceListing {
+                  howItWorks
+                  id
+                  shortDescription
+                  slug
+                }
+                ... on Organization {
+                  description
+                  id
+                  login
+                  organizationName: name
+                }
+                ... on PullRequest {
+                  bodyText
+                  id
+                  number
+                  title
+                }
+                ... on Repository {
+                  description
+                  homepageUrl
+                  id
+                  name
+                }
+              }
+            }
           }
         }"
       `);
@@ -498,7 +613,8 @@ describe('parseOperation', () => {
 
       expect(
         print(
-          parseOperation(ast, githubSchema, {
+          normaliseOperation(ast, githubSchema, {
+            idKey: 'id',
             operation: mutationWithInputObjectType.operation,
             variables: mutationWithInputObjectType.options.variables,
           }),
@@ -506,16 +622,20 @@ describe('parseOperation', () => {
       ).toMatchInlineSnapshot(`
         "mutation {
           addStar(
-            input: {clientMutationId: "1", starrableId: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg="}
+            input: {starrableId: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=", clientMutationId: "1"}
           ) {
             clientMutationId
             starrable {
+              __typename
               ... on Repository {
+                id
                 stargazers(first: 6) {
                   edges {
                     node {
-                      name
+                      __typename
+                      id
                       login
+                      name
                     }
                   }
                 }
