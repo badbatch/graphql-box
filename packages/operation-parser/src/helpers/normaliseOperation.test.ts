@@ -247,7 +247,7 @@ describe('normaliseOperation', () => {
           organization(login: "facebook") {
             __typename
             description
-            email @include(if: true)
+            email
             id
             login
             name

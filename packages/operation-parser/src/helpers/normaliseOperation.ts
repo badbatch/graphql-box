@@ -1,6 +1,7 @@
 import { type PlainObject } from '@graphql-box/core';
 import { getFragmentDefinitions, isAncestorAstNode, isKind } from '@graphql-box/helpers';
 import {
+  type DirectiveNode,
   type DocumentNode,
   type FieldNode,
   type FragmentDefinitionNode,
@@ -134,6 +135,13 @@ export const normaliseOperation = (
         }
 
         if (isKind<VariableDefinitionNode>(node, Kind.VARIABLE_DEFINITION)) {
+          return null;
+        }
+
+        if (
+          isKind<DirectiveNode>(node, Kind.DIRECTIVE) &&
+          (node.name.value === 'include' || node.name.value === 'skip')
+        ) {
           return null;
         }
 
