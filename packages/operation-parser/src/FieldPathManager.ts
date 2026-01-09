@@ -1,102 +1,80 @@
-import { buildAncestorFieldNames, buildFieldOperationPath, getAlias, getArguments } from '@graphql-box/helpers';
+import { type PlainObject } from '@graphql-box/core';
+import { getAlias, getArguments } from '@graphql-box/helpers';
 import { type FieldNode } from 'graphql';
-import { buildFieldCachePath } from '#helpers/buildFieldCachePath.ts';
-import { buildFieldResponsePath } from '#helpers/buildFieldResponsePath.ts';
-import { explodePathParts } from '#helpers/explodePathParts.ts';
-import { getConnectionIterations } from '#helpers/getConnectionIterations.ts';
-import { getEdgeIterations } from '#helpers/getEdgeIterations.ts';
-import { getPathParts } from '#helpers/getPathParts.ts';
-import { type Ancestor } from '#types.ts';
+import { pickBy } from 'lodash-es';
 
 export type FieldPathMetadata = {
-  cachePath: string;
-  connectionIterations?: number;
-  isTypeDefList: boolean;
-  isTypeScalar: boolean;
-  responsePath: string;
+  fieldAlias?: string;
+  fieldArgs?: PlainObject<unknown>;
+  hasArgs?: true;
+  isAbstract?: true;
+  isEntity?: true;
+  isLeaf?: true;
+  isList?: true;
+  leafEntity?: string;
+  typeConditions?: Set<string>;
+  typeName: string;
 };
 
-export type LeafFieldPathMetadata = {
-  cachePaths: string[];
-  responsePaths: string[];
+export type AddFieldPathOptions = {
+  fieldPathStack: string[];
+  hasArgs: boolean;
+  isAbstract: boolean;
+  isEntity: boolean;
+  isLeaf: boolean;
+  isList: boolean;
+  leafEntity: string | undefined;
+  typeConditions: string[];
+  typeName: string;
 };
-
-export type BaseAddPathOptions = {
-  isTypeDefList: boolean;
-  isTypeScalar: boolean;
-  isTypeUnionOrInterface: boolean;
-  typeName?: string;
-};
-
-export type AddPathOptions = {
-  possibleTypes: string[];
-} & BaseAddPathOptions;
-
-export type PrivateAddPathOptions = {
-  concreteType?: string;
-} & BaseAddPathOptions;
 
 export class FieldPathManager {
   private _fieldPaths: Record<string, FieldPathMetadata> = {};
 
-  public addPath(
+  public addFieldPath(
     field: FieldNode,
-    ancestors: readonly Ancestor[],
-    { isTypeUnionOrInterface, possibleTypes, ...rest }: AddPathOptions,
+    {
+      fieldPathStack,
+      hasArgs,
+      isAbstract,
+      isEntity,
+      isLeaf,
+      isList,
+      leafEntity,
+      typeConditions,
+      typeName,
+    }: AddFieldPathOptions,
   ): void {
-    if (isTypeUnionOrInterface) {
-      for (const type of possibleTypes) {
-        this._addPath(field, ancestors, { ...rest, concreteType: type, isTypeUnionOrInterface });
+    const fieldPath = fieldPathStack.join('.');
+    const fieldArgs = getArguments(field);
+    const existingFieldPath = this._fieldPaths[fieldPath];
+
+    if (existingFieldPath) {
+      if (typeConditions.length > 0) {
+        existingFieldPath.typeConditions = new Set([...typeConditions, ...(existingFieldPath.typeConditions ?? [])]);
       }
     } else {
-      this._addPath(field, ancestors, { ...rest, isTypeUnionOrInterface });
+      this._fieldPaths[fieldPath] = {
+        typeName,
+        ...pickBy(
+          {
+            fieldAlias: getAlias(field),
+            fieldArgs,
+            hasArgs,
+            isAbstract,
+            isEntity,
+            isLeaf,
+            isList,
+            leafEntity,
+            typeConditions: typeConditions.length > 0 ? new Set(typeConditions) : undefined,
+          },
+          v => v !== undefined && v !== false,
+        ),
+      };
     }
   }
 
-  get leafFieldPaths(): Record<string, LeafFieldPathMetadata> {
-    const leafPaths: Record<string, LeafFieldPathMetadata> = {};
-
-    for (const [operationPath, { cachePath, isTypeScalar, responsePath }] of Object.entries(this._fieldPaths)) {
-      if (isTypeScalar) {
-        leafPaths[operationPath] = {
-          cachePaths: explodePathParts(getPathParts(cachePath)),
-          responsePaths: explodePathParts(getPathParts(responsePath)),
-        };
-      }
-    }
-
-    return leafPaths;
-  }
-
-  private _addPath(
-    field: FieldNode,
-    ancestors: readonly Ancestor[],
-    { concreteType, isTypeDefList, isTypeScalar, typeName }: PrivateAddPathOptions,
-  ): void {
-    const ancestorFieldNames = buildAncestorFieldNames(ancestors);
-    const parentFieldPath = ancestorFieldNames.join('.');
-    const parentFieldPathMetadata = this._fieldPaths[parentFieldPath];
-    const fieldName = getAlias(field) ?? field.name.value;
-    const fieldArgs = getArguments(field);
-    const fieldOperationPath = buildFieldOperationPath(fieldName, parentFieldPath);
-    const iterations = getEdgeIterations(typeName, parentFieldPathMetadata);
-
-    const fieldCachePath = buildFieldCachePath(
-      field.name.value,
-      concreteType,
-      parentFieldPathMetadata?.cachePath,
-      fieldArgs,
-      iterations,
-    );
-
-    const fieldResponsePath = buildFieldResponsePath(fieldName, parentFieldPathMetadata?.responsePath, iterations);
-
-    this._fieldPaths[fieldOperationPath] = {
-      cachePath: fieldCachePath,
-      connectionIterations: getConnectionIterations(typeName, fieldArgs),
-      isTypeDefList,
-      isTypeScalar,
-      responsePath: fieldResponsePath,
-    };
+  get fieldPaths() {
+    return this._fieldPaths;
   }
 }

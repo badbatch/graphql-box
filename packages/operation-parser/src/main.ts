@@ -76,7 +76,8 @@ export class OperationParser implements OperationParserDef {
 
     const parsedOperation = print(parsedAst);
 
-    const { depthChart, fieldPaths, typeList } = instrumentOperation(parsedAst, this._schema, {
+    const { depthChart, fieldPaths, typeOccurrences } = instrumentOperation(parsedAst, this._schema, {
+      idKey: this._idKey,
       operation: parsedOperation,
       operationType: context.data.operationType,
     });
