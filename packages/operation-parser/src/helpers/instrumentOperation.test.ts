@@ -201,7 +201,7 @@ describe('instrumentOperation', () => {
 
       expect(typeOccurrences).toMatchInlineSnapshot(`
         {
-          "Organization": 2,
+          "Organization": 1,
         }
       `);
     });
@@ -217,11 +217,11 @@ describe('instrumentOperation', () => {
 
       expect(depthChart).toMatchInlineSnapshot(`
         {
-          "organization.__typename": 2,
-          "organization.email": 2,
-          "organization.id": 2,
-          "organization.login": 2,
-          "organization.name": 2,
+          "repositoryOwner.__typename": 2,
+          "repositoryOwner.email": 2,
+          "repositoryOwner.id": 2,
+          "repositoryOwner.login": 2,
+          "repositoryOwner.name": 2,
         }
       `);
     });
@@ -237,43 +237,39 @@ describe('instrumentOperation', () => {
 
       expect(fieldPaths).toMatchInlineSnapshot(`
         {
-          "organization": {
+          "repositoryOwner": {
             "fieldArgs": {
               "login": "facebook",
             },
             "hasArgs": true,
             "isEntity": true,
-            "typeName": "Organization",
+            "typeName": "RepositoryOwner",
           },
-          "organization.__typename": {
+          "repositoryOwner.__typename": {
+            "isAbstract": true,
             "isLeaf": true,
-            "leafEntity": "Organization",
+            "leafEntity": "RepositoryOwner",
             "typeName": "String",
           },
-          "organization.email": {
+          "repositoryOwner.id": {
             "isLeaf": true,
-            "leafEntity": "Organization",
-            "typeName": "String",
-          },
-          "organization.id": {
-            "isLeaf": true,
-            "leafEntity": "Organization",
+            "leafEntity": "RepositoryOwner",
             "typeConditions": Set {
               "Organization",
             },
             "typeName": "ID",
           },
-          "organization.login": {
+          "repositoryOwner.login": {
             "isLeaf": true,
-            "leafEntity": "Organization",
+            "leafEntity": "RepositoryOwner",
             "typeConditions": Set {
               "Organization",
             },
             "typeName": "String",
           },
-          "organization.name": {
+          "repositoryOwner.name": {
             "isLeaf": true,
-            "leafEntity": "Organization",
+            "leafEntity": "RepositoryOwner",
             "typeConditions": Set {
               "Organization",
             },

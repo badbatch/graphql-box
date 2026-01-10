@@ -1,11 +1,11 @@
 export const query = `
   {
     organization(login: "facebook") {
+      __typename
       email
+      id
       login
       name
-      id
-      __typename
     }
   }
 `;
@@ -13,74 +13,25 @@ export const query = `
 export const queryWithAlias = `
   {
     organization(login: "facebook") {
+      __typename
       email
-      login
       fullName: name
       id
-      __typename
-    }
-  }
-`;
-
-export const queryWithIncludeTrueDirective = `
-  {
-    organization(login: "facebook") {
-      email @include(if: true)
       login
-      name
-      id
-      __typename
     }
   }
 `;
 
-export const queryWithIncludeFalseDirective = `
-  {
-    organization(login: "facebook") {
-      email @include(if: false)
-      login
-      name
-      id
-      __typename
-    }
-  }
-`;
-
-export const queryWithSkipTrueDirective = `
-  {
-    organization(login: "facebook") {
-      email @skip(if: true)
-      login
-      name
-      id
-      __typename
-    }
-  }
-`;
-
-export const queryWithSkipFalseDirective = `
-  {
-    organization(login: "facebook") {
-      email @skip(if: false)
-      login
-      name
-      id
-      __typename
-    }
-  }
-`;
-
-// TODO: change this for an interface root query
 export const queryWithInlineFragment = `
   {
-    organization(login: "facebook") {
+    repositoryOwner(login: "facebook") {
+      __typename
       email
       ... on Organization {
+        id
         login
         name
-        id
       }
-      __typename
     }
   }
 `;
@@ -88,13 +39,13 @@ export const queryWithInlineFragment = `
 export const queryWithInlineFragmentWithNoTypeCondition = `
   {
     organization(login: "facebook") {
+      __typename
       email
+      id
       ... {
         login
         name
       }
-      id
-      __typename
     }
   }
 `;
@@ -102,23 +53,23 @@ export const queryWithInlineFragmentWithNoTypeCondition = `
 export const queryWithConnection = `
   {
     organization(login: "facebook") {
+      __typename
       description
       email
+      id
       login
       name
       repositories(first: 6) {
         edges {
           node {
+            __typename
             description
             homepageUrl
-            name
             id
-            __typename
+            name
           }
         }
       }
-      id
-      __typename
     }
   }
 `;
@@ -126,32 +77,32 @@ export const queryWithConnection = `
 export const queryWithConnectionWithNestedInlineFragment = `
   {
     organization(login: "facebook") {
+      __typename
       description
       email
+      id
       login
       name
       repositories(first: 6) {
         edges {
           node {
+            __typename
             description
             homepageUrl
+            id
             name
             owner {
+              __typename
               url
               ... on Organization {
+                id
                 login
                 name
-                id
               }
-              __typename
             }
-            id
-            __typename
           }
         }
       }
-      id
-      __typename
     }
   }
 `;
@@ -159,23 +110,24 @@ export const queryWithConnectionWithNestedInlineFragment = `
 export const queryWithConnectionWithDoubleFigures = `
   {
     organization(login: "facebook") {
+      __typename
       description
       email
+      id
       login
       name
       repositories(first: 11) {
         edges {
           node {
+            __typename
             description
             homepageUrl
-            name
             id
-            __typename
+            name
           }
         }
       }
-      id
-      __typename
+
     }
   }
 `;
@@ -185,37 +137,37 @@ export const queryWithUnion = `
     search(query: "react", first: 10, type: REPOSITORY) {
       edges {
         node {
+          __typename
           ... on Organization {
             description
+            id
             login
             organizationName: name
-            id
           }
           ... on Issue {
             bodyText
+            id
             number
             title
-            id
           }
           ... on MarketplaceListing {
-            slug
-            shortDescription
             howItWorks
             id
+            shortDescription
+            slug
           }
           ... on PullRequest {
             bodyText
+            id
             number
             title
-            id
           }
           ... on Repository {
             description
             homepageUrl
-            name
             id
-          }
-          __typename
+            name
+          } 
         }
       }
     }

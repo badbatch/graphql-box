@@ -4,7 +4,7 @@ import { GraphQLSchema, buildClientSchema, parse, print } from 'graphql';
 import { assign, isError } from 'lodash-es';
 import { instrumentOperation } from '#helpers/instrumentOperation.ts';
 import { normaliseOperation } from '#helpers/normaliseOperation.ts';
-import { scoreOperation } from '#helpers/scoreOperation.js';
+import { scoreOperation } from '#helpers/scoreOperation.ts';
 import { validateOperation } from '#helpers/validateOperation.ts';
 import { type OperationParserDef, type UserOptions } from './types.ts';
 

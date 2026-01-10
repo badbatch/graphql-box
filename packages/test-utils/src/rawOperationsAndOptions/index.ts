@@ -266,11 +266,10 @@ export const queryWithSkipFalseDirective: RawOperationAndOptions = {
   },
 };
 
-// TODO: change this for an interface root query
 export const queryWithInlineFragment: RawOperationAndOptions = {
   operation: `
     query {
-      organization(login: "facebook") {
+      repositoryOwner(login: "facebook") {
         ... on Organization {
           description
           email
@@ -304,7 +303,7 @@ export const queryWithInlineFragmentWithNoTypeCondition: RawOperationAndOptions 
 export const queryWithVariableInInlineFragment: RawOperationAndOptions = {
   operation: `
     query ($first: Int!) {
-      organization(login: "facebook") {
+      repositoryOwner(login: "facebook") {
         ... on Organization {
           description
           email
@@ -329,11 +328,10 @@ export const queryWithVariableInInlineFragment: RawOperationAndOptions = {
   },
 };
 
-// TODO: change this for an interface root query
 export const queryWithDirectiveInInlineFragment: RawOperationAndOptions = {
   operation: `
     query ($withEmail: Boolean!) {
-      organization(login: "facebook") {
+      repositoryOwner(login: "facebook") {
         ... on Organization {
           description
           email @include(if: $withEmail)
@@ -503,15 +501,13 @@ export const queryWithVariableInNestedFragmentSpread: RawOperationAndOptions = {
 export const queryWithVariableInInlineFragmentInNestedFragmentSpread: RawOperationAndOptions = {
   operation: `
     fragment organizationFieldsB on Organization {
-      ... on Organization {
-        description
-        repositories(first: $first) {
-          edges {
-            node {
-              description
-              homepageUrl
-              name
-            }
+      description
+      repositories(first: $first) {
+        edges {
+          node {
+            description
+            homepageUrl
+            name
           }
         }
       }
@@ -522,10 +518,12 @@ export const queryWithVariableInInlineFragmentInNestedFragmentSpread: RawOperati
       name
       url
     }
-
+    
     query ($first: Int!) {
-      organization(login: "facebook") {
-        ...organizationFieldsA
+      repositoryOwner(login: "facebook") {
+        ... on Organization {
+          ...organizationFieldsA
+        }
       }
     }
   `,

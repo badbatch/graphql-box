@@ -266,9 +266,8 @@ describe('normaliseOperation', () => {
         print(normaliseOperation(ast, githubSchema, { idKey: 'id', operation: queryWithInlineFragment.operation })),
       ).toMatchInlineSnapshot(`
         "{
-          organization(login: "facebook") {
+          repositoryOwner(login: "facebook") {
             __typename
-            id
             ... on Organization {
               description
               email
@@ -297,9 +296,8 @@ describe('normaliseOperation', () => {
         ),
       ).toMatchInlineSnapshot(`
         "{
-          organization(login: "facebook") {
+          repositoryOwner(login: "facebook") {
             __typename
-            id
             ... on Organization {
               description
               email
@@ -337,9 +335,8 @@ describe('normaliseOperation', () => {
         ),
       ).toMatchInlineSnapshot(`
         "{
-          organization(login: "facebook") {
+          repositoryOwner(login: "facebook") {
             __typename
-            id
             ... on Organization {
               description
               id
@@ -528,7 +525,7 @@ describe('normaliseOperation', () => {
         ),
       ).toMatchInlineSnapshot(`
         "{
-          organization(login: "facebook") {
+          repositoryOwner(login: "facebook") {
             name
             url
             ... on Organization {

@@ -21,8 +21,10 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
             email
+            id
             login
             name
             url
@@ -43,50 +45,53 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 2,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.email": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -109,8 +114,10 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "query GetOrganization {
           organization(login: "facebook") {
+            __typename
             description
             email
+            id
             login
             name
             url
@@ -131,50 +138,53 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 2,
             "operationName": "GetOrganization",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.email": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -197,8 +207,10 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "google") {
+            __typename
             description
             email
+            id
             login
             name
             url
@@ -219,50 +231,53 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 2,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "google",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"google"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.email": {
-              "cachePaths": [
-                "organization({"login":"google"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"google"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.name": {
-              "cachePaths": [
-                "organization({"login":"google"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"google"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -285,14 +300,18 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "google") {
+            __typename
             description
             email
+            id
             login
             name
             repositories(first: 20) {
               edges {
                 node {
+                  __typename
                   description
+                  id
                   name
                 }
               }
@@ -315,142 +334,88 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 5,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "google",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"google"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.email": {
-              "cachePaths": [
-                "organization({"login":"google"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"google"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.name": {
-              "cachePaths": [
-                "organization({"login":"google"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.repositories": {
+              "fieldArgs": {
+                "first": 20,
+              },
+              "hasArgs": true,
+              "typeName": "RepositoryConnection",
+            },
+            "organization.repositories.edges": {
+              "isList": true,
+              "typeName": "RepositoryEdge",
+            },
+            "organization.repositories.edges.node": {
+              "isEntity": true,
+              "typeName": "Repository",
+            },
+            "organization.repositories.edges.node.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "String",
             },
             "organization.repositories.edges.node.description": {
-              "cachePaths": [
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[0].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[1].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[2].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[3].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[4].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[5].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[6].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[7].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[8].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[9].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[10].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[11].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[12].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[13].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[14].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[15].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[16].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[17].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[18].node.description",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[19].node.description",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.description",
-                "organization.repositories.edges[1].node.description",
-                "organization.repositories.edges[2].node.description",
-                "organization.repositories.edges[3].node.description",
-                "organization.repositories.edges[4].node.description",
-                "organization.repositories.edges[5].node.description",
-                "organization.repositories.edges[6].node.description",
-                "organization.repositories.edges[7].node.description",
-                "organization.repositories.edges[8].node.description",
-                "organization.repositories.edges[9].node.description",
-                "organization.repositories.edges[10].node.description",
-                "organization.repositories.edges[11].node.description",
-                "organization.repositories.edges[12].node.description",
-                "organization.repositories.edges[13].node.description",
-                "organization.repositories.edges[14].node.description",
-                "organization.repositories.edges[15].node.description",
-                "organization.repositories.edges[16].node.description",
-                "organization.repositories.edges[17].node.description",
-                "organization.repositories.edges[18].node.description",
-                "organization.repositories.edges[19].node.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "String",
+            },
+            "organization.repositories.edges.node.id": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "ID",
             },
             "organization.repositories.edges.node.name": {
-              "cachePaths": [
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[0].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[1].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[2].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[3].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[4].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[5].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[6].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[7].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[8].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[9].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[10].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[11].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[12].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[13].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[14].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[15].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[16].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[17].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[18].node.name",
-                "organization({"login":"google"}).repositories({"first":"20"}).edges[19].node.name",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.name",
-                "organization.repositories.edges[1].node.name",
-                "organization.repositories.edges[2].node.name",
-                "organization.repositories.edges[3].node.name",
-                "organization.repositories.edges[4].node.name",
-                "organization.repositories.edges[5].node.name",
-                "organization.repositories.edges[6].node.name",
-                "organization.repositories.edges[7].node.name",
-                "organization.repositories.edges[8].node.name",
-                "organization.repositories.edges[9].node.name",
-                "organization.repositories.edges[10].node.name",
-                "organization.repositories.edges[11].node.name",
-                "organization.repositories.edges[12].node.name",
-                "organization.repositories.edges[13].node.name",
-                "organization.repositories.edges[14].node.name",
-                "organization.repositories.edges[15].node.name",
-                "organization.repositories.edges[16].node.name",
-                "organization.repositories.edges[17].node.name",
-                "organization.repositories.edges[18].node.name",
-                "organization.repositories.edges[19].node.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "String",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"google"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -473,8 +438,10 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
             email
+            id
             login
             name
             url
@@ -495,50 +462,53 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 2,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.email": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -561,8 +531,10 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
             email
+            id
             login
             name
             url
@@ -583,50 +555,53 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 2,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.email": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -649,22 +624,25 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
             email
+            id
             login
             name
             repositories(first: 6, ownerAffiliations: [OWNER, COLLABORATOR]) {
               edges {
                 node {
+                  __typename
                   description
                   homepageUrl
+                  id
                   name
                   owner {
+                    __typename
+                    id
                     login
                     url
-                    ... on Organization {
-                      name
-                    }
                   }
                 }
               }
@@ -687,158 +665,125 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 6,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.email": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.repositories": {
+              "fieldArgs": {
+                "first": 6,
+                "ownerAffiliations": [
+                  "OWNER",
+                  "COLLABORATOR",
+                ],
+              },
+              "hasArgs": true,
+              "typeName": "RepositoryConnection",
+            },
+            "organization.repositories.edges": {
+              "isList": true,
+              "typeName": "RepositoryEdge",
+            },
+            "organization.repositories.edges.node": {
+              "isEntity": true,
+              "typeName": "Repository",
+            },
+            "organization.repositories.edges.node.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "String",
             },
             "organization.repositories.edges.node.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.description",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.description",
-                "organization.repositories.edges[1].node.description",
-                "organization.repositories.edges[2].node.description",
-                "organization.repositories.edges[3].node.description",
-                "organization.repositories.edges[4].node.description",
-                "organization.repositories.edges[5].node.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "String",
             },
             "organization.repositories.edges.node.homepageUrl": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.homepageUrl",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.homepageUrl",
-                "organization.repositories.edges[1].node.homepageUrl",
-                "organization.repositories.edges[2].node.homepageUrl",
-                "organization.repositories.edges[3].node.homepageUrl",
-                "organization.repositories.edges[4].node.homepageUrl",
-                "organization.repositories.edges[5].node.homepageUrl",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "URI",
+            },
+            "organization.repositories.edges.node.id": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "ID",
             },
             "organization.repositories.edges.node.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.name",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.name",
-                "organization.repositories.edges[1].node.name",
-                "organization.repositories.edges[2].node.name",
-                "organization.repositories.edges[3].node.name",
-                "organization.repositories.edges[4].node.name",
-                "organization.repositories.edges[5].node.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "String",
+            },
+            "organization.repositories.edges.node.owner": {
+              "isEntity": true,
+              "typeName": "RepositoryOwner",
+            },
+            "organization.repositories.edges.node.owner.__typename": {
+              "isAbstract": true,
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeName": "String",
+            },
+            "organization.repositories.edges.node.owner.id": {
+              "isAbstract": true,
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeName": "ID",
             },
             "organization.repositories.edges.node.owner.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.owner.login",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.owner.login",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.owner.login",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.owner.login",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.login",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.login",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.owner.login",
-                "organization.repositories.edges[1].node.owner.login",
-                "organization.repositories.edges[2].node.owner.login",
-                "organization.repositories.edges[3].node.owner.login",
-                "organization.repositories.edges[4].node.owner.login",
-                "organization.repositories.edges[5].node.owner.login",
-              ],
-            },
-            "organization.repositories.edges.node.owner.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.owner.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.owner.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.owner.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.owner.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.name",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.owner.name",
-                "organization.repositories.edges[1].node.owner.name",
-                "organization.repositories.edges[2].node.owner.name",
-                "organization.repositories.edges[3].node.owner.name",
-                "organization.repositories.edges[4].node.owner.name",
-                "organization.repositories.edges[5].node.owner.name",
-              ],
+              "isAbstract": true,
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeName": "String",
             },
             "organization.repositories.edges.node.owner.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.owner.url",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.owner.url",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.owner.url",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.owner.url",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.url",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.url",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.owner.url",
-                "organization.repositories.edges[1].node.owner.url",
-                "organization.repositories.edges[2].node.owner.url",
-                "organization.repositories.edges[3].node.owner.url",
-                "organization.repositories.edges[4].node.owner.url",
-                "organization.repositories.edges[5].node.owner.url",
-              ],
+              "isAbstract": true,
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeName": "URI",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -861,20 +806,26 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
             email
+            id
             login
             name
             repositories(first: 6, ownerAffiliations: [OWNER, COLLABORATOR]) {
               edges {
                 node {
+                  __typename
                   description
                   homepageUrl
+                  id
                   name
                   owner {
+                    __typename
                     login
                     url
                     ... on Organization {
+                      id
                       name
                     }
                   }
@@ -899,158 +850,135 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 6,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.email": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.repositories": {
+              "fieldArgs": {
+                "first": 6,
+                "ownerAffiliations": [
+                  "OWNER",
+                  "COLLABORATOR",
+                ],
+              },
+              "hasArgs": true,
+              "typeName": "RepositoryConnection",
+            },
+            "organization.repositories.edges": {
+              "isList": true,
+              "typeName": "RepositoryEdge",
+            },
+            "organization.repositories.edges.node": {
+              "isEntity": true,
+              "typeName": "Repository",
+            },
+            "organization.repositories.edges.node.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "String",
             },
             "organization.repositories.edges.node.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.description",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.description",
-                "organization.repositories.edges[1].node.description",
-                "organization.repositories.edges[2].node.description",
-                "organization.repositories.edges[3].node.description",
-                "organization.repositories.edges[4].node.description",
-                "organization.repositories.edges[5].node.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "String",
             },
             "organization.repositories.edges.node.homepageUrl": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.homepageUrl",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.homepageUrl",
-                "organization.repositories.edges[1].node.homepageUrl",
-                "organization.repositories.edges[2].node.homepageUrl",
-                "organization.repositories.edges[3].node.homepageUrl",
-                "organization.repositories.edges[4].node.homepageUrl",
-                "organization.repositories.edges[5].node.homepageUrl",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "URI",
+            },
+            "organization.repositories.edges.node.id": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "ID",
             },
             "organization.repositories.edges.node.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.name",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.name",
-                "organization.repositories.edges[1].node.name",
-                "organization.repositories.edges[2].node.name",
-                "organization.repositories.edges[3].node.name",
-                "organization.repositories.edges[4].node.name",
-                "organization.repositories.edges[5].node.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "String",
+            },
+            "organization.repositories.edges.node.owner": {
+              "isEntity": true,
+              "typeName": "RepositoryOwner",
+            },
+            "organization.repositories.edges.node.owner.__typename": {
+              "isAbstract": true,
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeName": "String",
+            },
+            "organization.repositories.edges.node.owner.id": {
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "ID",
             },
             "organization.repositories.edges.node.owner.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.owner.login",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.owner.login",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.owner.login",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.owner.login",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.login",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.login",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.owner.login",
-                "organization.repositories.edges[1].node.owner.login",
-                "organization.repositories.edges[2].node.owner.login",
-                "organization.repositories.edges[3].node.owner.login",
-                "organization.repositories.edges[4].node.owner.login",
-                "organization.repositories.edges[5].node.owner.login",
-              ],
+              "isAbstract": true,
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeName": "String",
             },
             "organization.repositories.edges.node.owner.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.owner.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.owner.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.owner.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.owner.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.name",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.name",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.owner.name",
-                "organization.repositories.edges[1].node.owner.name",
-                "organization.repositories.edges[2].node.owner.name",
-                "organization.repositories.edges[3].node.owner.name",
-                "organization.repositories.edges[4].node.owner.name",
-                "organization.repositories.edges[5].node.owner.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "String",
             },
             "organization.repositories.edges.node.owner.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[0].node.owner.url",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[1].node.owner.url",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[2].node.owner.url",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[3].node.owner.url",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[4].node.owner.url",
-                "organization({"login":"facebook"}).repositories({"first":"6","ownerAffiliations":["OWNER","COLLABORATOR"]}).edges[5].node.owner.url",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.owner.url",
-                "organization.repositories.edges[1].node.owner.url",
-                "organization.repositories.edges[2].node.owner.url",
-                "organization.repositories.edges[3].node.owner.url",
-                "organization.repositories.edges[4].node.owner.url",
-                "organization.repositories.edges[5].node.owner.url",
-              ],
+              "isAbstract": true,
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeName": "URI",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -1073,8 +1001,10 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
             email
+            id
             login
             fullName: name
             url
@@ -1095,50 +1025,54 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 2,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.email": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
-            "organization.fullName": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.fullName",
-              ],
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.name": {
+              "fieldAlias": "fullName",
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -1161,8 +1095,9 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
-            email @include(if: false)
+            id
             login
             name
             url
@@ -1183,42 +1118,48 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 2,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -1241,8 +1182,9 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
-            email @skip(if: true)
+            id
             login
             name
             url
@@ -1263,42 +1205,48 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 2,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -1320,10 +1268,12 @@ describe('@graphql-box/operation-parser', () => {
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
-          organization(login: "facebook") {
+          repositoryOwner(login: "facebook") {
+            __typename
             ... on Organization {
               description
               email
+              id
               login
               name
               url
@@ -1345,50 +1295,54 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 2,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.email": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
-            "organization.fullName": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.fullName",
-              ],
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.name": {
+              "fieldAlias": "fullName",
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -1411,6 +1365,8 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
+            id
             ... {
               description
               email
@@ -1435,50 +1391,53 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 2,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.email": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -1500,16 +1459,20 @@ describe('@graphql-box/operation-parser', () => {
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
-          organization(login: "facebook") {
+          repositoryOwner(login: "facebook") {
+            __typename
             ... on Organization {
               description
               email
+              id
               login
               repositories(first: 6) {
                 edges {
                   node {
+                    __typename
                     description
                     homepageUrl
+                    id
                     name
                   }
                 }
@@ -1532,88 +1495,120 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 5,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
-            "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+            "repositoryOwner": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "RepositoryOwner",
             },
-            "organization.email": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+            "repositoryOwner.__typename": {
+              "isAbstract": true,
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeName": "String",
             },
-            "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+            "repositoryOwner.description": {
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "String",
             },
-            "organization.repositories.edges.node.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[0].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[1].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[2].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[3].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.description",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.description",
-                "organization.repositories.edges[1].node.description",
-                "organization.repositories.edges[2].node.description",
-                "organization.repositories.edges[3].node.description",
-                "organization.repositories.edges[4].node.description",
-                "organization.repositories.edges[5].node.description",
-              ],
+            "repositoryOwner.email": {
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "String",
             },
-            "organization.repositories.edges.node.homepageUrl": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[0].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[1].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[2].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[3].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.homepageUrl",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.homepageUrl",
-                "organization.repositories.edges[1].node.homepageUrl",
-                "organization.repositories.edges[2].node.homepageUrl",
-                "organization.repositories.edges[3].node.homepageUrl",
-                "organization.repositories.edges[4].node.homepageUrl",
-                "organization.repositories.edges[5].node.homepageUrl",
-              ],
+            "repositoryOwner.id": {
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "ID",
             },
-            "organization.repositories.edges.node.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[0].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[1].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[2].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[3].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.name",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.name",
-                "organization.repositories.edges[1].node.name",
-                "organization.repositories.edges[2].node.name",
-                "organization.repositories.edges[3].node.name",
-                "organization.repositories.edges[4].node.name",
-                "organization.repositories.edges[5].node.name",
-              ],
+            "repositoryOwner.login": {
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "String",
+            },
+            "repositoryOwner.repositories": {
+              "fieldArgs": {
+                "first": 6,
+              },
+              "hasArgs": true,
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "RepositoryConnection",
+            },
+            "repositoryOwner.repositories.edges": {
+              "isList": true,
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "RepositoryEdge",
+            },
+            "repositoryOwner.repositories.edges.node": {
+              "isEntity": true,
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "Repository",
+            },
+            "repositoryOwner.repositories.edges.node.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "String",
+            },
+            "repositoryOwner.repositories.edges.node.description": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "String",
+            },
+            "repositoryOwner.repositories.edges.node.homepageUrl": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "URI",
+            },
+            "repositoryOwner.repositories.edges.node.id": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "ID",
+            },
+            "repositoryOwner.repositories.edges.node.name": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "String",
             },
           },
         }
@@ -1658,50 +1653,43 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 2,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.email": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -1746,50 +1734,43 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 2,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.email": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).email",
-              ],
-              "responsePaths": [
-                "organization.email",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.login": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).login",
-              ],
-              "responsePaths": [
-                "organization.login",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
             },
             "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "URI",
             },
           },
         }
@@ -1816,8 +1797,10 @@ describe('@graphql-box/operation-parser', () => {
             repositories(first: 6) {
               edges {
                 node {
+                  __typename
                   description
                   homepageUrl
+                  id
                   name
                 }
               }
@@ -1839,72 +1822,63 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 5,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
+            "organization": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "Organization",
+            },
             "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
+            "organization.repositories": {
+              "fieldArgs": {
+                "first": 6,
+              },
+              "hasArgs": true,
+              "typeName": "RepositoryConnection",
+            },
+            "organization.repositories.edges": {
+              "isList": true,
+              "typeName": "RepositoryEdge",
+            },
+            "organization.repositories.edges.node": {
+              "isEntity": true,
+              "typeName": "Repository",
+            },
+            "organization.repositories.edges.node.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "String",
             },
             "organization.repositories.edges.node.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[0].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[1].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[2].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[3].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.description",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.description",
-                "organization.repositories.edges[1].node.description",
-                "organization.repositories.edges[2].node.description",
-                "organization.repositories.edges[3].node.description",
-                "organization.repositories.edges[4].node.description",
-                "organization.repositories.edges[5].node.description",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "String",
             },
             "organization.repositories.edges.node.homepageUrl": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[0].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[1].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[2].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[3].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.homepageUrl",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.homepageUrl",
-                "organization.repositories.edges[1].node.homepageUrl",
-                "organization.repositories.edges[2].node.homepageUrl",
-                "organization.repositories.edges[3].node.homepageUrl",
-                "organization.repositories.edges[4].node.homepageUrl",
-                "organization.repositories.edges[5].node.homepageUrl",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "URI",
+            },
+            "organization.repositories.edges.node.id": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "ID",
             },
             "organization.repositories.edges.node.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[0].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[1].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[2].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[3].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.name",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.name",
-                "organization.repositories.edges[1].node.name",
-                "organization.repositories.edges[2].node.name",
-                "organization.repositories.edges[3].node.name",
-                "organization.repositories.edges[4].node.name",
-                "organization.repositories.edges[5].node.name",
-              ],
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeName": "String",
             },
           },
         }
@@ -1926,21 +1900,24 @@ describe('@graphql-box/operation-parser', () => {
 
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
-          organization(login: "facebook") {
+          repositoryOwner(login: "facebook") {
+            __typename
             ... on Organization {
               description
+              name
               repositories(first: 6) {
                 edges {
                   node {
+                    __typename
                     description
                     homepageUrl
+                    id
                     name
                   }
                 }
               }
+              url
             }
-            name
-            url
           }
         }"
       `);
@@ -1958,88 +1935,112 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 5,
             "operationName": "",
             "operationType": "query",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
           "fieldPaths": {
-            "organization.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).description",
-              ],
-              "responsePaths": [
-                "organization.description",
-              ],
+            "repositoryOwner": {
+              "fieldArgs": {
+                "login": "facebook",
+              },
+              "hasArgs": true,
+              "isEntity": true,
+              "typeName": "RepositoryOwner",
             },
-            "organization.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).name",
-              ],
-              "responsePaths": [
-                "organization.name",
-              ],
+            "repositoryOwner.__typename": {
+              "isAbstract": true,
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeName": "String",
             },
-            "organization.repositories.edges.node.description": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[0].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[1].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[2].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[3].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.description",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.description",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.description",
-                "organization.repositories.edges[1].node.description",
-                "organization.repositories.edges[2].node.description",
-                "organization.repositories.edges[3].node.description",
-                "organization.repositories.edges[4].node.description",
-                "organization.repositories.edges[5].node.description",
-              ],
+            "repositoryOwner.description": {
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "String",
             },
-            "organization.repositories.edges.node.homepageUrl": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[0].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[1].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[2].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[3].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.homepageUrl",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.homepageUrl",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.homepageUrl",
-                "organization.repositories.edges[1].node.homepageUrl",
-                "organization.repositories.edges[2].node.homepageUrl",
-                "organization.repositories.edges[3].node.homepageUrl",
-                "organization.repositories.edges[4].node.homepageUrl",
-                "organization.repositories.edges[5].node.homepageUrl",
-              ],
+            "repositoryOwner.name": {
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "String",
             },
-            "organization.repositories.edges.node.name": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[0].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[1].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[2].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[3].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[4].node.name",
-                "organization({"login":"facebook"}).repositories({"first":"6"}).edges[5].node.name",
-              ],
-              "responsePaths": [
-                "organization.repositories.edges[0].node.name",
-                "organization.repositories.edges[1].node.name",
-                "organization.repositories.edges[2].node.name",
-                "organization.repositories.edges[3].node.name",
-                "organization.repositories.edges[4].node.name",
-                "organization.repositories.edges[5].node.name",
-              ],
+            "repositoryOwner.repositories": {
+              "fieldArgs": {
+                "first": 6,
+              },
+              "hasArgs": true,
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "RepositoryConnection",
             },
-            "organization.url": {
-              "cachePaths": [
-                "organization({"login":"facebook"}).url",
-              ],
-              "responsePaths": [
-                "organization.url",
-              ],
+            "repositoryOwner.repositories.edges": {
+              "isList": true,
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "RepositoryEdge",
+            },
+            "repositoryOwner.repositories.edges.node": {
+              "isEntity": true,
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "Repository",
+            },
+            "repositoryOwner.repositories.edges.node.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "String",
+            },
+            "repositoryOwner.repositories.edges.node.description": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "String",
+            },
+            "repositoryOwner.repositories.edges.node.homepageUrl": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "URI",
+            },
+            "repositoryOwner.repositories.edges.node.id": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "ID",
+            },
+            "repositoryOwner.repositories.edges.node.name": {
+              "isLeaf": true,
+              "leafEntity": "Repository",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "String",
+            },
+            "repositoryOwner.url": {
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "URI",
             },
           },
         }
@@ -2103,16 +2104,20 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "mutation {
           addStar(
-            input: {clientMutationId: "1", starrableId: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg="}
+            input: {starrableId: "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=", clientMutationId: "1"}
           ) {
             clientMutationId
             starrable {
+              __typename
               ... on Repository {
+                id
                 stargazers(first: 6) {
                   edges {
                     node {
-                      name
+                      __typename
+                      id
                       login
+                      name
                     }
                   }
                 }
@@ -2135,11 +2140,11 @@ describe('@graphql-box/operation-parser', () => {
             "operationMaxFieldDepth": 6,
             "operationName": "",
             "operationType": "mutation",
-            "operationTypeComplexity": undefined,
+            "operationTypeComplexity": 0,
             "originalOperationHash": "",
           },
           "debugManager": undefined,
-          "fieldPaths": undefined,
+          "fieldPaths": {},
         }
       `);
     });
