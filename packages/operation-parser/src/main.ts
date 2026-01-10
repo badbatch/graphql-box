@@ -2,10 +2,9 @@ import { type OperationContext, type OperationData, type OperationOptions } from
 import { ArgsError, GroupedError, getOperationDefinitions, hashOperation, isPlainObject } from '@graphql-box/helpers';
 import { GraphQLSchema, buildClientSchema, parse, print } from 'graphql';
 import { assign, isError } from 'lodash-es';
-import { calcTypeComplexity } from '#helpers/calcTypeComplexity.ts';
-import { getMaxFieldDepthFromChart } from '#helpers/getMaxFieldDepthFromChart.ts';
 import { instrumentOperation } from '#helpers/instrumentOperation.ts';
 import { normaliseOperation } from '#helpers/normaliseOperation.ts';
+import { scoreOperation } from '#helpers/scoreOperation.js';
 import { validateOperation } from '#helpers/validateOperation.ts';
 import { type OperationParserDef, type UserOptions } from './types.ts';
 
@@ -82,8 +81,11 @@ export class OperationParser implements OperationParserDef {
       operationType: context.data.operationType,
     });
 
-    const fieldDepth = getMaxFieldDepthFromChart(depthChart);
-    const typeComplexity = this._typeComplexityMap ? calcTypeComplexity(typeList, this._typeComplexityMap) : undefined;
+    const { fieldDepth, typeComplexity } = scoreOperation({
+      depthChart,
+      typeComplexityMap: this._typeComplexityMap,
+      typeOccurrences,
+    });
 
     validateOperation({
       ast: parsedAst,

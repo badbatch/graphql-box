@@ -1,6 +1,9 @@
-export const calcTypeComplexity = (fieldTypeList: string[], typeComplexityMap: Record<string, number>): number => {
-  return fieldTypeList.reduce((complexity: number, name) => {
-    const typeComplexity = typeComplexityMap[name];
-    return typeComplexity ? complexity + typeComplexity : complexity;
+export const calcTypeComplexity = (
+  typeOccurrences: Record<string, number>,
+  typeComplexityMap: Record<string, number>,
+): number => {
+  return Object.entries(typeOccurrences).reduce((complexity, [typeName, count]) => {
+    const typeComplexity = typeComplexityMap[typeName] ?? 0;
+    return complexity + typeComplexity * count;
   }, 0);
 };

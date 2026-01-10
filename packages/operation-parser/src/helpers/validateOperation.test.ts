@@ -19,6 +19,7 @@ describe('validateOperation', () => {
             maxFieldDepth: 1,
             maxTypeComplexity: Number.POSITIVE_INFINITY,
             schema: githubSchema,
+            typeComplexity: 0,
           });
         }).toThrow('@graphql-box/request-parser >> request field depth of 2 exceeded max field depth of 1');
       });
@@ -35,6 +36,7 @@ describe('validateOperation', () => {
             maxFieldDepth: 3,
             maxTypeComplexity: Number.POSITIVE_INFINITY,
             schema: githubSchema,
+            typeComplexity: 0,
           });
         }).not.toThrow();
       });
@@ -51,6 +53,7 @@ describe('validateOperation', () => {
             maxFieldDepth: 2,
             maxTypeComplexity: Number.POSITIVE_INFINITY,
             schema: githubSchema,
+            typeComplexity: 0,
           });
         }).not.toThrow();
       });
@@ -131,6 +134,7 @@ describe('validateOperation', () => {
             maxFieldDepth: Number.POSITIVE_INFINITY,
             maxTypeComplexity: Number.POSITIVE_INFINITY,
             schema: githubSchema,
+            typeComplexity: 0,
           });
         }).toThrow('@graphql-box/request-parser AST validation errors');
       });
@@ -147,6 +151,7 @@ describe('validateOperation', () => {
             maxFieldDepth: Number.POSITIVE_INFINITY,
             maxTypeComplexity: Number.POSITIVE_INFINITY,
             schema: githubSchema,
+            typeComplexity: 0,
           });
         }).not.toThrow();
       });
