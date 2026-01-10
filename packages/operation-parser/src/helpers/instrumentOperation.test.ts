@@ -651,6 +651,55 @@ describe('instrumentOperation', () => {
   });
 
   describe('queryWithUnion', () => {
+    it('should return the expected type list', () => {
+      const ast = parse(queryWithUnion);
+
+      const { typeOccurrences } = instrumentOperation(ast, githubSchema, {
+        idKey: 'id',
+        operation: queryWithUnion,
+        operationType: OperationTypeNode.QUERY,
+      });
+
+      expect(typeOccurrences).toMatchInlineSnapshot(`
+        {
+          "Issue": 1,
+          "MarketplaceListing": 1,
+          "Organization": 1,
+          "PullRequest": 1,
+          "Repository": 1,
+          "SearchResultItemConnection": 1,
+          "SearchResultItemEdge": 1,
+        }
+      `);
+    });
+
+    it('should return the expected depth chart', () => {
+      const ast = parse(queryWithUnion);
+
+      const { depthChart } = instrumentOperation(ast, githubSchema, {
+        idKey: 'id',
+        operation: queryWithUnion,
+        operationType: OperationTypeNode.QUERY,
+      });
+
+      expect(depthChart).toMatchInlineSnapshot(`
+        {
+          "search.edges.node.__typename": 4,
+          "search.edges.node.bodyText": 4,
+          "search.edges.node.description": 4,
+          "search.edges.node.homepageUrl": 4,
+          "search.edges.node.howItWorks": 4,
+          "search.edges.node.id": 4,
+          "search.edges.node.login": 4,
+          "search.edges.node.name": 4,
+          "search.edges.node.number": 4,
+          "search.edges.node.shortDescription": 4,
+          "search.edges.node.slug": 4,
+          "search.edges.node.title": 4,
+        }
+      `);
+    });
+
     it('should return the expected field paths', () => {
       const ast = parse(queryWithUnion);
 
