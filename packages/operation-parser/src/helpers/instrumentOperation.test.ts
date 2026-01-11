@@ -1,6 +1,6 @@
 import { githubIntrospection, parsedOperations } from '@graphql-box/test-utils';
 import { expect } from '@jest/globals';
-import { type IntrospectionQuery, OperationTypeNode, buildClientSchema, parse } from 'graphql';
+import { type IntrospectionQuery, OperationTypeNode, buildClientSchema, parse, print } from 'graphql';
 import { instrumentOperation } from '#helpers/instrumentOperation.ts';
 
 const {
@@ -17,6 +17,28 @@ describe('instrumentOperation', () => {
   const githubSchema = buildClientSchema(githubIntrospection as IntrospectionQuery);
 
   describe('query', () => {
+    it('should return the expected operation', () => {
+      const ast = parse(query);
+
+      const { instrumentedAst } = instrumentOperation(ast, githubSchema, {
+        idKey: 'id',
+        operation: query,
+        operationType: OperationTypeNode.QUERY,
+      });
+
+      expect(print(instrumentedAst)).toMatchInlineSnapshot(`
+        "{
+          organization(login: "facebook") {
+            __typename
+            email
+            id
+            login
+            name
+          }
+        }"
+      `);
+    });
+
     it('should return the expected type occurrences', () => {
       const ast = parse(query);
 
@@ -103,6 +125,28 @@ describe('instrumentOperation', () => {
   });
 
   describe('queryWithAlias', () => {
+    it('should return the expected operation', () => {
+      const ast = parse(queryWithAlias);
+
+      const { instrumentedAst } = instrumentOperation(ast, githubSchema, {
+        idKey: 'id',
+        operation: queryWithAlias,
+        operationType: OperationTypeNode.QUERY,
+      });
+
+      expect(print(instrumentedAst)).toMatchInlineSnapshot(`
+        "{
+          organization(login: "facebook") {
+            __typename
+            email
+            id
+            login
+            fullName: name
+          }
+        }"
+      `);
+    });
+
     it('should return the expected type list', () => {
       const ast = parse(queryWithAlias);
 
@@ -190,6 +234,30 @@ describe('instrumentOperation', () => {
   });
 
   describe('queryWithInlineFragment', () => {
+    it('should return the expected operation', () => {
+      const ast = parse(queryWithInlineFragment);
+
+      const { instrumentedAst } = instrumentOperation(ast, githubSchema, {
+        idKey: 'id',
+        operation: queryWithInlineFragment,
+        operationType: OperationTypeNode.QUERY,
+      });
+
+      expect(print(instrumentedAst)).toMatchInlineSnapshot(`
+        "{
+          repositoryOwner(login: "facebook") {
+            __typename
+            email
+            ... on Organization {
+              id
+              login
+              name
+            }
+          }
+        }"
+      `);
+    });
+
     it('should return the expected type list', () => {
       const ast = parse(queryWithInlineFragment);
 
@@ -281,6 +349,30 @@ describe('instrumentOperation', () => {
   });
 
   describe('queryWithInlineFragmentWithNoTypeCondition', () => {
+    it('should return the expected operation', () => {
+      const ast = parse(queryWithInlineFragmentWithNoTypeCondition);
+
+      const { instrumentedAst } = instrumentOperation(ast, githubSchema, {
+        idKey: 'id',
+        operation: queryWithInlineFragmentWithNoTypeCondition,
+        operationType: OperationTypeNode.QUERY,
+      });
+
+      expect(print(instrumentedAst)).toMatchInlineSnapshot(`
+        "{
+          organization(login: "facebook") {
+            __typename
+            email
+            id
+            ... {
+              login
+              name
+            }
+          }
+        }"
+      `);
+    });
+
     it('should return the expected type list', () => {
       const ast = parse(queryWithInlineFragmentWithNoTypeCondition);
 
@@ -367,6 +459,40 @@ describe('instrumentOperation', () => {
   });
 
   describe('queryWithConnection', () => {
+    it('should return the expected operation', () => {
+      const ast = parse(queryWithConnection);
+
+      const { instrumentedAst } = instrumentOperation(ast, githubSchema, {
+        idKey: 'id',
+        operation: queryWithConnection,
+        operationType: OperationTypeNode.QUERY,
+      });
+
+      expect(print(instrumentedAst)).toMatchInlineSnapshot(`
+        "{
+          organization(login: "facebook") {
+            __typename
+            description
+            email
+            id
+            login
+            name
+            repositories(first: 6) {
+              edges {
+                node {
+                  __typename
+                  description
+                  homepageUrl
+                  id
+                  name
+                }
+              }
+            }
+          }
+        }"
+      `);
+    });
+
     it('should return the expected type list', () => {
       const ast = parse(queryWithConnection);
 
@@ -507,6 +633,40 @@ describe('instrumentOperation', () => {
   });
 
   describe('queryWithConnectionWithDoubleFigures', () => {
+    it('should return the expected operation', () => {
+      const ast = parse(queryWithConnectionWithDoubleFigures);
+
+      const { instrumentedAst } = instrumentOperation(ast, githubSchema, {
+        idKey: 'id',
+        operation: queryWithConnectionWithDoubleFigures,
+        operationType: OperationTypeNode.QUERY,
+      });
+
+      expect(print(instrumentedAst)).toMatchInlineSnapshot(`
+        "{
+          organization(login: "facebook") {
+            __typename
+            description
+            email
+            id
+            login
+            name
+            repositories(first: 11) {
+              edges {
+                node {
+                  __typename
+                  description
+                  homepageUrl
+                  id
+                  name
+                }
+              }
+            }
+          }
+        }"
+      `);
+    });
+
     it('should return the expected type list', () => {
       const ast = parse(queryWithConnectionWithDoubleFigures);
 
@@ -647,6 +807,58 @@ describe('instrumentOperation', () => {
   });
 
   describe('queryWithUnion', () => {
+    it('should return the expected operation', () => {
+      const ast = parse(queryWithUnion);
+
+      const { instrumentedAst } = instrumentOperation(ast, githubSchema, {
+        idKey: 'id',
+        operation: queryWithUnion,
+        operationType: OperationTypeNode.QUERY,
+      });
+
+      expect(print(instrumentedAst)).toMatchInlineSnapshot(`
+        "{
+          search(query: "react", first: 10, type: REPOSITORY) {
+            edges {
+              node {
+                __typename
+                ... on Issue {
+                  bodyText
+                  id
+                  number
+                  title
+                }
+                ... on MarketplaceListing {
+                  howItWorks
+                  id
+                  shortDescription
+                  slug
+                }
+                ... on Organization {
+                  description
+                  id
+                  login
+                  organizationName: name
+                }
+                ... on PullRequest {
+                  bodyText
+                  id
+                  number
+                  title
+                }
+                ... on Repository {
+                  description
+                  homepageUrl
+                  id
+                  name
+                }
+              }
+            }
+          }
+        }"
+      `);
+    });
+
     it('should return the expected type list', () => {
       const ast = parse(queryWithUnion);
 

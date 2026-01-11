@@ -68,14 +68,13 @@ export class OperationParser implements OperationParserDef {
     }
 
     const parsedAst = normaliseOperation(ast, this._schema, {
-      idKey: this._idKey,
       operation,
       variables: options.variables,
     });
 
     const parsedOperation = print(parsedAst);
 
-    const { depthChart, fieldPaths, typeOccurrences } = instrumentOperation(parsedAst, this._schema, {
+    const { depthChart, fieldPaths, instrumentedAst, typeOccurrences } = instrumentOperation(parsedAst, this._schema, {
       idKey: this._idKey,
       operation: parsedOperation,
       operationType: context.data.operationType,
@@ -88,7 +87,7 @@ export class OperationParser implements OperationParserDef {
     });
 
     validateOperation({
-      ast: parsedAst,
+      ast: instrumentedAst,
       fieldDepth,
       maxFieldDepth: this._maxFieldDepth,
       maxTypeComplexity: this._maxTypeComplexity,
@@ -106,10 +105,12 @@ export class OperationParser implements OperationParserDef {
       fieldPaths,
     });
 
+    const instrumentedOperation = print(instrumentedAst);
+
     return {
-      ast: parsedAst,
-      hash: hashOperation(parsedOperation),
-      operation: parsedOperation,
+      ast: instrumentedAst,
+      hash: hashOperation(instrumentedOperation),
+      operation: instrumentedOperation,
     };
   }
 }

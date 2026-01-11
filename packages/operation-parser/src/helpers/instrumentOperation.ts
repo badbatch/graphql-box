@@ -5,6 +5,7 @@ import {
   type GraphQLSchema,
   type InlineFragmentNode,
   Kind,
+  type OperationDefinitionNode,
   OperationTypeNode,
   TypeInfo,
   getNamedType,
@@ -17,8 +18,10 @@ import {
   visitWithTypeInfo,
 } from 'graphql';
 import { FieldPathManager, type FieldPathMetadata } from '#FieldPathManager.ts';
+import { addFieldNode } from '#helpers/addFieldNode.ts';
 import { buildOperationHash } from '#helpers/buildOperationHash.ts';
 import { isTypeEntity } from '#helpers/isTypeEntity.ts';
+import { sortSelections } from '#helpers/sortSelections.ts';
 
 const instrumentedOperationCache: Record<string, InstrumentOperationResult> = {};
 
@@ -31,6 +34,7 @@ export type InstrumentOperationOptions = {
 export type InstrumentOperationResult = {
   depthChart: Record<string, number>;
   fieldPaths: Record<string, FieldPathMetadata>;
+  instrumentedAst: DocumentNode;
   typeOccurrences: Record<string, number>;
 };
 
@@ -53,7 +57,7 @@ export const instrumentOperation = (
   const entityStack: string[] = [];
   const depthChart: Record<string, number> = {};
 
-  visit(
+  const instrumentedAst = visit(
     ast,
     visitWithTypeInfo(typeInfo, {
       enter: (node, _key, _parent, _path) => {
@@ -62,6 +66,19 @@ export const instrumentOperation = (
         if (isKind<FieldNode>(node, Kind.FIELD)) {
           fieldPathStack.push(node.name.value);
           const namedType = getNamedType(type);
+
+          if (
+            isTypeEntity(namedType, idKey) &&
+            ((!isInterfaceType(namedType) && !isUnionType(namedType)) ||
+              (isInterfaceType(namedType) &&
+                !node.selectionSet?.selections.some(s => isKind<InlineFragmentNode>(s, Kind.INLINE_FRAGMENT))))
+          ) {
+            addFieldNode(node, idKey);
+          }
+
+          if (isTypeEntity(namedType, idKey) || isInterfaceType(namedType) || isUnionType(namedType)) {
+            addFieldNode(node, '__typename');
+          }
 
           if (isObjectType(namedType)) {
             const occurrences = typeOccurrences[namedType.name] ?? 0;
@@ -108,6 +125,12 @@ export const instrumentOperation = (
 
         if (isKind<InlineFragmentNode>(node, Kind.INLINE_FRAGMENT) && node.typeCondition) {
           const { value: typeConditionValue } = node.typeCondition.name;
+          const namedType = schema.getType(typeConditionValue);
+
+          if (isTypeEntity(namedType, idKey)) {
+            addFieldNode(node, idKey);
+          }
+
           concreteTypeStack.push(typeConditionValue);
           typeOccurrences[typeConditionValue] = (typeOccurrences[typeConditionValue] ?? 0) + 1;
         }
@@ -115,6 +138,15 @@ export const instrumentOperation = (
         return;
       },
       leave: node => {
+        if (
+          (isKind<FieldNode>(node, Kind.FIELD) ||
+            isKind<InlineFragmentNode>(node, Kind.INLINE_FRAGMENT) ||
+            isKind<OperationDefinitionNode>(node, Kind.OPERATION_DEFINITION)) &&
+          node.selectionSet
+        ) {
+          node.selectionSet.selections = sortSelections(node.selectionSet.selections);
+        }
+
         const type = typeInfo.getType();
 
         if (isKind<FieldNode>(node, Kind.FIELD)) {
@@ -136,6 +168,7 @@ export const instrumentOperation = (
   const instruments = {
     depthChart,
     fieldPaths: fieldPathManager.fieldPaths,
+    instrumentedAst,
     typeOccurrences,
   };
 

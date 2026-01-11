@@ -1631,8 +1631,10 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
             email
+            id
             login
             name
             url
@@ -1666,6 +1668,11 @@ describe('@graphql-box/operation-parser', () => {
               "isEntity": true,
               "typeName": "Organization",
             },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
               "isLeaf": true,
               "leafEntity": "Organization",
@@ -1675,6 +1682,11 @@ describe('@graphql-box/operation-parser', () => {
               "isLeaf": true,
               "leafEntity": "Organization",
               "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
               "isLeaf": true,
@@ -1712,8 +1724,10 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
             email
+            id
             login
             name
             url
@@ -1747,6 +1761,11 @@ describe('@graphql-box/operation-parser', () => {
               "isEntity": true,
               "typeName": "Organization",
             },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
               "isLeaf": true,
               "leafEntity": "Organization",
@@ -1756,6 +1775,11 @@ describe('@graphql-box/operation-parser', () => {
               "isLeaf": true,
               "leafEntity": "Organization",
               "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.login": {
               "isLeaf": true,
@@ -1793,7 +1817,9 @@ describe('@graphql-box/operation-parser', () => {
       expect(updatedOperation.operation).toMatchInlineSnapshot(`
         "{
           organization(login: "facebook") {
+            __typename
             description
+            id
             repositories(first: 6) {
               edges {
                 node {
@@ -1835,10 +1861,20 @@ describe('@graphql-box/operation-parser', () => {
               "isEntity": true,
               "typeName": "Organization",
             },
+            "organization.__typename": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "String",
+            },
             "organization.description": {
               "isLeaf": true,
               "leafEntity": "Organization",
               "typeName": "String",
+            },
+            "organization.id": {
+              "isLeaf": true,
+              "leafEntity": "Organization",
+              "typeName": "ID",
             },
             "organization.repositories": {
               "fieldArgs": {
@@ -1904,6 +1940,7 @@ describe('@graphql-box/operation-parser', () => {
             __typename
             ... on Organization {
               description
+              id
               name
               repositories(first: 6) {
                 edges {
@@ -1961,6 +1998,14 @@ describe('@graphql-box/operation-parser', () => {
                 "Organization",
               },
               "typeName": "String",
+            },
+            "repositoryOwner.id": {
+              "isLeaf": true,
+              "leafEntity": "RepositoryOwner",
+              "typeConditions": Set {
+                "Organization",
+              },
+              "typeName": "ID",
             },
             "repositoryOwner.name": {
               "isLeaf": true,

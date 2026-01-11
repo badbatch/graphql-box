@@ -12,17 +12,12 @@ import {
   type OperationDefinitionNode,
   type VariableDefinitionNode,
   type VariableNode,
-  getNamedType,
-  isInterfaceType,
-  isUnionType,
   visit,
 } from 'graphql';
 import { TypeInfo, visitWithTypeInfo } from 'graphql';
-import { addFieldNode } from '#helpers/addFieldNode.ts';
 import { buildOperationHash } from '#helpers/buildOperationHash.ts';
 import { directivesHasIncludeFalseOrSkipTrue } from '#helpers/directivesHasIncludeFalseOrSkipTrue.ts';
 import { getVariableTypeAndValues } from '#helpers/getVariableTypesAndValues.ts';
-import { isTypeEntity } from '#helpers/isTypeEntity.ts';
 import { replaceFragmentSpreadsWithDefinitionFields } from '#helpers/replaceFragmentSpreadsWithDefinitionFields.ts';
 import { replaceVariableNodeWithValueNode } from '#helpers/replaceVariableNodeWithValueNode.ts';
 import { sortSelections } from '#helpers/sortSelections.ts';
@@ -33,7 +28,6 @@ const childIsFragmentSpread = (node: FieldNode | InlineFragmentNode): boolean =>
 const parsedOperationCache: Record<string, DocumentNode> = {};
 
 export type ParseOperationOptions = {
-  idKey: string;
   operation: string;
   variables?: PlainObject<unknown>;
 };
@@ -41,7 +35,7 @@ export type ParseOperationOptions = {
 export const normaliseOperation = (
   ast: DocumentNode,
   schema: GraphQLSchema,
-  { idKey, operation, variables }: ParseOperationOptions,
+  { operation, variables }: ParseOperationOptions,
 ): DocumentNode => {
   const operationHash = buildOperationHash(operation, variables);
 
@@ -57,8 +51,6 @@ export const normaliseOperation = (
     ast,
     visitWithTypeInfo(typeInfo, {
       enter: (node, _key, parent) => {
-        const type = typeInfo.getType();
-
         if (
           (isKind<FieldNode>(node, Kind.FIELD) || isKind<InlineFragmentNode>(node, Kind.INLINE_FRAGMENT)) &&
           directivesHasIncludeFalseOrSkipTrue(node, variableValues)
@@ -72,32 +64,6 @@ export const normaliseOperation = (
           childIsFragmentSpread(node)
         ) {
           return replaceFragmentSpreadsWithDefinitionFields(node, fragmentDefinitions, variableValues);
-        }
-
-        if (isKind<FieldNode>(node, Kind.FIELD)) {
-          const namedType = getNamedType(type);
-
-          if (
-            isTypeEntity(namedType, idKey) &&
-            ((!isInterfaceType(namedType) && !isUnionType(namedType)) ||
-              (isInterfaceType(namedType) &&
-                !node.selectionSet?.selections.some(s => isKind<InlineFragmentNode>(s, Kind.INLINE_FRAGMENT))))
-          ) {
-            addFieldNode(node, idKey);
-          }
-
-          if (isTypeEntity(namedType, idKey) || isInterfaceType(namedType) || isUnionType(namedType)) {
-            addFieldNode(node, '__typename');
-          }
-        }
-
-        if (isKind<InlineFragmentNode>(node, Kind.INLINE_FRAGMENT) && node.typeCondition) {
-          const typeName = node.typeCondition.name.value;
-          const namedType = schema.getType(typeName);
-
-          if (isTypeEntity(namedType, idKey)) {
-            addFieldNode(node, idKey);
-          }
         }
 
         if (isKind<VariableNode>(node, Kind.VARIABLE)) {
