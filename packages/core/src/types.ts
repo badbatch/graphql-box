@@ -42,12 +42,23 @@ export type DeserializedGraphqlError = {
   stack: string;
 };
 
-export type FieldPath = {
-  cachePaths: string[];
-  responsePaths: string[];
+export type FieldPathMetadata = {
+  fieldAlias?: string;
+  fieldArgs?: PlainObject<unknown>;
+  hasArgs?: true;
+  isAbstract?: true;
+  isEntity?: true;
+  isLeaf?: true;
+  isList?: true;
+  isRootEntity?: true;
+  leafEntity?: string;
+  pathCacheKey: string;
+  pathResponseKey: string;
+  typeConditions?: Set<string>;
+  typeName: string;
 };
 
-export type FieldPaths = Record<string, FieldPath>;
+export type FieldPaths = Record<string, FieldPathMetadata>;
 
 export type FragmentDefinitionNodeMap = Record<string, FragmentDefinitionNode>;
 

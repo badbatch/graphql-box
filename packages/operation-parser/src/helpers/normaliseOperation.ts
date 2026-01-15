@@ -1,5 +1,5 @@
 import { type PlainObject } from '@graphql-box/core';
-import { getFragmentDefinitions, isAncestorAstNode, isKind } from '@graphql-box/helpers';
+import { buildOperationHash, getFragmentDefinitions, isAncestorAstNode, isKind } from '@graphql-box/helpers';
 import {
   type DirectiveNode,
   type DocumentNode,
@@ -15,7 +15,6 @@ import {
   visit,
 } from 'graphql';
 import { TypeInfo, visitWithTypeInfo } from 'graphql';
-import { buildOperationHash } from '#helpers/buildOperationHash.ts';
 import { directivesHasIncludeFalseOrSkipTrue } from '#helpers/directivesHasIncludeFalseOrSkipTrue.ts';
 import { getVariableTypeAndValues } from '#helpers/getVariableTypesAndValues.ts';
 import { replaceFragmentSpreadsWithDefinitionFields } from '#helpers/replaceFragmentSpreadsWithDefinitionFields.ts';

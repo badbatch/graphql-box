@@ -1,4 +1,5 @@
-import { hasArguments, isKind } from '@graphql-box/helpers';
+import { type FieldPathMetadata } from '@graphql-box/core';
+import { buildOperationHash, hasArguments, isKind } from '@graphql-box/helpers';
 import {
   type DocumentNode,
   type FieldNode,
@@ -17,9 +18,9 @@ import {
   visit,
   visitWithTypeInfo,
 } from 'graphql';
-import { FieldPathManager, type FieldPathMetadata } from '#FieldPathManager.ts';
+import { FieldPathManager } from '#FieldPathManager.ts';
 import { addFieldNode } from '#helpers/addFieldNode.ts';
-import { buildOperationHash } from '#helpers/buildOperationHash.ts';
+import { buildPathCacheKey } from '#helpers/buildPathCacheKey.ts';
 import { isTypeEntity } from '#helpers/isTypeEntity.ts';
 import { sortSelections } from '#helpers/sortSelections.ts';
 
@@ -116,7 +117,10 @@ export const instrumentOperation = (
               isEntity,
               isLeaf,
               isList,
+              isRootEntity: isEntity && fieldPathStack.length === 1,
               leafEntity,
+              pathCacheKey: buildPathCacheKey(node, { isList }),
+              pathResponseKey: node.name.value,
               typeConditions: [...concreteTypeStack],
               typeName: namedType.name,
             });

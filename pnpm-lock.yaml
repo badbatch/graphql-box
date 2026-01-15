@@ -632,6 +632,9 @@ importers:
       eventemitter3:
         specifier: ^5.0.1
         version: 5.0.1
+      fast-json-stable-stringify:
+        specifier: ^2.1.0
+        version: 2.1.0
       iterall:
         specifier: ^1.3.0
         version: 1.3.0
@@ -6956,6 +6959,9 @@ packages:
   suppress-experimental-warnings@2.0.0:
     resolution: {integrity: sha512-qhKWoR1nw9MwQDjzPiBMus44Wj1+AD7EIa7caPcYXMASyB6NppO7k1a+xRjyDBpPS4ZufauFLyqaXEPnKXHY1Q==}
     engines: {node: '>=18'}
+    deprecated: |-
+      Use Node.js
+       --no-warnings=ExperimentalWarning flag
 
   swap-case@1.1.2:
     resolution: {integrity: sha512-BAmWG6/bx8syfc6qXPprof3Mn5vQgf5dwdUNJhsNqU9WdPt5P+ES/wQ5bxfijy8zwZgZZHslC3iAsxsuQMCzJQ==}

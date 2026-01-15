@@ -105,7 +105,6 @@ export const queryWithConnectionWithDoubleFigures = `
           }
         }
       }
-
     }
   }
 `;

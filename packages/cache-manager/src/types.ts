@@ -1,6 +1,5 @@
 import { type Core } from '@cachemap/core';
-import { type OperationContext, type OperationData, type ResponseData } from '@graphql-box/core';
-import { type RequireAtLeastOne } from 'type-fest';
+import { type FieldPaths, type OperationContext, type OperationData, type ResponseData } from '@graphql-box/core';
 
 export interface UserOptions {
   /**
@@ -19,14 +18,41 @@ export interface UserOptions {
   hashCacheKeys?: boolean;
 }
 
-export type AnalyzeQueryResult = RequireAtLeastOne<{
-  operationData?: OperationData;
-  responseData?: ResponseData;
-}>;
+export type AnalyzeQueryResult =
+  | {
+      kind: 'cache-hit';
+      responseData: ResponseData;
+    }
+  | {
+      kind: 'cache-miss';
+      operationData: OperationData;
+    }
+  | {
+      kind: 'partial';
+      operationData: OperationData;
+      resolvedFieldPaths: FieldPaths;
+    };
 
 export interface CacheManagerDef {
   analyzeQuery(requestData: OperationData, context: OperationContext): Promise<AnalyzeQueryResult>;
   cache: Core | undefined;
-  cacheQuery(responseData: ResponseData, context: OperationContext): Promise<void>;
+  cacheQuery(operationData: OperationData, responseData: ResponseData, context: OperationContext): Promise<void>;
   hashCacheKeys: boolean;
 }
+
+export type EntityCacheEntry<T = unknown> = {
+  kind: 'entity';
+  value: T;
+};
+
+export type OperationPathCacheEntry<T = unknown> = {
+  kind: 'operationPath';
+  value: T;
+};
+
+export type OperationCacheEntry = {
+  kind: 'operation';
+  refs: string[];
+};
+
+export type CacheEntry<T = unknown> = EntityCacheEntry<T> | OperationPathCacheEntry<T> | OperationCacheEntry;

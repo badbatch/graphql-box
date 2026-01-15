@@ -1,20 +1,7 @@
-import { type PlainObject } from '@graphql-box/core';
+import { type FieldPathMetadata } from '@graphql-box/core';
 import { getAlias, getArguments } from '@graphql-box/helpers';
 import { type FieldNode } from 'graphql';
 import { pickBy } from 'lodash-es';
-
-export type FieldPathMetadata = {
-  fieldAlias?: string;
-  fieldArgs?: PlainObject<unknown>;
-  hasArgs?: true;
-  isAbstract?: true;
-  isEntity?: true;
-  isLeaf?: true;
-  isList?: true;
-  leafEntity?: string;
-  typeConditions?: Set<string>;
-  typeName: string;
-};
 
 export type AddFieldPathOptions = {
   fieldPathStack: string[];
@@ -23,7 +10,10 @@ export type AddFieldPathOptions = {
   isEntity: boolean;
   isLeaf: boolean;
   isList: boolean;
+  isRootEntity: boolean;
   leafEntity: string | undefined;
+  pathCacheKey: string;
+  pathResponseKey: string;
   typeConditions: string[];
   typeName: string;
 };
@@ -40,7 +30,10 @@ export class FieldPathManager {
       isEntity,
       isLeaf,
       isList,
+      isRootEntity,
       leafEntity,
+      pathCacheKey,
+      pathResponseKey,
       typeConditions,
       typeName,
     }: AddFieldPathOptions,
@@ -55,6 +48,8 @@ export class FieldPathManager {
       }
     } else {
       this._fieldPaths[fieldPath] = {
+        pathCacheKey,
+        pathResponseKey,
         typeName,
         ...pickBy(
           {
@@ -65,6 +60,7 @@ export class FieldPathManager {
             isEntity,
             isLeaf,
             isList,
+            isRootEntity,
             leafEntity,
             typeConditions: typeConditions.length > 0 ? new Set(typeConditions) : undefined,
           },

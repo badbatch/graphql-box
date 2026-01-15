@@ -7,15 +7,17 @@ import {
   type ResponseData,
 } from '@graphql-box/core';
 import { ArgsError, GroupedError, hashOperation } from '@graphql-box/helpers';
-import { Cacheability, type Metadata as CacheabilityMetadata } from 'cacheability';
+import { type Metadata as CacheabilityMetadata } from 'cacheability';
 import { print } from 'graphql';
-import { get, has, set } from 'lodash-es';
+import { has, set } from 'lodash-es';
 import { type SetRequired } from 'type-fest';
+import { buildOperationPathCacheKey } from '#helpers/buildOperationPathCacheKey.ts';
 import { filterQuery } from './helpers/filterQuery.ts';
 import { type AnalyzeQueryResult, type CacheManagerDef, type UserOptions } from './types.ts';
 
 export class CacheManager implements CacheManagerDef {
-  private _cache: Core | undefined;
+  // @ts-expect-error cache is initialised in constructor
+  private readonly _cache: Core;
   private readonly _fallbackCacheControlDirectives: string;
   private readonly _hashCacheKeys: boolean;
 
@@ -34,6 +36,7 @@ export class CacheManager implements CacheManagerDef {
       void options
         .cache()
         .then(cache => {
+          // @ts-expect-error cache is initialised in constructor
           this._cache = cache;
         })
         .catch((error: unknown) => {
@@ -57,22 +60,24 @@ export class CacheManager implements CacheManagerDef {
     const { cacheMetadata, data, rejectedPaths, resolvedPaths } = await this._retrieveResponseData(context.fieldPaths);
 
     if (resolvedPaths.length === 0) {
-      return { operationData };
+      return { kind: 'cache-miss', operationData };
     }
 
     if (rejectedPaths.length === 0) {
-      return { responseData: { __cacheMetadata: cacheMetadata, data } };
+      return { kind: 'cache-hit', responseData: { __cacheMetadata: cacheMetadata, data } };
     }
 
     const filteredAst = filterQuery(ast, resolvedPaths);
     const filteredOperation = print(filteredAst);
 
     return {
+      kind: 'partial',
       operationData: {
         ast: filteredAst,
         hash: hashOperation(filteredOperation),
         operation: filteredOperation,
       },
+      resolvedFieldPaths: resolvedPaths,
     };
   }
 
@@ -81,10 +86,11 @@ export class CacheManager implements CacheManagerDef {
   }
 
   public async cacheQuery(
+    operationData: OperationData,
     responseData: ResponseData,
     context: SetRequired<OperationContext, 'fieldPaths'>,
   ): Promise<void> {
-    await this._storeResponseData(responseData, context.fieldPaths);
+    await this._storeResponseData(operationData, responseData, context);
   }
 
   get hashCacheKeys(): boolean {
@@ -145,52 +151,62 @@ export class CacheManager implements CacheManagerDef {
     };
   }
 
-  private async _storeResponseData({ __cacheMetadata, data }: ResponseData, fieldPaths: FieldPaths): Promise<void> {
+  // fieldAlias?: string;
+  // fieldArgs?: PlainObject<unknown>;
+  // hasArgs?: true;
+  // isAbstract?: true;
+  // isEntity?: true;
+  // isLeaf?: true;
+  // isList?: true;
+  // leafEntity?: string;
+  // typeConditions?: Set<string>;
+  // typeName: string;
+
+  private async _storeResponseData(
+    operationData: OperationData,
+    { __cacheMetadata, data }: ResponseData,
+    { fieldPaths }: SetRequired<OperationContext, 'fieldPaths'>,
+  ): Promise<void> {
     const fieldPathEntries = Object.entries(fieldPaths);
-    const cacheSetPromises: Promise<void>[] = [];
+    const cacheWritePromises: Promise<void>[] = [this._writeOperation(operationData, fieldPaths)];
 
-    for (const [operationPath, { cachePaths, responsePaths }] of fieldPathEntries) {
-      for (const [index, responsePath] of responsePaths.entries()) {
-        const value = get(data, responsePath);
+    for (const [operationPath, fieldPathMetadata] of fieldPathEntries) {
+      const { hasArgs, isEntity, isList } = fieldPathMetadata;
 
-        if (value === undefined) {
-          console.error(`Response data value undefined for response path "${responsePath}"`);
-          continue;
-        }
+      if (hasArgs || isList) {
+        cacheWritePromises.push(this._writeOperationPath(/* args */));
+      }
 
-        const matchingCachePath = cachePaths[index];
-
-        if (!matchingCachePath) {
-          console.error(
-            `Your context has got corrupted. No matching cache path was found for response path "${responsePath}", but it is part of a cache path group for which data should exist.`,
-          );
-
-          continue;
-        }
-
-        const matchingMetadata = __cacheMetadata?.[operationPath];
-
-        if (!matchingMetadata) {
-          console.error(
-            `Your response data has got corrupted. No matching cache metadata was found for operation path "${operationPath}".`,
-          );
-        }
-
-        if (this._cache) {
-          cacheSetPromises.push(
-            this._cache.set(matchingCachePath, value, {
-              cacheHeaders: {
-                cacheControl: matchingMetadata
-                  ? new Cacheability({ metadata: matchingMetadata }).printCacheControl()
-                  : this._fallbackCacheControlDirectives,
-              },
-              hashKey: this._hashCacheKeys,
-            }),
-          );
-        }
+      if (isEntity) {
+        cacheWritePromises.push(this._writeEntity(/* args */));
       }
     }
 
-    await Promise.all(cacheSetPromises);
+    await Promise.all(cacheWritePromises);
+  }
+
+  private async _writeEntity(): Promise<void> {
+    // TODO
+  }
+
+  private async _writeOperation({ hash, operation }: OperationData, fieldPaths: FieldPaths): Promise<void> {
+    const key = this._hashCacheKeys ? hash : operation.replaceAll('\n', ' ');
+    const refs = new Set<string>();
+
+    for (const [operationPath, { hasArgs, isList, isRootEntity }] of Object.entries(fieldPaths)) {
+      if (hasArgs || isList || isRootEntity) {
+        const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
+        refs.add(operationPathCacheKey);
+      }
+    }
+
+    return this._cache.set(`Operation:${key}`, {
+      kind: 'operation',
+      refs: [...refs],
+    });
+  }
+
+  private async _writeOperationPath(): Promise<void> {
+    // TODO
   }
 }

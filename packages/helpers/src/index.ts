@@ -1,5 +1,6 @@
 export * from './buildAncestorFieldNames.ts';
 export * from './buildFieldOperationPath.ts';
+export * from './buildOperationHash.ts';
 export * from './cacheMetadata.ts';
 export * from './errors/index.ts';
 export * from './eventAsyncIterator.ts';
