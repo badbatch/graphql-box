@@ -1,5 +1,11 @@
 import { type Core } from '@cachemap/core';
-import { type FieldPaths, type OperationContext, type OperationData, type ResponseData } from '@graphql-box/core';
+import {
+  type FieldPaths,
+  type OperationContext,
+  type OperationData,
+  type PlainObject,
+  type ResponseData,
+} from '@graphql-box/core';
 
 export interface UserOptions {
   /**
@@ -40,7 +46,11 @@ export interface CacheManagerDef {
   hashCacheKeys: boolean;
 }
 
-export type EntityCacheEntry<T = unknown> = {
+export type CacheEntryRef = {
+  __ref: string;
+};
+
+export type EntityCacheEntry<T = PlainObject<unknown>> = {
   kind: 'entity';
   value: T;
 };

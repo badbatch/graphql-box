@@ -4,6 +4,7 @@ import { type FieldNode } from 'graphql';
 import { pickBy } from 'lodash-es';
 
 export type AddFieldPathOptions = {
+  fieldDepth: number;
   fieldPathStack: string[];
   hasArgs: boolean;
   isAbstract: boolean;
@@ -24,6 +25,7 @@ export class FieldPathManager {
   public addFieldPath(
     field: FieldNode,
     {
+      fieldDepth,
       fieldPathStack,
       hasArgs,
       isAbstract,
@@ -48,6 +50,7 @@ export class FieldPathManager {
       }
     } else {
       this._fieldPaths[fieldPath] = {
+        fieldDepth,
         pathCacheKey,
         pathResponseKey,
         typeName,

@@ -45,6 +45,7 @@ export type DeserializedGraphqlError = {
 export type FieldPathMetadata = {
   fieldAlias?: string;
   fieldArgs?: PlainObject<unknown>;
+  fieldDepth: number;
   hasArgs?: true;
   isAbstract?: true;
   isEntity?: true;

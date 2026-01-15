@@ -4,14 +4,18 @@ import {
   type FieldPaths,
   type OperationContext,
   type OperationData,
+  type PlainObject,
   type ResponseData,
 } from '@graphql-box/core';
 import { ArgsError, GroupedError, hashOperation } from '@graphql-box/helpers';
 import { type Metadata as CacheabilityMetadata } from 'cacheability';
 import { print } from 'graphql';
-import { has, set } from 'lodash-es';
+import { entries, get, has, set } from 'lodash-es';
 import { type SetRequired } from 'type-fest';
+import { buildEntityCacheKey } from '#helpers/buildEntityCacheKey.js';
 import { buildOperationPathCacheKey } from '#helpers/buildOperationPathCacheKey.ts';
+import { buildResponseDataKey } from '#helpers/buildResponseDataPath.ts';
+import { normaliseResponseData } from '#helpers/normaliseResponseData.ts';
 import { filterQuery } from './helpers/filterQuery.ts';
 import { type AnalyzeQueryResult, type CacheManagerDef, type UserOptions } from './types.ts';
 
@@ -20,6 +24,7 @@ export class CacheManager implements CacheManagerDef {
   private readonly _cache: Core;
   private readonly _fallbackCacheControlDirectives: string;
   private readonly _hashCacheKeys: boolean;
+  private _idKey = 'id';
 
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
@@ -97,6 +102,10 @@ export class CacheManager implements CacheManagerDef {
     return this._hashCacheKeys;
   }
 
+  set idKeys(idKey: string) {
+    this._idKey = idKey;
+  }
+
   private async _retrieveResponseData(fieldPaths: FieldPaths): Promise<{
     cacheMetadata: CacheMetadata;
     data: Record<string, unknown>;
@@ -151,62 +160,64 @@ export class CacheManager implements CacheManagerDef {
     };
   }
 
-  // fieldAlias?: string;
-  // fieldArgs?: PlainObject<unknown>;
-  // hasArgs?: true;
-  // isAbstract?: true;
-  // isEntity?: true;
-  // isLeaf?: true;
-  // isList?: true;
-  // leafEntity?: string;
-  // typeConditions?: Set<string>;
-  // typeName: string;
-
   private async _storeResponseData(
-    operationData: OperationData,
-    { __cacheMetadata, data }: ResponseData,
+    { operation }: OperationData,
+    { data }: ResponseData,
     { fieldPaths }: SetRequired<OperationContext, 'fieldPaths'>,
   ): Promise<void> {
-    const fieldPathEntries = Object.entries(fieldPaths);
-    const cacheWritePromises: Promise<void>[] = [this._writeOperation(operationData, fieldPaths)];
+    const { entities, operationPaths } = normaliseResponseData(structuredClone(data), fieldPaths, {
+      idKey: this._idKey,
+    });
 
-    for (const [operationPath, fieldPathMetadata] of fieldPathEntries) {
-      const { hasArgs, isEntity, isList } = fieldPathMetadata;
+    const cacheWritePromises: Promise<void>[] = [this._writeOperation(operation, Object.keys(operationPaths))];
 
-      if (hasArgs || isList) {
-        cacheWritePromises.push(this._writeOperationPath(/* args */));
-      }
+    for (const [entityCacheKey, entityCacheEntry] of Object.entries(entities)) {
+      cacheWritePromises.push(this._writeEntity(entityCacheKey, entityCacheEntry.value));
+    }
 
-      if (isEntity) {
-        cacheWritePromises.push(this._writeEntity(/* args */));
-      }
+    for (const [operationPathCacheKey, operationPathCacheEntry] of Object.entries(operationPaths)) {
+      cacheWritePromises.push(this._writeOperationPath(operationPathCacheKey, operationPathCacheEntry.value));
     }
 
     await Promise.all(cacheWritePromises);
   }
 
-  private async _writeEntity(): Promise<void> {
-    // TODO
+  private async _writeEntity(cacheKey: string, value: PlainObject): Promise<void> {
+    return this._cache.set(
+      `Entity:${cacheKey}`,
+      {
+        kind: 'entity',
+        value,
+      },
+      {
+        hashKey: this._hashCacheKeys,
+      },
+    );
   }
 
-  private async _writeOperation({ hash, operation }: OperationData, fieldPaths: FieldPaths): Promise<void> {
-    const key = this._hashCacheKeys ? hash : operation.replaceAll('\n', ' ');
-    const refs = new Set<string>();
-
-    for (const [operationPath, { hasArgs, isList, isRootEntity }] of Object.entries(fieldPaths)) {
-      if (hasArgs || isList || isRootEntity) {
-        const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
-        refs.add(operationPathCacheKey);
-      }
-    }
-
-    return this._cache.set(`Operation:${key}`, {
-      kind: 'operation',
-      refs: [...refs],
-    });
+  private async _writeOperation(operation: string, refs: string[]): Promise<void> {
+    return this._cache.set(
+      `Operation:${operation.replaceAll('\n', ' ')}`,
+      {
+        kind: 'operation',
+        refs: [...refs],
+      },
+      {
+        hashKey: this._hashCacheKeys,
+      },
+    );
   }
 
-  private async _writeOperationPath(): Promise<void> {
-    // TODO
+  private async _writeOperationPath(cacheKey: string, value: unknown): Promise<void> {
+    return this._cache.set(
+      `OperationPath:${cacheKey}`,
+      {
+        kind: 'operationPath',
+        value,
+      },
+      {
+        hashKey: this._hashCacheKeys,
+      },
+    );
   }
 }

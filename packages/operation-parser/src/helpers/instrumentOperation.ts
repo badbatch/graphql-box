@@ -1,5 +1,5 @@
 import { type FieldPathMetadata } from '@graphql-box/core';
-import { buildOperationHash, hasArguments, isKind } from '@graphql-box/helpers';
+import { buildOperationHash, getAlias, hasArguments, isKind } from '@graphql-box/helpers';
 import {
   type DocumentNode,
   type FieldNode,
@@ -111,6 +111,7 @@ export const instrumentOperation = (
             const leafEntity = isLeaf ? entityStack.at(-1) : undefined;
 
             fieldPathManager.addFieldPath(node, {
+              fieldDepth: fieldPathStack.length,
               fieldPathStack,
               hasArgs,
               isAbstract,
@@ -120,7 +121,7 @@ export const instrumentOperation = (
               isRootEntity: isEntity && fieldPathStack.length === 1,
               leafEntity,
               pathCacheKey: buildPathCacheKey(node, { isList }),
-              pathResponseKey: node.name.value,
+              pathResponseKey: getAlias(node) ?? node.name.value,
               typeConditions: [...concreteTypeStack],
               typeName: namedType.name,
             });
