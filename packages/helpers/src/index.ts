@@ -20,4 +20,5 @@ export * from './parsing/type.ts';
 export * from './parsing/typeCondition.ts';
 export * from './parsing/variableDefinitions.ts';
 export * from './serializeErrors/index.ts';
+export * from './sortFieldPathEntries.ts';
 export * from './types.ts';

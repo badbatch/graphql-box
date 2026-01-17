@@ -1,11 +1,5 @@
 import { type Core } from '@cachemap/core';
-import {
-  type FieldPaths,
-  type OperationContext,
-  type OperationData,
-  type PlainObject,
-  type ResponseData,
-} from '@graphql-box/core';
+import { type OperationContext, type OperationData, type PlainObject, type ResponseData } from '@graphql-box/core';
 
 export interface UserOptions {
   /**
@@ -36,7 +30,7 @@ export type AnalyzeQueryResult =
   | {
       kind: 'partial';
       operationData: OperationData;
-      resolvedFieldPaths: FieldPaths;
+      resolvedFieldPaths: string[];
     };
 
 export interface CacheManagerDef {
@@ -52,17 +46,29 @@ export type CacheEntryRef = {
 
 export type EntityCacheEntry<T = PlainObject<unknown>> = {
   kind: 'entity';
+  refTargets: Record<string, string[]>;
   value: T;
 };
 
 export type OperationPathCacheEntry<T = unknown> = {
   kind: 'operationPath';
+  refTargets: Record<string, string[]>;
   value: T;
 };
 
 export type OperationCacheEntry = {
   kind: 'operation';
+  refTargets: Record<string, string[]>;
   refs: string[];
 };
 
 export type CacheEntry<T = unknown> = EntityCacheEntry<T> | OperationPathCacheEntry<T> | OperationCacheEntry;
+
+export type RetrieveCacheEntryResult<D = unknown> =
+  | {
+      kind: 'hit';
+      value: D;
+    }
+  | {
+      kind: 'miss';
+    };

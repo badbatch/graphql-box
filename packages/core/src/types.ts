@@ -42,6 +42,15 @@ export type DeserializedGraphqlError = {
   stack: string;
 };
 
+export type ExecutionContextValue = PlainObject & {
+  data: ExecutionContextValueData;
+  debugManager?: DebugManagerDef;
+  fragmentDefinitions?: FragmentDefinitionNodeMap;
+  setCacheMetadata: (key: string, headers: Headers, operation?: OperationTypeNode) => void;
+};
+
+export type ExecutionContextValueData = PlainObject & Except<OperationContextData, 'initiator'>;
+
 export type FieldPathMetadata = {
   fieldAlias?: string;
   fieldArgs?: PlainObject<unknown>;
@@ -62,20 +71,6 @@ export type FieldPathMetadata = {
 export type FieldPaths = Record<string, FieldPathMetadata>;
 
 export type FragmentDefinitionNodeMap = Record<string, FragmentDefinitionNode>;
-
-export type CachemapOptions = {
-  cacheHeaders: CacheHeaders;
-  tag?: string | number;
-};
-
-export type ExecutionContextValue = PlainObject & {
-  data: ExecutionContextValueData;
-  debugManager?: DebugManagerDef;
-  fragmentDefinitions?: FragmentDefinitionNodeMap;
-  setCacheMetadata: (key: string, headers: Headers, operation?: OperationTypeNode) => void;
-};
-
-export type ExecutionContextValueData = PlainObject & Except<OperationContextData, 'initiator'>;
 
 export type GraphqlEnv = 'client' | 'server' | 'worker' | 'workerClient';
 

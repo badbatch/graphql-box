@@ -1,9 +1,6 @@
 import { isPlainObject } from '@graphql-box/helpers';
 import { set } from 'lodash-es';
-import { type CacheEntryRef } from '#types.ts';
-
-const isRef = (value: unknown): value is CacheEntryRef =>
-  isPlainObject(value) && '__ref' in value && typeof value.__ref === 'string';
+import { isRef } from '#helpers/isRef.ts';
 
 export const mergeCacheValues = <T = unknown>(existingCacheValue: T, incomingCacheValue: T): T => {
   switch (true) {

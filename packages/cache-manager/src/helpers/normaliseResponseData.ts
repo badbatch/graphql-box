@@ -1,9 +1,10 @@
-import { type FieldPathMetadata, type FieldPaths, type PlainObject } from '@graphql-box/core';
-import { get, set, unset } from 'lodash-es';
+import { type FieldPaths, type PlainObject } from '@graphql-box/core';
+import { set, unset } from 'lodash-es';
 import { buildEntityCacheKey } from '#helpers/buildEntityCacheKey.ts';
 import { buildOperationPathCacheKey } from '#helpers/buildOperationPathCacheKey.ts';
-import { buildResponseDataKey } from '#helpers/buildResponseDataPath.ts';
+import { buildRefTargets } from '#helpers/buildRefTargets.ts';
 import { mergeCacheValues } from '#helpers/mergeCacheEntries.ts';
+import { visitResponseData } from '#helpers/visitResponseData.ts';
 import { type EntityCacheEntry, type OperationPathCacheEntry } from '#types.ts';
 
 export type NormalisedResponseData = {
@@ -13,13 +14,6 @@ export type NormalisedResponseData = {
 
 export type NormalisedResponseDataOptions = {
   idKey: string;
-};
-
-const sortFieldPathEntries = (
-  [, metadataA]: [operationPath: string, fieldPathMetadata: FieldPathMetadata],
-  [, metadataB]: [operationPath: string, fieldPathMetadata: FieldPathMetadata],
-) => {
-  return metadataB.fieldDepth - metadataA.fieldDepth;
 };
 
 export const normaliseResponseData = (
@@ -37,64 +31,62 @@ export const normaliseResponseData = (
     };
   }
 
-  const sortedFieldPathEntries = Object.entries(fieldPaths).sort(sortFieldPathEntries);
+  visitResponseData(data, [], (responseDataValue, operationPathStack, responseKeyStack) => {
+    const operationPath = operationPathStack.join('.');
+    const responseKey = responseKeyStack.join('.');
+    const fieldPathMetadata = fieldPaths[operationPath];
 
-  for (const [operationPath, { hasArgs, isEntity, isList, isRootEntity, typeName }] of sortedFieldPathEntries) {
-    const responseKey = buildResponseDataKey(operationPath, fieldPaths);
+    if (!fieldPathMetadata) {
+      console.debug(`Unable to resolve field path metadata for operation path "${operationPath}"`);
+      return;
+    }
+
+    const { hasArgs, isEntity, isList, isRootEntity, typeName } = fieldPathMetadata;
 
     if (isRootEntity || isList || hasArgs) {
       const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
-      const operationPathCacheEntry = operationPaths[operationPathCacheKey];
+      const existingCacheEntry = operationPaths[operationPathCacheKey];
 
-      if (operationPathCacheEntry) {
-        const { value: operationPathCacheValue } = operationPathCacheEntry;
-        const mergedValue = mergeCacheValues(operationPathCacheValue, get(data, responseKey));
+      const cacheEntryValue = existingCacheEntry
+        ? mergeCacheValues(existingCacheEntry.value, responseDataValue)
+        : responseDataValue;
 
-        operationPaths[operationPathCacheKey] = {
-          kind: 'operationPath',
-          value: mergedValue,
-        };
-      } else {
-        operationPaths[operationPathCacheKey] = {
-          kind: 'operationPath',
-          value: structuredClone(get(data, responseKey)),
-        };
-      }
+      operationPaths[operationPathCacheKey] = {
+        kind: 'operationPath',
+        refTargets: buildRefTargets(cacheEntryValue),
+        value: structuredClone(cacheEntryValue),
+      };
 
       unset(data, responseKey);
-      continue;
+      return;
     }
 
     if (isEntity) {
+      // If isEntity is true, then responseDataValue will definitely be an object.
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      const entity = responseDataValue as PlainObject<unknown>;
       // We always inject the idKey into an operation so this field
       // will always be returned.
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const idValue = data[idKey]!;
+      const idValue = entity[idKey]!;
       const entityCacheKey = buildEntityCacheKey(typeName, idValue);
-      const entityCacheEntry = entities[entityCacheKey];
+      const existingCacheEntry = entities[entityCacheKey];
 
-      if (entityCacheEntry) {
-        const { value: entityCacheValue } = entityCacheEntry;
-        const mergedValue = mergeCacheValues(entityCacheValue, get(data, responseKey));
+      const cacheEntryValue = existingCacheEntry
+        ? mergeCacheValues(existingCacheEntry.value, responseDataValue)
+        : responseDataValue;
 
-        entities[entityCacheKey] = {
-          kind: 'entity',
-          // Struggling to resolve type issues, will need to revisit.
-          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-          value: mergedValue as PlainObject,
-        };
-      } else {
-        entities[entityCacheKey] = {
-          kind: 'entity',
-          // Struggling to resolve type issues, will need to revisit.
-          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-          value: structuredClone(get(data, responseKey)) as PlainObject,
-        };
+      entities[entityCacheKey] = {
+        kind: 'entity',
+        refTargets: buildRefTargets(cacheEntryValue),
+        // Struggling to resolve type issues, will need to revisit.
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        value: structuredClone(cacheEntryValue) as PlainObject,
+      };
 
-        set(data, responseKey, { __kind: 'entity', __ref: entityCacheKey });
-      }
+      set(data, responseKey, { __kind: 'entity', __ref: entityCacheKey });
     }
-  }
+  });
 
   return {
     entities,

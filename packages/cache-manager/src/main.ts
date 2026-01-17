@@ -1,23 +1,28 @@
 import { type Core } from '@cachemap/core';
 import {
-  type CacheMetadata,
   type FieldPaths,
   type OperationContext,
   type OperationData,
   type PlainObject,
   type ResponseData,
 } from '@graphql-box/core';
-import { ArgsError, GroupedError, hashOperation } from '@graphql-box/helpers';
-import { type Metadata as CacheabilityMetadata } from 'cacheability';
+import { ArgsError, GroupedError, hashOperation, sortFieldPathEntries } from '@graphql-box/helpers';
 import { print } from 'graphql';
-import { entries, get, has, set } from 'lodash-es';
+import { set } from 'lodash-es';
 import { type SetRequired } from 'type-fest';
-import { buildEntityCacheKey } from '#helpers/buildEntityCacheKey.js';
-import { buildOperationPathCacheKey } from '#helpers/buildOperationPathCacheKey.ts';
-import { buildResponseDataKey } from '#helpers/buildResponseDataPath.ts';
+import { buildOperationPathCacheKey } from '#helpers/buildOperationPathCacheKey.js';
+import { buildResponseDataKey } from '#helpers/buildResponseDataPath.js';
 import { normaliseResponseData } from '#helpers/normaliseResponseData.ts';
 import { filterQuery } from './helpers/filterQuery.ts';
-import { type AnalyzeQueryResult, type CacheManagerDef, type UserOptions } from './types.ts';
+import {
+  type AnalyzeQueryResult,
+  type CacheManagerDef,
+  type EntityCacheEntry,
+  type OperationCacheEntry,
+  type OperationPathCacheEntry,
+  type RetrieveCacheEntryResult,
+  type UserOptions,
+} from './types.ts';
 
 export class CacheManager implements CacheManagerDef {
   // @ts-expect-error cache is initialised in constructor
@@ -62,13 +67,19 @@ export class CacheManager implements CacheManagerDef {
     context: SetRequired<OperationContext, 'fieldPaths'>,
   ): Promise<AnalyzeQueryResult> {
     const { ast } = operationData;
-    const { cacheMetadata, data, rejectedPaths, resolvedPaths } = await this._retrieveResponseData(context.fieldPaths);
 
-    if (resolvedPaths.length === 0) {
+    const {
+      cacheMetadata,
+      data,
+      kind,
+      resolvedPaths = [],
+    } = await this._retrieveResponseData(operationData, context.fieldPaths);
+
+    if (kind === 'miss') {
       return { kind: 'cache-miss', operationData };
     }
 
-    if (rejectedPaths.length === 0) {
+    if (kind === 'hit') {
       return { kind: 'cache-hit', responseData: { __cacheMetadata: cacheMetadata, data } };
     }
 
@@ -106,57 +117,162 @@ export class CacheManager implements CacheManagerDef {
     this._idKey = idKey;
   }
 
-  private async _retrieveResponseData(fieldPaths: FieldPaths): Promise<{
-    cacheMetadata: CacheMetadata;
+  private async _readEntity(cacheKey: string): Promise<EntityCacheEntry | undefined> {
+    return this._cache.get<EntityCacheEntry>(`Entity:${cacheKey}`, {
+      hashKey: this._hashCacheKeys,
+    });
+  }
+
+  private async _readOperation(operation: string): Promise<OperationCacheEntry | undefined> {
+    return this._cache.get<OperationCacheEntry>(`Operation:${operation.replaceAll('\n', ' ')}`, {
+      hashKey: this._hashCacheKeys,
+    });
+  }
+
+  private async _readOperationPath(cacheKey: string): Promise<OperationPathCacheEntry | undefined> {
+    return this._cache.get<OperationPathCacheEntry>(`OperationPath:${cacheKey}`, {
+      hashKey: this._hashCacheKeys,
+    });
+  }
+
+  private async _retrieveEntityData(cacheKey: string): Promise<RetrieveCacheEntryResult> {
+    const entityCacheEntry = await this._readEntity(cacheKey);
+
+    if (!entityCacheEntry) {
+      console.debug(`Unable to retrieve entity for cache key "${cacheKey}"`);
+      return { kind: 'miss' };
+    }
+
+    const { refTargets, value } = entityCacheEntry;
+    const refTargetEntries = Object.entries(refTargets);
+    const entity = structuredClone(value);
+
+    if (refTargetEntries.length === 0) {
+      return { kind: 'hit', value: entity };
+    }
+
+    for (const [ref, responseKeys] of refTargetEntries) {
+      const result = await this._retrieveEntityData(ref);
+
+      if (result.kind === 'miss') {
+        console.debug(`Unable to retrieve entity, no data for entity cache key "${ref}"`);
+        return { kind: 'miss' };
+      }
+
+      for (const responseKey of responseKeys) {
+        set(entity, responseKey, result.value);
+      }
+    }
+
+    return { kind: 'hit', value: entity };
+  }
+
+  private async _retrieveOperationData(cacheKey: string): Promise<RetrieveCacheEntryResult<PlainObject>> {
+    const operationCacheEntry = await this._readOperation(cacheKey);
+
+    if (!operationCacheEntry) {
+      console.debug(`Unable to retrieve operation data for cache key "${cacheKey}"`);
+      return { kind: 'miss' };
+    }
+
+    const { refTargets } = operationCacheEntry;
+    const data: PlainObject = {};
+
+    for (const [ref, responseKeys] of Object.entries(refTargets)) {
+      const result = await this._retrieveOperationPathData(ref);
+
+      if (result.kind === 'miss') {
+        console.debug(`Unable to retrieve operation data, no data for operation path cache key "${ref}"`);
+        return { kind: 'miss' };
+      }
+
+      for (const responseKey of responseKeys) {
+        set(data, responseKey, result.value);
+      }
+    }
+
+    return { kind: 'hit', value: data };
+  }
+
+  private async _retrieveOperationPathData(cacheKey: string): Promise<RetrieveCacheEntryResult> {
+    const operationPathCacheEntry = await this._readOperationPath(cacheKey);
+
+    if (!operationPathCacheEntry) {
+      console.debug(`Unable to retrieve operation data, no data for operation path cache key "${cacheKey}"`);
+      return { kind: 'miss' };
+    }
+
+    const { refTargets, value } = operationPathCacheEntry;
+    const refTargetEntries = Object.entries(refTargets);
+
+    if (refTargetEntries.length === 0) {
+      return { kind: 'hit', value: structuredClone(value) };
+    }
+
+    // @ts-expect-error if refTargetEntries.length is greater than 0, it means
+    // the value will definitely be an object.
+    const newValue = structuredClone<PlainObject<unknown>>(value);
+
+    for (const [ref, responseKeys] of refTargetEntries) {
+      const result = await this._retrieveEntityData(ref);
+
+      if (result.kind === 'miss') {
+        console.debug(`Unable to retrieve operation path data, no data for entity cache key "${ref}"`);
+        return { kind: 'miss' };
+      }
+
+      for (const responseKey of responseKeys) {
+        set(newValue, responseKey, result.value);
+      }
+    }
+
+    return { kind: 'hit', value: newValue };
+  }
+
+  private async _retrieveResponseData(
+    { hash }: OperationData,
+    fieldPaths: FieldPaths,
+  ): Promise<{
     data: Record<string, unknown>;
-    rejectedPaths: string[];
-    resolvedPaths: string[];
+    kind: 'hit' | 'miss' | 'partial';
+    rejectedPaths?: string[];
+    resolvedPaths?: string[];
   }> {
+    const resolvedOperationPaths = new Set<string>();
+    const rejectedOperationPaths = new Set<string>();
     const cachedResponseData: Record<string, unknown> = {};
-    const cacheMetadata: Record<string, CacheabilityMetadata> = {};
-    const resolvedOperationPaths: string[] = [];
-    const rejectedOperationPaths: string[] = [];
-    const fieldPathEntries = Object.entries(fieldPaths);
+    const sortedFieldPathEntries = Object.entries(fieldPaths).sort(sortFieldPathEntries('asc'));
+    const result = await this._retrieveOperationData(hash);
 
-    for (const [operationPath, { cachePaths, responsePaths }] of fieldPathEntries) {
-      for (const [index, cachePath] of cachePaths.entries()) {
-        const cacheability = await this._cache?.has(cachePath, { hashKey: this._hashCacheKeys });
-        const cacheEntryValid = !!cacheability && cacheability.checkTTL();
+    if (result.kind === 'hit') {
+      return {
+        data: result.value,
+        kind: 'hit',
+      };
+    }
 
-        if (!cacheEntryValid) {
-          rejectedOperationPaths.push(operationPath);
-          continue;
-        }
+    for (const [operationPath, { hasArgs, isList, isRootEntity }] of sortedFieldPathEntries) {
+      if (!(hasArgs || isList || isRootEntity)) {
+        continue;
+      }
 
-        const cachedData = await this._cache?.get(cachePath, { hashKey: this._hashCacheKeys });
-        const matchingResponsePath = responsePaths[index];
+      const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
+      const responseKey = buildResponseDataKey(operationPath, fieldPaths);
+      const opPathResult = await this._retrieveOperationPathData(operationPathCacheKey);
 
-        if (!matchingResponsePath) {
-          console.error(
-            `Your context has got corrupted. No matching response path was found for cache path "${cachePath}", but it is part of a response path group for which data should exist.`,
-          );
-
-          rejectedOperationPaths.push(operationPath);
-          continue;
-        }
-
-        if (matchingResponsePath) {
-          set(cachedResponseData, matchingResponsePath, cachedData);
-
-          if (!has(cacheMetadata, operationPath)) {
-            cacheMetadata[operationPath] = cacheability.metadata;
-          }
-        }
-
-        resolvedOperationPaths.push(operationPath);
+      if (opPathResult.kind === 'hit') {
+        set(cachedResponseData, responseKey, opPathResult.value);
+        resolvedOperationPaths.add(operationPath);
+      } else {
+        rejectedOperationPaths.add(operationPath);
       }
     }
 
     return {
-      cacheMetadata,
       data: cachedResponseData,
-      rejectedPaths: rejectedOperationPaths,
-      resolvedPaths: resolvedOperationPaths,
+      kind: rejectedOperationPaths.size === 0 ? 'hit' : resolvedOperationPaths.size === 0 ? 'miss' : 'partial',
+      rejectedPaths: [...rejectedOperationPaths],
+      resolvedPaths: [...resolvedOperationPaths],
     };
   }
 
@@ -165,7 +281,7 @@ export class CacheManager implements CacheManagerDef {
     { data }: ResponseData,
     { fieldPaths }: SetRequired<OperationContext, 'fieldPaths'>,
   ): Promise<void> {
-    const { entities, operationPaths } = normaliseResponseData(structuredClone(data), fieldPaths, {
+    const { entities, operationPaths } = normaliseResponseData(data, fieldPaths, {
       idKey: this._idKey,
     });
 
