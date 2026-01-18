@@ -186,20 +186,20 @@ export type OperationParams = {
 export type OperationResolver = (responseData: ResponseData) => Promise<ResponseData>;
 
 export type ResponseData<T extends PlainObject<unknown> = PlainObject<unknown>> = {
-  __cacheMetadata?: CacheMetadata;
   data?: T;
   errors?: readonly Error[];
+  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata };
 };
 
 export type ResponseDataWithoutErrors<T extends PlainObject<unknown> = PlainObject<unknown>> = {
-  __cacheMetadata?: CacheMetadata;
   data?: T;
+  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata };
 };
 
 export type SerialisedResponseData<T extends PlainObject<unknown> = PlainObject<unknown>> = {
-  __cacheMetadata?: CacheMetadata;
   data?: T;
   errors?: (DeserializedGraphqlError | ErrorObject)[];
+  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata };
 };
 
 export interface ServerSocketOperationOptions extends OperationOptions {

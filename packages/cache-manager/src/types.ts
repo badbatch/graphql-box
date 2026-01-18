@@ -1,5 +1,12 @@
 import { type Core } from '@cachemap/core';
-import { type OperationContext, type OperationData, type PlainObject, type ResponseData } from '@graphql-box/core';
+import {
+  type CacheMetadata,
+  type OperationContext,
+  type OperationData,
+  type PlainObject,
+  type ResponseData,
+} from '@graphql-box/core';
+import { type Metadata as CacheabilityMetadata } from 'cacheability';
 
 export interface UserOptions {
   /**
@@ -45,18 +52,21 @@ export type CacheEntryRef = {
 };
 
 export type EntityCacheEntry<T = PlainObject<unknown>> = {
+  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata };
   kind: 'entity';
   refTargets: Record<string, string[]>;
   value: T;
 };
 
 export type OperationPathCacheEntry<T = unknown> = {
+  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata };
   kind: 'operationPath';
   refTargets: Record<string, string[]>;
   value: T;
 };
 
 export type OperationCacheEntry = {
+  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata };
   kind: 'operation';
   refTargets: Record<string, string[]>;
   refs: string[];
@@ -66,6 +76,7 @@ export type CacheEntry<T = unknown> = EntityCacheEntry<T> | OperationPathCacheEn
 
 export type RetrieveCacheEntryResult<D = unknown> =
   | {
+      extensions: { cacheMetadata: CacheMetadata };
       kind: 'hit';
       value: D;
     }

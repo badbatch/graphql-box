@@ -22,20 +22,20 @@ importers:
         specifier: ^7.27.4
         version: 7.27.4
       '@cachemap/core':
-        specifier: ^5.2.8
-        version: 5.2.8
+        specifier: ^5.2.11
+        version: 5.2.11
       '@cachemap/core-worker':
-        specifier: ^5.2.8
-        version: 5.2.8(@cachemap/core@5.2.8)
+        specifier: ^5.2.11
+        version: 5.2.11(@cachemap/core@5.2.11)
       '@cachemap/indexed-db':
-        specifier: ^5.0.10
-        version: 5.0.10
+        specifier: ^5.0.11
+        version: 5.0.11
       '@cachemap/map':
-        specifier: ^5.0.10
-        version: 5.0.10
+        specifier: ^5.0.11
+        version: 5.0.11
       '@cachemap/types':
-        specifier: ^5.0.10
-        version: 5.0.10
+        specifier: ^5.0.11
+        version: 5.0.11
       '@commitlint/cli':
         specifier: ^19.8.1
         version: 19.8.1(@types/node@24.0.4)(typescript@5.8.3)
@@ -305,11 +305,11 @@ importers:
         version: 4.41.0
     devDependencies:
       '@cachemap/core':
-        specifier: ^5.2.8
-        version: 5.2.8
+        specifier: ^5.2.11
+        version: 5.2.11
       '@cachemap/map':
-        specifier: ^5.0.10
-        version: 5.0.10
+        specifier: ^5.0.11
+        version: 5.0.11
       '@graphql-box/operation-parser':
         specifier: workspace:*
         version: link:../operation-parser
@@ -387,8 +387,8 @@ importers:
   packages/connection-resolver:
     dependencies:
       '@cachemap/core':
-        specifier: ^5.2.8
-        version: 5.2.8
+        specifier: ^5.2.11
+        version: 5.2.11
       '@graphql-box/core':
         specifier: workspace:*
         version: link:../core
@@ -409,8 +409,8 @@ importers:
         version: 4.41.0
     devDependencies:
       '@cachemap/map':
-        specifier: ^5.0.10
-        version: 5.0.10
+        specifier: ^5.0.11
+        version: 5.0.11
       '@jest/globals':
         specifier: ^29.3.1
         version: 29.7.0
@@ -477,11 +477,11 @@ importers:
         version: 4.17.21
     devDependencies:
       '@cachemap/core':
-        specifier: ^5.2.8
-        version: 5.2.8
+        specifier: ^5.2.11
+        version: 5.2.11
       '@cachemap/map':
-        specifier: ^5.0.10
-        version: 5.0.10
+        specifier: ^5.0.11
+        version: 5.0.11
       '@graphql-box/cache-manager':
         specifier: workspace:*
         version: link:../cache-manager
@@ -848,11 +848,11 @@ importers:
   packages/worker-client:
     dependencies:
       '@cachemap/core':
-        specifier: ^5.2.8
-        version: 5.2.8
+        specifier: ^5.2.11
+        version: 5.2.11
       '@cachemap/core-worker':
-        specifier: ^5.2.8
-        version: 5.2.8(@cachemap/core@5.2.8)
+        specifier: ^5.2.11
+        version: 5.2.11(@cachemap/core@5.2.11)
       '@graphql-box/core':
         specifier: workspace:*
         version: link:../core
@@ -1569,28 +1569,28 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@cachemap/controller@5.2.4':
-    resolution: {integrity: sha512-b2jduccDRiOT7v1r1O16P+7bmTTGpv/pyAENrLuKGr8FythfDi4mNaGJu3ui2wk7hE9XNSkWwvsOB/kICx7C1Q==}
+  '@cachemap/controller@5.2.5':
+    resolution: {integrity: sha512-sjNZt1Y6iA/wLcc4s9GMe2GOoYtnL03vWymhWI8GsgGvjKCTGgCJ3ipFKRXkRSPaZDRLN73TRWF7IURbnx/OyA==}
 
-  '@cachemap/core-worker@5.2.8':
-    resolution: {integrity: sha512-cLCF3JFS7K0enxmC5U2QAHTZc6xjWwYLDzrKu/KwNWMk+SkRbuHOlzO46Z9QA97UnAZJ4gRY71YXEUkEamTmrA==}
+  '@cachemap/core-worker@5.2.11':
+    resolution: {integrity: sha512-BN+uTiUSKC4wLkT9jj/biGUy4yFfpkbp1SET8zlYZCgXlGIP4KLTUTj5kYpezeVVvPeH2ZLp7n7SSp05Ozuguw==}
     peerDependencies:
-      '@cachemap/core': 5.2.8
+      '@cachemap/core': 5.2.11
 
-  '@cachemap/core@5.2.8':
-    resolution: {integrity: sha512-26boV+jZ4YuGQDP6F1gttX19itjg/6CcN987v2182vepRfY5tFqVHhKouR/G4Xy9q7f/snFanG10DuXNKRegVw==}
+  '@cachemap/core@5.2.11':
+    resolution: {integrity: sha512-qKS5SR9OMEyMy4NpJTyX1WhPORPvA4/oB6fZefRZTuYXr4ijaKZzpVmbGo++J71CSjWqHnh8L7ahMIXDemh31Q==}
 
-  '@cachemap/indexed-db@5.0.10':
-    resolution: {integrity: sha512-Y3V5jkGjyljQ8ZzAMEgcW3Iwo5Hwv2QtjRHKsctBOl+4RDlGE/nXpd/5YZiqIxXOR6TKEH5zu5wR/QCydyn3sg==}
+  '@cachemap/indexed-db@5.0.11':
+    resolution: {integrity: sha512-6jn9j4wKuRCPwZn6h0RpAMrqf70z6pxyXaXIpbrfYZ4WM8KvS9qrw06jzHh3EJf1BjbUW23lR2Ch98QYDTHZOA==}
 
-  '@cachemap/map@5.0.10':
-    resolution: {integrity: sha512-x7HdRZutHM3xvGspGY3d8/jcxqoZcPvAaZY7nGp4Jykg3BpWZd8xGCwiAxK4rxWyUux6hDr/by9RWYIx5pth0A==}
+  '@cachemap/map@5.0.11':
+    resolution: {integrity: sha512-gMtyXf2V6zAKxtk8mliKya38MbI8VBaUP6aRNZVBwHf49I917Q0O1I3DzN0TPO/Reime6G8aTp/OPmCOHSvJWA==}
 
-  '@cachemap/types@5.0.10':
-    resolution: {integrity: sha512-w6fxjlNOzf0CfdAptBSSSXibCQZuKJNpDVArosVOGo5wRodqnw2bFp13QPAlGNhbf7GXrpqB4Xqp/2b4eiIemg==}
+  '@cachemap/types@5.0.11':
+    resolution: {integrity: sha512-xBpNPEHbaPcWHr1KR0LmRoOCyCo8q2gUbee6FsTcpAi+pUlp03fXP16w4bu1kwkFVvID3Gz3cOLsA/OXF0K2iA==}
 
-  '@cachemap/utils@5.2.4':
-    resolution: {integrity: sha512-LodZD4nDGe4qv9QX2Ty7jWlBXJFIJVIzBHMkaGtPQyQZm8DM5gldmRvF4dSMtx0jliAOXdpq9DFa9JSp4ILx1A==}
+  '@cachemap/utils@5.2.5':
+    resolution: {integrity: sha512-Hh1q91ge3crHJt4+Wd5f2eTurcf7R/wpGbYrylZydE+9ISYpPBMCmIScLxbytH74CDfoqp117kPtTdxAm3Zb7A==}
 
   '@colors/colors@1.6.0':
     resolution: {integrity: sha512-Ir+AOibqzrIsL6ajt3Rz3LskB7OiMVHqltZmspbW/TJuTVuyOMirVqAkjfY6JISiLHgyNqicAC8AyHHGzNd/dA==}
@@ -2971,6 +2971,10 @@ packages:
   '@types/uuid@10.0.0':
     resolution: {integrity: sha512-7gqG38EyHgyP1S+7+xomFtL+ZNHcKv6DwNaCZmJmo1vgMugyF3TCnXVg4t1uk89mLNwnLtnY3TpOpCOyp1/xHQ==}
 
+  '@types/uuid@11.0.0':
+    resolution: {integrity: sha512-HVyk8nj2m+jcFRNazzqyVKiZezyhDKrGUA3jlEcg/nZ6Ms+qHwocba1Y/AaVaznJTAM9xpdFSh+ptbNrhOGvZA==}
+    deprecated: This is a stub types definition. uuid provides its own type definitions, so you do not need this installed.
+
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
 
@@ -3829,6 +3833,9 @@ packages:
   core-js@3.43.0:
     resolution: {integrity: sha512-N6wEbTTZSYOY2rYAn85CuvWWkCK6QweMn7/4Nr3w+gDBeBhk/x4EJeY6FPo4QzDoJZxVTv8U7CMvgWk6pOHHqA==}
 
+  core-js@3.47.0:
+    resolution: {integrity: sha512-c3Q2VVkGAUyupsjRnaNX6u8Dq2vAdzm9iuPj5FW0fRxzlxgq9Q39MDq10IvmQSpLgHQNyQzQmOo6bgGHmH3NNg==}
+
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
 
@@ -4144,6 +4151,10 @@ packages:
 
   es-abstract@1.24.0:
     resolution: {integrity: sha512-WSzPgsdLtTcQwm4CROfS5ju2Wa1QQcVeT37jFjYzdFz1r9ahadC8B8/a4qxJxM+09F18iumCdRmlr96ZYkQvEg==}
+    engines: {node: '>= 0.4'}
+
+  es-abstract@1.24.1:
+    resolution: {integrity: sha512-zHXBLhP+QehSSbsS9Pt23Gg964240DPd6QCf8WpkqEXxQ7fhdZzYsocOr5u7apWonsS5EjZDmTF+/slGMyasvw==}
     engines: {node: '>= 0.4'}
 
   es-define-property@1.0.1:
@@ -5482,6 +5493,9 @@ packages:
   js-base64@3.7.7:
     resolution: {integrity: sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==}
 
+  js-base64@3.7.8:
+    resolution: {integrity: sha512-hNngCeKxIUQiEUN3GPJOkz4wF/YvdUdbNL9hsBcMQTkKzboD7T/q3OYOuuPZLUE6dBxSGpwhk5mwuDud7JVAow==}
+
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -5636,6 +5650,9 @@ packages:
 
   lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+
+  lodash-es@4.17.22:
+    resolution: {integrity: sha512-XEawp1t0gxSi9x01glktRZ5HDy0HXqrM0x5pXQM98EaI0NxO6jVM7omDOxsuEo5UIASAnm2bRp1Jt/e0a2XU8Q==}
 
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
@@ -6531,6 +6548,11 @@ packages:
     engines: {node: '>= 0.4'}
     hasBin: true
 
+  resolve@1.22.11:
+    resolution: {integrity: sha512-RfqAvLnMl313r7c9oclB1HhUEAezcpLjz95wFH4LVuhk9JF/r22qmVP9AMmOU4vMX7Q8pN8jwNg/CSpdFnMjTQ==}
+    engines: {node: '>= 0.4'}
+    hasBin: true
+
   resolve@1.22.8:
     resolution: {integrity: sha512-oKWePCxqpd6FlLvGV1VU0x7bkPmmCNolxzjMf4NczoDnQcIWrAF+cPtZn5i6n+RfD2d9i0tzpKnG6Yk168yIyw==}
     hasBin: true
@@ -6984,6 +7006,10 @@ packages:
     engines: {node: '>=18.18.0'}
     hasBin: true
 
+  tagged-tag@1.0.0:
+    resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
+    engines: {node: '>=20'}
+
   tapable@2.2.2:
     resolution: {integrity: sha512-Re10+NauLTMCudc7T5WLFLAwDhQ0JWdrMK+9B2M8zR5hRExKmsRDCBA7/aV/pNJFltmBFO5BAMlQFi/vq3nKOg==}
     engines: {node: '>=6'}
@@ -7157,6 +7183,10 @@ packages:
     resolution: {integrity: sha512-TeTSQ6H5YHvpqVwBRcnLDCBnDOHWYu7IvGbHT6N8AOymcr9PJGjc1GTtiWZTYg0NCgYwvnYWEkVChQAr9bjfwA==}
     engines: {node: '>=16'}
 
+  type-fest@5.4.1:
+    resolution: {integrity: sha512-xygQcmneDyzsEuKZrFbRMne5HDqMs++aFzefrJTgEIKjQ3rekM+RPfFCVq2Gp1VIDqddoYeppCj4Pcb+RZW0GQ==}
+    engines: {node: '>=20'}
+
   type-is@2.0.1:
     resolution: {integrity: sha512-OZs6gsjF4vMp32qrCbiVSkrFmXtG/AZhY3t0iAMrMBiAZyV9oALtXO8hsrHbMXF9x6L3grlFuwW2oAz7cav+Gw==}
     engines: {node: '>= 0.6'}
@@ -7283,6 +7313,10 @@ packages:
 
   uuid@11.1.0:
     resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+    hasBin: true
+
+  uuid@13.0.0:
+    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
     hasBin: true
 
   uuid@8.3.2:
@@ -7453,6 +7487,10 @@ packages:
 
   which-typed-array@1.1.19:
     resolution: {integrity: sha512-rEvr90Bck4WZt9HHFC4DJMsjvu7x+r6bImz0/BrbWb7A2djJ8hnZMrWnHo9F8ssv0OMErasDhftrfROTyqSDrw==}
+    engines: {node: '>= 0.4'}
+
+  which-typed-array@1.1.20:
+    resolution: {integrity: sha512-LYfpUkmqwl0h9A2HL09Mms427Q1RZWuOHsukfVcKRq9q95iQxdw0ix1JQrqbcDR9PH1QDwf5Qo8OZb5lksZ8Xg==}
     engines: {node: '>= 0.4'}
 
   which@2.0.2:
@@ -8419,73 +8457,74 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@cachemap/controller@5.2.4':
+  '@cachemap/controller@5.2.5':
     dependencies:
-      '@cachemap/utils': 5.2.4
-      core-js: 3.43.0
+      '@cachemap/utils': 5.2.5
+      core-js: 3.47.0
       eventemitter3: 5.0.1
 
-  '@cachemap/core-worker@5.2.8(@cachemap/core@5.2.8)':
+  '@cachemap/core-worker@5.2.11(@cachemap/core@5.2.11)':
     dependencies:
-      '@cachemap/controller': 5.2.4
-      '@cachemap/core': 5.2.8
-      '@cachemap/types': 5.0.10
-      '@cachemap/utils': 5.2.4
+      '@cachemap/controller': 5.2.5
+      '@cachemap/core': 5.2.11
+      '@cachemap/types': 5.0.11
+      '@cachemap/utils': 5.2.5
       '@types/lodash-es': 4.17.12
-      '@types/uuid': 10.0.0
+      '@types/uuid': 11.0.0
       cacheability: 4.0.30
-      core-js: 3.43.0
+      core-js: 3.47.0
       eventemitter3: 5.0.1
-      lodash-es: 4.17.21
-      uuid: 11.1.0
-
-  '@cachemap/core@5.2.8':
-    dependencies:
-      '@cachemap/controller': 5.2.4
-      '@cachemap/map': 5.0.10
-      '@cachemap/types': 5.0.10
-      '@cachemap/utils': 5.2.4
-      '@types/lodash-es': 4.17.12
-      cacheability: 4.0.30
-      core-js: 3.43.0
-      eventemitter3: 5.0.1
-      lodash-es: 4.17.21
+      lodash-es: 4.17.22
       ts-md5: 1.3.1
-      type-fest: 4.41.0
+      uuid: 13.0.0
 
-  '@cachemap/indexed-db@5.0.10':
+  '@cachemap/core@5.2.11':
     dependencies:
-      '@cachemap/types': 5.0.10
-      core-js: 3.43.0
-      idb: 8.0.3
-      lodash-es: 4.17.21
-
-  '@cachemap/map@5.0.10':
-    dependencies:
-      '@cachemap/types': 5.0.10
+      '@cachemap/controller': 5.2.5
+      '@cachemap/map': 5.0.11
+      '@cachemap/types': 5.0.11
+      '@cachemap/utils': 5.2.5
       '@types/lodash-es': 4.17.12
-      core-js: 3.43.0
-      lodash-es: 4.17.21
-      type-fest: 4.41.0
+      cacheability: 4.0.30
+      core-js: 3.47.0
+      eventemitter3: 5.0.1
+      lodash-es: 4.17.22
+      ts-md5: 1.3.1
+      type-fest: 5.4.1
 
-  '@cachemap/types@5.0.10':
+  '@cachemap/indexed-db@5.0.11':
+    dependencies:
+      '@cachemap/types': 5.0.11
+      core-js: 3.47.0
+      idb: 8.0.3
+      lodash-es: 4.17.22
+
+  '@cachemap/map@5.0.11':
+    dependencies:
+      '@cachemap/types': 5.0.11
+      '@types/lodash-es': 4.17.12
+      core-js: 3.47.0
+      lodash-es: 4.17.22
+      type-fest: 5.4.1
+
+  '@cachemap/types@5.0.11':
     dependencies:
       '@types/lodash-es': 4.17.12
       cacheability: 4.0.30
-      core-js: 3.43.0
-      lodash-es: 4.17.21
+      core-js: 3.47.0
+      lodash-es: 4.17.22
 
-  '@cachemap/utils@5.2.4':
+  '@cachemap/utils@5.2.5':
     dependencies:
-      '@cachemap/types': 5.0.10
+      '@cachemap/types': 5.0.11
       '@types/crypto-js': 4.2.2
       '@types/lodash-es': 4.17.12
       cacheability: 4.0.30
-      core-js: 3.43.0
+      core-js: 3.47.0
       crypto-js: 4.2.0
-      js-base64: 3.7.7
-      lodash-es: 4.17.21
-      type-fest: 4.41.0
+      js-base64: 3.7.8
+      lodash-es: 4.17.22
+      type-fest: 5.4.1
 
   '@colors/colors@1.6.0': {}
 
@@ -9949,6 +9988,10 @@ snapshots:
 
   '@types/uuid@10.0.0': {}
 
+  '@types/uuid@11.0.0':
+    dependencies:
+      uuid: 11.1.0
+
   '@types/ws@8.18.1':
     dependencies:
       '@types/node': 24.0.4
@@ -10418,7 +10461,7 @@ snapshots:
       call-bind: 1.0.8
       call-bound: 1.0.4
       define-properties: 1.2.1
-      es-abstract: 1.24.0
+      es-abstract: 1.24.1
       es-errors: 1.3.0
       es-object-atoms: 1.1.1
       es-shim-unscopables: 1.1.0
@@ -10917,6 +10960,8 @@ snapshots:
 
   core-js@3.43.0: {}
 
+  core-js@3.47.0: {}
+
   core-util-is@1.0.3: {}
 
   cors@2.8.5:
@@ -11263,6 +11308,64 @@ snapshots:
       unbox-primitive: 1.1.0
       which-typed-array: 1.1.19
 
+  es-abstract@1.24.1:
+    dependencies:
+      array-buffer-byte-length: 1.0.2
+      arraybuffer.prototype.slice: 1.0.4
+      available-typed-arrays: 1.0.7
+      call-bind: 1.0.8
+      call-bound: 1.0.4
+      data-view-buffer: 1.0.2
+      data-view-byte-length: 1.0.2
+      data-view-byte-offset: 1.0.1
+      es-define-property: 1.0.1
+      es-errors: 1.3.0
+      es-object-atoms: 1.1.1
+      es-set-tostringtag: 2.1.0
+      es-to-primitive: 1.3.0
+      function.prototype.name: 1.1.8
+      get-intrinsic: 1.3.0
+      get-proto: 1.0.1
+      get-symbol-description: 1.1.0
+      globalthis: 1.0.4
+      gopd: 1.2.0
+      has-property-descriptors: 1.0.2
+      has-proto: 1.2.0
+      has-symbols: 1.1.0
+      hasown: 2.0.2
+      internal-slot: 1.1.0
+      is-array-buffer: 3.0.5
+      is-callable: 1.2.7
+      is-data-view: 1.0.2
+      is-negative-zero: 2.0.3
+      is-regex: 1.2.1
+      is-set: 2.0.3
+      is-shared-array-buffer: 1.0.4
+      is-string: 1.1.1
+      is-typed-array: 1.1.15
+      is-weakref: 1.1.1
+      math-intrinsics: 1.1.0
+      object-inspect: 1.13.4
+      object-keys: 1.1.1
+      object.assign: 4.1.7
+      own-keys: 1.0.1
+      regexp.prototype.flags: 1.5.4
+      safe-array-concat: 1.1.3
+      safe-push-apply: 1.0.0
+      safe-regex-test: 1.1.0
+      set-proto: 1.0.0
+      stop-iteration-iterator: 1.1.0
+      string.prototype.trim: 1.2.10
+      string.prototype.trimend: 1.0.9
+      string.prototype.trimstart: 1.0.8
+      typed-array-buffer: 1.0.3
+      typed-array-byte-length: 1.0.3
+      typed-array-byte-offset: 1.0.4
+      typed-array-length: 1.0.7
+      unbox-primitive: 1.1.0
+      which-typed-array: 1.1.20
+    optional: true
+
   es-define-property@1.0.1: {}
 
   es-errors@1.3.0: {}
@@ -11372,7 +11475,7 @@ snapshots:
     dependencies:
       debug: 3.2.7
       is-core-module: 2.16.1
-      resolve: 1.22.10
+      resolve: 1.22.11
     transitivePeerDependencies:
       - supports-color
     optional: true
@@ -13003,6 +13106,8 @@ snapshots:
 
   js-base64@3.7.7: {}
 
+  js-base64@3.7.8: {}
+
   js-tokens@4.0.0: {}
 
   js-yaml@3.14.1:
@@ -13160,6 +13265,8 @@ snapshots:
       p-locate: 6.0.0
 
   lodash-es@4.17.21: {}
+
+  lodash-es@4.17.22: {}
 
   lodash.camelcase@4.3.0: {}
 
@@ -13681,7 +13788,7 @@ snapshots:
     dependencies:
       call-bind: 1.0.8
       define-properties: 1.2.1
-      es-abstract: 1.24.0
+      es-abstract: 1.24.1
     optional: true
 
   object.values@1.2.1:
@@ -14179,6 +14286,13 @@ snapshots:
       is-core-module: 2.16.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
+
+  resolve@1.22.11:
+    dependencies:
+      is-core-module: 2.16.1
+      path-parse: 1.0.7
+      supports-preserve-symlinks-flag: 1.0.0
+    optional: true
 
   resolve@1.22.8:
     dependencies:
@@ -14749,6 +14863,8 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
+  tagged-tag@1.0.0: {}
+
   tapable@2.2.2: {}
 
   temp-dir@3.0.0: {}
@@ -14898,6 +15014,10 @@ snapshots:
   type-fest@2.19.0: {}
 
   type-fest@4.41.0: {}
+
+  type-fest@5.4.1:
+    dependencies:
+      tagged-tag: 1.0.0
 
   type-is@2.0.1:
     dependencies:
@@ -15069,6 +15189,8 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   uuid@11.1.0: {}
+
+  uuid@13.0.0: {}
 
   uuid@8.3.2: {}
 
@@ -15277,6 +15399,17 @@ snapshots:
       get-proto: 1.0.1
       gopd: 1.2.0
       has-tostringtag: 1.0.2
+
+  which-typed-array@1.1.20:
+    dependencies:
+      available-typed-arrays: 1.0.7
+      call-bind: 1.0.8
+      call-bound: 1.0.4
+      for-each: 0.3.5
+      get-proto: 1.0.1
+      gopd: 1.2.0
+      has-tostringtag: 1.0.2
+    optional: true
 
   which@2.0.2:
     dependencies:

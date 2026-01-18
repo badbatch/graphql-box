@@ -49,8 +49,8 @@
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@cachemap/core": "^5.2.8",
-    "@cachemap/map": "^5.0.10",
+    "@cachemap/core": "^5.2.11",
+    "@cachemap/map": "^5.0.11",
     "@graphql-box/cache-manager": "workspace:*",
     "@graphql-box/test-utils": "workspace:*",
     "@jest/globals": "^29.3.1",
