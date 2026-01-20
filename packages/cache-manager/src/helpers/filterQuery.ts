@@ -1,4 +1,5 @@
-import { buildAncestorFieldNames, buildFieldOperationPath, getAlias, isKind } from '@graphql-box/helpers';
+import { type FieldPaths } from '@graphql-box/core';
+import { isKind } from '@graphql-box/helpers';
 import {
   type DocumentNode,
   type FieldNode,
@@ -7,17 +8,19 @@ import {
   type OperationDefinitionNode,
   visit,
 } from 'graphql';
+import { buildOperationPathCacheKey } from '#helpers/buildOperationPathCacheKey.ts';
 
-export const filterQuery = (ast: DocumentNode, resolvedPaths: string[]): DocumentNode => {
+export const filterQuery = (ast: DocumentNode, resolvedPaths: string[], fieldPaths: FieldPaths): DocumentNode => {
+  const fieldPathStack: string[] = [];
+
   return visit(ast, {
-    enter: (node, _key, _parent, _path, ancestors) => {
+    enter: node => {
       if (isKind<FieldNode>(node, Kind.FIELD)) {
-        const ancestorFieldNames = buildAncestorFieldNames(ancestors);
-        const parentFieldPath = ancestorFieldNames.join('.');
-        const fieldName = getAlias(node) ?? node.name.value;
-        const fieldOperationPath = buildFieldOperationPath(fieldName, parentFieldPath);
+        fieldPathStack.push(node.name.value);
+        const operationPath = fieldPathStack.join('.');
+        const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
 
-        if (resolvedPaths.includes(fieldOperationPath)) {
+        if (resolvedPaths.includes(operationPathCacheKey)) {
           return null;
         }
       }
@@ -25,6 +28,10 @@ export const filterQuery = (ast: DocumentNode, resolvedPaths: string[]): Documen
       return;
     },
     leave: node => {
+      if (isKind<FieldNode>(node, Kind.FIELD)) {
+        fieldPathStack.pop();
+      }
+
       if (
         (isKind<FieldNode>(node, Kind.FIELD) ||
           isKind<InlineFragmentNode>(node, Kind.INLINE_FRAGMENT) ||

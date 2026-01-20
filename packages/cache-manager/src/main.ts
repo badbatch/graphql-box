@@ -85,7 +85,7 @@ export class CacheManager implements CacheManagerDef {
       return { kind: 'cache-hit', responseData: { data, extensions } };
     }
 
-    const filteredAst = filterQuery(ast, resolvedPaths);
+    const filteredAst = filterQuery(ast, resolvedPaths, context.fieldPaths);
     const filteredOperation = print(filteredAst);
 
     return {
@@ -115,7 +115,7 @@ export class CacheManager implements CacheManagerDef {
     return this._hashCacheKeys;
   }
 
-  set idKeys(idKey: string) {
+  set idKey(idKey: string) {
     this._idKey = idKey;
   }
 
@@ -353,9 +353,9 @@ export class CacheManager implements CacheManagerDef {
         };
 
         set(cachedResponseData, responseKey, operationPathResult.value);
-        resolvedOperationPaths.add(operationPath);
+        resolvedOperationPaths.add(operationPathCacheKey);
       } else {
-        rejectedOperationPaths.add(operationPath);
+        rejectedOperationPaths.add(operationPathCacheKey);
       }
     }
 
@@ -371,53 +371,61 @@ export class CacheManager implements CacheManagerDef {
   private async _storeResponseData(
     { operation }: OperationData,
     { data, extensions }: ResponseData,
-    { data: contextData, fieldPaths }: SetRequired<OperationContext, 'fieldPaths'>,
+    { fieldPaths }: SetRequired<OperationContext, 'fieldPaths'>,
   ): Promise<void> {
-    const { entities, operationPaths } = normaliseResponseData(data, fieldPaths, {
+    const { entities, operationPaths } = normaliseResponseData(data, extensions, fieldPaths, {
+      fallbackCacheControlDirectives: this._fallbackCacheControlDirectives,
       idKey: this._idKey,
     });
 
-    const { cacheMetadata } = extensions;
-
-    const cacheWritePromises: Promise<void>[] = [
-      this._writeOperation(operation, Object.keys(operationPaths), cacheMetadata[contextData.operationType]),
-    ];
+    const cacheWritePromises: Promise<void>[] = [this._writeOperation(operation, operationPaths)];
 
     for (const [entityCacheKey, entityCacheEntry] of Object.entries(entities)) {
-      cacheWritePromises.push(this._writeEntity(entityCacheKey, entityCacheEntry, cacheMetadata[entityCacheKey]));
+      cacheWritePromises.push(this._writeEntity(entityCacheKey, entityCacheEntry));
     }
 
     for (const [operationPathCacheKey, operationPathCacheEntry] of Object.entries(operationPaths)) {
-      cacheWritePromises.push(
-        this._writeOperationPath(operationPathCacheKey, operationPathCacheEntry, cacheMetadata[operationPathCacheKey]),
-      );
+      cacheWritePromises.push(this._writeOperationPath(operationPathCacheKey, operationPathCacheEntry));
     }
 
     await Promise.all(cacheWritePromises);
   }
 
-  private async _writeEntity(
-    cacheKey: string,
-    cacheEntry: EntityCacheEntry,
-    cacheMetadata?: CacheabilityMetadata,
-  ): Promise<void> {
-    return this._cache.set(`Entity:${cacheKey}`, cacheEntry, {
-      cacheOptions: cacheMetadata
-        ? {
-            metadata: cacheMetadata,
-          }
-        : {
-            cacheControl: this._fallbackCacheControlDirectives,
-          },
+  private async _writeEntity(cacheKey: string, cacheEntry: EntityCacheEntry): Promise<void> {
+    const { extensions, ...restCacheEntry } = cacheEntry;
+
+    return this._cache.set(`Entity:${cacheKey}`, restCacheEntry, {
+      cacheOptions: { metadata: extensions.cacheability },
       hashKey: this._hashCacheKeys,
     });
   }
 
   private async _writeOperation(
     operation: string,
-    refs: string[],
-    cacheMetadata?: CacheabilityMetadata,
+    cacheEntries: Record<string, OperationPathCacheEntry>,
   ): Promise<void> {
+    const refs = new Set<string>();
+    let metadata: CacheabilityMetadata | undefined;
+
+    for (const [operationPathCacheKey, cacheEntry] of Object.entries(cacheEntries)) {
+      refs.add(operationPathCacheKey);
+      const { cacheability } = cacheEntry.extensions;
+
+      if (!metadata || cacheEntry.extensions.cacheability.ttl > metadata.ttl) {
+        metadata = cacheability;
+      }
+    }
+
+    const cacheKey = `Operation:${operation.replaceAll('\n', ' ')}`;
+
+    if (!metadata) {
+      console.debug(
+        `Unable to write operation cache entry for "${cacheKey}". Cache metadata was not returned for this entry.`,
+      );
+
+      return;
+    }
+
     return this._cache.set(
       `Operation:${operation.replaceAll('\n', ' ')}`,
       {
@@ -425,31 +433,21 @@ export class CacheManager implements CacheManagerDef {
         refs: [...refs],
       },
       {
-        cacheOptions: cacheMetadata
-          ? {
-              metadata: cacheMetadata,
-            }
-          : {
-              cacheControl: this._fallbackCacheControlDirectives,
-            },
+        cacheOptions: {
+          metadata,
+        },
         hashKey: this._hashCacheKeys,
       },
     );
   }
 
-  private async _writeOperationPath(
-    cacheKey: string,
-    cacheEntry: OperationPathCacheEntry,
-    cacheMetadata?: CacheabilityMetadata,
-  ): Promise<void> {
-    return this._cache.set(`OperationPath:${cacheKey}`, cacheEntry, {
-      cacheOptions: cacheMetadata
-        ? {
-            metadata: cacheMetadata,
-          }
-        : {
-            cacheControl: this._fallbackCacheControlDirectives,
-          },
+  private async _writeOperationPath(cacheKey: string, cacheEntry: OperationPathCacheEntry): Promise<void> {
+    const { extensions, ...restCacheEntry } = cacheEntry;
+
+    return this._cache.set(`OperationPath:${cacheKey}`, restCacheEntry, {
+      cacheOptions: {
+        metadata: extensions.cacheability,
+      },
       hashKey: this._hashCacheKeys,
     });
   }

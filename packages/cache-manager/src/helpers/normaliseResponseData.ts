@@ -1,4 +1,5 @@
-import { type FieldPaths, type PlainObject } from '@graphql-box/core';
+import { type CacheMetadata, type FieldPaths, type PlainObject } from '@graphql-box/core';
+import { Cacheability } from 'cacheability';
 import { set, unset } from 'lodash-es';
 import { buildEntityCacheKey } from '#helpers/buildEntityCacheKey.ts';
 import { buildOperationPathCacheKey } from '#helpers/buildOperationPathCacheKey.ts';
@@ -13,13 +14,15 @@ export type NormalisedResponseData = {
 };
 
 export type NormalisedResponseDataOptions = {
+  fallbackCacheControlDirectives: string;
   idKey: string;
 };
 
 export const normaliseResponseData = (
   data: PlainObject<unknown> | undefined,
+  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata },
   fieldPaths: FieldPaths,
-  { idKey }: NormalisedResponseDataOptions,
+  { fallbackCacheControlDirectives, idKey }: NormalisedResponseDataOptions,
 ): NormalisedResponseData => {
   const entities: Record<string, EntityCacheEntry> = {};
   const operationPaths: Record<string, OperationPathCacheEntry> = {};
@@ -30,6 +33,9 @@ export const normaliseResponseData = (
       operationPaths,
     };
   }
+
+  const { cacheMetadata } = extensions;
+  const { metadata: fallbackCacheability } = new Cacheability({ cacheControl: fallbackCacheControlDirectives });
 
   visitResponseData(data, [], (responseDataValue, operationPathStack, responseKeyStack) => {
     const operationPath = operationPathStack.join('.');
@@ -52,6 +58,9 @@ export const normaliseResponseData = (
         : responseDataValue;
 
       operationPaths[operationPathCacheKey] = {
+        extensions: {
+          cacheability: cacheMetadata[operationPathCacheKey] ?? fallbackCacheability,
+        },
         kind: 'operationPath',
         refTargets: buildRefTargets(cacheEntryValue),
         value: structuredClone(cacheEntryValue),
@@ -77,6 +86,9 @@ export const normaliseResponseData = (
         : responseDataValue;
 
       entities[entityCacheKey] = {
+        extensions: {
+          cacheability: cacheMetadata[entityCacheKey] ?? fallbackCacheability,
+        },
         kind: 'entity',
         refTargets: buildRefTargets(cacheEntryValue),
         // Struggling to resolve type issues, will need to revisit.
