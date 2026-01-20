@@ -1,18 +1,14 @@
 import { type CoreWorker } from '@cachemap/core-worker';
-import { type CacheManagerDef } from '@graphql-box/cache-manager';
 import {
   type DebugManagerDef,
   type OperationContext,
-  type OperationData,
   type OperationOptions,
   type PartialOperationContext,
   type PlainObject,
   type ResponseData,
-  type ResponseDataWithoutErrors,
 } from '@graphql-box/core';
 import { OPERATION_RESOLVED } from '@graphql-box/core';
 import { ArgsError, GroupedError, deserializeErrors, hashOperation, isPlainObject } from '@graphql-box/helpers';
-import { type OperationParserDef } from '@graphql-box/operation-parser';
 import { OperationTypeNode } from 'graphql';
 import { v4 as uuid } from 'uuid';
 import { GRAPHQL_BOX, MESSAGE } from './constants.ts';
@@ -26,16 +22,6 @@ import {
 } from './types.ts';
 
 export class WorkerClient {
-  private static _resolve({ __cacheMetadata, ...rest }: ResponseData, options: OperationOptions): ResponseData {
-    const result: ResponseData = { ...rest };
-
-    if (options.returnCacheMetadata && __cacheMetadata) {
-      result.__cacheMetadata = __cacheMetadata;
-    }
-
-    return result;
-  }
-
   private _onMessage = ({ data }: MessageEvent<MessageResponsePayload>): void => {
     if (!isPlainObject(data)) {
       return;
@@ -47,7 +33,7 @@ export class WorkerClient {
       return;
     }
 
-    const { operationId, operationType } = context.data;
+    const { operationId } = context.data;
     const pending = this._pending.get(operationId);
 
     if (!pending) {
@@ -60,11 +46,6 @@ export class WorkerClient {
     });
 
     const response: ResponseData & { operationId: string } = { ...deserializeErrors(result), operationId };
-
-    if (operationType === OperationTypeNode.QUERY && pending.operationData && pending.options && pending.context) {
-      void this._cacheManager.cacheQuery(response, pending.context);
-    }
-
     pending.resolve(response);
   };
 
@@ -74,10 +55,8 @@ export class WorkerClient {
    * client is using within the worker.
    */
   private readonly _cache: CoreWorker;
-  private readonly _cacheManager: CacheManagerDef;
   private readonly _debugManager: DebugManagerDef | undefined;
   private _messageQueue: MessageRequestPayload[] = [];
-  private _operationParser: OperationParserDef;
   private _pending: PendingTracker = new Map();
   private _worker: Worker | undefined;
 
@@ -90,10 +69,6 @@ export class WorkerClient {
 
     if (!('cache' in options)) {
       errors.push(new ArgsError('@graphql-box/worker-client expected options.cache.'));
-    }
-
-    if (!('cacheManager' in options)) {
-      errors.push(new ArgsError('@graphql-box/worker-client expected options.cacheManager.'));
     }
 
     if (!('operationParser' in options)) {
@@ -109,9 +84,7 @@ export class WorkerClient {
     }
 
     this._cache = options.cache;
-    this._cacheManager = options.cacheManager;
     this._debugManager = options.debugManager;
-    this._operationParser = options.operationParser;
 
     if (typeof options.worker === 'function') {
       Promise.resolve(options.worker())
@@ -133,22 +106,17 @@ export class WorkerClient {
     return this._cache;
   }
 
-  get cacheManager(): CacheManagerDef {
-    return this._cacheManager;
-  }
-
   public async query<T extends PlainObject = PlainObject>(
     operation: string,
     options: OperationOptions = {},
     context: PartialOperationContext = {},
   ): Promise<ResponseData<T> & { operationId: string }> {
     const operationContext = this._buildOperationContext(OperationTypeNode.QUERY, operation, options, context);
-    const operationData = this._operationParser.buildOperationData(operation, options, operationContext);
 
     // Casting to allow user to type response data while allowing downstream code
     // to be more generic.
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    return this._handleQuery(operationData, options, operationContext) as Promise<
+    return this._handleQuery(operation, options, operationContext) as Promise<
       ResponseData<T> & { operationId: string }
     >;
   }
@@ -183,7 +151,7 @@ export class WorkerClient {
         operationName: '',
         operationType,
         operationTypeComplexity: undefined,
-        originalOperationHash: hashOperation(operation),
+        rawOperationHash: hashOperation(operation),
         tag: options.tag,
         variables: options.variables,
       },
@@ -194,25 +162,17 @@ export class WorkerClient {
 
   @logOperation()
   private async _handleQuery(
-    operationData: OperationData,
+    operation: string,
     options: OperationOptions,
     context: OperationContext,
   ): Promise<ResponseData> {
-    const result = await this._cacheManager.cache?.get<ResponseDataWithoutErrors>(operationData.operation, {
-      hashKey: this._cacheManager.hashCacheKeys,
-    });
-
-    if (result) {
-      return WorkerClient._resolve(result, options);
-    }
-
     return await new Promise((resolve: PendingResolver) => {
       if (this._worker) {
         this._worker.postMessage({
           context: {
             data: context.data,
           },
-          operation: operationData.operation,
+          operation,
           options,
           type: GRAPHQL_BOX,
         });
@@ -221,13 +181,13 @@ export class WorkerClient {
           context: {
             data: context.data,
           },
-          operation: operationData.operation,
+          operation,
           options,
           type: GRAPHQL_BOX,
         });
       }
 
-      this._pending.set(context.data.operationId, { context, operationData, options, resolve });
+      this._pending.set(context.data.operationId, { context, operation, options, resolve });
     });
   }
 

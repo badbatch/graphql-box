@@ -2,18 +2,13 @@ import {
   OPERATION_EXECUTED,
   OPERATION_RESOLVED,
   type OperationContext,
-  type OperationData,
   type OperationOptions,
   type ResponseData,
 } from '@graphql-box/core';
 import { operationNameRegex } from '../helpers/operationNameRegex.ts';
 import { type WorkerClient } from '../main.ts';
 
-type Descriptor = (
-  operationData: OperationData,
-  options: OperationOptions,
-  context: OperationContext,
-) => Promise<ResponseData>;
+type Descriptor = (operation: string, options: OperationOptions, context: OperationContext) => Promise<ResponseData>;
 
 export const logOperation = () => {
   return (_target: WorkerClient, _propertyName: string, descriptor: TypedPropertyDescriptor<Descriptor>): void => {
@@ -33,7 +28,7 @@ export const logOperation = () => {
             return;
           }
 
-          const derivedOperationName = operationNameRegex(args[0].operation);
+          const derivedOperationName = operationNameRegex(args[0]);
           const startTime = debugManager.now();
 
           debugManager.log(OPERATION_EXECUTED, {

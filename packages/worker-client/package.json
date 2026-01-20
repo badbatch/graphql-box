@@ -54,15 +54,11 @@
     "uuid": "^11.1.0"
   },
   "peerDependencies": {
-    "@graphql-box/cache-manager": "workspace:*",
     "@graphql-box/client": "workspace:*",
-    "@graphql-box/operation-parser": "workspace:*",
     "graphql": "<17"
   },
   "devDependencies": {
-    "@graphql-box/cache-manager": "workspace:*",
     "@graphql-box/client": "workspace:*",
-    "@graphql-box/operation-parser": "workspace:*",
     "cts-types": "^0.0.10",
     "del-cli": "^6.0.0",
     "graphql": "^16.11.0"

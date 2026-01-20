@@ -11,7 +11,7 @@ export const getOperationContext = (ctx: PartialOperationContext = {}): Operatio
         operationName: '',
         operationType: OperationTypeNode.QUERY,
         operationTypeComplexity: undefined,
-        originalOperationHash: '',
+        rawOperationHash: '',
       },
       debugManager: undefined,
       fieldPaths: undefined,

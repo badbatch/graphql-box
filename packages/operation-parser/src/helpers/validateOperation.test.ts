@@ -2,7 +2,7 @@ import { githubIntrospection, parsedOperations } from '@graphql-box/test-utils';
 import { type IntrospectionQuery, buildClientSchema, parse } from 'graphql';
 import { validateOperation } from './validateOperation.ts';
 
-const { query, queryWithConnection, queryWithIncludeTrueDirective } = parsedOperations;
+const { query, queryWithConnection } = parsedOperations;
 
 describe('validateOperation', () => {
   const githubSchema = buildClientSchema(githubIntrospection as IntrospectionQuery);
@@ -142,7 +142,7 @@ describe('validateOperation', () => {
 
     describe('when the AST is valid', () => {
       it('should not throw an error', () => {
-        const ast = parse(queryWithIncludeTrueDirective);
+        const ast = parse(query);
 
         expect(() => {
           validateOperation({

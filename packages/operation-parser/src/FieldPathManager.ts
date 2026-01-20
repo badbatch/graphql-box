@@ -41,8 +41,9 @@ export class FieldPathManager {
     }: AddFieldPathOptions,
   ): void {
     const fieldPath = fieldPathStack.join('.');
-    const fieldArgs = getArguments(field);
     const existingFieldPath = this._fieldPaths[fieldPath];
+    const fieldAlias = getAlias(field);
+    const fieldArgs = getArguments(field);
 
     if (existingFieldPath) {
       if (typeConditions.length > 0) {
@@ -56,8 +57,9 @@ export class FieldPathManager {
         typeName,
         ...pickBy(
           {
-            fieldAlias: getAlias(field),
             fieldArgs,
+            fieldName: fieldAlias ? field.name.value : undefined,
+            hasAlias: !!fieldAlias,
             hasArgs,
             isAbstract,
             isEntity,

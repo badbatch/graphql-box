@@ -52,9 +52,10 @@ export type ExecutionContextValue = PlainObject & {
 export type ExecutionContextValueData = PlainObject & Except<OperationContextData, 'initiator'>;
 
 export type FieldPathMetadata = {
-  fieldAlias?: string;
   fieldArgs?: PlainObject<unknown>;
   fieldDepth: number;
+  fieldName?: string;
+  hasAlias?: true;
   hasArgs?: true;
   isAbstract?: true;
   isEntity?: true;
@@ -124,7 +125,7 @@ export type OperationContextData = PlainObject<unknown> & {
   operationName: string;
   operationType: OperationTypeNode;
   operationTypeComplexity?: number;
-  originalOperationHash: string;
+  rawOperationHash: string;
 };
 
 export type OperationContext = {

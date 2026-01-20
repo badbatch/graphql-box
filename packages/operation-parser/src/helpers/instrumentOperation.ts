@@ -65,7 +65,7 @@ export const instrumentOperation = (
         const type = typeInfo.getType();
 
         if (isKind<FieldNode>(node, Kind.FIELD)) {
-          fieldPathStack.push(node.name.value);
+          fieldPathStack.push(getAlias(node) ?? node.name.value);
           const namedType = getNamedType(type);
 
           if (

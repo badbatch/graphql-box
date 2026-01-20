@@ -29,17 +29,11 @@ export class Client {
   }
 
   private static _resolve(
-    { __cacheMetadata, ...rest }: ResponseData,
-    options: OperationOptions,
+    responseData: ResponseData,
+    _options: OperationOptions,
     context: OperationContext,
   ): ResponseData & { operationId: string } {
-    const result: ResponseData = { ...rest };
-
-    if (options.returnCacheMetadata && __cacheMetadata) {
-      result.__cacheMetadata = __cacheMetadata;
-    }
-
-    return { ...result, operationId: context.data.operationId };
+    return { ...responseData, operationId: context.data.operationId };
   }
 
   private static _validateOperationArgs(query: string, options: OperationOptions): ArgsError[] {
@@ -127,7 +121,7 @@ export class Client {
 
   private _buildOperationContext(
     operationType: OperationTypeNode,
-    request: string,
+    operation: string,
     options: OperationOptions,
     context: PartialOperationContext,
   ): OperationContext {
@@ -141,7 +135,7 @@ export class Client {
         operationName: '',
         operationType,
         operationTypeComplexity: undefined,
-        originalOperationHash: hashOperation(request),
+        rawOperationHash: hashOperation(operation),
         tag: options.tag,
         variables: options.variables,
       },
@@ -156,45 +150,39 @@ export class Client {
     options: OperationOptions,
     context: OperationContext,
   ): Promise<ResponseData> {
-    const result = await this._cacheManager.cache?.get<ResponseDataWithoutErrors>(operationData.operation, {
-      hashKey: this._cacheManager.hashCacheKeys,
-    });
-
-    if (result) {
-      this._debugManager?.log(QUERY_RESOLVED_FROM_CACHE, {
-        data: {
-          ...context.data,
-        },
-      });
-
-      return Client._resolve(result, options, context);
-    }
-
     const pendingQuery = await this._trackQuery(operationData, options, context);
 
     if (pendingQuery) {
       return pendingQuery;
     }
 
-    const { operationData: analyzedOperationData, responseData: initialResponseData } =
-      await this._cacheManager.analyzeQuery(operationData, context);
+    const analyzeResult = await this._cacheManager.analyzeQuery(operationData, context);
 
-    if (initialResponseData) {
-      return this._resolveQuery(operationData, initialResponseData, options, context);
+    if (analyzeResult.kind === 'cache-hit') {
+      this._debugManager?.log(QUERY_RESOLVED_FROM_CACHE, {
+        data: {
+          ...context.data,
+        },
+      });
+
+      return this._resolveQuery(operationData, analyzeResult.responseData, options, context);
     }
 
-    // @ts-expect-error One of operationData or responseData is required,
-    // and if there is responseData we are returning above.
-    const executeResult = await this._requestManager.execute(analyzedOperationData, options, context);
-    await this._cacheManager.cacheQuery(executeResult, context);
-    const { responseData: finalResponseData } = await this._cacheManager.analyzeQuery(operationData, context);
+    const executeResult = await this._requestManager.execute(analyzeResult.operationData, options, context);
+    await this._cacheManager.cacheQuery(analyzeResult.operationData, executeResult, context);
+    const finalAnalyzeResult = await this._cacheManager.analyzeQuery(operationData, context);
 
-    if (!finalResponseData) {
+    if (finalAnalyzeResult.kind !== 'cache-hit') {
       console.error(
         'Final response data not returned from cache manager, there is a problem with how the cache manager has stored/retrieved the response data.',
       );
 
-      return this._resolveQuery(operationData, {}, options, context);
+      return this._resolveQuery(
+        operationData,
+        { data: undefined, extensions: { cacheMetadata: {} } },
+        options,
+        context,
+      );
     }
 
     this._debugManager?.log(OPERATION_RESOLVED, {
@@ -202,7 +190,7 @@ export class Client {
       stats: { endTime: this._debugManager.now() },
     });
 
-    return this._resolveQuery(operationData, finalResponseData, options, context);
+    return this._resolveQuery(operationData, finalAnalyzeResult.responseData, options, context);
   }
 
   private _resolvePendingQueries(operationData: OperationData, responseData: ResponseData): void {

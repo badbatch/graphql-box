@@ -1,5 +1,5 @@
 import { type FieldPaths } from '@graphql-box/core';
-import { isKind } from '@graphql-box/helpers';
+import { getAlias, isKind } from '@graphql-box/helpers';
 import {
   type DocumentNode,
   type FieldNode,
@@ -16,7 +16,7 @@ export const filterQuery = (ast: DocumentNode, resolvedPaths: string[], fieldPat
   return visit(ast, {
     enter: node => {
       if (isKind<FieldNode>(node, Kind.FIELD)) {
-        fieldPathStack.push(node.name.value);
+        fieldPathStack.push(getAlias(node) ?? node.name.value);
         const operationPath = fieldPathStack.join('.');
         const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
 
