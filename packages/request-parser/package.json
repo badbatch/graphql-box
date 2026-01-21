@@ -45,7 +45,7 @@
     "@graphql-box/helpers": "workspace:*",
     "@types/lodash-es": "^4.17.12",
     "core-js": "^3.43.0",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.23"
   },
   "peerDependencies": {
     "graphql": "<17"
