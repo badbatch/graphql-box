@@ -51,7 +51,7 @@ export const instrumentOperation = (
   }
 
   const typeOccurrences: Record<string, number> = {};
-  const fieldPathManager = new FieldPathManager();
+  const fieldPathManager = new FieldPathManager(schema);
   const typeInfo = new TypeInfo(schema);
   const fieldPathStack: string[] = [];
   const concreteTypeStack: string[] = [];
@@ -139,8 +139,6 @@ export const instrumentOperation = (
           concreteTypeStack.push(typeConditionValue);
           typeOccurrences[typeConditionValue] = (typeOccurrences[typeConditionValue] ?? 0) + 1;
         }
-
-        return;
       },
       leave: node => {
         if (

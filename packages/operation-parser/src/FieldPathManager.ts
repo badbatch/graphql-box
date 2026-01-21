@@ -1,7 +1,8 @@
 import { type FieldPathMetadata } from '@graphql-box/core';
 import { getAlias, getArguments } from '@graphql-box/helpers';
-import { type FieldNode } from 'graphql';
+import { type FieldNode, type GraphQLSchema } from 'graphql';
 import { pickBy } from 'lodash-es';
+import { buildRequiredFields } from '#helpers/buildRequiredFields.ts';
 
 export type AddFieldPathOptions = {
   fieldDepth: number;
@@ -21,6 +22,8 @@ export type AddFieldPathOptions = {
 
 export class FieldPathManager {
   private _fieldPaths: Record<string, FieldPathMetadata> = {};
+
+  constructor(private _schema: GraphQLSchema) {}
 
   public addFieldPath(
     field: FieldNode,
@@ -67,6 +70,7 @@ export class FieldPathManager {
             isList,
             isRootEntity,
             leafEntity,
+            requiredFields: isEntity ? buildRequiredFields(field, typeName, this._schema) : undefined,
             typeConditions: typeConditions.length > 0 ? new Set(typeConditions) : undefined,
           },
           v => v !== undefined && v !== false,

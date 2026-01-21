@@ -10,7 +10,6 @@ export * from './parsing/alias.ts';
 export * from './parsing/aliasOrName.ts';
 export * from './parsing/arguments.ts';
 export * from './parsing/fragmentDefinitions.ts';
-export * from './parsing/fragmentSpreads.ts';
 export * from './parsing/inlineFragments.ts';
 export * from './parsing/kind.ts';
 export * from './parsing/name.ts';

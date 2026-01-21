@@ -96,6 +96,15 @@ describe('instrumentOperation', () => {
             "isRootEntity": true,
             "pathCacheKey": "organization({"login":"facebook"})",
             "pathResponseKey": "organization",
+            "requiredFields": {
+              "__typename": Set {
+                "email",
+                "login",
+                "name",
+                "id",
+                "__typename",
+              },
+            },
             "typeName": "Organization",
           },
           "organization.__typename": {
@@ -223,6 +232,15 @@ describe('instrumentOperation', () => {
             "isRootEntity": true,
             "pathCacheKey": "organization({"login":"facebook"})",
             "pathResponseKey": "organization",
+            "requiredFields": {
+              "__typename": Set {
+                "email",
+                "name",
+                "login",
+                "id",
+                "__typename",
+              },
+            },
             "typeName": "Organization",
           },
           "organization.__typename": {
@@ -354,6 +372,16 @@ describe('instrumentOperation', () => {
             "isRootEntity": true,
             "pathCacheKey": "repositoryOwner({"login":"facebook"})",
             "pathResponseKey": "repositoryOwner",
+            "requiredFields": {
+              "Organization": Set {
+                "login",
+                "name",
+              },
+              "__typename": Set {
+                "email",
+                "__typename",
+              },
+            },
             "typeName": "RepositoryOwner",
           },
           "repositoryOwner.__typename": {
@@ -485,6 +513,15 @@ describe('instrumentOperation', () => {
             "isRootEntity": true,
             "pathCacheKey": "organization({"login":"facebook"})",
             "pathResponseKey": "organization",
+            "requiredFields": {
+              "__typename": Set {
+                "email",
+                "login",
+                "name",
+                "id",
+                "__typename",
+              },
+            },
             "typeName": "Organization",
           },
           "organization.__typename": {
@@ -633,6 +670,16 @@ describe('instrumentOperation', () => {
             "isRootEntity": true,
             "pathCacheKey": "organization({"login":"facebook"})",
             "pathResponseKey": "organization",
+            "requiredFields": {
+              "__typename": Set {
+                "description",
+                "email",
+                "login",
+                "name",
+                "id",
+                "__typename",
+              },
+            },
             "typeName": "Organization",
           },
           "organization.__typename": {
@@ -705,6 +752,15 @@ describe('instrumentOperation', () => {
             "isEntity": true,
             "pathCacheKey": "node",
             "pathResponseKey": "node",
+            "requiredFields": {
+              "__typename": Set {
+                "description",
+                "homepageUrl",
+                "name",
+                "id",
+                "__typename",
+              },
+            },
             "typeName": "Repository",
           },
           "organization.repositories.edges.node.__typename": {
@@ -853,6 +909,16 @@ describe('instrumentOperation', () => {
             "isRootEntity": true,
             "pathCacheKey": "organization({"login":"facebook"})",
             "pathResponseKey": "organization",
+            "requiredFields": {
+              "__typename": Set {
+                "description",
+                "email",
+                "login",
+                "name",
+                "id",
+                "__typename",
+              },
+            },
             "typeName": "Organization",
           },
           "organization.__typename": {
@@ -925,6 +991,15 @@ describe('instrumentOperation', () => {
             "isEntity": true,
             "pathCacheKey": "node",
             "pathResponseKey": "node",
+            "requiredFields": {
+              "__typename": Set {
+                "description",
+                "homepageUrl",
+                "name",
+                "id",
+                "__typename",
+              },
+            },
             "typeName": "Repository",
           },
           "organization.repositories.edges.node.__typename": {
@@ -1110,6 +1185,36 @@ describe('instrumentOperation', () => {
             "isEntity": true,
             "pathCacheKey": "node",
             "pathResponseKey": "node",
+            "requiredFields": {
+              "Issue": Set {
+                "bodyText",
+                "number",
+                "title",
+              },
+              "MarketplaceListing": Set {
+                "howItWorks",
+                "shortDescription",
+                "slug",
+              },
+              "Organization": Set {
+                "description",
+                "login",
+                "name",
+              },
+              "PullRequest": Set {
+                "bodyText",
+                "number",
+                "title",
+              },
+              "Repository": Set {
+                "description",
+                "homepageUrl",
+                "name",
+              },
+              "__typename": Set {
+                "__typename",
+              },
+            },
             "typeName": "SearchResultItem",
           },
           "search.edges.node.__typename": {

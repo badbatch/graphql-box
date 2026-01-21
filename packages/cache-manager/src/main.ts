@@ -14,6 +14,7 @@ import { set } from 'lodash-es';
 import { type SetRequired } from 'type-fest';
 import { buildOperationPathCacheKey } from '#helpers/buildOperationPathCacheKey.ts';
 import { buildResponseDataKey } from '#helpers/buildResponseDataPath.ts';
+import { mergeRefTargets } from '#helpers/mergeRefTargets.ts';
 import { normaliseResponseData } from '#helpers/normaliseResponseData.ts';
 import { filterQuery } from './helpers/filterQuery.ts';
 import {
@@ -392,12 +393,19 @@ export class CacheManager implements CacheManagerDef {
   }
 
   private async _writeEntity(cacheKey: string, cacheEntry: EntityCacheEntry): Promise<void> {
-    const { extensions, ...restCacheEntry } = cacheEntry;
+    const { extensions, kind, refTargets, value } = cacheEntry;
+    const result = await this._readEntity(cacheKey);
+    const finalValue = result ? { ...result.value, ...value } : value;
+    const finalRefTargets = result ? mergeRefTargets(finalValue, result.refTargets, refTargets) : cacheEntry.refTargets;
 
-    return this._cache.set(`Entity:${cacheKey}`, restCacheEntry, {
-      cacheOptions: { metadata: extensions.cacheability },
-      hashKey: this._hashCacheKeys,
-    });
+    return this._cache.set(
+      `Entity:${cacheKey}`,
+      { extensions, kind, refTargets: finalRefTargets, value: finalValue },
+      {
+        cacheOptions: { metadata: extensions.cacheability },
+        hashKey: this._hashCacheKeys,
+      },
+    );
   }
 
   private async _writeOperation(
