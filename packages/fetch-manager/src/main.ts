@@ -27,8 +27,10 @@ export class FetchManager {
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: unknown): void {
+    const finalError = error instanceof Error ? error : new Error('Batched request failed');
+
     for (const { reject } of Object.values(batchEntries)) {
-      reject(error);
+      reject(finalError);
     }
   }
 
@@ -48,7 +50,7 @@ export class FetchManager {
   }
 
   private _activeRequestBatch: Record<string, ActiveBatch | undefined> = {};
-  private _activeRequestBatchTimer: Record<string, NodeJS.Timeout | undefined> = {};
+  private _activeRequestBatchTimer: Record<string, ReturnType<typeof setTimeout> | undefined> = {};
   private readonly _apiUrl: string;
   private readonly _batchRequests: boolean;
   private readonly _fetchTimeout: number;
@@ -141,7 +143,9 @@ export class FetchManager {
       }
 
       void this._fetchBatch(url, activeRequestBatch.entries());
-      this._activeRequestBatch[url] = undefined;
+      // Okay in this instance
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+      delete this._activeRequestBatch[url];
       this._createRequestBatch(url, body, requestId, actions);
     } else {
       this._updateRequestBatch(url, body, requestId, actions);
@@ -175,6 +179,15 @@ export class FetchManager {
         });
 
         clearTimeout(fetchTimer);
+
+        if (!fetchResult.ok) {
+          reject(
+            new Error(`@graphql-box/fetch-manager received a ${String(fetchResult.status)} ${fetchResult.statusText}`),
+          );
+
+          return;
+        }
+
         // .json() returns an any type
         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         resolve((await fetchResult.json()) as T);
@@ -216,10 +229,14 @@ export class FetchManager {
 
       if (activeRequestBatch) {
         void this._fetchBatch(url, activeRequestBatch.entries());
-        this._activeRequestBatch[url] = undefined;
+        // Okay in this instance
+        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+        delete this._activeRequestBatch[url];
       }
 
-      this._activeRequestBatchTimer[url] = undefined;
+      // Okay in this instance
+      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+      delete this._activeRequestBatchTimer[url];
     }, this._requestBatchInterval);
   }
 

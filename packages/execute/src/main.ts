@@ -75,9 +75,9 @@ export class Execute {
     const { data, errors } = executeResult;
 
     return {
-      __cacheMetadata: cacheMetadata,
       data: data ?? undefined,
       errors,
+      extensions: { cacheMetadata: { ...cacheMetadata } },
     };
   }
 }

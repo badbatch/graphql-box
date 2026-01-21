@@ -35,6 +35,7 @@ export interface PendingData {
   context?: OperationContext;
   operation: string;
   options?: OperationOptions;
+  reject: (err: unknown) => void;
   resolve: PendingResolver;
 }
 

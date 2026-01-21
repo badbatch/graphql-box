@@ -47,6 +47,7 @@ export class WorkerClient {
 
     const response: ResponseData & { operationId: string } = { ...deserializeErrors(result), operationId };
     pending.resolve(response);
+    this._pending.delete(operationId);
   };
 
   /**
@@ -133,6 +134,18 @@ export class WorkerClient {
     }
 
     this._worker.addEventListener(MESSAGE, this._onMessage);
+
+    const clearPending = (err: unknown) => {
+      for (const { reject } of this._pending.values()) {
+        const error = err instanceof Error ? err : new Error('Worker errored, pending operations have been rejected');
+        reject(error);
+      }
+
+      this._pending.clear();
+    };
+
+    this._worker.addEventListener('error', clearPending);
+    this._worker.addEventListener('messageerror', clearPending);
   }
 
   private _buildOperationContext(
@@ -166,7 +179,7 @@ export class WorkerClient {
     options: OperationOptions,
     context: OperationContext,
   ): Promise<ResponseData> {
-    return await new Promise((resolve: PendingResolver) => {
+    return await new Promise((resolve: PendingResolver, reject) => {
       if (this._worker) {
         this._worker.postMessage({
           context: {
@@ -187,7 +200,7 @@ export class WorkerClient {
         });
       }
 
-      this._pending.set(context.data.operationId, { context, operation, options, resolve });
+      this._pending.set(context.data.operationId, { context, operation, options, reject, resolve });
     });
   }
 
