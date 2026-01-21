@@ -38,13 +38,13 @@ export class FetchManager {
     { responses }: BatchedSerialisedResponseData,
     batchEntries: BatchActionsObjectMap,
   ): void {
-    for (const [requestId, { reject, resolve }] of Object.entries(batchEntries)) {
-      const responseData = responses[requestId];
+    for (const [operationId, { reject, resolve }] of Object.entries(batchEntries)) {
+      const responseData = responses[operationId];
 
       if (responseData) {
         resolve(logErrorsToConsole(deserializeErrors({ ...responseData })));
       } else {
-        reject(new Error(`@graphql-box/fetch-manager did not get a response for batched request ${requestId}.`));
+        reject(new Error(`@graphql-box/fetch-manager did not get a response for batched request ${operationId}.`));
       }
     }
   }
@@ -88,7 +88,7 @@ export class FetchManager {
     const url = this._apiUrl;
 
     if (options.batch === false || !this._batchRequests) {
-      const fetchResult = await this._fetch<SerialisedResponseData>(`${url}?requestId=${context.data.operationId}`, {
+      const fetchResult = await this._fetch<SerialisedResponseData>(`${url}?operationId=${context.data.operationId}`, {
         batched: false,
         context: FetchManager._getMessageContext(context),
         operation,
@@ -117,24 +117,24 @@ export class FetchManager {
       }
 
       const url = this._logUrl;
-      const requestId = uuid();
+      const opeerationId = uuid();
 
       if (!this._batchRequests) {
-        void this._fetch(`${url}?requestId=${requestId}`, { batched: false, data, logLevel, message });
+        void this._fetch(`${url}?opeerationId=${opeerationId}`, { batched: false, data, logLevel, message });
         return;
       }
 
-      this._batchRequest(url, { data, logLevel, message }, requestId);
+      this._batchRequest(url, { data, logLevel, message }, opeerationId);
     } catch {
       // no catch
     }
   }
 
-  private _batchRequest(url: string, body: PlainObject, requestId: string, actions?: BatchResultActions): void {
+  private _batchRequest(url: string, body: PlainObject, operationId: string, actions?: BatchResultActions): void {
     const activeRequestBatch = this._activeRequestBatch[url];
 
     if (!activeRequestBatch) {
-      this._createRequestBatch(url, body, requestId, actions);
+      this._createRequestBatch(url, body, operationId, actions);
     } else if (activeRequestBatch.size >= this._requestBatchMax) {
       const activeRequestBatchTimer = this._activeRequestBatchTimer[url];
 
@@ -146,73 +146,76 @@ export class FetchManager {
       // Okay in this instance
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete this._activeRequestBatch[url];
-      this._createRequestBatch(url, body, requestId, actions);
+      this._createRequestBatch(url, body, operationId, actions);
     } else {
-      this._updateRequestBatch(url, body, requestId, actions);
+      this._updateRequestBatch(url, body, operationId, actions);
     }
   }
 
-  private _createRequestBatch(url: string, body: PlainObject, requestId: string, actions?: BatchResultActions): void {
+  private _createRequestBatch(url: string, body: PlainObject, operationId: string, actions?: BatchResultActions): void {
     const activeRequestBatch = new Map();
-    activeRequestBatch.set(requestId, { actions, body });
+    activeRequestBatch.set(operationId, { actions, body });
     this._activeRequestBatch[url] = activeRequestBatch;
     this._startRequestBatchTimer(url);
   }
 
   private async _fetch<T>(url: string, body: PlainObject): Promise<T> {
-    return new Promise<T>((resolve, reject) => {
-      void (async () => {
-        const fetchTimer = setTimeout(() => {
-          reject(
-            new Error(`@graphql-box/fetch-manager did not get a response within ${String(this._fetchTimeout)}ms.`),
-          );
-        }, this._fetchTimeout);
+    const controller = new AbortController();
 
-        const fetchResult = await fetch(url, {
-          body: JSON.stringify(body),
-          headers: new Headers({
-            ...this._headers,
-            'x-browser-href': globalThis.location.href,
-            'x-browser-pathname': globalThis.location.pathname,
-          }),
-          method: 'POST',
-        });
+    const fetchTimer = setTimeout(() => {
+      controller.abort();
+    }, this._fetchTimeout);
 
-        clearTimeout(fetchTimer);
+    try {
+      const fetchResult = await fetch(url, {
+        body: JSON.stringify(body),
+        headers: new Headers({
+          ...this._headers,
+          'x-browser-href': globalThis.location.href,
+          'x-browser-pathname': globalThis.location.pathname,
+        }),
+        method: 'POST',
+        signal: controller.signal,
+      });
 
-        if (!fetchResult.ok) {
-          reject(
-            new Error(`@graphql-box/fetch-manager received a ${String(fetchResult.status)} ${fetchResult.statusText}`),
-          );
+      if (!fetchResult.ok) {
+        throw new Error(
+          `@graphql-box/fetch-manager received a ${String(fetchResult.status)} ${fetchResult.statusText}`,
+        );
+      }
 
-          return;
-        }
+      // .json() returns an any type
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      return (await fetchResult.json()) as T;
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        throw new Error(`@graphql-box/fetch-manager did not get a response within ${String(this._fetchTimeout)}ms.`);
+      }
 
-        // .json() returns an any type
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        resolve((await fetchResult.json()) as T);
-      })();
-    });
+      throw error;
+    } finally {
+      clearTimeout(fetchTimer);
+    }
   }
 
   private async _fetchBatch(url: string, batchEntries: IterableIterator<[string, ActiveBatchValue]>): Promise<void> {
-    const requestIds: string[] = [];
+    const operationIds: string[] = [];
     const batchActions: BatchActionsObjectMap = {};
     const batchOperations: Record<string, PlainObject> = {};
 
-    for (const [requestId, { actions, body }] of batchEntries) {
-      requestIds.push(requestId);
+    for (const [operationId, { actions, body }] of batchEntries) {
+      operationIds.push(operationId);
 
       if (actions) {
-        batchActions[requestId] = actions;
+        batchActions[operationId] = actions;
       }
 
-      batchOperations[requestId] = body;
+      batchOperations[operationId] = body;
     }
 
     try {
       FetchManager._resolveFetchBatch(
-        await this._fetch<BatchedSerialisedResponseData>(`${url}?requestId=${requestIds.join('-')}`, {
+        await this._fetch<BatchedSerialisedResponseData>(`${url}?operationId=${operationIds.join('-')}`, {
           batched: true,
           operations: batchOperations,
         }),
@@ -240,7 +243,7 @@ export class FetchManager {
     }, this._requestBatchInterval);
   }
 
-  private _updateRequestBatch(url: string, body: PlainObject, requestId: string, actions?: BatchResultActions): void {
+  private _updateRequestBatch(url: string, body: PlainObject, operationId: string, actions?: BatchResultActions): void {
     const activeRequestBatchTimer = this._activeRequestBatchTimer[url];
 
     if (activeRequestBatchTimer) {
@@ -250,7 +253,7 @@ export class FetchManager {
     const activeRequestBatch = this._activeRequestBatch[url];
 
     if (activeRequestBatch) {
-      activeRequestBatch.set(requestId, { actions, body });
+      activeRequestBatch.set(operationId, { actions, body });
     }
 
     this._startRequestBatchTimer(url);

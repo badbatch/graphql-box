@@ -17,7 +17,7 @@ import {
 } from './types.ts';
 
 export class NextMiddleware {
-  private _client: Client;
+  private readonly _client: Client;
   private readonly _operationWhitelist: string[];
   private readonly _requestTimeout: number;
 
@@ -53,51 +53,80 @@ export class NextMiddleware {
     const response: SerialisedResponseDataBatch = { responses: {} };
 
     await Promise.all(
-      Object.keys(requests).map(async requestId => {
-        const requestEntry = requests[requestId];
+      Object.keys(requests).map(async operationId => {
+        const requestEntry = requests[operationId];
 
         if (!requestEntry) {
           return;
         }
 
         const { context, operation } = requestEntry;
-        const { originalOperationHash } = context.data;
+        const { rawOperationHash } = context.data;
 
         if (
           this._operationWhitelist.length > 0 &&
-          originalOperationHash &&
-          !this._operationWhitelist.includes(originalOperationHash)
+          rawOperationHash &&
+          !this._operationWhitelist.includes(rawOperationHash)
         ) {
-          response.responses[requestId] = serializeErrors({
-            errors: [new Error('@graphql-box/server: The request is not whitelisted.')],
+          response.responses[operationId] = serializeErrors({
+            errors: [new Error('@graphql-box/server: The request is not whitelisted')],
+            extensions: { cacheMetadata: {} },
           });
 
           return;
         }
 
-        try {
-          const requestTimer = setTimeout(() => {
-            response.responses[requestId] = serializeErrors({
-              errors: [
-                new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
-              ],
-            });
-          }, this._requestTimeout);
+        let requestFinished = false;
 
+        const requestTimer = setTimeout(() => {
+          if (requestFinished) {
+            return;
+          }
+
+          requestFinished = true;
+
+          response.responses[operationId] = serializeErrors({
+            errors: [
+              new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
+            ],
+            extensions: { cacheMetadata: {} },
+          });
+        }, this._requestTimeout);
+
+        try {
           // The client already has scope of this so no need to send it back.
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { operationId, ...otherProps } = await this._client.query(operation, options, context);
-          clearTimeout(requestTimer);
-          const responseEntry = serializeErrors({ ...otherProps });
-          response.responses[requestId] = responseEntry;
+          const { operationId: unusedOperationId, ...otherProps } = await this._client.query(
+            operation,
+            options,
+            context,
+          );
+
+          // typescript not deriving that requestFinished can be true
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if (requestFinished) {
+            return;
+          }
+
+          response.responses[operationId] = serializeErrors({ ...otherProps });
         } catch (error) {
+          // typescript not deriving that requestFinished can be true
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if (requestFinished) {
+            return;
+          }
+
           const confirmedError = isError(error)
             ? error
             : new Error('@graphql-box/server handleBatchRequest had an unexpected error.');
 
-          response.responses[requestId] = serializeErrors({
+          response.responses[operationId] = serializeErrors({
             errors: [confirmedError],
+            extensions: { cacheMetadata: {} },
           });
+        } finally {
+          requestFinished = true;
+          clearTimeout(requestTimer);
         }
       }),
     );
@@ -114,18 +143,25 @@ export class NextMiddleware {
   }
 
   private async _handleRequest(operation: string, options: OperationOptions, context: { data: OperationContextData }) {
-    if (this._operationWhitelist.length > 0 && !this._operationWhitelist.includes(context.data.originalOperationHash)) {
+    if (this._operationWhitelist.length > 0 && !this._operationWhitelist.includes(context.data.rawOperationHash)) {
       return new NextResponse(
-        JSON.stringify(serializeErrors({ errors: [new Error('The request is not whitelisted.')] })),
+        JSON.stringify(serializeErrors({ errors: [new Error('@graphql-box/server the request is not whitelisted.')] })),
         {
-          status: 400,
+          status: 403,
         },
       );
     }
 
     return new Promise<NextResponse>(resolve => {
+      let requestFinished = false;
+
       void (async () => {
         const requestTimer = setTimeout(() => {
+          if (requestFinished) {
+            return;
+          }
+
+          requestFinished = true;
           const message = `@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`;
 
           resolve(
@@ -142,18 +178,52 @@ export class NextMiddleware {
           );
         }, this._requestTimeout);
 
-        const result = await this._client.query(operation, options, context);
-        clearTimeout(requestTimer);
-        // The client already has scope of this so no need to send it back.
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { operationId, ...otherProps } = result;
-        const responseData = serializeErrors({ ...otherProps });
+        try {
+          const result = await this._client.query(operation, options, context);
 
-        resolve(
-          NextResponse.json(responseData, {
-            status: 200,
-          }),
-        );
+          // typescript not deriving that requestFinished can be true
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if (requestFinished) {
+            return;
+          }
+
+          // We don't want to send the operationId back as the client already
+          // has scope of this.
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { operationId, ...otherProps } = result;
+          const responseData = serializeErrors({ ...otherProps });
+
+          resolve(
+            NextResponse.json(responseData, {
+              status: 200,
+            }),
+          );
+        } catch (error) {
+          // typescript not deriving that requestFinished can be true
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if (requestFinished) {
+            return;
+          }
+
+          const confirmedError = isError(error)
+            ? error
+            : new Error('@graphql-box/server handleRequest had an unexpected error.');
+
+          resolve(
+            NextResponse.json(
+              serializeErrors({
+                errors: [confirmedError],
+                extensions: { cacheMetadata: {} },
+              }),
+              {
+                status: 200,
+              },
+            ),
+          );
+        } finally {
+          requestFinished = true;
+          clearTimeout(requestTimer);
+        }
       })();
     });
   }

@@ -43,11 +43,20 @@ describe('@graphql-box/fetch-manager', () => {
       it('correct request', () => {
         expect(mockedFetch.mock.lastCall).toMatchInlineSnapshot(`
           [
-            "https://api.github.com/graphql?requestId=123456789",
+            "https://api.github.com/graphql?operationId=123456789",
             {
-              "body": "{"batched":false,"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n    }\\n  }\\n"}",
+              "body": "{"batched":false,"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","rawOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n    }\\n  }\\n"}",
               "headers": Headers {},
               "method": "POST",
+              "signal": AbortSignal {
+                Symbol(kEvents): Map {},
+                Symbol(events.maxEventTargetListeners): 10,
+                Symbol(events.maxEventTargetListenersWarned): false,
+                Symbol(kHandlers): Map {},
+                Symbol(kAborted): false,
+                Symbol(kReason): undefined,
+                Symbol(kComposite): false,
+              },
             },
           ]
         `);
@@ -106,11 +115,20 @@ describe('@graphql-box/fetch-manager', () => {
       it('correct request', () => {
         expect(mockedFetch.mock.lastCall).toMatchInlineSnapshot(`
           [
-            "https://api.github.com/graphql?requestId=123456789",
+            "https://api.github.com/graphql?operationId=123456789",
             {
-              "body": "{"batched":true,"operations":{"123456789":{"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n    }\\n  }\\n"}}}",
+              "body": "{"batched":true,"operations":{"123456789":{"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","rawOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n    }\\n  }\\n"}}}",
               "headers": Headers {},
               "method": "POST",
+              "signal": AbortSignal {
+                Symbol(kEvents): Map {},
+                Symbol(events.maxEventTargetListeners): 10,
+                Symbol(events.maxEventTargetListenersWarned): false,
+                Symbol(kHandlers): Map {},
+                Symbol(kAborted): false,
+                Symbol(kReason): undefined,
+                Symbol(kComposite): false,
+              },
             },
           ]
         `);
@@ -175,11 +193,20 @@ describe('@graphql-box/fetch-manager', () => {
       it('correct request', () => {
         expect(mockedFetch.mock.lastCall).toMatchInlineSnapshot(`
           [
-            "https://api.github.com/graphql?requestId=123456789-0123456878",
+            "https://api.github.com/graphql?operationId=123456789-0123456878",
             {
-              "body": "{"batched":true,"operations":{"123456789":{"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n    }\\n  }\\n"},"0123456878":{"context":{"data":{"operationId":"0123456878","operationName":"","operationType":"query","originalOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"google\\") {\\n      email\\n      login\\n      name\\n    }\\n  }\\n"}}}",
+              "body": "{"batched":true,"operations":{"123456789":{"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","rawOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n    }\\n  }\\n"},"0123456878":{"context":{"data":{"operationId":"0123456878","operationName":"","operationType":"query","rawOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"google\\") {\\n      email\\n      login\\n      name\\n    }\\n  }\\n"}}}",
               "headers": Headers {},
               "method": "POST",
+              "signal": AbortSignal {
+                Symbol(kEvents): Map {},
+                Symbol(events.maxEventTargetListeners): 10,
+                Symbol(events.maxEventTargetListenersWarned): false,
+                Symbol(kHandlers): Map {},
+                Symbol(kAborted): false,
+                Symbol(kReason): undefined,
+                Symbol(kComposite): false,
+              },
             },
           ]
         `);

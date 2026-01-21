@@ -52,7 +52,7 @@ export class ExpressMiddleware {
     };
   }
 
-  private async _handleBatchRequests(
+  private async _handleBatchRequest(
     res: Response,
     requests: BatchRequestData['operations'],
     options: OperationOptions,
@@ -60,51 +60,80 @@ export class ExpressMiddleware {
     const response: SerialisedResponseDataBatch = { responses: {} };
 
     await Promise.all(
-      Object.keys(requests).map(async requestId => {
-        const requestEntry = requests[requestId];
+      Object.keys(requests).map(async operationId => {
+        const requestEntry = requests[operationId];
 
         if (!requestEntry) {
           return;
         }
 
         const { context, operation } = requestEntry;
+        const { rawOperationHash } = context.data;
 
         if (
           this._operationWhitelist.length > 0 &&
-          context.data.originalOperationHash &&
-          !this._operationWhitelist.includes(context.data.originalOperationHash)
+          rawOperationHash &&
+          !this._operationWhitelist.includes(rawOperationHash)
         ) {
-          response.responses[requestId] = serializeErrors({
-            errors: [new Error('@graphql-box/server: The request is not whitelisted.')],
+          response.responses[operationId] = serializeErrors({
+            errors: [new Error('@graphql-box/server: The request is not whitelisted')],
+            extensions: { cacheMetadata: {} },
           });
 
           return;
         }
 
-        try {
-          const requestTimer = setTimeout(() => {
-            response.responses[requestId] = serializeErrors({
-              errors: [
-                new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
-              ],
-              requestID: context.data.requestID,
-            });
-          }, this._requestTimeout);
+        let requestFinished = false;
 
+        const requestTimer = setTimeout(() => {
+          if (requestFinished) {
+            return;
+          }
+
+          requestFinished = true;
+
+          response.responses[operationId] = serializeErrors({
+            errors: [
+              new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
+            ],
+            extensions: { cacheMetadata: {} },
+          });
+        }, this._requestTimeout);
+
+        try {
           // The client already has scope of this so no need to send it back.
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { operationId, ...otherProps } = await this._client.query(operation, options, context);
-          clearTimeout(requestTimer);
-          const responseEntry = serializeErrors({ ...otherProps });
-          response.responses[requestId] = responseEntry;
+          const { operationId: unusedOperationId, ...otherProps } = await this._client.query(
+            operation,
+            options,
+            context,
+          );
+
+          // typescript not deriving that requestFinished can be true
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if (requestFinished) {
+            return;
+          }
+
+          response.responses[operationId] = serializeErrors({ ...otherProps });
         } catch (error) {
+          // typescript not deriving that requestFinished can be true
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          if (requestFinished) {
+            return;
+          }
+
           const confirmedError = isError(error)
             ? error
             : new Error('@graphql-box/server handleBatchRequest had an unexpected error.');
 
-          response.responses[requestId] = serializeErrors({
+          response.responses[operationId] = serializeErrors({
             errors: [confirmedError],
+            extensions: { cacheMetadata: {} },
           });
+        } finally {
+          requestFinished = true;
+          clearTimeout(requestTimer);
         }
       }),
     );
@@ -124,12 +153,20 @@ export class ExpressMiddleware {
     options: OperationOptions,
     context: { data: OperationContextData },
   ) {
-    if (this._operationWhitelist.length > 0 && !this._operationWhitelist.includes(context.data.originalOperationHash)) {
-      res.status(400).send(serializeErrors({ errors: [new Error('The request is not whitelisted.')] }));
+    if (this._operationWhitelist.length > 0 && !this._operationWhitelist.includes(context.data.rawOperationHash)) {
+      res.status(403).send(serializeErrors({ errors: [new Error('The request is not whitelisted.')] }));
       return;
     }
 
+    let requestFinished = false;
+
     const requestTimer = setTimeout(() => {
+      if (requestFinished) {
+        return;
+      }
+
+      requestFinished = true;
+
       res.status(408).send(
         serializeErrors({
           errors: [
@@ -139,13 +176,41 @@ export class ExpressMiddleware {
       );
     }, this._requestTimeout);
 
-    const result = await this._client.query(operation, options, context);
-    clearTimeout(requestTimer);
-    // The client already has scope of this so no need to send it back.
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { operationId, ...otherProps } = result;
-    const responseData = serializeErrors({ ...otherProps });
-    res.status(200).send(responseData);
+    try {
+      const result = await this._client.query(operation, options, context);
+
+      // typescript not deriving that requestFinished can be true
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (requestFinished) {
+        return;
+      }
+
+      // The client already has scope of this so no need to send it back.
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { operationId, ...otherProps } = result;
+      const responseData = serializeErrors({ ...otherProps });
+      res.status(200).send(responseData);
+    } catch (error) {
+      // typescript not deriving that requestFinished can be true
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (requestFinished) {
+        return;
+      }
+
+      const confirmedError = isError(error)
+        ? error
+        : new Error('@graphql-box/server handleRequest had an unexpected error.');
+
+      res.status(200).send(
+        serializeErrors({
+          errors: [confirmedError],
+          extensions: { cacheMetadata: {} },
+        }),
+      );
+    } finally {
+      requestFinished = true;
+      clearTimeout(requestTimer);
+    }
   }
 
   private _logHandler(req: Request<unknown, unknown, LogDataPayload | BatchedLogDataPayload>, res: Response) {
@@ -181,7 +246,7 @@ export class ExpressMiddleware {
     try {
       if (isRequestBatched(body)) {
         const { operations } = body;
-        void this._handleBatchRequests(res, operations, options);
+        void this._handleBatchRequest(res, operations, options);
       } else {
         const { context, operation } = body;
         void this._handleRequest(res, operation, options, context);
