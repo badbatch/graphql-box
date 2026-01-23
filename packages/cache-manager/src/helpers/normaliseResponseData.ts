@@ -6,7 +6,7 @@ import { buildOperationPathCacheKey } from '#helpers/buildOperationPathCacheKey.
 import { buildRefTargets } from '#helpers/buildRefTargets.ts';
 import { mergeCacheValues } from '#helpers/mergeCacheEntries.ts';
 import { visitResponseData } from '#helpers/visitResponseData.ts';
-import { type EntityCacheEntry, type OperationPathCacheEntry } from '#types.ts';
+import { type Entity, type EntityCacheEntry, type OperationPathCacheEntry } from '#types.ts';
 
 export type NormalisedResponseData = {
   entities: Record<string, EntityCacheEntry>;
@@ -60,9 +60,10 @@ export const normaliseResponseData = (
       operationPaths[operationPathCacheKey] = {
         extensions: {
           cacheability: cacheMetadata[operationPathCacheKey] ?? fallbackCacheability,
+          fieldPathMetadata,
         },
         kind: 'operationPath',
-        refTargets: buildRefTargets(cacheEntryValue),
+        refTargets: buildRefTargets(cacheEntryValue, fieldPaths),
         value: structuredClone(cacheEntryValue),
       };
 
@@ -73,7 +74,7 @@ export const normaliseResponseData = (
     if (isEntity) {
       // If isEntity is true, then responseDataValue will definitely be an object.
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      const entity = responseDataValue as PlainObject<unknown>;
+      const entity = responseDataValue as Entity;
       // We always inject the idKey into an operation so this field
       // will always be returned.
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -88,12 +89,13 @@ export const normaliseResponseData = (
       entities[entityCacheKey] = {
         extensions: {
           cacheability: cacheMetadata[entityCacheKey] ?? fallbackCacheability,
+          fieldPathMetadata,
         },
         kind: 'entity',
-        refTargets: buildRefTargets(cacheEntryValue),
+        refTargets: buildRefTargets(cacheEntryValue, fieldPaths),
         // Struggling to resolve type issues, will need to revisit.
         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        value: structuredClone(cacheEntryValue) as PlainObject,
+        value: structuredClone(cacheEntryValue) as Entity,
       };
 
       set(data, responseKey, { __kind: 'entity', __ref: entityCacheKey });

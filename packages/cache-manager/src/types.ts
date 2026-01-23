@@ -1,9 +1,10 @@
 import { type Core } from '@cachemap/core';
 import {
   type CacheMetadata,
+  type FieldPathMetadata,
+  type FieldPathMetadataRequiredFields,
   type OperationContext,
   type OperationData,
-  type PlainObject,
   type ResponseData,
 } from '@graphql-box/core';
 import { type Metadata as CacheabilityMetadata } from 'cacheability';
@@ -51,28 +52,38 @@ export type CacheEntryRef = {
   __ref: string;
 };
 
-export type EntityCacheEntry<T = PlainObject<unknown>> = {
-  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata };
+export interface Entity {
+  [key: string]: unknown;
+  __typename: string;
+  id: string;
+}
+
+export type EntityRequiredFields = FieldPathMetadataRequiredFields;
+
+export type EntityCacheEntry<T = Entity> = {
+  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata; fieldPathMetadata: FieldPathMetadata };
   kind: 'entity';
-  refTargets: Record<string, string[]>;
+  refTargets: Record<string, [responseKey: string, requiredFields: EntityRequiredFields][]>;
   value: T;
 };
 
 export type OperationPathCacheEntry<T = unknown> = {
-  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata };
+  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata; fieldPathMetadata: FieldPathMetadata };
   kind: 'operationPath';
-  refTargets: Record<string, string[]>;
+  refTargets: Record<string, [responseKey: string, requiredFields: EntityRequiredFields][]>;
   value: T;
 };
 
 export type OperationCacheEntry = {
-  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata };
+  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata; fieldPathMetadata: FieldPathMetadata };
   kind: 'operation';
   refTargets: Record<string, string[]>;
   refs: string[];
 };
 
 export type CacheEntry<T = unknown> = EntityCacheEntry<T> | OperationPathCacheEntry<T> | OperationCacheEntry;
+
+export type RefTargets = Record<string, [responseKey: string, requiredFields: EntityRequiredFields][]>;
 
 export type RetrieveCacheEntryResult<D = unknown> =
   | {

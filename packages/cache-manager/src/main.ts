@@ -14,12 +14,14 @@ import { set } from 'lodash-es';
 import { type SetRequired } from 'type-fest';
 import { buildOperationPathCacheKey } from '#helpers/buildOperationPathCacheKey.ts';
 import { buildResponseDataKey } from '#helpers/buildResponseDataPath.ts';
+import { getRequiredFieldNames } from '#helpers/getRequiredFieldNames.js';
 import { mergeRefTargets } from '#helpers/mergeRefTargets.ts';
 import { normaliseResponseData } from '#helpers/normaliseResponseData.ts';
 import { filterQuery } from './helpers/filterQuery.ts';
 import {
   type AnalyzeQueryResult,
   type CacheManagerDef,
+  type Entity,
   type EntityCacheEntry,
   type OperationCacheEntry,
   type OperationPathCacheEntry,
@@ -171,7 +173,7 @@ export class CacheManager implements CacheManagerDef {
     return cacheEntry;
   }
 
-  private async _retrieveEntityData(cacheKey: string): Promise<RetrieveCacheEntryResult> {
+  private async _retrieveEntityData(cacheKey: string): Promise<RetrieveCacheEntryResult<Entity>> {
     const entityCacheEntry = await this._readEntity(cacheKey);
 
     if (!entityCacheEntry) {
@@ -180,7 +182,7 @@ export class CacheManager implements CacheManagerDef {
     }
 
     const { extensions, refTargets, value } = entityCacheEntry;
-    const { cacheability, ...restExtensions } = extensions;
+    const { cacheability, fieldPathMetadata, ...restExtensions } = extensions;
     const refTargetEntries = Object.entries(refTargets);
 
     let cacheMetadata: CacheMetadata = {
@@ -193,7 +195,7 @@ export class CacheManager implements CacheManagerDef {
       return { extensions: { ...restExtensions, cacheMetadata }, kind: 'hit', value: entity };
     }
 
-    for (const [ref, responseKeys] of refTargetEntries) {
+    for (const [ref, target] of refTargetEntries) {
       const result = await this._retrieveEntityData(ref);
 
       if (result.kind === 'miss') {
@@ -206,7 +208,18 @@ export class CacheManager implements CacheManagerDef {
         ...result.extensions.cacheMetadata,
       };
 
-      for (const responseKey of responseKeys) {
+      for (const [responseKey, requiredFields] of target) {
+        const requiredFieldNames = getRequiredFieldNames(
+          requiredFields,
+          !!fieldPathMetadata.typeConditions?.size,
+          result.value.__typename,
+        );
+
+        if ([...requiredFieldNames].some(name => result.value[name] === undefined)) {
+          console.debug(`Unable to retrieve entity, incomplete data for entity cache key "${ref}"`);
+          return { kind: 'miss' };
+        }
+
         set(entity, responseKey, result.value);
       }
     }
@@ -268,7 +281,7 @@ export class CacheManager implements CacheManagerDef {
     }
 
     const { extensions, refTargets, value } = operationPathCacheEntry;
-    const { cacheability, ...restExtensions } = extensions;
+    const { cacheability, fieldPathMetadata, ...restExtensions } = extensions;
     const refTargetEntries = Object.entries(refTargets);
 
     let cacheMetadata: CacheMetadata = {
@@ -287,7 +300,7 @@ export class CacheManager implements CacheManagerDef {
     // the value will definitely be an object.
     const newValue = structuredClone<PlainObject<unknown>>(value);
 
-    for (const [ref, responseKeys] of refTargetEntries) {
+    for (const [ref, target] of refTargetEntries) {
       const result = await this._retrieveEntityData(ref);
 
       if (result.kind === 'miss') {
@@ -300,7 +313,18 @@ export class CacheManager implements CacheManagerDef {
         ...result.extensions.cacheMetadata,
       };
 
-      for (const responseKey of responseKeys) {
+      for (const [responseKey, requiredFields] of target) {
+        const requiredFieldNames = getRequiredFieldNames(
+          requiredFields,
+          !!fieldPathMetadata.typeConditions?.size,
+          result.value.__typename,
+        );
+
+        if ([...requiredFieldNames].some(name => result.value[name] === undefined)) {
+          console.debug(`Unable to retrieve operation path data, incomplete data for entity cache key "${ref}"`);
+          return { kind: 'miss' };
+        }
+
         set(newValue, responseKey, result.value);
       }
     }

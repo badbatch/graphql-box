@@ -1,27 +1,54 @@
 import { type PlainObject } from '@graphql-box/core';
 import { has } from 'lodash-es';
+import { type RefTargets } from '#types.ts';
 
 export const mergeRefTargets = (
   data: PlainObject<unknown>,
-  existingRefTargets: Record<string, string[]>,
-  incomingRefTargets: Record<string, string[]>,
-): Record<string, string[]> => {
-  const mergedRefTargets: Record<string, string[]> = {};
+  existingRefTargets: RefTargets,
+  incomingRefTargets: RefTargets,
+): RefTargets => {
+  const newRefTargets: RefTargets = {};
 
-  for (const [ref, responsePathTargets] of Object.entries(existingRefTargets)) {
-    for (const target of responsePathTargets) {
-      if (has(data, target)) {
-        mergedRefTargets[ref] ??= [];
-        mergedRefTargets[ref].push(target);
+  for (const [ref, existingResponsePathTargets] of Object.entries(existingRefTargets)) {
+    for (const [existingResponseKey, existingRequiredFields] of existingResponsePathTargets) {
+      if (has(data, existingResponseKey)) {
+        newRefTargets[ref] ??= [];
+        newRefTargets[ref].push([existingResponseKey, existingRequiredFields]);
       }
     }
   }
 
-  for (const [ref, responsePathTargets] of Object.entries(incomingRefTargets)) {
-    mergedRefTargets[ref] = mergedRefTargets[ref]
-      ? [...new Set([...mergedRefTargets[ref], ...responsePathTargets])]
-      : [...responsePathTargets];
+  for (const [ref, incomingResponsePathTargets] of Object.entries(incomingRefTargets)) {
+    if (!newRefTargets[ref]) {
+      newRefTargets[ref] = incomingResponsePathTargets;
+      continue;
+    }
+
+    const newRefTarget = newRefTargets[ref];
+
+    for (const [incomingResponseKey, incomingRequiredFields] of incomingResponsePathTargets) {
+      const refTargetMatch = newRefTarget.find(([newResponseKey]) => newResponseKey === incomingResponseKey);
+
+      if (!refTargetMatch) {
+        newRefTarget.push([incomingResponseKey, incomingRequiredFields]);
+        continue;
+      }
+
+      const [, requiredFieldsMatch] = refTargetMatch;
+
+      for (const [incomingTypeName, incomingFieldNames] of Object.entries(incomingRequiredFields)) {
+        if (!requiredFieldsMatch[incomingTypeName]) {
+          requiredFieldsMatch[incomingTypeName] = incomingFieldNames;
+          continue;
+        }
+
+        requiredFieldsMatch[incomingTypeName] = new Set([
+          ...requiredFieldsMatch[incomingTypeName],
+          ...incomingFieldNames,
+        ]);
+      }
+    }
   }
 
-  return mergedRefTargets;
+  return newRefTargets;
 };
