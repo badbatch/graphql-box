@@ -29,6 +29,7 @@ export const generateCursorCache = async ({
 
   if (pageRanges.length > 0 && resultsPerPage) {
     const pages = generatePages(pageRanges);
+    let cachedNodeIds: (string | number)[] = [];
 
     await Promise.all(
       pages.map(async page => {
@@ -47,14 +48,16 @@ export const generateCursorCache = async ({
           return { cursor: `${id}::${group}`, node: { id } };
         });
 
-        await cacheCursors(cursorCache, { edges, group, headers, page, totalPages, totalResults });
+        cachedNodeIds = [...cachedNodeIds, ...edges.map(edge => edge.node.id)];
+
+        await cacheCursors(cursorCache, { cachedNodeIds, edges, group, headers, page, totalPages, totalResults });
       }),
     );
   } else {
     await cursorCache.set(
       `${group}-metadata`,
-      { totalPages, totalResults },
-      { cacheHeaders: { cacheControl: headers.get('cache-control') ?? undefined } },
+      { cachedNodeIds: [], totalPages, totalResults },
+      { cacheOptions: { cacheControl: headers.get('cache-control') ?? undefined } },
     );
   }
 

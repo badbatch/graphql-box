@@ -16,6 +16,7 @@ export type CursorCacheEntry = {
 export type PartialCursorCacheEntry = SetOptional<CursorCacheEntry, 'group' | 'node'>;
 
 export type CursorGroupMetadata = {
+  cachedNodeIds: (string | number)[];
   totalPages: number;
   totalResults: number;
 };

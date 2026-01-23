@@ -48,7 +48,7 @@ export const validateCursor = async (
   const metadata = await cursorCache.get<CursorGroupMetadata>(`${groupCursor}-metadata`);
 
   if (!metadata) {
-    return new GraphQLError('Curser cannot be supplied without previously being provided.', { nodes: fieldNodes });
+    return new GraphQLError('Cursor cannot be supplied without previously being provided.', { nodes: fieldNodes });
   }
 
   const cursor = getCursor({ after, before });
