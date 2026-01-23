@@ -143,7 +143,7 @@ export class ExpressMiddleware {
 
   private _handleLogs(logs: Omit<LogDataPayload, 'batched'>[]) {
     for (const { data, logLevel, message } of logs) {
-      this._client.debugManager?.handleLog(message, data, logLevel);
+      this._client.debugManager?.log(message, data, logLevel, true);
     }
   }
 

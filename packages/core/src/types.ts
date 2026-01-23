@@ -18,8 +18,7 @@ export type CacheHeaders = Headers | { cacheControl?: string };
 export type CacheMetadata = Record<string, CacheabilityMetadata>;
 
 export interface DebugManagerDef extends EventEmitter {
-  handleLog(message: GraphqlStep, data: LogData, logLevel?: LogLevel): void;
-  log(message: GraphqlStep, data: LogData, logLevel?: LogLevel): void;
+  log(message: GraphqlStep, data: LogData, logLevel?: LogLevel, passthrough?: boolean): void;
   now(): number;
 }
 

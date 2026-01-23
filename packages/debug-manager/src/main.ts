@@ -7,7 +7,7 @@ import {
 } from '@graphql-box/core';
 import { ArgsError, GroupedError } from '@graphql-box/helpers';
 import { EventEmitter } from 'eventemitter3';
-import { isString } from 'lodash-es';
+import { isFunction, isString } from 'lodash-es';
 import { type Log, type Performance, type UserOptions } from './types.ts';
 
 export class DebugManager extends EventEmitter implements DebugManagerDef {
@@ -24,6 +24,16 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
       errors.push(new ArgsError('@graphql-box/debug-manager expected options.name to be a string.'));
     }
 
+    if (options.log && !isFunction(options.log)) {
+      errors.push(new ArgsError('@graphql-box/debug-manager expected options.log to be a function.'));
+    }
+
+    // Okay for purpose of checking property type
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    if (!isFunction(options.performance.now)) {
+      errors.push(new ArgsError('@graphql-box/debug-manager expected options.performance.now to be a function.'));
+    }
+
     if (errors.length > 0) {
       throw new GroupedError('@graphql-box/debug-manager argument validation errors.', errors);
     }
@@ -34,31 +44,29 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
     this._environment = options.environment ?? 'client';
   }
 
-  public handleLog(message: GraphqlStep, data: LogData, logLevel: LogLevel = 'info') {
-    this.emit('LOG', message, data);
-
-    if (this._log) {
-      this._log(message, data, logLevel);
-    }
-  }
-
-  public log(message: GraphqlStep, logData: LogData, logLevel: LogLevel = 'info'): void {
+  public log(message: GraphqlStep, logData: LogData, logLevel: LogLevel = 'info', passthrough = false): void {
     const { data, error, stats } = logData;
 
-    const updatedLogData: LogData = {
-      data: {
-        environment: this._environment,
-        loggerName: this._name,
-        ...data,
-      },
-      error,
-      stats,
-    };
+    const finalData = passthrough
+      ? logData
+      : {
+          data: {
+            environment: this._environment,
+            loggerName: this._name,
+            ...data,
+          },
+          error,
+          stats,
+        };
 
-    this.emit('LOG', message, updatedLogData);
+    try {
+      this.emit('LOG', message, finalData);
 
-    if (this._log) {
-      this._log(message, updatedLogData, logLevel);
+      if (this._log) {
+        this._log(message, finalData, logLevel);
+      }
+    } catch (error_) {
+      console.error(error_);
     }
   }
 
