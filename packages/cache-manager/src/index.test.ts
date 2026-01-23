@@ -37,6 +37,7 @@ describe('@graphql-box/cache-manager', () => {
       parse(operation),
       buildClientSchema(githubIntrospection as IntrospectionQuery),
       {
+        idKey: 'id',
         operation,
         operationType: OperationTypeNode.QUERY,
       },
@@ -62,25 +63,27 @@ describe('@graphql-box/cache-manager', () => {
       it('should return the operation data unmodified', async () => {
         const fieldPaths = getFieldPaths(parsedOperations.query);
 
-        const { operationData } = await cacheManager.analyzeQuery(
+        // @ts-expect-error Okay for test file
+        const { kind, operationData } = await cacheManager.analyzeQuery(
           getOperationData(parsedOperations.query),
           getOperationContext({ fieldPaths }),
         );
 
-        expect(operationData!.operation).toBe(parsedOperations.query);
+        expect(kind).toBe('cache-miss');
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        expect(operationData.operation).toBe(parsedOperations.query);
       });
     });
 
     describe('when all field paths are resolved', () => {
+      const operationData = getOperationData(parsedOperations.query);
       const fieldPaths = getFieldPaths(parsedOperations.query);
 
       beforeEach(async () => {
-        await cacheManager.cacheQuery(responses.facebookQuery, getOperationContext({ fieldPaths }));
+        await cacheManager.cacheQuery(operationData, responses.facebookQuery, getOperationContext({ fieldPaths }));
       });
 
       it('should return the expected response data', async () => {
-        const operationData = getOperationData(parsedOperations.query);
-
         await expect(cacheManager.analyzeQuery(operationData, getOperationContext({ fieldPaths }))).resolves.toEqual({
           responseData: responses.facebookQuery,
         });
@@ -88,11 +91,12 @@ describe('@graphql-box/cache-manager', () => {
     });
 
     describe('when some field paths are resolved', () => {
+      const operationData = getOperationData(parsedOperations.query);
       const fieldPaths = getFieldPaths(parsedOperations.query);
       const response = structuredClone(responses.facebookQuery);
 
       // @ts-expect-error does not matter for test purposes
-      response.__cacheMetadata['organization.email'] = {
+      response.extensions.cacheMetadata['organization.email'] = {
         cacheControl: {
           maxAge: 0,
           ttl: 0,
@@ -100,11 +104,11 @@ describe('@graphql-box/cache-manager', () => {
       };
 
       beforeEach(async () => {
-        await cacheManager.cacheQuery(response, getOperationContext({ fieldPaths }));
+        await cacheManager.cacheQuery(operationData, response, getOperationContext({ fieldPaths }));
       });
 
       it('should return the filtered operation data', async () => {
-        const operationDataToExpect = getOperationData(`
+        const expectedOperationData = getOperationData(`
           {
             organization(login: "facebook") {
               email
@@ -112,13 +116,16 @@ describe('@graphql-box/cache-manager', () => {
           }
         `);
 
-        const { operationData } = await cacheManager.analyzeQuery(
+        const result = await cacheManager.analyzeQuery(
           getOperationData(parsedOperations.query),
           getOperationContext({ fieldPaths }),
         );
 
-        expect(prepareOperationForComparison(operationData!.operation)).toBe(
-          prepareOperationForComparison(operationDataToExpect.operation),
+        // @ts-expect-error does not matter for test purposes
+        // eslint-disable-next-line @stylistic/max-len
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/no-unsafe-member-access
+        expect(prepareOperationForComparison(result.operationData.operation)).toBe(
+          prepareOperationForComparison(expectedOperationData.operation),
         );
       });
     });
@@ -130,8 +137,9 @@ describe('@graphql-box/cache-manager', () => {
     });
 
     it('should store the expected response data against each field path', async () => {
+      const operationData = getOperationData(parsedOperations.query);
       const fieldPaths = getFieldPaths(parsedOperations.query);
-      await cacheManager.cacheQuery(responses.facebookQuery, getOperationContext({ fieldPaths }));
+      await cacheManager.cacheQuery(operationData, responses.facebookQuery, getOperationContext({ fieldPaths }));
 
       expect(serialiseExport(await cacheManager.cache!.export())).toMatchInlineSnapshot(`
         {

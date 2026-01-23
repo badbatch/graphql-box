@@ -11,7 +11,7 @@ export const GraphqlBoxUpdateProvider = ({ children, imports }: GraphqlBoxUpdate
   const { graphqlBoxClient } = useContext(Context);
 
   for (const options of imports) {
-    void graphqlBoxClient.cacheManager.cache?.import(options);
+    void graphqlBoxClient.cache?.import(options);
   }
 
   return children;

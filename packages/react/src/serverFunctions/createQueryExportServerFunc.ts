@@ -25,7 +25,7 @@ export const createQueryExportServerFunc =
       const tag = globalThis.crypto.randomUUID();
       await client.query<D>(req, opts, ctx);
 
-      const exportResult = await client.cacheManager.cache?.export<D>({
+      const exportResult = await client.cache?.export<D>({
         tag,
       });
 

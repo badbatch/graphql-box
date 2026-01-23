@@ -1,3 +1,4 @@
+import { type Core } from '@cachemap/core';
 import { type CacheManagerDef } from '@graphql-box/cache-manager';
 import {
   type DebugManagerDef,
@@ -89,8 +90,8 @@ export class Client {
     this._requestManager = options.requestManager;
   }
 
-  get cacheManager() {
-    return this._cacheManager;
+  get cache(): Core | undefined {
+    return this._cacheManager.cache;
   }
 
   get debugManager(): DebugManagerDef | undefined {
