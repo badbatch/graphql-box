@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.15 (2026-01-26)
+
+### Bug Fixes
+
+* **fetch-manager:**  update snapshot (0e619d1e)
+
 ## 5.5.59-unstable-12345.14 (2026-01-26)
 
 ### Bug Fixes
