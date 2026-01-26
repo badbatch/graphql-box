@@ -67,9 +67,10 @@ export const instrumentOperation = (
         if (isKind<FieldNode>(node, Kind.FIELD)) {
           fieldPathStack.push(getAlias(node) ?? node.name.value);
           const namedType = getNamedType(type);
+          const isEntity = isTypeEntity(namedType, idKey);
 
           if (
-            isTypeEntity(namedType, idKey) &&
+            isEntity &&
             ((!isInterfaceType(namedType) && !isUnionType(namedType)) ||
               (isInterfaceType(namedType) &&
                 !node.selectionSet?.selections.some(s => isKind<InlineFragmentNode>(s, Kind.INLINE_FRAGMENT))))
@@ -77,7 +78,7 @@ export const instrumentOperation = (
             addFieldNode(node, idKey);
           }
 
-          if (isTypeEntity(namedType, idKey) || isInterfaceType(namedType) || isUnionType(namedType)) {
+          if (isEntity || isInterfaceType(namedType) || isUnionType(namedType)) {
             addFieldNode(node, '__typename');
           }
 
@@ -95,36 +96,8 @@ export const instrumentOperation = (
             return;
           }
 
-          const isEntity = isTypeEntity(namedType, idKey);
-          const isLeaf = isLeafType(namedType);
-          const isList = isListType(type);
-          const hasArgs = hasArguments(node);
-          const parentType = typeInfo.getParentType();
-          const namedParentType = getNamedType(parentType);
-          const isAbstract = isInterfaceType(namedParentType) || isUnionType(namedParentType);
-
           if (namedType && isEntity) {
             entityStack.push(namedType.name);
-          }
-
-          if (namedType && (isEntity || isLeaf || isList || hasArgs)) {
-            const leafEntity = isLeaf ? entityStack.at(-1) : undefined;
-
-            fieldPathManager.addFieldPath(node, {
-              fieldDepth: fieldPathStack.length,
-              fieldPathStack,
-              hasArgs,
-              isAbstract,
-              isEntity,
-              isLeaf,
-              isList,
-              isRootEntity: isEntity && fieldPathStack.length === 1,
-              leafEntity,
-              pathCacheKey: buildPathCacheKey(node, { isList }),
-              pathResponseKey: getAlias(node) ?? node.name.value,
-              typeConditions: [...concreteTypeStack],
-              typeName: namedType.name,
-            });
           }
         }
 
@@ -151,10 +124,38 @@ export const instrumentOperation = (
         }
 
         const type = typeInfo.getType();
+        const namedType = getNamedType(type);
 
         if (isKind<FieldNode>(node, Kind.FIELD)) {
+          const isEntity = isTypeEntity(namedType, idKey);
+          const isLeaf = isLeafType(namedType);
+          const isList = isListType(type);
+          const hasArgs = hasArguments(node);
+          const parentType = typeInfo.getParentType();
+          const namedParentType = getNamedType(parentType);
+          const isAbstract = isInterfaceType(namedParentType) || isUnionType(namedParentType);
+
+          if (namedType && (isEntity || isLeaf || isList || hasArgs)) {
+            const leafEntity = isLeaf ? entityStack.at(-1) : undefined;
+
+            fieldPathManager.addFieldPath(node, {
+              fieldDepth: fieldPathStack.length,
+              fieldPathStack,
+              hasArgs,
+              isAbstract,
+              isEntity,
+              isLeaf,
+              isList,
+              isRootEntity: isEntity && fieldPathStack.length === 1,
+              leafEntity,
+              pathCacheKey: buildPathCacheKey(node, { isList }),
+              pathResponseKey: getAlias(node) ?? node.name.value,
+              typeConditions: [...concreteTypeStack],
+              typeName: namedType.name,
+            });
+          }
+
           fieldPathStack.pop();
-          const namedType = getNamedType(type);
 
           if (isTypeEntity(namedType, idKey)) {
             entityStack.pop();

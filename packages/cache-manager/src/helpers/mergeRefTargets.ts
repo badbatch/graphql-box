@@ -42,10 +42,11 @@ export const mergeRefTargets = (
           continue;
         }
 
-        requiredFieldsMatch[incomingTypeName] = new Set([
-          ...requiredFieldsMatch[incomingTypeName],
-          ...incomingFieldNames,
-        ]);
+        for (const incomingFieldName of incomingFieldNames) {
+          if (!requiredFieldsMatch[incomingTypeName].includes(incomingFieldName)) {
+            requiredFieldsMatch[incomingTypeName].push(incomingFieldName);
+          }
+        }
       }
     }
   }

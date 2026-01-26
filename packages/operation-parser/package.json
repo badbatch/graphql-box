@@ -46,7 +46,7 @@
     "@types/lodash-es": "^4.17.12",
     "core-js": "^3.43.0",
     "fast-json-stable-stringify": "^2.1.0",
-    "lodash-es": "^4.17.21",
+    "lodash-es": "^4.17.23",
     "type-fest": "^4.41.0"
   },
   "peerDependencies": {
@@ -56,7 +56,7 @@
     "@graphql-box/test-utils": "workspace:*",
     "@graphql-tools/schema": "^10.0.23",
     "@jest/globals": "^29.3.1",
-    "cts-types": "^0.0.10",
+    "cts-types": "^0.0.11",
     "del-cli": "^6.0.0",
     "graphql": "^16.11.0"
   },

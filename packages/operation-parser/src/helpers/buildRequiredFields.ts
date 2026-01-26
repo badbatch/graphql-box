@@ -16,7 +16,7 @@ export const buildRequiredFields = (
   typeName: string,
   schema: GraphQLSchema,
 ): FieldPathMetadataRequiredFields => {
-  const requiredFields: FieldPathMetadataRequiredFields = { __typename: new Set() };
+  const requiredFields: FieldPathMetadataRequiredFields = { __typename: [] };
 
   if (!node.selectionSet) {
     return requiredFields;
@@ -40,10 +40,12 @@ export const buildRequiredFields = (
     const inlineFragmentRequiredFields = buildRequiredFields(inlineFragmentNode, typeName, schema);
 
     for (const [key, fieldNames] of Object.entries(inlineFragmentRequiredFields)) {
-      const fields = (requiredFields[key] ??= new Set());
+      const fields = (requiredFields[key] ??= []);
 
       for (const fieldName of fieldNames) {
-        fields.add(fieldName);
+        if (!fields.includes(fieldName)) {
+          fields.push(fieldName);
+        }
       }
     }
   };
@@ -59,8 +61,11 @@ export const buildRequiredFields = (
           continue;
         }
 
-        const fields = (requiredFields[resolvedTypeNameKey] ??= new Set());
-        fields.add(selection.name.value);
+        const fields = (requiredFields[resolvedTypeNameKey] ??= []);
+
+        if (!fields.includes(selection.name.value)) {
+          fields.push(selection.name.value);
+        }
       }
 
       if (isKind<InlineFragmentNode>(selection, Kind.INLINE_FRAGMENT)) {
@@ -72,8 +77,11 @@ export const buildRequiredFields = (
       if (isKind<FieldNode>(selection, Kind.FIELD)) {
         // The only fields that can be on a union at this point in
         // the workflow is the '__typename' field.
-        const fields = (requiredFields[resolvedTypeNameKey] ??= new Set());
-        fields.add(selection.name.value);
+        const fields = (requiredFields[resolvedTypeNameKey] ??= []);
+
+        if (!fields.includes(selection.name.value)) {
+          fields.push(selection.name.value);
+        }
       }
 
       if (isKind<InlineFragmentNode>(selection, Kind.INLINE_FRAGMENT)) {

@@ -42,13 +42,13 @@
     "@graphql-box/helpers": "workspace:*",
     "@types/lodash-es": "^4.17.12",
     "eventemitter3": "^5.0.1",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.23"
   },
   "peerDependencies": {
     "graphql": "<17"
   },
   "devDependencies": {
-    "cts-types": "^0.0.10",
+    "cts-types": "^0.0.11",
     "del-cli": "^6.0.0",
     "graphql": "^16.11.0"
   }

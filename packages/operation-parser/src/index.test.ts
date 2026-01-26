@@ -61,7 +61,7 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "email",
@@ -69,7 +69,7 @@ describe('@graphql-box/operation-parser', () => {
                   "login",
                   "name",
                   "url",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -190,7 +190,7 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "email",
@@ -198,7 +198,7 @@ describe('@graphql-box/operation-parser', () => {
                   "login",
                   "name",
                   "url",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -319,7 +319,7 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"google"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "email",
@@ -327,7 +327,7 @@ describe('@graphql-box/operation-parser', () => {
                   "login",
                   "name",
                   "url",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -458,7 +458,7 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"google"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "email",
@@ -466,7 +466,7 @@ describe('@graphql-box/operation-parser', () => {
                   "login",
                   "name",
                   "url",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -541,12 +541,12 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "node",
               "pathResponseKey": "node",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "id",
                   "name",
-                },
+                ],
               },
               "typeName": "Repository",
             },
@@ -651,15 +651,15 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
+                  "__typename",
                   "description",
                   "email",
+                  "id",
                   "login",
                   "name",
                   "url",
-                  "id",
-                  "__typename",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -780,15 +780,15 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
+                  "__typename",
                   "description",
                   "email",
+                  "id",
                   "login",
                   "name",
                   "url",
-                  "id",
-                  "__typename",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -926,7 +926,7 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "email",
@@ -934,7 +934,7 @@ describe('@graphql-box/operation-parser', () => {
                   "login",
                   "name",
                   "url",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -1013,14 +1013,14 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "node",
               "pathResponseKey": "node",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "homepageUrl",
                   "id",
                   "name",
                   "owner",
-                },
+                ],
               },
               "typeName": "Repository",
             },
@@ -1070,12 +1070,12 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "owner",
               "pathResponseKey": "owner",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "id",
                   "login",
                   "url",
-                },
+                ],
               },
               "typeName": "RepositoryOwner",
             },
@@ -1204,7 +1204,7 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "email",
@@ -1212,7 +1212,7 @@ describe('@graphql-box/operation-parser', () => {
                   "login",
                   "name",
                   "url",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -1291,14 +1291,14 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "node",
               "pathResponseKey": "node",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "homepageUrl",
                   "id",
                   "name",
                   "owner",
-                },
+                ],
               },
               "typeName": "Repository",
             },
@@ -1348,15 +1348,15 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "owner",
               "pathResponseKey": "owner",
               "requiredFields": {
-                "Organization": Set {
+                "Organization": [
                   "id",
                   "name",
-                },
-                "__typename": Set {
+                ],
+                "__typename": [
                   "__typename",
                   "login",
                   "url",
-                },
+                ],
               },
               "typeName": "RepositoryOwner",
             },
@@ -1375,9 +1375,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "RepositoryOwner",
               "pathCacheKey": "id",
               "pathResponseKey": "id",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "ID",
             },
             "organization.repositories.edges.node.owner.login": {
@@ -1395,9 +1395,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "RepositoryOwner",
               "pathCacheKey": "name",
               "pathResponseKey": "name",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "String",
             },
             "organization.repositories.edges.node.owner.url": {
@@ -1478,7 +1478,7 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "email",
@@ -1486,7 +1486,7 @@ describe('@graphql-box/operation-parser', () => {
                   "login",
                   "name",
                   "url",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -1608,14 +1608,14 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "id",
                   "login",
                   "name",
                   "url",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -1727,14 +1727,14 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
+                  "__typename",
                   "description",
+                  "id",
                   "login",
                   "name",
                   "url",
-                  "id",
-                  "__typename",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -1849,7 +1849,7 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "email",
@@ -1857,7 +1857,7 @@ describe('@graphql-box/operation-parser', () => {
                   "login",
                   "name",
                   "url",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -1982,7 +1982,7 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "id",
                   "description",
@@ -1990,7 +1990,7 @@ describe('@graphql-box/operation-parser', () => {
                   "login",
                   "name",
                   "url",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -2122,15 +2122,15 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "repositoryOwner({"login":"facebook"})",
               "pathResponseKey": "repositoryOwner",
               "requiredFields": {
-                "Organization": Set {
+                "Organization": [
                   "description",
                   "email",
                   "id",
                   "login",
-                },
-                "__typename": Set {
+                ],
+                "__typename": [
                   "__typename",
-                },
+                ],
               },
               "typeName": "RepositoryOwner",
             },
@@ -2149,9 +2149,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "RepositoryOwner",
               "pathCacheKey": "description",
               "pathResponseKey": "description",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "String",
             },
             "repositoryOwner.email": {
@@ -2160,9 +2160,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "RepositoryOwner",
               "pathCacheKey": "email",
               "pathResponseKey": "email",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "String",
             },
             "repositoryOwner.id": {
@@ -2171,9 +2171,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "RepositoryOwner",
               "pathCacheKey": "id",
               "pathResponseKey": "id",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "ID",
             },
             "repositoryOwner.login": {
@@ -2182,9 +2182,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "RepositoryOwner",
               "pathCacheKey": "login",
               "pathResponseKey": "login",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "String",
             },
             "repositoryOwner.repositories": {
@@ -2195,9 +2195,9 @@ describe('@graphql-box/operation-parser', () => {
               "hasArgs": true,
               "pathCacheKey": "repositories({"first":6})",
               "pathResponseKey": "repositories",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "RepositoryConnection",
             },
             "repositoryOwner.repositories.edges": {
@@ -2205,9 +2205,9 @@ describe('@graphql-box/operation-parser', () => {
               "isList": true,
               "pathCacheKey": "edges[]",
               "pathResponseKey": "edges",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "RepositoryEdge",
             },
             "repositoryOwner.repositories.edges.node": {
@@ -2216,17 +2216,17 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "node",
               "pathResponseKey": "node",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "homepageUrl",
                   "id",
                   "name",
-                },
+                ],
               },
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "Repository",
             },
             "repositoryOwner.repositories.edges.node.__typename": {
@@ -2235,9 +2235,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "Repository",
               "pathCacheKey": "__typename",
               "pathResponseKey": "__typename",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "String",
             },
             "repositoryOwner.repositories.edges.node.description": {
@@ -2246,9 +2246,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "Repository",
               "pathCacheKey": "description",
               "pathResponseKey": "description",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "String",
             },
             "repositoryOwner.repositories.edges.node.homepageUrl": {
@@ -2257,9 +2257,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "Repository",
               "pathCacheKey": "homepageUrl",
               "pathResponseKey": "homepageUrl",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "URI",
             },
             "repositoryOwner.repositories.edges.node.id": {
@@ -2268,9 +2268,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "Repository",
               "pathCacheKey": "id",
               "pathResponseKey": "id",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "ID",
             },
             "repositoryOwner.repositories.edges.node.name": {
@@ -2279,9 +2279,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "Repository",
               "pathCacheKey": "name",
               "pathResponseKey": "name",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "String",
             },
           },
@@ -2345,15 +2345,15 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
+                  "__typename",
                   "description",
                   "email",
+                  "id",
                   "login",
                   "name",
                   "url",
-                  "id",
-                  "__typename",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -2474,15 +2474,15 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
+                  "__typename",
                   "description",
                   "email",
+                  "id",
                   "login",
                   "name",
                   "url",
-                  "id",
-                  "__typename",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -2610,11 +2610,11 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "id",
-                },
+                ],
               },
               "typeName": "Organization",
             },
@@ -2665,13 +2665,13 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "node",
               "pathResponseKey": "node",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "homepageUrl",
                   "id",
                   "name",
-                },
+                ],
               },
               "typeName": "Repository",
             },
@@ -2787,15 +2787,15 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "repositoryOwner({"login":"facebook"})",
               "pathResponseKey": "repositoryOwner",
               "requiredFields": {
-                "Organization": Set {
+                "Organization": [
                   "description",
                   "id",
                   "name",
                   "url",
-                },
-                "__typename": Set {
+                ],
+                "__typename": [
                   "__typename",
-                },
+                ],
               },
               "typeName": "RepositoryOwner",
             },
@@ -2814,9 +2814,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "RepositoryOwner",
               "pathCacheKey": "description",
               "pathResponseKey": "description",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "String",
             },
             "repositoryOwner.id": {
@@ -2825,9 +2825,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "RepositoryOwner",
               "pathCacheKey": "id",
               "pathResponseKey": "id",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "ID",
             },
             "repositoryOwner.name": {
@@ -2836,9 +2836,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "RepositoryOwner",
               "pathCacheKey": "name",
               "pathResponseKey": "name",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "String",
             },
             "repositoryOwner.repositories": {
@@ -2849,9 +2849,9 @@ describe('@graphql-box/operation-parser', () => {
               "hasArgs": true,
               "pathCacheKey": "repositories({"first":6})",
               "pathResponseKey": "repositories",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "RepositoryConnection",
             },
             "repositoryOwner.repositories.edges": {
@@ -2859,9 +2859,9 @@ describe('@graphql-box/operation-parser', () => {
               "isList": true,
               "pathCacheKey": "edges[]",
               "pathResponseKey": "edges",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "RepositoryEdge",
             },
             "repositoryOwner.repositories.edges.node": {
@@ -2870,17 +2870,17 @@ describe('@graphql-box/operation-parser', () => {
               "pathCacheKey": "node",
               "pathResponseKey": "node",
               "requiredFields": {
-                "__typename": Set {
+                "__typename": [
                   "__typename",
                   "description",
                   "homepageUrl",
                   "id",
                   "name",
-                },
+                ],
               },
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "Repository",
             },
             "repositoryOwner.repositories.edges.node.__typename": {
@@ -2889,9 +2889,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "Repository",
               "pathCacheKey": "__typename",
               "pathResponseKey": "__typename",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "String",
             },
             "repositoryOwner.repositories.edges.node.description": {
@@ -2900,9 +2900,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "Repository",
               "pathCacheKey": "description",
               "pathResponseKey": "description",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "String",
             },
             "repositoryOwner.repositories.edges.node.homepageUrl": {
@@ -2911,9 +2911,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "Repository",
               "pathCacheKey": "homepageUrl",
               "pathResponseKey": "homepageUrl",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "URI",
             },
             "repositoryOwner.repositories.edges.node.id": {
@@ -2922,9 +2922,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "Repository",
               "pathCacheKey": "id",
               "pathResponseKey": "id",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "ID",
             },
             "repositoryOwner.repositories.edges.node.name": {
@@ -2933,9 +2933,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "Repository",
               "pathCacheKey": "name",
               "pathResponseKey": "name",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "String",
             },
             "repositoryOwner.url": {
@@ -2944,9 +2944,9 @@ describe('@graphql-box/operation-parser', () => {
               "leafEntity": "RepositoryOwner",
               "pathCacheKey": "url",
               "pathResponseKey": "url",
-              "typeConditions": Set {
+              "typeConditions": [
                 "Organization",
-              },
+              ],
               "typeName": "URI",
             },
           },
@@ -3051,7 +3051,142 @@ describe('@graphql-box/operation-parser', () => {
             "rawOperationHash": "",
           },
           "debugManager": undefined,
-          "fieldPaths": {},
+          "fieldPaths": {
+            "addStar": {
+              "fieldArgs": {
+                "input": {
+                  "clientMutationId": "1",
+                  "starrableId": "MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg=",
+                },
+              },
+              "fieldDepth": 1,
+              "hasArgs": true,
+              "pathCacheKey": "addStar({"input":{"clientMutationId":"1","starrableId":"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg="}})",
+              "pathResponseKey": "addStar",
+              "typeName": "AddStarPayload",
+            },
+            "addStar.clientMutationId": {
+              "fieldDepth": 2,
+              "isLeaf": true,
+              "pathCacheKey": "clientMutationId",
+              "pathResponseKey": "clientMutationId",
+              "typeName": "String",
+            },
+            "addStar.starrable": {
+              "fieldDepth": 2,
+              "isEntity": true,
+              "pathCacheKey": "starrable",
+              "pathResponseKey": "starrable",
+              "requiredFields": {
+                "Repository": [
+                  "id",
+                ],
+                "__typename": [
+                  "__typename",
+                ],
+              },
+              "typeName": "Starrable",
+            },
+            "addStar.starrable.__typename": {
+              "fieldDepth": 3,
+              "isAbstract": true,
+              "isLeaf": true,
+              "pathCacheKey": "__typename",
+              "pathResponseKey": "__typename",
+              "typeName": "String",
+            },
+            "addStar.starrable.id": {
+              "fieldDepth": 3,
+              "isLeaf": true,
+              "pathCacheKey": "id",
+              "pathResponseKey": "id",
+              "typeConditions": [
+                "Repository",
+              ],
+              "typeName": "ID",
+            },
+            "addStar.starrable.stargazers": {
+              "fieldArgs": {
+                "first": 6,
+              },
+              "fieldDepth": 3,
+              "hasArgs": true,
+              "pathCacheKey": "stargazers({"first":6})",
+              "pathResponseKey": "stargazers",
+              "typeConditions": [
+                "Repository",
+              ],
+              "typeName": "StargazerConnection",
+            },
+            "addStar.starrable.stargazers.edges": {
+              "fieldDepth": 4,
+              "isList": true,
+              "pathCacheKey": "edges[]",
+              "pathResponseKey": "edges",
+              "typeConditions": [
+                "Repository",
+              ],
+              "typeName": "StargazerEdge",
+            },
+            "addStar.starrable.stargazers.edges.node": {
+              "fieldDepth": 5,
+              "isEntity": true,
+              "pathCacheKey": "node",
+              "pathResponseKey": "node",
+              "requiredFields": {
+                "__typename": [
+                  "__typename",
+                  "id",
+                  "login",
+                  "name",
+                ],
+              },
+              "typeConditions": [
+                "Repository",
+              ],
+              "typeName": "User",
+            },
+            "addStar.starrable.stargazers.edges.node.__typename": {
+              "fieldDepth": 6,
+              "isLeaf": true,
+              "pathCacheKey": "__typename",
+              "pathResponseKey": "__typename",
+              "typeConditions": [
+                "Repository",
+              ],
+              "typeName": "String",
+            },
+            "addStar.starrable.stargazers.edges.node.id": {
+              "fieldDepth": 6,
+              "isLeaf": true,
+              "pathCacheKey": "id",
+              "pathResponseKey": "id",
+              "typeConditions": [
+                "Repository",
+              ],
+              "typeName": "ID",
+            },
+            "addStar.starrable.stargazers.edges.node.login": {
+              "fieldDepth": 6,
+              "isLeaf": true,
+              "pathCacheKey": "login",
+              "pathResponseKey": "login",
+              "typeConditions": [
+                "Repository",
+              ],
+              "typeName": "String",
+            },
+            "addStar.starrable.stargazers.edges.node.name": {
+              "fieldDepth": 6,
+              "isLeaf": true,
+              "pathCacheKey": "name",
+              "pathResponseKey": "name",
+              "typeConditions": [
+                "Repository",
+              ],
+              "typeName": "String",
+            },
+          },
         }
       `);
     });

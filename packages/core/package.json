@@ -51,7 +51,7 @@
     "graphql": "<17"
   },
   "devDependencies": {
-    "cts-types": "^0.0.10",
+    "cts-types": "^0.0.11",
     "del-cli": "^6.0.0",
     "graphql": "^16.11.0"
   },

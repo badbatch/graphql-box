@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "cts-types": "^0.0.10",
+    "cts-types": "^0.0.11",
     "del-cli": "^6.0.0"
   }
 }

@@ -51,8 +51,8 @@ export type ExecutionContextValue = PlainObject & {
 export type ExecutionContextValueData = PlainObject & Except<OperationContextData, 'initiator'>;
 
 export interface FieldPathMetadataRequiredFields {
-  [typeName: string]: Set<string>;
-  __typename: Set<string>;
+  [typeName: string]: string[];
+  __typename: string[];
 }
 
 export type FieldPathMetadata = {
@@ -70,7 +70,7 @@ export type FieldPathMetadata = {
   pathCacheKey: string;
   pathResponseKey: string;
   requiredFields?: FieldPathMetadataRequiredFields;
-  typeConditions?: Set<string>;
+  typeConditions?: string[];
   typeName: string;
 };
 

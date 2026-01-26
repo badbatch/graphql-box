@@ -46,7 +46,7 @@
     "@types/lodash-es": "^4.17.12",
     "cacheability": "^4.0.30",
     "core-js": "^3.43.0",
-    "lodash-es": "^4.17.21",
+    "lodash-es": "^4.17.23",
     "type-fest": "^4.41.0"
   },
   "peerDependencies": {
@@ -54,12 +54,12 @@
     "graphql": "<17"
   },
   "devDependencies": {
-    "@cachemap/core": "^5.2.11",
-    "@cachemap/map": "^5.0.11",
+    "@cachemap/core": "^5.3.0",
+    "@cachemap/map": "^5.1.0",
     "@graphql-box/operation-parser": "workspace:*",
     "@graphql-box/test-utils": "workspace:*",
     "@jest/globals": "^29.3.1",
-    "cts-types": "^0.0.10",
+    "cts-types": "^0.0.11",
     "del-cli": "^6.0.0",
     "graphql": "^16.11.0"
   },

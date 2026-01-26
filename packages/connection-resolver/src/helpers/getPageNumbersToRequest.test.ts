@@ -15,6 +15,7 @@ describe('getPageNumbersToRequest', () => {
         page: 2,
       },
       metadata: {
+        cachedNodeIds: [],
         totalPages: 5,
         totalResults: 50,
       },
@@ -41,6 +42,7 @@ describe('getPageNumbersToRequest', () => {
         page: 4,
       },
       metadata: {
+        cachedNodeIds: [],
         totalPages: 5,
         totalResults: 50,
       },

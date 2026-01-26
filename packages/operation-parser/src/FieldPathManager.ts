@@ -49,34 +49,44 @@ export class FieldPathManager {
     const fieldArgs = getArguments(field);
 
     if (existingFieldPath) {
-      if (typeConditions.length > 0) {
-        existingFieldPath.typeConditions = new Set([...typeConditions, ...(existingFieldPath.typeConditions ?? [])]);
+      if (typeConditions.length === 0) {
+        return;
       }
-    } else {
-      this._fieldPaths[fieldPath] = {
-        fieldDepth,
-        pathCacheKey,
-        pathResponseKey,
-        typeName,
-        ...pickBy(
-          {
-            fieldArgs,
-            fieldName: fieldAlias ? field.name.value : undefined,
-            hasAlias: !!fieldAlias,
-            hasArgs,
-            isAbstract,
-            isEntity,
-            isLeaf,
-            isList,
-            isRootEntity,
-            leafEntity,
-            requiredFields: isEntity ? buildRequiredFields(field, typeName, this._schema) : undefined,
-            typeConditions: typeConditions.length > 0 ? new Set(typeConditions) : undefined,
-          },
-          v => v !== undefined && v !== false,
-        ),
-      };
+
+      for (const typeCondition of typeConditions) {
+        existingFieldPath.typeConditions ??= [];
+
+        if (!existingFieldPath.typeConditions.includes(typeCondition)) {
+          existingFieldPath.typeConditions.push(typeCondition);
+        }
+      }
+
+      return;
     }
+
+    this._fieldPaths[fieldPath] = {
+      fieldDepth,
+      pathCacheKey,
+      pathResponseKey,
+      typeName,
+      ...pickBy(
+        {
+          fieldArgs,
+          fieldName: fieldAlias ? field.name.value : undefined,
+          hasAlias: !!fieldAlias,
+          hasArgs,
+          isAbstract,
+          isEntity,
+          isLeaf,
+          isList,
+          isRootEntity,
+          leafEntity,
+          requiredFields: isEntity ? buildRequiredFields(field, typeName, this._schema) : undefined,
+          typeConditions: typeConditions.length > 0 ? typeConditions : undefined,
+        },
+        v => v !== undefined && v !== false,
+      ),
+    };
   }
 
   get fieldPaths() {

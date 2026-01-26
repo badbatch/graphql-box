@@ -67,7 +67,8 @@ describe('@graphql-box/fetch-manager', () => {
           {
             "data": {
               "organization": {
-                "email": "",
+                "__typename": "Organization",
+                "email": "opensource@fb.com",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "name": "Facebook",
@@ -139,7 +140,8 @@ describe('@graphql-box/fetch-manager', () => {
           {
             "data": {
               "organization": {
-                "email": "",
+                "__typename": "Organization",
+                "email": "opensource@fb.com",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "name": "Facebook",
@@ -217,7 +219,8 @@ describe('@graphql-box/fetch-manager', () => {
           {
             "data": {
               "organization": {
-                "email": "",
+                "__typename": "Organization",
+                "email": "opensource@fb.com",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjY5NjMx",
                 "login": "facebook",
                 "name": "Facebook",
@@ -232,7 +235,8 @@ describe('@graphql-box/fetch-manager', () => {
           {
             "data": {
               "organization": {
-                "email": "",
+                "__typename": "Organization",
+                "email": "opensource@google.com",
                 "id": "MDEyOk9yZ2FuaXphdGlvbjEzNDIwMDQ=",
                 "login": "google",
                 "name": "Google",

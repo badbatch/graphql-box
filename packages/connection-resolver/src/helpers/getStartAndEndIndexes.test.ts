@@ -146,6 +146,7 @@ describe('getEndIndex', () => {
         page: 3,
       },
       metadata: {
+        cachedNodeIds: [],
         totalPages: 5,
         totalResults: 50,
       },
@@ -172,6 +173,7 @@ describe('getEndIndex', () => {
           page: 6,
         },
         metadata: {
+          cachedNodeIds: [],
           totalPages: 6,
           totalResults: 57,
         },
@@ -197,6 +199,7 @@ describe('getEndIndex', () => {
           page: 6,
         },
         metadata: {
+          cachedNodeIds: [],
           totalPages: 6,
           totalResults: 57,
         },
@@ -223,6 +226,7 @@ describe('getEndIndex', () => {
             page: 4,
           },
           metadata: {
+            cachedNodeIds: [],
             totalPages: 6,
             totalResults: 57,
           },
@@ -248,6 +252,7 @@ describe('getEndIndex', () => {
             page: 4,
           },
           metadata: {
+            cachedNodeIds: [],
             totalPages: 6,
             totalResults: 57,
           },

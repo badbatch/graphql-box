@@ -15,6 +15,10 @@ export interface UserOptions {
    */
   cache: Core | (() => Promise<Core>);
   /**
+   * Enables additional logging to aid in debugging.
+   */
+  debug?: boolean;
+  /**
    * The fallback cache control directives to apply when
    * there is no cache metadata for an operation path.
    */
@@ -48,9 +52,9 @@ export interface CacheManagerDef {
   hashCacheKeys: boolean;
 }
 
-export type CacheEntryRef = {
+export interface CacheEntryRef {
   __ref: string;
-};
+}
 
 export interface Entity {
   [key: string]: unknown;
@@ -61,7 +65,7 @@ export interface Entity {
 export type EntityRequiredFields = FieldPathMetadataRequiredFields;
 
 export type EntityCacheEntry<T = Entity> = {
-  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata; fieldPathMetadata: FieldPathMetadata };
+  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata };
   kind: 'entity';
   refTargets: Record<string, [responseKey: string, requiredFields: EntityRequiredFields][]>;
   value: T;
@@ -75,7 +79,7 @@ export type OperationPathCacheEntry<T = unknown> = {
 };
 
 export type OperationCacheEntry = {
-  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata; fieldPathMetadata: FieldPathMetadata };
+  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata };
   kind: 'operation';
   refTargets: Record<string, string[]>;
   refs: string[];

@@ -22,20 +22,20 @@ importers:
         specifier: ^7.27.4
         version: 7.27.4
       '@cachemap/core':
-        specifier: ^5.2.11
-        version: 5.2.11
+        specifier: ^5.3.0
+        version: 5.3.0
       '@cachemap/core-worker':
-        specifier: ^5.2.11
-        version: 5.2.11(@cachemap/core@5.2.11)
+        specifier: ^5.3.0
+        version: 5.3.0(@cachemap/core@5.3.0)
       '@cachemap/indexed-db':
-        specifier: ^5.0.11
-        version: 5.0.11
+        specifier: ^5.1.0
+        version: 5.1.0
       '@cachemap/map':
-        specifier: ^5.0.11
-        version: 5.0.11
+        specifier: ^5.1.0
+        version: 5.1.0
       '@cachemap/types':
-        specifier: ^5.0.11
-        version: 5.0.11
+        specifier: ^5.1.0
+        version: 5.1.0
       '@commitlint/cli':
         specifier: ^19.8.1
         version: 19.8.1(@types/node@24.0.4)(typescript@5.8.3)
@@ -83,7 +83,7 @@ importers:
         version: 7.0.6(@babel/core@7.27.4)(@babel/runtime@7.27.6)(@rollup/plugin-babel@6.0.4(@babel/core@7.27.4)(@types/babel__core@7.20.5)(rollup@4.44.0))(core-js@3.43.0)
       '@repodog/cli':
         specifier: ^1.6.53
-        version: 1.6.53(ws@8.18.2)(zod@3.25.67)
+        version: 1.6.53(ws@8.18.2)(zod@3.25.76)
       '@repodog/commitlint-config':
         specifier: ^19.0.4
         version: 19.0.4(@commitlint/cli@19.8.1(@types/node@24.0.4)(typescript@5.8.3))(husky@9.1.7)
@@ -232,8 +232,8 @@ importers:
         specifier: ^29.7.0
         version: 29.7.0
       lodash-es:
-        specifier: ^4.17.15
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
       markdownlint-cli2:
         specifier: ^0.18.1
         version: 0.18.1
@@ -298,18 +298,18 @@ importers:
         specifier: ^3.43.0
         version: 3.43.0
       lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
       type-fest:
         specifier: ^4.41.0
         version: 4.41.0
     devDependencies:
       '@cachemap/core':
-        specifier: ^5.2.11
-        version: 5.2.11
+        specifier: ^5.3.0
+        version: 5.3.0
       '@cachemap/map':
-        specifier: ^5.0.11
-        version: 5.0.11
+        specifier: ^5.1.0
+        version: 5.1.0
       '@graphql-box/operation-parser':
         specifier: workspace:*
         version: link:../operation-parser
@@ -320,8 +320,8 @@ importers:
         specifier: ^29.3.1
         version: 29.7.0
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -353,8 +353,8 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0
       lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
       type-fest:
         specifier: ^4.41.0
         version: 4.41.0
@@ -375,8 +375,8 @@ importers:
         specifier: ^29.3.1
         version: 29.7.0
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -387,8 +387,8 @@ importers:
   packages/connection-resolver:
     dependencies:
       '@cachemap/core':
-        specifier: ^5.2.11
-        version: 5.2.11
+        specifier: ^5.3.0
+        version: 5.3.0
       '@graphql-box/core':
         specifier: workspace:*
         version: link:../core
@@ -402,21 +402,21 @@ importers:
         specifier: ^3.7.7
         version: 3.7.7
       lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
       type-fest:
         specifier: ^4.41.0
         version: 4.41.0
     devDependencies:
       '@cachemap/map':
-        specifier: ^5.0.11
-        version: 5.0.11
+        specifier: ^5.1.0
+        version: 5.1.0
       '@jest/globals':
         specifier: ^29.3.1
         version: 29.7.0
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -446,8 +446,8 @@ importers:
         version: 8.18.2
     devDependencies:
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -473,15 +473,15 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1
       lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
     devDependencies:
       '@cachemap/core':
-        specifier: ^5.2.11
-        version: 5.2.11
+        specifier: ^5.3.0
+        version: 5.3.0
       '@cachemap/map':
-        specifier: ^5.0.11
-        version: 5.0.11
+        specifier: ^5.1.0
+        version: 5.1.0
       '@graphql-box/cache-manager':
         specifier: workspace:*
         version: link:../cache-manager
@@ -492,8 +492,8 @@ importers:
         specifier: ^29.3.1
         version: 29.7.0
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -516,12 +516,12 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0
       lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
     devDependencies:
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -553,8 +553,8 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0
       lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
       meros:
         specifier: ^1.3.1
         version: 1.3.1(@types/node@24.0.4)
@@ -569,51 +569,17 @@ importers:
         specifier: ^29.3.1
         version: 29.7.0
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
       fetch-mocked:
-        specifier: ^0.0.29
-        version: 0.0.29
+        specifier: ^0.0.31
+        version: 0.0.31
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2
-
-  packages/gql.macro:
-    dependencies:
-      '@babel/core':
-        specifier: ^7.27.4
-        version: 7.27.4
-      '@babel/types':
-        specifier: ^7.27.6
-        version: 7.27.6
-      '@types/babel-plugin-macros':
-        specifier: ^3.1.3
-        version: 3.1.3
-      '@types/babel__core':
-        specifier: ^7.20.5
-        version: 7.20.5
-      babel-plugin-macros:
-        specifier: ^3.1.0
-        version: 3.1.0
-      core-js:
-        specifier: ^3.43.0
-        version: 3.43.0
-      ts-md5:
-        specifier: ^1.3.1
-        version: 1.3.1
-    devDependencies:
-      '@jest/globals':
-        specifier: ^29.3.1
-        version: 29.7.0
-      cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
-      del-cli:
-        specifier: ^6.0.0
-        version: 6.0.0
 
   packages/helpers:
     dependencies:
@@ -639,8 +605,8 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0
       lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
       serialize-error:
         specifier: ^12.0.0
         version: 12.0.0
@@ -655,8 +621,8 @@ importers:
         specifier: ^29.3.1
         version: 29.7.0
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -670,8 +636,8 @@ importers:
         specifier: ^29.7.0
         version: 29.7.0
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -694,8 +660,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
       lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
       type-fest:
         specifier: ^4.41.0
         version: 4.41.0
@@ -710,8 +676,8 @@ importers:
         specifier: ^29.3.1
         version: 29.7.0
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -740,8 +706,8 @@ importers:
         specifier: ^3.7.7
         version: 3.7.7
       lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
       type-fest:
         specifier: ^4.41.0
         version: 4.41.0
@@ -759,8 +725,8 @@ importers:
         specifier: ^19.1.6
         version: 19.1.6(@types/react@19.1.8)
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -786,8 +752,8 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0
       lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
     devDependencies:
       '@graphql-box/client':
         specifier: workspace:*
@@ -802,8 +768,8 @@ importers:
         specifier: ^8.18.1
         version: 8.18.1
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -832,12 +798,12 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1
       lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
     devDependencies:
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -848,11 +814,11 @@ importers:
   packages/worker-client:
     dependencies:
       '@cachemap/core':
-        specifier: ^5.2.11
-        version: 5.2.11
+        specifier: ^5.3.0
+        version: 5.3.0
       '@cachemap/core-worker':
-        specifier: ^5.2.11
-        version: 5.2.11(@cachemap/core@5.2.11)
+        specifier: ^5.3.0
+        version: 5.3.0(@cachemap/core@5.3.0)
       '@graphql-box/core':
         specifier: workspace:*
         version: link:../core
@@ -875,24 +841,18 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0
       lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
+        specifier: ^4.17.23
+        version: 4.17.23
       uuid:
         specifier: ^11.1.0
         version: 11.1.0
     devDependencies:
-      '@graphql-box/cache-manager':
-        specifier: workspace:*
-        version: link:../cache-manager
       '@graphql-box/client':
         specifier: workspace:*
         version: link:../client
-      '@graphql-box/operation-parser':
-        specifier: workspace:*
-        version: link:../operation-parser
       cts-types:
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.0.11
+        version: 0.0.11
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -1569,28 +1529,28 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@cachemap/controller@5.2.5':
-    resolution: {integrity: sha512-sjNZt1Y6iA/wLcc4s9GMe2GOoYtnL03vWymhWI8GsgGvjKCTGgCJ3ipFKRXkRSPaZDRLN73TRWF7IURbnx/OyA==}
+  '@cachemap/controller@5.3.0':
+    resolution: {integrity: sha512-BTvJF6lF6t0s7YTGSS/bj4/Stxb6flheo8V5Yhf/OBaVzIT67gTGRP4b4HB/CKvRNxAruZoe/SJmigJPijQQJA==}
 
-  '@cachemap/core-worker@5.2.11':
-    resolution: {integrity: sha512-BN+uTiUSKC4wLkT9jj/biGUy4yFfpkbp1SET8zlYZCgXlGIP4KLTUTj5kYpezeVVvPeH2ZLp7n7SSp05Ozuguw==}
+  '@cachemap/core-worker@5.3.0':
+    resolution: {integrity: sha512-JTNisyzTKe4BXjRNPAR+xxPj2qis59usEXEC3AEWqxAilBzRdBo+txtKwn/aq65ltXayd+zo/VMsQpaehQbohg==}
     peerDependencies:
-      '@cachemap/core': 5.2.11
+      '@cachemap/core': 5.3.0
 
-  '@cachemap/core@5.2.11':
-    resolution: {integrity: sha512-qKS5SR9OMEyMy4NpJTyX1WhPORPvA4/oB6fZefRZTuYXr4ijaKZzpVmbGo++J71CSjWqHnh8L7ahMIXDemh31Q==}
+  '@cachemap/core@5.3.0':
+    resolution: {integrity: sha512-0tmFkCpJrSw87uLmcYMzAYLc3lBpe4/QvY6b/t4IlDns9xtGbAobWlbLvo8APgysZkhxBEkMKSwsUJal6yU7BQ==}
 
-  '@cachemap/indexed-db@5.0.11':
-    resolution: {integrity: sha512-6jn9j4wKuRCPwZn6h0RpAMrqf70z6pxyXaXIpbrfYZ4WM8KvS9qrw06jzHh3EJf1BjbUW23lR2Ch98QYDTHZOA==}
+  '@cachemap/indexed-db@5.1.0':
+    resolution: {integrity: sha512-TPJWcT/93JyQxtgEDiHz1Qc3LoKnDQHpraEM7FRUF+5BTWRG2TwcP8V2O8ebZoYvzmmyB8ce/yZOV7H/aw6WYQ==}
 
-  '@cachemap/map@5.0.11':
-    resolution: {integrity: sha512-gMtyXf2V6zAKxtk8mliKya38MbI8VBaUP6aRNZVBwHf49I917Q0O1I3DzN0TPO/Reime6G8aTp/OPmCOHSvJWA==}
+  '@cachemap/map@5.1.0':
+    resolution: {integrity: sha512-kjEVqW9/tTOiAKCXhAbyNiG3ru+DDtXYwmHdFct4EtoQL3jgOHikVA3dv593XRTsQ4TpsW7BKpsQyiAdXvawDA==}
 
-  '@cachemap/types@5.0.11':
-    resolution: {integrity: sha512-xBpNPEHbaPcWHr1KR0LmRoOCyCo8q2gUbee6FsTcpAi+pUlp03fXP16w4bu1kwkFVvID3Gz3cOLsA/OXF0K2iA==}
+  '@cachemap/types@5.1.0':
+    resolution: {integrity: sha512-IOzlxDDBgbxDuWRYEUwe5QXTbi1kgmt7yx4O7QKas3c7sBNBG5ZBFfv+uDQRXjsX5M6DHP3ryXre2pSTDyzj8Q==}
 
-  '@cachemap/utils@5.2.5':
-    resolution: {integrity: sha512-Hh1q91ge3crHJt4+Wd5f2eTurcf7R/wpGbYrylZydE+9ISYpPBMCmIScLxbytH74CDfoqp117kPtTdxAm3Zb7A==}
+  '@cachemap/utils@5.3.0':
+    resolution: {integrity: sha512-2mDhE/SIrjdJGfSmH7AqSmAkmFg5EnVwsemQ2dfvivV2yVY+TMoQMEddZJHIX+RfOvkP8bQ/GAkYJ7iYY7RIXg==}
 
   '@colors/colors@1.6.0':
     resolution: {integrity: sha512-Ir+AOibqzrIsL6ajt3Rz3LskB7OiMVHqltZmspbW/TJuTVuyOMirVqAkjfY6JISiLHgyNqicAC8AyHHGzNd/dA==}
@@ -2323,9 +2283,6 @@ packages:
   '@repodog/cli-setup@1.4.22':
     resolution: {integrity: sha512-cAuw1XdTy6RjXNOLeMcBvwi3ELz1G9eiLilYVJkicma8iuRZI5TAczyfN02+DDGk9qIMv3rhSXUbPWidieuMuQ==}
 
-  '@repodog/cli-utils@1.4.16':
-    resolution: {integrity: sha512-70+uSTe6jGO+PXOfqGF6mNuujp4eqWL4yT+XpFf6bOOkbAHKba58Q/st7lBo2BtV8puEfZHSjmMbXfkHXKWk5A==}
-
   '@repodog/cli-utils@1.4.20':
     resolution: {integrity: sha512-64iES/vVsM/PRP6xApZtFJ0m7NTwPzHDEtj8gceRCxLjNv/fmxZLvykzKwJNaWNKXiaMRaigmP07USmcIK5leA==}
 
@@ -2783,9 +2740,6 @@ packages:
   '@tybys/wasm-util@0.9.0':
     resolution: {integrity: sha512-6+7nlbMVX/PVDCwaIQ8nTOPveOcFLSt8GcXdx8hD0bt39uWxYT88uXzqTd4fTvqta7oeUJqudepapKNt2DYJFw==}
 
-  '@types/babel-plugin-macros@3.1.3':
-    resolution: {integrity: sha512-JU+MgpsHK3taY18mBETy5XlwY6LVngte7QXYzUuXEaaX0CN8dBqbjXtADe+gJmkSQE1FJHufzPj++OWZlhRmGw==}
-
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
 
@@ -2947,9 +2901,6 @@ packages:
   '@types/serve-static@1.15.8':
     resolution: {integrity: sha512-roei0UY3LhpOJvjbIP6ZZFngyLKl5dskOtDhxY5THRSpO+ZI+nzJ+m5yUMzGrp89YRa7lvknKkMYjqQFGwA7Sg==}
 
-  '@types/shelljs@0.8.16':
-    resolution: {integrity: sha512-40SUXiH0tZfAg/oKkkGF1kdHPAmE4slv2xAmbfa8VtE6ztHYwdpW2phlzHTVdJh5JOGqA3Cx1Hzp7kxFalKHYA==}
-
   '@types/shelljs@0.8.17':
     resolution: {integrity: sha512-IDksKYmQA2W9MkQjiyptbMmcQx+8+Ol6b7h6dPU5S05JyiQDSb/nZKnrMrZqGwgV6VkVdl6/SPCKPDlMRvqECg==}
 
@@ -2989,6 +2940,9 @@ packages:
 
   '@types/yargs@17.0.33':
     resolution: {integrity: sha512-WpxBCKWPLr4xSsHgz511rFJAM+wS28w2zEO1QDNY5zM/S8ok70NNfztH0xwhqKyaK0OHCbN98LDAZuy1ctxDkA==}
+
+  '@types/yargs@17.0.35':
+    resolution: {integrity: sha512-qUHkeCyQFxMXg79wQfTtfndEC+N9ZZg76HJftDJp+qH2tV7Gj4OJi7l+PiWwJ+pWtW8GwSmqsDj/oymhrTWXjg==}
 
   '@typescript-eslint/eslint-plugin@8.35.0':
     resolution: {integrity: sha512-ijItUYaiWuce0N1SoSMrEd0b6b6lYkYt99pqCPfybd+HKVXtEvYhICfLdwp42MhiI5mp0oq7PKEL+g1cNiz/Eg==}
@@ -3833,8 +3787,8 @@ packages:
   core-js@3.43.0:
     resolution: {integrity: sha512-N6wEbTTZSYOY2rYAn85CuvWWkCK6QweMn7/4Nr3w+gDBeBhk/x4EJeY6FPo4QzDoJZxVTv8U7CMvgWk6pOHHqA==}
 
-  core-js@3.47.0:
-    resolution: {integrity: sha512-c3Q2VVkGAUyupsjRnaNX6u8Dq2vAdzm9iuPj5FW0fRxzlxgq9Q39MDq10IvmQSpLgHQNyQzQmOo6bgGHmH3NNg==}
+  core-js@3.48.0:
+    resolution: {integrity: sha512-zpEHTy1fjTMZCKLHUZoVeylt9XrzaIN2rbPXEt0k+q7JE5CkCZdo6bNq55bn24a69CH7ErAVLKijxJja4fw+UQ==}
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -3900,8 +3854,8 @@ packages:
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
-  cts-types@0.0.10:
-    resolution: {integrity: sha512-GQ9erkSVJIT2pCc9ntkjIXhKgha6CfzIT/h3iApNriFyMZc5WepAvblge5dkuIH/6a9ZHI9ipQ5dTPhf79TtLQ==}
+  cts-types@0.0.11:
+    resolution: {integrity: sha512-PtBqwkiKdfEjyVx8bXQqvZY7HTUJ4lo3Tqm4DOL+VCsoWRKy8WdyUn/WsgNvXjZxStKY6yQTRw+nZRf/7kxOGQ==}
     hasBin: true
 
   damerau-levenshtein@1.0.8:
@@ -4465,6 +4419,9 @@ packages:
   eventemitter3@5.0.1:
     resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
 
+  eventemitter3@5.0.4:
+    resolution: {integrity: sha512-mlsTRyGaPBjPedk6Bvw+aqbsXDtoAyAzm5MO7JgU+yVRyMQ5O8bD4Kcci7BS85f93veegeCPkL8R4GLClnjLFw==}
+
   events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
@@ -4550,8 +4507,8 @@ packages:
       node-fetch:
         optional: true
 
-  fetch-mocked@0.0.29:
-    resolution: {integrity: sha512-FZhcrFDtvkNA5DJift6FwI6Dz4aYh4mJBb9lNZ3NFboL/VIV0ayRTXlbKedGOgXIXz+ryJVEAD+fd3Bph8SU6Q==}
+  fetch-mocked@0.0.31:
+    resolution: {integrity: sha512-GzQfdptHm6m8+C+Z+TVoAcQn8me4w/e88mI9v6aTd1rDXMS1Aaa0l5R+jPU+ELyVWtt9S4/T636J8Sip1Z/p5A==}
 
   file-entry-cache@8.0.0:
     resolution: {integrity: sha512-XXTUwCvisa5oacNGRP9SfNtYBNAMi+RPwBFmblZEF7N7swHYQS6/Zfk7SRwx4D5j3CH211YNRco1DEMNVfZCnQ==}
@@ -5648,11 +5605,8 @@ packages:
     resolution: {integrity: sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  lodash-es@4.17.21:
-    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
-
-  lodash-es@4.17.22:
-    resolution: {integrity: sha512-XEawp1t0gxSi9x01glktRZ5HDy0HXqrM0x5pXQM98EaI0NxO6jVM7omDOxsuEo5UIASAnm2bRp1Jt/e0a2XU8Q==}
+  lodash-es@4.17.23:
+    resolution: {integrity: sha512-kVI48u3PZr38HdYz98UmfPnXl2DXrpdctLrFLCd3kOx1xUkOmpFPx7gCWWM5MPkL/fD8zb+Ph0QzjGFs4+hHWg==}
 
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
@@ -7615,8 +7569,8 @@ packages:
     resolution: {integrity: sha512-AyeEbWOu/TAXdxlV9wmGcR0+yh2j3vYPGOECcIj2S7MkrLyC7ne+oye2BKTItt0ii2PHk4cDy+95+LshzbXnGg==}
     engines: {node: '>=12.20'}
 
-  zod@3.25.67:
-    resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
+  zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
 snapshots:
 
@@ -8457,73 +8411,73 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@cachemap/controller@5.2.5':
+  '@cachemap/controller@5.3.0':
     dependencies:
-      '@cachemap/utils': 5.2.5
-      core-js: 3.47.0
-      eventemitter3: 5.0.1
+      '@cachemap/utils': 5.3.0
+      core-js: 3.48.0
+      eventemitter3: 5.0.4
 
-  '@cachemap/core-worker@5.2.11(@cachemap/core@5.2.11)':
+  '@cachemap/core-worker@5.3.0(@cachemap/core@5.3.0)':
     dependencies:
-      '@cachemap/controller': 5.2.5
-      '@cachemap/core': 5.2.11
-      '@cachemap/types': 5.0.11
-      '@cachemap/utils': 5.2.5
+      '@cachemap/controller': 5.3.0
+      '@cachemap/core': 5.3.0
+      '@cachemap/types': 5.1.0
+      '@cachemap/utils': 5.3.0
       '@types/lodash-es': 4.17.12
       '@types/uuid': 11.0.0
       cacheability: 4.0.30
-      core-js: 3.47.0
-      eventemitter3: 5.0.1
-      lodash-es: 4.17.22
+      core-js: 3.48.0
+      eventemitter3: 5.0.4
+      lodash-es: 4.17.23
       ts-md5: 1.3.1
       uuid: 13.0.0
 
-  '@cachemap/core@5.2.11':
+  '@cachemap/core@5.3.0':
     dependencies:
-      '@cachemap/controller': 5.2.5
-      '@cachemap/map': 5.0.11
-      '@cachemap/types': 5.0.11
-      '@cachemap/utils': 5.2.5
+      '@cachemap/controller': 5.3.0
+      '@cachemap/map': 5.1.0
+      '@cachemap/types': 5.1.0
+      '@cachemap/utils': 5.3.0
       '@types/lodash-es': 4.17.12
       cacheability: 4.0.30
-      core-js: 3.47.0
-      eventemitter3: 5.0.1
-      lodash-es: 4.17.22
+      core-js: 3.48.0
+      eventemitter3: 5.0.4
+      lodash-es: 4.17.23
       ts-md5: 1.3.1
       type-fest: 5.4.1
 
-  '@cachemap/indexed-db@5.0.11':
+  '@cachemap/indexed-db@5.1.0':
     dependencies:
-      '@cachemap/types': 5.0.11
-      core-js: 3.47.0
+      '@cachemap/types': 5.1.0
+      core-js: 3.48.0
       idb: 8.0.3
-      lodash-es: 4.17.22
+      lodash-es: 4.17.23
 
-  '@cachemap/map@5.0.11':
+  '@cachemap/map@5.1.0':
     dependencies:
-      '@cachemap/types': 5.0.11
+      '@cachemap/types': 5.1.0
       '@types/lodash-es': 4.17.12
-      core-js: 3.47.0
-      lodash-es: 4.17.22
+      core-js: 3.48.0
+      lodash-es: 4.17.23
       type-fest: 5.4.1
 
-  '@cachemap/types@5.0.11':
+  '@cachemap/types@5.1.0':
     dependencies:
       '@types/lodash-es': 4.17.12
       cacheability: 4.0.30
-      core-js: 3.47.0
-      lodash-es: 4.17.22
+      core-js: 3.48.0
+      lodash-es: 4.17.23
 
-  '@cachemap/utils@5.2.5':
+  '@cachemap/utils@5.3.0':
     dependencies:
-      '@cachemap/types': 5.0.11
+      '@cachemap/types': 5.1.0
       '@types/crypto-js': 4.2.2
       '@types/lodash-es': 4.17.12
       cacheability: 4.0.30
-      core-js: 3.47.0
+      core-js: 3.48.0
       crypto-js: 4.2.0
       js-base64: 3.7.8
-      lodash-es: 4.17.22
+      lodash-es: 4.17.23
       type-fest: 5.4.1
 
   '@colors/colors@1.6.0': {}
@@ -9281,7 +9235,7 @@ snapshots:
       ansi-colors: 4.1.3
       enquirer: 2.4.1
       hygen: 6.2.11
-      lodash-es: 4.17.21
+      lodash-es: 4.17.23
       shelljs: 0.10.0
       yargs: 18.0.0
     transitivePeerDependencies:
@@ -9291,7 +9245,7 @@ snapshots:
     dependencies:
       '@repodog/cli-utils': 1.4.20
       ansi-colors: 4.1.3
-      lodash-es: 4.17.21
+      lodash-es: 4.17.23
       package-json: 10.0.1
       shelljs: 0.10.0
       yargs: 18.0.0
@@ -9312,30 +9266,21 @@ snapshots:
       shelljs: 0.10.0
       yargs: 18.0.0
 
-  '@repodog/cli-utils@1.4.16':
-    dependencies:
-      ansi-colors: 4.1.3
-      glob: 11.0.3
-      js-yaml: 4.1.0
-      lodash-es: 4.17.21
-      semver: 7.7.2
-      shelljs: 0.8.5
-
   '@repodog/cli-utils@1.4.20':
     dependencies:
       ansi-colors: 4.1.3
       glob: 11.1.0
       js-yaml: 4.1.1
-      lodash-es: 4.17.21
+      lodash-es: 4.17.23
       semver: 7.7.2
       shelljs: 0.10.0
 
-  '@repodog/cli-write@1.4.21(ws@8.18.2)(zod@3.25.67)':
+  '@repodog/cli-write@1.4.21(ws@8.18.2)(zod@3.25.76)':
     dependencies:
       '@repodog/cli-utils': 1.4.20
       ansi-colors: 4.1.3
       dotenv: 17.2.3
-      openai: 4.104.0(ws@8.18.2)(zod@3.25.67)
+      openai: 4.104.0(ws@8.18.2)(zod@3.25.76)
       shelljs: 0.10.0
       yargs: 18.0.0
     transitivePeerDependencies:
@@ -9343,7 +9288,7 @@ snapshots:
       - ws
       - zod
 
-  '@repodog/cli@1.6.53(ws@8.18.2)(zod@3.25.67)':
+  '@repodog/cli@1.6.53(ws@8.18.2)(zod@3.25.76)':
     dependencies:
       '@repodog/cli-cut': 1.4.25
       '@repodog/cli-new': 1.5.42
@@ -9351,13 +9296,13 @@ snapshots:
       '@repodog/cli-publish': 1.4.25
       '@repodog/cli-setup': 1.4.22
       '@repodog/cli-utils': 1.4.20
-      '@repodog/cli-write': 1.4.21(ws@8.18.2)(zod@3.25.67)
+      '@repodog/cli-write': 1.4.21(ws@8.18.2)(zod@3.25.76)
       '@types/lodash-es': 4.17.12
       '@types/semver': 7.7.0
       '@types/shelljs': 0.8.17
       '@types/yargs': 17.0.33
       ansi-colors: 4.1.3
-      lodash-es: 4.17.21
+      lodash-es: 4.17.23
       semver: 7.7.2
       shelljs: 0.10.0
       suppress-experimental-warnings: 2.0.0
@@ -9774,10 +9719,6 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@types/babel-plugin-macros@3.1.3':
-    dependencies:
-      '@types/babel__core': 7.20.5
-
   '@types/babel__core@7.20.5':
     dependencies:
       '@babel/parser': 7.26.3
@@ -9966,11 +9907,6 @@ snapshots:
       '@types/node': 24.0.4
       '@types/send': 0.17.5
 
-  '@types/shelljs@0.8.16':
-    dependencies:
-      '@types/glob': 7.2.0
-      '@types/node': 24.0.4
-
   '@types/shelljs@0.8.17':
     dependencies:
       '@types/node': 24.0.4
@@ -10005,6 +9941,10 @@ snapshots:
       '@types/yargs-parser': 21.0.2
 
   '@types/yargs@17.0.33':
+    dependencies:
+      '@types/yargs-parser': 21.0.3
+
+  '@types/yargs@17.0.35':
     dependencies:
       '@types/yargs-parser': 21.0.3
 
@@ -10704,7 +10644,7 @@ snapshots:
     dependencies:
       '@types/lodash-es': 4.17.12
       core-js: 3.43.0
-      lodash-es: 4.17.21
+      lodash-es: 4.17.23
 
   caching-transform@4.0.0:
     dependencies:
@@ -10960,7 +10900,7 @@ snapshots:
 
   core-js@3.43.0: {}
 
-  core-js@3.47.0: {}
+  core-js@3.48.0: {}
 
   core-util-is@1.0.3: {}
 
@@ -11036,16 +10976,16 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  cts-types@0.0.10:
+  cts-types@0.0.11:
     dependencies:
-      '@repodog/cli-utils': 1.4.16
+      '@repodog/cli-utils': 1.4.20
       '@types/lodash-es': 4.17.12
-      '@types/shelljs': 0.8.16
-      '@types/yargs': 17.0.33
+      '@types/shelljs': 0.8.17
+      '@types/yargs': 17.0.35
       ansi-colors: 4.1.3
       core-js: 3.43.0
-      glob: 11.0.3
-      lodash-es: 4.17.21
+      glob: 11.1.0
+      lodash-es: 4.17.23
       shelljs: 0.8.5
       yargs: 17.7.2
 
@@ -11774,6 +11714,8 @@ snapshots:
 
   eventemitter3@5.0.1: {}
 
+  eventemitter3@5.0.4: {}
+
   events@3.3.0: {}
 
   execa@5.1.1:
@@ -11898,14 +11840,14 @@ snapshots:
       is-subset: 0.1.1
       regexparam: 3.0.0
 
-  fetch-mocked@0.0.29:
+  fetch-mocked@0.0.31:
     dependencies:
       '@types/lodash-es': 4.17.12
       core-js: 3.43.0
-      lodash-es: 4.17.21
+      lodash-es: 4.17.23
       node-fetch: 3.3.2
       type-fest: 4.41.0
-      zod: 3.25.67
+      zod: 3.25.76
 
   file-entry-cache@8.0.0:
     dependencies:
@@ -13264,9 +13206,7 @@ snapshots:
     dependencies:
       p-locate: 6.0.0
 
-  lodash-es@4.17.21: {}
-
-  lodash-es@4.17.22: {}
+  lodash-es@4.17.23: {}
 
   lodash.camelcase@4.3.0: {}
 
@@ -13833,7 +13773,7 @@ snapshots:
       is-inside-container: 1.0.0
       wsl-utils: 0.1.0
 
-  openai@4.104.0(ws@8.18.2)(zod@3.25.67):
+  openai@4.104.0(ws@8.18.2)(zod@3.25.76):
     dependencies:
       '@types/node': 18.19.112
       '@types/node-fetch': 2.6.12
@@ -13844,7 +13784,7 @@ snapshots:
       node-fetch: 2.7.0
     optionalDependencies:
       ws: 8.18.2
-      zod: 3.25.67
+      zod: 3.25.76
     transitivePeerDependencies:
       - encoding
 
@@ -14190,7 +14130,7 @@ snapshots:
 
   rechoir@0.6.2:
     dependencies:
-      resolve: 1.22.10
+      resolve: 1.22.11
 
   rechoir@0.8.0:
     dependencies:
@@ -14292,7 +14232,6 @@ snapshots:
       is-core-module: 2.16.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
-    optional: true
 
   resolve@1.22.8:
     dependencies:
@@ -15545,4 +15484,4 @@ snapshots:
 
   yocto-queue@1.2.1: {}
 
-  zod@3.25.67: {}
+  zod@3.25.76: {}

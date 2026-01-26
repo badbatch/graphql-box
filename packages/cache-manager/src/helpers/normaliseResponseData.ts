@@ -37,39 +37,21 @@ export const normaliseResponseData = (
   const { cacheMetadata } = extensions;
   const { metadata: fallbackCacheability } = new Cacheability({ cacheControl: fallbackCacheControlDirectives });
 
-  visitResponseData(data, [], (responseDataValue, operationPathStack, responseKeyStack) => {
+  visitResponseData(data, [], [], (responseDataValue, operationPathStack, responseKeyStack) => {
+    if (operationPathStack.length === 0) {
+      return;
+    }
+
+    const isIndexNode = typeof responseKeyStack.at(-1) === 'number';
     const operationPath = operationPathStack.join('.');
     const responseKey = responseKeyStack.join('.');
     const fieldPathMetadata = fieldPaths[operationPath];
 
     if (!fieldPathMetadata) {
-      console.debug(`Unable to resolve field path metadata for operation path "${operationPath}"`);
       return;
     }
 
     const { hasArgs, isEntity, isList, isRootEntity, typeName } = fieldPathMetadata;
-
-    if (isRootEntity || isList || hasArgs) {
-      const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
-      const existingCacheEntry = operationPaths[operationPathCacheKey];
-
-      const cacheEntryValue = existingCacheEntry
-        ? mergeCacheValues(existingCacheEntry.value, responseDataValue)
-        : responseDataValue;
-
-      operationPaths[operationPathCacheKey] = {
-        extensions: {
-          cacheability: cacheMetadata[operationPathCacheKey] ?? fallbackCacheability,
-          fieldPathMetadata,
-        },
-        kind: 'operationPath',
-        refTargets: buildRefTargets(cacheEntryValue, fieldPaths),
-        value: structuredClone(cacheEntryValue),
-      };
-
-      unset(data, responseKey);
-      return;
-    }
 
     if (isEntity) {
       // If isEntity is true, then responseDataValue will definitely be an object.
@@ -89,16 +71,37 @@ export const normaliseResponseData = (
       entities[entityCacheKey] = {
         extensions: {
           cacheability: cacheMetadata[entityCacheKey] ?? fallbackCacheability,
-          fieldPathMetadata,
         },
         kind: 'entity',
-        refTargets: buildRefTargets(cacheEntryValue, fieldPaths),
+        refTargets: buildRefTargets(cacheEntryValue, fieldPaths, operationPathStack),
         // Struggling to resolve type issues, will need to revisit.
         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         value: structuredClone(cacheEntryValue) as Entity,
       };
 
-      set(data, responseKey, { __kind: 'entity', __ref: entityCacheKey });
+      responseDataValue = { __kind: 'entity', __ref: entityCacheKey };
+      set(data, responseKey, responseDataValue);
+    }
+
+    if (isRootEntity || (isList && !isIndexNode) || hasArgs) {
+      const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
+      const existingCacheEntry = operationPaths[operationPathCacheKey];
+
+      const cacheEntryValue = existingCacheEntry
+        ? mergeCacheValues(existingCacheEntry.value, responseDataValue)
+        : responseDataValue;
+
+      operationPaths[operationPathCacheKey] = {
+        extensions: {
+          cacheability: cacheMetadata[operationPathCacheKey] ?? fallbackCacheability,
+          fieldPathMetadata,
+        },
+        kind: 'operationPath',
+        refTargets: buildRefTargets(cacheEntryValue, fieldPaths, operationPathStack),
+        value: structuredClone(cacheEntryValue),
+      };
+
+      unset(data, responseKey);
     }
   });
 

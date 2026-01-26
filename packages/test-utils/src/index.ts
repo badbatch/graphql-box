@@ -8,4 +8,5 @@ export * as rawOperationsAndOptions from './rawOperationsAndOptions/index.ts';
 export * as responses from './responses/index.ts';
 export * from './schema/resolvers.ts';
 export * from './schema/typeDefs.ts';
+export * from './sleep.ts';
 export * from './types.ts';

@@ -72,7 +72,7 @@ describe('validateCursor', () => {
 
     it('should return the correct error', async () => {
       const result = await validateCursor(args, info as GraphQLResolveInfo, ctx);
-      expect(result?.message).toBe('Curser cannot be supplied without previously being provided.');
+      expect(result?.message).toBe('Cursor cannot be supplied without previously being provided.');
     });
   });
 

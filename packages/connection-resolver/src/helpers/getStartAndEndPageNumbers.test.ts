@@ -93,6 +93,7 @@ describe('getEndPageNumber', () => {
     const ctx = {
       endIndex: { absolute: 5, relative: 5 },
       metadata: {
+        cachedNodeIds: [],
         totalPages: 5,
         totalResults: 50,
       },
@@ -114,6 +115,7 @@ describe('getEndPageNumber', () => {
       const ctx = {
         endIndex: { absolute: 5, relative: 5 },
         metadata: {
+          cachedNodeIds: [],
           totalPages: 5,
           totalResults: 50,
         },
@@ -134,6 +136,7 @@ describe('getEndPageNumber', () => {
       const ctx = {
         endIndex: { absolute: 9, relative: 9 },
         metadata: {
+          cachedNodeIds: [],
           totalPages: 5,
           totalResults: 50,
         },
@@ -154,6 +157,7 @@ describe('getEndPageNumber', () => {
       const ctx = {
         endIndex: { absolute: 37, relative: 6 },
         metadata: {
+          cachedNodeIds: [],
           totalPages: 5,
           totalResults: 50,
         },
@@ -174,6 +178,7 @@ describe('getEndPageNumber', () => {
       const ctx = {
         endIndex: { absolute: 22, relative: 4 },
         metadata: {
+          cachedNodeIds: [],
           totalPages: 5,
           totalResults: 50,
         },
