@@ -1,5 +1,56 @@
 # Changelog
 
+## 5.5.59-unstable-12345.13 (2026-01-26)
+
+### Chores
+
+* **root:**
+  * minor updates (0890c688)
+  * save work in progress (fe7bc983)
+* **cache-manager:**
+  * save work in progress (4a0e638a)
+  * save work in progress (2ce00b4d)
+  * save work in progress (f3883470)
+* **operation-parser,cache-manager:**  save work in progress (b212f5b7)
+* **operation-parser:**  save work in progress (06ad580e)
+
+### New Features
+
+* **operation-parser:**
+  * add requiredFields prop on fieldPath metadata (291cce2f)
+  * add scoreOperation function (6b364f1b)
+
+### Bug Fixes
+
+* **root:**
+  * minor issues with cache access (4433d6bb)
+  * minor issues in multiple packages (e8e88c0e)
+* **operation-parser:**
+  * move id/typename injection to instrumentation (fcc58cff)
+  * change test data and update tests (e2600e0c)
+  * instrumentation logic` (303c0dc7)
+  * remove include/skip directive if redundant (6cfdfd36)
+
+### Refactors
+
+* **operation-parser,cache-manager:**  add required fields pattern (56cceb43)
+* **root:**  remove package (ef78e230)
+* **connection-resolver:**  minor optimisations (c5c9da65)
+* **debug-manager:**  clean up interface and error handling (902e7fe1)
+* **cache-manager:**
+  * handle requiredFields metadata (affbc4ae)
+  * save work in progress0 (0c580583)
+* **fetch-manager,server:**  fix settimeout logic (8c855ffe)
+* **operation-parser:**  : update normalisation logic (2904781d)
+
+### Reverts
+
+* **cache-manager,operation-parser:**  union path issue fix (058173e4)
+
+### Tests
+
+* **operation-parser:**  add unit tests for score operation (a68b9575)
+
 ## 5.5.59-unstable-12345.12 (2025-12-20)
 
 ### Bug Fixes
