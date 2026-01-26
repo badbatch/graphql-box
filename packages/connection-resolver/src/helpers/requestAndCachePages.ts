@@ -1,22 +1,22 @@
 import { type Core } from '@cachemap/core';
-import { type PlainObject } from '@graphql-box/core';
+import { type PlainObject, type SetCacheMetadata } from '@graphql-box/core';
+import { type GraphQLResolveInfo } from 'graphql';
 import {
   type CachedEdges,
   type CursorGroupMetadata,
   type Getters,
   type Node,
   type ResourceResolver,
-  type SetCacheMetadata,
 } from '../types.ts';
 import { cacheCursors } from './cacheCursors.ts';
 import { makeEdges } from './makeEdges.ts';
 
 export type Context<Resource extends PlainObject, ResourceNode extends Node> = {
   cursorCache: Core;
-  fieldPath: string;
   getters: Getters<Resource, ResourceNode>;
   groupCursor: string;
   makeIDCursor: (id: string | number) => string;
+  resolverInfo: GraphQLResolveInfo;
   resourceResolver: ResourceResolver<Resource>;
   setCacheMetadata: SetCacheMetadata | undefined;
 };
@@ -29,10 +29,10 @@ export const requestAndCachePages = async <Resource extends PlainObject, Resourc
   pages: number[],
   {
     cursorCache,
-    fieldPath,
     getters,
     groupCursor,
     makeIDCursor,
+    resolverInfo,
     resourceResolver,
     setCacheMetadata,
   }: Context<Resource, ResourceNode>,
@@ -52,7 +52,7 @@ export const requestAndCachePages = async <Resource extends PlainObject, Resourc
     });
 
     if (pageResultData) {
-      setCacheMetadata?.(fieldPath, pageResultHeaders);
+      setCacheMetadata?.(pageResultData, resolverInfo, pageResultHeaders);
     }
 
     if (pageResultData && !pageResultErrors?.length) {

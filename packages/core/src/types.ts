@@ -5,6 +5,7 @@ import {
   type DocumentNode,
   type FragmentDefinitionNode,
   type GraphQLErrorExtensions,
+  type GraphQLResolveInfo,
   type OperationTypeNode,
 } from 'graphql';
 import { type ErrorObject } from 'serialize-error';
@@ -50,7 +51,7 @@ export interface Entity {
 export type ExecutionContextValue = PlainObject & {
   data: ExecutionContextValueData;
   debugManager?: DebugManagerDef;
-  setCacheMetadata: (key: string, headers: Headers, operation?: OperationTypeNode) => void;
+  setCacheMetadata: SetCacheMetadata;
 };
 
 export type ExecutionContextValueData = PlainObject & Except<OperationContextData, 'initiator'>;
@@ -214,6 +215,8 @@ export type SerialisedResponseData<T extends PlainObject<unknown> = PlainObject<
   errors?: (DeserializedGraphqlError | ErrorObject)[];
   extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata };
 };
+
+export type SetCacheMetadata = (data: unknown, info: GraphQLResolveInfo, headers: Headers) => void;
 
 export interface ServerSocketOperationOptions extends OperationOptions {
   /**

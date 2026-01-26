@@ -1,6 +1,6 @@
 import { type Core } from '@cachemap/core';
 import { type ExecutionContextValue, type PlainObject } from '@graphql-box/core';
-import { type GraphQLResolveInfo, type OperationTypeNode } from 'graphql';
+import { type GraphQLResolveInfo } from 'graphql';
 import { type SetOptional } from 'type-fest';
 import { type Logger } from 'winston';
 
@@ -62,8 +62,6 @@ export type ResourceResponse<Resource extends PlainObject> = {
 export type ResourceResolver<Resource extends PlainObject> = (args: {
   page: number;
 }) => Promise<ResourceResponse<Resource>>;
-
-export type SetCacheMetadata = (key: string, headers: Headers, operation?: OperationTypeNode) => void;
 
 export type Context = ExecutionContextValue & {
   logger?: Logger;

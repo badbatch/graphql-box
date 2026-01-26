@@ -83,10 +83,10 @@ export const makeConnectionResolver =
       return resolver(
         await resolveConnection(args, {
           cursorCache,
-          fieldPath,
           getters,
           groupCursor,
           makeIDCursor,
+          resolverInfo: info,
           resourceResolver,
           resultsPerPage,
           setCacheMetadata,
@@ -98,10 +98,10 @@ export const makeConnectionResolver =
       return resolver(
         await resolveConnection(args, {
           cursorCache,
-          fieldPath,
           getters,
           groupCursor,
           makeIDCursor,
+          resolverInfo: info,
           resourceResolver,
           resultsPerPage,
           setCacheMetadata,
@@ -111,10 +111,10 @@ export const makeConnectionResolver =
 
     await requestAndCachePages<Resource, ResourceNode>([1], {
       cursorCache,
-      fieldPath,
       getters,
       groupCursor,
       makeIDCursor,
+      resolverInfo: info,
       resourceResolver,
       setCacheMetadata,
     });
@@ -122,10 +122,10 @@ export const makeConnectionResolver =
     return resolver(
       await resolveConnection(args, {
         cursorCache,
-        fieldPath,
         getters,
         groupCursor,
         makeIDCursor,
+        resolverInfo: info,
         resourceResolver,
         resultsPerPage,
         setCacheMetadata,

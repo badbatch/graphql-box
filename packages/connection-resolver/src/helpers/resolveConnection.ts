@@ -1,12 +1,7 @@
 import { type Core } from '@cachemap/core';
-import { type PlainObject } from '@graphql-box/core';
-import {
-  type ConnectionInputOptions,
-  type Getters,
-  type Node,
-  type ResourceResolver,
-  type SetCacheMetadata,
-} from '../types.ts';
+import { type PlainObject, type SetCacheMetadata } from '@graphql-box/core';
+import { type GraphQLResolveInfo } from 'graphql';
+import { type ConnectionInputOptions, type Getters, type Node, type ResourceResolver } from '../types.ts';
 import { extractEdges } from './extractEdges.ts';
 import { extractNodes } from './extractNodes.ts';
 import { getInRangeCachedEdges } from './getInRangeCachedEdges.ts';
@@ -17,10 +12,10 @@ import { retrieveCachedConnection } from './retrieveCachedConnection.ts';
 
 export type Context<Resource extends PlainObject, ResourceNode extends Node> = {
   cursorCache: Core;
-  fieldPath: string;
   getters: Getters<Resource, ResourceNode>;
   groupCursor: string;
   makeIDCursor: (id: string | number) => string;
+  resolverInfo: GraphQLResolveInfo;
   resourceResolver: ResourceResolver<Resource>;
   resultsPerPage: number;
   setCacheMetadata: SetCacheMetadata | undefined;
@@ -30,10 +25,10 @@ export const resolveConnection = async <Resource extends PlainObject, ResourceNo
   args: PlainObject & ConnectionInputOptions,
   {
     cursorCache,
-    fieldPath,
     getters,
     groupCursor,
     makeIDCursor,
+    resolverInfo,
     resourceResolver,
     resultsPerPage,
     setCacheMetadata,
@@ -65,10 +60,10 @@ export const resolveConnection = async <Resource extends PlainObject, ResourceNo
 
   const { cachedEdges: missingCachedEdges, errors } = await requestAndCachePages<Resource, ResourceNode>(missingPages, {
     cursorCache,
-    fieldPath,
     getters,
     groupCursor,
     makeIDCursor,
+    resolverInfo,
     resourceResolver,
     setCacheMetadata,
   });
