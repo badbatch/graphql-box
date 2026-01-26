@@ -1,11 +1,5 @@
-import {
-  type DefinitionNode,
-  type DocumentNode,
-  Kind,
-  type OperationDefinitionNode,
-  type OperationTypeNode,
-} from 'graphql';
-import { getKind } from './kind.ts';
+import { type DocumentNode, Kind, type OperationDefinitionNode, type OperationTypeNode } from 'graphql';
+import { isKind } from './kind.ts';
 
 export const getOperationDefinitions = (
   { definitions }: DocumentNode,
@@ -13,11 +7,8 @@ export const getOperationDefinitions = (
 ): OperationDefinitionNode[] => {
   const operationDefinitions: OperationDefinitionNode[] = [];
 
-  const isOperationDefinitionNode = (n: DefinitionNode): n is OperationDefinitionNode =>
-    getKind(n) === Kind.OPERATION_DEFINITION;
-
   for (const definition of definitions) {
-    if (isOperationDefinitionNode(definition)) {
+    if (isKind<OperationDefinitionNode>(definition, Kind.OPERATION_DEFINITION)) {
       operationDefinitions.push(definition);
     }
   }
@@ -26,13 +17,13 @@ export const getOperationDefinitions = (
     return operationDefinitions;
   }
 
-  const filterdOperationDefinitions: OperationDefinitionNode[] = [];
+  const filteredOperationDefinitions: OperationDefinitionNode[] = [];
 
   for (const operationDefinition of operationDefinitions) {
     if (operationDefinition.operation === name) {
-      filterdOperationDefinitions.push(operationDefinition);
+      filteredOperationDefinitions.push(operationDefinition);
     }
   }
 
-  return filterdOperationDefinitions;
+  return filteredOperationDefinitions;
 };
