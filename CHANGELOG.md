@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.59-unstable-12345.16 (2026-01-26)
+
+### Bug Fixes
+
+* **helpers:**  sort setCacheMetadata helper so it works (07eca7fd)
+
+### Refactors
+
+* **helpers:**  remove old functions (d7c3f1f8)
+
 ## 5.5.59-unstable-12345.15 (2026-01-26)
 
 ### Bug Fixes
