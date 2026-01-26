@@ -16,25 +16,23 @@ Object.defineProperty(globalThis, 'location', {
   writable: true,
 });
 
+// @ts-expect-error Okay for test file
+globalThis.AbortController = class {
+  signal = {
+    aborted: false,
+    addEventListener: jest.fn(),
+    onabort: jest.fn(),
+    removeEventListener: jest.fn(),
+  };
+
+  abort() {
+    this.signal.aborted = true;
+    this.signal.onabort();
+  }
+};
+
 describe('@graphql-box/fetch-manager', () => {
   let fetchManager: RequestManagerDef;
-
-  beforeEach(() => {
-    // @ts-expect-error Okay for test file
-    globalThis.AbortController = class {
-      signal = {
-        aborted: false,
-        addEventListener: jest.fn(),
-        onabort: jest.fn(),
-        removeEventListener: jest.fn(),
-      };
-
-      abort() {
-        this.signal.aborted = true;
-        this.signal.onabort();
-      }
-    };
-  });
 
   describe('no batching', () => {
     describe('when batch is false', () => {
@@ -65,14 +63,11 @@ describe('@graphql-box/fetch-manager', () => {
               "body": "{"batched":false,"context":{"data":{"operationId":"123456789","operationName":"","operationType":"query","rawOperationHash":""}},"operation":"\\n  {\\n    organization(login: \\"facebook\\") {\\n      email\\n      login\\n      name\\n    }\\n  }\\n"}",
               "headers": Headers {},
               "method": "POST",
-              "signal": AbortSignal {
-                Symbol(kEvents): Map {},
-                Symbol(events.maxEventTargetListeners): 10,
-                Symbol(events.maxEventTargetListenersWarned): false,
-                Symbol(kHandlers): Map {},
-                Symbol(kAborted): false,
-                Symbol(kReason): undefined,
-                Symbol(kComposite): false,
+              "signal": {
+                "aborted": false,
+                "addEventListener": [MockFunction],
+                "onabort": [MockFunction],
+                "removeEventListener": [MockFunction],
               },
             },
           ]
