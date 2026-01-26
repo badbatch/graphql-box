@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.17 (2026-01-26)
+
+### Bug Fixes
+
+* **connection-resolver:**  call setCacheMetadata correctly (0655799a)
+
 ## 5.5.59-unstable-12345.16 (2026-01-26)
 
 ### Bug Fixes
