@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.14 (2026-01-26)
+
+### Bug Fixes
+
+* **fetch-manager:**  snapshot failing in ci (be8d02d5)
+
 ## 5.5.59-unstable-12345.13 (2026-01-26)
 
 ### Chores
