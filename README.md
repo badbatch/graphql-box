@@ -51,7 +51,6 @@ GraphQL Box's multi-package structure allows you to compose your client and serv
 * [@graphql-box/debug-manager](packages/debug-manager/README.md)
 * [@graphql-box/execute](packages/execute/README.md)
 * [@graphql-box/fetch-manager](packages/fetch-manager/README.md)
-* [@graphql-box/gql.macro](packages/gql.macro/README.md)
 * [@graphql-box/helpers](packages/helpers/README.md)
 * [@graphql-box/react](packages/react/README.md)
 * [@graphql-box/request-parser](packages/operation-parser/README.md)

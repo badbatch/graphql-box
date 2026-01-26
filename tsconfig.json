@@ -3,8 +3,5 @@
   "include": [
     "packages/**/*",
     "tests/**/*",
-  ],
-  "exclude": [
-    "packages/gql.macro/**/*"
   ]
 }
