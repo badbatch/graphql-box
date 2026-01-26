@@ -31,7 +31,6 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
     renderLoader,
     requestPath,
     resultsPerRequest = 20,
-    returnCacheMetadata,
     tag,
     variables,
   } = props;
@@ -71,7 +70,6 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
         {
           batch,
           fragments,
-          returnCacheMetadata,
           tag,
           variables: { ...variables, ...newConnectionVariables },
         },

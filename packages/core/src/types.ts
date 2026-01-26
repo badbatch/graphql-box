@@ -41,10 +41,15 @@ export type DeserializedGraphqlError = {
   stack: string;
 };
 
+export interface Entity {
+  [key: string]: unknown;
+  __typename: string;
+  id: string | number;
+}
+
 export type ExecutionContextValue = PlainObject & {
   data: ExecutionContextValueData;
   debugManager?: DebugManagerDef;
-  fragmentDefinitions?: FragmentDefinitionNodeMap;
   setCacheMetadata: (key: string, headers: Headers, operation?: OperationTypeNode) => void;
 };
 
@@ -123,7 +128,8 @@ export type PlainData<T = any> = PlainObject<T> | PlainArray<T>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PlainObject<T = any> = Record<string, T>;
 
-export type OperationContextData = PlainObject<unknown> & {
+export interface OperationContextData {
+  [string: string]: unknown;
   initiator?: string;
   operationId: string;
   operationMaxFieldDepth?: number;
@@ -131,12 +137,13 @@ export type OperationContextData = PlainObject<unknown> & {
   operationType: OperationTypeNode;
   operationTypeComplexity?: number;
   rawOperationHash: string;
-};
+}
 
 export type OperationContext = {
   data: OperationContextData;
   debugManager?: DebugManagerDef;
-  fieldPaths?: FieldPaths;
+  fieldPaths: FieldPaths;
+  idKey: string;
 };
 
 export type OperationData = {
@@ -149,6 +156,11 @@ export interface RequestManagerDef {
   execute(operationData: OperationData, options: OperationOptions, context: OperationContext): Promise<ResponseData>;
 }
 
+export interface OperationOptionsContextValue {
+  [string: string]: unknown;
+  data?: Record<string, unknown>;
+}
+
 export type OperationOptions = {
   /**
    * Whether to batch the request. This defaults to the
@@ -159,18 +171,13 @@ export type OperationOptions = {
    * Set GraphQL context value to be passed on to
    * GraphQL's execute and subscribe methods.
    */
-  contextValue?: PlainObject<unknown> & { data?: PlainObject<unknown> };
+  contextValue?: OperationOptionsContextValue;
   /**
    * A list of query fragements to be inserted
    * into the main query, mutation or subscription
    * being requested.
    */
   fragments?: string[];
-  /**
-   * Whether to return cache metadata in each response. Useful to
-   * share cache metadata between server and client.
-   */
-  returnCacheMetadata?: boolean;
   /**
    * An identifier that will be stored in a request's cache metadata.
    * This can be used to retrieve cache entries against.

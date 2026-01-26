@@ -1,18 +1,24 @@
 import { type Core } from '@cachemap/core';
 import {
   type CacheMetadata,
+  type Entity,
   type FieldPaths,
   type OperationContext,
   type OperationData,
   type PlainObject,
   type ResponseData,
 } from '@graphql-box/core';
-import { ArgsError, GroupedError, hashOperation, sortFieldPathEntries } from '@graphql-box/helpers';
+import {
+  ArgsError,
+  GroupedError,
+  buildOperationPathCacheKey,
+  hashOperation,
+  sortFieldPathEntries,
+} from '@graphql-box/helpers';
 import { type Metadata as CacheabilityMetadata } from 'cacheability';
 import { print } from 'graphql';
 import { set } from 'lodash-es';
 import { type SetRequired } from 'type-fest';
-import { buildOperationPathCacheKey } from '#helpers/buildOperationPathCacheKey.ts';
 import { buildResponseDataKey } from '#helpers/buildResponseDataPath.ts';
 import { getRequiredFieldNames } from '#helpers/getRequiredFieldNames.ts';
 import { mergeRefTargets } from '#helpers/mergeRefTargets.ts';
@@ -21,7 +27,6 @@ import { filterQuery } from './helpers/filterQuery.ts';
 import {
   type AnalyzeQueryResult,
   type CacheManagerDef,
-  type Entity,
   type EntityCacheEntry,
   type OperationCacheEntry,
   type OperationPathCacheEntry,
@@ -35,7 +40,6 @@ export class CacheManager implements CacheManagerDef {
   private readonly _debug: boolean;
   private readonly _fallbackCacheControlDirectives: string;
   private readonly _hashCacheKeys: boolean;
-  private _idKey = 'id';
 
   constructor(options: UserOptions) {
     const errors: ArgsError[] = [];
@@ -119,10 +123,6 @@ export class CacheManager implements CacheManagerDef {
 
   get hashCacheKeys(): boolean {
     return this._hashCacheKeys;
-  }
-
-  set idKey(idKey: string) {
-    this._idKey = idKey;
   }
 
   private _log(message: string): void {
@@ -374,11 +374,11 @@ export class CacheManager implements CacheManagerDef {
   private async _storeResponseData(
     { operation }: OperationData,
     { data, extensions }: ResponseData,
-    { fieldPaths }: SetRequired<OperationContext, 'fieldPaths'>,
+    { fieldPaths, idKey }: SetRequired<OperationContext, 'fieldPaths'>,
   ): Promise<void> {
     const { entities, operationPaths } = normaliseResponseData(data, extensions, fieldPaths, {
       fallbackCacheControlDirectives: this._fallbackCacheControlDirectives,
-      idKey: this._idKey,
+      idKey,
     });
 
     const cacheWritePromises: Promise<void>[] = [this._writeOperation(operation, operationPaths)];

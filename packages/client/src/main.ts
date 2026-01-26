@@ -57,6 +57,7 @@ export class Client {
 
   private readonly _cacheManager: CacheManagerDef;
   private readonly _debugManager: DebugManagerDef | undefined;
+  private readonly _idKey: string;
   private readonly _operationParser: OperationParserDef;
   private readonly _queryTracker: QueryTracker = { active: [], pending: {} };
   private readonly _requestManager: RequestManagerDef;
@@ -86,6 +87,7 @@ export class Client {
 
     this._cacheManager = options.cacheManager;
     this._debugManager = options.debugManager;
+    this._idKey = options.idKey ?? 'id';
     this._operationParser = options.operationParser;
     this._requestManager = options.requestManager;
   }
@@ -141,7 +143,8 @@ export class Client {
         variables: options.variables,
       },
       debugManager: this._debugManager,
-      fieldPaths: undefined,
+      fieldPaths: {},
+      idKey: this._idKey,
     };
   }
 

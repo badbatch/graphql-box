@@ -6,7 +6,7 @@ import {
   type PlainObject,
   type ResponseData,
 } from '@graphql-box/core';
-import { ArgsError, GroupedError, getFragmentDefinitions, setCacheMetadata } from '@graphql-box/helpers';
+import { ArgsError, GroupedError, setCacheMetadata } from '@graphql-box/helpers';
 import { type ExecutionArgs, type GraphQLFieldResolver, GraphQLSchema, execute } from 'graphql';
 import { omit } from 'lodash-es';
 import { isAsyncIterableTypeGuard } from '#helpers/isAsyncIterableTypeGuard.ts';
@@ -57,8 +57,8 @@ export class Execute {
           ...contextValue.data,
         },
         debugManager: context.debugManager,
-        fragmentDefinitions: getFragmentDefinitions(ast),
-        setCacheMetadata: setCacheMetadata(cacheMetadata),
+        fieldPaths: context.fieldPaths,
+        setCacheMetadata: setCacheMetadata(cacheMetadata, context.fieldPaths, context.idKey),
       },
       document: ast,
       fieldResolver: this._fieldResolver,

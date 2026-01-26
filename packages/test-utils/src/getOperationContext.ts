@@ -1,4 +1,4 @@
-import { type OperationContext, type PartialOperationContext } from '@graphql-box/core';
+import { type FieldPaths, type OperationContext, type PartialOperationContext } from '@graphql-box/core';
 import { OperationTypeNode } from 'graphql';
 import { merge } from 'lodash-es';
 
@@ -14,7 +14,10 @@ export const getOperationContext = (ctx: PartialOperationContext = {}): Operatio
         rawOperationHash: '',
       },
       debugManager: undefined,
-      fieldPaths: undefined,
+      // Okay for test purposes.
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      fieldPaths: {} as FieldPaths,
+      idKey: 'id',
     },
     ctx,
   );

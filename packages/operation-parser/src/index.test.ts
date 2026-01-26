@@ -130,6 +130,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -259,6 +260,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -388,6 +390,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -591,6 +594,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -720,6 +724,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -849,6 +854,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -1124,6 +1130,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -1418,6 +1425,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -1549,6 +1557,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -1668,6 +1677,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -1787,6 +1797,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -1920,6 +1931,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -2051,6 +2063,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -2285,6 +2298,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "String",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -2414,6 +2428,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -2543,6 +2558,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -2716,6 +2732,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "String",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -2950,6 +2967,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "URI",
             },
           },
+          "idKey": "id",
         }
       `);
     });
@@ -3187,6 +3205,7 @@ describe('@graphql-box/operation-parser', () => {
               "typeName": "String",
             },
           },
+          "idKey": "id",
         }
       `);
     });

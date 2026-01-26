@@ -1,6 +1,7 @@
 import { type Core } from '@cachemap/core';
 import {
   type CacheMetadata,
+  type Entity,
   type FieldPathMetadata,
   type FieldPathMetadataRequiredFields,
   type OperationContext,
@@ -54,12 +55,6 @@ export interface CacheManagerDef {
 
 export interface CacheEntryRef {
   __ref: string;
-}
-
-export interface Entity {
-  [key: string]: unknown;
-  __typename: string;
-  id: string;
 }
 
 export type EntityRequiredFields = FieldPathMetadataRequiredFields;

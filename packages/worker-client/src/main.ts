@@ -169,7 +169,8 @@ export class WorkerClient {
         variables: options.variables,
       },
       debugManager: this._debugManager,
-      fieldPaths: undefined,
+      fieldPaths: {},
+      idKey: '',
     };
   }
 

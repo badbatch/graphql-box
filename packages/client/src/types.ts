@@ -18,6 +18,10 @@ export interface UserOptions {
    */
   debugManager?: DebugManagerDef;
   /**
+   * The name of the identifier property for an entity, defaults to 'id'.
+   */
+  idKey?: string;
+  /**
    * The curried function to initialzie the request parser.
    */
   operationParser: OperationParserDef;

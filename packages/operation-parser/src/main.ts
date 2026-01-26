@@ -9,7 +9,6 @@ import { validateOperation } from '#helpers/validateOperation.ts';
 import { type OperationParserDef, type UserOptions } from './types.ts';
 
 export class OperationParser implements OperationParserDef {
-  private _idKey = 'id';
   private readonly _maxFieldDepth: number;
   private readonly _maxTypeComplexity: number;
   private readonly _schema: GraphQLSchema;
@@ -51,10 +50,6 @@ export class OperationParser implements OperationParserDef {
     return this._buildOperationData(operation, options, context);
   }
 
-  set idKeys(idKey: string) {
-    this._idKey = idKey;
-  }
-
   private _buildOperationData(operation: string, options: OperationOptions, context: OperationContext): OperationData {
     const operationWithFragments = options.fragments ? [operation, ...options.fragments].join('\n\n') : operation;
     const ast = parse(operationWithFragments);
@@ -75,7 +70,7 @@ export class OperationParser implements OperationParserDef {
     const parsedOperation = print(parsedAst);
 
     const { depthChart, fieldPaths, instrumentedAst, typeOccurrences } = instrumentOperation(parsedAst, this._schema, {
-      idKey: this._idKey,
+      idKey: context.idKey,
       operation: parsedOperation,
       operationType: context.data.operationType,
     });

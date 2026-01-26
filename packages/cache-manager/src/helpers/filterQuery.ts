@@ -1,5 +1,5 @@
 import { type FieldPaths } from '@graphql-box/core';
-import { getAlias, isKind } from '@graphql-box/helpers';
+import { buildOperationPathCacheKey, getAlias, isKind } from '@graphql-box/helpers';
 import {
   type DocumentNode,
   type FieldNode,
@@ -9,7 +9,6 @@ import {
   type SelectionNode,
   visit,
 } from 'graphql';
-import { buildOperationPathCacheKey } from '#helpers/buildOperationPathCacheKey.ts';
 
 const removeSelectionsInRequiredFields = (
   readonlySelections: readonly SelectionNode[],

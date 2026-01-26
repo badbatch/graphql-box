@@ -1,12 +1,11 @@
-import { type CacheMetadata, type FieldPaths, type PlainObject } from '@graphql-box/core';
+import { type CacheMetadata, type Entity, type FieldPaths, type PlainObject } from '@graphql-box/core';
+import { buildEntityCacheKey, buildOperationPathCacheKey } from '@graphql-box/helpers';
 import { Cacheability } from 'cacheability';
 import { set, unset } from 'lodash-es';
-import { buildEntityCacheKey } from '#helpers/buildEntityCacheKey.ts';
-import { buildOperationPathCacheKey } from '#helpers/buildOperationPathCacheKey.ts';
 import { buildRefTargets } from '#helpers/buildRefTargets.ts';
 import { mergeCacheValues } from '#helpers/mergeCacheEntries.ts';
 import { visitResponseData } from '#helpers/visitResponseData.ts';
-import { type Entity, type EntityCacheEntry, type OperationPathCacheEntry } from '#types.ts';
+import { type EntityCacheEntry, type OperationPathCacheEntry } from '#types.ts';
 
 export type NormalisedResponseData = {
   entities: Record<string, EntityCacheEntry>;
