@@ -1,4 +1,3 @@
-import { type PlainObject } from '@graphql-box/core';
 import { isKind } from '@graphql-box/helpers';
 import {
   type BooleanValueNode,
@@ -8,10 +7,11 @@ import {
   Kind,
   type VariableNode,
 } from 'graphql';
+import { type NormalisedVariables } from '#helpers/normaliseVariables.ts';
 
 export const directivesHasIncludeFalseOrSkipTrue = (
   node: FieldNode | InlineFragmentNode | FragmentSpreadNode,
-  variableValues: PlainObject<unknown>,
+  normalisedVariables: NormalisedVariables,
 ): boolean => {
   for (const directive of node.directives ?? []) {
     if (directive.name.value !== 'include' && directive.name.value !== 'skip') {
@@ -29,7 +29,7 @@ export const directivesHasIncludeFalseOrSkipTrue = (
     if (isKind<BooleanValueNode>(ifArgNode.value, Kind.BOOLEAN)) {
       ifValue = ifArgNode.value.value;
     } else if (isKind<VariableNode>(ifArgNode.value, Kind.VARIABLE)) {
-      const value = variableValues[ifArgNode.value.name.value];
+      const value = normalisedVariables[ifArgNode.value.name.value]?.value;
 
       if (typeof value !== 'boolean') {
         throw new TypeError(`Directive ${directive.name.value} "if" variable value must be a boolean`);

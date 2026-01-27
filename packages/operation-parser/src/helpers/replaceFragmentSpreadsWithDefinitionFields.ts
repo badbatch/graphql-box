@@ -1,4 +1,4 @@
-import { type FragmentDefinitionNodeMap, type PlainObject } from '@graphql-box/core';
+import { type FragmentDefinitionNodeMap } from '@graphql-box/core';
 import { isKind } from '@graphql-box/helpers';
 import {
   type FieldNode,
@@ -8,13 +8,14 @@ import {
   Kind,
 } from 'graphql';
 import { directivesHasIncludeFalseOrSkipTrue } from '#helpers/directivesHasIncludeFalseOrSkipTrue.ts';
+import { type NormalisedVariables } from '#helpers/normaliseVariables.ts';
 
 export const replaceFragmentSpreadsWithDefinitionFields = <
   T extends FieldNode | InlineFragmentNode | FragmentDefinitionNode,
 >(
   node: T,
   fragmentDefinitions: FragmentDefinitionNodeMap | undefined,
-  variableValues: PlainObject<unknown>,
+  normalisedVariables: NormalisedVariables,
 ): T => {
   if (!node.selectionSet) {
     return node;
@@ -30,7 +31,7 @@ export const replaceFragmentSpreadsWithDefinitionFields = <
     if (isKind<FragmentSpreadNode>(childNode, Kind.FRAGMENT_SPREAD)) {
       const selections = [...node.selectionSet.selections];
 
-      if (directivesHasIncludeFalseOrSkipTrue(childNode, variableValues)) {
+      if (directivesHasIncludeFalseOrSkipTrue(childNode, normalisedVariables)) {
         selections.splice(i, 1);
         continue;
       }
@@ -47,7 +48,7 @@ export const replaceFragmentSpreadsWithDefinitionFields = <
       const replaced = replaceFragmentSpreadsWithDefinitionFields(
         fragmentDefinitionClone,
         fragmentDefinitions,
-        variableValues,
+        normalisedVariables,
       );
 
       selections.splice(i, 1, ...replaced.selectionSet.selections);

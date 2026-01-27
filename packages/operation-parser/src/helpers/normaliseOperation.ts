@@ -1,6 +1,7 @@
 import { type PlainObject } from '@graphql-box/core';
 import { buildOperationHash, getFragmentDefinitions, isAncestorAstNode, isKind } from '@graphql-box/helpers';
 import {
+  type ArgumentNode,
   type DirectiveNode,
   type DocumentNode,
   type FieldNode,
@@ -16,7 +17,7 @@ import {
 } from 'graphql';
 import { TypeInfo, visitWithTypeInfo } from 'graphql';
 import { directivesHasIncludeFalseOrSkipTrue } from '#helpers/directivesHasIncludeFalseOrSkipTrue.ts';
-import { getVariableTypeAndValues } from '#helpers/getVariableTypesAndValues.ts';
+import { normaliseVariables } from '#helpers/normaliseVariables.ts';
 import { replaceFragmentSpreadsWithDefinitionFields } from '#helpers/replaceFragmentSpreadsWithDefinitionFields.ts';
 import { replaceVariableNodeWithValueNode } from '#helpers/replaceVariableNodeWithValueNode.ts';
 import { sortSelections } from '#helpers/sortSelections.ts';
@@ -44,7 +45,7 @@ export const normaliseOperation = (
 
   const typeInfo = new TypeInfo(schema);
   const fragmentDefinitions = getFragmentDefinitions(ast);
-  const { variableTypes, variableValues } = getVariableTypeAndValues(ast, schema, variables);
+  const normalisedVariables = normaliseVariables(ast, schema, variables);
 
   const visitedAst = visit(
     ast,
@@ -52,7 +53,7 @@ export const normaliseOperation = (
       enter: (node, _key, parent) => {
         if (
           (isKind<FieldNode>(node, Kind.FIELD) || isKind<InlineFragmentNode>(node, Kind.INLINE_FRAGMENT)) &&
-          directivesHasIncludeFalseOrSkipTrue(node, variableValues)
+          directivesHasIncludeFalseOrSkipTrue(node, normalisedVariables)
         ) {
           return null;
         }
@@ -62,7 +63,7 @@ export const normaliseOperation = (
           node.selectionSet &&
           childIsFragmentSpread(node)
         ) {
-          return replaceFragmentSpreadsWithDefinitionFields(node, fragmentDefinitions, variableValues);
+          return replaceFragmentSpreadsWithDefinitionFields(node, fragmentDefinitions, normalisedVariables);
         }
 
         if (isKind<VariableNode>(node, Kind.VARIABLE)) {
@@ -74,19 +75,23 @@ export const normaliseOperation = (
           }
 
           const variableName = node.name.value;
-          const variableValue = variableValues[variableName];
+          const normalisedVariable = normalisedVariables[variableName];
 
-          if (!variableValue) {
-            return;
-          }
-
-          const variableType = variableTypes[variableName];
-
-          if (!variableType) {
+          if (!normalisedVariable) {
             throw new Error(`${variableName} has an unknown variable type`);
           }
 
-          return replaceVariableNodeWithValueNode(variableType, variableValues[variableName]);
+          if (normalisedVariable.value === undefined && normalisedVariable.required) {
+            throw new Error(`No value provided for required variable "${variableName}"`);
+          }
+
+          if (normalisedVariable.value !== undefined) {
+            return replaceVariableNodeWithValueNode(normalisedVariable.type, normalisedVariable.value);
+          }
+
+          if (!normalisedVariable.required) {
+            return null;
+          }
         }
 
         return;
@@ -106,6 +111,12 @@ export const normaliseOperation = (
         }
 
         if (isKind<VariableDefinitionNode>(node, Kind.VARIABLE_DEFINITION)) {
+          return null;
+        }
+
+        // We are setting variable nodes to null to indicate which to remove
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (isKind<ArgumentNode>(node, Kind.ARGUMENT) && node.value === null) {
           return null;
         }
 

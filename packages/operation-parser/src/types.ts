@@ -1,5 +1,5 @@
 import { type OperationContext, type OperationData, type OperationOptions } from '@graphql-box/core';
-import { type ASTNode, type GraphQLInputType, type GraphQLSchema, type IntrospectionQuery } from 'graphql';
+import { type ASTNode, type GraphQLSchema, type IntrospectionQuery } from 'graphql';
 
 export type Ancestor = ASTNode | readonly ASTNode[];
 
@@ -38,5 +38,3 @@ export type UserOptions = {
    */
   typeComplexityMap?: Record<string, number>;
 };
-
-export type VariableTypesMap = Record<string, GraphQLInputType>;
