@@ -238,7 +238,7 @@ describe('instrumentOperation', () => {
                 "email",
                 "id",
                 "login",
-                "name",
+                "fullName",
               ],
             },
             "typeName": "Organization",
@@ -1204,7 +1204,7 @@ describe('instrumentOperation', () => {
                 "description",
                 "id",
                 "login",
-                "name",
+                "organizationName",
               ],
               "PullRequest": [
                 "bodyText",

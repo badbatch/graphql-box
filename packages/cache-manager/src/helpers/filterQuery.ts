@@ -21,7 +21,10 @@ const removeSelectionsInRequiredFields = (
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const selection = selections[i]!;
 
-    if (isKind<FieldNode>(selection, Kind.FIELD) && requiredFields.includes(selection.name.value)) {
+    if (
+      isKind<FieldNode>(selection, Kind.FIELD) &&
+      requiredFields.includes(getAlias(selection) ?? selection.name.value)
+    ) {
       selections.splice(i, 1);
     }
   }

@@ -1,5 +1,5 @@
 import { type FieldPathMetadataRequiredFields } from '@graphql-box/core';
-import { hasArguments, isKind } from '@graphql-box/helpers';
+import { getAlias, hasArguments, isKind } from '@graphql-box/helpers';
 import {
   type FieldNode,
   type GraphQLSchema,
@@ -62,9 +62,10 @@ export const buildRequiredFields = (
         }
 
         const fields = (requiredFields[resolvedTypeNameKey] ??= []);
+        const name = getAlias(selection) ?? selection.name.value;
 
-        if (!fields.includes(selection.name.value)) {
-          fields.push(selection.name.value);
+        if (!fields.includes(name)) {
+          fields.push(name);
         }
       }
 
@@ -78,9 +79,10 @@ export const buildRequiredFields = (
         // The only fields that can be on a union at this point in
         // the workflow is the '__typename' field.
         const fields = (requiredFields[resolvedTypeNameKey] ??= []);
+        const name = getAlias(selection) ?? selection.name.value;
 
-        if (!fields.includes(selection.name.value)) {
-          fields.push(selection.name.value);
+        if (!fields.includes(name)) {
+          fields.push(name);
         }
       }
 
