@@ -50,7 +50,7 @@ export const normaliseResponseData = (
       return;
     }
 
-    const { hasArgs, isEntity, isList, isRootEntity, typeName } = fieldPathMetadata;
+    const { hasArgs, isEntity, isList, isRootPath, typeName } = fieldPathMetadata;
 
     if (isEntity) {
       // If isEntity is true, then responseDataValue will definitely be an object.
@@ -82,7 +82,7 @@ export const normaliseResponseData = (
       set(data, responseKey, responseDataValue);
     }
 
-    if (isRootEntity || (isList && !isIndexNode) || hasArgs) {
+    if (isRootPath || (isList && !isIndexNode) || hasArgs) {
       const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
       const existingCacheEntry = operationPaths[operationPathCacheKey];
 

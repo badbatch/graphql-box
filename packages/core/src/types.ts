@@ -71,7 +71,7 @@ export type FieldPathMetadata = {
   isEntity?: true;
   isLeaf?: true;
   isList?: true;
-  isRootEntity?: true;
+  isRootPath?: true;
   leafEntity?: string;
   pathCacheKey: string;
   pathResponseKey: string;

@@ -244,7 +244,7 @@ describe('@graphql-box/cache-manager', () => {
                   "fieldDepth": 1,
                   "hasArgs": true,
                   "isEntity": true,
-                  "isRootEntity": true,
+                  "isRootPath": true,
                   "pathCacheKey": "organization({"login":"facebook"})",
                   "pathResponseKey": "organization",
                   "requiredFields": {

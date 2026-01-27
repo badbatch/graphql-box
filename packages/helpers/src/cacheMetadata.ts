@@ -15,10 +15,10 @@ export const setCacheMetadata =
       return;
     }
 
-    const { hasArgs, isEntity, isList, isRootEntity } = fieldPathMetadata;
+    const { hasArgs, isEntity, isList, isRootPath } = fieldPathMetadata;
     const incomingCacheability = new Cacheability({ headers });
 
-    if (hasArgs || isList || isRootEntity) {
+    if (hasArgs || isList || isRootPath) {
       const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
 
       if (operationPathCacheKey) {

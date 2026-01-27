@@ -57,7 +57,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -187,7 +187,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -317,7 +317,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"google"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -457,7 +457,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"google"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -651,7 +651,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -781,7 +781,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -928,7 +928,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -1207,7 +1207,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -1482,7 +1482,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -1613,7 +1613,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -1733,7 +1733,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -1856,7 +1856,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -1990,7 +1990,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -2131,7 +2131,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "repositoryOwner({"login":"facebook"})",
               "pathResponseKey": "repositoryOwner",
               "requiredFields": {
@@ -2355,7 +2355,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -2485,7 +2485,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -2622,7 +2622,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "organization({"login":"facebook"})",
               "pathResponseKey": "organization",
               "requiredFields": {
@@ -2800,7 +2800,7 @@ describe('@graphql-box/operation-parser', () => {
               "fieldDepth": 1,
               "hasArgs": true,
               "isEntity": true,
-              "isRootEntity": true,
+              "isRootPath": true,
               "pathCacheKey": "repositoryOwner({"login":"facebook"})",
               "pathResponseKey": "repositoryOwner",
               "requiredFields": {
@@ -3079,6 +3079,7 @@ describe('@graphql-box/operation-parser', () => {
               },
               "fieldDepth": 1,
               "hasArgs": true,
+              "isRootPath": true,
               "pathCacheKey": "addStar({"input":{"clientMutationId":"1","starrableId":"MDEwOlJlcG9zaXRvcnkxMDA0NTUxNDg="}})",
               "pathResponseKey": "addStar",
               "typeName": "AddStarPayload",

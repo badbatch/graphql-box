@@ -146,7 +146,7 @@ export const instrumentOperation = (
               isEntity,
               isLeaf,
               isList,
-              isRootEntity: isEntity && fieldPathStack.length === 1,
+              isRootPath: fieldPathStack.length === 1,
               leafEntity,
               pathCacheKey: buildPathCacheKey(node, { isList }),
               pathResponseKey: getAlias(node) ?? node.name.value,

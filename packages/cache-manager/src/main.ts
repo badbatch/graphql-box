@@ -340,8 +340,8 @@ export class CacheManager implements CacheManagerDef {
 
     let cacheMetadata: CacheMetadata = {};
 
-    for (const [operationPath, { hasArgs, isList, isRootEntity }] of sortedFieldPathEntries) {
-      if (!(hasArgs || isList || isRootEntity)) {
+    for (const [operationPath, { hasArgs, isList, isRootPath }] of sortedFieldPathEntries) {
+      if (!(hasArgs || isList || isRootPath)) {
         continue;
       }
 

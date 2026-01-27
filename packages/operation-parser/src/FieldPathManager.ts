@@ -12,7 +12,7 @@ export type AddFieldPathOptions = {
   isEntity: boolean;
   isLeaf: boolean;
   isList: boolean;
-  isRootEntity: boolean;
+  isRootPath: boolean;
   leafEntity: string | undefined;
   pathCacheKey: string;
   pathResponseKey: string;
@@ -35,7 +35,7 @@ export class FieldPathManager {
       isEntity,
       isLeaf,
       isList,
-      isRootEntity,
+      isRootPath,
       leafEntity,
       pathCacheKey,
       pathResponseKey,
@@ -79,7 +79,7 @@ export class FieldPathManager {
           isEntity,
           isLeaf,
           isList,
-          isRootEntity,
+          isRootPath,
           leafEntity,
           requiredFields: isEntity ? buildRequiredFields(field, typeName, this._schema) : undefined,
           typeConditions: typeConditions.length > 0 ? typeConditions : undefined,

@@ -93,7 +93,7 @@ describe('instrumentOperation', () => {
             "fieldDepth": 1,
             "hasArgs": true,
             "isEntity": true,
-            "isRootEntity": true,
+            "isRootPath": true,
             "pathCacheKey": "organization({"login":"facebook"})",
             "pathResponseKey": "organization",
             "requiredFields": {
@@ -229,7 +229,7 @@ describe('instrumentOperation', () => {
             "fieldDepth": 1,
             "hasArgs": true,
             "isEntity": true,
-            "isRootEntity": true,
+            "isRootPath": true,
             "pathCacheKey": "organization({"login":"facebook"})",
             "pathResponseKey": "organization",
             "requiredFields": {
@@ -369,7 +369,7 @@ describe('instrumentOperation', () => {
             "fieldDepth": 1,
             "hasArgs": true,
             "isEntity": true,
-            "isRootEntity": true,
+            "isRootPath": true,
             "pathCacheKey": "repositoryOwner({"login":"facebook"})",
             "pathResponseKey": "repositoryOwner",
             "requiredFields": {
@@ -511,7 +511,7 @@ describe('instrumentOperation', () => {
             "fieldDepth": 1,
             "hasArgs": true,
             "isEntity": true,
-            "isRootEntity": true,
+            "isRootPath": true,
             "pathCacheKey": "organization({"login":"facebook"})",
             "pathResponseKey": "organization",
             "requiredFields": {
@@ -668,7 +668,7 @@ describe('instrumentOperation', () => {
             "fieldDepth": 1,
             "hasArgs": true,
             "isEntity": true,
-            "isRootEntity": true,
+            "isRootPath": true,
             "pathCacheKey": "organization({"login":"facebook"})",
             "pathResponseKey": "organization",
             "requiredFields": {
@@ -907,7 +907,7 @@ describe('instrumentOperation', () => {
             "fieldDepth": 1,
             "hasArgs": true,
             "isEntity": true,
-            "isRootEntity": true,
+            "isRootPath": true,
             "pathCacheKey": "organization({"login":"facebook"})",
             "pathResponseKey": "organization",
             "requiredFields": {
@@ -1170,6 +1170,7 @@ describe('instrumentOperation', () => {
             },
             "fieldDepth": 1,
             "hasArgs": true,
+            "isRootPath": true,
             "pathCacheKey": "search({"first":10,"query":"react","type":"REPOSITORY"})",
             "pathResponseKey": "search",
             "typeName": "SearchResultItemConnection",
