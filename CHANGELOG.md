@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.19 (2026-01-27)
+
+### Bug Fixes
+
+* **operation-parser,worker-client:**  logic typos (171ff6e4)
+
 ## 5.5.59-unstable-12345.18 (2026-01-27)
 
 ### Bug Fixes
