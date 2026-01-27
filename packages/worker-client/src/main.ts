@@ -72,10 +72,6 @@ export class WorkerClient {
       errors.push(new ArgsError('@graphql-box/worker-client expected options.cache.'));
     }
 
-    if (!('operationParser' in options)) {
-      errors.push(new ArgsError('@graphql-box/worker-client expected options.requestParser.'));
-    }
-
     if (!options.lazyWorkerInit && !('worker' in options)) {
       errors.push(new ArgsError('@graphql-box/worker-client expected options.worker.'));
     }

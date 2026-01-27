@@ -134,8 +134,9 @@ export const instrumentOperation = (
           const parentType = typeInfo.getParentType();
           const namedParentType = getNamedType(parentType);
           const isAbstract = isInterfaceType(namedParentType) || isUnionType(namedParentType);
+          const isRootPath = fieldPathStack.length === 1;
 
-          if (namedType && (isEntity || isLeaf || isList || hasArgs)) {
+          if (namedType && (isEntity || isLeaf || isList || hasArgs || isRootPath)) {
             const leafEntity = isLeaf ? entityStack.at(-1) : undefined;
 
             fieldPathManager.addFieldPath(node, {
