@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.21 (2026-01-27)
+
+### Bug Fixes
+
+* **operation-parser:**  change how variables are normalised (eda2610d)
+
 ## 5.5.59-unstable-12345.20 (2026-01-27)
 
 ### Bug Fixes
