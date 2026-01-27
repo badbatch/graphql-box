@@ -74,6 +74,12 @@ export const normaliseOperation = (
           }
 
           const variableName = node.name.value;
+          const variableValue = variableValues[variableName];
+
+          if (!variableValue) {
+            return;
+          }
+
           const variableType = variableTypes[variableName];
 
           if (!variableType) {
