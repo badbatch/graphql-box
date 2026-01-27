@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.18 (2026-01-27)
+
+### Bug Fixes
+
+* **cache-manager,operation-parser:**  change root entity flag to root path (0ebeaaf9)
+
 ## 5.5.59-unstable-12345.17 (2026-01-26)
 
 ### Bug Fixes

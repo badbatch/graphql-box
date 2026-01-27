@@ -1,7 +1,7 @@
 {
   "name": "@graphql-box/operation-parser",
   "description": "The GraphQL Box operation parser module.",
-  "version": "5.4.14-unstable-12345.6",
+  "version": "5.4.14-unstable-12345.7",
   "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
