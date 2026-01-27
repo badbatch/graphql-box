@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.20 (2026-01-27)
+
+### Bug Fixes
+
+* **operation-parser:**  exit visitor if variable value not in record (f6c1db6f)
+
 ## 5.5.59-unstable-12345.19 (2026-01-27)
 
 ### Bug Fixes
