@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.22 (2026-01-27)
+
+### Bug Fixes
+
+* **operation-parser:**  handle alias in required fields list (071559f9)
+
 ## 5.5.59-unstable-12345.21 (2026-01-27)
 
 ### Bug Fixes
