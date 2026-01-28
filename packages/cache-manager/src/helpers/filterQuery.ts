@@ -47,11 +47,16 @@ export const filterQuery = (ast: DocumentNode, resolvedPaths: string[], fieldPat
       }
 
       const operationPath = fieldPathStack.join('.');
+      const fieldPathMetadata = fieldPaths[operationPath];
+
+      // If there is no fieldPathMetadata for a operationPath
+      // it means we are not interested in the operationPath
+      // and can ignore it.
+      if (!fieldPathMetadata) {
+        return;
+      }
+
       const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
-      // It's not possible for there not to be field path metadata
-      // for an operationPath.
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const fieldPathMetadata = fieldPaths[operationPath]!;
 
       if (!resolvedPaths.includes(operationPathCacheKey)) {
         return;
