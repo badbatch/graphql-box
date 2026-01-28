@@ -36,7 +36,8 @@ export const filterQuery = (ast: DocumentNode, resolvedPaths: string[], fieldPat
   const fieldPathStack: string[] = [];
 
   return visit(ast, {
-    enter: node => {
+    // TODO: Remove after debugging
+    enter: (node, _parent, _path, _ancestors) => {
       if (!isKind<FieldNode>(node, Kind.FIELD) && !isKind<InlineFragmentNode>(node, Kind.INLINE_FRAGMENT)) {
         return;
       }
