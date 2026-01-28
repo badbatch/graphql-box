@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.30 (2026-01-28)
+
+### Bug Fixes
+
+* **cache-manager:**  fix broken logic (3a0e1c11)
+
 ## 5.5.59-unstable-12345.29 (2026-01-28)
 
 ### Bug Fixes
