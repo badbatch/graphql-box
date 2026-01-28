@@ -1,31 +1,33 @@
 import { type ImportOptions } from '@cachemap/core';
-import { type ReactNode, useContext, useRef } from 'react';
+import { type ReactNode, useContext, useEffect, useState } from 'react';
 import { Context } from './Context.ts';
 
 export type GraphqlBoxUpdateProviderProps = {
   children: ReactNode;
+  fallback?: ReactNode | ReactNode[];
   imports: ImportOptions[];
 };
 
-export const GraphqlBoxUpdateProvider = ({ children, imports }: GraphqlBoxUpdateProviderProps) => {
+export const GraphqlBoxUpdateProvider = ({ children, fallback, imports }: GraphqlBoxUpdateProviderProps) => {
   const { graphqlBoxClient } = useContext(Context);
-  const promiseRef = useRef<Promise<void> | undefined>(undefined);
-  const doneRef = useRef(false);
+  const [imported, setImported] = useState<boolean>(false);
   const { cache } = graphqlBoxClient;
 
-  if (!cache) {
-    return children;
-  }
+  useEffect(() => {
+    const importCacheExport = async () => {
+      if (cache) {
+        await Promise.all(imports.map(options => cache.import(options)));
+        setImported(true);
+      }
+    };
 
-  if (!doneRef.current) {
-    promiseRef.current ??= Promise.all(imports.map(options => cache.import(options))).then(() => {
-      doneRef.current = true;
-    });
+    if (!imported) {
+      void importCacheExport();
+    }
 
-    // throwing promises in render method is React pattern for async rendering
-    // eslint-disable-next-line @typescript-eslint/only-throw-error
-    throw promiseRef.current;
-  }
+    // We only want to re-execute when the data below changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imported, !!cache, imports.length]);
 
-  return children;
+  return imported ? children : fallback;
 };
