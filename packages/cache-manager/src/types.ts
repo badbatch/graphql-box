@@ -57,6 +57,8 @@ export interface CacheEntryRef {
   __ref: string;
 }
 
+export type CacheOptions = { tag?: string | number };
+
 export type EntityRequiredFields = FieldPathMetadataRequiredFields;
 
 export type EntityCacheEntry<T = Entity> = {

@@ -27,6 +27,7 @@ import { filterQuery } from './helpers/filterQuery.ts';
 import {
   type AnalyzeQueryResult,
   type CacheManagerDef,
+  type CacheOptions,
   type EntityCacheEntry,
   type OperationCacheEntry,
   type OperationPathCacheEntry,
@@ -374,27 +375,33 @@ export class CacheManager implements CacheManagerDef {
   private async _storeResponseData(
     { operation }: OperationData,
     { data, extensions }: ResponseData,
-    { fieldPaths, idKey }: SetRequired<OperationContext, 'fieldPaths'>,
+    { data: ctxData, fieldPaths, idKey }: SetRequired<OperationContext, 'fieldPaths'>,
   ): Promise<void> {
     const { entities, operationPaths } = normaliseResponseData(data, extensions, fieldPaths, {
       fallbackCacheControlDirectives: this._fallbackCacheControlDirectives,
       idKey,
     });
 
-    const cacheWritePromises: Promise<void>[] = [this._writeOperation(operation, operationPaths)];
+    const cacheWritePromises: Promise<void>[] = [this._writeOperation(operation, operationPaths, { tag: ctxData.tag })];
 
     for (const [entityCacheKey, entityCacheEntry] of Object.entries(entities)) {
-      cacheWritePromises.push(this._writeEntity(entityCacheKey, entityCacheEntry));
+      cacheWritePromises.push(this._writeEntity(entityCacheKey, entityCacheEntry, { tag: ctxData.tag }));
     }
 
     for (const [operationPathCacheKey, operationPathCacheEntry] of Object.entries(operationPaths)) {
-      cacheWritePromises.push(this._writeOperationPath(operationPathCacheKey, operationPathCacheEntry));
+      cacheWritePromises.push(
+        this._writeOperationPath(operationPathCacheKey, operationPathCacheEntry, { tag: ctxData.tag }),
+      );
     }
 
     await Promise.all(cacheWritePromises);
   }
 
-  private async _writeEntity(cacheKey: string, cacheEntry: EntityCacheEntry): Promise<void> {
+  private async _writeEntity(
+    cacheKey: string,
+    cacheEntry: EntityCacheEntry,
+    { tag }: CacheOptions = {},
+  ): Promise<void> {
     const { extensions, kind, refTargets, value } = cacheEntry;
     const result = await this._readEntity(cacheKey);
     const finalValue = result ? { ...result.value, ...value } : value;
@@ -406,6 +413,7 @@ export class CacheManager implements CacheManagerDef {
       {
         cacheOptions: { metadata: extensions.cacheability },
         hashKey: this._hashCacheKeys,
+        tag,
       },
     );
   }
@@ -413,6 +421,7 @@ export class CacheManager implements CacheManagerDef {
   private async _writeOperation(
     operation: string,
     cacheEntries: Record<string, OperationPathCacheEntry>,
+    { tag }: CacheOptions = {},
   ): Promise<void> {
     const refs = new Set<string>();
     let metadata: CacheabilityMetadata | undefined;
@@ -450,16 +459,22 @@ export class CacheManager implements CacheManagerDef {
           metadata,
         },
         hashKey: this._hashCacheKeys,
+        tag,
       },
     );
   }
 
-  private async _writeOperationPath(cacheKey: string, cacheEntry: OperationPathCacheEntry): Promise<void> {
+  private async _writeOperationPath(
+    cacheKey: string,
+    cacheEntry: OperationPathCacheEntry,
+    { tag }: CacheOptions = {},
+  ): Promise<void> {
     return this._cache.set(`OperationPath:${cacheKey}`, cacheEntry, {
       cacheOptions: {
         metadata: cacheEntry.extensions.cacheability,
       },
       hashKey: this._hashCacheKeys,
+      tag,
     });
   }
 }

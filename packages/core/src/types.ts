@@ -138,6 +138,7 @@ export interface OperationContextData {
   operationType: OperationTypeNode;
   operationTypeComplexity?: number;
   rawOperationHash: string;
+  tag?: string | number;
 }
 
 export type OperationContext = {
