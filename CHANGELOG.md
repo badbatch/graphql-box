@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.25 (2026-01-28)
+
+### Bug Fixes
+
+* **react:**  update provider not working with suspense (243ff43e)
+
 ## 5.5.59-unstable-12345.24 (2026-01-28)
 
 ### Bug Fixes
