@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.28 (2026-01-28)
+
+### Bug Fixes
+
+* **cache-manager:**  stop exception in filtering (0ed16ae5)
+
 ## 5.5.59-unstable-12345.27 (2026-01-28)
 
 ### Chores
