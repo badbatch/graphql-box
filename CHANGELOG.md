@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.23 (2026-01-28)
+
+### Bug Fixes
+
+* **react:**  not passing tag into multi export queries (c09ac9fe)
+
 ## 5.5.59-unstable-12345.22 (2026-01-27)
 
 ### Bug Fixes
