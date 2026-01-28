@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.26 (2026-01-28)
+
+### Refactors
+
+* **react:**  try and get update provider working (4edbadef)
+
 ## 5.5.59-unstable-12345.25 (2026-01-28)
 
 ### Bug Fixes
