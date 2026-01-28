@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.27 (2026-01-28)
+
+### Chores
+
+* **cache-manager:**  add params for debugging (8805e260)
+
 ## 5.5.59-unstable-12345.26 (2026-01-28)
 
 ### Refactors
