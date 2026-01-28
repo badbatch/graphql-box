@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.29 (2026-01-28)
+
+### Bug Fixes
+
+* **cache-manager,helpers:**  don't throw when building field stack (83ff1a0a)
+
 ## 5.5.59-unstable-12345.28 (2026-01-28)
 
 ### Bug Fixes
