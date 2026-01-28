@@ -9,12 +9,7 @@ export const buildOperationPathCacheKey = (operationPath: string, fieldPaths: Fi
     operationPathPartStack.push(part);
     const currentOperationPath = operationPathPartStack.join('.');
     const fieldPath = fieldPaths[currentOperationPath];
-
-    if (!fieldPath) {
-      throw new Error(`Could not resolve current operation path ${currentOperationPath} in field paths.`);
-    }
-
-    pathCacheKeyStack.push(fieldPath.pathCacheKey);
+    pathCacheKeyStack.push(fieldPath?.pathCacheKey ?? part);
   }
 
   return pathCacheKeyStack.join('.');

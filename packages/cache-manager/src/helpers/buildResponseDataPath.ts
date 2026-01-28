@@ -9,12 +9,7 @@ export const buildResponseDataKey = (operationPath: string, fieldPaths: FieldPat
     operationPathPartStack.push(part);
     const currentOperationPath = operationPathPartStack.join('.');
     const fieldPath = fieldPaths[currentOperationPath];
-
-    if (!fieldPath) {
-      throw new Error(`Could not resolve current operation path ${currentOperationPath} in field paths.`);
-    }
-
-    pathResponseKeyStack.push(fieldPath.pathResponseKey);
+    pathResponseKeyStack.push(fieldPath?.pathResponseKey ?? part);
   }
 
   return pathResponseKeyStack.join('.');
