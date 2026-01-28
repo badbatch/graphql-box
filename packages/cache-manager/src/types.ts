@@ -64,27 +64,27 @@ export type EntityRequiredFields = FieldPathMetadataRequiredFields;
 export type EntityCacheEntry<T = Entity> = {
   extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata };
   kind: 'entity';
-  refTargets: Record<string, [responseKey: string, requiredFields: EntityRequiredFields][]>;
+  refTargets: RefTargets;
   value: T;
 };
 
 export type OperationPathCacheEntry<T = unknown> = {
   extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata; fieldPathMetadata: FieldPathMetadata };
   kind: 'operationPath';
-  refTargets: Record<string, [responseKey: string, requiredFields: EntityRequiredFields][]>;
+  refTargets: RefTargets;
   value: T;
 };
 
 export type OperationCacheEntry = {
   extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata };
   kind: 'operation';
-  refTargets: Record<string, string[]>;
+  refTargets: RefTargets;
   refs: string[];
 };
 
 export type CacheEntry<T = unknown> = EntityCacheEntry<T> | OperationPathCacheEntry<T> | OperationCacheEntry;
 
-export type RefTargets = Record<string, [responseKey: string, requiredFields: EntityRequiredFields][]>;
+export type RefTargets = Record<string, string[]>;
 
 export type RetrieveCacheEntryResult<D = unknown> =
   | {

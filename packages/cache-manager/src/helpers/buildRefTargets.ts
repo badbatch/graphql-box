@@ -20,7 +20,7 @@ export const buildRefTargets = (
         return;
       }
 
-      refTargets[val.__ref] = [...(refTargets[val.__ref] ?? []), [responseKey, fieldPathMetadata.requiredFields]];
+      refTargets[val.__ref] = [...(refTargets[val.__ref] ?? []), responseKey];
     }
   });
 

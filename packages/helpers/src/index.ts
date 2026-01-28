@@ -1,6 +1,7 @@
 export * from './buildEntityCacheKey.ts';
 export * from './buildOperationHash.ts';
 export * from './buildOperationPathCacheKey.ts';
+export * from './buildResponseDataPath.ts';
 export * from './cacheMetadata.ts';
 export * from './errors/index.ts';
 export * from './eventAsyncIterator.ts';

@@ -12,6 +12,7 @@ import {
   ArgsError,
   GroupedError,
   buildOperationPathCacheKey,
+  buildResponseDataKey,
   hashOperation,
   sortFieldPathEntries,
 } from '@graphql-box/helpers';
@@ -19,7 +20,7 @@ import { type Metadata as CacheabilityMetadata } from 'cacheability';
 import { print } from 'graphql';
 import { set } from 'lodash-es';
 import { type SetRequired } from 'type-fest';
-import { buildResponseDataKey } from '#helpers/buildResponseDataPath.ts';
+import { buildCacheKeyToOperationPathLookup } from '#helpers/buildCacheKeyToOperationPathLookup.ts';
 import { getRequiredFieldNames } from '#helpers/getRequiredFieldNames.ts';
 import { mergeRefTargets } from '#helpers/mergeRefTargets.ts';
 import { normaliseResponseData } from '#helpers/normaliseResponseData.ts';
@@ -156,7 +157,11 @@ export class CacheManager implements CacheManagerDef {
     });
   }
 
-  private async _retrieveEntityData(cacheKey: string): Promise<RetrieveCacheEntryResult<Entity>> {
+  private async _retrieveEntityData(
+    cacheKey: string,
+    operationPath: string,
+    fieldPaths: FieldPaths,
+  ): Promise<RetrieveCacheEntryResult<Entity>> {
     const entityCacheEntry = await this._readEntity(cacheKey);
 
     if (!entityCacheEntry) {
@@ -179,7 +184,7 @@ export class CacheManager implements CacheManagerDef {
     }
 
     for (const [ref, target] of refTargetEntries) {
-      const result = await this._retrieveEntityData(ref);
+      const result = await this._retrieveEntityData(ref, operationPath, fieldPaths);
 
       if (result.kind === 'miss') {
         this._log(`Unable to retrieve entity, no data for entity cache key "${ref}"`);
@@ -191,11 +196,8 @@ export class CacheManager implements CacheManagerDef {
         ...result.extensions.cacheMetadata,
       };
 
-      for (const [responseKey, requiredFields] of target) {
-        const requiredFieldNames = getRequiredFieldNames(requiredFields, result.value.__typename);
-
-        if (requiredFieldNames.some(name => result.value[name] === undefined)) {
-          this._log(`Unable to retrieve entity, incomplete data for entity cache key "${ref}"`);
+      for (const responseKey of target) {
+        if (!this._validateEntityRequiredFields(result.value, operationPath, fieldPaths)) {
           return { kind: 'miss' };
         }
 
@@ -210,7 +212,10 @@ export class CacheManager implements CacheManagerDef {
     };
   }
 
-  private async _retrieveOperationData(cacheKey: string): Promise<RetrieveCacheEntryResult<PlainObject>> {
+  private async _retrieveOperationData(
+    cacheKey: string,
+    fieldPaths: FieldPaths,
+  ): Promise<RetrieveCacheEntryResult<PlainObject>> {
     const operationCacheEntry = await this._readOperation(cacheKey);
 
     if (!operationCacheEntry) {
@@ -218,6 +223,7 @@ export class CacheManager implements CacheManagerDef {
       return { kind: 'miss' };
     }
 
+    const cacheKeyToOperationPathLookup = buildCacheKeyToOperationPathLookup(fieldPaths);
     const { extensions, refTargets } = operationCacheEntry;
     const { cacheability, ...restExtensions } = extensions;
     const data: PlainObject = {};
@@ -227,7 +233,11 @@ export class CacheManager implements CacheManagerDef {
     };
 
     for (const [ref, responseKeys] of Object.entries(refTargets)) {
-      const result = await this._retrieveOperationPathData(ref);
+      // As we are building the list above, it is safe to assume
+      // operationPath is defined.
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const operationPath = cacheKeyToOperationPathLookup[ref]!;
+      const result = await this._retrieveOperationPathData(ref, operationPath, fieldPaths);
 
       if (result.kind === 'miss') {
         this._log(`Unable to retrieve operation data, no data for operation path cache key "${ref}"`);
@@ -251,7 +261,11 @@ export class CacheManager implements CacheManagerDef {
     };
   }
 
-  private async _retrieveOperationPathData(cacheKey: string): Promise<RetrieveCacheEntryResult> {
+  private async _retrieveOperationPathData(
+    cacheKey: string,
+    operationPath: string,
+    fieldPaths: FieldPaths,
+  ): Promise<RetrieveCacheEntryResult> {
     const operationPathCacheEntry = await this._readOperationPath(cacheKey);
 
     if (!operationPathCacheEntry) {
@@ -280,7 +294,7 @@ export class CacheManager implements CacheManagerDef {
     let newValue = structuredClone<PlainObject<unknown>>(value);
 
     for (const [ref, target] of refTargetEntries) {
-      const result = await this._retrieveEntityData(ref);
+      const result = await this._retrieveEntityData(ref, operationPath, fieldPaths);
 
       if (result.kind === 'miss') {
         this._log(`Unable to retrieve operation path data, no data for entity cache key "${ref}"`);
@@ -292,11 +306,8 @@ export class CacheManager implements CacheManagerDef {
         ...result.extensions.cacheMetadata,
       };
 
-      for (const [responseKey, requiredFields] of target) {
-        const requiredFieldNames = getRequiredFieldNames(requiredFields, result.value.__typename);
-
-        if (requiredFieldNames.some(name => result.value[name] === undefined)) {
-          this._log(`Unable to retrieve operation path data, incomplete data for entity cache key "${ref}"`);
+      for (const responseKey of target) {
+        if (!this._validateEntityRequiredFields(result.value, operationPath, fieldPaths)) {
           return { kind: 'miss' };
         }
 
@@ -328,8 +339,7 @@ export class CacheManager implements CacheManagerDef {
     const resolvedOperationPaths = new Set<string>();
     const rejectedOperationPaths = new Set<string>();
     const cachedResponseData: Record<string, unknown> = {};
-    const sortedFieldPathEntries = Object.entries(fieldPaths).sort(sortFieldPathEntries('asc'));
-    const result = await this._retrieveOperationData(hash);
+    const result = await this._retrieveOperationData(hash, fieldPaths);
 
     if (result.kind === 'hit') {
       return {
@@ -339,16 +349,24 @@ export class CacheManager implements CacheManagerDef {
       };
     }
 
+    const sortedFieldPathEntries = Object.entries(fieldPaths).sort(sortFieldPathEntries('asc'));
     let cacheMetadata: CacheMetadata = {};
 
-    for (const [operationPath, { hasArgs, isList, isRootPath }] of sortedFieldPathEntries) {
+    for (const [operationPath, fieldPathMetadata] of sortedFieldPathEntries) {
+      const { hasArgs, isList, isRootPath } = fieldPathMetadata;
+
       if (!(hasArgs || isList || isRootPath)) {
         continue;
       }
 
       const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
       const responseKey = buildResponseDataKey(operationPath, fieldPaths);
-      const operationPathResult = await this._retrieveOperationPathData(operationPathCacheKey);
+
+      const operationPathResult = await this._retrieveOperationPathData(
+        operationPathCacheKey,
+        operationPath,
+        fieldPaths,
+      );
 
       if (operationPathResult.kind === 'hit') {
         cacheMetadata = {
@@ -395,6 +413,30 @@ export class CacheManager implements CacheManagerDef {
     }
 
     await Promise.all(cacheWritePromises);
+  }
+
+  private _validateEntityRequiredFields(data: Entity, operationPath: string, fieldPaths: FieldPaths): boolean {
+    const fieldPathMetadata = fieldPaths[operationPath];
+
+    if (!fieldPathMetadata) {
+      this._log(`Unable to resolve fieldPathMetadata for operationPath "${operationPath}"`);
+      return false;
+    }
+
+    if (!fieldPathMetadata.requiredFields || fieldPathMetadata.requiredFields.__typename.length === 0) {
+      this._log(`No required fields for operationPath "${operationPath}"`);
+      return true;
+    }
+
+    const requiredFieldNames = getRequiredFieldNames(fieldPathMetadata.requiredFields, data.__typename);
+    const missingFieldNames = requiredFieldNames.filter(name => data[name] === undefined);
+
+    if (missingFieldNames.length > 0) {
+      this._log(`Unable to retrieve data for fields: ${missingFieldNames.join(', ')}`);
+      return false;
+    }
+
+    return true;
   }
 
   private async _writeEntity(

@@ -10,10 +10,10 @@ export const mergeRefTargets = (
   const newRefTargets: RefTargets = {};
 
   for (const [ref, existingResponsePathTargets] of Object.entries(existingRefTargets)) {
-    for (const [existingResponseKey, existingRequiredFields] of existingResponsePathTargets) {
+    for (const existingResponseKey of existingResponsePathTargets) {
       if (has(data, existingResponseKey)) {
         newRefTargets[ref] ??= [];
-        newRefTargets[ref].push([existingResponseKey, existingRequiredFields]);
+        newRefTargets[ref].push(existingResponseKey);
       }
     }
   }
@@ -26,27 +26,11 @@ export const mergeRefTargets = (
 
     const newRefTarget = newRefTargets[ref];
 
-    for (const [incomingResponseKey, incomingRequiredFields] of incomingResponsePathTargets) {
-      const refTargetMatch = newRefTarget.find(([newResponseKey]) => newResponseKey === incomingResponseKey);
+    for (const incomingResponseKey of incomingResponsePathTargets) {
+      const refTargetMatch = newRefTarget.find(newResponseKey => newResponseKey === incomingResponseKey);
 
       if (!refTargetMatch) {
-        newRefTarget.push([incomingResponseKey, incomingRequiredFields]);
-        continue;
-      }
-
-      const [, requiredFieldsMatch] = refTargetMatch;
-
-      for (const [incomingTypeName, incomingFieldNames] of Object.entries(incomingRequiredFields)) {
-        if (!requiredFieldsMatch[incomingTypeName]) {
-          requiredFieldsMatch[incomingTypeName] = incomingFieldNames;
-          continue;
-        }
-
-        for (const incomingFieldName of incomingFieldNames) {
-          if (!requiredFieldsMatch[incomingTypeName].includes(incomingFieldName)) {
-            requiredFieldsMatch[incomingTypeName].push(incomingFieldName);
-          }
-        }
+        newRefTarget.push(incomingResponseKey);
       }
     }
   }
