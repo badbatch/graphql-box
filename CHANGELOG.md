@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.24 (2026-01-28)
+
+### Bug Fixes
+
+* **cache-manager:**  pass tag correctly down to cache (dff6abe9)
+
 ## 5.5.59-unstable-12345.23 (2026-01-28)
 
 ### Bug Fixes
