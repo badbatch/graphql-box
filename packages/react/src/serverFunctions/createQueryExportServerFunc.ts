@@ -23,7 +23,7 @@ export const createQueryExportServerFunc =
       ctx: PartialOperationContext = {},
     ): Promise<ExportResult<D>> => {
       const tag = globalThis.crypto.randomUUID();
-      await client.query<D>(req, opts, ctx);
+      await client.query<D>(req, { ...opts, tag }, ctx);
 
       const exportResult = await client.cache?.export<D>({
         tag,
