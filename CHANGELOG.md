@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.31 (2026-01-29)
+
+### Bug Fixes
+
+* **helpers:**  defensively code in error serialiser (f41e6e9c)
+
 ## 5.5.59-unstable-12345.30 (2026-01-28)
 
 ### Bug Fixes
