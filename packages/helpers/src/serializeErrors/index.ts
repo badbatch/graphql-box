@@ -4,7 +4,9 @@ import { type ErrorObject, deserializeError as deserialize, serializeError as se
 import { isArray, isPlainObject } from '../lodashProxies.ts';
 
 export const deserializedGraphqlError = (obj: DeserializedGraphqlError): GraphQLError => {
-  const originalError = new Error(obj.originalError.message);
+  // In reality, originalError can be undefined.
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const originalError = new Error(obj.originalError?.message ?? 'Oops, something went wrong!');
   originalError.stack = obj.originalError.stack;
   const source = new Source(obj.source.body, obj.source.name, obj.source.locationOffset);
 
