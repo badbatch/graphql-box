@@ -1,5 +1,5 @@
 import { type FieldPathMetadata } from '@graphql-box/core';
-import { getAlias, hasArguments, isKind } from '@graphql-box/helpers';
+import { getAlias, hasArguments, isKind, isListLike } from '@graphql-box/helpers';
 import {
   type DocumentNode,
   type FieldNode,
@@ -12,7 +12,6 @@ import {
   getNamedType,
   isInterfaceType,
   isLeafType,
-  isListType,
   isObjectType,
   isUnionType,
   visit,
@@ -129,7 +128,7 @@ export const instrumentOperation = (
         if (isKind<FieldNode>(node, Kind.FIELD)) {
           const isEntity = isTypeEntity(namedType, idKey);
           const isLeaf = isLeafType(namedType);
-          const isList = isListType(type);
+          const isList = isListLike(type);
           const hasArgs = hasArguments(node);
           const parentType = typeInfo.getParentType();
           const namedParentType = getNamedType(parentType);

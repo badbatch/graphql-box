@@ -14,6 +14,7 @@ export * from './parsing/arguments.ts';
 export * from './parsing/fragmentDefinitions.ts';
 export * from './parsing/kind.ts';
 export * from './parsing/operationDefinitions.ts';
+export * from './parsing/type.ts';
 export * from './parsing/variableDefinitions.ts';
 export * from './serializeErrors/index.ts';
 export * from './sortFieldPathEntries.ts';
