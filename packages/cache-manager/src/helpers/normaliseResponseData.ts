@@ -52,7 +52,7 @@ export const normaliseResponseData = (
 
     const { hasArgs, isEntity, isList, isRootPath, typeName } = fieldPathMetadata;
 
-    if (isEntity) {
+    if (isEntity && !isList) {
       // If isEntity is true, then responseDataValue will definitely be an object.
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const entity = responseDataValue as Entity;
