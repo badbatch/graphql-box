@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.34 (2026-01-30)
+
+### Bug Fixes
+
+* **cache-manager:**  stop miss-caching list as entity (c5b44677)
+
 ## 5.5.59-unstable-12345.33 (2026-01-30)
 
 ### Bug Fixes
