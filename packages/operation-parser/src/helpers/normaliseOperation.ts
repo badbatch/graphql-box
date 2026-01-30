@@ -1,5 +1,5 @@
 import { type PlainObject } from '@graphql-box/core';
-import { buildOperationHash, getFragmentDefinitions, isAncestorAstNode, isKind } from '@graphql-box/helpers';
+import { getFragmentDefinitions, isAncestorAstNode, isKind } from '@graphql-box/helpers';
 import {
   type ArgumentNode,
   type DirectiveNode,
@@ -25,7 +25,7 @@ import { sortSelections } from '#helpers/sortSelections.ts';
 const childIsFragmentSpread = (node: FieldNode | InlineFragmentNode): boolean =>
   node.selectionSet?.selections.some(n => isKind<FragmentSpreadNode>(n, Kind.FRAGMENT_SPREAD)) ?? false;
 
-const parsedOperationCache: Record<string, DocumentNode> = {};
+// const parsedOperationCache: Record<string, DocumentNode> = {};
 
 export type ParseOperationOptions = {
   operation: string;
@@ -35,13 +35,13 @@ export type ParseOperationOptions = {
 export const normaliseOperation = (
   ast: DocumentNode,
   schema: GraphQLSchema,
-  { operation, variables }: ParseOperationOptions,
+  { variables }: ParseOperationOptions,
 ): DocumentNode => {
-  const operationHash = buildOperationHash(operation, variables);
+  // const operationHash = buildOperationHash(operation, variables);
 
-  if (parsedOperationCache[operationHash]) {
-    return parsedOperationCache[operationHash];
-  }
+  // if (parsedOperationCache[operationHash]) {
+  //   return parsedOperationCache[operationHash];
+  // }
 
   const typeInfo = new TypeInfo(schema);
   const fragmentDefinitions = getFragmentDefinitions(ast);
@@ -132,6 +132,6 @@ export const normaliseOperation = (
     }),
   );
 
-  parsedOperationCache[operationHash] = visitedAst;
+  // parsedOperationCache[operationHash] = visitedAst;
   return visitedAst;
 };

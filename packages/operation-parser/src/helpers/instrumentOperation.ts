@@ -1,5 +1,5 @@
 import { type FieldPathMetadata } from '@graphql-box/core';
-import { buildOperationHash, getAlias, hasArguments, isKind } from '@graphql-box/helpers';
+import { getAlias, hasArguments, isKind } from '@graphql-box/helpers';
 import {
   type DocumentNode,
   type FieldNode,
@@ -24,7 +24,7 @@ import { buildPathCacheKey } from '#helpers/buildPathCacheKey.ts';
 import { isTypeEntity } from '#helpers/isTypeEntity.ts';
 import { sortSelections } from '#helpers/sortSelections.ts';
 
-const instrumentedOperationCache: Record<string, InstrumentOperationResult> = {};
+// const instrumentedOperationCache: Record<string, InstrumentOperationResult> = {};
 
 export type InstrumentOperationOptions = {
   idKey: string;
@@ -42,13 +42,13 @@ export type InstrumentOperationResult = {
 export const instrumentOperation = (
   ast: DocumentNode,
   schema: GraphQLSchema,
-  { idKey, operation, operationType }: InstrumentOperationOptions,
+  { idKey, operationType }: InstrumentOperationOptions,
 ): InstrumentOperationResult => {
-  const operationHash = buildOperationHash(operation);
+  // const operationHash = buildOperationHash(operation);
 
-  if (instrumentedOperationCache[operationHash]) {
-    return instrumentedOperationCache[operationHash];
-  }
+  // if (instrumentedOperationCache[operationHash]) {
+  //   return instrumentedOperationCache[operationHash];
+  // }
 
   const typeOccurrences: Record<string, number> = {};
   const fieldPathManager = new FieldPathManager(schema);
@@ -177,6 +177,6 @@ export const instrumentOperation = (
     typeOccurrences,
   };
 
-  instrumentedOperationCache[operationHash] = instruments;
+  // instrumentedOperationCache[operationHash] = instruments;
   return instruments;
 };
