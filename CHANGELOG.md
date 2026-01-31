@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.36 (2026-01-31)
+
+### Bug Fixes
+
+* **cache-manager:**  cacheability bug (67534d58)
+
 ## 5.5.59-unstable-12345.35 (2026-01-31)
 
 ### Refactors
