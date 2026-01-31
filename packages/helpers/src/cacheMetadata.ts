@@ -15,16 +15,13 @@ export const setCacheMetadata =
       return;
     }
 
-    const { hasArgs, isEntity, isList, isRootPath } = fieldPathMetadata;
-    const incomingCacheability = new Cacheability({ headers });
+    const { isCacheBoundary, isEntity } = fieldPathMetadata;
 
-    if (hasArgs || isList || isRootPath) {
-      const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
-
-      if (operationPathCacheKey) {
-        cacheMetadata[operationPathCacheKey] = incomingCacheability.metadata;
-      }
+    if (!isCacheBoundary) {
+      return;
     }
+
+    const incomingCacheability = new Cacheability({ headers });
 
     if (isEntity) {
       // isEntity is derived upstream so typescript cannot derive that data
@@ -45,6 +42,12 @@ export const setCacheMetadata =
         }
       } else {
         cacheMetadata[entityCacheKey] = incomingCacheability.metadata;
+      }
+    } else {
+      const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
+
+      if (operationPathCacheKey) {
+        cacheMetadata[operationPathCacheKey] = incomingCacheability.metadata;
       }
     }
   };

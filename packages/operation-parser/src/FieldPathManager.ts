@@ -64,6 +64,8 @@ export class FieldPathManager {
       return;
     }
 
+    const isCacheBoundary = (isEntity && !isList) || isRootPath || hasArgs;
+
     this._fieldPaths[fieldPath] = {
       fieldDepth,
       pathCacheKey,
@@ -76,6 +78,7 @@ export class FieldPathManager {
           hasAlias: !!fieldAlias,
           hasArgs,
           isAbstract,
+          isCacheBoundary: isCacheBoundary || undefined,
           isEntity,
           isLeaf,
           isList,

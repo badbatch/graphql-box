@@ -9,7 +9,6 @@ import {
   isObjectType,
   isUnionType,
 } from 'graphql';
-import { isListType } from 'graphql';
 
 export const buildRequiredFields = (
   node: FieldNode | InlineFragmentNode,
@@ -51,13 +50,9 @@ export const buildRequiredFields = (
   };
 
   if (isObjectType(parentType) || isInterfaceType(parentType)) {
-    const fieldsMap = parentType.getFields();
-
     for (const selection of node.selectionSet.selections) {
       if (isKind<FieldNode>(selection, Kind.FIELD)) {
-        const fieldDef = fieldsMap[selection.name.value];
-
-        if (isListType(fieldDef?.type) || hasArguments(selection)) {
+        if (hasArguments(selection)) {
           continue;
         }
 

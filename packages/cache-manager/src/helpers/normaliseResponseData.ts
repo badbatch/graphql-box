@@ -50,9 +50,13 @@ export const normaliseResponseData = (
       return;
     }
 
-    const { hasArgs, isEntity, isList, isRootPath, typeName } = fieldPathMetadata;
+    const { isCacheBoundary, isEntity, typeName } = fieldPathMetadata;
 
-    if (isEntity && !isList) {
+    if ((!isEntity || !isIndexNode) && !isCacheBoundary) {
+      return;
+    }
+
+    if (isEntity) {
       // If isEntity is true, then responseDataValue will definitely be an object.
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const entity = responseDataValue as Entity;
@@ -82,26 +86,24 @@ export const normaliseResponseData = (
       set(data, responseKey, responseDataValue);
     }
 
-    if (isRootPath || (isList && !isIndexNode) || hasArgs) {
-      const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
-      const existingCacheEntry = operationPaths[operationPathCacheKey];
+    const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
+    const existingCacheEntry = operationPaths[operationPathCacheKey];
 
-      const cacheEntryValue = existingCacheEntry
-        ? mergeCacheValues(existingCacheEntry.value, responseDataValue)
-        : responseDataValue;
+    const cacheEntryValue = existingCacheEntry
+      ? mergeCacheValues(existingCacheEntry.value, responseDataValue)
+      : responseDataValue;
 
-      operationPaths[operationPathCacheKey] = {
-        extensions: {
-          cacheability: cacheMetadata[operationPathCacheKey] ?? fallbackCacheability,
-          fieldPathMetadata,
-        },
-        kind: 'operationPath',
-        refTargets: buildRefTargets(cacheEntryValue, fieldPaths, operationPathStack),
-        value: structuredClone(cacheEntryValue),
-      };
+    operationPaths[operationPathCacheKey] = {
+      extensions: {
+        cacheability: cacheMetadata[operationPathCacheKey] ?? fallbackCacheability,
+        fieldPathMetadata,
+      },
+      kind: 'operationPath',
+      refTargets: buildRefTargets(cacheEntryValue, fieldPaths, operationPathStack),
+      value: structuredClone(cacheEntryValue),
+    };
 
-      unset(data, responseKey);
-    }
+    unset(data, responseKey);
   });
 
   return {

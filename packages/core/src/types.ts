@@ -68,6 +68,7 @@ export type FieldPathMetadata = {
   hasAlias?: true;
   hasArgs?: true;
   isAbstract?: true;
+  isCacheBoundary?: true;
   isEntity?: true;
   isLeaf?: true;
   isList?: true;

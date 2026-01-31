@@ -243,6 +243,7 @@ describe('@graphql-box/cache-manager', () => {
                   },
                   "fieldDepth": 1,
                   "hasArgs": true,
+                  "isCacheBoundary": true,
                   "isEntity": true,
                   "isRootPath": true,
                   "pathCacheKey": "organization({"login":"facebook"})",
@@ -262,18 +263,7 @@ describe('@graphql-box/cache-manager', () => {
               "kind": "operationPath",
               "refTargets": {
                 "Organization:MDEyOk9yZ2FuaXphdGlvbjY5NjMx": [
-                  [
-                    "",
-                    {
-                      "__typename": [
-                        "__typename",
-                        "email",
-                        "id",
-                        "login",
-                        "name",
-                      ],
-                    },
-                  ],
+                  "",
                 ],
               },
               "value": {

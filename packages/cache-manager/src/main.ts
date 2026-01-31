@@ -353,9 +353,9 @@ export class CacheManager implements CacheManagerDef {
     let cacheMetadata: CacheMetadata = {};
 
     for (const [operationPath, fieldPathMetadata] of sortedFieldPathEntries) {
-      const { hasArgs, isList, isRootPath } = fieldPathMetadata;
+      const { isCacheBoundary } = fieldPathMetadata;
 
-      if (!(hasArgs || isList || isRootPath)) {
+      if (!isCacheBoundary) {
         continue;
       }
 
