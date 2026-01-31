@@ -213,13 +213,13 @@ export class CacheManager implements CacheManagerDef {
   }
 
   private async _retrieveOperationData(
-    cacheKey: string,
+    operation: string,
     fieldPaths: FieldPaths,
   ): Promise<RetrieveCacheEntryResult<PlainObject>> {
-    const operationCacheEntry = await this._readOperation(cacheKey);
+    const operationCacheEntry = await this._readOperation(operation);
 
     if (!operationCacheEntry) {
-      this._log(`Unable to retrieve operation data for cache key "${cacheKey}"`);
+      this._log(`Unable to retrieve operation data for cache key "${operation}"`);
       return { kind: 'miss' };
     }
 
@@ -229,7 +229,7 @@ export class CacheManager implements CacheManagerDef {
     const data: PlainObject = {};
 
     let cacheMetadata: CacheMetadata = {
-      [cacheKey]: cacheability,
+      [operation]: cacheability,
     };
 
     for (const [ref, responseKeys] of Object.entries(refTargets)) {
@@ -327,7 +327,7 @@ export class CacheManager implements CacheManagerDef {
   }
 
   private async _retrieveResponseData(
-    { hash }: OperationData,
+    { operation }: OperationData,
     fieldPaths: FieldPaths,
   ): Promise<{
     data: Record<string, unknown>;
@@ -339,7 +339,7 @@ export class CacheManager implements CacheManagerDef {
     const resolvedOperationPaths = new Set<string>();
     const rejectedOperationPaths = new Set<string>();
     const cachedResponseData: Record<string, unknown> = {};
-    const result = await this._retrieveOperationData(hash, fieldPaths);
+    const result = await this._retrieveOperationData(operation, fieldPaths);
 
     if (result.kind === 'hit') {
       return {
