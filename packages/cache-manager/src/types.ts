@@ -76,10 +76,9 @@ export type OperationPathCacheEntry<T = unknown> = {
 };
 
 export type OperationCacheEntry = {
-  extensions: Record<string, unknown> & { cacheability: CacheabilityMetadata };
+  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata };
   kind: 'operation';
   refTargets: RefTargets;
-  refs: string[];
 };
 
 export type CacheEntry<T = unknown> = EntityCacheEntry<T> | OperationPathCacheEntry<T> | OperationCacheEntry;

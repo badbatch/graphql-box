@@ -5,10 +5,11 @@ import { set, unset } from 'lodash-es';
 import { buildRefTargets } from '#helpers/buildRefTargets.ts';
 import { mergeCacheValues } from '#helpers/mergeCacheEntries.ts';
 import { visitResponseData } from '#helpers/visitResponseData.ts';
-import { type EntityCacheEntry, type OperationPathCacheEntry } from '#types.ts';
+import { type EntityCacheEntry, type OperationCacheEntry, type OperationPathCacheEntry } from '#types.ts';
 
 export type NormalisedResponseData = {
   entities: Record<string, EntityCacheEntry>;
+  operation: OperationCacheEntry;
   operationPaths: Record<string, OperationPathCacheEntry>;
 };
 
@@ -26,9 +27,16 @@ export const normaliseResponseData = (
   const entities: Record<string, EntityCacheEntry> = {};
   const operationPaths: Record<string, OperationPathCacheEntry> = {};
 
+  const operation: OperationCacheEntry = {
+    extensions,
+    kind: 'operation',
+    refTargets: {},
+  };
+
   if (!data) {
     return {
       entities,
+      operation,
       operationPaths,
     };
   }
@@ -89,6 +97,8 @@ export const normaliseResponseData = (
     if (hasArgs || isRootPath) {
       const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
       const existingCacheEntry = operationPaths[operationPathCacheKey];
+      operation.refTargets[operationPathCacheKey] ??= [];
+      operation.refTargets[operationPathCacheKey].push(responseKey);
 
       const cacheEntryValue = existingCacheEntry
         ? mergeCacheValues(existingCacheEntry.value, responseDataValue)
@@ -110,6 +120,7 @@ export const normaliseResponseData = (
 
   return {
     entities,
+    operation,
     operationPaths,
   };
 };

@@ -214,17 +214,27 @@ describe('@graphql-box/cache-manager', () => {
             "Operation:  {    organization(login: "facebook") {      email      login      name    }  }",
             {
               "extensions": {
-                "cacheability": {
-                  "cacheControl": {
-                    "maxAge": 5,
+                "cacheMetadata": {
+                  "Organization:MDEyOk9yZ2FuaXphdGlvbjY5NjMx": {
+                    "cacheControl": {
+                      "maxAge": 5,
+                    },
+                    "ttl": 297475205000,
                   },
-                  "ttl": 297475205000,
+                  "organization({"login":"facebook"})": {
+                    "cacheControl": {
+                      "maxAge": 5,
+                    },
+                    "ttl": 297475205000,
+                  },
                 },
               },
               "kind": "operation",
-              "refs": [
-                "organization({"login":"facebook"})",
-              ],
+              "refTargets": {
+                "organization({"login":"facebook"})": [
+                  "organization",
+                ],
+              },
             },
           ],
           [
