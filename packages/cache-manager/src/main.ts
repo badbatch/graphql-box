@@ -21,6 +21,7 @@ import { print } from 'graphql';
 import { set } from 'lodash-es';
 import { type SetRequired } from 'type-fest';
 import { buildCacheKeyToOperationPathLookup } from '#helpers/buildCacheKeyToOperationPathLookup.ts';
+import { buildOperationPathFromResponseKey } from '#helpers/buildOperationPathFromResponseKey.ts';
 import { getRequiredFieldNames } from '#helpers/getRequiredFieldNames.ts';
 import { mergeRefTargets } from '#helpers/mergeRefTargets.ts';
 import { normaliseResponseData } from '#helpers/normaliseResponseData.ts';
@@ -197,7 +198,9 @@ export class CacheManager implements CacheManagerDef {
       };
 
       for (const responseKey of target) {
-        if (!this._validateEntityRequiredFields(result.value, operationPath, fieldPaths)) {
+        const scopedOperationPath = buildOperationPathFromResponseKey(responseKey, operationPath);
+
+        if (!this._validateEntityRequiredFields(result.value, scopedOperationPath, fieldPaths)) {
           return { kind: 'miss' };
         }
 
@@ -303,7 +306,9 @@ export class CacheManager implements CacheManagerDef {
       };
 
       for (const responseKey of target) {
-        if (!this._validateEntityRequiredFields(result.value, operationPath, fieldPaths)) {
+        const scopedOperationPath = buildOperationPathFromResponseKey(responseKey, operationPath);
+
+        if (!this._validateEntityRequiredFields(result.value, scopedOperationPath, fieldPaths)) {
           return { kind: 'miss' };
         }
 
