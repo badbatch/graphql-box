@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.37 (2026-01-31)
+
+### Bug Fixes
+
+* **cache-manager:**  mistake in operation path cache condition (3e09feb2)
+
 ## 5.5.59-unstable-12345.36 (2026-01-31)
 
 ### Bug Fixes
