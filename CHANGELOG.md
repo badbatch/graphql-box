@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.39 (2026-01-31)
+
+### Bug Fixes
+
+* **cache-manager:**  bug in how required fields were validated (131399d7)
+
 ## 5.5.59-unstable-12345.38 (2026-01-31)
 
 ### Bug Fixes
