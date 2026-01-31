@@ -50,7 +50,7 @@ export const normaliseResponseData = (
       return;
     }
 
-    const { isCacheBoundary, isEntity, typeName } = fieldPathMetadata;
+    const { hasArgs, isCacheBoundary, isEntity, isRootPath, typeName } = fieldPathMetadata;
 
     if ((!isEntity || !isIndexNode) && !isCacheBoundary) {
       return;
@@ -86,24 +86,26 @@ export const normaliseResponseData = (
       set(data, responseKey, responseDataValue);
     }
 
-    const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
-    const existingCacheEntry = operationPaths[operationPathCacheKey];
+    if (hasArgs || isRootPath) {
+      const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
+      const existingCacheEntry = operationPaths[operationPathCacheKey];
 
-    const cacheEntryValue = existingCacheEntry
-      ? mergeCacheValues(existingCacheEntry.value, responseDataValue)
-      : responseDataValue;
+      const cacheEntryValue = existingCacheEntry
+        ? mergeCacheValues(existingCacheEntry.value, responseDataValue)
+        : responseDataValue;
 
-    operationPaths[operationPathCacheKey] = {
-      extensions: {
-        cacheability: cacheMetadata[operationPathCacheKey] ?? fallbackCacheability,
-        fieldPathMetadata,
-      },
-      kind: 'operationPath',
-      refTargets: buildRefTargets(cacheEntryValue, fieldPaths, operationPathStack),
-      value: structuredClone(cacheEntryValue),
-    };
+      operationPaths[operationPathCacheKey] = {
+        extensions: {
+          cacheability: cacheMetadata[operationPathCacheKey] ?? fallbackCacheability,
+          fieldPathMetadata,
+        },
+        kind: 'operationPath',
+        refTargets: buildRefTargets(cacheEntryValue, fieldPaths, operationPathStack),
+        value: structuredClone(cacheEntryValue),
+      };
 
-    unset(data, responseKey);
+      unset(data, responseKey);
+    }
   });
 
   return {
