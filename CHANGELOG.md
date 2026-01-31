@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.35 (2026-01-31)
+
+### Refactors
+
+* **cache-manager,operation-parser:**  stop using list as cache boundary (ee6aea4b)
+
 ## 5.5.59-unstable-12345.34 (2026-01-30)
 
 ### Bug Fixes
