@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.5.59-unstable-12345.38 (2026-01-31)
+
+### Bug Fixes
+
+* **cache-manager:**
+  * more issues with query caching (7cee6849)
+  * not handing query key consistently on read and write (dae12e24)
+
 ## 5.5.59-unstable-12345.37 (2026-01-31)
 
 ### Bug Fixes
