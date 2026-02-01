@@ -426,8 +426,8 @@ export class CacheManager implements CacheManagerDef {
     const fieldPathMetadata = fieldPaths[operationPath];
 
     if (!fieldPathMetadata) {
-      this._log(`Unable to resolve fieldPathMetadata for operationPath "${operationPath}"`);
-      return false;
+      this._log(`No required fields for operationPath "${operationPath}"`);
+      return true;
     }
 
     if (!fieldPathMetadata.requiredFields || fieldPathMetadata.requiredFields.__typename.length === 0) {
