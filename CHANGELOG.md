@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.40 (2026-02-01)
+
+### Bug Fixes
+
+* **cache-manager:**  if no field metadata exists cache pass (572d164a)
+
 ## 5.5.59-unstable-12345.39 (2026-01-31)
 
 ### Bug Fixes
