@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.42 (2026-02-03)
+
+### Bug Fixes
+
+* **cache-manager,react:**  bug in way tagged queries that hit cache worked with export (6c43a5fe)
+
 ## 5.5.59-unstable-12345.41 (2026-02-01)
 
 ## 5.5.59-unstable-12345.40 (2026-02-01)
