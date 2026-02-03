@@ -15,7 +15,7 @@ export const createQueryExportServerFunc =
       ? arg1.map(([req, opts, ctx]) => [req, { ...options, ...opts }, { ...context, ...ctx }])
       : [[arg1, options, context]];
 
-    const importOptionPromises: Promise<ExportResult<Data>>[] = [];
+    const exportResultPromises: Promise<ExportResult<Data>>[] = [];
 
     const requestHandler = async <D extends PlainObject>(
       req: string,
@@ -26,6 +26,7 @@ export const createQueryExportServerFunc =
       await client.query<D>(req, { ...opts, tag }, ctx);
 
       const exportResult = await client.cache?.export<D>({
+        cleanupTag: true,
         tag,
       });
 
@@ -37,9 +38,9 @@ export const createQueryExportServerFunc =
     };
 
     for (const [operation, opts, ctx] of operations) {
-      importOptionPromises.push(requestHandler<Data>(operation, opts, ctx));
+      exportResultPromises.push(requestHandler<Data>(operation, opts, ctx));
     }
 
-    const importOptions = await Promise.all(importOptionPromises);
-    return importOptions.map(entry => structuredClone(entry));
+    const exportResults = await Promise.all(exportResultPromises);
+    return exportResults.map(entry => structuredClone(entry));
   };

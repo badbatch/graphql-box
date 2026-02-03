@@ -22,11 +22,11 @@ importers:
         specifier: ^7.27.4
         version: 7.27.4
       '@cachemap/core':
-        specifier: ^5.3.0
-        version: 5.3.0
+        specifier: ^5.3.1
+        version: 5.3.1
       '@cachemap/core-worker':
         specifier: ^5.3.0
-        version: 5.3.0(@cachemap/core@5.3.0)
+        version: 5.3.0(@cachemap/core@5.3.1)
       '@cachemap/indexed-db':
         specifier: ^5.1.0
         version: 5.1.0
@@ -305,8 +305,8 @@ importers:
         version: 4.41.0
     devDependencies:
       '@cachemap/core':
-        specifier: ^5.3.0
-        version: 5.3.0
+        specifier: ^5.3.1
+        version: 5.3.1
       '@cachemap/map':
         specifier: ^5.1.0
         version: 5.1.0
@@ -387,8 +387,8 @@ importers:
   packages/connection-resolver:
     dependencies:
       '@cachemap/core':
-        specifier: ^5.3.0
-        version: 5.3.0
+        specifier: ^5.3.1
+        version: 5.3.1
       '@graphql-box/core':
         specifier: workspace:*
         version: link:../core
@@ -477,8 +477,8 @@ importers:
         version: 4.17.23
     devDependencies:
       '@cachemap/core':
-        specifier: ^5.3.0
-        version: 5.3.0
+        specifier: ^5.3.1
+        version: 5.3.1
       '@cachemap/map':
         specifier: ^5.1.0
         version: 5.1.0
@@ -814,11 +814,11 @@ importers:
   packages/worker-client:
     dependencies:
       '@cachemap/core':
-        specifier: ^5.3.0
-        version: 5.3.0
+        specifier: ^5.3.1
+        version: 5.3.1
       '@cachemap/core-worker':
         specifier: ^5.3.0
-        version: 5.3.0(@cachemap/core@5.3.0)
+        version: 5.3.0(@cachemap/core@5.3.1)
       '@graphql-box/core':
         specifier: workspace:*
         version: link:../core
@@ -1537,8 +1537,8 @@ packages:
     peerDependencies:
       '@cachemap/core': 5.3.0
 
-  '@cachemap/core@5.3.0':
-    resolution: {integrity: sha512-0tmFkCpJrSw87uLmcYMzAYLc3lBpe4/QvY6b/t4IlDns9xtGbAobWlbLvo8APgysZkhxBEkMKSwsUJal6yU7BQ==}
+  '@cachemap/core@5.3.1':
+    resolution: {integrity: sha512-K3qLaklXSjJqjp0OtfuZEovB5keRX4V4gS8LqAezJTfhBcFnHKIQc24c22Yl7q1aR70Is/LTujKrx+n6XcklLg==}
 
   '@cachemap/indexed-db@5.1.0':
     resolution: {integrity: sha512-TPJWcT/93JyQxtgEDiHz1Qc3LoKnDQHpraEM7FRUF+5BTWRG2TwcP8V2O8ebZoYvzmmyB8ce/yZOV7H/aw6WYQ==}
@@ -8417,10 +8417,10 @@ snapshots:
       core-js: 3.48.0
       eventemitter3: 5.0.4
 
-  '@cachemap/core-worker@5.3.0(@cachemap/core@5.3.0)':
+  '@cachemap/core-worker@5.3.0(@cachemap/core@5.3.1)':
     dependencies:
       '@cachemap/controller': 5.3.0
-      '@cachemap/core': 5.3.0
+      '@cachemap/core': 5.3.1
       '@cachemap/types': 5.1.0
       '@cachemap/utils': 5.3.0
       '@types/lodash-es': 4.17.12
@@ -8432,7 +8432,7 @@ snapshots:
       ts-md5: 1.3.1
       uuid: 13.0.0
 
-  '@cachemap/core@5.3.0':
+  '@cachemap/core@5.3.1':
     dependencies:
       '@cachemap/controller': 5.3.0
       '@cachemap/map': 5.1.0

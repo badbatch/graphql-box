@@ -82,13 +82,7 @@ export class CacheManager implements CacheManagerDef {
     context: SetRequired<OperationContext, 'fieldPaths'>,
   ): Promise<AnalyzeQueryResult> {
     const { ast } = operationData;
-
-    const {
-      data,
-      extensions,
-      kind,
-      resolvedPaths = [],
-    } = await this._retrieveResponseData(operationData, context.fieldPaths);
+    const { data, extensions, kind, resolvedPaths = [] } = await this._retrieveResponseData(operationData, context);
 
     if (kind === 'miss') {
       return { kind: 'cache-miss', operationData };
@@ -128,42 +122,81 @@ export class CacheManager implements CacheManagerDef {
     return this._hashCacheKeys;
   }
 
+  private _addTagToCacheMetadata(
+    cacheKey: string,
+    tag: string | number | undefined,
+    options: { hashKey?: boolean } = {},
+  ): void {
+    if (tag) {
+      const metadataEntry = this._cache.getMetadataEntry(cacheKey, options);
+
+      if (metadataEntry && !metadataEntry.tags.includes(tag)) {
+        metadataEntry.tags = [...metadataEntry.tags, tag];
+      }
+    }
+  }
+
   private _log(message: string): void {
     if (this._debug) {
       console.debug(message);
     }
   }
 
-  private async _readEntity(key: string): Promise<EntityCacheEntry | undefined> {
+  private async _readEntity(key: string, { data }: OperationContext): Promise<EntityCacheEntry | undefined> {
     const cacheKey = `Entity:${key}`;
 
-    return this._cache.get<EntityCacheEntry>(cacheKey, {
+    const result = await this._cache.get<EntityCacheEntry>(cacheKey, {
       hashKey: this._hashCacheKeys,
     });
+
+    if (result) {
+      this._addTagToCacheMetadata(cacheKey, data.tag, { hashKey: this._hashCacheKeys });
+    }
+
+    return result;
   }
 
-  private async _readOperation(operation: string): Promise<OperationCacheEntry | undefined> {
+  private async _readOperation(
+    operation: string,
+    { data }: OperationContext,
+  ): Promise<OperationCacheEntry | undefined> {
     const cacheKey = `Operation:${operation.replaceAll('\n', '')}`;
 
-    return this._cache.get<OperationCacheEntry>(cacheKey, {
+    const result = await this._cache.get<OperationCacheEntry>(cacheKey, {
       hashKey: this._hashCacheKeys,
     });
+
+    if (result) {
+      this._addTagToCacheMetadata(cacheKey, data.tag, { hashKey: this._hashCacheKeys });
+    }
+
+    return result;
   }
 
-  private async _readOperationPath(key: string): Promise<OperationPathCacheEntry | undefined> {
+  private async _readOperationPath(
+    key: string,
+    { data }: OperationContext,
+  ): Promise<OperationPathCacheEntry | undefined> {
     const cacheKey = `OperationPath:${key}`;
 
-    return this._cache.get<OperationPathCacheEntry>(cacheKey, {
+    const result = await this._cache.get<OperationPathCacheEntry>(cacheKey, {
       hashKey: this._hashCacheKeys,
     });
+
+    if (result) {
+      this._addTagToCacheMetadata(cacheKey, data.tag, { hashKey: this._hashCacheKeys });
+    }
+
+    return result;
   }
 
   private async _retrieveEntityData(
     cacheKey: string,
     operationPath: string,
-    fieldPaths: FieldPaths,
+    context: OperationContext,
   ): Promise<RetrieveCacheEntryResult<Entity>> {
-    const entityCacheEntry = await this._readEntity(cacheKey);
+    const { fieldPaths } = context;
+    const entityCacheEntry = await this._readEntity(cacheKey, context);
 
     if (!entityCacheEntry) {
       this._log(`Unable to retrieve entity for cache key "${cacheKey}"`);
@@ -185,7 +218,7 @@ export class CacheManager implements CacheManagerDef {
     }
 
     for (const [ref, target] of refTargetEntries) {
-      const result = await this._retrieveEntityData(ref, operationPath, fieldPaths);
+      const result = await this._retrieveEntityData(ref, operationPath, context);
 
       if (result.kind === 'miss') {
         this._log(`Unable to retrieve entity, no data for entity cache key "${ref}"`);
@@ -217,9 +250,10 @@ export class CacheManager implements CacheManagerDef {
 
   private async _retrieveOperationData(
     operation: string,
-    fieldPaths: FieldPaths,
+    context: OperationContext,
   ): Promise<RetrieveCacheEntryResult<PlainObject>> {
-    const operationCacheEntry = await this._readOperation(operation);
+    const { fieldPaths } = context;
+    const operationCacheEntry = await this._readOperation(operation, context);
 
     if (!operationCacheEntry) {
       this._log(`Unable to retrieve operation data for cache key "${operation}"`);
@@ -236,7 +270,7 @@ export class CacheManager implements CacheManagerDef {
       // operationPath is defined.
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const operationPath = cacheKeyToOperationPathLookup[ref]!;
-      const result = await this._retrieveOperationPathData(ref, operationPath, fieldPaths);
+      const result = await this._retrieveOperationPathData(ref, operationPath, context);
 
       if (result.kind === 'miss') {
         this._log(`Unable to retrieve operation data, no data for operation path cache key "${ref}"`);
@@ -263,9 +297,10 @@ export class CacheManager implements CacheManagerDef {
   private async _retrieveOperationPathData(
     cacheKey: string,
     operationPath: string,
-    fieldPaths: FieldPaths,
+    context: OperationContext,
   ): Promise<RetrieveCacheEntryResult> {
-    const operationPathCacheEntry = await this._readOperationPath(cacheKey);
+    const { fieldPaths } = context;
+    const operationPathCacheEntry = await this._readOperationPath(cacheKey, context);
 
     if (!operationPathCacheEntry) {
       this._log(`Unable to retrieve operation data, no data for operation path cache key "${cacheKey}"`);
@@ -293,7 +328,7 @@ export class CacheManager implements CacheManagerDef {
     let newValue = structuredClone<PlainObject<unknown>>(value);
 
     for (const [ref, target] of refTargetEntries) {
-      const result = await this._retrieveEntityData(ref, operationPath, fieldPaths);
+      const result = await this._retrieveEntityData(ref, operationPath, context);
 
       if (result.kind === 'miss') {
         this._log(`Unable to retrieve operation path data, no data for entity cache key "${ref}"`);
@@ -329,7 +364,7 @@ export class CacheManager implements CacheManagerDef {
 
   private async _retrieveResponseData(
     { operation }: OperationData,
-    fieldPaths: FieldPaths,
+    context: OperationContext,
   ): Promise<{
     data: Record<string, unknown>;
     extensions: { cacheMetadata: CacheMetadata };
@@ -337,10 +372,11 @@ export class CacheManager implements CacheManagerDef {
     rejectedPaths?: string[];
     resolvedPaths?: string[];
   }> {
+    const { fieldPaths } = context;
     const resolvedOperationPaths = new Set<string>();
     const rejectedOperationPaths = new Set<string>();
     const cachedResponseData: Record<string, unknown> = {};
-    const result = await this._retrieveOperationData(operation, fieldPaths);
+    const result = await this._retrieveOperationData(operation, context);
 
     if (result.kind === 'hit') {
       return {
@@ -362,12 +398,7 @@ export class CacheManager implements CacheManagerDef {
 
       const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
       const responseKey = buildResponseDataKey(operationPath, fieldPaths);
-
-      const operationPathResult = await this._retrieveOperationPathData(
-        operationPathCacheKey,
-        operationPath,
-        fieldPaths,
-      );
+      const operationPathResult = await this._retrieveOperationPathData(operationPathCacheKey, operationPath, context);
 
       if (operationPathResult.kind === 'hit') {
         cacheMetadata = {
@@ -394,8 +425,10 @@ export class CacheManager implements CacheManagerDef {
   private async _storeResponseData(
     { operation }: OperationData,
     { data, extensions }: ResponseData,
-    { data: ctxData, fieldPaths, idKey }: SetRequired<OperationContext, 'fieldPaths'>,
+    context: SetRequired<OperationContext, 'fieldPaths'>,
   ): Promise<void> {
+    const { data: ctxData, fieldPaths, idKey } = context;
+
     const {
       entities,
       operation: normalisedOperation,
@@ -410,7 +443,7 @@ export class CacheManager implements CacheManagerDef {
     ];
 
     for (const [entityCacheKey, entityCacheEntry] of Object.entries(entities)) {
-      cacheWritePromises.push(this._writeEntity(entityCacheKey, entityCacheEntry, { tag: ctxData.tag }));
+      cacheWritePromises.push(this._writeEntity(entityCacheKey, entityCacheEntry, context));
     }
 
     for (const [operationPathCacheKey, operationPathCacheEntry] of Object.entries(operationPaths)) {
@@ -446,13 +479,9 @@ export class CacheManager implements CacheManagerDef {
     return true;
   }
 
-  private async _writeEntity(
-    cacheKey: string,
-    cacheEntry: EntityCacheEntry,
-    { tag }: CacheOptions = {},
-  ): Promise<void> {
+  private async _writeEntity(cacheKey: string, cacheEntry: EntityCacheEntry, context: OperationContext): Promise<void> {
     const { extensions, kind, refTargets, value } = cacheEntry;
-    const result = await this._readEntity(cacheKey);
+    const result = await this._readEntity(cacheKey, context);
     const finalValue = result ? { ...result.value, ...value } : value;
     const finalRefTargets = result ? mergeRefTargets(finalValue, result.refTargets, refTargets) : cacheEntry.refTargets;
 
@@ -462,7 +491,7 @@ export class CacheManager implements CacheManagerDef {
       {
         cacheOptions: { metadata: extensions.cacheability },
         hashKey: this._hashCacheKeys,
-        tag,
+        tag: context.data.tag,
       },
     );
   }
