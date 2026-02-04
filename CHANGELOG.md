@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.43 (2026-02-04)
+
+### Bug Fixes
+
+* **cache-manager:**  only return requested data for entity (b2067bf8)
+
 ## 5.5.59-unstable-12345.42 (2026-02-03)
 
 ### Bug Fixes
