@@ -232,12 +232,13 @@ export class CacheManager implements CacheManagerDef {
 
       for (const responseKey of target) {
         const scopedOperationPath = buildOperationPathFromResponseKey(responseKey, operationPath);
+        const requiredFields = this._validateEntityRequiredFields(result.value, scopedOperationPath, fieldPaths);
 
-        if (!this._validateEntityRequiredFields(result.value, scopedOperationPath, fieldPaths)) {
+        if (!requiredFields) {
           return { kind: 'miss' };
         }
 
-        set(entity, responseKey, result.value);
+        set(entity, responseKey, requiredFields);
       }
     }
 
@@ -342,8 +343,9 @@ export class CacheManager implements CacheManagerDef {
 
       for (const responseKey of target) {
         const scopedOperationPath = buildOperationPathFromResponseKey(responseKey, operationPath);
+        const requiredFields = this._validateEntityRequiredFields(result.value, scopedOperationPath, fieldPaths);
 
-        if (!this._validateEntityRequiredFields(result.value, scopedOperationPath, fieldPaths)) {
+        if (!requiredFields) {
           return { kind: 'miss' };
         }
 
@@ -455,17 +457,21 @@ export class CacheManager implements CacheManagerDef {
     await Promise.all(cacheWritePromises);
   }
 
-  private _validateEntityRequiredFields(data: Entity, operationPath: string, fieldPaths: FieldPaths): boolean {
+  private _validateEntityRequiredFields(
+    data: Entity,
+    operationPath: string,
+    fieldPaths: FieldPaths,
+  ): PlainObject<unknown> | false {
     const fieldPathMetadata = fieldPaths[operationPath];
 
     if (!fieldPathMetadata) {
       this._log(`No required fields for operationPath "${operationPath}"`);
-      return true;
+      return data;
     }
 
     if (!fieldPathMetadata.requiredFields || fieldPathMetadata.requiredFields.__typename.length === 0) {
       this._log(`No required fields for operationPath "${operationPath}"`);
-      return true;
+      return data;
     }
 
     const requiredFieldNames = getRequiredFieldNames(fieldPathMetadata.requiredFields, data.__typename);
@@ -476,7 +482,13 @@ export class CacheManager implements CacheManagerDef {
       return false;
     }
 
-    return true;
+    const requiredFields: Record<string, unknown> = {};
+
+    for (const name of requiredFieldNames) {
+      requiredFields[name] = data[name];
+    }
+
+    return requiredFields;
   }
 
   private async _writeEntity(cacheKey: string, cacheEntry: EntityCacheEntry, context: OperationContext): Promise<void> {
