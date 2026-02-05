@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.44 (2026-02-05)
+
+### Chores
+
+* **root:**  bump cachemap (c563f4df)
+
 ## 5.5.59-unstable-12345.43 (2026-02-04)
 
 ### Bug Fixes
