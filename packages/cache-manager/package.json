@@ -54,7 +54,7 @@
     "graphql": "<17"
   },
   "devDependencies": {
-    "@cachemap/core": "^5.3.1",
+    "@cachemap/core": "^5.3.2",
     "@cachemap/map": "^5.1.0",
     "@graphql-box/operation-parser": "workspace:*",
     "@graphql-box/test-utils": "workspace:*",

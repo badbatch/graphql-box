@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.27.4",
-    "@cachemap/core": "^5.3.1",
+    "@cachemap/core": "^5.3.2",
     "@cachemap/core-worker": "^5.3.0",
     "@cachemap/indexed-db": "^5.1.0",
     "@cachemap/map": "^5.1.0",
