@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.45 (2026-02-06)
+
+### Bug Fixes
+
+* **cache-manager:**  filter required fields correctly (06283a14)
+
 ## 5.5.59-unstable-12345.44 (2026-02-05)
 
 ### Chores
