@@ -350,9 +350,9 @@ export class CacheManager implements CacheManagerDef {
         }
 
         if (responseKey) {
-          set(newValue, responseKey, result.value);
+          set(newValue, responseKey, requiredFields);
         } else {
-          newValue = result.value;
+          newValue = requiredFields;
         }
       }
     }
