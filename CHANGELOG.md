@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.48 (2026-02-07)
+
+### Bug Fixes
+
+* **cache-manager:**  missed data overriding issue (91a70c9c)
+
 ## 5.5.59-unstable-12345.47 (2026-02-07)
 
 ### Bug Fixes
