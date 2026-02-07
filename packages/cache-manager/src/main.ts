@@ -24,6 +24,7 @@ import { type SetRequired } from 'type-fest';
 import { buildCacheKeyToOperationPathLookup } from '#helpers/buildCacheKeyToOperationPathLookup.ts';
 import { buildOperationPathFromResponseKey } from '#helpers/buildOperationPathFromResponseKey.ts';
 import { getRequiredFieldNames } from '#helpers/getRequiredFieldNames.ts';
+import { isRef } from '#helpers/isRef.ts';
 import { mergeRefTargets } from '#helpers/mergeRefTargets.ts';
 import { normaliseResponseData } from '#helpers/normaliseResponseData.ts';
 import { filterQuery } from './helpers/filterQuery.ts';
@@ -241,7 +242,7 @@ export class CacheManager implements CacheManagerDef {
 
         const existingValue = get(entity, responseKey);
 
-        if (isPlainObject(existingValue)) {
+        if (isPlainObject(existingValue) && !isRef(existingValue)) {
           set(entity, responseKey, { ...existingValue, ...requiredFields });
         } else {
           set(entity, responseKey, requiredFields);
@@ -359,7 +360,7 @@ export class CacheManager implements CacheManagerDef {
         if (responseKey) {
           const existingValue = get(newValue, responseKey);
 
-          if (isPlainObject(existingValue)) {
+          if (isPlainObject(existingValue) && !isRef(existingValue)) {
             set(newValue, responseKey, { ...existingValue, ...requiredFields });
           } else {
             set(newValue, responseKey, requiredFields);
