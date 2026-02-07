@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.47 (2026-02-07)
+
+### Bug Fixes
+
+* **cache-manager:**  stop merging entity refs, override (bf60235f)
+
 ## 5.5.59-unstable-12345.46 (2026-02-07)
 
 ### Bug Fixes
