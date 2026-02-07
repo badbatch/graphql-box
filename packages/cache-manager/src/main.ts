@@ -14,11 +14,12 @@ import {
   buildOperationPathCacheKey,
   buildResponseDataKey,
   hashOperation,
+  isPlainObject,
   sortFieldPathEntries,
 } from '@graphql-box/helpers';
 import { type Metadata as CacheabilityMetadata } from 'cacheability';
 import { print } from 'graphql';
-import { set } from 'lodash-es';
+import { get, set } from 'lodash-es';
 import { type SetRequired } from 'type-fest';
 import { buildCacheKeyToOperationPathLookup } from '#helpers/buildCacheKeyToOperationPathLookup.ts';
 import { buildOperationPathFromResponseKey } from '#helpers/buildOperationPathFromResponseKey.ts';
@@ -238,7 +239,13 @@ export class CacheManager implements CacheManagerDef {
           return { kind: 'miss' };
         }
 
-        set(entity, responseKey, requiredFields);
+        const existingValue = get(entity, responseKey);
+
+        if (isPlainObject(existingValue)) {
+          set(entity, responseKey, { ...existingValue, ...requiredFields });
+        } else {
+          set(entity, responseKey, requiredFields);
+        }
       }
     }
 
@@ -350,7 +357,13 @@ export class CacheManager implements CacheManagerDef {
         }
 
         if (responseKey) {
-          set(newValue, responseKey, requiredFields);
+          const existingValue = get(newValue, responseKey);
+
+          if (isPlainObject(existingValue)) {
+            set(newValue, responseKey, { ...existingValue, ...requiredFields });
+          } else {
+            set(newValue, responseKey, requiredFields);
+          }
         } else {
           newValue = requiredFields;
         }
