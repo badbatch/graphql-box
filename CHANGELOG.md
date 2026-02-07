@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.49 (2026-02-07)
+
+### Bug Fixes
+
+* **cache-manager:**  change way cache metadata is merged (1f3751ab)
+
 ## 5.5.59-unstable-12345.48 (2026-02-07)
 
 ### Bug Fixes
