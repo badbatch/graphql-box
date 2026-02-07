@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.46 (2026-02-07)
+
+### Bug Fixes
+
+* **cache-manager:**  overwriting entity values when merging (cc1a30b4)
+
 ## 5.5.59-unstable-12345.45 (2026-02-06)
 
 ### Bug Fixes
