@@ -206,17 +206,20 @@ export class CacheManager implements CacheManagerDef {
     }
 
     const { extensions, refTargets, value } = entityCacheEntry;
-    const { cacheability, ...restExtensions } = extensions;
     const refTargetEntries = Object.entries(refTargets);
 
     let cacheMetadata: CacheMetadata = {
-      [cacheKey]: cacheability,
+      [cacheKey]: extensions.cacheability,
     };
 
     const entity = structuredClone(value);
 
     if (refTargetEntries.length === 0) {
-      return { extensions: { ...restExtensions, cacheMetadata }, kind: 'hit', value: entity };
+      return {
+        extensions: { cacheMetadata },
+        kind: 'hit',
+        value: entity,
+      };
     }
 
     for (const [ref, target] of refTargetEntries) {
@@ -251,7 +254,7 @@ export class CacheManager implements CacheManagerDef {
     }
 
     return {
-      extensions: { cacheMetadata, ...restExtensions },
+      extensions: { cacheMetadata },
       kind: 'hit',
       value: entity,
     };
@@ -270,9 +273,9 @@ export class CacheManager implements CacheManagerDef {
     }
 
     const cacheKeyToOperationPathLookup = buildCacheKeyToOperationPathLookup(fieldPaths);
-    const { extensions, refTargets } = operationCacheEntry;
-    let { cacheMetadata } = extensions;
+    const { refTargets } = operationCacheEntry;
     const data: PlainObject = {};
+    let cacheMetadata: CacheMetadata = {};
 
     for (const [ref, responseKeys] of Object.entries(refTargets)) {
       // As we are building the list above, it is safe to assume
@@ -305,7 +308,7 @@ export class CacheManager implements CacheManagerDef {
     }
 
     return {
-      extensions: { ...extensions, cacheMetadata },
+      extensions: { cacheMetadata },
       kind: 'hit',
       value: data,
     };
@@ -325,16 +328,15 @@ export class CacheManager implements CacheManagerDef {
     }
 
     const { extensions, refTargets, value } = operationPathCacheEntry;
-    const { cacheability, ...restExtensions } = extensions;
     const refTargetEntries = Object.entries(refTargets);
 
     let cacheMetadata: CacheMetadata = {
-      [cacheKey]: cacheability,
+      [cacheKey]: extensions.cacheability,
     };
 
     if (refTargetEntries.length === 0) {
       return {
-        extensions: { cacheMetadata, ...restExtensions },
+        extensions: { cacheMetadata },
         kind: 'hit',
         value: structuredClone(value),
       };
@@ -380,7 +382,7 @@ export class CacheManager implements CacheManagerDef {
     }
 
     return {
-      extensions: { cacheMetadata, ...restExtensions },
+      extensions: { cacheMetadata },
       kind: 'hit',
       value: newValue,
     };
