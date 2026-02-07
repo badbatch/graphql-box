@@ -292,7 +292,15 @@ export class CacheManager implements CacheManagerDef {
       };
 
       for (const responseKey of responseKeys) {
-        set(data, responseKey, result.value);
+        // get() generic typing doesn't seem to work properly
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        const existingValue = get(data, responseKey) as unknown;
+
+        if (isPlainObject(result.value) && isPlainObject(existingValue) && !isRef(existingValue)) {
+          set(data, responseKey, { ...existingValue, ...result.value });
+        } else {
+          set(data, responseKey, result.value);
+        }
       }
     }
 
