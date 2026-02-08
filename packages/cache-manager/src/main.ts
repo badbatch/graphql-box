@@ -22,6 +22,7 @@ import { print } from 'graphql';
 import { get, set } from 'lodash-es';
 import { type SetRequired } from 'type-fest';
 import { buildCacheKeyToOperationPathLookup } from '#helpers/buildCacheKeyToOperationPathLookup.ts';
+import { buildOperationPathFromResponseKey } from '#helpers/buildOperationPathFromResponseKey.ts';
 import { getRequiredFieldNames } from '#helpers/getRequiredFieldNames.ts';
 import { isRef } from '#helpers/isRef.ts';
 import { mergeRefTargets } from '#helpers/mergeRefTargets.ts';
@@ -239,19 +240,20 @@ export class CacheManager implements CacheManagerDef {
     }
 
     for (const [ref, target] of filteredRefTargetEntries) {
-      const result = await this._retrieveEntityData(ref, operationPath, context);
-
-      if (result.kind === 'miss') {
-        this._log(`Unable to retrieve entity, no data for entity cache key "${ref}"`);
-        return { kind: 'miss' };
-      }
-
-      cacheMetadata = {
-        ...cacheMetadata,
-        ...result.extensions.cacheMetadata,
-      };
-
       for (const responseKey of target) {
+        const scopedOperationPath = buildOperationPathFromResponseKey(responseKey, operationPath);
+        const result = await this._retrieveEntityData(ref, scopedOperationPath, context);
+
+        if (result.kind === 'miss') {
+          this._log(`Unable to retrieve entity, no data for entity cache key "${ref}"`);
+          return { kind: 'miss' };
+        }
+
+        cacheMetadata = {
+          ...cacheMetadata,
+          ...result.extensions.cacheMetadata,
+        };
+
         const existingValue = get(entityRequiredFields, responseKey);
 
         if (isPlainObject(existingValue) && !isRef(existingValue)) {
@@ -355,19 +357,20 @@ export class CacheManager implements CacheManagerDef {
     let newValue = structuredClone<PlainObject<unknown>>(value);
 
     for (const [ref, target] of refTargetEntries) {
-      const result = await this._retrieveEntityData(ref, operationPath, context);
-
-      if (result.kind === 'miss') {
-        this._log(`Unable to retrieve operation path data, no data for entity cache key "${ref}"`);
-        return { kind: 'miss' };
-      }
-
-      cacheMetadata = {
-        ...cacheMetadata,
-        ...result.extensions.cacheMetadata,
-      };
-
       for (const responseKey of target) {
+        const scopedOperationPath = buildOperationPathFromResponseKey(responseKey, operationPath);
+        const result = await this._retrieveEntityData(ref, scopedOperationPath, context);
+
+        if (result.kind === 'miss') {
+          this._log(`Unable to retrieve operation path data, no data for entity cache key "${ref}"`);
+          return { kind: 'miss' };
+        }
+
+        cacheMetadata = {
+          ...cacheMetadata,
+          ...result.extensions.cacheMetadata,
+        };
+
         if (responseKey) {
           const existingValue = get(newValue, responseKey);
 
