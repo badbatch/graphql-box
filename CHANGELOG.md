@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.52 (2026-02-08)
+
+### Bug Fixes
+
+* **cache-manager:**  more cleanly filter ref targets to prevent bleeding (d58ec29f)
+
 ## 5.5.59-unstable-12345.51 (2026-02-08)
 
 ### Refactors
