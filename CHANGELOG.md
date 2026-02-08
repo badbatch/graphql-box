@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.51 (2026-02-08)
+
+### Refactors
+
+* **cache-manager:**  more changes to data/cache metadata retrieval (7ce13d85)
+
 ## 5.5.59-unstable-12345.50 (2026-02-08)
 
 ### Bug Fixes
