@@ -34,6 +34,13 @@ export class Client {
     _options: OperationOptions,
     context: OperationContext,
   ): ResponseData & { operationId: string } {
+    const { data, errors, ...restResponseData } = responseData;
+
+    if ((!data || Object.keys(data).length === 0) && !errors?.length) {
+      const error = new Error('Invalid, data cannot be undefined, null or an empty object if no errors get returned.');
+      return { ...restResponseData, errors: [error], operationId: context.data.operationId };
+    }
+
     return { ...responseData, operationId: context.data.operationId };
   }
 
