@@ -22,7 +22,6 @@ import { print } from 'graphql';
 import { get, set } from 'lodash-es';
 import { type SetRequired } from 'type-fest';
 import { buildCacheKeyToOperationPathLookup } from '#helpers/buildCacheKeyToOperationPathLookup.ts';
-import { buildOperationPathFromResponseKey } from '#helpers/buildOperationPathFromResponseKey.ts';
 import { getRequiredFieldNames } from '#helpers/getRequiredFieldNames.ts';
 import { isRef } from '#helpers/isRef.ts';
 import { mergeRefTargets } from '#helpers/mergeRefTargets.ts';
@@ -196,7 +195,7 @@ export class CacheManager implements CacheManagerDef {
     cacheKey: string,
     operationPath: string,
     context: OperationContext,
-  ): Promise<RetrieveCacheEntryResult<Entity>> {
+  ): Promise<RetrieveCacheEntryResult<Record<string, unknown>>> {
     const { fieldPaths } = context;
     const entityCacheEntry = await this._readEntity(cacheKey, context);
 
@@ -207,22 +206,39 @@ export class CacheManager implements CacheManagerDef {
 
     const { extensions, refTargets, value } = entityCacheEntry;
     const refTargetEntries = Object.entries(refTargets);
+    const entityRequiredFields = this._validateEntityRequiredFields(value, operationPath, fieldPaths);
+
+    if (!entityRequiredFields) {
+      return { kind: 'miss' };
+    }
 
     let cacheMetadata: CacheMetadata = {
       [cacheKey]: extensions.cacheability,
     };
 
-    const entity = structuredClone(value);
+    const requiredFieldNames = Object.keys(entityRequiredFields);
 
-    if (refTargetEntries.length === 0) {
+    const filteredRefTargetEntries = refTargetEntries.filter(([, targets]) => {
+      for (const [index, responseKey] of Object.entries(targets)) {
+        const [rootPath] = responseKey.split('.');
+
+        if (!rootPath || !requiredFieldNames.includes(rootPath)) {
+          targets.splice(Number(index), 1);
+        }
+      }
+
+      return targets.length > 0;
+    });
+
+    if (filteredRefTargetEntries.length === 0) {
       return {
         extensions: { cacheMetadata },
         kind: 'hit',
-        value: entity,
+        value: entityRequiredFields,
       };
     }
 
-    for (const [ref, target] of refTargetEntries) {
+    for (const [ref, target] of filteredRefTargetEntries) {
       const result = await this._retrieveEntityData(ref, operationPath, context);
 
       if (result.kind === 'miss') {
@@ -236,19 +252,12 @@ export class CacheManager implements CacheManagerDef {
       };
 
       for (const responseKey of target) {
-        const scopedOperationPath = buildOperationPathFromResponseKey(responseKey, operationPath);
-        const requiredFields = this._validateEntityRequiredFields(result.value, scopedOperationPath, fieldPaths);
-
-        if (!requiredFields) {
-          return { kind: 'miss' };
-        }
-
-        const existingValue = get(entity, responseKey);
+        const existingValue = get(entityRequiredFields, responseKey);
 
         if (isPlainObject(existingValue) && !isRef(existingValue)) {
-          set(entity, responseKey, { ...existingValue, ...requiredFields });
+          set(entityRequiredFields, responseKey, { ...existingValue, ...result.value });
         } else {
-          set(entity, responseKey, requiredFields);
+          set(entityRequiredFields, responseKey, result.value);
         }
       }
     }
@@ -256,7 +265,7 @@ export class CacheManager implements CacheManagerDef {
     return {
       extensions: { cacheMetadata },
       kind: 'hit',
-      value: entity,
+      value: entityRequiredFields,
     };
   }
 
@@ -319,7 +328,6 @@ export class CacheManager implements CacheManagerDef {
     operationPath: string,
     context: OperationContext,
   ): Promise<RetrieveCacheEntryResult> {
-    const { fieldPaths } = context;
     const operationPathCacheEntry = await this._readOperationPath(cacheKey, context);
 
     if (!operationPathCacheEntry) {
@@ -360,23 +368,16 @@ export class CacheManager implements CacheManagerDef {
       };
 
       for (const responseKey of target) {
-        const scopedOperationPath = buildOperationPathFromResponseKey(responseKey, operationPath);
-        const requiredFields = this._validateEntityRequiredFields(result.value, scopedOperationPath, fieldPaths);
-
-        if (!requiredFields) {
-          return { kind: 'miss' };
-        }
-
         if (responseKey) {
           const existingValue = get(newValue, responseKey);
 
           if (isPlainObject(existingValue) && !isRef(existingValue)) {
-            set(newValue, responseKey, { ...existingValue, ...requiredFields });
+            set(newValue, responseKey, { ...existingValue, ...result.value });
           } else {
-            set(newValue, responseKey, requiredFields);
+            set(newValue, responseKey, result.value);
           }
         } else {
-          newValue = requiredFields;
+          newValue = result.value;
         }
       }
     }
