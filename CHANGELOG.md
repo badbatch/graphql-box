@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.53 (2026-02-08)
+
+### Bug Fixes
+
+* **client:**  return error if no error already and data is empty (78c3f393)
+
 ## 5.5.59-unstable-12345.52 (2026-02-08)
 
 ### Bug Fixes
