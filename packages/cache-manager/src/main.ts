@@ -35,6 +35,7 @@ import {
   type EntityCacheEntry,
   type OperationCacheEntry,
   type OperationPathCacheEntry,
+  type RefTargets,
   type RetrieveCacheEntryResult,
   type UserOptions,
 } from './types.ts';
@@ -218,18 +219,19 @@ export class CacheManager implements CacheManagerDef {
     };
 
     const requiredFieldNames = Object.keys(entityRequiredFields);
+    const filteredRefTargets: RefTargets = {};
 
-    const filteredRefTargetEntries = refTargetEntries.filter(([, targets]) => {
-      for (const [index, responseKey] of Object.entries(targets)) {
+    for (const [ref, responseKeys] of refTargetEntries) {
+      for (const responseKey of responseKeys) {
         const [rootPath] = responseKey.split('.');
 
-        if (!rootPath || !requiredFieldNames.includes(rootPath)) {
-          targets.splice(Number(index), 1);
+        if (rootPath && requiredFieldNames.includes(rootPath)) {
+          filteredRefTargets[ref] = responseKeys;
         }
       }
+    }
 
-      return targets.length > 0;
-    });
+    const filteredRefTargetEntries = Object.entries(filteredRefTargets);
 
     if (filteredRefTargetEntries.length === 0) {
       return {
