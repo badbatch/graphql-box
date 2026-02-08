@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.50 (2026-02-08)
+
+### Bug Fixes
+
+* **cache-manager:**  filter refTargets before resolving (609148d6)
+
 ## 5.5.59-unstable-12345.49 (2026-02-07)
 
 ### Bug Fixes
