@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.55 (2026-02-10)
+
+### Bug Fixes
+
+* **cache-manager:**  stop removing id and typename fields (961dc2dc)
+
 ## 5.5.59-unstable-12345.54 (2026-02-10)
 
 ### Bug Fixes
