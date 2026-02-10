@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.54 (2026-02-10)
+
+### Bug Fixes
+
+* **client:**  move data check to before caching (9ec5d354)
+
 ## 5.5.59-unstable-12345.53 (2026-02-08)
 
 ### Bug Fixes
