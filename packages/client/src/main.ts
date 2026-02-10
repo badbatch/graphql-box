@@ -34,13 +34,6 @@ export class Client {
     _options: OperationOptions,
     context: OperationContext,
   ): ResponseData & { operationId: string } {
-    const { data, errors, ...restResponseData } = responseData;
-
-    if ((!data || Object.keys(data).length === 0) && !errors?.length) {
-      const error = new Error('Invalid, data cannot be undefined, null or an empty object if no errors get returned.');
-      return { ...restResponseData, errors: [error], operationId: context.data.operationId };
-    }
-
     return { ...responseData, operationId: context.data.operationId };
   }
 
@@ -180,6 +173,11 @@ export class Client {
     }
 
     const executeResult = await this._requestManager.execute(analyzeResult.operationData, options, context);
+
+    if ((!executeResult.data || Object.keys(executeResult.data).length === 0) && !executeResult.errors?.length) {
+      throw new Error('Invalid, data cannot be undefined, null or an empty object if no errors get returned.');
+    }
+
     await this._cacheManager.cacheQuery(analyzeResult.operationData, executeResult, context);
     const finalAnalyzeResult = await this._cacheManager.analyzeQuery(operationData, context);
 
