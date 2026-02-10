@@ -1,4 +1,4 @@
-import { type FieldPaths } from '@graphql-box/core';
+import { type OperationContext } from '@graphql-box/core';
 import { buildOperationPathCacheKey, getAlias, isKind } from '@graphql-box/helpers';
 import {
   type DocumentNode,
@@ -13,6 +13,7 @@ import {
 const removeSelectionsInRequiredFields = (
   readonlySelections: readonly SelectionNode[],
   requiredFields: string[] = [],
+  idKey: string,
 ): readonly SelectionNode[] => {
   const selections: SelectionNode[] = [...readonlySelections];
 
@@ -21,18 +22,27 @@ const removeSelectionsInRequiredFields = (
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const selection = selections[i]!;
 
-    if (
-      isKind<FieldNode>(selection, Kind.FIELD) &&
-      requiredFields.includes(getAlias(selection) ?? selection.name.value)
-    ) {
-      selections.splice(i, 1);
+    if (isKind<FieldNode>(selection, Kind.FIELD)) {
+      const name = getAlias(selection) ?? selection.name.value;
+
+      if (name === idKey || name === '__typename') {
+        continue;
+      }
+
+      if (requiredFields.includes(name)) {
+        selections.splice(i, 1);
+      }
     }
   }
 
   return selections;
 };
 
-export const filterQuery = (ast: DocumentNode, resolvedPaths: string[], fieldPaths: FieldPaths): DocumentNode => {
+export const filterQuery = (
+  ast: DocumentNode,
+  resolvedPaths: string[],
+  { fieldPaths, idKey }: OperationContext,
+): DocumentNode => {
   const fieldPathStack: string[] = [];
 
   return visit(ast, {
@@ -72,7 +82,11 @@ export const filterQuery = (ast: DocumentNode, resolvedPaths: string[], fieldPat
           ? node.typeCondition.name.value
           : '__typename';
 
-      const selections = removeSelectionsInRequiredFields(node.selectionSet.selections, requiredFields[typeName]);
+      const selections = removeSelectionsInRequiredFields(
+        node.selectionSet.selections,
+        requiredFields[typeName],
+        idKey,
+      );
 
       if (selections.length === 0) {
         return null;

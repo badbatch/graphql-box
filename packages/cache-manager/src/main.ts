@@ -95,7 +95,7 @@ export class CacheManager implements CacheManagerDef {
       return { kind: 'cache-hit', responseData: { data, extensions } };
     }
 
-    const filteredAst = filterQuery(ast, resolvedPaths, context.fieldPaths);
+    const filteredAst = filterQuery(ast, resolvedPaths, context);
     const filteredOperation = print(filteredAst);
 
     return {
