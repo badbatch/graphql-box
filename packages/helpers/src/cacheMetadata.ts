@@ -1,6 +1,6 @@
 import { type CacheMetadata, type Entity, type FieldPaths } from '@graphql-box/core';
 import { Cacheability } from 'cacheability';
-import { type GraphQLResolveInfo } from 'graphql';
+import { type GraphQLResolveInfo, getNamedType } from 'graphql';
 import { buildEntityCacheKey } from '#buildEntityCacheKey.ts';
 import { buildOperationPathCacheKey } from '#buildOperationPathCacheKey.ts';
 import { getOperationPathFromResolverInfo } from '#getOperationPathFromResolverInfo.ts';
@@ -15,12 +15,13 @@ export const setCacheMetadata =
       return;
     }
 
-    const { isCacheBoundary, isEntity } = fieldPathMetadata;
+    const { hasArgs, isCacheBoundary, isEntity, isRootPath } = fieldPathMetadata;
 
     if (!isCacheBoundary) {
       return;
     }
 
+    const namedType = getNamedType(info.returnType);
     const incomingCacheability = new Cacheability({ headers });
 
     if (isEntity) {
@@ -28,7 +29,7 @@ export const setCacheMetadata =
       // has to be a plain object.
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const entity = data as Entity;
-      const entityCacheKey = buildEntityCacheKey(entity.__typename, entity[idKey]);
+      const entityCacheKey = buildEntityCacheKey(namedType.name, entity[idKey]);
 
       if (!entityCacheKey) {
         return;
@@ -43,7 +44,9 @@ export const setCacheMetadata =
       } else {
         cacheMetadata[entityCacheKey] = incomingCacheability.metadata;
       }
-    } else {
+    }
+
+    if (hasArgs || isRootPath) {
       const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
 
       if (operationPathCacheKey) {
