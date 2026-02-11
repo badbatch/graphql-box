@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.58 (2026-02-11)
+
+### Bug Fixes
+
+* **helpers:**  set cache metadata relying on field that is not present (044c9488)
+
 ## 5.5.59-unstable-12345.57 (2026-02-11)
 
 ### Bug Fixes
