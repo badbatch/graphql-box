@@ -59,8 +59,9 @@ export const normaliseResponseData = (
     }
 
     const { hasArgs, isCacheBoundary, isEntity, isRootPath, typeName } = fieldPathMetadata;
+    const entityInList = isEntity && isIndexNode;
 
-    if ((!isEntity || !isIndexNode) && !isCacheBoundary) {
+    if (!entityInList && !isCacheBoundary) {
       return;
     }
 
@@ -94,7 +95,7 @@ export const normaliseResponseData = (
       set(data, responseKey, responseDataValue);
     }
 
-    if (hasArgs || isRootPath) {
+    if ((hasArgs || isRootPath) && !entityInList) {
       const operationPathCacheKey = buildOperationPathCacheKey(operationPath, fieldPaths);
       const existingCacheEntry = operationPaths[operationPathCacheKey];
       operation.refTargets[operationPathCacheKey] ??= [];
