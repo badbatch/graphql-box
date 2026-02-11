@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.56 (2026-02-11)
+
+### Bug Fixes
+
+* **cache-manager:**  handle root node with args that is list of entities (b62fadf7)
+
 ## 5.5.59-unstable-12345.55 (2026-02-10)
 
 ### Bug Fixes
