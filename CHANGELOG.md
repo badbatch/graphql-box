@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.57 (2026-02-11)
+
+### Bug Fixes
+
+* **cache-manager:**  stop storing entity when list (83ab7025)
+
 ## 5.5.59-unstable-12345.56 (2026-02-11)
 
 ### Bug Fixes
