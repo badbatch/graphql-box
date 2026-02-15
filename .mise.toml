@@ -1,4 +1,3 @@
 [tools]
 node = "22"
-pnpm = "9"
-rust = "1"
+pnpm = "9.12.3"
