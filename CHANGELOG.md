@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.59-unstable-12345.59 (2026-02-23)
+
+### Chores
+
+* **root:**  bump pnpm version (e8bfd8c1)
+
+### Bug Fixes
+
+* **worker-client:**  harden cachemap message check (31ea03ef)
+
 ## 5.5.59-unstable-12345.58 (2026-02-11)
 
 ### Bug Fixes
