@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.60 (2026-02-24)
+
+### Bug Fixes
+
+* **cache-manager:**  race condition on caching and retrieving (7be92e04)
+
 ## 5.5.59-unstable-12345.59 (2026-02-23)
 
 ### Chores
