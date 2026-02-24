@@ -484,9 +484,7 @@ export class CacheManager implements CacheManagerDef {
       );
     }
 
-    for (const write of cacheWritePromises) {
-      await write;
-    }
+    await Promise.all(cacheWritePromises);
   }
 
   private _validateEntityRequiredFields(
