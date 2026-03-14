@@ -1,6 +1,5 @@
 import { Core } from '@cachemap/core';
 import { type ExportResult } from '@cachemap/core';
-import { init as map } from '@cachemap/map';
 import { instrumentOperation } from '@graphql-box/operation-parser';
 import {
   getOperationContext,
@@ -26,7 +25,6 @@ describe('@graphql-box/cache-manager', () => {
     new CacheManager({
       cache: new Core({
         name: 'cache',
-        store: map(),
         type: 'test',
       }),
     });
@@ -59,11 +57,11 @@ describe('@graphql-box/cache-manager', () => {
     });
 
     describe('when no field paths are resolved', () => {
-      it('should return the operation data unmodified', async () => {
+      it('should return the operation data unmodified', () => {
         const fieldPaths = getFieldPaths(parsedOperations.query);
 
         // @ts-expect-error Okay for test file
-        const { kind, operationData } = await cacheManager.analyzeQuery(
+        const { kind, operationData } = cacheManager.analyzeQuery(
           getOperationData(parsedOperations.query),
           getOperationContext({ fieldPaths }),
         );
@@ -78,12 +76,12 @@ describe('@graphql-box/cache-manager', () => {
       const operationData = getOperationData(parsedOperations.query);
       const fieldPaths = getFieldPaths(parsedOperations.query);
 
-      beforeEach(async () => {
-        await cacheManager.cacheQuery(operationData, responses.facebookQuery, getOperationContext({ fieldPaths }));
+      beforeEach(() => {
+        cacheManager.cacheQuery(operationData, responses.facebookQuery, getOperationContext({ fieldPaths }));
       });
 
-      it('should return the expected response data', async () => {
-        const result = await cacheManager.analyzeQuery(operationData, getOperationContext({ fieldPaths }));
+      it('should return the expected response data', () => {
+        const result = cacheManager.analyzeQuery(operationData, getOperationContext({ fieldPaths }));
 
         expect(result).toMatchInlineSnapshot(`
           {
@@ -139,12 +137,12 @@ describe('@graphql-box/cache-manager', () => {
         ttl: 0,
       };
 
-      beforeEach(async () => {
-        await cacheManager.cacheQuery(operationData, response, getOperationContext({ fieldPaths }));
+      beforeEach(() => {
+        cacheManager.cacheQuery(operationData, response, getOperationContext({ fieldPaths }));
       });
 
-      it('should return the filtered operation data', async () => {
-        const result = await cacheManager.analyzeQuery(operationData, getOperationContext({ fieldPaths }));
+      it('should return the filtered operation data', () => {
+        const result = cacheManager.analyzeQuery(operationData, getOperationContext({ fieldPaths }));
 
         // @ts-expect-error does not matter for test purposes
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -183,7 +181,7 @@ describe('@graphql-box/cache-manager', () => {
     it('should store the expected response data against each field path', async () => {
       const operationData = getOperationData(parsedOperations.query);
       const fieldPaths = getFieldPaths(parsedOperations.query);
-      await cacheManager.cacheQuery(operationData, responses.facebookQuery, getOperationContext({ fieldPaths }));
+      cacheManager.cacheQuery(operationData, responses.facebookQuery, getOperationContext({ fieldPaths }));
       const exported = serialiseExport(await cacheManager.cache!.export());
 
       expect(exported.entries).toMatchInlineSnapshot(`

@@ -11,16 +11,16 @@ export type Params = {
   totalResults: number;
 };
 
-export const cacheCursors = async (
+export const cacheCursors = (
   cursorCache: Core,
   { cachedNodeIds, edges, group, headers, page, totalPages, totalResults }: Params,
 ) => {
   const cacheControl = headers.get('cache-control');
   const options = cacheControl ? { cacheOptions: { cacheControl } } : undefined;
 
-  await Promise.all(
-    edges.map(async ({ cursor, node }, index) => cursorCache.set(cursor, { group, index, node, page }, options)),
-  );
+  for (const [index, { cursor, node }] of edges.entries()) {
+    cursorCache.set(cursor, { group, index, node, page }, options);
+  }
 
-  await cursorCache.set(`${group}-metadata`, { cachedNodeIds, totalPages, totalResults }, options);
+  cursorCache.set(`${group}-metadata`, { cachedNodeIds, totalPages, totalResults }, options);
 };

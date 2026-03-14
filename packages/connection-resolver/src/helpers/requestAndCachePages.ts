@@ -38,7 +38,7 @@ export const requestAndCachePages = async <Resource extends PlainObject, Resourc
   }: Context<Resource, ResourceNode>,
 ) => {
   const errors: Error[] = [];
-  const metadata = await cursorCache.get<CursorGroupMetadata>(`${groupCursor}-metadata`);
+  const metadata = cursorCache.get<CursorGroupMetadata>(`${groupCursor}-metadata`);
   let cachedNodeIds = metadata?.cachedNodeIds ?? [];
   const cachedEdges: CachedEdges[] = [];
 
@@ -60,7 +60,7 @@ export const requestAndCachePages = async <Resource extends PlainObject, Resourc
       const edges = makeEdges(nodes, node => makeIDCursor(node.id));
       cachedNodeIds = [...cachedNodeIds, ...edges.map(edge => edge.node.id)];
 
-      await cacheCursors(cursorCache, {
+      cacheCursors(cursorCache, {
         cachedNodeIds,
         edges,
         group: groupCursor,

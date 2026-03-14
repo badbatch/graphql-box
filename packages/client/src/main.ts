@@ -160,7 +160,7 @@ export class Client {
       return pendingQuery;
     }
 
-    const analyzeResult = await this._cacheManager.analyzeQuery(operationData, context);
+    const analyzeResult = this._cacheManager.analyzeQuery(operationData, context);
 
     if (analyzeResult.kind === 'cache-hit') {
       this._debugManager?.log(QUERY_RESOLVED_FROM_CACHE, {
@@ -178,8 +178,8 @@ export class Client {
       throw new Error('Invalid, data cannot be undefined, null or an empty object if no errors get returned.');
     }
 
-    await this._cacheManager.cacheQuery(analyzeResult.operationData, executeResult, context);
-    const finalAnalyzeResult = await this._cacheManager.analyzeQuery(operationData, context);
+    this._cacheManager.cacheQuery(analyzeResult.operationData, executeResult, context);
+    const finalAnalyzeResult = this._cacheManager.analyzeQuery(operationData, context);
 
     if (finalAnalyzeResult.kind !== 'cache-hit') {
       console.error(

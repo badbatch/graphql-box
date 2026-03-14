@@ -1,7 +1,4 @@
-import {
-  type PostMessage as CachemapMessageRequestPayload,
-  handleMessage as handleCachemapMessage,
-} from '@cachemap/core-worker';
+import { handleMessage as handleCachemapMessage, isCachemapPostMessageRequest } from '@cachemap/core-worker';
 import { type Client } from '@graphql-box/client';
 import { type OperationOptions, type SerialisedResponseData } from '@graphql-box/core';
 import { serializeErrors } from '@graphql-box/helpers';
@@ -26,10 +23,10 @@ export const handleMessage = (data: MessageRequestPayload, client: Client): void
 };
 
 export const registerWorker = ({ client }: RegisterWorkerOptions): void => {
-  const onMessage = ({ data }: MessageEvent<MessageRequestPayload | CachemapMessageRequestPayload>): void => {
+  const onMessage = ({ data }: MessageEvent<unknown>): void => {
     if (isGraphqlBoxMessageRequestPayload(data)) {
       handleMessage(data, client);
-    } else if (client.cache && data.type === 'cachemap') {
+    } else if (client.cache && isCachemapPostMessageRequest(data)) {
       void handleCachemapMessage(data, client.cache);
     }
   };

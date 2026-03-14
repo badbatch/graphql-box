@@ -47,9 +47,9 @@ export type AnalyzeQueryResult =
     };
 
 export interface CacheManagerDef {
-  analyzeQuery(requestData: OperationData, context: OperationContext): Promise<AnalyzeQueryResult>;
+  analyzeQuery(requestData: OperationData, context: OperationContext): AnalyzeQueryResult;
   cache: Core | undefined;
-  cacheQuery(operationData: OperationData, responseData: ResponseData, context: OperationContext): Promise<void>;
+  cacheQuery(operationData: OperationData, responseData: ResponseData, context: OperationContext): void;
   hashCacheKeys: boolean;
 }
 

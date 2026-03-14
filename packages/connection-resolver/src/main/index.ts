@@ -56,7 +56,7 @@ export const makeConnectionResolver =
     childLogger?.info(`Resolving ${fieldPath} ${JSON.stringify(args)}`, { logEntryName: 'RESOLVER_START' });
 
     if (isCursorSupplied(args)) {
-      const cursorError = await validateCursor(args, info, {
+      const cursorError = validateCursor(args, info, {
         cursorCache,
         groupCursor,
         resultsPerPage,
@@ -94,7 +94,7 @@ export const makeConnectionResolver =
       );
     }
 
-    if (await cursorCache.has(`${groupCursor}-metadata`)) {
+    if (cursorCache.has(`${groupCursor}-metadata`)) {
       return resolver(
         await resolveConnection(args, {
           cursorCache,

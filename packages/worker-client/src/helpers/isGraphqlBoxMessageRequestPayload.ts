@@ -1,7 +1,5 @@
-import { type PostMessage as CachemapMessageRequestPayload } from '@cachemap/core-worker';
 import { GRAPHQL_BOX } from '../constants.ts';
 import { type MessageRequestPayload } from '../types.ts';
 
-export const isGraphqlBoxMessageRequestPayload = (
-  payload: MessageRequestPayload | CachemapMessageRequestPayload,
-): payload is MessageRequestPayload => payload.type === GRAPHQL_BOX;
+export const isGraphqlBoxMessageRequestPayload = (payload: unknown): payload is MessageRequestPayload =>
+  !!payload && typeof payload === 'object' && 'type' in payload && payload.type === GRAPHQL_BOX;

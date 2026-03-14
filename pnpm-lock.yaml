@@ -22,20 +22,20 @@ importers:
         specifier: ^7.27.4
         version: 7.27.4
       '@cachemap/core':
-        specifier: ^5.3.2
-        version: 5.3.2
+        specifier: ^5.3.3-unstable-12345.1
+        version: 5.3.3-unstable-12345.1
       '@cachemap/core-worker':
-        specifier: ^5.3.0
-        version: 5.3.0(@cachemap/core@5.3.2)
+        specifier: ^5.3.1-unstable-12345.1
+        version: 5.3.1-unstable-12345.1(@cachemap/core@5.3.3-unstable-12345.1)
       '@cachemap/indexed-db':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1-unstable-12345.0
+        version: 5.1.1-unstable-12345.0
       '@cachemap/map':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1-unstable-12345.0
+        version: 5.1.1-unstable-12345.0
       '@cachemap/types':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1-unstable-12345.0
+        version: 5.1.1-unstable-12345.0
       '@commitlint/cli':
         specifier: ^19.8.1
         version: 19.8.1(@types/node@24.0.4)(typescript@5.8.3)
@@ -305,11 +305,11 @@ importers:
         version: 4.41.0
     devDependencies:
       '@cachemap/core':
-        specifier: ^5.3.2
-        version: 5.3.2
+        specifier: ^5.3.3-unstable-12345.1
+        version: 5.3.3-unstable-12345.1
       '@cachemap/map':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1-unstable-12345.0
+        version: 5.1.1-unstable-12345.0
       '@graphql-box/operation-parser':
         specifier: workspace:*
         version: link:../operation-parser
@@ -387,8 +387,8 @@ importers:
   packages/connection-resolver:
     dependencies:
       '@cachemap/core':
-        specifier: ^5.3.2
-        version: 5.3.2
+        specifier: ^5.3.3-unstable-12345.1
+        version: 5.3.3-unstable-12345.1
       '@graphql-box/core':
         specifier: workspace:*
         version: link:../core
@@ -409,8 +409,8 @@ importers:
         version: 4.41.0
     devDependencies:
       '@cachemap/map':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1-unstable-12345.0
+        version: 5.1.1-unstable-12345.0
       '@jest/globals':
         specifier: ^29.3.1
         version: 29.7.0
@@ -477,11 +477,11 @@ importers:
         version: 4.17.23
     devDependencies:
       '@cachemap/core':
-        specifier: ^5.3.2
-        version: 5.3.2
+        specifier: ^5.3.3-unstable-12345.1
+        version: 5.3.3-unstable-12345.1
       '@cachemap/map':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1-unstable-12345.0
+        version: 5.1.1-unstable-12345.0
       '@graphql-box/cache-manager':
         specifier: workspace:*
         version: link:../cache-manager
@@ -814,11 +814,11 @@ importers:
   packages/worker-client:
     dependencies:
       '@cachemap/core':
-        specifier: ^5.3.2
-        version: 5.3.2
+        specifier: ^5.3.3-unstable-12345.1
+        version: 5.3.3-unstable-12345.1
       '@cachemap/core-worker':
-        specifier: ^5.3.0
-        version: 5.3.0(@cachemap/core@5.3.2)
+        specifier: ^5.3.1-unstable-12345.1
+        version: 5.3.1-unstable-12345.1(@cachemap/core@5.3.3-unstable-12345.1)
       '@graphql-box/core':
         specifier: workspace:*
         version: link:../core
@@ -1529,28 +1529,31 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@cachemap/controller@5.3.0':
-    resolution: {integrity: sha512-BTvJF6lF6t0s7YTGSS/bj4/Stxb6flheo8V5Yhf/OBaVzIT67gTGRP4b4HB/CKvRNxAruZoe/SJmigJPijQQJA==}
+  '@cachemap/controller@5.3.1-unstable-12345.0':
+    resolution: {integrity: sha512-q6dJmX+aiHr2Jw2HzHghCyHlLV2nR+t3GIGYGPEwNHV74bpw7vwv0LDndXjAyQj4E3il4DzqZjiRh0u3pfrXaw==}
 
-  '@cachemap/core-worker@5.3.0':
-    resolution: {integrity: sha512-JTNisyzTKe4BXjRNPAR+xxPj2qis59usEXEC3AEWqxAilBzRdBo+txtKwn/aq65ltXayd+zo/VMsQpaehQbohg==}
+  '@cachemap/core-worker@5.3.1-unstable-12345.1':
+    resolution: {integrity: sha512-h/t7ecjyXZR/6t6JUI2+6xymqKdHRtwQ+nKgvUIRwOjPjFBOGHcpMeTTYsonQNfshMrJ/b9wnd5fgImhKVT5pw==}
     peerDependencies:
-      '@cachemap/core': 5.3.0
+      '@cachemap/core': 5.3.3-unstable-12345.1
 
-  '@cachemap/core@5.3.2':
-    resolution: {integrity: sha512-vcMXVHXI8+xyndATNwnM6vCGAWuGSF9/zRRXlZqtOyvWz3aiTSUHVq0rgXgnmJuf/JVtVgZ4INrvTtkJ0J20wA==}
+  '@cachemap/core@5.3.3-unstable-12345.1':
+    resolution: {integrity: sha512-9ETdoPDrR9F8v1h07Dm3twfMvORuRthmPZ04flRaEWMvGdX7YBZ3JPF99nFL7G8UkUbkfcV0HbrAr0c3pPxjSg==}
 
-  '@cachemap/indexed-db@5.1.0':
-    resolution: {integrity: sha512-TPJWcT/93JyQxtgEDiHz1Qc3LoKnDQHpraEM7FRUF+5BTWRG2TwcP8V2O8ebZoYvzmmyB8ce/yZOV7H/aw6WYQ==}
+  '@cachemap/indexed-db@5.1.1-unstable-12345.0':
+    resolution: {integrity: sha512-AVIws4UviFNA+fPDnsjh1W5veIXQTbEgnRvKIWsP8XXxz48/xHJeE80dlrc6PMti7WsWJ/i+Vzf6iTaUQ6yj2g==}
 
-  '@cachemap/map@5.1.0':
-    resolution: {integrity: sha512-kjEVqW9/tTOiAKCXhAbyNiG3ru+DDtXYwmHdFct4EtoQL3jgOHikVA3dv593XRTsQ4TpsW7BKpsQyiAdXvawDA==}
+  '@cachemap/map@5.1.1-unstable-12345.0':
+    resolution: {integrity: sha512-C4uUY8tuk7r+PCFuJRercop9iGAHVi9lr1QOxlreRcpevVURG2Ph+2v7Nn4S6+WC8xjtmJUPRkfJH1nl6+PkWQ==}
 
-  '@cachemap/types@5.1.0':
-    resolution: {integrity: sha512-IOzlxDDBgbxDuWRYEUwe5QXTbi1kgmt7yx4O7QKas3c7sBNBG5ZBFfv+uDQRXjsX5M6DHP3ryXre2pSTDyzj8Q==}
+  '@cachemap/reaper@5.2.1-unstable-12345.0':
+    resolution: {integrity: sha512-2uIKAcI9D355MecG/BjpY+QU72n+MUusGp4O5wH2wucIePVgxiii9x1DWXp2KrA3aMgjCPIJww1k+Jc3LSR0kw==}
 
-  '@cachemap/utils@5.3.0':
-    resolution: {integrity: sha512-2mDhE/SIrjdJGfSmH7AqSmAkmFg5EnVwsemQ2dfvivV2yVY+TMoQMEddZJHIX+RfOvkP8bQ/GAkYJ7iYY7RIXg==}
+  '@cachemap/types@5.1.1-unstable-12345.0':
+    resolution: {integrity: sha512-ryOmphULqYld6edrCvCAA4ve/cuflVmmxj+wVmriBAza4j6uFjGhyMbMvGIdCi9Vsfye9Z+PU7dof/HzNAU2ww==}
+
+  '@cachemap/utils@5.3.1-unstable-12345.0':
+    resolution: {integrity: sha512-OE/aspFZH4bwZ65Q5Rk7VhW8GAkilMXJO/bKSZ6csJDMTJx4Z3P9X+kSOdQ7BXXYDqRJihadLZlnqF4mLoc9XQ==}
 
   '@colors/colors@1.6.0':
     resolution: {integrity: sha512-Ir+AOibqzrIsL6ajt3Rz3LskB7OiMVHqltZmspbW/TJuTVuyOMirVqAkjfY6JISiLHgyNqicAC8AyHHGzNd/dA==}
@@ -8411,18 +8414,18 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@cachemap/controller@5.3.0':
+  '@cachemap/controller@5.3.1-unstable-12345.0':
     dependencies:
-      '@cachemap/utils': 5.3.0
+      '@cachemap/utils': 5.3.1-unstable-12345.0
       core-js: 3.48.0
       eventemitter3: 5.0.4
 
-  '@cachemap/core-worker@5.3.0(@cachemap/core@5.3.2)':
+  '@cachemap/core-worker@5.3.1-unstable-12345.1(@cachemap/core@5.3.3-unstable-12345.1)':
     dependencies:
-      '@cachemap/controller': 5.3.0
-      '@cachemap/core': 5.3.2
-      '@cachemap/types': 5.1.0
-      '@cachemap/utils': 5.3.0
+      '@cachemap/controller': 5.3.1-unstable-12345.0
+      '@cachemap/core': 5.3.3-unstable-12345.1
+      '@cachemap/types': 5.1.1-unstable-12345.0
+      '@cachemap/utils': 5.3.1-unstable-12345.0
       '@types/lodash-es': 4.17.12
       '@types/uuid': 11.0.0
       cacheability: 4.0.30
@@ -8432,12 +8435,13 @@ snapshots:
       ts-md5: 1.3.1
       uuid: 13.0.0
 
-  '@cachemap/core@5.3.2':
+  '@cachemap/core@5.3.3-unstable-12345.1':
     dependencies:
-      '@cachemap/controller': 5.3.0
-      '@cachemap/map': 5.1.0
-      '@cachemap/types': 5.1.0
-      '@cachemap/utils': 5.3.0
+      '@cachemap/controller': 5.3.1-unstable-12345.0
+      '@cachemap/map': 5.1.1-unstable-12345.0
+      '@cachemap/reaper': 5.2.1-unstable-12345.0
+      '@cachemap/types': 5.1.1-unstable-12345.0
+      '@cachemap/utils': 5.3.1-unstable-12345.0
       '@types/lodash-es': 4.17.12
       cacheability: 4.0.30
       core-js: 3.48.0
@@ -8446,31 +8450,38 @@ snapshots:
       ts-md5: 1.3.1
       type-fest: 5.4.1
 
-  '@cachemap/indexed-db@5.1.0':
+  '@cachemap/indexed-db@5.1.1-unstable-12345.0':
     dependencies:
-      '@cachemap/types': 5.1.0
+      '@cachemap/types': 5.1.1-unstable-12345.0
       core-js: 3.48.0
       idb: 8.0.3
       lodash-es: 4.17.23
 
-  '@cachemap/map@5.1.0':
+  '@cachemap/map@5.1.1-unstable-12345.0':
     dependencies:
-      '@cachemap/types': 5.1.0
+      '@cachemap/types': 5.1.1-unstable-12345.0
       '@types/lodash-es': 4.17.12
       core-js: 3.48.0
       lodash-es: 4.17.23
       type-fest: 5.4.1
 
-  '@cachemap/types@5.1.0':
+  '@cachemap/reaper@5.2.1-unstable-12345.0':
+    dependencies:
+      '@cachemap/types': 5.1.1-unstable-12345.0
+      '@types/lodash-es': 4.17.12
+      core-js: 3.48.0
+      lodash-es: 4.17.23
+
+  '@cachemap/types@5.1.1-unstable-12345.0':
     dependencies:
       '@types/lodash-es': 4.17.12
       cacheability: 4.0.30
       core-js: 3.48.0
       lodash-es: 4.17.23
 
-  '@cachemap/utils@5.3.0':
+  '@cachemap/utils@5.3.1-unstable-12345.0':
     dependencies:
-      '@cachemap/types': 5.1.0
+      '@cachemap/types': 5.1.1-unstable-12345.0
       '@types/crypto-js': 4.2.2
       '@types/lodash-es': 4.17.12
       cacheability: 4.0.30

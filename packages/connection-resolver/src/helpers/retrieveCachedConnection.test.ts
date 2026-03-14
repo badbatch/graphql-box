@@ -13,7 +13,7 @@ describe('retrieveCachedConnection', () => {
       let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['1-10'],
           resultsPerPage,
@@ -65,7 +65,7 @@ describe('retrieveCachedConnection', () => {
       let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['1-10'],
           resultsPerPage,
@@ -117,7 +117,7 @@ describe('retrieveCachedConnection', () => {
       let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['1-10'],
           resultsPerPage,
@@ -170,7 +170,7 @@ describe('retrieveCachedConnection', () => {
         let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
-          const cursorCache = await generateCursorCache({
+          const cursorCache = generateCursorCache({
             group: groupCursor,
             pageRanges: ['1-10'],
             resultsPerPage,
@@ -222,7 +222,7 @@ describe('retrieveCachedConnection', () => {
         let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
-          const cursorCache = await generateCursorCache({
+          const cursorCache = generateCursorCache({
             group: groupCursor,
             pageRanges: ['1-10'],
             resultsPerPage,
@@ -276,7 +276,7 @@ describe('retrieveCachedConnection', () => {
         let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
-          const cursorCache = await generateCursorCache({
+          const cursorCache = generateCursorCache({
             group: groupCursor,
             pageRanges: ['1-10'],
             resultsPerPage,
@@ -328,7 +328,7 @@ describe('retrieveCachedConnection', () => {
         let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
-          const cursorCache = await generateCursorCache({
+          const cursorCache = generateCursorCache({
             group: groupCursor,
             pageRanges: ['1-10'],
             resultsPerPage,
@@ -382,7 +382,7 @@ describe('retrieveCachedConnection', () => {
         let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
-          const cursorCache = await generateCursorCache({
+          const cursorCache = generateCursorCache({
             group: groupCursor,
             pageRanges: ['1-8', '10'],
             resultsPerPage,
@@ -434,7 +434,7 @@ describe('retrieveCachedConnection', () => {
         let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
-          const cursorCache = await generateCursorCache({
+          const cursorCache = generateCursorCache({
             group: groupCursor,
             pageRanges: ['1-8', '10'],
             resultsPerPage,
@@ -489,7 +489,7 @@ describe('retrieveCachedConnection', () => {
       let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['1-10'],
           resultsPerPage,
@@ -541,7 +541,7 @@ describe('retrieveCachedConnection', () => {
       let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['1-10'],
           resultsPerPage,
@@ -593,7 +593,7 @@ describe('retrieveCachedConnection', () => {
       let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['1-10'],
           resultsPerPage,
@@ -645,7 +645,7 @@ describe('retrieveCachedConnection', () => {
       let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['1-10'],
           resultsPerPage,
@@ -697,7 +697,7 @@ describe('retrieveCachedConnection', () => {
       let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
       beforeAll(async () => {
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['1-10'],
           resultsPerPage,
@@ -750,7 +750,7 @@ describe('retrieveCachedConnection', () => {
         let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
-          const cursorCache = await generateCursorCache({
+          const cursorCache = generateCursorCache({
             group: groupCursor,
             pageRanges: ['1', '3-10'],
             resultsPerPage,
@@ -802,7 +802,7 @@ describe('retrieveCachedConnection', () => {
         let result: Awaited<ReturnType<(typeof import('./retrieveCachedConnection.ts'))['retrieveCachedConnection']>>;
 
         beforeAll(async () => {
-          const cursorCache = await generateCursorCache({
+          const cursorCache = generateCursorCache({
             group: groupCursor,
             pageRanges: ['1', '3-10'],
             resultsPerPage,

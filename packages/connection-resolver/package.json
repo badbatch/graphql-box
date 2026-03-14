@@ -41,7 +41,7 @@
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
-    "@cachemap/core": "^5.3.2",
+    "@cachemap/core": "^5.3.3-unstable-12345.1",
     "@graphql-box/core": "workspace:*",
     "@types/lodash-es": "^4.17.12",
     "core-js": "^3.43.0",
@@ -54,7 +54,7 @@
     "winston": "<4"
   },
   "devDependencies": {
-    "@cachemap/map": "^5.1.0",
+    "@cachemap/map": "^5.1.1-unstable-12345.0",
     "@jest/globals": "^29.3.1",
     "cts-types": "^0.0.11",
     "del-cli": "^6.0.0",

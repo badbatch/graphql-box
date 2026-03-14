@@ -13,15 +13,15 @@ export type Context = {
   resultsPerPage: number;
 };
 
-export const retrieveEntry = async (
+export const retrieveEntry = (
   args: ConnectionInputOptions,
   metadata: CursorGroupMetadata,
   { cursorCache, resultsPerPage }: Context,
-): Promise<PartialCursorCacheEntry> => {
+): PartialCursorCacheEntry => {
   const cursor = getCursor(args);
 
   if (cursor) {
-    const cursorCacheEntry = await cursorCache.get<CursorCacheEntry>(cursor);
+    const cursorCacheEntry = cursorCache.get<CursorCacheEntry>(cursor);
 
     if (cursorCacheEntry) {
       return cursorCacheEntry;

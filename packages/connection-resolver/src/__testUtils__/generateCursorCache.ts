@@ -1,5 +1,4 @@
 import { Core } from '@cachemap/core';
-import { init as map } from '@cachemap/map';
 import { encode } from 'js-base64';
 import { cacheCursors } from '../helpers/cacheCursors.ts';
 import { generatePages } from './generatePages.ts';
@@ -12,16 +11,15 @@ export type Params = {
   totalResults: number;
 };
 
-export const generateCursorCache = async ({
+export const generateCursorCache = ({
   group,
   pageRanges = [],
   resultsPerPage,
   totalPages,
   totalResults,
-}: Params) => {
+}: Params): Core => {
   const cursorCache = new Core({
     name: 'cursorCache',
-    store: map(),
     type: 'someType',
   });
 
@@ -31,30 +29,28 @@ export const generateCursorCache = async ({
     const pages = generatePages(pageRanges);
     let cachedNodeIds: (string | number)[] = [];
 
-    await Promise.all(
-      pages.map(async page => {
-        const isLastPage = page === pages.at(-1);
-        let resultsOnCurrentPage: number;
+    for (const page of pages) {
+      const isLastPage = page === pages.at(-1);
+      let resultsOnCurrentPage: number;
 
-        if (isLastPage) {
-          const remainder = totalResults % resultsPerPage;
-          resultsOnCurrentPage = remainder === 0 ? resultsPerPage : remainder;
-        } else {
-          resultsOnCurrentPage = resultsPerPage;
-        }
+      if (isLastPage) {
+        const remainder = totalResults % resultsPerPage;
+        resultsOnCurrentPage = remainder === 0 ? resultsPerPage : remainder;
+      } else {
+        resultsOnCurrentPage = resultsPerPage;
+      }
 
-        const edges = Array.from({ length: resultsOnCurrentPage }, (_v, index) => index).map(index => {
-          const id = encode(`${String(index)}::${String(page)}`);
-          return { cursor: `${id}::${group}`, node: { id } };
-        });
+      const edges = Array.from({ length: resultsOnCurrentPage }, (_v, index) => index).map(index => {
+        const id = encode(`${String(index)}::${String(page)}`);
+        return { cursor: `${id}::${group}`, node: { id } };
+      });
 
-        cachedNodeIds = [...cachedNodeIds, ...edges.map(edge => edge.node.id)];
+      cachedNodeIds = [...cachedNodeIds, ...edges.map(edge => edge.node.id)];
 
-        await cacheCursors(cursorCache, { cachedNodeIds, edges, group, headers, page, totalPages, totalResults });
-      }),
-    );
+      cacheCursors(cursorCache, { cachedNodeIds, edges, group, headers, page, totalPages, totalResults });
+    }
   } else {
-    await cursorCache.set(
+    cursorCache.set(
       `${group}-metadata`,
       { cachedNodeIds: [], totalPages, totalResults },
       { cacheOptions: { cacheControl: headers.get('cache-control') ?? undefined } },

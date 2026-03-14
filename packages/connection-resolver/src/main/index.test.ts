@@ -1,5 +1,4 @@
 import { Core } from '@cachemap/core';
-import { init as map } from '@cachemap/map';
 import { type PlainObject } from '@graphql-box/core';
 import { expect, jest } from '@jest/globals';
 import { GraphQLError, type GraphQLResolveInfo } from 'graphql';
@@ -40,7 +39,6 @@ describe('connectionResolver', () => {
           createResourceResolver,
           cursorCache: new Core({
             name: 'GRAPHQL_BOX_CONNECTION_RESOLVER',
-            store: map(),
             type: 'CONNECTION_RESOLVER',
           }),
           getters,
@@ -81,7 +79,7 @@ describe('connectionResolver', () => {
 
         const groupCursor = encode(JSON.stringify({ query: 'Hello world!' }));
 
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['1-10'],
           resultsPerPage,
@@ -128,7 +126,7 @@ describe('connectionResolver', () => {
 
         const groupCursor = encode(JSON.stringify({ query: 'Hello world!' }));
 
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['1', '3-10'],
           resultsPerPage,
@@ -180,7 +178,7 @@ describe('connectionResolver', () => {
 
         const groupCursor = encode(JSON.stringify({ query: 'Hello world!' }));
 
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['1-10'],
           resultsPerPage,
@@ -226,7 +224,7 @@ describe('connectionResolver', () => {
 
         const groupCursor = encode(JSON.stringify({ query: 'Hello world!' }));
 
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['2-10'],
           resultsPerPage,
@@ -280,7 +278,6 @@ describe('connectionResolver', () => {
 
         const cursorCache = new Core({
           name: 'cursorCache',
-          store: map(),
           type: 'someType',
         });
 
@@ -327,7 +324,7 @@ describe('connectionResolver', () => {
 
         const groupCursor = encode(JSON.stringify({ query: 'Hello world!' }));
 
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['1-10'],
           resultsPerPage,
@@ -373,7 +370,7 @@ describe('connectionResolver', () => {
 
         const groupCursor = encode(JSON.stringify({ query: 'Hello world!' }));
 
-        const cursorCache = await generateCursorCache({
+        const cursorCache = generateCursorCache({
           group: groupCursor,
           pageRanges: ['1-9'],
           resultsPerPage,
@@ -427,7 +424,6 @@ describe('connectionResolver', () => {
 
         const cursorCache = new Core({
           name: 'cursorCache',
-          store: map(),
           type: 'someType',
         });
 
