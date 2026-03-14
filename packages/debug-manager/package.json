@@ -1,7 +1,7 @@
 {
   "name": "@graphql-box/debug-manager",
   "description": "The GraphQL Box debug manager module.",
-  "version": "5.4.13-unstable-12345.15",
+  "version": "5.4.13-unstable-12345.16",
   "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",

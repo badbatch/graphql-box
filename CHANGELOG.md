@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.59-unstable-12345.61 (2026-03-14)
+
+### Refactors
+
+* **root:**  integrate new version of cachemap (5b6180fc)
+
+### Reverts
+
+* **cache-manager:**  promise.all split (47d11e20)
+
 ## 5.5.59-unstable-12345.60 (2026-02-24)
 
 ### Bug Fixes
