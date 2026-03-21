@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.62 (2026-03-21)
+
+### Chores
+
+* **root:**  bump cachemap version (2758a1a8)
+
 ## 5.5.59-unstable-12345.61 (2026-03-14)
 
 ### Refactors
