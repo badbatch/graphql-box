@@ -49,8 +49,7 @@
     "lodash-es": "^4.17.23"
   },
   "devDependencies": {
-    "@cachemap/core": "^5.3.3-unstable-12345.1",
-    "@cachemap/map": "^5.1.1-unstable-12345.0",
+    "@cachemap/core": "^5.3.3-unstable-12345.3",
     "@graphql-box/cache-manager": "workspace:*",
     "@graphql-box/test-utils": "workspace:*",
     "@jest/globals": "^29.3.1",
