@@ -8,7 +8,7 @@ import {
   type SerialisedResponseData,
 } from '@graphql-box/core';
 import { ArgsError, GroupedError, deserializeErrors } from '@graphql-box/helpers';
-import { isString } from 'lodash-es';
+import { isError, isString } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 import { logFetch } from './debug/logFetch.ts';
 import { logErrorsToConsole } from './helpers/logErrorsToConsole.ts';
@@ -85,29 +85,41 @@ export class FetchManager {
     options: OperationOptions,
     context: OperationContext,
   ): Promise<ResponseData> {
-    const url = this._apiUrl;
+    try {
+      const url = this._apiUrl;
 
-    if (options.batch === false || !this._batchRequests) {
-      const fetchResult = await this._fetch<SerialisedResponseData>(`${url}?operationId=${context.data.operationId}`, {
-        batched: false,
-        context: FetchManager._getMessageContext(context),
-        operation,
+      if (options.batch === false || !this._batchRequests) {
+        const fetchResult = await this._fetch<SerialisedResponseData>(
+          `${url}?operationId=${context.data.operationId}`,
+          {
+            batched: false,
+            context: FetchManager._getMessageContext(context),
+            operation,
+          },
+        );
+
+        return logErrorsToConsole(deserializeErrors(fetchResult));
+      }
+
+      return await new Promise((resolve: (value: ResponseData) => void, reject) => {
+        this._batchRequest(
+          url,
+          {
+            context: FetchManager._getMessageContext(context),
+            operation,
+          },
+          context.data.operationId,
+          { reject, resolve },
+        );
       });
+    } catch (error) {
+      const confirmedError = isError(error) ? error : new Error('@graphql-box/fetch-manager had an unexpected error.');
 
-      return logErrorsToConsole(deserializeErrors(fetchResult));
+      return {
+        errors: [confirmedError],
+        extensions: { cacheMetadata: {} },
+      };
     }
-
-    return new Promise((resolve: (value: ResponseData) => void, reject) => {
-      this._batchRequest(
-        url,
-        {
-          context: FetchManager._getMessageContext(context),
-          operation,
-        },
-        context.data.operationId,
-        { reject, resolve },
-      );
-    });
   }
 
   public log(message: string, data: PlainObject, logLevel?: LogLevel) {
@@ -117,14 +129,14 @@ export class FetchManager {
       }
 
       const url = this._logUrl;
-      const opeerationId = uuid();
+      const operationId = uuid();
 
       if (!this._batchRequests) {
-        void this._fetch(`${url}?opeerationId=${opeerationId}`, { batched: false, data, logLevel, message });
+        void this._fetch(`${url}?operationId=${operationId}`, { batched: false, data, logLevel, message });
         return;
       }
 
-      this._batchRequest(url, { data, logLevel, message }, opeerationId);
+      this._batchRequest(url, { data, logLevel, message }, operationId);
     } catch {
       // no catch
     }

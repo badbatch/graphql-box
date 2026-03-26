@@ -41,6 +41,14 @@ export const createQueryExportServerFunc =
       exportResultPromises.push(requestHandler<Data>(operation, opts, ctx));
     }
 
-    const exportResults = await Promise.all(exportResultPromises);
+    const settledResults = await Promise.allSettled(exportResultPromises);
+    const exportResults: ExportResult<Data>[] = [];
+
+    for (const result of settledResults) {
+      if (result.status === 'fulfilled') {
+        exportResults.push(result.value);
+      }
+    }
+
     return exportResults.map(entry => structuredClone(entry));
   };

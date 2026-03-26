@@ -1,44 +1,82 @@
-import { type OperationOptions, type PartialOperationContext, type PlainObject } from '@graphql-box/core';
+import {
+  type CacheMetadata,
+  type OperationOptions,
+  type PartialOperationContext,
+  type PlainObject,
+  type ResponseData,
+} from '@graphql-box/core';
+import { type QueryError } from '@graphql-box/helpers';
 import { useState } from 'react';
+import { type Except } from 'type-fest';
 import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
 
-export type State<Data extends PlainObject> = {
-  data: Data[] | undefined;
-  errors: readonly Error[];
+export type State<T extends PlainObject<unknown> = PlainObject<unknown>> = {
+  data: T[] | undefined;
+  errors?: readonly Error[];
+  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata };
   loading: boolean;
 };
 
-export const useMultiQuery = <Data extends PlainObject>(request: string, { loading = false } = {}) => {
+export const useMultiQuery = <T extends PlainObject<unknown> = PlainObject<unknown>>(
+  request: string,
+  { loading = false } = {},
+) => {
   const graphqlBoxClient = useGraphqlBoxClient();
-  const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading });
+
+  const [state, setState] = useState<State<T>>({
+    data: undefined,
+    errors: [],
+    extensions: { cacheMetadata: {} },
+    loading,
+  });
 
   const execute = async (optionsSet: OperationOptions[], context?: PartialOperationContext) => {
     setState({
       data: undefined,
       errors: [],
+      extensions: { cacheMetadata: {} },
       loading: true,
     });
 
-    const requestResults = await Promise.all(
+    const settledResult = await Promise.allSettled(
       optionsSet.map(options => graphqlBoxClient.query(request, options, context)),
     );
 
+    const requestResults: ResponseData[] = [];
+
+    for (const result of settledResult) {
+      if (result.status === 'fulfilled') {
+        requestResults.push(result.value);
+      } else {
+        // reason is any type
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        const { errors, extensions } = result.reason as QueryError;
+        requestResults.push({ errors, extensions });
+      }
+    }
+
+    const { data, errors, extensions } = requestResults.reduce<Except<State<T>, 'loading'>>(
+      (acc: Except<State<T>, 'loading'>, result): Except<State<T>, 'loading'> => {
+        return {
+          // @ts-expect-error Struggling to type this nicely
+          data: result.data ? [...(acc.data ?? []), result.data] : acc.data,
+          errors: result.errors?.length ? [...(acc.errors ?? []), ...result.errors] : acc.errors,
+          extensions: {
+            ...acc.extensions,
+            cacheMetadata: {
+              ...acc.extensions.cacheMetadata,
+              ...result.extensions.cacheMetadata,
+            },
+          },
+        };
+      },
+      { data: [], errors: [], extensions: { cacheMetadata: {} } },
+    );
+
     setState({
-      // @ts-expect-error Need to handle this properly
-      data: requestResults.reduce<Data[]>((acc, result) => {
-        if (result.data) {
-          return [...acc, result.data];
-        }
-
-        return acc;
-      }, []),
-      errors: requestResults.reduce<readonly Error[]>((acc, result) => {
-        if (result.errors?.length) {
-          return [...acc, ...result.errors];
-        }
-
-        return acc;
-      }, []),
+      data,
+      errors,
+      extensions,
       loading: false,
     });
   };

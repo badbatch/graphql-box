@@ -3,7 +3,7 @@ import {
   type OperationOptions,
   type PartialOperationContext,
   type PlainObject,
-  type ResponseData,
+  type QueryResult,
 } from '@graphql-box/core';
 
 export const createQueryServerFunc =
@@ -12,6 +12,6 @@ export const createQueryServerFunc =
     operation: string,
     options: OperationOptions = {},
     context: PartialOperationContext = {},
-  ): Promise<ResponseData<Data> & { operationId: string }> => {
+  ): Promise<QueryResult<Data>> => {
     return client.query<Data>(operation, options, context);
   };

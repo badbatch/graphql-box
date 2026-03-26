@@ -1,7 +1,7 @@
 import { handleMessage as handleCachemapMessage, isCachemapPostMessageRequest } from '@cachemap/core-worker';
 import { type Client } from '@graphql-box/client';
-import { type OperationOptions, type SerialisedResponseData } from '@graphql-box/core';
-import { serializeErrors } from '@graphql-box/helpers';
+import { type OperationOptions, type ResponseData, type SerialisedResponseData } from '@graphql-box/core';
+import { QueryError, serializeErrors } from '@graphql-box/helpers';
 import { GRAPHQL_BOX, MESSAGE } from './constants.ts';
 import { isGraphqlBoxMessageRequestPayload } from './helpers/isGraphqlBoxMessageRequestPayload.ts';
 import { type MessageContext, type MessageRequestPayload, type RegisterWorkerOptions } from './types.ts';
@@ -12,8 +12,22 @@ const handleQuery = async (
   context: MessageContext,
   client: Client,
 ): Promise<void> => {
-  const requestResult = await client.query(operation, options, context);
-  const result: SerialisedResponseData = serializeErrors(requestResult);
+  let requestResult: ResponseData | undefined;
+
+  try {
+    requestResult = await client.query(operation, options, context);
+  } catch (error) {
+    requestResult =
+      error instanceof QueryError
+        ? error
+        : {
+            errors: [new Error('Oops, something went wrong.', { cause: error })],
+            extensions: { cacheMetadata: {} },
+          };
+  }
+
+  const { data, errors, extensions } = requestResult;
+  const result: SerialisedResponseData = serializeErrors({ data, errors, extensions });
   globalThis.postMessage({ context, result, type: GRAPHQL_BOX });
 };
 

@@ -109,7 +109,7 @@ export class ExpressMiddleware {
             context,
           );
 
-          // typescript not deriving that requestFinished can be true
+          // TypeScript not deriving that requestFinished can be true
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (requestFinished) {
             return;
@@ -117,7 +117,7 @@ export class ExpressMiddleware {
 
           response.responses[operationId] = serializeErrors({ ...otherProps });
         } catch (error) {
-          // typescript not deriving that requestFinished can be true
+          // TypeScript not deriving that requestFinished can be true
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (requestFinished) {
             return;
@@ -154,7 +154,13 @@ export class ExpressMiddleware {
     context: { data: OperationContextData },
   ) {
     if (this._operationWhitelist.length > 0 && !this._operationWhitelist.includes(context.data.rawOperationHash)) {
-      res.status(403).send(serializeErrors({ errors: [new Error('The request is not whitelisted.')] }));
+      res.status(200).send(
+        serializeErrors({
+          errors: [new Error('The request is not whitelisted.')],
+          extensions: { cacheMetadata: {} },
+        }),
+      );
+
       return;
     }
 
@@ -167,11 +173,12 @@ export class ExpressMiddleware {
 
       requestFinished = true;
 
-      res.status(408).send(
+      res.status(200).send(
         serializeErrors({
           errors: [
             new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
           ],
+          extensions: { cacheMetadata: {} },
         }),
       );
     }, this._requestTimeout);
@@ -179,7 +186,7 @@ export class ExpressMiddleware {
     try {
       const result = await this._client.query(operation, options, context);
 
-      // typescript not deriving that requestFinished can be true
+      // TypeScript not deriving that requestFinished can be true
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (requestFinished) {
         return;
@@ -191,7 +198,7 @@ export class ExpressMiddleware {
       const responseData = serializeErrors({ ...otherProps });
       res.status(200).send(responseData);
     } catch (error) {
-      // typescript not deriving that requestFinished can be true
+      // TypeScript not deriving that requestFinished can be true
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (requestFinished) {
         return;
@@ -256,7 +263,7 @@ export class ExpressMiddleware {
         ? error
         : new Error('@graphql-box/server requestHandler had an unexpected error.');
 
-      res.status(500).send(serializeErrors({ errors: [confirmedError] }));
+      res.status(200).send(serializeErrors({ errors: [confirmedError], extensions: { cacheMetadata: {} } }));
     }
   }
 }

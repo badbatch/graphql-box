@@ -696,6 +696,9 @@ importers:
       type-fest:
         specifier: ^4.41.0
         version: 4.41.0
+      uuid:
+        specifier: ^11.1.0
+        version: 11.1.0
     devDependencies:
       '@graphql-box/client':
         specifier: workspace:*

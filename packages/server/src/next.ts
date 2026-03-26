@@ -102,7 +102,7 @@ export class NextMiddleware {
             context,
           );
 
-          // typescript not deriving that requestFinished can be true
+          // TypeScript not deriving that requestFinished can be true
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (requestFinished) {
             return;
@@ -110,7 +110,7 @@ export class NextMiddleware {
 
           response.responses[operationId] = serializeErrors({ ...otherProps });
         } catch (error) {
-          // typescript not deriving that requestFinished can be true
+          // TypeScript not deriving that requestFinished can be true
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (requestFinished) {
             return;
@@ -144,10 +144,12 @@ export class NextMiddleware {
 
   private async _handleRequest(operation: string, options: OperationOptions, context: { data: OperationContextData }) {
     if (this._operationWhitelist.length > 0 && !this._operationWhitelist.includes(context.data.rawOperationHash)) {
-      return new NextResponse(
-        JSON.stringify(serializeErrors({ errors: [new Error('@graphql-box/server the request is not whitelisted.')] })),
+      return NextResponse.json(
+        serializeErrors({
+          errors: [new Error('@graphql-box/server the request is not whitelisted.')],
+        }),
         {
-          status: 403,
+          status: 200,
         },
       );
     }
@@ -165,14 +167,13 @@ export class NextMiddleware {
           const message = `@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`;
 
           resolve(
-            new NextResponse(
-              JSON.stringify(
-                serializeErrors({
-                  errors: [new Error(message)],
-                }),
-              ),
+            NextResponse.json(
+              serializeErrors({
+                errors: [new Error(message)],
+                extensions: { cacheMetadata: {} },
+              }),
               {
-                status: 408,
+                status: 200,
               },
             ),
           );
@@ -181,7 +182,7 @@ export class NextMiddleware {
         try {
           const result = await this._client.query(operation, options, context);
 
-          // typescript not deriving that requestFinished can be true
+          // TypeScript not deriving that requestFinished can be true
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (requestFinished) {
             return;
@@ -199,7 +200,7 @@ export class NextMiddleware {
             }),
           );
         } catch (error) {
-          // typescript not deriving that requestFinished can be true
+          // TypeScript not deriving that requestFinished can be true
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (requestFinished) {
             return;
@@ -277,8 +278,8 @@ export class NextMiddleware {
         ? error
         : new Error('@graphql-box/server requestHandler had an unexpected error.');
 
-      return NextResponse.json(serializeErrors({ errors: [confirmedError] }), {
-        status: 500,
+      return NextResponse.json(serializeErrors({ errors: [confirmedError], extensions: { cacheMetadata: {} } }), {
+        status: 200,
       });
     }
   }

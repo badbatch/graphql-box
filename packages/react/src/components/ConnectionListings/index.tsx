@@ -38,7 +38,13 @@ export const ConnectionListings = <Item extends PlainObject>(props: ListingsProp
   const [{ hasNextPage, listings }, setListingsData] = useState<ListingsData<Item>>(initialListingsData);
   const [connectionVariables, setConnectionVariables] = useState<ConnectionVariables>({ first: resultsPerRequest });
 
-  const { data, errors, execute, loading, operationId } = useQuery<ConnectionResponse<Item>>(query, {
+  const {
+    data,
+    errors = [],
+    execute,
+    loading,
+    operationId,
+  } = useQuery<ConnectionResponse<Item>>(query, {
     loading: true,
   });
 

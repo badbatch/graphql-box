@@ -1,35 +1,81 @@
-import { type OperationOptions, type PartialOperationContext, type PlainObject } from '@graphql-box/core';
+import {
+  type OperationOptions,
+  type PartialOperationContext,
+  type PlainObject,
+  type QueryResult,
+} from '@graphql-box/core';
+import { QueryError } from '@graphql-box/helpers';
 import { useState } from 'react';
+import { type SetOptional } from 'type-fest';
+import { v4 as uuid } from 'uuid';
 import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
 
-export type State<Data extends PlainObject> = {
-  data: Data | null | undefined;
-  errors: readonly Error[];
+export type State<T extends PlainObject> = {
   loading: boolean;
-  operationId: string;
-};
+} & SetOptional<QueryResult<T>, 'data'>;
 
-export const useQuery = <Data extends PlainObject>(request: string, { loading = false } = {}) => {
+export const useQuery = <T extends PlainObject<unknown> = PlainObject<unknown>>(
+  request: string,
+  { loading = false } = {},
+) => {
   const graphqlBoxClient = useGraphqlBoxClient();
-  const [state, setState] = useState<State<Data>>({ data: undefined, errors: [], loading, operationId: '' });
+
+  const [state, setState] = useState<State<T>>({
+    data: undefined,
+    errors: [],
+    extensions: { cacheMetadata: {} },
+    loading,
+    operationId: '',
+  });
 
   const execute = async (options?: OperationOptions, context?: PartialOperationContext) => {
     setState({
       data: undefined,
       errors: [],
+      extensions: { cacheMetadata: {} },
       loading: true,
       operationId: '',
     });
 
-    const requestResult = await graphqlBoxClient.query<Data>(request, options, context);
-    const { data, errors, operationId } = requestResult;
+    const operationId = uuid();
 
-    setState({
-      data,
-      errors: errors ?? [],
-      loading: false,
-      operationId,
-    });
+    try {
+      const { data, errors, extensions } = await graphqlBoxClient.query<T>(request, options, {
+        ...context,
+        data: {
+          ...context?.data,
+          operationId,
+        },
+      });
+
+      setState({
+        data,
+        errors,
+        extensions,
+        loading: false,
+        operationId,
+      });
+    } catch (error) {
+      const queryError =
+        error instanceof QueryError
+          ? error
+          : new QueryError(
+              'Oops, something went wrong.',
+              [new Error('Oops, something went wrong.', { cause: error })],
+              { cacheMetadata: {} },
+              operationId,
+            );
+
+      const { errors, extensions } = queryError;
+
+      setState({
+        data: undefined,
+        errors,
+        extensions,
+        loading: false,
+        operationId,
+      });
+    }
   };
 
   return { execute, ...state };

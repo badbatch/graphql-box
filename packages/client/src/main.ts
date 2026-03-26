@@ -2,6 +2,7 @@ import { type Core } from '@cachemap/core';
 import { type CacheManagerDef } from '@graphql-box/cache-manager';
 import {
   type DebugManagerDef,
+  OPERATION_REJECTED,
   OPERATION_RESOLVED,
   type OperationContext,
   type OperationData,
@@ -11,11 +12,12 @@ import {
   type PartialOperationContext,
   type PlainObject,
   QUERY_RESOLVED_FROM_CACHE,
+  type QueryResult,
   type RequestManagerDef,
   type ResponseData,
   type ResponseDataWithoutErrors,
 } from '@graphql-box/core';
-import { ArgsError, GroupedError, hashOperation, isArray, isPlainObject } from '@graphql-box/helpers';
+import { ArgsError, QueryError, hashOperation, isArray, isPlainObject } from '@graphql-box/helpers';
 import { type OperationParserDef } from '@graphql-box/operation-parser';
 import { OperationTypeNode } from 'graphql';
 import { isString } from 'lodash-es';
@@ -82,7 +84,7 @@ export class Client {
     }
 
     if (errors.length > 0) {
-      throw new GroupedError('@graphql-box/client argument validation errors.', errors);
+      throw new AggregateError(errors, '@graphql-box/client argument validation errors');
     }
 
     this._cacheManager = options.cacheManager;
@@ -100,26 +102,34 @@ export class Client {
     return this._debugManager;
   }
 
-  public query<T extends PlainObject = PlainObject>(
+  public async query<T extends PlainObject = PlainObject>(
     operation: string,
     options: OperationOptions = {},
     context: PartialOperationContext = {},
-  ): Promise<ResponseData<T> & { operationId: string }> {
-    const errors = Client._validateOperationArgs(operation, options);
+  ): Promise<QueryResult<T>> {
+    const validationErrors = Client._validateOperationArgs(operation, options);
+    const operationContext = this._buildOperationContext(OperationTypeNode.QUERY, operation, options, context);
 
-    if (errors.length > 0) {
-      throw new GroupedError('@graphql-box/client argument validation errors', errors);
+    if (validationErrors.length > 0) {
+      throw new QueryError(
+        'The query had argument validation errors',
+        validationErrors,
+        { cacheMetadata: {} },
+        operationContext.data.operationId,
+      );
     }
 
-    const operationContext = this._buildOperationContext(OperationTypeNode.QUERY, operation, options, context);
     const operationData = this._operationParser.buildOperationData(operation, options, operationContext);
+    const { data, errors = [], extensions } = await this._handleQuery(operationData, options, operationContext);
+
+    if (!data) {
+      throw new QueryError('The query did not return any data', errors, extensions, operationContext.data.operationId);
+    }
 
     // Casting to allow user to type response data while allowing downstream code
     // to be more generic.
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    return this._handleQuery(operationData, options, operationContext) as Promise<
-      ResponseData<T> & { operationId: string }
-    >;
+    return { data, errors, extensions, operationId: operationContext.data.operationId } as QueryResult<T>;
   }
 
   private _buildOperationContext(
@@ -131,9 +141,9 @@ export class Client {
     return {
       ...context,
       data: {
+        operationId: uuid(),
         ...context.data,
         batched: options.batch,
-        operationId: uuid(),
         operationMaxFieldDepth: undefined,
         operationName: '',
         operationType,
@@ -174,8 +184,13 @@ export class Client {
 
     const executeResult = await this._requestManager.execute(analyzeResult.operationData, options, context);
 
-    if ((!executeResult.data || Object.keys(executeResult.data).length === 0) && !executeResult.errors?.length) {
-      throw new Error('Invalid, data cannot be undefined, null or an empty object if no errors get returned.');
+    if (!executeResult.data || Object.keys(executeResult.data).length === 0) {
+      this._debugManager?.log(OPERATION_REJECTED, {
+        data: context.data,
+        stats: { endTime: this._debugManager.now() },
+      });
+
+      return this._resolveQuery(operationData, executeResult, options, context);
     }
 
     this._cacheManager.cacheQuery(analyzeResult.operationData, executeResult, context);
@@ -185,6 +200,11 @@ export class Client {
       console.error(
         'Final response data not returned from cache manager, there is a problem with how the cache manager has stored/retrieved the response data.',
       );
+
+      this._debugManager?.log(OPERATION_REJECTED, {
+        data: context.data,
+        stats: { endTime: this._debugManager.now() },
+      });
 
       return this._resolveQuery(
         operationData,

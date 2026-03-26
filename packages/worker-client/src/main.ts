@@ -1,14 +1,16 @@
 import { type CoreWorker } from '@cachemap/core-worker';
 import {
   type DebugManagerDef,
+  OPERATION_REJECTED,
   type OperationContext,
   type OperationOptions,
   type PartialOperationContext,
   type PlainObject,
+  type QueryResult,
   type ResponseData,
 } from '@graphql-box/core';
 import { OPERATION_RESOLVED } from '@graphql-box/core';
-import { ArgsError, GroupedError, deserializeErrors, hashOperation, isPlainObject } from '@graphql-box/helpers';
+import { ArgsError, QueryError, deserializeErrors, hashOperation, isPlainObject } from '@graphql-box/helpers';
 import { OperationTypeNode } from 'graphql';
 import { v4 as uuid } from 'uuid';
 import { GRAPHQL_BOX, MESSAGE } from './constants.ts';
@@ -40,13 +42,19 @@ export class WorkerClient {
       return;
     }
 
-    this._debugManager?.log(OPERATION_RESOLVED, {
-      data: context.data,
-      stats: { endTime: this._debugManager.now() },
-    });
+    if (!result.data || Object.keys(result.data).length === 0) {
+      this._debugManager?.log(OPERATION_REJECTED, {
+        data: context.data,
+        stats: { endTime: this._debugManager.now() },
+      });
+    } else {
+      this._debugManager?.log(OPERATION_RESOLVED, {
+        data: context.data,
+        stats: { endTime: this._debugManager.now() },
+      });
+    }
 
-    const response: ResponseData & { operationId: string } = { ...deserializeErrors(result), operationId };
-    pending.resolve(response);
+    pending.resolve(deserializeErrors(result));
     this._pending.delete(operationId);
   };
 
@@ -77,7 +85,7 @@ export class WorkerClient {
     }
 
     if (errors.length > 0) {
-      throw new GroupedError('@graphql-box/worker-client argument validation errors.', errors);
+      throw new AggregateError(errors, '@graphql-box/worker-client argument validation errors.');
     }
 
     this._cache = options.cache;
@@ -107,15 +115,18 @@ export class WorkerClient {
     operation: string,
     options: OperationOptions = {},
     context: PartialOperationContext = {},
-  ): Promise<ResponseData<T> & { operationId: string }> {
+  ): Promise<QueryResult<T>> {
     const operationContext = this._buildOperationContext(OperationTypeNode.QUERY, operation, options, context);
+    const { data, errors = [], extensions } = await this._handleQuery(operation, options, operationContext);
+
+    if (!data) {
+      throw new QueryError('The query did not return any data', errors, extensions, operationContext.data.operationId);
+    }
 
     // Casting to allow user to type response data while allowing downstream code
     // to be more generic.
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    return this._handleQuery(operation, options, operationContext) as Promise<
-      ResponseData<T> & { operationId: string }
-    >;
+    return { data, errors, extensions, operationId: operationContext.data.operationId } as QueryResult<T>;
   }
 
   public set worker(worker: Worker) {
