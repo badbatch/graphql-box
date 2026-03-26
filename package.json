@@ -117,7 +117,7 @@
     "lodash-es": "^4.17.15",
     "markdownlint-cli2": "^0.18.1",
     "prettier": "^3.6.1",
-    "rollup": "^4.44.0",
+    "rollup": "^4.59.0",
     "suppress-experimental-warnings": "^2.0.0",
     "swc-loader": "^0.2.6",
     "syncpack": "^13.0.4",
