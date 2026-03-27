@@ -136,7 +136,7 @@ export class WorkerClient {
       throw new AggregateError(internalOrNetworkErrors, 'The query had runtime errors');
     }
 
-    if (!data) {
+    if (data == null) {
       throw new QueryError('The query did not return any data', errors, extensions, operationContext.data.operationId);
     }
 
@@ -204,7 +204,7 @@ export class WorkerClient {
     options: OperationOptions,
     context: OperationContext,
   ): Promise<ResponseData> {
-    return await new Promise((resolve: PendingResolver, reject) => {
+    return new Promise((resolve: PendingResolver, reject) => {
       if (this._worker) {
         this._worker.postMessage({
           context: {

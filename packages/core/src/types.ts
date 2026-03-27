@@ -220,6 +220,12 @@ export type ResponseDataWithoutErrors<T extends PlainObject<unknown> = PlainObje
   extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata };
 };
 
+export type SerialisedFetchResponseData<T extends PlainObject<unknown> = PlainObject<unknown>> =
+  SerialisedResponseData<T> & {
+    ok: boolean;
+    status: number;
+  };
+
 export type SerialisedResponseData<T extends PlainObject<unknown> = PlainObject<unknown>> = {
   data?: T;
   errors?: (DeserializedGraphqlError | ErrorObject)[];

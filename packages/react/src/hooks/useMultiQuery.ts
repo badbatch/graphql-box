@@ -3,14 +3,16 @@ import {
   type PartialOperationContext,
   type PlainObject,
   type QueryResult,
+  type ResponseData,
 } from '@graphql-box/core';
 import { InternalError, QueryError } from '@graphql-box/helpers';
 import { useState } from 'react';
+import { type SetOptional } from 'type-fest';
 import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
 
 export type State<T extends PlainObject<unknown> = PlainObject<unknown>> = {
   loading: boolean;
-  results?: (QueryResult<T> | QueryError)[];
+  results?: (ResponseData<T> | QueryError)[];
 };
 
 export const useMultiQuery = <T extends PlainObject<unknown> = PlainObject<unknown>>(
@@ -34,13 +36,13 @@ export const useMultiQuery = <T extends PlainObject<unknown> = PlainObject<unkno
       optionsSet.map(options => graphqlBoxClient.query(request, options, context)),
     );
 
-    const requestResults: (QueryResult<T> | QueryError)[] = [];
+    const requestResults: SetOptional<QueryResult<T>, 'data'>[] = [];
 
     for (const result of settledResult) {
       if (result.status === 'fulfilled') {
         requestResults.push(result.value);
       } else {
-        const queryError =
+        const { errors, extensions, operationId } =
           result.reason instanceof QueryError
             ? result.reason
             : new QueryError(
@@ -50,7 +52,7 @@ export const useMultiQuery = <T extends PlainObject<unknown> = PlainObject<unkno
                 'unknown',
               );
 
-        requestResults.push(queryError);
+        requestResults.push({ errors, extensions, operationId });
       }
     }
 

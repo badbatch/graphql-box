@@ -1,4 +1,9 @@
-import { type RequestManagerDef, type ResponseData } from '@graphql-box/core';
+import {
+  type OperationContext,
+  type OperationData,
+  type RequestManagerDef,
+  type ResponseData,
+} from '@graphql-box/core';
 import { getOperationContext, getOperationData, parsedOperations, responses } from '@graphql-box/test-utils';
 import { expect, jest } from '@jest/globals';
 import { type Jsonifiable, mockFetch, polyfillFetch } from 'fetch-mocked';
@@ -95,8 +100,10 @@ describe('@graphql-box/fetch-manager', () => {
   describe('batching', () => {
     describe('single request', () => {
       let response: ResponseData;
+      let operationData: OperationData;
+      let context: OperationContext;
 
-      beforeAll(async () => {
+      beforeEach(() => {
         jest.useFakeTimers();
 
         fetchManager = new FetchManager({
@@ -105,27 +112,28 @@ describe('@graphql-box/fetch-manager', () => {
           fetchTimeout: 10_000,
         });
 
-        const operationData = getOperationData(parsedOperations.query);
-        const context = getOperationContext();
+        operationData = getOperationData(parsedOperations.query);
+        context = getOperationContext();
 
         const body = {
           responses: {
-            [context.data.operationId]: { data: responses.facebookQuery.data },
+            [context.data.operationId]: { data: responses.facebookQuery.data, ok: true, status: 200 },
           },
         } as Jsonifiable;
 
         mockedFetch.mockPostOnce('*', { body });
-        const promise = fetchManager.execute(operationData, {}, context);
-        jest.runOnlyPendingTimers();
-        response = await promise;
       });
 
-      afterAll(() => {
+      afterEach(() => {
         jest.useRealTimers();
         mockedFetch.mockClear();
       });
 
-      it('correct request', () => {
+      it('correct request', async () => {
+        const promise = fetchManager.execute(operationData, {}, context);
+        jest.runOnlyPendingTimers();
+        response = await promise;
+
         expect(mockedFetch.mock.lastCall).toMatchInlineSnapshot(`
           [
             "https://api.github.com/graphql?operationId=123456789",
@@ -144,7 +152,11 @@ describe('@graphql-box/fetch-manager', () => {
         `);
       });
 
-      it('correct response data', () => {
+      it('correct response data', async () => {
+        const promise = fetchManager.execute(operationData, {}, context);
+        jest.runOnlyPendingTimers();
+        response = await promise;
+
         expect(response).toMatchInlineSnapshot(`
           {
             "data": {
@@ -156,6 +168,8 @@ describe('@graphql-box/fetch-manager', () => {
                 "name": "Facebook",
               },
             },
+            "ok": true,
+            "status": 200,
           }
         `);
       });
@@ -163,8 +177,12 @@ describe('@graphql-box/fetch-manager', () => {
 
     describe('multiple requests', () => {
       let response: ResponseData[];
+      let facebookOperationData: OperationData;
+      let facebookContext: OperationContext;
+      let googleOperationData: OperationData;
+      let googleContext: OperationContext;
 
-      beforeAll(async () => {
+      beforeEach(() => {
         jest.useFakeTimers();
 
         fetchManager = new FetchManager({
@@ -173,20 +191,27 @@ describe('@graphql-box/fetch-manager', () => {
           fetchTimeout: 10_000,
         });
 
-        const facebookOperationData = getOperationData(parsedOperations.query);
-        const facebookContext = getOperationContext();
-        const googleOperationData = getOperationData(parsedOperations.query.replaceAll('facebook', 'google'));
-        const googleContext = getOperationContext({ data: { operationId: '0123456878' } });
+        facebookOperationData = getOperationData(parsedOperations.query);
+        facebookContext = getOperationContext();
+        googleOperationData = getOperationData(parsedOperations.query.replaceAll('facebook', 'google'));
+        googleContext = getOperationContext({ data: { operationId: '0123456878' } });
 
         const body = {
           responses: {
-            [facebookContext.data.operationId]: { data: responses.facebookQuery.data },
-            [googleContext.data.operationId]: { data: responses.googleQuery.data },
+            [facebookContext.data.operationId]: { data: responses.facebookQuery.data, ok: true, status: 200 },
+            [googleContext.data.operationId]: { data: responses.googleQuery.data, ok: true, status: 200 },
           },
         } as Jsonifiable;
 
         mockedFetch.mockPostOnce('*', { body });
+      });
 
+      afterEach(() => {
+        jest.useRealTimers();
+        mockedFetch.mockClear();
+      });
+
+      it('correct request', async () => {
         const promises = [
           fetchManager.execute(facebookOperationData, {}, facebookContext),
           fetchManager.execute(googleOperationData, {}, googleContext),
@@ -194,14 +219,7 @@ describe('@graphql-box/fetch-manager', () => {
 
         jest.runOnlyPendingTimers();
         response = await Promise.all(promises);
-      });
 
-      afterAll(() => {
-        jest.useRealTimers();
-        mockedFetch.mockClear();
-      });
-
-      it('correct request', () => {
         expect(mockedFetch.mock.lastCall).toMatchInlineSnapshot(`
           [
             "https://api.github.com/graphql?operationId=123456789-0123456878",
@@ -220,7 +238,15 @@ describe('@graphql-box/fetch-manager', () => {
         `);
       });
 
-      it('correct first response data', () => {
+      it('correct first response data', async () => {
+        const promises = [
+          fetchManager.execute(facebookOperationData, {}, facebookContext),
+          fetchManager.execute(googleOperationData, {}, googleContext),
+        ];
+
+        jest.runOnlyPendingTimers();
+        response = await Promise.all(promises);
+
         expect(response[0]).toMatchInlineSnapshot(`
           {
             "data": {
@@ -232,11 +258,21 @@ describe('@graphql-box/fetch-manager', () => {
                 "name": "Facebook",
               },
             },
+            "ok": true,
+            "status": 200,
           }
         `);
       });
 
-      it('correct second response data', () => {
+      it('correct second response data', async () => {
+        const promises = [
+          fetchManager.execute(facebookOperationData, {}, facebookContext),
+          fetchManager.execute(googleOperationData, {}, googleContext),
+        ];
+
+        jest.runOnlyPendingTimers();
+        response = await Promise.all(promises);
+
         expect(response[1]).toMatchInlineSnapshot(`
           {
             "data": {
@@ -248,6 +284,8 @@ describe('@graphql-box/fetch-manager', () => {
                 "name": "Google",
               },
             },
+            "ok": true,
+            "status": 200,
           }
         `);
       });

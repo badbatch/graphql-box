@@ -5,7 +5,7 @@ import {
   type LogLevel,
   type OperationContextData,
   type PlainArray,
-  type SerialisedResponseData,
+  type SerialisedFetchResponseData,
 } from '@graphql-box/core';
 import { type Request, type Response } from 'express';
 import { type NextRequest, type NextResponse } from 'next/server.js';
@@ -73,5 +73,5 @@ export type BatchRequestData = {
 };
 
 export type SerialisedResponseDataBatch = {
-  responses: Record<string, SerialisedResponseData>;
+  responses: Record<string, SerialisedFetchResponseData>;
 };

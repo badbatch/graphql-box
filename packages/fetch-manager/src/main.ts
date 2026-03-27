@@ -7,7 +7,7 @@ import {
   type ResponseData,
   type SerialisedResponseData,
 } from '@graphql-box/core';
-import { ArgsError, InternalError, NetworkError, deserializeErrors } from '@graphql-box/helpers';
+import { ArgsError, InternalError, NetworkError, ServerError, deserializeErrors } from '@graphql-box/helpers';
 import { isError, isString } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 import { logFetch } from './debug/logFetch.ts';
@@ -17,7 +17,7 @@ import {
   type ActiveBatchValue,
   type BatchActionsObjectMap,
   type BatchResultActions,
-  type BatchedSerialisedResponseData,
+  type BatchedSerialisedFetchResponseData,
   type UserOptions,
 } from './types.ts';
 
@@ -37,14 +37,18 @@ export class FetchManager {
   }
 
   private static _resolveFetchBatch(
-    { responses }: BatchedSerialisedResponseData,
+    { responses }: BatchedSerialisedFetchResponseData,
     batchEntries: BatchActionsObjectMap,
   ): void {
     for (const [operationId, { reject, resolve }] of Object.entries(batchEntries)) {
       const responseData = responses[operationId];
 
-      if (responseData) {
+      if (responseData && responseData.ok) {
         resolve(logErrorsToConsole(deserializeErrors({ ...responseData })));
+      } else if (responseData && !responseData.ok) {
+        const { errors = [] } = deserializeErrors<object>(responseData);
+
+        reject(new ServerError('@graphql-box/fetch-manager: There was a server error', errors, responseData.status));
       } else {
         reject(
           new InternalError(`@graphql-box/fetch-manager did not get a response for batched request ${operationId}.`),
@@ -101,7 +105,7 @@ export class FetchManager {
       return logErrorsToConsole(deserializeErrors(fetchResult));
     }
 
-    return await new Promise((resolve: (value: ResponseData) => void, reject) => {
+    return new Promise((resolve: (value: ResponseData) => void, reject) => {
       this._batchRequest(
         url,
         {
@@ -223,7 +227,7 @@ export class FetchManager {
 
     try {
       FetchManager._resolveFetchBatch(
-        await this._fetch<BatchedSerialisedResponseData>(`${url}?operationId=${operationIds.join('-')}`, {
+        await this._fetch<BatchedSerialisedFetchResponseData>(`${url}?operationId=${operationIds.join('-')}`, {
           batched: true,
           operations: batchOperations,
         }),

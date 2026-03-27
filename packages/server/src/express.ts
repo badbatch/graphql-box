@@ -75,10 +75,14 @@ export class ExpressMiddleware {
           rawOperationHash &&
           !this._operationWhitelist.includes(rawOperationHash)
         ) {
-          response.responses[operationId] = serializeErrors({
-            errors: [new InternalError('@graphql-box/server: The request is not whitelisted')],
-            extensions: { cacheMetadata: {} },
-          });
+          response.responses[operationId] = {
+            ...serializeErrors({
+              errors: [new InternalError('@graphql-box/server: The request is not whitelisted')],
+              extensions: { cacheMetadata: {} },
+            }),
+            ok: false,
+            status: 403,
+          };
 
           return;
         }
@@ -92,14 +96,18 @@ export class ExpressMiddleware {
 
           requestFinished = true;
 
-          response.responses[operationId] = serializeErrors({
-            errors: [
-              new NetworkError(
-                `@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`,
-              ),
-            ],
-            extensions: { cacheMetadata: {} },
-          });
+          response.responses[operationId] = {
+            ...serializeErrors({
+              errors: [
+                new NetworkError(
+                  `@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`,
+                ),
+              ],
+              extensions: { cacheMetadata: {} },
+            }),
+            ok: false,
+            status: 504,
+          };
         }, this._requestTimeout);
 
         try {
@@ -117,7 +125,11 @@ export class ExpressMiddleware {
             return;
           }
 
-          response.responses[operationId] = serializeErrors({ ...otherProps });
+          response.responses[operationId] = {
+            ...serializeErrors({ ...otherProps }),
+            ok: true,
+            status: 200,
+          };
         } catch (error) {
           // TypeScript not deriving that requestFinished can be true
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -129,10 +141,14 @@ export class ExpressMiddleware {
             ? error
             : new InternalError('@graphql-box/server handleBatchRequest had an unexpected error.');
 
-          response.responses[operationId] = serializeErrors({
-            errors: [confirmedError],
-            extensions: { cacheMetadata: {} },
-          });
+          response.responses[operationId] = {
+            ...serializeErrors({
+              errors: [confirmedError],
+              extensions: { cacheMetadata: {} },
+            }),
+            ok: false,
+            status: 500,
+          };
         } finally {
           requestFinished = true;
           clearTimeout(requestTimer);
