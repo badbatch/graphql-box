@@ -69,10 +69,7 @@ export class Execute {
     const executeResult = await this._execute(executeArgs);
 
     if (isAsyncIterableTypeGuard(executeResult)) {
-      return {
-        errors: [new InternalError('Returning async iterator from `execute` is not supported.')],
-        extensions: { cacheMetadata: {} },
-      };
+      throw new InternalError('Returning async iterator from `execute` is not supported.');
     }
 
     const { data, errors } = executeResult;

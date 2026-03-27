@@ -30,7 +30,7 @@ export const useMultiQuery = <T extends PlainObject<unknown> = PlainObject<unkno
       results: undefined,
     });
 
-    const settledResult = await Promise.allSettled(
+    const settledResult = await Promise.allSettled<Promise<QueryResult<T>>>(
       optionsSet.map(options => graphqlBoxClient.query(request, options, context)),
     );
 
@@ -38,7 +38,6 @@ export const useMultiQuery = <T extends PlainObject<unknown> = PlainObject<unkno
 
     for (const result of settledResult) {
       if (result.status === 'fulfilled') {
-        // @ts-expect-error Struggling to align generics
         requestResults.push(result.value);
       } else {
         const queryError =

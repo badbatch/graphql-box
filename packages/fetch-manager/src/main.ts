@@ -89,43 +89,29 @@ export class FetchManager {
     options: OperationOptions,
     context: OperationContext,
   ): Promise<ResponseData> {
-    try {
-      const url = this._apiUrl;
+    const url = this._apiUrl;
 
-      if (options.batch === false || !this._batchRequests) {
-        const fetchResult = await this._fetch<SerialisedResponseData>(
-          `${url}?operationId=${context.data.operationId}`,
-          {
-            batched: false,
-            context: FetchManager._getMessageContext(context),
-            operation,
-          },
-        );
-
-        return logErrorsToConsole(deserializeErrors(fetchResult));
-      }
-
-      return await new Promise((resolve: (value: ResponseData) => void, reject) => {
-        this._batchRequest(
-          url,
-          {
-            context: FetchManager._getMessageContext(context),
-            operation,
-          },
-          context.data.operationId,
-          { reject, resolve },
-        );
+    if (options.batch === false || !this._batchRequests) {
+      const fetchResult = await this._fetch<SerialisedResponseData>(`${url}?operationId=${context.data.operationId}`, {
+        batched: false,
+        context: FetchManager._getMessageContext(context),
+        operation,
       });
-    } catch (error) {
-      const confirmedError = isError(error)
-        ? error
-        : new InternalError('@graphql-box/fetch-manager had an unexpected error.', { cause: error });
 
-      return {
-        errors: [confirmedError],
-        extensions: { cacheMetadata: {} },
-      };
+      return logErrorsToConsole(deserializeErrors(fetchResult));
     }
+
+    return await new Promise((resolve: (value: ResponseData) => void, reject) => {
+      this._batchRequest(
+        url,
+        {
+          context: FetchManager._getMessageContext(context),
+          operation,
+        },
+        context.data.operationId,
+        { reject, resolve },
+      );
+    });
   }
 
   public log(message: string, data: PlainObject, logLevel?: LogLevel) {
