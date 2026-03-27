@@ -10,8 +10,17 @@ import {
   type ResponseData,
 } from '@graphql-box/core';
 import { OPERATION_RESOLVED } from '@graphql-box/core';
-import { ArgsError, QueryError, deserializeErrors, hashOperation, isPlainObject } from '@graphql-box/helpers';
+import {
+  ArgsError,
+  InternalError,
+  NetworkError,
+  QueryError,
+  deserializeErrors,
+  hashOperation,
+  isPlainObject,
+} from '@graphql-box/helpers';
 import { OperationTypeNode } from 'graphql';
+import { isError } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 import { GRAPHQL_BOX, MESSAGE } from './constants.ts';
 import { logOperation } from './debug/logOperation.ts';
@@ -119,6 +128,14 @@ export class WorkerClient {
     const operationContext = this._buildOperationContext(OperationTypeNode.QUERY, operation, options, context);
     const { data, errors = [], extensions } = await this._handleQuery(operation, options, operationContext);
 
+    const internalOrNetworkErrors = errors.filter(
+      error => error instanceof NetworkError || error instanceof InternalError,
+    );
+
+    if (internalOrNetworkErrors.length > 0) {
+      throw new AggregateError(internalOrNetworkErrors, 'The query had runtime errors');
+    }
+
     if (!data) {
       throw new QueryError('The query did not return any data', errors, extensions, operationContext.data.operationId);
     }
@@ -137,14 +154,14 @@ export class WorkerClient {
 
   private _addEventListener(): void {
     if (!this._worker) {
-      throw new Error('A worker is required for the WorkerClient to work correctly.');
+      throw new InternalError('A worker is required for the WorkerClient to work correctly.');
     }
 
     this._worker.addEventListener(MESSAGE, this._onMessage);
 
     const clearPending = (err: unknown) => {
       for (const { reject } of this._pending.values()) {
-        const error = err instanceof Error ? err : new Error('Worker errored, pending operations have been rejected');
+        const error = isError(err) ? err : new InternalError('Worker errored, pending operations have been rejected');
         reject(error);
       }
 
@@ -214,7 +231,7 @@ export class WorkerClient {
 
   private _releaseMessageQueue(): void {
     if (!this._worker) {
-      throw new Error('A worker is required for the WorkerClient to work correctly.');
+      throw new InternalError('A worker is required for the WorkerClient to work correctly.');
     }
 
     const messageQueue = [...this._messageQueue];

@@ -7,7 +7,7 @@ import {
   type ResponseData,
   type SerialisedResponseData,
 } from '@graphql-box/core';
-import { ArgsError, GroupedError, deserializeErrors } from '@graphql-box/helpers';
+import { ArgsError, InternalError, NetworkError, deserializeErrors } from '@graphql-box/helpers';
 import { isError, isString } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 import { logFetch } from './debug/logFetch.ts';
@@ -27,7 +27,9 @@ export class FetchManager {
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: unknown): void {
-    const finalError = error instanceof Error ? error : new Error('@graphql-box/fetch-manager: Batched request failed');
+    const finalError = isError(error)
+      ? error
+      : new InternalError('@graphql-box/fetch-manager: Batched request failed', { cause: error });
 
     for (const { reject } of Object.values(batchEntries)) {
       reject(finalError);
@@ -44,7 +46,9 @@ export class FetchManager {
       if (responseData) {
         resolve(logErrorsToConsole(deserializeErrors({ ...responseData })));
       } else {
-        reject(new Error(`@graphql-box/fetch-manager did not get a response for batched request ${operationId}.`));
+        reject(
+          new InternalError(`@graphql-box/fetch-manager did not get a response for batched request ${operationId}.`),
+        );
       }
     }
   }
@@ -67,7 +71,7 @@ export class FetchManager {
     }
 
     if (errors.length > 0) {
-      throw new GroupedError('@graphql-box/fetch-manager argument validation errors.', errors);
+      throw new AggregateError(errors, '@graphql-box/fetch-manager argument validation errors.');
     }
 
     this._apiUrl = options.apiUrl;
@@ -113,7 +117,9 @@ export class FetchManager {
         );
       });
     } catch (error) {
-      const confirmedError = isError(error) ? error : new Error('@graphql-box/fetch-manager had an unexpected error.');
+      const confirmedError = isError(error)
+        ? error
+        : new InternalError('@graphql-box/fetch-manager had an unexpected error.', { cause: error });
 
       return {
         errors: [confirmedError],
@@ -191,8 +197,10 @@ export class FetchManager {
       });
 
       if (!fetchResult.ok) {
-        throw new Error(
+        throw new NetworkError(
           `@graphql-box/fetch-manager received a ${String(fetchResult.status)} ${fetchResult.statusText}`,
+          fetchResult.status,
+          fetchResult.statusText,
         );
       }
 
@@ -201,7 +209,9 @@ export class FetchManager {
       return (await fetchResult.json()) as T;
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') {
-        throw new Error(`@graphql-box/fetch-manager did not get a response within ${String(this._fetchTimeout)}ms.`);
+        throw new NetworkError(
+          `@graphql-box/fetch-manager did not get a response within ${String(this._fetchTimeout)}ms.`,
+        );
       }
 
       throw error;

@@ -1,6 +1,6 @@
 import { type Client } from '@graphql-box/client';
 import { type OperationContextData, type OperationOptions } from '@graphql-box/core';
-import { ArgsError, GroupedError, serializeErrors } from '@graphql-box/helpers';
+import { ArgsError, InternalError, NetworkError, serializeErrors } from '@graphql-box/helpers';
 import { isError, isPlainObject } from 'lodash-es';
 import { type NextRequest, NextResponse } from 'next/server.js';
 import { nextEnrichContextValue } from '#helpers/nextEnrichContextValue.ts';
@@ -33,7 +33,7 @@ export class NextMiddleware {
     }
 
     if (errors.length > 0) {
-      throw new GroupedError('@graphql-box/server argument validation errors.', errors);
+      throw new AggregateError(errors, '@graphql-box/server argument validation errors');
     }
 
     this._client = options.client;
@@ -69,7 +69,7 @@ export class NextMiddleware {
           !this._operationWhitelist.includes(rawOperationHash)
         ) {
           response.responses[operationId] = serializeErrors({
-            errors: [new Error('@graphql-box/server: The request is not whitelisted')],
+            errors: [new InternalError('@graphql-box/server: The request is not whitelisted')],
             extensions: { cacheMetadata: {} },
           });
 
@@ -87,7 +87,9 @@ export class NextMiddleware {
 
           response.responses[operationId] = serializeErrors({
             errors: [
-              new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
+              new NetworkError(
+                `@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`,
+              ),
             ],
             extensions: { cacheMetadata: {} },
           });
@@ -118,7 +120,7 @@ export class NextMiddleware {
 
           const confirmedError = isError(error)
             ? error
-            : new Error('@graphql-box/server handleBatchRequest had an unexpected error.');
+            : new InternalError('@graphql-box/server handleBatchRequest had an unexpected error.');
 
           response.responses[operationId] = serializeErrors({
             errors: [confirmedError],
@@ -146,10 +148,10 @@ export class NextMiddleware {
     if (this._operationWhitelist.length > 0 && !this._operationWhitelist.includes(context.data.rawOperationHash)) {
       return NextResponse.json(
         serializeErrors({
-          errors: [new Error('@graphql-box/server the request is not whitelisted.')],
+          errors: [new InternalError('@graphql-box/server the request is not whitelisted.')],
         }),
         {
-          status: 200,
+          status: 403,
         },
       );
     }
@@ -169,11 +171,11 @@ export class NextMiddleware {
           resolve(
             NextResponse.json(
               serializeErrors({
-                errors: [new Error(message)],
+                errors: [new NetworkError(message)],
                 extensions: { cacheMetadata: {} },
               }),
               {
-                status: 200,
+                status: 504,
               },
             ),
           );
@@ -208,7 +210,7 @@ export class NextMiddleware {
 
           const confirmedError = isError(error)
             ? error
-            : new Error('@graphql-box/server handleRequest had an unexpected error.');
+            : new InternalError('@graphql-box/server handleRequest had an unexpected error.');
 
           resolve(
             NextResponse.json(
@@ -217,7 +219,7 @@ export class NextMiddleware {
                 extensions: { cacheMetadata: {} },
               }),
               {
-                status: 200,
+                status: 500,
               },
             ),
           );
@@ -252,7 +254,7 @@ export class NextMiddleware {
     } catch (error) {
       const confirmedError = isError(error)
         ? error
-        : new Error('@graphql-box/server logHandler had an unexpected error.');
+        : new InternalError('@graphql-box/server logHandler had an unexpected error.');
 
       return NextResponse.json(serializeErrors({ errors: [confirmedError] }), {
         status: 500,
@@ -276,10 +278,10 @@ export class NextMiddleware {
     } catch (error) {
       const confirmedError = isError(error)
         ? error
-        : new Error('@graphql-box/server requestHandler had an unexpected error.');
+        : new InternalError('@graphql-box/server requestHandler had an unexpected error.');
 
       return NextResponse.json(serializeErrors({ errors: [confirmedError], extensions: { cacheMetadata: {} } }), {
-        status: 200,
+        status: 500,
       });
     }
   }

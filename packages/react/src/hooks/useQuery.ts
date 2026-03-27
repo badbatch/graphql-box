@@ -4,7 +4,7 @@ import {
   type PlainObject,
   type QueryResult,
 } from '@graphql-box/core';
-import { QueryError } from '@graphql-box/helpers';
+import { InternalError, QueryError } from '@graphql-box/helpers';
 import { useState } from 'react';
 import { type SetOptional } from 'type-fest';
 import { v4 as uuid } from 'uuid';
@@ -61,7 +61,7 @@ export const useQuery = <T extends PlainObject<unknown> = PlainObject<unknown>>(
           ? error
           : new QueryError(
               'Oops, something went wrong.',
-              [new Error('Oops, something went wrong.', { cause: error })],
+              [new InternalError('Oops, something went wrong.', { cause: error })],
               { cacheMetadata: {} },
               operationId,
             );

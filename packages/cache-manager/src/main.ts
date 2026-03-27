@@ -10,7 +10,6 @@ import {
 } from '@graphql-box/core';
 import {
   ArgsError,
-  GroupedError,
   buildOperationPathCacheKey,
   buildResponseDataKey,
   hashOperation,
@@ -55,7 +54,7 @@ export class CacheManager implements CacheManagerDef {
     }
 
     if (errors.length > 0) {
-      throw new GroupedError('Argument validation errors', errors);
+      throw new AggregateError(errors, 'Argument validation errors');
     }
 
     if (typeof options.cache === 'function') {

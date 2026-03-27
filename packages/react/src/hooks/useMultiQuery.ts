@@ -4,7 +4,7 @@ import {
   type PlainObject,
   type QueryResult,
 } from '@graphql-box/core';
-import { QueryError } from '@graphql-box/helpers';
+import { InternalError, QueryError } from '@graphql-box/helpers';
 import { useState } from 'react';
 import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
 
@@ -46,7 +46,7 @@ export const useMultiQuery = <T extends PlainObject<unknown> = PlainObject<unkno
             ? result.reason
             : new QueryError(
                 'There was a problem with useMultiQuery',
-                [new Error('Oops, something went wrong.', { cause: result.reason })],
+                [new InternalError('Oops, something went wrong.', { cause: result.reason })],
                 { cacheMetadata: {} },
                 'unknown',
               );

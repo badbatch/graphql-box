@@ -1,6 +1,7 @@
 import { type ExportResult } from '@cachemap/core';
 import { type Client } from '@graphql-box/client';
 import { type OperationOptions, type PartialOperationContext, type PlainObject } from '@graphql-box/core';
+import { InternalError } from '@graphql-box/helpers';
 
 export type MultiQueryExport = [req: string, options?: OperationOptions, context?: PartialOperationContext][];
 
@@ -31,7 +32,7 @@ export const createQueryExportServerFunc =
       });
 
       if (!exportResult) {
-        throw new Error('Export result undefined, something has gone wrong.');
+        throw new InternalError('Export result undefined, something has gone wrong.');
       }
 
       return exportResult;

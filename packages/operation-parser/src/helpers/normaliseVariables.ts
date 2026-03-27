@@ -1,5 +1,5 @@
 import { type PlainObject } from '@graphql-box/core';
-import { getOperationDefinitions, getVariableDefinitionDefaultValue } from '@graphql-box/helpers';
+import { InternalError, getOperationDefinitions, getVariableDefinitionDefaultValue } from '@graphql-box/helpers';
 import {
   type DocumentNode,
   type GraphQLInputType,
@@ -34,13 +34,13 @@ export const normaliseVariables = (
     const variableType = typeFromAST(schema, variableDefinition.type);
 
     if (!variableType) {
-      throw new Error(`${variableName} has an unknown variable type`);
+      throw new InternalError(`${variableName} has an unknown variable type`);
     }
 
     if (!isInputType(variableType)) {
       // This should never happen as GraphQL will always return
       // an input type for a variable definition.
-      throw new Error(`${variableName} is not an input type`);
+      throw new InternalError(`${variableName} is not an input type`);
     }
 
     const defaultValue = getVariableDefinitionDefaultValue(variableDefinition);

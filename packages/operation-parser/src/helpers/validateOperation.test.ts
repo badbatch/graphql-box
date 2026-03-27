@@ -21,7 +21,7 @@ describe('validateOperation', () => {
             schema: githubSchema,
             typeComplexity: 0,
           });
-        }).toThrow('@graphql-box/request-parser >> request field depth of 2 exceeded max field depth of 1');
+        }).toThrow('@graphql-box/request-parser: request field depth of 2 exceeded max field depth of 1');
       });
     });
 
@@ -74,7 +74,7 @@ describe('validateOperation', () => {
             schema: githubSchema,
             typeComplexity: 10,
           });
-        }).toThrow('@graphql-box/request-parser >> request type complexity of 10 exceeded max type complexity of 9');
+        }).toThrow('@graphql-box/request-parser: request type complexity of 10 exceeded max type complexity of 9');
       });
     });
 

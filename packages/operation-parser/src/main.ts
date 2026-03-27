@@ -1,5 +1,5 @@
 import { type OperationContext, type OperationData, type OperationOptions } from '@graphql-box/core';
-import { ArgsError, GroupedError, getOperationDefinitions, hashOperation, isPlainObject } from '@graphql-box/helpers';
+import { ArgsError, InternalError, getOperationDefinitions, hashOperation, isPlainObject } from '@graphql-box/helpers';
 import { GraphQLSchema, buildClientSchema, parse, print } from 'graphql';
 import { assign, isError } from 'lodash-es';
 import { instrumentOperation } from '#helpers/instrumentOperation.ts';
@@ -25,7 +25,7 @@ export class OperationParser implements OperationParserDef {
     }
 
     if (errors.length > 0) {
-      throw new GroupedError('@graphql-box/operation-parser argument validation errors.', errors);
+      throw new AggregateError(errors, '@graphql-box/operation-parser argument validation errors.');
     }
 
     this._maxFieldDepth = options.maxFieldDepth ?? Number.POSITIVE_INFINITY;
@@ -38,9 +38,11 @@ export class OperationParser implements OperationParserDef {
     } catch (error) {
       const confirmedError = isError(error)
         ? error
-        : new ArgsError('@graphql-box/operation-parser expected introspection to be converted into a valid schema.');
+        : new ArgsError('@graphql-box/operation-parser expected introspection to be converted into a valid schema.', {
+            cause: error,
+          });
 
-      throw new GroupedError('@graphql-box/operation-parser argument validation errors.', [confirmedError]);
+      throw new AggregateError([confirmedError], '@graphql-box/operation-parser argument validation errors.');
     }
 
     this._typeComplexityMap = options.typeComplexityMap;
@@ -57,7 +59,7 @@ export class OperationParser implements OperationParserDef {
     const [operationDefinition] = operationDefinitions;
 
     if (!operationDefinition || operationDefinitions.length > 1) {
-      throw new Error(
+      throw new InternalError(
         `@graphql-box/operation-parser expected one operation, but got ${String(operationDefinitions.length)}.`,
       );
     }

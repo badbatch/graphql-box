@@ -1,7 +1,7 @@
 import { handleMessage as handleCachemapMessage, isCachemapPostMessageRequest } from '@cachemap/core-worker';
 import { type Client } from '@graphql-box/client';
 import { type OperationOptions, type ResponseData, type SerialisedResponseData } from '@graphql-box/core';
-import { QueryError, serializeErrors } from '@graphql-box/helpers';
+import { InternalError, QueryError, serializeErrors } from '@graphql-box/helpers';
 import { GRAPHQL_BOX, MESSAGE } from './constants.ts';
 import { isGraphqlBoxMessageRequestPayload } from './helpers/isGraphqlBoxMessageRequestPayload.ts';
 import { type MessageContext, type MessageRequestPayload, type RegisterWorkerOptions } from './types.ts';
@@ -21,7 +21,7 @@ const handleQuery = async (
       error instanceof QueryError
         ? error
         : {
-            errors: [new Error('Oops, something went wrong.', { cause: error })],
+            errors: [new InternalError('Oops, something went wrong.', { cause: error })],
             extensions: { cacheMetadata: {} },
           };
   }

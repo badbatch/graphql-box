@@ -17,7 +17,15 @@ import {
   type ResponseData,
   type ResponseDataWithoutErrors,
 } from '@graphql-box/core';
-import { ArgsError, QueryError, hashOperation, isArray, isPlainObject } from '@graphql-box/helpers';
+import {
+  ArgsError,
+  InternalError,
+  NetworkError,
+  QueryError,
+  hashOperation,
+  isArray,
+  isPlainObject,
+} from '@graphql-box/helpers';
 import { type OperationParserDef } from '@graphql-box/operation-parser';
 import { OperationTypeNode } from 'graphql';
 import { isString } from 'lodash-es';
@@ -111,16 +119,19 @@ export class Client {
     const operationContext = this._buildOperationContext(OperationTypeNode.QUERY, operation, options, context);
 
     if (validationErrors.length > 0) {
-      throw new QueryError(
-        'The query had argument validation errors',
-        validationErrors,
-        { cacheMetadata: {} },
-        operationContext.data.operationId,
-      );
+      throw new AggregateError(validationErrors, 'The query had argument validation errors');
     }
 
     const operationData = this._operationParser.buildOperationData(operation, options, operationContext);
     const { data, errors = [], extensions } = await this._handleQuery(operationData, options, operationContext);
+
+    const internalOrNetworkErrors = errors.filter(
+      error => error instanceof NetworkError || error instanceof InternalError,
+    );
+
+    if (internalOrNetworkErrors.length > 0) {
+      throw new AggregateError(internalOrNetworkErrors, 'The query had runtime errors');
+    }
 
     if (!data) {
       throw new QueryError('The query did not return any data', errors, extensions, operationContext.data.operationId);

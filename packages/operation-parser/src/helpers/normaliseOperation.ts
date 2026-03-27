@@ -1,5 +1,5 @@
 import { type PlainObject } from '@graphql-box/core';
-import { getFragmentDefinitions, isAncestorAstNode, isKind } from '@graphql-box/helpers';
+import { InternalError, getFragmentDefinitions, isAncestorAstNode, isKind } from '@graphql-box/helpers';
 import {
   type ArgumentNode,
   type DirectiveNode,
@@ -78,11 +78,11 @@ export const normaliseOperation = (
           const normalisedVariable = normalisedVariables[variableName];
 
           if (!normalisedVariable) {
-            throw new Error(`${variableName} has an unknown variable type`);
+            throw new InternalError(`${variableName} has an unknown variable type`);
           }
 
           if (normalisedVariable.value === undefined && normalisedVariable.required) {
-            throw new Error(`No value provided for required variable "${variableName}"`);
+            throw new InternalError(`No value provided for required variable "${variableName}"`);
           }
 
           if (normalisedVariable.value !== undefined) {
