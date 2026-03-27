@@ -27,7 +27,7 @@ export class FetchManager {
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: unknown): void {
-    const finalError = error instanceof Error ? error : new Error('Batched request failed');
+    const finalError = error instanceof Error ? error : new Error('@graphql-box/fetch-manager: Batched request failed');
 
     for (const { reject } of Object.values(batchEntries)) {
       reject(finalError);
