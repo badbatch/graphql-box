@@ -133,7 +133,7 @@ export class Client {
       throw new AggregateError(internalOrNetworkErrors, 'The query had runtime errors');
     }
 
-    if (data == null) {
+    if (data === undefined) {
       throw new QueryError('The query did not return any data', errors, extensions, operationContext.data.operationId);
     }
 

@@ -51,7 +51,7 @@ export class WorkerClient {
       return;
     }
 
-    if (!result.data || Object.keys(result.data).length === 0) {
+    if (result.data === undefined) {
       this._debugManager?.log(OPERATION_REJECTED, {
         data: context.data,
         stats: { endTime: this._debugManager.now() },
@@ -136,7 +136,7 @@ export class WorkerClient {
       throw new AggregateError(internalOrNetworkErrors, 'The query had runtime errors');
     }
 
-    if (data == null) {
+    if (data === undefined) {
       throw new QueryError('The query did not return any data', errors, extensions, operationContext.data.operationId);
     }
 

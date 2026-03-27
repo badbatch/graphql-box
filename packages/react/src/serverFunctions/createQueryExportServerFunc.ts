@@ -11,7 +11,7 @@ export const createQueryExportServerFunc =
     arg1: string | MultiQueryExport,
     options: OperationOptions = {},
     context: PartialOperationContext = {},
-  ): Promise<ExportResult<Data>[]> => {
+  ): Promise<PromiseSettledResult<ExportResult<Data>>[]> => {
     const operations: MultiQueryExport = Array.isArray(arg1)
       ? arg1.map(([req, opts, ctx]) => [req, { ...options, ...opts }, { ...context, ...ctx }])
       : [[arg1, options, context]];
@@ -43,13 +43,5 @@ export const createQueryExportServerFunc =
     }
 
     const settledResults = await Promise.allSettled(exportResultPromises);
-    const exportResults: ExportResult<Data>[] = [];
-
-    for (const result of settledResults) {
-      if (result.status === 'fulfilled') {
-        exportResults.push(result.value);
-      }
-    }
-
-    return exportResults.map(entry => structuredClone(entry));
+    return settledResults.map(entry => structuredClone(entry));
   };
