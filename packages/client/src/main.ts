@@ -195,7 +195,7 @@ export class Client {
 
     const executeResult = await this._requestManager.execute(analyzeResult.operationData, options, context);
 
-    if (!executeResult.data) {
+    if (executeResult.data === undefined) {
       this._debugManager?.log(OPERATION_REJECTED, {
         data: context.data,
         stats: { endTime: this._debugManager.now() },
