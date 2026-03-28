@@ -1,5 +1,24 @@
 # Changelog
 
+## 5.5.59-unstable-12345.63 (2026-03-28)
+
+### Chores
+
+* **root:**  save work in progress (a15c7e76)
+
+### Bug Fixes
+
+* **client:**  change data condition check (b4f20585)
+* **root:**
+  * more review changes (3d39e7d8)
+  * more review comment resolutions (4ce9ecbd)
+  * changes following PR review (2807670d)
+* **react:**  update useMultiQuery (53702a05)
+
+### Refactors
+
+* **root:**  more review comments (d72c9141)
+
 ## 5.5.59-unstable-12345.62 (2026-03-21)
 
 ### Chores
