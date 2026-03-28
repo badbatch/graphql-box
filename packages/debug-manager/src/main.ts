@@ -5,7 +5,7 @@ import {
   type LogData,
   type LogLevel,
 } from '@graphql-box/core';
-import { ArgsError, GroupedError } from '@graphql-box/helpers';
+import { ArgsError } from '@graphql-box/helpers';
 import { EventEmitter } from 'eventemitter3';
 import { isFunction, isString } from 'lodash-es';
 import { type Log, type Performance, type UserOptions } from './types.ts';
@@ -35,7 +35,7 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
     }
 
     if (errors.length > 0) {
-      throw new GroupedError('@graphql-box/debug-manager argument validation errors.', errors);
+      throw new AggregateError(errors, '@graphql-box/debug-manager argument validation errors');
     }
 
     this._log = options.log ?? null;

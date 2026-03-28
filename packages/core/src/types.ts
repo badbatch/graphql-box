@@ -95,6 +95,7 @@ export type GraphqlStep =
   | 'pending_query_added'
   | 'pending_query_resolved'
   | 'operation_executed'
+  | 'operation_rejected'
   | 'operation_resolved'
   | 'query_resolved_from_cache'
   | 'resolver_executed'
@@ -201,6 +202,13 @@ export type OperationParams = {
 
 export type OperationResolver = (responseData: ResponseData) => Promise<ResponseData>;
 
+export type QueryResult<T extends PlainObject<unknown> = PlainObject<unknown>> = {
+  data: T;
+  errors?: readonly Error[];
+  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata };
+  operationId: string;
+};
+
 export type ResponseData<T extends PlainObject<unknown> = PlainObject<unknown>> = {
   data?: T;
   errors?: readonly Error[];
@@ -211,6 +219,12 @@ export type ResponseDataWithoutErrors<T extends PlainObject<unknown> = PlainObje
   data?: T;
   extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata };
 };
+
+export type SerialisedFetchResponseData<T extends PlainObject<unknown> = PlainObject<unknown>> =
+  SerialisedResponseData<T> & {
+    ok: boolean;
+    status: number;
+  };
 
 export type SerialisedResponseData<T extends PlainObject<unknown> = PlainObject<unknown>> = {
   data?: T;

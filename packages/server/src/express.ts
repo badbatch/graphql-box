@@ -1,6 +1,6 @@
 import { type Client } from '@graphql-box/client';
 import { type OperationContextData, type OperationOptions } from '@graphql-box/core';
-import { ArgsError, GroupedError, serializeErrors } from '@graphql-box/helpers';
+import { ArgsError, InternalError, NetworkError, serializeErrors } from '@graphql-box/helpers';
 import { type Request, type Response } from 'express';
 import { isError, isPlainObject } from 'lodash-es';
 import { isLogBatched } from './helpers/isLogBatched.ts';
@@ -32,7 +32,7 @@ export class ExpressMiddleware {
     }
 
     if (errors.length > 0) {
-      throw new GroupedError('@graphql-box/server argument validation errors.', errors);
+      throw new AggregateError(errors, '@graphql-box/server argument validation errors');
     }
 
     this._client = options.client;
@@ -75,10 +75,14 @@ export class ExpressMiddleware {
           rawOperationHash &&
           !this._operationWhitelist.includes(rawOperationHash)
         ) {
-          response.responses[operationId] = serializeErrors({
-            errors: [new Error('@graphql-box/server: The request is not whitelisted')],
-            extensions: { cacheMetadata: {} },
-          });
+          response.responses[operationId] = {
+            ...serializeErrors({
+              errors: [new InternalError('@graphql-box/server: The request is not whitelisted')],
+              extensions: { cacheMetadata: {} },
+            }),
+            ok: false,
+            status: 403,
+          };
 
           return;
         }
@@ -92,12 +96,18 @@ export class ExpressMiddleware {
 
           requestFinished = true;
 
-          response.responses[operationId] = serializeErrors({
-            errors: [
-              new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
-            ],
-            extensions: { cacheMetadata: {} },
-          });
+          response.responses[operationId] = {
+            ...serializeErrors({
+              errors: [
+                new NetworkError(
+                  `@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`,
+                ),
+              ],
+              extensions: { cacheMetadata: {} },
+            }),
+            ok: false,
+            status: 504,
+          };
         }, this._requestTimeout);
 
         try {
@@ -109,15 +119,19 @@ export class ExpressMiddleware {
             context,
           );
 
-          // typescript not deriving that requestFinished can be true
+          // TypeScript not deriving that requestFinished can be true
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (requestFinished) {
             return;
           }
 
-          response.responses[operationId] = serializeErrors({ ...otherProps });
+          response.responses[operationId] = {
+            ...serializeErrors({ ...otherProps }),
+            ok: true,
+            status: 200,
+          };
         } catch (error) {
-          // typescript not deriving that requestFinished can be true
+          // TypeScript not deriving that requestFinished can be true
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (requestFinished) {
             return;
@@ -125,12 +139,16 @@ export class ExpressMiddleware {
 
           const confirmedError = isError(error)
             ? error
-            : new Error('@graphql-box/server handleBatchRequest had an unexpected error.');
+            : new InternalError('@graphql-box/server handleBatchRequest had an unexpected error.');
 
-          response.responses[operationId] = serializeErrors({
-            errors: [confirmedError],
-            extensions: { cacheMetadata: {} },
-          });
+          response.responses[operationId] = {
+            ...serializeErrors({
+              errors: [confirmedError],
+              extensions: { cacheMetadata: {} },
+            }),
+            ok: false,
+            status: 500,
+          };
         } finally {
           requestFinished = true;
           clearTimeout(requestTimer);
@@ -154,7 +172,13 @@ export class ExpressMiddleware {
     context: { data: OperationContextData },
   ) {
     if (this._operationWhitelist.length > 0 && !this._operationWhitelist.includes(context.data.rawOperationHash)) {
-      res.status(403).send(serializeErrors({ errors: [new Error('The request is not whitelisted.')] }));
+      res.status(403).send(
+        serializeErrors({
+          errors: [new InternalError('The request is not whitelisted.')],
+          extensions: { cacheMetadata: {} },
+        }),
+      );
+
       return;
     }
 
@@ -167,11 +191,14 @@ export class ExpressMiddleware {
 
       requestFinished = true;
 
-      res.status(408).send(
+      res.status(504).send(
         serializeErrors({
           errors: [
-            new Error(`@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`),
+            new InternalError(
+              `@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`,
+            ),
           ],
+          extensions: { cacheMetadata: {} },
         }),
       );
     }, this._requestTimeout);
@@ -179,7 +206,7 @@ export class ExpressMiddleware {
     try {
       const result = await this._client.query(operation, options, context);
 
-      // typescript not deriving that requestFinished can be true
+      // TypeScript not deriving that requestFinished can be true
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (requestFinished) {
         return;
@@ -191,7 +218,7 @@ export class ExpressMiddleware {
       const responseData = serializeErrors({ ...otherProps });
       res.status(200).send(responseData);
     } catch (error) {
-      // typescript not deriving that requestFinished can be true
+      // TypeScript not deriving that requestFinished can be true
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (requestFinished) {
         return;
@@ -199,9 +226,9 @@ export class ExpressMiddleware {
 
       const confirmedError = isError(error)
         ? error
-        : new Error('@graphql-box/server handleRequest had an unexpected error.');
+        : new InternalError('@graphql-box/server handleRequest had an unexpected error.');
 
-      res.status(200).send(
+      res.status(500).send(
         serializeErrors({
           errors: [confirmedError],
           extensions: { cacheMetadata: {} },
@@ -232,7 +259,7 @@ export class ExpressMiddleware {
     } catch (error) {
       const confirmedError = isError(error)
         ? error
-        : new Error('@graphql-box/server logHandler had an unexpected error.');
+        : new InternalError('@graphql-box/server logHandler had an unexpected error.');
 
       res.status(500).send(serializeErrors({ errors: [confirmedError] }));
     }
@@ -254,9 +281,9 @@ export class ExpressMiddleware {
     } catch (error) {
       const confirmedError = isError(error)
         ? error
-        : new Error('@graphql-box/server requestHandler had an unexpected error.');
+        : new InternalError('@graphql-box/server requestHandler had an unexpected error.');
 
-      res.status(500).send(serializeErrors({ errors: [confirmedError] }));
+      res.status(500).send(serializeErrors({ errors: [confirmedError], extensions: { cacheMetadata: {} } }));
     }
   }
 }

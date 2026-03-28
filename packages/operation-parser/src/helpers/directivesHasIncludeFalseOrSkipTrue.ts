@@ -1,4 +1,4 @@
-import { isKind } from '@graphql-box/helpers';
+import { InternalError, isKind } from '@graphql-box/helpers';
 import {
   type BooleanValueNode,
   type FieldNode,
@@ -21,7 +21,7 @@ export const directivesHasIncludeFalseOrSkipTrue = (
     const ifArgNode = directive.arguments?.find(arg => arg.name.value === 'if');
 
     if (!ifArgNode) {
-      throw new Error(`Directive ${directive.name.value} is missing "if" argument`);
+      throw new InternalError(`Directive ${directive.name.value} is missing "if" argument`);
     }
 
     let ifValue: boolean;
@@ -32,12 +32,12 @@ export const directivesHasIncludeFalseOrSkipTrue = (
       const value = normalisedVariables[ifArgNode.value.name.value]?.value;
 
       if (typeof value !== 'boolean') {
-        throw new TypeError(`Directive ${directive.name.value} "if" variable value must be a boolean`);
+        throw new InternalError(`Directive ${directive.name.value} "if" variable value must be a boolean`);
       }
 
       ifValue = value;
     } else {
-      throw new Error(`Directive ${directive.name.value} "if" argument must be a boolean or variable`);
+      throw new InternalError(`Directive ${directive.name.value} "if" argument must be a boolean or variable`);
     }
 
     if (directive.name.value === 'include' && !ifValue) {

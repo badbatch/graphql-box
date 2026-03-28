@@ -1,4 +1,4 @@
-import { GroupedError } from '@graphql-box/helpers';
+import { InternalError } from '@graphql-box/helpers';
 import { type DocumentNode, type GraphQLSchema, validate } from 'graphql';
 
 export type ValidateOperationOptions = {
@@ -21,18 +21,18 @@ export const validateOperation = ({
   const errors = validate(schema, ast);
 
   if (errors.length > 0) {
-    throw new GroupedError('@graphql-box/request-parser AST validation errors', errors);
+    throw new AggregateError(errors, '@graphql-box/request-parser AST validation errors');
   }
 
   if (fieldDepth > maxFieldDepth) {
-    throw new Error(
-      `@graphql-box/request-parser >> request field depth of ${String(fieldDepth)} exceeded max field depth of ${String(maxFieldDepth)}`,
+    throw new InternalError(
+      `@graphql-box/request-parser: request field depth of ${String(fieldDepth)} exceeded max field depth of ${String(maxFieldDepth)}`,
     );
   }
 
   if (typeComplexity > maxTypeComplexity) {
-    throw new Error(
-      `@graphql-box/request-parser >> request type complexity of ${String(typeComplexity)} exceeded max type complexity of ${String(maxTypeComplexity)}`,
+    throw new InternalError(
+      `@graphql-box/request-parser: request type complexity of ${String(typeComplexity)} exceeded max type complexity of ${String(maxTypeComplexity)}`,
     );
   }
 };

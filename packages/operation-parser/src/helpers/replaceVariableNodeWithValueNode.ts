@@ -1,3 +1,4 @@
+import { InternalError } from '@graphql-box/helpers';
 import { type GraphQLInputType, type ValueNode, astFromValue } from 'graphql';
 
 export const replaceVariableNodeWithValueNode = (
@@ -7,7 +8,7 @@ export const replaceVariableNodeWithValueNode = (
   const valueNode = astFromValue(variableValue, variableType);
 
   if (!valueNode) {
-    throw new Error('Could not convert variable value to AST');
+    throw new InternalError('Could not convert variable value to AST');
   }
 
   return valueNode;

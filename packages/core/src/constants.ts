@@ -5,6 +5,7 @@ export const FETCH_RESOLVED = 'fetch_resolved';
 export const PENDING_QUERY_ADDED = 'pending_query_added';
 export const PENDING_QUERY_RESOLVED = 'pending_query_resolved';
 export const OPERATION_EXECUTED = 'operation_executed';
+export const OPERATION_REJECTED = 'operation_rejected';
 export const OPERATION_RESOLVED = 'operation_resolved';
 export const QUERY_RESOLVED_FROM_CACHE = 'query_resolved_from_cache';
 export const RESOLVER_EXECUTED = 'resolver_executed';

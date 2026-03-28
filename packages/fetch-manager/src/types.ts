@@ -1,4 +1,4 @@
-import { type PlainObject, type ResponseData, type SerialisedResponseData } from '@graphql-box/core';
+import { type PlainObject, type ResponseData, type SerialisedFetchResponseData } from '@graphql-box/core';
 
 export interface UserOptions {
   /**
@@ -50,8 +50,8 @@ export interface BatchResultActions {
 
 export type BatchActionsObjectMap = Record<string, BatchResultActions>;
 
-export type SerialisedResponseDataObjectMap = Record<string, SerialisedResponseData>;
+export type SerialisedFetchResponseDataObjectMap = Record<string, SerialisedFetchResponseData>;
 
-export interface BatchedSerialisedResponseData {
-  responses: SerialisedResponseDataObjectMap;
+export interface BatchedSerialisedFetchResponseData {
+  responses: SerialisedFetchResponseDataObjectMap;
 }

@@ -1,5 +1,5 @@
 import { type FragmentDefinitionNodeMap } from '@graphql-box/core';
-import { isKind } from '@graphql-box/helpers';
+import { InternalError, isKind } from '@graphql-box/helpers';
 import {
   type FieldNode,
   type FragmentDefinitionNode,
@@ -40,7 +40,7 @@ export const replaceFragmentSpreadsWithDefinitionFields = <
       const fragmentDefinition = fragmentDefinitions?.[name];
 
       if (!fragmentDefinition) {
-        throw new Error(`Could not find matching fragment definition for fragment spread "${name}".`);
+        throw new InternalError(`Could not find matching fragment definition for fragment spread "${name}".`);
       }
 
       const fragmentDefinitionClone = structuredClone(fragmentDefinition);

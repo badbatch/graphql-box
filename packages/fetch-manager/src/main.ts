@@ -7,8 +7,8 @@ import {
   type ResponseData,
   type SerialisedResponseData,
 } from '@graphql-box/core';
-import { ArgsError, GroupedError, deserializeErrors } from '@graphql-box/helpers';
-import { isString } from 'lodash-es';
+import { ArgsError, InternalError, NetworkError, ServerError, deserializeErrors } from '@graphql-box/helpers';
+import { isError, isString } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 import { logFetch } from './debug/logFetch.ts';
 import { logErrorsToConsole } from './helpers/logErrorsToConsole.ts';
@@ -17,7 +17,7 @@ import {
   type ActiveBatchValue,
   type BatchActionsObjectMap,
   type BatchResultActions,
-  type BatchedSerialisedResponseData,
+  type BatchedSerialisedFetchResponseData,
   type UserOptions,
 } from './types.ts';
 
@@ -27,7 +27,9 @@ export class FetchManager {
   }
 
   private static _rejectBatchEntries(batchEntries: BatchActionsObjectMap, error: unknown): void {
-    const finalError = error instanceof Error ? error : new Error('Batched request failed');
+    const finalError = isError(error)
+      ? error
+      : new InternalError('@graphql-box/fetch-manager: Batched request failed', { cause: error });
 
     for (const { reject } of Object.values(batchEntries)) {
       reject(finalError);
@@ -35,16 +37,22 @@ export class FetchManager {
   }
 
   private static _resolveFetchBatch(
-    { responses }: BatchedSerialisedResponseData,
+    { responses }: BatchedSerialisedFetchResponseData,
     batchEntries: BatchActionsObjectMap,
   ): void {
     for (const [operationId, { reject, resolve }] of Object.entries(batchEntries)) {
       const responseData = responses[operationId];
 
-      if (responseData) {
+      if (responseData && responseData.ok) {
         resolve(logErrorsToConsole(deserializeErrors({ ...responseData })));
+      } else if (responseData && !responseData.ok) {
+        const { errors = [] } = deserializeErrors<object>(responseData);
+
+        reject(new ServerError('@graphql-box/fetch-manager: There was a server error', errors, responseData.status));
       } else {
-        reject(new Error(`@graphql-box/fetch-manager did not get a response for batched request ${operationId}.`));
+        reject(
+          new InternalError(`@graphql-box/fetch-manager did not get a response for batched request ${operationId}.`),
+        );
       }
     }
   }
@@ -67,7 +75,7 @@ export class FetchManager {
     }
 
     if (errors.length > 0) {
-      throw new GroupedError('@graphql-box/fetch-manager argument validation errors.', errors);
+      throw new AggregateError(errors, '@graphql-box/fetch-manager argument validation errors.');
     }
 
     this._apiUrl = options.apiUrl;
@@ -117,14 +125,14 @@ export class FetchManager {
       }
 
       const url = this._logUrl;
-      const opeerationId = uuid();
+      const operationId = uuid();
 
       if (!this._batchRequests) {
-        void this._fetch(`${url}?opeerationId=${opeerationId}`, { batched: false, data, logLevel, message });
+        void this._fetch(`${url}?operationId=${operationId}`, { batched: false, data, logLevel, message });
         return;
       }
 
-      this._batchRequest(url, { data, logLevel, message }, opeerationId);
+      this._batchRequest(url, { data, logLevel, message }, operationId);
     } catch {
       // no catch
     }
@@ -179,8 +187,10 @@ export class FetchManager {
       });
 
       if (!fetchResult.ok) {
-        throw new Error(
+        throw new NetworkError(
           `@graphql-box/fetch-manager received a ${String(fetchResult.status)} ${fetchResult.statusText}`,
+          fetchResult.status,
+          fetchResult.statusText,
         );
       }
 
@@ -189,7 +199,9 @@ export class FetchManager {
       return (await fetchResult.json()) as T;
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') {
-        throw new Error(`@graphql-box/fetch-manager did not get a response within ${String(this._fetchTimeout)}ms.`);
+        throw new NetworkError(
+          `@graphql-box/fetch-manager did not get a response within ${String(this._fetchTimeout)}ms.`,
+        );
       }
 
       throw error;
@@ -215,7 +227,7 @@ export class FetchManager {
 
     try {
       FetchManager._resolveFetchBatch(
-        await this._fetch<BatchedSerialisedResponseData>(`${url}?operationId=${operationIds.join('-')}`, {
+        await this._fetch<BatchedSerialisedFetchResponseData>(`${url}?operationId=${operationIds.join('-')}`, {
           batched: true,
           operations: batchOperations,
         }),

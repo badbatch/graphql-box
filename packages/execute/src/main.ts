@@ -6,7 +6,7 @@ import {
   type PlainObject,
   type ResponseData,
 } from '@graphql-box/core';
-import { ArgsError, GroupedError, setCacheMetadata } from '@graphql-box/helpers';
+import { ArgsError, InternalError, setCacheMetadata } from '@graphql-box/helpers';
 import { type ExecutionArgs, type GraphQLFieldResolver, GraphQLSchema, execute } from 'graphql';
 import { omit } from 'lodash-es';
 import { isAsyncIterableTypeGuard } from '#helpers/isAsyncIterableTypeGuard.ts';
@@ -28,7 +28,7 @@ export class Execute {
     }
 
     if (errors.length > 0) {
-      throw new GroupedError('@graphql-box/execute argument validation errors.', errors);
+      throw new AggregateError(errors, '@graphql-box/execute argument validation errors');
     }
 
     this._contextValue = options.contextValue ?? {};
@@ -69,7 +69,7 @@ export class Execute {
     const executeResult = await this._execute(executeArgs);
 
     if (isAsyncIterableTypeGuard(executeResult)) {
-      throw new Error('Returning async iterator from `execute` is not supported.');
+      throw new InternalError('Returning async iterator from `execute` is not supported.');
     }
 
     const { data, errors } = executeResult;

@@ -1,6 +1,7 @@
 import { type ExportResult } from '@cachemap/core';
 import { type Client } from '@graphql-box/client';
 import { type OperationOptions, type PartialOperationContext, type PlainObject } from '@graphql-box/core';
+import { InternalError } from '@graphql-box/helpers';
 
 export type MultiQueryExport = [req: string, options?: OperationOptions, context?: PartialOperationContext][];
 
@@ -10,7 +11,7 @@ export const createQueryExportServerFunc =
     arg1: string | MultiQueryExport,
     options: OperationOptions = {},
     context: PartialOperationContext = {},
-  ): Promise<ExportResult<Data>[]> => {
+  ): Promise<PromiseSettledResult<ExportResult<Data>>[]> => {
     const operations: MultiQueryExport = Array.isArray(arg1)
       ? arg1.map(([req, opts, ctx]) => [req, { ...options, ...opts }, { ...context, ...ctx }])
       : [[arg1, options, context]];
@@ -31,7 +32,7 @@ export const createQueryExportServerFunc =
       });
 
       if (!exportResult) {
-        throw new Error('Export result undefined, something has gone wrong.');
+        throw new InternalError('Export result undefined, something has gone wrong.');
       }
 
       return exportResult;
@@ -41,6 +42,6 @@ export const createQueryExportServerFunc =
       exportResultPromises.push(requestHandler<Data>(operation, opts, ctx));
     }
 
-    const exportResults = await Promise.all(exportResultPromises);
-    return exportResults.map(entry => structuredClone(entry));
+    const settledResults = await Promise.allSettled(exportResultPromises);
+    return settledResults.map(entry => structuredClone(entry));
   };
