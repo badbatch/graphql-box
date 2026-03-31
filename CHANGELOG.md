@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.64 (2026-03-31)
+
+### Bug Fixes
+
+* **react:**  align use query / multi query types (34e70305)
+
 ## 5.5.59-unstable-12345.63 (2026-03-28)
 
 ### Chores
