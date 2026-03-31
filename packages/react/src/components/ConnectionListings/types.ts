@@ -1,4 +1,10 @@
-import { type OperationOptions, type PlainObject } from '@graphql-box/core';
+import {
+  type OperationOptions,
+  type PartialOperationContext,
+  type PlainObject,
+  type QueryResult,
+} from '@graphql-box/core';
+import { type QueryError } from '@graphql-box/helpers';
 import { type ReactElement, type RefObject } from 'react';
 
 export type ConnectionVariables = {
@@ -36,9 +42,25 @@ export type ListingsProps<Item extends PlainObject> = {
   intersectionRootMargin?: IntersectionObserverInit['rootMargin'];
   intersectionThreshold?: IntersectionObserverInit['threshold'];
   query: string;
-  renderError?: (errors: readonly Error[]) => ReactElement;
+  renderError?: (errors: QueryError) => ReactElement;
   renderLoader?: () => ReactElement;
   requestPath: string;
+  resultsPerRequest?: number;
+} & OperationOptions;
+
+export type ListingsPropsInternal<Item extends PlainObject> = {
+  children: (props: ListingsChildrenProps<Item>) => ReactElement | null;
+  componentName: string;
+  debug?: boolean;
+  execute: (options?: OperationOptions, context?: PartialOperationContext) => Promise<void>;
+  intersectionRoot?: IntersectionObserverInit['root'];
+  intersectionRootMargin?: IntersectionObserverInit['rootMargin'];
+  intersectionThreshold?: IntersectionObserverInit['threshold'];
+  loading: boolean;
+  queryHash: string;
+  renderLoader?: () => ReactElement;
+  requestPath: string;
+  result: QueryResult<ConnectionResponse<Item>> | undefined;
   resultsPerRequest?: number;
 } & OperationOptions;
 

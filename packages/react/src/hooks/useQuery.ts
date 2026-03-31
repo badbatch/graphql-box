@@ -6,13 +6,13 @@ import {
 } from '@graphql-box/core';
 import { InternalError, QueryError } from '@graphql-box/helpers';
 import { useState } from 'react';
-import { type SetOptional } from 'type-fest';
 import { v4 as uuid } from 'uuid';
 import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
 
 export type State<T extends PlainObject> = {
   loading: boolean;
-} & SetOptional<QueryResult<T>, 'data'>;
+  result?: QueryResult<T> | QueryError;
+};
 
 export const useQuery = <T extends PlainObject<unknown> = PlainObject<unknown>>(
   request: string,
@@ -21,26 +21,20 @@ export const useQuery = <T extends PlainObject<unknown> = PlainObject<unknown>>(
   const graphqlBoxClient = useGraphqlBoxClient();
 
   const [state, setState] = useState<State<T>>({
-    data: undefined,
-    errors: [],
-    extensions: { cacheMetadata: {} },
     loading,
-    operationId: '',
+    result: undefined,
   });
 
   const execute = async (options?: OperationOptions, context?: PartialOperationContext) => {
     setState({
-      data: undefined,
-      errors: [],
-      extensions: { cacheMetadata: {} },
       loading: true,
-      operationId: '',
+      result: undefined,
     });
 
     const operationId = uuid();
 
     try {
-      const { data, errors, extensions } = await graphqlBoxClient.query<T>(request, options, {
+      const result = await graphqlBoxClient.query<T>(request, options, {
         ...context,
         data: {
           ...context?.data,
@@ -49,11 +43,8 @@ export const useQuery = <T extends PlainObject<unknown> = PlainObject<unknown>>(
       });
 
       setState({
-        data,
-        errors,
-        extensions,
         loading: false,
-        operationId,
+        result,
       });
     } catch (error) {
       const queryError =
@@ -66,14 +57,9 @@ export const useQuery = <T extends PlainObject<unknown> = PlainObject<unknown>>(
               operationId,
             );
 
-      const { errors, extensions } = queryError;
-
       setState({
-        data: undefined,
-        errors,
-        extensions,
         loading: false,
-        operationId,
+        result: queryError,
       });
     }
   };
