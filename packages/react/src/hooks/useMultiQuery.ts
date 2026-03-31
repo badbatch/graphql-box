@@ -3,7 +3,6 @@ import {
   type PartialOperationContext,
   type PlainObject,
   type QueryResult,
-  type ResponseData,
 } from '@graphql-box/core';
 import { InternalError, QueryError } from '@graphql-box/helpers';
 import { useState } from 'react';
@@ -12,7 +11,7 @@ import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
 
 export type State<T extends PlainObject<unknown> = PlainObject<unknown>> = {
   loading: boolean;
-  results?: (ResponseData<T> | QueryError)[];
+  results?: SetOptional<QueryResult<T>, 'data'>[];
 };
 
 export const useMultiQuery = <T extends PlainObject<unknown> = PlainObject<unknown>>(
