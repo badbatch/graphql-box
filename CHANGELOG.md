@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.65 (2026-03-31)
+
+### Refactors
+
+* **react:**  change how connection listings component is structured (d0cafdb2)
+
 ## 5.5.59-unstable-12345.64 (2026-03-31)
 
 ### Bug Fixes
