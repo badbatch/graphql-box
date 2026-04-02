@@ -46,7 +46,7 @@
     "@types/lodash-es": "^4.17.12",
     "core-js": "^3.43.0",
     "eventemitter3": "^5.0.1",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.18.1"
   },
   "devDependencies": {
     "@cachemap/core": "^5.2.8",
