@@ -8,10 +8,20 @@ import { InternalError, QueryError } from '@graphql-box/helpers';
 import { useState } from 'react';
 import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
 
-export type State<T extends PlainObject<unknown> = PlainObject<unknown>> = {
-  loading: boolean;
-  results?: (QueryResult<T> | QueryError)[];
-};
+export type State<T extends PlainObject<unknown> = PlainObject<unknown>> =
+  | {
+      initial: true;
+      loading: boolean;
+      results: undefined;
+    }
+  | {
+      loading: true;
+      results: undefined;
+    }
+  | {
+      loading: false;
+      results: (QueryResult<T> | QueryError)[];
+    };
 
 export const useMultiQuery = <T extends PlainObject<unknown> = PlainObject<unknown>>(
   request: string,
@@ -20,6 +30,7 @@ export const useMultiQuery = <T extends PlainObject<unknown> = PlainObject<unkno
   const graphqlBoxClient = useGraphqlBoxClient();
 
   const [state, setState] = useState<State<T>>({
+    initial: true,
     loading,
     results: undefined,
   });

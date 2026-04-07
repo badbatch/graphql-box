@@ -9,10 +9,20 @@ import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { useGraphqlBoxClient } from './useGraphqlBoxClient.ts';
 
-export type State<T extends PlainObject> = {
-  loading: boolean;
-  result?: QueryResult<T> | QueryError;
-};
+export type State<T extends PlainObject> =
+  | {
+      initial: true;
+      loading: boolean;
+      result: undefined;
+    }
+  | {
+      loading: true;
+      result: undefined;
+    }
+  | {
+      loading: false;
+      result: QueryResult<T> | QueryError;
+    };
 
 export const useQuery = <T extends PlainObject<unknown> = PlainObject<unknown>>(
   request: string,
@@ -21,6 +31,7 @@ export const useQuery = <T extends PlainObject<unknown> = PlainObject<unknown>>(
   const graphqlBoxClient = useGraphqlBoxClient();
 
   const [state, setState] = useState<State<T>>({
+    initial: true,
     loading,
     result: undefined,
   });
