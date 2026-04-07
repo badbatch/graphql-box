@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.66 (2026-04-07)
+
+### Refactors
+
+* **react:**  change state types to better conditionally infer (570d0064)
+
 ## 5.5.59-unstable-12345.65 (2026-03-31)
 
 ### Refactors
