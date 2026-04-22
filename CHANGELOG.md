@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.67 (2026-04-22)
+
+### Bug Fixes
+
+* **cache-manager:**  update normalisation logic for entities (051ccba2)
+
 ## 5.5.59-unstable-12345.66 (2026-04-07)
 
 ### Refactors
