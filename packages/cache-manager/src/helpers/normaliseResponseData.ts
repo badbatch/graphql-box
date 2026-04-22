@@ -65,7 +65,7 @@ export const normaliseResponseData = (
       return;
     }
 
-    if (isEntity && !isList) {
+    if ((isEntity && !isList) || entityInList) {
       // If isEntity is true, then responseDataValue will definitely be an object.
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const entity = responseDataValue as Entity;
