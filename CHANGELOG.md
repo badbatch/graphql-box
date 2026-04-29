@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.68 (2026-04-29)
+
+### Bug Fixes
+
+* **root:**  bump cachemap version (8fa3733d)
+
 ## 5.5.59-unstable-12345.67 (2026-04-22)
 
 ### Bug Fixes
