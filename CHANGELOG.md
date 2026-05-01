@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.69 (2026-05-01)
+
+### Bug Fixes
+
+* **react:**  update child render config in update provider (dafa4baf)
+
 ## 5.5.59-unstable-12345.68 (2026-04-29)
 
 ### Bug Fixes
