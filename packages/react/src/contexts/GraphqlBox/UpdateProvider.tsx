@@ -1,5 +1,5 @@
 import { type ImportOptions } from '@cachemap/core';
-import { type ReactNode, useContext, useEffect, useState } from 'react';
+import { type ReactNode, useContext, useLayoutEffect, useState } from 'react';
 import { Context } from './Context.ts';
 
 export type GraphqlBoxUpdateProviderProps = {
@@ -13,7 +13,7 @@ export const GraphqlBoxUpdateProvider = ({ children, fallback, imports }: Graphq
   const [imported, setImported] = useState<boolean>(false);
   const { cache } = graphqlBoxClient;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const importCacheExport = async () => {
       if (cache) {
         await Promise.all(imports.map(options => cache.import(options)));
@@ -28,6 +28,10 @@ export const GraphqlBoxUpdateProvider = ({ children, fallback, imports }: Graphq
     // We only want to re-execute when the data below changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imported, !!cache, imports.length]);
+
+  if (!fallback) {
+    return children;
+  }
 
   return imported ? children : fallback;
 };
