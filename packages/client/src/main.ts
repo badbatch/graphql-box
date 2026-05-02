@@ -28,7 +28,7 @@ import {
 } from '@graphql-box/helpers';
 import { type OperationParserDef } from '@graphql-box/operation-parser';
 import { OperationTypeNode } from 'graphql';
-import { isString } from 'lodash-es';
+import { isEmpty, isString } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 import { type PendingQueryResolver, type QueryTracker, type UserOptions } from '#types.ts';
 import { logOperation } from './debug/logOperation.ts';
@@ -133,7 +133,7 @@ export class Client {
       throw new AggregateError(internalOrNetworkErrors, 'The query had runtime errors');
     }
 
-    if (data === undefined) {
+    if (data === undefined || isEmpty(data)) {
       throw new QueryError('The query did not return any data', errors, extensions, operationContext.data.operationId);
     }
 
@@ -195,7 +195,7 @@ export class Client {
 
     const executeResult = await this._requestManager.execute(analyzeResult.operationData, options, context);
 
-    if (executeResult.data === undefined) {
+    if (executeResult.data === undefined || isEmpty(executeResult.data)) {
       this._debugManager?.log(OPERATION_REJECTED, {
         data: context.data,
         stats: { endTime: this._debugManager.now() },
