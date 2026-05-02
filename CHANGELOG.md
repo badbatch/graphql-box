@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.70 (2026-05-02)
+
+### Bug Fixes
+
+* **client:**  throw if data is empty (41dd6ef4)
+
 ## 5.5.59-unstable-12345.69 (2026-05-01)
 
 ### Bug Fixes
