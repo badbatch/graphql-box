@@ -10,6 +10,7 @@ import {
   type BatchedLogDataPayload,
   type ExpressRequestHandler,
   type LogDataPayload,
+  type LogDump,
   type RequestData,
   type SerialisedResponseDataBatch,
   type UserOptions,
@@ -17,6 +18,7 @@ import {
 
 export class ExpressMiddleware {
   private _client: Client;
+  private readonly _getLogDump?: (operationId: string) => LogDump;
   private readonly _operationWhitelist: string[];
   private readonly _requestTimeout: number;
 
@@ -36,6 +38,7 @@ export class ExpressMiddleware {
     }
 
     this._client = options.client;
+    this._getLogDump = options.getLogDump;
     this._requestTimeout = options.requestTimeout ?? 10_000;
     this._operationWhitelist = options.operationWhitelist ?? [];
   }
@@ -78,7 +81,7 @@ export class ExpressMiddleware {
           response.responses[operationId] = {
             ...serializeErrors({
               errors: [new InternalError('@graphql-box/server: The request is not whitelisted')],
-              extensions: { cacheMetadata: {} },
+              extensions: { cacheMetadata: {}, logs: this._getLogDump?.(operationId) },
             }),
             ok: false,
             status: 403,
@@ -103,7 +106,7 @@ export class ExpressMiddleware {
                   `@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`,
                 ),
               ],
-              extensions: { cacheMetadata: {} },
+              extensions: { cacheMetadata: {}, logs: this._getLogDump?.(operationId) },
             }),
             ok: false,
             status: 504,
@@ -111,13 +114,13 @@ export class ExpressMiddleware {
         }, this._requestTimeout);
 
         try {
-          // The client already has scope of this so no need to send it back.
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { operationId: unusedOperationId, ...otherProps } = await this._client.query(
-            operation,
-            options,
-            context,
-          );
+          const {
+            extensions,
+            // The client already has scope of this so no need to send it back.
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            operationId: unusedOperationId,
+            ...otherProps
+          } = await this._client.query(operation, options, context);
 
           // TypeScript not deriving that requestFinished can be true
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -126,7 +129,7 @@ export class ExpressMiddleware {
           }
 
           response.responses[operationId] = {
-            ...serializeErrors({ ...otherProps }),
+            ...serializeErrors({ ...otherProps, extensions: { ...extensions, logs: this._getLogDump?.(operationId) } }),
             ok: true,
             status: 200,
           };
@@ -144,7 +147,7 @@ export class ExpressMiddleware {
           response.responses[operationId] = {
             ...serializeErrors({
               errors: [confirmedError],
-              extensions: { cacheMetadata: {} },
+              extensions: { cacheMetadata: {}, logs: this._getLogDump?.(operationId) },
             }),
             ok: false,
             status: 500,
@@ -175,7 +178,7 @@ export class ExpressMiddleware {
       res.status(403).send(
         serializeErrors({
           errors: [new InternalError('The request is not whitelisted.')],
-          extensions: { cacheMetadata: {} },
+          extensions: { cacheMetadata: {}, logs: this._getLogDump?.(context.data.operationId) },
         }),
       );
 
@@ -198,7 +201,7 @@ export class ExpressMiddleware {
               `@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`,
             ),
           ],
-          extensions: { cacheMetadata: {} },
+          extensions: { cacheMetadata: {}, logs: this._getLogDump?.(context.data.operationId) },
         }),
       );
     }, this._requestTimeout);
@@ -212,10 +215,13 @@ export class ExpressMiddleware {
         return;
       }
 
-      // The client already has scope of this so no need to send it back.
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { operationId, ...otherProps } = result;
-      const responseData = serializeErrors({ ...otherProps });
+      const { extensions, operationId, ...otherProps } = result;
+
+      const responseData = serializeErrors({
+        ...otherProps,
+        extensions: { ...extensions, logs: this._getLogDump?.(operationId) },
+      });
+
       res.status(200).send(responseData);
     } catch (error) {
       // TypeScript not deriving that requestFinished can be true
@@ -231,7 +237,7 @@ export class ExpressMiddleware {
       res.status(500).send(
         serializeErrors({
           errors: [confirmedError],
-          extensions: { cacheMetadata: {} },
+          extensions: { cacheMetadata: {}, logs: this._getLogDump?.(context.data.operationId) },
         }),
       );
     } finally {

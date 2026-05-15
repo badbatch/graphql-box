@@ -10,6 +10,7 @@ import {
   type BatchRequestData,
   type BatchedLogDataPayload,
   type LogDataPayload,
+  type LogDump,
   type NextRequestHandler,
   type RequestData,
   type SerialisedResponseDataBatch,
@@ -18,6 +19,7 @@ import {
 
 export class NextMiddleware {
   private readonly _client: Client;
+  private readonly _getLogDump?: (operationId: string) => LogDump;
   private readonly _operationWhitelist: string[];
   private readonly _requestTimeout: number;
 
@@ -37,6 +39,7 @@ export class NextMiddleware {
     }
 
     this._client = options.client;
+    this._getLogDump = options.getLogDump;
     this._requestTimeout = options.requestTimeout ?? 10_000;
     this._operationWhitelist = options.operationWhitelist ?? [];
   }
@@ -71,7 +74,7 @@ export class NextMiddleware {
           response.responses[operationId] = {
             ...serializeErrors({
               errors: [new InternalError('@graphql-box/server: The request is not whitelisted')],
-              extensions: { cacheMetadata: {} },
+              extensions: { cacheMetadata: {}, logs: this._getLogDump?.(operationId) },
             }),
             ok: false,
             status: 403,
@@ -96,7 +99,7 @@ export class NextMiddleware {
                   `@graphql-box/server did not process the request within ${String(this._requestTimeout)}ms.`,
                 ),
               ],
-              extensions: { cacheMetadata: {} },
+              extensions: { cacheMetadata: {}, logs: this._getLogDump?.(operationId) },
             }),
             ok: false,
             status: 504,
@@ -104,13 +107,13 @@ export class NextMiddleware {
         }, this._requestTimeout);
 
         try {
-          // The client already has scope of this so no need to send it back.
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { operationId: unusedOperationId, ...otherProps } = await this._client.query(
-            operation,
-            options,
-            context,
-          );
+          const {
+            extensions,
+            // The client already has scope of this so no need to send it back.
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            operationId: unusedOperationId,
+            ...otherProps
+          } = await this._client.query(operation, options, context);
 
           // TypeScript not deriving that requestFinished can be true
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -120,6 +123,7 @@ export class NextMiddleware {
 
           response.responses[operationId] = {
             ...serializeErrors({ ...otherProps }),
+            extensions: { ...extensions, logs: this._getLogDump?.(operationId) },
             ok: true,
             status: 200,
           };
@@ -137,7 +141,7 @@ export class NextMiddleware {
           response.responses[operationId] = {
             ...serializeErrors({
               errors: [confirmedError],
-              extensions: { cacheMetadata: {} },
+              extensions: { cacheMetadata: {}, logs: this._getLogDump?.(operationId) },
             }),
             ok: false,
             status: 500,
@@ -165,6 +169,7 @@ export class NextMiddleware {
       return NextResponse.json(
         serializeErrors({
           errors: [new InternalError('@graphql-box/server the request is not whitelisted.')],
+          extensions: { logs: this._getLogDump?.(context.data.operationId) },
         }),
         {
           status: 403,
@@ -188,7 +193,7 @@ export class NextMiddleware {
             NextResponse.json(
               serializeErrors({
                 errors: [new NetworkError(message)],
-                extensions: { cacheMetadata: {} },
+                extensions: { cacheMetadata: {}, logs: this._getLogDump?.(context.data.operationId) },
               }),
               {
                 status: 504,
@@ -208,9 +213,13 @@ export class NextMiddleware {
 
           // We don't want to send the operationId back as the client already
           // has scope of this.
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { operationId, ...otherProps } = result;
-          const responseData = serializeErrors({ ...otherProps });
+
+          const { extensions, operationId, ...otherProps } = result;
+
+          const responseData = serializeErrors({
+            ...otherProps,
+            extensions: { ...extensions, logs: this._getLogDump?.(operationId) },
+          });
 
           resolve(
             NextResponse.json(responseData, {
@@ -232,7 +241,7 @@ export class NextMiddleware {
             NextResponse.json(
               serializeErrors({
                 errors: [confirmedError],
-                extensions: { cacheMetadata: {} },
+                extensions: { cacheMetadata: {}, logs: this._getLogDump?.(context.data.operationId) },
               }),
               {
                 status: 500,

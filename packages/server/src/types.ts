@@ -8,6 +8,7 @@ import {
   type SerialisedFetchResponseData,
 } from '@graphql-box/core';
 import { type Request, type Response } from 'express';
+import { type TransformableInfo } from 'logform';
 import { type NextRequest, type NextResponse } from 'next/server.js';
 
 export interface UserOptions {
@@ -15,6 +16,13 @@ export interface UserOptions {
    * The client.
    */
   client: Client;
+
+  /**
+   * Set to true to return all server logs for an operation in
+   * its response. The logs get returned on a `logs` property
+   * in the extensions object.
+   */
+  getLogDump?: (operationId: string) => LogDump;
 
   /**
    * List of request hashes that the server is allowed to
@@ -27,6 +35,11 @@ export interface UserOptions {
    */
   requestTimeout?: number;
 }
+
+export type LogDump = {
+  [key: string]: TransformableInfo[];
+  entries: TransformableInfo[];
+};
 
 export type ExpressRequestHandler = (req: Request, res: Response, ...args: PlainArray) => void;
 
