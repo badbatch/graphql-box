@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.71 (2026-05-15)
+
+### New Features
+
+* **server:**  add log dump config (f7cdd975)
+
 ## 5.5.59-unstable-12345.70 (2026-05-02)
 
 ### Bug Fixes
