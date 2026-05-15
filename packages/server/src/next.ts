@@ -19,7 +19,7 @@ import {
 
 export class NextMiddleware {
   private readonly _client: Client;
-  private readonly _getLogDump?: (operationId: string) => LogDump;
+  private readonly _getLogDump?: (operationId: string) => LogDump | undefined;
   private readonly _operationWhitelist: string[];
   private readonly _requestTimeout: number;
 

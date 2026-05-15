@@ -22,7 +22,7 @@ export interface UserOptions {
    * its response. The logs get returned on a `logs` property
    * in the extensions object.
    */
-  getLogDump?: (operationId: string) => LogDump;
+  getLogDump?: (operationId: string) => LogDump | undefined;
 
   /**
    * List of request hashes that the server is allowed to
