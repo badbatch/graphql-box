@@ -40,6 +40,16 @@ export const filterOutDuplicateEntities = <Item extends PlainObject>(
   }
 
   const filteredEdges = edges.filter(edge => {
+    // In the wild I have seen this come back as null
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (edge === null) {
+      if (debug) {
+        console.log('ConnectionListings > edge was null');
+      }
+
+      return false;
+    }
+
     // id is always going be either a string or a number
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     if (prevEdgeIds.has(edge.node.id as string | number)) {
