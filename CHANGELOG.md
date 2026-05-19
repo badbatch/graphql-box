@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.73 (2026-05-19)
+
+### Bug Fixes
+
+* **react:**  stop null edge entries being parsed (8a35f571)
+
 ## 5.5.59-unstable-12345.72 (2026-05-15)
 
 ### Bug Fixes
