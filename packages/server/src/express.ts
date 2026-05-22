@@ -1,6 +1,6 @@
 import { type Client } from '@graphql-box/client';
 import { type OperationContextData, type OperationOptions } from '@graphql-box/core';
-import { ArgsError, InternalError, NetworkError, serializeErrors } from '@graphql-box/helpers';
+import { ArgsError, InternalError, NetworkError, QueryError, serializeErrors } from '@graphql-box/helpers';
 import { type Request, type Response } from 'express';
 import { isError, isPlainObject } from 'lodash-es';
 import { isLogBatched } from './helpers/isLogBatched.ts';
@@ -140,18 +140,34 @@ export class ExpressMiddleware {
             return;
           }
 
-          const confirmedError = isError(error)
-            ? error
-            : new InternalError('@graphql-box/server handleBatchRequest had an unexpected error.');
-
-          response.responses[operationId] = {
-            ...serializeErrors({
-              errors: [confirmedError],
-              extensions: { cacheMetadata: {}, logs: this._getLogDump?.(operationId) },
-            }),
+          const baseResponseData = {
             ok: false,
             status: 500,
           };
+
+          if (error instanceof QueryError) {
+            response.responses[operationId] = {
+              ...baseResponseData,
+              ...serializeErrors({
+                // I understand what this is doing and am okay with it
+                // eslint-disable-next-line @typescript-eslint/no-misused-spread
+                ...error,
+                extensions: { ...error.extensions, logs: this._getLogDump?.(operationId) },
+              }),
+            };
+          } else {
+            const confirmedError = isError(error)
+              ? error
+              : new InternalError('@graphql-box/server handleBatchRequest had an unexpected error.');
+
+            response.responses[operationId] = {
+              ...baseResponseData,
+              ...serializeErrors({
+                errors: [confirmedError],
+                extensions: { cacheMetadata: {}, logs: this._getLogDump?.(operationId) },
+              }),
+            };
+          }
         } finally {
           requestFinished = true;
           clearTimeout(requestTimer);
@@ -230,16 +246,27 @@ export class ExpressMiddleware {
         return;
       }
 
-      const confirmedError = isError(error)
-        ? error
-        : new InternalError('@graphql-box/server handleRequest had an unexpected error.');
+      if (error instanceof QueryError) {
+        res.status(500).send(
+          serializeErrors({
+            // I understand what this is doing and am okay with it
+            // eslint-disable-next-line @typescript-eslint/no-misused-spread
+            ...error,
+            extensions: { ...error.extensions, logs: this._getLogDump?.(context.data.operationId) },
+          }),
+        );
+      } else {
+        const confirmedError = isError(error)
+          ? error
+          : new InternalError('@graphql-box/server handleRequest had an unexpected error.');
 
-      res.status(500).send(
-        serializeErrors({
-          errors: [confirmedError],
-          extensions: { cacheMetadata: {}, logs: this._getLogDump?.(context.data.operationId) },
-        }),
-      );
+        res.status(500).send(
+          serializeErrors({
+            errors: [confirmedError],
+            extensions: { cacheMetadata: {}, logs: this._getLogDump?.(context.data.operationId) },
+          }),
+        );
+      }
     } finally {
       requestFinished = true;
       clearTimeout(requestTimer);
