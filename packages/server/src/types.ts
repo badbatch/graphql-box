@@ -36,10 +36,7 @@ export interface UserOptions {
   requestTimeout?: number;
 }
 
-export type LogDump = {
-  [key: string]: TransformableInfo[];
-  entries: TransformableInfo[];
-};
+export type LogDump = (Partial<TransformableInfo> | Partial<TransformableInfo>[])[];
 
 export type ExpressRequestHandler = (req: Request, res: Response, ...args: PlainArray) => void;
 
