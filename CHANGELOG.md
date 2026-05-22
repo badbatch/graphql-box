@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.74 (2026-05-22)
+
+### Bug Fixes
+
+* **server:**  update type (5421100f)
+
 ## 5.5.59-unstable-12345.73 (2026-05-19)
 
 ### Bug Fixes
