@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.75 (2026-05-31)
+
+### Bug Fixes
+
+* **server:**  change how QueryError is returned (a2c5cc9f)
+
 ## 5.5.59-unstable-12345.74 (2026-05-22)
 
 ### Bug Fixes
