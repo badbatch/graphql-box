@@ -1,5 +1,5 @@
 import { type Client } from '@graphql-box/client';
-import { type OperationContextData, type OperationOptions } from '@graphql-box/core';
+import { type LogDump, type OperationContextData, type OperationOptions } from '@graphql-box/core';
 import { ArgsError, InternalError, NetworkError, QueryError, serializeErrors } from '@graphql-box/helpers';
 import { isError, isPlainObject } from 'lodash-es';
 import { type NextRequest, NextResponse } from 'next/server.js';
@@ -10,7 +10,6 @@ import {
   type BatchRequestData,
   type BatchedLogDataPayload,
   type LogDataPayload,
-  type LogDump,
   type NextRequestHandler,
   type RequestData,
   type SerialisedResponseDataBatch,

@@ -11,7 +11,7 @@ import { ArgsError, InternalError, NetworkError, ServerError, deserializeErrors 
 import { isError, isString } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 import { logFetch } from './debug/logFetch.ts';
-import { logErrorsToConsole } from './helpers/logErrorsToConsole.ts';
+import { logErrorsToConsoleInDevelop } from './helpers/logErrorsToConsoleInDevelop.ts';
 import {
   type ActiveBatch,
   type ActiveBatchValue,
@@ -44,15 +44,33 @@ export class FetchManager {
       const responseData = responses[operationId];
 
       if (responseData && responseData.ok) {
-        resolve(logErrorsToConsole(deserializeErrors({ ...responseData })));
+        const deserialized = deserializeErrors(responseData);
+        // In the wild this chain can be undefined
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        logErrorsToConsoleInDevelop(deserialized.errors, responseData?.extensions?.logs);
+        resolve(deserialized);
       } else if (responseData && !responseData.ok) {
         const { errors = [] } = deserializeErrors<object>(responseData);
 
-        reject(new ServerError('@graphql-box/fetch-manager: There was a server error', errors, responseData.status));
-      } else {
-        reject(
-          new InternalError(`@graphql-box/fetch-manager did not get a response for batched request ${operationId}.`),
+        const error = new ServerError(
+          '@graphql-box/fetch-manager: There was a server error',
+          errors,
+          responseData.status,
         );
+
+        // In the wild this chain can be undefined
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        logErrorsToConsoleInDevelop(error, responseData?.extensions?.logs);
+        reject(error);
+      } else {
+        const error = new InternalError(
+          `@graphql-box/fetch-manager did not get a response for batched request ${operationId}.`,
+        );
+
+        // In the wild this chain can be undefined
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        logErrorsToConsoleInDevelop(error, responseData?.extensions?.logs);
+        reject(error);
       }
     }
   }
@@ -102,7 +120,11 @@ export class FetchManager {
         operation,
       });
 
-      return logErrorsToConsole(deserializeErrors(fetchResult));
+      const deserialized = deserializeErrors(fetchResult);
+      // In the wild this chain can be undefined
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      logErrorsToConsoleInDevelop(deserialized.errors, fetchResult?.extensions?.logs);
+      return deserialized;
     }
 
     return new Promise((resolve: (value: ResponseData) => void, reject) => {

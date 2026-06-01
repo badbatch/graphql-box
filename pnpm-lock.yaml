@@ -423,6 +423,9 @@ importers:
       eventemitter3:
         specifier: ^5.0.1
         version: 5.0.1
+      logform:
+        specifier: ^2.7.0
+        version: 2.7.0
       serialize-error:
         specifier: ^12.0.0
         version: 12.0.0
@@ -742,9 +745,6 @@ importers:
       lodash-es:
         specifier: ^4.17.23
         version: 4.17.23
-      logform:
-        specifier: ^2.7.0
-        version: 2.7.0
     devDependencies:
       '@graphql-box/client':
         specifier: workspace:*

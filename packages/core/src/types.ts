@@ -8,6 +8,7 @@ import {
   type GraphQLResolveInfo,
   type OperationTypeNode,
 } from 'graphql';
+import { type TransformableInfo } from 'logform';
 import { type ErrorObject } from 'serialize-error';
 import { type Except, type PartialDeep } from 'type-fest';
 import { type WebSocket } from 'ws';
@@ -113,6 +114,8 @@ export type LogData = {
   };
 };
 
+export type LogDump = (Partial<TransformableInfo> | Partial<TransformableInfo>[])[];
+
 export type LogLevel = 'error' | 'warn' | 'info' | 'verbose';
 
 export type Maybe<T> = null | undefined | T;
@@ -205,19 +208,19 @@ export type OperationResolver = (responseData: ResponseData) => Promise<Response
 export type QueryResult<T extends PlainObject<unknown> = PlainObject<unknown>> = {
   data: T;
   errors?: readonly Error[];
-  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata };
+  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata; logs?: LogDump };
   operationId: string;
 };
 
 export type ResponseData<T extends PlainObject<unknown> = PlainObject<unknown>> = {
   data?: T;
   errors?: readonly Error[];
-  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata };
+  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata; logs?: LogDump };
 };
 
 export type ResponseDataWithoutErrors<T extends PlainObject<unknown> = PlainObject<unknown>> = {
   data?: T;
-  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata };
+  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata; logs?: LogDump };
 };
 
 export type SerialisedFetchResponseData<T extends PlainObject<unknown> = PlainObject<unknown>> =
@@ -229,7 +232,7 @@ export type SerialisedFetchResponseData<T extends PlainObject<unknown> = PlainOb
 export type SerialisedResponseData<T extends PlainObject<unknown> = PlainObject<unknown>> = {
   data?: T;
   errors?: (DeserializedGraphqlError | ErrorObject)[];
-  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata };
+  extensions: Record<string, unknown> & { cacheMetadata: CacheMetadata; logs?: LogDump };
 };
 
 export type SetCacheMetadata = (data: unknown, info: GraphQLResolveInfo, headers: Headers) => void;

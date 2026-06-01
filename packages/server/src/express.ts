@@ -1,5 +1,5 @@
 import { type Client } from '@graphql-box/client';
-import { type OperationContextData, type OperationOptions } from '@graphql-box/core';
+import { type LogDump, type OperationContextData, type OperationOptions } from '@graphql-box/core';
 import { ArgsError, InternalError, NetworkError, QueryError, serializeErrors } from '@graphql-box/helpers';
 import { type Request, type Response } from 'express';
 import { isError, isPlainObject } from 'lodash-es';
@@ -10,7 +10,6 @@ import {
   type BatchedLogDataPayload,
   type ExpressRequestHandler,
   type LogDataPayload,
-  type LogDump,
   type RequestData,
   type SerialisedResponseDataBatch,
   type UserOptions,

@@ -2,13 +2,13 @@ import { type Client } from '@graphql-box/client';
 import {
   type GraphqlStep,
   type LogData,
+  type LogDump,
   type LogLevel,
   type OperationContextData,
   type PlainArray,
   type SerialisedFetchResponseData,
 } from '@graphql-box/core';
 import { type Request, type Response } from 'express';
-import { type TransformableInfo } from 'logform';
 import { type NextRequest, type NextResponse } from 'next/server.js';
 
 export interface UserOptions {
@@ -35,8 +35,6 @@ export interface UserOptions {
    */
   requestTimeout?: number;
 }
-
-export type LogDump = (Partial<TransformableInfo> | Partial<TransformableInfo>[])[];
 
 export type ExpressRequestHandler = (req: Request, res: Response, ...args: PlainArray) => void;
 

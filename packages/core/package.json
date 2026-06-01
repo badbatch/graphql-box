@@ -43,6 +43,7 @@
   "dependencies": {
     "cacheability": "^4.0.30",
     "eventemitter3": "^5.0.1",
+    "logform": "^2.7.0",
     "serialize-error": "^12.0.0",
     "type-fest": "^4.41.0",
     "ws": "^8.18.2"
