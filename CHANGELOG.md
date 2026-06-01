@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.76 (2026-06-01)
+
+### New Features
+
+* **fetch-manager:**  improve error logging (83ec0518)
+
 ## 5.5.59-unstable-12345.75 (2026-05-31)
 
 ### Bug Fixes
