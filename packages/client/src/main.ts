@@ -3,7 +3,6 @@ import { type CacheManagerDef } from '@graphql-box/cache-manager';
 import {
   type DebugManagerDef,
   OPERATION_REJECTED,
-  OPERATION_RESOLVED,
   type OperationContext,
   type OperationData,
   type OperationOptions,
@@ -185,7 +184,7 @@ export class Client {
 
     if (analyzeResult.kind === 'cache-hit') {
       this._debugManager?.log(QUERY_RESOLVED_FROM_CACHE, {
-        data: {
+        context: {
           ...context.data,
         },
       });
@@ -197,7 +196,7 @@ export class Client {
 
     if (executeResult.data === undefined || isEmpty(executeResult.data)) {
       this._debugManager?.log(OPERATION_REJECTED, {
-        data: context.data,
+        context: context.data,
         stats: { endTime: this._debugManager.now() },
       });
 
@@ -213,7 +212,7 @@ export class Client {
       );
 
       this._debugManager?.log(OPERATION_REJECTED, {
-        data: context.data,
+        context: context.data,
         stats: { endTime: this._debugManager.now() },
       });
 
@@ -224,11 +223,6 @@ export class Client {
         context,
       );
     }
-
-    this._debugManager?.log(OPERATION_RESOLVED, {
-      data: context.data,
-      stats: { endTime: this._debugManager.now() },
-    });
 
     return this._resolveQuery(operationData, finalAnalyzeResult.responseData, options, context);
   }
@@ -242,7 +236,7 @@ export class Client {
 
     for (const { context, options, resolver } of pendingQueries) {
       this._debugManager?.log(PENDING_QUERY_RESOLVED, {
-        data: context.data,
+        context: context.data,
       });
 
       resolver(Client._resolve(responseData, options, context));

@@ -35,7 +35,7 @@ export const logFetch = () => {
           const startTime = debugManager.now();
 
           debugManager.log(FETCH_EXECUTED, {
-            data,
+            context: data,
             stats: { startTime },
           });
 
@@ -45,7 +45,8 @@ export const logFetch = () => {
           resolve(result);
 
           debugManager.log(FETCH_RESOLVED, {
-            data,
+            context: data,
+            data: result.data,
             stats: { duration, endTime, startTime },
           });
         })();

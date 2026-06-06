@@ -25,7 +25,7 @@ export const logPendingQuery = () => {
       method.apply(this, args);
 
       debugManager.log(PENDING_QUERY_ADDED, {
-        data,
+        context: data,
       });
     };
   };

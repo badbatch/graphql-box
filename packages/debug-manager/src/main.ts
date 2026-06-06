@@ -45,25 +45,26 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
   }
 
   public log(message: GraphqlStep, logData: LogData, logLevel: LogLevel = 'info', passthrough = false): void {
-    const { data, error, stats } = logData;
+    const { context, data, error, stats } = logData;
 
-    const finalData = passthrough
+    const enrichedLogData = passthrough
       ? logData
       : {
-          data: {
+          context: {
             environment: this._environment,
             loggerName: this._name,
-            ...data,
+            ...context,
           },
           error,
           stats,
+          ...(data === undefined ? undefined : { data }),
         };
 
     try {
-      this.emit('LOG', message, finalData);
+      this.emit('LOG', message, enrichedLogData);
 
       if (this._log) {
-        this._log(message, finalData, logLevel);
+        this._log(message, enrichedLogData, logLevel);
       }
     } catch (error_) {
       console.error(error_);

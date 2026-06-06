@@ -1,12 +1,13 @@
 import {
   type CacheMetadata,
+  EXECUTE_FAILED,
   type OperationContext,
   type OperationData,
   type OperationOptions,
   type PlainObject,
   type ResponseData,
 } from '@graphql-box/core';
-import { ArgsError, InternalError, setCacheMetadata } from '@graphql-box/helpers';
+import { ArgsError, InternalError, serializeError, setCacheMetadata } from '@graphql-box/helpers';
 import { type ExecutionArgs, type GraphQLFieldResolver, GraphQLSchema, execute } from 'graphql';
 import { omit } from 'lodash-es';
 import { isAsyncIterableTypeGuard } from '#helpers/isAsyncIterableTypeGuard.ts';
@@ -69,7 +70,15 @@ export class Execute {
     const executeResult = await this._execute(executeArgs);
 
     if (isAsyncIterableTypeGuard(executeResult)) {
-      throw new InternalError('Returning async iterator from `execute` is not supported.');
+      const error = new InternalError('Returning async iterator from `execute` is not supported.');
+
+      context.debugManager?.log(EXECUTE_FAILED, {
+        context: context.data,
+        error: serializeError(error),
+        stats: { endTime: context.debugManager.now() },
+      });
+
+      throw error;
     }
 
     const { data, errors } = executeResult;

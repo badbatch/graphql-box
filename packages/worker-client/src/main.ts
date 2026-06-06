@@ -1,7 +1,6 @@
 import { type CoreWorker } from '@cachemap/core-worker';
 import {
   type DebugManagerDef,
-  OPERATION_REJECTED,
   type OperationContext,
   type OperationOptions,
   type PartialOperationContext,
@@ -9,7 +8,6 @@ import {
   type QueryResult,
   type ResponseData,
 } from '@graphql-box/core';
-import { OPERATION_RESOLVED } from '@graphql-box/core';
 import {
   ArgsError,
   InternalError,
@@ -49,18 +47,6 @@ export class WorkerClient {
 
     if (!pending) {
       return;
-    }
-
-    if (result.data === undefined) {
-      this._debugManager?.log(OPERATION_REJECTED, {
-        data: context.data,
-        stats: { endTime: this._debugManager.now() },
-      });
-    } else {
-      this._debugManager?.log(OPERATION_RESOLVED, {
-        data: context.data,
-        stats: { endTime: this._debugManager.now() },
-      });
     }
 
     pending.resolve(deserializeErrors(result));

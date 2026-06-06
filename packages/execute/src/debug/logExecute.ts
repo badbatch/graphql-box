@@ -1,5 +1,6 @@
 import {
   EXECUTE_EXECUTED,
+  EXECUTE_FAILED,
   EXECUTE_RESOLVED,
   type OperationContext,
   type OperationData,
@@ -7,6 +8,7 @@ import {
   type RequestManagerDef,
   type ResponseData,
 } from '@graphql-box/core';
+import { InternalError, serializeError } from '@graphql-box/helpers';
 
 type Descriptor = (
   requestData: OperationData,
@@ -32,19 +34,35 @@ export const logExecute = () => {
           const startTime = debugManager.now();
 
           debugManager.log(EXECUTE_EXECUTED, {
-            data,
+            context: data,
             stats: { startTime },
           });
 
           const result = await method.apply(this, args);
           const endTime = debugManager.now();
           const duration = endTime - startTime;
+          const stats = { duration, endTime, startTime };
           resolve(result);
 
-          debugManager.log(EXECUTE_RESOLVED, {
-            data,
-            stats: { duration, endTime, startTime },
-          });
+          if (result.data) {
+            debugManager.log(EXECUTE_RESOLVED, {
+              context: data,
+              data: result.data,
+              stats,
+            });
+          } else {
+            const message = `No data was returned for operation ${data.operationName}`;
+
+            const error = result.errors?.length
+              ? new AggregateError(result.errors, message)
+              : new InternalError(message);
+
+            debugManager.log(EXECUTE_FAILED, {
+              context: data,
+              error: serializeError(error),
+              stats,
+            });
+          }
         };
 
         void resolver();

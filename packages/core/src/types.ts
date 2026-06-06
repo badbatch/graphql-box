@@ -89,23 +89,27 @@ export type FragmentDefinitionNodeMap = Record<string, FragmentDefinitionNode>;
 export type GraphqlEnv = 'client' | 'server' | 'worker' | 'workerClient';
 
 export type GraphqlStep =
-  | 'execute_executed'
-  | 'execute_resolved'
-  | 'fetch_executed'
-  | 'fetch_resolved'
-  | 'pending_query_added'
-  | 'pending_query_resolved'
-  | 'operation_executed'
-  | 'operation_rejected'
-  | 'operation_resolved'
-  | 'query_resolved_from_cache'
-  | 'resolver_executed'
-  | 'resolver_resolved'
-  | 'subscription_executed'
-  | 'subscription_resolved';
+  | 'EXECUTE_EXECUTED'
+  | 'EXECUTE_RESOLVED'
+  | 'EXECUTE_FAILED'
+  | 'FETCH_EXECUTED'
+  | 'FETCH_RESOLVED'
+  | 'FETCH_FAILED'
+  | 'PENDING_QUERY_ADDED'
+  | 'PENDING_QUERY_RESOLVED'
+  | 'OPERATION_EXECUTED'
+  | 'OPERATION_REJECTED'
+  | 'OPERATION_RESOLVED'
+  | 'QUERY_RESOLVED_FROM_CACHE'
+  | 'RESOLVER_START'
+  | 'RESOLVER_END'
+  | 'RESOLVER_FAILED'
+  | 'SUBSCRIPTION_EXECUTED'
+  | 'SUBSCRIPTION_RESOLVED';
 
 export type LogData = {
-  data: OperationContextData;
+  context: OperationContextData;
+  data?: unknown;
   error?: ErrorObject;
   stats?: {
     duration?: number;

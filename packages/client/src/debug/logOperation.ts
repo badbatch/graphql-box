@@ -6,6 +6,7 @@ import {
   type OperationOptions,
   type ResponseData,
 } from '@graphql-box/core';
+import { isEmpty } from 'lodash-es';
 import { type Client } from '../main.ts';
 
 type Descriptor = (
@@ -36,7 +37,7 @@ export const logOperation = () => {
           const startTime = debugManager.now();
 
           debugManager.log(OPERATION_EXECUTED, {
-            data: {
+            context: {
               ...data,
               ...contextValue?.data,
             },
@@ -48,13 +49,16 @@ export const logOperation = () => {
           const duration = endTime - startTime;
           resolve(result);
 
-          debugManager.log(OPERATION_RESOLVED, {
-            data: {
-              ...data,
-              ...contextValue?.data,
-            },
-            stats: { duration, endTime, startTime },
-          });
+          if (result.data !== undefined && !isEmpty(result.data)) {
+            debugManager.log(OPERATION_RESOLVED, {
+              context: {
+                ...data,
+                ...contextValue?.data,
+              },
+              data: result.data,
+              stats: { duration, endTime, startTime },
+            });
+          }
         })();
       });
     };
