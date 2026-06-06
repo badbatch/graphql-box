@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.77 (2026-06-06)
+
+### Refactors
+
+* **root:**  update log steps and when steps are logged (e8d6a341)
+
 ## 5.5.59-unstable-12345.76 (2026-06-01)
 
 ### New Features
