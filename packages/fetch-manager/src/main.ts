@@ -36,45 +36,6 @@ export class FetchManager {
     }
   }
 
-  private static _resolveFetchBatch(
-    { responses }: BatchedSerialisedFetchResponseData,
-    batchEntries: BatchActionsObjectMap,
-  ): void {
-    for (const [operationId, { reject, resolve }] of Object.entries(batchEntries)) {
-      const responseData = responses[operationId];
-
-      if (responseData && responseData.ok) {
-        const deserialized = deserializeErrors(responseData);
-        // In the wild this chain can be undefined
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        logErrorsToConsoleInDevelop(deserialized.errors, responseData?.extensions?.logs);
-        resolve(deserialized);
-      } else if (responseData && !responseData.ok) {
-        const { errors = [] } = deserializeErrors<object>(responseData);
-
-        const error = new ServerError(
-          '@graphql-box/fetch-manager: There was a server error',
-          errors,
-          responseData.status,
-        );
-
-        // In the wild this chain can be undefined
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        logErrorsToConsoleInDevelop(error, responseData?.extensions?.logs);
-        reject(error);
-      } else {
-        const error = new InternalError(
-          `@graphql-box/fetch-manager did not get a response for batched request ${operationId}.`,
-        );
-
-        // In the wild this chain can be undefined
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        logErrorsToConsoleInDevelop(error, responseData?.extensions?.logs);
-        reject(error);
-      }
-    }
-  }
-
   private _activeRequestBatch: Record<string, ActiveBatch | undefined> = {};
   private _activeRequestBatchTimer: Record<string, ReturnType<typeof setTimeout> | undefined> = {};
   private readonly _apiUrl: string;
@@ -250,7 +211,7 @@ export class FetchManager {
     }
 
     try {
-      FetchManager._resolveFetchBatch(
+      this._resolveFetchBatch(
         await this._fetch<BatchedSerialisedFetchResponseData>(`${url}?operationId=${operationIds.join('-')}`, {
           batched: true,
           operations: batchOperations,
@@ -259,6 +220,45 @@ export class FetchManager {
       );
     } catch (error) {
       FetchManager._rejectBatchEntries(batchActions, error);
+    }
+  }
+
+  private _resolveFetchBatch(
+    { responses }: BatchedSerialisedFetchResponseData,
+    batchEntries: BatchActionsObjectMap,
+  ): void {
+    for (const [operationId, { reject, resolve }] of Object.entries(batchEntries)) {
+      const responseData = responses[operationId];
+
+      if (responseData && responseData.ok) {
+        const deserialized = deserializeErrors(responseData);
+        // In the wild this chain can be undefined
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        logErrorsToConsoleInDevelop(deserialized.errors, responseData?.extensions?.logs, this._debug);
+        resolve(deserialized);
+      } else if (responseData && !responseData.ok) {
+        const { errors = [] } = deserializeErrors<object>(responseData);
+
+        const error = new ServerError(
+          '@graphql-box/fetch-manager: There was a server error',
+          errors,
+          responseData.status,
+        );
+
+        // In the wild this chain can be undefined
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        logErrorsToConsoleInDevelop(error, responseData?.extensions?.logs, this._debug);
+        reject(error);
+      } else {
+        const error = new InternalError(
+          `@graphql-box/fetch-manager did not get a response for batched request ${operationId}.`,
+        );
+
+        // In the wild this chain can be undefined
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        logErrorsToConsoleInDevelop(error, responseData?.extensions?.logs, this._debug);
+        reject(error);
+      }
     }
   }
 
