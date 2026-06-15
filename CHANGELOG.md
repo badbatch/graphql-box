@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.78 (2026-06-15)
+
+### Refactors
+
+* **debug-manager:**  add log name and data (8349297e)
+
 ## 5.5.59-unstable-12345.77 (2026-06-06)
 
 ### Refactors
