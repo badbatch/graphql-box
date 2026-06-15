@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.79 (2026-06-15)
+
+### Bug Fixes
+
+* **fetch-manager:**  change how errors logged to console are triggered (2f1d6333)
+
 ## 5.5.59-unstable-12345.78 (2026-06-15)
 
 ### Refactors
