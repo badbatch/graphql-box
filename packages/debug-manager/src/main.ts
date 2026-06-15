@@ -52,12 +52,13 @@ export class DebugManager extends EventEmitter implements DebugManagerDef {
       : {
           context: {
             environment: this._environment,
+            logEntryName: message,
             loggerName: this._name,
             ...context,
           },
+          data,
           error,
           stats,
-          ...(data === undefined ? undefined : { data }),
         };
 
     try {
