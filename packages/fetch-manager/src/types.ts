@@ -12,6 +12,11 @@ export interface UserOptions {
    */
   batchRequests?: boolean;
   /**
+   * Whether to run the fetch-manager in debug mode, which will
+   * make the client log all errors to the console.
+   */
+  debug?: boolean;
+  /**
    * How long client should wait for a server to
    * respond before timing out.
    */

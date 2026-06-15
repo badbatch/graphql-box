@@ -79,6 +79,7 @@ export class FetchManager {
   private _activeRequestBatchTimer: Record<string, ReturnType<typeof setTimeout> | undefined> = {};
   private readonly _apiUrl: string;
   private readonly _batchRequests: boolean;
+  private readonly _debug: boolean;
   private readonly _fetchTimeout: number;
   private readonly _headers: Record<string, string> = { 'content-type': 'application/json' };
   private readonly _logUrl: string | undefined;
@@ -98,6 +99,7 @@ export class FetchManager {
 
     this._apiUrl = options.apiUrl;
     this._batchRequests = options.batchRequests ?? false;
+    this._debug = options.debug ?? false;
     this._fetchTimeout = options.fetchTimeout ?? 5000;
     this._headers = { ...this._headers, ...options.headers };
     this._logUrl = options.logUrl;
@@ -123,7 +125,7 @@ export class FetchManager {
       const deserialized = deserializeErrors(fetchResult);
       // In the wild this chain can be undefined
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      logErrorsToConsoleInDevelop(deserialized.errors, fetchResult?.extensions?.logs);
+      logErrorsToConsoleInDevelop(deserialized.errors, fetchResult?.extensions?.logs, this._debug);
       return deserialized;
     }
 

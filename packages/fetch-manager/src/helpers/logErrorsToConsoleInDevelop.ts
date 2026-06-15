@@ -1,8 +1,12 @@
 import { type LogDump } from '@graphql-box/core';
 import { castArray } from 'lodash-es';
 
-export const logErrorsToConsoleInDevelop = (maybeErrors?: Error | Error[] | readonly Error[], maybeLogs?: LogDump) => {
-  if (process.env.NODE_ENV === 'development' && maybeErrors) {
+export const logErrorsToConsoleInDevelop = (
+  maybeErrors?: Error | Error[] | readonly Error[],
+  maybeLogs?: LogDump,
+  debug?: boolean,
+) => {
+  if (debug && maybeErrors) {
     const errors = castArray(maybeErrors);
 
     for (const entry of errors) {
