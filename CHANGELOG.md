@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59-unstable-12345.80 (2026-06-15)
+
+### Bug Fixes
+
+* **fetch-manager:**  add debug into log helper (387b7851)
+
 ## 5.5.59-unstable-12345.79 (2026-06-15)
 
 ### Bug Fixes
