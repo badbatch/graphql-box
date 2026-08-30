@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.5.60-unstable-12345.0 (2026-08-30)
+
+### Chores
+
+* **root:**  upgrade pnpm (54b21974)
+
+### Bug Fixes
+
+* **root:**  update npm publishing workflow (8245101f)
+
 ## 5.5.59 (2026-08-30)
 
 ### Chores
