@@ -1,2 +1,11 @@
 packages:
   - 'packages/*'
+
+allowBuilds:
+  '@swc/core': false
+  core-js: false
+  esbuild: false
+  sharp: false
+  unrs-resolver: false
+
+minimumReleaseAge: 0
