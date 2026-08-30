@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.59 (2026-08-30)
+
+### Chores
+
+* **client:**  disable cache temp (27e682c7)
+
 ## 5.5.59-unstable-12345.80 (2026-06-15)
 
 ### Bug Fixes
