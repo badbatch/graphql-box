@@ -8,7 +8,7 @@
   "repository": {
     "directory": "packages/helpers",
     "type": "git",
-    "url": "https://github.com/badbatch/graphql-box"
+    "url": "https://github.com/badbatch/graphql-box.git"
   },
   "bugs": "https://github.com/badbatch/graphql-box/issues",
   "type": "module",
