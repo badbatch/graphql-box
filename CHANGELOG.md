@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.61-unstable-12345.0 (2026-08-30)
+
+### Chores
+
+* **root:**  bump repodog (c281825a)
+
 ## 5.5.60-unstable-12345.0 (2026-08-30)
 
 ### Chores

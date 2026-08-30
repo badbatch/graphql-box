@@ -1,7 +1,7 @@
 {
   "name": "@graphql-box/react",
   "description": "The GraphQL Box React module.",
-  "version": "5.4.31-unstable-12345.0",
+  "version": "5.4.32-unstable-12345.0",
   "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/graphql-box",
