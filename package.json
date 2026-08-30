@@ -53,7 +53,7 @@
     "@graphql-tools/schema": "^10.0.23",
     "@jest/globals": "^29.7.0",
     "@repodog/babel-config": "^7.0.6",
-    "@repodog/cli": "^1.6.53",
+    "@repodog/cli": "^1.7.2",
     "@repodog/commitlint-config": "^19.0.4",
     "@repodog/eslint-config": "^9.0.16",
     "@repodog/eslint-config-jasmine": "^9.0.8",
