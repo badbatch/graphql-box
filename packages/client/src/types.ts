@@ -12,7 +12,7 @@ export interface UserOptions {
   /**
    * The curried function to initialize the cache manager.
    */
-  cacheManager: CacheManagerDef;
+  cacheManager?: CacheManagerDef;
   /**
    * The curried function to initialize the debug manager.
    */

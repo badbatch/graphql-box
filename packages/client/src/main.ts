@@ -64,7 +64,7 @@ export class Client {
     return errors;
   }
 
-  private readonly _cacheManager: CacheManagerDef;
+  private readonly _cacheManager: CacheManagerDef | undefined;
   private readonly _debugManager: DebugManagerDef | undefined;
   private readonly _idKey: string;
   private readonly _operationParser: OperationParserDef;
@@ -76,10 +76,6 @@ export class Client {
 
     if (!isPlainObject(options)) {
       errors.push(new ArgsError('@graphql-box/client expected options to be a plain object.'));
-    }
-
-    if (!('cacheManager' in options)) {
-      errors.push(new ArgsError('@graphql-box/client expected options.cacheManager.'));
     }
 
     if (!('requestManager' in options)) {
@@ -102,7 +98,7 @@ export class Client {
   }
 
   get cache(): Core | undefined {
-    return this._cacheManager.cache;
+    return this._cacheManager?.cache;
   }
 
   get debugManager(): DebugManagerDef | undefined {
@@ -178,6 +174,11 @@ export class Client {
 
     if (pendingQuery) {
       return pendingQuery;
+    }
+
+    if (!this._cacheManager) {
+      const executeResult = await this._requestManager.execute(operationData, options, context);
+      return this._resolveQuery(operationData, executeResult, options, context);
     }
 
     const analyzeResult = this._cacheManager.analyzeQuery(operationData, context);
